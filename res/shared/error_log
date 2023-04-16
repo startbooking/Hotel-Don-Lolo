@@ -1,0 +1,42 @@
+[21-Oct-2021 20:58:29 America/Bogota] PHP Fatal error:  Uncaught Error: Call to a member function select() on null in /home2/sactelte/public_html/quintonivel/v2.20a/res/php/functions.php:475
+Stack trace:
+#0 /home2/sactelte/public_html/quintonivel/v2.20a/res/php/app_top.php(14): User_Actions->getInfoCia()
+#1 /home2/sactelte/public_html/quintonivel/v2.20a/res/shared/salir.php(5): require('/home2/sactelte...')
+#2 {main}
+  thrown in /home2/sactelte/public_html/quintonivel/v2.20a/res/php/functions.php on line 475
+[21-Oct-2021 20:59:00 America/Bogota] PHP Fatal error:  Uncaught Error: Call to a member function select() on null in /home2/sactelte/public_html/quintonivel/v2.20a/res/php/functions.php:475
+Stack trace:
+#0 /home2/sactelte/public_html/quintonivel/v2.20a/res/php/app_top.php(14): User_Actions->getInfoCia()
+#1 /home2/sactelte/public_html/quintonivel/v2.20a/res/shared/salir.php(5): require('/home2/sactelte...')
+#2 {main}
+  thrown in /home2/sactelte/public_html/quintonivel/v2.20a/res/php/functions.php on line 475
+[21-Oct-2021 20:59:35 America/Bogota] PHP Fatal error:  Uncaught Error: Call to a member function select() on null in /home2/sactelte/public_html/quintonivel/v2.20a/res/php/functions.php:475
+Stack trace:
+#0 /home2/sactelte/public_html/quintonivel/v2.20a/res/php/app_top.php(14): User_Actions->getInfoCia()
+#1 /home2/sactelte/public_html/quintonivel/v2.20a/res/shared/salir.php(5): require('/home2/sactelte...')
+#2 {main}
+  thrown in /home2/sactelte/public_html/quintonivel/v2.20a/res/php/functions.php on line 475
+[25-Nov-2021 10:08:04 America/Bogota] PHP Fatal error:  Uncaught Error: Call to a member function select() on null in /home2/sactelte/public_html/quintonivel/v2.20a/res/php/functions.php:475
+Stack trace:
+#0 /home2/sactelte/public_html/quintonivel/v2.20a/res/php/app_top.php(14): User_Actions->getInfoCia()
+#1 /home2/sactelte/public_html/quintonivel/v2.20a/res/shared/salir.php(5): require('/home2/sactelte...')
+#2 {main}
+  thrown in /home2/sactelte/public_html/quintonivel/v2.20a/res/php/functions.php on line 475
+[27-Nov-2021 20:10:59 America/Bogota] PHP Fatal error:  Uncaught Error: Call to a member function select() on null in /home2/sactelte/public_html/quintonivel/v2.20a/res/php/functions.php:475
+Stack trace:
+#0 /home2/sactelte/public_html/quintonivel/v2.20a/res/php/app_top.php(14): User_Actions->getInfoCia()
+#1 /home2/sactelte/public_html/quintonivel/v2.20a/res/shared/salir.php(5): require('/home2/sactelte...')
+#2 {main}
+  thrown in /home2/sactelte/public_html/quintonivel/v2.20a/res/php/functions.php on line 475
+[27-Nov-2021 20:11:16 America/Bogota] PHP Fatal error:  Uncaught Error: Call to a member function select() on null in /home2/sactelte/public_html/quintonivel/v2.20a/res/php/functions.php:475
+Stack trace:
+#0 /home2/sactelte/public_html/quintonivel/v2.20a/res/php/app_top.php(14): User_Actions->getInfoCia()
+#1 /home2/sactelte/public_html/quintonivel/v2.20a/res/shared/salir.php(5): require('/home2/sactelte...')
+#2 {main}
+  thrown in /home2/sactelte/public_html/quintonivel/v2.20a/res/php/functions.php on line 475
+[27-Nov-2021 20:13:12 America/Bogota] PHP Fatal error:  Uncaught Error: Call to a member function select() on null in /home2/sactelte/public_html/quintonivel/v2.20a/res/php/functions.php:475
+Stack trace:
+#0 /home2/sactelte/public_html/quintonivel/v2.20a/res/php/app_top.php(14): User_Actions->getInfoCia()
+#1 /home2/sactelte/public_html/quintonivel/v2.20a/res/shared/salir.php(5): require('/home2/sactelte...')
+#2 {main}
+  thrown in /home2/sactelte/public_html/quintonivel/v2.20a/res/php/functions.php on line 475

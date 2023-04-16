@@ -1,0 +1,62 @@
+<?php
+  
+  require '../../../res/php/app_top.php'; 
+
+  $fecha   = date('Y-m-d');
+  $usu     = strtoupper(addslashes($_POST["login"]));
+  $pass    = strtoupper(addslashes($_POST["password"]));
+  $pass3   = sha1(md5($usu.$pass)); 
+  $users   = $user->getLogin($usu,$pass3);
+  $entrada = array();
+    
+  if(!empty($users)){ 
+    $array    = array();
+    $arrayCia = array();
+    $pos      = array();
+    $pms      = array();
+    $entrada  = array("entro"=>"1");
+    $array    = $users;
+    $cia      = $user->getInfoCia();
+    /// $fechaPms = $user->getDatePms();
+    $arrayCia = $cia;
+    $pms      = $user->getDatePms();
+
+    $_SESSION["usuario_id"] = $users[0]['usuario_id'];
+    $_SESSION["usuario"]    = $users[0]['usuario'];
+    $_SESSION["nombres"]    = $users[0]['nombres'];
+    $_SESSION["apellidos"]  = $users[0]['apellidos'];
+    $_SESSION["nivel"]      = $users[0]['tipo'];
+    $_SESSION["cajeropos"]  = $users[0]['estado_usuario_pos'];
+    $_SESSION["cajeropms"]  = $users[0]['estado_usuario_pms'];
+    $_SESSION["activo"]     = $users[0]['estado']; 
+    $_SESSION["empresa_id"] = $users[0]['empresa_id']; 
+    $_SESSION["entro"]      = "SI" ;
+
+    $_SESSION['CON'] =  $cia[0]['con'];
+    $_SESSION['INV'] =  $cia[0]['inv']; 
+    $_SESSION['COM'] =  $cia[0]['com']; 
+    $_SESSION['CXP'] =  $cia[0]['cxp'];
+    $_SESSION['CXC'] =  $cia[0]['cxc'];
+    $_SESSION['POS'] =  $cia[0]['pos'];
+    $_SESSION['TAR'] =  $cia[0]['tar'];
+    $_SESSION['PMS'] =  $cia[0]['pms'];  
+    $_SESSION['RES'] =  $cia[0]['res'];    
+
+    $entrada['usuario'] = $array;
+    $entrada['cia']     = $arrayCia;
+    $entrada['pms']     = $pms;
+
+    $inicial = 'INGRESO AL SISTEMA '.$users[0]['usuario'];
+    $final   = $inicial;
+    $accion  = 'INGRESO AL SISTEMA';
+    $id      = $users[0]['usuario_id'];
+
+    $log    = $user->ingresoLog($id,$users[0]['usuario'],$pc, $ip, $accion, $inicial, $final, 'US');
+    $activo = $user->usuarioActivo($id,1);
+
+  }else{
+    $entrada  = array("entro"=>"0");
+  }
+  echo json_encode($entrada);
+  
+?>
