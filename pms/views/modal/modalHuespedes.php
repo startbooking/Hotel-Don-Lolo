@@ -1,6 +1,7 @@
 <?php 
   $paices = $hotel->getPaices(); 
   $hoy    = date('Y-m-d');
+  
 ?>  
 <div class="modal fade bs-example-modal-lg" id="myModalAdicionaPerfil" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog modal-lg" role="document">
@@ -77,7 +78,7 @@
                 <div class="form-check form-check-inline">
                   <input style="margin-top:5px" class="form-check-input" type="radio" name="sexOption" id="inlineRadio1" value="1" checked>
                   <label style="margin-top:-21px;margin-left:25px" class="form-check-label" for="inlineRadio1" >Masc</label>
-                </div>                    
+                </div>
               </div>
               <div class="col-sm-6" style="padding:0;height: 15px"> 
                 <div class="form-check form-check-inline">
@@ -207,21 +208,21 @@
 <div class="modal fade bs-example-modal-lg" id="myModalHistoricoReservas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
-	  	<div class="row-fluid imprime_productos_mov" >
-  	  	<div class="modal-header">
-  				<h4 class="modal-title" id="myModalLabel">Historico de Reservas</h4>
+      <div class="row-fluid imprime_productos_mov">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel">Historico de Reservas</h4>
           <button style="float: right;margin-top: -25px" class="btn btn-info" onclick="exportTableToExcel('tablaReservas')"><i class="glyphicon glyphicon-th" aria-hidden="true"></i> Exportar</button> 
-  				<input type="hidden" name="txtIdHuespedHis" id="txtIdHuespedHis">
-  	  	</div>
-      	<div id="datos_ajax_register"></div>
-  	  	<div class="modal-body">
-  				<div id="historicoReserva" style="position: relative;	text-align: center;top: 5px;width: 100%;"></div>
-  		  </div>
-	  	</div>
-	  	<div class="modal-footer">
-				<button style="width:25%" type="button" class="btn btn-warning btn-block pull-right" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
-	  	</div>
-		</div> 
+          <input type="hidden" name="txtIdHuespedHis" id="txtIdHuespedHis">
+        </div>
+        <div id="datos_ajax_register"></div>
+        <div class="modal-body">
+          <div div id="historicoReserva" style="position: relative;	text-align: center;top: 5px;width: 100%;"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button style="width:25%" type="button" class="btn btn-warning btn-block pull-right" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
+      </div>
+    </div> 
   </div>
 </div>
 
@@ -273,7 +274,7 @@
                       <option value="<?=$value['id_compania']?>"><?=$value['empresa']?></option>
                       <?php 
                       }
-                    }                  
+                    }
                     ?>
                   </select>
                 </div>

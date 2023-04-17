@@ -18,6 +18,14 @@
   color:#FFF;
 }
 
+.derecha {
+  text-align: right;
+}
+
+.izquierda {
+  text-align: left;
+}
+
 .badgeImpto{
   background-color: green
 }
@@ -302,6 +310,11 @@ background-color: cadetblue;
   background-color: #FBA4A4;
 }
 
+.alert-confirm {
+  height:75px;
+  background-color: rgb(205,205,205,0.55);
+}
+
 .sa-confirm-button-container button.confirm {
   background-color: #2598CC;
 }
@@ -309,9 +322,6 @@ background-color: cadetblue;
 a.info{
     position:relative; /*this is the key*/
     z-index:50; 
-    /* background-color:#ccc; 
-    color:#000;
-    */
     text-decoration:none}
 
 a.info:hover{
@@ -328,7 +338,7 @@ a.info:hover span{ /*the span will display just on :hover state*/
     top:2em; left:2em; width:20em;
     border:1px solid #0cf;
     background-color:#cff; color:#000;
-    text-align: center
+    text-align: center;
     z-index: 100;
   }
 
@@ -366,11 +376,6 @@ a.info:hover span{ /*the span will display just on :hover state*/
 }
 
 .oval-half {
-  /* 
-  width: 250px;
-  height: 100px;
-  background: #5cb85c;
-  */
   border: 1px solid #555;
   -moz-border-radius: 0 50% / 0 100%;
   -webkit-border-radius: 0 50% / 0 100%;
@@ -455,16 +460,9 @@ a.info:hover span{ /*the span will display just on :hover state*/
 .btnpage:hover{
   background: #474C80;
 }
-/*
-.active{
-  background: #c4c6bf;
-}
-*/
 
 input[type="date"].form-control, input[type="time"].form-control, input[type="datetime-local"].form-control, input[type="month"].form-control {
-
-    line-height: 17px;
-
+  line-height: 17px;
 }
 
 @media (min-width: 1200px){
@@ -489,4 +487,16 @@ input[type="date"].form-control, input[type="time"].form-control, input[type="da
   }
 }
 
+@media (max-width: 768px){
+  .derecha, .izquierda {
+    text-align: center;
+  }
+
+  .alert-confirm{
+    text-align: center;
+    height:140px;
+    background-color: rgb(205,205,205,0.55);
+  }
+  
+}
 

@@ -53,7 +53,7 @@
                             <td style="padding:3px 5px"><?php echo $factura['mesa']; ?></td>
                             <td style="padding:3px 5px"><?php echo $factura['usuario_anula']; ?></td>
                             <td style="padding:3px 5px"><?php echo $factura['motivo_anulada']; ?></td>
-                            <td align="center" style="padding:3px 5px;width: 15%">
+                            <td style="padding:3px 5px;width: 15%;text-align:center;">
                               <button class="btn btn-warning btn-xs" onclick="verComanda('comandaCocina_<?=$prefijo?>_<?=$factura['comanda']?>.pdf')" type="button"><i class="fa fa-building-o" aria-hidden="true" title="Ver Comanda Cocina"></i></button>
                             </td>
                           </tr>

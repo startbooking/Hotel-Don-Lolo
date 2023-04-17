@@ -1,22 +1,12 @@
 <?php 
+  require_once '../../res/fpdf/fpdf.php';
 
   $pdf = new FPDF();
   $pdf->AddPage('P','letter');
-  $pdf->Image('../../../../img/'.$logo,10,10,15);
-  $pdf->SetFont('Arial','B',13);
-  $pdf->Cell(190,7,utf8_decode(NAME_EMPRESA),0,1,'C');
-  $pdf->SetFont('Arial','',10);
-  $pdf->Cell(190,5,'NIT: '.NIT_EMPRESA,0,1,'C');
-  /*  
-  $pdf->Cell(190,5,TIPOEMPRESA,0,1,'C');
-  $pdf->Cell(190,5,utf8_decode(ADRESS_EMPRESA),0,1,'C');
-  $pdf->Cell(190,5,utf8_decode(CIUDAD_EMPRESA).' '.PAIS_EMPRESA,0,1,'C');
-  $pdf->Cell(190,5,'Telefono '.TELEFONO_EMPRESA.' Movil '.CELULAR_EMPRESA,0,1,'C');
-   */ 
+  $pdf->Image('../../img/'.$logo,10,10,15);
   $pdf->SetFont('Arial','B',12);
   $pdf->Cell(190,6,$nomamb,0,1,'C');
   $pdf->Cell(190,5,'INFORME DIARIO DE GERENCIA ',0,1,'C');
-  $pdf->SetFont('Arial','',11);
   $pdf->Cell(190,5,'Fecha : '.$fecha,0,1,'C');
   $pdf->Ln(3);
 
@@ -64,7 +54,7 @@
   $pdf->Cell(25,6,number_format($ventasMes[0]['mesOcu'],0),1,0,'R');
   $pdf->Cell(25,6,number_format($ventasAnio[0]['anioOcu'],0),1,1,'R');
   $pdf->Cell(45,6,'Promedio Mesa',1,0,'L');
-  $pdf->Cell(25,6,number_format($ventasDia[0]['ingreso_promedio_mesa'],2),1,0,'R');
+  $pdf->Cell(25,6,number_format($ventasDia[0]['ingreso_ventas']/$ventasDia[0]['mesas_ocupadas'],2),1,0,'R');
   if($ventasMes[0]['mesOcu']==0){
     $pdf->Cell(25,6,number_format(round(0,0),2),1,0,'R');
   }else{     
@@ -90,8 +80,8 @@
   }
   $pdf->Ln(5);
 
-  $file = '../../../imprimir/auditorias/Informe_Diario_Gerencia_'.$pref.'_'.$fecha.'.pdf';
+  $file = '../imprimir/auditorias/Informe_Diario_Gerencia_'.$pref.'_'.$fecha.'.pdf';
 
   $pdf->Output($file,'F');
 ?>
- 
+  

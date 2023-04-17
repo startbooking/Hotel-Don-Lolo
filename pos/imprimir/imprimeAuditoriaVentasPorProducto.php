@@ -15,21 +15,12 @@
 
   $pdf = new FPDF();
   $pdf->AddPage('P','letter');
-  $pdf->Image('../../img/'.$logo,10,10,15);
+  $pdf->Image('../../img/'.LOGO,10,10,15);
   $pdf->SetFont('Arial','B',13);
-  $pdf->Cell(190,7,utf8_decode(NAME_EMPRESA),0,1,'C');
-  $pdf->SetFont('Arial','',10);
+  $pdf->Cell(190,6,$_SESSION['NOMBRE_AMBIENTE'],0,1,'C');
+  $pdf->SetFont('Arial','',12);
   $pdf->Cell(190,5,'NIT: '.NIT_EMPRESA,0,1,'C');
-  /*
-  $pdf->Cell(190,5,TIPOEMPRESA,0,1,'C');
-  $pdf->Cell(190,5,utf8_decode(ADRESS_EMPRESA),0,1,'C');
-  $pdf->Cell(190,5,utf8_decode(CIUDAD_EMPRESA).' '.PAIS_EMPRESA,0,1,'C');
-  $pdf->Cell(40,5,'',0,0,'C');
-  $pdf->Cell(110,5,'Telefono '.TELEFONO_EMPRESA.' Movil '.CELULAR_EMPRESA,0,1,'C');
-  */
-  $pdf->SetFont('Arial','B',13);
-  /// $pdf->Cell(190,6,$_SESSION['NOMBRE_AMBIENTE'],0,1,'C');
-  $pdf->Cell(195,6,$nomamb,0,1,'C');
+  $pdf->SetFont('Arial','B',12);
 
   $pdf->Ln(1);
   $pdf->SetFont('Arial','B',10);
@@ -83,4 +74,3 @@
   $file = '../imprimir/informes/ventasProductos_'.$_SESSION['usuario'].'.pdf';
 
   $pdf->Output($file,'F');
-?>

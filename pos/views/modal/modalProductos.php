@@ -17,7 +17,11 @@
             <input type="hidden" name="idamb" id="idamb" value="<?=$idamb?>">
             <label for="producto" class="control-label col-lg-2 col-md-2">Producto</label>
             <div class="col-lg-6 col-md-6">
-              <input type="text" class="form-control" id="producto" name="producto">
+              <input type="text" class="form-control" id="producto" name="producto" required>
+            </div>
+            <label for="producto" class="control-label col-lg-1 col-md-1">Codigo</label>
+            <div class="col-lg-3 col-md-3">
+              <input type="text" class="form-control" id="codigo" name="codigo">
             </div>
           </div>
           <div class="form-group">
@@ -47,7 +51,7 @@
                 foreach ($imptos as $impto) { ?>
                   <option value="<?=$impto['id_cargo']?>"><?php echo $impto['descripcion_cargo']?></option>
                   <?php 
-                 } 
+                } 
                 ?>
               </select>
             </div>
@@ -73,9 +77,9 @@
           </div>
         </div>
         <div class="modal-footer">
+          <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
+          <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar Datos</button>
           <div class="btn-group">
-            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
-            <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar Datos</button>
           </div>
         </div>
       </div>
@@ -95,9 +99,9 @@
           <div id="datos_ajax"></div>
         </div>
         <div class="modal-footer"> 
+          <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
+          <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Actualizar datos</button>
           <div class="btn-group">
-            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
-            <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Actualizar datos</button>
           </div>
         </div>
       </div>
@@ -184,14 +188,6 @@
             <div class="col-lg-2 col-md-2">
               <input type="text" name="cantidadRec" id="cantidadRec" min="1" onblur='actualizaPrecio()'>
             </div>
-          <!--
-            <label for="costo0" class="control-label col-lg-2  col-md-2">Precio Costo</label>
-            <div class="col-lg-4 col-md-4">
-              <input type="number" min='0' class="form-control" id="costo" name="venta" required maxlength="12"> 
-            </div>
-          </div>
-          <div class="form-group">
-          -->
             <label for="impto" class="control-label col-lg-2  col-md-2">Valor Unitario</label>
             <div class="col-lg-2 col-md-2">
               <input type="number" min='0' class="form-control" id="valorUni" name="valorUni" required maxlength="12" disabled readonly=""> 
@@ -200,23 +196,7 @@
             <div class="col-lg-2 col-md-2">
               <input type="number" min='0' class="form-control" id="valorTot" name="valorTot" required maxlength="12" disabled readonly=""> 
             </div>
-            <!--
-            <label for="tipo" class="control-label col-lg-2  col-md-2">Tipo</label>
-            <div class="col-lg-4 col-md-4">
-              <label class="radio-inline">
-                <input type="radio" name="tipo" id="tipo" value="0"> Servicio
-              </label>            
-              <label class="radio-inline">
-                <input type="radio" name="tipo" id="tipo" value="1"> Producto
-              </label>
-              <label class="radio-inline">
-                <input type="radio" name="tipo" id="tipo" value="2"> Receta
-              </label>
-            </div>
-           -->
-          </div>
-          <!--
-        -->
+         </div>
         </div>
         <div class="modal-footer">
           <div class="btn-group">

@@ -1,4 +1,4 @@
-    <div class="row" style="height: 360px;">      
+    <div class="row-fluid" style="height: 360px;">      
       <div class="col-md-9" style="border:1px solid #000;">
         <div class="row" style="display:flex;height: 20%">
           <div style="border:1px solid #000;width: 200px;height: 50px;margin:0px 150px;background: whitesmoke"></div>
@@ -42,8 +42,8 @@
       </div>
     </div>
     <div class="row" style="margin:0">
-      <div class="container-fluid" style="padding:10px">
-        <div class="col-md-6 col-xs-6">
+      <div class="container-fluid" style="padding:10px 0">
+        <div class="col-md-6 col-xs-6" style="padding:10px 0">
           <a onclick="facturasDia()" class="small-box-footer">
             <div class="small-box bg-aqua" style="cursor:pointer;">
               <div class="inner">
@@ -59,7 +59,7 @@
             </div>
           </a> 
         </div>
-        <div class="col-md-6 col-xs-6">
+        <div class="col-md-6 col-xs-6" style="padding:10px 0">
           <a onclick="verComandasAnuladas()" class="small-box-footer">
           <div class="small-box bg-red" style="cursor: pointer;">
             <div class="inner">

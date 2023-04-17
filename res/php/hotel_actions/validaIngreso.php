@@ -17,16 +17,16 @@
   $user = $admin->getLogin($usu,$pass3);
   if(!empty($user)){
     $array=array();
-      $_SESSION["usuario_id"]   = $row['usuario_id'];
-      $_SESSION["usuario"]      = $row['usuario'];
-      $_SESSION["nombres"]      = $row['nombres'];
-      $_SESSION["apellidos"]    = $row['apellidos'];
-      $_SESSION["nivel"]        = $row['tipo'];
-      $_SESSION["entro"]        = "SI" ;
-      $_SESSION["activo"]       = $row['estado']; 
-      $_SESSION["empresa_id"]   = $row['empresa_id']; 
-      $array=$row;
-      echo json_encode($array);  
+    $_SESSION["usuario_id"]   = $row['usuario_id'];
+    $_SESSION["usuario"]      = $row['usuario'];
+    $_SESSION["nombres"]      = $row['nombres'];
+    $_SESSION["apellidos"]    = $row['apellidos'];
+    $_SESSION["nivel"]        = $row['tipo'];
+    $_SESSION["entro"]        = "SI" ;
+    $_SESSION["activo"]       = $row['estado']; 
+    $_SESSION["empresa_id"]   = $row['empresa_id']; 
+    $array=$row;
+    echo json_encode($array);  
   }else{
       echo '0';
   }

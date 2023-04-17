@@ -39,14 +39,7 @@
 
                           <?php 
                             foreach ($habitaciones as $habitacion) { ?>
-                              <option value="<?=$habitacion['num_habitacion']?>"
-                                <?php 
-                                  if($habitacion['num_habitacion']==$numero){?>
-                                    selected
-                                    <?php 
-                                  }
-                                ?>
-                              ><?=$habitacion['num_habitacion']?></option>
+                              <option value="<?=$habitacion['num_habitacion']?>"><?=$habitacion['num_habitacion']?></option>
                               <?php 
                             }
                           ?>

@@ -1,233 +1,6 @@
-function procesaRecetasSalida() {
-  var pagina = $("#ubicacion").val();
-  var ruta = $("#rutaweb").val();
-  sesion = JSON.parse(localStorage.getItem("sesion"));
-  var idusr = sesion["usuario"][0]["usuario_id"];
-  var usua = sesion["usuario"][0]["usuario"];
-
-  asignaConsecutivo(2);
-
-  setTimeout(function () {
-    var numero = $("#numeroMovimiento").val();
-    var tipo = $("#Movimiento").val();
-    var centro = $("#centroCosto").val();
-    var almacen = $("#almacen").val();
-    var fecha = $("#fecha").val();
-    var tipoMov = $("#tipoMov").val();
-    var storageList = localStorage.getItem("SalidaRecetasLista");
-    listaRecetasReq = JSON.parse(storageList);
-    parametros = {
-      tipo,
-      tipoMov,
-      idusr,
-      usua,
-      numero,
-      centro,
-      almacen,
-      fecha,
-      listaRecetasReq,
-    };
-    $.ajax({
-      url: ruta + "res/php/guardaProductoSalidaRecetas.php",
-      type: "POST",
-      data: parametros,
-      success: function (data) {
-        data = $.trim(data);
-        imprimeMovimiento(data, 2);
-        localStorage.removeItem("SalidaRecetasLista");
-        localStorage.removeItem("centroCosto");
-        localStorage.removeItem("almacen");
-        localStorage.removeItem("fecha");
-        localStorage.removeItem("tipoMov");
-        swal("Atencion", "Salida Creada con Exito", "success", 5000);
-        $(location).attr("href", "salidas");
-      },
-    });
-  }, 1000);
-}
-
-function resumenSalidaReceta() {
-  var total = 0.0;
-  var sutot = 0.0;
-  var impue = 0.0;
-  var produ = 0.0;
-  var totales = 0.0;
-  var imptos = 0.0;
-  var cantis = 0.0;
-  $("#tablaArticulos > tbody > tr").each(function () {
-    var total = $(this).find("td").eq(4).html();
-    var cantp = $(this).find("td").eq(3).html();
-    total = parseFloat(total.replace(",", ""));
-    cantp = parseFloat(cantp.replace(",", ""));
-    totales = totales + total;
-    cantis = cantis + cantp;
-  });
-  $("#net").val("$ " + number_format(totales, 2));
-  $("#arts").val(number_format(cantis, 2));
-  if (totales > 0) {
-    $("#btn-procesa").prop("disabled", false);
-    $("#btn-cancela").prop("disabled", false);
-  } else {
-    $("#btn-procesa").prop("disabled", true);
-    $("#btn-cancela").prop("disabled", true);
-  }
-}
-
-function actualizaSalidaReceta(codigo, regis) {
-  document
-    .getElementsByTagName("table")[0]
-    .setAttribute("id", "tablaArticulos");
-  document.getElementById("tablaArticulos").deleteRow(regis);
-  borrar = regis - 1;
-  salidaProductos.splice(borrar, 1);
-
-  localStorage.setItem("SalidaRecetasLista", JSON.stringify(salidaRecetas));
-  resumenSalidaReceta();
-}
-
-function listaRecetasSalidas() {
-  var alma = localStorage.getItem("almacen");
-  var tipo = localStorage.getItem("tipoMov");
-  var cent = localStorage.getItem("centroCosto");
-  var fech = localStorage.getItem("fecha");
-
-  if (alma != null) {
-    $("#almacen").val(alma);
-  }
-  if (tipo != null) {
-    $("#tipoMov").val(tipo);
-  }
-  if (cent != null) {
-    $("#centroCosto").val(cent);
-  }
-  if (fech != null) {
-    $("#fecha").val(fech);
-  }
-  var storageList = localStorage.getItem("SalidaRecetasLista");
-  if (storageList == null) {
-    salidaRecetas = [];
-  } else {
-    salidaRecetas = JSON.parse(storageList);
-  }
-
-  for (x = 0; x < salidaRecetas.length; x++) {
-    $("#tablaArticulos > tbody").append(`
-      <tr>
-        <td class='paddingCelda'>${salidaRecetas[x]["codigo"]}</td>
-        <td class='paddingCelda'>${salidaRecetas[x]["descripcion"]}</td>
-        <td class='paddingCelda' align='right'>${number_format(
-          salidaRecetas[x]["cantidad"],
-          2
-        )}</td>
-        <td class='paddingCelda' align='right'>${number_format(
-          salidaRecetas[x]["unit"],
-          2
-        )}</td>
-        <td class='paddingCelda' align='right'>${number_format(
-          salidaRecetas[x]["total"],
-          2
-        )}</td>
-        <td class='paddingCelda' align='center'>
-          <button id='${salidaRecetas[x]["codigo"]}' 
-          class='btn btn-danger btn-xs elimina_articulo' 
-          onclick='actualizaSalidaRecetas(this.id,this.parentNode.parentNode.rowIndex);'>
-          <i class='fa fa-times'></i></button>
-				</td>
-			</tr>
-      `);
-  }
-  resumenSalidaReceta();
-}
-
-function cancelaRecetaSalida() {
-  var pagina = $("#ubicacion").val();
-  var ruta = $("#rutaweb").val();
-
-  localStorage.removeItem("SalidaRecetasLista");
-  localStorage.removeItem("almacen");
-  localStorage.removeItem("centroCosto");
-  localStorage.removeItem("fecha");
-  localStorage.removeItem("tipoMov");
-
-  $(location).attr("href", ruta + pagina);
-}
-
-function agregaListaRecetasSalida() {
-  var centroC = $("#centroCosto").val();
-  var almacen = $("#almacen").val();
-  var fechaSa = $("#fecha").val();
-  var tipoMov = $("#tipoMov").val();
-
-  if (almacen == null || almacen == "") {
-    swal("Atencion", "Sin Almancen Asignado A Esta Salida", "warning");
-    $("#almacen").focus();
-    return;
-  }
-
-  if (tipoMov == null || tipoMov == "") {
-    swal(
-      "Atencion",
-      "Sin Tipo de Movimiento Asignado A Esta Salida",
-      "warning"
-    );
-    $("#tipoMov").focus();
-    return;
-  }
-
-  if (centroC == null || centroC == "") {
-    swal("Atencion", "Sin Centro de Costo Asignado A Esta Salida", "warning");
-    $("#centroCosto").focus();
-    return;
-  }
-
-  if (fechaSa == null) {
-    swal("Atencion", "Sin FechaAsignado A Esta Salida", "warning");
-    $("#fecha").focus();
-    return;
-  }
-
-  var prod = $("#codigo").val();
-  var unit = parseFloat($("#unitario").val());
-  var valp = $("#costo").val();
-  var cant = $("#cantidad").val();
-  var desc = $("#descripcion").val();
-  total = unit * cant;
-
-  $("#total").val(total);
-  $("#tablaArticulos > tbody").append(`
-  	<tr>
-  		<td class='paddingCelda'>${prod}</td>
-  		<td class='paddingCelda'>${desc}</td>
-  		<td class='paddingCelda' align='right'>${number_format(cant, 2)}</td>
-  		<td class='paddingCelda' align='right'>${number_format(unit, 2)}</td>
-  		<td class='paddingCelda' align='right'>${number_format(total, 2)}</td>
-  		<td class='paddingCelda' align='center'>
-  			<button id='${prod}' class='btn btn-danger btn-xs elimina_articulo' onclick='actualizaRecReq(this.id,this.parentNode.parentNode.rowIndex);'>
-  			<i class='fa fa-times'></i></button>
-			</td>
-		</tr>"
-  	`);
-  var dataProd = {
-    codigo: $("#codigo").val(),
-    descripcion: $("#descripcion").val(),
-    subtotal: unit * cant,
-    unit: unit,
-    total: total,
-    producto: $("#producto").val(),
-    cantidad: cant,
-    porciones: $("#porciones").val(),
-    costo: unit,
-  };
-
-  // console.log(listaRecetasReq);
-
-  salidaRecetas.push(dataProd);
-  localStorage.setItem("SalidaRecetasLista", JSON.stringify(salidaRecetas));
-
-  resumenRecReq();
-  $("#producto").val("");
-  $("#producto").focus();
-}
+sesion = JSON.parse(localStorage.getItem("sesion"));
+let { usuarioAct } = sesion;
+let { usuario, usuario_id, apellidos, nombres } = usuarioAct;
 
 function buscaCantidad() {
   desde = $("#llegada").val();
@@ -236,7 +9,7 @@ function buscaCantidad() {
   $.ajax({
     url: "res/php/ocupacionHotel.php",
     type: "POST",
-    data: { desde: desde, hasta: hasta },
+    data: { desde, hasta },
     success: function (data) {
       data = $.trim(data);
       $("#sugerido").val(data);
@@ -248,11 +21,11 @@ function buscaCantidad() {
 
 function cierreMes() {
   periodo = $("#periodo").val();
-  sesion = JSON.parse(localStorage.getItem("sesion"));
-  user = sesion["usuario"][0]["usuario"];
+  /* sesion = JSON.parse(localStorage.getItem("sesion"));
+  user = sesion["usuario"][0]["usuario"]; */
   parametros = {
-    periodo: periodo,
-    user: user,
+    periodo,
+    usuario,
   };
   $.ajax({
     url: "res/php/cierreMes.php",
@@ -289,27 +62,29 @@ function conteoInventario(bodega) {}
 function procesaRecPed() {
   var pagina = $("#ubicacion").val();
   var ruta = $("#rutaweb").val();
+  /* 
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  var idus = sesion["usuario"][0]["usuario_id"];
-  var usua = sesion["usuario"][0]["usuario"];
+  var idusr = sesion["usuario"][0]["usuario_id"];
+  var user = sesion["usuario"][0]["usuario"]; 
+  */
 
   asignaConsecutivo(6);
 
   setTimeout(function () {
-    var numPed = $("#numeroMovimiento").val();
-    var almace = $("#almacenRecPed").val();
+    var numero = $("#numeroMovimiento").val();
+    var almacen = $("#almacenRecPed").val();
     var centro = $("#proveedorRecPed").val();
-    var fechaR = $("#fechaRecPed").val();
+    var fecha = $("#fechaRecPed").val();
     var storageList = localStorage.getItem("PedidosRecetasLista");
-    listaRecetasPed = JSON.parse(storageList);
+    recetas = JSON.parse(storageList);
     parametros = {
-      idusr: idus,
-      user: usua,
-      numero: numPed,
-      centro: centro,
-      almacen: almace,
-      fecha: fechaR,
-      recetas: listaRecetasPed,
+      usuario_id,
+      usuario,
+      numero,
+      centro,
+      almacen,
+      fecha,
+      recetas,
     };
     $.ajax({
       url: ruta + "res/php/guardaProductoRecPed.php",
@@ -508,7 +283,7 @@ function buscaRecetaPed(codigo) {
     url: ruta + "res/php/buscaRecetas.php",
     type: "POST",
     dataType: "json",
-    data: { codigo: codigo },
+    data: { codigo },
     success: function (x) {
       sugerido = $("#sugerido").val();
       $("#codigo").val(x.id_receta);
@@ -529,27 +304,27 @@ function buscaRecetaPed(codigo) {
 function procesaRecReq() {
   var pagina = $("#ubicacion").val();
   var ruta = $("#rutaweb").val();
-  sesion = JSON.parse(localStorage.getItem("sesion"));
+  /* sesion = JSON.parse(localStorage.getItem("sesion"));
   var idus = sesion["usuario"][0]["usuario_id"];
-  var usua = sesion["usuario"][0]["usuario"];
+  var usua = sesion["usuario"][0]["usuario"]; */
 
   asignaConsecutivo(5);
 
   setTimeout(function () {
-    var numReq = $("#numeroMovimiento").val();
+    var numero = $("#numeroMovimiento").val();
     var centro = $("#centroCostoRecReq").val();
-    var almace = $("#almacenRecReq").val();
-    var fechaR = $("#fechaRecReq").val();
+    var almacen = $("#almacenRecReq").val();
+    var fecha = $("#fechaRecReq").val();
     var storageList = localStorage.getItem("RequisicionRecetasLista");
-    listaRecetasReq = JSON.parse(storageList);
+    recetas = JSON.parse(storageList);
     parametros = {
-      idusr: idus,
-      user: usua,
-      numero: numReq,
-      centro: centro,
-      almacen: almace,
-      fecha: fechaR,
-      recetas: listaRecetasReq,
+      usuario_id,
+      usuario,
+      numero,
+      centro,
+      almacen,
+      fecha,
+      recetas,
     };
     $.ajax({
       url: ruta + "res/php/guardaProductoRecReq.php",
@@ -564,6 +339,8 @@ function procesaRecReq() {
         localStorage.removeItem("fechaRecReq");
         swal("Atencion", "Requisicion Creada con Exito", "success", 5000);
         $(location).attr("href", "requisiciones");
+        /*
+         */
       },
     });
   }, 1000);
@@ -770,15 +547,17 @@ function buscaRecetaReq(codigo) {
 // PEDIDOS
 
 function procesaPed() {
-  sesion = JSON.parse(localStorage.getItem("sesion"));
   var pagina = $("#ubicacion").val();
   var ruta = $("#rutaweb").val();
+  /* 
+  sesion = JSON.parse(localStorage.getItem("sesion"));
   var idus = sesion["usuario"][0]["usuario_id"];
-  var usua = sesion["usuario"][0]["usuario"];
-  var cent = $("#almacenPed").val();
-  var prov = $("#proveedorPed").val();
-  var fech = $("#fechaPed").val();
-  if (cent == "" || prov == "") {
+  var usua = sesion["usuario"][0]["usuario"]; 
+  */
+  var centro = $("#almacenPed").val();
+  var proveedor = $("#proveedorPed").val();
+  var fecha = $("#fechaPed").val();
+  if (centro == "" || proveedor == "") {
     swal("Atencion", "Sin Centro de Costo y/o Proveedor Asociado", "success");
     return 0;
   }
@@ -786,17 +565,18 @@ function procesaPed() {
   asignaConsecutivo(6);
 
   setTimeout(function () {
-    var numReq = $("#numeroMovimiento").val();
+    var numero = $("#numeroMovimiento").val();
     var storageList = localStorage.getItem("pedidoProductosLista");
-    listaPedidos = JSON.parse(storageList);
+    pedidos = JSON.parse(storageList);
+    console.log(pedidos);
     parametros = {
-      idusr: idus,
-      user: usua,
-      numero: numReq,
-      centro: cent,
-      proveedor: prov,
-      fecha: fech,
-      pedidos: listaPedidos,
+      usuario_id,
+      usuario,
+      numero,
+      centro,
+      proveedor,
+      fecha,
+      pedidos,
     };
     $.ajax({
       url: ruta + "res/php/guardaProductoPed.php",
@@ -805,6 +585,8 @@ function procesaPed() {
       success: function (data) {
         data = $.trim(data);
         imprimeMovimiento(data, 6);
+        /*
+         */
         localStorage.removeItem("pedidoProductosLista");
         localStorage.removeItem("almacenPed");
         localStorage.removeItem("proveedorPed");
@@ -1028,8 +810,8 @@ function muestraProductosPedido() {
       var bodega = button.data("bodega"); // Extraer la información de atributos de datos
       var titulo = $("#titulo").val();
       parametros = {
-        numero: numero,
-        bodega: bodega,
+        numero,
+        bodega,
       };
       var modal = $(this);
       modal.find(".modal-title").html("Productos " + titulo + " : " + numero);
@@ -1047,12 +829,11 @@ function muestraProductosPedido() {
 
 function anulaPedido(id) {
   var ubica = $("#ubicacion").val();
-  var id = id;
-  sesion = JSON.parse(localStorage.getItem("sesion"));
-  usuario = sesion["usuario"][0]["usuario"];
+  // sesion = JSON.parse(localStorage.getItem("sesion"));
+  // usuario = sesion["usuario"][0]["usuario"];
   parametros = {
-    id: id,
-    usuario: usuario,
+    id,
+    usuario,
   };
 
   swal(
@@ -1081,16 +862,13 @@ function anulaPedido(id) {
   );
 }
 
-// REQUISICIONES
+/// REQUISICIONES
 
 function anulaRequisicion(id) {
   var ubica = $("#ubicacion").val();
-  var id = id;
-  sesion = JSON.parse(localStorage.getItem("sesion"));
-  usuario = sesion["usuario"][0]["usuario"];
   parametros = {
-    id: id,
-    usuario: usuario,
+    id,
+    usuario,
   };
 
   swal(
@@ -1122,27 +900,27 @@ function anulaRequisicion(id) {
 function procesaReq() {
   var pagina = $("#ubicacion").val();
   var ruta = $("#rutaweb").val();
-  sesion = JSON.parse(localStorage.getItem("sesion"));
+  /* sesion = JSON.parse(localStorage.getItem("sesion"));
   var idus = sesion["usuario"][0]["usuario_id"];
-  var usua = sesion["usuario"][0]["usuario"];
+  var usua = sesion["usuario"][0]["usuario"]; */
 
   asignaConsecutivo(5);
 
   setTimeout(function () {
-    var numReq = $("#numeroMovimiento").val();
+    var numero = $("#numeroMovimiento").val();
     var centro = $("#centroCostoReq").val();
-    var almace = $("#almacenReq").val();
-    var fechaR = $("#fechaReq").val();
+    var almacen = $("#almacenReq").val();
+    var fecha = $("#fechaReq").val();
     var storageList = localStorage.getItem("RequisicionProductosLista");
-    listaRequisicion = JSON.parse(storageList);
+    requision = JSON.parse(storageList);
     parametros = {
-      idusr: idus,
-      user: usua,
-      numero: numReq,
-      centro: centro,
-      almacen: almace,
-      fecha: fechaR,
-      requision: listaRequisicion,
+      usuario_id,
+      usuario,
+      numero,
+      centro,
+      almacen,
+      fecha,
+      requision,
     };
     $.ajax({
       url: ruta + "res/php/guardaProductoReq.php",
@@ -1155,6 +933,9 @@ function procesaReq() {
         localStorage.removeItem("centroCostoReq");
         localStorage.removeItem("almacenReq");
         localStorage.removeItem("fechaReq");
+        /*	  		
+				var ventana = window.open('views/prints/imprimeRequisicion.php', 'PRINT', 'height=600,width=600');
+	  		 */
         swal("Atencion", "Requisicion Creada con Exito", "success", 5000);
         $(location).attr("href", "requisiciones");
       },
@@ -1438,27 +1219,27 @@ function muestraProductoKardex() {
 function procesaAjuste(tipo) {
   var pagina = $("#ubicacion").val();
   var ruta = $("#rutaweb").val();
-  var alma = localStorage.getItem("almacenAju");
-  var movi = localStorage.getItem("movimientoAju");
+  var almacen = localStorage.getItem("almacenAju");
+  var tipomovi = localStorage.getItem("movimientoAju");
   var fecha = localStorage.getItem("fechaAju");
-  var usua = sesion["usuario"][0]["usuario"];
-  tMovi = $("#claseMovimientoAju").val();
+  // var usua = sesion["usuario"][0]["usuario"];
+  tipo = $("#claseMovimientoAju").val();
   asignaConsecutivo(4);
 
   setTimeout(function () {
-    numMovim = $("#numeroMovimiento").val();
+    numeroMov = $("#numeroMovimiento").val();
     tipo = $("#tipoMovimientoAju").val();
     var storageList = localStorage.getItem("AjusteProductosLista");
-    ajusteLista = JSON.parse(storageList);
+    ajustes = JSON.parse(storageList);
     parametros = {
-      usuario: usua,
-      almacen: alma,
-      tipo: tMovi,
-      tipomovi: movi,
+      usuario,
+      almacen,
+      tipo,
+      tipomovi,
       movimi: tipo,
-      numeroMov: numMovim,
-      fecha: fecha,
-      ajustes: ajusteLista,
+      numeroMov,
+      fecha,
+      ajustes,
     };
     $.ajax({
       url: ruta + "res/php/guardaProductoAju.php",
@@ -1896,7 +1677,7 @@ function agregaListaTraslado() {
     return;
   }
   if (fech == "") {
-    swal("Atencion", "Sin Fecha Asignado A Este Movimiento ", "warning");
+    alert("Sin Fecha Asignado A Este Movimiento ");
     $("#fecha").focus();
     return;
   }
@@ -1987,27 +1768,27 @@ function procesaTraslado(tipo) {
   var movSale = localStorage.getItem("tipoMovSale");
   var desti = localStorage.getItem("destinoTras");
   var fecha = localStorage.getItem("fechaTras");
-  var usua = sesion["usuario"][0]["usuario"];
+  // var usua = sesion["usuario"][0]["usuario"];
 
   asignaConsecutivoTraslado(3);
 
   setTimeout(function () {
-    numTraslado = $("#numeroTraslado").val();
-    numSalida = $("#numeroSalida").val();
-    numEntrada = $("#numeroEntrada").val();
+    numeroTra = $("#numeroTraslado").val();
+    numeroSal = $("#numeroSalida").val();
+    numeroEnt = $("#numeroEntrada").val();
     var storageList = localStorage.getItem("trasladoListaProductos");
-    salidaProductos = JSON.parse(storageList);
+    movimiento = JSON.parse(storageList);
     parametros = {
-      usuario: usua,
-      alma: alma,
-      movEntra: movEntra,
-      movSale: movSale,
-      desti: desti,
-      fecha: fecha,
-      numeroTra: numTraslado,
-      numeroEnt: numEntrada,
-      numeroSal: numSalida,
-      movimiento: salidaProductos,
+      usuario,
+      alma,
+      movEntra,
+      movSale,
+      desti,
+      fecha,
+      numeroTra,
+      numeroEnt,
+      numeroSal,
+      movimiento,
     };
     $.ajax({
       url: ruta + "res/php/guardaProductoTras.php",
@@ -2021,7 +1802,6 @@ function procesaTraslado(tipo) {
           "success",
           5000
         );
-        imprimeMovimiento(data, 3);
         localStorage.removeItem("trasladoListaProductos");
         localStorage.removeItem("almacenTras");
         localStorage.removeItem("tipoMovEntr");
@@ -2029,6 +1809,7 @@ function procesaTraslado(tipo) {
         localStorage.removeItem("destinoTras");
         localStorage.removeItem("fechaTras");
         $(location).attr("href", "traslados");
+        imprimeMovimiento(data, 3);
       },
     });
   }, 1000);
@@ -2088,15 +1869,15 @@ function procesaSalida(tipo) {
   asignaConsecutivo(2);
 
   setTimeout(function () {
-    numMovim = $("#numeroMovimiento").val();
-    var usua = sesion["usuario"][0]["usuario"];
+    numeroMov = $("#numeroMovimiento").val();
+    // var usua = sesion["usuario"][0]["usuario"];
     var storageList = localStorage.getItem("salidaListaProductos");
-    salidaProductos = JSON.parse(storageList);
+    movimiento = JSON.parse(storageList);
     (parametros = {
-      usuario: usua,
-      numeroMov: numMovim,
-      tipo: tipo,
-      movimiento: salidaProductos,
+      usuario,
+      numeroMov,
+      tipo,
+      movimiento,
     }),
       $.ajax({
         url: ruta + "res/php/guardaProductoMov.php",
@@ -2110,13 +1891,13 @@ function procesaSalida(tipo) {
             "success",
             5000
           );
-          imprimeMovimiento(data, 2);
           localStorage.removeItem("salidaListaProductos");
           localStorage.removeItem("centroCosto");
           localStorage.removeItem("almacen");
           localStorage.removeItem("fecha");
           localStorage.removeItem("tipoMov");
           $(location).attr("href", "salidas");
+          imprimeMovimiento(data, 2);
         },
       });
   }, 1000);
@@ -2303,15 +2084,16 @@ function agregaListaSalida() {
 }
 
 function cierraSesion() {
+  /*  
   sesion = JSON.parse(localStorage.getItem("sesion"));
   var id = sesion["usuario"][0]["usuario_id"];
-  var usua = sesion["usuario"][0]["usuario"];
+  var usua = sesion["usuario"][0]["usuario"]; */
   $.ajax({
     url: "../../res/shared/salir.php",
     type: "POST",
     data: {
-      id: id,
-      usuario: usua,
+      usuario_id,
+      usuario,
     },
     success: function () {
       localStorage.removeItem("sesion");
@@ -2341,15 +2123,15 @@ function procesaEntrada(tipo) {
   asignaConsecutivo(1);
 
   setTimeout(function () {
-    numMovim = $("#numeroMovimiento").val();
-    var usua = sesion["usuario"][0]["usuario"];
+    numeroMov = $("#numeroMovimiento").val();
+    // var usua = sesion["usuario"][0]["usuario"];
     var storageList = localStorage.getItem("LocalProductList");
-    productList = JSON.parse(storageList);
+    movimiento = JSON.parse(storageList);
     parametros = {
-      usuario: usua,
-      numeroMov: numMovim,
-      tipo: tipo,
-      movimiento: productList,
+      usuario,
+      numeroMov,
+      tipo,
+      movimiento,
     };
     $.ajax({
       url: ruta + "res/php/guardaProductoMov.php",
@@ -2357,6 +2139,12 @@ function procesaEntrada(tipo) {
       data: parametros,
       success: function (data) {
         data = $.trim(data);
+        localStorage.removeItem("LocalProductList");
+        localStorage.removeItem("proveedor");
+        localStorage.removeItem("almacen");
+        localStorage.removeItem("fecha");
+        localStorage.removeItem("factura");
+        localStorage.removeItem("tipoMov");
         swal(
           "Atencion",
           "Movimiento de Entradas Realizado con Exito",
@@ -2364,12 +2152,6 @@ function procesaEntrada(tipo) {
           5000
         );
         imprimeMovimiento(data, 1);
-        localStorage.removeItem("LocalProductList");
-        localStorage.removeItem("proveedor");
-        localStorage.removeItem("almacen");
-        localStorage.removeItem("fecha");
-        localStorage.removeItem("factura");
-        localStorage.removeItem("tipoMov");
         $(location).attr("href", "entradas");
       },
     });
@@ -2397,7 +2179,6 @@ function agregaLista() {
   var prov = $("#proveedor").val();
   var fech = $("#fecha").val();
   var fact = $("#factura").val();
-  var impt = $("#impuesto").val();
 
   if (movi == "") {
     swal(
@@ -2427,17 +2208,6 @@ function agregaLista() {
     $("#factura").focus();
     return;
   }
-
-  if (impt == null) {
-    swal(
-      "Precaucion",
-      "Sin impupesto Asociado al Producto ",
-      "warning"
-    );
-    $("#impuesto").focus();
-    return;
-  }
-
 
   var prod = $("#codigo").val();
   var unid = $("#unidad").val();
@@ -2483,8 +2253,8 @@ function agregaLista() {
   $("#unidad").val(unid);
   $("#unidadcom").val(desunid);
   $("#unidadalm").val(unidalm);
-  $("#impuesto").val(impu);
-  // $("#desimpto").val(desimpu);
+  $("#codimpto").val(impu);
+  $("#desimpto").val(desimpu);
 
   $("#tablaArticulos > tbody").append(`
 	  	<tr>
@@ -2594,7 +2364,7 @@ function cancelaAdd() {
   $("#descripcion").val("");
   $("#producto").val("");
   $("#porc_impto").val("");
-  // $("#impuesto").val("");
+  $("#impuesto").val("");
   $("#unidad").val("");
   $("#costo").val(0);
   $("#cantidad").val(0);
@@ -2636,19 +2406,19 @@ function listaEntradas() {
 
   for (x = 0; x < productList.length; x++) {
     $("#tablaArticulos > tbody").append(`
-        <tr>
-          <td class='paddingCelda'>${productList[x]["codigo"]}</td>
-          <td class='paddingCelda'>${productList[x]["descripcion"]}</td>
-          <td class='paddingCelda' align='left'>${productList[x]["desunid"]}</td>
-          <td class='paddingCelda' align='right'>${number_format(
+	  		<tr>
+	  			<td class='paddingCelda'>${productList[x]["codigo"]}</td>
+	  			<td class='paddingCelda'>${productList[x]["descripcion"]}</td>
+	  			<td class='paddingCelda' align='left'>${productList[x]["desunid"]}</td>
+	  			<td class='paddingCelda' align='right'>${number_format(
             productList[x]["cantidad"],
             2
           )}</td>
-          <td class='paddingCelda' align='right'>${number_format(
+	  			<td class='paddingCelda' align='right'>${number_format(
             productList[x]["unit"],
             2
           )}</td>
-          <td class='paddingCelda' align='right'>${number_format(
+	  			<td class='paddingCelda' align='right'>${number_format(
             productList[x]["subtotal"],
             2
           )}</td>
@@ -2709,7 +2479,6 @@ function buscaProducto(codigo) {
       $("#unidad").val(x.unidad_compra);
       $("#descripcion").val(x.nombre_producto);
       $("#cantidad").val(0);
-      $("#unidad").attr("disabled", true);
       $("#costo").attr("disabled", false);
       $("#cantidad").attr("disabled", false);
       $("#costo").val(x.valor_promedio);

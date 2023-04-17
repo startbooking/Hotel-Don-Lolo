@@ -6,7 +6,7 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="glyphicon glyphicon-off"></span></button>
           <h4 class="modal-title" id="exampleModalLabel">Modificar Producto</h4>
         </div>
-        <div class="modal-body" id='productosMov' style="height: 400px;overflow: auto">
+        <div class="modal-body" id='productosMov'>
           <div id="datos_ajax"></div>
         </div>
         <div class="modal-footer">

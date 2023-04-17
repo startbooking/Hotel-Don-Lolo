@@ -1,0 +1,9 @@
+@font-face {
+  font-family:geosanslight ;
+  src: url('../fonts/GeosansLight.ttf');
+}
+
+@font-face {
+  font-family:geosanslightoblique ;
+  src: url('../fonts/GeosansLight-Oblique.ttf');
+}

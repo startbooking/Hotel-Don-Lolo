@@ -63,7 +63,7 @@
     $totalsum = $totalsum + $movimiento['valor_total']; 
     $pdf->Cell(50,6,substr(utf8_decode($movimiento['nombre_producto']),0,25),1,0,'L');
     $pdf->Cell(30,6,substr($inven->getUnidadAlmacena($movimiento['unidad_alm']),0,12),1,0,'L');
-    $pdf->Cell(15,6,number_format($movimiento['cantidad'],2),1,0,'R');
+    $pdf->Cell(15,6,number_format($movimiento['cantidad'],0),1,0,'R');
     $pdf->Cell(20,6,number_format($movimiento['valor_unitario'],2),1,0,'R');
     $pdf->Cell(25,6,number_format($movimiento['valor_subtotal'],2),1,0,'R');
     $pdf->Cell(10,6,number_format($movimiento['porce_impto'],2),1,0,'R');

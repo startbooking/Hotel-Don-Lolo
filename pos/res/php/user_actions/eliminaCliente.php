@@ -4,7 +4,14 @@
 
 	$idusr = $_POST['idusr'];
 
-  $eli = $pos->eliminaCliente($idusr);
-  echo $eli; 
+  $cartera = $pos->traeCarteraCliente($idusr) ;
+
+  if(count($cartera)==0){
+    $eli = $pos->eliminaCliente($idusr);
+    echo $eli;
+  }else{
+    echo '0' ;
+  }
+
 
  ?>

@@ -1,0 +1,20 @@
+<?php 
+	include 'configdb.php';
+	
+	require "medoo.php";
+	use Medoo\Medoo;
+
+	try {
+		$database = new Medoo([
+			'database_type' => $dbtype,
+			'database_name' => $dbname,
+			'server'        => $server,
+			'username'      => $dbuser,
+			'password'      => $dbpass,
+			'charset'       => 'utf8',			
+		]);
+		
+	} catch ( PDOException $e) {
+		echo "No se pudo Conectar a la Base de Datos";
+	}
+?>

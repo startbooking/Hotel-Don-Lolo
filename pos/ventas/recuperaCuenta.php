@@ -17,7 +17,7 @@
 
 ?>
 
-    <div class="row-fluid" style="background-color: #F5FBFC;margin-right: 5px;margin-left: 5px;">
+    <div class="row" style="background-color: #F5FBFC;margin-right: 5px;margin-left: 5px;">
       <div class="row-fluid">
         <input type="hidden" name="numeroComanda" id="numeroComanda" value='0'>
         <div class="col-lg-3 col-md-3 col-xs-6" style="padding:0">
@@ -219,97 +219,97 @@
           </div>
         </div>
 
-      </div>
-    </div>
-    <div class="modal fade" id="myModalGuardarCuenta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog modal-md" role="document">
-        <div class="modal-content">
-          <div class="modal-header" style="padding:5px 15px">
-            <button type="button" class="close glyphicon glyphicon-off" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
-            <h3 class="modal-title" id="myModalLabel">Guardar Comanda</h3>
-            <h4><?= $amb ?></h4>  
-          </div>
-          <form class="form-horizontal" action="javascript:guardarCuenta()" method="POST" accept-charset="utf-8">
-            <div class="modal-body">
-              <div class="row">
-                <div class="col-md-8 col-md-offset-2">
-                  <div class="form-group" style="margin-bottom: 5px">
-                    <label class="form-label col-lg-6 col-md-6" for="mesa">Numero de Mesa</label>
-                    <div class="col-lg-6 col-md-6">
-                      <select class="form-control" name='nromesas' id='nromesas'>"
-                      <?php
-                      foreach ($mesas as $mesa) : ?>
-                        <option value="<?php echo $mesa['numero_mesa'];?>"><?php echo $mesa['numero_mesa'];?></option>
-                        <?php 
-                      endforeach
-                      ?>
-                      </select>
-                    </div>  
+        <div class="modal fade" id="myModalGuardarCuenta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+              <div class="modal-header" style="padding:5px 15px">
+                <button type="button" class="close glyphicon glyphicon-off" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+                <h3 class="modal-title" id="myModalLabel">Guardar Comanda</h3>
+                <h4><?= $amb ?></h4>  
+              </div>
+              <form class="form-horizontal" action="javascript:guardarCuenta()" method="POST" accept-charset="utf-8">
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                      <div class="form-group" style="margin-bottom: 5px">
+                        <label class="form-label col-lg-6 col-md-6" for="mesa">Numero de Mesa</label>
+                        <div class="col-lg-6 col-md-6">
+                          <select class="form-control" name='nromesas' id='nromesas'>"
+                          <?php
+                          foreach ($mesas as $mesa) : ?>
+                            <option value="<?php echo $mesa['numero_mesa'];?>"><?php echo $mesa['numero_mesa'];?></option>
+                            <?php 
+                          endforeach
+                          ?>
+                          </select>
+                        </div>  
+                      </div>
+                      <div class="form-group" style="margin-bottom: 5px">
+                        <label class="form-label col-lg-6 col-md-6" for="pax">Personas</label>
+                        <div class="col-lg-6 col-md-6">
+                          <input type ="hidden" name="usuario" value="<?=$user?>" >
+                          <input type ="hidden" name="ambiente" value="<?=$idamb?>" >
+                          <input value="1" type="number" class="form-control" name="pax" id="pax" placeholder="" min=1 max=10>
+                        </div>
+                      </div>
+                    </div>                  
                   </div>
-                  <div class="form-group" style="margin-bottom: 5px">
-                    <label class="form-label col-lg-6 col-md-6" for="pax">Personas</label>
-                    <div class="col-lg-6 col-md-6">
-                      <input type ="hidden" name="usuario" value="<?=$user?>" >
-                      <input type ="hidden" name="ambiente" value="<?=$idamb?>" >
-                      <input value="1" type="number" class="form-control" name="pax" id="pax" placeholder="" min=1 max=10>
+                </div>
+                <div class="modal-footer">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Cancelar</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
+                  </div>
+                  <div class="row-fluid">                    
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- Modal Descuentos-->
+        <div class="modal fade" id="myModalDescuento" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content modal-md">
+              <div class="modal-header">
+                <button type="button" class="close glyphicon glyphicon-off" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+                <h4 class="modal-title" id="myModalLabel"><strong>Descuento Presente Cuenta</strong></h4>
+                <h5><?= $amb?></h5>  
+              </div>
+              <form class="form-horizontal" method="POST" accept-charset="utf-8" id="formdescuento" name="descuento">
+                <div class="modal-body">
+                  <?php 
+                    $val       = $neto;
+                    $total     = $sub+$imp+$pro ;
+                    $pagado    = 0 ;
+                    $resultado = 0 ;
+                  ?>
+                  <div class="form-group" >
+                    <label class="col-lg-4 col-md-4 control-label" style="padding-top:0">Tipo de Descuento</label>
+                    <div class="col-lg-8 col-md-8"> 
+                      <select name='tipodesc' id='tipodesc' required >
+                        <option  value="">Seleccione El Tipo de Descuento</option>
+                        <?php
+                        foreach ($descuentos as $descuento) :  ?>
+                          <option  id="tipodesc" value="<?php echo $descuento['id_descuento'];?>"><?php echo $descuento['descripcion_descuento']  ;?></option>
+                          <?php 
+                        endforeach
+                        ?>
+                      </select>
                     </div>
                   </div>
-                </div>                  
-              </div>
-            </div>
-            <div class="modal-footer">
-              <div class="btn-group">
-                <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Cancelar</button>
-                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
-              </div>
-              <div class="row-fluid">                    
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-    <!-- Modal Descuentos-->
-    <div class="modal fade" id="myModalDescuento" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog modal-md" role="document">
-        <div class="modal-content modal-md">
-          <div class="modal-header">
-            <button type="button" class="close glyphicon glyphicon-off" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
-            <h4 class="modal-title" id="myModalLabel"><strong>Descuento Presente Cuenta</strong></h4>
-            <h5><?= $amb?></h5>  
-          </div>
-          <form class="form-horizontal" method="POST" accept-charset="utf-8" id="formdescuento" name="descuento">
-            <div class="modal-body">
-              <?php 
-                $val       = $neto;
-                $total     = $sub+$imp+$pro ;
-                $pagado    = 0 ;
-                $resultado = 0 ;
-              ?>
-              <div class="form-group" >
-                <label class="col-lg-4 col-md-4 control-label" style="padding-top:0">Tipo de Descuento</label>
-                <div class="col-lg-8 col-md-8"> 
-                  <select name='tipodesc' id='tipodesc' required >
-                    <option  value="">Seleccione El Tipo de Descuento</option>
-                    <?php
-                    foreach ($descuentos as $descuento) :  ?>
-                      <option  id="tipodesc" value="<?php echo $descuento['id_descuento'];?>"><?php echo $descuento['descripcion_descuento']  ;?></option>
-                      <?php 
-                    endforeach
-                    ?>
-                  </select>
+                  <div id="resultadoDes"></div>              
                 </div>
-              </div>
-              <div id="resultadoDes"></div>              
+                <div class="modal-footer">
+                  <input id = 'comanda'  type="hidden" value='0'>
+                  <input id = 'ambiente' type="hidden" value='<?= $ambiente?>'>
+                  <input id = 'usuario'  type="hidden" value='<?= $usuario?>'>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                  <button class="btn btn-success" onclick="getDescuento($('#comanda').val(), $('#ambiente').val(),$('#usuario').val(),$('#tipodesc').val())" type="button" data-dismiss="modal">Guardar</button>
+                </div>
+              </form>
             </div>
-            <div class="modal-footer">
-              <input id = 'comanda'  type="hidden" value='0'>
-              <input id = 'ambiente' type="hidden" value='<?= $ambiente?>'>
-              <input id = 'usuario'  type="hidden" value='<?= $usuario?>'>
-              <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-              <button class="btn btn-success" onclick="getDescuento($('#comanda').val(), $('#ambiente').val(),$('#usuario').val(),$('#tipodesc').val())" type="button" data-dismiss="modal">Guardar</button>
-            </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>

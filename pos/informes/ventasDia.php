@@ -1,39 +1,16 @@
-<?php 
-  require '../../res/php/titles.php';
-  require '../../res/php/app_topPos.php'; 
+<?php
+require '../../res/php/titles.php';
+require '../../res/php/app_topPos.php';
 
-  $idamb  = $_POST['id'];
-  $nomamb = $_POST['amb'];
-  $user   = $_POST['user'];
-  $iduser = $_POST['iduser'];
-  $impto  = $_POST['impto'];
-  $prop   = $_POST['prop'];
-  $file   = $_POST['file'];
-  $logo   = $_POST['logo'];
-  $fecha  = $_POST['fecha'];
+$idamb = $_POST['id'];
+$nomamb = $_POST['amb'];
+$user = $_POST['user'];
+$iduser = $_POST['iduser'];
+$impto = $_POST['impto'];
+$prop = $_POST['prop'];
+$fecha = $_POST['fecha'];
+$logo = $_POST['logo'];
 
-?>
+include_once '../imprimir/imprimeVentasDia.php';
 
-<section class="content">
-  <div class="panel panel-success">
-    <div class="panel-heading">  
-      <div class="row">
-        <div class="col-lg-9">
-          <input type="hidden" name="user" id="user" value="<?=$user?>">
-          <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_POS?>">
-          <input type="hidden" name="ubicacion" id="ubicacion" value="balanceDiario.php">
-          <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-industry"></i> Ventas Del Dia <?=$fecha?></h3>
-        </div>
-      </div>
-    </div>
-    <div class="panel-body">
-      <div class="imprimeInforme">
-        <object id="verInforme" width="100%" height="500" data=""></object> 
-      </div>
-      <?php 
-        include '../imprimir/imprimeVentasDia.php';
-      ?>
-    </div> 
-  </div> 
-</section>
- 
+?> 

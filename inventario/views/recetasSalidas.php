@@ -11,7 +11,7 @@ $hoy = date('Y-m-d');
           <input type="hidden" name="ubicacion" id="ubicacion" value="salidas">
           <input type="hidden" name="Movimiento" id="Movimiento" value="2">
           <input type="hidden" name="numeroMovimiento" id="numeroMovimiento">
-          <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-calendar"></i> Nueva Salida Por Recetas</h3>
+          <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-calendar"></i> Nueva Salida X Recetas</h3>
         </div>
         <div class="row-fluid" role="document">
           <div class="panel-body">

@@ -1,5 +1,5 @@
-<?php 
-  $entradas = $inven->getPedidos();
+<?php
+$pedidos = $inven->getPedidos();
 
 ?>
  
@@ -9,7 +9,7 @@
       <div class="panel-heading">
         <div class="row"> 
           <div class="col-lg-6">
-            <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_INV?>">              
+            <input type="hidden" name="rutaweb" id="rutaweb" value="<?php echo BASE_INV; ?>">              
             <input type="hidden" name="ubicacion" id="ubicacion" value="pedidos">
             <input type="hidden" name="titulo" id="titulo" value="Pedidos">
             <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-calendar"></i> Pedidos </h3>
@@ -32,7 +32,7 @@
               <tr class="warning">
                 <td>Numero</td>
                 <td>Fecha</td>
-                <td>Almacen</td>
+                <!-- <td>Almacen</td> -->
                 <td>Proveedor</td>
                 <td>Valor</td>
                 <td>Estado</td>
@@ -41,62 +41,60 @@
             </thead>
             <tbody>
               <?php
-              foreach ($entradas as $entrada) { ?>
+              foreach ($pedidos as $pedido) { ?>
                 <tr style='font-size:12px'>
-                  <td><?php echo $entrada['numero_ped'];?></td>
-                  <td><?php echo $entrada['fecha_ped']; ?></td>
-                  <td><?php echo $inven->buscaAlmacen($entrada['id_centrocosto']); ?></td>                  
-                  <td><?php echo $inven->buscaProveedor($entrada['id_proveedor']); ?></td>
-                  <td align="right"><?php echo number_format($entrada['total'],2); ?></td>
+                  <td><?php echo $pedido['numero_ped']; ?></td>
+                  <td><?php echo $pedido['fecha_ped']; ?></td>
+                  <!-- <td><?php echo $inven->buscaAlmacen($pedido['id_centrocosto']); ?></td>                   -->
+                  <td><?php echo $pedido['empresa']; ?></td>
+                  <td><?php echo number_format($pedido['total'], 2); ?></td>
                   <td><span
-                    <?php 
-                    if($entrada['estado']==0){ ?>
+                    <?php
+                    if ($pedido['estado'] == 0) { ?>
                       class="badge btn btn-danger" 
-                      <?php 
-                    }else{ ?>
+                      <?php
+                    } else { ?>
                       class="badge btn btn-success" 
-                      <?php 
+                      <?php
                     }
-                    ?>
-                    ><?php echo estadoPedido($entrada['estado']); ?></span></td>
-                  <td style="width: 11%" align="center">
-                    <div class="btn-toolbar" role="toolbar">
-                      <div class="btn-group" role="group">
+                  ?>
+                    ><?php echo estadoPedido($pedido['estado']); ?></span></td>
+                  <td>
                         <button 
                           type             = "button" 
                           class            = "btn btn-xs btn-warning" 
                           data-toggle      = "modal" 
                           data-target      = "#myModalMostrarProductosRequisicion" 
-                          data-numero      = "<?php echo $entrada['numero_ped'];?>"
-                          data-bodega      = "<?php echo $entrada['id_centrocosto']; ?>"
-                          title            = "Ver productos delPedido"
+                          data-numero      = "<?php echo $pedido['numero_ped']; ?>"
+                          data-proveedor   = "<?php echo $pedido['id_proveedor']; ?>"                      
+                          title            = "Ver productos del Pedido"
                           onclick          = 'muestraProductosPedido()'
                           >
                           <i class="fa fa-list-alt" aria-hidden="true"></i>
                         </button>
-                        <button onclick="imprimeMovimiento(<?=$entrada['numero_ped']?>,6)" title="Imprime Pedidos" class="btn btn-xs btn-info" type="button"><i class="fa fa-print" aria-hidden="true"></i></button>  
-                      </div>
-                      <div class="btn-group" role="group">
-                      <?php 
-                        if($entrada['estado']==1){ ?>
+                        <button onclick="imprimeMovimiento(<?php echo $pedido['numero_ped']; ?>,6)" title="Imprime Pedidos" class="btn btn-xs btn-info" type="button"><i class="fa fa-print" aria-hidden="true"></i></button>  
+                      <?php
+                      if ($pedido['estado'] == 1) { ?>
                           <button 
-                            onclick = "anulaPedido(<?=$entrada['numero_ped']?>)" 
+                            onclick = "anulaPedido(<?php echo $pedido['numero_ped']; ?>)" 
                             class   = "btn btn-xs btn-danger" 
                             type    = "button"
                             title   = 'Anular Presente Pedido'
                             >
                             <i class="fa fa-times" aria-hidden="true"></i>
                           </button>  
-                          <?php 
-                        }
-                      ?>
+                          <?php
+                      }
+                  ?>
+                    <!-- <div class="btn-toolbar" role="toolbar">
+                      <div class="btn-group" role="group">
                       </div>
-                    </div>
+                    </div> -->
                   </td>
                 </tr>
-                <?php 
+                <?php
               }
-              ?>
+?>
             </tbody>
           </table>
         </div>
@@ -116,18 +114,18 @@
           </thead>
           <tbody>
             <?php
-            foreach ($entradas as $entrada) { ?>
+            foreach ($pedidos as $pedido) { ?>
               <tr style='font-size:12px'>
-                  <td><?php echo $entrada['numero_ped'];?></td>
-                  <td><?php echo $entrada['fecha_ped']; ?></td>
-                  <td><?php echo $inven->buscaCentroCosto($entrada['id_centrocosto']); ?></td>
-                  <td><?php echo $inven->buscaAlmacen($entrada['id_centrocosto']); ?></td>                  
-                  <td align="right"><?php echo number_format($entrada['total'],2); ?></td>
-                  <td><?php echo estadoPedido($entrada['estado']); ?></td>
+                  <td><?php echo $pedido['numero_ped']; ?></td>
+                  <td><?php echo $pedido['fecha_ped']; ?></td>
+                  <td><?php echo $inven->buscaCentroCosto($pedido['id_centrocosto']); ?></td>
+                  <td><?php echo $inven->buscaAlmacen($pedido['id_centrocosto']); ?></td>                  
+                  <td align="right"><?php echo number_format($pedido['total'], 2); ?></td>
+                  <td><?php echo estadoPedido($pedido['estado']); ?></td>
               </tr>
-              <?php 
+              <?php
             }
-            ?>
+?>
           </tbody>
         </table>
       </div>

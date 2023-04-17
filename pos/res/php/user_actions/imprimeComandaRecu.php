@@ -19,25 +19,26 @@
 	$pax  = $datosmesa[0]['pax'];
 	$mesa = $datosmesa[0]['mesa'];
 	$fec  = $datosmesa[0]['fecha'];
+	$cliente = $datosmesa[0]['cliente'];
 
 	$ventasdia = $pos->getProductosVentaComanda($numerocomanda,$amb);
 
 	$pdf = new FPDF('P', 'mm', array(50,250));
   $pdf->AddPage();
 	$pdf->SetMargins(0, 3 , 0);
-  $pdf->SetFont('Times','',11);
-  /*
-  $pdf->Cell(50,7,utf8_decode('TIKTAK CAFE'),0,1,'C');
-  */
-  $pdf->Cell(50,7,utf8_decode(NAME_EMPRESA),0,1,'C');
-  $pdf->Cell(50,7,utf8_decode($nomamb),0,1,'C');
-  $pdf->SetFont('Times','',12);
+  $pdf->SetFont('Times','B' ,8);
+  /* $pdf->Cell(90,7,utf8_decode(NAME_EMPRESA),0,1,'C');
+  $pdf->SetFont('Times','',8);
+   */
+	$pdf->Cell(50,7,utf8_decode($nomamb),0,1,'C');
   $pdf->Cell(50,5,'Fecha '.$fec.' Mesa '.$mesa,0,1,'L');
-  /// $pdf->SetFont('Times','',11);
   $pdf->Cell(50,5,'Comanda Nro: '.$pref.'-'.str_pad($numerocomanda,5,'0',STR_PAD_LEFT),0,1,'L');
-  /// $pdf->Cell(70,5,'Comanda Nro: '.str_pad($numerocomanda,5,'0',STR_PAD_LEFT),0,1,'L');
-  /// $pdf->SetFont('Times','',11);
-  $pdf->Ln(2);
+	$pdf->Cell(10,4,'Cliente: ',0,0,'L');
+  $pdf->SetFont('Arial','',7);
+  $pdf->Cell(20,4,substr(utf8_decode($cliente),0,24),0,1,'L');
+  $pdf->SetFont('Arial','B',7);
+
+	$pdf->Ln(2);
 
 	  $pdf->Cell(35,5,'PRODUCTO',0,0,'C');
 	  $pdf->Cell(10,5,'CANT.',0,1,'C');

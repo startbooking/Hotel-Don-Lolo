@@ -10,13 +10,13 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="nombreUsuario"></a>
           <ul class="dropdown-menu">
             <li>
-              <a class="altoMenu" 
+              <a class="altoMenu"
                 data-toggle    = 'modal'
                 href="#myModalSoporteTecnico" >Soporte Tecnico
-              </a> 
+              </a>
             </li>
             <li>
-              <a class="altoMenu" 
+              <a class="altoMenu"
                 data-toggle    = 'modal'
                 href="#myModalCambiarClave" >Cambiar Contraseña
               </a>
@@ -24,7 +24,7 @@
             <li><a class="altoMenu" onclick="cierraSesion()">Cerrar Sesion</a></li>
           </ul>
         </li>
-      </ul>   
+      </ul>
     </div>
   </nav>
 </header>

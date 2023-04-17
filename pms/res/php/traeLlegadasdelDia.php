@@ -1,8 +1,8 @@
 <?php 
   require '../../../res/php/app_topHotel.php'; 
 	
-  $tipo     = $_POST['tipo'];
-  $hoy      = substr(FECHA_PMS,5,5);
+  $tipo      = $_POST['tipo'];
+  $hoy    = substr(FECHA_PMS,5,5);
   $reservas = $hotel->getReservasDia(FECHA_PMS,1,"ES");  
 
   ?>
@@ -14,6 +14,7 @@
         <td>Reserva Nro</td>
         <td>Nro Hab.</td>
         <td style="text-align:center;">Huesped</td>
+        <td>Compañia</td>
         <td>Llegada</td>
         <td>Salida</td>
         <td>Noc</td>
@@ -21,13 +22,21 @@
         <td>Muj</td>
         <td>Niño</td>
         <td>Estado</td>
-        <td style="text-align:center;">Accion</td>
+        <td style="text-align:center">Accion</td>
       </tr>
     </thead>
     <tbody>
       <?php
       foreach ($reservas as $reserva) { 
         $depositos = $hotel->getDepositosReservas($reserva['num_reserva']);
+        if(empty($reserva['id_compania'])){
+          $nombrecia = 'SIN COMPAÑIA ASOCIADA';
+          $nitcia    = '';
+        }else{
+          $cias      = $hotel->getBuscaCia($reserva['id_compania']);
+          $nombrecia = $cias[0]['empresa'];
+          $nitcia    = $cias[0]['nit'].'-'.$cias[0]['dv'];
+        }
         ?>
         <tr style='font-size:12px'>
           <td style="padding:2px">
@@ -58,13 +67,12 @@
                 if($hoy == substr($reserva['fecha_nacimiento'],5,5)){ ?>
                   <span class="fa-stack fa-xs" title="El Huesped esta de Cumpleaños" style="margin-left:0px;cursor:pointer;" >
                     <i style="font-size:20px;color: yellow" class="fa fa-circle fa-stack-2x"></i>
-                    
                     <i style="font-size:10px;margin-top: -2px;margin-left: 1px;color:black" class="fa fa-birthday-cake fa-stack-1x fa-inverse"></i> 
                   </span>
                   <?php 
                 }
               ?>
-            </div>                          
+            </div>
             </td>
           <td style="padding:2px">
             <?php echo $reserva['num_habitacion']; ?></td>
@@ -82,12 +90,12 @@
                     <label for="" class="control-label" style="font-size:11px;text-align: left;padding: 5px 0px 2px 2px;color:#000"><?php echo $acompana["nombre_completo"];?>
                     </label>
                   </span>
-
                   <?php 
                 }
               }
-            ?>                                    
+            ?>
           </td>
+          <td style="padding:2px;text-align:center;"><?php echo $nombrecia; ?></td>
           <td style="padding:2px">
             <?php echo $reserva['fecha_llegada']; ?></td>
           <td style="padding:2px">
@@ -97,7 +105,7 @@
           <td style="padding:2px;text-align:center;"><?php echo $reserva['can_mujeres']; ?></td>
           <td style="padding:2px;text-align:center;"><?php echo $reserva['can_ninos']; ?></td>
           <td style="padding:2px">
-            <?php echo estadoReserva($reserva['estado']); ?></td>                       
+            <?php echo estadoReserva($reserva['estado']); ?></td>
           <td style="padding:2px;width: 13%">
             <nav class="navbar navbar-default" style="margin-bottom: 0px;min-height:0px;">
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:0px;">

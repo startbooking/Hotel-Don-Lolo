@@ -38,7 +38,7 @@
             <div class="col-md-8 col-sm-6 col-xs-12">          
               <h1 class="fontModule">
                 <?=$ambienteSeleccionado[0]['nombre'];?><br>
-                <small>Panel de Control</small>
+                <small>Panel de Control XXX</small>
               </h1>
             </div>
             <div class="col-sm-4 col-sm-6 col-xs-12" style="">          
@@ -49,7 +49,7 @@
         <section class="container-fluid" style="margin-bottom: 5px;">
           <?php 
             if($ambienteSeleccionado[0]['plano']!=1){
-              include_once 'views/plano.php'
+                include_once 'views/plano.php'
             }else {
               ?>
               <div class="container-fluid moduloCentrar" style='display:flex;'>

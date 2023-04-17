@@ -1,13 +1,13 @@
-<?php 
-  $tipos  = $pos->getTipoPlatos();
-  $imptos = $pos->getImpuestos();
- ?>
+<?php
+$tipos = $pos->getTipoPlatos();
+$imptos = $pos->getImpuestos();
+?>
 
 <div class="modal fade" id="modalAdicionaReceta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
   <form id="guardarDatosReceta" class="form-horizontal" action="javascript:guardarReceta()">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
-        <div class="modal-header modal-success">
+        <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-off"></span></button>
           <h3 style="margin:0;" class="modal-title w3ls_head"><span class="fa fa-cube"></span> Adicionar Recetas</h3>
         </div>
@@ -28,12 +28,12 @@
             <div class="col-lg-3 col-md-3">
               <select name="tipoReceta" id="tipoReceta" required>
                 <option value="">Seleccione el Tipo de Receta</option>
-                <?php 
-                foreach ($tipos as $tipo) { ?>
-                  <option value="<?= $tipo['id_seccion']?>"><?php echo $tipo['nombre_seccion']?></option>
-                  <?php 
-                }
-                ?>
+                <?php
+               foreach ($tipos as $tipo) { ?>
+                  <option value="<?php echo $tipo['id_seccion']; ?>"><?php echo $tipo['nombre_seccion']; ?></option>
+                  <?php
+               }
+?>
               </select>
             </div>
             <label for="impto" class="control-label col-lg-2  col-md-2">Impuesto</label>
@@ -41,11 +41,11 @@
               <select name="impto" id="impto" required>
                 <option value="">Seleccione el Impuesto</option>
                 <?php
-                foreach ($imptos as $impto) { ?>
-                  <option value="<?=$impto['id_cargo']?>"><?php echo $impto['descripcion_cargo']?></option>
-                  <?php 
-                 } 
-                ?>
+foreach ($imptos as $impto) { ?>
+                  <option value="<?php echo $impto['id_cargo']; ?>"><?php echo $impto['descripcion_cargo']; ?></option>
+                  <?php
+}
+?>
               </select>
             </div>
             <label class="control-label col-md-2"><input  type="checkbox" name="subreceta" value="0"> Sub Receta</label>
@@ -88,7 +88,7 @@
     </div>
   </form>
 </div>
-
+ 
 <div class="modal fade" id="dataUpdateReceta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
   <form id="actualidarDatosReceta" class="form-horizontal" action="javascript:actualizaReceta()">
     <div class="modal-dialog modal-lg" role="document">

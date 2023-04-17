@@ -6,7 +6,7 @@
   $comanda   = $_POST['comanda'];
   $idusr     = $_POST['idusr'];
   $motivo    = strtoupper($_POST['motivo']);
-  $descuento = $_POST['descuento'];
+  $descuento = $_POST['tipodes'];
   $ambiente  = $_POST['idamb'];
 
   $dias      = array("domingo","lunes","martes","miercoles","jueves","viernes","sabado");
@@ -19,22 +19,22 @@
 
   if(count($montodes)==0){
     $tipod = 0;
-    $porce = 0;    
+    $porce = 0;
     $monto = 0;
   }else{
     if($montodes[0]['porcentaje']!=0){
       $tipod = 1;
     }else{
-      $tipod = 2;      
-    } 
+      $tipod = 2;
+    }
     $porce = $montodes[0]['porcentaje'];
     $monto = $montodes[0]['valor'];
   }
 
-  $valdescu  = $montodes[0]['porcentaje']; 
+  $valdescu  = $montodes[0]['porcentaje'];
 
   $prodDescs = $pos->getProductosComandaVenta($comanda,$ambiente);
-  if($montodes[0]['porcentaje']!=0){    
+  if($montodes[0]['porcentaje']!=0){
     foreach ($prodDescs as $producto) {
       $valor    = round(round($producto['venta'] * $porce ,0)/100,0);
       $neto     = $producto['venta'] - $valor;
@@ -46,6 +46,6 @@
 
   $aplicades = $pos->updateDescuentos($comanda, $ambiente, $descuento, $tipod, $porce, $monto, $motivo, $idusr);
 
-  echo $descuento ;
+  echo $monto ;
 
 ?>

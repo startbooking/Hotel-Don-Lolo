@@ -17,7 +17,7 @@
 
 ?>
 
-<div class="row-fluid" style="background-color: #F5FBFC;margin:1px">
+<div class="row" style="background-color: #F5FBFC;margin:1px">
   <div class="row-fluid">
     <input type="hidden" name="prefijoAmb" id="prefijoAmb" value="<?=$prefijo?>">
     <input type="hidden" name="idAmbiente" id="idAmbiente" value="<?=$idamb?>">
@@ -67,7 +67,7 @@
       </div>
     </div>
   </div>
-  <div class="row-fluid">
+  <div class="row">
     <div class="col-lg-3 col-md-3 moduloCentrar" id="seccionList" style="padding:0;display:block;">
     </div>
     <div class="col-lg-4 col-md-4 col-xs-6 moduloCentrar" id="productoList" style="padding:0px;margin-bottom: 50px;overflow: auto;display:block;">

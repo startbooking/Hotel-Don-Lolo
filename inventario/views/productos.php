@@ -3,12 +3,12 @@
         <div class="panel panel-success">
           <div class="panel-heading"> 
             <div class="row">
-              <div class="col-lg-6">
-                <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_INV?>">                
+              <div class="col-lg-6 col-xs-12">
+                <input type="hidden" name="rutaweb" id="rutaweb" value="<?php echo BASE_INV; ?>">                
                 <input type="hidden" name="ubicacion" id="ubicacion" value="productos">
                 <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-cubes"></i> Catalogo de Productos</h3>
               </div>
-              <div class="col-lg-6" align="right">
+              <div class="col-lg-6 col-xs-12" align="right">
                 <a 
                   data-toggle="modal" 
                   style="margin:10px 0" type="button" class="btn btn-success" href="#myModalAdicionarProducto">
@@ -37,20 +37,20 @@
                     <?php
                     foreach ($productos as $producto) { ?>
                       <tr style='font-size:12px'>
-                        <td width="22px"><?php echo $producto['id_producto']; ?></td>
+                        <td><?php echo $producto['id_producto']; ?></td>
                         <td><?php echo $producto['nombre_producto']; ?></td>
                         <td><?php echo $inven->getDescriptionFamilia($producto['id_familia']); ?></td>
                         <td><?php echo $inven->getDescriptionGrupo($producto['id_grupo']); ?></td>
                         <td><?php echo $inven->getDescriptionSubGrupo($producto['id_subgrupo']); ?></td>
                         <td><?php echo $inven->getDescriptionUnidades($producto['unidad_compra']); ?></td>                       
-                        <td align="center" style="width:10%">
-                          <div class="btn-group">
+                        <td>
+                          <div class="btn-group" style="display:flex;">
                             <button type="button" 
                               class="btn btn-info btn-xs" 
                               data-toggle="modal" 
                               data-target="#myModalModificaProducto" 
-                              data-id="<?php echo $producto['id_producto']?>"  
-                              data-nombre="<?php echo $producto['nombre_producto']?>"  
+                              data-id="<?php echo $producto['id_producto']; ?>"  
+                              data-nombre="<?php echo $producto['nombre_producto']; ?>"  
                               title="Modifica Datos del Producto"
                               onclick='btnModificaProducto()'
                               >
@@ -60,8 +60,8 @@
                               data-toggle="modal" 
                               data-target="#myModalEliminaProducto" 
                               title="Eliminar Producto" 
-                              data-id="<?php echo $producto['id_producto']?>"  
-                              data-nombre="<?php echo $producto['nombre_producto']?>"
+                              data-id="<?php echo $producto['id_producto']; ?>"  
+                              data-nombre="<?php echo $producto['nombre_producto']; ?>"
                               onclick='btnEliminaProducto()' 
                               >
                               <i class='glyphicon glyphicon-trash'></i> 
@@ -71,7 +71,7 @@
                        </tr>
                      <?php
                     }
-                    ?>
+                ?>
                   </tbody>                  
                 </table>
               </div>

@@ -1,9 +1,9 @@
 <?php 
 
-  require '../../../res/php/app_topHotel.php'; 
+  require_once '../../../res/php/app_topHotel.php'; 
 
-	$id       = $_POST['id'];
-	$reservas = $hotel->getHistoricoReservas($id);
+  $id       = $_POST['id'];
+  $reservas = $hotel->getHistoricoReservas($id);
 
 	if(count($reservas)==0){ ?>
 		<div class="alert alert-warning"><h3>Sin Historico de Reservas</h3></div>
@@ -14,9 +14,9 @@
 	    <table id="example1" class="table modalTable table-bordered">
 	      <thead>
 	        <tr class="warning" style="font-weight: bold">
-	          <td>Reserva Nro</td>
+	          <td>Nro</td>
 	          <td>Tipo Hab.</td>
-	          <td>Nro Hab.</td>
+	          <td>Hab.</td>
 	          <td>Llegada</td>
 	          <td>Salida</td>
 	          <td>Noches</td>
@@ -32,25 +32,25 @@
 	        foreach ($reservas as $reserva) { ?>
 	          <tr style='font-size:12px'>
 	            <td><?php echo $reserva['num_reserva']?></td>
-	            <td><?php echo $reserva['descripcion_habitacion']; ?></td>
+	            <td style="text-align:left;"><?php echo $reserva['descripcion_habitacion']; ?></td>
 	            <td><?php echo $reserva['num_habitacion']; ?></td>
 	            <td><?php echo $reserva['fecha_llegada']; ?></td>
               <?php 
               if($reserva['salida_checkout']!=Null){ ?>
                 <td><?php echo $reserva['salida_checkout']; ?></td>
-                <td align="center"><?php echo $dateDifference = abs(strtotime($reserva['fecha_llegada']) - strtotime($reserva['salida_checkout']))/(60 * 60 * 24); ?></td>
+                <td style="text-align:center;"><?php echo $dateDifference = abs(strtotime($reserva['fecha_llegada']) - strtotime($reserva['salida_checkout']))/(60 * 60 * 24); ?></td>
                 <?php 
               }else{ ?>
                 <td><?php echo $reserva['fecha_salida']; ?></td>
-                <td align="center"><?php echo $reserva['dias_reservados']; ?></td>
+                <td style="text-align:center;"><?php echo $reserva['dias_reservados']; ?></td>
                 <?php 
               }
 	            ?>
-              <td align="center"><?php echo $reserva['can_hombres']; ?></td>
-	            <td align="center"><?php echo $reserva['can_mujeres']; ?></td>
-	            <td align="center"><?php echo $reserva['can_ninos']; ?></td>
+              <td style="text-align:center;"><?php echo $reserva['can_hombres']; ?></td>
+	            <td style="text-align:center;"><?php echo $reserva['can_mujeres']; ?></td>
+	            <td style="text-align:center;"><?php echo $reserva['can_ninos']; ?></td>
 	            <td><?php echo estadoReserva($reserva['estado']); ?></td>
-	            <td align="left" style="width: 18%">
+	            <td style="text-align:left;" style="width: 18%">
 								<div class="btn-group" role="group" aria-label="Basic example">
                   <button 
                   	style="height: 22px;padding:2px 10px;font-size:12px" 
@@ -91,7 +91,7 @@
                     data-toggle        ="modal" 
                     data-target        = "#myModalAcompanantesHistoricoReserva"
                     data-id            ="<?php echo $reserva['num_reserva']?>" 
-                    data-tipohab       ="<?php echo descripcionTipoHabitacion($reserva['tipo_habitacion'])?>" 
+                    data-tipohab       ="<?php echo $reserva['descripcion_habitacion']?>"  
                     data-nrohab        ="<?php echo $reserva['num_habitacion']?>" 
                     data-nombre        ="<?php echo $reserva['nombre_completo']?>" 
                     data-llegada       ="<?php echo $reserva['fecha_llegada']?>" 
@@ -105,7 +105,7 @@
                     data-tarifa        ="<?php echo $hotel->getDescripcionTarifa($reserva['tarifa'])?>" 
                     data-valor         ="<?php echo $reserva['valor_diario']?>" 
                     data-observaciones ="<?php echo $reserva['observaciones']?>" 
-                    title              ="Ver Acompa√±antes de la Estadia"
+                    title              ="Ver Acompaè´–antes de la Estadia"
                     >
                     <i class="fa fa-users" aria-hidden="true"></i>
                   </button>
@@ -123,13 +123,13 @@
         <tr class="warning" style="font-weight: bold">
           <td>Reserva Nro</td>
           <td>Tipo Hab.</td>
-          <td>Nro Hab.</td>
+          <td>Hab.</td>
           <td>Llegada</td>
           <td>Salida</td>
           <td>Noches</td>
           <td>Hombres</td>
           <td>Mujeres</td>
-          <td>Ni√±os</td>
+          <td>Niè´–os</td>
           <td>Estado</td>
         </tr>
       </thead>
@@ -138,7 +138,7 @@
         foreach ($reservas as $reserva) { ?>
           <tr style='font-size:12px'>
             <td><?php echo $reserva['num_reserva']?></td>
-            <td><?php echo $reserva['tipo_habitacion']; ?></td>
+            <td><?php echo $reserva['descripcion_habitacion']; ?></td>
             <td><?php echo $reserva['num_habitacion']; ?></td>
             <td><?php echo $reserva['fecha_llegada']; ?></td>
             <td><?php echo $reserva['fecha_salida']; ?></td>

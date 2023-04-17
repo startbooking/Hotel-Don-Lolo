@@ -2,12 +2,12 @@
 <header class="main-header">
 
   <a href="<?=$_SESSION['BASE_URL']?>index.php" class="logo" style="height: 51px">
-    <img src="<?=$_SESSION['BASE_URL']?>img/logo.png" style="width:30px;margin-left:-10px;width:40px;">
+    <img class="img_thumbnail" src="<?=BASE_WEB?>img/logoBarahona.png" style="margin-top:-3px;">
     <span style="font-size:16px;font-weight: 600">Menu Principal</span>
   </a>
   <nav class="navbar navbar-static-top" role="navigation">
     <div class="navbar-custom-menu">
-      <ul class="nav navbar-nav navbar-right" style="background-color: #00a65a;color:#FFF;">
+      <ul class="nav navbar-nav navbar-right" style="background-color: #00a65a">
         <?php 
         if(isset($_SESSION['NOMBRE_AMBIENTE'])){
           ?>

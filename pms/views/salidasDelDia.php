@@ -23,14 +23,15 @@
           <table id="example1" class="table modalTable table-bordered">
             <thead>
               <tr class="warning" style="font-weight: bold">
-                <td>Nro Hab.</td>
-                <td align="center">Huesped</td>
+                <td>Hab.</td>
+                <td style="text-align:center;">Huesped</td>
+                <td style="text-align:left;">Compañia</td>
                 <td>Llegada</td>
                 <td>Salida</td>
-                <td>Noches</td>
-                <td>Hombres</td>
-                <td>Mujeres</td>
-                <td>Niños</td>
+                <td>Noc</td>
+                <td>Hom</td>
+                <td>Muj</td>
+                <!-- <td>Niños</td> -->
                 <td>Tarifa</td>
                 <td align="center">Accion</td>
               </tr>
@@ -70,7 +71,7 @@
                             <?php 
                           }
                           if(!empty($reserva['observaciones'])){ ?>
-                            <span class="fa-stack fa-xs" title="Observaciones a la Reserva" style="margin-left:0px;cursor:pointer;" onclick="verObservaciones('<?=$reserva['num_reserva']?>')">
+                            <span class="fa-stack fa-xs" title="Observaciones a la Reserva" style="margin-left:0px;cursor:pointer;" onclick="verObservaciones('<?=$reserva['num_reserva']?>','1')">
                               <i style="font-size:20px;color: #2993dd" class="fa fa-circle fa-stack-2x"></i>
                               <i style="font-size:10px;margin-top: -2px;margin-left: 1px;" class="fa fa-commenting-o fa-stack-1x fa-inverse"></i>
                             </span>
@@ -97,14 +98,15 @@
                             <?php 
                           }
                         }
-                      ?>                                    
+                      ?>
                     </td>
+                    <td><?php echo $nombrecia; ?></td>
                     <td><?php echo $reserva['fecha_llegada']; ?></td>
                     <td><?php echo $reserva['fecha_salida']; ?></td>
                     <td align="center"><?php echo $reserva['dias_reservados']; ?></td>
                     <td align="center"><?php echo $reserva['can_hombres']; ?></td>
                     <td align="center"><?php echo $reserva['can_mujeres']; ?></td>
-                    <td align="center"><?php echo $reserva['can_ninos']; ?></td>
+                    <!-- <td align="center"><?php echo $reserva['can_ninos']; ?></td> -->
                     <td align="right"><?php echo number_format($reserva['valor_diario'],2); ?></td>
                     <td style="padding:2px;width: 13%">
                       <nav class="navbar navbar-default" style="margin-bottom: 0px;min-height:0px;">

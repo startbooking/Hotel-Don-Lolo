@@ -1,5 +1,5 @@
-<?php 
-  $entradas = $inven->getMovimientosInventarios(1);
+<?php
+$entradas = $inven->getMovimientosInventarios(1);
 ?>
 
 <div class="content-wrapper"> 
@@ -7,12 +7,12 @@
     <div class="panel panel-success"> 
       <div class="panel-heading">
         <div class="row"> 
-          <div class="col-lg-6">
-            <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_INV?>">              
+          <div class="col-lg-6 col-xs-12">
+            <input type="hidden" name="rutaweb" id="rutaweb" value="<?php echo BASE_INV; ?>">              
             <input type="hidden" name="ubicacion" id="ubicacion" value="entradas">
             <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-calendar"></i> Entradas de Inventario </h3>
           </div> 
-          <div class="col-lg-6" align="right">
+          <div class="col-lg-6 col-xs-12" align="right">
             <a 
               class="btn btn-success" 
               href="movimientoEntradas">
@@ -45,73 +45,71 @@
               <?php
               foreach ($entradas as $entrada) { ?>
                 <tr style='font-size:12px'>
-                  <td><?php echo $entrada['numero'];?></td>
+                  <td><?php echo $entrada['numero']; ?></td>
                   <td><?php echo $entrada['fecha_movimiento']; ?></td>
                   <td><?php echo $entrada['descripcion_bodega']; ?></td>
                   <td><?php echo $entrada['descripcion_tipo']; ?></td>                  
-                  <td><?php 
-                    if($entrada['traslado']==1){
-                      echo $inven->buscaAlmacen($entrada['id_proveedor']); 
-                    }else{
-                      echo $inven->buscaProveedor($entrada['id_proveedor']); 
+                  <td><?php
+                    if ($entrada['traslado'] == 1) {
+                        echo $inven->buscaAlmacen($entrada['id_proveedor']);
+                    } else {
+                        echo $inven->buscaProveedor($entrada['id_proveedor']);
                     }
                   ?></td>
 
-                  <td align="right"><?php echo number_format($entrada['subtotal'],2); ?></td> 
-                  <td align="right"><?php echo number_format($entrada['impto'],2); ?></td>
-                  <td align="right"><?php echo number_format($entrada['total'],2); ?></td>
-                  <td align="left">
+                  <td><?php echo number_format($entrada['subtotal'], 2); ?></td> 
+                  <td><?php echo number_format($entrada['impto'], 2); ?></td>
+                  <td><?php echo number_format($entrada['total'], 2); ?></td>
+                  <td>
                     <span 
-                    <?php 
-                    if($entrada['estado']==0){ ?>
+                    <?php
+                    if ($entrada['estado'] == 0) { ?>
                       class="badge btn btn-danger" 
-                      <?php 
-                    }else{ ?>
+                      <?php
+                    } else { ?>
                       class="badge btn btn-success" 
-                      <?php 
+                      <?php
                     }
-                    ?>
+                  ?>
                     ><?php echo estadoMovimiento($entrada['estado']); ?></span></td>
-                  <td style="width: 11%"align="center">
-                    <div class="btn-toolbar" role="toolbar">
-                      <div class="btn-group" role="group">
-                        <button 
-                          type             = "button" 
-                          class            = "btn btn-xs btn-warning" 
-                          data-toggle      = "modal" 
-                          data-target      = "#myModalMostrarProductos" 
-                          data-numero      = "<?php echo $entrada['numero'];?>"
-                          data-tipo        = "<?=$entrada['tipo']?>"
-                          data-movimiento  = "<?php echo $entrada['movimiento']; ?>"
-                          data-descripcion = "<?php echo $entrada['descripcion_tipo']; ?>"
-                          data-bodega      = "<?php echo $entrada['id_bodega']; ?>"
-                          title            = "Ver productos del Movimiento"
-                          onclick          = 'btnMuestraProductos()'
-                          >
-                          <i class="fa fa-list-alt" aria-hidden="true"></i>
-                        </button>
-                        <button onclick="imprimeMovimiento(<?=$entrada['numero']?>,<?=$entrada['movimiento']?>)" title="Imprime Movimiento" class="btn btn-xs btn-info" type="button"><i class="fa fa-print" aria-hidden="true"></i></button>  
-                      </div>
-                      <div class="btn-group" role="group" aria-label="...">
-                      <?php 
-                        if($entrada['estado']==1){ ?>
-                          <button 
-                            onclick="anulaMovimiento(<?=$entrada['numero']?>,<?=$entrada['tipo']?>,<?=$entrada['id_bodega']?>)" 
-                            title="Anula Movimiento" 
-                            class="btn btn-xs btn-danger" 
-                            type="button">
-                            <i class="fa fa-times" aria-hidden="true"></i>
-                          </button>  
-                          <?php 
-                        }
-                      ?>
-                      </div>
-                    </div>
+                  <td style="display:flex;">
+                      <button 
+                        type             = "button" 
+                        class            = "btn btn-xs btn-warning" 
+                        data-toggle      = "modal" 
+                        data-target      = "#myModalMostrarProductos" 
+                        data-numero      = "<?php echo $entrada['numero']; ?>"
+                        data-tipo        = "<?php echo $entrada['tipo']; ?>"
+                        data-movimiento  = "<?php echo $entrada['movimiento']; ?>"
+                        data-descripcion = "<?php echo $entrada['descripcion_tipo']; ?>"
+                        data-bodega      = "<?php echo $entrada['id_bodega']; ?>"
+                        title            = "Ver productos del Movimiento"
+                        onclick          = 'btnMuestraProductos()'
+                        >
+                        <i class="fa fa-list-alt" aria-hidden="true"></i>
+                      </button>
+                      <button onclick="imprimeMovimiento(<?php echo $entrada['numero']; ?>,<?php echo $entrada['movimiento']; ?>)" title="Imprime Movimiento" class="btn btn-xs btn-info" type="button"><i class="fa fa-print" aria-hidden="true"></i></button>  
+                    <!-- </div>
+                    <div class="btn-group" role="group" aria-label="..."> -->
+                    <?php
+                    if ($entrada['estado'] == 1) { ?>
+                      <button 
+                        onclick="anulaMovimiento(<?php echo $entrada['numero']; ?>,<?php echo $entrada['tipo']; ?>,<?php echo $entrada['id_bodega']; ?>)" 
+                        title="Anula Movimiento" 
+                        class="btn btn-xs btn-danger" 
+                        type="button">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                      </button>  
+                      <?php
+                    }
+                  ?>
+                    <!-- <div class="btn-group" role="group">
+                    </div> -->
                   </td>
                 </tr>
-                <?php 
+                <?php
               }
-              ?>
+?>
             </tbody>
           </table>
         </div>
@@ -133,25 +131,25 @@
             <?php
             foreach ($entradas as $entrada) { ?>
               <tr style='font-size:12px'>
-                <td><?php echo $entrada['numero'];?></td>
+                <td><?php echo $entrada['numero']; ?></td>
                 <td><?php echo $entrada['fecha_movimiento']; ?></td>
                 <td><?php echo $entrada['descripcion_bodega']; ?></td>
                 <td><?php echo $entrada['descripcion_tipo']; ?></td>                  
-                <td><?php 
-                  if($entrada['traslado']==1){
-                    echo $inven->buscaAlmacen($entrada['id_proveedor']); 
-                  }else{
-                    echo $inven->buscaProveedor($entrada['id_proveedor']); 
-                  }
+                <td><?php
+    if ($entrada['traslado'] == 1) {
+        echo $inven->buscaAlmacen($entrada['id_proveedor']);
+    } else {
+        echo $inven->buscaProveedor($entrada['id_proveedor']);
+    }
                 ?></td>
-                <td align="right"><?php echo number_format($entrada['subtotal'],2); ?></td> 
-                <td align="right"><?php echo number_format($entrada['impto'],2); ?></td>
-                <td align="right"><?php echo number_format($entrada['total'],2); ?></td>
+                <td align="right"><?php echo number_format($entrada['subtotal'], 2); ?></td> 
+                <td align="right"><?php echo number_format($entrada['impto'], 2); ?></td>
+                <td align="right"><?php echo number_format($entrada['total'], 2); ?></td>
                 <td><?php echo estadoMovimiento($entrada['estado']); ?></td>
               </tr>
-              <?php 
+              <?php
             }
-            ?>
+?>
           </tbody>
         </table>
       </div>

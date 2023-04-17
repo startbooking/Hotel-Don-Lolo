@@ -24,29 +24,26 @@
 	$pdf = new FPDF('P', 'mm', array(50,250));
 	$pdf->SetMargins(0, 3 , 0);
   $pdf->AddPage();
-  /*
-  $pdf->Image('../../../../img/'.$logo,2,3,20);
-  $pdf->SetFont('Arial','',14);
-  $pdf->Cell(90,7,utf8_decode(NAME_EMPRESA),0,1,'C');
-  $pdf->SetFont('Arial','',12);
-  $pdf->Cell(90,5,'NIT: '.NIT_EMPRESA,0,1,'C');
-  $pdf->Cell(90,5,REGIMEN,0,1,'C');
-  $pdf->SetFont('Arial','',10);
-  $pdf->Cell(90,5,utf8_decode(ADRESS_EMPRESA),0,1,'C');
-  $pdf->Cell(90,5,utf8_decode(CIUDAD_EMPRESA.' '.PAIS_EMPRESA),0,1,'C');
-  $pdf->Cell(90,5,'Telefono '.TELEFONO_EMPRESA.' Movil '.CELULAR_EMPRESA,0,1,'C');
-  */
-
-  $pdf->Image('../../../../img/'.$logo,2,5,10);
-  $pdf->SetFont('Arial','',9);
-  $pdf->Cell(50,5,utf8_decode(NAME_EMPRESA),0,1,'C');
-  $pdf->SetFont('Arial','',9);
+  $pdf->Image('../../../../img/'.LOGO,2,3,20);
+  /* $pdf->SetFont('Arial','B',14);
+  $pdf->Cell(50,7,utf8_decode(NAME_EMPRESA),0,1,'C');
+   */
+  $pdf->Cell(50,7,$nomamb,0,1,'C');
+	$pdf->SetFont('Arial','',12);
   $pdf->Cell(50,5,'NIT: '.NIT_EMPRESA,0,1,'C');
-  $pdf->Cell(50,5,utf8_decode($nomamb),0,1,'C');
+  $pdf->Cell(50,5,REGIMEN,0,1,'C');
+  $pdf->SetFont('Arial','',10);
+  $pdf->Cell(50,5,utf8_decode(ADRESS_EMPRESA),0,1,'C');
+  $pdf->Cell(50,5,utf8_decode(CIUDAD_EMPRESA.' '.PAIS_EMPRESA),0,1,'C');
+  $pdf->Cell(50,5,'Telefono '.TELEFONO_EMPRESA.' Movil '.CELULAR_EMPRESA,0,1,'C');
+
+  // $pdf->Image('../../../../img/'.LOGO,2,5,10);
+  // $pdf->SetFont('Arial','B',9);
+  //$pdf->Cell(50,7,$nomamb,0,1,'C');
   $pdf->SetFont('Arial','',7);
   $pdf->Cell(50,4,'Fecha '.$fec.' Mesa '.$mesa,0,1,'L');
   $pdf->Cell(50,4,'Usuario: '.$_SESSION['usuario'],0,1,'L');
-  $pdf->SetFont('Arial','',7);
+  $pdf->SetFont('Arial','B',7);
   $pdf->Ln(2);
   $pdf->Cell(50,4,'ESTADO DE CUENTA',0,1,'C');
   $pdf->SetFont('Arial','',7);
@@ -94,7 +91,7 @@
 	  $pdf->Cell(50,4,str_repeat('_', 20),0,1,'L');
 	  */
   	$pdf->Ln(5);
-		$pdf->SetFont('Arial','',8);
+		$pdf->SetFont('Arial','B',8);
 		$pdf->SetFont('Arial','',8);
 	  $pdf->MultiCell(45,5,'Son :'.numtoletras($tot),0,'L');
 	  $pdf->Ln(3);

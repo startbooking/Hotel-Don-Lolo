@@ -16,6 +16,10 @@
   <div class="col-lg-6 col-md-6">
     <input type="text" class="form-control" id="producto" name="producto" value="<?=$updateProd[0]['nom']?>" required >
   </div>
+  <label for="producto" class="control-label col-lg-1 col-md-1">Codigo</label>
+  <div class="col-lg-3 col-md-3">
+    <input type="text" class="form-control" id="codigo" name="codigo" value="<?=$updateProd[0]['cod']?>" required >
+  </div>
 </div>
 <div class="form-group">
   <label for="seccion" class="control-label col-lg-2 col-md-2">Tipo de Plato</label>
@@ -101,51 +105,58 @@
     </label>
   </div>
 </div>
-<div class="form-group" id="receta" name="receta">
-  <label id="labelReceta" class="control-label col-lg-2  col-md-2">
-  <?php 
-    if($updateProd[0]['tipo_producto']==1){ ?>
-      Producto Inventarios
-      <?php 
-    }else{ ?>
-      Receta Estandar
-      <?php 
-    }
 
+<?php  
+if($updateProd[0]['tipo_producto']!=0){
   ?>
-  </label>
-  <div class="col-lg-4 col-md-4">
-    <select name="idrecetaUpd" id="idrecetaUpd" value="0">
-      <?php 
-         if($updateProd[0]['tipo_producto']==1){
-          $productos = $pos->getProductosInventario();
-          foreach ($productos as $producto) { ?>
-            <option 
+  <div class="form-group" id="receta" name="receta">
+    <label id="labelReceta" class="control-label col-lg-2  col-md-2">
+    <?php 
+      if($updateProd[0]['tipo_producto']==1){ ?>
+        Producto Inventarios
+        <?php 
+      }else if($updateProd[0]['tipo_producto']==2){ ?>
+        Receta Estandar
+        <?php 
+      }
+  
+    ?>
+    </label>
+    <div class="col-lg-4 col-md-4">
+      <select name="idrecetaUpd" id="idrecetaUpd" value="0">
+        <?php 
+          if($updateProd[0]['tipo_producto']==1){
+            $productos = $pos->getProductosInventario();
+            foreach ($productos as $producto) { ?>
+              <option 
+                <?php 
+                  if($producto['id_producto']==$updateProd[0]['id_receta']){ ?>
+                    selected
+                    <?php 
+                  }
+                ?>
+              value="<?=$producto['id_producto']?>"><?=$producto['nombre_producto']?></option>
               <?php 
-                if($producto['id_producto']==$updateProd[0]['id_receta']){ ?>
-                  selected
-                  <?php 
-                }
-              ?>
-            value="<?=$producto['id_producto']?>"><?=$producto['nombre_producto']?></option>
-            <?php 
-          }
-        }elseif($updateProd[0]['tipo_producto']==2){
-          $recetas = $pos->traeRecetas();
-
-          foreach ($recetas as $receta) { ?>
-            <option 
+            }
+          }elseif($updateProd[0]['tipo_producto']==2){
+            $recetas = $pos->traeRecetas();
+  
+            foreach ($recetas as $receta) { ?>
+              <option 
+                <?php 
+                  if($receta['id_receta']==$updateProd[0]['id_receta']){ ?>
+                    selected
+                    <?php 
+                  }
+                ?>
+              value="<?=$receta['id_receta']?>"><?=$receta['nombre_receta']?></option>
               <?php 
-                if($receta['id_receta']==$updateProd[0]['id_receta']){ ?>
-                  selected
-                  <?php 
-                }
-              ?>
-            value="<?=$receta['id_receta']?>"><?=$receta['nombre_receta']?></option>
-            <?php 
+            }
           }
-        }
-      ?>
-    </select>
+        ?>
+      </select>
+    </div>
   </div>
-</div>
+<?php
+}
+?>

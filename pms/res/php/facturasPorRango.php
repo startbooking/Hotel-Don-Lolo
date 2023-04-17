@@ -177,9 +177,9 @@
             <td style="padding:3px 5px;text-align: left;"><?php echo $factura['apellido1'].' '.$factura['apellido2'].' '.$factura['nombre1'].' '.$factura['nombre2']; ?></td>
             <td style="padding:3px 5px"><?php echo $factura['fecha_factura']; ?></td>
             <td style="padding:3px 5px"><?php echo $factura['descripcion_cargo']; ?></td>
-            <td style="text-align: right;"> <?=money_format($factura['total_consumos'],2); ?></td>
-            <td style="text-align: right;"><?=money_format($factura['total_impuesto'],2); ?></td>
-            <td style="text-align: right;"><?=money_format($factura['total_pagos'],2); ?></td>
+            <td style="text-align: right;"> <?=number_format($factura['total_consumos'],2); ?></td>
+            <td style="text-align: right;"><?=number_format($factura['total_impuesto'],2); ?></td>
+            <td style="text-align: right;"><?=number_format($factura['total_pagos'],2); ?></td>
             <td style="padding:3px 5px"><?php echo estadoFactura($factura['factura_anulada']); ?></td>
           </tr>
           <?php 

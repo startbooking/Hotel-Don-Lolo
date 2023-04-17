@@ -86,21 +86,19 @@
 
   $pdf->AddPage();
   $pdf->Image('../../../../img/'.$logo,5,15,15);
-  $pdf->SetFont('Times','B',10);
+  $pdf->SetFont('Times','B',14);
   $pdf->Cell(90,7,utf8_decode(NAME_EMPRESA),0,1,'C');
-  $pdf->SetFont('Arial','',9);
+  $pdf->SetFont('Arial','',11);
   $pdf->Cell(90,5,'NIT: '.NIT_EMPRESA,0,1,'C');
-  /*
   $pdf->Cell(90,5,'Iva Regimen Comun',0,1,'C');
   $pdf->Cell(90,5,'NO SOMOS GRANDES CONTRIBUYENTES',0,1,'C');
   $pdf->Cell(90,5,'NI AGENTES RETENEDORES',0,1,'C');
   $pdf->Cell(90,5,utf8_decode(ADRESS_EMPRESA),0,1,'C');
   $pdf->Cell(90,5,utf8_decode(CIUDAD_EMPRESA.' '.PAIS_EMPRESA),0,1,'C');
   $pdf->Cell(90,5,'Telefono '.TELEFONO_EMPRESA.' Movil '.CELULAR_EMPRESA,0,1,'C');
-  */
-  $pdf->SetFont('Arial','B',9);
+  $pdf->SetFont('Arial','B',13);
   $pdf->Cell(90,7,$nomamb,0,1,'C');
-  $pdf->SetFont('Arial','',9);
+  $pdf->SetFont('Arial','',11);
   $pdf->Cell(90,5,'Fecha '.$fec.' Mesa '.$mes,0,1,'L');
   $pdf->Cell(90,5,'Usuario: TIK TAK ',0,1,'L');
   $pdf->Cell(90,5,'Forma de Pago: '.$fpago,0,1,'L');
@@ -122,13 +120,13 @@
 		$val  = 0;
 		$des  = 0;
 		$imp  = 0;
-  $pdf->SetFont('Arial','B',9);
+  $pdf->SetFont('Arial','B',11);
 
 	  $pdf->Cell(60,4,'PRODUCTO',0,0,'C');
 	  $pdf->Cell(10,4,'CANT.',0,0,'C');
 	  $pdf->Cell(20,4,'VALOR',0,1,'C');
 	  $pdf->Ln(1);
-  $pdf->SetFont('Arial','',9);
+  $pdf->SetFont('Arial','',11);
 
 		foreach ($productosventa as $producto) {
 	    $na  = $na  + $producto['cant']; 

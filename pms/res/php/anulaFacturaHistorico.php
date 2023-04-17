@@ -10,8 +10,6 @@
   $idusuario   = $_POST['usuario_id'];    
   $fecha       = FECHA_PMS;
 
-
-  
   include_once('../../imprimir/imprimeFacturaAnuladaHistorico.php');
 
   $inse        = $hotel->insertaHistoricoCongela($reserva); 

@@ -20,3 +20,14 @@
   font-weight: bold;
   text-align: center;
 }
+.pd10 {
+  padding: 10px;
+}
+
+.content-wrapper {
+  margin-left: 50px;
+}
+
+.t-right {
+  text-align: right;
+}

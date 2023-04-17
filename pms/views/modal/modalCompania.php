@@ -287,20 +287,31 @@
 <div class="modal fade bs-example-modal-lg" id="myModalHistoricoReservasCia" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog modal-lg" role="document" style="width: 75%">
 		<div class="modal-content">
-	  	<div class="row-fluid imprime_productos_mov" >
-	  	<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class='glyphicon glyphicon-off' style="color:#530505"></span></button>
-				<h3 class="modal-title" id="myModalLabel">Historico Reservas</h3>
-				<input type="hidden" name="txtIdReservasCiaHis" id="txtIdReservasCiaHis">
-	  	</div>
-    	<div id="datos_ajax_register"></div>
-	  	<div class="modal-body">
-				<div id="historicoReserva" style="position: relative;	text-align: center;top: 5px;width: 100%;"></div>
-		  </div>
-	  	</div>
-	  	<div class="modal-footer">
+      <div class="row-fluid imprime_productos_mov" >
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel">Historico de Reservas</h4>
+          <button style="float: right;margin-top: -25px" class="btn btn-info" onclick="exportTableToExcel('tablaReservas')"><i class="glyphicon glyphicon-th" aria-hidden="true"></i> Exportar</button> 
+          <input type="hidden" name="txtIdReservasCiaHis" id="txtIdReservasCiaHis">
+        </div>
+        <!--     
+          <div class="modal-header">
+            <input type="hidden" name="txtIdHuespedHis" id="txtIdHuespedHis">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class='glyphicon glyphicon-off' style="color:#530505"></span></button>
+            <h3 class="modal-title" id="myModalLabel">Historico Reservas</h3>
+            <input type="hidden" name="txtIdReservasCiaHis" id="txtIdReservasCiaHis">
+            <div class="container-fluid" style="padding-bottom: 15px;">
+            <button style="float: right;" class="btn btn-info" onclick="exportTableToExcel('tablaReservas')"><i class="glyphicon glyphicon-th" aria-hidden="true"></i> Exportar</button> 
+          </div>
+        </div>
+        -->
+    	  <div id="datos_ajax_register"></div>
+        <div class="modal-body">
+				  <div id="historicoReserva" style="position: relative;	text-align: center;top: 5px;width: 100%;"></div>
+		    </div>
+      </div>
+      <div class="modal-footer">
 				<button style="width: 25%;right:inherit" type="button" class="btn btn-warning" data-dismiss="modal">Cerrar</button>
-	  	</div>
+      </div>
 		</div> 
   </div>
 </div> 

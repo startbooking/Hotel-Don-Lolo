@@ -3,9 +3,9 @@
 
   $movimientos = $pos->getProductosMovimiento($numeroMov);
 
-  $pdf = new FPDF(); 
+  $pdf = new FPDF();
   $pdf->AddPage('P','letter');
-  /// $pdf->Image('../../../../img/'.$logo,10,10,20);
+  $pdf->Image('../../../../img/'.$logo,10,10,20);
   $pdf->SetFont('Arial','B',13);
   $pdf->Cell(195,7,NAME_EMPRESA,0,1,'C');
   $pdf->SetFont('Arial','B',12);
@@ -25,7 +25,7 @@
   $pdf->SetFont('Arial','',12);
   $pdf->Cell(40,6,str_pad($movimientos[0]['numero'],5,'0',STR_PAD_LEFT),0,1,'L');
   $pdf->SetFont('Arial','B',12);
-  $pdf->Cell(25,6,'Almacen ',0,0,'L');
+  $pdf->Cell(40,6,'Almacen ',0,0,'L');
   $pdf->SetFont('Arial','',12);
   $pdf->Cell(70,6,$pos->buscaAlmacen(utf8_decode($movimientos[0]['id_bodega'])),0,0,'L');
   $pdf->SetFont('Arial','B',12);

@@ -24,8 +24,8 @@ ws.onclose = e => {
 const btnSend = document.getElementById('btnSend');
 btnSend.addEventListener('click', () => {
 	const data = {
-		name = 'Pedro',
-		message =  'Hola Amifos Como estan ??'
+		name:'Pedro',
+		message: 'Hola Amigos Como estan ??'
 	};
 	ws.send(JSON.stringify(data));
 });

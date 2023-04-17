@@ -1,7 +1,7 @@
 <?php
 
 	require '../../../../res/php/titles.php';
-    require '../../../../res/php/app_topPos.php';  
+  require '../../../../res/php/app_topPos.php';  
 
 	$fpago           = $_POST['formapago']; 
 	$nrocomanda      = $_POST['comanda']; 
@@ -75,10 +75,10 @@
 			$vimp   = $ventadia['impto'];
 			$valimp = $ventadia['valorimpto'];
 
-			$factura = $pos->insertProductoVentas($iamb, $inom, $iven, $ican, $iimp, $idpr, $vimp, $valimp, $nFactura,$pms,$usuario,$numerocomanda );
+			$factura = $pos->insertProductoVentas($iamb, $inom, $iven, $ican, $iimp, $idpr, $vimp, $valimp, $nFactura,$pms,$usuario,$numerocomanda);
 		}
 
-		$insFact = $pos->insertFacturaVentaPOS($nFactura,$numerocomanda,$ambiente,$mesa,$pax,$usuario,$total,$subtotal,$impuesto,$propina,$descuento,$pagado,$cambio,$fecha,$pms,'A',$fpago,$cliente); 
+		$insFact = $pos->insertFacturaVentaPOS($nFactura,$numerocomanda,$ambiente,$mesa,$pax,$usuario,$total,$subtotal,$impuesto,$propina,$descuento,$pagado,$cambio,$fecha,$pms,'A',$fpago,$cliente);
 
 		$actComanda  = $pos->updateFacturaComanda($nFactura,'P',$usuario,$fecha,$numerocomanda, $ambiente);
 
@@ -93,7 +93,7 @@
 			$nrohabi      = $datosCliente[0]['num_habitacion'];
 			$idhues       = $datosCliente[0]['id_huesped'];
 			$nrores       = $datosCliente[0]['num_reserva'];
-			$cargoPMS     = $pos->cargosInterfasePOS($fechapos,$subtotal,$impuesto,$codcargo,$nrohabi,$descargo,$impcargo,$idhues,$prefijo.'_'.$nFactura,$nrores,$numerocomanda);
+			$cargoPMS     = $pos->cargosInterfasePOS($fechapos,$subtotal,$impuesto,$codcargo,$nrohabi,$descargo,$impcargo,$idhues,$prefijo.'_'.$nFactura,$nrores,$numerocomanda,  );
 
 			if($propina<> 0){
 				$codcargo     = $_SESSION['CODIGO_VENTA'];

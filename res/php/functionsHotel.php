@@ -14,9 +14,9 @@
 				'productos_amenities.id_producto',
 				'productos_amenities.cantidad',
 			],[
-				'id_tipohabitacion' => $tipo
+				'id_tipohabitacion' => $tipoget
 			]);
-			return $data; 
+			return $data;
 		}
 
 		public function getTipoHabitacionesOcupadas(){
@@ -3007,18 +3007,18 @@
 			return $data;
 		}
 
-		public function borraHistoricoCargos($numero){
+		public function borraHistoricoCargos(){
 			global $database;
 
 			$data = $database->delete('cargos_pms',[
 				'AND' => [
-					'factura_numero[<>]' => 0
+					'factura_numero[>]' => 0
 				]
 			]);
 			return $data;
 		}
 
-		public function enviaHistoricoCargos($numero){
+		public function enviaHistoricoCargos(){
 			global $database;
 
 			$data = $database->query("INSERT INTO historico_cargos_pms SELECT * FROM cargos_pms WHERE factura_numero != 0")->fetchAll();
@@ -3216,7 +3216,7 @@
 			return $data;
 		}
 
-		public function updateEstadia($impto, $salida, $noches, $numero, $motivo, $fuente, $segmento, $formapa, $observa, $orden){
+		public function updateEstadia($impto, $salida, $noches, $numero, $motivo, $fuente, $segmento, $formapa, $orden){
 			global $database;
 
 			$data = $database->update('reservas_pms',[
@@ -3226,7 +3226,6 @@
 				'motivo_viaje'     => $motivo,
 				'fuente_reserva'   => $fuente,
 				'segmento_mercado' => $segmento,
-				'observaciones'    => $observa,
 				'forma_pago'       => $formapa,
 				'orden_reserva'    => $orden,
 				'causar_impuesto'  => $impto
@@ -3968,6 +3967,11 @@
 				'historico_reservas_pms.tipo_reserva',
 				'historico_reservas_pms.num_habitacion',
 				'historico_reservas_pms.num_reserva',
+				'historico_reservas_pms.num_registro',				
+				'historico_reservas_pms.orden_reserva',				
+				'historico_reservas_pms.valor_diario',				
+				'historico_reservas_pms.observaciones',	
+				'historico_reservas_pms.tipo_habitacion',	
 				'historico_reservas_pms.can_hombres',
 				'historico_reservas_pms.can_mujeres',
 				'historico_reservas_pms.can_ninos',
@@ -5526,7 +5530,7 @@
 			],[
 				'id' => $tipo
 			]);
-			return $data;			
+			return $data;
 		}
 
 		public function getMotivoViaje(){
@@ -5634,7 +5638,7 @@
 				'sexo'              => $sexo,
 				'usuario_creador'   => $usuario,
 				'id_usuario'        => $idusuario,
-				'fecha_creacion'    => date("Y-m-d H:i:s"),				
+				'fecha_creacion'    => date("Y-m-d H:i:s"),
 				'celular'           => $celular,
 				'tipo_huesped'      => $tipohues,
 				'id_tarifa'         => $tarifa,

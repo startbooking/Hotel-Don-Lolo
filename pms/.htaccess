@@ -1,7 +1,7 @@
 Options +FollowSymLinks
 Options All -Indexes
 
-RewriteEngine on 
+RewriteEngine on  
 
 #Rutas Usuarios
 RewriteRule ^index index.php?section=index [QSA] 

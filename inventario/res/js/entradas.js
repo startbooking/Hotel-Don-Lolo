@@ -976,27 +976,27 @@ function removeOrder(orderId = null) {
 	}
 
 	function busca_producto(codigo){
-    $(document).ready(function(){
-      $.ajax({
-        beforeSend: function(){
-        },
-        url: '../code/busca_productos.php',
-        type: 'POST',
-        dataType: 'json',
-        data: 'codigo='+$("#producto").val(),
-        success: function(x){
-					$("#codigo").val(x.cod_prod);
-					$("#costo").val(x.pco_prod);
-					$("#unidad").val(x.uco_prod);
-					$("#descripcion").val(x.nom_prod);
-          $("#cantidad").val(0);
-          $("#costo").attr("disabled", false);
-          $("#cantidad").attr("disabled", false);
-          $("#costo").select();
-          $("#costo").focus();
-        }
-      })
-    })
+		$.ajax({
+			beforeSend: function(){
+			},
+			url: '../code/busca_productos.php',
+			type: 'POST',
+			dataType: 'json',
+			data: 'codigo='+$("#producto").val(),
+			success: function(x){
+				$("#codigo").val(x.cod_prod);
+				$("#costo").val(x.pco_prod);
+				$("#unidad").val(x.uco_prod);
+				$("#descripcion").val(x.nom_prod);
+				$("#cantidad").val(0);
+				$("#costo").attr("disabled", false);
+				$("#cantidad").attr("disabled", false);
+				$("#costo").select();
+				$("#costo").focus();
+			}
+		})
+    /* $(document).ready(function(){
+    }) */
 	}
 
 	function activa_botones_mov(){
@@ -1007,23 +1007,23 @@ function removeOrder(orderId = null) {
 
 	function pone_por_impto(){
 		var imp = $("#impuesto").val();
-	  $(document).ready(function(){
-	    $.ajax({
-	      beforeSend: function(){
-	      },
-	      url: '../code/busca_porc_impto.php',
-	      type: 'POST',
-	      dataType: 'json',
-	      data: 'codigo='+$("#impuesto").val(),
-	      success: function(x){
-	      	if('x'==0){
-						$("#porc_impto").val(0);
-	      	}else{
-						$("#porc_impto").val(x.mpo_impu);
-	      	}
-	      }
-	    })
-	  })
+		$.ajax({
+			beforeSend: function(){
+			},
+			url: '../code/busca_porc_impto.php',
+			type: 'POST',
+			dataType: 'json',
+			data: 'codigo='+$("#impuesto").val(),
+			success: function(x){
+				if('x'==0){
+					$("#porc_impto").val(0);
+				}else{
+					$("#porc_impto").val(x.mpo_impu);
+				}
+			}
+		})
+	  /* $(document).ready(function(){
+	  }) */
 	}
 
   function cancela_add(){
@@ -1079,18 +1079,18 @@ function removeOrder(orderId = null) {
 
 	function actualiza_entrada_temp(codigo){
 	  var art=codigo;
-	  $(document).ready(function(){
-	    $.ajax({
-	      beforeSend: function(){
-	      },
-	      url: 'update_articulos_en_tempentrada.php',
-	      type: 'POST',
-	      data: 'articulo='+art,
-	      success: function(t){
+		$.ajax({
+			beforeSend: function(){
+			},
+			url: 'update_articulos_en_tempentrada.php',
+			type: 'POST',
+			data: 'articulo='+art,
+			success: function(t){
 
-	      },
-	      error: function(jqXHR,estado,error){
-	      }
-	    });
-	  })
+			},
+			error: function(jqXHR,estado,error){
+			}
+		});
+	  /* $(document).ready(function(){
+	  }) */
 	}

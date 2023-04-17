@@ -24,7 +24,7 @@
                     <select class="form-control" name="almacen" id="almacen" onblur='asignaLocalStorage(this.name, this.value)'>
                       <option value="">Seleccione el Almacen</option>
                       <?php 
-                        $bodegas = $inven->getBodegas();
+                        $bodegas = $inven->getBodegaPrinc();
                         foreach ($bodegas as $bodega) { ?> 
                           <option name="<?=$bodega['id_bodega']?>" value="<?=$bodega['id_bodega']?>"><?=$bodega['descripcion_bodega']?></option>
                           <?php 

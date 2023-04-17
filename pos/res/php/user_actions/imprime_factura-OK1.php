@@ -74,14 +74,12 @@
           if (window.print) {
             window.print();
           } else {
-          	swal('Precaucion','La función de impresion no esta soportada por su navegador','warning')
+						swal('Precaucion','La función de impresion no esta soportada por su navegador','warning')
           }
         }
       </script>
       <style type="text/css" media="print">
-				@page{
-			   	margin: 0;
-				}
+				@page{margin: 0;}
 			</style>
   </head>
   <body onload="imprimir();">
@@ -191,17 +189,17 @@
 			<div class="row-fluid" style='margin-top:10px'>
 				<div class="row-fluid">
 					<p style="text-align: justify;font-size:10px">
-						
-					<?php 
- 						$fp = fopen("../../../text/propina.txt", "r");
+
+					<?php
+					$fp = fopen("../../../text/propina.txt", "r");
 						while(!feof($fp)) {
 							$linea = fgets($fp);
 							echo $linea . "<br />";
 						}
 						fclose($fp);
-					 ?>
+?>
 					</p>
-				</div>				
+				</div>
 			</div>
 		</div>
 		<?php 

@@ -1,11 +1,10 @@
-body {
-  /* padding-bottom: 15px; */
-}
-
 .content {
   padding:0;
 }
 
+#pantalla{
+  min-height: 600px;
+}
 .form-signin {
   max-width: 350px;
   padding: 19px 29px 29px;
@@ -14,6 +13,17 @@ body {
   border: 1px solid #e5e5e5;
   border-radius: 25px;
   box-shadow: 0 1px 2px rgba(0,0,110,.05);
+}
+
+#menuPos {
+  padding-top:0px;
+  background: #000;
+}
+
+.tituloCliente{
+  width: 96%;
+  border-radius: 1px;
+  margin-top: 3px;
 }
 
 .form-signin .form-signin-heading,
@@ -44,37 +54,6 @@ body {
   padding: 0px;
 }
 
-.bordeSeccion {
-  border:1px solid #000;height:400px;
-}
-
-.borderCajas {
-  border:2px solid #0009;text-align: center;
-}
-
-.tCaja18 {
-  height:180px;
-} 
-
-.tCaja15 {
-  height:150px;
-} 
-
-.tCaja13 {
-  height:130px;
-} 
-
-.tCaja12 {
-  height:120px;
-} 
-
-.btn635 {
-  width:60px;
-  height:35px;
-  border:2px solid #0009;
-  position:absolute;
-}
-
 .container-secciones{
   width:25%;
   height: 50%;
@@ -87,49 +66,90 @@ body {
 }
 
 .btnPos{
-  /*
-  font-size:0.9em;
-  */
   font-weight: bold;
   text-align: center;
   white-space:unset;
   padding:0;
   margin:.5px;
   font-family:'ubuntu';
-  height:80px;  
+  height:80px;
   font-size:13px;
   color:black;
   line-height: 15px;
 }
 
+.tablas{
+  padding:5px 0px 0px 10px;
+  overflow: auto; 
+  display:none
+}
+
 .btnProd {
-  width:32.5%;
+  width:33%;
+}
+
+.prende {
+  display:none;
 }
 
 .btnSecc{
-  width:32.3%;
-  font-size:13px;  
+  width:32.2%;
+  font-size:13px;
 }
 
 .btnInfoCom{
-  background-color: #a9a9a92e;
-  width: 24.2%;
+  width: 19.3%;
   height: 80px
 }
 
+.btnFactura {
+  height:30px;
+  width:30px;
+  line-height: 1px;
+  font-size:12px;
+}
+
+.btnFactura i {
+  margin-left: -4px;
+  font-size: 14px;
+}
 .btnInfoCom h3{
   font-weight: bold;
-  font-size:17px;
+  font-size:15px;
   margin: 0;
 }
 
+.btnRecu {
+  height: 50px;
+  font-weight: 600;
+  font-size:14px;
+}
+
+.btn-toolbar {
+  margin: 0px;
+}
+
+.btn-group, .btn-group-vertical {
+  display: contents;
+}
 .btnInfoCom h4{
   font-weight: bold;
-  font-size:14px;
+  font-size:12px;
   margin: 0;
-  margin-top: 5px;
+  margin-top: 2px;
 }
 
+#nombreUsuario {
+  display:flex;
+}
+
+#nombreUsuario p{
+  margin: 0;
+}
+
+#nombreUsuario span{
+  margin:8px;
+}
 
 .marginrl-5{
   margin-left: 5px;
@@ -149,6 +169,10 @@ body {
   margin-bottom:5px;
 }
 
+.main-sidebar, .left-side {
+  min-height: 86%;
+}
+
 .form-group input[type="text"], 
 .form-group input[type="email"], 
 .form-group input[type="password"], 
@@ -160,13 +184,9 @@ body {
 .ctrlCta {
   padding:1px 0px;
   font-size:12px;
-
 }
 
 .btn-group {
-  /*  
-  width: 100%;
-   */
   padding:1px;
   font-size: 12px;
 }
@@ -180,7 +200,6 @@ body {
   font-size:12px;
   padding:5px;
   width: 50%;
-
 }
 .avisoVta {
   font-size:28px;
@@ -201,8 +220,17 @@ body {
   background-color:#FAF705;
 }
 
-.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
-  font-size:13px;
+.table > tbody > tr > td, 
+.table > tbody > tr > th, 
+.table > tfoot > tr > td, 
+.table > tfoot > tr > th {
+  font-size:12px;
+
+}
+
+.table > thead > tr > td, 
+.table > thead > tr > th {
+  font-size:15px;
 
 }
 .table > thead > tr > th {
@@ -210,12 +238,13 @@ body {
   text-align: center;
 }
 
+.comandaDiv >tbody>tr>td {
+ padding:3px;
+}
+
 .estadoComanda{
   font-size:17px;
   font-weight: 700;  
-}
-
-.comanda thead tr tr {
 }
 
 .tituloEscritorio {
@@ -226,12 +255,17 @@ body {
   word-spacing: 7px;
 }
 
-.dataTables_wrapper .dataTables_paginate .paginate_button {
-    /* padding: 3px !important;*/ 
+.table-bordered > thead > tr > th, 
+.table-bordered > thead > tr > td {
+  padding: 5px !important;
+  
 }
 
-.table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
-    padding: 3px !important;
+.table-bordered > tbody > tr > th, 
+.table-bordered > tbody > tr > td, 
+.table-bordered > tfoot > tr > th, 
+.table-bordered > tfoot > tr > td {
+  padding: 3px 5px !important;
 }
 
 .centrarBotones{
@@ -271,6 +305,20 @@ body {
   opacity: .5;
 }
 
+.modal-info{
+  background-color: #44916d4f !important;
+}
+
+.modal-success {
+  
+  background-color:#06a85ed9 !important;
+}
+
+.btnTitle {
+  float:right;
+  margin-top:10px;
+}
+
 .btn-menu {
   position: fixed;
   padding: 4px;
@@ -306,13 +354,6 @@ form textarea {
   margin-top:5px;
   float: right;
 }
-
-#Escritorio{
-  /*
-  margin-left:17%;
-  */
-}
-
 
 @media (max-width:1200px){
   .btnPos {
@@ -354,12 +395,101 @@ form textarea {
   text-align:left;
 }
 
+#productoList{
+  padding:0px;text-align:center;overflow: auto;display:block;
+}
+
+#seccionList{
+  padding:0;display:block;text-align:center;
+}
+
+#ventasList{
+  padding:0px;
+}
+
+#seccionList {
+  min-height: 120px; height: 417px;
+}
+
+#productosComanda, #productosDivide {
+  background-color:#FCF7AB;
+  margin-top: 0;
+  overflow: auto;
+  height: 428px;
+}
+
+#comanda tbody tr td {
+  padding:3px 3px 0px 3px;  
+}
+
+#tituloNumero {
+  padding:2px;
+  text-align: center;
+  font-weight: bold;
+  margin: 0px 15px 0 0;
+}
+
+.t-center {
+  text-align: center;
+}
+
+.t-right {
+  text-align: right;
+}
+
+.menuComanda {
+  padding: 0 5px 0 0;margin-top:0px;
+}
+
+.estadoComanda tbody tr td, .estadoComandaDiv tbody tr td{
+  font-size:13px;padding:5px
+}
+
+.base {
+  position:absolute;top:25%;left:25%
+}
+
 @media (max-width:767px){
+
+  .base {
+    left: 5%;
+  }
+
+  #productosComanda {
+    margin-top:10px;
+  }
+
+  .table > thead > tr > td, 
+  .table > thead > tr > th {
+    font-size: 12px;
+}
+
+  #tituloNumero {
+    margin-top:10px;
+  }
+
+  .info td {
+    font-size: 12px;
+  }
+
+  /* .comanda thead {
+    display: block;
+
+  }
+ */
+
+  .mr-2 {
+    width: 100%;
+  } 
+
+  .btn {
+    width: 33%;
+  }
   #Escritorio{
-    margin-left:25%;
+    margin-left:50px;
   }
   .btnPos {
-    width: 100%;
+    width: 32%;
   }
 
   .logoAmbiente{

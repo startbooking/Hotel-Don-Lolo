@@ -1,3 +1,8 @@
+/* sesion = JSON.parse(localStorage.getItem("sesion"));
+let { usuarioAct } = sesion;
+let { usuario, usuario_id, apellidos, nombres } = usuarioAct;
+ */
+
 $("#modalConsultaKardex").on("show.bs.modal", function (event) {
   var button = $(event.relatedTarget); // Botón que activó el modal
   var id = button.data("id"); // Extraer la información de atributos de datos
@@ -10,11 +15,12 @@ function muestraKardex(bodega) {
   $.ajax({
     url: "res/php/getKardex.php",
     type: "POST",
-    data: { bodega: bodega },
+    data: { bodega },
     success: function (data) {
       $("#datosMovimientos").html(data);
       $("#example1").DataTable({
         paging: true,
+        iDisplayLength: 25,
       });
     },
   });
@@ -49,9 +55,9 @@ function anulaMovimiento(id, movimiento, bodega) {
   var ubica = $("#ubicacion").val();
   var id = id;
   var tipo = movimiento;
-  sesion = JSON.parse(localStorage.getItem("sesion"));
+  /* sesion = JSON.parse(localStorage.getItem("sesion"));
   usuario = sesion["usuario"][0]["usuario"];
-
+ */
   parametros = {
     id,
     tipo,
@@ -118,8 +124,8 @@ function actualizaProveedor() {
 }
 
 function guardaProveedor() {
-  sesion = JSON.parse(localStorage.getItem("sesion"));
-  usuario = sesion["usuario"][0]["usuario"];
+  /* sesion = JSON.parse(localStorage.getItem("sesion"));
+  usuario = sesion["usuario"][0]["usuario"]; */
   var pagina = $("#ubicacion").val();
   var ruta = $("#rutaweb").val();
   var proveedor =
@@ -140,8 +146,8 @@ function guardaProveedor() {
 }
 
 function guardaProducto() {
-  sesion = JSON.parse(localStorage.getItem("sesion"));
-  usuario = sesion["usuario"][0]["usuario"];
+  /* sesion = JSON.parse(localStorage.getItem("sesion"));
+  usuario = sesion["usuario"][0]["usuario"]; */
   var pagina = $("#ubicacion").val();
   var ruta = $("#rutaweb").val();
   var productos =

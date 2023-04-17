@@ -1,10 +1,10 @@
-    <div class="row bordeSeccion" style="height:390px;margin-bottom:20px;">
+    <div class="row bordeSeccion" style="height:430px;margin-bottom:20px;">
       <div class="col-md-4 " style="padding:0px;">
-        <div class="container-fluid borderCajas" style="position:absolute;width:100px;height: 152px;margin-left:73%;">
+        <div class="container-fluid borderCajas" style="position:absolute;width:100px;height: 152px;margin-left:72%;">
           <label class="control-label" style="margin-top: 88%;"> JACUZZI</label>
         </div>
         <div class="row">
-          <button onclick="abreCuenta('12')" class="btn btn-success btn635" id="boton12" name="boton12" style="margin-left:88%;;margin-top:81%;">M 12</button>
+          <button onclick="abreCuenta('12')" class="btn btn-success btn635" id="boton12" name="boton12" style="margin-left:87%;;margin-top:81%;">M 12</button>
           <button onclick="abreCuenta('13')" class="btn btn-success btn635" id="boton13" name="boton13" style="margin-left: 55%;margin-top: 77%;border-radius: 50%;height: 60px;">T 13</button>
           <button onclick="abreCuenta('14')" class="btn btn-success btn635" id="boton14" name="boton14" style="margin-left:15%;;margin-top:84%;">M 14</button>
           <button onclick="abreCuenta('15')" class="btn btn-success btn635" id="boton15" name="boton15" style="margin-left:28%;;margin-top:38%;">M 15</button>
@@ -39,7 +39,7 @@
         </div>
       </div>
     </div>
-    <div class="row" style="margin-top:20px">
+    <div class="row" style="margin-top:50px">
       <div class="container-fluid" style="padding:10px">
         <div class="col-md-6 col-xs-6">
           <a onclick="facturasDia()" class="small-box-footer">

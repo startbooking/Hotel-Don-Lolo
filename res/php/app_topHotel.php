@@ -48,7 +48,7 @@
 	define("CORREO_EMPRESA", $empresa[0]['correo']);
 	define("LOGO", $empresa[0]['logo']);
 	define("xPOS", $empresa[0]['xlogo']);
-	define("yPOS", $empresa[0]['ylogo']); 
+	define("yPOS", $empresa[0]['ylogo']);
 	define("tPOS", $empresa[0]['tlogo']);
 	define("CIIU", $empresa[0]['codigo_ciiu']);
 	define("TIPOEMPRESA", $hotel->getTypeCia($empresa[0]['tipo_empresa']));
@@ -59,12 +59,13 @@
 
 	if(!isset($_GET['section'])){
 	}elseif(isset($_GET['section']) && $_GET['section'] == 'home'){
-
+      $companias = $hotel->getCompanias();
 	}elseif(isset($_GET['section']) && $_GET['section'] == 'companias'){ 
-	  $companias = $hotel->getCompanias(); 
+	  $companias = $hotel->getCompanias();
 	}elseif(isset($_GET['section']) && $_GET['section'] == 'agencias'){
-	  $agencias = $hotel->getAgencias(); 
+	  $agencias = $hotel->getAgencias();
 	}elseif(isset($_GET['section']) && $_GET['section'] == 'reservasActivas'){
+	  $companias = $hotel->getCompanias(); 
 	  //$reservas = $hotel->getReservasActuales(1); 
 	}elseif(isset($_GET['section']) && $_GET['section'] == 'forecast'){
 	}elseif(isset($_GET['section']) && $_GET['section'] == 'preregistros'){
@@ -77,6 +78,7 @@
 	  $hoy      = $hotel->getDatePms();
 	  // $reservas = $hotel->getReservasDia(FECHA_PMS,1,"ES");  
 	}elseif(isset($_GET['section']) && $_GET['section'] == 'llegadaSinReserva'){
+	  $companias = $hotel->getCompanias(); 
 	}elseif(isset($_GET['section']) && $_GET['section'] == 'salidasDelDia'){
 	  $reservas = $hotel->getSalidasDia(FECHA_PMS,2,"CA");  
 	}elseif(isset($_GET['section']) && $_GET['section'] == 'salidasRealizadas'){

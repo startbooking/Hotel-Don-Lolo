@@ -2,6 +2,7 @@
 
   require '../../../res/php/titles.php';
   require '../../../res/php/app_topHotel.php'; 
+	
 
 	$numero        =  $_POST['numeroReserva'];
 	$iden          =  $_POST['identifica'];

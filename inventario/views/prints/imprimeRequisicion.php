@@ -1,8 +1,8 @@
-<?php
+<?php 
+  
+  require '../../../res/shared/plantillaInvVer.php'; 
 
-  require '../../../res/shared/plantillaInvVer.php';
-
-  $numeroReq = $numero;
+  $numeroReq = $numero; 
   $pedidos   = $inven->getRequisicionDetallado($numeroReq);
 
   $pdf = new PDF();
@@ -35,7 +35,7 @@
   $pdf->Cell(30,6,'VAL UNITARIO',1,0,'C');
   $pdf->Cell(35,6,'VALOR TOTAL',1,1,'C');
   $pdf->SetFont('Arial','',9);
-  $totalsum  = 0;
+  $totalsum  = 0; 
   foreach ($pedidos as $pedido) {
     $totalsum = $totalsum + $pedido['valor_total']; 
     $pdf->Cell(65,6,utf8_decode($pedido['nombre_producto']),1,0,'L');

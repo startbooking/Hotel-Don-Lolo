@@ -40,6 +40,7 @@
 	
 	$hotel         = $user->getHotelInfo();
 	
+	/* 
 	$hotelabout    = $user->getAboutHotel();	 
 	$rooms         = $user->getRoomHotel();
 	$sliders       = $user->getSliderHotel();	
@@ -48,7 +49,7 @@
 	$userGoogle    = $user->getUserSocial('Google');
 	$userFacebook  = $user->getUserSocial('Facebook');
 	$userInstagram = $user->getUserSocial('Instagram');
-
+ */
 	define('ID_HOTEL', $hotel[0]['id_hotel']);
 	define("NAME_HOTEL", $hotel[0]['hotel_name']);
 	define("NIT_HOTEL", $hotel[0]['nit_hotel']);
@@ -85,20 +86,20 @@
   define("MMTO", $hotel[0]['mmto']);
   define("MENSAJEMMTO", $hotel[0]['textoMmto']);
 
-	$hotelabout    = $user->getAboutHotel();	 
+/* 	$hotelabout    = $user->getAboutHotel();	 
 	$rooms         = $user->getRoomHotel();
 
 	$userTwitter   = $user->getUserSocial('Twitter');
 	$userGoogle    = $user->getUserSocial('Google');
 	$userFacebook  = $user->getUserSocial('Facebook');
-	$userInstagram = $user->getUserSocial('Instagram');
+	$userInstagram = $user->getUserSocial('Instagram'); */
 
 
 
 	$pc = gethostname();
 	$ip = $_SERVER['REMOTE_ADDR'];
 	if(!isset($_GET['section'])){
-		$link    = '';		
+		$link    = '';
 	}else{
 		/// $infoseo = $user->getInfoSeo($_GET['section'],ID_HOTEL);	
 		$link    = $_GET['section'];
@@ -110,22 +111,22 @@
 		$sliders = $user->getSliderHotel(ID_HOTEL);	
 	}elseif(isset($_GET['section']) && $_GET['section'] == 'about'){
 		$totimages = $user->getCantidadImagenes(ID_HOTEL);
-		$cant      = rand(1,($totimages-5));						
-		$galleries = $user->getGallery($cant,5,ID_HOTEL);				
+		$cant      = rand(1,($totimages-5));
+		$galleries = $user->getGallery($cant,5,ID_HOTEL);
 	}elseif(isset($_GET['section']) && $_GET['section'] == 'rooms'){
-		$infoseo = $user->getInfoSeo($_GET['section'],ID_HOTEL);	
+		// $infoseo = $user->getInfoSeo($_GET['section'],ID_HOTEL);	
 	}elseif(isset($_GET['section']) &&	$_GET['section'] == 'article'){
 		$article = $user->getArticleInfo($_GET['url'],ID_HOTEL);
 		$link = $_GET['url'];
 	}elseif(isset($_GET['section']) &&	$_GET['section'] == 'news'){
 		$news = $user->getNews(ID_HOTEL);
 	}elseif(isset($_GET['section']) &&	$_GET['section'] == 'new'){
-		$infonew = $user->getNewsInfo($_GET['url'],ID_HOTEL);
+		// $infonew = $user->getNewsInfo($_GET['url'],ID_HOTEL);
 		$link    = $_GET['section'].'/'.$_GET['url'];
 	}elseif(isset($_GET['section']) &&	$_GET['section'] == 'events'){
-		$events = $user->getEvents(ID_HOTEL);
+		// $events = $user->getEvents(ID_HOTEL);
 	}elseif(isset($_GET['section']) &&	$_GET['section'] == 'event'){
-		$infoevent = $user->getEventsInfo($_GET['url'],ID_HOTEL);
+		// $infoevent = $user->getEventsInfo($_GET['url'],ID_HOTEL);
 		$link = $_GET['section'].'/'.$_GET['url'];
 	}elseif(isset($_GET['section']) &&	$_GET['section'] == 'room'){
 		$inforoom  = $user->getRoomInfo($_GET['url'],ID_HOTEL);

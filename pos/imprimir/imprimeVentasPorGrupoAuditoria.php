@@ -1,4 +1,5 @@
 <?php 
+  require_once '../../res/fpdf/fpdf.php';
 
   $ventas   = $pos->getTotalGruposVendidos($idamb);
   $cantidad = $pos->getCantidadProductosVendidos($idamb);
@@ -15,29 +16,16 @@
 
   $pdf = new FPDF();
   $pdf->AddPage('P','letter');
-  $pdf->Image('../../../../img/'.$logo,10,10,15);
-  $pdf->SetFont('Arial','B',13);
-  $pdf->Cell(190,7,utf8_decode(NAME_EMPRESA),0,1,'C');
+  $pdf->Image('../../img/'.LOGO,10,10,15);
+  $pdf->SetFont('Arial','B',12);
+  $pdf->Cell(190,6,$nomamb,0,1,'C');
   $pdf->SetFont('Arial','',10);
   $pdf->Cell(190,5,'NIT: '.NIT_EMPRESA,0,1,'C');
-  /*
   
-  $pdf->Cell(190,5,TIPOEMPRESA,0,1,'C');
-  $pdf->Cell(190,5,utf8_decode(ADRESS_EMPRESA),0,1,'C');
-  $pdf->Cell(190,5,utf8_decode(CIUDAD_EMPRESA).' '.PAIS_EMPRESA,0,1,'C');
-  $pdf->Cell(40,5,'',0,0,'C');
-  $pdf->Cell(110,5,'Telefono '.TELEFONO_EMPRESA.' Movil '.CELULAR_EMPRESA,0,1,'C');
-   */
-  $pdf->SetFont('Arial','B',13);
-  /// $pdf->Cell(190,6,$_SESSION['NOMBRE_AMBIENTE'],0,1,'C');
-  $pdf->Cell(190,6,$nomamb,0,1,'C');
-
   $pdf->Ln(1);
   $pdf->SetFont('Arial','B',10);
   $pdf->Cell(195,5,'VENTAS GRUPOS DE PRODUCTOS '.$fecha,0,1,'C');
   $pdf->Ln(2);
-
-  $pdf->SetFont('Arial','',10);
 
   $monto  = 0 ;
   $impto  = 0 ;
@@ -46,17 +34,18 @@
   $canti = 0;
   if(count($ventas)==0){
     $pdf->Ln(2);
-    $pdf->Cell(190,5,'SIN PRODUCTOS VENDIDOS EN EL DIA',0,0,'C');
+    $pdf->Cell(190,6,'SIN PRODUCTOS VENDIDOS EN EL DIA',1,1,'C');
     $pdf->Ln(2);
 
   }else{
-    $pdf->Cell(60,6,'Grupo Productos',0,0,'C');
-    $pdf->Cell(20,6,'Cantidad ',0,0,'C');
-    $pdf->Cell(25,6,'Valor. ',0,0,'C');
-    $pdf->Cell(25,6,'Impuesto. ',0,0,'C');
-    $pdf->Cell(25,6,'Total. ',0,0,'C');
-    $pdf->Cell(20,6,'% Cant. ',0,0,'C');
-    $pdf->Cell(20,6,'% Valor. ',0,1,'C');
+    $pdf->Cell(60,6,'Grupo Productos',1,0,'C');
+    $pdf->Cell(20,6,'Cantidad ',1,0,'C');
+    $pdf->Cell(25,6,'Valor. ',1,0,'C');
+    $pdf->Cell(25,6,'Impuesto. ',1,0,'C');
+    $pdf->Cell(25,6,'Total. ',1,0,'C');
+    $pdf->Cell(20,6,'% Cant. ',1,0,'C');
+    $pdf->Cell(20,6,'% Valor. ',1,1,'C');
+    $pdf->SetFont('Arial','',10);
     foreach ($ventas as $comanda) {
       $pdf->Cell(60,5,utf8_decode($comanda['nombre_seccion']),0,0,'L');
       $pdf->Cell(20,5,$comanda['cant'],0,0,'C');
@@ -81,7 +70,7 @@
   }
   $pdf->Ln(3);
 
-  $file = '../../../imprimir/auditorias/ventasGrupos_'.$pref.'_'.$fecha.'.pdf';
+  $file = '../imprimir/auditorias/ventasGrupos_'.$pref.'_'.$fecha.'.pdf';
 
   $pdf->Output($file,'F');
 ?>

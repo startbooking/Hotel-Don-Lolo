@@ -1,8 +1,9 @@
 <?php 
   require '../../../res/php/app_topHotel.php'; 
 	
-  $tipo     = $_POST['tipo'];
-  $hoy      = substr(FECHA_PMS,5,5);
+  $tipo      = $_POST['tipo'];
+  $hoy    = substr(FECHA_PMS,5,5);
+
   $reservas = $hotel->getHuespedesenCasa(2,'CA'); 
 
   ?>
@@ -14,14 +15,15 @@
         <td>Nro Hab.</td>
         <td></td>
         <td>Huesped</td>
+        <td>Compañia</td>
         <td>Tarifa</td>
         <td>Llegada</td>
         <td>Salida</td>
-        <td style="text-align:center;">Consumos</td>
-        <td style="text-align:center;">Impuesto</td>
-        <td style="text-align:center;">Pagos</td>
-        <td style="text-align:center;">Saldo</td>
-        <td style="text-align:center;">Accion</td>
+        <!-- <td align="center">Consumos</td>
+        <td align="center">Impuesto</td> -->
+        <td align="center">Abonos</td>
+        <td align="center">Saldo</td>
+        <td align="center">Accion</td>
       </tr>
     </thead> 
     <tbody>
@@ -45,8 +47,8 @@
         } 
         ?>
         <tr style='font-size:12px'> 
-          <td style="width:8%">       
-            <?php echo $reserva['num_habitacion']; ?>                 
+          <td style="width:8%">
+            <?php echo $reserva['num_habitacion']; ?>
           </td>
           <td style="width: 10%">
             <?php 
@@ -74,7 +76,6 @@
               if($hoy == substr($reserva['fecha_nacimiento'],5,5)){ ?>
                 <span class="fa-stack fa-xs" title="El Huesped esta de Cumpleaños" style="margin-left:0px;cursor:pointer;" >
                   <i style="font-size:20px;color: yellow" class="fa fa-circle fa-stack-2x"></i>
-                  
                   <i style="font-size:10px;margin-top: -2px;margin-left: 1px;color:black" class="fa fa-birthday-cake fa-stack-1x fa-inverse"></i> 
                 </span>
               <?php 
@@ -101,13 +102,14 @@
               }
             ?>
           </td>
+          <td style="width: 27%"><?php echo $nombrecia; ?></td>
           <td style="width: 7%"><?php echo number_format($reserva['valor_diario'],2); ?></td>
           <td style="width: 7%"><?php echo $reserva['fecha_llegada']; ?></td> 
           <td style="width: 7%"><?php echo $reserva['fecha_salida']; ?></td>
-          <td style="width: 7%; text-align:right;"><a onclick="cargosHuesped(<?php echo $reserva['num_reserva']?>)"><?php echo number_format($consumos[0]['cargos'],2); ?></a></td>
-          <td style="width: 7%; text-align:right;"><a onclick="cargosHuesped(<?php echo $reserva['num_reserva']?>)"><?php echo number_format($consumos[0]['imptos'],2); ?></a></td>
-          <td style="width: 7%; text-align:right;"><a onclick="cargosHuesped(<?php echo $reserva['num_reserva']?>)"><?php echo number_format($consumos[0]['pagos'],2); ?></a></td>
-          <td style="width: 7%; text-align:right;"><a onclick="cargosHuesped(<?php echo $reserva['num_reserva']?>)"><?php echo number_format($consumos[0]['cargos']+$consumos[0]['imptos']-$consumos[0]['pagos'],2); ?></a></td>
+          <!-- <td align="right" style="width: 7%"><a onclick="cargosHuesped(<?php echo $reserva['num_reserva']?>)"><?php echo number_format($consumos[0]['cargos'],2); ?></a></td>
+          <td align="right" style="width: 7%"><a onclick="cargosHuesped(<?php echo $reserva['num_reserva']?>)"><?php echo number_format($consumos[0]['imptos'],2); ?></a></td> -->
+          <td align="right" style="width: 7%"><a onclick="cargosHuesped(<?php echo $reserva['num_reserva']?>)"><?php echo number_format($consumos[0]['pagos'],2); ?></a></td>
+          <td align="right" style="width: 7%"><a onclick="cargosHuesped(<?php echo $reserva['num_reserva']?>)"><?php echo number_format($consumos[0]['cargos']+$consumos[0]['imptos']-$consumos[0]['pagos'],2); ?></a></td>
           <td style="padding:3px;width: 30%">
             <nav class="navbar navbar-default" style="margin-bottom: 0px;min-height:0px;">
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:0px;">

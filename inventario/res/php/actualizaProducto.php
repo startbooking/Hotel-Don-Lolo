@@ -1,6 +1,6 @@
 <?php
-	  require '../../../res/php/app_topInventario.php'; 
-	
+require '../../../res/php/app_topInventario.php'; 
+
 		$idprod   = $_POST["idProd"];
 		$producto = strtoupper(addslashes($_POST["producto"]));
 		$familia  = $_POST["familiaUpd"];
@@ -13,7 +13,7 @@
 		$promedio = $_POST["promedioUpd"];
 		$minimo   = $_POST["minimoUpd"];
 		$maximo   = $_POST["maximoUpd"];
-
+ 
 
 
 		if(!isset($_POST["ubicacionUpd"])){

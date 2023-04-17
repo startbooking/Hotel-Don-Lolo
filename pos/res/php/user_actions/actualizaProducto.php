@@ -4,6 +4,7 @@
 	
 		$id       = $_POST["idProd"];
 		$producto = strtoupper(strip_tags($_POST["producto"]));
+		$codigo   = strtoupper(strip_tags($_POST["codigo"]));
 		$seccion  = strtoupper(strip_tags($_POST["seccion"]));
 		$venta    = strip_tags($_POST["venta"]);
 		$impto    = strtoupper(strip_tags($_POST["impto"]));
@@ -12,10 +13,10 @@
 		if($tipo==0){
 			$receta = 0;
 		}else{
-			$receta   = $_POST["idrecetaUpd"];
+			$receta   = $_POST["idrecetaUpd"]; 
 		}
 			
-		$upda = $pos->actualizaProducto($id,$producto,$seccion,$venta,$impto,$tipo, $receta);
+		$upda = $pos->actualizaProducto($id, $producto, $codigo, $seccion, $venta, $impto, $tipo, $receta);
 
 		echo $upda;
 

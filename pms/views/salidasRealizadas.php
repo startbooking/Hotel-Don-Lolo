@@ -20,25 +20,35 @@
           <table id="example1" class="table table-bordered">
             <thead>
               <tr class="warning" style="font-weight: bold">
-                <td>Reserva Nro</td>
-                <td>Nro Hab.</td>
+                <td>Reserva</td>
+                <td>Hab.</td>
                 <td>Huesped</td>
+                <td>Compañia</td>
                 <td>Llegada</td>
                 <td>Salida</td>
                 <td>Noches</td>
                 <td>Hombres</td>
                 <td>Mujeres</td>
-                <td>Niños</td>
+                <!-- <td>Niños</td> -->
                 <td align="center">Accion</td>
               </tr>
             </thead>
             <tbody>
               <?php
-              foreach ($reservas as $reserva) { ?>
+              foreach ($reservas as $reserva) { 
+                if(empty($reserva['id_compania'])){
+                  $nombrecia = 'SIN COMPAÑIA ASOCIADA';
+                  $nitcia    = '';
+                }else{
+                  $cias      = $hotel->getBuscaCia($reserva['id_compania']);
+                  $nombrecia = $cias[0]['empresa'];
+                  $nitcia    = $cias[0]['nit'].'-'.$cias[0]['dv'];
+                }
+                ?>
                 <tr style='font-size:12px'>
                   <td><?php echo $reserva['num_reserva']?></td>
                   <td><?php echo $reserva['num_habitacion']; ?></td>
-                  <td>
+                  <td style="width:50px;"> 
                     <span class="badge" style="background: #20b2aa91;padding: 2px 6px 0px 11px;">
                       <label for="" class="control-label" style="text-align: left;color:#000">
                         <?php echo $reserva["nombre_completo"];?>
@@ -56,14 +66,15 @@
                           <?php 
                         }
                       }
-                    ?>                     
+                    ?>
                   </td>
+                  <td><?php echo $nombrecia; ?></td>
                   <td><?php echo $reserva['fecha_llegada']; ?></td>
                   <td><?php echo $reserva['fecha_salida']; ?></td>
                   <td align="center"><?php echo $reserva['dias_reservados']; ?></td>
                   <td align="center"><?php echo $reserva['can_hombres']; ?></td>
                   <td align="center"><?php echo $reserva['can_mujeres']; ?></td>
-                  <td align="center"><?php echo $reserva['can_ninos']; ?></td>
+                  <!-- <td align="center"><?php echo $reserva['can_ninos']; ?></td> -->
                   <td style="padding:3px;width: 12%">
                     <nav class="navbar navbar-default" style="margin-bottom: 0px;min-height:0px;">
                       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:0px;">

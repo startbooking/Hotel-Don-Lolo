@@ -32,8 +32,7 @@
             foreach ($tipos as $tipo) { ?>
               <option value="<?=$tipo['id_seccion']?>" 
                 <?php
-                echo $updateRec[0]['id_seccion'];
-                if($updateRec[0]['id_seccion']== $tipo['id_seccion']){ ?>
+                if($tipo['id_seccion'] = $updateRec[0]['id_seccion']){ ?>
                   selected
                 <?php 
                 }
@@ -89,15 +88,7 @@
       </div>
     </div> 
     <div class="col-md-3">
-      <?php 
-      if($updateRec[0]['foto']==''){ ?>
-        <img style="margin-top:0px;width:70%" src="images/sin_imagen.png" class="img-thumbnail" alt="">
-        <?php
-      }else{ ?>
-          <img style="margin-top:0px" src="images/<?= $updateRec[0]['foto'];?>" class="img-thumbnail" alt="">
-        <?php
-      }
-      ?>
+      <img style="margin-top:0px" src="images/<?= $updateRec[0]['foto'];?>" class="img-thumbnail" alt="">
     </div>
   </div>
   <div class="form-group">
@@ -106,13 +97,13 @@
       <textarea id="preparacion" name="preparacion" id="" cols="30" rows="3" ><?php echo $updateRec[0]['preparacion']
        ?>
    </textarea>
-    </div>
+    </div>            
   </div>
   <div class="form-group">
     <label for="montaje" class="control-label col-lg-2  col-md-2">Montaje</label>
     <div class="col-lg-10 col-md-10">
       <textarea id="montaje" name="montaje" id="" cols="30" rows="3" ><?php echo $updateRec[0]['montaje']?></textarea>
-    </div>
+    </div>            
   </div>
 </div>
 

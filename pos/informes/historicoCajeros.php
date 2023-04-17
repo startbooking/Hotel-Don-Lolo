@@ -32,10 +32,6 @@
                     </span>
                   </div>
                 </div>
-              <!--
-              </div>
-              <div class="form-group"> 
-              -->
                 <label style="padding:0" for="direccion" class="col-sm-1 control-label">Cajero </label>
                 <div class="col-sm-3 has-success has-feedback" >
                   <select name="usuario" id="usuario" required="">

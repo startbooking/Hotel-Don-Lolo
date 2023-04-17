@@ -65,11 +65,12 @@ function ingresoInv() {
 
 function ingresoAdmin() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
+
   idusr = sesion["usuario"][0]["usuario_id"];
   user = sesion["usuario"][0]["usuario"];
   nombres = sesion["usuario"][0]["nombres"];
   apellidos = sesion["usuario"][0]["apellidos"];
-  $("#usuarioActivo").val(user);
+  $("#userivo").val(user);
   $("#nombreUsuario").html(
     apellidos + " " + nombres + ' <span class="caret"></span>'
   );
@@ -79,12 +80,16 @@ function ingresoAdmin() {
 function ingresoPms() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
 
+  let { user, moduloPms } = sesion;
+  let { usuario, usuario_id, tipo, estado_usuario_pms } = user;
+  let { fecha_auditoria } = moduloPms;
+
   parametros = {
-    user: sesion["usuario"][0]["usuario"],
-    userId: sesion["usuario"][0]["usuario_id"],
-    fecha: sesion["pms"][0]["fecha_auditoria"],
-    tipoUser: sesion["usuario"][0]["tipo"],
-    cajeroUser: sesion["usuario"][0]["estado_usuario_pms"],
+    usuario,
+    usuario_id,
+    fecha: fecha_auditoria,
+    tipoUser: tipo,
+    cajeroUser: estado_usuario_pms,
   };
   $.ajax({
     url: "../pms/res/php/abreCajero.php",
@@ -100,6 +105,8 @@ function ingresoPos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("sesion"));
 
+  console.log(oPos);
+
   parametros = {
     fecha: oPos[0]["fecha_auditoria"],
   };
@@ -113,14 +120,14 @@ function ingresoPos() {
 
 function cierraSesion() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  var id = sesion["usuario"][0]["usuario_id"];
-  var usua = sesion["usuario"][0]["usuario"];
+  let { user } = sesion;
+  let { usuario, usuario_id } = user;
   $.ajax({
     url: "../res/shared/salir.php",
     type: "POST",
     data: {
-      id: id,
-      usuario: usua,
+      id: usuario_id,
+      usuario,
     },
     success: function () {
       localStorage.removeItem("sesion");
@@ -157,13 +164,33 @@ function activaModulos() {
   fecha = new Date();
   fechaAct =
     fecha.getDate() + "/" + (fecha.getMonth() + 1) + "/" + fecha.getFullYear();
+  let { cia, user, moduloPms } = sesion;
+  let { estado, ingreso, tipo, apellidos, nombres } = user;
+  let { inv, pos, pms, res } = cia;
+  let { fecha_auditoria } = moduloPms;
+
   var div = '<div class="container-fluid moduloCentrar">';
-  if (sesion["usuario"][0]["inv"] == "1") {
+  if (inv == "1") {
     div =
       div +
-      '<div id="inv" style="cursor: pointer;" class="col-lg-4 col-md-4 col-sm-6 col-xs-12"><a onclick="ingresoInv()" class="small-box-footer"><div class="small-box bg-yellow-gradient">	<div class="inner">	<h3>Inventarios</h3><p>Control de Stock</p></div><div class="icon"><i class="ion ion-archive"></i></div><small class="small-box-footer" style="font-size:12px">Ingresar<i class="fa fa-arrow-circle-right"></i></small>		              </div>		            </a>		          </div>';
+      `<div id="inv" style="cursor: pointer;" class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+          <a onclick="ingresoInv()" class="small-box-footer">
+            <div class="small-box bg-yellow-gradient">	
+              <div class="inner">	
+                <h3>Inventarios</h3>
+                <p>Control de Stock</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-archive"></i>
+              </div>
+              <small class="small-box-footer" style="font-size:12px">Ingresar
+                <i class="fa fa-arrow-circle-right"></i>
+              </small>
+            </div>
+          </a>
+       </div>`;
   }
-  if (sesion["usuario"][0]["pos"] == "1") {
+  if (pos == "1") {
     div =
       div +
       `
@@ -184,7 +211,7 @@ function activaModulos() {
 			</a>
 		</div>`;
   }
-  if (sesion["usuario"][0]["pms"] == "1") {
+  if (pms == "1") {
     div =
       div +
       `
@@ -195,7 +222,7 @@ function activaModulos() {
 					<div class="small-box bg-blue-gradient">			
 						<div class="inner">				
 							<h3>PMS Software </h3> 				
-							<p style="color:#FFF" id="fechaPms">Fecha de Proceso [${sesion["pms"][0]["fecha_auditoria"]}] </p>
+							<p style="color:#FFF" id="fechaPms">Fecha de Proceso [${fecha_auditoria}] </p>
 						</div>              			
 						<div class="icon">                				
 							<i class="ion ion-ios-home-outline"></i>              			
@@ -208,7 +235,7 @@ function activaModulos() {
 			</div>
 		`;
   }
-  if (sesion["usuario"][0]["tipo"] == "A") {
+  if (tipo == "1") {
     div =
       div +
       `
@@ -234,7 +261,7 @@ function activaModulos() {
   }
   $("#modulos").html(div);
   $("#nombreUsuario").html(
-    `${sesion["usuario"][0]["apellidos"]}  ${sesion["usuario"][0]["nombres"]}<span class="caret"></span>`
+    `${apellidos}  ${nombres}<span class="caret"></span>`
   );
 }
 
@@ -266,28 +293,15 @@ function valida_ingreso() {
     dataType: "json",
     data: "login=" + user + "&password=" + pass,
     success: function (data) {
-      if (data["entro"] == "0") {
-        $("#error").html(
-          '<div class="alert alert-danger"> <span class="glyphicon glyphicon-info-sign"></span> Usuario o Contraseña Incorrecto</div>'
-        );
-        $("#login").val("");
-        $("#pass").val("");
-        $("#login").focus();
+      let { entro, user } = data;
+      if (entro == "0") {
+        muestraError("Usuario o Contraseña Incorrecto");
       } else {
-        if (data["usuario"][0]["estado"] == "C") {
-          $("#error").html(
-            '<div class="alert alert-danger"> <span class="glyphicon glyphicon-info-sign"></span> <h3>Usuario sin Acceso Permitido al Sistema</h3></div>'
-          );
-          $("#login").val("");
-          $("#pass").val("");
-          $("#login").focus();
-        } else if (data["usuario"][0]["ingreso"] == 1) {
-          $("#error").html(
-            '<div class="alert alert-danger"> <span class="glyphicon glyphicon-info-sign"></span> Usuario Activo en el Sistema</div>'
-          );
-          $("#login").val("");
-          $("#pass").val("");
-          $("#login").focus();
+        let { estado, ingreso } = user;
+        if (estado == "C") {
+          muestraError("Usuario sin Acceso Permitido al Sistema");
+        } else if (ingreso == 1) {
+          muestraError("Usuario Activo en el Sistema");
         } else {
           localStorage.setItem("sesion", JSON.stringify(data));
           $(location).attr("href", "views/modulos.php");
@@ -456,21 +470,21 @@ function leeCajeroActivo() {
   archivo.send(null);
 }
 
-$(document).ready(function () {
+document.addEventListener("DOMContentLoaded", async () => {
   $("#myModalLogin").on("show.bs.modal", function (event) {
     $("#error").html("");
     if (localStorage.getItem("sesion")) {
       entro = JSON.parse(localStorage.getItem("sesion"));
+      let { user } = entro;
+      let { usuario, usuario_id } = user;
       swal(
         "Atencion",
-        "Usuario " +
-          entro["usuario"][0]["usuario"] +
-          " Ya Activo en el Sistema, Recuperando Informacion ",
+        `Usuario ${usuario} Ya Activo en el Sistema, Recuperando Informacion`,
         "warning"
       );
       setTimeout(function () {
         parametros = {
-          idUsr: entro["usuario"][0]["usuario_id"],
+          idUsr: usuario_id,
         };
         $.ajax({
           url: "res/php/user_action/sesionActiva.php",
@@ -483,3 +497,20 @@ $(document).ready(function () {
     }
   });
 });
+
+function muestraError(error) {
+  $("#error").html(`
+    <div class="alert alert-danger"> <span class="glyphicon glyphicon-info-sign"></span> ${error}</div>`);
+
+  $("#login").val("");
+  $("#pass").val("");
+  $("#login").focus();
+
+  limpiaError();
+}
+
+function limpiaError() {
+  setTimeout(function () {
+    $("#error").html(``);
+  }, 2000);
+}

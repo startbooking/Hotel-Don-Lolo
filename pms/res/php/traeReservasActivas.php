@@ -1,14 +1,10 @@
 <?php 
   require '../../../res/php/app_topHotel.php'; 
 	
-  $tipo     = $_POST['tipo'];
-  echo FECHA_PMS;
-  $hoy      = substr(FECHA_PMS,5,5);
-  $reservas = $hotel->getReservasActuales($tipo); 
-  echo 'ENtro reserfvas' ;
+  $tipo      = $_POST['tipo'];
+  $hoy    = substr(FECHA_PMS,5,5);
 
-
-  echo print_r($reservas);
+  $reservas = $hotel->getReservasActuales($tipo);
 
   ?>
   <div class='table-responsive'>
@@ -16,22 +12,23 @@
       <thead>
         <tr class="warning">
           <td>Reserva</td>
-          <td></td>
-          <td style="width:7%">Nro Hab.</td>
-          <td style="text-align:center;">Huesped</td>
+          <td style="width:7%;"></td>
+          <td>Hab.</td>
+          <td style="text-align:center;width:50px;">Huesped</td>
+          <td style="text-align:left;">Compañia</td>
           <td>Tarifa</td>
           <td>Llegada</td>
           <td>Salida</td>
           <td>Noc</td>
-          <td>Hom</td> 
+          <td>Hom</td>
           <td>Muj</td>
-          <td>Ni</td>
+          <!-- <td>Ni</td> -->
           <td>Estado</td>
-          <td style="width: 9%;text-align:center;">Accion</td>
+          <td style="width: 9%" align="center">Accion</td>
         </tr>
       </thead>
       <tbody id="paginaReservas"> 
-        <?php      
+        <?php
         foreach ($reservas as $reserva) { 
           $depositos = $hotel->getDepositosReservas($reserva['num_reserva']);
           if(empty($reserva['id_compania'])){
@@ -47,8 +44,8 @@
             <td>
               <span><?php echo $reserva['num_reserva']?></span>  
             </td>
-            <td>
-              <div style="display: flex">
+            <td style="width:7%;">
+              <div style="display: flex;">
                 <?php 
                   if($reserva['causar_impuesto']==2){ ?>
                     <span class="fa-stack fa-xs" title="Sin Impuestos" style="margin-left:5px;cursor:pointer;">
@@ -88,8 +85,8 @@
                 ?>
               </div>
             </td>
-            <td style="text-align:right;"><?php echo $reserva['num_habitacion']; ?></td>
-            <td>
+            <td style="text-align:right"><?php echo $reserva['num_habitacion']; ?></td>
+            <td style="width:40px;">
               <span class="badge" style="background: #20b2aa91;padding: 2px 6px 0px 11px;">
                 <label for="" class="control-label" style="text-align: left;color:#000">
                   <?php echo $reserva["nombre_completo"];?>
@@ -107,15 +104,16 @@
                     <?php 
                   }
                 }
-              ?>                                    
+              ?>
             </td>
+            <td style="width:20%;"><?php echo $nombrecia; ?></td> 
             <td style="text-align:right;"><?php echo number_format($reserva['valor_diario'],2); ?></td> 
             <td><?php echo $reserva['fecha_llegada']; ?></td>
             <td><?php echo $reserva['fecha_salida']; ?></td>
             <td style="text-align:center;"><?php echo $reserva['dias_reservados']; ?></td>
             <td style="text-align:center;"><?php echo $reserva['can_hombres']; ?></td>
             <td style="text-align:center;"><?php echo $reserva['can_mujeres']; ?></td>
-            <td style="text-align:center;"><?php echo $reserva['can_ninos']; ?></td>
+            <!-- <td align="center"><?php echo $reserva['can_ninos']; ?></td> -->
         
             <td><?php echo estadoReserva($reserva['estado']); ?></td>
             <td style="padding:3px;width: 12%">
@@ -137,7 +135,7 @@
                           <ul class="dropdown-menu submenu" style="float:left;margin-left:-180px;top:40px;">  
                             <li>
                               <a 
-                                data-toggle        ="modal" 
+                                data-toggle        ="modal"
                                 data-target        = "#myModalAcompanantesReserva"
                                 data-id            ="<?php echo $reserva['num_reserva']?>" 
                                 data-tipohab       ="<?php echo descripcionTipoHabitacion($reserva['tipo_habitacion'])?>" 
@@ -244,6 +242,21 @@
                                 data-nombre2   ="<?php echo $reserva['nombre2']?>" 
                                 data-orden     ="<?php echo $reserva['orden_reserva']?>" 
                                 data-causar    ="<?php echo $reserva['causar_impuesto']?>" 
+                                onclick        ="confirmarReserva(<?=$reserva['num_reserva']?>)" 
+                                >
+                                <i class="fa fa-book" aria-hidden="true"></i>Confirmar Reserva
+                              </a>
+                            </li>
+                            <li>
+                              <a 
+                                data-toggle    ="modal" 
+                                data-id        ="<?php echo $reserva['num_reserva']?>" 
+                                data-apellido1 ="<?php echo $reserva['apellido1']?>" 
+                                data-apellido2 ="<?php echo $reserva['apellido2']?>" 
+                                data-nombre1   ="<?php echo $reserva['nombre1']?>" 
+                                data-nombre2   ="<?php echo $reserva['nombre2']?>" 
+                                data-orden     ="<?php echo $reserva['orden_reserva']?>" 
+                                data-causar    ="<?php echo $reserva['causar_impuesto']?>" 
                                 onclick        ="imprimirRegistro(<?=$reserva['num_reserva']?>,<?= $reserva['causar_impuesto']?>)" 
                                 >
                                 <i class="fa fa-book" aria-hidden="true"></i>Imprimir Registro Hotelero
@@ -293,7 +306,7 @@
                                 data-idcen     ="<?php echo $reserva['idCentroCia']?>" 
                                 data-tipohab   ="<?php echo descripcionTipoHabitacion($reserva['tipo_habitacion'])?>" 
                                 data-nrohab    ="<?php echo $reserva['num_habitacion']?>" 
-                                data-nombre ="<?php echo $reserva['nombre_completo']?>"
+                                data-nombre    ="<?php echo $reserva['nombre_completo']?>"
                                 data-nombrecia ="<?php echo $nombrecia?>" 
                                 data-nitcia    ="<?php echo $nitcia?>" 
                                 href           ="#myModalAsignarCompania">
@@ -309,7 +322,7 @@
                                   data-idhue     ="<?php echo $reserva['id_huesped']?>" 
                                   data-idcia     ="<?php echo $reserva['id_compania']?>" 
                                   data-idcentro  ="<?php echo $reserva['idCentroCia']?>" 
-                                  data-nombre ="<?php echo $reserva['nombre_completo']?>"
+                                  data-nombre    ="<?php echo $reserva['nombre_completo']?>"
                                   data-nombrecia ="<?php echo $nombrecia?>" 
                                   href           ="#myModalInformacionCompania">
                                   <i class="fa fa-book" aria-hidden="true"></i>
@@ -317,7 +330,7 @@
                               </li>
                               <?php 
                             }
-                            ?>                                  
+                            ?>
                             <li>
                               <a 
                                 data-toggle    ="modal" 
@@ -354,9 +367,8 @@
                   </nav>
                 <?php 
                 }
-              ?>                      
+              ?>
             </td>
-        
           </tr>
           <?php 
         }
@@ -367,54 +379,60 @@
   <table id="tablaReservas" class="table modalTable table-condensed" style="display:none">
     <thead>
       <tr class="warning">
-        <td>Reserva Nro</td>
-        <td>Tipo Hab.</td>
-        <td>Nro Hab.</td>
-        <td>Huesped</td>
-        <td>Tarifa</td>
-        <td>Llegada</td>
-        <td>Salida</td>
-        <td>Noc</td>
-        <td>Hom</td>
-        <td>Muj</td>
-        <td>Ni</td>
-        <td>Estado</td>
+        <<td>Reserva</td>
+          <td>Hab.</td>
+          <td>Huesped</td>
+          <td>Compañia</td>
+          <td>Tarifa</td>
+          <td>Llegada</td>
+          <td>Salida</td>
+          <td>Noc</td>
+          <td>Hom</td>
+          <td>Muj</td>
+          <td>Estado</td>
       </tr>
     </thead>
     <tbody>
       <?php
-      foreach ($reservas as $reserva) { 
-        $depositos = $hotel->getDepositosReservas($reserva['num_reserva']);
-        if(empty($reserva['id_compania'])){
-          $nombrecia = 'SIN COMPAÑIA ASOCIADA';
-          $nitcia    = '';
-        }else{
-          $cias      = $hotel->getBuscaCia($reserva['id_compania']);
-          $nombrecia = $cias[0]['empresa'];
-          $nitcia    = $cias[0]['nit'].'-'.$cias[0]['dv'];
+        foreach ($reservas as $reserva) { 
+          $depositos = $hotel->getDepositosReservas($reserva['num_reserva']);
+          if(empty($reserva['id_compania'])){
+            $nombrecia = 'SIN COMPAÑIA ASOCIADA';
+            $nitcia    = '';
+          }else{
+            $cias      = $hotel->getBuscaCia($reserva['id_compania']);
+            $nombrecia = $cias[0]['empresa'];
+            $nitcia    = $cias[0]['nit'].'-'.$cias[0]['dv'];
+          }
+          ?>
+          <tr style='font-size:12px'>
+            <td>
+              <span><?php echo $reserva['num_reserva']?></span>  
+            </td>
+            <td style="text-align:right"><?php echo $reserva['num_habitacion']; ?></td>
+            <td style="width:40px;">
+              <?php echo $reserva["nombre_completo"];?>
+              <?php 
+                $acompanas = $hotel->buscaAcompanantes($reserva["num_reserva"]);
+                if(count($acompanas)>0){
+                  foreach ($acompanas as $key => $acompana) { 
+                    echo $acompana["nombre_completo"];
+                  }
+                }
+              ?>
+            </td>
+            <td style="width:20%;"><?php echo $nombrecia; ?></td> 
+            <td style="text-align:right;"><?php echo number_format($reserva['valor_diario'],2); ?></td> 
+            <td><?php echo $reserva['fecha_llegada']; ?></td>
+            <td><?php echo $reserva['fecha_salida']; ?></td>
+            <td style="text-align:center;"><?php echo $reserva['dias_reservados']; ?></td>
+            <td style="text-align:center;"><?php echo $reserva['can_hombres']; ?></td>
+            <td style="text-align:center;"><?php echo $reserva['can_mujeres']; ?></td>
+            <td><?php echo estadoReserva($reserva['estado']); ?></td>
+          </tr>
+          <?php 
         }
         ?>
-        <tr style='font-size:12px'> 
-          <td>
-            <div style="display: flex">
-              <span><?php echo $reserva['num_reserva']?></span>
-            </div>
-          </td>
-          <td><?php echo $reserva['tipo_habitacion']; ?></td>
-          <td><?php echo $reserva['num_habitacion']; ?></td>
-          <td width="20%"><?php echo $reserva['apellido1'].' '.$reserva['apellido2'].' '.$reserva['nombre1'].' '.$reserva['nombre2']; ?></td>
-          <td style="text-align:center;"><?php echo number_format($reserva['valor_diario'],2); ?></td> 
-          <td><?php echo $reserva['fecha_llegada']; ?></td>
-          <td><?php echo $reserva['fecha_salida']; ?></td>
-          <td style="text-align:center;"><?php echo $reserva['dias_reservados']; ?></td>
-          <td style="text-align:center;"><?php echo $reserva['can_hombres']; ?></td>
-          <td style="text-align:center;"><?php echo $reserva['can_mujeres']; ?></td>
-          <td style="text-align:center;"><?php echo $reserva['can_ninos']; ?></td>
-          <td><?php echo estadoReserva($reserva['estado']); ?></td>
-        </tr>
-        <?php 
-      }
-      ?>
     </tbody>
   </table>
 

@@ -1,12 +1,838 @@
+function botonEliminaProductoDivi(
+  numero,
+  codigo,
+  ambiente,
+  cant,
+  producto,
+  prdid,
+  id,
+  index
+) {
+  let storageProd = localStorage.getItem("productoComanda");
+  let totalProductos = JSON.parse(storageProd);
+  let storageComanda = localStorage.getItem("nuevaComanda");
+  let nuevaComanda = JSON.parse(storageComanda);
+
+  let divide = {
+    ...nuevaComanda.filter((productos) => productos.id === parseInt(prdid)),
+  };
+
+  nuecom = divide[0];
+
+  const existe = totalProductos.findIndex(
+    (producto) => producto.id === nuecom.id
+  );
+
+  cantIni = nuecom.cant;
+
+  if (existe < 0) {
+    totalProductos = [...totalProductos, nuecom];
+  } else {
+    totalProductos[existe].cant = totalProductos[existe].cant + cantIni;
+    totalProductos[existe].total =
+      totalProductos[existe].cant * totalProductos[existe].importe;
+    totalProductos[existe].venta =
+      (totalProductos[existe].importe * totalProductos[existe].cant) /
+      (1 + totalProductos[existe].impto / 100);
+    totalProductos[existe].valorimpto =
+      totalProductos[existe].importe * totalProductos[existe].cant -
+      (totalProductos[existe].importe * totalProductos[existe].cant) /
+        (1 + totalProductos[existe].impto / 100);
+  }
+
+  localStorage.setItem("productoComanda", JSON.stringify(totalProductos));
+
+  const exis = nuevaComanda.findIndex(
+    (prodComan) => prodComan.id === parseInt(prdid)
+  );
+
+  if (exis >= 0) {
+    nuevaComanda.splice(exis, 1);
+  }
+
+  localStorage.setItem("nuevaComanda", JSON.stringify(nuevaComanda));
+
+  productosNuevaComanda();
+  resumenDividir();
+
+  productosDividir();
+  resumenComanda();
+}
+
+function guardaComandaDiv() {
+  var storageProd = localStorage.getItem("nuevaComanda");
+  let listaNuevaComanda = JSON.parse(storageProd);
+  if (listaNuevaComanda.length === 0) {
+    swal("Atencion", "Sin Productos Para Crear nueva Comanda", "warning");
+    return;
+  }
+}
+
+function resumenDividir() {
+  let storageProd = localStorage.getItem("nuevaComanda");
+  let listaNuevaComanda = JSON.parse(storageProd);
+  let impuestoDiv = 0;
+  let ventaDiv = 0;
+  let cantiDiv = 0;
+  let impuesto = 0;
+
+  listaNuevaComanda.map(function (productos) {
+    impuesto = impuesto + parseFloat(productos.valorimpto);
+    ventaDiv = ventaDiv + parseFloat(productos.venta);
+    cantiDiv = cantiDiv + parseFloat(productos.cant);
+  });
+
+  totalDiv = ventaDiv + impuestoDiv;
+
+  $("#totalComandaDiv").val(total);
+  $("#totalVtaDiv").html(number_format(ventaDiv, 2));
+  $("#totalCuentaDiv").html(number_format(totalDiv, 2));
+  $("#valorImptoDiv").html(number_format(impuestoDiv, 2));
+  $("#cantProdDiv").val(cantiDiv);
+}
+
+function regresaDividir() {
+  localStorage.removeItem("nuevaComanda");
+  localStorage.removeItem("comandaOriginal");
+  enviaInicio();
+}
+
+function productosNuevaComanda() {
+  var storageComanda = localStorage.getItem("nuevaComanda");
+  let listaNuevaComanda = JSON.parse(storageComanda);
+
+  $(".comandaDiv > tbody").html("");
+
+  listaNuevaComanda.map(function (productos) {
+    let { id, producto, cant, total, codigo, ambiente } = productos;
+    $(".comandaDiv > tbody").append(`
+    <tr>
+      <td>${producto}</td>
+      <td>${cant}</td>
+      <td>${number_format(total, 2)}</td>
+      <td style="text-align:center">
+        <button
+          type="button"
+          id="${i}"
+          onclick="botonEliminaProductoDivi('${numero}','${codigo}','${ambiente}','${cant}','${producto}','${id}', this.id, this.parentNode.parentNode.parentNode.rowIndex)"
+          class="fa fa-trash btn btn-warning btn-xs"
+          title="Elimina Producto">
+        </button>
+      </td>
+      </tr>`);
+  });
+}
+
+function botonDivideComanda(
+  numero,
+  codigo,
+  ambiente,
+  can,
+  nomprod,
+  regis,
+  id,
+  index
+) {
+  if (can === "0") {
+    swal("Atencion", "Producto Sin Cantidades para Trasladar", "warning");
+    return;
+  }
+  var storageProd = localStorage.getItem("productoComanda");
+  var totalProductos = JSON.parse(storageProd);
+  var storageComanda = localStorage.getItem("nuevaComanda");
+  if (storageComanda == null) {
+    nuevaComanda = [];
+  } else {
+    nuevaComanda = JSON.parse(storageComanda);
+  }
+
+  let totales = totalProductos;
+
+  let divide = {
+    ...totalProductos.filter((producto) => producto.id === parseInt(regis)),
+  };
+
+  nuecom = divide[0];
+
+  const existe = nuevaComanda.findIndex(
+    (producto) => producto.id === nuecom.id
+  );
+
+  cantIni = nuecom.cant;
+  precIni = nuecom.importe;
+  imptIni = nuecom.impto;
+
+  if (existe < 0) {
+    nuecom.cant = 1;
+    nuecom.total = nuecom.cant * nuecom.importe;
+    nuecom.venta = (nuecom.importe * nuecom.cant) / (1 + nuecom.impto / 100);
+    nuecom.valorimpto =
+      nuecom.importe * nuecom.cant -
+      (nuecom.importe * nuecom.cant) / (1 + nuecom.impto / 100);
+    nuevaComanda = [...nuevaComanda, nuecom];
+  } else {
+    nuevaComanda[existe].cant++;
+    nuevaComanda[existe].total =
+      nuevaComanda[existe].cant * nuevaComanda[existe].importe;
+    nuevaComanda[existe].venta =
+      (nuevaComanda[existe].importe * nuevaComanda[existe].cant) /
+      (1 + nuevaComanda[existe].impto / 100);
+    nuevaComanda[existe].valorimpto =
+      nuevaComanda[existe].importe * nuevaComanda[existe].cant -
+      (nuevaComanda[existe].importe * nuevaComanda[existe].cant) /
+        (1 + nuevaComanda[existe].impto / 100);
+  }
+  localStorage.setItem("nuevaComanda", JSON.stringify(nuevaComanda));
+
+  const exis = totalProductos.findIndex(
+    (prodComan) => prodComan.id === parseInt(regis)
+  );
+
+  if (exis >= 0) {
+    totalProductos[exis].cant = can - 1;
+    if (totalProductos[exis].cant === 0) {
+      totalProductos.splice(exis, 1);
+    } else {
+      totalProductos[exis].importe = precIni;
+      totalProductos[exis].impto = imptIni;
+      totalProductos[exis].total =
+        totalProductos[exis].cant * totalProductos[exis].importe;
+      totalProductos[exis].venta =
+        (totalProductos[exis].importe * totalProductos[exis].cant) /
+        (1 + totalProductos[exis].impto / 100);
+      totalProductos[exis].valorimpto =
+        totalProductos[exis].importe * totalProductos[exis].cant -
+        (totalProductos[exis].importe * totalProductos[exis].cant) /
+          (1 + totalProductos[exis].impto / 100);
+    }
+  }
+
+  localStorage.setItem("productoComanda", JSON.stringify(totalProductos));
+
+  productosNuevaComanda();
+  resumenDividir();
+
+  productosDividir();
+  resumenComanda();
+}
+
+function dividirCuenta() {
+  $("#guardaComandaDividida").css("display", "block");
+  nuevaComanda = [];
+  localStorage.setItem("nuevaComanda", JSON.stringify(nuevaComanda));
+
+  var storageProd = localStorage.getItem("productoComanda");
+  let totalProductos = JSON.parse(storageProd);
+  localStorage.setItem("comandaOriginal", JSON.stringify(totalProductos));
+
+  numero = $("#numeroComanda").val();
+  $("#listaComandas").css("display", "none");
+  $("#tituloComanda").html(
+    `<h4 style="padding:2px;text-align: center;font-weight: bold;margin:0;background:cornflowerblue"> Productos Nueva Comanda</h4>`
+  );
+  $(".prende").css("display", "none");
+  $("#regresarComanda").css("margin-top", "424px");
+  $("#divideComanda").css("display", "block");
+  $("#comandaDividida").css("display", "block");
+
+  productosDividir();
+}
+
+function productosDividir() {
+  var storageProd = localStorage.getItem("productoComanda");
+  let totalProductos = JSON.parse(storageProd);
+
+  $(".comanda > tbody").html("");
+  totalProductos.map(function (productos) {
+    let { producto, cant, total, codigo, ambiente, id } = productos;
+
+    $(".comanda > tbody").append(`
+    <tr>
+      <td>${producto}</td>
+      <td>${cant}</td>
+      <td style="text-align:right">${number_format(total, 2)}</td>
+      <td style="text-align:center">
+        <button
+          type="button"
+          id="${i}"
+          onclick="botonDivideComanda('${numero}','${codigo}','${ambiente}','${cant}','${producto}','${id}', this.id, this.parentNode.parentNode.parentNode.rowIndex)"
+          class="fa fa-arrow-left btn btn-success btn-xs"
+          title="Envia Producto">
+        </button>
+      </td>
+      </tr>`);
+  });
+}
+
+function validaIden(iden) {
+  parametros = { iden };
+  $.ajax({
+    url: "res/php/user_actions/validaIdentificacion.php",
+    type: "POST",
+    data: parametros,
+    success: function (ide) {
+      if (ide != 0) {
+        swal(
+          "Precaucion",
+          "Identificacion ya Existe en el Sistema ",
+          "warning"
+        );
+        $("#identificacion").val("");
+        $("#identificacion").focus();
+      }
+    },
+  });
+}
+
+function carteradelDia() {
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos, usuarioAct } = sesion;
+  let { usuario, usuario_id } = usuarioAct;
+  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } = pos;
+  file = makeid(12);
+  parametros = {
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
+    logo,
+    file,
+  };
+
+  $.ajax({
+    url: "informes/ventasDiaCartera.php",
+    type: "POST",
+    data: iden,
+    success: function (data) {
+      $("#pantalla").html(data);
+      $("#verInforme").attr("data", "imprimir/informes/" + oKey + ".pdf");
+    },
+  });
+}
+
+function muestraFacturasCliente(idcliente) {
+  $("#dataEstadoCartera").on("show.bs.modal", function (event) {
+    let sesion = JSON.parse(localStorage.getItem("sesion"));
+    let { pos } = sesion;
+    let { id_ambiente } = pos;
+
+    let idambi = id_ambiente;
+
+    var button = $(event.relatedTarget);
+    var cliente = button.data("cliente");
+    var modal = $(this);
+    modal.find(".modal-title").text(`Cartera Cliente : ${cliente}`);
+    $.ajax({
+      url: "res/php/user_actions/traeFacturasCliente.php",
+      type: "POST",
+      data: { idcliente, idambi },
+      beforeSend: function () {
+        $("#datosClienteCartera").html("");
+        $("#datosClienteCartera").html("<img src='../img/loader.gif'>");
+      },
+      success: function (data) {
+        $("#datosClienteCartera").html("");
+        $("#datosClienteCartera").html(data);
+        $(".rowAsigna").hide();
+        $(".form-group").css("display", "none");
+      },
+    });
+  });
+}
+
+function estadoCartera() {
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  $("#pantalla").css("margin-left", "0");
+  let { pos, usuarioAct } = sesion;
+  let { usuario, usuario_id } = usuarioAct;
+  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria } = pos;
+  parametros = {
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
+  };
+
+  $.ajax({
+    url: "views/estadoCartera.php",
+    type: "POST",
+    data: parametros,
+    success: function (data) {
+      $("#pantalla").html(data);
+      $("#example1").DataTable({
+        iDisplayLength: 25,
+        paging: true,
+        lengthChange: true,
+        searching: true,
+        ordering: true,
+        info: true,
+        autoWidth: true,
+        language: {
+          next: "Siguiente",
+          search: "Buscar:",
+          entries: "registros",
+        },
+      });
+    },
+  });
+}
+
+function balanceCajaCajero() {
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+
+  let { pos, usuarioAct } = sesion;
+  let { usuario, usuario_id } = usuarioAct;
+  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } = pos;
+  file = makeid(12);
+  parametros = {
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
+    logo,
+    file,
+  };
+
+  $.ajax({
+    url: "informes/balanceCajaCajero.php",
+    type: "POST",
+    data: parametros,
+    success: function (data) {
+      creaHTMLReportes(data, `Balance del Dia Cajero ${user}`);
+    },
+  });
+}
+
+function balanceCaja() {
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+
+  let { pos, usuarioAct } = sesion;
+  let { usuario, usuario_id } = usuarioAct;
+  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } = pos;
+  parametros = {
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
+    logo,
+  };
+
+  $.ajax({
+    url: "informes/balanceCaja.php",
+    type: "POST",
+    data: parametros,
+    success: function (data) {
+      creaHTMLReportes(data, `Balance del Dia`);
+    },
+  });
+}
+
+function abonosDia() {
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+
+  let { pos, usuarioAct } = sesion;
+  let { usuario, usuario_id } = usuarioAct;
+  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } = pos;
+  parametros = {
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
+    logo,
+  };
+
+  $.ajax({
+    url: "informes/abonosDia.php",
+    type: "POST",
+    data: parametros,
+    success: function (data) {
+      creaHTMLReportes(data, `Abonos del Dia`);
+    },
+  });
+}
+
+function balanceHistorico() {
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos, usuarioAct } = sesion;
+  let { usuario, usuario_id } = usuarioAct;
+  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } = pos;
+  file = makeid(12);
+  parametros = {
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
+    logo,
+    file,
+  };
+
+  $.ajax({
+    url: "views/historicoBalanceCaja.php",
+    type: "POST",
+    data: parametros,
+    success: function (data) {
+      $("#pantalla").html(data);
+    },
+  });
+}
+
+function saleFacturasCartera() {
+  let nrofacturas = $("#nrofacturas").val();
+  let facturas = [];
+  let total = 0;
+  $("#example1 > tbody > tr").each(function () {
+    if ($("#asigna", this).is(":checked") === true) {
+      (valor = parseFloat($("#valor", this).html().replaceAll(",", ""))),
+        (factura = {
+          numero: $("#nrofactura", this).html(),
+          valor,
+          fecha: $("#fecha", this).html(),
+        });
+      total = total + valor;
+      facturas.push(factura);
+    }
+  });
+
+  valorfact = $("#valorFacturasSelec").val();
+  $("#modalFacturasCliente").modal("hide");
+  $("#facturasSele").val(JSON.stringify(facturas));
+  $("#concepto").val("Pago Facturas " + nrofacturas);
+  $("#base").val(total);
+}
+
+function sumaFacturas() {
+  let valorselec = 0;
+  let nrofacturas = "";
+
+  $("#example1 > tbody > tr").each(function () {
+    var carga = $("#asigna", this).is(":checked");
+    if (carga === true) {
+      valorselec =
+        valorselec + parseFloat($("#valor", this).html().replaceAll(",", ""));
+      nrofacturas = nrofacturas + $("#nrofactura", this).html() + " ";
+    }
+  });
+
+  $("#nrofacturas").val(nrofacturas);
+  $("#valorFacturasSelec").val(number_format(valorselec, 2));
+}
+
+function ventasCreditoDia() {
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+
+  let { pos, usuarioAct } = sesion;
+  let { usuario, usuario_id } = usuarioAct;
+  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } = pos;
+  parametros = {
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
+    logo,
+  };
+
+  $.ajax({
+    url: "informes/ventasCreditoDia.php",
+    type: "POST",
+    data: parametros,
+    success: function (data) {
+      creaHTMLReportes(data, `Ventas Credito del Dia`);
+    },
+  });
+}
+$(document).ready(function () {
+  $("#myModalAnulaFactura").on("show.bs.modal", function (event) {
+    var modal = $(this);
+    var button = $(event.relatedTarget); // Botón que activó el modal
+    let idamb = button.data("idamb");
+    let factura = button.data("factura");
+    let movim = button.data("movim");
+    modal
+      .find(".modal-title")
+      .html(
+        `<i class="fa fa-ban"></i> Anular Factura ${number_format(factura, 0)} `
+      );
+    $("#facturaActiva").val(factura);
+    $("#salida").val(movim);
+  });
+  $("#myModalFotoReceta").on("show.bs.modal", function (event) {
+    var modal = $(this);
+    var button = $(event.relatedTarget); // Botón que activó el modal
+    var id = button.data("id"); // Extraer la información de atributos de datos
+    var receta = button.data("receta"); // Extraer la información de atributos de datos
+    var foto = button.data("foto"); // Extraer la información de atributos de datos
+    modal.find(".modal-title").html("Receta Estandar : " + receta);
+    $("#idRecetaFoto").val(id);
+  });
+
+  $("#modalAdicionaCliente").on("show.bs.modal", function (event) {
+    sesion = JSON.parse(localStorage.getItem("sesion"));
+    let { usuarioAct } = sesion;
+    let { usuario_id } = usuarioAct;
+    $("#idusr").val(usuario_id);
+  });
+
+  $("#dataDeleteCliente").on("show.bs.modal", function (event) {
+    sesion = JSON.parse(localStorage.getItem("sesion"));
+    let { usuarioAct } = sesion;
+    let { usuario_id } = usuarioAct;
+
+    var button = $(event.relatedTarget);
+    var id = button.data("id");
+    var modal = $(this);
+
+    $("#idusrdel").val(usuario_id);
+  });
+});
+
+function traeFacturasCliente() {
+  let { pos } = sesion;
+  let { id_ambiente } = pos;
+  let idambi = id_ambiente;
+
+  let idcliente = $("#proveedor").val();
+  if (idcliente == "") {
+    swal("Precaucion", "Seleccione Primero el Cliente", "warning");
+    $("#proveedor").focus();
+    return 0;
+  }
+  $("#modalFacturasCliente").modal("show");
+  let cliente = $("#proveedor option:selected").text();
+  let modal = $(this);
+  $(".modal-title").text("Cliente : " + cliente);
+
+  $.ajax({
+    type: "POST",
+    url: "res/php/user_actions/traeFacturasCliente.php",
+    data: { idcliente, idambi },
+    success: function (data) {
+      $("#traeFacturas").html(data);
+    },
+  });
+}
+
+function ingresoCartera() {
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos } = sesion;
+  let { fecha_auditoria } = pos;
+
+  $.ajax({
+    url: "views/recaudosCartera.php",
+    type: "POST",
+    success: function (data) {
+      $("#pantalla").html(data);
+      $("#fecha").val(fecha_auditoria);
+    },
+  });
+}
+
+function guardaCartera() {
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let fecha = $("#fecha").val();
+  let base = $("#base").val();
+  let naturaleza = $("#naturaleza").val();
+  let concepto = $("#concepto").val();
+  let proveedor = $("#proveedor").val();
+  let formaPago = $("#formapago").val();
+  let facturas = $("#facturasSele").val();
+  let cliente = $("#proveedor option:selected").text();
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, logo } = pos;
+  let { usuario, usuario_id } = usuarioAct;
+
+  ambi = id_ambiente;
+  nomambi = nombre;
+  user = usuario;
+  iduser = usuario_id;
+
+  parametros = {
+    facturas,
+    base,
+    ambi,
+    nomambi,
+    iduser,
+    user,
+    fecha,
+    naturaleza,
+    concepto,
+    proveedor,
+    formaPago,
+    logo,
+    cliente,
+  };
+
+  $.ajax({
+    type: "POST",
+    url: "res/php/user_actions/guardaCartera.php",
+    data: parametros,
+    success: function (data) {
+      var ventana = window.open(
+        `impresiones/${$.trim(data)}`,
+        "PRINT",
+        "height=600,width=600"
+      );
+      enviaInicio();
+    },
+  });
+}
+
+function comprasCaja() {
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos } = sesion;
+  let { fecha_auditoria } = pos;
+
+  $.ajax({
+    url: "views/comprasCaja.php",
+    type: "POST",
+    success: function (data) {
+      $("#pantalla").html(data);
+      $("#fecha").val(fecha_auditoria);
+    },
+  });
+}
+
+function baseCaja() {
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos } = sesion;
+  let { fecha_auditoria } = pos;
+  $.ajax({
+    url: "views/baseCaja.php",
+    type: "POST",
+    success: function (data) {
+      $("#pantalla").css("margin-left", "0");
+      $("#pantalla").html(data);
+      $("#fecha").val(fecha_auditoria);
+    },
+  });
+}
+
+function guardaCompras() {
+  let base = $("#base").val();
+  let naturaleza = $("#naturaleza").val();
+  let concepto = $("#concepto").val();
+  let documento = $("#documento").val();
+  let fecha = $("#fecha").val();
+  let proveedor = $("#proveedor").val();
+
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, logo } = pos;
+  let { usuario, usuario_id } = usuarioAct;
+
+  ambi = id_ambiente;
+  nomambi = nombre;
+  user = usuario;
+  iduser = usuario_id;
+
+  parametros = {
+    base,
+    ambi,
+    nomambi,
+    iduser,
+    user,
+    fecha,
+    naturaleza,
+    concepto,
+    documento,
+    proveedor,
+    logo,
+  };
+
+  $.ajax({
+    type: "POST",
+    url: "res/php/user_actions/guardaCompra.php",
+    data: parametros,
+    success: function (data) {
+      var ventana = window.open(
+        `impresiones/${$.trim(data)}`,
+        "PRINT",
+        "height=600,width=600"
+      );
+      enviaInicio();
+    },
+  });
+}
+
+function guardaBase() {
+  let base = $("#base").val();
+  let naturaleza = $("#naturaleza").val();
+  let concepto = $("#concepto").val();
+  let documento = $("#documento").val();
+  let fecha = $("#fecha").val();
+  let proveedor = $("#proveedor").val();
+
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, logo } = pos;
+  let { usuario, usuario_id, apellidos, nombres } = usuarioAct;
+
+  ambi = id_ambiente;
+  nomambi = nombre;
+  user = usuario;
+  iduser = usuario_id;
+
+  parametros = {
+    base,
+    ambi,
+    nomambi,
+    iduser,
+    user,
+    fecha,
+    naturaleza,
+    concepto,
+    documento,
+    proveedor,
+    nombre,
+    logo,
+  };
+
+  $.ajax({
+    type: "POST",
+    url: "res/php/user_actions/guardaBaseCaja.php",
+    data: parametros,
+    success: function (data) {
+      var ventana = window.open(
+        `impresiones/${$.trim(data)}`,
+        "PRINT",
+        "height=600,width=600"
+      );
+      enviaInicio();
+    },
+  });
+}
+
 function buscarProducto() {
   var alto = screen.height;
   var ancho = screen.width;
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  ambi = oPos[0]["id_ambiente"];
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos } = sesion;
+  let { id_ambiente } = pos;
   var textoBusqueda = $("input#busqueda").val();
   parametros = {
-    id: ambi,
-    valorBusqueda: textoBusqueda,
+    id_ambiente,
+    textoBusqueda,
   };
 
   if (textoBusqueda != "") {
@@ -18,36 +844,30 @@ function buscarProducto() {
       beforeSend: function (objeto) {
         $("#productoList").html("<img src='../img/loader.gif'>");
       },
-      success: function (data) {
+      success: function (datos) {
         $("#productoList").html("");
-        $("#productoList").css("min-height", 455);
-        $("#productoList").css("height", alto - 400);
-        if (data.length > 1) {
-          for (i = 0; i < data.length; i++) {
-            boton = `<button 
-                      style="background-size: contain;line-height:15px ;"
-                      id="productos"
-                      class="btn btn-danger btnPos btnProd" 
-                      name="${data[i]["nom"]}"
-                      valor="${data[i]["venta"]}"
-                      idprod="${data[i]["producto_id"]}"
-                      porimp="${data[i]["porcentaje_impto"]}"
-                      onClick="getVentas('${data[i]["nom"]}','${data[i]["venta"]}','${data[i]["producto_id"]}','${data[i]["porcentaje_impto"]}','${ambi}')" 
-                      type="button"
-                      class='btn btn-danger'>
-                      ${data[i]["nom"]}</button>`;
+        $("#productoList").css("min-height", 480);
+        $("#productoList").css("height", alto - 263);
+        if (datos.length > 1) {
+          datos.map(function (dato) {
+            let { nom, venta, producto_id, porcentaje_impto } = dato;
+            boton = `<button
+              style="background-size: contain;line-height:15px ;"
+              id="productos"
+              class="btn btn-danger btnPos btnProd"
+              name="${nom}"
+              valor="${venta}"
+              idprod="${producto_id}"
+              porimp="${porcentaje_impto}"
+              onClick="getVentas('${nom}','${venta}','${producto_id}','${porcentaje_impto}','${id_ambiente}')" 
+              type="button"
+              class='btn btn-danger'>
+              ${nom}</button>`;
             $("#productoList").append(boton);
-          }
+          });
         } else {
-          if (data.length > 0) {
-            getVentas(
-              data[0]["nom"],
-              data[0]["venta"],
-              data[0]["producto_id"],
-              data[0]["porcentaje_impto"],
-              ambi
-            );
-          }
+          let { nom, venta, producto_id, porcentaje_impto } = datos[0];
+          getVentas(nom, venta, producto_id, porcentaje_impto, id_ambiente);
         }
       },
     });
@@ -63,14 +883,19 @@ function historicoVentasClientes() {
   let hastaFe = $("#hastaFecha").val();
   let huesped = $("#desdeCliente").val();
   let formaPa = $("#desdeFormaPago").val();
-  let oPos = JSON.parse(localStorage.getItem("oPos"));
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, prefijo, logo } = pos;
+  let { usuario, usuario_id } = usuarioAct;
+
+  idambi = id_ambiente;
 
   parametros = {
-    idamb: oPos[0]["id_ambiente"],
-    prefijo: oPos[0]["prefijo"],
-    desdeFe: desdeFe,
-    hastaFe: hastaFe,
-    huesped: huesped,
+    idamb,
+    prefijo,
+    desdeFe,
+    hastaFe,
+    huesped,
   };
 
   if (desdeFe == "" && hastaFe == "") {
@@ -83,6 +908,7 @@ function historicoVentasClientes() {
       success: function (x) {
         $(".imprimeInforme").html(x);
         $("#dataTable").DataTable({
+          iDisplayLength: 25,
           paging: true,
           lengthChange: true,
           searching: true,
@@ -102,41 +928,52 @@ function historicoVentasClientes() {
 
 function historicoClientes() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
+
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, logo, impuesto, propina, fecha_auditoria } = pos;
+  let { usuario, usuario_id } = usuarioAct;
+
+  idambi = id_ambiente;
+  amb = nombre;
+  user = usuario;
+  iduser = usuario_id;
 
   parametros = {
-    idamb: oPos[0]["id_ambiente"],
-    amb: oPos[0]["nombre"],
-    user: sesion["usuario"][0]["usuario"],
-    iduser: sesion["usuario"][0]["usuario_id"],
-    impto: oPos[0]["impuesto"],
-    prop: oPos[0]["propina"],
-    fecha: oPos[0]["fecha_auditoria"],
-    logo: oPos[0]["logo"],
+    idamb,
+    amb,
+    user,
+    iduser,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
+    logo,
   };
   $.ajax({
     url: "ventas/ventasPorCliente.php",
     type: "POST",
     data: parametros,
     success: function (data) {
-      $(".content-wrapper").html(data);
+      $("#pantalla").html(data);
     },
   });
 }
 
 function ventasPorCliente() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, logo, impuesto, propina, fecha_auditoria } = pos;
+  let { usuario, usuario_id } = usuarioAct;
+
   oKey = makeid(12);
   parametros = {
-    id: oPos[0]["id_ambiente"],
-    amb: oPos[0]["nombre"],
-    user: sesion["usuario"][0]["usuario"],
-    iduser: sesion["usuario"][0]["usuario_id"],
-    impto: oPos[0]["impuesto"],
-    prop: oPos[0]["propina"],
-    fecha: oPos[0]["fecha_auditoria"],
-    logo: oPos[0]["logo"],
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
+    logo,
     file: oKey,
   };
 
@@ -145,39 +982,45 @@ function ventasPorCliente() {
     type: "POST",
     data: parametros,
     success: function (data) {
-      $(".content-wrapper").html(data);
+      $("#pantalla").html(data);
       $("#verInforme").attr("data", "imprimir/informes/" + oKey + ".pdf");
     },
   });
 }
 
-function getComandasPlano(comanda, nromesa, nombre) {
+function getComandasPlano(comanda, nromesa, nomBtn) {
   var alto = screen.height;
   var ancho = screen.width;
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, logo, impuesto, prefijo, fecha_auditoria } = pos;
+  let { usuario, tipo } = usuarioAct;
+
   $(".btn-menu").css("display", "block");
-  miBoton = "#" + nombre;
+  miBoton = "#" + nomBtn;
   propina = $(miBoton).attr("propina");
   impuesto = $(miBoton).attr("impto");
   descuento = $(miBoton).attr("descuento");
   subtotal = $(miBoton).attr("subtotal");
+  abonos = $(miBoton).attr("abonos");
   total = $(miBoton).attr("total");
+  cliente = $(miBoton).attr("cliente");
 
   parametros = {
-    id: oPos[0]["id_ambiente"],
-    amb: oPos[0]["nombre"],
-    user: sesion["usuario"][0]["usuario"],
-    nivel: sesion["usuario"][0]["tipo"],
-    impto: impuesto,
-    propina: propina,
-    descuento: propina,
-    subtotal: subtotal,
-    total: total,
-    fecha: oPos[0]["fecha_auditoria"],
-    pref: oPos[0]["prefijo"],
-    comanda: comanda,
-    nromesa: nromesa,
+    idamb: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    nivel: tipo,
+    fecha: fecha_auditoria,
+    pref: prefijo,
+    impuesto,
+    propina,
+    descuento,
+    subtotal,
+    total,
+    comanda,
+    nromesa,
+    cliente,
   };
 
   $.ajax({
@@ -185,15 +1028,12 @@ function getComandasPlano(comanda, nromesa, nombre) {
     type: "POST",
     data: parametros,
     success: function (data) {
-      $(".content-wrapper").html(data);
-      $("#titulo3").html(
-        `<h4 style="text-align: center;">Comanda Nro ${comanda} - Mesa Nro ${nromesa}</h4>`
-      );
-      /*       $("#tituloNumero2").html(
+      $("#pantalla").html(data);
+      $("#tituloNumero2").html(
         `<h3 style="margin-top:10px">Comanda Nro ${comanda} <br>Mesa Nro ${nromesa}</h3>`
-      ); */
+      );
       $("#productosComanda").css("min-height", 350);
-      $("#productosComanda").css("height", alto - 352);
+      $("#productosComanda").css("height", alto - 320);
       $("#Escritorio").css("height", alto - 420);
     },
   });
@@ -201,15 +1041,20 @@ function getComandasPlano(comanda, nromesa, nombre) {
 
 function mesasActivasPlano() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
+
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, impuesto, propina, prefijo, fecha_auditoria } =
+    pos;
+  let { usuario } = usuarioAct;
+
   parametros = {
-    idamb: oPos[0]["id_ambiente"],
-    amb: oPos[0]["nombre"],
-    user: sesion["usuario"][0]["usuario"],
-    impto: oPos[0]["impuesto"],
-    prop: oPos[0]["propina"],
-    pref: oPos[0]["prefijo"],
-    fecha: oPos[0]["fecha_auditoria"],
+    idamb: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    impto: impuesto,
+    prop: propina,
+    pref: prefijo,
+    fecha: fecha_auditoria,
   };
 
   $.ajax({
@@ -229,7 +1074,9 @@ function mesasActivasPlano() {
         $("#" + mesa).attr("subtotal", data[i]["subtotal"]);
         $("#" + mesa).attr("total", data[i]["total"]);
         $("#" + mesa).attr("descuento", data[i]["valor_descuento"]);
+        $("#" + mesa).attr("abonos", data[i]["abonos"]);
         $("#" + mesa).attr("propina", data[i]["propina"]);
+        $("#" + mesa).attr("cliente", data[i]["cliente"]);
         $("#" + mesa).attr(
           "onclick",
           `getComandasPlano(${comanda} ,'${nroMesa}',this.name)`
@@ -243,20 +1090,21 @@ function abreCuenta(mesa) {
   var alto = screen.height;
   var ancho = screen.width;
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  $(".main-sidebar").css("display", "none");
-  $(".content-wrapper").css("margin-left", "0");
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, impuesto, propina, prefijo, fecha_auditoria } =
+    pos;
+  let { usuario } = usuarioAct;
   $("#btnGuardar").attr("disabled", "enabled");
 
   parametros = {
-    id: oPos[0]["id_ambiente"],
-    amb: oPos[0]["nombre"],
-    user: sesion["usuario"][0]["usuario"],
-    impto: oPos[0]["impuesto"],
-    prop: oPos[0]["propina"],
-    pref: oPos[0]["prefijo"],
-    fecha: oPos[0]["fecha_auditoria"],
-    mesa: mesa,
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
+    prefijo,
+    mesa,
   };
 
   $.ajax({
@@ -265,17 +1113,17 @@ function abreCuenta(mesa) {
     data: parametros,
     success: function (data) {
       getSecciones();
-      $(".content-wrapper").html(data);
-      $("#productosComanda").css("height", alto - 344);
+      $("#pantalla").html(data);
+      $("#productosComanda").css("height", alto - 292);
       $("#Escritorio").css("height", alto - 420);
       $("#nromesas").val(mesa);
       $("#nromesas").attr("readonly", true);
       $("#nromesas").attr("disabled", true);
-      var storageProd = localStorage.getItem("productoComanda");
+      let storageProd = localStorage.getItem("productoComanda");
       if (storageProd == null) {
-        listaComanda = [];
+        let listaComanda = [];
       } else {
-        listaComanda = JSON.parse(storageProd);
+        let listaComanda = JSON.parse(storageProd);
       }
       productosActivos();
       resumenComanda();
@@ -285,7 +1133,7 @@ function abreCuenta(mesa) {
 
 function muestraMenu() {
   const containerMenu = document.querySelector(".main-sidebar");
-  const containerWraper = document.querySelector(".content-wrapper");
+  const containerWraper = document.querySelector("#pantalla");
   containerMenu.classList.toggle("activaMenu");
   containerWraper.classList.toggle("cambiaWrapper");
 }
@@ -320,6 +1168,208 @@ function pantallaCompleta(elem) {
   }
 }
 
+function historicoGrupos() {
+  var web = $("#rutaweb").val();
+  desdeFe = $("#desdeFecha").val();
+  hastaFe = $("#hastaFecha").val();
+  desdeNu = $("#desdeNumero").val();
+  hastaNu = $("#hastaNumero").val();
+  huesped = $("#desdeHuesped").val();
+  formaPa = $("#desdeFormaPago").val();
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, logo, prefijo } = pos;
+  let { usuario, usuario_id } = usuarioAct;
+
+  parametros = {
+    idamb: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    logo,
+    prefijo,
+    desdeFe,
+    hastaFe,
+  };
+
+  if (desdeFe == "" && hastaFe == "") {
+    swal("Atencion", "Seleccione un Criterio de Fechas", "warning");
+  } else {
+    $.ajax({
+      url: "imprimir/imprimeVentasPorGrupoMes.php",
+      type: "POST",
+      data: parametros,
+      success: function (data) {
+        $("#verInforme").attr(
+          "data",
+          `data:application/pdf;base64,${$.trim(data)}`
+        );
+      },
+    });
+  }
+}
+
+function historicoFormasPago() {
+  var web = $("#rutaweb").val();
+  desdeFe = $("#desdeFecha").val();
+  hastaFe = $("#hastaFecha").val();
+  desdeNu = $("#desdeNumero").val();
+  hastaNu = $("#hastaNumero").val();
+  huesped = $("#desdeHuesped").val();
+  formaPa = $("#desdeFormaPago").val();
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, logo, prefijo } = pos;
+  let { usuario, usuario_id } = usuarioAct;
+
+  parametros = {
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    idamb: id_ambiente,
+    logo,
+    prefijo,
+    desdeFe,
+    hastaFe,
+  };
+
+  if (desdeFe == "" && hastaFe == "") {
+    swal("Atencion", "Seleccione un Criterio de Fechas", "warning");
+  } else {
+    $.ajax({
+      url: "imprimir/imprimeVentasFormasPagoMes.php",
+      type: "POST",
+      data: parametros,
+      success: function (data) {
+        $("#verInforme").attr(
+          "data",
+          `data:application/pdf;base64,${$.trim(data)}`
+        );
+      },
+    });
+  }
+}
+
+function historicoProductos() {
+  var web = $("#rutaweb").val();
+  desdeFe = $("#desdeFecha").val();
+  hastaFe = $("#hastaFecha").val();
+  desdeNu = $("#desdeNumero").val();
+  hastaNu = $("#hastaNumero").val();
+  huesped = $("#desdeHuesped").val();
+  formaPa = $("#desdeFormaPago").val();
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos, usuarioAct } = sesion;
+  const { nombre, id_ambiente, logo, prefijo, id_bodega } = pos;
+  const { usuario, usuario_id } = usuarioAct;
+
+  parametros = {
+    nombre,
+    usuario,
+    usuario_id,
+    id_ambiente,
+    logo,
+    prefijo,
+    id_bodega,
+    desdeFe,
+    hastaFe,
+  };
+
+  if (desdeFe == "" && hastaFe == "") {
+    swal("Atencion", "Seleccione un Criterio de Fechas", "warning");
+  } else {
+    $.ajax({
+      url: "imprimir/imprimeVentasProductosMes.php",
+      type: "POST",
+      dataType: "json",
+      data: parametros,
+      success: function (datos) {
+        let { tabla, reporte, inventario } = datos;
+        $("#exporta").removeAttr("disabled");
+        llenaProductos(tabla, inventario);
+        $("#verInforme").attr(
+          "data",
+          `data:application/pdf;base64,${$.trim(reporte)}`
+        );
+      },
+    });
+  }
+}
+
+function llenaProductos(datos, inventario) {
+  dataProd = document.querySelector("#dataProductos tbody");
+  let html = "";
+  datos.forEach((dato) => {
+    let promedio = 0;
+    const { nom, unitario, cant, descuento, total, id_receta } = dato;
+
+    let existe = inventario.filter(
+      (productos) => productos.id_producto === id_receta
+    );
+
+    if (existe.length >= 1) {
+      promedio = existe["promedio"];
+      if (existe["promedio"] == null) {
+        promedio = 0;
+      }
+    }
+
+    html += `
+    <tr>
+      <td>${nom}</td>  
+      <td>${unitario}</td>  
+      <td>${cant}</td>  
+      <td>${descuento}</td>  
+      <td>${total}</td>  
+      <td>${promedio}</td>  
+      <td>${promedio * cant}</td>  
+    </tr>
+    `;
+  });
+  dataProd.innerHTML = html;
+}
+
+function historicoBalanceCaja() {
+  var web = $("#rutaweb").val();
+  desdeFe = $("#desdeFecha").val();
+  hastaFe = $("#hastaFecha").val();
+  desdeNu = $("#desdeNumero").val();
+  hastaNu = $("#hastaNumero").val();
+  huesped = $("#desdeHuesped").val();
+  formaPa = $("#desdeFormaPago").val();
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, logo, prefijo } = pos;
+  let { usuario, usuario_id } = usuarioAct;
+
+  parametros = {
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    idamb: id_ambiente,
+    logo,
+    prefijo,
+    desdeFe,
+    hastaFe,
+  };
+
+  if (desdeFe == "" && hastaFe == "") {
+    swal("Atencion", "Seleccione un Criterio de Fechas", "warning");
+  } else {
+    $.ajax({
+      url: "imprimir/imprimeBalanceCajaMes.php",
+      type: "POST",
+      data: parametros,
+      success: function (data) {
+        $("#verInforme").attr(
+          "data",
+          `data:application/pdf;base64,${$.trim(data)}`
+        );
+      },
+    });
+  }
+}
+
 function historicoPeriodos() {
   var web = $("#rutaweb").val();
   desdeFe = $("#desdeFecha").val();
@@ -328,20 +1378,21 @@ function historicoPeriodos() {
   hastaNu = $("#hastaNumero").val();
   huesped = $("#desdeHuesped").val();
   formaPa = $("#desdeFormaPago").val();
-  oPos = JSON.parse(localStorage.getItem("oPos"));
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oKey = makeid(12);
+  let { pos, usuarioAct } = sesion;
 
+  const { nombre, id_ambiente, logo, prefijo, id_bodega } = pos;
+  const { usuario, usuario_id } = usuarioAct;
   parametros = {
-    amb: oPos[0]["nombre"],
-    user: sesion["usuario"][0]["usuario"],
-    iduser: sesion["usuario"][0]["usuario_id"],
-    idamb: oPos[0]["id_ambiente"],
-    logo: oPos[0]["logo"],
-    prefijo: oPos[0]["prefijo"],
-    desdeFe: desdeFe,
-    hastaFe: hastaFe,
-    file: oKey,
+    nombre,
+    usuario,
+    usuario_id,
+    id_ambiente,
+    id_bodega,
+    logo,
+    prefijo,
+    desdeFe,
+    hastaFe,
   };
 
   if (desdeFe == "" && hastaFe == "") {
@@ -351,110 +1402,31 @@ function historicoPeriodos() {
       url: "imprimir/imprimeVentasPorPeriodoMes.php",
       type: "POST",
       data: parametros,
-      success: function (x) {
+      success: function (data) {
         $("#verInforme").attr(
           "data",
-          "imprimir/informes/" + $.trim(x) + ".pdf"
+          `data:application/pdf;base64,${$.trim(data)}`
         );
       },
     });
   }
 }
 
-function activaModulos() {
-  sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("sesion"));
-  fecha = new Date();
-  fechaAct =
-    fecha.getDate() + "/" + (fecha.getMonth() + 1) + "/" + fecha.getFullYear();
-  var div = '<div class="container-fluid moduloCentrar">';
-  if (sesion["cia"][0]["con"] == "1") {
-    div =
-      div +
-      '<div id="con" class="col-lg-4 col-md-4 col-sm-6 col-xs-12"><a href="" class="small-box-footer"><div class="small-box bg-blue-gradient"> <div class="inner"><h3>Contabilidad</h3><p>Control de Stock</p>                </div>                <div class="icon">                  <i class="ion ion-ios-briefcase-outline"></i>                </div>                <small class="small-box-footer" style="font-size:12px">Ingresar<i class="fa fa-arrow-circle-right"></i></small></div></a></div>';
-  }
-  if (sesion["cia"][0]["inv"] == "1" && sesion["usuario"][0]["inv"] == "1") {
-    div =
-      div +
-      '<div id="inv" style="cursor: pointer;" class="col-lg-4 col-md-4 col-sm-6 col-xs-12"><a onclick="ingresoInv()" class="small-box-footer"><div class="small-box bg-yellow-gradient">  <div class="inner">  <h3>Inventarios</h3><p>Control de Stock</p></div><div class="icon"><i class="ion ion-archive"></i></div><small class="small-box-footer" style="font-size:12px">Ingresar<i class="fa fa-arrow-circle-right"></i></small>                  </div>                </a>              </div>';
-  }
-  if (sesion["cia"][0]["com"] == "1") {
-    div =
-      div +
-      '<div id="com" class="col-lg-4 col-md-4 col-sm-6 col-xs-12"><a href="#" class="small-box-footer"><div class="small-box bg-aqua"><div class="inner"><h3>Compras</h3> <p>Mes de Proceso</p>                </div>                <div class="icon">                  <i class="ion ion-ios-cart-outline"></i>                </div>                <small class="small-box-footer" style="font-size:12px">Ingresar<i class="fa fa-arrow-circle-right"></i></small> </div></a></div>';
-  }
-  if (sesion["cia"][0]["cxp"] == "1") {
-    div =
-      div +
-      '<div id="cxp" class="col-lg-4 col-md-4 col-sm-6 col-xs-12"><a href="#" class="small-box-footer"><div class="small-box bg-teal"><div class="inner">  <h3>Tesoreria - Bancos</h3>  <p>Mes de Proceso</p>                    </div>                    <div class="icon">                      <i class="ion ion-cash"></i>                    </div>                    <small class="small-box-footer">Ingresar<i class="fa fa-arrow-circle-right"></i></small></div></a></div>';
-  }
-  if (sesion["cia"][0]["cxc"] == "1") {
-    div =
-      div +
-      '<div id="cxc" class="col-lg-4 col-md-4 col-sm-6 col-xs-12"><a href="#" class="small-box-footer"><div class="small-box bg-purple-gradient"><div class="inner"> <h3>Cuentas por Cobrar</h3> <p>Mes de Proceso</p>                </div>                <div class="icon">                  <i class="ion ion-bag"></i>                </div>                <small class="small-box-footer">Ingresar<i class="fa fa-arrow-circle-right"></i></small></div></a></div>';
-  }
-  if (sesion["cia"][0]["pos"] == "1" && sesion["usuario"][0]["pos"] == "1") {
-    div =
-      div +
-      `
-      <div id="pos" class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-        <a href="../pos/inicio.php" class="small-box-footer">
-        <div class="small-box bg-green-gradient">
-          <div class="inner"> 
-            <h3>Puntos de Venta</h3> 
-            <p id="fechaPos">Ventas Restaurantes </p>
-          </div>
-          <div class="icon">
-            <i class="ion ion-coffee"></i>
-          </div>
-          <small class="small-box-footer" style="font-size:12px">Ingresar
-            <i class="fa fa-arrow-circle-right"></i>
-          </small>
-        </div>
-      </a>
-    </div>`;
-  }
-  if (sesion["cia"][0]["tar"] == "1") {
-    div =
-      div +
-      '<div id="cxp" class="col-lg-4 col-md-4 col-sm-6 col-xs-12"><a href="#" class="small-box-footer"><div class="small-box bg-teal"><div class="inner"><h3>Tarificador Telefonico</h3><p>Mes de Proceso</p>                    </div>                    <div class="icon">                      <i class="ion ion-cash"></i>                    </div>                    <small class="small-box-footer">Ingresar<i class="fa fa-arrow-circle-right"></i></small></div></a></div>';
-  }
-  if (sesion["cia"][0]["pms"] == "1" && sesion["usuario"][0]["pms"] == "1") {
-    div =
-      div +
-      '<div id="pms" style="cursor: pointer;" class="col-lg-4 col-md-4 col-sm-6 col-xs-12">  <a onclick="ingresoPms()" >    <div class="small-box bg-blue-gradient">      <div class="inner">        <h3>PMS Software </h3>         <p style="color:#FFF" id="fechaPms">Fecha de Proceso [' +
-      sesion[2]["fecha_auditoria"] +
-      '] </p>                      </div>                    <div class="icon">                        <i class="ion ion-ios-home-outline"></i>                    </div>      <span class="small-box-footer">Ingresar <i class="fa fa-arrow-circle-right"></i></span>    </div>  </a>              </div>';
-  }
-  div = div + "</div>";
-  if (sesion["usuario"][0]["tipo"] == "A") {
-    div =
-      div +
-      '<div id="par" style="cursor: pointer;display:flex;"  class="container-fluid"><div class="container moduloCentrar"><div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> <a onclick="ingresoAdmin()" class="small-box-footer">                  <div class="small-box bg-red-gradient">                    <div class="inner">                      <h3 style="overflow-x: hidden;">Configuracion General <br></h3> <p style="color:#FFF">Parametros del Sistema</p></div>                    <div class="icon"><i class="fa fa-cogs"></i></div><small class="small-box-footer" style="font-size:12px">Ingresar<i class="fa fa-arrow-circle-right"></i></small></div></a></div></div></div>';
-  }
-  $("#modulos").html(div);
-  $("#nombreUsuario").html(
-    sesion["usuario"][0]["apellidos"] +
-      " " +
-      sesion["usuario"][0]["nombres"] +
-      ' <span class="caret"></span>'
-  );
-}
-
 function devolucionesDia() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  oKey = makeid(12);
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } = pos;
+  let { usuario, usuario_id } = usuarioAct;
+
   parametros = {
-    id: oPos[0]["id_ambiente"],
-    amb: oPos[0]["nombre"],
-    user: sesion["usuario"][0]["usuario"],
-    iduser: sesion["usuario"][0]["usuario_id"],
-    impto: oPos[0]["impuesto"],
-    prop: oPos[0]["propina"],
-    fecha: oPos[0]["fecha_auditoria"],
-    logo: oPos[0]["logo"],
-    file: oKey,
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
+    logo: logo,
   };
 
   $.ajax({
@@ -462,8 +1434,7 @@ function devolucionesDia() {
     type: "POST",
     data: parametros,
     success: function (data) {
-      $(".content-wrapper").html(data);
-      $("#verInforme").attr("data", "imprimir/informes/" + oKey + ".pdf");
+      creaHTMLReportes(data, `Devoluciones del Dia`);
     },
   });
 }
@@ -517,18 +1488,19 @@ function activaSelecReceta(codigo) {
 
 function devolucionProductos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  oKey = makeid(12);
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, propina, logo, impuesto, fecha_auditoria } = pos;
+  let { usuario, usuario_id } = usuarioAct;
+
   parametros = {
-    id: oPos[0]["id_ambiente"],
-    amb: oPos[0]["nombre"],
-    user: sesion["usuario"][0]["usuario"],
-    iduser: sesion["usuario"][0]["usuario_id"],
-    impto: oPos[0]["impuesto"],
-    prop: oPos[0]["propina"],
-    fecha: oPos[0]["fecha_auditoria"],
-    logo: oPos[0]["logo"],
-    file: oKey,
+    user: usuario,
+    id: id_ambiente,
+    amb: nombre,
+    iduser: usuario_id,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
+    logo,
   };
 
   $.ajax({
@@ -536,11 +1508,7 @@ function devolucionProductos() {
     type: "POST",
     data: parametros,
     success: function (data) {
-      $(".content-wrapper").html(data);
-      $("#verInforme").attr(
-        "data",
-        "imprimir/informes/devolucionProductos_" + oKey + ".pdf"
-      );
+      creaHTMLReportes(data, `Devolucion Productos del Dia`);
     },
   });
 }
@@ -551,37 +1519,57 @@ function botonDevolverProducto(
   ambi,
   canti,
   nombre,
+  idprod,
+  importe,
+  impto,
   codigo,
   regis
 ) {
   $("#myModalDevolucionComanda").modal("show");
-  $("#cantidadDev").val(canti);
+  $("#cantiInicial").val(canti);
+  $("#cantidadDev").val(1);
   $("#nombreProd").val(nombre);
-  $("#idProductoDev").val(producto);
+  $("#idProductoDev").val(idprod);
+  $("#prodImporte").val(importe);
+  $("#prodImpto").val(impto);
   $("#ambienteDev").val(ambi);
   $("#comandaDev").val(comanda);
   $("#regisDev").val(regis);
+  $("#cantidadDev").attr("max", canti);
+
   $("#motivoDev").val("");
 }
 
 function devolverProducto() {
+  inicial = $("#cantiInicial").val();
+  cantidad = $("#cantidadDev").val();
   comanda = $("#numeroComanda").val();
   idprod = $("#idProductoDev").val();
   idambi = $("#ambienteDev").val();
   motivo = $("#motivoDev").val();
   regis = $("#regisDev").val();
+  importe = $("#prodImporte").val();
+  impto = $("#prodImpto").val();
+
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  user = sesion["usuario"][0]["usuario"];
-  fecha = oPos[0]["fecha_auditoria"];
+  let { pos, usuarioAct } = sesion;
+  let { fecha_auditoria } = pos;
+  let { usuario } = usuarioAct;
+
+  user = usuario;
+  fecha = fecha_auditoria;
 
   parametros = {
-    comanda: comanda,
-    idprod: idprod,
-    idambi: idambi,
-    motivo: motivo,
-    fecha: fecha,
-    user: user,
+    comanda,
+    inicial,
+    cantidad,
+    idprod,
+    idambi,
+    importe,
+    impto,
+    motivo,
+    fecha,
+    user,
   };
 
   $.ajax({
@@ -591,32 +1579,31 @@ function devolverProducto() {
     data: parametros,
     success: function (data) {
       $("#myModalDevolucionComanda").modal("hide");
-      document.getElementsByTagName("table")[0].setAttribute("id", "comanda");
-      document.getElementById("comanda").deleteRow(regis);
-      borrar = regis - 1;
-      listaComanda.splice(borrar, 1);
-      localStorage.setItem("productoComanda", JSON.stringify(listaComanda));
+      nombreComanda = "comanda" + comanda;
+      getComandas(nombreComanda, comanda);
       resumenComanda();
-      resumenDescuento(idambi, comanda);
     },
   });
 }
 
 function verComandasAnuladas() {
-  oPos = JSON.parse(localStorage.getItem("oPos"));
   sesion = JSON.parse(localStorage.getItem("sesion"));
 
-  var id = oPos[0]["id_ambiente"];
-  var nomamb = oPos[0]["nombre"];
-  var pref = oPos[0]["prefijo"];
-  var tipoUsr = sesion["usuario"][0]["tipo"];
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, prefijo } = pos;
+  let { tipo, usuario } = usuarioAct;
+
+  var idamb = id_ambiente;
+  var nomamb = nombre;
+  var pref = prefijo;
+  var tipousr = tipo;
 
   var parametros = {
-    idamb: id,
-    pref: pref,
-    nomamb: nomamb,
-    tipousr: tipoUsr,
-    user: sesion["usuario"][0]["usuario"],
+    idamb,
+    pref,
+    nomamb,
+    tipousr,
+    user: usuario,
   };
   $("#loader").fadeIn("slow");
   $.ajax({
@@ -627,8 +1614,9 @@ function verComandasAnuladas() {
       $("#loader").html("<img src='../img/loader.gif'>");
     },
     success: function (data) {
-      $(".content-wrapper").html(data);
+      $("#pantalla").html(data);
       $("#example1").DataTable({
+        iDisplayLength: 25,
         paging: true,
         lengthChange: true,
         searching: true,
@@ -661,82 +1649,18 @@ function verSalidaInventarios(fact) {
   $("#verFactura").attr("data", "../inventario/imprimir/" + fact);
 }
 
-function buscaRecetas(){
-  sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  tipo = $('#tipoReceta').val();
-  parametros = {
-    id: oPos[0]["id_ambiente"],
-    amb: oPos[0]["nombre"],
-    user: sesion["usuario"][0]["usuario"],
-    iduser: sesion["usuario"][0]["usuario_id"],
-    impto: oPos[0]["impuesto"],
-    prop: oPos[0]["propina"],
-    logo: oPos[0]["logo"],
-    fecha: oPos[0]["fecha_auditoria"],
-    tipo:tipo,
-    file: makeid(12),
-  };
-
-  $.ajax({
-    url: "imprimir/imprimeCatalogoRecetas.php",
-    type: "POST",
-    data: parametros,
-    success: function (x) {
-      $("#verInforme").attr(
-        "data",
-        "imprimir/" + $.trim(x)
-      );
-    },
-    /* success: function (data) {
-      ///$(".content-wrapper").html(data);
-    }, */
-  })
-
-
-}
-
-function catalogoRecetas() {
-  sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  parametros = {
-    id: oPos[0]["id_ambiente"],
-    amb: oPos[0]["nombre"],
-    user: sesion["usuario"][0]["usuario"],
-    iduser: sesion["usuario"][0]["usuario_id"],
-    impto: oPos[0]["impuesto"],
-    prop: oPos[0]["propina"],
-    logo: oPos[0]["logo"],
-    fecha: oPos[0]["fecha_auditoria"],
-  };
-
-  $.ajax({
-    url: "views/catalogoRecetas.php",
-    type: "POST",
-    data: parametros,
-    success: function (data) {
-      $(".content-wrapper").html(data);
-    },
-  });
-}
-
-
-
 function facturasDia() {
-  oPos = JSON.parse(localStorage.getItem("oPos"));
   sesion = JSON.parse(localStorage.getItem("sesion"));
-
-  var id = oPos[0]["id_ambiente"];
-  var nomamb = oPos[0]["nombre"];
-  var prefijo = oPos[0]["prefijo"];
-  var tipoUsr = sesion["usuario"][0]["tipo"];
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, prefijo } = pos;
+  let { tipo, usuario } = usuarioAct;
 
   var parametros = {
-    idamb: id,
-    prefijo: prefijo,
-    nomamb: nomamb,
-    tipousr: tipoUsr,
-    user: sesion["usuario"][0]["usuario"],
+    id_ambiente,
+    prefijo,
+    nombre,
+    tipo,
+    usuario,
   };
   $("#loader").fadeIn("slow");
   $.ajax({
@@ -747,9 +1671,10 @@ function facturasDia() {
       $("#loader").html("<img src='../img/loader.gif'>");
     },
     success: function (data) {
-      $(".content-wrapper").html(data);
+      $("#pantalla").html(data);
 
       $("#example1").DataTable({
+        iDisplayLength: 25,
         paging: true,
         lengthChange: true,
         searching: true,
@@ -767,47 +1692,65 @@ function facturasDia() {
 }
 
 function resumenComanda() {
-  var desc = 0.0;
-  var impt = 0.0;
-  var venta = 0.0;
-  var canpr = 0.0;
-  var canti = 0.0;
+  var storageProd = localStorage.getItem("productoComanda");
+  let listaComanda = JSON.parse(storageProd);
+
+  var impuesto = 0;
+  var venta = 0;
+  var canti = 0;
+  let propina = 0;
+  // let abonos = 0;
+
+  abonos = $("#abonosComanda").val();
+
+  // console.log(abonos);
 
   for (i = 0; i < listaComanda.length; i++) {
     canti = canti + 1;
-    desc = desc + parseFloat(listaComanda[i]["descuento"]);
-    impt = impt + parseFloat(listaComanda[i]["valorimpto"]);
+    impuesto = impuesto + parseFloat(listaComanda[i]["valorimpto"]);
     venta = venta + parseFloat(listaComanda[i]["venta"]);
   }
+
+  miBoton = "comanda" + $("#numeroComanda").val();
+  total = venta + impuesto + propina - descuento - abonos;
+  $("#totalComanda").val(total);
   $("#totalVta").html(number_format(venta, 2));
-  $("#totalDesc").html(number_format(desc, 2));
-  $("#totalCuenta").html(number_format(venta - desc + impt, 2));
-  $("#valorImpto").html(number_format(impt, 2));
+  $("#totalDesc").html(number_format(descuento, 2));
+  $("#totalAbonos").html(number_format(abonos, 2));
+  $("#totalCuenta").html(number_format(total, 2));
+  $("#valorImpto").html(number_format(impuesto, 2));
   $("#cantProd").val(canti);
+
+  $("#" + miBoton).attr("subtotal", venta);
+  $("#" + miBoton).attr("impto", impuesto);
+  $("#" + miBoton).attr("descuento", descuento);
+  $("#" + miBoton).attr("abonos", abonos);
+  $("#" + miBoton).attr("total", total);
 }
 
-function resumenDescuento(ambi, comanda) {
+function resumenDescuento(ambiente, comanda) {
+  let abono = parseFloat($("#abonosComanda").val());
   $.ajax({
     url: "res/php/user_actions/resumenDescuento.php",
     type: "POST",
     dataType: "json",
     data: {
-      comanda: comanda,
-      ambiente: ambi,
+      comanda,
+      ambiente,
     },
   }).done(function (datos) {
-    $("#totalVta").html(number_format(datos[0]["subtotal"], 2));
-    $("#totalDesc").html(number_format(datos[0]["valor_descuento"], 2));
+    $("#totalVta").html(number_format(datos["subtotal"], 2));
+    $("#totalDesc").html(number_format(datos["valor_descuento"], 2));
     $("#totalCuenta").html(
-      number_format(datos[0]["total"] - datos[0]["valor_descuento"], 2)
+      number_format(datos["total"] - datos["valor_descuento"] - abono, 2)
     );
-    $("#valorImpto").html(number_format(datos[0]["imppuesto"], 2));
+    $("#valorImpto").html(number_format(datos["imppuesto"], 2));
   });
 }
 
 function verFoto(e) {
-  if (e.files && e.files[0]) {
-    if (e.files[0].type.match("image.*")) {
+  if (e.files && e.files) {
+    if (e.files.type.match("image.*")) {
       var reader = new FileReader();
       reader.onload = function (e) {
         document.getElementById("mostrarFoto").innerHTML =
@@ -818,7 +1761,7 @@ function verFoto(e) {
       reader.onerror = function (e) {
         document.getElementById("mostrarFoto").innerHTML = "Error de lectura";
       };
-      reader.readAsDataURL(e.files[0]);
+      reader.readAsDataURL(e.files);
     } else {
       document.getElementById("mostrarFoto").innerHTML =
         "No es un formato de imagen";
@@ -842,7 +1785,7 @@ function subeFoto(id, receta, foto) {
 function subirFoto() {
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
-  var formData = new FormData($("#formFotoReceta")[0]);
+  var formData = new FormData($("#formFotoReceta"));
   $.ajax({
     url: "res/php/user_actions/subirFotoReceta.php",
     type: "post",
@@ -862,11 +1805,11 @@ function muestraProductoKardex() {
     var bodega = button.data("bodega"); // Extraer la información de atributos de datos
     var nombre = button.data("nombre"); // Extraer la información de atributos de datos
     parametros = {
-      id: id,
-      bodega: bodega,
+      id,
+      bodega,
     };
     var modal = $(this);
-    modal.find(".modal-title").html("Movimientos Producto : " + nombre);
+    modal.find(".modal-title").html(`Movimientos Producto : ${nombre}`);
     $.ajax({
       url: "res/php/user_actions/getMuestraMovimientosProducto.php",
       type: "POST",
@@ -903,7 +1846,7 @@ function updateReceta(id, receta) {
     success: function (data) {
       $("#traeReceta").html(data);
     },
-  }); 
+  });
 }
 
 function activaMenu() {
@@ -918,7 +1861,7 @@ function resumenReceta() {
 
   $("#materiaPrima > tbody > tr").each(function () {
     var total = $(this).find("td").eq(4).html();
-    total = parseFloat(total.replace(",", ""));
+    total = parseFloat(total.replaceAll(",", ""));
     totales = totales + total;
   });
 
@@ -932,14 +1875,14 @@ function saleMP() {
   recetas();
 }
 
-function actualizaRece(id, codigo, regis, regis2) {
+function actualizaRece(cod, codigo, regis, regis2) {
   document.getElementById("materiaPrima").deleteRow(codigo);
   $.ajax({
     url: "res/php/user_actions/eliminaComponenteReceta.php",
     type: "POST",
     data: {
-      cod: id,
-      regis2: regis2,
+      cod,
+      regis2,
     },
     success: function () {
       resumenReceta();
@@ -989,15 +1932,18 @@ function btnEliminaReceta(id) {
 
 function recetas() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria } = pos;
+  let { usuario_id, usuario } = usuarioAct;
+
   parametros = {
-    id: oPos[0]["id_ambiente"],
-    amb: oPos[0]["nombre"],
-    user: sesion["usuario"][0]["usuario"],
-    iduser: sesion["usuario"][0]["usuario_id"],
-    impto: oPos[0]["impuesto"],
-    prop: oPos[0]["propina"],
-    fecha: oPos[0]["fecha_auditoria"],
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
   };
 
   $.ajax({
@@ -1005,9 +1951,10 @@ function recetas() {
     type: "POST",
     data: parametros,
     success: function (data) {
-      $(".content-wrapper").html(data);
+      $("#pantalla").html(data);
       $("#example1").DataTable({
         paging: true,
+        iDisplayLength: 25,
         lengthChange: true,
         searching: true,
         ordering: true,
@@ -1039,9 +1986,12 @@ function btnEliminaProductoReceta(id) {
     var id = button.data("id");
     var producto = button.data("producto");
     sesion = JSON.parse(localStorage.getItem("sesion"));
-    idusr = sesion["usuario"][0]["usuario_id"];
+    let { usuarioAct } = sesion;
+    let { usuario_id } = usuarioAct;
+
+    idusr = usuario_id;
     var modal = $(this);
-    modal.find(".modal-title").text("Elimina Producto Receta : " + producto);
+    modal.find(".modal-title").text(`Elimina Producto Receta : ${producto}`);
 
     var myTable = $("#materiaPrima");
     var rowid = myTable.find("tbody tr:eq(0)");
@@ -1060,7 +2010,7 @@ function agregarFila(
 ) {
   var htmlTags = `<tr>
                       <td>${producto}</td>
-                      <td align="right">${number_format(cantidad, 2)}</td>
+                      <td align="right">${cantidad}</td>
                       <td>${medida}</td>
                       <td align="right">${number_format(valUnita, 2)}</td>
                       <td align="right">${number_format(valTotal, 2)}</td>
@@ -1081,9 +2031,9 @@ function agregarFila(
 }
 
 function guardarMateriaPrima() {
-  var idprod = $("#productoRec").val();
+  var idProd = $("#productoRec").val();
   var producto = $("#productoRec option:selected").text();
-  var idrece = $("#idReceta").val();
+  var idRece = $("#idReceta").val();
   var uniMedida = $("#idMedida").val();
   var medida = $("#medidaRec").val();
   var cantidad = $("#cantidadRec").val();
@@ -1091,17 +2041,19 @@ function guardarMateriaPrima() {
   var valTotal = $("#valorTot").val();
 
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  idusr = sesion["usuario"][0]["usuario_id"];
-  user = sesion["usuario"][0]["usuario"];
+  let { usuarioAct } = sesion;
+  let { usuario_id, usuario } = usuarioAct;
+
+  idusr = usuario_id;
 
   parametros = {
-    idProd: idprod,
-    idRece: idrece,
-    uniMedida: uniMedida,
-    cantidad: cantidad,
-    usuario: user,
-    valUnita: valUnita,
-    valTotal: valTotal,
+    idProd,
+    idRece,
+    uniMedida,
+    cantidad,
+    usuario,
+    valUnita,
+    valTotal,
   };
   $.ajax({
     url: "res/php/user_actions/guardaMateriaPrima.php",
@@ -1128,7 +2080,7 @@ function guardarMateriaPrima() {
 function actualizaPrecio() {
   cant = $("#cantidadRec").val();
   valUni = $("#valorUni").val();
-  valUni = valUni.replace(",", "");
+  valUni = valUni.replaceAll(",", "");
   valTot = valUni * cant;
   $("#valorTot").val(valTot);
 }
@@ -1141,11 +2093,21 @@ function datosProducto(id) {
     data: { id: id },
     success: function (unidad) {
       if (unidad.length > 0) {
-        traeUnidad(unidad[0]["unidad_procesa"]);
+        traeUnidad(unidad["unidad_procesa"]);
         can = $("#cantidadRec").val();
-        $("#idMedida").val(unidad[0]["unidad_procesa"]);
-        $("#valorUni").val(number_format(unidad[0]["valor_promedio"], 2));
-        $("#valorTot").val(number_format(can * unidad[0]["valor_promedio"], 2));
+        $("#idMedida").val(unidad["unidad_procesa"]);
+        $("#valorUni").val(
+          number_format(
+            unidad["valor_promedio"] / unidad["valor_conversion"],
+            2
+          )
+        );
+        $("#valorTot").val(
+          number_format(
+            can * (unidad["valor_promedio"] / unidad["valor_conversion"]),
+            2
+          )
+        );
         $("#cantidadRec").focus();
       }
     },
@@ -1182,15 +2144,14 @@ function adicionaMateriaPrima() {
   $("#productoRec").focus();
 
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  idusr = sesion["usuario"][0]["usuario_id"];
   var modal = $(this);
-  modal.find(".modal-title").text("Receta Estandar : " + producto);
+  modal.find(".modal-title").text(`Receta Estandar : ${producto}`);
 
   $.ajax({
     url: "res/php/user_actions/getTraeProductos.php",
     type: "POST",
     dataType: "json",
-    data: { id: id },
+    data: { id },
     success: function (data) {
       $("#productoRec option").remove();
       for (i = 0; i < data.length; i++) {
@@ -1204,12 +2165,13 @@ function adicionaMateriaPrima() {
 function btnRecetaProducto(id, nombre) {
   $("#dataRecetaProducto").modal("show");
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  idusr = sesion["usuario"][0]["usuario_id"];
-  user = sesion["usuario"][0]["usuario"];
+  let { usuarioAct } = sesion;
+  let { usuario_id, usuario } = usuarioAct;
+  user = usuario;
   var producto = nombre;
   $("#nomReceta").val(producto);
-  $(".modal-title").html("Receta Estandar : " + producto);
-  $("#idusrupd").val(idusr);
+  $(".modal-title").html(`Receta Estandar : ${producto}`);
+  $("#idusrupd").val(usuario_id);
   $("#idReceta").val(id);
   $.ajax({
     url: "res/php/user_actions/getRecetasProductos.php",
@@ -1231,7 +2193,10 @@ function btnRecetaProducto(id, nombre) {
           <td class='paddingCelda' align='left'>${
             data[i]["nombre_producto"]
           }</td>
-          <td align='right'>${number_format(data[i]["cantidad"], 2)}</td>
+          <td style="text-align:right">${number_format(
+            data[i]["cantidad"],
+            2
+          )}</td>
           <td class='paddingCelda' align='left'>${
             data[i]["descripcion_unidad"]
           }</td>
@@ -1277,13 +2242,18 @@ function actualizaCliente() {
 function updateCliente(id) {
   $("#dataUpdateCliente").on("show.bs.modal", function (event) {
     sesion = JSON.parse(localStorage.getItem("sesion"));
-    idusr = sesion["usuario"][0]["usuario_id"];
-    $("#idusrupd").val(idusr);
+    let { usuarioAct } = sesion;
+    let { usuario_id } = usuarioAct;
+    $("#idusrupd").val(usuario_id);
 
     var button = $(event.relatedTarget);
     var cliente = button.data("cliente");
     var modal = $(this);
-    modal.find(".modal-title").text("Modificar Cliente : " + cliente);
+    modal
+      .find(".modal-title")
+      .html(
+        `<i class="fa fa-pencil" aria-hidden="true"></i> Modificar Cliente ${cliente}`
+      );
 
     $.ajax({
       url: "res/php/user_actions/getUpdateCliente.php",
@@ -1311,8 +2281,10 @@ function actualizaProducto() {
 }
 
 function updateProducto(id) {
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  idamb = oPos[0]["id_ambiente"];
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos } = sesion;
+  let { id_ambiente } = pos;
+  idamb = id_ambiente;
   $("#dataUpdateProducto").on("show.bs.modal", function (event) {
     var button = $(event.relatedTarget);
     var name = button.data("producto");
@@ -1322,8 +2294,8 @@ function updateProducto(id) {
       url: "res/php/user_actions/updateProducto.php",
       type: "POST",
       data: {
-        id: id,
-        idamb: idamb,
+        id,
+        idamb,
       },
       success: function (data) {
         $("#traeProducto").html(data);
@@ -1338,6 +2310,8 @@ function btnEliminaCliente(id) {
     var cliente = button.data("cliente");
     var modal = $(this);
     modal.find(".modal-title").text("Eliminar  Cliente: " + cliente);
+    $("#mensaje").css("display", "none");
+    $("#pregunta").css("display", "block");
     $("#idusrdel").val(id);
   });
 }
@@ -1353,15 +2327,17 @@ function btnEliminaProducto(id) {
 }
 
 function generarFacturas() {
-  oPos = JSON.parse(localStorage.getItem("oPos"));
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos } = sesion;
+  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } = pos;
 
   parametros = {
-    id: oPos[0]["id_ambiente"],
-    amb: oPos[0]["nombre"],
-    impto: oPos[0]["impuesto"],
-    prop: oPos[0]["propina"],
-    fecha: oPos[0]["fecha_auditoria"],
-    logo: oPos[0]["logo"],
+    id: id_ambiente,
+    amb: nombre,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
+    logo,
   };
 
   $.ajax({
@@ -1369,25 +2345,9 @@ function generarFacturas() {
     type: "POST",
     data: parametros,
     success: function (data) {
-      $(".content-wrapper").html(data);
+      $("#pantalla").html(data);
     },
   });
-}
-
-function reCreaFacturas() {
-  desde = $("#fechaIn").val();
-  hasta = $("#fechaOut").val();
-  for (var i = desde; i <= hasta; i++) {
-    $.ajax({
-      url: "res/php/user_actions/infoFactura.php",
-      type: "POST",
-      data: {
-        factura: i,
-        idAmb: 2,
-        nomAmb: "CAFE TIK TAK",
-      },
-    });
-  }
 }
 
 function facturasPorFecha() {
@@ -1398,17 +2358,19 @@ function facturasPorFecha() {
   hastaNu = $("#hastaNumero").val();
   huesped = $("#desdeHuesped").val();
   formaPa = $("#desdeFormaPago").val();
-  oPos = JSON.parse(localStorage.getItem("oPos"));
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos } = sesion;
+  let { id_ambiente, prefijo } = pos;
 
   parametros = {
-    idamb: oPos[0]["id_ambiente"],
-    prefijo: oPos[0]["prefijo"],
-    desdeFe: desdeFe,
-    hastaFe: hastaFe,
-    desdeNu: desdeNu,
-    hastaNu: hastaNu,
-    huesped: huesped,
-    formaPa: formaPa,
+    idamb: id_ambiente,
+    prefijo,
+    desdeFe,
+    hastaFe,
+    desdeNu,
+    hastaNu,
+    huesped,
+    formaPa,
   };
 
   if (
@@ -1428,6 +2390,7 @@ function facturasPorFecha() {
       success: function (x) {
         $(".imprimeInforme").html(x);
         $("#dataTable").DataTable({
+          iDisplayLength: 25,
           paging: true,
           lengthChange: true,
           searching: true,
@@ -1447,17 +2410,19 @@ function facturasPorFecha() {
 
 function historicoListadoFacturas() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } = pos;
+  let { usuario, usuario_id } = usuarioAct;
 
   parametros = {
-    id: oPos[0]["id_ambiente"],
-    amb: oPos[0]["nombre"],
-    user: sesion["usuario"][0]["usuario"],
-    iduser: sesion["usuario"][0]["usuario_id"],
-    impto: oPos[0]["impuesto"],
-    prop: oPos[0]["propina"],
-    fecha: oPos[0]["fecha_auditoria"],
-    logo: oPos[0]["logo"],
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
+    logo,
   };
 
   $.ajax({
@@ -1465,24 +2430,80 @@ function historicoListadoFacturas() {
     type: "POST",
     data: parametros,
     success: function (data) {
-      $(".content-wrapper").html(data);
+      $("#pantalla").html(data);
+    },
+  });
+}
+
+function ventasHistoricoGrupos() {
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } = pos;
+  let { usuario, usuario_id } = usuarioAct;
+
+  parametros = {
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
+    logo,
+  };
+
+  $.ajax({
+    url: "views/historicoGrupos.php",
+    type: "POST",
+    data: parametros,
+    success: function (data) {
+      $("#pantalla").html(data);
+    },
+  });
+}
+
+function ventasHistoricoProductos() {
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } = pos;
+  let { usuario, usuario_id } = usuarioAct;
+
+  parametros = {
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
+    logo,
+  };
+
+  $.ajax({
+    url: "views/historicoProductos.php",
+    type: "POST",
+    data: parametros,
+    success: function (data) {
+      $("#pantalla").html(data);
     },
   });
 }
 
 function ventasHistoricoPeriodos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } = pos;
+  let { usuario, usuario_id } = usuarioAct;
 
   parametros = {
-    id: oPos[0]["id_ambiente"],
-    amb: oPos[0]["nombre"],
-    user: sesion["usuario"][0]["usuario"],
-    iduser: sesion["usuario"][0]["usuario_id"],
-    impto: oPos[0]["impuesto"],
-    prop: oPos[0]["propina"],
-    fecha: oPos[0]["fecha_auditoria"],
-    logo: oPos[0]["logo"],
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
+    logo,
   };
 
   $.ajax({
@@ -1490,21 +2511,23 @@ function ventasHistoricoPeriodos() {
     type: "POST",
     data: parametros,
     success: function (data) {
-      $(".content-wrapper").html(data);
+      $("#pantalla").html(data);
     },
   });
 }
 
 function buscarRecu() {
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  id = oPos[0]["id_ambiente"];
-  var textoBusqueda = $("input#busqueda").val();
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos } = sesion;
+  let { id_ambiente } = pos;
+
+  let valorBusqueda = $("input#busqueda").val();
   if (textoBusqueda != "") {
     $.post(
       "res/php/user_actions/getBuscaProductoRecu.php",
       {
-        id: id,
-        valorBusqueda: textoBusqueda,
+        id: id_ambiente,
+        valorBusqueda,
       },
       function (mensaje) {
         $("#productoList").html(mensaje);
@@ -1520,14 +2543,14 @@ function sumaValorProductos() {
   var totaladi = 0;
   $("#productoVendidos > tbody > tr").each(function () {
     var valor = $("#valorProd", this).html();
-    valor = valor.replace("$", "");
-    valor = valor.replace(".", "");
+    valor = valor.replaceAll("$", "");
+    valor = valor.replaceAll(".", "");
     totalventa = totalventa + valor;
   });
   $("#ventasAdicionales > tbody > tr").each(function () {
     var valoradi = $("#valorAdi", this).html();
-    valoradi = valoradi.replace("$", "");
-    valoradi = valoradi.replace(".", "");
+    valoradi = valoradi.replaceAll("$", "");
+    valoradi = valoradi.replaceAll(".", "");
     totaladi = totaladi + valor;
   });
 
@@ -1535,17 +2558,21 @@ function sumaValorProductos() {
 }
 
 function getRestarVentasRecu(codigo) {
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  idamb = oPos[0]["id_ambiente"];
-  impt = oPos[0]["impuesto"];
-  user = sesion["usuario"][0]["usuario"];
-  prop = oPos[0]["propina"];
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, impuesto, propina } = pos;
+  let { usuario } = usuarioAct;
+
+  idamb = id_ambiente;
+  impto = impuesto;
+  user = usuario;
+  prop = propina;
   var parametros = {
-    codigo: codigo,
-    idamb: idamb,
-    impto: impt,
-    prop: prop,
-    user: user,
+    codigo,
+    idamb,
+    impto,
+    prop,
+    user,
   };
   $("#loader").fadeIn("slow");
   $.ajax({
@@ -1563,17 +2590,22 @@ function getRestarVentasRecu(codigo) {
 }
 
 function getBorraVentasRecu(codigo) {
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  idamb = oPos[0]["id_ambiente"];
-  impt = oPos[0]["impuesto"];
-  user = sesion["usuario"][0]["usuario"];
-  prop = oPos[0]["propina"];
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, impuesto, propina } = pos;
+  let { usuario } = usuarioAct;
+
+  idamb = id_ambiente;
+  impto = impuesto;
+  user = usuario;
+  prop = propina;
+
   var parametros = {
-    codigo: codigo,
-    idamb: idamb,
-    impto: impt,
-    prop: prop,
-    user: user,
+    codigo,
+    idamb,
+    impto,
+    prop,
+    user,
   };
   $("#loader").fadeIn("slow");
   $.ajax({
@@ -1590,17 +2622,22 @@ function getBorraVentasRecu(codigo) {
 }
 
 function getVentasRecu(codigo) {
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  idamb = oPos[0]["id_ambiente"];
-  impt = oPos[0]["impuesto"];
-  user = sesion["usuario"][0]["usuario"];
-  prop = oPos[0]["propina"];
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, impuesto, propina } = pos;
+  let { usuario } = usuarioAct;
+
+  idamb = id_ambiente;
+  impto = impuesto;
+  user = usuario;
+  prop = propina;
+
   var parametros = {
-    codigo: codigo,
-    idamb: idamb,
-    impto: impt,
-    prop: prop,
-    user: user,
+    codigo,
+    idamb,
+    impto,
+    prop,
+    user,
   };
   $("#loader").fadeIn("slow");
   $.ajax({
@@ -1636,14 +2673,15 @@ function getProductoRecu(codigo, ambi) {
 }
 
 function getSeccionesRecu() {
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  id = oPos[0]["id_ambiente"];
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos } = sesion;
+  let { id_ambiente } = pos;
   $("#loader").fadeIn("slow");
   $.ajax({
     type: "POST",
     url: "res/php/user_actions/getSeccionRecu.php",
     data: {
-      id: oPos[0]["id_ambiente"],
+      id: id_ambiente,
     },
     beforeSend: function (objeto) {
       $("#loader").html("<img src='../img/loader.gif'>");
@@ -1656,16 +2694,18 @@ function getSeccionesRecu() {
 
 function productos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria } = pos;
+  let { usuario, usuario_id } = usuarioAct;
 
   parametros = {
-    id: oPos[0]["id_ambiente"],
-    amb: oPos[0]["nombre"],
-    user: sesion["usuario"][0]["usuario"],
-    iduser: sesion["usuario"][0]["usuario_id"],
-    impto: oPos[0]["impuesto"],
-    prop: oPos[0]["propina"],
-    fecha: oPos[0]["fecha_auditoria"],
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
   };
 
   $.ajax({
@@ -1673,8 +2713,9 @@ function productos() {
     type: "POST",
     data: parametros,
     success: function (data) {
-      $(".content-wrapper").html(data);
+      $("#pantalla").html(data);
       $("#example1").DataTable({
+        iDisplayLength: 25,
         paging: true,
         lengthChange: true,
         searching: true,
@@ -1693,16 +2734,18 @@ function productos() {
 
 function clientes() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria } = pos;
+  let { usuario, usuario_id } = usuarioAct;
 
   parametros = {
-    id: oPos[0]["id_ambiente"],
-    amb: oPos[0]["nombre"],
-    user: sesion["usuario"][0]["usuario"],
-    iduser: sesion["usuario"][0]["usuario_id"],
-    impto: oPos[0]["impuesto"],
-    prop: oPos[0]["propina"],
-    fecha: oPos[0]["fecha_auditoria"],
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
   };
 
   $.ajax({
@@ -1710,8 +2753,9 @@ function clientes() {
     type: "POST",
     data: parametros,
     success: function (data) {
-      $(".content-wrapper").html(data);
+      $("#pantalla").html(data);
       $("#example1").DataTable({
+        iDisplayLength: 25,
         paging: true,
         lengthChange: true,
         searching: true,
@@ -1728,19 +2772,20 @@ function clientes() {
   });
 }
 
+// seccionList
 function recuperarCuenta() {
-  $(".main-sidebar").css("display", "none");
   $("#recuperarComanda").val(1);
   $("#listaComandas").css("display", "none");
-  $("#Escritorio").css("margin-left", "0");
+  // $("#Escritorio").css("margin-left", "0");
   $("#productoList").css("display", "block");
-  $(".menuComanda").css("padding", "0 10px");
   $("#guardaCuenta").css("display", "block");
   $("#recuperaCuenta").css("display", "none");
   $(".btnActivo").css("display", "none");
-  $("#regresarComanda").css("margin-top", "360px");
+  $("#regresarComanda").css("margin-top", "418px");
+  $("#productosComanda").css("height", "428px");
 
   $("#seccionList").css("display", "block");
+  // $("#seccionList").css("margin-top", "5px");
   $("#tituloComanda").removeClass("col-lg-12");
   $("#tituloComanda").addClass("col-lg-6");
   $("#tituloBusca").css("display", "block");
@@ -1753,35 +2798,30 @@ function recuperarCuenta() {
   $("#tituloComanda").html(
     "<h4 style='padding:2px;text-align: center;font-weight: bold;margin:0'>Tipo de Producto</h4>"
   );
-  $(".btn-group-vertical").css("width", "100%");
 
   idamb = $("#idAmbiente").val();
-  getSecciones(idamb);
-  cuenta = $("#comandaActiva").val();
+  getSecciones();
+  cuenta = $("#numeroComanda").val();
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
 }
 
-function muestraPos(id) {
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  plano = oPos[0]["plano"];
-  $("#fechaPos").html("Fecha Proceso " + oPos[0]["fecha_auditoria"]);
-  $("#nombreAmbiente").html(`
-    <a href="inicio.php" style="font-weight: 700;padding:12px 0;text-align: center">
-      <img loading='lazy' class="img-thumbnail" style="width:50px;margin:0px 10px" src='../img/${oPos[0]["logo"]}' alt='' /> ${oPos[0]["nombre"]}
-    </a>
-    `);
-  $("#fechaAuditoria").val(oPos[0]["fecha_auditoria"]);
-  $("#nombreUsuario").html(
-    `${sesion["usuario"][0]["apellidos"]} ${sesion["usuario"][0]["nombres"]}<span class="caret"></span>`
-  );
+function muestraPos(ambSel) {
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { usuarioAct, pos } = sesion;
+  let { tipo, apellidos, nombres } = usuarioAct;
+  let { plano, fecha_auditoria } = pos;
+  $("#fechaPos").html("Fecha Proceso " + fecha_auditoria);
+  $("#fechaAuditoria").val(fecha_auditoria);
 
   $.ajax({
     url: "res/php/user_actions/muestraPos.php",
     type: "POST",
-    data: { ambSel: id },
+    data: {
+      ambSel,
+      tipousr: tipo,
+    },
     success: function (data) {
-      $("#Escritorio").html(data);
+      $("#pantalla").html(data);
       setTimeout(function () {
         if (plano == 1) {
           mesasActivasPlano();
@@ -1803,18 +2843,19 @@ function traeAmbientes(id) {
 
 function ventasGrupos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  oKey = makeid(12);
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } = pos;
+  let { usuario, usuario_id } = usuarioAct;
+
   parametros = {
-    id: oPos[0]["id_ambiente"],
-    amb: oPos[0]["nombre"],
-    user: sesion["usuario"][0]["usuario"],
-    iduser: sesion["usuario"][0]["usuario_id"],
-    impto: oPos[0]["impuesto"],
-    prop: oPos[0]["propina"],
-    fecha: oPos[0]["fecha_auditoria"],
-    logo: oPos[0]["logo"],
-    file: oKey,
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
+    logo,
   };
 
   $.ajax({
@@ -1822,29 +2863,26 @@ function ventasGrupos() {
     type: "POST",
     data: parametros,
     success: function (data) {
-      $(".content-wrapper").html(data);
-      $("#verInforme").attr(
-        "data",
-        "imprimir/informes/ventasGrupos_" + oKey + ".pdf"
-      );
+      creaHTMLReportes(data, `Ventas Por Grupo de Producto`);
     },
   });
 }
 
 function ventasPorPeriodo() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  oKey = makeid(12);
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } = pos;
+  let { usuario, usuario_id } = usuarioAct;
+
   parametros = {
-    id: oPos[0]["id_ambiente"],
-    amb: oPos[0]["nombre"],
-    user: sesion["usuario"][0]["usuario"],
-    iduser: sesion["usuario"][0]["usuario_id"],
-    impto: oPos[0]["impuesto"],
-    prop: oPos[0]["propina"],
-    fecha: oPos[0]["fecha_auditoria"],
-    logo: oPos[0]["logo"],
-    file: oKey,
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
+    logo,
   };
 
   $.ajax({
@@ -1852,8 +2890,7 @@ function ventasPorPeriodo() {
     type: "POST",
     data: parametros,
     success: function (data) {
-      $(".content-wrapper").html(data);
-      $("#verInforme").attr("data", "imprimir/informes/" + oKey + ".pdf");
+      creaHTMLReportes(data, `Ventas Por Peridodo de Servicio `);
     },
   });
 }
@@ -1870,15 +2907,18 @@ function buscaReportesCajero() {
 
 function historicoCajeros() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } = pos;
+  let { usuario, usuario_id } = usuarioAct;
+
   parametros = {
-    id: oPos[0]["id_ambiente"],
-    amb: oPos[0]["nombre"],
-    user: sesion["usuario"][0]["usuario"],
-    iduser: sesion["usuario"][0]["usuario_id"],
-    impto: oPos[0]["impuesto"],
-    prop: oPos[0]["propina"],
-    fecha: oPos[0]["fecha_auditoria"],
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
   };
 
   $.ajax({
@@ -1886,7 +2926,7 @@ function historicoCajeros() {
     type: "POST",
     data: parametros,
     success: function (data) {
-      $(".content-wrapper").html(data);
+      $("#pantalla").html(data);
     },
   });
 }
@@ -1896,11 +2936,14 @@ function verfactura(fact) {
 }
 
 function buscaFacturasFecha() {
-  oPos = JSON.parse(localStorage.getItem("oPos"));
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos } = sesion;
+  let { id_ambiente } = pos;
+
   var fechafac = $("#buscarFecha").val();
   var parametros = {
-    idamb: oPos[0]["id_ambiente"],
-    fechafac: fechafac,
+    idamb: id_ambiente,
+    fechafac,
   };
   $("#verFactura").attr("data", "");
   $.ajax({
@@ -1915,15 +2958,18 @@ function buscaFacturasFecha() {
 
 function historicoFacturas() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } = pos;
+  let { usuario, usuario_id } = usuarioAct;
+
   parametros = {
-    id: oPos[0]["id_ambiente"],
-    amb: oPos[0]["nombre"],
-    user: sesion["usuario"][0]["usuario"],
-    iduser: sesion["usuario"][0]["usuario_id"],
-    impto: oPos[0]["impuesto"],
-    prop: oPos[0]["propina"],
-    fecha: oPos[0]["fecha_auditoria"],
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
   };
 
   $.ajax({
@@ -1931,25 +2977,28 @@ function historicoFacturas() {
     type: "POST",
     data: parametros,
     success: function (data) {
-      $(".content-wrapper").html(data);
+      $("#pantalla").html(data);
     },
   });
 }
 
 function ventasUsuario() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  oKey = makeid(12);
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } = pos;
+  let { usuario, usuario_id } = usuarioAct;
+  file = makeid(12);
+
   parametros = {
-    id: oPos[0]["id_ambiente"],
-    amb: oPos[0]["nombre"],
-    user: sesion["usuario"][0]["usuario"],
-    iduser: sesion["usuario"][0]["usuario_id"],
-    impto: oPos[0]["impuesto"],
-    prop: oPos[0]["propina"],
-    fecha: oPos[0]["fecha_auditoria"],
-    logo: oPos[0]["logo"],
-    file: oKey,
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
+    logo,
+    file,
   };
 
   $.ajax({
@@ -1957,29 +3006,87 @@ function ventasUsuario() {
     type: "POST",
     data: parametros,
     success: function (data) {
-      $(".content-wrapper").html(data);
+      $("#pantalla").html(data);
       $("#verInforme").attr(
         "data",
-        "imprimir/informes/ventasdelDiaUsuario_" + sesion[0]["usuario"] + ".pdf"
+        "imprimir/informes/ventasdelDiaUsuario_" + usuario + ".pdf"
       );
+    },
+  });
+}
+
+function ventasFormaPago() {
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } = pos;
+  let { usuario, usuario_id } = usuarioAct;
+
+  parametros = {
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
+    logo,
+  };
+
+  $.ajax({
+    url: "informes/ventasFormaPago.php",
+    type: "POST",
+    data: parametros,
+    success: function (data) {
+      creaHTMLReportes(data, `Ventas Por Forma de Pago`);
+    },
+  });
+}
+
+function ventasHistoricoFormaPago() {
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } = pos;
+  let { usuario, usuario_id } = usuarioAct;
+  file = makeid(12);
+
+  parametros = {
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
+    logo,
+    file,
+  };
+
+  $.ajax({
+    url: "views/historicoFormasPago.php",
+    type: "POST",
+    data: parametros,
+    success: function (data) {
+      $("#pantalla").html(data);
+      $("#verInforme").attr("data", "imprimir/informes/" + oKey + ".pdf");
     },
   });
 }
 
 function ventasProducto() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  oKey = makeid(12);
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } = pos;
+  let { usuario, usuario_id } = usuarioAct;
+
   parametros = {
-    id: oPos[0]["id_ambiente"],
-    amb: oPos[0]["nombre"],
-    user: sesion["usuario"][0]["usuario"],
-    iduser: sesion["usuario"][0]["usuario_id"],
-    impto: oPos[0]["impuesto"],
-    prop: oPos[0]["propina"],
-    fecha: oPos[0]["fecha_auditoria"],
-    logo: oPos[0]["logo"],
-    file: oKey,
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
+    logo,
   };
 
   $.ajax({
@@ -1987,30 +3094,27 @@ function ventasProducto() {
     type: "POST",
     data: parametros,
     success: function (data) {
-      $(".content-wrapper").html(data);
-      $("#verInforme").attr(
-        "data",
-        "imprimir/informes/ventasProductos_" + oKey + ".pdf"
-      );
+      creaHTMLReportes(data, `Ventas Por Producto`);
     },
   });
 }
 
 function ventasDiaAuditoria() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  oKey = makeid(12);
+
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } = pos;
+  let { usuario, usuario_id } = usuarioAct;
 
   parametros = {
-    id: oPos[0]["id_ambiente"],
-    amb: oPos[0]["nombre"],
-    user: sesion["usuario"][0]["usuario"],
-    iduser: sesion["usuario"][0]["usuario_id"],
-    impto: oPos[0]["impuesto"],
-    prop: oPos[0]["propina"],
-    fecha: oPos[0]["fecha_auditoria"],
-    logo: oPos[0]["logo"],
-    file: oKey,
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
+    logo,
   };
 
   $.ajax({
@@ -2018,28 +3122,27 @@ function ventasDiaAuditoria() {
     type: "POST",
     data: parametros,
     success: function (data) {
-      $(".content-wrapper").html(data);
-      $("#verInforme").attr(
-        "data",
-        "imprimir/informes/ventasdelDia_" + oKey + ".pdf"
-      );
+      creaHTMLReportes(data, `Ventas del Dia`);
     },
   });
 }
 
 function kardexInventario() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, id_bodega } =
+    pos;
+  let { usuario, usuario_id } = usuarioAct;
 
   parametros = {
-    id: oPos[0]["id_ambiente"],
-    amb: oPos[0]["nombre"],
-    user: sesion["usuario"][0]["usuario"],
-    iduser: sesion["usuario"][0]["usuario_id"],
-    impto: oPos[0]["impuesto"],
-    prop: oPos[0]["propina"],
-    fecha: oPos[0]["fecha_auditoria"],
-    bodega: oPos[0]["id_bodega"],
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
+    bodega: id_bodega,
   };
 
   $.ajax({
@@ -2048,9 +3151,10 @@ function kardexInventario() {
     datatype: "json",
     data: parametros,
     success: function (data) {
-      $(".content-wrapper").html(data);
+      $("#pantalla").html(data);
       $("#tablaKardex").DataTable({
         paging: true,
+        iDisplayLength: 25,
         lengthChange: true,
         searching: true,
         ordering: true,
@@ -2068,16 +3172,18 @@ function kardexInventario() {
 
 function huespedesenCasa() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria } = pos;
+  let { usuario, usuario_id } = usuarioAct;
 
   parametros = {
-    id: oPos[0]["id_ambiente"],
-    amb: oPos[0]["nombre"],
-    user: sesion["usuario"][0]["usuario"],
-    iduser: sesion["usuario"][0]["usuario_id"],
-    impto: oPos[0]["impuesto"],
-    prop: oPos[0]["propina"],
-    fecha: oPos[0]["fecha_auditoria"],
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
   };
 
   $.ajax({
@@ -2085,8 +3191,9 @@ function huespedesenCasa() {
     type: "POST",
     data: parametros,
     success: function (data) {
-      $(".content-wrapper").html(data);
+      $("#pantalla").html(data);
       $("#example1").DataTable({
+        iDisplayLength: 25,
         paging: true,
         lengthChange: true,
         searching: true,
@@ -2105,44 +3212,60 @@ function huespedesenCasa() {
 
 function cierreDiarioAuditoria() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
+  let { pos, usuarioAct } = sesion;
+  let {
+    id_ambiente,
+    nombre,
+    impuesto,
+    propina,
+    fecha_auditoria,
+    logo,
+    prefijo,
+  } = pos;
+  let { usuario, usuario_id } = usuarioAct;
+
   parametros = {
-    id: oPos[0]["id_ambiente"],
-    amb: oPos[0]["nombre"],
-    user: sesion["usuario"][0]["usuario"],
-    iduser: sesion["usuario"][0]["usuario_id"],
-    impto: oPos[0]["impuesto"],
-    prop: oPos[0]["propina"],
-    logo: oPos[0]["logo"],
-    prefijo: oPos[0]["prefijo"],
-    fecha: oPos[0]["fecha_auditoria"],
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
+    logo,
+    prefijo,
   };
 
   $.ajax({
-    url: "imprimir/cierreDiario.php",
+    url: "views/cierreDiario.php",
     type: "POST",
     data: parametros,
     success: function (data) {
-      $(".content-wrapper").html(data);
+      $("#pantalla").html(data);
     },
   });
 }
 
 function cuentasAnuladasAuditoria() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  oKey = makeid(12);
+
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, id_bodega } =
+    pos;
+  let { usuario, usuario_id, tipo } = usuarioAct;
+  let file = makeid(12);
+
   parametros = {
-    id: oPos[0]["id_ambiente"],
-    amb: oPos[0]["nombre"],
-    user: sesion["usuario"][0]["usuario"],
-    iduser: sesion["usuario"][0]["usuario_id"],
-    nivel: sesion["usuario"][0]["tipo"],
-    impto: oPos[0]["impuesto"],
-    prop: oPos[0]["propina"],
-    fecha: oPos[0]["fecha_auditoria"],
-    logo: oPos[0]["logo"],
-    file: oKey,
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    nivel: tipo,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
+    logo,
+    file,
   };
 
   $.ajax({
@@ -2150,30 +3273,35 @@ function cuentasAnuladasAuditoria() {
     type: "POST",
     data: parametros,
     success: function (data) {
-      $(".content-wrapper").html(data);
-      $("#verInforme").attr(
-        "data",
-        "imprimir/informes/cuentasActivas_" + oKey + ".pdf"
-      );
+      creaHTMLReportes(data, `Comandas Activas`);
     },
   });
 }
 
 function cuentasActivasAuditoria() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  oKey = makeid(12);
+  let { pos, usuarioAct } = sesion;
+  let {
+    id_ambiente,
+    nombre,
+    impuesto,
+    propina,
+    fecha_auditoria,
+    id_bodega,
+    logo,
+  } = pos;
+  let { usuario, usuario_id, tipo } = usuarioAct;
+
   parametros = {
-    id: oPos[0]["id_ambiente"],
-    amb: oPos[0]["nombre"],
-    user: sesion["usuario"][0]["usuario"],
-    iduser: sesion["usuario"][0]["usuario_id"],
-    nivel: sesion["usuario"][0]["tipo"],
-    impto: oPos[0]["impuesto"],
-    prop: oPos[0]["propina"],
-    fecha: oPos[0]["fecha_auditoria"],
-    logo: oPos[0]["logo"],
-    file: oKey,
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    nivel: tipo,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
+    logo,
   };
 
   $.ajax({
@@ -2181,30 +3309,26 @@ function cuentasActivasAuditoria() {
     type: "POST",
     data: parametros,
     success: function (data) {
-      $(".content-wrapper").html(data);
-      $("#verInforme").attr(
-        "data",
-        "imprimir/informes/cuentasActivas_" + oKey + ".pdf"
-      );
+      creaHTMLReportes(data, `Comandas Activas del Dia`);
     },
   });
 }
 
 function cuentasAnuladasAuditoria() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  oKey = makeid(12);
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } = pos;
+  let { usuario, usuario_id } = usuarioAct;
 
   parametros = {
-    id: oPos[0]["id_ambiente"],
-    amb: oPos[0]["nombre"],
-    user: sesion["usuario"][0]["usuario"],
-    iduser: sesion["usuario"][0]["usuario_id"],
-    impto: oPos[0]["impuesto"],
-    prop: oPos[0]["propina"],
-    fecha: oPos[0]["fecha_auditoria"],
-    logo: oPos[0]["logo"],
-    file: oKey,
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
+    logo,
   };
 
   $.ajax({
@@ -2212,68 +3336,67 @@ function cuentasAnuladasAuditoria() {
     type: "POST",
     data: parametros,
     success: function (data) {
-      $(".content-wrapper").html(data);
-      $("#verInforme").attr(
-        "data",
-        "imprimir/informes/cuentasAnuladas_" + oKey + ".pdf"
-      );
+      creaHTMLReportes(data, `Comandas Anuladas del Dia`);
     },
   });
 }
 
 function historicoAuditorias() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
+  let { pos, usuarioAct } = sesion;
+  let {
+    id_ambiente,
+    nombre,
+    impuesto,
+    propina,
+    fecha_auditoria,
+    id_bodega,
+    logo,
+  } = pos;
+  let { usuario, usuario_id, tipo } = usuarioAct;
 
   parametros = {
-    idamb: oPos[0]["id_ambiente"],
-    amb: oPos[0]["nombre"],
-    user: sesion["usuario"][0]["usuario"],
-    iduser: sesion["usuario"][0]["usuario_id"],
-    impto: oPos[0]["impuesto"],
-    prop: oPos[0]["propina"],
-    fecha: oPos[0]["fecha_auditoria"],
+    idamb: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
   };
+
   $.ajax({
     url: "ventas/historicoAuditorias.php",
     type: "POST",
     data: parametros,
     success: function (data) {
-      $(".content-wrapper").html(data);
-    },
-  });
-}
-
-function cierraSesion() {
-  sesion = JSON.parse(localStorage.getItem("sesion"));
-  var id = sesion["usuario"][0]["usuario_id"];
-  var usua = sesion["usuario"][0]["usuario"];
-  $.ajax({
-    url: "../res/shared/salir.php",
-    type: "POST",
-    data: {
-      id: id,
-      usuario: usua,
-    },
-    success: function () {
-      localStorage.removeItem("sesion");
-      localStorage.removeItem("oPos");
-      $(location).attr("href", "/");
+      $("#pantalla").html(data);
     },
   });
 }
 
 function cierreDiarioCajero() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
+  let { pos, usuarioAct } = sesion;
+  let {
+    id_ambiente,
+    nombre,
+    impuesto,
+    propina,
+    fecha_auditoria,
+    id_bodega,
+    logo,
+  } = pos;
+  let { usuario, usuario_id, tipo } = usuarioAct;
+
   parametros = {
-    id: oPos[0]["id_ambiente"],
-    amb: oPos[0]["nombre"],
-    user: sesion["usuario"][0]["usuario"],
-    iduser: sesion["usuario"][0]["usuario_id"],
-    impto: oPos[0]["impuesto"],
-    prop: oPos[0]["propina"],
-    fecha: oPos[0]["fecha_auditoria"],
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
   };
 
   $.ajax({
@@ -2281,26 +3404,26 @@ function cierreDiarioCajero() {
     type: "POST",
     data: parametros,
     success: function (data) {
-      $(".content-wrapper").html(data);
+      $("#pantalla").html(data);
     },
   });
 }
 
 function facturasAnuladasCajero() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  oKey = makeid(12);
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } = pos;
+  let { usuario, usuario_id, tipo } = usuarioAct;
 
   parametros = {
-    id: oPos[0]["id_ambiente"],
-    amb: oPos[0]["nombre"],
-    user: sesion["usuario"][0]["usuario"],
-    iduser: sesion["usuario"][0]["usuario_id"],
-    impto: oPos[0]["impuesto"],
-    prop: oPos[0]["propina"],
-    fecha: oPos[0]["fecha_auditoria"],
-    logo: oPos[0]["logo"],
-    file: oKey,
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
+    logo,
   };
 
   $.ajax({
@@ -2308,30 +3431,53 @@ function facturasAnuladasCajero() {
     type: "POST",
     data: parametros,
     success: function (data) {
-      $(".content-wrapper").html(data);
-      $("#verInforme").attr(
-        "data",
-        "imprimir/informes/facturasAnuladas_Cajero_" + oKey + ".pdf"
-      );
+      creaHTMLReportes(data, `Facturas Anuladas Cajero  ${usuario}`);
+    },
+  });
+}
+
+function abonosCajero() {
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } = pos;
+  let { usuario, usuario_id, tipo } = usuarioAct;
+
+  parametros = {
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
+    logo,
+  };
+
+  $.ajax({
+    url: "informes/abonosCajero.php",
+    type: "POST",
+    data: parametros,
+    success: function (data) {
+      creaHTMLReportes(data, `Abonos Cajero  ${usuario}`);
     },
   });
 }
 
 function facturasCajero() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  oKey = makeid(12);
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } = pos;
+  let { usuario, usuario_id, tipo } = usuarioAct;
 
   parametros = {
-    id: oPos[0]["id_ambiente"],
-    amb: oPos[0]["nombre"],
-    user: sesion["usuario"][0]["usuario"],
-    iduser: sesion["usuario"][0]["usuario_id"],
-    impto: oPos[0]["impuesto"],
-    prop: oPos[0]["propina"],
-    fecha: oPos[0]["fecha_auditoria"],
-    logo: oPos[0]["logo"],
-    file: oKey,
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
+    logo,
   };
 
   $.ajax({
@@ -2339,29 +3485,26 @@ function facturasCajero() {
     type: "POST",
     data: parametros,
     success: function (data) {
-      $(".content-wrapper").html(data);
-      $("#verInforme").attr(
-        "data",
-        "imprimir/informes/facturas_Cajero_" + oKey + ".pdf"
-      );
+      creaHTMLReportes(data, `Facturas del Dia Cajero ${usuario}`);
     },
   });
 }
 
 function devolucionesCajero() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  oKey = makeid(12);
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } = pos;
+  let { usuario, usuario_id, tipo } = usuarioAct;
+
   parametros = {
-    id: oPos[0]["id_ambiente"],
-    amb: oPos[0]["nombre"],
-    user: sesion["usuario"][0]["usuario"],
-    iduser: sesion["usuario"][0]["usuario_id"],
-    impto: oPos[0]["impuesto"],
-    prop: oPos[0]["propina"],
-    fecha: oPos[0]["fecha_auditoria"],
-    logo: oPos[0]["logo"],
-    file: oKey,
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
+    logo,
   };
 
   $.ajax({
@@ -2369,26 +3512,28 @@ function devolucionesCajero() {
     type: "POST",
     data: parametros,
     success: function (data) {
-      $(".content-wrapper").html(data);
-      $("#verInforme").attr("data", "imprimir/informes/" + oKey + ".pdf");
+      creaHTMLReportes(data, `Devolucion Producto del Dia Cajero ${usuario}`);
     },
   });
 }
 
 function balanceDiarioGeneral() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  oKey = makeid(12);
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } = pos;
+  let { usuario, usuario_id, tipo } = usuarioAct;
+  let file = makeid(12);
+
   parametros = {
-    id: oPos[0]["id_ambiente"],
-    amb: oPos[0]["nombre"],
-    user: sesion["usuario"][0]["usuario"],
-    iduser: sesion["usuario"][0]["usuario_id"],
-    impto: oPos[0]["impuesto"],
-    prop: oPos[0]["propina"],
-    fecha: oPos[0]["fecha_auditoria"],
-    logo: oPos[0]["logo"],
-    file: oKey,
+    idamb: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
+    logo,
+    file,
   };
 
   $.ajax({
@@ -2396,7 +3541,7 @@ function balanceDiarioGeneral() {
     type: "POST",
     data: parametros,
     success: function (data) {
-      $(".content-wrapper").html(data);
+      $("#pantalla").html(data);
       $("#verInforme").attr(
         "data",
         "imprimir/informes/balance_Diario_" + oKey + ".pdf"
@@ -2407,18 +3552,20 @@ function balanceDiarioGeneral() {
 
 function balanceDiarioCajero() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  oKey = makeid(12);
+
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } = pos;
+  let { usuario, usuario_id, tipo } = usuarioAct;
+
   parametros = {
-    id: oPos[0]["id_ambiente"],
-    amb: oPos[0]["nombre"],
-    user: sesion["usuario"][0]["usuario"],
-    iduser: sesion["usuario"][0]["usuario_id"],
-    impto: oPos[0]["impuesto"],
-    prop: oPos[0]["propina"],
-    fecha: oPos[0]["fecha_auditoria"],
-    logo: oPos[0]["logo"],
-    file: oKey,
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
+    logo,
   };
 
   $.ajax({
@@ -2426,93 +3573,114 @@ function balanceDiarioCajero() {
     type: "POST",
     data: parametros,
     success: function (data) {
-      $(".content-wrapper").html(data);
-      $("#verInforme").attr(
-        "data",
-        "imprimir/informes/balance_Diario_" + oKey + ".pdf"
-      );
+      creaHTMLReportes(data, `Balance del Dia Cajero ${usuario}`);
     },
   });
 }
 
 function cuentasAnuladasCajero() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  oKey = makeid(12);
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } = pos;
+  let { usuario, usuario_id, tipo } = usuarioAct;
+  let file = makeid(12);
+
   parametros = {
-    id: oPos[0]["id_ambiente"],
-    amb: oPos[0]["nombre"],
-    user: sesion["usuario"][0]["usuario"],
-    iduser: sesion["usuario"][0]["usuario_id"],
-    impto: oPos[0]["impuesto"],
-    prop: oPos[0]["propina"],
-    fecha: oPos[0]["fecha_auditoria"],
-    logo: oPos[0]["logo"],
-    file: oKey,
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
+    logo,
   };
   $.ajax({
     url: "informes/cuentasAnuladasCajero.php",
     type: "POST",
     data: parametros,
     success: function (data) {
-      $(".content-wrapper").html(data);
-      $("#verInforme").attr(
-        "data",
-        "imprimir/informes/cuentasAnuladas_Cajero_" +
-          sesion["usuario"][0]["usuario"] +
-          ".pdf"
-      );
+      creaHTMLReportes(data, `Comandas Anuladas Cajero ${usuario}`);
     },
   });
 }
 
 function cuentasActivasCajero() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  oKey = makeid(12);
+
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } = pos;
+  let { usuario, usuario_id, tipo } = usuarioAct;
+  let file = makeid(12);
+
   parametros = {
-    id: oPos[0]["id_ambiente"],
-    amb: oPos[0]["nombre"],
-    user: sesion["usuario"][0]["usuario"],
-    iduser: sesion["usuario"][0]["usuario_id"],
-    impto: oPos[0]["impuesto"],
-    prop: oPos[0]["propina"],
-    fecha: oPos[0]["fecha_auditoria"],
-    logo: oPos[0]["logo"],
-    file: oKey,
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    iduser: usuario_id,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
+    logo,
   };
+
   $.ajax({
     url: "informes/cuentasActivasCajero.php",
     type: "POST",
     data: parametros,
     success: function (data) {
-      $(".content-wrapper").html(data);
-      $("#verInforme").attr(
-        "data",
-        "imprimir/informes/cuentasActivas_Cajero_" + oKey + ".pdf"
-      );
+      creaHTMLReportes(data, `Comandas Activas Cajero ${usuario}`);
     },
   });
 }
 
+function creaHTMLReportes(data, titulo) {
+  $("#pantalla").html("");
+  $("#pantalla").html(`
+  <section class="content">
+      <div class="panel panel-success">
+        <div class="panel-heading"> 
+          <div class="row">
+            <div class="col-lg-9">
+              <input type="hidden" name="user" id="user" value="">
+              <input type="hidden" name="rutaweb" id="rutaweb" value="<?php echo BASE_POS; ?>">
+              <input type="hidden" name="nombreAmbiente" id="nombreAmbiente" value="">
+              <input type="hidden" name="ubicacion" id="ubicacion" value="cuentasActivasCajero.php">
+              <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-industry"></i> ${titulo} <?php echo $usuario; ?></h3>
+            </div>
+          </div>
+        <div class="panel-body">
+          <div class="divInforme">
+              <object type="application/pdf" id="verInforme" width="100%" height="500" data="data:application/pdf;base64,${$.trim(
+                data
+              )}"></object> 
+          </div>
+        </div>
+      </div> 
+    </section>
+  `);
+}
+
 function ventasDia() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } = pos;
+  let { usuario, usuario_id, tipo } = usuarioAct;
+  let file = makeid(12);
 
   parametros = {
-    id: oPos[0]["id_ambiente"],
-    amb: oPos[0]["nombre"],
-    user: sesion["usuario"][0]["usuario"],
-    impto: oPos[0]["impuesto"],
-    prop: oPos[0]["propina"],
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    impto: impuesto,
+    prop: propina,
   };
-
   $.ajax({
     url: "ventas/ventas_dia.php",
     type: "POST",
     data: parametros,
     success: function (data) {
-      $(".content-wrapper").html(data);
+      $(".pantalla").html(data);
     },
   });
 }
@@ -2521,30 +3689,39 @@ function cuentasActivas() {
   var alto = screen.height;
   var ancho = screen.width;
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  $(".btn-menu").css("display", "block");
+  let { pos, usuarioAct } = sesion;
+  let {
+    id_ambiente,
+    nombre,
+    impuesto,
+    propina,
+    fecha_auditoria,
+    prefijo,
+    logo,
+  } = pos;
+  let { usuario, tipo } = usuarioAct;
 
   parametros = {
-    id: oPos[0]["id_ambiente"],
-    amb: oPos[0]["nombre"],
-    user: sesion["usuario"][0]["usuario"],
-    nivel: sesion["usuario"][0]["tipo"],
-    impto: oPos[0]["impuesto"],
-    prop: oPos[0]["propina"],
-    fecha: oPos[0]["fecha_auditoria"],
-    pref: oPos[0]["prefijo"],
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    nivel: tipo,
+    impto: impuesto,
+    prop: propina,
+    fecha: fecha_auditoria,
+    prefijo,
   };
+  $(".btn-menu").css("display", "block");
 
   $.ajax({
     url: "ventas/cuentas_activas.php",
     type: "POST",
     data: parametros,
     success: function (data) {
-      $(".content-wrapper").html(data);
-      $(".main-sidebar").css("display", "none");
-      // $('#productosComanda').css('min-height',350);
-      $("#productosComanda").css("height", alto - 340);
-      $("#Escritorio").css("height", alto - 420);
+      $("#pantalla").html(data);
+      $(".prende").css("display", "none");
+      $("#productosComanda").css("height", alto - 334);
+      $("#imprimeComanda").css("margin-top", "31px");
     },
   });
 }
@@ -2552,20 +3729,22 @@ function cuentasActivas() {
 function muestraTouch() {
   var alto = screen.height;
   var ancho = screen.width;
+  let abonos = 0;
+  let propina = 0;
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  $(".main-sidebar").css("display", "none");
-  $(".content-wrapper").css("margin-left", "0");
+  let { pos, usuarioAct } = sesion;
+  let { usuario } = usuarioAct;
+  let { id_ambiente, nombre, impuesto, prefijo, fecha_auditoria } = pos;
   $("#btnGuardar").attr("disabled", "enabled");
 
   parametros = {
-    id: oPos[0]["id_ambiente"],
-    amb: oPos[0]["nombre"],
-    user: sesion["usuario"][0]["usuario"],
-    impto: oPos[0]["impuesto"],
-    prop: oPos[0]["propina"],
-    pref: oPos[0]["prefijo"],
-    fecha: oPos[0]["fecha_auditoria"],
+    id: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    impto: impuesto,
+    prop: propina,
+    prefijo,
+    fecha: fecha_auditoria,
   };
 
   $.ajax({
@@ -2573,36 +3752,46 @@ function muestraTouch() {
     type: "POST",
     data: parametros,
     success: function (data) {
-      getSecciones();
-      $(".content-wrapper").html(data);
-      /// $('#productosComanda').css('min-height',350);
-      $("#productosComanda").css("height", alto - 384);
-      $("#Escritorio").css("height", alto - 420);
-      var storageProd = localStorage.getItem("productoComanda");
-      if (storageProd == null) {
+      storageProd = localStorage.getItem("productoComanda");
+      if (storageProd === null) {
         listaComanda = [];
       } else {
         listaComanda = JSON.parse(storageProd);
+        abonos = 0;
+        descuento = listaComanda.reduce(
+          (totdes, comanda) => totdes + comanda.descuento,
+          0
+        );
+        productosActivos();
+        resumenComanda();
       }
-      productosActivos();
-      resumenComanda();
+      getSecciones();
+      $("#pantalla").html("");
+      $("#pantalla").html(data);
+      $("#productosComanda").css("height", alto - 320);
     },
   });
 }
 
 function calcular_total() {
-  total = parseFloat($("#total").val().replace(",", ""));
-  totalini = parseFloat($("#totalini").val());
-  propina = parseFloat($("#propina").val().replace(",", ""));
-  total = totalini + propina;
-  $("#total").val(number_format(total, 2));
-  $("#montopago").val(total);
+  var coma = $("#numeroComanda").val();
+  miBoton = "#comanda" + coma;
+
+  propina = parseFloat($("#propinaPag").val().replaceAll(",", ""));
+
+  subtotal = parseFloat($(miBoton).attr("subtotal"));
+  impuesto = parseFloat($(miBoton).attr("impto"));
+  descuento = parseFloat($(miBoton).attr("descuento"));
+  abonos = parseFloat($(miBoton).attr("abonos"));
+  total = parseFloat($(miBoton).attr("total"));
+
+  $("#montopago").val(subtotal + propina - descuento - abonos);
 }
 
 function calcular_totalDir() {
-  total = parseFloat($("#totalDir").val().replace(",", ""));
+  total = parseFloat($("#totalDir").val().replaceAll(",", ""));
   totalini = parseFloat($("#totaliniDir").val());
-  propina = parseFloat($("#propinaDir").val().replace(",", ""));
+  propina = parseFloat($("#propinaDir").val().replaceAll(",", ""));
   total = totalini + propina;
   $("#totalDir").val(number_format(total, 2));
   $("#montopagoDir").val(total);
@@ -2610,15 +3799,14 @@ function calcular_totalDir() {
 
 function activaMenus() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
+  let { pos, usuarioAct } = sesion;
+  let { apellidos, nombres } = usuarioAct;
+  let { fecha_auditoria } = pos;
   $("#nombreUsuario").html(
-    sesion["usuario"][0]["apellidos"] +
-      " " +
-      sesion["usuario"][0]["nombres"] +
-      '<span class="caret"></span>'
+    `${apellidos} ${nombres} <span class="caret"></span>`
   );
-  $("#fechaPos").html("Fecha Proceso " + oPos[0]["fecha_auditoria"]);
-  $("#fechaAuditoria").val(oPos[0]["fecha_auditoria"]);
+  $("#fechaPos").html(`Fecha Proceso ${fecha_auditoria}`);
+  $("#fechaAuditoria").val(fecha_auditoria);
 }
 
 function seleccionaAmbiente() {
@@ -2635,82 +3823,79 @@ function seleccionaAmbiente() {
 
 function ingresoPos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  if (sesion["usuario"][0]["estado_usuario_pos"] == 2) {
-    swal(
-      {
-        title: "Usuario ya cerro su movimiento en el Dia !",
-        type: "warning",
-        confirmButtonText: "Aceptar",
-        closeOnConfirm: false,
-      },
-      function () {
-        $(location).attr("href", "../views/modulos.php");
-      }
-    );
-  } else {
-    if (sesion["usuario"][0]["id_ambiente"] == 0) {
-      $(".main-sidebar").css("display", "none");
-      $(".content-wrapper").css("margin-left", "0");
-    }
-    modInv = sesion["cia"][0]["inv"];
-    modPos = sesion["cia"][0]["pms"];
 
-    if (modInv == 1) {
-      $("#moduloInv").css("display", "block");
-    } else {
-      $("#moduloInv").css("display", "none");
-    }
+  let { cia, usuarioAct } = sesion;
+  let { inv, pos } = cia;
+  let { usuario_id, apellidos, nombres, estado_usuario_pos, tipo } = usuarioAct;
 
-    if (modPos == 1) {
-      $("#moduloPms").css("display", "block");
-    } else {
-      $("#moduloPms").css("display", "none");
-    }
+  $("#idUsuario").val(usuario_id);
 
-    parametros = {
-      ambSel: sesion["usuario"][0]["id_ambiente"],
-      idUsr: sesion["usuario"][0]["usuario_id"],
-      sesionUsr: sesion["usuario"][0]["estado_usuario_pos"],
-      modInv: modInv,
-      modPos: modPos,
-    };
+  if (inv == 1 && tipo <= 2) {
+    $("#menuInve").css("display", "block");
+  }
+  if (tipo <= 1) {
+    $("#menuKardex").css("display", "block");
+  }
 
+  if (tipo <= 2) {
+    $("#menuAudi").css("display", "block");
+    $("#menuHist").css("display", "block");
+    $("#menuMovi").css("display", "block");
+    $("#menuDiar").css("display", "block");
+    $("#menuInfo").css("display", "block");
+    $("#menuInfoCaje").css("display", "block");
+  }
+
+  if (tipo <= 3) {
+    $("#menuCaje").css("display", "block");
+    $("#menuDatos").css("display", "block");
+    $("#menuVenta").css("display", "block");
+    $("#menuCaja").css("display", "block");
+  }
+  if (tipo <= 4) {
+  }
+  if (tipo <= 5) {
+  }
+
+  $("#nombreUsuario").html(
+    `<p>${apellidos} ${nombres} </p> <span class="caret"></span>`
+  );
+
+  if (estado_usuario_pos == "0") {
     $.ajax({
-      url: "res/php/escritorio_pos.php",
+      url: "res/php/user_actions/activaCajero.php",
       type: "POST",
-      data: parametros,
-      success: function (data) {
-        $("#Escritorio").html(data);
-      },
+      data: { usuario_id },
+      success: function () {},
     });
   }
 }
 
 function activaPos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  $("#fechaPos").html("Fecha Proceso " + oPos[0]["fecha_auditoria"]);
-  $("#fechaAuditoria").val(oPos[0]["fecha_auditoria"]);
+  let { pos, usuarioAct } = sesion;
+  let { fecha_auditoria } = pos;
+  let { nombres, apellidos } = usuarioAct;
+  /* $("#fechaAuditoria").val(fecha_auditoria);
   $("#nombreUsuario").html(
-    sesion["usuario"][0]["apellidos"] +
-      " " +
-      sesion["usuario"][0]["nombres"] +
-      '<span class="caret"></span>'
-  );
+    `${apellidos} ${nombres} <span class="caret"></span>`
+  ); */
 }
 
 function cierreCajero(user) {
-  oPos = JSON.parse(localStorage.getItem("oPos"));
   sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { usuarioAct, pos } = sesion;
+  let { usuario_id, usuario } = usuarioAct;
+  let { fecha_auditoria, id_ambiente, nombre, logo } = pos;
+
   var web = $("#rutaweb").val();
   var parametros = {
-    user: user,
-    iduser: sesion["usuario"][0]["usuario_id"],
-    fecha: oPos[0]["fecha_auditoria"],
-    idamb: oPos[0]["id_ambiente"],
-    amb: oPos[0]["nombre"],
-    logo: oPos[0]["logo"],
-    page: web,
+    usuario_id,
+    usuario,
+    fecha_auditoria,
+    id_ambiente,
+    nombre,
+    logo,
   };
   $.ajax({
     url: web + "res/php/cierreDelDiaCajero.php",
@@ -2733,12 +3918,15 @@ function verAuditoria(info) {
 }
 
 function buscaFechaAuditoria() {
-  oPos = JSON.parse(localStorage.getItem("oPos"));
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, prefijo } = pos;
+
   var fecha = $("#buscarFecha").val();
   var parametros = {
-    fecha: fecha,
-    idamb: oPos[0]["id_ambiente"],
-    prefijo: oPos[0]["prefijo"],
+    fecha,
+    idamb: id_ambiente,
+    prefijo,
   };
   $("#verFactura").attr("data", "");
   $.ajax({
@@ -2766,88 +3954,336 @@ function reimprimirFactura() {
 
 function enviaInicio() {
   localStorage.removeItem("productoComanda");
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  getSeleccionaAmbiente(oPos[0]["id_ambiente"]);
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos } = sesion;
+  let { id_ambiente } = pos;
+  getSeleccionaAmbiente(id_ambiente);
 }
 
-function mesasActivas() {
-  oPos = JSON.parse(localStorage.getItem("oPos"));
+function mesasActivas(fecha, id) {
   parametros = {
-    fecha: oPos[0]["fecha_auditoria"],
-    id: oPos[0]["id_ambiente"],
+    fecha,
+    id,
   };
   $.ajax({
-    url: "res/php/user_actions/mesasActivas.php",
+    url: "res/php/user_actions/comandasSinCerrar.php",
     type: "POST",
-    dataType: "json",
     data: parametros,
     success: function (data) {
-      $("#contador").val($.trim(data));
+      $("#aviso").html(data);
     },
   });
 }
 
-function cierreDiario() {
-  $("#botonCierre").attr("disabled", "disabled");
-  mesasActivas();
+const mesasSinSalir = async (fecha_auditoria, id_ambiente) => {
+  try {
+    const resultado = await fetch(`res/php/user_actions/mesasActivas.php`, {
+      method: "post",
+      headers: {
+        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+      body: "fecha=" + fecha_auditoria + "&idambiente=" + id_ambiente,
+    });
+    const datos = await resultado.json();
+    return datos;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-  setTimeout(function () {
-    sale = $("#contador").val();
-    web = $("#rutaweb").val();
-    fecha = $("#fechaAuditoria").html();
-    if (sale == 0) {
-      sesion = JSON.parse(localStorage.getItem("sesion"));
-      oPos = JSON.parse(localStorage.getItem("oPos"));
-      parametros = {
-        id: oPos[0]["id_ambiente"],
-        amb: oPos[0]["nombre"],
-        user: sesion["usuario"][0]["usuario"],
-        iduser: sesion["usuario"][0]["usuario_id"],
-        impto: oPos[0]["impuesto"],
-        prop: oPos[0]["propina"],
-        fecha: oPos[0]["fecha_auditoria"],
-        prefijo: oPos[0]["prefijo"],
-        logo: oPos[0]["logo"],
-      };
-      $.ajax({
-        url: web + "res/php/user_actions/cierreDiario.php",
-        type: "POST",
-        dataType: "json",
-        data: parametros,
-        beforeSend: function (objeto) {
-          $("#aviso").html("");
-          $("#aviso").html(`
-            <h4 class="bg-red" style="padding:10px;display:flex">
-              <img loading="lazy" style="margin-bottom:0" class="thumbnail" src="../img/loader.gif" alt="" />
-              <span style="font-size:24px;font-weight: 700;font-family: ubuntu;margin:15px">Procesando Informacion, No Interrumpa </span>
-            </h4>
-            `);
-        },
-        success: function (datos) {
-          swal(
-            {
-              title: "Auditoria Nocturna Terminada con Exito !",
-              type: "success",
-              confirmButtonText: "Confirmar",
-              closeOnConfirm: false,
-            },
-            function () {
-              cierraSesion();
-            }
-          );
-        },
-      });
-    } else {
-      $.ajax({
-        url: "res/php/user_actions/comandasSinCerrar.php",
-        type: "POST",
-        data: { fecha: fecha },
-        success: function (data) {
-          $("#aviso").html(data);
-        },
-      });
+mensajeAuditoria = async (mensaje) => {
+  try {
+    aviso = document.querySelector("#aviso");
+    aviso.innerHTML = `
+    <h4 class="bg-red" style="padding:10px;display:flex">
+      <img loading="lazy" style="margin-bottom:0;width:15%;" class="thumbnail" src="../img/loader.gif" alt="" />
+      <span id="mensaje" style="font-size:24px;font-weight: 700;font-family: ubuntu;margin:15px">${mensaje}</span>
+      </h4>
+      `;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+async function cierreDiario() {
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { usuarioAct, pos } = sesion;
+  const { usuario, usuario_id } = usuarioAct;
+  const { fecha_auditoria, id_ambiente, prefijo, nombre, logo } = pos;
+
+  const sinsalir = await mesasSinSalir(fecha_auditoria, id_ambiente);
+  if (sinsalir !== 0) {
+    mesasActivas(fecha_auditoria, id_ambiente);
+    return;
+  }
+
+  $("#botonCierre").attr("disabled", "disabled");
+
+  const mensaje = await mensajeAuditoria(
+    "Procesando Informacion, No Interrumpa "
+  );
+  const backup = await fetch("auditoria/backupDiario.php", {
+    method: "post",
+    headers: {
+      "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+    },
+    body: "fecha=" + fecha_auditoria + "&prefijo=" + prefijo,
+  });
+  const cajeros = await fetch("auditoria/balanceDiarioCajero.php", {
+    method: "post",
+    headers: {
+      "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+    },
+    body:
+      "fecha=" +
+      fecha_auditoria +
+      "&idamb=" +
+      id_ambiente +
+      "&nomamb=" +
+      nombre +
+      "&logo=" +
+      logo,
+  });
+  const balance = await fetch("auditoria/balanceDiarioAuditoria.php", {
+    method: "post",
+    headers: {
+      "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+    },
+    body:
+      "fecha=" +
+      fecha_auditoria +
+      "&idamb=" +
+      id_ambiente +
+      "&nomamb=" +
+      nombre +
+      "&logo=" +
+      logo +
+      "&iduser=" +
+      usuario_id +
+      "&user=" +
+      usuario +
+      "&prefijo=" +
+      prefijo,
+  });
+
+  const informeGe = await fetch("auditoria/gerenciaDiariaAuditoria.php", {
+    method: "post",
+    headers: {
+      "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+    },
+    body:
+      "fecha=" +
+      fecha_auditoria +
+      "&idamb=" +
+      id_ambiente +
+      "&nomamb=" +
+      nombre +
+      "&logo=" +
+      logo +
+      "&iduser=" +
+      usuario_id +
+      "&user=" +
+      usuario +
+      "&prefijo=" +
+      prefijo,
+  });
+
+  const productos = await fetch("auditoria/productosDiarioAuditoria.php", {
+    method: "post",
+    headers: {
+      "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+    },
+    body:
+      "fecha=" +
+      fecha_auditoria +
+      "&idamb=" +
+      id_ambiente +
+      "&nomamb=" +
+      nombre +
+      "&logo=" +
+      logo +
+      "&iduser=" +
+      usuario_id +
+      "&user=" +
+      usuario +
+      "&prefijo=" +
+      prefijo,
+  });
+
+  const grupos = await fetch("auditoria/gruposVentaDiarioAuditoria.php", {
+    method: "post",
+    headers: {
+      "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+    },
+    body:
+      "fecha=" +
+      fecha_auditoria +
+      "&idamb=" +
+      id_ambiente +
+      "&nomamb=" +
+      nombre +
+      "&logo=" +
+      logo +
+      "&iduser=" +
+      usuario_id +
+      "&user=" +
+      usuario +
+      "&prefijo=" +
+      prefijo,
+  });
+
+  const cartera = await fetch("auditoria/carteraDiarioAuditoria.php", {
+    method: "post",
+    headers: {
+      "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+    },
+    body:
+      "fecha=" +
+      fecha_auditoria +
+      "&idamb=" +
+      id_ambiente +
+      "&nomamb=" +
+      nombre +
+      "&logo=" +
+      logo +
+      "&iduser=" +
+      usuario_id +
+      "&user=" +
+      usuario +
+      "&prefijo=" +
+      prefijo,
+  });
+
+  const historico = await fetch("auditoria/envioHistoricoDiarioAuditoria.php", {
+    method: "post",
+    headers: {
+      "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+    },
+    body:
+      "fecha=" +
+      fecha_auditoria +
+      "&idamb=" +
+      id_ambiente +
+      "&nomamb=" +
+      nombre +
+      "&logo=" +
+      logo +
+      "&iduser=" +
+      usuario_id +
+      "&user=" +
+      usuario +
+      "&prefijo=" +
+      prefijo,
+  });
+
+  const acumuladoDiario = await fetch(
+    "auditoria/acumuladoDiarioAuditoria.php",
+    {
+      method: "post",
+      headers: {
+        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+      body:
+        "fecha=" +
+        fecha_auditoria +
+        "&idamb=" +
+        id_ambiente +
+        "&nomamb=" +
+        nombre +
+        "&logo=" +
+        logo +
+        "&iduser=" +
+        usuario_id +
+        "&user=" +
+        usuario +
+        "&prefijo=" +
+        prefijo,
     }
-  }, 1000);
+  );
+
+  const acumulado = await fetch(
+    "auditoria/gruposAcumuladoDiarioAuditoria.php",
+    {
+      method: "post",
+      headers: {
+        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+      body:
+        "fecha=" +
+        fecha_auditoria +
+        "&idamb=" +
+        id_ambiente +
+        "&nomamb=" +
+        nombre +
+        "&logo=" +
+        logo +
+        "&iduser=" +
+        usuario_id +
+        "&user=" +
+        usuario +
+        "&prefijo=" +
+        prefijo,
+    }
+  );
+
+  const formasPago = await fetch("auditoria/formasPagoDiarioAuditoria.php", {
+    method: "post",
+    headers: {
+      "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+    },
+    body:
+      "fecha=" +
+      fecha_auditoria +
+      "&idamb=" +
+      id_ambiente +
+      "&nomamb=" +
+      nombre +
+      "&logo=" +
+      logo +
+      "&iduser=" +
+      usuario_id +
+      "&user=" +
+      usuario +
+      "&prefijo=" +
+      prefijo,
+  });
+
+  const fecha = await fetch("auditoria/cambiaFechaAuditoria.php", {
+    method: "post",
+    headers: {
+      "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+    },
+    body:
+      "fecha=" +
+      fecha_auditoria +
+      "&idamb=" +
+      id_ambiente +
+      "&nomamb=" +
+      nombre +
+      "&logo=" +
+      logo +
+      "&iduser=" +
+      usuario_id +
+      "&user=" +
+      usuario +
+      "&prefijo=" +
+      prefijo,
+  });
+  const nuevaFecha = await fecha.text();
+
+  if (fecha_auditoria != nuevaFecha) {
+    swal(
+      {
+        title: "Auditoria Nocturna Terminada con Exito !",
+        type: "success",
+        confirmButtonText: "Aceptar",
+        closeOnConfirm: false,
+      },
+      function () {
+        cierraSesion();
+      }
+    );
+  }
 }
 
 function actualizaInterfase() {
@@ -2861,9 +4297,9 @@ function actualizaInterfase() {
     url: "res/php/user_actions/actualizaInterfase.php",
     type: "POST",
     data: {
-      codigo: codigo,
-      propina: propina,
-      servicio: servicio,
+      codigo,
+      propina,
+      servicio,
     },
     success: function (data) {
       $("#mensaje").html("<h4>Interfase PMS Actualizada con Exito</h4>");
@@ -2909,9 +4345,19 @@ function eliminaCliente() {
       idusr: idusr,
     },
     success: function (data) {
-      $(".modal-backdrop").remove();
-      $(".modal-open").css("overflow", "auto");
-      clientes();
+      if (data == 1) {
+        $("#dataDeleteCliente").modal("hide");
+        $(".modal-backdrop").remove();
+        $(".modal-open").css("overflow", "auto");
+        clientes();
+      } else {
+        $("#pregunta").css("display", "none");
+        $("#mensaje").css("display", "block");
+        $("#mensaje")
+          .html(`<h3 class="text-center" style="text-align-center">Precaucion</h3> 
+        <p class="lead text-center" style="display: block;margin:10px">El Cliente presenta movimientos de cartera, no es posible eliminarlo.
+        </p>`);
+      }
     },
   });
 }
@@ -2930,25 +4376,24 @@ function guardaCliente() {
   });
 }
 
-function getFactura(coma, fact, pms) {
+function getFactura(comanda, factura, pms) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  var parametros = {
-    idamb: oPos[0]["id_ambiente"],
-    amb: oPos[0]["nombre"],
-    user: sesion["usuario"][0]["usuario"],
-    nivel: sesion["usuario"][0]["tipo"],
-    impto: oPos[0]["impuesto"],
-    prop: oPos[0]["propina"],
-    comanda: coma,
-    factura: fact,
-    pms: pms,
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } = pos;
+  let { usuario, tipo } = usuarioAct;
+
+  parametros = {
+    idamb: id_ambiente,
+    amb: nombre,
+    user: usuario,
+    nivel: tipo,
+    impto: impuesto,
+    prop: propina,
+    comanda,
+    factura,
   };
-  if (pms == 1) {
-    $("#numeroFactura").html("Productos Cheque Cuenta Nro " + fact);
-  } else {
-    $("#numeroFactura").html("Productos Factura Nro " + fact);
-  }
+
+  $("#numeroFactura").html("Productos Factura Nro " + fact);
   $("#facturaActiva").val(fact);
   $("#tipoCargo").val(pms);
   $("#loader").fadeIn("slow");
@@ -2968,7 +4413,7 @@ function getFactura(coma, fact, pms) {
 
 function getVentasDia(idamb) {
   var parametros = {
-    idamb: idamb,
+    idamb,
   };
   $("#loader").fadeIn("slow");
   $.ajax({
@@ -2986,8 +4431,11 @@ function getVentasDia(idamb) {
 
 function getAmbientes() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos } = sesion;
+  let { id_ambiente } = pos;
+
   var parametros = {
-    idamb: sesion["usuario"][0]["id_ambiente"],
+    idamb: id_ambiente,
   };
   $("#loader").fadeIn("slow");
   $.ajax({
@@ -3017,7 +4465,7 @@ function getAmbientes() {
 
 function getSeleccionaAmbiente(codigo) {
   var parametros = {
-    codigo: codigo,
+    codigo,
   };
   $.ajax({
     url: "res/php/user_actions/getSeleccionaAmbiente.php",
@@ -3028,8 +4476,6 @@ function getSeleccionaAmbiente(codigo) {
       $("#loader").html("<img src='../img/loader.gif'>");
     },
     success: function (data) {
-      $(".main-sidebar").css("display", "block");
-      $(".content-wrapper").css("margin-left", "17%");
       localStorage.setItem("oPos", JSON.stringify(data));
       muestraPos(codigo);
     },
@@ -3037,8 +4483,9 @@ function getSeleccionaAmbiente(codigo) {
 }
 
 function getSecciones() {
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  id = oPos[0]["id_ambiente"];
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos } = sesion;
+  let { id_ambiente } = pos;
   var alto = screen.height;
   var ancho = screen.width;
   $("#loader").fadeIn("slow");
@@ -3047,7 +4494,7 @@ function getSecciones() {
     url: "res/php/user_actions/getSeccion.php",
     dataType: "json",
     data: {
-      id: id,
+      id_ambiente,
     },
     beforeSend: function (objeto) {
       $("#loader").html("<img src='../img/loader.gif'>");
@@ -3055,12 +4502,12 @@ function getSecciones() {
     success: function (data) {
       $("#seccionList").html("");
       $("#seccionList").css("min-height", 120);
-      $("#seccionList").css("height", alto - 275);
+      $("#seccionList").css("height", alto - 262);
       for (i = 0; i < data.length; i++) {
         boton = `
         <button 
           class="btn btn-success btnPos btnSecc" 
-          onClick="getProducto(this.name,${id});" 
+          onClick="getProducto(this.name,${id_ambiente});" 
           type="button" name='${data[i]["id_seccion"]}'  
           title="${data[i]["nombre_seccion"]}">
           <span>${data[i]["nombre_seccion"]}</span> 
@@ -3072,14 +4519,12 @@ function getSecciones() {
 }
 
 function getProducto(codigo, ambi) {
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  imptoInc = oPos[0]["impuesto"];
+  sesion = JSON.parse(localStorage.getItem("sesion"));
   var alto = screen.height;
   var ancho = screen.width;
   var parametros = {
-    codigo: codigo,
-    ambi: ambi,
-    imptoInc: imptoInc,
+    codigo,
+    ambi,
   };
   $("#loader").fadeIn("slow");
   $.ajax({
@@ -3092,17 +4537,15 @@ function getProducto(codigo, ambi) {
     },
     success: function (data) {
       $("#productoList").html("");
-      $("#productoList").css("min-height", 455);
-      $("#productoList").css("height", alto - 275);
+      $("#productoList").css("height", alto - 263);
       for (i = 0; i < data.length; i++) {
-        boton = `<button 
+        boton = `<button
                   style="background-size: contain;line-height:15px ;"
                   id="productos"
                   class="btn btn-danger btnPos btnProd" 
                   name="${data[i]["nom"]}"
                   valor="${data[i]["venta"]}"
                   idprod="${data[i]["producto_id"]}"
-                  
                   porimp="${data[i]["porcentaje_impto"]}"
                   onClick="getVentas('${data[i]["nom"]}','${data[i]["venta"]}','${data[i]["producto_id"]}','${data[i]["porcentaje_impto"]}','${ambi}')" 
                   type="button"
@@ -3118,37 +4561,43 @@ function productosActivos() {
   numero = $("#numeroComanda").val();
   recuperar = $("#recuperarComanda").val();
   sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { usuarioAct } = sesion;
+  let { usuario, tipo } = usuarioAct;
+
+  /* console.log(listaComanda);
+
+  console.log(numero);
+  console.log(recuperar); */
 
   $(".comanda > tbody").html("");
+  listaComanda.map((productos) => {
+    let { id, producto, cant, total, codigo, ambiente } = productos;
+  });
+
   for (i = 0; i < listaComanda.length; i++) {
     if (numero == 0) {
       $(".comanda > tbody").append(
         `<tr>
-          <td style="padding:3px 3px 0px 3px">${
-            listaComanda[i]["producto"]
-          }</td>
-          <td style="padding:3px 3px 0px 3px">${listaComanda[i]["cant"]}</td>
-          <td style="padding:3px 3px 0px 3px" align='right'>${number_format(
-            listaComanda[i]["total"],
-            2
-          )}</td>
-          <td style="padding:3px 3px 0px 3px" align='center'>
-            <div class="btn-group" role="group">           
-              <button  
-                type="button" 
-                id="${i}" 
+          <td>${listaComanda[i]["producto"]}</td>
+          <td>${listaComanda[i]["cant"]}</td>
+          <td class="t-right">${number_format(listaComanda[i]["total"], 2)}</td>
+          <td class="t-center">
+            <div class="btn-group" role="group">
+              <button
+                type="button"
+                id="${i}"
                 onclick="getSumaVentas(this.id,this.parentNode.parentNode.parentNode.rowIndex)" 
                 class="glyphicon glyphicon-plus btn btn-success btn-xs">
               </button>
-              <button 
-                type="button" 
-                id="${i}" 
+              <button
+                type="button"
+                id="${i}"
                 onclick="getRestarVentas(this.id,this.parentNode.parentNode.parentNode.rowIndex)" 
                 class="glyphicon glyphicon-minus btn btn-warning btn-xs" >
               </button>
-              <button 
-                type="button" 
-                id="${i}" 
+              <button
+                type="button"
+                id="${i}"
                 onclick="getBorraVentas(this.id,this.parentNode.parentNode.parentNode.rowIndex)" 
                 class="glyphicon glyphicon-trash btn btn-danger btn-xs" >
               </button>
@@ -3160,33 +4609,27 @@ function productosActivos() {
       if (recuperar == 0) {
         $(".comanda > tbody").append(
           `<tr>
-          <td style="padding:3px 3px 0px 3px">${
-            listaComanda[i]["producto"]
-          }</td>
-          <td style="padding:3px 3px 0px 3px">${listaComanda[i]["cant"]}</td>
-          <td style="padding:3px 3px 0px 3px" align='right'>${number_format(
-            listaComanda[i]["total"],
-            2
-          )}</td>
-          <td style="padding:3px 3px 0px 3px" align='center'>
-            <div class="btn-group btnDevuelve" role="group">          
-              <button  
-                type="button" 
-                id="${i}" 
-                onclick="botonDevolverProducto('${numero}','${
+          <td>${listaComanda[i]["producto"]}</td>
+          <td>${listaComanda[i]["cant"]}</td>
+          <td class="t-right">${number_format(listaComanda[i]["total"], 2)}</td>
+          <td class="t-center">
+          <button
+            type="button"
+            id="${i}"
+            onclick="botonDevolverProducto('${numero}','${
             listaComanda[i]["codigo"]
           }','${listaComanda[i]["ambiente"]}','${listaComanda[i]["cant"]}','${
             listaComanda[i]["producto"]
-          }', this.id, this.parentNode.parentNode.parentNode.rowIndex)" 
-                class="fa fa-share btn btn-danger btn-xs"
-                title="Devolver Producto">
-              </button>
-            </div>
+          }','${listaComanda[i]["id"]}','${listaComanda[i]["importe"]}','${
+            listaComanda[i]["impto"]
+          }',this.id, this.parentNode.parentNode.parentNode.rowIndex)"
+            class="fa fa-share btn btn-danger btn-xs"
+            title="Devolver Producto Uno">
+          </button>
           </td>
         </tr>`
         );
-
-        if (sesion["usuario"][0]["tipo"] != "A") {
+        if (tipo > 3) {
           $(".btnDevuelve").remove();
           $(".btnDevuelve").css("disabled", "disabled");
         }
@@ -3194,65 +4637,56 @@ function productosActivos() {
         if (listaComanda[i]["activo"] == 1) {
           $(".comanda > tbody").append(
             `<tr>
-            <td style="padding:3px 3px 0px 3px">${
-              listaComanda[i]["producto"]
-            }</td>
-            <td style="padding:3px 3px 0px 3px">${listaComanda[i]["cant"]}</td>
-            <td style="padding:3px 3px 0px 3px" align='right'>${number_format(
-              listaComanda[i]["total"],
-              2
-            )}</td>
-            <td style="padding:3px 3px 0px 3px" align='center'>
-              <div class="btn-group btnDevuelve" role="group">          
-                <button  
-                  type="button" 
-                  id="${i}" 
+              <td>${listaComanda[i]["producto"]}</td>
+              <td>${listaComanda[i]["cant"]}</td>
+              <td class="t-right">${number_format(
+                listaComanda[i]["total"],
+                2
+              )}</td>
+              <td class="t-center">
+                <button
+                  type="button"
+                  id="${i}"
                   onclick="botonDevolverProducto('${numero}','${
               listaComanda[i]["codigo"]
             }','${listaComanda[i]["ambiente"]}','${listaComanda[i]["cant"]}','${
               listaComanda[i]["producto"]
-            }', this.id, this.parentNode.parentNode.parentNode.rowIndex)" 
+            }','${listaComanda[i]["id"]}','${listaComanda[i]["importe"]}','${
+              listaComanda[i]["impto"]
+            }',this.id, this.parentNode.parentNode.parentNode.rowIndex)"
                   class="fa fa-share btn btn-danger btn-xs"
-                  title="Devolver Producto">
+                  title="Devolver Producto Dos">
                 </button>
-              </div>
-            </td>
+              </td>
           </tr>`
           );
-          if (sesion["usuario"][0]["tipo"] != "A") {
+          if (tipo > 3) {
             $(".btnDevuelve").remove();
             $(".btnDevuelve").css("disabled", "disabled");
           }
         } else {
           $(".comanda > tbody").append(
             `<tr>
-              <td style="padding:3px 3px 0px 3px">${
-                listaComanda[i]["producto"]
-              }</td>
-              <td style="padding:3px 3px 0px 3px">${
-                listaComanda[i]["cant"]
-              }</td>
-              <td style="padding:3px 3px 0px 3px" align='right'>${number_format(
-                listaComanda[i]["total"],
-                2
-              )}</td>
-              <td style="padding:3px 3px 0px 3px" align='center'>
-                <div class="btn-group" role="group">           
-                  <button  
-                    type="button" 
-                    id="${i}" 
+              <td>${listaComanda[i]["producto"]}</td>
+              <td>${listaComanda[i]["cant"]}</td>
+              <td>${number_format(listaComanda[i]["total"], 2)}</td>
+              <td style="text-align:center">
+                <div class="btn-group" role="group">
+                  <button
+                    type="button"
+                    id="${i}"
                     onclick="getSumaVentas(this.id,this.parentNode.parentNode.parentNode.rowIndex)" 
                     class="glyphicon glyphicon-plus btn btn-success btn-xs">
                   </button>
-                  <button 
-                    type="button" 
-                    id="${i}" 
+                  <button
+                    type="button"
+                    id="${i}"
                     onclick="getRestarVentas(this.id,this.parentNode.parentNode.parentNode.rowIndex)" 
                     class="glyphicon glyphicon-minus btn btn-warning btn-xs" >
                   </button>
-                  <button 
-                    type="button" 
-                    id="${i}" 
+                  <button
+                    type="button"
+                    id="${i}"
                     onclick="getBorraVentas(this.id,this.parentNode.parentNode.parentNode.rowIndex)" 
                     class="glyphicon glyphicon-trash btn btn-danger btn-xs" >
                   </button>
@@ -3267,9 +4701,16 @@ function productosActivos() {
 }
 
 function getVentas(nom, val, idp, imp, ambi) {
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  imptoInc = oPos[0]["impuesto"];
+  propina = 0;
+  descuento = 0;
+  abonos = $("#abonosComanda").val();
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos } = sesion;
+  let { impuesto } = pos;
+
+  imptoInc = impuesto;
   nohay = true;
+
   for (i = 0; i < listaComanda.length; i++) {
     if (listaComanda[i]["codigo"] === idp && listaComanda[i]["activo"] === 0) {
       canti = listaComanda[i]["cant"] + 1;
@@ -3301,7 +4742,7 @@ function getVentas(nom, val, idp, imp, ambi) {
     }
     subt = (val * 1) / (1 + imp / 100);
     subt = Math.round(subt);
-    valimp = val * 1 - subt;
+    impuesto = val * 1 - subt;
 
     dataProd = {
       producto: nom,
@@ -3312,16 +4753,16 @@ function getVentas(nom, val, idp, imp, ambi) {
       descuento: 0,
       venta: subt,
       impto: imp,
-      valorimpto: valimp,
+      valorimpto: impuesto,
       ambiente: ambi,
       activo: 0,
     };
     listaComanda.push(dataProd);
   }
   localStorage.setItem("productoComanda", JSON.stringify(listaComanda));
+
   productosActivos();
   resumenComanda();
-  /// resumenDescuento(ambi,);
 }
 
 function getRestarVentas(codigo, index) {
@@ -3364,22 +4805,22 @@ function getSumaVentas(codigo, index) {
 }
 
 function getBorraVentas(codigo, regis) {
-  document.getElementsByTagName("table")[0].setAttribute("id", "comanda");
-  document.getElementById("comanda").deleteRow(regis);
-  borrar = regis - 1;
-  listaComanda.splice(borrar, 1);
+  listaComanda.splice(codigo, 1);
   localStorage.setItem("productoComanda", JSON.stringify(listaComanda));
+  productosActivos();
   resumenComanda();
 }
 
 function buscar() {
   var alto = screen.height;
   var ancho = screen.width;
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  ambi = oPos[0]["id_ambiente"];
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos } = sesion;
+  let { id_ambiente } = pos;
+
   var textoBusqueda = $("input#busqueda").val();
   parametros = {
-    id: ambi,
+    id: id_ambiente,
     valorBusqueda: textoBusqueda,
   };
 
@@ -3394,8 +4835,8 @@ function buscar() {
       },
       success: function (data) {
         $("#productoList").html("");
-        $("#productoList").css("min-height", 455);
-        $("#productoList").css("height", alto - 400);
+        // $("#productoList").css("min-height", 455);
+        $("#productoList").css("height", alto - 263);
         for (i = 0; i < data.length; i++) {
           boton = `<button 
                     style="background-size: contain;line-height:15px ;"
@@ -3419,7 +4860,7 @@ function buscar() {
 }
 
 function getFormaPago(fpago) {
-  var parametros = { fpago: fpago };
+  var parametros = { fpago };
   $("#loader").fadeIn("slow");
   $.ajax({
     type: "POST",
@@ -3433,7 +4874,7 @@ function getFormaPago(fpago) {
 }
 
 function getFormaPagoDir(fpago) {
-  var parametros = { fpago: fpago };
+  var parametros = { fpago };
   $("#loader").fadeIn("slow");
   $.ajax({
     type: "POST",
@@ -3540,7 +4981,6 @@ function getSeleccionaAmbiente2(codigo) {
           "warning"
         );
       } else {
-        // document.location.href="ventas/inicio.php"
       }
     },
   });
@@ -3569,13 +5009,15 @@ function getGuardaComandas(usuario) {
 function getCuentasActivas(idamb) {
   var alto = screen.height;
   var ancho = screen.width;
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  $(".content-wrapper").css("margin-left", "0");
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos } = sesion;
+  let { fecha_auditoria } = pos;
 
   var parametros = {
-    idamb: idamb,
-    fecha: oPos[0]["fecha_auditoria"],
+    idamb,
+    fecha: fecha_auditoria,
   };
+
   $("#loader").fadeIn("slow");
   $.ajax({
     url: "res/php/user_actions/getCuentasActivas.php",
@@ -3587,42 +5029,70 @@ function getCuentasActivas(idamb) {
     },
     success: function (x) {
       $("#listaComandas").html("");
-      $("#listaComandas").css("min-height", 120);
-      $("#listaComandas").css("height", alto - 275);
+      $("#listaComandas").css("min-height", 240);
+      $("#listaComandas").css("height", alto - 250);
+
+      x.map(function (y) {
+        let { comanda, cliente, abonos } = y;
+      });
+      /*       
+      listaNuevaComanda.map(function (productos) {
+        impuesto = impuesto + parseFloat(productos.valorimpto);
+        ventaDiv = ventaDiv + parseFloat(productos.venta);
+        cantiDiv = cantiDiv + parseFloat(productos.cant);
+      }); 
+      */
+
       for (i = 0; i < x.length; i++) {
+        miBoton = `comanda${x[i]["comanda"]}`;
         boton = `
-            <button 
-              class   ="btn btn-info btnPos btnInfoCom" 
-              onClick ="getComandas(this.value);" 
-              type    ="button" 
-              id      ="${x[i]["comanda"]}"
-              value   ="${x[i]["comanda"]}" 
+            <button
+              class   ="btn btn-primary btnPos btnInfoCom"
+              onClick ="getComandas(this.id,this.value);"
+              type    ="button"
+              id      ="comanda${x[i]["comanda"]}"
+              value   ="${x[i]["comanda"]}"
               title   ="Comanda Numero ${x[i]["comanda"]}">
             <h3>Mesa ${x[i]["mesa"]}</h3>
             <h3>Comanda ${number_format(x[i]["comanda"], 0)}</h3>
-            <h4>Activa Desde ${x[i]["fecha_comanda"].substr(11, 5)}</h4>
-          </button>`;
+            <h4 class="badge tituloCliente">${x[i]["cliente"].substr(
+              0,
+              18
+            )}</h4>
+            </button>`;
         $("#listaComandas").append(boton);
+
+        $("#" + miBoton).attr("subtotal", x[i]["subtotal"]);
+        $("#" + miBoton).attr("impto", x[i]["impuesto"]);
+        $("#" + miBoton).attr("descuento", x[i]["valor_descuento"]);
+        $("#" + miBoton).attr("propina", x[i]["propina"]);
+        $("#" + miBoton).attr("abonos", x[i]["abonos"]);
+        $("#" + miBoton).attr("total", x[i]["total"]);
+        $("#" + miBoton).attr("mesa", x[i]["mesa"]);
+        $("#" + miBoton).attr("pax", x[i]["pax"]);
       }
     },
   });
 }
 
-function getProductosComanda(numero, mesa) {
-  oPos = JSON.parse(localStorage.getItem("oPos"));
+function getProductosComanda(comanda, mesa) {
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, impuesto, propina, prefijo, fecha_auditoria } =
+    pos;
+  let { usuario, tipo } = usuarioAct;
   listaComanda = [];
 
-  var idamb = oPos[0]["id_ambiente"];
   var parametros = {
-    comanda: numero,
-    user: sesion["usuario"][0]["usuario"],
-    nivel: sesion["usuario"][0]["tipo"],
-    nomamb: oPos[0]["nombre"],
-    idamb: idamb,
-    impto: oPos[0]["impuesto"],
-    prop: oPos[0]["propina"],
-    pref: oPos[0]["prefijo"],
-    fecha: oPos[0]["fecha_auditoria"],
+    comanda,
+    user: usuario,
+    nivel: tipo,
+    nomamb: nombre,
+    idamb: id_ambiente,
+    impto: impuesto,
+    prop: propina,
+    pref: prefijo,
+    fecha: fecha_auditoria,
   };
   $.ajax({
     url: "res/php/user_actions/getComanda.php",
@@ -3652,24 +5122,43 @@ function getProductosComanda(numero, mesa) {
   });
 }
 
-function getComandas(numero) {
-  oPos = JSON.parse(localStorage.getItem("oPos"));
+function getComandas(comanda, numero) {
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, impuesto, propina, prefijo, fecha_auditoria } =
+    pos;
+  let { usuario, tipo } = usuarioAct;
+
+  miBoton = "#" + comanda;
+  subtotal = parseInt($(miBoton).attr("subtotal"));
+  impuesto = parseFloat($(miBoton).attr("impto"));
+  propina = parseFloat($(miBoton).attr("propina"));
+  descuento = parseFloat($(miBoton).attr("descuento"));
+  abonos = parseFloat($(miBoton).attr("abonos"));
+  total = parseFloat($(miBoton).attr("total"));
+  mesa = parseFloat($(miBoton).attr("mesa"));
+  pax = parseFloat($(miBoton).attr("pax"));
+
+  // console.log(abonos);
+
   listaComanda = [];
 
-  var idamb = oPos[0]["id_ambiente"];
   var parametros = {
     comanda: numero,
-    user: sesion["usuario"][0]["usuario"],
-    nivel: sesion["usuario"][0]["tipo"],
-    nomamb: oPos[0]["nombre"],
-    idamb: idamb,
-    impto: oPos[0]["impuesto"],
-    prop: oPos[0]["propina"],
-    pref: oPos[0]["prefijo"],
-    fecha: oPos[0]["fecha_auditoria"],
+    user: usuario,
+    nivel: tipo,
+    nomamb: nombre,
+    idamb: id_ambiente,
+    impto: impuesto,
+    prop: propina,
+    pref: prefijo,
+    fecha: fecha_auditoria,
   };
-  $("#comandaActiva").val(numero);
   $("#numeroComanda").val(numero);
+  $("#abonosComanda").val(abonos);
+  $("#descuentosComanda").val(descuento);
+  $("#nromesa").val(mesa);
+  $("#canpax").val(pax);
 
   $.ajax({
     url: "res/php/user_actions/getComanda.php",
@@ -3680,31 +5169,32 @@ function getComandas(numero) {
       $("#loader").html("<img src='../img/loader.gif'>");
     },
     success: function (data) {
-      $(".prende").removeAttr("disabled");
+      $(".prende").css("display", "block");
       $("#tituloNumero").removeClass("alert-info");
       $("#tituloNumero").addClass("alert-success");
-      $("#tituloNumero").html("Comanda Numero " + numero);
+      $("#tituloNumero").html(`Comanda Numero ${numero}`);
+      $("#guardaComandaDividida").css("display", "none");
       for (i = 0; i < data.length; i++) {
         dataProd = {
           producto: data[i]["nom"],
-          cant: data[i]["cant"],
-          importe: data[i]["importe"],
-          total: data[i]["importe"] * data[i]["cant"],
-          codigo: data[i]["producto_id"],
-          descuento: data[i]["descuento"],
-          venta: data[i]["venta"],
-          impto: data[i]["impto"],
-          valorimpto: data[i]["valorimpto"],
-          ambiente: idamb,
-          activo: "1",
+          cant: parseInt(data[i]["cant"]),
+          importe: parseInt(data[i]["importe"]),
+          total: parseInt(data[i]["importe"] * data[i]["cant"]),
+          codigo: parseInt(data[i]["producto_id"]),
+          descuento: parseInt(data[i]["descuento"]),
+          venta: parseInt(data[i]["venta"]),
+          impto: parseInt(data[i]["impto"]),
+          id: parseInt(data[i]["id"]),
+          valorimpto: parseInt(data[i]["valorimpto"]),
+          ambiente: parseInt(id_ambiente),
+          activo: 1,
         };
         listaComanda.push(dataProd);
         localStorage.setItem("productoComanda", JSON.stringify(listaComanda));
       }
       productosActivos();
       resumenComanda();
-      resumenDescuento(idamb, numero);
-      if (sesion["usuario"][0]["tipo"] != "A") {
+      if (tipo != "1") {
         $(".btnDevolver").css("display", "none");
         $(".btnDevuelve").css("disabled", "disabled");
       }
@@ -3713,10 +5203,21 @@ function getComandas(numero) {
 }
 
 function calculaCambio() {
-  total = parseFloat($("#total").val().replace(",", ""));
-  pagado = parseFloat($("#montopago").val().replace(",", ""));
-  cambio = total - pagado;
+  var coma = $("#numeroComanda").val();
+  miBoton = "#comanda" + coma;
+
+  propina = parseFloat($("#propinaPag").val().replaceAll(",", ""));
+  subtotal = parseFloat($(miBoton).attr("subtotal"));
+  impuesto = parseFloat($(miBoton).attr("impto"));
+  descuento = parseFloat($(miBoton).attr("descuento"));
+  abonos = parseFloat($(miBoton).attr("abonos"));
+  total = parseFloat($(miBoton).attr("total"));
+
+  pagado = parseFloat($("#montopago").val().replaceAll(",", ""));
+  cambio = subtotal + impuesto + propina - descuento - abonos - pagado;
+
   $("#cambio").val(cambio);
+
   if (cambio == 0) {
     $("#resultado").html(
       `<label name='resultado' class='avisoVta avisCambio alert alert-success'>SALDO PENDIENTE ${cambio}</label>`
@@ -3737,8 +5238,8 @@ function calculaCambio() {
 }
 
 function calculaCambioDir() {
-  total = parseFloat($("#totalDir").val().replace(",", ""));
-  pagado = parseFloat($("#montopagoDir").val().replace(",", ""));
+  total = parseFloat($("#totalDir").val().replaceAll(",", ""));
+  pagado = parseFloat($("#montopagoDir").val().replaceAll(",", ""));
   cambio = total - pagado;
   $("#cambioDir").val(cambio);
   if (cambio == 0) {
@@ -3799,7 +5300,7 @@ function loadproducto(page) {
     url: "codes/code_productos.php",
     data: parametros,
     beforeSend: function (objeto) {
-      // $("#loader2").html("<img src='../img/loader.gif'>");
+      $("#loader2").html("<img src='../img/loader.gif'>");
     },
     success: function (data) {
       $(".outer_div2").html(data).fadeIn("slow");
@@ -3831,31 +5332,3 @@ function verfacturaHis(numero, factura) {
   $(".modal-title").html(`Ver Factura ${numero}`);
   $("#verFacturaModal").attr("data", "impresiones/" + factura);
 }
-
-$(document).ready(function () {
-  $("#myModalFotoReceta").on("show.bs.modal", function (event) {
-    var button = $(event.relatedTarget); // Botón que activó el modal
-    var id = button.data("id"); // Extraer la información de atributos de datos
-    var receta = button.data("receta"); // Extraer la información de atributos de datos
-    var foto = button.data("foto"); // Extraer la información de atributos de datos
-    modal.find(".modal-title").html("Receta Estandar : " + receta);
-    $("#idRecetaFoto").val(id);
-  });
-
-  $("#modalAdicionaCliente").on("show.bs.modal", function (event) {
-    sesion = JSON.parse(localStorage.getItem("sesion"));
-    id = sesion["usuario"][0]["usuario_id"];
-    $("#idusr").val(id);
-  });
-
-  $("#dataDeleteCliente").on("show.bs.modal", function (event) {
-    sesion = JSON.parse(localStorage.getItem("sesion"));
-    idusr = sesion["usuario"][0]["usuario_id"];
-
-    var button = $(event.relatedTarget);
-    var id = button.data("id");
-    var modal = $(this);
-
-    $("#idusrdel").val(idusr);
-  });
-});

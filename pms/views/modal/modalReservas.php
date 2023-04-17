@@ -2,13 +2,13 @@
   <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
-        <div class="modal-header">     
+        <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span class="glyphicon glyphicon-off"></span>
-          </button> 
+          </button>
           <h3 class="modal-title" id="exampleModalLabel">Nueva Reserva</h3>
         </div>
-        <div class="modal-body" id="modalReservasIns">  
+        <div class="modal-body" id="modalReservasIns">
           <div id="mensaje" style="margin-bottom:-30px"></div>
           <form class="form-horizontal" id="formReservas" action="javascript:guardaReserva()" method="POST">
             <div class="panel panel-success" id='pantallaNuevaReserva'>
@@ -21,17 +21,17 @@
                     <div class="input-group" style="padding-left:15px;">
                       <input type="text" class="form-control" id="buscarHuesped" aria-describedby="inputGroupSuccess4Status" style="background:#FFF">
                       <span class="input-group-addon" style="padding:1px;border:none">
-                        <a data-toggle="modal" 
+                        <a data-toggle="modal"
                           href="#myModalBuscaHuesped">
                           <i style="padding:5px 10px" class="fa fa-search" aria-hidden="true"></i>
                         </a>
                       </span>
                     </div>
                   </div>
-                  <div class="col-sm-4" align="right" style="padding-right: 0">
-                    <a 
+                  <div class="col-sm-4"  style="padding-right: 0;text-align:right">
+                    <a
                       class="btn btn-success"
-                      data-toggle="modal" 
+                      data-toggle="modal"
                       href="#myModalAdicionaPerfil">
                       <i class="fa fa-user-plus" aria-hidden="true"></i>  Adicionar Huesped
                     </a>
@@ -48,9 +48,9 @@
                         <div class="form-check form-check-inline">
                           <input style="margin-top:5px" class="form-check-input" type="radio" name="imptoOption" id="inlineRadio1" value="1" checked>
                           <label style="margin-top:-25px;margin-left:25px" class="form-check-label" for="inlineRadio1" >NO</label>
-                        </div>                    
+                        </div>
                       </div>
-                      <div class="col-sm-6" style="padding:0;height: 15px"> 
+                      <div class="col-sm-6" style="padding:0;height: 15px">
                         <div class="form-check form-check-inline">
                           <input style="margin-top:5px" class="form-check-input" type="radio" name="imptoOption" id="inlineRadio2" value="2">
                           <label style="margin-top:-25px;margin-left:25px" class="form-check-label" for="inlineRadio2">SI</label>
@@ -58,11 +58,11 @@
                       </div>
                     </div>
                   </div>
-                </div> 
+                </div>
                 <div class="form-group">
                   <label for="llegada" class="col-sm-2 control-label">Llegada</label>
                   <div class="col-sm-3" style="padding-right: 20px">
-                    <input type="date" class="form-control" name="llegada" id="llegada" required="" value="<?=FECHA_PMS?>" min="<?=FECHA_PMS?>"> 
+                    <input type="date" class="form-control" name="llegada" id="llegada" required="" value="<?=FECHA_PMS?>" min="<?=FECHA_PMS?>">
                   </div>
                   <label for="noches" class="col-sm-1 control-label">Noches</label>
                   <div class="col-sm-2">
@@ -84,31 +84,31 @@
                   </div>
                   <label for="ninos" class="col-sm-1 control-label">Niños</label>
                   <div class="col-sm-1" style='padding-right: 5px'>
-                    <input type="number" class="form-control" name="ninos" id="ninos" required="" value="0" min=0> 
+                    <input type="number" class="form-control" name="ninos" id="ninos" required="" value="0" min=0>
                   </div>
                   <label for="orden" class="col-sm-2 control-label">Orden Nro</label>
                   <div class="col-sm-3">
                     <input type="text" class="form-control" name="orden" id="orden" value="">
-                  </div> 
+                  </div>
                 </div>
-                <div class="form-group">                    
+                <div class="form-group">
                   <label for="tipohabi" class="col-sm-2 control-label">Tipo Habitacion</label>
                   <div class="col-sm-4">
                     <select name="tipohabi" id="tipohabi" required onblur="seleccionaHabitacion()">
                       <option value="">Seleccione el Tipo de Habitacion</option>
-                      <?php 
+                      <?php
                         $tipos = $hotel->getTipoHabitacion();
                         foreach ($tipos as $tipo) {?>
                           <option value="<?=$tipo['id']?>"><?=$tipo['descripcion_habitacion']?></option>
-                          <?php 
+                          <?php
                         }
-                      ?>                      
+                      ?>
                     </select>
                   </div>
                   <label for="nrohabitacion" class="col-sm-2 control-label">Nro Habitacion</label>
                   <div class="col-sm-4">
                     <select name="nrohabitacion" id="nrohabitacion" required onblur='seleccionaTarifas()'>
-                    </select>                        
+                    </select>
                   </div>
                 </div>
                 <div class="form-group">
@@ -132,29 +132,29 @@
                   <div class="col-sm-4">
                     <select name="origen" id="origen">
                       <option value="">Seleccione la Procedencia</option>
-                      <?php 
+                      <?php
                         $ciudades = $hotel->getCiudades();
                         foreach ($ciudades as $ciudad) { ?>
                           <option value="<?=$ciudad['id_ciudad']?>"><?=$ciudad['municipio'].' '.$ciudad['depto']?></option>
-                          <?php 
+                          <?php
                         }
-                       ?>
+                        ?>
                     </select>
                   </div>
                   <label for="tarifahab" class="col-sm-2 control-label">Destino</label>
                   <div class="col-sm-4">
                     <select name="destino" id="destino">
                       <option value="">Seleccione el Destino</option>
-                      <?php 
+                      <?php
                         $ciudades = $hotel->getCiudades();
                         foreach ($ciudades as $ciudad) { ?>
                           <option value="<?=$ciudad['id_ciudad']?>"><?=$ciudad['municipio'].' '.$ciudad['depto']?></option>
-                          <?php 
+                          <?php
                         }
-                       ?>
+                        ?>
                     </select>
                   </div>
-                </div>            
+                </div>
                 <div class="form-group">
                   <label for="motivo" class="col-sm-2 control-label">Motivo Viaje</label>
                   <div class="col-sm-4">
@@ -215,14 +215,14 @@
                   <label for="motivo" class="col-sm-2 control-label">Observaciones</label>
                   <div class="col-sm-10">
                     <textarea style="height: 5em !important;min-height: 5em" name="observaciones" id="observaciones" class="form-control" rows="4"></textarea>
-                  </div>                    
-                </div>                 
+                  </div>
+                </div>
               </div>
               <div class="panel-footer">
                 <div class="btn-group" style="width: 30%;margin-left:35%">
                   <button style="width: 50%" type="button" class="btn btn-warning btn-block" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>                  
                   <button style="width: 50%" class="btn btn-success" align="right"><i class="fa fa-save" aria-hidden="true"></i> Guardar</button>
-                </div>     
+                </div>
               </div>
             </div>
           </form>

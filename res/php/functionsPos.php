@@ -919,7 +919,7 @@
 			]);
 			return $data;
 		}
-
+ 
 		public function getProductosInventario(){
 			global $database;
 

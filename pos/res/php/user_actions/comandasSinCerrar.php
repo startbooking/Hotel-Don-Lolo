@@ -8,9 +8,9 @@
   $comandas = $pos->getComandasActivas($idamb,'A');
 
 ?>
-	<div class="container-fluid">
+	<div class="container-fluid" style="padding:0">
 		<div class="alert alert-danger" style="padding:0;padding-top:5px;">
-			<h4 align="center" style="font-weight: 600;">Cierre las Comandas Antes de Realizar el Proceso de Auditoria</h4>
+			<h4 style="font-weight: 600;text-align:center">Cierre las Comandas Antes de Realizar el Proceso de Auditoria</h4>
 		</div>
 		<div class="table-responsive">
       <table id="example1" class="table table-bordered">
@@ -31,7 +31,7 @@
               <td><?php echo $comanda['mesa']; ?></td>
               <td><?php echo $comanda['pax']; ?></td>
               <td><?php echo $comanda['usuario']; ?></td>
-              <td><?php echo substr($comanda['fecha_comanda'],11,8); ?></td>
+              <td><?php echo substr($comanda['fecha_comanda'],11,5); ?></td>
             </tr>
             <?php 
             }

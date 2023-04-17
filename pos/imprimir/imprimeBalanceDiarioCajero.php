@@ -1,4 +1,4 @@
-<?php 
+<?php
   require_once '../../res/fpdf/fpdf.php';
 
   clearstatcache();
@@ -10,22 +10,15 @@
 
   $pdf = new FPDF();
   $pdf->AddPage('P','letter');
-  $pdf->Image('../../img/'.$logo,10,10,15);
+  $pdf->Image('../../img/'.LOGO,10,10,15);
   $pdf->SetFont('Arial','B',13);
-  $pdf->Cell(190,7,utf8_decode(NAME_EMPRESA),0,1,'C');
+
+  $pdf->Cell(190,6,$_SESSION['NOMBRE_AMBIENTE'],0,1,'C');
   $pdf->SetFont('Arial','',10);
   $pdf->Cell(190,5,'NIT: '.NIT_EMPRESA,0,1,'C');
-  /*
-  
-  $pdf->Cell(190,5,TIPOEMPRESA,0,1,'C');
-  $pdf->Cell(190,5,utf8_decode(ADRESS_EMPRESA),0,1,'C');
-  $pdf->Cell(190,5,utf8_decode(CIUDAD_EMPRESA).' '.PAIS_EMPRESA,0,1,'C');
   $pdf->Cell(40,5,'',0,0,'C');
-  $pdf->Cell(110,5,'Telefono '.TELEFONO_EMPRESA.' Movil '.CELULAR_EMPRESA,0,1,'C');
-   */
+  $pdf->Cell(190,5,' Movil '.CELULAR_EMPRESA,0,1,'C');
   $pdf->SetFont('Arial','B',13);
-  /// $pdf->Cell(190,6,$_SESSION['NOMBRE_AMBIENTE'],0,1,'C');
-  $pdf->Cell(260,6,$nomamb,0,1,'C');
 
   $pdf->SetFont('Arial','',11);
   $pdf->Cell(260,6,'INFORME DE VENTAS - BALANCE DIARIO USUARIO',0,1,'C');
@@ -33,9 +26,9 @@
   $pdf->Cell(260,6,'Fecha : '.$fecha,0,1,'C');
   $pdf->Ln(5);
 
-  $pdf->SetFont('Arial','B',11);  
+  $pdf->SetFont('Arial','B',11);
   $pdf->Cell(260,6,'FACTURAS GENERADAS ',1,1,'C');
-  $pdf->SetFont('Arial','',10);  
+  $pdf->SetFont('Arial','',10);
   $pdf->Cell(15,6,'Fact.',1,0,'C');
   $pdf->Cell(15,6,'Com. ',1,0,'C');
   $pdf->Cell(15,6,'Mesa ',1,0,'C');
@@ -117,7 +110,7 @@
     $pdf->Cell(25,6,$detalle['mesa'],1,0,'R');
     $pdf->Cell(25,6,$detalle['pax'],1,0,'R');
     $pdf->Cell(35,6,number_format($detalle['valor_total'],2),1,0,'R');
-    $pdf->Cell(30,6,$detalle['usuario_anulada'],1,0,'R');
+    $pdf->Cell(30,6,$detalle['usuario_anulada'],1,0,'L');
     $pdf->Cell(95,6,$detalle['motivo_anulada'],1,1,'R');
   }
   $pdf->Cell(60,6,'Total',1,0,'C');

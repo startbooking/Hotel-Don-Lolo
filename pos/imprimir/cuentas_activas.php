@@ -22,17 +22,17 @@
   </head>
 
   <body class="skin-yellow sidebar-mini">
-    <?php 
+    <?php
     include_once("../menus/menu_titulo_venta2.php");
     include_once("../menus/menu_pos.php");
     ?>
     <div class="content-wrapper">
       <section class="content-header">
-        <h3 align="center" style="font-weight:bold">
+        <h3 style="text-align:center;font-weight:bold">
           Informes de Ventas Puntos de Venta
         </h3>
-        <h4 align="center">Cuentas Activas</h4>
-        <h3 align="center">Ambiente: <?= strtoupper($_SESSION['NOMBRE_AMBIENTE']);?></h3>
+        <h4 style="text-align:center;">Cuentas Activas</h4>
+        <h3 style="text-align:center;">Ambiente: <?= strtoupper($_SESSION['NOMBRE_AMBIENTE']);?></h3>
 
       </section>
       <section class="content-fluid">

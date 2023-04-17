@@ -120,9 +120,6 @@
   $pdf = new PDF();
   $pdf->AddPage('P','letter');
   $pdf->SetFont('Arial','B',11);
-  $pdf->Cell(190,7,utf8_decode(NAME_EMPRESA),0,1,'C');
-  $pdf->SetFont('Arial','',10);
-  $pdf->Cell(190,5,'NIT: '.NIT_EMPRESA,0,1,'C');
   $pdf->Cell(190,5,'INFORME DIARIO DE GERENCIA ',0,1,'C');
   $pdf->SetFont('Arial','',11);
   $pdf->Cell(190,5,'Fecha : '.FECHA_POS,0,1,'C');

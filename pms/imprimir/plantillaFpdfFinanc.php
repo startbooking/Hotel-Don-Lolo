@@ -15,7 +15,7 @@
 		  $this->Cell(260,6,NAME_HOTEL,0,1,'C');
 		  $this->Ln(1);
 		}
- 
+  
 		function Footer(){
 			$this->SetY(-15);
 		  $this->SetFont('Arial','',8);	

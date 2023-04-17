@@ -1,40 +1,251 @@
+function guardarProductosOriginal() {
+  var productos = JSON.parse(localStorage.getItem("productoComanda"));
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, impuesto, fecha_auditoria } = pos;
+  let { usuario } = usuarioAct;
+
+  var regis = $("#cantProd").html();
+  var pax = $("#numPax").val();
+  var mesa = $("#nromesas").val();
+  var cliente = $("#nombreCliente").val();
+  let comanda = $("#numeroComanda").val();
+
+  var parametros = {
+    pax,
+    mesa,
+    cliente,
+    comanda,
+    user: usuario,
+    idamb: id_ambiente,
+    imptoInc: impuesto,
+    nomamb: nombre,
+    fecha: fecha_auditoria,
+    productos,
+  };
+
+  $.ajax({
+    type: "POST",
+    data: parametros,
+    url: "res/php/user_actions/getGuardaComandaOriginal.php",
+    success: function (datos) {},
+  });
+}
+
+function imprimeComandaDiv() {
+  var productos = JSON.parse(localStorage.getItem("nuevaComanda"));
+  $.ajax({
+    url: "res/php/user_actions/imprimeComanda.php",
+    type: "POST",
+    data: {
+      productos,
+    },
+    success: function (data) {
+      imprime = $.trim(data);
+      var ventana = window.open(
+        "impresiones/" + imprime,
+        "PRINT",
+        "height=600,width=600"
+      );
+    },
+  });
+}
+
+function guardarProductosDiv() {
+  var productos = JSON.parse(localStorage.getItem("nuevaComanda"));
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, impuesto, fecha_auditoria } = pos;
+  let { usuario } = usuarioAct;
+  let regis = $("#cantProd").html();
+  let pax = $("#canpax").val();
+  let mesa = $("#mesaDivide").val();
+  let cliente = $("#nombreClienteDiv").val();
+
+  var parametros = {
+    pax,
+    mesa,
+    cliente,
+    user: usuario,
+    idamb: id_ambiente,
+    imptoInc: impuesto,
+    nomamb: nombre,
+    fecha: fecha_auditoria,
+    productos,
+  };
+
+  $.ajax({
+    type: "POST",
+    data: parametros,
+    url: "res/php/user_actions/getGuardaComanda.php",
+    success: function (datos) {
+      $("#numeroComandaDiv").val(datos);
+      $("#nroComandaDiv").val(datos);
+      $("#tituloComanda").addClass("alert-success");
+      $("#tituloComanda").html(
+        `<h4 style="padding:2px;text-align: center;font-weight: bold;margin:0">Comandas Nro  ${datos} Guardada Con Exito</h4>`
+      );
+    },
+  });
+}
+
+function guardaClienteComandaDiv() {
+  var productos = JSON.parse(localStorage.getItem("nuevaComanda"));
+
+  $("#myModalClienteComandaDiv").modal("hide");
+  $("#btnGuardaClienteDiv").attr("disabled", "disabled");
+  var regis = $("#cantProd").html();
+  var pax = $("#canpax").val();
+  var mesa = $("#mesaDivide").val();
+  var cliente = $("#nombreCliente").val();
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos } = sesion;
+  let { id_ambiente } = pos;
+
+  guardarProductosDiv();
+  guardarProductosOriginal();
+  setTimeout(function () {
+    imprime = imprimeComandaDiv();
+    nuevoNumero = $("#nroComandaDiv").val();
+    localStorage.removeItem("nuevaComanda");
+    localStorage.removeItem("comandaOriginal");
+    localStorage.removeItem("productosComanda");
+    swal(
+      {
+        title: "Comanda Dividida con Exito",
+        text: "Nueva Cuenta Nro " + nuevoNumero,
+        type: "success",
+        confirmButtonText: "Aceptar",
+      },
+      function () {
+        getSeleccionaAmbiente(id_ambiente);
+      }
+    );
+  }, 1000);
+}
+
+function guardarCuentaDividida() {
+  var productos = localStorage.getItem("nuevaComanda");
+  var productosOriginal = localStorage.getItem("productoComanda");
+
+  let listaNuevaComanda = JSON.parse(productos);
+  if (listaNuevaComanda.length === 0) {
+    swal("Atencion", "Sin Productos Para Crear nueva Comanda", "warning");
+    return;
+  }
+  if (productosOriginal.length === 0) {
+    swal(
+      "Atencion",
+      "Sin Productos En la Comanda de Origen, no Permitido Dividir esta Comanda",
+      "warning"
+    );
+    return;
+  }
+
+  $("#myModalClienteComandaDiv").modal("show");
+}
+
+function abonoComanda() {
+  var comanda = $("#numeroComanda").val();
+  var monto = +$("#montoAbono").val();
+  let comenta = $("#comentarios").val();
+  let fpago = $("#formapagoAbono").val();
+  let textopago = $("#formapagoAbono option:selected").text();
+  var productos = JSON.parse(localStorage.getItem("productoComanda"));
+
+  // console.log(monto);
+
+  mBoton = "#comanda" + $("#numeroComanda").val();
+  // $("abonosComanda");
+  abonos = abonos + monto;
+  $(mBoton).attr("abonos", abonos);
+  console.log(mBoton);
+
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos, usuarioAct } = sesion;
+  let { id_ambiente, nombre, fecha_auditoria } = pos;
+  let { usuario, usuario_id } = usuarioAct;
+
+  // oPos = JSON.parse(localStorage.getItem("oPos"));
+
+  var parametros = {
+    user: usuario,
+    idusr: usuario_id,
+    idamb: id_ambiente,
+    nomamb: nombre,
+    fecha: fecha_auditoria,
+    comanda,
+    monto,
+    fpago,
+    productos,
+    textopago,
+    comenta,
+  };
+
+  // console.log(parametros);
+
+  $.ajax({
+    type: "POST",
+    data: parametros,
+    url: "res/php/user_actions/ingresaAbono.php",
+    success: function (datos) {
+      console.log(datos);
+      var ventana = window.open(
+        "impresiones/" + $.trim(datos),
+        "PRINT",
+        "height=600,width=600"
+      );
+    },
+  });
+
+  totabono = abonos + monto;
+  $("#abonosComanda").val(totabono);
+  $("#totalAbonos").val(totabono);
+  resumenComanda();
+
+  $("#myModalAbonos").modal("hide");
+}
+
 function botonPagarDirecto() {
-  var storageProd = JSON.parse(localStorage.getItem("productoComanda"));
+  var productos = JSON.parse(localStorage.getItem("productoComanda"));
   let mesa = $("#nromesas").val();
-  if (storageProd == null) {
+  if (productos == null) {
     swal("Precaucion", "Sin Productos Asociados a esta comanda", "warning");
     return;
   }
   let total = parseFloat($("#totalCuenta").html().replace(",", ""));
+  let impto = parseFloat($("#valorImpto").html().replace(",", ""));
 
   $("#myModalPagarDirecto").modal("show");
+  $("#formapagoDir").val("");
+  $("#clientesDir").val("");
   $("#totalDir").val(number_format(total, 2));
+  $("#totalImpDir").val(number_format(impto, 2));
   $("#totaliniDir").val(total);
   $("#montopagoDir").val(total);
   $("#mesaDir").val(mesa);
+  $("#resultadoDir").html("");
 }
 
 function pagarFacturaDirecto() {
-  oPos = JSON.parse(localStorage.getItem("oPos"));
   sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos, usuarioAct } = sesion;
+  let { usuario, usuario_id } = usuarioAct;
+  let { id_ambiente, impuesto, nombre, fecha_auditoria } = pos;
 
-  let parametros = [];
-  let storageProd = JSON.parse(localStorage.getItem("productoComanda"));
+  let productos = JSON.parse(localStorage.getItem("productoComanda"));
   let comanda = $("#pagarCuentaDirecto").serializeArray();
   let pax = $("#numPax").val();
   let mesa = $("#nromesas").val();
-  let idamb = oPos[0]["id_ambiente"];
   let config = {
-    iduser: sesion["usuario"][0]["usuario_id"],
-    user: sesion["usuario"][0]["usuario"],
-    idamb: idamb,
-    imptoIncl: oPos[0]["impuesto"],
-    nomamb: oPos[0]["nombre"],
-    fecha: oPos[0]["fecha_auditoria"],
-    mesa: mesa,
-    pax: pax,
-    productos: storageProd,
-    comanda: comanda,
+    iduser: usuario_id,
+    user: usuario,
+    idamb: id_ambiente,
+    imptoIncl: impuesto,
+    nomamb: nombre,
+    fecha: fecha_auditoria,
+    mesa,
+    pax,
+    productos,
+    comanda,
   };
 
   $.ajax({
@@ -43,6 +254,7 @@ function pagarFacturaDirecto() {
     data: config,
   }).done(function (info) {
     $("#myModalPagarDirecto").modal("hide");
+
     imprimeFactura();
     descargarInventario();
     limpiaLista();
@@ -50,15 +262,69 @@ function pagarFacturaDirecto() {
   });
 }
 
-function guardarCuentaRecuperadaPlano() {
+function pagarFactura() {
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos } = sesion;
+  let { id_ambiente } = pos;
+
+  idamb = id_ambiente;
+  numero = $("#numeroComanda").val();
+
+  var pago = +parseFloat($("#montopago").val().replace(",", ""));
+
+  totalCta = +$("#totalComanda").val();
+
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  imptoInc = oPos[0]["impuesto"];
+  abonos = $("#abonosComanda").val();
+
+  var productos = localStorage.getItem("productoComanda");
+
+  if (totalCta - (pago + abonos) <= 0) {
+    $("#btnPagarComanda").attr("disabled", "disabled");
+    $("#btnPagarCuenta").attr("disabled", "disabled");
+    if (numero == 0) {
+      guardarProductos();
+      imprime = imprimeComandaVen();
+    }
+    guardaFactura();
+    setTimeout(function () {
+      imprimeFactura();
+      descargarInventario();
+      limpiaLista();
+      enviaInicio();
+
+      $("#myModalPagar").modal("hide");
+      campo = "#comand" + $.trim(numero);
+      $(campo).remove();
+      swal({
+        title: "Pago Realizado con Exito",
+        type: "success",
+        confirmButtonText: "Aceptar",
+      });
+    }, 1000);
+  } else {
+    swal(
+      "Precaucion",
+      "El Valor Pagado es menor al Total de la Presente Cuenta ",
+      "warning"
+    );
+  }
+}
+
+function guardarCuentaRecuperadaPlano() {
+  let { pos, usuarioAct } = sesion;
+  let { usuario } = usuarioAct;
+  let { id_ambiente, impuesto, nombre, fecha_auditoria } = pos;
+
+  imptoInc = impuesto;
 
   $("#recuperarComanda").val(0);
   $("#guardaCuenta").css("display", "none");
   $("#recuperaCuenta").css("display", "block");
   $("#listaComandas").css("display", "block");
   $("#productoList").css("display", "none");
+  $("#guardaComandaDividida").css("display", "none");
+
   $(".menuComanda").css("padding", "0");
   $("#guardaCuenta").css("display", "none");
   $("#recuperaCuenta").css("display", "block");
@@ -72,21 +338,20 @@ function guardarCuentaRecuperadaPlano() {
   $("#muestraComanda").removeClass("col-lg-7 col-md-7 col-xs-12");
   $("#muestraComanda").addClass("col-lg-5 col-md-5 col-xs-12");
   $("#tituloComanda").html("Comandas Activas");
-  $(".btn-group-vertical").css("width", "auto");
   $("#regresarComanda").css("margin-top", "0px");
 
   var comanda = $("#numeroComanda").val();
   var recuperar = $("#recuperarComanda").val();
-  var storageProd = JSON.parse(localStorage.getItem("productoComanda"));
+  var productos = JSON.parse(localStorage.getItem("productoComanda"));
 
   var parametros = {
-    user: sesion["usuario"][0]["usuario"],
-    idamb: oPos[0]["id_ambiente"],
-    imptoIncl: oPos[0]["impuesto"],
-    nomamb: oPos[0]["nombre"],
-    fecha: oPos[0]["fecha_auditoria"],
-    comanda: comanda,
-    produc: storageProd,
+    user: usuario,
+    idamb: id_ambiente,
+    imptoIncl: impuesto,
+    nomamb: nombre,
+    fecha: fecha_auditoria,
+    comanda,
+    productos,
   };
 
   $.ajax({
@@ -100,52 +365,55 @@ function guardarCuentaRecuperadaPlano() {
         enviaInicio();
       }, 3000);
       $("#productosComanda >table >tbody >tr").remove();
-      var storageProd = localStorage.getItem("productoComanda");
-      if (storageProd == null) {
+      var productos = localStorage.getItem("productoComanda");
+      if (productos == null) {
         listaComanda = [];
       } else {
-        listaComanda = JSON.parse(storageProd);
+        listaComanda = JSON.parse(productos);
       }
       limpiaLista();
       enviaInicio();
     },
   });
 }
-
-function botonAnulaFactura(factura, amb) {
+/* 
+function botonAnulaFactura(factura, amb, numeroMovi) {
   $("#myModalAnulafactura").modal("show");
   $("#comanda").val(factura);
   $("#facturaActiva").val(factura);
-}
+} */
 
 function limpiaLista() {
+  abonos = 0;
   $(".modal-backdrop").remove();
   $(".modal-open").css("overflow", "auto");
   $("#myModalAnulaComanda").modal("hide");
   $("#numeroComanda").val(0);
+  $("#abonosComanda").val(0);
   $("#tituloNumero").removeClass("alert-success");
   $("#tituloNumero").addClass("alert-info");
   $("#tituloNumero").html("Informacion Comanda");
-  $(".prende").attr("disabled", "disabled");
+  $(".prende").css("display", "none");
   localStorage.removeItem("productoComanda");
   $("#productosComanda >table >tbody >tr").remove();
-  var storageProd = localStorage.getItem("productoComanda");
-  if (storageProd == null) {
+  var productos = localStorage.getItem("productoComanda");
+  if (productos == null) {
     listaComanda = [];
   } else {
-    listaComanda = JSON.parse(storageProd);
+    listaComanda = JSON.parse(productos);
   }
-  resumenComanda();
+  // resumenComanda();
 }
 
 function botonDescuento() {
-  var canti = $("#totalproductos").html();
-  var coma = $("#numeroComanda").val();
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos, usuarioAct } = sesion;
+  let { usuario_id } = usuarioAct;
+  let { id_ambiente, fecha_auditoria } = pos;
 
-  var totdes = $("#totalDesc").html();
-  totdes = totdes.replace(".00", "");
-  totdes = totdes.replace(",", "");
-  if (totdes != 0) {
+  totdes = $("#descuentosComanda").val();
+
+  if (totdes != "0") {
     swal(
       {
         title: "Atencion ",
@@ -158,27 +426,26 @@ function botonDescuento() {
       },
       function () {
         var comanda = $("#numeroComanda").val();
-        var descu = 0;
+        descuento = 0;
         var motivo = "";
-        sesion = JSON.parse(localStorage.getItem("sesion"));
-        oPos = JSON.parse(localStorage.getItem("oPos"));
         var parametros = {
-          idusr: sesion["usuario"][0]["usuario_id"],
-          idamb: oPos[0]["id_ambiente"],
-          fecha: oPos[0]["fecha_auditoria"],
-          comanda: comanda,
-          descuento: descu,
-          motivo: motivo,
+          idusr: usuario_id,
+          idamb: id_ambiente,
+          fecha: fecha_auditoria,
+          comanda,
+          descuento,
+          motivo,
         };
 
         $.ajax({
           type: "POST",
           data: parametros,
           url: "res/php/user_actions/getAnulaDescuento.php",
-          success: function (datos) {
-            setTimeout(function () {
-              getComandas(comanda);
-            }, 1000);
+          success: function () {
+            mBoton = "#comanda" + comanda;
+            $(mBoton).attr("descuento", 0);
+            $("#descuentosComanda").val(descuento);
+            resumenComanda();
           },
         });
       }
@@ -200,17 +467,24 @@ function imprimeComanda() {
 
 function anulaFactura() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
+  let { cia, pos, usuarioAct } = sesion;
+  let { inv } = cia;
+  let { usuario, usuario_id } = usuarioAct;
+  let { id_ambiente, fecha_auditoria, prefijo } = pos;
+
   var factura = $("#facturaActiva").val();
+  var salida = $("#salida").val();
   var motivo = $("#motivoAnula").val();
   parametros = {
-    idamb: oPos[0]["id_ambiente"],
-    iduser: sesion["usuario"][0]["usuario_id"],
-    user: sesion["usuario"][0]["usuario"],
-    fecha: oPos[0]["fecha_auditoria"],
-    prefijo: oPos[0]["prefijo"],
-    factura: factura,
-    motivo: motivo,
+    idamb: id_ambiente,
+    iduser: usuario_id,
+    user: usuario,
+    fecha: fecha_auditoria,
+    prefijo,
+    factura,
+    salida,
+    motivo,
+    inv,
   };
   $.ajax({
     url: "res/php/user_actions/anulaFactura.php",
@@ -221,25 +495,23 @@ function anulaFactura() {
       $(".modal-open").css("overflow", "auto");
       $("#myModalAnulafactura").modal("hide");
       facturasDia();
-
-      /// getSeleccionaAmbiente(oPos[0]['id_ambiente'])
     },
   });
 }
 
 function imprimeEstadoCuenta() {
   cuenta = $("#numeroComanda").val();
-  oPos = JSON.parse(localStorage.getItem("oPos"));
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  user = sesion["usuario"][0]["usuario"];
-  idamb = oPos[0]["id_ambiente"];
+  let { pos, usuarioAct } = sesion;
+  let { usuario } = usuarioAct;
+  let { id_ambiente, fecha_auditoria, nombre } = pos;
 
   parametros = {
     cuenta: cuenta,
-    fecha: oPos[0]["fecha_auditoria"],
-    idamb: oPos[0]["id_ambiente"],
-    ambie: oPos[0]["nombre"],
-    user: user,
+    fecha: fecha_auditoria,
+    idamb: id_ambiente,
+    ambie: nombre,
+    user: usuario,
   };
   if ((cuenta = 0)) {
     alert("Guardar Comanda");
@@ -263,14 +535,18 @@ function imprimeEstadoCuenta() {
 function getAnulaComanda() {
   var comanda = $("#numeroComanda").val();
   var motivo = $("#motivoAnula").val();
-  oPos = JSON.parse(localStorage.getItem("oPos"));
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos, usuarioAct } = sesion;
+  let { usuario, usuario_id } = usuarioAct;
+  let { id_ambiente, fecha_auditoria } = pos;
+
   parametros = {
-    idamb: oPos[0]["id_ambiente"],
-    iduser: sesion["usuario"][0]["usuario_id"],
-    user: sesion["usuario"][0]["usuario"],
-    fecha: oPos[0]["fecha_auditoria"],
-    comanda: comanda,
-    motivo: motivo,
+    idamb: id_ambiente,
+    iduser: usuario_id,
+    user: usuario,
+    fecha: fecha_auditoria,
+    comanda,
+    motivo,
   };
   $.ajax({
     url: "res/php/user_actions/anulaComanda.php",
@@ -285,8 +561,7 @@ function getAnulaComanda() {
         },
         function () {
           limpiaLista();
-          $("#" + comanda).remove();
-          enviaInicio();
+          $("#comanda" + comanda).remove();
         }
       );
     },
@@ -295,18 +570,21 @@ function getAnulaComanda() {
 
 function getDescuento() {
   var comanda = $("#numeroComanda").val();
-  var descu = $("#tipodesc").val();
+  var tipodes = $("#tipodesc").val();
   var motivo = $("#motivoDesc").val();
 
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
+  let { pos, usuarioAct } = sesion;
+  let { usuario_id } = usuarioAct;
+  let { id_ambiente, fecha_auditoria } = pos;
+
   var parametros = {
-    idusr: sesion["usuario"][0]["usuario_id"],
-    idamb: oPos[0]["id_ambiente"],
-    fecha: oPos[0]["fecha_auditoria"],
-    comanda: comanda,
-    descuento: descu,
-    motivo: motivo,
+    idusr: usuario_id,
+    idamb: id_ambiente,
+    fecha: fecha_auditoria,
+    comanda,
+    tipodes,
+    motivo,
   };
 
   $.ajax({
@@ -314,21 +592,25 @@ function getDescuento() {
     data: parametros,
     url: "res/php/user_actions/getCalculaDescuento.php",
     success: function (datos) {
+      descuento = +datos;
+      $("#descuentosComanda").val(datos);
       $("#myModalDescuento").modal("hide");
-      setTimeout(function () {
-        resumenDescuento(oPos[0]["id_ambiente"], comanda);
-        getComandas(comanda);
-      }, 1000);
+      mBoton = "#comanda" + $("#numeroComanda").val();
+      $(mBoton).attr("descuento", datos);
+      resumenComanda();
     },
   });
 }
 
 function pagarFacturaComanda() {
-  oPos = JSON.parse(localStorage.getItem("oPos"));
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  user = sesion["usuario"][0]["usuario"];
-  iduser = sesion["usuario"][0]["usuario_id"];
-  idamb = oPos[0]["id_ambiente"];
+  let { pos, usuarioAct } = sesion;
+  let { usuario, usuario_id } = usuarioAct;
+  let { id_ambiente } = pos;
+
+  user = usuario;
+  iduser = usuario_id;
+  idamb = id_ambiente;
 
   var parametros = $("#acompananteReserva").serializeArray();
 
@@ -376,20 +658,17 @@ function pagarFacturaComanda() {
 }
 
 function descargarInventario() {
-  oPos = JSON.parse(localStorage.getItem("oPos"));
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  idBod = oPos[0]["id_bodega"];
-  idAmb = oPos[0]["id_ambiente"];
-  fecha = oPos[0]["fecha_auditoria"];
-  centr = oPos[0]["id_centrocosto"];
-  user = oPos[0]["usuario"];
+  let { pos, usuarioAct } = sesion;
+  let { usuario } = usuarioAct;
+  let { id_bodega, id_ambiente, fecha_auditoria, id_centrocosto } = pos;
 
   parametros = {
-    idbod: idBod,
-    idamb: idAmb,
-    fecha: fecha,
-    centr: centr,
-    user: sesion["usuario"][0]["usuario"],
+    idbod: id_bodega,
+    idamb: id_ambiente,
+    fecha: fecha_auditoria,
+    centr: id_centrocosto,
+    user: usuario,
   };
   $.ajax({
     url: "res/php/user_actions/descargaInventarios.php",
@@ -400,7 +679,6 @@ function descargarInventario() {
 }
 
 function imprimeFactura() {
-  let ruta = $("#rutaweb").val();
   $.ajax({
     url: "res/php/user_actions/imprime_factura.php",
     type: "POST",
@@ -452,95 +730,62 @@ function botonPagarComanda() {
 }
 
 function botonPagar() {
-  oPos = JSON.parse(localStorage.getItem("oPos"));
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  user = sesion["usuario"][0]["usuario"];
-  idamb = oPos[0]["id_ambiente"];
+  let { pos, usuarioAct } = sesion;
+  let { usuario } = usuarioAct;
+  let { id_ambiente } = pos;
+
+  abonos = +$("#abonosComanda").val();
 
   var canti = $("#cantProd").val();
   var coma = $("#numeroComanda").val();
   $("#formapago").val("");
   $("#clientes").val("");
-  var totvta = parseFloat($("#totalVta").html().replace(",", ""));
-  var totimp = parseFloat($("#valorImpto").html().replace(",", ""));
-  var totdes = parseFloat($("#totalDesc").html().replace(",", ""));
-  var total = parseFloat($("#totalCuenta").html().replace(",", ""));
+
+  $("#propinaPag").val(0);
+
+  miBoton = "#comanda" + coma;
+  subtotal = parseFloat($(miBoton).attr("subtotal"));
+  impuesto = parseFloat($(miBoton).attr("impto"));
+  propina = parseFloat($(miBoton).attr("propina"));
+  descuento = parseFloat($(miBoton).attr("descuento"));
+  abonos = parseFloat($(miBoton).attr("abonos"));
+  total = parseFloat($(miBoton).attr("total"));
+
   if (canti == 0) {
     swal("Precaucion", "Sin Productos Asignados a esta cuenta 2", "warning");
     return 0;
   } else {
     $("#myModalPagar").modal("show");
     $(".modal-title").text("Pagar Presente Cuenta " + coma);
-    $("#total").val(number_format(total, 2));
-    $("#propina").val(0);
+    $("#total").val(number_format(subtotal, 2));
+    $("#propina").val(propina);
     $("#totalini").val(total);
-    $("#montopago").val(total);
+    $("#totalImp").val(number_format(impuesto, 2));
+    $("#montopago").val(subtotal + propina + impuesto - descuento - abonos);
     $("#productosPag").val(canti);
-    $("#ambientePag").val(idamb);
-    $("#usuarioPag").val(user);
+    $("#ambientePag").val(id_ambiente);
+    $("#usuarioPag").val(usuario);
     $("#comandaPag").val(coma);
-    $("#descuento").val(number_format(totdes, 2));
+    $("#descuento").val(number_format(descuento, 2));
+    $("#abono").val(number_format(abonos, 2));
     $("#montopago").focus();
+    $("#abonosComanda").val(abonos);
     $("#resultado").html("");
     $("#btnPagarCuenta").removeAttr("disabled");
   }
 }
 
-function pagarFactura() {
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  idamb = oPos[0]["id_ambiente"];
-  numero = $("#numeroComanda").val();
-  var pago = parseFloat($("#montopago").val().replace(",", ""));
-  var tota = parseFloat($("#total").val().replace(",", ""));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-
-  var storageProd = localStorage.getItem("productoComanda");
-
-  if (tota - pago <= 0) {
-    $("#btnPagarComanda").attr("disabled", "disabled");
-    $("#btnPagarCuenta").attr("disabled", "disabled");
-    if (numero == 0) {
-      guardarProductos();
-      imprime = imprimeComandaVen();
-    }
-    guardaFactura();
-    setTimeout(function () {
-      imprimeFactura();
-      descargarInventario();
-      limpiaLista();
-      enviaInicio();
-
-      $("#myModalPagar").modal("hide");
-      campo = "#" + $.trim(numero);
-      $(campo).remove();
-      swal({
-        title: "Pago Realizado con Exito",
-        type: "success",
-        confirmButtonText: "Aceptar",
-      });
-    }, 1000);
-  } else {
-    swal(
-      "Precaucion",
-      "El Valor Pagado es menor al Total de la Presente Cuenta",
-      "warning"
-    );
-  }
-}
-
 function guardaFactura() {
-  oPos = JSON.parse(localStorage.getItem("oPos"));
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  user = sesion["usuario"][0]["usuario"];
-  iduser = sesion["usuario"][0]["usuario_id"];
-  idamb = oPos[0]["id_ambiente"];
+  let { pos, usuarioAct } = sesion;
+  let { usuario, usuario_id } = usuarioAct;
+  let { id_ambiente } = pos;
 
-  /*
-		var parametros = $("#acompananteReserva").serializeArray();	
-		parametros.push({name:'usuario',value: user})
-		parametros.push({name:'idusuario',value:iduser})
-		var parametros = $('#pagarCuenta').serialize();
-	*/
+  user = usuario;
+  iduser = usuario_id;
+  idamb = id_ambiente;
+
   var parametros = $("#pagarCuenta").serializeArray();
 
   parametros.push({ name: "usuario", value: user });
@@ -567,7 +812,6 @@ function guardaFactura() {
       } else {
         $(".modal-backdrop").remove();
         $(".modal-open").css("overflow", "auto");
-        $("#ppal").css("padding-right", "0");
       }
     },
   });
@@ -575,15 +819,14 @@ function guardaFactura() {
 
 function getBorraCuenta(usuario, amb) {
   cant = $("#cantProd").val();
-  oPos = JSON.parse(localStorage.getItem("oPos"));
 
   if (cant == 0) {
-    getSeleccionaAmbiente(oPos[0]["id_ambiente"]);
+    getSeleccionaAmbiente(amb);
     return false;
   }
   var parametros = {
-    usuario: usuario,
-    amb: amb,
+    usuario,
+    amb,
   };
   swal(
     {
@@ -597,16 +840,19 @@ function getBorraCuenta(usuario, amb) {
     },
     function () {
       localStorage.removeItem("productoComanda");
-      getSeleccionaAmbiente(oPos[0]["id_ambiente"]);
+      getSeleccionaAmbiente(amb);
     }
   );
 }
 
 function guardarCuentaRecuperada() {
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  imptoInc = oPos[0]["impuesto"];
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos, usuarioAct } = sesion;
+  let { usuario } = usuarioAct;
+  let { id_ambiente, impuesto, nombre, fecha_auditoria } = pos;
 
   $("#recuperarComanda").val(0);
+  $("#guardaComandaDividida").css("display", "none");
   $("#guardaCuenta").css("display", "none");
   $("#recuperaCuenta").css("display", "block");
   $("#listaComandas").css("display", "block");
@@ -636,16 +882,16 @@ function guardarCuentaRecuperada() {
 
   var comanda = $("#numeroComanda").val();
   var recuperar = $("#recuperarComanda").val();
-  var storageProd = JSON.parse(localStorage.getItem("productoComanda"));
+  var productos = JSON.parse(localStorage.getItem("productoComanda"));
 
   var parametros = {
-    user: sesion["usuario"][0]["usuario"],
-    idamb: oPos[0]["id_ambiente"],
-    imptoIncl: oPos[0]["impuesto"],
-    nomamb: oPos[0]["nombre"],
-    fecha: oPos[0]["fecha_auditoria"],
-    comanda: comanda,
-    produc: storageProd,
+    user: usuario,
+    idamb: id_ambiente,
+    imptoIncl: impuesto,
+    nomamb: nombre,
+    fecha: fecha_auditoria,
+    comanda,
+    productos,
   };
 
   $.ajax({
@@ -655,12 +901,12 @@ function guardarCuentaRecuperada() {
     beforeSend: function (objeto) {},
     success: function (datos) {
       $("#productosComanda >table >tbody >tr").remove();
-      var storageProd = localStorage.getItem("productoComanda");
+      var productos = localStorage.getItem("productoComanda");
       imprime = imprimeComandaVenRecu();
-      if (storageProd == null) {
+      if (productos == null) {
         listaComanda = [];
       } else {
-        listaComanda = JSON.parse(storageProd);
+        listaComanda = JSON.parse(productos);
       }
       limpiaLista();
     },
@@ -668,8 +914,8 @@ function guardarCuentaRecuperada() {
 }
 
 function guardarCuenta() {
-  var storageProd = JSON.parse(localStorage.getItem("productoComanda"));
-  if (storageProd == null) {
+  var productos = JSON.parse(localStorage.getItem("productoComanda"));
+  if (productos == null) {
     swal(
       {
         title: "Sin Productos",
@@ -680,33 +926,64 @@ function guardarCuenta() {
         closeOnConfirm: true,
       },
       function () {
-        $("#myModalGuardarCuenta").modal("hide");
+        $("#myModalClienteComanda").modal("hide");
       }
     );
     return;
   }
 
+  $("#myModalClienteComanda").modal("show");
+}
+
+function guardaClienteComanda() {
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos } = sesion;
+  let { id_ambiente } = pos;
+
+  var productos = JSON.parse(localStorage.getItem("productoComanda"));
+  if (productos == null) {
+    swal(
+      {
+        title: "Sin Productos",
+        text: " No permitido Guardar Comanda",
+        type: "warning",
+        showCancelButton: false,
+        confirmButtonColor: "#DD6B55",
+        closeOnConfirm: true,
+      },
+      function () {
+        $("#myModalClienteComanda").modal("hide");
+      }
+    );
+    return;
+  }
+
+  $("#myModalClienteComanda").modal("hide");
   $("#btnGuardarComanda").attr("disabled", "disabled");
   var regis = $("#cantProd").html();
   var pax = $("#numPax").val();
   var mesa = $("#nromesas").val();
-  oPos = JSON.parse(localStorage.getItem("oPos"));
+  var cliente = $("#nombreCliente").val();
   guardarProductos();
   setTimeout(function () {
     imprime = imprimeComandaVen();
     localStorage.removeItem("productoComanda");
-    getSeleccionaAmbiente(oPos[0]["id_ambiente"]);
+    getSeleccionaAmbiente(id_ambiente);
   }, 1000);
 }
 
 function guardarProductosPago() {
-  var storageProd = JSON.parse(localStorage.getItem("productoComanda"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
+  var productos = JSON.parse(localStorage.getItem("productoComanda"));
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos, usuarioAct } = sesion;
+  let { usuario } = usuarioAct;
+  let { id_ambiente, impuesto, nombre, fecha_auditoria } = pos;
+
   var regis = $("#cantProd").html();
   var pax = $("#numPax").val();
   var mesa = $("#nromesas").val();
 
-  if (storageProd == null) {
+  if (productos == null) {
     swal(
       {
         title: "Sin Productos",
@@ -724,14 +1001,14 @@ function guardarProductosPago() {
   }
 
   var parametros = {
-    pax: pax,
-    mesa: mesa,
-    user: sesion["usuario"][0]["usuario"],
-    idamb: oPos[0]["id_ambiente"],
-    imptoInc: oPos[0]["impuesto"],
-    nomamb: oPos[0]["nombre"],
-    fecha: oPos[0]["fecha_auditoria"],
-    produc: storageProd,
+    pax,
+    mesa,
+    user: usuario,
+    idamb: id_ambiente,
+    imptoInc: impuesto,
+    nomamb: nombre,
+    fecha: fecha_auditoria,
+    productos,
   };
 
   $.ajax({
@@ -747,13 +1024,17 @@ function guardarProductosPago() {
 }
 
 function guardarProductos() {
-  var storageProd = JSON.parse(localStorage.getItem("productoComanda"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
+  var productos = JSON.parse(localStorage.getItem("productoComanda"));
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos, usuarioAct } = sesion;
+  let { usuario } = usuarioAct;
+  let { id_ambiente, impuesto, nombre, fecha_auditoria } = pos;
   var regis = $("#cantProd").html();
   var pax = $("#numPax").val();
   var mesa = $("#nromesas").val();
+  var cliente = $("#nombreCliente").val();
 
-  if (storageProd == null) {
+  if (productos == null) {
     swal(
       {
         title: "Sin Productos",
@@ -771,14 +1052,15 @@ function guardarProductos() {
   }
 
   var parametros = {
-    pax: pax,
-    mesa: mesa,
-    user: sesion["usuario"][0]["usuario"],
-    idamb: oPos[0]["id_ambiente"],
-    imptoInc: oPos[0]["impuesto"],
-    nomamb: oPos[0]["nombre"],
-    fecha: oPos[0]["fecha_auditoria"],
-    produc: storageProd,
+    pax,
+    mesa,
+    cliente,
+    user: usuario,
+    idamb: id_ambiente,
+    imptoInc: impuesto,
+    nomamb: nombre,
+    fecha: fecha_auditoria,
+    productos,
   };
 
   $.ajax({
@@ -802,12 +1084,12 @@ function guardarProductos() {
 }
 
 function imprimeComandaVenRecu() {
-  var storageProd = JSON.parse(localStorage.getItem("productoComanda"));
+  var productos = JSON.parse(localStorage.getItem("productoComanda"));
   $.ajax({
     url: "res/php/user_actions/imprimeComandaRecupera.php",
     type: "POST",
     data: {
-      produc: storageProd,
+      produc: productos,
     },
     success: function (data) {
       imprime = $.trim(data);
@@ -821,12 +1103,12 @@ function imprimeComandaVenRecu() {
 }
 
 function imprimeComandaVen() {
-  var storageProd = JSON.parse(localStorage.getItem("productoComanda"));
+  var productos = JSON.parse(localStorage.getItem("productoComanda"));
   $.ajax({
     url: "res/php/user_actions/imprimeComanda.php",
     type: "POST",
     data: {
-      produc: storageProd,
+      productos,
     },
     success: function (data) {
       imprime = $.trim(data);
@@ -840,23 +1122,25 @@ function imprimeComandaVen() {
 }
 
 function imprimeComandaGen() {
-  var storageProd = JSON.parse(localStorage.getItem("productoComanda"));
+  var productos = JSON.parse(localStorage.getItem("productoComanda"));
   var regis = $("#cantProd").html();
   var pax = $("#numPax").val();
-  var coman = $("#comandaActiva").val();
+  var numComa = $("#numeroComanda").val();
   var mesa = $("#nromesas").val();
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  idamb = oPos[0]["id_ambiente"];
-  nomamb = oPos[0]["nombre"];
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos, usuarioAct } = sesion;
+  let { usuario } = usuarioAct;
+  let { id_ambiente, nombre } = pos;
+
   $.ajax({
     url: "res/php/user_actions/imprimeComandaGen.php",
     type: "POST",
     data: {
-      user: sesion["usuario"][0]["usuario"],
-      idamb: idamb,
-      nomamb: nomamb,
-      numComa: coman,
-      produc: storageProd,
+      user: usuario,
+      idamb: id_ambiente,
+      nomamb: nombre,
+      numComa,
+      productos,
     },
     success: function (data) {
       imprime = $.trim(data);
@@ -889,16 +1173,19 @@ function guardarCuentaRecu() {
   var pax = $("#numPax").val();
   var mesa = $("#nromesas").val();
   var comanda = $("#numeroComanda").val();
-  oPos = JSON.parse(localStorage.getItem("oPos"));
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos, usuarioAct } = sesion;
+  let { usuario } = usuarioAct;
+  let { id_ambiente, nombre, fecha_auditoria } = pos;
 
   var parametros = {
-    pax: pax,
-    mesa: mesa,
-    comanda: comanda,
-    user: sesion["usuario"][0]["usuario"],
-    idamb: oPos[0]["id_ambiente"],
-    nomamb: oPos[0]["nombre"],
-    fecha: oPos[0]["fecha_auditoria"],
+    pax,
+    mesa,
+    comanda,
+    user: usuario,
+    idamb: id_ambiente,
+    nomamb: nombre,
+    fecha: fecha_auditoria,
   };
 
   if (regis == 0) {
@@ -934,7 +1221,7 @@ function guardarCuentaRecu() {
             confirmButtonText: "Aceptar",
           },
           function () {
-            getSeleccionaAmbiente(oPos[0]["id_ambiente"]);
+            getSeleccionaAmbiente(id_ambiente);
           }
         );
         imprimeComandaRecu();
@@ -944,16 +1231,32 @@ function guardarCuentaRecu() {
 }
 
 $(document).ready(function () {
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  // console.log(sesion);
+  let { pos, usuarioAct } = sesion;
+  let { usuario } = usuarioAct;
+  let { id_ambiente, nombre, fecha_auditoria } = pos;
+
+  $("#myModalAbonos").on("show.bs.modal", function (event) {
+    var canti = $("#cantProd").val();
+    var coma = $("#numeroComanda").val();
+    var totvta = parseFloat($("#totalVta").html().replace(",", ""));
+    var totimp = parseFloat($("#valorImpto").html().replace(",", ""));
+    var totdes = parseFloat($("#totalDesc").html().replace(",", ""));
+    var total = parseFloat($("#totalCuenta").html().replace(",", ""));
+    $("#formapagoAbono").val("");
+    $("#comentarios").val("");
+    $("#montoAbono").val(0);
+  });
+
   $("#myModalPagarDirecto").on("show.bs.modal", function (event) {
-    var storageProd = JSON.parse(localStorage.getItem("productoComanda"));
-    if (storageProd == null) {
+    var productos = JSON.parse(localStorage.getItem("productoComanda"));
+    if (productos == null) {
       swal("Precaucion", "Sin Productos Asociados a esta comanda", "warning");
       $("#myModalPagarDirecto").modal("hide");
       return;
     }
     valor = $("#totalCuenta").val();
-    /// $('#btnPagarComanda').attr('disabled',true);
-    /// $('#myModalPagarDirecto').modal('show');
   });
 
   $("#myModalAnulaComanda").on("show.bs.modal", function (event) {
@@ -962,47 +1265,26 @@ $(document).ready(function () {
   });
 
   $("#myModalDescuento").on("show.bs.modal", function (event) {
-    var totdes = $("#totalDesc").html();
-    totdes = totdes.replace(".00", "");
-    totdes = totdes.replace(",", "");
-    if (totdes != 0) {
-      swal(
-        {
-          title: "Atencion ",
-          text: "La presenre Comanda ya se Causo el Descuento ",
-          type: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#DD6B55",
-          confirmButtonText: "Si anular el Descuento",
-          closeOnConfirm: true,
-        },
-        function () {
-          var comanda = $("#numeroComanda").val();
-          var descu = 0;
-          var motivo = "";
-          sesion = JSON.parse(localStorage.getItem("sesion"));
-          oPos = JSON.parse(localStorage.getItem("oPos"));
-          var parametros = {
-            idusr: sesion["usuario"][0]["usuario_id"],
-            idamb: oPos[0]["id_ambiente"],
-            fecha: oPos[0]["fecha_auditoria"],
-            comanda: comanda,
-            descuento: descu,
-            motivo: motivo,
-          };
+    $("#tipodesc").val("");
+    $("#motivoDesc").val("");
+  });
 
-          $.ajax({
-            type: "POST",
-            data: parametros,
-            url: "res/php/user_actions/getAnulaDescuento.php",
-            success: function (datos) {
-              setTimeout(function () {
-                getComandas(comanda);
-              }, 1000);
-            },
-          });
+  $("#myModalClienteComandaDiv").on("show.bs.modal", function (event) {
+    let idambi = id_ambiente;
+
+    $.ajax({
+      type: "POST",
+      url: "res/php/user_actions/traeMesasDisponibles.php",
+      dataType: "json",
+      data: { idambi },
+      success: function (mesas) {
+        $("#mesaDivide option").remove();
+        for (i = 0; i < mesas.length; i++) {
+          $("#mesaDivide").append(
+            `<option value="${mesas[i]["numero_mesa"]}">${mesas[i]["numero_mesa"]}</option>`
+          );
         }
-      );
-    }
+      },
+    });
   });
 });

@@ -1,19 +1,21 @@
-<?php 
-  require '../../res/php/app_topPos.php'; 
-	$idamb     = $_POST['id'];
-	$productos = $pos->getProductos($idamb);
+<?php
+require '../../res/php/app_topPos.php';
+$idamb = $_POST['id'];
+$productos = $pos->getProductos($idamb);
 
 ?>
   <section class="content">
     <div class="panel panel-success">
       <div class="panel-heading"> 
-        <div class="row producto" style="display: flex;">
-          <div class="col-lg-6">
-            <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_ADM?>">                  
+        <div class="row producto">
+          <div class="col-lg-6 col-xs-12">
+            <input type="hidden" name="rutaweb" id="rutaweb" value="<?php echo BASE_ADM; ?>">                  
             <input type="hidden" name="ubicacion" id="ubicacion" value="clientes.php">
             <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-address-book-o"></i> Catalogo Productos de Ventas </h3>
           </div>
-          <div class="col-lg-6 pull-right">
+          <div class="col-lg-6 col-xs-12 pull-right">
+	          <button style="float:right;margin-top:10px;" class="btn btn-info" onclick="exportTableToExcel('catalogoProductos')"><i class="glyphicon glyphicon-th" aria-hidden="true"></i> Exportar</button>
+
             <a 
               data-toggle="modal" 
               style="margin:10px 0;float: right;" 
@@ -33,6 +35,7 @@
 							<thead >
 								<tr class="warning">
 		              <th>Producto</th>
+		              <th>Codigo</th>
 		              <th>Seccion</th>
 		              <th>Precio Venta</th>
 		              <th>Impuesto</th>
@@ -42,31 +45,32 @@
 								</tr>
 							</thead>
 							<tbody>
-								<?php 
-								foreach ($productos as $producto): ?>
+								<?php
+                                    foreach ($productos as $producto) { ?>
 								  <tr style='font-size:12px'>
-								    <td><?php echo $producto["nom"];?></td>
-								    <td><?php echo $producto["nombre_seccion"];?></td>
-								    <td align="right"><?php echo number_format($producto["venta"],2);?></td>
-								    <td style="width: 17%;text-align:right"><?php echo $producto["descripcion_cargo"];?></td>
-								    <td align='center'><?php echo tipo_prd($producto["tipo_producto"]);?></td>
-								    <td align='center'><?php echo estadoProducto($producto["estado"]);?></td>
-								    <td style="width: 10%;text-align: center">
+								    <td><?php echo $producto['nom']; ?></td>
+								    <td><?php echo $producto['cod']; ?></td>
+								    <td><?php echo $producto['nombre_seccion']; ?></td>
+								    <td class="t-right"><?php echo number_format($producto['venta'], 2); ?></td>
+								    <td><?php echo $producto['descripcion_cargo']; ?></td>
+								    <td><?php echo tipo_prd($producto['tipo_producto']); ?></td>
+								    <td><?php echo estadoProducto($producto['estado']); ?></td>
+								    <td>
                       <div class="btn-group" role="group" aria-label="Basic example">
 												<button 
 													type          ="button" 
 													class         ="btn btn-info btn-xs" 
 													data-toggle   ="modal" 
 													data-target   ="#dataUpdateProducto" 
-													data-id       ="<?php echo $producto['producto_id']?>" 
-													data-codigo   ="<?php echo $producto['cod']?>" 
-													data-producto ="<?php echo $producto['nom']?>" 
-													data-seccion  ="<?php echo $producto['seccion']?>" 
-													data-venta    ="<?php echo $producto['venta']?>" 
-													data-impto    ="<?php echo $producto['impto']?>" 
-													data-tipo     ="<?php echo $producto['estado']?>" 
+													data-id       ="<?php echo $producto['producto_id']; ?>" 
+													data-codigo   ="<?php echo $producto['cod']; ?>" 
+													data-producto ="<?php echo $producto['nom']; ?>" 
+													data-seccion  ="<?php echo $producto['seccion']; ?>" 
+													data-venta    ="<?php echo $producto['venta']; ?>" 
+													data-impto    ="<?php echo $producto['impto']; ?>" 
+													data-tipo     ="<?php echo $producto['estado']; ?>" 
 													title         ="Modifica Datos del Producto"
-													onclick       ="updateProducto(<?php echo $producto['producto_id']?>)"
+													onclick       ="updateProducto(<?php echo $producto['producto_id']; ?>)"
 													 >
 													<i class='glyphicon glyphicon-edit'></i>
 												</button>
@@ -74,10 +78,10 @@
 													type          ="button" 
 													class         ="btn btn-danger btn-xs" 
 													data-toggle   ="modal" 
-													data-producto ="<?php echo $producto['nom']?>" 
+													data-producto ="<?php echo $producto['nom']; ?>" 
 													data-target   ="#dataDeleteProducto" 
-													data-id       ="<?php echo $producto['producto_id']?>"  
-													onclick       ='btnEliminaProducto(<?php echo $producto['producto_id']?>)'
+													data-id       ="<?php echo $producto['producto_id']; ?>"  
+													onclick       ='btnEliminaProducto(<?php echo $producto['producto_id']; ?>)'
 													>
 													<i class='glyphicon glyphicon-trash '></i> 
 												</button>
@@ -85,14 +89,44 @@
 											</div>
 								    </td>
 								  </tr>	
-									<?php endforeach ?>
+									<?php } ?>
+							</tbody>
+						</table>
+          </div>
+					<div class="container-fluid prende"> 
+						<table id="catalogoProductos" class="table table-bordered table-hover ">
+							<thead >
+								<tr class="warning">
+		              <th>Producto</th>
+		              <th>Codigo</th>
+		              <th>Seccion</th>
+		              <th>Precio Venta</th>
+		              <th>Impuesto</th>
+		              <th>Tipo Plato</th>
+		              <th>Estado</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php
+                                        foreach ($productos as $producto) { ?>
+								  <tr style='font-size:12px'>
+								    <td><?php echo $producto['nom']; ?></td>
+								    <td><?php echo $producto['cod']; ?></td>
+								    <td><?php echo $producto['nombre_seccion']; ?></td>
+								    <td class="t-right"><?php echo number_format($producto['venta'], 2); ?></td>
+								    <td><?php echo $producto['descripcion_cargo']; ?></td>
+								    <td><?php echo tipo_prd($producto['tipo_producto']); ?></td>
+								    <td><?php echo estadoProducto($producto['estado']); ?></td>
+								    
+								  </tr>	
+									<?php } ?>
 							</tbody>
 						</table>
           </div>
       </div>
     </div>
   </section>
-<?php 
-  include("modal/modalProductos.php");
+<?php
+  include_once 'modal/modalProductos.php';
 ?>
 

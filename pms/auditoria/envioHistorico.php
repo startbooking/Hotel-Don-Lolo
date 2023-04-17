@@ -166,8 +166,11 @@
 	// $ctascongel = $hotel->getSalidasDia(FECHA_PMS,2,'CO');
 	//  
 
-	$pasacargos = $hotel->enviaHistoricoCargos($salidafac['num_reserva']);
-	$borracargo = $hotel->borraHistoricoCargos($salidafac['num_reserva']);
+	$pasacargos = $hotel->enviaHistoricoCargos();
+	sleep(2);
+	$borracargo = $hotel->borraHistoricoCargos();
+	sleep(2);
+
 
 /*
 	foreach ($salidasfac as $salidafac) {
@@ -189,9 +192,14 @@
 	*/
 
 	$envEspera = $hotel->enviaHistoricoEstadias($fecha,'ES');
+	sleep(2);
+
 	$envnoShow = $hotel->cambiaNoShow($fecha,'ES');
+	sleep(2);
 	$envSalida = $hotel->enviaHistoricoSalidas($fecha,'SA');
+	sleep(2);
 	$envCancel = $hotel->enviaHistoricoSalidas($fecha,'CX');
+	sleep(2);
 
 	/*
 	$borraesp   = $hotel->borraEnviadasaHistorico($fecha,'ES');

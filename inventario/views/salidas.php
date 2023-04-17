@@ -3,27 +3,25 @@ $salidas = $inven->getSalidasInventarios(2);
 
 ?>
 
-<div class="content-wrapper">
+<div class="content-wrapper"> 
   <section class="content">
     <div class="panel panel-success">
       <div class="panel-heading">
-        <div class="row">
-          <div class="col-lg-6">
-            <input type="hidden" name="rutaweb" id="rutaweb" value="<?= BASE_INV ?>">
+        <div class="row"> 
+          <div class="col-lg-6 col-xs-12">
+            <input type="hidden" name="rutaweb" id="rutaweb" value="<?php echo BASE_INV; ?>">              
             <input type="hidden" name="ubicacion" id="ubicacion" value="salidas">
             <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-calendar"></i> Salidas de Inventario </h3>
-          </div>
-          <div class="col-lg-6" align="right">
-            <a class="btn btn-success" href="movimientoSalidas">
+          </div> 
+          <div class="col-lg-6 col-xs-12" align="right">
+            <a 
+              class="btn btn-success" 
+              href="movimientoSalidas">
               <i class="fa fa-plus" aria-hidden="true"></i>
-              Nueva Salida
-            </a>
-            <a class="btn btn-warning" href="recetasSalidas">
-              <i class="fa fa-plus" aria-hidden="true"></i>
-              Salida Recetas
+               Nueva Salida
             </a>
             <button class="btn btn-info" onclick="exportTableToExcel('tablasalidas')"><i class="glyphicon glyphicon-th" aria-hidden="true"></i> Exportar Movimientos</button>
-          </div>
+          </div> 
         </div>
       </div>
       <div class="panel-body">
@@ -51,36 +49,58 @@ $salidas = $inven->getSalidasInventarios(2);
                   <td><?php echo $salida['descripcion_bodega']; ?></td>
                   <td><?php echo $salida['descripcion_tipo']; ?></td>
                   <td><?php echo $salida['descripcion_centro']; ?></td>
-                  <td align="right"><?php echo number_format($salida['total'], 2); ?></td>
-                  <td align="left"><span <?php
-                                          if ($salida['estado'] == 0) { ?> class="badge btn btn-danger" <?php
-                                                                                                      } else { ?> class="badge btn btn-success" <?php
-                                                                                                                                              }
-                                                                                                                                                ?>><?php echo estadoMovimiento($salida['estado']); ?></span></td>
-                  <td style="width: 11%">
-                    <div class="btn-toolbar" role="toolbar">
+                  <td><?php echo number_format($salida['total'], 2); ?></td>
+                  <td><span 
+                    <?php
+                      if ($salida['estado'] == 0) { ?>
+                        class="badge btn btn-danger" 
+                        <?php
+                      } else { ?>
+                        class="badge btn btn-success" 
+                        <?php
+                      }
+                  ?>
+                    ><?php echo estadoMovimiento($salida['estado']); ?></span></td>
+                  <td style="display:flex;">
+                    <button 
+                      type             = "button" 
+                      class            = "btn btn-xs btn-warning" 
+                      data-toggle      = "modal" 
+                      data-target      = "#myModalMostrarProductos" 
+                      data-numero      = "<?php echo $salida['numero']; ?>"
+                      data-tipo        = "<?php echo $salida['tipo']; ?>"
+                      data-movimiento  = "<?php echo $salida['movimiento']; ?>"
+                      data-descripcion = "<?php echo $salida['descripcion_tipo']; ?>"
+                      data-bodega      = "<?php echo $salida['id_bodega']; ?>"
+                      title            = "Ver productos del Movimiento"
+                      onclick          = 'btnMuestraProductos()'
+                      >
+                      <i class="fa fa-list-alt" aria-hidden="true"></i>
+                    </button>
+                    <button onclick="imprimeMovimiento('<?php echo $salida['numero']; ?>',2)" title="Imprime Movimiento" class="btn btn-xs btn-info" type="button"><i class="fa fa-print" aria-hidden="true"></i></button>  
+                    <?php
+                    if ($salida['estado'] == 1) { ?>
+                      <button 
+                        onclick="anulaMovimiento(<?php echo $salida['numero']; ?>,<?php echo $salida['tipo']; ?>,<?php echo $salida['id_bodega']; ?>)" 
+                        title="Anula Movimiento" 
+                        class="btn btn-xs btn-danger" 
+                        type="button">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                      </button>  
+                      <?php
+                    }
+                  ?>
+                    <!-- <div class="btn-toolbar" role="toolbar">
                       <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#myModalMostrarProductos" data-numero="<?php echo $salida['numero']; ?>" data-tipo="<?= $salida['tipo'] ?>" data-movimiento="<?php echo $salida['movimiento']; ?>" data-descripcion="<?php echo $salida['descripcion_tipo']; ?>" data-bodega="<?php echo $salida['id_bodega']; ?>" title="Ver productos del Movimiento" onclick='btnMuestraProductos()'>
-                          <i class="fa fa-list-alt" aria-hidden="true"></i>
-                        </button>
-                        <button onclick="imprimeMovimiento('<?= $salida['numero'] ?>',2)" title="Imprime Movimiento" class="btn btn-xs btn-info" type="button"><i class="fa fa-print" aria-hidden="true"></i></button>
                       </div>
                       <div class="btn-group" role="group" aria-label="...">
-                        <?php
-                        if ($salida['estado'] == 1) { ?>
-                          <button onclick="anulaMovimiento(<?= $salida['numero'] ?>,<?= $salida['tipo'] ?>,<?= $salida['id_bodega']; ?>)" title="Anula Movimiento" class="btn btn-xs btn-danger" type="button">
-                            <i class="fa fa-times" aria-hidden="true"></i>
-                          </button>
-                        <?php
-                        }
-                        ?>
                       </div>
-                    </div>
+                    </div> -->
                   </td>
                 </tr>
-              <?php
+                <?php
               }
-              ?>
+?>
             </tbody>
           </table>
         </div>
@@ -107,12 +127,12 @@ $salidas = $inven->getSalidasInventarios(2);
                 <td><?php echo number_format($salida['total'], 2); ?></td>
                 <td><?php echo estadoMovimiento($salida['estado']); ?></td>
               </tr>
-            <?php
+              <?php
             }
-            ?>
+?>
           </tbody>
         </table>
       </div>
-    </div>
+    </div> 
   </section>
 </div>

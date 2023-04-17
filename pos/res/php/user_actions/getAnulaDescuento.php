@@ -16,7 +16,7 @@
   $hora      = date('H:i');
 
   $tipod = 0;
-  $porce = 0;    
+  $porce = 0;
 
   $aplicades = $pos->updateDescuentos($comanda, $ambiente, $descuento,$tipod,$porce,0, $motivo, $idusr);
 

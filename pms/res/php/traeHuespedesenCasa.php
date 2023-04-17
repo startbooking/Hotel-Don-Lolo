@@ -1,8 +1,8 @@
 <?php 
   require '../../../res/php/app_topHotel.php'; 
 	
-  $tipo     = $_POST['tipo'];
-  $hoy      = substr(FECHA_PMS,5,5);
+  $tipo      = $_POST['tipo'];
+  $hoy    = substr(FECHA_PMS,5,5);
 
   $reservas = $hotel->getHuespedesenCasa(2,'CA'); 
 
@@ -11,15 +11,16 @@
     <table id="example1" class="table modalTable table-bordered">
       <thead>
         <tr class="warning" style="font-weight: bold">
-          <td>Nro Hab.</td>
+          <td>Hab.</td>
           <td></td>
           <td style="text-align:center;">Huesped</td>
+          <td style="text-align:center;">Compañia</td>
           <td>Llegada</td>
           <td>Salida</td>
-          <td>Noches</td>
+          <td>Noc</td>
           <td>Hom</td>
           <td>Muj</td> 
-          <td>Niñ</td>
+          <!-- <td>Niñ</td> -->
           <td>Tarifa</td>
           <td style="text-align:center;">Accion</td>
         </tr>
@@ -43,7 +44,7 @@
               <td>
                 <span><?php echo $reserva['num_habitacion']?></span>                      
               </td>
-              <td style="padding:2px">
+              <td style="padding:2px;width:7%;">
                 <div style="display: flex">
                   <?php 
                     if($reserva['causar_impuesto']==2){ ?>
@@ -70,7 +71,6 @@
                     if($hoy == substr($reserva['fecha_nacimiento'],5,5)){ ?>
                       <span class="fa-stack fa-xs" title="El Huesped esta de Cumpleaños" style="margin-left:0px;cursor:pointer;" >
                         <i style="font-size:20px;color: yellow" class="fa fa-circle fa-stack-2x"></i>
-                        
                         <i style="font-size:10px;margin-top: -2px;margin-left: 1px;color:black" class="fa fa-birthday-cake fa-stack-1x fa-inverse"></i> 
                       </span>
                     <?php 
@@ -78,7 +78,7 @@
                   ?>
                 </div>
               </td>
-              <td style="padding:2px">
+              <td style="padding:2px;width:50px;">
                 <span class="badge" style="background: #20b2aa91;padding: 2px 6px 0px 11px;">
                   <label for="" class="control-label" style="text-align: left;color:#000">
                     <?php echo $reserva["nombre_completo"];?>
@@ -92,17 +92,19 @@
                         <label for="" class="control-label" style="font-size:11px;text-align: left;padding: 5px 0px 2px 2px;color:#000"><?php echo $acompana["nombre_completo"];?>
                         </label>
                       </span>
+
                       <?php 
                     }
                   }
-                ?>                                    
+                ?>
               </td>
+              <td style="padding:2px"><?php echo $nombrecia; ?></td>
               <td style="padding:2px"><?php echo $reserva['fecha_llegada']; ?></td>
               <td style="padding:2px"><?php echo $reserva['fecha_salida']; ?></td>
               <td style="padding:2px;text-align:center;"><?php echo $reserva['dias_reservados']; ?></td>
               <td style="padding:2px;text-align:center;"><?php echo $reserva['can_hombres']; ?></td>
               <td style="padding:2px;text-align:center;"><?php echo $reserva['can_mujeres']; ?></td>
-              <td style="padding:2px;text-align:center;"><?php echo $reserva['can_ninos']; ?></td>
+              <!-- <td style="padding:2px;text-align:center;"><?php echo $reserva['can_ninos']; ?></td> -->
               <td style="padding:2px;text-align:right;"><?php echo number_format($reserva['valor_diario'],2); ?></td>
               <td style="padding:2px;width: 13%">
                 <nav class="navbar navbar-default" style="margin-bottom: 0px;min-height:0px;">
@@ -351,7 +353,7 @@
       <tr class="warning" style="font-weight: bold">
         <td>Nro Hab.</td>
         <td>Tipo Hab.</td>
-        <td style="text-align:center;">Huesped</td>
+        <td align="center">Huesped</td>
         <td>Llegada</td>
         <td>Salida</td>
         <td>Noches</td>
@@ -386,11 +388,11 @@
             <td><?php echo $reserva['apellido1'].' '. $reserva['apellido2'].' '. $reserva['nombre1'].' '.$reserva['nombre2']; ?></td>
             <td><?php echo $reserva['fecha_llegada']; ?></td>
             <td><?php echo $reserva['fecha_salida']; ?></td>
-            <td style="text-align:center;"><?php echo $reserva['dias_reservados']; ?></td>
-            <td style="text-align:center;"><?php echo $reserva['can_hombres']; ?></td>
-            <td style="text-align:center;"><?php echo $reserva['can_mujeres']; ?></td>
-            <td style="text-align:center;"><?php echo $reserva['can_ninos']; ?></td>
-            <td style="text-align:right;"><?php echo number_format($reserva['valor_diario'],2); ?></td>
+            <td align="center"><?php echo $reserva['dias_reservados']; ?></td>
+            <td align="center"><?php echo $reserva['can_hombres']; ?></td>
+            <td align="center"><?php echo $reserva['can_mujeres']; ?></td>
+            <td align="center"><?php echo $reserva['can_ninos']; ?></td>
+            <td align="right"><?php echo number_format($reserva['valor_diario'],2); ?></td>
           </tr>
           <?php 
         }

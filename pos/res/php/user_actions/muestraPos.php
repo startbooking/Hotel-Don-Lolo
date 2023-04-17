@@ -1,78 +1,82 @@
 <?php
   $ambSel = $_POST['ambSel'];
-  
-  require '../../../../res/php/app_topPos.php'; 
+  $tipoUsr = $_POST['tipousr'];
+
+  require '../../../../res/php/app_topPos.php';
 
   $ambienteSeleccionado = $pos->getAmbienteSeleccionado($ambSel);
   $ambi = $ambienteSeleccionado;
+
   $_SESSION['NOMBRE_AMBIENTE'] = $ambienteSeleccionado[0]['nombre'];
-  $_SESSION['AMBIENTE']        = $ambienteSeleccionado[0]['id_ambiente'];
+  $_SESSION['AMBIENTE'] = $ambienteSeleccionado[0]['id_ambiente'];
   $_SESSION['BODEGA_AMBIENTE'] = $ambienteSeleccionado[0]['id_bodega'];
-  $_SESSION['LOGO_POS']        = $ambienteSeleccionado[0]['logo'];
-  $_SESSION['ENCUESTA']        = $ambienteSeleccionado[0]['encuesta'];
+  $_SESSION['LOGO_POS'] = $ambienteSeleccionado[0]['logo'];
+  $_SESSION['ENCUESTA'] = $ambienteSeleccionado[0]['encuesta'];
 
-  $ventaPos          = $pos->sumSalesDay($ambSel); 
-  $comandaPos        = $pos->countComandasPos($ambSel,'A');
-  $comandaAnuladaPos = $pos->countComandasPos($ambSel,'X'); 
-  $facturasPos       = $pos->countFacturasPos($ambSel);
+  $ventaPos = $pos->sumSalesDay($ambSel);
+  $comandaPos = $pos->countComandasPos($ambSel, 'A');
+  $comandaAnuladaPos = $pos->countComandasPos($ambSel, 'X');
+  $facturasPos = $pos->countFacturasPos($ambSel);
 
-?>
-<div class="container-fluid">
- <section class="container-fluid" style="margin-top:0px;margin-bottom: 5px;">
+  ?>
+<section class="container-fluid" style="padding:0">
+  <section class="container-fluid" style="margin-top:0px;margin-bottom: 5px;">
     <div class="container-fluid">
       <input type="hidden" name="ubicacion" id="ubicacion" value="home">
-      <div class="col-xs-8">          
+      <div class="col-xs-8">
         <h1 class="fontModule">
-          <?=$ambienteSeleccionado[0]['nombre'];?><br>
+          <?php echo $ambienteSeleccionado[0]['nombre']; ?><br>
           <small>Panel de Control </small>
         </h1>
       </div>
-      <div class="col-xs-4" style="">          
-        <img class="img-thumbnail logoAmbiente" src="../img/<?=$ambienteSeleccionado[0]['logo']?>" alt="">
-      </div>  
+      <div class="col-xs-4">
+        <img class="img-thumbnail logoAmbiente" src="../img/<?php echo LOGO; ?>"" alt="">
+      </div>
     </div>
-  </section>
-  <section class="container-fluid" style="margin-top:0px;margin-bottom: 5px;">
-    <?php 
+    <?php
       $prefijo = $ambienteSeleccionado[0]['prefijo'];
-      $archivo = "../../../views/plano-$prefijo.php" ;
-      if($ambienteSeleccionado[0]['plano']!=0){
-        if(!file_exists($archivo)){ ?> 
-          <div class="alert alert-danger"><h1 style="text-align: center">Atencion <br><small style="color:#FFF"> Este Punto de venta no tiene plano configurado</small></h1></div>
-          <?php 
-        }else{
-          include_once $archivo ;
-          ?> 
-          <?php 
-        }
-      }else{
-        ?>
+  $archivo = "../../../views/plano-$prefijo.php";
+  if ($ambienteSeleccionado[0]['plano'] != 0) {
+      if (!file_exists($archivo)) { ?>
+              <div class="alert alert-danger"><h1 style="text-align: center">Atencion <br><small style="color:#FFF"> Este Punto de venta no tiene plano configurado</small></h1></div>
+              <?php
+      } else {
+          include_once $archivo;
+      }
+  } else {
+      ?>
         <div class="container-fluid  moduloCentrar">
-          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-            <a onclick="muestraTouch()" class="small-box-footer">
-              <div class="small-box bg-green-gradient">
-                <div class="inner">
-                  <h3>Ingresar Venta</h3>
-                  <p>Crea una Nueva Cuenta</p> 
+          <?php
+        if ($tipoUsr <= 4) { ?>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pd0">
+              <a style="cursor:pointer;" onclick="muestraTouch()" class="small-box-footer">
+                <div class="small-box bg-green-gradient">
+                  <div class="inner">
+                    <h3>Ingresar Venta</h3>
+                    <p>Crea una Nueva Cuenta</p> 
+                  </div>
+                  <div class="icon">
+                    <i class="ion ion-cash"></i>
+                  </div>
+                  <small class="small-box-footer" style="font-size:12px">Ingresar<i class="fa fa-arrow-circle-right"></i></small>
                 </div>
-                <div class="icon">
-                  <i class="ion ion-cash"></i>
-                </div>
-                <small class="small-box-footer" style="font-size:12px">Ingresar<i class="fa fa-arrow-circle-right"></i></small>
-              </div>
-            </a>
-          </div>
+              </a>
+            </div>
+
+            <?php
+        }
+      ?>
         </div>
         <div class="container-fluid">
-          <h3 align="center" class="tituloEscritorio">Informes y Estadisticas</h3>
+          <h3 style="text-align:center" class="tituloEscritorio">Informes y Estadisticas</h3>
           <div class="row moduloCentrar">
-            <div class="col-md-4 col-xs-6">
+            <div class="col-md-4 col-xs-12">
               <a onclick="cuentasActivas()" class="small-box-footer">
                 <div class="small-box bg-yellow" style="cursor:pointer;">
                   <div class="inner">
-                    <?php 
-                    echo '<h3> '.number_format($comandaPos,0,",",".").'</h3>';
-                    ?>
+                    <?php
+                echo '<h3> '.number_format($comandaPos, 0, ',', '.').'</h3>';
+      ?>
                     <p>Cuentas Activas</p>
                   </div>
                   <div class="icon">
@@ -83,13 +87,13 @@
                 </div>
               </a> 
             </div>
-            <div class="col-md-4 col-xs-6">
+            <div class="col-md-4 col-xs-12">
               <a onclick="facturasDia()" class="small-box-footer">
                 <div class="small-box bg-aqua" style="cursor:pointer;">
                   <div class="inner">
-                    <?php 
-                    echo '<h3> '.number_format($facturasPos,0,",",".").'</h3>';
-                    ?>
+                    <?php
+      echo '<h3> '.number_format($facturasPos, 0, ',', '.').'</h3>';
+      ?>
                       <p>Facturas Generadas </p>
                   </div>
                   <div class="icon">
@@ -99,13 +103,13 @@
                 </div>
               </a> 
             </div>
-            <div class="col-md-4 col-xs-6">
+            <div class="col-md-4 col-xs-12">
               <a onclick="verComandasAnuladas()" class="small-box-footer">
               <div class="small-box bg-red" style="cursor: pointer;">
                 <div class="inner">
-                  <?php 
-                  echo '<h3> '.number_format($comandaAnuladaPos,0,",",".").'</h3>';
-                  ?>
+                  <?php
+                  echo '<h3> '.number_format($comandaAnuladaPos, 0, ',', '.').'</h3>';
+      ?>
                   <p>Cuentas Anuladas</p>
                 </div>
                 <div class="icon">
@@ -119,8 +123,8 @@
             </div>
           </div>
         </div>
-        <?php 
-      }
-    ?>
+        <?php
+  }
+  ?>
   </section>
-</div>
+</section>

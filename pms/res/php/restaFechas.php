@@ -4,6 +4,8 @@
   $sale  = $_POST['sale'];
  
   $dias = strtotime($sale) - strtotime($fecha);
-  echo ($dias/(24*60*60));
+  // echo ($dias/(24*60*60));
+  echo round($dias / (24 * 60 * 60), 0);
+
 
   ?>

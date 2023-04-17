@@ -10,4 +10,5 @@
 <link href="<?= BASE_CSS ?>_all-skins.css" rel="stylesheet" type="text/css">  
 <link rel="stylesheet" type="text/css" href="<?php echo BASE_CSS ?>sweetalert.css">
 <link rel="stylesheet" type="text/css" href="<?= BASE_CSS ?>style.css">  
+<link rel="stylesheet" type="text/css" href="<?= BASE_CSS ?>fuentes.css">  
  

@@ -59,17 +59,17 @@
     <label for="seccion" class="control-label col-lg-2 col-md-2">Subgrupo</label>
     <div class="col-lg-4 col-md-4">
       <select class="form-control" name="subgrupoUpd" id="subgrupoUpd" requierd>
-        <?php 
+        <?php
         foreach ($subgrupos as $subgrupo) { ?>
           <option value="<?=$subgrupo['id_subgrupo']?>"
-            <?php 
+            <?php
               if($subgrupo['id_subgrupo']==$infoProd[0]['id_subgrupo']){?>
                 selected
-                <?php 
+                <?php
               }
             ?>
             ><?=$subgrupo['descripcion_subgrupo']?></option>
-          <?php 
+          <?php
         }
         ?>
       </select>

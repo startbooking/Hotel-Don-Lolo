@@ -14,8 +14,8 @@
 
 ?>
 
-<div class="container-fluid"> 
-  <div class="row-fluid">         
+<div class="container-fluid">
+  <div class="row-fluid">
     <div class="col-lg-6 col-md-6">
       <h3 align="center" style="font-weight:700">Facturas del Dia</h3>
       <input type="hidden" name="facturaActiva" id="facturaActiva">
@@ -26,7 +26,7 @@
     <div class="col-lg-6 col-md-6">
         <h3 name="numeroFactura" id="numeroFactura" align="center" style="font-weight:700">Productos Factura </h3>
       <div class="col-lg-6 col-md-6 ">
-      </div>            
+      </div>
     </div>
   </div>
 </div>

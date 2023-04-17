@@ -22,7 +22,7 @@
                   <label class='control-label col-sm-3' >Centro de Costo</label>
                   <div class='col-sm-9'>
                     <select class="form-control" name="centroCostoReq" id="centroCostoReq" class="form-control" onblur='asignaLocalStorage(this.name, this.value)'>
-                      <option value="">CENTRO DE COSTOS</option>
+                      <option value=" ">Centro de Costo</option>
                       <?php 
                         $centros = $inven->getCentroCosto();
                         foreach ($centros as $centro) { ?> 
@@ -37,7 +37,7 @@
                   <label class="control-label col-sm-3">Almacen</label>
                   <div class='col-sm-9'>
                     <select class="form-control" name="almacenReq" id="almacenReq" onblur='asignaLocalStorage(this.name, this.value)'>
-                      <option value="">Seleccione el Almacen</option>
+                      <option value=" ">Seleccione el Almacen</option>
                       <?php 
                         $bodegas = $inven->getBodegas();
                         foreach ($bodegas as $bodega) { ?> 

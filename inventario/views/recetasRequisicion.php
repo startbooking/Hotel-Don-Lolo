@@ -1,13 +1,13 @@
-<?php 
-  $hoy = date('Y-m-d');
- ?>
+<?php
+$hoy = date('Y-m-d');
+?>
 
 <div class="content-wrapper"> 
   <section class="content">
     <form id="salidaMovimientos" class="form-horizontal" style="padding :0">
       <div class="panel panel-success">
         <div class="panel-heading">
-          <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_INV?>">                
+          <input type="hidden" name="rutaweb" id="rutaweb" value="<?php echo BASE_INV; ?>">                
           <input type="hidden" name="ubicacion" id="ubicacion" value="requisiciones">
           <input type="hidden" name="Movimiento" id="Movimiento" value="2">
           <input type="hidden" name="numeroMovimiento" id="numeroMovimiento">
@@ -16,21 +16,21 @@
         <div class="row-fluid" role="document">
           <div class="panel-body">
             <div class='row'>
-              <div class='col-md-6'>
+              <div class='col-md-6 col-xs-12'>
                 <h5 class="titulo">Datos de la Requisicion </h5>
                 <div class='row-fluid'>
                   <div class='form-group'>
                     <label class='control-label col-sm-3' >Centro de Costo</label>
                     <div class='col-sm-9'>
                       <select class="form-control" name="centroCostoRecReq" id="centroCostoRecReq" class="form-control" onblur='asignaLocalStorage(this.name, this.value)'>
-                        <option value="">CENTRO DE COSTO</option>
-                        <?php 
-                          $centros = $inven->getCentroCosto();
-                          foreach ($centros as $centro) { ?> 
-                            <option name="<?=$centro['id_centrocosto']?>" value="<?=$centro['id_centrocosto']?>"><?=$centro['descripcion_centro']?></option>
-                            <?php 
-                          }
-                        ?>
+                        <option value=" ">Centro de Costo</option>
+                        <?php
+                         $centros = $inven->getCentroCosto();
+foreach ($centros as $centro) { ?> 
+                            <option name="<?php echo $centro['id_centrocosto']; ?>" value="<?php echo $centro['id_centrocosto']; ?>"><?php echo $centro['descripcion_centro']; ?></option>
+                            <?php
+}
+?>
                       </select>                          
                     </div>
                   </div>
@@ -38,21 +38,21 @@
                     <label class="control-label col-sm-3">Almacen</label>
                     <div class='col-sm-9'>
                       <select class="form-control" name="almacenRecReq" id="almacenRecReq" onblur='asignaLocalStorage(this.name, this.value)'>
-                        <option value="">Seleccione el Almacen</option>
-                        <?php 
-                          $bodegas = $inven->getBodegas();
-                          foreach ($bodegas as $bodega) { ?> 
-                            <option name="<?=$bodega['id_bodega']?>" value="<?=$bodega['id_bodega']?>"><?=$bodega['descripcion_bodega']?></option>
-                            <?php 
-                          }
-                        ?>
+                        <option value=" ">Seleccione el Almacen</option>
+                        <?php
+  $bodegas = $inven->getBodegas();
+foreach ($bodegas as $bodega) { ?> 
+                            <option name="<?php echo $bodega['id_bodega']; ?>" value="<?php echo $bodega['id_bodega']; ?>"><?php echo $bodega['descripcion_bodega']; ?></option>
+                            <?php
+}
+?>
                       </select>
                     </div>
                   </div>                        
                   <div class='form-group'>
                     <label class='control-label col-sm-3'> Fecha</label>
                     <div class='col-sm-6'>
-                      <input type="date" style="line-height: 15px;" class="form-control" id="fechaRecReq" name="fechaRecReq" max="<?=$hoy?>" value="<?=$hoy?>" autocomplete="off" required onblur='asignaLocalStorage(this.name, this.value)'>
+                      <input type="date" style="line-height: 15px;" class="form-control" id="fechaRecReq" name="fechaRecReq" max="<?php echo $hoy; ?>" value="<?php echo $hoy; ?>" autocomplete="off" required onblur='asignaLocalStorage(this.name, this.value)'>
                     </div>
                   </div>
                 </div>
@@ -75,13 +75,13 @@
                     <div class="col-sm-9">
                       <select name="producto" id="producto" class="form-control" onblur='buscaRecetaReq(this.value)' required="">
                         <option value="">Receta Estandar</option>
-                        <?php 
-                          $productos = $inven->getRecetas(); 
-                          foreach ($productos as $producto) { ?> 
-                            <option value="<?=$producto['id_receta'];?>"><?=$producto['nombre_receta']?></option>
-                            <?php 
-                          }
-                        ?>
+                        <?php
+  $productos = $inven->getRecetas();
+foreach ($productos as $producto) { ?> 
+                            <option value="<?php echo $producto['id_receta']; ?>"><?php echo $producto['nombre_receta']; ?></option>
+                            <?php
+}
+?>
                       </select>                        
                     </div>
                   </div>
@@ -138,7 +138,7 @@
           </div>
           <div class="panel-footer">
             <div class="row">
-              <div class='col-lg-6'>
+              <div class='col-md-6 col-xs-12'>
                 <div class='input-group' >
                   <span class='input-group-addon bg-blue'> Total Movimiento:</span>
                   <input type="text" 
@@ -148,11 +148,11 @@
                     style="font-size:16px; text-align:right; font-weight: bold;" disabled>
                 </div>
               </div>
-              <div class='col-md-6'>
-                <div class="btn group pull-right">
-                  <button class='btn btn-warning' type='button' onclick='cancelaRecReq();' id='btn-cancela'><i class='fa fa-times'></i> Cancelar Requisicion</button>
-                  <button class='btn btn-primary' type='button' onclick='procesaRecReq();' id='btn-procesa' disabled><i class='fa fa-external-link'></i> Guardar Requisicion</button>
-                </div>
+              <div class='col-md-6 col-xs-12'>
+                <button class='btn btn-warning' type='button' onclick='cancelaRecReq();' id='btn-cancela'><i class='fa fa-times'></i> Cancelar Requisicion</button>
+                <button class='btn btn-primary' type='button' onclick='procesaRecReq();' id='btn-procesa' disabled><i class='fa fa-external-link'></i> Guardar Requisicion</button>
+                <!-- <div class="btn group pull-right">
+                </div> -->
               </div>
             </div>       
           </div>

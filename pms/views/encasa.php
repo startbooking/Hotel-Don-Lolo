@@ -21,7 +21,7 @@
             <button class="btn btn-info" onclick="exportTableToExcel('tablaReservas')"><i class="glyphicon glyphicon-th" aria-hidden="true"></i> Exportar</button> 
 
           </div>
-        </div>  
+        </div>
       </div>
       <div class="panel-body" id="paginaenCasa">
       </div>

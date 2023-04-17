@@ -1,106 +1,110 @@
-<?php 
-  require_once '../../../../res/fpdf/fpdf.php';
+<?php
 
-  $pdf = new FPDF();
-  $pdf->AddPage('L','letter');
-  $pdf->Image('../../../../img/'.$logo,10,10,15);
-  
-  $pdf->SetFont('Arial','B',13);
-  $pdf->Cell(260,7,utf8_decode(NAME_EMPRESA),0,1,'C');
-  $pdf->SetFont('Arial','',10);
-  $pdf->Cell(260,5,'NIT: '.NIT_EMPRESA,0,1,'C');
-  /*
-  $pdf->Cell(260,5,TIPOEMPRESA,0,1,'C');
-  $pdf->Cell(260,5,utf8_decode(ADRESS_EMPRESA),0,1,'C');
-  $pdf->Cell(260,5,utf8_decode(CIUDAD_EMPRESA).' '.PAIS_EMPRESA,0,1,'C');
-  $pdf->Cell(260,5,'Telefono '.TELEFONO_EMPRESA.' Movil '.CELULAR_EMPRESA,0,1,'C');
-  */
-  $pdf->SetFont('Arial','B',12);
-  $pdf->Cell(260,6,$nomamb,0,1,'C');
-  $pdf->Cell(260,5,'VENTAS ACUMULADAS POR GRUPOS DE VENTAS ',0,1,'C');
-  $pdf->SetFont('Arial','',11);
-  $pdf->Cell(260,4,'Fecha : '.$fecha,0,1,'C');
-  $pdf->Ln(4);
-  $pdf->SetFont('Arial','',9);
-  $pdf->Cell(50,5,'PRODUCTO ',0,0,'C');
-  $pdf->Cell(20,5,'CANT. ',0,0,'C');
-  $pdf->Cell(20,5,'IMPUESTO',0,0,'C');
-  $pdf->Cell(20,5,'VENTAS DIA',0,0,'C');
-  $pdf->Cell(20,5,'CANT MES',0,0,'C');
-  $pdf->Cell(25,5,'IMPUESTO',0,0,'C');
-  $pdf->Cell(25,5,'VENTAS MES',0,0,'C');
-  $pdf->Cell(20,5,utf8_decode('CANT AÑO'),0,0,'C');
-  $pdf->Cell(30,5,'IMPUESTO',0,0,'C');
-  $pdf->Cell(30,5,utf8_decode('VENTAS AÑO'),0,1,'C');
+require_once '../../res/fpdf/fpdf.php';
 
-  $codigos = $pos->traeGrupos($idamb);
+$pdf = new FPDF();
+$pdf->AddPage('L', 'letter');
+$pdf->Image('../../img/'.$logo, 10, 10, 15);
+$pdf->SetFont('Arial', 'B', 13);
+$pdf->Cell(260, 5, $nomamb, 0, 1, 'C');
+$pdf->SetFont('Arial', 'B', 12);
+$pdf->Cell(260, 5, 'VENTAS ACUMULADAS POR GRUPOS DE VENTAS ', 0, 1, 'C');
+$pdf->SetFont('Arial', '', 11);
+$pdf->Cell(260, 4, 'Fecha : '.$fecha, 0, 1, 'C');
+$pdf->Ln(4);
+$pdf->SetFont('Arial', '', 9);
+$pdf->Cell(60, 5, 'GRUPO ', 0, 0, 'C');
+$pdf->Cell(20, 5, 'CANT. ', 0, 0, 'C');
+$pdf->Cell(20, 5, 'IMPUESTO', 0, 0, 'C');
+$pdf->Cell(20, 5, 'VENTAS DIA', 0, 0, 'C');
+$pdf->Cell(20, 5, 'CANT MES', 0, 0, 'C');
+$pdf->Cell(25, 5, 'IMPUESTO', 0, 0, 'C');
+$pdf->Cell(25, 5, 'VENTAS MES', 0, 0, 'C');
+$pdf->Cell(20, 5, utf8_decode('CANT AÑO'), 0, 0, 'C');
+$pdf->Cell(25, 5, 'IMPUESTO', 0, 0, 'C');
+$pdf->Cell(25, 5, utf8_decode('VENTAS AÑO'), 0, 1, 'C');
 
-  $totingdia = 0;
-  $totimpdia = 0;
-  $totvendia = 0;
-  $totingmes = 0;
-  $totimpmes = 0;
-  $totvenmes = 0;
-  $totingani = 0;
-  $totimpani = 0;
-  $totvenani = 0;
+$codigos = $pos->getSeccionesPos();
 
-  foreach ($codigos as $codigo) { 
-    $pdf->Cell(50,6,utf8_decode(substr($codigo['nombre_seccion'],0,30)),0,0,'L');
-    $diavta     = $pos->getVentasDiaGrupos($fecha,$codigo['id_seccion'], $idamb);
-    $mesvtaact  = $pos->getVentasMesGrupos($anio, $mes, $codigo['id_seccion'], $idamb);
-    $aniovtahis = $pos->getVentasAnioGrupos($anio,$codigo['id_seccion'], $idamb);
+$totingdia = 0;
+$totimpdia = 0;
+$totvendia = 0;
+$totingmes = 0;
+$totimpmes = 0;
+$totvenmes = 0;
+$totingani = 0;
+$totimpani = 0;
+$totvenani = 0;
+$diavta = $pos->getVentasDiaGrupos($fecha, $idamb);
+$mesvta = $pos->getVentasMesGrupos($anio, $mes, $idamb);
+$aniovta = $pos->getVentasAnioGrupos($anio, $idamb);
 
-    if(count($diavta)==0){$can = 0 ;}else{$can = $diavta[0]['can']; }
-    if(count($diavta)==0){$impto = 0;}else{ $impto = $diavta[0]['impto']; }
-    if(count($diavta)==0){$venta = 0;}else{ $venta = $diavta[0]['total']-$diavta[0]['descu']; }
+foreach ($codigos as $codigo) {
+    $idgrupo = $codigo['id_seccion'];
 
-    if(count($mesvtaact)==0){$carmes=0;}else{$carmes= $mesvtaact[0]['canmes'];}
-    if(count($mesvtaact)==0){$impmes=0;}else{$impmes= $mesvtaact[0]['imptomes'];}
-    if(count($mesvtaact)==0){$venmes=0;}else{$venmes= $mesvtaact[0]['totalmes']-$mesvtaact[0]['descumes'];}
+    $nomdia = array_search($idgrupo, array_column($diavta, 'id_seccion'));
+    $nommes = array_search($idgrupo, array_column($mesvta, 'id_seccion'));
+    $nomanio = array_search($idgrupo, array_column($aniovta, 'id_seccion'));
 
-    if(count($aniovtahis)==0){$carani=0;}else{$carani= $aniovtahis[0]['cananio'];}
-    if(count($aniovtahis)==0){$impani=0;}else{$impani= $aniovtahis[0]['imptoanio'];}
-    if(count($aniovtahis)==0){$venani=0;}else{$venani= $aniovtahis[0]['totalanio']-$aniovtahis[0]['descuanio'] ;}
+    $pdf->Cell(60, 4, utf8_decode(substr($codigo['nombre_seccion'], 0, 30)), 0, 0, 'L');
 
-    $pdf->Cell(20,6,number_format($can,0),0,0,'R');
-    $pdf->Cell(20,6,number_format($impto,2),0,0,'R');
-    $pdf->Cell(20,6,number_format($venta,2),0,0,'R');
-    $pdf->Cell(20,6,number_format($carmes,0),0,0,'R');
-    $pdf->Cell(25,6,number_format($impmes,2),0,0,'R');
-    $pdf->Cell(25,6,number_format($venmes,2),0,0,'R');
-    $pdf->Cell(20,6,number_format($carani,0),0,0,'R');
-    $pdf->Cell(30,6,number_format($impani,2),0,0,'R');
-    $pdf->Cell(30,6,number_format($venani,2),0,1,'R');
+    if ($nomdia != '') {
+        $pdf->Cell(20, 4, number_format($diavta[$nomdia]['cant'], 0), 0, 0, 'R');
+        $pdf->Cell(20, 4, number_format($diavta[$nomdia]['imptos'], 2), 0, 0, 'R');
+        $pdf->Cell(20, 4, number_format($diavta[$nomdia]['ventas'], 2), 0, 0, 'R');
+        $totingdia = $totingdia + $diavta[$nomdia]['cant'];
+        $totimpdia = $totimpdia + $diavta[$nomdia]['imptos'];
+        $totvendia = $totvendia + $diavta[$nomdia]['ventas'];
+    } else {
+        $pdf->Cell(20, 4, number_format(0, 0), 0, 0, 'R');
+        $pdf->Cell(20, 4, number_format(0, 2), 0, 0, 'R');
+        $pdf->Cell(20, 4, number_format(0, 2), 0, 0, 'R');
+    }
+    if ($nommes != '') {
+        $pdf->Cell(20, 4, number_format($mesvta[$nommes]['cantmes'], 0), 0, 0, 'R');
+        $pdf->Cell(25, 4, number_format($mesvta[$nommes]['imptosmes'], 2), 0, 0, 'R');
+        $pdf->Cell(25, 4, number_format($mesvta[$nommes]['ventasmes'], 2), 0, 0, 'R');
+        $totingmes = $totingmes + $mesvta[$nommes]['cantmes'];
+        $totimpmes = $totimpmes + $mesvta[$nommes]['imptosmes'];
+        $totvenmes = $totvenmes + $mesvta[$nommes]['ventasmes'];
+    } else {
+        $pdf->Cell(20, 4, number_format(0, 0), 0, 0, 'R');
+        $pdf->Cell(25, 4, number_format(0, 2), 0, 0, 'R');
+        $pdf->Cell(25, 4, number_format(0, 2), 0, 0, 'R');
+    }
 
-    $totingdia = $totingdia + $can; 
-    $totimpdia = $totimpdia + $impto; 
-    $totvendia = $totvendia + $venta; 
-    $totingmes = $totingmes + $carmes;
-    $totimpmes = $totimpmes + $impmes;
-    $totvenmes = $totvenmes + $venmes; 
-    $totingani = $totingani + $carani; 
-    $totimpani = $totimpani + $impani;
-    $totvenani = $totvenani + $venani; 
-  }
+    if ($nomanio != '') {
+        $pdf->Cell(20, 4, number_format($aniovta[$nomanio]['cantanio'], 0), 0, 0, 'R');
+        $pdf->Cell(25, 4, number_format($aniovta[$nomanio]['imptosanio'], 2), 0, 0, 'R');
+        $pdf->Cell(25, 4, number_format($aniovta[$nomanio]['ventasanio'], 2), 0, 1, 'R');
+        $totingani = $totingani + $aniovta[$nomanio]['cantanio'];
+        $totimpani = $totimpani + $aniovta[$nomanio]['imptosanio'];
+        $totvenani = $totvenani + $aniovta[$nomanio]['ventasanio'];
+    } else {
+        $pdf->Cell(20, 4, number_format(0, 0), 0, 0, 'R');
+        $pdf->Cell(25, 4, number_format(0, 2), 0, 0, 'R');
+        $pdf->Cell(25, 4, number_format(0, 2), 0, 1, 'R');
+    }
 
-  $pdf->Ln(3);
-  $pdf->SetFont('Arial','b',10);
 
-  $pdf->Cell(50,6,utf8_decode(substr('TOTAL INGRESOS',0,30)),0,0,'L');
-  $pdf->Cell(20,6,number_format($totingdia,0),0,0,'R');
-  $pdf->Cell(20,6,number_format($totimpdia,2),0,0,'R');
-  $pdf->Cell(20,6,number_format($totvendia,2),0,0,'R');
-  $pdf->Cell(20,6,number_format($totingmes,0),0,0,'R');
-  $pdf->Cell(25,6,number_format($totimpmes,2),0,0,'R');
-  $pdf->Cell(25,6,number_format($totvenmes,2),0,0,'R');
-  $pdf->Cell(20,6,number_format($totingani,0),0,0,'R');
-  $pdf->Cell(30,6,number_format($totimpani,2),0,0,'R');
-  $pdf->Cell(30,6,number_format($totvenani,2),0,1,'R');
+}
 
-  $pdf->Ln(3);
-  $pdf->SetFont('Arial','',9);
+$pdf->Ln(3);
+$pdf->SetFont('Arial', 'b', 10);
 
-  $file = '../../../imprimir/auditorias/acumuladoDiarioGrupos_'.$pref.'_'.$fecha.'.pdf';
-  $pdf->Output($file,'F');
-?>
+$pdf->Cell(60, 6, utf8_decode(substr('TOTAL INGRESOS', 0, 30)), 0, 0, 'L');
+$pdf->Cell(20, 6, number_format($totingdia, 0), 0, 0, 'R');
+$pdf->Cell(20, 6, number_format($totimpdia, 2), 0, 0, 'R');
+$pdf->Cell(20, 6, number_format($totvendia, 2), 0, 0, 'R');
+$pdf->Cell(20, 6, number_format($totingmes, 0), 0, 0, 'R');
+$pdf->Cell(25, 6, number_format($totimpmes, 2), 0, 0, 'R');
+$pdf->Cell(25, 6, number_format($totvenmes, 2), 0, 0, 'R');
+$pdf->Cell(20, 6, number_format($totingani, 0), 0, 0, 'R');
+$pdf->Cell(25, 6, number_format($totimpani, 2), 0, 0, 'R');
+$pdf->Cell(25, 6, number_format($totvenani, 2), 0, 1, 'R');
+
+$pdf->Ln(3);
+$pdf->SetFont('Arial', '', 9);
+
+$file = '../imprimir/auditorias/acumuladoDiarioGrupos_'.$pref.'_'.$fecha.'.pdf';
+$pdf->Output($file, 'F');

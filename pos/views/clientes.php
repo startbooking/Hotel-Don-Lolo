@@ -1,20 +1,20 @@
-<?php 
-  require '../../res/php/titles.php';
-  require '../../res/php/app_topPos.php'; 
-	$clientes = $pos->getClientes();
+<?php
+require '../../res/php/titles.php';
+require '../../res/php/app_topPos.php';
+$clientes = $pos->getClientes();
 
 ?>
 
 <section class="content">
   <div class="panel panel-success">
     <div class="panel-heading"> 
-      <div class="row" style="display: flex">
-        <div class="col-lg-6">
-          <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_ADM?>">                  
+      <div class="row">
+        <div class="col-lg-6 col-xs-12">
+          <input type="hidden" name="rutaweb" id="rutaweb" value="<?php echo BASE_ADM; ?>">                  
           <input type="hidden" name="ubicacion" id="ubicacion" value="clientes()">
           <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-address-book-o"></i> Catalogo de Clientes </h3>
         </div>
-        <div class="col-lg-6 pull-rigth">
+        <div class="col-lg-6  col-xs-12 pull-rigth">
           <a 
             data-toggle="modal"  
             style="margin:10px 0;float: right;" 
@@ -45,41 +45,54 @@
 						<tbody>
 							<?php foreach ($clientes as $cliente) { ?>
 							 	<tr style='font-size:12px'>
-							    <td><?php echo $cliente["identificacion"];?></td>
-							    <td><?php echo $cliente["apellido1"].' '.$cliente["apellido2"].' '.$cliente["nombre1"].' '.$cliente["nombre2"];?></td>
-							    <td><?php echo $cliente["direccion"];?></td>
-							    <td><?php echo $cliente["celular"];?></td>
-							    <td><?php echo $cliente["email"];?></td>
+							    <td><?php echo $cliente['identificacion']; ?></td>
+							    <td><?php echo $cliente['apellido1'].' '.$cliente['apellido2'].' '.$cliente['nombre1'].' '.$cliente['nombre2']; ?></td>
+							    <td><?php echo $cliente['direccion']; ?></td>
+							    <td><?php echo $cliente['celular']; ?></td>
+							    <td><?php echo $cliente['email']; ?></td>
 							    <td align="center"> 
-							   		<button type="button" class="btn btn-success btn-xs" onclick="desactiva_usuario(<?php echo $cliente["id_cliente"];?>)">	
-							   			<?php echo estado_cliente($cliente["estado"]);?>
+							   		<button type="button" class="btn btn-success btn-xs" onclick="desactiva_usuario(<?php echo $cliente['id_cliente']; ?>)">	
+							   			<?php echo estado_cliente($cliente['estado']); ?>
 							   		</button>
-							   	</td>
+							   	</td> 
 							   	<td align='center'>
-							   		<div class="btn-group">										   			
-											<button type="button" class="btn btn-info btn-xs" 
+							   		<div class="btn-group">
+											<button 
+												type="button" class="btn btn-info btn-xs" 
 												data-toggle="modal" 
 												data-target="#dataUpdateCliente" 
-												data-id="<?php echo $cliente['id_cliente']?>" 
-												data-identificacion="<?php echo $cliente['identificacion']?>" 
-												data-cliente="<?php echo $cliente['apellido1'].' '.$cliente['apellido2'].' ' .$cliente['nombre1'].' '.$cliente['nombre2']?>" 
-												data-direccion="<?php echo $cliente['direccion']?>" 
-												data-telefono="<?php echo $cliente['telefono']?>" 
-												data-celular="<?php echo $cliente['celular']?>"
-												data-correo="<?php echo $cliente['email']?>"
+												data-id="<?php echo $cliente['id_cliente']; ?>" 
+												data-identificacion="<?php echo $cliente['identificacion']; ?>" 
+												data-cliente="<?php echo $cliente['apellido1'].' '.$cliente['apellido2'].' '.$cliente['nombre1'].' '.$cliente['nombre2']; ?>" 
+												data-direccion="<?php echo $cliente['direccion']; ?>" 
+												data-telefono="<?php echo $cliente['telefono']; ?>" 
+												data-celular="<?php echo $cliente['celular']; ?>"
+												data-correo="<?php echo $cliente['email']; ?>"
 												title="Modifica Datos del Cliente"
-												onclick="updateCliente(<?php echo $cliente['id_cliente']?>)"
+												onclick="updateCliente(<?php echo $cliente['id_cliente']; ?>)"
 												 >
 												<i class='glyphicon glyphicon-edit'></i>
 											</button>
 											<button type="button" class="btn btn-danger btn-xs" 
 												data-toggle="modal" 
 												data-target="#dataDeleteCliente" 
-												data-id="<?php echo $cliente['id_cliente']?>"  
-												data-cliente="<?php echo $cliente['apellido1'].' '.$cliente['apellido2'].' ' .$cliente['nombre1'].' '.$cliente['nombre2']?>" 
-												onclick='btnEliminaCliente("<?php echo $cliente['id_cliente']?>")'
+												data-id="<?php echo $cliente['id_cliente']; ?>"  
+												data-cliente="<?php echo $cliente['apellido1'].' '.$cliente['apellido2'].' '.$cliente['nombre1'].' '.$cliente['nombre2']; ?>" 
+												onclick='btnEliminaCliente("<?php echo $cliente['id_cliente']; ?>")'
 												>
 												<i class='glyphicon glyphicon-trash '></i> 
+											</button>
+											<button 
+												type="button" class="btn btn-success btn-xs" 
+												data-toggle="modal" 
+												data-target="#dataEstadoCartera" 
+												data-id="<?php echo $cliente['id_cliente']; ?>" 
+												data-identificacion="<?php echo $cliente['identificacion']; ?>" 
+												data-cliente="<?php echo $cliente['apellido1'].' '.$cliente['apellido2'].' '.$cliente['nombre1'].' '.$cliente['nombre2']; ?>" 
+												title="lista Facturas Pendientes "
+												onclick="muestraFacturasCliente(<?php echo $cliente['id_cliente']; ?>)"
+												 >
+												<i class='fa fa-briefcase'></i>
 											</button>
 							   		</div>	
 							   	</td>
@@ -92,8 +105,8 @@
     </div>
   </div>
 </section>
-<?php 
-	include("modal/modalClientes.php");
+<?php
+    include 'modal/modalClientes.php';
 ?>
 
 	

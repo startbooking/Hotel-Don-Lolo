@@ -30,6 +30,61 @@ function activaModulos() {
   });
 }
 
+/* Mesas */
+function guardaMesa() {
+  var pagina = $("#ubicacion").val();
+  var ruta = $("#rutaweb").val();
+  var impuestos = $("#guardarDatosMesa").serialize();
+  var parametros = impuestos;
+  $.ajax({
+    url: ruta + "res/php/guardaMesa.php",
+    type: "POST",
+    data: parametros,
+    success: function (objeto) {
+      $("#mensaje").html(
+        '<div style="padding:5px" class="alert alert-info"><h4" align="center">Impuesto Ingresado con Exito</h4></div>'
+      );
+      $(location).attr("href", ruta + pagina);
+    },
+  });
+}
+
+function updateMesa() {
+  var pagina = $("#ubicacion").val();
+  var ruta = $("#rutaweb").val();
+  var mesa = $("#updateDatosMesa").serialize();
+  var parametros = mesa;
+  $.ajax({
+    url: ruta + "res/php/updateMesa.php",
+    type: "POST",
+    data: parametros,
+    success: function (objeto) {
+      $("#mensaje").html(
+        '<div style="padding:5px" class="alert alert-info"><h4" align="center">Impuesto Ingresado con Exito</h4></div>'
+      );
+      $(location).attr("href", ruta + pagina);
+    },
+  });
+}
+
+function deleteMesa() {
+  var pagina = $("#ubicacion").val();
+  var ruta = $("#rutaweb").val();
+  var mesa = $("#deleteDatosMesa").serialize();
+  var parametros = mesa;
+  $.ajax({
+    url: ruta + "res/php/eliminaMesa.php",
+    type: "POST",
+    data: parametros,
+    success: function (objeto) {
+      $("#mensaje").html(
+        '<div style="padding:5px" class="alert alert-info"><h4" align="center">Impuesto Ingresado con Exito</h4></div>'
+      );
+      $(location).attr("href", ruta + pagina);
+    },
+  });
+}
+
 /* Impuestos */
 function actualizaImpuestos() {
   var pagina = $("#ubicacion").val();
@@ -505,16 +560,17 @@ function actualizaTipoMovi() {
 function guardaUnidad() {
   var pagina = $("#ubicacion").val();
   var ruta = $("#rutaweb").val();
-  var nombre = $("#nombreAdi").val();
+  var unidad = $("#nombreAdi").val();
 
   parametros = {
-    unidad: nombre,
+    unidad,
   };
   $.ajax({
     url: ruta + "res/php/guardaUnidad.php",
     type: "POST",
     data: parametros,
     success: function (objeto) {
+      console.log(objeto);
       $("#mensaje").html(`
 					<div style="padding:5px" class="alert alert-success">
 						<h4 align="center">Unidad de Medida Ingresada con Exito</h4>
@@ -831,6 +887,8 @@ function traeGrupoInventarios(id, tipo) {
 
 /* MODULO POS */
 
+function validaMonto(valor, campo) {}
+
 function cambiaEstadoAmbiente(ambiente, estado) {
   var pagina = $("#ubicacion").val();
   var ruta = $("#rutaweb").val();
@@ -842,7 +900,6 @@ function cambiaEstadoAmbiente(ambiente, estado) {
       estado: estado,
     },
     success: function (objeto) {
-      /// $("#mensaje").html('<div style="padding:5px" class="alert alert-info"><h4" align="center">Forma de Pago Ingresado con Exito</h4></div>');
       $(location).attr("href", ruta + pagina);
     },
   });
@@ -852,12 +909,6 @@ function guardaFormaPagoPos() {
   var pagina = $("#ubicacion").val();
   var ruta = $("#rutaweb").val();
   var formaspago = $("#guardarDatosFormaPagoPos").serializeArray();
-  if ($("#pmsAdi").is(":checked")) {
-    pms = 1;
-  } else {
-    pms = 0;
-  }
-  formaspago.push({ name: "pms", value: pms });
   var parametros = formaspago;
   $.ajax({
     url: ruta + "res/php/guardaFormaPagoPos.php",
@@ -877,12 +928,6 @@ function actualizaFormaPagoPos() {
   var ruta = $("#rutaweb").val();
   var formaspago = $("#actualizaDatosFormaPagoPos").serializeArray();
   var parametros = formaspago;
-  if ($("#pmsMod").is(":checked")) {
-    pms = 1;
-  } else {
-    pms = 0;
-  }
-  formaspago.push({ name: "pms", value: pms });
 
   $.ajax({
     url: ruta + "res/php/actualizaFormaPagoPos.php",
@@ -987,18 +1032,28 @@ function guardaDescuento() {
   var pagina = $("#ubicacion").val();
   var ruta = $("#rutaweb").val();
   var descu = $("#guardarDatosDescuento").serialize();
-  var parametros = descu;
-  $.ajax({
-    url: ruta + "res/php/guardaDescuento.php",
-    type: "POST",
-    data: parametros,
-    success: function (objeto) {
-      $("#mensajeAdi").html(
-        '<div style="padding:5px" class="alert alert-info"><h4 align="center">Descuento Ingresado con Exito</h4></div>'
-      );
-      $(location).attr("href", ruta + pagina);
-    },
-  });
+  var porce = $("#porcentajeAdi").val();
+  var monto = $("#montoAdi").val();
+  if (porce == 0 && monto == 0) {
+    swal("Precaucion", "Descuento en cero no permitidos", "warning");
+  } else {
+    if (porce != 0 && monto != 0) {
+      swal("Precaucion", "Descuento no Permitido", "warning");
+    } else {
+      var parametros = descu;
+      $.ajax({
+        url: ruta + "res/php/guardaDescuento.php",
+        type: "POST",
+        data: parametros,
+        success: function (objeto) {
+          $("#mensajeAdi").html(
+            '<div style="padding:5px" class="alert alert-info"><h4 align="center">Descuento Ingresado con Exito</h4></div>'
+          );
+          $(location).attr("href", ruta + pagina);
+        },
+      });
+    }
+  }
 }
 
 function eliminaDescuento() {
@@ -1023,18 +1078,31 @@ function actualizaDescuento() {
   var pagina = $("#ubicacion").val();
   var ruta = $("#rutaweb").val();
   var descu = $("#actualizaDatosDescuento").serialize();
-  var parametros = descu;
-  $.ajax({
-    url: ruta + "res/php/actualizaDescuento.php",
-    type: "POST",
-    data: parametros,
-    success: function (objeto) {
-      $("#mensajeMod").html(
-        '<div style="padding:5px" class="alert alert-info"><h4 align="center">Descuento Actualizado con Exito</h4></div>'
-      );
-      $(location).attr("href", ruta + pagina);
-    },
-  });
+  var porce = $("#porcentajeMod").val();
+  var monto = $("#montoMod").val();
+  if (porce == 0 && monto == 0) {
+    swal("Precaucion", "Descuento en cero no permitidos", "warning");
+  } else {
+    if (porce != 0 && monto != 0) {
+      $("#porcentajeAdi").val(0);
+      $("#montoAdi").val(0);
+      $("#porcentajeAdi").focus();
+      swal("Precaucion", "Descuento no Permitido", "warning");
+    } else {
+      var parametros = descu;
+      $.ajax({
+        url: ruta + "res/php/actualizaDescuento.php",
+        type: "POST",
+        data: parametros,
+        success: function (objeto) {
+          $("#mensajeMod").html(
+            '<div style="padding:5px" class="alert alert-info"><h4 align="center">Descuento Actualizado con Exito</h4></div>'
+          );
+          $(location).attr("href", ruta + pagina);
+        },
+      });
+    }
+  }
 }
 
 /* Ambientes */
