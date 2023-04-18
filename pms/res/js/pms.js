@@ -1160,6 +1160,16 @@ $(document).ready(function () {
     $("#txtIdCiaSal").val(0);
     $("#txtIdCentroCiaSal").val(0);
 
+    if (idcia == 0) {
+      $("#inlineRadio1").checked;
+      $("#selecentro").css("display", "none");
+      $("#selecomp").css("display", "none");
+    } else {
+      $("#inlineRadio2").checked;
+      $("#selecentro").css("display", "block");
+      $("#selecomp").css("display", "block");
+    }
+
     var parametros = {
       turismo,
       folio,
@@ -1217,9 +1227,9 @@ $(document).ready(function () {
         modal.find(".modal-body #txtImptoTuriSal").val(turismo);
         modal.find(".modal-body #txtNumeroHabSal").val(nrohab);
         modal
-          .find(".modal-body #txtApellidosSal")
-          .val(apellido1 + " " + apellido2);
-        modal.find(".modal-body #txtNombresSal").val(nombre1 + " " + nombre2);
+          .find(".modal-body #txtHuespedSal")
+          .val(`${apellido1} ${apellido2} ${nombre1} ${nombre2}`);
+        // modal.find(".modal-body #txtNombresSal").val(nombre1 + " " + nombre2);
 
         if (idcia == 0) {
           $("#inlineRadio1").prop("disabled", "disabled");
@@ -1520,18 +1530,21 @@ $(document).ready(function () {
 
   $("#myModalAsignarCompania").on("show.bs.modal", function (event) {
     var button = $(event.relatedTarget);
+    var id = button.data("id");
     var idres = button.data("idres");
     var idcia = button.data("idcia");
     var nombre = button.data("nombre");
 
     var modal = $(this);
     modal.find(".modal-title").text("Asignar Compañia A: " + nombre);
+    $("#idHuespCia").val(id);
     $.ajax({
       url: "res/php/asiganCia.php",
       type: "POST",
       data: {
-        idcia: idcia,
-        idres: idres,
+        idcia,
+        id,
+        idres,
       },
       success: function (data) {
         $("#companias").html(data);
@@ -1546,7 +1559,7 @@ $(document).ready(function () {
     var id = button.data("id");
     var nombre = button.data("nombre");
     var parametros = {
-      id: id,
+      id,
     };
     var modal = $(this);
 
@@ -4145,11 +4158,9 @@ function actualizaCiaHuesped() {
   var pagina = $("#ubicacion").val();
   var idhues = $("#idHuespCia").val();
   var idcia = $("#companiaSele").val();
-  /// var idCentro = $("#centroCia").val();
   var parametros = {
-    idcia: idcia,
-    /// 'idCentro':idCentro,
-    idhues: idhues,
+    idcia,
+    idhues,
   };
   $.ajax({
     url: "res/php/updateCiaHuesped.php",
@@ -4336,7 +4347,8 @@ function salidaHuesped() {
     var refer = $("#txtReferenciaPag").val();
     var folio = $("#folioActivo").val();
     var idcia = $("#txtIdCiaSal").val();
-    var idcentro = $("#txtIdCentroCiaSal").val();
+    // var idcentro = $("#txtIdCentroCiaSal").val();
+    var idcentro = 0;
 
     var parametros = {
       codigo,

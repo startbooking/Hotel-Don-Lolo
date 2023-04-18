@@ -1,6248 +1,6948 @@
-<?php 
-	require 'init.php';
-  date_default_timezone_set("America/Bogota");
-   
-	class Hotel_Actions{
+<?php
 
-		public function getProductosAmenities($tipo){
-			global $database;
+require 'init.php';
+date_default_timezone_set('America/Bogota');
 
-			$data = $database->select('productos_amenities',[
-				'tipo_habitaciones' => ['id' => 'id_tipohabitacion']
-			],[
-				'tipo_habitaciones.descripcion_habitacion',
-				'productos_amenities.id_producto',
-				'productos_amenities.cantidad',
-			],[
-				'id_tipohabitacion' => $tipoget
-			]);
-			return $data;
-		}
+class Hotel_Actions
+{
+    public function getProductosAmenities($tipo)
+    {
+        global $database;
 
-		public function getTipoHabitacionesOcupadas(){
-			global $database;
+        $data = $database->select('productos_amenities', [
+            'tipo_habitaciones' => ['id' => 'id_tipohabitacion'],
+        ], [
+            'tipo_habitaciones.descripcion_habitacion',
+            'productos_amenities.id_producto',
+            'productos_amenities.cantidad',
+        ], [
+            'id_tipohabitacion' => $tipoget,
+        ]);
 
-			$data = $database->query("SELECT Count(reservas_pms.num_reserva) AS canHabi, reservas_pms.tipo_habitacion FROM reservas_pms WHERE reservas_pms.estado = 'CA' AND 
+        return $data;
+    }
+
+    public function getTipoHabitacionesOcupadas()
+    {
+        global $database;
+
+        $data = $database->query("SELECT Count(reservas_pms.num_reserva) AS canHabi, reservas_pms.tipo_habitacion FROM reservas_pms WHERE reservas_pms.estado = 'CA' AND 
 			reservas_pms.tipo_habitacion <> 1 GROUP BY reservas_pms.tipo_habitacion")->fetchAll();
-			return $data;
-
-		}
-
-		public function getInventarioHotel(){
-			global $database;
-
-			$data = $database->select('parametros_pms',[
-				'inventario_amenities',
-				'bodega_inventario',
-				'tipo_movimiento'
-			]);
-			return $data;
-		}
-
-		public function creaHuespedDirecto($idhues, $apellido1, $apellido2, $nombre1, $nombre2, $usuario, $idusuario){
-			global $database;
-
-			$data = $database->insert('huespedes',[
-				'identificacion'  => $idhues,
-				'apellido1'       => $apellido1,
-				'apellido2'       => $apellido2,
-				'nombre1'         => $nombre1,
-				'nombre2'         => $nombre2, 
-				'nombre_completo' => $apellido1.' '.$apellido2.' '.$nombre1.' '.$nombre2,
-				'fecha_creacion'  => date('Y-m-d H:i:s'),
-				'usuario_creador' => $usuario,
-				'id_usuario'      => $idusuario
-
-			]);
-			return $database->id();
-		}
-
-		public function traeCuentasMaestras(){
-			global $database;
-
-			$data = $database->select('habitaciones',[
-				'[>]tipo_habitaciones'   => ['id_tipohabitacion' => 'id']
-			],[
-				'habitaciones.numero_hab',
-				'tipo_habitaciones.descripcion_habitacion'
-			],[
-				'tipo_habitaciones.id' => 1,
-				'ORDER BY' => ['habitaciones.numero_hab' => 'ASC']
-			]);
-			return $data;
-		}
-
-		public function getbuscaIden($iden){
-			global $database;
-
-			$data = $database->select('huespedes',[
-				'apellido1',
-				'apellido2',
-				'nombre1',
-				'nombre2',
-				'id_huesped'
-			],[
-				'identificacion' => $iden
- 			]);
-			return $data;
-		}
-
-		public function bloqueaCia($cia, $estado){
-			global $database;
-
-			$data = $database->update('companias',[
-
-				'activo' => $estado
-			],[
-				'id_compania' => $cia
-			]);
-			return $data->rowCount();
-		}
-
-
-
-		public function getlistadoCumpleanios($query){
-			global $database; 
-
-			$data = $database->query($query)->fetchAll();
-			return $data;
-
-		}
-
-		public function getTraeCentroCia($id){
-			global $database;
-
-			$data = $database->select('centrosCias',[
-				'descripcion_centro'
-			],[
-				'id_centro' => $id
-			]);
-			return $data;
-		}
-
-		public function getCompaniaFactura($id){
-			global $database;
-
-			$data = $database->select('companias',[
-				'id_compania',
-				'empresa',
-				'direccion',
-				'nit',
-				'dv',
-				'tipo_documento',
-				'telefono',
-				'celular',
-				'fax',
-				'email',
-				'id_tarifa',
-				'estado_credito',
-				'activo'
-			],[
-				'id_compania'=> $id
-			]);
-			return $data;
-		}
-
-		public function eliminaCentrosCia($idCentro){
-			global $database;
-
-			$data = $database->delete('centrosCias',[
-				'id_centro'        => $idCentro
-			]);
-			return $data->rowCount();
-		}
-
-		public function updateCentrosCia($nombre, $responsable, $idCentro){
-			global $database;
-
-			$data = $database->update('centrosCias',[
-				'descripcion_centro' => $nombre,
-				'responsable'        => $responsable
-			],[
-				'id_centro'        => $idCentro
-			]);
-			return $data->rowCount();
-		}
-
-		public function insertaCentrosCia($nombre, $responsable, $idCia){
-			global $database;
-
-			$data = $database->insert('centrosCias',[
-				'descripcion_centro' => $nombre,
-				'responsable'        => $responsable,
-				'id_compania'        => $idCia
-			]);
-			return $database->id();
-		}
-
-		public function getTraecentros($id){
-			global $database;
-
-			$data = $database->select('centrosCias',[
-				'id_centro',
-				'descripcion_centro',
-				'responsable',
-				'id_compania'
-			],[
-				'id_compania' => $id,
-				'ORDER'       => ['descripcion_centro'=> 'ASC']
-			]);
-			return $data;
-		}
-
-		public function getCentros(){
-			global $database;
-
-			$data = $database->select('centrosCias',[
-				'id_centro',
-				'descripcion_centro',
-				'responsable',
-				'id_compania'
-			],[
-				'ORDER'       => ['id_centro'=> 'ASC']
-			]);
-			return $data;
-		}
-
-		public function valorAnticipos($factura){
-			global $database;
-
-			$data = $database->query("SELECT cargos_pms.fecha_cargo, cargos_pms.descripcion_cargo, count(cargos_pms.id_codigo_cargo) AS cant, Sum(cargos_pms.monto_cargo) AS cargos, Sum(cargos_pms.impuesto) as imptos, Sum(cargos_pms.pagos_cargos) AS pagos, cargos_pms.factura_numero, codigos_vta.formaPagoDian, codigos_vta.medioPagoDian, cargos_pms.fecha_factura FROM cargos_pms, codigos_vta WHERE (cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND cargos_pms.factura_numero = '$factura' AND  cargos_pms.concecutivo_abono != 0) OR (cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND cargos_pms.factura_numero = '$factura' AND cargos_pms.concecutivo_deposito != 0) GROUP BY cargos_pms.id_codigo_cargo, cargos_pms.fecha_cargo ORDER BY cargos_pms.numero_reserva, cargos_pms.id_codigo_cargo")->fetchAll();
-			return $data ;
-		}
-
-		public function getBuscaCreditoCia($idCia){
-			global $database;
-
-			$data = $database->select('companias',[
-				'credito',
-				'monto_credito',
-				'dia_corte_credito',
-				'dias_credito',
-				'cupo_disponible'
-			],[
-				'id_compania' => $idCia
-			]);
-			return $data;
-		}
-
-		public function getGrupos(){
-			global $database;
-
-			$data = $database->select('grupos_pms',[
-				'idGrupo',
-				'idCompania',
-				'idAgencia',
-				'nombreGrupo',
-				'fechaLlegada',
-				'fechaSalida',
-				'dias',
-				'idTarifa',
-				'cuentaMaestra',
-				'formaPago',
-				'totalHuespedes',
-				'totalHabitaciones',
-				'estado'
-			]);
-			return $data;
-		}
-
-		public function getContratoHotelero(){
-			global $database;
-
-			$data = $database->select('parametros_pms',[
-				'contrato_hotelero'
-			]);
-			return $data[0]['contrato_hotelero'];
-		}
-
-		public function buscaAcompanantes($reserva){
-			global $database;
-
-			$data = $database->select('acompanantes',[
-				'[<]huespedes' => ['id_huesped']
-			],[
-				'nombre_completo'
-			],[
-				'id_reserva' => $reserva
-			]);
-			return $data; 
-		}
-
-		public function gerBuscaCia($id){
-			global $database;
-
-			$data = $database->select('companias',[
-				'id_compania',
-				'empresa',
-				'nit',
-				'dv'
-			],[
-				'id_compania' => $id
-			]);
-			return $data;
-		}
-
-		public function getBuscaPerfilCompania($regis,$filas,$codigo){
-			global $database;
-
-			$data = $database->query("SELECT descripcion_tarifa, id_compania, empresa, direccion, nit, dv, tipo_documento, telefono, celular, fax, email, companias.id_tarifa, estado_credito, activo  FROM companias, tarifas WHERE (companias.id_tarifa = tarifas.id_tarifa AND empresa LIKE '%$codigo%') OR (companias.id_tarifa = tarifas.id_tarifa AND nit LIKE '%$codigo%') ORDER BY empresa ASC LIMIT $regis, $filas")->fetchAll();
-			
-			return $data;
-		}
-
-		public function getPerfilCompanias($regis, $filas){
-			global $database;
-
-			$data = $database->select('companias',[
-				'[>]tarifas' => ['id_tarifa']
-			],[
-				'descripcion_tarifa',
-				'id_compania',
-				'empresa',
-				'direccion',
-				'nit',
-				'dv',
-				'tipo_documento',
-				'telefono',
-				'celular',
-				'fax',
-				'email',
-				'id_tarifa',
-				'estado_credito',
-				'activo'
-			],[
-				"LIMIT" => [$regis, $filas],
-				'ORDER' => 'empresa'
-			]);
-			return $data;
-		}
-
-		public function getCantidadCompanias(){
-			global $database;
-
-			$data = $database->count('companias');
-			return $data;
-		}
-
-		public function getBuscaPerfilHuesped($regis,$filas,$codigo){
-			global $database;
-
-			$data = $database->query("SELECT id_huesped, nombre1, nombre2, apellido1, apellido2, nombre_completo, identificacion, direccion, telefono, email, tipo_identifica, tipo_huesped, fecha_nacimiento, sexo, celular, id_compania, idCentroCia, estado_credito  FROM huespedes WHERE nombre_completo LIKE '%$codigo%' OR identificacion LIKE '%$codigo%' ORDER BY apellido1 ASC LIMIT $regis, $filas")->fetchAll();
-			
-			return $data;
-		}
-
-		public function getCantidadPerfiles(){
-			global $database;
-
-			$data = $database->count('huespedes');
-			return $data;
-		}
-
-		public function getDiaFuenteReserva($fecha,$cod){			
-			global $database;
-
-			$data = $database->query("SELECT count(reservas_pms.id) as nro, sum(reservas_pms.can_hombres) as hom, sum(reservas_pms.can_mujeres) as muj, sum(reservas_pms.can_ninos) as nin, reservas_pms.fuente_reserva, sum(reservas_pms.valor_reserva) as val, grupos_cajas.descripcion_grupo FROM reservas_pms, grupos_cajas WHERE reservas_pms.fuente_reserva = grupos_cajas.id_grupo AND reservas_pms.salida_checkout = '$fecha' AND grupos_cajas.id_grupo = $cod AND reservas_pms.tipo_habitacion <> 'CMA' GROUP BY grupos_cajas.descripcion_grupo ORDER BY grupos_cajas.descripcion_grupo")->fetchAll();
-			return $data;
-		}
-
-		public function getMesFuenteReserva($fecha, $mes, $anio, $cod){			
-			global $database;
-
-			$data = $database->query("SELECT count(historico_reservas_pms.id) as nro, sum(historico_reservas_pms.can_hombres) as hom, sum(historico_reservas_pms.can_mujeres) as muj, sum(historico_reservas_pms.can_ninos) as nin, historico_reservas_pms.fuente_reserva, sum(historico_reservas_pms.valor_reserva) as val, grupos_cajas.descripcion_grupo FROM historico_reservas_pms, grupos_cajas WHERE historico_reservas_pms.fuente_reserva = grupos_cajas.id_grupo AND year(historico_reservas_pms.salida_checkout) = '$anio' AND month(historico_reservas_pms.salida_checkout) = '$mes' AND historico_reservas_pms.salida_checkout <= '$fecha' AND grupos_cajas.id_grupo = $cod AND historico_reservas_pms.tipo_habitacion <> 'CMA' GROUP BY grupos_cajas.descripcion_grupo ORDER BY grupos_cajas.descripcion_grupo")->fetchAll();
-			return $data;
-		}
-
-		public function getAniFuenteReserva($fecha, $anio, $cod){			
-			global $database;
-
-			$data = $database->query("SELECT count(historico_reservas_pms.id) as nro, sum(historico_reservas_pms.can_hombres) as hom, sum(historico_reservas_pms.can_mujeres) as muj, sum(historico_reservas_pms.can_ninos) as nin, historico_reservas_pms.fuente_reserva, sum(historico_reservas_pms.valor_reserva) as val, grupos_cajas.descripcion_grupo FROM historico_reservas_pms, grupos_cajas WHERE historico_reservas_pms.fuente_reserva = grupos_cajas.id_grupo AND year(historico_reservas_pms.salida_checkout) = '$anio' AND historico_reservas_pms.salida_checkout <= '$fecha' AND grupos_cajas.id_grupo = $cod AND historico_reservas_pms.tipo_habitacion <> 'CMA' GROUP BY grupos_cajas.descripcion_grupo ORDER BY grupos_cajas.descripcion_grupo")->fetchAll();
-			return $data;
-		}
-
-		public function getTraeHistoricoReservas($sele){
-			global $database;
-
-			$data = $database->query($sele)->fetchAll();
-			return $data;	
-		}
-
-		public function getActiveUser($user){ 
-			global $database;
-
-			$data = $database->select('usuarios',[
-				'usuario_id',
-				'correo',
-				'nombres',
-				'apellidos',
-				'usuario',
-				'estado',
-				'foto_usuario',
-				'usuario',
-				'tipo',
-				'empresa_id',
-				'estado_usuario_pms',
-				'estado_usuario_pos'
-			],[
-				'usuario'     => $user
-			]);
-			return $data;
-		}
-
-		public function buscaDocumentoDeposito($num){
-			global $database;
-
-			$data = $database->select('imagenes',[
-				'id_perfil',
-				'nombre_imagen'
-			],[
-				'id_perfil' => $num,
-				'modulo'    => 3
-			]);
-			if(count($data)==0){
-				return '';
-			}else{
-				return $data[0]['nombre_imagen'];
-			}
-		}
-
-		public function muestraImagenes($modulo,$id){
-			global $database;
-
-			$data = $database->select('imagenes',[
-				'nombre_imagen'
-			],[
-				'modulo'    => $modulo,
-				'id_perfil' => $id
- 			]);
-			return $data;
-		}
-
-		public function insertImagenPerfil($modulo,$id,$file_name,$aux, $idusuario){
-			global $database;
-
-			$data = $database->insert('imagenes',[
-				'modulo'        => $modulo,
-				'id_perfil'     => $id,
-				'id_auxiliar'   => $aux,
-				'nombre_imagen' => $file_name,
-				'id_usuario'    => $idusuario,
-				'fecha'         => date('y-m-d H:i:s')
-			]);
-			return $database->id();
-		}
-
-		public function getNombreCiudad($id){
-			global $database;
-
-			$data = $database->select('ciudades',[
-				'municipio',
-				'depto'
-			],[
-				'id_ciudad' => $id
-			]); 
-
-			if(count($data)==0){
-				return '';
-			}else{
-				return $data[0]['municipio'].' '.$data[0]['depto'];
-			}
-		}
-
-		public function getNombreTipoHabitacion2($tipo){
-			global $database;
-
-			$data = $database->select('tipo_habitaciones',[
-				'descripcion_habitacion'
-			],[
-				'id' => $tipo
-			]);
-			return $data[0]['descripcion_habitacion'];						
-		}
-
-		public function descripcionGrupo($id){
-			global $database;
-
-			$data = $database->select('grupos_cajas',[
-				'descripcion_grupo'
-			],[
-				'id_grupo' => $id
-			]);
-			return $data[0]['descripcion_grupo'];
-		}
-
-		public function terminaMantenimiento($id,$costo, $idusuario){
-			global $database;
-
-			$data = $database->update('mantenimiento_habitaciones',[
-				'estado_mmto'        => 2,
-				'fecha_termina_mmto' => date('Y-m-d H:i:s'),
-				'id_usuario_mmto'    => $idusuario,
-				'valor_mmto'         => $costo
-			],[
-				'id_mmto' => $id
-			]);
-			return $data->rowCount();
-		}
-
-		public function adicionaObservacionesMmto($id,$observacion){
-			global $database;
-
-			$data = $database->update('mantenimiento_habitaciones',[
-				'observaciones' => $observacion
-			],[
-				'id_mmto' => $id
-			]);
-			return $data->rowCount();
-		}
-
-		public function getInformacionMantenimiento($id){
-			global $database;
-
-			$data = $database->select('mantenimiento_habitaciones',[
-				'[>]grupos_cajas' => ['id_mantenimiento' => 'id_grupo']
-			],[
-				'grupos_cajas.descripcion_grupo',
-				'id_mmto', 
-				'id_habitacion',
-				'id_mantenimiento',
-				'tipo_bloqueo', 
-				'desde_fecha',
-				'hasta_fecha',
-				'observaciones',
-				'id_usuario',
-				'created_at',
-				'estado_mmto',
-				'retirar_inventario',
-				'presupuesto',
-				'fecha_termina_mmto',
-				'id_usuario_mmto',
-				'tipo_mmto',
-				'con_mantenimiento',
-				'fecha_mmto',
-				'valor_mmto' 
-			],[
-				'con_mantenimiento' => $id
-			]);
-			return $data;
-		}
-
-		public function updateNumeroMantenimiento($numero){
-			global $database;
-
-			$data = $database->update('parametros_pms',[
-				'con_mantenimiento' => $numero
-			]);
-			return $data->rowCount();
-		}
-
-		public function getNumeroMantenimiento(){
-			global $database;
-
-			$data =$database->select('parametros_pms',[
-				'con_mantenimiento'
-			]);
-			return $data[0]['con_mantenimiento'];
-		}
-
-		public function buscaReservaHab($habi, $desde, $hasta){
-			global $database;
-
-			$data = $database->query("SELECT num_reserva, fecha_llegada, fecha_salida, estado, num_habitacion, id_huesped FROM reservas_pms WHERE (fecha_llegada BETWEEN '$desde' AND '$hasta') AND estado = 'ES' AND num_habitacion = '$habi'OR (fecha_salida BETWEEN '$desde' AND '$hasta') AND estado = 'ES' AND num_habitacion = '$habi' ORDER BY fecha_llegada")->fetchAll();
-
-			return $data;
-		}
-
-	  public function actualizaMmtoHabitacion($room, $estadoHab){
-	    global $database;
-
-	    $data = $database->update('habitaciones',[
-	      'estado_fo' => $estadoHab,
-	      'estado_hk' => $estadoHab,
-	      'estado'    => 2
-	    ],[
-	      'id' => $room
-	    ]);
-	    return $data->rowCount();
-	  }
-		
-		public function adicionaMantenimiento($room, $desde, $hasta, $motivo, $inventario, $estadoHab, $observa, $presup, $numero, $tipo, $usuario){
-			global $database;
-
-			$data = $database->insert('mantenimiento_habitaciones',[
-				'id_habitacion'      => $room,
-				'id_mantenimiento'   => $motivo,
-				'tipo_bloqueo'       => $inventario,
-				'desde_fecha'        => $desde,
-				'hasta_fecha'        => $hasta,
-				'observaciones'      => $observa,
-				'id_usuario'         => $usuario,
-				'fecha_mmto'         => date('Y-m-d H:i:s'),
-				'created_at'         => date('Y-m-d H:i:s'),
-				'estado_mmto'        => 1,
-				'retirar_inventario' => $inventario,
-				'presupuesto'        => $presup, 
-				'tipo_mmto'          => $tipo, 
-				'con_mantenimiento'  => $numero
-			]);
-
-			return $database->id();
-		}
-
-		public function getHabitacionesMmto($ctamaster){
-			global $database;
-
-			$data = $database->query("SELECT habitaciones.id, habitaciones.numero_hab, habitaciones.tipo_hab, habitaciones.pax, habitaciones.camas, habitaciones.estado_fo, habitaciones.estado_hk, tipo_habitaciones.descripcion_habitacion FROM  habitaciones, tipo_habitaciones WHERE habitaciones.id_tipohabitacion = tipo_habitaciones.id AND tipo_habitaciones.tipo_habitacion = 1 AND habitaciones.active_at = 1 AND habitaciones.estado = 1 AND substr(habitaciones.estado_fo,1,1) <> 'F'  ORDER BY  habitaciones.numero_hab")->fetchAll();
-			return $data;
-		}
-
-		public function habitacionesMantenimiento(){
-			global $database;
-
-			$data = $database->select('mantenimiento_habitaciones',[
-				'[>]grupos_cajas'   => ['id_mantenimiento'=> 'id_grupo']
-			],[
-				'grupos_cajas.descripcion_grupo',
-				'id_mmto',
-				'id_habitacion',
-				'id_mantenimiento',
-				'tipo_bloqueo',
-				'desde_fecha',
-				'hasta_fecha',
-				'observaciones',
-				'id_usuario',
-				'estado_mmto',
-				'retirar_inventario',
-				'con_mantenimiento',
-				'tipo_mmto',
-				'presupuesto',
-				'valor_mmto',
-				'created_at'
-			],[
-				'estado_mmto' => 1
-			]);
-			return $data;
-		}
-
-		public function entregaObjetosPerdidos($id, $fechaent, $entregado, $por, $observaEnt, $idusuario, $tratamiento){
-			global $database;
-
-			$data = $database->update('objetos_olvidados',[
-				'entregado_por'        => $por,
-				'entregado_a'          => $entregado,
-				'fecha_entrega'        => $fechaent,
-				'accion_objeto'        => 1,
-				'tratamiento_objeto'   => $tratamiento,
-				'observaciones_objeto' => $observaEnt,
-				'id_usuario_entrega'   => $idusuario,
-				'updated_at'           => date('Y-m-d H:i:s')
-			],[ 
-				'id_objeto' => $id
-			]);
-			return $data->rowCount();
-		}
-
-		public function adicionaObservacionesObjeto($id,$observacion){
-			global $database;
-
-			$data = $database->update('objetos_olvidados',[
-				'observaciones_objeto' => $observacion
-			],[
-				'id_objeto' => $id
-			]);
-			return $data->rowCount();
-		}
-
-		public function getNumeroHab($id){
-			global $database;
-
-			$data = $database->select('habitaciones',[
-				'numero_hab'
-			],[
-				'id' => $id
-			]);
-			return $data[0]['numero_hab'];
-		}
-
-		public function getBuscaObjetoOlvidado($id){
-			global $database;
-
-			$data = $database->select('objetos_olvidados',[
-				'objeto_encontrado',
-				'fecha_encontrado',
-				'id_habitacion',
-				'estado_objeto',
-				'lugar_encontrado',
-				'id_huesped',
-				'encontrado_por',
-				'observaciones_objeto',
-				'almacenado_en',
-				'id_usuario',
-				'accion_objeto',
-				'created_at'
-			],[
-				'id_objeto' => $id
-			]);
-			return $data;
-		}
-
-		public function adicionaObjetosPerdidos($objeto, $fecha, $room, $estado, $lugar, $huesped, $encontrado, $almacena, $observa, $idusuario){
-			global $database;
-
-			$data = $database->insert('objetos_olvidados',[
-				'objeto_encontrado'    => $objeto,
-				'fecha_encontrado'     => $fecha,
-				'id_habitacion'        => $room,
-				'estado_objeto'        => $estado,
-				'lugar_encontrado'     => $lugar,
-				'id_huesped'           => $huesped,
-				'encontrado_por'       => $encontrado,
-				'observaciones_objeto' => $observa,
-				'almacenado_en'        => $almacena,
-				'id_usuario'           => $idusuario,
-				'accion_objeto'        => 0,
-				'created_at'           => date('Y-m-d H:i:s')
-			]);
-			return $database->id();
-		}
-
-		public function getHuespedesActivos(){
-			global $database;
-
-			$data = $database->select('huespedes',[
-				'id_huesped',
-				'nombre_completo'
-			],[
-				'ORDER' => ['nombre_completo' => 'ASC']
-			]);
-			return $data;
-		}
-
-		public function traeNroHabitacion($id){
-			global $database;
-
-			$data = $database->select('habitaciones',[
-				'numero_hab'
-			],[
-				'id' => $id
-			]);
-			return $data[0]['numero_hab'];
-		}
-
-		public function objetosOlvidados(){
-			global $database;
-
-			$data = $database->select('objetos_olvidados',[
-				'[>]huespedes'   => 'id_huesped'
-			],[
-				'huespedes.nombre_completo',
-				'id_objeto',
-				'id_habitacion',
-				'id_huesped',
-				'objeto_encontrado',
-				'lugar_encontrado',
-				'encontrado_por',
-				'objetos_olvidados.id_usuario',
-				'fecha_encontrado',
-				'almacenado_en',
-				'entregado_por',
-				'entregado_a',
-				'fecha_entrega',
-				'estado_objeto',
-				'accion_objeto',
-				'tratamiento_objeto',
-				'observaciones_objeto',
-				'created_at'
-			],[
-				'ORDER' => ['fecha_encontrado' => 'ASC']
-			]);
-			return $data;
-		}
-
-		public function traeConsecutivoDecreto(){
-			global $database;
-
-			$data = $database->select('parametros_pms',[
-				'con_decreto'
-			]);
-			return $data[0]['con_decreto'];
-		}
-
-		public function actualizaDecreto($regis){
-			global $database;
-
-			$data = $database->update('parametros_pms',[
-				'con_decreto' => $regis
-			]);
-			return $data->rowCount();
-		}
-
-		public function countRegistrosSinImprimir($fecha){
-			global $database;
-
-			$data = $database->count('reservas_pms',[
-				'id'
-			],[
-				'fecha_llegada' => $fecha,
-				'estado' => 'CA'
-			]);
-			return $data;
-		}
-
-		public function getFacturasPorRango($sele){
-			global $database;
-
-			$data = $database->query($sele)->fetchAll();
-			return $data;
-		}
-
-		public function getLogin($user,$pass){ 
-			global $database;
-
-			$data = $database->select('usuarios',[
-				'usuario_id',
-				'correo',
-				'nombres',
-				'apellidos',
-				'usuario',
-				'estado',
-				'foto_usuario',
-				'usuario',
-				'tipo',
-				'empresa_id',
-				'estado_usuario_pms',
-				'estado_usuario_pos'
-			],[
-				'usuario'     => $user,
-				'password'    => $pass,
-				'deleted_at'  => Null
-			]);
-			return $data;
-		}
-
-		public function actualizaNombre($id, $nombre){
-			global $database;
-
-			$data = $database->update('huespedes',[
-				'nombre_completo' => $nombre
-			],[
-				'id_huesped' => $id
-			]);
-			return $data->rowCount();
-		}
-
-		public function abreCajero($user){
-			global $database;
-
-			$data = $database->update('usuarios',[
-				'estado_usuario_pms' => 1
-			],[
-				'usuario' => $user
-			]);
-			return $data->rowCount();
-		}
-
-		public function ingresoLog($id, $user, $pc, $ip, $accion, $inicial, $final, $modulo){
-			global $database;
-
-			$data = $database->insert('log',[
-				'idregistro'   => $id,
-				'usuario'      => $user,
-				'equipo'       => $pc,
-				'accion'       => $accion,
-				'iplog'        => $ip,
-				'datoinicial'  => $inicial,
-				'datofinal'    => $final,
-				'modulo'       => $modulo,
-				'created_at'   => date('Y-m-d H:i:s')
-			]); 
-			return $database->id();
-		}
-
-		public function cambiaEstadoCajeros(){
-			global $database;
-
-			$data = $database->update('usuarios',[
-				'estado_usuario_pms' => 0
-			],[
-				'estado' => 'A'
-			]);
-			return $data;
-		}
-
-		public function getAbrirCajero($user){
-			global $database;
-
-			$data = $database->update('usuarios',[
-				'estado_usuario_pms' => 1
-			],[
-				'usuario' => $user
-			]);
-			return $data;
-		}
-
-		public function getCuentasCongeladas(){
-			global $database;
-
-			$data = $database->count('reservas_pms',[
-				'id'
-			],[
-				'estado' => 'CO'
-			]);
-			return $data;
-		}
-
-		public function getCuentasMaestras(){
-			global $database;
-
-			$data = $database->count('reservas_pms',[
-				'reservas_pms.num_habitacion'
-			],[
-				'reservas_pms.estado'          => 'CA',
-				'reservas_pms.tipo_habitacion' => '1'
-			]);
-			return $data;
-		}
-
-
-		public function habitacionesUsoDia($fecha){
-			global $database;
-
-			$data = $database->query("SELECT count(id) as habi, sum(can_hombres) as hom, sum(can_mujeres) as muj, sum(can_ninos) as nin  FROM reservas_pms WHERE fecha_llegada = salida_checkout AND salida_checkout = '$fecha'")->fetchAll();
-			return $data;
-		}
-
-		public function getCajerosAbiertos(){
-			global $database;
-
-			$data = $database->select('usuarios',[
-				'usuario',
-				'usuario_id'
-			],[
-				'estado_usuario_pms' => 1,
-				'estado'             => 'A'
-			]);
-			return $data;
-		}
-
-		public function getDepositosdelDia($fecha,$tipo,$estado){
-			global $database;
-
-			$data = $database->select('cargos_pms',[
-				'[>]huespedes'   => 'id_huesped',
-				'[>]codigos_vta' => ['id_codigo_cargo' => 'id_cargo']
-			],[
-				'huespedes.nombre1',
-				'huespedes.nombre2',
-				'huespedes.apellido1',				
-				'huespedes.apellido2',				
-				'cargos_pms.fecha_cargo',
-				'cargos_pms.monto_cargo',
-				'cargos_pms.base_impuesto',
-				'cargos_pms.impuesto',
-				'cargos_pms.codigo_impto',
-				'cargos_pms.id_codigo_cargo',
-				'cargos_pms.habitacion_cargo',
-				'cargos_pms.descripcion_cargo',
-				'cargos_pms.usuario',
-				'cargos_pms.id_huesped',
-				'cargos_pms.id_usuario',
-				'cargos_pms.cantidad_cargo',
-				'cargos_pms.informacion_cargo',
-				'cargos_pms.valor_cargo',
-				'cargos_pms.folio_cargo',
-				'cargos_pms.pagos_cargos',
-				'cargos_pms.referencia_cargo',							
-				'cargos_pms.concecutivo_abono',
-				'cargos_pms.concecutivo_deposito',	
-				'cargos_pms.cargo_anulado',						
-				'cargos_pms.motivo_anulacion',						
-				'cargos_pms.fecha_anulacion',						
-				'cargos_pms.usuario_anulacion',						
-				'cargos_pms.numero_reserva',
-				'cargos_pms.habitacion_cargo',
-				'cargos_pms.fecha_sistema_cargo',
-				'cargos_pms.factura_numero',
-				'cargos_pms.id_reserva'
-			],[
-				'cargos_pms.fecha_cargo'   => $fecha,
-				'cargos_pms.cargo_anulado' => $estado,
-				'codigos_vta.tipo_codigo'  => $tipo,
-				'cargos_pms.concecutivo_deposito[>]' =>0,
-				'ORDER' => [
-					'concecutivo_deposito' => 'ASC'
-				]	
-			]);
-			return $data;
-		}
-
-		public function getDepositosdelDiaporcajero($fecha,$usuario,$tipo,$estado){
-			global $database;
-
-			$data = $database->select('cargos_pms',[
-				'[>]huespedes'   => 'id_huesped',
-				'[>]codigos_vta' => ['id_codigo_cargo' => 'id_cargo']
-			],[
-				'huespedes.nombre1',
-				'huespedes.nombre2',
-				'huespedes.apellido1',				
-				'huespedes.apellido2',				
-				'cargos_pms.fecha_cargo',
-				'cargos_pms.monto_cargo',
-				'cargos_pms.base_impuesto',
-				'cargos_pms.impuesto',
-				'cargos_pms.codigo_impto',
-				'cargos_pms.id_codigo_cargo',
-				'cargos_pms.habitacion_cargo',
-				'cargos_pms.descripcion_cargo',
-				'cargos_pms.usuario',
-				'cargos_pms.id_huesped',
-				'cargos_pms.cantidad_cargo',
-				'cargos_pms.informacion_cargo',
-				'cargos_pms.valor_cargo',
-				'cargos_pms.folio_cargo',
-				'cargos_pms.pagos_cargos',
-				'cargos_pms.referencia_cargo',							
-				'cargos_pms.concecutivo_abono',
-				'cargos_pms.concecutivo_deposito',	
-				'cargos_pms.cargo_anulado',						
-				'cargos_pms.motivo_anulacion',						
-				'cargos_pms.fecha_anulacion',						
-				'cargos_pms.usuario_anulacion',						
-				'cargos_pms.numero_reserva',
-				'cargos_pms.habitacion_cargo',
-				'cargos_pms.fecha_sistema_cargo',
-				'cargos_pms.factura_numero',
-				'cargos_pms.id_reserva'
-			],[
-				'cargos_pms.fecha_cargo'   => $fecha,
-				'cargos_pms.usuario'       => $usuario,
-				'cargos_pms.cargo_anulado' => $estado,
-				'codigos_vta.tipo_codigo'  => $tipo,
-				'cargos_pms.concecutivo_deposito[>]' =>0,
-				'ORDER' => [
-					'concecutivo_deposito' => 'ASC'
-				]	
-			]);
-			return $data;
-		}
-
-		public function getBuscaCargosFacturaDia($factura,$reserva){
-			global $database;
-
-			$data = $database->select('cargos_pms',[
-				'fecha_cargo',
-				'monto_cargo',
-				'impuesto',
-				'descripcion_cargo',
-				'usuario',
-				'pagos_cargos',
-				'numero_factura_cargo',
-				'folio_cargo'
-			],[
-				'cargo_anulado'  => 0,
-				'factura_numero' => $factura,
-				'numero_reserva' => $reserva,
-				'ORDER' => [
-					'id_cargo' => 'ASC'
-				]
-			]);
-			return $data;
-		}
-
-		public function adicionaObservaciones($reserva,$observacion){
-			global $database;
-
-			$data = $database->update('reservas_pms',[
-				'observaciones' => $observacion
-			],[
-				'num_reserva' => $reserva
-			]);
-			return $data->rowCount();
-		}
-
-		public function registrosHotelerosSinImprimir($fecha){
-			global $database;
-
-			$data = $database->select('reservas_pms',[
-				'[>]huespedes'         => 'id_huesped',
-				'[>]tipo_habitaciones' => ['tipo_habitacion' => 'codigo']
-			],[
-				'fecha_llegada',
-				'huespedes.nombre_completo',
-				'huespedes.apellido1',
-				'huespedes.apellido2',
-				'huespedes.nombre1',
-				'huespedes.nombre2',
-				'num_habitacion',
-				'num_registro'
-			],[
-				'tipo_habitaciones.tipo_habitacion[<]' => 4,
-				'num_registro'                         => 0,
-				'estado'                               => 'CA',
-				'ORDER'                                => ['num_habitacion' => 'ASC']
-			]); 
-			return $data;
-		}
-
-		public function actualizaRegistroReserva($reserva,$numregis){
-			global $database;
-
-			$data = $database->update('reservas_pms',[
-				'num_registro' => $numregis
-			],[
-				'num_reserva' => $reserva
-			]);
-			return $data;
-		}
-
-		public function actualizaRegistro($regis){
-			global $database;
-
-			$data = $database->update('parametros_pms',[
-				'con_registro_hotelero' => $regis
-			]);
-			return $data->rowCount();
-		}
-
-		public function traeConsecutivoRegistro(){
-			global $database;
-
-			$data = $database->select('parametros_pms',[
-				'con_registro_hotelero'
-			]);
-			return $data[0]['con_registro_hotelero'];
-		}
-
-		public function buscaFacturaNumero($factura, $reserva){
-			global $database;
-
-			$data = $database->select('cargos_pms',[
-				'[<]codigos_vta' => ['id_codigo_cargo' => 'id_cargo']
-			],[	
-				'codigos_vta.codigo_ajuste',
-				'cargos_pms.id_cargo',
-				'cargos_pms.id_codigo_cargo'
-			],[
-				'cargos_pms.factura_numero' => $factura,
-				'cargos_pms.numero_reserva' => $reserva
-			]);
-			return $data;
-		}
-
-		public function cambiaCodigoFacturaHistorico($cargo,$newcode,$descr){
-			global $database;
-
-			$data = $database->update('cargos_pms',[
-				'id_codigo_cargo'   => $newcode,
-				'descripcion_cargo' => $descr
-			],[
-				'id_cargo'  => $cargo
-			]);
-			return $data;			
-		}
-
-		public function cambioValorFacturaHistorico($factura,$reserva,$fecha,$usuario,$idusuario){
-			global $database;
-
-			$data = $database->query("UPDATE cargos_pms SET monto_cargo = monto_cargo * -1, base_impuesto = base_impuesto  * -1, impuesto = impuesto * -1, valor_cargo = valor_cargo * -1, pagos_cargos = pagos_cargos * -1, usuario = '$usuario', id_usuario = '$idusuario', fecha_cargo = '$fecha' WHERE numero_reserva = '$reserva' AND factura_numero = '$factura'")->fetchAll();
-		}
-
-		public function getBuscaHuespedCongela($huesped){
-			global $database;
-
-			$data = $database->select('huespedes',[
-				'id_huesped',
-				'nombre1',
-				'nombre2',
-				'apellido1',
-				'apellido2',
-				'identificacion',
-				'tipo_identifica',
-				'lugar_expedicion',
-				'pais',
-				'sexo'
-			],[
-				'id_huesped' => $huesped					
-			]);
-			return $data;
-		}
-
-		public function anulafacturaHistoricoXCongelada($factura,$reserva, $motivo, $usuario, $idusuario){
-			global $database;
-
-			$data = $database->update('historico_cargos_pms',[
-				'factura_anulada'      => 1,
-				'cargo_anulado'        => 1,
-				'motivo_anulacion'     => $motivo,
-				'usuario_anulacion'    => $usuario,
-				'id_usuario_anulacion' => $idusuario,
-				'fecha_anulacion'      => date('Y-m-d H:i:s')
-			],[
-				'factura_numero' => $factura,
-				'numero_reserva' => $reserva,
-				'factura'        => 1					
-			]);
-			return $data;
-		}
-
-		public function eliminaHistoricoFacturaXCongelada($factura,$reserva){
-			global $database;
-
-			$data = $database->delete('historico_cargos_pms',[
-				'AND' => [
-					'factura_numero' => $factura,
-					'numero_reserva' => $reserva,
-					'factura'        => 0					
-					]
-			]);
-			return $data;
-		}
-
-		public function activaCuentaCongeladaFacturaAnulada($factura,$reserva){
-			global $database;
-
-			$data = $database->update('cargos_pms',[
-				'tipo_factura'      => 0,
-				'id_perfil_factura' => 0,
-				'factura_numero'    => 0
-			],[
-				'factura_numero' => $factura,
-				'numero_reserva' => $reserva
-			]);
-			return $data;
-		}
-
-		public function getBuscaHistoricoReserva($id){
-			global $database;
-
-			$data = $database->select('historico_reservas_pms',[
-				'[>]huespedes'         => 'id_huesped'
-			],[
-				'huespedes.nombre_completo',
-				'huespedes.identificacion',
-				'huespedes.nombre1',
-				'huespedes.nombre2',
-				'historico_reservas_pms.id',
-				'historico_reservas_pms.cantidad',
-				'historico_reservas_pms.dias_reservados',
-				'historico_reservas_pms.estado',
-				'historico_reservas_pms.fecha_llegada',
-				'historico_reservas_pms.fecha_salida',
-				'historico_reservas_pms.tipo_reserva',
-				'historico_reservas_pms.num_habitacion',
-				'historico_reservas_pms.num_reserva',
-				'historico_reservas_pms.can_hombres',
-				'historico_reservas_pms.can_mujeres',
-				'historico_reservas_pms.orden_reserva',
-				'historico_reservas_pms.can_ninos',
-				'historico_reservas_pms.origen_reserva',
-				'historico_reservas_pms.destino_reserva',
-				'historico_reservas_pms.id_agencia',
-				'historico_reservas_pms.id_compania',
-				'historico_reservas_pms.idCentroCia',
-				'historico_reservas_pms.id_huesped',
-				'historico_reservas_pms.tarifa',
-				'historico_reservas_pms.tipo_habitacion',
-				'historico_reservas_pms.tipo_ocupacion',
-				'historico_reservas_pms.valor_reserva',
-				'historico_reservas_pms.valor_diario',
-				'historico_reservas_pms.motivo_viaje',
-				'historico_reservas_pms.fecha_reserva',
-				'historico_reservas_pms.usuario',
-				'historico_reservas_pms.fecha_ingreso',
-				'historico_reservas_pms.observaciones',
-				'historico_reservas_pms.fuente_reserva',
-				'historico_reservas_pms.segmento_mercado',
-				'historico_reservas_pms.cargo_habitacion',
-				'historico_reservas_pms.causar_impuesto',
-				'historico_reservas_pms.forma_pago'
-			],[
-				'num_reserva' => $id
-			]);
-			return $data;
-		}
-
-		public function getBuscaHistoricoCargosFactura($factura,$reserva){
-			global $database;
-
-			$data = $database->select('historico_cargos_pms',[
-				'fecha_cargo',
-				'monto_cargo',
-				'impuesto',
-				'descripcion_cargo',
-				'usuario',
-				'pagos_cargos',
-				'numero_factura_cargo',
-				'folio_cargo'
-			],[
-				'cargo_anulado'  => 0,
-				'factura_numero' => $factura,
-				'numero_reserva' => $reserva,
-				'ORDER' => [
-					'id_cargo' => 'ASC'
-				]
-			]);
-			return $data;
-		}
-
-		public function deleteCargoshistoricoXCongelado($factura,$reserva){
-			global $database;
-
-			$data = $database->delete('historico_cargos_pms',[
-				'AND' => [
-					'factura_numero' => $factura,
-					'numero_reserva' => $reserva
-				]
-			]);
-			return $data;
-		}
-
-		public function insertCargosHistorico($factura,$reserva){
-			global $database;
-
-			$data = $database->query("INSERT INTO historico_cargos_pms SELECT * FROM cargos_pms WHERE factura_numero = '$factura' AND numero_reserva = '$reserva' AND cargo_anulado = 0")->fetchAll();
-			return $data;
-		}
-
-		public function borraHistoricoCongela($numero){
-			global $database;
-
-			$data = $database->delete('historico_reservas_pms',[
-				'AND' =>  [
-					'num_reserva'  => $numero
-				]
-			]);
-			return $data;
-		}
-
-		public function insertaHistoricoCongela($numero){
-			global $database;
-
-			$data = $database->query("INSERT INTO reservas_pms SELECT * FROM historico_reservas_pms WHERE num_reserva = '$numero'")->fetchAll();
-			return $database->id();
-		}
-
-		public function getFacturasReserva($id){
-			global $database;
-
-			$data = $database->select('historico_cargos_pms',[
-				'[<]huespedes' => 'id_huesped',
-				'[<]historico_reservas_pms' => ['numero_reserva' => 'num_reserva']
-			],[
-				'huespedes.apellido1',
-				'huespedes.apellido2',
-				'huespedes.nombre1',
-				'huespedes.nombre2',
-				'historico_reservas_pms.fecha_llegada',
-				'historico_reservas_pms.salida_checkout',
-				'historico_cargos_pms.habitacion_cargo',
-				'historico_cargos_pms.tipo_factura',
-				'historico_cargos_pms.id_perfil_factura',
-				'historico_cargos_pms.factura_numero',
-				'historico_cargos_pms.numero_reserva',
-				'historico_cargos_pms.factura_anulada',
-				'historico_cargos_pms.fecha_factura',
-				'historico_cargos_pms.id_usuario_factura',
-				'historico_cargos_pms.total_consumos',
-				'historico_cargos_pms.total_impuesto',
-				'historico_cargos_pms.total_pagos',
-				'historico_cargos_pms.fecha_sistema_cargo'
-			],[
-				'historico_cargos_pms.factura'        => 1,
-				'historico_cargos_pms.numero_reserva' => $id,
-				'ORDER'                               => ['historico_cargos_pms.factura_numero' => 'ASC']
-			]);
-			return $data;
-		}
-
-		public function getHistoricoVentasDiaCodigo($fecha,$codi){
-			global $database;
-
-			$data = $database->query("SELECT Sum(impuesto) as imptos, Sum(monto_cargo) as cargos, Sum(pagos_cargos) as pagos FROM historico_cargos_pms WHERE cargo_anulado = 0 AND id_codigo_cargo = '$codi' AND fecha_cargo = '$fecha'")->fetchAll();
-			return $data;
-		}
-
-		public function getHistoricoVentasMesCodigo($dia,$mes,$anio,$codi){
-			global $database;
-
-			$data = $database->query("SELECT Sum(historico_cargos_pms.impuesto) as imptos, Sum(historico_cargos_pms.monto_cargo) as cargos, Sum(historico_cargos_pms.pagos_cargos) as pagos FROM historico_cargos_pms WHERE historico_cargos_pms.cargo_anulado = 0 AND id_codigo_cargo = '$codi' AND MONTH(historico_cargos_pms.fecha_cargo) = '$mes' AND historico_cargos_pms.fecha_cargo <= '$dia' AND historico_cargos_pms.fecha_cargo >= '2019-07-29'")->fetchAll();
-			return $data;
-		}
-
-		public function getHistoricoVentasMesCodigoHistorico($dia,$mes,$anio,$codi){
-			global $database;
-
-			$data = $database->query("SELECT Sum(historico_cargos_pms.impuesto) as imptos, Sum(historico_cargos_pms.monto_cargo) as cargos, Sum(historico_cargos_pms.pagos_cargos) as pagos FROM cargos_pms WHERE historico_cargos_pms.cargo_anulado = 0 AND id_codigo_cargo = '$codi' AND MONTH(historico_cargos_pms.fecha_cargo) = '$fecha' AND YEAR(historico_cargos_pms.fecha_cargo) = '$anio'")->fetchAll();
-			return $data;
-		}
-
-		public function getHistoricoVentasAnioCodigo($dia, $anio,$codi){
-			global $database;
-
-			$data = $database->query("SELECT Sum(historico_cargos_pms.impuesto) as imptos, Sum(historico_cargos_pms.monto_cargo) as cargos, Sum(historico_cargos_pms.pagos_cargos) as pagos FROM historico_cargos_pms WHERE historico_cargos_pms.cargo_anulado = 0 AND historico_cargos_pms.id_codigo_cargo = '$codi' AND YEAR(historico_cargos_pms.fecha_cargo) = '$anio' AND historico_cargos_pms.fecha_cargo <= '$dia' AND historico_cargos_pms.fecha_cargo >= '2019-07-29'")->fetchAll();
-			return $data;
-		}
-
-		public function getHistoricoVentasAnioCodigoHistorico($dia,$anio,$codi){
-			global $database;
-
-			$data = $database->query("SELECT Sum(historico_cargos_pms.impuesto) as imptos, Sum(historico_cargos_pms.monto_cargo) as cargos, Sum(historico_cargos_pms.pagos_cargos) as pagos FROM historico_cargos_pms WHERE historico_cargos_pms.cargo_anulado = 0 AND historico_cargos_pms.id_codigo_cargo = '$codi' AND YEAR(historico_cargos_pms.fecha_cargo) = '$anio' AND historico_cargos_pms.fecha_cargo <= '$dia' ")->fetchAll();
-			return $data;
-		}
-
-		public function getHistoricoCargosDia($fecha,$tipo){
-			global $database;
-
-			$data = $database->query("SELECT historico_cargos_pms.descripcion_cargo, count(historico_cargos_pms.monto_cargo) as canti, Sum(historico_cargos_pms.monto_cargo) as cargos, Sum(historico_cargos_pms.impuesto) as imptos, sum(historico_cargos_pms.monto_cargo+historico_cargos_pms.impuesto) as total_cargo, Sum(historico_cargos_pms.pagos_cargos) as pagos FROM historico_cargos_pms , codigos_vta WHERE historico_cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND historico_cargos_pms.cargo_anulado = 0 AND codigos_vta.tipo_codigo = '$tipo' AND historico_cargos_pms.fecha_cargo = '$fecha' GROUP BY historico_cargos_pms.descripcion_cargo ORDER BY historico_cargos_pms.descripcion_cargo ASC")->fetchAll();
-			return $data;
-		}
-
-		public function getHistoricoBalanceSaldodelDia($fecha){
-			global $database;
-
-			$data = $database->query("SELECT Sum(historico_cargos_pms.monto_cargo) AS saldo_viene, Sum(historico_cargos_pms.impuesto) AS impto_viene, Sum(historico_cargos_pms.pagos_cargos) AS pagos_viene, Sum(historico_cargos_pms.monto_cargo + historico_cargos_pms.impuesto - historico_cargos_pms.pagos_cargos) AS total_viene FROM historico_cargos_pms , historico_reservas_pms WHERE historico_cargos_pms.numero_reserva = historico_reservas_pms.num_reserva AND historico_reservas_pms.tipo_reserva = 2 AND historico_cargos_pms.fecha_cargo = '$fecha' AND historico_cargos_pms.cargo_anulado = 0 AND historico_reservas_pms.cargo_habitacion < '9450'")->fetchAll();
-			return $data;
-		}
-
-		public function getHistoricoBalanceSaldoAnterior($fecha){
-			global $database;
-
-			$data = $database->query("SELECT Sum(historico_cargos_pms.monto_cargo) AS saldo_viene, Sum(historico_cargos_pms.impuesto) AS impto_viene, Sum(historico_cargos_pms.pagos_cargos) AS pagos_viene, Sum(historico_cargos_pms.monto_cargo + historico_cargos_pms.impuesto - historico_cargos_pms.pagos_cargos) AS total_viene FROM historico_cargos_pms , historico_reservas_pms WHERE historico_cargos_pms.numero_reserva = historico_reservas_pms.num_reserva AND historico_reservas_pms.tipo_reserva = 2 AND historico_cargos_pms.fecha_cargo < '$fecha' AND historico_cargos_pms.cargo_anulado = 0 AND historico_reservas_pms.cargo_habitacion < '9450' AND year(historico_cargos_pms.fecha_cargo)=2019 AND historico_cargos_pms.fecha_cargo >= '2019-07-29'" )->fetchAll();
-			return $data;
-		}
-
-		public function cambiaHuespedReserva($rese,$hues){
-			global $database;
-
-			$data = $database->update('reservas_pms',[
-				'id_huesped' => $hues
-			],[
-				'num_reserva' => $rese
-			]);
-			return $data->rowCount();
-		}
-
-		public function borraCargosAnulados(){
-			global $database;
-
-			$data = $database->delete('cargos_pms',[
-				'AND' => [
-					'cargo_anulado'        => 1
-				]
-			]);
-			return $data;
-		}
-
-		public function getBuscaFechaAuditoria($fecha){
-			global $database;
-
-			$data = $database->select('auditoria',[
-				'id_proceso',
-				'titulo_proceso',
-				'orden_proceso',
-				'reporte'
-			],[
-				'actived_at' => 1,
-				'imprimir'   => 1,
-				'ORDER' => ['orden_proceso' => 'ASC']
-			]);
-				return $data;
-		}
-
-		public function getSalidasRealizadas($fecha,$tipo,$estado){
-			global $database;
-
-			$data = $database->select('reservas_pms',[
-				'[>]huespedes' => 'id_huesped'
-			],[
-				'reservas_pms.cantidad',
-				'reservas_pms.fecha_llegada',
-				'reservas_pms.fecha_salida',
-				'reservas_pms.salida_checkout',
-				'reservas_pms.dias_reservados',
-				'reservas_pms.tipo_habitacion',
-				'reservas_pms.num_habitacion',
-				'reservas_pms.num_reserva',
-				'reservas_pms.can_hombres',
-				'reservas_pms.can_mujeres',
-				'reservas_pms.can_ninos',
-				'reservas_pms.orden_reserva',
-				'reservas_pms.id_compania',
-				'reservas_pms.idCentroCia',				
-				'reservas_pms.tarifa',
-				'reservas_pms.valor_reserva',
-				'reservas_pms.valor_diario',
-				'reservas_pms.observaciones',
-				'reservas_pms.tipo_ocupacion',
-				'reservas_pms.estado',
-				'reservas_pms.causar_impuesto',
-				'huespedes.nombre_completo',
-				'huespedes.nombre1',
-				'huespedes.nombre2',
-				'huespedes.apellido1',
-				'huespedes.apellido2'
-			],[
-				'tipo_reserva'    => $tipo,
-				'estado'          => $estado,
-				'salida_checkout' => $fecha,
-				'ORDER' => ['reservas_pms.num_habitacion' => 'ASC']
-			]);
-			return $data;
-		}
-
-		public function actualizaEstadistica($regis, $dispo, $ocup, $huesp){
-			global $database;
-
-			$data = $database->update('reporte_gerencia',[
-				'ingreso_promedio_habitacion_disponible' => $dispo,
-				'ingreso_promedio_habitacion_ocupada' => $ocup,
-				'ingreso_promedio_huesped' => $huesp
-			],[
-				'id_auditoria' => $regis
-			]);
-			return $data;
-
-		}
-
-		public function getAuditorias(){
-			global $database;
-
-			$data = $database->query("SELECT * FROM reporte_gerencia")->fetchAll();
-			return $data;
-		}
-
-		public function cambiaNoShow($fecha, $estado){
-			global $database;
-
-			$data = $database->update('historico_reservas_pms',[
-				'estado' => 'NS'
-			],[
-				'fecha_llegada' => $fecha,
-				'estado' => 'ES'
-			]);
-			return $data;
-		}
-
-		public function getLlegadasSinReserva($fecha){
-			global $database;
-
-			$data = $database->count('reservas_pms',[
-				'num_habitacion'
-			],[
-				'estado'        => 'CA',
-				'sinreserva'    => 1,
-				'fecha_llegada' =>$fecha
-			]);
-			return $data;
-		}
-
-		public function getSalidasAntes($fecha){
-			global $database;
-
-			$data = $database->count('reservas_pms',[
-				'num_habitacion'
-			],[
-				'estado' => 'SA',
-				'fecha_salida[>]' =>$fecha
-			]);
-			return $data;
-		}
-
-		public function getHuespedesInterNal($cta,$pais){
-			global $database;
-
-			$data = $database->query("SELECT Count(huespedes.id_huesped) as inter FROM huespedes , reservas_pms WHERE huespedes.id_huesped = reservas_pms.id_huesped AND reservas_pms.estado = 'CA' AND reservas_pms.tipo_habitacion <> '$cta' and huespedes.pais <>  '$pais'")->fetchAll(); 
-			return $data[0]['inter'];
-		}
-
-		public function getHuespedesNacionales($cta,$pais){
-			global $database;
-
-			$data = $database->query("SELECT Count(huespedes.id_huesped) as nales FROM huespedes , reservas_pms WHERE huespedes.id_huesped = reservas_pms.id_huesped AND reservas_pms.estado = 'CA' AND reservas_pms.tipo_habitacion <> '$cta' and huespedes.pais =  '$pais'")->fetchAll(); 
-			return $data[0]['nales'];
-		}
-
-		public function getHuespedesRepetitivos(){
-			global $database;
-
-			$data = $database->query("SELECT Count(historico_reservas_pms.id_huesped) FROM historico_reservas_pms , reservas_pms WHERE reservas_pms.id_huesped = historico_reservas_pms.id_huesped AND historico_reservas_pms.estado = 'SA' AND reservas_pms.estado = 'CA' GROUP BY historico_reservas_pms.id_huesped")->fetchAll();
-			return $data;
-		}
-
-		public function getIngresoHuesped($fecha){
-			global $database;
-
-			$data = $database->query("SELECT sum(cargos_pms.monto_cargo) as cargos FROM cargos_pms, reservas_pms WHERE cargos_pms.numero_reserva = reservas_pms.num_reserva AND reservas_pms.id_compania = 0 AND cargos_pms.cargo_anulado = 0 AND cargos_pms.fecha_cargo = '$fecha'")->fetchAll();
-			return $data;
-		}
-
-		public function getIngresoIndividual($fecha){
-			global $database;
-
-			$data = $database->query("SELECT sum(cargos_pms.monto_cargo) as cargos FROM cargos_pms, reservas_pms WHERE cargos_pms.numero_reserva = reservas_pms.num_reserva AND cargos_pms.cargo_anulado = 0 AND cargos_pms.fecha_cargo = '$fecha'")->fetchAll();
-			return $data;
-		}
-
-		public function getIngresoGrupo($fecha){
-			global $database;
-
-			$data = $database->query("SELECT sum(cargos_pms.monto_cargo) as cargos FROM cargos_pms, reservas_pms WHERE cargos_pms.numero_reserva = reservas_pms.num_reserva AND reservas_pms.id_grupo <> 0 AND cargos_pms.cargo_anulado = 0 AND cargos_pms.fecha_cargo = '$fecha'")->fetchAll();
-			return $data;
-		}
-
-		public function getIngresoAgencia($fecha){
-			global $database;
-
-			$data = $database->query("SELECT sum(cargos_pms.monto_cargo) as cargos FROM cargos_pms, reservas_pms WHERE cargos_pms.numero_reserva = reservas_pms.num_reserva AND reservas_pms.id_agencia <> 0 AND cargos_pms.cargo_anulado = 0 AND cargos_pms.fecha_cargo = '$fecha'")->fetchAll();
-			return $data;
-		}
-
-		public function getIngresoCia($fecha){
-			global $database;
-
-			$data = $database->query("SELECT sum(cargos_pms.monto_cargo) as cargos FROM cargos_pms, reservas_pms WHERE cargos_pms.numero_reserva = reservas_pms.num_reserva AND reservas_pms.id_compania <> 0 AND cargos_pms.cargo_anulado = 0 AND cargos_pms.fecha_cargo = '$fecha'")->fetchAll();
-			return $data;
-		}
-
-		public function salidasPendientes($fecha){
-			global $database;
-
-			$data = $database->count('reservas_pms',[
-				'fecha_salida'
-			],[
-				'fecha_salida' => $fecha,
-				'estado'       => 'CA'
-			]);
-			return $data;
-		}
-
-		public function getFacturasPorcompania($id){
-			global $database;
-
-			$data = $database->select('historico_cargos_pms',[
-				'[<]huespedes' => 'id_huesped'
-			],[
-				'huespedes.apellido1', 
-				'huespedes.apellido2',
-				'huespedes.nombre1',
-				'huespedes.nombre2',
-				'historico_cargos_pms.habitacion_cargo',
-				'historico_cargos_pms.tipo_factura',
-				'historico_cargos_pms.id_perfil_factura',
-				'historico_cargos_pms.factura_numero',
-				'historico_cargos_pms.numero_reserva',
-				'historico_cargos_pms.factura_anulada',
-				'historico_cargos_pms.fecha_factura',
-				'historico_cargos_pms.id_usuario_factura',
-				'historico_cargos_pms.total_consumos',
-				'historico_cargos_pms.total_impuesto',
-				'historico_cargos_pms.total_pagos',
-				'historico_cargos_pms.fecha_sistema_cargo'
-			],[
-				'historico_cargos_pms.factura'           => 1,
-				'historico_cargos_pms.tipo_factura'      => 2,
-				'historico_cargos_pms.id_perfil_factura' => $id,
-				'ORDER'             => ['historico_cargos_pms.factura_numero' => 'ASC']
-			]);
-			return $data;
-		}
-
-		public function getFacturasdelDia(){
-			global $database;
-
-			$data = $database->select('cargos_pms',[
-				'[<]huespedes' => 'id_huesped'
-			],[
-				'huespedes.apellido1',
-				'huespedes.apellido2',
-				'huespedes.nombre1',
-				'huespedes.nombre2',
-				'cargos_pms.habitacion_cargo',
-				'cargos_pms.tipo_factura',
-				'cargos_pms.id_codigo_cargo',
-				'cargos_pms.id_perfil_factura',
-				'cargos_pms.factura_numero',
-				'cargos_pms.numero_reserva',
-				'cargos_pms.factura_anulada',
-				'cargos_pms.id_usuario_factura',
-				'cargos_pms.total_consumos',
-				'cargos_pms.total_impuesto',
-				'cargos_pms.total_pagos',
-				'cargos_pms.fecha_sistema_cargo'
-			],[
-				'fecha_factura' => FECHA_PMS,
-				'factura'       => 1,
-				'ORDER'         => ['factura_numero' => 'ASC']
-			]);
-			return $data;
-		}
-
-		public function updateEstadoReserva($nro){
-			global $database;
-
-			$data = $database->update('reservas_pms',[
-				'estado'              => 'CA',
-				'salida_checkout'     => null,
-				'usuario_checkout'    => null,
-				'id_usuario_checkout' => 0,
-				'fecha_checkout'      => null
-			],[
-				'num_reserva' => $nro
-			]);
-			return $data->rowCount();
-		}
-
-		public function anulaFactura($nro, $motivo, $usuario, $idusuario){
-			global $database;
-
-			$data = $database->update('cargos_pms',[
-				'cargo_anulado'        => 1,
-				'factura_anulada'      => 1,
-				'motivo_anulacion'     => $motivo,
-				'usuario_anulacion'    => $usuario,
-				'id_usuario_anulacion' => $idusuario,
-				'fecha_anulacion'      => FECHA_PMS
-			],[
-				'factura_numero' => $nro				
-			]);
-			return $data->rowCount();
-		}
-
-		public function actualizaCargosFacturas($nro){
-			global $database;
-
-			$data = $database->query("UPDATE cargos_pms SET factura_numero = 0, fecha_factura = null, tipo_factura = 0, usuario_factura = null, id_usuario_factura = 0,  id_perfil_factura= 0  WHERE factura_numero = '$nro' AND factura <> 1 AND cargo_anulado = 0")->fetchAll();
-			return $data;
-
-		}
-
-		public function getDatosFactura($nro){
-			global $database;
-
-			$data = $database->select('cargos_pms',[
-				'numero_reserva',				
-				'factura_numero',
-				'habitacion_cargo',
-				'factura',
-				'id_huesped',
-				'id_perfil_factura',
-				'tipo_factura',
-				'fecha_salida',
-				'folio_cargo'
-			],[
-				'factura_numero' => $nro,
-				'factura' => 1
-			]);
-			return $data;
-		}
-
-		public function getDatosFacturaHistorico($nro){
-			global $database;
-
-			$data = $database->select('historico_cargos_pms',[
-				'numero_reserva',				
-				'factura_numero',
-				'habitacion_cargo',
-				'factura',
-				'id_huesped',
-				'id_perfil_factura',
-				'tipo_factura',
-				'fecha_salida',
-				'folio_cargo'
-			],[
-				'factura_numero' => $nro,
-				'factura' => 1
-			]);
-			return $data;
-		}
-
-
-		public function updateFactura($id,$cargos,$impto,$pagos,$base, $anticipo, $fechaVen, $nro, $usuario, $fecha){
-			global $database;
-
-			$data = $database->update('cargos_pms',[
-				'id_usuario_factura' => $id,
-				'usuario_factura'    => $usuario,
-				'fecha_factura'      => $fecha,
-				'fecha_vencimiento'  => $fechaVen,
-				'total_consumos'     => $cargos,
-				'total_impuesto'     => $impto,
-				'total_anticipos'    => $anticipo,
-				'base_impuestos'     => $base,
-				'total_pagos'        => $pagos
-			],[
-				'factura_numero' => $nro,
-				'factura'        => 1
-			]);
-			return $data->rowCount();
-		}
-
-		public function getIdUsuario($code){
-			global $database;
-
-			$data = $database->select('usuarios',[
-				'usuario_id'
-			],[
-				'usuario' => $code
-			]);
-			return $data[0]['usuario_id'];
-		}
-
-		public function getValorFactura($id){
-			global $database;
-
-			$data = $database->query("SELECT Sum(cargos_pms.monto_cargo) AS cargos, Sum(cargos_pms.base_impuesto) AS base, Sum(cargos_pms.impuesto) AS imptos, Sum(cargos_pms.pagos_cargos) AS pagos, cargos_pms.factura_numero FROM cargos_pms WHERE cargos_pms.cargo_anulado = 0 AND cargos_pms.factura_numero = '$id' GROUP BY cargos_pms.factura_numero ORDER BY cargos_pms.factura_numero ASC")->fetchAll();
-			return $data;
-		}
-
-		public function getFacturas(){
-			global $database;
-
-			$data = $database->select('historico_cargos_pms',[
-				'fecha_cargo',
-				'factura_numero',
-				'usuario_factura'
-			],[
-				'factura' => 1
-			]);
-			return $data;
-		}
-
-		public function getInformacionAbono($id){
-			global $database;
-
-			$data = $database->select('cargos_pms',[
-				'fecha_cargo', 
-				'id_codigo_cargo',
-				'habitacion_cargo',
-				'descripcion_cargo', 
-				'id_usuario',
-				'id_huesped',
-				'cantidad_cargo',
-				'folio_cargo',
-				'pagos_cargos',
-				'concecutivo_deposito',
-				'informacion_cargo',
-				'numero_reserva',
-				'id_reserva',
-				'fecha_sistema_cargo' 
-			],[
-				'concecutivo_abono' => $id
-			]);
-			return $data;
-		}
-
-		public function nombreUsuario($id){
-			global $database;
-
-			$data = $database->select('usuarios',[
-				'usuario'
-			],[
-				'usuario_id' => $id
-			]);
-			if(count($data)==0){
-				return 'USUARIO NO ASIGNADO';
-			}else{
-				return $data[0]['usuario'];
-			}
-		}
-
-		public function getDepositosReservas($id){
-			global $database;
-
-			$data = $database->select('cargos_pms',[
-				'descripcion_cargo',
-				'pagos_cargos',
-				'informacion_cargo',
-				'fecha_cargo',
-				'concecutivo_deposito',	
-				'id_usuario',
-				'id_codigo_cargo'		
-			],[
-				'id_reserva'           => $id,
-				'cargo_anulado'        => 0,
-				'concecutivo_deposito[>=]'  => 1
-			]);
-			return $data;
-		}
-
-		public function getInformacionDeposito($id){
-			global $database;
-
-			$data = $database->select('cargos_pms',[
-				'fecha_cargo', 
-				'id_codigo_cargo',
-				'habitacion_cargo',
-				'descripcion_cargo',
-				'id_usuario',
-				'id_huesped',
-				'cantidad_cargo',
-				'folio_cargo',
-				'pagos_cargos',
-				'concecutivo_deposito',
-				'informacion_cargo',
-				'numero_reserva',
-				'id_reserva',
-				'fecha_sistema_cargo' 
-			],[
-				'concecutivo_deposito' => $id
-			]);
-			return $data;
-		}
-
-		public function getDescripcionTarifa($id){
-			global $database;
-
-			$data = $database->select('tarifas',[
-				'descripcion_tarifa'
-			],[
-				'id_tarifa' => $id
-			]); 
-			if(count($data)==0){
-				return 'SIN TARIFA ASIGNADA';
-			}else{
-				return $data[0]['descripcion_tarifa'];
-			}
-		}
-
-		public function getHistoricoFacturasCia($id){
-			global $database;
-
-			$data = $database->query("SELECT historico_reservas_pms.fecha_llegada, historico_reservas_pms.fecha_salida, Sum(historico_cargos_pms.monto_cargo), Sum(historico_cargos_pms.impuesto), Sum(historico_cargos_pms.factura_numero),historico_cargos_pms.factura_numero, historico_cargos_pms.fecha_factura, historico_cargos_pms.pagos_cargos, huespedes.apellido1, huespedes.apellido2, huespedes.nombre1, huespedes.nombre2 FROM historico_reservas_pms, historico_cargos_pms, huespedes WHERE historico_reservas_pms.num_reserva = historico_cargos_pms.numero_reserva AND historico_cargos_pms.cargo_anulado = 0 AND historico_cargos_pms.id_huesped = huespedes.id_huesped GROUP BY historico_reservas_pms.fecha_llegada, historico_reservas_pms.fecha_salida, historico_cargos_pms.fecha_factura, historico_cargos_pms.pagos_cargos, huespedes.apellido1, huespedes.apellido2, huespedes.nombre1, huespedes.nombre2 ORDER BY historico_cargos_pms.factura_numero ASC")->fetchAll(); 
-			return $data;
-		}
-
-		public function updateReservaHuespedCongela($reserva,$usuario,$idusuario,$fecha, $numero){ 
-			global $database;
-
-			// Cambia Estado habitacion a Salida Huesped
-			$data = $database->update('reservas_pms',[
-				'estado'             => "CO",
-				'con_congela'        => $numero,
-				'usuario_congela'    => $usuario,
-				'id_usuario_congela' => $idusuario,
-				'fecha_congela'      => date("Y-m-d H:i:s")
-			],[
-				'num_reserva' => $reserva
-			]);
-			return $data->rowCount();
-		}
-
-		public function updateNumeroCongela($numero){
-			global $database;
-
-			$data = $database->update('parametros_pms',[
-				'con_cta_congelada' => $numero
-			]);
-			return $data->rowCount();
-		}
-
-		public function getNumeroCongela(){
-			global $database;
-
-			$data =$database->select('parametros_pms',[
-				'con_cta_congelada'
-			]);
-			return $data[0]['con_cta_congelada'];
-		}
-
-		public function getFechaLlegada($llega,$sale,$tipo,$estado){
-			global $database;
-
-			$data = $database->query("")->fetchAll();
-			return $data;
-		}
-
-		public function getIngresoHistoricoImptoGrupo($fecha,$grupo){
-			global $database;
-
-			$data = $database->query("SELECT Sum(historico_cargos_pms.impuesto) as impto FROM historico_cargos_pms, codigos_vta WHERE historico_cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND codigos_vta.agrupacion = '$grupo' AND historico_cargos_pms.fecha_cargo = '$fecha' AND historico_cargos_pms.cargo_anulado = 0")->fetchAll();
-			return $data;
-		}
-
-		public function getIngresoHistoricoGrupo($fecha,$grupo){
-			global $database;
-
-			$data = $database->query("SELECT Sum(historico_cargos_pms.monto_cargo) as cargos FROM historico_cargos_pms, codigos_vta WHERE historico_cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND codigos_vta.agrupacion = '$grupo' AND historico_cargos_pms.fecha_cargo = '$fecha' AND historico_cargos_pms.cargo_anulado = 0")->fetchAll();
-			return $data;
-		}
-
-		public function getDatosAnioAuditoria($anio){
-			global $database;
-
-			$data = $database->query("SELECT sum(ingreso_habitaciones)as aingHab,	sum(ingreso_impto_habitaciones) as aingImp, sum(ingreso_promedio_habitacion_disponible)as aingProHabDis, sum(ingreso_promedio_habitacion_ocupada)as aingProHabOcu, sum(ingresos_compania)as aingCom, sum(ingresos_agencia) as aingAge, sum(ingresos_grupo) as aingGru, sum(ingresos_individual) as aingInd, sum(ingreso_promedio_huesped) as aproHue, sum(habitaciones_disponibles) as ahabDis, sum(habitaciones_fuera_orden) as ahabFor, sum(habitaciones_fuera_servicio) as ahabFse, sum(habitaciones_ocupadas) as ahabOcu, sum(salidas_dia) as asalDia,
+
+        return $data;
+    }
+
+    public function getInventarioHotel()
+    {
+        global $database;
+
+        $data = $database->select('parametros_pms', [
+            'inventario_amenities',
+            'bodega_inventario',
+            'tipo_movimiento',
+        ]);
+
+        return $data;
+    }
+
+    public function creaHuespedDirecto($idhues, $apellido1, $apellido2, $nombre1, $nombre2, $usuario, $idusuario)
+    {
+        global $database;
+
+        $data = $database->insert('huespedes', [
+            'identificacion' => $idhues,
+            'apellido1' => $apellido1,
+            'apellido2' => $apellido2,
+            'nombre1' => $nombre1,
+            'nombre2' => $nombre2,
+            'nombre_completo' => $apellido1.' '.$apellido2.' '.$nombre1.' '.$nombre2,
+            'fecha_creacion' => date('Y-m-d H:i:s'),
+            'usuario_creador' => $usuario,
+            'id_usuario' => $idusuario,
+        ]);
+
+        return $database->id();
+    }
+
+    public function traeCuentasMaestras()
+    {
+        global $database;
+
+        $data = $database->select('habitaciones', [
+            '[>]tipo_habitaciones' => ['id_tipohabitacion' => 'id'],
+        ], [
+            'habitaciones.numero_hab',
+            'tipo_habitaciones.descripcion_habitacion',
+        ], [
+            'tipo_habitaciones.id' => 1,
+            'ORDER BY' => ['habitaciones.numero_hab' => 'ASC'],
+        ]);
+
+        return $data;
+    }
+
+    public function getbuscaIden($iden)
+    {
+        global $database;
+
+        $data = $database->select('huespedes', [
+            'apellido1',
+            'apellido2',
+            'nombre1',
+            'nombre2',
+            'id_huesped',
+        ], [
+            'identificacion' => $iden,
+        ]);
+
+        return $data;
+    }
+
+    public function bloqueaCia($cia, $estado)
+    {
+        global $database;
+
+        $data = $database->update('companias', [
+            'activo' => $estado,
+        ], [
+            'id_compania' => $cia,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function getlistadoCumpleanios($query)
+    {
+        global $database;
+
+        $data = $database->query($query)->fetchAll();
+
+        return $data;
+    }
+
+    public function getTraeCentroCia($id)
+    {
+        global $database;
+
+        $data = $database->select('centrosCias', [
+            'descripcion_centro',
+        ], [
+            'id_centro' => $id,
+        ]);
+
+        return $data;
+    }
+
+    public function getCompaniaFactura($id)
+    {
+        global $database;
+
+        $data = $database->select('companias', [
+            'id_compania',
+            'empresa',
+            'direccion',
+            'nit',
+            'dv',
+            'tipo_documento',
+            'telefono',
+            'celular',
+            'fax',
+            'email',
+            'id_tarifa',
+            'estado_credito',
+            'activo',
+        ], [
+            'id_compania' => $id,
+        ]);
+
+        return $data;
+    }
+
+    public function eliminaCentrosCia($idCentro)
+    {
+        global $database;
+
+        $data = $database->delete('centrosCias', [
+            'id_centro' => $idCentro,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function updateCentrosCia($nombre, $responsable, $idCentro)
+    {
+        global $database;
+
+        $data = $database->update('centrosCias', [
+            'descripcion_centro' => $nombre,
+            'responsable' => $responsable,
+        ], [
+            'id_centro' => $idCentro,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function insertaCentrosCia($nombre, $responsable, $idCia)
+    {
+        global $database;
+
+        $data = $database->insert('centrosCias', [
+            'descripcion_centro' => $nombre,
+            'responsable' => $responsable,
+            'id_compania' => $idCia,
+        ]);
+
+        return $database->id();
+    }
+
+    public function getTraecentros($id)
+    {
+        global $database;
+
+        $data = $database->select('centrosCias', [
+            'id_centro',
+            'descripcion_centro',
+            'responsable',
+            'id_compania',
+        ], [
+            'id_compania' => $id,
+            'ORDER' => ['descripcion_centro' => 'ASC'],
+        ]);
+
+        return $data;
+    }
+
+    public function getCentros()
+    {
+        global $database;
+
+        $data = $database->select('centrosCias', [
+            'id_centro',
+            'descripcion_centro',
+            'responsable',
+            'id_compania',
+        ], [
+            'ORDER' => ['id_centro' => 'ASC'],
+        ]);
+
+        return $data;
+    }
+
+    public function valorAnticipos($factura)
+    {
+        global $database;
+
+        $data = $database->query("SELECT cargos_pms.fecha_cargo, cargos_pms.descripcion_cargo, count(cargos_pms.id_codigo_cargo) AS cant, Sum(cargos_pms.monto_cargo) AS cargos, Sum(cargos_pms.impuesto) as imptos, Sum(cargos_pms.pagos_cargos) AS pagos, cargos_pms.factura_numero, codigos_vta.formaPagoDian, codigos_vta.medioPagoDian, cargos_pms.fecha_factura FROM cargos_pms, codigos_vta WHERE (cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND cargos_pms.factura_numero = '$factura' AND  cargos_pms.concecutivo_abono != 0) OR (cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND cargos_pms.factura_numero = '$factura' AND cargos_pms.concecutivo_deposito != 0) GROUP BY cargos_pms.id_codigo_cargo, cargos_pms.fecha_cargo ORDER BY cargos_pms.numero_reserva, cargos_pms.id_codigo_cargo")->fetchAll();
+
+        return $data;
+    }
+
+    public function getBuscaCreditoCia($idCia)
+    {
+        global $database;
+
+        $data = $database->select('companias', [
+            'credito',
+            'monto_credito',
+            'dia_corte_credito',
+            'dias_credito',
+            'cupo_disponible',
+        ], [
+            'id_compania' => $idCia,
+        ]);
+
+        return $data;
+    }
+
+    public function getGrupos()
+    {
+        global $database;
+
+        $data = $database->select('grupos_pms', [
+            'idGrupo',
+            'idCompania',
+            'idAgencia',
+            'nombreGrupo',
+            'fechaLlegada',
+            'fechaSalida',
+            'dias',
+            'idTarifa',
+            'cuentaMaestra',
+            'formaPago',
+            'totalHuespedes',
+            'totalHabitaciones',
+            'estado',
+        ]);
+
+        return $data;
+    }
+
+    public function getContratoHotelero()
+    {
+        global $database;
+
+        $data = $database->select('parametros_pms', [
+            'contrato_hotelero',
+        ]);
+
+        return $data[0]['contrato_hotelero'];
+    }
+
+    public function buscaAcompanantes($reserva)
+    {
+        global $database;
+
+        $data = $database->select('acompanantes', [
+            '[<]huespedes' => ['id_huesped'],
+        ], [
+            'nombre_completo',
+        ], [
+            'id_reserva' => $reserva,
+        ]);
+
+        return $data;
+    }
+
+    public function gerBuscaCia($id)
+    {
+        global $database;
+
+        $data = $database->select('companias', [
+            'id_compania',
+            'empresa',
+            'nit',
+            'dv',
+        ], [
+            'id_compania' => $id,
+        ]);
+
+        return $data;
+    }
+
+    public function getBuscaPerfilCompania($regis, $filas, $codigo)
+    {
+        global $database;
+
+        $data = $database->query("SELECT descripcion_tarifa, id_compania, empresa, direccion, nit, dv, tipo_documento, telefono, celular, fax, email, companias.id_tarifa, estado_credito, activo  FROM companias, tarifas WHERE (companias.id_tarifa = tarifas.id_tarifa AND empresa LIKE '%$codigo%') OR (companias.id_tarifa = tarifas.id_tarifa AND nit LIKE '%$codigo%') ORDER BY empresa ASC LIMIT $regis, $filas")->fetchAll();
+
+        return $data;
+    }
+
+    public function getPerfilCompanias($regis, $filas)
+    {
+        global $database;
+
+        $data = $database->select('companias', [
+            '[>]tarifas' => ['id_tarifa'],
+        ], [
+            'descripcion_tarifa',
+            'id_compania',
+            'empresa',
+            'direccion',
+            'nit',
+            'dv',
+            'tipo_documento',
+            'telefono',
+            'celular',
+            'fax',
+            'email',
+            'id_tarifa',
+            'estado_credito',
+            'activo',
+        ], [
+            'LIMIT' => [$regis, $filas],
+            'ORDER' => 'empresa',
+        ]);
+
+        return $data;
+    }
+
+    public function getCantidadCompanias()
+    {
+        global $database;
+
+        $data = $database->count('companias');
+
+        return $data;
+    }
+
+    public function getBuscaPerfilHuesped($regis, $filas, $codigo)
+    {
+        global $database;
+
+        $data = $database->query("SELECT id_huesped, nombre1, nombre2, apellido1, apellido2, nombre_completo, identificacion, direccion, telefono, email, tipo_identifica, tipo_huesped, fecha_nacimiento, sexo, celular, id_compania, idCentroCia, estado_credito  FROM huespedes WHERE nombre_completo LIKE '%$codigo%' OR identificacion LIKE '%$codigo%' ORDER BY apellido1 ASC LIMIT $regis, $filas")->fetchAll();
+
+        return $data;
+    }
+
+    public function getCantidadPerfiles()
+    {
+        global $database;
+
+        $data = $database->count('huespedes');
+
+        return $data;
+    }
+
+    public function getDiaFuenteReserva($fecha, $cod)
+    {
+        global $database;
+
+        $data = $database->query("SELECT count(reservas_pms.id) as nro, sum(reservas_pms.can_hombres) as hom, sum(reservas_pms.can_mujeres) as muj, sum(reservas_pms.can_ninos) as nin, reservas_pms.fuente_reserva, sum(reservas_pms.valor_reserva) as val, grupos_cajas.descripcion_grupo FROM reservas_pms, grupos_cajas WHERE reservas_pms.fuente_reserva = grupos_cajas.id_grupo AND reservas_pms.salida_checkout = '$fecha' AND grupos_cajas.id_grupo = $cod AND reservas_pms.tipo_habitacion <> 'CMA' GROUP BY grupos_cajas.descripcion_grupo ORDER BY grupos_cajas.descripcion_grupo")->fetchAll();
+
+        return $data;
+    }
+
+    public function getMesFuenteReserva($fecha, $mes, $anio, $cod)
+    {
+        global $database;
+
+        $data = $database->query("SELECT count(historico_reservas_pms.id) as nro, sum(historico_reservas_pms.can_hombres) as hom, sum(historico_reservas_pms.can_mujeres) as muj, sum(historico_reservas_pms.can_ninos) as nin, historico_reservas_pms.fuente_reserva, sum(historico_reservas_pms.valor_reserva) as val, grupos_cajas.descripcion_grupo FROM historico_reservas_pms, grupos_cajas WHERE historico_reservas_pms.fuente_reserva = grupos_cajas.id_grupo AND year(historico_reservas_pms.salida_checkout) = '$anio' AND month(historico_reservas_pms.salida_checkout) = '$mes' AND historico_reservas_pms.salida_checkout <= '$fecha' AND grupos_cajas.id_grupo = $cod AND historico_reservas_pms.tipo_habitacion <> 'CMA' GROUP BY grupos_cajas.descripcion_grupo ORDER BY grupos_cajas.descripcion_grupo")->fetchAll();
+
+        return $data;
+    }
+
+    public function getAniFuenteReserva($fecha, $anio, $cod)
+    {
+        global $database;
+
+        $data = $database->query("SELECT count(historico_reservas_pms.id) as nro, sum(historico_reservas_pms.can_hombres) as hom, sum(historico_reservas_pms.can_mujeres) as muj, sum(historico_reservas_pms.can_ninos) as nin, historico_reservas_pms.fuente_reserva, sum(historico_reservas_pms.valor_reserva) as val, grupos_cajas.descripcion_grupo FROM historico_reservas_pms, grupos_cajas WHERE historico_reservas_pms.fuente_reserva = grupos_cajas.id_grupo AND year(historico_reservas_pms.salida_checkout) = '$anio' AND historico_reservas_pms.salida_checkout <= '$fecha' AND grupos_cajas.id_grupo = $cod AND historico_reservas_pms.tipo_habitacion <> 'CMA' GROUP BY grupos_cajas.descripcion_grupo ORDER BY grupos_cajas.descripcion_grupo")->fetchAll();
+
+        return $data;
+    }
+
+    public function getTraeHistoricoReservas($sele)
+    {
+        global $database;
+
+        $data = $database->query($sele)->fetchAll();
+
+        return $data;
+    }
+
+    public function getActiveUser($user)
+    {
+        global $database;
+
+        $data = $database->select('usuarios', [
+            'usuario_id',
+            'correo',
+            'nombres',
+            'apellidos',
+            'usuario',
+            'estado',
+            'foto_usuario',
+            'usuario',
+            'tipo',
+            'empresa_id',
+            'estado_usuario_pms',
+            'estado_usuario_pos',
+        ], [
+            'usuario' => $user,
+        ]);
+
+        return $data;
+    }
+
+    public function buscaDocumentoDeposito($num)
+    {
+        global $database;
+
+        $data = $database->select('imagenes', [
+            'id_perfil',
+            'nombre_imagen',
+        ], [
+            'id_perfil' => $num,
+            'modulo' => 3,
+        ]);
+        if (count($data) == 0) {
+            return '';
+        } else {
+            return $data[0]['nombre_imagen'];
+        }
+    }
+
+    public function muestraImagenes($modulo, $id)
+    {
+        global $database;
+
+        $data = $database->select('imagenes', [
+            'nombre_imagen',
+        ], [
+            'modulo' => $modulo,
+            'id_perfil' => $id,
+        ]);
+
+        return $data;
+    }
+
+    public function insertImagenPerfil($modulo, $id, $file_name, $aux, $idusuario)
+    {
+        global $database;
+
+        $data = $database->insert('imagenes', [
+            'modulo' => $modulo,
+            'id_perfil' => $id,
+            'id_auxiliar' => $aux,
+            'nombre_imagen' => $file_name,
+            'id_usuario' => $idusuario,
+            'fecha' => date('y-m-d H:i:s'),
+        ]);
+
+        return $database->id();
+    }
+
+    public function getNombreCiudad($id)
+    {
+        global $database;
+
+        $data = $database->select('ciudades', [
+            'municipio',
+            'depto',
+        ], [
+            'id_ciudad' => $id,
+        ]);
+
+        if (count($data) == 0) {
+            return '';
+        } else {
+            return $data[0]['municipio'].' '.$data[0]['depto'];
+        }
+    }
+
+    public function getNombreTipoHabitacion2($tipo)
+    {
+        global $database;
+
+        $data = $database->select('tipo_habitaciones', [
+            'descripcion_habitacion',
+        ], [
+            'id' => $tipo,
+        ]);
+
+        return $data[0]['descripcion_habitacion'];
+    }
+
+    public function descripcionGrupo($id)
+    {
+        global $database;
+
+        $data = $database->select('grupos_cajas', [
+            'descripcion_grupo',
+        ], [
+            'id_grupo' => $id,
+        ]);
+
+        return $data[0]['descripcion_grupo'];
+    }
+
+    public function terminaMantenimiento($id, $costo, $idusuario)
+    {
+        global $database;
+
+        $data = $database->update('mantenimiento_habitaciones', [
+            'estado_mmto' => 2,
+            'fecha_termina_mmto' => date('Y-m-d H:i:s'),
+            'id_usuario_mmto' => $idusuario,
+            'valor_mmto' => $costo,
+        ], [
+            'id_mmto' => $id,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function adicionaObservacionesMmto($id, $observacion)
+    {
+        global $database;
+
+        $data = $database->update('mantenimiento_habitaciones', [
+            'observaciones' => $observacion,
+        ], [
+            'id_mmto' => $id,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function getInformacionMantenimiento($id)
+    {
+        global $database;
+
+        $data = $database->select('mantenimiento_habitaciones', [
+            '[>]grupos_cajas' => ['id_mantenimiento' => 'id_grupo'],
+        ], [
+            'grupos_cajas.descripcion_grupo',
+            'id_mmto',
+            'id_habitacion',
+            'id_mantenimiento',
+            'tipo_bloqueo',
+            'desde_fecha',
+            'hasta_fecha',
+            'observaciones',
+            'id_usuario',
+            'created_at',
+            'estado_mmto',
+            'retirar_inventario',
+            'presupuesto',
+            'fecha_termina_mmto',
+            'id_usuario_mmto',
+            'tipo_mmto',
+            'con_mantenimiento',
+            'fecha_mmto',
+            'valor_mmto',
+        ], [
+            'con_mantenimiento' => $id,
+        ]);
+
+        return $data;
+    }
+
+    public function updateNumeroMantenimiento($numero)
+    {
+        global $database;
+
+        $data = $database->update('parametros_pms', [
+            'con_mantenimiento' => $numero,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function getNumeroMantenimiento()
+    {
+        global $database;
+
+        $data = $database->select('parametros_pms', [
+            'con_mantenimiento',
+        ]);
+
+        return $data[0]['con_mantenimiento'];
+    }
+
+    public function buscaReservaHab($habi, $desde, $hasta)
+    {
+        global $database;
+
+        $data = $database->query("SELECT num_reserva, fecha_llegada, fecha_salida, estado, num_habitacion, id_huesped FROM reservas_pms WHERE (fecha_llegada BETWEEN '$desde' AND '$hasta') AND estado = 'ES' AND num_habitacion = '$habi'OR (fecha_salida BETWEEN '$desde' AND '$hasta') AND estado = 'ES' AND num_habitacion = '$habi' ORDER BY fecha_llegada")->fetchAll();
+
+        return $data;
+    }
+
+      public function actualizaMmtoHabitacion($room, $estadoHab)
+      {
+          global $database;
+
+          $data = $database->update('habitaciones', [
+            'estado_fo' => $estadoHab,
+            'estado_hk' => $estadoHab,
+            'estado' => 2,
+          ], [
+            'id' => $room,
+          ]);
+
+          return $data->rowCount();
+      }
+
+    public function adicionaMantenimiento($room, $desde, $hasta, $motivo, $inventario, $estadoHab, $observa, $presup, $numero, $tipo, $usuario)
+    {
+        global $database;
+
+        $data = $database->insert('mantenimiento_habitaciones', [
+            'id_habitacion' => $room,
+            'id_mantenimiento' => $motivo,
+            'tipo_bloqueo' => $inventario,
+            'desde_fecha' => $desde,
+            'hasta_fecha' => $hasta,
+            'observaciones' => $observa,
+            'id_usuario' => $usuario,
+            'fecha_mmto' => date('Y-m-d H:i:s'),
+            'created_at' => date('Y-m-d H:i:s'),
+            'estado_mmto' => 1,
+            'retirar_inventario' => $inventario,
+            'presupuesto' => $presup,
+            'tipo_mmto' => $tipo,
+            'con_mantenimiento' => $numero,
+        ]);
+
+        return $database->id();
+    }
+
+    public function getHabitacionesMmto($ctamaster)
+    {
+        global $database;
+
+        $data = $database->query("SELECT habitaciones.id, habitaciones.numero_hab, habitaciones.tipo_hab, habitaciones.pax, habitaciones.camas, habitaciones.estado_fo, habitaciones.estado_hk, tipo_habitaciones.descripcion_habitacion FROM  habitaciones, tipo_habitaciones WHERE habitaciones.id_tipohabitacion = tipo_habitaciones.id AND tipo_habitaciones.tipo_habitacion = 1 AND habitaciones.active_at = 1 AND habitaciones.estado = 1 AND substr(habitaciones.estado_fo,1,1) <> 'F'  ORDER BY  habitaciones.numero_hab")->fetchAll();
+
+        return $data;
+    }
+
+    public function habitacionesMantenimiento()
+    {
+        global $database;
+
+        $data = $database->select('mantenimiento_habitaciones', [
+            '[>]grupos_cajas' => ['id_mantenimiento' => 'id_grupo'],
+        ], [
+            'grupos_cajas.descripcion_grupo',
+            'id_mmto',
+            'id_habitacion',
+            'id_mantenimiento',
+            'tipo_bloqueo',
+            'desde_fecha',
+            'hasta_fecha',
+            'observaciones',
+            'id_usuario',
+            'estado_mmto',
+            'retirar_inventario',
+            'con_mantenimiento',
+            'tipo_mmto',
+            'presupuesto',
+            'valor_mmto',
+            'created_at',
+        ], [
+            'estado_mmto' => 1,
+        ]);
+
+        return $data;
+    }
+
+    public function entregaObjetosPerdidos($id, $fechaent, $entregado, $por, $observaEnt, $idusuario, $tratamiento)
+    {
+        global $database;
+
+        $data = $database->update('objetos_olvidados', [
+            'entregado_por' => $por,
+            'entregado_a' => $entregado,
+            'fecha_entrega' => $fechaent,
+            'accion_objeto' => 1,
+            'tratamiento_objeto' => $tratamiento,
+            'observaciones_objeto' => $observaEnt,
+            'id_usuario_entrega' => $idusuario,
+            'updated_at' => date('Y-m-d H:i:s'),
+        ], [
+            'id_objeto' => $id,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function adicionaObservacionesObjeto($id, $observacion)
+    {
+        global $database;
+
+        $data = $database->update('objetos_olvidados', [
+            'observaciones_objeto' => $observacion,
+        ], [
+            'id_objeto' => $id,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function getNumeroHab($id)
+    {
+        global $database;
+
+        $data = $database->select('habitaciones', [
+            'numero_hab',
+        ], [
+            'id' => $id,
+        ]);
+
+        return $data[0]['numero_hab'];
+    }
+
+    public function getBuscaObjetoOlvidado($id)
+    {
+        global $database;
+
+        $data = $database->select('objetos_olvidados', [
+            'objeto_encontrado',
+            'fecha_encontrado',
+            'id_habitacion',
+            'estado_objeto',
+            'lugar_encontrado',
+            'id_huesped',
+            'encontrado_por',
+            'observaciones_objeto',
+            'almacenado_en',
+            'id_usuario',
+            'accion_objeto',
+            'created_at',
+        ], [
+            'id_objeto' => $id,
+        ]);
+
+        return $data;
+    }
+
+    public function adicionaObjetosPerdidos($objeto, $fecha, $room, $estado, $lugar, $huesped, $encontrado, $almacena, $observa, $idusuario)
+    {
+        global $database;
+
+        $data = $database->insert('objetos_olvidados', [
+            'objeto_encontrado' => $objeto,
+            'fecha_encontrado' => $fecha,
+            'id_habitacion' => $room,
+            'estado_objeto' => $estado,
+            'lugar_encontrado' => $lugar,
+            'id_huesped' => $huesped,
+            'encontrado_por' => $encontrado,
+            'observaciones_objeto' => $observa,
+            'almacenado_en' => $almacena,
+            'id_usuario' => $idusuario,
+            'accion_objeto' => 0,
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        return $database->id();
+    }
+
+    public function getHuespedesActivos()
+    {
+        global $database;
+
+        $data = $database->select('huespedes', [
+            'id_huesped',
+            'nombre_completo',
+        ], [
+            'ORDER' => ['nombre_completo' => 'ASC'],
+        ]);
+
+        return $data;
+    }
+
+    public function traeNroHabitacion($id)
+    {
+        global $database;
+
+        $data = $database->select('habitaciones', [
+            'numero_hab',
+        ], [
+            'id' => $id,
+        ]);
+
+        return $data[0]['numero_hab'];
+    }
+
+    public function objetosOlvidados()
+    {
+        global $database;
+
+        $data = $database->select('objetos_olvidados', [
+            '[>]huespedes' => 'id_huesped',
+        ], [
+            'huespedes.nombre_completo',
+            'id_objeto',
+            'id_habitacion',
+            'id_huesped',
+            'objeto_encontrado',
+            'lugar_encontrado',
+            'encontrado_por',
+            'objetos_olvidados.id_usuario',
+            'fecha_encontrado',
+            'almacenado_en',
+            'entregado_por',
+            'entregado_a',
+            'fecha_entrega',
+            'estado_objeto',
+            'accion_objeto',
+            'tratamiento_objeto',
+            'observaciones_objeto',
+            'created_at',
+        ], [
+            'ORDER' => ['fecha_encontrado' => 'ASC'],
+        ]);
+
+        return $data;
+    }
+
+    public function traeConsecutivoDecreto()
+    {
+        global $database;
+
+        $data = $database->select('parametros_pms', [
+            'con_decreto',
+        ]);
+
+        return $data[0]['con_decreto'];
+    }
+
+    public function actualizaDecreto($regis)
+    {
+        global $database;
+
+        $data = $database->update('parametros_pms', [
+            'con_decreto' => $regis,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function countRegistrosSinImprimir($fecha)
+    {
+        global $database;
+
+        $data = $database->count('reservas_pms', [
+            'id',
+        ], [
+            'fecha_llegada' => $fecha,
+            'estado' => 'CA',
+        ]);
+
+        return $data;
+    }
+
+    public function getFacturasPorRango($sele)
+    {
+        global $database;
+
+        $data = $database->query($sele)->fetchAll();
+
+        return $data;
+    }
+
+    public function getLogin($user, $pass)
+    {
+        global $database;
+
+        $data = $database->select('usuarios', [
+            'usuario_id',
+            'correo',
+            'nombres',
+            'apellidos',
+            'usuario',
+            'estado',
+            'foto_usuario',
+            'usuario',
+            'tipo',
+            'empresa_id',
+            'estado_usuario_pms',
+            'estado_usuario_pos',
+        ], [
+            'usuario' => $user,
+            'password' => $pass,
+            'deleted_at' => null,
+        ]);
+
+        return $data;
+    }
+
+    public function actualizaNombre($id, $nombre)
+    {
+        global $database;
+
+        $data = $database->update('huespedes', [
+            'nombre_completo' => $nombre,
+        ], [
+            'id_huesped' => $id,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function abreCajero($user)
+    {
+        global $database;
+
+        $data = $database->update('usuarios', [
+            'estado_usuario_pms' => 1,
+        ], [
+            'usuario' => $user,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function ingresoLog($id, $user, $pc, $ip, $accion, $inicial, $final, $modulo)
+    {
+        global $database;
+
+        $data = $database->insert('log', [
+            'idregistro' => $id,
+            'usuario' => $user,
+            'equipo' => $pc,
+            'accion' => $accion,
+            'iplog' => $ip,
+            'datoinicial' => $inicial,
+            'datofinal' => $final,
+            'modulo' => $modulo,
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        return $database->id();
+    }
+
+    public function cambiaEstadoCajeros()
+    {
+        global $database;
+
+        $data = $database->update('usuarios', [
+            'estado_usuario_pms' => 0,
+        ], [
+            'estado' => 'A',
+        ]);
+
+        return $data;
+    }
+
+    public function getAbrirCajero($user)
+    {
+        global $database;
+
+        $data = $database->update('usuarios', [
+            'estado_usuario_pms' => 1,
+        ], [
+            'usuario' => $user,
+        ]);
+
+        return $data;
+    }
+
+    public function getCuentasCongeladas()
+    {
+        global $database;
+
+        $data = $database->count('reservas_pms', [
+            'id',
+        ], [
+            'estado' => 'CO',
+        ]);
+
+        return $data;
+    }
+
+    public function getCuentasMaestras()
+    {
+        global $database;
+
+        $data = $database->count('reservas_pms', [
+            'reservas_pms.num_habitacion',
+        ], [
+            'reservas_pms.estado' => 'CA',
+            'reservas_pms.tipo_habitacion' => '1',
+        ]);
+
+        return $data;
+    }
+
+    public function habitacionesUsoDia($fecha)
+    {
+        global $database;
+
+        $data = $database->query("SELECT count(id) as habi, sum(can_hombres) as hom, sum(can_mujeres) as muj, sum(can_ninos) as nin  FROM reservas_pms WHERE fecha_llegada = salida_checkout AND salida_checkout = '$fecha'")->fetchAll();
+
+        return $data;
+    }
+
+    public function getCajerosAbiertos()
+    {
+        global $database;
+
+        $data = $database->select('usuarios', [
+            'usuario',
+            'usuario_id',
+        ], [
+            'estado_usuario_pms' => 1,
+            'estado' => 'A',
+        ]);
+
+        return $data;
+    }
+
+    public function getDepositosdelDia($fecha, $tipo, $estado)
+    {
+        global $database;
+
+        $data = $database->select('cargos_pms', [
+            '[>]huespedes' => 'id_huesped',
+            '[>]codigos_vta' => ['id_codigo_cargo' => 'id_cargo'],
+        ], [
+            'huespedes.nombre1',
+            'huespedes.nombre2',
+            'huespedes.apellido1',
+            'huespedes.apellido2',
+            'cargos_pms.fecha_cargo',
+            'cargos_pms.monto_cargo',
+            'cargos_pms.base_impuesto',
+            'cargos_pms.impuesto',
+            'cargos_pms.codigo_impto',
+            'cargos_pms.id_codigo_cargo',
+            'cargos_pms.habitacion_cargo',
+            'cargos_pms.descripcion_cargo',
+            'cargos_pms.usuario',
+            'cargos_pms.id_huesped',
+            'cargos_pms.id_usuario',
+            'cargos_pms.cantidad_cargo',
+            'cargos_pms.informacion_cargo',
+            'cargos_pms.valor_cargo',
+            'cargos_pms.folio_cargo',
+            'cargos_pms.pagos_cargos',
+            'cargos_pms.referencia_cargo',
+            'cargos_pms.concecutivo_abono',
+            'cargos_pms.concecutivo_deposito',
+            'cargos_pms.cargo_anulado',
+            'cargos_pms.motivo_anulacion',
+            'cargos_pms.fecha_anulacion',
+            'cargos_pms.usuario_anulacion',
+            'cargos_pms.numero_reserva',
+            'cargos_pms.habitacion_cargo',
+            'cargos_pms.fecha_sistema_cargo',
+            'cargos_pms.factura_numero',
+            'cargos_pms.id_reserva',
+        ], [
+            'cargos_pms.fecha_cargo' => $fecha,
+            'cargos_pms.cargo_anulado' => $estado,
+            'codigos_vta.tipo_codigo' => $tipo,
+            'cargos_pms.concecutivo_deposito[>]' => 0,
+            'ORDER' => [
+                'concecutivo_deposito' => 'ASC',
+            ],
+        ]);
+
+        return $data;
+    }
+
+    public function getDepositosdelDiaporcajero($fecha, $usuario, $tipo, $estado)
+    {
+        global $database;
+
+        $data = $database->select('cargos_pms', [
+            '[>]huespedes' => 'id_huesped',
+            '[>]codigos_vta' => ['id_codigo_cargo' => 'id_cargo'],
+        ], [
+            'huespedes.nombre1',
+            'huespedes.nombre2',
+            'huespedes.apellido1',
+            'huespedes.apellido2',
+            'cargos_pms.fecha_cargo',
+            'cargos_pms.monto_cargo',
+            'cargos_pms.base_impuesto',
+            'cargos_pms.impuesto',
+            'cargos_pms.codigo_impto',
+            'cargos_pms.id_codigo_cargo',
+            'cargos_pms.habitacion_cargo',
+            'cargos_pms.descripcion_cargo',
+            'cargos_pms.usuario',
+            'cargos_pms.id_huesped',
+            'cargos_pms.cantidad_cargo',
+            'cargos_pms.informacion_cargo',
+            'cargos_pms.valor_cargo',
+            'cargos_pms.folio_cargo',
+            'cargos_pms.pagos_cargos',
+            'cargos_pms.referencia_cargo',
+            'cargos_pms.concecutivo_abono',
+            'cargos_pms.concecutivo_deposito',
+            'cargos_pms.cargo_anulado',
+            'cargos_pms.motivo_anulacion',
+            'cargos_pms.fecha_anulacion',
+            'cargos_pms.usuario_anulacion',
+            'cargos_pms.numero_reserva',
+            'cargos_pms.habitacion_cargo',
+            'cargos_pms.fecha_sistema_cargo',
+            'cargos_pms.factura_numero',
+            'cargos_pms.id_reserva',
+        ], [
+            'cargos_pms.fecha_cargo' => $fecha,
+            'cargos_pms.usuario' => $usuario,
+            'cargos_pms.cargo_anulado' => $estado,
+            'codigos_vta.tipo_codigo' => $tipo,
+            'cargos_pms.concecutivo_deposito[>]' => 0,
+            'ORDER' => [
+                'concecutivo_deposito' => 'ASC',
+            ],
+        ]);
+
+        return $data;
+    }
+
+    public function getBuscaCargosFacturaDia($factura, $reserva)
+    {
+        global $database;
+
+        $data = $database->select('cargos_pms', [
+            'fecha_cargo',
+            'monto_cargo',
+            'impuesto',
+            'descripcion_cargo',
+            'usuario',
+            'pagos_cargos',
+            'numero_factura_cargo',
+            'folio_cargo',
+        ], [
+            'cargo_anulado' => 0,
+            'factura_numero' => $factura,
+            'numero_reserva' => $reserva,
+            'ORDER' => [
+                'id_cargo' => 'ASC',
+            ],
+        ]);
+
+        return $data;
+    }
+
+    public function adicionaObservaciones($reserva, $observacion)
+    {
+        global $database;
+
+        $data = $database->update('reservas_pms', [
+            'observaciones' => $observacion,
+        ], [
+            'num_reserva' => $reserva,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function registrosHotelerosSinImprimir($fecha)
+    {
+        global $database;
+
+        $data = $database->select('reservas_pms', [
+            '[>]huespedes' => 'id_huesped',
+            '[>]tipo_habitaciones' => ['tipo_habitacion' => 'codigo'],
+        ], [
+            'fecha_llegada',
+            'huespedes.nombre_completo',
+            'huespedes.apellido1',
+            'huespedes.apellido2',
+            'huespedes.nombre1',
+            'huespedes.nombre2',
+            'num_habitacion',
+            'num_registro',
+        ], [
+            'tipo_habitaciones.tipo_habitacion[<]' => 4,
+            'num_registro' => 0,
+            'estado' => 'CA',
+            'ORDER' => ['num_habitacion' => 'ASC'],
+        ]);
+
+        return $data;
+    }
+
+    public function actualizaRegistroReserva($reserva, $numregis)
+    {
+        global $database;
+
+        $data = $database->update('reservas_pms', [
+            'num_registro' => $numregis,
+        ], [
+            'num_reserva' => $reserva,
+        ]);
+
+        return $data;
+    }
+
+    public function actualizaRegistro($regis)
+    {
+        global $database;
+
+        $data = $database->update('parametros_pms', [
+            'con_registro_hotelero' => $regis,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function traeConsecutivoRegistro()
+    {
+        global $database;
+
+        $data = $database->select('parametros_pms', [
+            'con_registro_hotelero',
+        ]);
+
+        return $data[0]['con_registro_hotelero'];
+    }
+
+    public function buscaFacturaNumero($factura, $reserva)
+    {
+        global $database;
+
+        $data = $database->select('cargos_pms', [
+            '[<]codigos_vta' => ['id_codigo_cargo' => 'id_cargo'],
+        ], [
+            'codigos_vta.codigo_ajuste',
+            'cargos_pms.id_cargo',
+            'cargos_pms.id_codigo_cargo',
+        ], [
+            'cargos_pms.factura_numero' => $factura,
+            'cargos_pms.numero_reserva' => $reserva,
+        ]);
+
+        return $data;
+    }
+
+    public function cambiaCodigoFacturaHistorico($cargo, $newcode, $descr)
+    {
+        global $database;
+
+        $data = $database->update('cargos_pms', [
+            'id_codigo_cargo' => $newcode,
+            'descripcion_cargo' => $descr,
+        ], [
+            'id_cargo' => $cargo,
+        ]);
+
+        return $data;
+    }
+
+    public function cambioValorFacturaHistorico($factura, $reserva, $fecha, $usuario, $idusuario)
+    {
+        global $database;
+
+        $data = $database->query("UPDATE cargos_pms SET monto_cargo = monto_cargo * -1, base_impuesto = base_impuesto  * -1, impuesto = impuesto * -1, valor_cargo = valor_cargo * -1, pagos_cargos = pagos_cargos * -1, usuario = '$usuario', id_usuario = '$idusuario', fecha_cargo = '$fecha' WHERE numero_reserva = '$reserva' AND factura_numero = '$factura'")->fetchAll();
+    }
+
+    public function getBuscaHuespedCongela($huesped)
+    {
+        global $database;
+
+        $data = $database->select('huespedes', [
+            'id_huesped',
+            'nombre1',
+            'nombre2',
+            'apellido1',
+            'apellido2',
+            'identificacion',
+            'tipo_identifica',
+            'lugar_expedicion',
+            'pais',
+            'sexo',
+        ], [
+            'id_huesped' => $huesped,
+        ]);
+
+        return $data;
+    }
+
+    public function anulafacturaHistoricoXCongelada($factura, $reserva, $motivo, $usuario, $idusuario)
+    {
+        global $database;
+
+        $data = $database->update('historico_cargos_pms', [
+            'factura_anulada' => 1,
+            'cargo_anulado' => 1,
+            'motivo_anulacion' => $motivo,
+            'usuario_anulacion' => $usuario,
+            'id_usuario_anulacion' => $idusuario,
+            'fecha_anulacion' => date('Y-m-d H:i:s'),
+        ], [
+            'factura_numero' => $factura,
+            'numero_reserva' => $reserva,
+            'factura' => 1,
+        ]);
+
+        return $data;
+    }
+
+    public function eliminaHistoricoFacturaXCongelada($factura, $reserva)
+    {
+        global $database;
+
+        $data = $database->delete('historico_cargos_pms', [
+            'AND' => [
+                'factura_numero' => $factura,
+                'numero_reserva' => $reserva,
+                'factura' => 0,
+                ],
+        ]);
+
+        return $data;
+    }
+
+    public function activaCuentaCongeladaFacturaAnulada($factura, $reserva)
+    {
+        global $database;
+
+        $data = $database->update('cargos_pms', [
+            'tipo_factura' => 0,
+            'id_perfil_factura' => 0,
+            'factura_numero' => 0,
+        ], [
+            'factura_numero' => $factura,
+            'numero_reserva' => $reserva,
+        ]);
+
+        return $data;
+    }
+
+    public function getBuscaHistoricoReserva($id)
+    {
+        global $database;
+
+        $data = $database->select('historico_reservas_pms', [
+            '[>]huespedes' => 'id_huesped',
+        ], [
+            'huespedes.nombre_completo',
+            'huespedes.identificacion',
+            'huespedes.nombre1',
+            'huespedes.nombre2',
+            'historico_reservas_pms.id',
+            'historico_reservas_pms.cantidad',
+            'historico_reservas_pms.dias_reservados',
+            'historico_reservas_pms.estado',
+            'historico_reservas_pms.fecha_llegada',
+            'historico_reservas_pms.fecha_salida',
+            'historico_reservas_pms.tipo_reserva',
+            'historico_reservas_pms.num_habitacion',
+            'historico_reservas_pms.num_reserva',
+            'historico_reservas_pms.can_hombres',
+            'historico_reservas_pms.can_mujeres',
+            'historico_reservas_pms.orden_reserva',
+            'historico_reservas_pms.can_ninos',
+            'historico_reservas_pms.origen_reserva',
+            'historico_reservas_pms.destino_reserva',
+            'historico_reservas_pms.id_agencia',
+            'historico_reservas_pms.id_compania',
+            'historico_reservas_pms.idCentroCia',
+            'historico_reservas_pms.id_huesped',
+            'historico_reservas_pms.tarifa',
+            'historico_reservas_pms.tipo_habitacion',
+            'historico_reservas_pms.tipo_ocupacion',
+            'historico_reservas_pms.valor_reserva',
+            'historico_reservas_pms.valor_diario',
+            'historico_reservas_pms.motivo_viaje',
+            'historico_reservas_pms.fecha_reserva',
+            'historico_reservas_pms.usuario',
+            'historico_reservas_pms.fecha_ingreso',
+            'historico_reservas_pms.observaciones',
+            'historico_reservas_pms.fuente_reserva',
+            'historico_reservas_pms.segmento_mercado',
+            'historico_reservas_pms.cargo_habitacion',
+            'historico_reservas_pms.causar_impuesto',
+            'historico_reservas_pms.forma_pago',
+        ], [
+            'num_reserva' => $id,
+        ]);
+
+        return $data;
+    }
+
+    public function getBuscaHistoricoCargosFactura($factura, $reserva)
+    {
+        global $database;
+
+        $data = $database->select('historico_cargos_pms', [
+            'fecha_cargo',
+            'monto_cargo',
+            'impuesto',
+            'descripcion_cargo',
+            'usuario',
+            'pagos_cargos',
+            'numero_factura_cargo',
+            'folio_cargo',
+        ], [
+            'cargo_anulado' => 0,
+            'factura_numero' => $factura,
+            'numero_reserva' => $reserva,
+            'ORDER' => [
+                'id_cargo' => 'ASC',
+            ],
+        ]);
+
+        return $data;
+    }
+
+    public function deleteCargoshistoricoXCongelado($factura, $reserva)
+    {
+        global $database;
+
+        $data = $database->delete('historico_cargos_pms', [
+            'AND' => [
+                'factura_numero' => $factura,
+                'numero_reserva' => $reserva,
+            ],
+        ]);
+
+        return $data;
+    }
+
+    public function insertCargosHistorico($factura, $reserva)
+    {
+        global $database;
+
+        $data = $database->query("INSERT INTO historico_cargos_pms SELECT * FROM cargos_pms WHERE factura_numero = '$factura' AND numero_reserva = '$reserva' AND cargo_anulado = 0")->fetchAll();
+
+        return $data;
+    }
+
+    public function borraHistoricoCongela($numero)
+    {
+        global $database;
+
+        $data = $database->delete('historico_reservas_pms', [
+            'AND' => [
+                'num_reserva' => $numero,
+            ],
+        ]);
+
+        return $data;
+    }
+
+    public function insertaHistoricoCongela($numero)
+    {
+        global $database;
+
+        $data = $database->query("INSERT INTO reservas_pms SELECT * FROM historico_reservas_pms WHERE num_reserva = '$numero'")->fetchAll();
+
+        return $database->id();
+    }
+
+    public function getFacturasReserva($id)
+    {
+        global $database;
+
+        $data = $database->select('historico_cargos_pms', [
+            '[<]huespedes' => 'id_huesped',
+            '[<]historico_reservas_pms' => ['numero_reserva' => 'num_reserva'],
+        ], [
+            'huespedes.apellido1',
+            'huespedes.apellido2',
+            'huespedes.nombre1',
+            'huespedes.nombre2',
+            'historico_reservas_pms.fecha_llegada',
+            'historico_reservas_pms.salida_checkout',
+            'historico_cargos_pms.habitacion_cargo',
+            'historico_cargos_pms.tipo_factura',
+            'historico_cargos_pms.id_perfil_factura',
+            'historico_cargos_pms.factura_numero',
+            'historico_cargos_pms.numero_reserva',
+            'historico_cargos_pms.factura_anulada',
+            'historico_cargos_pms.fecha_factura',
+            'historico_cargos_pms.id_usuario_factura',
+            'historico_cargos_pms.total_consumos',
+            'historico_cargos_pms.total_impuesto',
+            'historico_cargos_pms.total_pagos',
+            'historico_cargos_pms.fecha_sistema_cargo',
+        ], [
+            'historico_cargos_pms.factura' => 1,
+            'historico_cargos_pms.numero_reserva' => $id,
+            'ORDER' => ['historico_cargos_pms.factura_numero' => 'ASC'],
+        ]);
+
+        return $data;
+    }
+
+    public function getHistoricoVentasDiaCodigo($fecha, $codi)
+    {
+        global $database;
+
+        $data = $database->query("SELECT Sum(impuesto) as imptos, Sum(monto_cargo) as cargos, Sum(pagos_cargos) as pagos FROM historico_cargos_pms WHERE cargo_anulado = 0 AND id_codigo_cargo = '$codi' AND fecha_cargo = '$fecha'")->fetchAll();
+
+        return $data;
+    }
+
+    public function getHistoricoVentasMesCodigo($dia, $mes, $anio, $codi)
+    {
+        global $database;
+
+        $data = $database->query("SELECT Sum(historico_cargos_pms.impuesto) as imptos, Sum(historico_cargos_pms.monto_cargo) as cargos, Sum(historico_cargos_pms.pagos_cargos) as pagos FROM historico_cargos_pms WHERE historico_cargos_pms.cargo_anulado = 0 AND id_codigo_cargo = '$codi' AND MONTH(historico_cargos_pms.fecha_cargo) = '$mes' AND historico_cargos_pms.fecha_cargo <= '$dia' AND historico_cargos_pms.fecha_cargo >= '2019-07-29'")->fetchAll();
+
+        return $data;
+    }
+
+    public function getHistoricoVentasMesCodigoHistorico($dia, $mes, $anio, $codi)
+    {
+        global $database;
+
+        $data = $database->query("SELECT Sum(historico_cargos_pms.impuesto) as imptos, Sum(historico_cargos_pms.monto_cargo) as cargos, Sum(historico_cargos_pms.pagos_cargos) as pagos FROM cargos_pms WHERE historico_cargos_pms.cargo_anulado = 0 AND id_codigo_cargo = '$codi' AND MONTH(historico_cargos_pms.fecha_cargo) = '$fecha' AND YEAR(historico_cargos_pms.fecha_cargo) = '$anio'")->fetchAll();
+
+        return $data;
+    }
+
+    public function getHistoricoVentasAnioCodigo($dia, $anio, $codi)
+    {
+        global $database;
+
+        $data = $database->query("SELECT Sum(historico_cargos_pms.impuesto) as imptos, Sum(historico_cargos_pms.monto_cargo) as cargos, Sum(historico_cargos_pms.pagos_cargos) as pagos FROM historico_cargos_pms WHERE historico_cargos_pms.cargo_anulado = 0 AND historico_cargos_pms.id_codigo_cargo = '$codi' AND YEAR(historico_cargos_pms.fecha_cargo) = '$anio' AND historico_cargos_pms.fecha_cargo <= '$dia' AND historico_cargos_pms.fecha_cargo >= '2019-07-29'")->fetchAll();
+
+        return $data;
+    }
+
+    public function getHistoricoVentasAnioCodigoHistorico($dia, $anio, $codi)
+    {
+        global $database;
+
+        $data = $database->query("SELECT Sum(historico_cargos_pms.impuesto) as imptos, Sum(historico_cargos_pms.monto_cargo) as cargos, Sum(historico_cargos_pms.pagos_cargos) as pagos FROM historico_cargos_pms WHERE historico_cargos_pms.cargo_anulado = 0 AND historico_cargos_pms.id_codigo_cargo = '$codi' AND YEAR(historico_cargos_pms.fecha_cargo) = '$anio' AND historico_cargos_pms.fecha_cargo <= '$dia' ")->fetchAll();
+
+        return $data;
+    }
+
+    public function getHistoricoCargosDia($fecha, $tipo)
+    {
+        global $database;
+
+        $data = $database->query("SELECT historico_cargos_pms.descripcion_cargo, count(historico_cargos_pms.monto_cargo) as canti, Sum(historico_cargos_pms.monto_cargo) as cargos, Sum(historico_cargos_pms.impuesto) as imptos, sum(historico_cargos_pms.monto_cargo+historico_cargos_pms.impuesto) as total_cargo, Sum(historico_cargos_pms.pagos_cargos) as pagos FROM historico_cargos_pms , codigos_vta WHERE historico_cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND historico_cargos_pms.cargo_anulado = 0 AND codigos_vta.tipo_codigo = '$tipo' AND historico_cargos_pms.fecha_cargo = '$fecha' GROUP BY historico_cargos_pms.descripcion_cargo ORDER BY historico_cargos_pms.descripcion_cargo ASC")->fetchAll();
+
+        return $data;
+    }
+
+    public function getHistoricoBalanceSaldodelDia($fecha)
+    {
+        global $database;
+
+        $data = $database->query("SELECT Sum(historico_cargos_pms.monto_cargo) AS saldo_viene, Sum(historico_cargos_pms.impuesto) AS impto_viene, Sum(historico_cargos_pms.pagos_cargos) AS pagos_viene, Sum(historico_cargos_pms.monto_cargo + historico_cargos_pms.impuesto - historico_cargos_pms.pagos_cargos) AS total_viene FROM historico_cargos_pms , historico_reservas_pms WHERE historico_cargos_pms.numero_reserva = historico_reservas_pms.num_reserva AND historico_reservas_pms.tipo_reserva = 2 AND historico_cargos_pms.fecha_cargo = '$fecha' AND historico_cargos_pms.cargo_anulado = 0 AND historico_reservas_pms.cargo_habitacion < '9450'")->fetchAll();
+
+        return $data;
+    }
+
+    public function getHistoricoBalanceSaldoAnterior($fecha)
+    {
+        global $database;
+
+        $data = $database->query("SELECT Sum(historico_cargos_pms.monto_cargo) AS saldo_viene, Sum(historico_cargos_pms.impuesto) AS impto_viene, Sum(historico_cargos_pms.pagos_cargos) AS pagos_viene, Sum(historico_cargos_pms.monto_cargo + historico_cargos_pms.impuesto - historico_cargos_pms.pagos_cargos) AS total_viene FROM historico_cargos_pms , historico_reservas_pms WHERE historico_cargos_pms.numero_reserva = historico_reservas_pms.num_reserva AND historico_reservas_pms.tipo_reserva = 2 AND historico_cargos_pms.fecha_cargo < '$fecha' AND historico_cargos_pms.cargo_anulado = 0 AND historico_reservas_pms.cargo_habitacion < '9450' AND year(historico_cargos_pms.fecha_cargo)=2019 AND historico_cargos_pms.fecha_cargo >= '2019-07-29'")->fetchAll();
+
+        return $data;
+    }
+
+    public function cambiaHuespedReserva($rese, $hues)
+    {
+        global $database;
+
+        $data = $database->update('reservas_pms', [
+            'id_huesped' => $hues,
+        ], [
+            'num_reserva' => $rese,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function borraCargosAnulados()
+    {
+        global $database;
+
+        $data = $database->delete('cargos_pms', [
+            'AND' => [
+                'cargo_anulado' => 1,
+            ],
+        ]);
+
+        return $data;
+    }
+
+    public function getBuscaFechaAuditoria($fecha)
+    {
+        global $database;
+
+        $data = $database->select('auditoria', [
+            'id_proceso',
+            'titulo_proceso',
+            'orden_proceso',
+            'reporte',
+        ], [
+            'actived_at' => 1,
+            'imprimir' => 1,
+            'ORDER' => ['orden_proceso' => 'ASC'],
+        ]);
+
+        return $data;
+    }
+
+    public function getSalidasRealizadas($fecha, $tipo, $estado)
+    {
+        global $database;
+
+        $data = $database->select('reservas_pms', [
+            '[>]huespedes' => 'id_huesped',
+        ], [
+            'reservas_pms.cantidad',
+            'reservas_pms.fecha_llegada',
+            'reservas_pms.fecha_salida',
+            'reservas_pms.salida_checkout',
+            'reservas_pms.dias_reservados',
+            'reservas_pms.tipo_habitacion',
+            'reservas_pms.num_habitacion',
+            'reservas_pms.num_reserva',
+            'reservas_pms.can_hombres',
+            'reservas_pms.can_mujeres',
+            'reservas_pms.can_ninos',
+            'reservas_pms.orden_reserva',
+            'reservas_pms.id_compania',
+            'reservas_pms.idCentroCia',
+            'reservas_pms.tarifa',
+            'reservas_pms.valor_reserva',
+            'reservas_pms.valor_diario',
+            'reservas_pms.observaciones',
+            'reservas_pms.tipo_ocupacion',
+            'reservas_pms.estado',
+            'reservas_pms.causar_impuesto',
+            'huespedes.nombre_completo',
+            'huespedes.nombre1',
+            'huespedes.nombre2',
+            'huespedes.apellido1',
+            'huespedes.apellido2',
+        ], [
+            'tipo_reserva' => $tipo,
+            'estado' => $estado,
+            'salida_checkout' => $fecha,
+            'ORDER' => ['reservas_pms.num_habitacion' => 'ASC'],
+        ]);
+
+        return $data;
+    }
+
+    public function actualizaEstadistica($regis, $dispo, $ocup, $huesp)
+    {
+        global $database;
+
+        $data = $database->update('reporte_gerencia', [
+            'ingreso_promedio_habitacion_disponible' => $dispo,
+            'ingreso_promedio_habitacion_ocupada' => $ocup,
+            'ingreso_promedio_huesped' => $huesp,
+        ], [
+            'id_auditoria' => $regis,
+        ]);
+
+        return $data;
+    }
+
+    public function getAuditorias()
+    {
+        global $database;
+
+        $data = $database->query('SELECT * FROM reporte_gerencia')->fetchAll();
+
+        return $data;
+    }
+
+    public function cambiaNoShow($fecha, $estado)
+    {
+        global $database;
+
+        $data = $database->update('historico_reservas_pms', [
+            'estado' => 'NS',
+        ], [
+            'fecha_llegada' => $fecha,
+            'estado' => 'ES',
+        ]);
+
+        return $data;
+    }
+
+    public function getLlegadasSinReserva($fecha)
+    {
+        global $database;
+
+        $data = $database->count('reservas_pms', [
+            'num_habitacion',
+        ], [
+            'estado' => 'CA',
+            'sinreserva' => 1,
+            'fecha_llegada' => $fecha,
+        ]);
+
+        return $data;
+    }
+
+    public function getSalidasAntes($fecha)
+    {
+        global $database;
+
+        $data = $database->count('reservas_pms', [
+            'num_habitacion',
+        ], [
+            'estado' => 'SA',
+            'fecha_salida[>]' => $fecha,
+        ]);
+
+        return $data;
+    }
+
+    public function getHuespedesInterNal($cta, $pais)
+    {
+        global $database;
+
+        $data = $database->query("SELECT Count(huespedes.id_huesped) as inter FROM huespedes , reservas_pms WHERE huespedes.id_huesped = reservas_pms.id_huesped AND reservas_pms.estado = 'CA' AND reservas_pms.tipo_habitacion <> '$cta' and huespedes.pais <>  '$pais'")->fetchAll();
+
+        return $data[0]['inter'];
+    }
+
+    public function getHuespedesNacionales($cta, $pais)
+    {
+        global $database;
+
+        $data = $database->query("SELECT Count(huespedes.id_huesped) as nales FROM huespedes , reservas_pms WHERE huespedes.id_huesped = reservas_pms.id_huesped AND reservas_pms.estado = 'CA' AND reservas_pms.tipo_habitacion <> '$cta' and huespedes.pais =  '$pais'")->fetchAll();
+
+        return $data[0]['nales'];
+    }
+
+    public function getHuespedesRepetitivos()
+    {
+        global $database;
+
+        $data = $database->query("SELECT Count(historico_reservas_pms.id_huesped) FROM historico_reservas_pms , reservas_pms WHERE reservas_pms.id_huesped = historico_reservas_pms.id_huesped AND historico_reservas_pms.estado = 'SA' AND reservas_pms.estado = 'CA' GROUP BY historico_reservas_pms.id_huesped")->fetchAll();
+
+        return $data;
+    }
+
+    public function getIngresoHuesped($fecha)
+    {
+        global $database;
+
+        $data = $database->query("SELECT sum(cargos_pms.monto_cargo) as cargos FROM cargos_pms, reservas_pms WHERE cargos_pms.numero_reserva = reservas_pms.num_reserva AND reservas_pms.id_compania = 0 AND cargos_pms.cargo_anulado = 0 AND cargos_pms.fecha_cargo = '$fecha'")->fetchAll();
+
+        return $data;
+    }
+
+    public function getIngresoIndividual($fecha)
+    {
+        global $database;
+
+        $data = $database->query("SELECT sum(cargos_pms.monto_cargo) as cargos FROM cargos_pms, reservas_pms WHERE cargos_pms.numero_reserva = reservas_pms.num_reserva AND cargos_pms.cargo_anulado = 0 AND cargos_pms.fecha_cargo = '$fecha'")->fetchAll();
+
+        return $data;
+    }
+
+    public function getIngresoGrupo($fecha)
+    {
+        global $database;
+
+        $data = $database->query("SELECT sum(cargos_pms.monto_cargo) as cargos FROM cargos_pms, reservas_pms WHERE cargos_pms.numero_reserva = reservas_pms.num_reserva AND reservas_pms.id_grupo <> 0 AND cargos_pms.cargo_anulado = 0 AND cargos_pms.fecha_cargo = '$fecha'")->fetchAll();
+
+        return $data;
+    }
+
+    public function getIngresoAgencia($fecha)
+    {
+        global $database;
+
+        $data = $database->query("SELECT sum(cargos_pms.monto_cargo) as cargos FROM cargos_pms, reservas_pms WHERE cargos_pms.numero_reserva = reservas_pms.num_reserva AND reservas_pms.id_agencia <> 0 AND cargos_pms.cargo_anulado = 0 AND cargos_pms.fecha_cargo = '$fecha'")->fetchAll();
+
+        return $data;
+    }
+
+    public function getIngresoCia($fecha)
+    {
+        global $database;
+
+        $data = $database->query("SELECT sum(cargos_pms.monto_cargo) as cargos FROM cargos_pms, reservas_pms WHERE cargos_pms.numero_reserva = reservas_pms.num_reserva AND reservas_pms.id_compania <> 0 AND cargos_pms.cargo_anulado = 0 AND cargos_pms.fecha_cargo = '$fecha'")->fetchAll();
+
+        return $data;
+    }
+
+    public function salidasPendientes($fecha)
+    {
+        global $database;
+
+        $data = $database->count('reservas_pms', [
+            'fecha_salida',
+        ], [
+            'fecha_salida' => $fecha,
+            'estado' => 'CA',
+        ]);
+
+        return $data;
+    }
+
+    public function getFacturasPorcompania($id)
+    {
+        global $database;
+
+        $data = $database->select('historico_cargos_pms', [
+            '[<]huespedes' => 'id_huesped',
+        ], [
+            'huespedes.apellido1',
+            'huespedes.apellido2',
+            'huespedes.nombre1',
+            'huespedes.nombre2',
+            'historico_cargos_pms.habitacion_cargo',
+            'historico_cargos_pms.tipo_factura',
+            'historico_cargos_pms.id_perfil_factura',
+            'historico_cargos_pms.factura_numero',
+            'historico_cargos_pms.numero_reserva',
+            'historico_cargos_pms.factura_anulada',
+            'historico_cargos_pms.fecha_factura',
+            'historico_cargos_pms.id_usuario_factura',
+            'historico_cargos_pms.total_consumos',
+            'historico_cargos_pms.total_impuesto',
+            'historico_cargos_pms.total_pagos',
+            'historico_cargos_pms.fecha_sistema_cargo',
+        ], [
+            'historico_cargos_pms.factura' => 1,
+            'historico_cargos_pms.tipo_factura' => 2,
+            'historico_cargos_pms.id_perfil_factura' => $id,
+            'ORDER' => ['historico_cargos_pms.factura_numero' => 'ASC'],
+        ]);
+
+        return $data;
+    }
+
+    public function getFacturasdelDia()
+    {
+        global $database;
+
+        $data = $database->select('cargos_pms', [
+            '[<]huespedes' => 'id_huesped',
+        ], [
+            'huespedes.apellido1',
+            'huespedes.apellido2',
+            'huespedes.nombre1',
+            'huespedes.nombre2',
+            'cargos_pms.habitacion_cargo',
+            'cargos_pms.tipo_factura',
+            'cargos_pms.id_codigo_cargo',
+            'cargos_pms.id_perfil_factura',
+            'cargos_pms.factura_numero',
+            'cargos_pms.numero_reserva',
+            'cargos_pms.factura_anulada',
+            'cargos_pms.id_usuario_factura',
+            'cargos_pms.total_consumos',
+            'cargos_pms.total_impuesto',
+            'cargos_pms.total_pagos',
+            'cargos_pms.fecha_sistema_cargo',
+        ], [
+            'fecha_factura' => FECHA_PMS,
+            'factura' => 1,
+            'ORDER' => ['factura_numero' => 'ASC'],
+        ]);
+
+        return $data;
+    }
+
+    public function updateEstadoReserva($nro)
+    {
+        global $database;
+
+        $data = $database->update('reservas_pms', [
+            'estado' => 'CA',
+            'salida_checkout' => null,
+            'usuario_checkout' => null,
+            'id_usuario_checkout' => 0,
+            'fecha_checkout' => null,
+        ], [
+            'num_reserva' => $nro,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function anulaFactura($nro, $motivo, $usuario, $idusuario)
+    {
+        global $database;
+
+        $data = $database->update('cargos_pms', [
+            'cargo_anulado' => 1,
+            'factura_anulada' => 1,
+            'motivo_anulacion' => $motivo,
+            'usuario_anulacion' => $usuario,
+            'id_usuario_anulacion' => $idusuario,
+            'fecha_anulacion' => FECHA_PMS,
+        ], [
+            'factura_numero' => $nro,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function actualizaCargosFacturas($nro)
+    {
+        global $database;
+
+        $data = $database->query("UPDATE cargos_pms SET factura_numero = 0, fecha_factura = null, tipo_factura = 0, usuario_factura = null, id_usuario_factura = 0,  id_perfil_factura= 0  WHERE factura_numero = '$nro' AND factura <> 1 AND cargo_anulado = 0")->fetchAll();
+
+        return $data;
+    }
+
+    public function getDatosFactura($nro)
+    {
+        global $database;
+
+        $data = $database->select('cargos_pms', [
+            'numero_reserva',
+            'factura_numero',
+            'habitacion_cargo',
+            'factura',
+            'id_huesped',
+            'id_perfil_factura',
+            'tipo_factura',
+            'fecha_salida',
+            'folio_cargo',
+        ], [
+            'factura_numero' => $nro,
+            'factura' => 1,
+        ]);
+
+        return $data;
+    }
+
+    public function getDatosFacturaHistorico($nro)
+    {
+        global $database;
+
+        $data = $database->select('historico_cargos_pms', [
+            'numero_reserva',
+            'factura_numero',
+            'habitacion_cargo',
+            'factura',
+            'id_huesped',
+            'id_perfil_factura',
+            'tipo_factura',
+            'fecha_salida',
+            'folio_cargo',
+        ], [
+            'factura_numero' => $nro,
+            'factura' => 1,
+        ]);
+
+        return $data;
+    }
+
+    public function updateFactura($id, $cargos, $impto, $pagos, $base, $anticipo, $fechaVen, $nro, $usuario, $fecha)
+    {
+        global $database;
+
+        $data = $database->update('cargos_pms', [
+            'id_usuario_factura' => $id,
+            'usuario_factura' => $usuario,
+            'fecha_factura' => $fecha,
+            'fecha_vencimiento' => $fechaVen,
+            'total_consumos' => $cargos,
+            'total_impuesto' => $impto,
+            'total_anticipos' => $anticipo,
+            'base_impuestos' => $base,
+            'total_pagos' => $pagos,
+        ], [
+            'factura_numero' => $nro,
+            'factura' => 1,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function getIdUsuario($code)
+    {
+        global $database;
+
+        $data = $database->select('usuarios', [
+            'usuario_id',
+        ], [
+            'usuario' => $code,
+        ]);
+
+        return $data[0]['usuario_id'];
+    }
+
+    public function getValorFactura($id)
+    {
+        global $database;
+
+        $data = $database->query("SELECT Sum(cargos_pms.monto_cargo) AS cargos, Sum(cargos_pms.base_impuesto) AS base, Sum(cargos_pms.impuesto) AS imptos, Sum(cargos_pms.pagos_cargos) AS pagos, cargos_pms.factura_numero FROM cargos_pms WHERE cargos_pms.cargo_anulado = 0 AND cargos_pms.factura_numero = '$id' GROUP BY cargos_pms.factura_numero ORDER BY cargos_pms.factura_numero ASC")->fetchAll();
+
+        return $data;
+    }
+
+    public function getFacturas()
+    {
+        global $database;
+
+        $data = $database->select('historico_cargos_pms', [
+            'fecha_cargo',
+            'factura_numero',
+            'usuario_factura',
+        ], [
+            'factura' => 1,
+        ]);
+
+        return $data;
+    }
+
+    public function getInformacionAbono($id)
+    {
+        global $database;
+
+        $data = $database->select('cargos_pms', [
+            'fecha_cargo',
+            'id_codigo_cargo',
+            'habitacion_cargo',
+            'descripcion_cargo',
+            'id_usuario',
+            'id_huesped',
+            'cantidad_cargo',
+            'folio_cargo',
+            'pagos_cargos',
+            'concecutivo_deposito',
+            'informacion_cargo',
+            'numero_reserva',
+            'id_reserva',
+            'fecha_sistema_cargo',
+        ], [
+            'concecutivo_abono' => $id,
+        ]);
+
+        return $data;
+    }
+
+    public function nombreUsuario($id)
+    {
+        global $database;
+
+        $data = $database->select('usuarios', [
+            'usuario',
+        ], [
+            'usuario_id' => $id,
+        ]);
+        if (count($data) == 0) {
+            return 'USUARIO NO ASIGNADO';
+        } else {
+            return $data[0]['usuario'];
+        }
+    }
+
+    public function getDepositosReservas($id)
+    {
+        global $database;
+
+        $data = $database->select('cargos_pms', [
+            'descripcion_cargo',
+            'pagos_cargos',
+            'informacion_cargo',
+            'fecha_cargo',
+            'concecutivo_deposito',
+            'id_usuario',
+            'id_codigo_cargo',
+        ], [
+            'id_reserva' => $id,
+            'cargo_anulado' => 0,
+            'concecutivo_deposito[>=]' => 1,
+        ]);
+
+        return $data;
+    }
+
+    public function getInformacionDeposito($id)
+    {
+        global $database;
+
+        $data = $database->select('cargos_pms', [
+            'fecha_cargo',
+            'id_codigo_cargo',
+            'habitacion_cargo',
+            'descripcion_cargo',
+            'id_usuario',
+            'id_huesped',
+            'cantidad_cargo',
+            'folio_cargo',
+            'pagos_cargos',
+            'concecutivo_deposito',
+            'informacion_cargo',
+            'numero_reserva',
+            'id_reserva',
+            'fecha_sistema_cargo',
+        ], [
+            'concecutivo_deposito' => $id,
+        ]);
+
+        return $data;
+    }
+
+    public function getDescripcionTarifa($id)
+    {
+        global $database;
+
+        $data = $database->select('tarifas', [
+            'descripcion_tarifa',
+        ], [
+            'id_tarifa' => $id,
+        ]);
+        if (count($data) == 0) {
+            return 'SIN TARIFA ASIGNADA';
+        } else {
+            return $data[0]['descripcion_tarifa'];
+        }
+    }
+
+    public function getHistoricoFacturasCia($id)
+    {
+        global $database;
+
+        $data = $database->query('SELECT historico_reservas_pms.fecha_llegada, historico_reservas_pms.fecha_salida, Sum(historico_cargos_pms.monto_cargo), Sum(historico_cargos_pms.impuesto), Sum(historico_cargos_pms.factura_numero),historico_cargos_pms.factura_numero, historico_cargos_pms.fecha_factura, historico_cargos_pms.pagos_cargos, huespedes.apellido1, huespedes.apellido2, huespedes.nombre1, huespedes.nombre2 FROM historico_reservas_pms, historico_cargos_pms, huespedes WHERE historico_reservas_pms.num_reserva = historico_cargos_pms.numero_reserva AND historico_cargos_pms.cargo_anulado = 0 AND historico_cargos_pms.id_huesped = huespedes.id_huesped GROUP BY historico_reservas_pms.fecha_llegada, historico_reservas_pms.fecha_salida, historico_cargos_pms.fecha_factura, historico_cargos_pms.pagos_cargos, huespedes.apellido1, huespedes.apellido2, huespedes.nombre1, huespedes.nombre2 ORDER BY historico_cargos_pms.factura_numero ASC')->fetchAll();
+
+        return $data;
+    }
+
+    public function updateReservaHuespedCongela($reserva, $usuario, $idusuario, $fecha, $numero)
+    {
+        global $database;
+
+        // Cambia Estado habitacion a Salida Huesped
+        $data = $database->update('reservas_pms', [
+            'estado' => 'CO',
+            'con_congela' => $numero,
+            'usuario_congela' => $usuario,
+            'id_usuario_congela' => $idusuario,
+            'fecha_congela' => date('Y-m-d H:i:s'),
+        ], [
+            'num_reserva' => $reserva,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function updateNumeroCongela($numero)
+    {
+        global $database;
+
+        $data = $database->update('parametros_pms', [
+            'con_cta_congelada' => $numero,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function getNumeroCongela()
+    {
+        global $database;
+
+        $data = $database->select('parametros_pms', [
+            'con_cta_congelada',
+        ]);
+
+        return $data[0]['con_cta_congelada'];
+    }
+
+    public function getFechaLlegada($llega, $sale, $tipo, $estado)
+    {
+        global $database;
+
+        $data = $database->query('')->fetchAll();
+
+        return $data;
+    }
+
+    public function getIngresoHistoricoImptoGrupo($fecha, $grupo)
+    {
+        global $database;
+
+        $data = $database->query("SELECT Sum(historico_cargos_pms.impuesto) as impto FROM historico_cargos_pms, codigos_vta WHERE historico_cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND codigos_vta.agrupacion = '$grupo' AND historico_cargos_pms.fecha_cargo = '$fecha' AND historico_cargos_pms.cargo_anulado = 0")->fetchAll();
+
+        return $data;
+    }
+
+    public function getIngresoHistoricoGrupo($fecha, $grupo)
+    {
+        global $database;
+
+        $data = $database->query("SELECT Sum(historico_cargos_pms.monto_cargo) as cargos FROM historico_cargos_pms, codigos_vta WHERE historico_cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND codigos_vta.agrupacion = '$grupo' AND historico_cargos_pms.fecha_cargo = '$fecha' AND historico_cargos_pms.cargo_anulado = 0")->fetchAll();
+
+        return $data;
+    }
+
+    public function getDatosAnioAuditoria($anio)
+    {
+        global $database;
+
+        $data = $database->query("SELECT sum(ingreso_habitaciones)as aingHab,	sum(ingreso_impto_habitaciones) as aingImp, sum(ingreso_promedio_habitacion_disponible)as aingProHabDis, sum(ingreso_promedio_habitacion_ocupada)as aingProHabOcu, sum(ingresos_compania)as aingCom, sum(ingresos_agencia) as aingAge, sum(ingresos_grupo) as aingGru, sum(ingresos_individual) as aingInd, sum(ingreso_promedio_huesped) as aproHue, sum(habitaciones_disponibles) as ahabDis, sum(habitaciones_fuera_orden) as ahabFor, sum(habitaciones_fuera_servicio) as ahabFse, sum(habitaciones_ocupadas) as ahabOcu, sum(salidas_dia) as asalDia,
 				sum(llegadas_dia) as alleDia, sum(habitaciones_cortesia) as ahabCor, sum(habitaciones_usocasa) as ahabUca, sum(habitaciones_usodia) as ahabUdi, sum(ingreso_potencial) as aingPot, sum(camas_disponibles) as acamDis, sum(hombres) as aHom, sum(mujeres) as aMuj, sum(ninos) as aNin, sum(huespedes_repetitivos) as ahueRep, sum(nuevos_huespedes) as ahueNue,
 				sum(huespedes_nacionales) as ahueNal, sum(huespedes_extranjeros) as ahueInt, sum(reservas_creadashoy) as aresHoy, sum(reservas_noshows) as aresNos, sum(salidas_anticipadas) as asalAnt, sum(reservas_canceladas) as aresCan, sum(llegadas_sinreserva) as alleSin FROM reporte_gerencia WHERE year(fecha_auditoria) = '$anio'")->fetchAll();
-				return $data;
-		}
 
-		public function getDatosMesAuditoria($mes,$anio){
-			global $database;
+        return $data;
+    }
 
-			$data = $database->query("SELECT sum(ingreso_habitaciones)as mingHab, sum(ingreso_impto_habitaciones) as mingImp, sum(ingreso_promedio_habitacion_disponible)as mingProHabDis, sum(ingreso_promedio_habitacion_ocupada)as mingProHabOcu,
+    public function getDatosMesAuditoria($mes, $anio)
+    {
+        global $database;
+
+        $data = $database->query("SELECT sum(ingreso_habitaciones)as mingHab, sum(ingreso_impto_habitaciones) as mingImp, sum(ingreso_promedio_habitacion_disponible)as mingProHabDis, sum(ingreso_promedio_habitacion_ocupada)as mingProHabOcu,
 				sum(ingresos_compania)as mingCom, sum(ingresos_agencia) as mingAge, sum(ingresos_grupo) as mingGru, sum(ingresos_individual) as mingInd, sum(ingreso_promedio_huesped) as mproHue, sum(habitaciones_disponibles) as mhabDis, sum(habitaciones_fuera_orden) as mhabFor, sum(habitaciones_fuera_servicio) as mhabFse, sum(habitaciones_ocupadas) as mhabOcu, sum(salidas_dia) as msalDia, sum(llegadas_dia) as mlleDia, sum(habitaciones_cortesia) as mhabCor, sum(habitaciones_usocasa) as mhabUca, sum(habitaciones_usodia) as mhabUdi, sum(ingreso_potencial) as mingPot, sum(camas_disponibles) as mcamDis, sum(hombres) as mHom, sum(mujeres) as mMuj, sum(ninos) as mNin, sum(huespedes_repetitivos) as mhueRep, sum(nuevos_huespedes) as mhueNue, sum(huespedes_nacionales) as mhueNal, sum(huespedes_extranjeros) as mhueInt, sum(reservas_creadashoy) as mresHoy, sum(reservas_noshows) as mresNos, sum(salidas_anticipadas) as msalAnt, sum(reservas_canceladas) as mresCan, sum(llegadas_sinreserva) as mlleSin FROM reporte_gerencia WHERE month(fecha_auditoria) = '$mes' AND year(fecha_auditoria) = '$anio'")->fetchAll();
-				return $data;
-		}
-
-		public function getDatosAuditoria($fecha){
-			global $database;
-
-			$data = $database->select('reporte_gerencia',[
-				'fecha_auditoria',
-				'ingreso_habitaciones',
-				'ingreso_impto_habitaciones',
-				'ingreso_promedio_habitacion_disponible',
-				'ingreso_promedio_habitacion_ocupada',
-				'ingresos_compania',
-				'ingresos_agencia',
-				'ingresos_grupo',
-				'ingresos_individual',
-				'ingreso_promedio_huesped',
-				'habitaciones_disponibles',
-				'habitaciones_fuera_orden',
-				'habitaciones_fuera_servicio',
-				'habitaciones_ocupadas',
-				'salidas_dia',
-				'llegadas_dia',
-				'habitaciones_cortesia',
-				'habitaciones_usocasa',
-				'habitaciones_usodia',
-				'ingreso_potencial',
-				'camas_disponibles',
-				'hombres',	
-				'mujeres',
-				'ninos',
-				'huespedes_repetitivos',
-				'nuevos_huespedes',
-				'huespedes_nacionales',
-				'huespedes_extranjeros',
-				'reservas_creadashoy',
-				'reservas_noshows',
-				'salidas_anticipadas',
-				'reservas_canceladas',
-				'llegadas_sinreserva',
-				'llegadas_hombres',
-				'mujeres_llegando',
-				'ninos_llegando',
-				'salidas_hombres',
-				'mujeres_saliendo',
-				'ninos_saliendo',
-				'usuario_auditoria',
-				'fecha_proceso_auditoria'
-			],[
-				'fecha_auditoria' => $fecha
-			]);
-			return $data;
-		}
-
-		public function insertDiaAuditoria($fecha, $cargo, $impto, $promhab, $promocu, $habi, $promhues, $fo,$fs, $huesp, $salidas, $llegadas, $hom, $muj, $nin, $camas, $usuario, $idusuario, $ingcia, $ingage, $inggru, $ingind, $inghue, $repite, $nuevos, $nales, $inter, $resehoy, $noshow, $canceladas, $saleantes, $sinreserva,$llegaho, $llegamu, $llegani,$usodiaha, $usodiaho, $usodiamu, $usodiani, $conge){
-			global $database;
-
-			$data = $database->insert('reporte_gerencia',[
-				'fecha_auditoria'                        => $fecha,
-				'ingreso_habitaciones'                   => $cargo, 
-				'ingreso_impto_habitaciones'             => $impto,
-				'ingreso_promedio_habitacion_disponible' => $promhab, 
-				'ingreso_promedio_habitacion_ocupada'    => $promocu, 
-				'ingreso_promedio_huesped'               => $promhues, 
-				'habitaciones_disponibles'               => $habi,
-				'habitaciones_fuera_orden'               => $fo,
-				'habitaciones_fuera_servicio'            => $fs, 
-				'habitaciones_ocupadas'                  => $huesp, 
-				'salidas_dia'                            => $salidas, 
-				'llegadas_dia'                           => $llegadas,
-				'hombres'                                => $hom,
-				'mujeres'                                => $muj, 
-				'ninos'                                  => $nin,
-				'camas_disponibles'                      => $camas,
-				'usuario_auditoria'                      => $usuario, 
-				'id_usuario_auditoria'                   => $idusuario, 
-				'ingresos_compania'                      => $ingcia, 
-				'ingresos_agencia'                       => $ingage,
-				'ingresos_grupo'                         => $inggru,
-				'ingresos_individual'                    => $ingind,
-				'huespedes_repetitivos'                  => $repite,
-				'nuevos_huespedes'                       => $nuevos,
-				'huespedes_nacionales'                   => $nales,
-				'huespedes_extranjeros'                  => $inter,
-				'reservas_creadashoy'                    => $resehoy,
-				'reservas_noshows'                       => $noshow,
-				'reservas_canceladas'                    => $canceladas,
-				'salidas_anticipadas'                    => $saleantes,
-				'llegadas_sinreserva'                    => $sinreserva,
-				'llegadas_hombres'                       => $llegaho,
-				'mujeres_llegando'                       => $llegamu,
-				'ninos_llegando'                         => $llegani,
-				'habitaciones_usodia'                    => $usodiaha,
-				'usodia_hombres'                         => $usodiaho,
-				'usodia_mujeres'                         => $usodiamu,
-				'usodia_ninos'                           => $usodiani,
-				'cuentas_congeladas'                     => $conge,
-				'fecha_proceso_auditoria'                => date("Y-m-d H:i:s")
-			]);
-			return $database->id();
-		}
-
-		public function getCamasDisponibles(){
-			global $database;
-
-			$data = $database->query("SELECT Sum(habitaciones.camas) as camas FROM habitaciones WHERE (habitaciones.tipo_hab <> 'CMA' AND habitaciones.estado_fo <> 'FS' AND habitaciones.active_at = 1) OR (habitaciones.estado_fo <> 'FO' AND habitaciones.tipo_hab <> 'CMA' AND habitaciones.active_at = 1)")->fetchAll();
-			return $data;
-		}
-
-		public function getHuespedesenCasaCierre($cta){
-			global $database;
-
-			$data = $database->query("SELECT Sum(reservas_pms.can_hombres) AS hombres, Sum(reservas_pms.can_mujeres) AS mujeres, Sum(reservas_pms.can_ninos) AS ninos FROM reservas_pms WHERE reservas_pms.estado = 'CA' AND reservas_pms.tipo_habitacion <> '$cta'")->fetchAll();
-			return $data;
-		}
-
-		public function getLlegadaspmDia($fecha){
-			global $database;
-
-			$data = $database->count('reservas_pms',[
-				'id'
-			],[
-				'tipo_habitacion' => 'CMA',
-				'fecha_llegada'   => $fecha,
-				'estado'          => 'CA'
-			]);
-			return $data;
-		}
-
-		public function getSalidaspmDia($fecha){
-			global $database;
-
-			$data = $database->count('reservas_pms',[
-				'id'
-			],[
-				'tipo_habitacion' => 'CMA',
-				'salida_checkout' => $fecha,
-				'estado'          => 'SA'
-			]);
-			return $data;
-		}
-
-		public function getLlegadasHabitacionesDia($fecha){
-			global $database;
-
-			$data = $database->count('reservas_pms',[
-				'id'
-			],[
-				'fecha_llegada' => $fecha,
-				'estado'        => 'CA'
-			]);
-			return $data;
-		}
-
-		public function getSalidasHabitacionesDia($fecha){
-			global $database;
-
-			$data = $database->count('reservas_pms',[
-				'id'
-			],[
-				'tipo_habitacion[<>]' => CTA_MASTER,
-				'salida_checkout' => $fecha
-			]);
-			return $data;
-		}
-
-		public function getHabitacionsBloqueadas($tipo){
-			global $database;
-
-			$data = $database->count('habitaciones',[
-				'id'
-			],[
-				'estado_fo' => $tipo,
-				'active_at' => 1
-			]);
-			return $data;
-		}
-
-		public function getIngresoAnioGrupo($anio,$grupo){
-			global $database;
-
-			$data = $database->query("SELECT Sum(cargos_pms.monto_cargo) as cargos FROM cargos_pms, codigos_vta WHERE cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND codigos_vta.agrupacion = '$grupo' AND YEAR(cargos_pms.fecha_cargo) = '$anio' AND cargos_pms.cargo_anulado = 0")->fetchAll();
-			return $data;
-		}
-
-		public function getIngresoAnioHistoricoGrupo($anio,$grupo){
-			global $database;
-
-			$data = $database->query("SELECT Sum(historico_cargos_pms.monto_cargo) as cargos FROM historico_cargos_pms, codigos_vta WHERE historico_cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND codigos_vta.agrupacion = '$grupo' AND YEAR(historico_cargos_pms.fecha_cargo) = '$anio' AND historico_cargos_pms.cargo_anulado = 0")->fetchAll();
-			return $data;
-		}
-
-		public function getIngresoMesGrupo($mes,$anio,$grupo){
-			global $database;
-
-			$data = $database->query("SELECT Sum(cargos_pms.monto_cargo) as cargos FROM cargos_pms, codigos_vta WHERE cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND codigos_vta.agrupacion = '$grupo' AND MONTH(cargos_pms.fecha_cargo) = '$mes' AND YEAR(cargos_pms.fecha_cargo) = '$anio' AND cargos_pms.cargo_anulado = 0")->fetchAll();
-			return $data;
-		}
-
-		public function getIngresoMesHistoricoGrupo($mes,$anio,$grupo){
-			global $database;
-
-			$data = $database->query("SELECT Sum(historico_cargos_pms.monto_cargo) as cargos FROM historico_cargos_pms, codigos_vta WHERE historico_cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND codigos_vta.agrupacion = '$grupo' AND MONTH(historico_cargos_pms.fecha_cargo) = '$mes' AND YEAR(historico_cargos_pms.fecha_cargo) = '$anio' AND historico_cargos_pms.cargo_anulado = 0")->fetchAll();
-			return $data;
-		}
-
-		public function getIngresoDiarioGrupo($fecha,$grupo){
-			global $database;
-
-			$data = $database->query("SELECT Sum(cargos_pms.monto_cargo) as cargos, Sum(cargos_pms.impuesto) as impto FROM cargos_pms, codigos_vta WHERE cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND codigos_vta.agrupacion = '$grupo' AND cargos_pms.fecha_cargo = '$fecha' AND cargos_pms.cargo_anulado = 0")->fetchAll();
-			return $data;
-		}
-
-		public function getIngresoDiarioImptoGrupo($fecha,$grupo){
-			global $database;
-
-			$data = $database->query("SELECT Sum(cargos_pms.impuesto) as impto FROM cargos_pms, codigos_vta WHERE cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND codigos_vta.agrupacion = '$grupo' AND cargos_pms.fecha_cargo = '$fecha' AND cargos_pms.cargo_anulado = 0")->fetchAll();
-			return $data;
-		}
-
-		public function getVentasDiaCodigo($fecha,$codi){
-			global $database;
-
-			$data = $database->query("SELECT Sum(impuesto) as imptos, Sum(monto_cargo) as cargos, Sum(pagos_cargos) as pagos FROM cargos_pms WHERE cargo_anulado = 0 AND id_codigo_cargo = '$codi' AND fecha_cargo = '$fecha'")->fetchAll();
-			return $data;
-		}
-
-		public function getVentasMesCodigo($fecha,$anio,$codi){
-			global $database;
-
-			$data = $database->query("SELECT Sum(cargos_pms.impuesto) as imptos, Sum(cargos_pms.monto_cargo) as cargos, Sum(cargos_pms.pagos_cargos) as pagos FROM cargos_pms WHERE cargos_pms.cargo_anulado = 0 AND id_codigo_cargo = '$codi' AND MONTH(cargos_pms.fecha_cargo) = '$fecha'")->fetchAll();
-			return $data;
-		}
-
-		public function getVentasMesCodigoHistorico($mes,$anio,$codi){
-			global $database;
-
-			$data = $database->query("SELECT Sum(historico_cargos_pms.impuesto) as imptos, Sum(historico_cargos_pms.monto_cargo) as cargos, Sum(historico_cargos_pms.pagos_cargos) as pagos FROM historico_cargos_pms WHERE historico_cargos_pms.cargo_anulado = 0 AND id_codigo_cargo = '$codi' AND MONTH(historico_cargos_pms.fecha_cargo) = '$mes' AND YEAR(historico_cargos_pms.fecha_cargo) = '$anio'")->fetchAll();
-			return $data;
-		}
-
-		public function getVentasAnioCodigo($fecha,$codi){
-			global $database;
-
-			$data = $database->query("SELECT Sum(cargos_pms.impuesto) as imptos, Sum(cargos_pms.monto_cargo) as cargos, Sum(cargos_pms.pagos_cargos) as pagos FROM cargos_pms WHERE cargos_pms.cargo_anulado = 0 AND cargos_pms.id_codigo_cargo = '$codi' AND YEAR(cargos_pms.fecha_cargo) = '$fecha'")->fetchAll();
-			return $data;
-		}
-
-		public function getVentasAnioCodigoHistorico($fecha,$codi){
-			global $database;
-
-			$data = $database->query("SELECT Sum(historico_cargos_pms.impuesto) as imptos, Sum(historico_cargos_pms.monto_cargo) as cargos, Sum(historico_cargos_pms.pagos_cargos) as pagos FROM historico_cargos_pms WHERE historico_cargos_pms.cargo_anulado = 0 AND historico_cargos_pms.id_codigo_cargo = '$codi' AND YEAR(historico_cargos_pms.fecha_cargo) = '$fecha'")->fetchAll();
-			return $data;
-		}
-
-		public function getBuscaAuditoriaFecha(){
-			global $database;
-
-			$data = $database->select('auditoria',[
-				'titulo_proceso',
-				'reporte'
-			],[
-				'imprimir' => 1,
-				'ORDER' => 'orden_proceso'
-			]);
-			return $data;
-		}
-
-		public function getCargosAnuladosporFecha($fecha,$tipo,$estado){
-			global $database;
-
-			$data = $database->select('cargos_pms',[
-				'[>]huespedes'   => 'id_huesped',
-				'[>]codigos_vta' => ['id_codigo_cargo' => 'id_cargo']
-			],[
-				'huespedes.nombre1',
-				'huespedes.nombre2',
-				'huespedes.apellido1',				
-				'huespedes.apellido2',				
-				'cargos_pms.fecha_cargo',
-				'cargos_pms.monto_cargo',
-				'cargos_pms.base_impuesto',
-				'cargos_pms.impuesto',
-				'cargos_pms.codigo_impto',
-				'cargos_pms.id_codigo_cargo',
-				'cargos_pms.habitacion_cargo',
-				'cargos_pms.descripcion_cargo',
-				'cargos_pms.usuario',
-				'cargos_pms.id_huesped',
-				'cargos_pms.cantidad_cargo',
-				'cargos_pms.informacion_cargo',
-				'cargos_pms.valor_cargo',
-				'cargos_pms.folio_cargo',
-				'cargos_pms.pagos_cargos',
-				'cargos_pms.referencia_cargo',							
-				'cargos_pms.concecutivo_abono',
-				'cargos_pms.concecutivo_deposito',	
-				'cargos_pms.cargo_anulado',						
-				'cargos_pms.motivo_anulacion',						
-				'cargos_pms.fecha_anulacion',						
-				'cargos_pms.usuario_anulacion',						
-				'cargos_pms.numero_reserva',
-				'cargos_pms.habitacion_cargo',
-				'cargos_pms.fecha_sistema_cargo',
-				'cargos_pms.factura_numero',
-				'cargos_pms.id_reserva'
-			],[
-				'cargos_pms.fecha_anulacion' => $fecha,
-				'cargos_pms.cargo_anulado'   => $estado,
-				'codigos_vta.tipo_codigo'    => $tipo,
-				'ORDER' => [
-					'habitacion_cargo' => 'ASC'
-				]	
-			]);
-			return $data;
-		}
-
-		public function getCargosporFecha($fecha,$tipo,$estado){
-			global $database;
-
-			$data = $database->select('cargos_pms',[
-				'[>]huespedes'   => 'id_huesped',
-				'[>]codigos_vta' => ['id_codigo_cargo' => 'id_cargo']
-			],[
-				'huespedes.nombre1',
-				'huespedes.nombre2',
-				'huespedes.apellido1',				
-				'huespedes.apellido2',				
-				'cargos_pms.fecha_cargo',
-				'cargos_pms.monto_cargo',
-				'cargos_pms.base_impuesto',
-				'cargos_pms.impuesto',
-				'cargos_pms.codigo_impto',
-				'cargos_pms.id_codigo_cargo',
-				'cargos_pms.habitacion_cargo',
-				'cargos_pms.descripcion_cargo',
-				'cargos_pms.usuario',
-				'cargos_pms.id_huesped',
-				'cargos_pms.cantidad_cargo',
-				'cargos_pms.informacion_cargo',
-				'cargos_pms.valor_cargo',
-				'cargos_pms.folio_cargo',
-				'cargos_pms.pagos_cargos',
-				'cargos_pms.referencia_cargo',							
-				'cargos_pms.concecutivo_abono',
-				'cargos_pms.concecutivo_deposito',	
-				'cargos_pms.cargo_anulado',						
-				'cargos_pms.motivo_anulacion',						
-				'cargos_pms.fecha_anulacion',						
-				'cargos_pms.usuario_anulacion',						
-				'cargos_pms.numero_reserva',
-				'cargos_pms.habitacion_cargo',
-				'cargos_pms.fecha_sistema_cargo',
-				'cargos_pms.factura_numero',
-				'cargos_pms.id_reserva'
-			],[
-				'cargos_pms.fecha_cargo'   => $fecha,
-				'cargos_pms.cargo_anulado' => $estado,
-				'codigos_vta.tipo_codigo'  => $tipo,
-				'ORDER' => [
-					'fecha_sistema_cargo' => 'ASC'
-				]	
-			]);
-			return $data;
-		}
-
-		public function depositosReservas($master){
-			global $database;
-
-			$data = $database->query("SELECT huespedes.apellido1, huespedes.apellido2, huespedes.nombre1, huespedes.nombre2, reservas_pms.num_reserva, reservas_pms.fecha_llegada, reservas_pms.fecha_salida, reservas_pms.num_habitacion, cargos_pms.fecha_cargo, cargos_pms.descripcion_cargo, cargos_pms.pagos_cargos, cargos_pms.concecutivo_deposito, cargos_pms.id_usuario FROM huespedes, reservas_pms, cargos_pms WHERE huespedes.id_huesped = reservas_pms.id_huesped AND reservas_pms.estado = 'ES' AND reservas_pms.num_reserva = cargos_pms.id_reserva AND cargos_pms.cargo_anulado = 0")->fetchAll();
-			return $data;
-		}
-
-		public function motivoCancelaReserva($id){
-			global $database;
-
-			$data = $database->select('motivo_cancelacion',[
-				'descripcion_motivo'
-			],[
-				'id_cancela' => $id
-			]);
-			return $data[0]['descripcion_motivo'];
-		}
-
-		public function getHuespedesenCasaSinReserva($tipo,$estado){
-			global $database;
-
-			$data = $database->select('reservas_pms',[
-				'[>]huespedes' => 'id_huesped'
-			],[
-				'reservas_pms.id',
-				'reservas_pms.cantidad',
-				'reservas_pms.fecha_llegada',
-				'reservas_pms.fecha_salida',
-				'reservas_pms.dias_reservados',
-				'reservas_pms.tipo_reserva',
-				'reservas_pms.tipo_habitacion',
-				'reservas_pms.num_habitacion',
-				'reservas_pms.num_reserva',
-				'reservas_pms.can_hombres',
-				'reservas_pms.can_mujeres',
-				'reservas_pms.can_ninos',
-				'reservas_pms.orden_reserva',
-				'reservas_pms.id_compania',
-				'reservas_pms.tipo_ocupacion',
-				'reservas_pms.tarifa',
-				'reservas_pms.valor_reserva',
-				'reservas_pms.valor_diario',
-				'reservas_pms.estado',
-				'reservas_pms.salida_checkout',
-				'reservas_pms.observaciones',
-				'reservas_pms.causar_impuesto',
-				'huespedes.nombre1',
-				'huespedes.nombre2',
-				'huespedes.apellido1',
-				'huespedes.apellido2',
-				'huespedes.id_huesped'
-			],[
-				'reservas_pms.tipo_reserva' => $tipo,
-				'reservas_pms.estado'       => $estado,
-				'reservas_pms.sinreserva'   => 1,
-				'ORDER'                     => 'reservas_pms.num_habitacion'
-			]);
-			return $data;
-		}
-
-		public function cantidadPM(){
-			global $database;
-
-			$count = $database->count('habitaciones',[
-				'tipo_hab' => CTA_MASTER
-			],[
-				'active_at' => 1
-			]);
-			return $count;
-		}
-
-		public function cantidadHabitaciones($tipo){
-			global $database;
-
-			$data = $database->select('habitaciones',[
-				'[>]tipo_habitaciones' => ['id_tipohabitacion' => 'id']
-			],[
-				'habitaciones.numero_hab',
-				'tipo_habitaciones.descripcion_habitacion'
-			],[
-				'habitaciones.active_at' => 1,
-				'tipo_habitaciones.tipo_habitacion' => $tipo
-			]);
-			return $data;
-
-		}
-
-		public function getBuscaFacturasDia($fecha){
-			global $database;
-
-			$data = $database->select('cargos_pms',[
-				'[>]huespedes'    => 'id_huesped',
-				'[>]reservas_pms' => ['numero_reserva'=>'num_reserva']
-			],[
-				'reservas_pms.fecha_llegada',
-				'reservas_pms.fecha_salida',
-				'reservas_pms.num_reserva',
-				'huespedes.apellido1',
-				'huespedes.apellido2',
-				'huespedes.nombre1',
-				'huespedes.nombre2',
-				'cargos_pms.factura_numero',
-				'cargos_pms.id_usuario_factura',
-				'cargos_pms.total_consumos',
-				'cargos_pms.total_impuesto',
-				'cargos_pms.total_pagos',
-				'cargos_pms.fecha_factura',
-				'cargos_pms.factura_anulada',
-				'cargos_pms.fecha_sistema_cargo'
-			],[
-				'cargos_pms.fecha_cargo' => $fecha,
-				'cargos_pms.factura'     => 1,
-				'ORDER' => ['cargos_pms.factura_numero']
-			]);
-			return $data;
-		}
-
-		public function getBuscaFacturasFecha($fecha,$rese,$cargo){
-			global $database;
-
-			$data = $database->select('historico_cargos_pms',[
-				'[>]huespedes'    => 'id_huesped',
-				'[>]historico_reservas_pms' => ['numero_reserva'=>'num_reserva']
-			],[
-				'historico_reservas_pms.fecha_llegada',
-				'historico_reservas_pms.fecha_salida',
-				'historico_reservas_pms.num_reserva',
-				'huespedes.apellido1',
-				'huespedes.apellido2',
-				'huespedes.nombre1',
-				'huespedes.nombre2',
-				'historico_cargos_pms.factura_numero',
-				'historico_cargos_pms.id_usuario_factura',
-				'historico_cargos_pms.total_consumos',
-				'historico_cargos_pms.total_impuesto',
-				'historico_cargos_pms.total_pagos',
-				'historico_cargos_pms.fecha_factura',
-				'historico_cargos_pms.factura_anulada',
-				'historico_cargos_pms.fecha_sistema_cargo'
-			],[
-
-				'historico_cargos_pms.fecha_cargo' => $fecha,
-				'historico_cargos_pms.factura'     => 1,
-				'ORDER' => ['historico_cargos_pms.factura_numero']
-			]);
-			return $data;
-		}
-
-		public function cierreDiarioCajero($user){
-			global $database;
-
-			$data = $database->update('usuarios',[
-				'estado_usuario_pms' => 2
-			],[
-				'usuario' => $user
-			]);
-			return $data->rowCount();
-		}
-
-		public function formaPago($id){
-			global $database;
-
-			$data = $database->select('codigos_vta',[
-				'descripcion_cargo'
-			],[
-				'id_cargo' => $id
-			]);
-			if(count($data)==0){
-				return 'SIN FORMA DE PAGO DEFINIDO';
-			}else{
-				return $data[0]['descripcion_cargo'];
-			}
-		}
-
-		public function motivoViaje($id){
-			global $database;
-
-			$data = $database->select('grupos_cajas',[
-				'descripcion_grupo'
-			],[
-				'id_grupo' => $id
-			]);
-			if(count($data)==0){
-				return 'SIN MOTIVO DE VIAJE DEFINIDO';
-			}else{
-				return $data[0]['descripcion_grupo'];
-			}
-		}
-
-		public function getCityExp($idcity){
-			global $database;
-
-			$data = $database->select('ciudades',[
-				'municipio',
-				'depto'
-			],[
-				'id_ciudad' => $idcity
-			]);
-			if(count($data)==0){
-				return '';
-			}else{
-				return $data[0]['municipio'].' '.$data[0]['depto'];
-			}
-		}
-
-		public function getLandGuest($idland){
-			global $database;
-
-			$data = $database->select('paices',[
-				'descripcion'
-			],[
-				'id_pais' => $idland
-			]);
-			if(count($data)==0){
-				return '';
-			}else{
-				return $data[0]['descripcion'];
-			}
-		}
-
-		public function creaHuespedAdicional($apellido1, $apellido2, $nombre1, $nombre2, $identificacion, $tipoiden, $sexo, $fechanace, $nacion, $ciudad, $idusuario){
-			global $database;
-
-			$data = $database->insert('huespedes',[
-				'identificacion'   => $identificacion,
-				'apellido1'        => $apellido1,
-				'apellido2'        => $apellido2,
-				'nombre1'          => $nombre1,
-				'nombre2'          => $nombre2,
-				'tipo_identifica'  => $tipoiden,
-				'sexo'             => $sexo,
-				'tipo_huesped'     => 1,
-				'fecha_nacimiento' => $fechanace,
-				'pais'             => $nacion,
-				'ciudad'           => $ciudad,
-				'usuario_creador'  => $idusuario,
-				'nombre_completo'  => $apellido1.' '.$apellido2.' '.$nombre1.' '.$nombre2,
-				'fecha_creacion'   => date("Y-m-d H:i:s")			
- 			]);
-			return $database->id();
-		}
-
-		public function adicionaHuespedAdicional($reserva, $huesped){
-			global $database;
-
-			$data = $database->insert('acompanantes',[
-				'id_reserva' => $reserva,
-				'id_huesped' => $huesped,
-				'created_at' => date('Y-m-d H:i:s')
-			]);
-			return $database->id();
-		}
-
-		public function buscaHuespedAcompanante($id){
-			global $database;
-
-			$data = $database->select('huespedes',[
-				'id_huesped',
-				'tipo_identifica',
-				'identificacion',
-				'lugar_expedicion',
-				'apellido1',
-				'apellido2',
-				'nombre1',
-				'nombre2',
-				'fecha_nacimiento',
-				'sexo',
-				'pais',
-				'ciudad'
-			],[
-				'identificacion' => $id
-			]);
-			return $data;
-		}
-
-		public function eliminaAcompanante($id){
-			global $database;
-
-			$data = $database->delete('acompanantes',[
-				'id' => $id
-			]);
-			return $data;
-		}
-
-		public function getBuscarAcompanantesHistoricoReserva($idreser){
-			global $database;
-
-			$data = $database->select('acompanantes',[
-				'[>]huespedes'   => 'id_huesped',
-			],[
-				'acompanantes.id',
-				'huespedes.id_huesped',
-				'huespedes.nombre1',
-				'huespedes.nombre2',
-				'huespedes.apellido1',
-				'huespedes.apellido2',
-				'huespedes.nombre_completo',
-				'huespedes.identificacion',
-				'huespedes.tipo_identifica',
-				'huespedes.lugar_expedicion',
-				'huespedes.pais',
-				'huespedes.sexo'
-			],[
-				'acompanantes.id_reserva' => $idreser
-			]);
-			return $data;
-		}
-
-		public function getBuscarAcompanantesReserva($idreser){
-			global $database;
-
-			$data = $database->select('acompanantes',[
-				'[>]huespedes'   => 'id_huesped',
-			],[
-				'acompanantes.id',
-				'huespedes.id_huesped',
-				'huespedes.nombre1',
-				'huespedes.nombre2',
-				'huespedes.apellido1',
-				'huespedes.apellido2',
-				'huespedes.nombre_completo',
-				'huespedes.identificacion',
-				'huespedes.tipo_identifica',
-				'huespedes.lugar_expedicion',
-				'huespedes.pais',
-				'huespedes.pais_expedicion',
-				'huespedes.ciudad_expedicion',
-				'huespedes.sexo'
-			],[
-				'acompanantes.id_reserva' => $idreser
-			]);
-			return $data;
-		}
-
-		public function trasladaCargoHabitacion($idconsumo, $idreserva, $idhuesped, $newreserva,$motivotras,$usuario){
-			global $database;
-
-			$data = $database->update('cargos_pms',[
-				'id_reserva'       => $idreserva,
-				'cargo_trasladado' => 1,
-				'usuario_traslado' => $usuario,
-				'fecha_traslado'   => FECHA_PMS,
-				'motivo_traslado'  => $motivotras,
-				'numero_reserva' => $newreserva
-			],[
-				'id_cargo' => $idconsumo
-			]);
-			return $data->rowCount();
-		}
-
-		public function updateAnulaSalida($numero, $usuario, $idusuario){
-			global $database;
-
-			$data = $database->update('reservas_pms',[
-				'estado'             => 'CA',
-				'tipo_reserva'       => 2,
-				'usuario_ingreso'    => $usuario,
-				'id_usuario_ingreso' => $idusuario,
-				'hora_llegada'       => date("H:i:s"),
-				'fecha_ingreso'      => date("Y-m-d H:i:s")
- 			],[
- 				'num_reserva' => $numero
-			]);
-			return $data->rowCount();
-		}
-
-		public function getReservasporTipoHabSalida($tipo,$llega,$sale,$estado){
-			global $database;
-
-			$data = $database->select('reservas_pms',[
-				'num_habitacion'
-			],[
-				'fecha_llegada[>=]' => $llega,
-				'fecha_salida[<=]'  => $sale,
-				'tipo_habitacion'   => $tipo,
-				'estado'            => $estado
-			]);
-			return $data;
-		}
-
-		public function getReservasporTipoHab($tipo,$llega,$sale,$estado){
-			global $database;
-
-			$data = $database->select('reservas_pms',[
-				'num_habitacion'
-			],[
-				'fecha_llegada[<]' => $sale,
-				'fecha_salida[>]'  => $llega,
-				'tipo_habitacion'  => $tipo,
-				'estado'           => $estado
-			]);
-			return $data;
-		}
-
-		public function cargosDelDia($fecha,$tipo,$estado){
-			global $database ;
-
-			$data = $database->query("SELECT cargos_pms.id_codigo_cargo, codigos_vta.descripcion_cargo FROM cargos_pms, codigos_vta WHERE cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND cargos_pms.fecha_cargo = '$fecha' AND cargos_pms.cargo_anulado = 0 AND codigos_vta.tipo_codigo = '$tipo' GROUP BY codigos_vta.descripcion_cargo ORDER BY codigos_vta.descripcion_cargo")->fetchAll();
-			return $data;
-		}
-
-		public function getCargosdelDiaporCodigo($fecha,$codigo,$estado){
-			global $database;
-
-			$data = $database->select('cargos_pms',[
-				'[>]huespedes'   => 'id_huesped',
-				'[>]codigos_vta' => ['id_codigo_cargo' => 'id_cargo']
-			],[
-				'huespedes.nombre1',
-				'huespedes.nombre2',
-				'huespedes.apellido1',				
-				'huespedes.apellido2',				
-				'cargos_pms.fecha_cargo',
-				'cargos_pms.monto_cargo',
-				'cargos_pms.base_impuesto',
-				'cargos_pms.impuesto',
-				'cargos_pms.codigo_impto',
-				'cargos_pms.id_codigo_cargo',
-				'cargos_pms.habitacion_cargo',
-				'cargos_pms.descripcion_cargo',
-				'cargos_pms.usuario',
-				'cargos_pms.id_huesped',
-				'cargos_pms.cantidad_cargo',
-				'cargos_pms.informacion_cargo',
-				'cargos_pms.valor_cargo',
-				'cargos_pms.folio_cargo',
-				'cargos_pms.pagos_cargos',
-				'cargos_pms.referencia_cargo',							
-				'cargos_pms.concecutivo_abono',
-				'cargos_pms.concecutivo_deposito',	
-				'cargos_pms.cargo_anulado',						
-				'cargos_pms.motivo_anulacion',						
-				'cargos_pms.fecha_anulacion',						
-				'cargos_pms.usuario_anulacion',						
-				'cargos_pms.numero_reserva',
-				'cargos_pms.habitacion_cargo',
-				'cargos_pms.fecha_sistema_cargo',
-				'cargos_pms.factura_numero',
-				'cargos_pms.numero_reserva'
-			],[
-				'cargos_pms.id_codigo_cargo' => $codigo,
-				'cargos_pms.fecha_cargo'     => $fecha,
-				'cargos_pms.cargo_anulado'   => 0,
-				'ORDER' => [
-					'habitacion_cargo' => 'ASC'
-				]	
-			]);
-			return $data;
-		}
-
-		public function updateCiaReserva($idcia, $idcentro, $idrese){
-			global $database;
-
-			$data = $database->update('reservas_pms',[
-				'id_compania' => $idcia,
-				'idCentroCia' => $idcentro
-			],[
-				'num_reserva' => $idrese
-			]);
-			return $data->rowCount();
-		}
-
-		public function cambiaEstadoHabitacion($habita, $estado){
-			global $database;
-
-			$data = $database->update('habitaciones',[
-				'estado_fo' => $estado,
-				'estado_hk' => $estado
-			],[
-				'numero_hab' => $habita
-			]);
-			return $data->rowCount();
-		}
-
-		public function getDataUser($user){
-			global $database;
-
-			$data = $database->select('usuarios',[
-				'apellidos',
-				'nombres'
-			],[
-				'usuario' => $user
-			]);
-			return $data;
-		}
-
-		public function getReservasCreadasHoy($fecha,$tipo){
-			global $database;
-
-			$data = $database->select('reservas_pms',[
-				'[>]huespedes' => 'id_huesped'
-			],[
-				'reservas_pms.cantidad',
-				'reservas_pms.fecha_llegada',
-				'reservas_pms.fecha_salida',
-				'reservas_pms.dias_reservados',
-				'reservas_pms.tipo_habitacion',
-				'reservas_pms.tipo_reserva',
-				'reservas_pms.num_habitacion',
-				'reservas_pms.num_reserva',
-				'reservas_pms.can_hombres',
-				'reservas_pms.can_mujeres',
-				'reservas_pms.can_ninos',
-				'reservas_pms.orden_reserva',
-				'reservas_pms.id_compania',
-				'reservas_pms.tipo_ocupacion',
-				'reservas_pms.tarifa',
-				'reservas_pms.valor_reserva',
-				'reservas_pms.valor_diario',
-				'reservas_pms.estado',
-				'reservas_pms.observaciones',
-				'huespedes.nombre1',
-				'huespedes.nombre2',
-				'huespedes.apellido1',				
-				'huespedes.apellido2',				
-				'huespedes.id_huesped'
-			],[
-				'reservas_pms.fecha_reserva' => $fecha,
-				'reservas_pms.tipo_reserva'  => $tipo
-			]);
-			return $data;
-		}
-
-		public function getUsuarios(){
-			global $database;
-
-			$data = $database->select('usuarios',[
-				'nombres',
-				'apellidos',
-				'usuario'
-			],[
-				'estado' => 'A',
-				'ORDER' => ['usuario' => 'ASC']
-			]);
-			return $data;
-		}
-
-		public function habitacionesDisponibles($cuenta){
-			global $database;
-
-			$data = $database->query("SELECT COUNT(id) as rooms FROM habitaciones WHERE tipo_hab <> '$cuenta' AND active_at = 1")->fetchAll();
-			return $data[0]['rooms'];
-		}
-
-		public function updateAnulaIngreso($numero, $usuario, $idusuario){
-			global $database;
-
-			$data = $database->update('reservas_pms',[
-				'estado'             => 'ES',
-				'tipo_reserva'       => 1,
-				'usuario_ingreso'    => $usuario,
-				'id_usuario_ingreso' => $idusuario,
-				'hora_llegada'       => date("H:i:s"),
-				'fecha_ingreso'      => date("Y-m-d H:i:s")
- 			],[
- 				'num_reserva' => $numero
-			]);
-			return $data->rowCount();
-		}
-
-		public function getCargosporReserva($reserva){
-			global $database;
-
-			$data = $database->select('cargos_pms',[
-				'[>]huespedes'   => 'id_huesped',
-				'[>]codigos_vta' => ['id_codigo_cargo' => 'id_cargo']
-			],[
-				'huespedes.nombre1',
-				'huespedes.nombre2',
-				'huespedes.apellido1',				
-				'huespedes.apellido2',				
-				'cargos_pms.fecha_cargo',
-				'cargos_pms.monto_cargo',
-				'cargos_pms.base_impuesto',
-				'cargos_pms.impuesto',
-				'cargos_pms.codigo_impto',
-				'cargos_pms.id_codigo_cargo',
-				'cargos_pms.habitacion_cargo',
-				'cargos_pms.descripcion_cargo',
-				'cargos_pms.usuario',
-				'cargos_pms.id_huesped',
-				'cargos_pms.cantidad_cargo',
-				'cargos_pms.informacion_cargo',
-				'cargos_pms.valor_cargo',
-				'cargos_pms.folio_cargo',
-				'cargos_pms.pagos_cargos',
-				'cargos_pms.referencia_cargo',							
-				'cargos_pms.concecutivo_abono',
-				'cargos_pms.concecutivo_deposito',	
-				'cargos_pms.cargo_anulado',						
-				'cargos_pms.motivo_anulacion',						
-				'cargos_pms.fecha_anulacion',						
-				'cargos_pms.usuario_anulacion',						
-				'cargos_pms.numero_reserva',
-				'cargos_pms.habitacion_cargo',
-				'cargos_pms.fecha_sistema_cargo',
-				'cargos_pms.factura_numero',
-				'cargos_pms.id_reserva'
-			],[
-				'cargos_pms.numero_reserva' => $reserva,
-				'cargos_pms.cargo_anulado' => 0,
-				'ORDER' => [
-					'habitacion_cargo' => 'ASC'
-				]	
-			]);
-			return $data;
-		}
-
-		public function getCargosdelDiaporReserva($fecha, $reserva){
-			global $database;
-
-			$data = $database->select('cargos_pms',[
-				'[>]huespedes'   => 'id_huesped',
-				'[>]codigos_vta' => ['id_codigo_cargo' => 'id_cargo']
-			],[
-				'huespedes.nombre1',
-				'huespedes.nombre2',
-				'huespedes.apellido1',				
-				'huespedes.apellido2',				
-				'cargos_pms.fecha_cargo',
-				'cargos_pms.monto_cargo',
-				'cargos_pms.base_impuesto',
-				'cargos_pms.impuesto',
-				'cargos_pms.codigo_impto',
-				'cargos_pms.id_codigo_cargo',
-				'cargos_pms.habitacion_cargo',
-				'cargos_pms.descripcion_cargo',
-				'cargos_pms.usuario',
-				'cargos_pms.id_huesped',
-				'cargos_pms.cantidad_cargo',
-				'cargos_pms.informacion_cargo',
-				'cargos_pms.valor_cargo',
-				'cargos_pms.folio_cargo',
-				'cargos_pms.pagos_cargos',
-				'cargos_pms.referencia_cargo',							
-				'cargos_pms.concecutivo_abono',
-				'cargos_pms.concecutivo_deposito',	
-				'cargos_pms.cargo_anulado',						
-				'cargos_pms.motivo_anulacion',						
-				'cargos_pms.fecha_anulacion',						
-				'cargos_pms.usuario_anulacion',						
-				'cargos_pms.numero_reserva',
-				'cargos_pms.habitacion_cargo',
-				'cargos_pms.fecha_sistema_cargo',
-				'cargos_pms.factura_numero',
-				'cargos_pms.id_reserva'
-			],[
-				'cargos_pms.numero_reserva' => $reserva,
-				'cargos_pms.fecha_cargo'    => $fecha,
-				'cargos_pms.cargo_anulado'  => 0,
-				'cargos_pms.tipo_factura'   => 0,
-				'ORDER' => [
-					'habitacion_cargo' => 'ASC'
-				]	
-			]);
-			return $data;
-		}
-
-		public function borraHistoricoCargos(){
-			global $database;
-
-			$data = $database->delete('cargos_pms',[
-				'AND' => [
-					'factura_numero[>]' => 0
-				]
-			]);
-			return $data;
-		}
-
-		public function enviaHistoricoCargos(){
-			global $database;
-
-			$data = $database->query("INSERT INTO historico_cargos_pms SELECT * FROM cargos_pms WHERE factura_numero != 0")->fetchAll();
-			return $data;
-		}
-
-		public function borraHistoricoSalidas($fecha, $tipo){
-			global $database;
-
-			$data = $database->delete('reservas_pms',[
-				'AND' => [
-				'estado'        => $tipo
-				]
-			]);
-			return $data;
-		}
-
-		public function enviaHistoricoSalidas($fecha,$tipo){
-			global $database;
-
-			$data = $database->query("INSERT INTO historico_reservas_pms SELECT * FROM reservas_pms WHERE estado = '$tipo'")->fetchAll();
-			return $data;
-		}
-
-		public function cambiaEstadoHistorico($fecha,$tipo){
-			global $database;
-
-			$data = $database->update('historico_reservas_pms',[
-				'estado' => 'NS'
-			],[
-				'fecha_llegada' => $fecha,
-				'estado'        => $tipo				
-			]);
-			return $data;
-		}
-
-		public function borraEnviadasaHistorico($fecha, $tipo){
-			global $database;
-
-			$data = $database->delete('reservas_pms',[
-				'AND' => [
-				'fecha_llegada' => $fecha,
-				'estado'        => $tipo
-				]
-			]);
-			return $data;
-		}
-
-		public function borraCanceladasHistorico($tipo){
-			global $database;
-
-			$data = $database->delete('reservas_pms',[
-				'AND' => [
-					'estado'        => $tipo
-				]
-			]);
-			return $data;
-		}
-
-		public function enviaHistoricoCanceladas($tipo){
-			global $database;
-
-			$data = $database->query("INSERT INTO historico_reservas_pms SELECT * FROM reservas_pms WHERE estado = '$tipo'")->fetchAll();
-			return $data;
-		}
-
-		public function enviaHistoricoEstadias($fecha, $tipo){
-			global $database;
-
-			$data = $database->query("INSERT INTO historico_reservas_pms SELECT * FROM reservas_pms WHERE estado = '$tipo' AND fecha_llegada = '$fecha'")->fetchAll();
-			return $data;
-		}
-
-		public function getBuscarHuespedReserva($buscar){
-			global $database;
-
-			$data = $database->query("SELECT huespedes.apellido1, huespedes.apellido2, huespedes.nombre1, huespedes.nombre2, huespedes.email, huespedes.identificacion, huespedes.id_huesped  FROM huespedes WHERE identificacion LIKE '%$buscar%' OR  nombre_completo LIKE '%$buscar%' order by huespedes.apellido1")->fetchAll();
-			return $data;
-		}
-
-		public function getCargosAnuladosdelDiaporcajero($fecha,$usuario,$tipo,$estado){
-			global $database;
-
-			$data = $database->select('cargos_pms',[
-				'[>]huespedes'   => 'id_huesped',
-				'[>]codigos_vta' => ['id_codigo_cargo' => 'id_cargo']
-			],[
-				'huespedes.nombre1',
-				'huespedes.nombre2',
-				'huespedes.apellido1',				
-				'huespedes.apellido2',				
-				'cargos_pms.fecha_cargo',
-				'cargos_pms.monto_cargo',
-				'cargos_pms.base_impuesto',
-				'cargos_pms.impuesto',
-				'cargos_pms.codigo_impto',
-				'cargos_pms.id_codigo_cargo',
-				'cargos_pms.habitacion_cargo',
-				'cargos_pms.descripcion_cargo',
-				'cargos_pms.usuario',
-				'cargos_pms.id_huesped',
-				'cargos_pms.cantidad_cargo',
-				'cargos_pms.informacion_cargo',
-				'cargos_pms.valor_cargo',
-				'cargos_pms.folio_cargo',
-				'cargos_pms.pagos_cargos',
-				'cargos_pms.referencia_cargo',							
-				'cargos_pms.concecutivo_abono',
-				'cargos_pms.concecutivo_deposito',	
-				'cargos_pms.cargo_anulado',						
-				'cargos_pms.motivo_anulacion',						
-				'cargos_pms.fecha_anulacion',						
-				'cargos_pms.usuario_anulacion',						
-				'cargos_pms.numero_reserva',
-				'cargos_pms.habitacion_cargo',
-				'cargos_pms.fecha_sistema_cargo',
-				'cargos_pms.factura_numero'
-			],[
-				'cargos_pms.fecha_anulacion'   => $fecha,
-				'cargos_pms.usuario_anulacion' => $usuario,
-				'cargos_pms.cargo_anulado'     => $estado,
-				'codigos_vta.tipo_codigo'      => $tipo,
-				'ORDER'                        => [
-					'habitacion_cargo'  => 'ASC'
-				]	
-			]);
-			return $data;
-		}
-
-		public function getCargosDia($fecha,$tipo){
-			global $database;
-
-			$data = $database->query("SELECT cargos_pms.descripcion_cargo, count(cargos_pms.monto_cargo) as canti, Sum(cargos_pms.monto_cargo) as cargos, Sum(cargos_pms.impuesto) as imptos, sum(cargos_pms.monto_cargo+cargos_pms.impuesto) as total_cargo, Sum(cargos_pms.pagos_cargos) as pagos FROM cargos_pms , codigos_vta WHERE cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND cargos_pms.cargo_anulado = 0 AND codigos_vta.tipo_codigo = '$tipo' AND cargos_pms.fecha_cargo = '$fecha' GROUP BY cargos_pms.descripcion_cargo ORDER BY cargos_pms.descripcion_cargo ASC")->fetchAll();
-			return $data;
-		}
-
-		public function getBalanceSaldoAnterior($fecha){
-			global $database;
-
-			$data = $database->query("SELECT Sum(cargos_pms.monto_cargo) AS saldo_viene, Sum(cargos_pms.impuesto) AS impto_viene, Sum(cargos_pms.pagos_cargos) AS pagos_viene, Sum(cargos_pms.monto_cargo + cargos_pms.impuesto - cargos_pms.pagos_cargos) AS total_viene FROM cargos_pms , reservas_pms WHERE cargos_pms.numero_reserva = reservas_pms.num_reserva AND reservas_pms.tipo_reserva = 2 AND cargos_pms.fecha_cargo < '$fecha' AND cargos_pms.cargo_anulado = 0 AND reservas_pms.cargo_habitacion < '9450'")->fetchAll();
-			return $data;
-		}
-
-		public function getBalanceSaldodelDia($fecha){
-			global $database;
-
-			$data = $database->query("SELECT Sum(cargos_pms.monto_cargo) AS saldo_viene, Sum(cargos_pms.impuesto) AS impto_viene, Sum(cargos_pms.pagos_cargos) AS pagos_viene, Sum(cargos_pms.monto_cargo + cargos_pms.impuesto - cargos_pms.pagos_cargos) AS total_viene FROM cargos_pms , reservas_pms WHERE cargos_pms.numero_reserva = reservas_pms.num_reserva AND reservas_pms.tipo_reserva = 2 AND cargos_pms.fecha_cargo = '$fecha' AND cargos_pms.cargo_anulado = 0 AND reservas_pms.cargo_habitacion < '9450'")->fetchAll();
-			return $data;
-		}
-
-		public function cambiaFechaAuditoria($fecha){
-			global $database;
-
-			$data = $database->update('parametros_pms',[
-				'fecha_auditoria' => $fecha
-			]);
-			return $data->rowCount();
-		}
-
-		public function limpiaProcesosAuditoria(){
-			global $database;
-
-			$data = $database->update('auditoria',[
-				'estado_proceso' => 0
-			]);
-			return $data;
-		}
-
-		public function getExtranjerosSaliendo($pais,$fecha,$estado){
-			global $database;
-
-			$data = $database->query("SELECT huespedes.identificacion, huespedes.apellido1, huespedes.apellido2, huespedes.nombre1, huespedes.nombre2, huespedes.direccion, huespedes.email, huespedes.pais, huespedes.tipo_identifica, huespedes.sexo, reservas_pms.fecha_llegada, reservas_pms.fecha_salida, reservas_pms.salida_checkout, reservas_pms.dias_reservados, reservas_pms.num_habitacion, reservas_pms.tarifa, reservas_pms.tipo_habitacion, reservas_pms.can_hombres, reservas_pms.can_mujeres, reservas_pms.can_ninos, reservas_pms.valor_diario FROM huespedes, reservas_pms WHERE huespedes.id_huesped = reservas_pms.id_huesped AND reservas_pms.estado = '$estado' AND reservas_pms.salida_checkout = '$fecha' AND huespedes.pais <> '$pais'")->fetchAll();
-			return $data;
-		}
-
-		public function buscaNacionalidad($pais){
-			global $database;
-
-			$data = $database->select('paices',[
-				'descripcion'
-			],[
-				'id_pais' => $pais
-			]);
-			if(count($data)==0){
-				return '';
-			}else{
-				return $data[0]['descripcion'];
-			}
-		}
-
-		public function getExtranjerosLlegando($pais,$fecha){
-			global $database;
-
-			$data = $database->query("SELECT huespedes.identificacion, huespedes.apellido1, huespedes.apellido2, huespedes.nombre1, huespedes.nombre2, huespedes.direccion, huespedes.email, huespedes.pais, huespedes.tipo_identifica, huespedes.sexo, reservas_pms.fecha_llegada, reservas_pms.fecha_salida, reservas_pms.dias_reservados, reservas_pms.num_habitacion, reservas_pms.tarifa, reservas_pms.tipo_habitacion, reservas_pms.can_hombres, reservas_pms.can_mujeres, reservas_pms.can_ninos, reservas_pms.valor_diario FROM huespedes, reservas_pms WHERE huespedes.id_huesped = reservas_pms.id_huesped AND reservas_pms.estado = 'CA' AND reservas_pms.fecha_llegada = '$fecha' AND huespedes.pais <> '$pais'")->fetchAll();
-			return $data;
-		}
-
-		public function updateEstadia($impto, $salida, $noches, $numero, $motivo, $fuente, $segmento, $formapa, $orden){
-			global $database;
-
-			$data = $database->update('reservas_pms',[
-				'causar_impuesto'  => $impto,
-				'fecha_salida'     => $salida,
-				'dias_reservados'  => $noches,
-				'motivo_viaje'     => $motivo,
-				'fuente_reserva'   => $fuente,
-				'segmento_mercado' => $segmento,
-				'forma_pago'       => $formapa,
-				'orden_reserva'    => $orden,
-				'causar_impuesto'  => $impto
-			],[
-				'num_reserva' => $numero
-			]);
-			return $data->rowCount();
-		}
-
-		public function EstadoAuditoriaPMS($tipo){
-			global $database;
-
-			$data = $database->update('parametros_pms',[
-				'proceso_auditoria' => $tipo
-			]);
-			return $data->rowCount();
-		}
-
-		public function limpiaCargoHabitaciones(){
-			global $database;
-
-			$data = $database->update('reservas_pms',[
-				'cargo_habitacion' => 0
-			],[
-				'cargo_habitacion' => 1
-			]);
-			return $data->rowCount();
-		}
-
-		public  function getHistoricoCargosUsuarios($fecha, $tipo){
-			global $database;
-
-			$data = $database->query("SELECT DISTINCT historico_cargos_pms.id_usuario, usuarios.apellidos, usuarios.nombres FROM historico_cargos_pms, usuarios, codigos_vta WHERE historico_cargos_pms.id_usuario = usuarios.usuario_id AND historico_cargos_pms.fecha_cargo = '$fecha' AND historico_cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND codigos_vta.tipo_codigo = '$tipo' ORDER BY usuarios.usuario")->fetchAll();
-			return $data;
-		}
-
-		public function getHistoricoCargosdelDiaporcajero($fecha,$usuario,$tipo,$estado){
-			global $database;
-
-			$data = $database->select('historico_cargos_pms',[
-				'[>]huespedes'   => 'id_huesped',
-				'[>]codigos_vta' => ['id_codigo_cargo' => 'id_cargo']
-			],[
-				'huespedes.nombre1',
-				'huespedes.nombre2',
-				'huespedes.apellido1',				
-				'huespedes.apellido2',				
-				'historico_cargos_pms.fecha_cargo',
-				'historico_cargos_pms.monto_cargo',
-				'historico_cargos_pms.base_impuesto',
-				'historico_cargos_pms.impuesto',
-				'historico_cargos_pms.codigo_impto',
-				'historico_cargos_pms.id_codigo_cargo',
-				'historico_cargos_pms.habitacion_cargo',
-				'historico_cargos_pms.descripcion_cargo',
-				'historico_cargos_pms.usuario',
-				'historico_cargos_pms.id_usuario',
-				'historico_cargos_pms.id_huesped',
-				'historico_cargos_pms.cantidad_cargo',
-				'historico_cargos_pms.informacion_cargo',
-				'historico_cargos_pms.valor_cargo',
-				'historico_cargos_pms.folio_cargo',
-				'historico_cargos_pms.pagos_cargos',
-				'historico_cargos_pms.referencia_cargo',							
-				'historico_cargos_pms.concecutivo_abono',
-				'historico_cargos_pms.concecutivo_deposito',	
-				'historico_cargos_pms.cargo_anulado',						
-				'historico_cargos_pms.motivo_anulacion',						
-				'historico_cargos_pms.fecha_anulacion',						
-				'historico_cargos_pms.usuario_anulacion',						
-				'historico_cargos_pms.numero_reserva',
-				'historico_cargos_pms.habitacion_cargo',
-				'historico_cargos_pms.fecha_sistema_cargo',
-				'historico_cargos_pms.factura_numero',
-				'historico_cargos_pms.id_reserva'
-			],[
-				'historico_cargos_pms.fecha_cargo' => $fecha,
-				'historico_cargos_pms.id_usuario'            => $usuario,
-				'historico_cargos_pms.cargo_anulado'         => $estado,
-				'codigos_vta.tipo_codigo'  => $tipo,
-				'ORDER' => [
-					'habitacion_cargo' => 'ASC'
-				]	
-			]);
-			return $data;
-		}
-
-		public function getHistoricoCargosAnuladosdelDiaporcajero($fecha,$usuario,$tipo,$estado){
-			global $database;
-
-			$data = $database->select('historico_cargos_pms',[
-				'[>]huespedes'   => 'id_huesped',
-				'[>]codigos_vta' => ['id_codigo_cargo' => 'id_cargo']
-			],[
-				'huespedes.nombre1',
-				'huespedes.nombre2',
-				'huespedes.apellido1',				
-				'huespedes.apellido2',				
-				'historico_cargos_pms.fecha_cargo',
-				'historico_cargos_pms.monto_cargo',
-				'historico_cargos_pms.base_impuesto',
-				'historico_cargos_pms.impuesto',
-				'historico_cargos_pms.codigo_impto',
-				'historico_cargos_pms.id_codigo_cargo',
-				'historico_cargos_pms.habitacion_cargo',
-				'historico_cargos_pms.descripcion_cargo',
-				'historico_cargos_pms.id_usuario',
-				'historico_cargos_pms.usuario',
-				'historico_cargos_pms.id_huesped',
-				'historico_cargos_pms.cantidad_cargo',
-				'historico_cargos_pms.informacion_cargo',
-				'historico_cargos_pms.valor_cargo',
-				'historico_cargos_pms.folio_cargo',
-				'historico_cargos_pms.pagos_cargos',
-				'historico_cargos_pms.referencia_cargo',							
-				'historico_cargos_pms.concecutivo_abono',
-				'historico_cargos_pms.concecutivo_deposito',	
-				'historico_cargos_pms.cargo_anulado',						
-				'historico_cargos_pms.motivo_anulacion',						
-				'historico_cargos_pms.fecha_anulacion',						
-				'historico_cargos_pms.usuario_anulacion',						
-				'historico_cargos_pms.numero_reserva',
-				'historico_cargos_pms.habitacion_cargo',
-				'historico_cargos_pms.fecha_sistema_cargo',
-				'historico_cargos_pms.factura_numero'
-			],[
-				'historico_cargos_pms.fecha_anulacion'      => $fecha,
-				'historico_cargos_pms.id_usuario_anulacion' => $usuario,
-				'historico_cargos_pms.cargo_anulado'        => $estado,
-				'codigos_vta.tipo_codigo'      => $tipo,
-				'ORDER'                        => [
-					'habitacion_cargo'  => 'ASC'
-				]	
-			]);
-			return $data;
-		}
-
-
-		public  function getUsuariosCargos($fecha, $tipo){
-			global $database;
-
-			$data = $database->query("SELECT DISTINCT cargos_pms.id_usuario, usuarios.apellidos, usuarios.nombres, usuarios.usuario FROM cargos_pms, usuarios, codigos_vta WHERE cargos_pms.id_usuario = usuarios.usuario_id AND cargos_pms.fecha_cargo = '$fecha' AND cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND codigos_vta.tipo_codigo = '$tipo' ORDER BY usuarios.usuario")->fetchAll();
-			return $data;
-		}
-
-		public function getCargosdelDiaporcajero($fecha,$usuario,$tipo,$estado){
-			global $database;
-
-			$data = $database->select('cargos_pms',[
-				'[>]huespedes'   => 'id_huesped',
-				'[>]codigos_vta' => ['id_codigo_cargo' => 'id_cargo']
-			],[
-				'huespedes.nombre1',
-				'huespedes.nombre2',
-				'huespedes.apellido1',				
-				'huespedes.apellido2',				
-				'cargos_pms.fecha_cargo',
-				'cargos_pms.monto_cargo',
-				'cargos_pms.base_impuesto',
-				'cargos_pms.impuesto',
-				'cargos_pms.codigo_impto',
-				'cargos_pms.id_codigo_cargo',
-				'cargos_pms.habitacion_cargo',
-				'cargos_pms.descripcion_cargo',
-				'cargos_pms.usuario',
-				'cargos_pms.id_huesped',
-				'cargos_pms.cantidad_cargo',
-				'cargos_pms.informacion_cargo',
-				'cargos_pms.valor_cargo',
-				'cargos_pms.folio_cargo',
-				'cargos_pms.pagos_cargos',
-				'cargos_pms.referencia_cargo',							
-				'cargos_pms.concecutivo_abono',
-				'cargos_pms.concecutivo_deposito',	
-				'cargos_pms.cargo_anulado',						
-				'cargos_pms.motivo_anulacion',						
-				'cargos_pms.fecha_anulacion',						
-				'cargos_pms.usuario_anulacion',						
-				'cargos_pms.numero_reserva',
-				'cargos_pms.habitacion_cargo',
-				'cargos_pms.fecha_sistema_cargo',
-				'cargos_pms.factura_numero',
-				'cargos_pms.id_reserva'
-			],[
-				'cargos_pms.fecha_cargo'   => $fecha,
-				'cargos_pms.usuario'       => $usuario,
-				'cargos_pms.cargo_anulado' => $estado,
-				'codigos_vta.tipo_codigo'  => $tipo,
-				'cargos_pms.concecutivo_deposito' =>0,
-				'ORDER' => [
-					'habitacion_cargo' => 'ASC'
-				]	
-			]);
-			return $data;
-		}
-
-		public function updateProcesoAuditoria($id,$estado){
-			global $database;
-
-			$data = $database->update('auditoria',[
-				'estado_proceso' => $estado
-			],[
-				'id_proceso' => $id
-			]);
-			return $data;
-		}
-
-		public function getProcesoAuditoria(){
-			global $database;
-
-			$data = $database->select('auditoria',[
-				'id_proceso',
-				'titulo_proceso',
-				'estado_proceso',
-				'nombre_proceso',
-				'tipo_proceso',
-				'reporte'
-			],[
-				'actived_at' => 1,
-				'ORDER' => ['orden_proceso' => 'ASC']
-			]);
-			return $data;
-		}
-
-		public function actualizaNumeroFolio($folio,$id){
-			global $database;
-
-			$data = $database->update('cargos_pms',[
-				'folio_cargo' => $folio
-			],[
-				'id_cargo' => $id
-			]);
-			return $data->rowCount();
-		}
-
-		public function movimientoTotalDia($fecha){
-			global $database;
-
-			$data = $database->query("SELECT cargos_pms.habitacion_cargo, Sum(cargos_pms.monto_cargo) as cargosDia, sum(cargos_pms.impuesto) as imptosDia, sum(cargos_pms.pagos_cargos) as pagosDia FROM cargos_pms WHERE cargos_pms.fecha_cargo = '$fecha' AND cargos_pms.cargo_anulado = 0 GROUP BY cargos_pms.fecha_cargo")->fetchAll();
-			if(count($data)==0){
-				return 0;
-			}else{
-				return $data;
-			}
-		}
-
-		public function updateEstadoHabitacion($room){
-			global $database;
-
-			$data = $database->update('habitaciones',[
-				'estado_fo' => 'SV',
-				'estado_hk' => 'SV'
-			],[
-				'numero_hab' => $room
-			]);
-			return $data->rowCount();
-		}
-
-		public function getSaldoHabitacion($reserva){
-			global $database;
-
-			$data = $database->query("SELECT cargos_pms.habitacion_cargo, Sum(cargos_pms.monto_cargo) as cargos, Sum(cargos_pms.impuesto) as imptos, Sum(cargos_pms.pagos_cargos) as pagos FROM cargos_pms WHERE cargos_pms.numero_reserva = '$reserva' and cargos_pms.cargo_anulado = 0 AND factura_numero = 0 GROUP BY cargos_pms.numero_reserva")->fetchAll();
-			return $data;
-		}
-
-		public function saldoFolio($reserva,$folio){
-			global $database;
-
-			$data = $database->query("SELECT cargos_pms.habitacion_cargo, Sum(cargos_pms.monto_cargo+cargos_pms.impuesto) as saldoFol FROM cargos_pms WHERE cargos_pms.numero_reserva = '$reserva' AND cargos_pms.cargo_anulado = 0 AND cargos_pms.folio_cargo = '$folio' AND factura_numero = 0 GROUP BY cargos_pms.numero_reserva, cargos_pms.folio_cargo")->fetchAll();
-			if(count($data)==0){
-				return 0;
-			}else{
-				return $data[0]['saldoFol'];
-			}
-		}
-
-		public function pagosFolio($reserva,$folio){
-			global $database;
-
-			$data = $database->query("SELECT cargos_pms.habitacion_cargo, Sum(cargos_pms.pagos_cargos) as saldoFol FROM cargos_pms WHERE cargos_pms.numero_reserva = '$reserva' AND cargos_pms.cargo_anulado = 0 AND cargos_pms.folio_cargo = '$folio' AND factura_numero = 0 GROUP BY cargos_pms.numero_reserva")->fetchAll();
-			if(count($data)==0){
-				return 0;
-			}else{
-				return $data[0]['saldoFol'];
-			}
-		}
-
-		public function cambiaTarifaHabitacion($id, $tipo, $habi){
-			global $database;
-
-			$data = $database->update('reservas_pms',[
-				'valor_diario'  => $habi,
-				'tarifa'        => $tipo
-			],[
-				'num_reserva' => $id
-			]);
-			return $data->rowCount();
-		}
-
-		public function updateMmtoRoom($habi, $mmto){
-			global $database;
-
-			$data = $database->update('habitaciones',[
-				'estado'    => $mmto,
-				'estado_fo' => 'FS',
-				'estado_hk' => 'FS'
-			],[
-				'numero_hab' => $habi
-			]);
-			return $data->rowCount();			
-		}
-
-		public function insertCambioHabitaciones($id, $tipoact, $habiact, $tiponue, $habinue, $mmto, $motivo, $observa, $fecha, $tipo){
-			global $database;
-
-			$data = $database->insert('traslado_habitaciones',[
-				'tipo_desde'    => $tipoact,
-				'tipo_hasta'    => $tiponue,
-				'hab_desde'     => $habiact,
-				'hab_hasta'     => $habinue,
-				'fecha'         => $fecha,
-				'id_reserva'    => $id,
-				'motivo_cambio' => $motivo,
-				'observaciones' => $observa,
-				'tipo_traslado' => $tipo,
-			]);
-			return $database->id();
-		}
-
-		public function cambiaHabitacion($id, $tipo, $habi){
-			global $database;
-
-			$data = $database->update('reservas_pms',[
-				'num_habitacion'  => $habi,
-				'tipo_habitacion' => $tipo
-			],[
-				'num_reserva' => $id
-			]);
-			return $data->rowCount();
-		}
-
-		public function updateReserva($iden, $llegada, $salida, $noches, $hombres, $mujeres, $ninos, $orden, $tipohabi, $nrohabitacion, $tarifahab, $valortarifa, $origen, $destino, $motivo, $fuente, $segmento, $idhuesp, $numero, $observa, $formapa, $impto){
-			global $database;
-
-			$data = $database->update('reservas_pms',[
-				'fecha_llegada'    => $llegada,
-				'fecha_salida'     => $salida,
-				'dias_reservados'  => $noches,
-				'can_hombres'      => $hombres,
-				'can_mujeres'      => $mujeres,
-				'can_ninos'        => $ninos,
-				'orden_reserva'    => $orden,
-				'tipo_habitacion'  => $tipohabi,
-				'num_habitacion'   => $nrohabitacion,
-				'tarifa'           => $tarifahab,
-				'valor_reserva'    => ($valortarifa * $noches),
-				'valor_diario'     => $valortarifa,
-				'origen_reserva'   => $origen,
-				'destino_reserva'  => $destino,
-				'motivo_viaje'     => $motivo,
-				'fuente_reserva'   => $fuente,
-				'segmento_mercado' => $segmento,
-				'observaciones'    => $observa,
-				'forma_pago'       => $formapa,
-				'causar_impuesto'  => $impto
-			],[
-				'num_reserva' => $numero
-			]);
-			return $data->rowCount();
-		}
-
-		public function getBuscaReserva($id){
-			global $database;
-
-			$data = $database->select('reservas_pms',[
-				'[>]huespedes' => 'id_huesped'
-			],[
-				'huespedes.nombre1',
-				'huespedes.nombre2',
-				'huespedes.apellido1',
-				'huespedes.apellido2',
-				'huespedes.id_huesped',
-				'huespedes.nombre_completo',
-				'reservas_pms.cantidad',
-				'reservas_pms.dias_reservados',
-				'reservas_pms.estado',
-				'reservas_pms.fecha_llegada',
-				'reservas_pms.fecha_salida',
-				'reservas_pms.tipo_reserva',
-				'reservas_pms.num_habitacion',
-				'reservas_pms.num_reserva',
-				'reservas_pms.can_hombres',
-				'reservas_pms.can_mujeres',
-				'reservas_pms.can_ninos',
-				'reservas_pms.orden_reserva',
-				'reservas_pms.origen_reserva',
-				'reservas_pms.destino_reserva',
-				'reservas_pms.id_agencia',
-				'reservas_pms.id_compania',
-				'reservas_pms.idCentroCia',
-				'reservas_pms.id_huesped',
-				'reservas_pms.tarifa',
-				'reservas_pms.tipo_habitacion',
-				'reservas_pms.tipo_ocupacion',
-				'reservas_pms.tipo_reserva',
-				'reservas_pms.valor_reserva',
-				'reservas_pms.valor_diario',
-				'reservas_pms.motivo_viaje',
-				'reservas_pms.fecha_reserva',
-				'reservas_pms.fecha_ingreso',
-				'reservas_pms.usuario',
-				'reservas_pms.observaciones',
-				'reservas_pms.fuente_reserva',
-				'reservas_pms.segmento_mercado',
-				'reservas_pms.cargo_habitacion',
-				'reservas_pms.causar_impuesto',
-				'reservas_pms.forma_pago'
-			],[
-				'reservas_pms.num_reserva' => $id
-			]);
-			return $data;
-		}
-
-		public function getHistoricoReservasCia($id){
-			global $database;
-
-			$data = $database->select('historico_reservas_pms',[
-				'[>]huespedes' => 'id_huesped',
-				'[>]tipo_habitaciones' => ['tipo_habitacion' => 'id']
-			],[
-				'huespedes.id_huesped',
-				'huespedes.nombre_completo',
-				'tipo_habitaciones.descripcion_habitacion',
-				'historico_reservas_pms.dias_reservados',
-				'historico_reservas_pms.estado',
-				'historico_reservas_pms.fecha_llegada',
-				'historico_reservas_pms.fecha_salida',
-				'historico_reservas_pms.salida_checkout',
-				'historico_reservas_pms.tipo_reserva',
-				'historico_reservas_pms.num_habitacion',
-				'historico_reservas_pms.num_reserva'	,
-				'historico_reservas_pms.can_hombres',
-				'historico_reservas_pms.can_mujeres',
-				'historico_reservas_pms.can_ninos',
-				'historico_reservas_pms.id_huesped',
-				'historico_reservas_pms.tipo_habitacion'
-			],[
-				'historico_reservas_pms.id_compania' => $id
-			]);
-			return $data;
-		}
-
-		public function getReservasEsperadasCia($id){
-			global $database;
-
-			$data = $database->select('reservas_pms',[
-				'[>]huespedes' => 'id_huesped',
-				'[>]tipo_habitaciones' => ['tipo_habitacion' => 'id']
-			],[
-				'huespedes.id_huesped',
-				'huespedes.nombre_completo',
-				'tipo_habitaciones.descripcion_habitacion',
-				'reservas_pms.dias_reservados',
-				'reservas_pms.estado',
-				'reservas_pms.fecha_llegada',
-				'reservas_pms.fecha_salida',
-				'reservas_pms.tipo_reserva',
-				'reservas_pms.num_habitacion',
-				'reservas_pms.num_reserva',
-				'reservas_pms.can_hombres',
-				'reservas_pms.can_mujeres',
-				'reservas_pms.can_ninos',
-				'reservas_pms.id_huesped',
-				'reservas_pms.tarifa',
-			],[
-				'reservas_pms.id_compania' => $id
-			]);
-			return $data;
-		}
-
-		public function getHuespedesCia($id){
-			global $database;
-
-			$data = $database->select('huespedes',[
-				'id_huesped',
-				'nombre_completo',
-				'identificacion',
-				'direccion',
-				'telefono',
-				'email',
-				'tipo_identifica',
-				'tipo_huesped',
-				'fecha_nacimiento',
-				'sexo', 
-				'celular',
-				'id_compania',
-				'estado_credito'
-			],[
-				'id_compania' => $id
-			]);
-			return $data;
-		}
-
-		public function getContactosCia($id){
-			global $database;
-
-			$data = $database->select('contactos_compania',[
-				'id_contacto',
-				'apellidos',
-				'nombres',
-				'identificacion',
-				'cargo',
-				'area',
-				'celular',
-				'telefono',
-				'extencion',
-				'email'
-			],[
-				'id_compania' => $id,
-				'actived_at'  => 1
-			]);
-			return $data;
-		}
-
-		public function updateCompania($id, $nit, $dv, $tipodoc, $compania, $direccion, $ciudad, $telefono, $celular, $web, $correo, $tarifa, $formapago, $credito, $monto, $diascre, $diacorte, $tipoemp, $codciiu){
-			global $database;
-
-			$data = $database->update('companias',[
-				'empresa'           => $compania,
-				'direccion'         => $direccion,
-				'nit'               => $nit,
-				'dv'                => $dv,
-				'tipo_documento'    => $tipodoc,
-				'telefono'          => $telefono,
-				'celular'           => $celular,
-				'email'             => $correo,
-				'web'               => $web,
-				'ciudad'            => $ciudad,
-				'credito'           => $credito,
-				'monto_credito'     => $monto,
-				'dias_credito'      => $diascre,
-				'id_forma_pago'     => $formapago,
-				'dia_corte_credito' => $diacorte,
-				'id_tarifa'         => $tarifa,
-				'tipo_empresa'      => $tipoemp,
-				'updated_at'        => date("Y-m-d H:i:s"),				
-				'id_codigo_ciiu'    => $codciiu
-			],[
-				'id_compania'       => $id
-			]);
-			return $data->rowCount();
-		}
-
-
-
-		public function getBuscaIdEmpresa($id){
-			global $database;
-
-			$data = $database->select('companias',[
-				'id_compania',		
-				'empresa',
-				'direccion',
-				'nit',
-				'dv',
-				'tipo_documento',
-				'telefono',	
-				'celular',
-				'email',
-				'web',
-				'ciudad',
-				'tipo_empresa',
-				'estado_credito',
-				'credito',
-				'monto_credito',
-				'dia_corte_credito',
-				'dias_credito',
-				'id_tarifa',
-				'id_forma_pago',
-				'id_codigo_ciiu',					
-				'usuario',
-				'created_at'
-			],[
-				'id_compania' => $id
-			]);
-			return $data;
-		}
-
-		public function updateHuesped($id, $iden, $tipodoc, $apellido1, $apellido2, $nombre1, $nombre2, $sexo, $direccion, $telefono,  $celular, $correo, $fechanace, $tipohues, $tarifa, $pais, $ciudad, $formapago, $paisExp, $ciudadExp){
-			global $database;
-
-			$data = $database->update('huespedes',[
-				'nombre1'           => $nombre1,
-				'nombre2'           => $nombre2,
-				'apellido1'         => $apellido1,
-				'apellido2'         => $apellido2,
-				'direccion'         => $direccion,
-				'telefono'          => $telefono,
-				'email'             => $correo,
-				'identificacion'    => $iden,
-				'pais_expedicion'   => $paisExp,
-				'ciudad_expedicion' => $ciudadExp,
-				'tipo_identifica'   => $tipodoc,
-				'fecha_nacimiento'  => $fechanace,
-				'sexo'              => $sexo,
-				'id_forma_pago'     => $formapago,
-				'celular'           => $celular,
-				'tipo_huesped'      => $tipohues,
-				'id_tarifa'         => $tarifa,
-				'pais'              => $pais,
-				'ciudad'            => $ciudad,
-				'nombre_completo'   => $apellido1.' '.$apellido2.' '.$nombre1.' '.$nombre2,
-				'id_forma_pago'     => $formapago
-				],[
-				'id_huesped'       => $id
-			]);
-			return $data->rowCount();
-		}
-
-		public function getBuscaIdHuesped($id){
-			global $database;
-
-			$data = $database->select('huespedes',[
-				'id_huesped',
-				'nombre1',
-				'nombre2',
-				'apellido1',
-				'apellido2',
-				'nombre_completo',
-				'identificacion',
-				'direccion',
-				'telefono',
-				'email',
-				'tipo_identifica',
-				'tipo_huesped',
-				'pais_expedicion',
-				'ciudad_expedicion',
-				'fecha_nacimiento',
-				'sexo', 
-				'celular',
-				'id_compania',
-				'idCentroCia',
-				'id_forma_pago',
-				'id_tarifa',
-				'estado_credito',
-				'pais',
-				'ciudad',
-				'id_forma_pago'
-			],[
-				'id_huesped' => $id
-			]);
-			return $data;
-		}
-
-		public function updateCiaHuesped($idcia, $idhues, $idCentro){
-			global $database;
-
-			$data = $database->update('huespedes',[
-				'id_compania' => $idcia,
-				'idCentroCia' => $idCentro
-			],[
-				'id_huesped' => $idhues
-			]);
-			return $data->rowCount();
-		}
-
-
-		public function getBuscaCentroCia($id){
-			global $database;
-
-			$data = $database->select('centrosCias',[
-				'descripcion_centro',
-				'id_centro',
-			],[
-				'id_centro' => $id
-			]);
-			return $data;
-		}
-
-
-		public function getReservasEsperadas($id){
-			global $database;
-
-			$data = $database->select('reservas_pms',[
-				'[>]tipo_habitaciones' => ['tipo_habitacion' => 'id']
-			],[
-				'tipo_habitaciones.descripcion_habitacion',
-				'reservas_pms.id',
-				'reservas_pms.cantidad',
-				'reservas_pms.dias_reservados',
-				'reservas_pms.estado',
-				'reservas_pms.fecha_llegada',
-				'reservas_pms.fecha_salida',
-				'reservas_pms.tipo_reserva',
-				'reservas_pms.num_habitacion',
-				'reservas_pms.num_reserva',
-				'reservas_pms.num_registro',
-				'reservas_pms.can_hombres',
-				'reservas_pms.can_mujeres',
-				'reservas_pms.can_ninos',
-				'reservas_pms.orden_reserva',
-				'reservas_pms.origen_reserva',
-				'reservas_pms.destino_reserva',
-				'reservas_pms.id_agencia',
-				'reservas_pms.id_compania',
-				'reservas_pms.id_huesped',
-				'reservas_pms.tarifa',
-				'reservas_pms.tipo_habitacion',
-				'reservas_pms.tipo_ocupacion',
-				'reservas_pms.valor_reserva',
-				'reservas_pms.valor_diario',
-				'reservas_pms.motivo_viaje',
-				'reservas_pms.fecha_reserva',
-				'reservas_pms.usuario',
-				'reservas_pms.observaciones',
-				'reservas_pms.fuente_reserva',
-				'reservas_pms.causar_impuesto',
-				'reservas_pms.cargo_habitacion'
-			],[
-				'id_huesped' => $id
-			]);
-			return $data;
-		}
-
-		public function getHistoricoReservas($id){
-			global $database;
-
-			$data = $database->select('historico_reservas_pms',[
-				'[>]huespedes' => 'id_huesped',
-				'[>]tipo_habitaciones' => ['tipo_habitacion' => 'id']
-			],[
-				'huespedes.id_huesped',
-				'huespedes.nombre_completo',
-				'tipo_habitaciones.descripcion_habitacion',
-				'historico_reservas_pms.dias_reservados',
-				'historico_reservas_pms.estado',
-				'historico_reservas_pms.fecha_llegada',
-				'historico_reservas_pms.fecha_salida',
-				'historico_reservas_pms.salida_checkout',
-				'historico_reservas_pms.tipo_reserva',
-				'historico_reservas_pms.num_habitacion',
-				'historico_reservas_pms.num_reserva',
-				'historico_reservas_pms.num_registro',				
-				'historico_reservas_pms.orden_reserva',				
-				'historico_reservas_pms.valor_diario',				
-				'historico_reservas_pms.observaciones',	
-				'historico_reservas_pms.tipo_habitacion',	
-				'historico_reservas_pms.can_hombres',
-				'historico_reservas_pms.can_mujeres',
-				'historico_reservas_pms.can_ninos',
-				'historico_reservas_pms.id_huesped',
-				'historico_reservas_pms.tarifa',
-			],[
-				'historico_reservas_pms.id_huesped' => $id
-			]);
-			return $data;
-		}
-
-		public function getPrimerDia($ctamaster){
-			global $database;
-
-			$data = $database->query("SELECT reservas_pms.fecha_llegada, reservas_pms.num_habitacion, reservas_pms.tipo_habitacion FROM reservas_pms WHERE (reservas_pms.tipo_habitacion <> '$ctamaster' AND reservas_pms.estado <> 'CX') AND (reservas_pms.tipo_habitacion <> 'CMA' AND reservas_pms.estado <> 'SA') ORDER BY reservas_pms.fecha_llegada ASC LIMIT 1")->fetchAll();
-			return $data[0]['fecha_llegada'];
-		}
-
-		public function getUltimoDia($ctamaster){
-			global $database;
-
-			$data = $database->query("SELECT reservas_pms.fecha_salida, reservas_pms.num_habitacion, reservas_pms.tipo_habitacion FROM reservas_pms WHERE (reservas_pms.tipo_habitacion <> '$ctamaster' AND reservas_pms.estado <> 'CX') OR (reservas_pms.tipo_habitacion <> '$ctamaster' AND reservas_pms.estado <> 'SA') ORDER BY reservas_pms.fecha_llegada DESC LIMIT 1")->fetchAll();
-			return $data[0]['fecha_salida'];
-		}
-
-		public function buscaCasa($fecha,$room){
-			global $database;
-
-			$data = $database->select('reservas_pms',[
-				'[>]huespedes' => 'id_huesped'
-			],[
-				'huespedes.apellido1',
-				'huespedes.apellido2',
-				'huespedes.nombre1',
-				'huespedes.nombre2',
-				'reservas_pms.dias_reservados',
-				'reservas_pms.tarifa',
-				'reservas_pms.estado',
-				'reservas_pms.valor_diario',
-				'reservas_pms.num_reserva',			
-				'reservas_pms.num_habitacion',
-				'reservas_pms.causar_impuesto',
-				'reservas_pms.fecha_llegada',
-				'reservas_pms.fecha_salida'
-			],[
-				'reservas_pms.fecha_salida[>=]' => $fecha,
-				'reservas_pms.num_habitacion'   => $room,
-				'reservas_pms.estado'           => 'CA' 
-			]);
-			return $data;
-		}
-
-		public function buscaEstadia($fecha,$room){
-			global $database;
-
-			$data = $database->query("SELECT huespedes.apellido1, huespedes.apellido2, huespedes.nombre1, huespedes.nombre2,reservas_pms.dias_reservados, reservas_pms.tarifa, reservas_pms.estado, reservas_pms.valor_diario, reservas_pms.num_reserva, reservas_pms.num_habitacion, reservas_pms.can_hombres, reservas_pms.can_mujeres, reservas_pms.can_ninos, reservas_pms.fecha_llegada, reservas_pms.fecha_salida FROM huespedes, reservas_pms WHERE (huespedes.id_huesped = reservas_pms.id_huesped AND reservas_pms.num_habitacion = '$room' AND reservas_pms.fecha_llegada = '$fecha' AND reservas_pms.estado = 'CA') OR (huespedes.id_huesped = reservas_pms.id_huesped AND reservas_pms.num_habitacion = '$room' AND reservas_pms.fecha_llegada = '$fecha' AND reservas_pms.estado = 'ES') 
+
+        return $data;
+    }
+
+    public function getDatosAuditoria($fecha)
+    {
+        global $database;
+
+        $data = $database->select('reporte_gerencia', [
+            'fecha_auditoria',
+            'ingreso_habitaciones',
+            'ingreso_impto_habitaciones',
+            'ingreso_promedio_habitacion_disponible',
+            'ingreso_promedio_habitacion_ocupada',
+            'ingresos_compania',
+            'ingresos_agencia',
+            'ingresos_grupo',
+            'ingresos_individual',
+            'ingreso_promedio_huesped',
+            'habitaciones_disponibles',
+            'habitaciones_fuera_orden',
+            'habitaciones_fuera_servicio',
+            'habitaciones_ocupadas',
+            'salidas_dia',
+            'llegadas_dia',
+            'habitaciones_cortesia',
+            'habitaciones_usocasa',
+            'habitaciones_usodia',
+            'ingreso_potencial',
+            'camas_disponibles',
+            'hombres',
+            'mujeres',
+            'ninos',
+            'huespedes_repetitivos',
+            'nuevos_huespedes',
+            'huespedes_nacionales',
+            'huespedes_extranjeros',
+            'reservas_creadashoy',
+            'reservas_noshows',
+            'salidas_anticipadas',
+            'reservas_canceladas',
+            'llegadas_sinreserva',
+            'llegadas_hombres',
+            'mujeres_llegando',
+            'ninos_llegando',
+            'salidas_hombres',
+            'mujeres_saliendo',
+            'ninos_saliendo',
+            'usuario_auditoria',
+            'fecha_proceso_auditoria',
+        ], [
+            'fecha_auditoria' => $fecha,
+        ]);
+
+        return $data;
+    }
+
+    public function insertDiaAuditoria($fecha, $cargo, $impto, $promhab, $promocu, $habi, $promhues, $fo, $fs, $huesp, $salidas, $llegadas, $hom, $muj, $nin, $camas, $usuario, $idusuario, $ingcia, $ingage, $inggru, $ingind, $inghue, $repite, $nuevos, $nales, $inter, $resehoy, $noshow, $canceladas, $saleantes, $sinreserva, $llegaho, $llegamu, $llegani, $usodiaha, $usodiaho, $usodiamu, $usodiani, $conge)
+    {
+        global $database;
+
+        $data = $database->insert('reporte_gerencia', [
+            'fecha_auditoria' => $fecha,
+            'ingreso_habitaciones' => $cargo,
+            'ingreso_impto_habitaciones' => $impto,
+            'ingreso_promedio_habitacion_disponible' => $promhab,
+            'ingreso_promedio_habitacion_ocupada' => $promocu,
+            'ingreso_promedio_huesped' => $promhues,
+            'habitaciones_disponibles' => $habi,
+            'habitaciones_fuera_orden' => $fo,
+            'habitaciones_fuera_servicio' => $fs,
+            'habitaciones_ocupadas' => $huesp,
+            'salidas_dia' => $salidas,
+            'llegadas_dia' => $llegadas,
+            'hombres' => $hom,
+            'mujeres' => $muj,
+            'ninos' => $nin,
+            'camas_disponibles' => $camas,
+            'usuario_auditoria' => $usuario,
+            'id_usuario_auditoria' => $idusuario,
+            'ingresos_compania' => $ingcia,
+            'ingresos_agencia' => $ingage,
+            'ingresos_grupo' => $inggru,
+            'ingresos_individual' => $ingind,
+            'huespedes_repetitivos' => $repite,
+            'nuevos_huespedes' => $nuevos,
+            'huespedes_nacionales' => $nales,
+            'huespedes_extranjeros' => $inter,
+            'reservas_creadashoy' => $resehoy,
+            'reservas_noshows' => $noshow,
+            'reservas_canceladas' => $canceladas,
+            'salidas_anticipadas' => $saleantes,
+            'llegadas_sinreserva' => $sinreserva,
+            'llegadas_hombres' => $llegaho,
+            'mujeres_llegando' => $llegamu,
+            'ninos_llegando' => $llegani,
+            'habitaciones_usodia' => $usodiaha,
+            'usodia_hombres' => $usodiaho,
+            'usodia_mujeres' => $usodiamu,
+            'usodia_ninos' => $usodiani,
+            'cuentas_congeladas' => $conge,
+            'fecha_proceso_auditoria' => date('Y-m-d H:i:s'),
+        ]);
+
+        return $database->id();
+    }
+
+    public function getCamasDisponibles()
+    {
+        global $database;
+
+        $data = $database->query("SELECT Sum(habitaciones.camas) as camas FROM habitaciones WHERE (habitaciones.tipo_hab <> 'CMA' AND habitaciones.estado_fo <> 'FS' AND habitaciones.active_at = 1) OR (habitaciones.estado_fo <> 'FO' AND habitaciones.tipo_hab <> 'CMA' AND habitaciones.active_at = 1)")->fetchAll();
+
+        return $data;
+    }
+
+    public function getHuespedesenCasaCierre($cta)
+    {
+        global $database;
+
+        $data = $database->query("SELECT Sum(reservas_pms.can_hombres) AS hombres, Sum(reservas_pms.can_mujeres) AS mujeres, Sum(reservas_pms.can_ninos) AS ninos FROM reservas_pms WHERE reservas_pms.estado = 'CA' AND reservas_pms.tipo_habitacion <> '$cta'")->fetchAll();
+
+        return $data;
+    }
+
+    public function getLlegadaspmDia($fecha)
+    {
+        global $database;
+
+        $data = $database->count('reservas_pms', [
+            'id',
+        ], [
+            'tipo_habitacion' => 'CMA',
+            'fecha_llegada' => $fecha,
+            'estado' => 'CA',
+        ]);
+
+        return $data;
+    }
+
+    public function getSalidaspmDia($fecha)
+    {
+        global $database;
+
+        $data = $database->count('reservas_pms', [
+            'id',
+        ], [
+            'tipo_habitacion' => 'CMA',
+            'salida_checkout' => $fecha,
+            'estado' => 'SA',
+        ]);
+
+        return $data;
+    }
+
+    public function getLlegadasHabitacionesDia($fecha)
+    {
+        global $database;
+
+        $data = $database->count('reservas_pms', [
+            'id',
+        ], [
+            'fecha_llegada' => $fecha,
+            'estado' => 'CA',
+        ]);
+
+        return $data;
+    }
+
+    public function getSalidasHabitacionesDia($fecha)
+    {
+        global $database;
+
+        $data = $database->count('reservas_pms', [
+            'id',
+        ], [
+            'tipo_habitacion[<>]' => CTA_MASTER,
+            'salida_checkout' => $fecha,
+        ]);
+
+        return $data;
+    }
+
+    public function getHabitacionsBloqueadas($tipo)
+    {
+        global $database;
+
+        $data = $database->count('habitaciones', [
+            'id',
+        ], [
+            'estado_fo' => $tipo,
+            'active_at' => 1,
+        ]);
+
+        return $data;
+    }
+
+    public function getIngresoAnioGrupo($anio, $grupo)
+    {
+        global $database;
+
+        $data = $database->query("SELECT Sum(cargos_pms.monto_cargo) as cargos FROM cargos_pms, codigos_vta WHERE cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND codigos_vta.agrupacion = '$grupo' AND YEAR(cargos_pms.fecha_cargo) = '$anio' AND cargos_pms.cargo_anulado = 0")->fetchAll();
+
+        return $data;
+    }
+
+    public function getIngresoAnioHistoricoGrupo($anio, $grupo)
+    {
+        global $database;
+
+        $data = $database->query("SELECT Sum(historico_cargos_pms.monto_cargo) as cargos FROM historico_cargos_pms, codigos_vta WHERE historico_cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND codigos_vta.agrupacion = '$grupo' AND YEAR(historico_cargos_pms.fecha_cargo) = '$anio' AND historico_cargos_pms.cargo_anulado = 0")->fetchAll();
+
+        return $data;
+    }
+
+    public function getIngresoMesGrupo($mes, $anio, $grupo)
+    {
+        global $database;
+
+        $data = $database->query("SELECT Sum(cargos_pms.monto_cargo) as cargos FROM cargos_pms, codigos_vta WHERE cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND codigos_vta.agrupacion = '$grupo' AND MONTH(cargos_pms.fecha_cargo) = '$mes' AND YEAR(cargos_pms.fecha_cargo) = '$anio' AND cargos_pms.cargo_anulado = 0")->fetchAll();
+
+        return $data;
+    }
+
+    public function getIngresoMesHistoricoGrupo($mes, $anio, $grupo)
+    {
+        global $database;
+
+        $data = $database->query("SELECT Sum(historico_cargos_pms.monto_cargo) as cargos FROM historico_cargos_pms, codigos_vta WHERE historico_cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND codigos_vta.agrupacion = '$grupo' AND MONTH(historico_cargos_pms.fecha_cargo) = '$mes' AND YEAR(historico_cargos_pms.fecha_cargo) = '$anio' AND historico_cargos_pms.cargo_anulado = 0")->fetchAll();
+
+        return $data;
+    }
+
+    public function getIngresoDiarioGrupo($fecha, $grupo)
+    {
+        global $database;
+
+        $data = $database->query("SELECT Sum(cargos_pms.monto_cargo) as cargos, Sum(cargos_pms.impuesto) as impto FROM cargos_pms, codigos_vta WHERE cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND codigos_vta.agrupacion = '$grupo' AND cargos_pms.fecha_cargo = '$fecha' AND cargos_pms.cargo_anulado = 0")->fetchAll();
+
+        return $data;
+    }
+
+    public function getIngresoDiarioImptoGrupo($fecha, $grupo)
+    {
+        global $database;
+
+        $data = $database->query("SELECT Sum(cargos_pms.impuesto) as impto FROM cargos_pms, codigos_vta WHERE cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND codigos_vta.agrupacion = '$grupo' AND cargos_pms.fecha_cargo = '$fecha' AND cargos_pms.cargo_anulado = 0")->fetchAll();
+
+        return $data;
+    }
+
+    public function getVentasDiaCodigo($fecha, $codi)
+    {
+        global $database;
+
+        $data = $database->query("SELECT Sum(impuesto) as imptos, Sum(monto_cargo) as cargos, Sum(pagos_cargos) as pagos FROM cargos_pms WHERE cargo_anulado = 0 AND id_codigo_cargo = '$codi' AND fecha_cargo = '$fecha'")->fetchAll();
+
+        return $data;
+    }
+
+    public function getVentasMesCodigo($fecha, $anio, $codi)
+    {
+        global $database;
+
+        $data = $database->query("SELECT Sum(cargos_pms.impuesto) as imptos, Sum(cargos_pms.monto_cargo) as cargos, Sum(cargos_pms.pagos_cargos) as pagos FROM cargos_pms WHERE cargos_pms.cargo_anulado = 0 AND id_codigo_cargo = '$codi' AND MONTH(cargos_pms.fecha_cargo) = '$fecha'")->fetchAll();
+
+        return $data;
+    }
+
+    public function getVentasMesCodigoHistorico($mes, $anio, $codi)
+    {
+        global $database;
+
+        $data = $database->query("SELECT Sum(historico_cargos_pms.impuesto) as imptos, Sum(historico_cargos_pms.monto_cargo) as cargos, Sum(historico_cargos_pms.pagos_cargos) as pagos FROM historico_cargos_pms WHERE historico_cargos_pms.cargo_anulado = 0 AND id_codigo_cargo = '$codi' AND MONTH(historico_cargos_pms.fecha_cargo) = '$mes' AND YEAR(historico_cargos_pms.fecha_cargo) = '$anio'")->fetchAll();
+
+        return $data;
+    }
+
+    public function getVentasAnioCodigo($fecha, $codi)
+    {
+        global $database;
+
+        $data = $database->query("SELECT Sum(cargos_pms.impuesto) as imptos, Sum(cargos_pms.monto_cargo) as cargos, Sum(cargos_pms.pagos_cargos) as pagos FROM cargos_pms WHERE cargos_pms.cargo_anulado = 0 AND cargos_pms.id_codigo_cargo = '$codi' AND YEAR(cargos_pms.fecha_cargo) = '$fecha'")->fetchAll();
+
+        return $data;
+    }
+
+    public function getVentasAnioCodigoHistorico($fecha, $codi)
+    {
+        global $database;
+
+        $data = $database->query("SELECT Sum(historico_cargos_pms.impuesto) as imptos, Sum(historico_cargos_pms.monto_cargo) as cargos, Sum(historico_cargos_pms.pagos_cargos) as pagos FROM historico_cargos_pms WHERE historico_cargos_pms.cargo_anulado = 0 AND historico_cargos_pms.id_codigo_cargo = '$codi' AND YEAR(historico_cargos_pms.fecha_cargo) = '$fecha'")->fetchAll();
+
+        return $data;
+    }
+
+    public function getBuscaAuditoriaFecha()
+    {
+        global $database;
+
+        $data = $database->select('auditoria', [
+            'titulo_proceso',
+            'reporte',
+        ], [
+            'imprimir' => 1,
+            'ORDER' => 'orden_proceso',
+        ]);
+
+        return $data;
+    }
+
+    public function getCargosAnuladosporFecha($fecha, $tipo, $estado)
+    {
+        global $database;
+
+        $data = $database->select('cargos_pms', [
+            '[>]huespedes' => 'id_huesped',
+            '[>]codigos_vta' => ['id_codigo_cargo' => 'id_cargo'],
+        ], [
+            'huespedes.nombre1',
+            'huespedes.nombre2',
+            'huespedes.apellido1',
+            'huespedes.apellido2',
+            'cargos_pms.fecha_cargo',
+            'cargos_pms.monto_cargo',
+            'cargos_pms.base_impuesto',
+            'cargos_pms.impuesto',
+            'cargos_pms.codigo_impto',
+            'cargos_pms.id_codigo_cargo',
+            'cargos_pms.habitacion_cargo',
+            'cargos_pms.descripcion_cargo',
+            'cargos_pms.usuario',
+            'cargos_pms.id_huesped',
+            'cargos_pms.cantidad_cargo',
+            'cargos_pms.informacion_cargo',
+            'cargos_pms.valor_cargo',
+            'cargos_pms.folio_cargo',
+            'cargos_pms.pagos_cargos',
+            'cargos_pms.referencia_cargo',
+            'cargos_pms.concecutivo_abono',
+            'cargos_pms.concecutivo_deposito',
+            'cargos_pms.cargo_anulado',
+            'cargos_pms.motivo_anulacion',
+            'cargos_pms.fecha_anulacion',
+            'cargos_pms.usuario_anulacion',
+            'cargos_pms.numero_reserva',
+            'cargos_pms.habitacion_cargo',
+            'cargos_pms.fecha_sistema_cargo',
+            'cargos_pms.factura_numero',
+            'cargos_pms.id_reserva',
+        ], [
+            'cargos_pms.fecha_anulacion' => $fecha,
+            'cargos_pms.cargo_anulado' => $estado,
+            'codigos_vta.tipo_codigo' => $tipo,
+            'ORDER' => [
+                'habitacion_cargo' => 'ASC',
+            ],
+        ]);
+
+        return $data;
+    }
+
+    public function getCargosporFecha($fecha, $tipo, $estado)
+    {
+        global $database;
+
+        $data = $database->select('cargos_pms', [
+            '[>]huespedes' => 'id_huesped',
+            '[>]codigos_vta' => ['id_codigo_cargo' => 'id_cargo'],
+        ], [
+            'huespedes.nombre1',
+            'huespedes.nombre2',
+            'huespedes.apellido1',
+            'huespedes.apellido2',
+            'cargos_pms.fecha_cargo',
+            'cargos_pms.monto_cargo',
+            'cargos_pms.base_impuesto',
+            'cargos_pms.impuesto',
+            'cargos_pms.codigo_impto',
+            'cargos_pms.id_codigo_cargo',
+            'cargos_pms.habitacion_cargo',
+            'cargos_pms.descripcion_cargo',
+            'cargos_pms.usuario',
+            'cargos_pms.id_huesped',
+            'cargos_pms.cantidad_cargo',
+            'cargos_pms.informacion_cargo',
+            'cargos_pms.valor_cargo',
+            'cargos_pms.folio_cargo',
+            'cargos_pms.pagos_cargos',
+            'cargos_pms.referencia_cargo',
+            'cargos_pms.concecutivo_abono',
+            'cargos_pms.concecutivo_deposito',
+            'cargos_pms.cargo_anulado',
+            'cargos_pms.motivo_anulacion',
+            'cargos_pms.fecha_anulacion',
+            'cargos_pms.usuario_anulacion',
+            'cargos_pms.numero_reserva',
+            'cargos_pms.habitacion_cargo',
+            'cargos_pms.fecha_sistema_cargo',
+            'cargos_pms.factura_numero',
+            'cargos_pms.id_reserva',
+        ], [
+            'cargos_pms.fecha_cargo' => $fecha,
+            'cargos_pms.cargo_anulado' => $estado,
+            'codigos_vta.tipo_codigo' => $tipo,
+            'ORDER' => [
+                'fecha_sistema_cargo' => 'ASC',
+            ],
+        ]);
+
+        return $data;
+    }
+
+    public function depositosReservas($master)
+    {
+        global $database;
+
+        $data = $database->query("SELECT huespedes.apellido1, huespedes.apellido2, huespedes.nombre1, huespedes.nombre2, reservas_pms.num_reserva, reservas_pms.fecha_llegada, reservas_pms.fecha_salida, reservas_pms.num_habitacion, cargos_pms.fecha_cargo, cargos_pms.descripcion_cargo, cargos_pms.pagos_cargos, cargos_pms.concecutivo_deposito, cargos_pms.id_usuario FROM huespedes, reservas_pms, cargos_pms WHERE huespedes.id_huesped = reservas_pms.id_huesped AND reservas_pms.estado = 'ES' AND reservas_pms.num_reserva = cargos_pms.id_reserva AND cargos_pms.cargo_anulado = 0")->fetchAll();
+
+        return $data;
+    }
+
+    public function motivoCancelaReserva($id)
+    {
+        global $database;
+
+        $data = $database->select('motivo_cancelacion', [
+            'descripcion_motivo',
+        ], [
+            'id_cancela' => $id,
+        ]);
+
+        return $data[0]['descripcion_motivo'];
+    }
+
+    public function getHuespedesenCasaSinReserva($tipo, $estado)
+    {
+        global $database;
+
+        $data = $database->select('reservas_pms', [
+            '[>]huespedes' => 'id_huesped',
+        ], [
+            'reservas_pms.id',
+            'reservas_pms.cantidad',
+            'reservas_pms.fecha_llegada',
+            'reservas_pms.fecha_salida',
+            'reservas_pms.dias_reservados',
+            'reservas_pms.tipo_reserva',
+            'reservas_pms.tipo_habitacion',
+            'reservas_pms.num_habitacion',
+            'reservas_pms.num_reserva',
+            'reservas_pms.can_hombres',
+            'reservas_pms.can_mujeres',
+            'reservas_pms.can_ninos',
+            'reservas_pms.orden_reserva',
+            'reservas_pms.id_compania',
+            'reservas_pms.tipo_ocupacion',
+            'reservas_pms.tarifa',
+            'reservas_pms.valor_reserva',
+            'reservas_pms.valor_diario',
+            'reservas_pms.estado',
+            'reservas_pms.salida_checkout',
+            'reservas_pms.observaciones',
+            'reservas_pms.causar_impuesto',
+            'huespedes.nombre1',
+            'huespedes.nombre2',
+            'huespedes.apellido1',
+            'huespedes.apellido2',
+            'huespedes.id_huesped',
+        ], [
+            'reservas_pms.tipo_reserva' => $tipo,
+            'reservas_pms.estado' => $estado,
+            'reservas_pms.sinreserva' => 1,
+            'ORDER' => 'reservas_pms.num_habitacion',
+        ]);
+
+        return $data;
+    }
+
+    public function cantidadPM()
+    {
+        global $database;
+
+        $count = $database->count('habitaciones', [
+            'tipo_hab' => CTA_MASTER,
+        ], [
+            'active_at' => 1,
+        ]);
+
+        return $count;
+    }
+
+    public function cantidadHabitaciones($tipo)
+    {
+        global $database;
+
+        $data = $database->select('habitaciones', [
+            '[>]tipo_habitaciones' => ['id_tipohabitacion' => 'id'],
+        ], [
+            'habitaciones.numero_hab',
+            'tipo_habitaciones.descripcion_habitacion',
+        ], [
+            'habitaciones.active_at' => 1,
+            'tipo_habitaciones.tipo_habitacion' => $tipo,
+        ]);
+
+        return $data;
+    }
+
+    public function getBuscaFacturasDia($fecha)
+    {
+        global $database;
+
+        $data = $database->select('cargos_pms', [
+            '[>]huespedes' => 'id_huesped',
+            '[>]reservas_pms' => ['numero_reserva' => 'num_reserva'],
+        ], [
+            'reservas_pms.fecha_llegada',
+            'reservas_pms.fecha_salida',
+            'reservas_pms.num_reserva',
+            'huespedes.apellido1',
+            'huespedes.apellido2',
+            'huespedes.nombre1',
+            'huespedes.nombre2',
+            'cargos_pms.factura_numero',
+            'cargos_pms.id_usuario_factura',
+            'cargos_pms.total_consumos',
+            'cargos_pms.total_impuesto',
+            'cargos_pms.total_pagos',
+            'cargos_pms.fecha_factura',
+            'cargos_pms.factura_anulada',
+            'cargos_pms.fecha_sistema_cargo',
+        ], [
+            'cargos_pms.fecha_cargo' => $fecha,
+            'cargos_pms.factura' => 1,
+            'ORDER' => ['cargos_pms.factura_numero'],
+        ]);
+
+        return $data;
+    }
+
+    public function getBuscaFacturasFecha($fecha, $rese, $cargo)
+    {
+        global $database;
+
+        $data = $database->select('historico_cargos_pms', [
+            '[>]huespedes' => 'id_huesped',
+            '[>]historico_reservas_pms' => ['numero_reserva' => 'num_reserva'],
+        ], [
+            'historico_reservas_pms.fecha_llegada',
+            'historico_reservas_pms.fecha_salida',
+            'historico_reservas_pms.num_reserva',
+            'huespedes.apellido1',
+            'huespedes.apellido2',
+            'huespedes.nombre1',
+            'huespedes.nombre2',
+            'historico_cargos_pms.factura_numero',
+            'historico_cargos_pms.id_usuario_factura',
+            'historico_cargos_pms.total_consumos',
+            'historico_cargos_pms.total_impuesto',
+            'historico_cargos_pms.total_pagos',
+            'historico_cargos_pms.fecha_factura',
+            'historico_cargos_pms.factura_anulada',
+            'historico_cargos_pms.fecha_sistema_cargo',
+        ], [
+            'historico_cargos_pms.fecha_cargo' => $fecha,
+            'historico_cargos_pms.factura' => 1,
+            'ORDER' => ['historico_cargos_pms.factura_numero'],
+        ]);
+
+        return $data;
+    }
+
+    public function cierreDiarioCajero($user)
+    {
+        global $database;
+
+        $data = $database->update('usuarios', [
+            'estado_usuario_pms' => 2,
+        ], [
+            'usuario' => $user,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function formaPago($id)
+    {
+        global $database;
+
+        $data = $database->select('codigos_vta', [
+            'descripcion_cargo',
+        ], [
+            'id_cargo' => $id,
+        ]);
+        if (count($data) == 0) {
+            return 'SIN FORMA DE PAGO DEFINIDO';
+        } else {
+            return $data[0]['descripcion_cargo'];
+        }
+    }
+
+    public function motivoViaje($id)
+    {
+        global $database;
+
+        $data = $database->select('grupos_cajas', [
+            'descripcion_grupo',
+        ], [
+            'id_grupo' => $id,
+        ]);
+        if (count($data) == 0) {
+            return 'SIN MOTIVO DE VIAJE DEFINIDO';
+        } else {
+            return $data[0]['descripcion_grupo'];
+        }
+    }
+
+    public function getCityExp($idcity)
+    {
+        global $database;
+
+        $data = $database->select('ciudades', [
+            'municipio',
+            'depto',
+        ], [
+            'id_ciudad' => $idcity,
+        ]);
+        if (count($data) == 0) {
+            return '';
+        } else {
+            return $data[0]['municipio'].' '.$data[0]['depto'];
+        }
+    }
+
+    public function getLandGuest($idland)
+    {
+        global $database;
+
+        $data = $database->select('paices', [
+            'descripcion',
+        ], [
+            'id_pais' => $idland,
+        ]);
+        if (count($data) == 0) {
+            return '';
+        } else {
+            return $data[0]['descripcion'];
+        }
+    }
+
+    public function creaHuespedAdicional($apellido1, $apellido2, $nombre1, $nombre2, $identificacion, $tipoiden, $sexo, $fechanace, $nacion, $ciudad, $idusuario)
+    {
+        global $database;
+
+        $data = $database->insert('huespedes', [
+            'identificacion' => $identificacion,
+            'apellido1' => $apellido1,
+            'apellido2' => $apellido2,
+            'nombre1' => $nombre1,
+            'nombre2' => $nombre2,
+            'tipo_identifica' => $tipoiden,
+            'sexo' => $sexo,
+            'tipo_huesped' => 1,
+            'fecha_nacimiento' => $fechanace,
+            'pais' => $nacion,
+            'ciudad' => $ciudad,
+            'usuario_creador' => $idusuario,
+            'nombre_completo' => $apellido1.' '.$apellido2.' '.$nombre1.' '.$nombre2,
+            'fecha_creacion' => date('Y-m-d H:i:s'),
+        ]);
+
+        return $database->id();
+    }
+
+    public function adicionaHuespedAdicional($reserva, $huesped)
+    {
+        global $database;
+
+        $data = $database->insert('acompanantes', [
+            'id_reserva' => $reserva,
+            'id_huesped' => $huesped,
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        return $database->id();
+    }
+
+    public function buscaHuespedAcompanante($id)
+    {
+        global $database;
+
+        $data = $database->select('huespedes', [
+            'id_huesped',
+            'tipo_identifica',
+            'identificacion',
+            'lugar_expedicion',
+            'apellido1',
+            'apellido2',
+            'nombre1',
+            'nombre2',
+            'fecha_nacimiento',
+            'sexo',
+            'pais',
+            'ciudad',
+        ], [
+            'identificacion' => $id,
+        ]);
+
+        return $data;
+    }
+
+    public function eliminaAcompanante($id)
+    {
+        global $database;
+
+        $data = $database->delete('acompanantes', [
+            'id' => $id,
+        ]);
+
+        return $data;
+    }
+
+    public function getBuscarAcompanantesHistoricoReserva($idreser)
+    {
+        global $database;
+
+        $data = $database->select('acompanantes', [
+            '[>]huespedes' => 'id_huesped',
+        ], [
+            'acompanantes.id',
+            'huespedes.id_huesped',
+            'huespedes.nombre1',
+            'huespedes.nombre2',
+            'huespedes.apellido1',
+            'huespedes.apellido2',
+            'huespedes.nombre_completo',
+            'huespedes.identificacion',
+            'huespedes.tipo_identifica',
+            'huespedes.lugar_expedicion',
+            'huespedes.pais',
+            'huespedes.sexo',
+        ], [
+            'acompanantes.id_reserva' => $idreser,
+        ]);
+
+        return $data;
+    }
+
+    public function getBuscarAcompanantesReserva($idreser)
+    {
+        global $database;
+
+        $data = $database->select('acompanantes', [
+            '[>]huespedes' => 'id_huesped',
+        ], [
+            'acompanantes.id',
+            'huespedes.id_huesped',
+            'huespedes.nombre1',
+            'huespedes.nombre2',
+            'huespedes.apellido1',
+            'huespedes.apellido2',
+            'huespedes.nombre_completo',
+            'huespedes.identificacion',
+            'huespedes.tipo_identifica',
+            'huespedes.lugar_expedicion',
+            'huespedes.pais',
+            'huespedes.pais_expedicion',
+            'huespedes.ciudad_expedicion',
+            'huespedes.sexo',
+        ], [
+            'acompanantes.id_reserva' => $idreser,
+        ]);
+
+        return $data;
+    }
+
+    public function trasladaCargoHabitacion($idconsumo, $idreserva, $idhuesped, $newreserva, $motivotras, $usuario)
+    {
+        global $database;
+
+        $data = $database->update('cargos_pms', [
+            'id_reserva' => $idreserva,
+            'cargo_trasladado' => 1,
+            'usuario_traslado' => $usuario,
+            'fecha_traslado' => FECHA_PMS,
+            'motivo_traslado' => $motivotras,
+            'numero_reserva' => $newreserva,
+        ], [
+            'id_cargo' => $idconsumo,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function updateAnulaSalida($numero, $usuario, $idusuario)
+    {
+        global $database;
+
+        $data = $database->update('reservas_pms', [
+            'estado' => 'CA',
+            'tipo_reserva' => 2,
+            'usuario_ingreso' => $usuario,
+            'id_usuario_ingreso' => $idusuario,
+            'hora_llegada' => date('H:i:s'),
+            'fecha_ingreso' => date('Y-m-d H:i:s'),
+        ], [
+            'num_reserva' => $numero,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function getReservasporTipoHabSalida($tipo, $llega, $sale, $estado)
+    {
+        global $database;
+
+        $data = $database->select('reservas_pms', [
+            'num_habitacion',
+        ], [
+            'fecha_llegada[>=]' => $llega,
+            'fecha_salida[<=]' => $sale,
+            'tipo_habitacion' => $tipo,
+            'estado' => $estado,
+        ]);
+
+        return $data;
+    }
+
+    public function getReservasporTipoHab($tipo, $llega, $sale, $estado)
+    {
+        global $database;
+
+        $data = $database->select('reservas_pms', [
+            'num_habitacion',
+        ], [
+            'fecha_llegada[<]' => $sale,
+            'fecha_salida[>]' => $llega,
+            'tipo_habitacion' => $tipo,
+            'estado' => $estado,
+        ]);
+
+        return $data;
+    }
+
+    public function cargosDelDia($fecha, $tipo, $estado)
+    {
+        global $database;
+
+        $data = $database->query("SELECT cargos_pms.id_codigo_cargo, codigos_vta.descripcion_cargo FROM cargos_pms, codigos_vta WHERE cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND cargos_pms.fecha_cargo = '$fecha' AND cargos_pms.cargo_anulado = 0 AND codigos_vta.tipo_codigo = '$tipo' GROUP BY codigos_vta.descripcion_cargo ORDER BY codigos_vta.descripcion_cargo")->fetchAll();
+
+        return $data;
+    }
+
+    public function getCargosdelDiaporCodigo($fecha, $codigo, $estado)
+    {
+        global $database;
+
+        $data = $database->select('cargos_pms', [
+            '[>]huespedes' => 'id_huesped',
+            '[>]codigos_vta' => ['id_codigo_cargo' => 'id_cargo'],
+        ], [
+            'huespedes.nombre1',
+            'huespedes.nombre2',
+            'huespedes.apellido1',
+            'huespedes.apellido2',
+            'cargos_pms.fecha_cargo',
+            'cargos_pms.monto_cargo',
+            'cargos_pms.base_impuesto',
+            'cargos_pms.impuesto',
+            'cargos_pms.codigo_impto',
+            'cargos_pms.id_codigo_cargo',
+            'cargos_pms.habitacion_cargo',
+            'cargos_pms.descripcion_cargo',
+            'cargos_pms.usuario',
+            'cargos_pms.id_huesped',
+            'cargos_pms.cantidad_cargo',
+            'cargos_pms.informacion_cargo',
+            'cargos_pms.valor_cargo',
+            'cargos_pms.folio_cargo',
+            'cargos_pms.pagos_cargos',
+            'cargos_pms.referencia_cargo',
+            'cargos_pms.concecutivo_abono',
+            'cargos_pms.concecutivo_deposito',
+            'cargos_pms.cargo_anulado',
+            'cargos_pms.motivo_anulacion',
+            'cargos_pms.fecha_anulacion',
+            'cargos_pms.usuario_anulacion',
+            'cargos_pms.numero_reserva',
+            'cargos_pms.habitacion_cargo',
+            'cargos_pms.fecha_sistema_cargo',
+            'cargos_pms.factura_numero',
+            'cargos_pms.numero_reserva',
+        ], [
+            'cargos_pms.id_codigo_cargo' => $codigo,
+            'cargos_pms.fecha_cargo' => $fecha,
+            'cargos_pms.cargo_anulado' => 0,
+            'ORDER' => [
+                'habitacion_cargo' => 'ASC',
+            ],
+        ]);
+
+        return $data;
+    }
+
+    public function updateCiaReserva($idcia, $idcentro, $idrese)
+    {
+        global $database;
+
+        $data = $database->update('reservas_pms', [
+            'id_compania' => $idcia,
+            'idCentroCia' => $idcentro,
+        ], [
+            'num_reserva' => $idrese,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function cambiaEstadoHabitacion($habita, $estado)
+    {
+        global $database;
+
+        $data = $database->update('habitaciones', [
+            'estado_fo' => $estado,
+            'estado_hk' => $estado,
+        ], [
+            'numero_hab' => $habita,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function getDataUser($user)
+    {
+        global $database;
+
+        $data = $database->select('usuarios', [
+            'apellidos',
+            'nombres',
+        ], [
+            'usuario' => $user,
+        ]);
+
+        return $data;
+    }
+
+    public function getReservasCreadasHoy($fecha, $tipo)
+    {
+        global $database;
+
+        $data = $database->select('reservas_pms', [
+            '[>]huespedes' => 'id_huesped',
+        ], [
+            'reservas_pms.cantidad',
+            'reservas_pms.fecha_llegada',
+            'reservas_pms.fecha_salida',
+            'reservas_pms.dias_reservados',
+            'reservas_pms.tipo_habitacion',
+            'reservas_pms.tipo_reserva',
+            'reservas_pms.num_habitacion',
+            'reservas_pms.num_reserva',
+            'reservas_pms.can_hombres',
+            'reservas_pms.can_mujeres',
+            'reservas_pms.can_ninos',
+            'reservas_pms.orden_reserva',
+            'reservas_pms.id_compania',
+            'reservas_pms.tipo_ocupacion',
+            'reservas_pms.tarifa',
+            'reservas_pms.valor_reserva',
+            'reservas_pms.valor_diario',
+            'reservas_pms.estado',
+            'reservas_pms.observaciones',
+            'huespedes.nombre1',
+            'huespedes.nombre2',
+            'huespedes.apellido1',
+            'huespedes.apellido2',
+            'huespedes.id_huesped',
+        ], [
+            'reservas_pms.fecha_reserva' => $fecha,
+            'reservas_pms.tipo_reserva' => $tipo,
+        ]);
+
+        return $data;
+    }
+
+    public function getUsuarios()
+    {
+        global $database;
+
+        $data = $database->select('usuarios', [
+            'nombres',
+            'apellidos',
+            'usuario',
+        ], [
+            'estado' => 'A',
+            'ORDER' => ['usuario' => 'ASC'],
+        ]);
+
+        return $data;
+    }
+
+    public function habitacionesDisponibles($cuenta)
+    {
+        global $database;
+
+        $data = $database->query("SELECT COUNT(id) as rooms FROM habitaciones WHERE tipo_hab <> '$cuenta' AND active_at = 1")->fetchAll();
+
+        return $data[0]['rooms'];
+    }
+
+    public function updateAnulaIngreso($numero, $usuario, $idusuario)
+    {
+        global $database;
+
+        $data = $database->update('reservas_pms', [
+            'estado' => 'ES',
+            'tipo_reserva' => 1,
+            'usuario_ingreso' => $usuario,
+            'id_usuario_ingreso' => $idusuario,
+            'hora_llegada' => date('H:i:s'),
+            'fecha_ingreso' => date('Y-m-d H:i:s'),
+        ], [
+            'num_reserva' => $numero,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function getCargosporReserva($reserva)
+    {
+        global $database;
+
+        $data = $database->select('cargos_pms', [
+            '[>]huespedes' => 'id_huesped',
+            '[>]codigos_vta' => ['id_codigo_cargo' => 'id_cargo'],
+        ], [
+            'huespedes.nombre1',
+            'huespedes.nombre2',
+            'huespedes.apellido1',
+            'huespedes.apellido2',
+            'cargos_pms.fecha_cargo',
+            'cargos_pms.monto_cargo',
+            'cargos_pms.base_impuesto',
+            'cargos_pms.impuesto',
+            'cargos_pms.codigo_impto',
+            'cargos_pms.id_codigo_cargo',
+            'cargos_pms.habitacion_cargo',
+            'cargos_pms.descripcion_cargo',
+            'cargos_pms.usuario',
+            'cargos_pms.id_huesped',
+            'cargos_pms.cantidad_cargo',
+            'cargos_pms.informacion_cargo',
+            'cargos_pms.valor_cargo',
+            'cargos_pms.folio_cargo',
+            'cargos_pms.pagos_cargos',
+            'cargos_pms.referencia_cargo',
+            'cargos_pms.concecutivo_abono',
+            'cargos_pms.concecutivo_deposito',
+            'cargos_pms.cargo_anulado',
+            'cargos_pms.motivo_anulacion',
+            'cargos_pms.fecha_anulacion',
+            'cargos_pms.usuario_anulacion',
+            'cargos_pms.numero_reserva',
+            'cargos_pms.habitacion_cargo',
+            'cargos_pms.fecha_sistema_cargo',
+            'cargos_pms.factura_numero',
+            'cargos_pms.id_reserva',
+        ], [
+            'cargos_pms.numero_reserva' => $reserva,
+            'cargos_pms.cargo_anulado' => 0,
+            'ORDER' => [
+                'habitacion_cargo' => 'ASC',
+            ],
+        ]);
+
+        return $data;
+    }
+
+    public function getCargosdelDiaporReserva($fecha, $reserva)
+    {
+        global $database;
+
+        $data = $database->select('cargos_pms', [
+            '[>]huespedes' => 'id_huesped',
+            '[>]codigos_vta' => ['id_codigo_cargo' => 'id_cargo'],
+        ], [
+            'huespedes.nombre1',
+            'huespedes.nombre2',
+            'huespedes.apellido1',
+            'huespedes.apellido2',
+            'cargos_pms.fecha_cargo',
+            'cargos_pms.monto_cargo',
+            'cargos_pms.base_impuesto',
+            'cargos_pms.impuesto',
+            'cargos_pms.codigo_impto',
+            'cargos_pms.id_codigo_cargo',
+            'cargos_pms.habitacion_cargo',
+            'cargos_pms.descripcion_cargo',
+            'cargos_pms.usuario',
+            'cargos_pms.id_huesped',
+            'cargos_pms.cantidad_cargo',
+            'cargos_pms.informacion_cargo',
+            'cargos_pms.valor_cargo',
+            'cargos_pms.folio_cargo',
+            'cargos_pms.pagos_cargos',
+            'cargos_pms.referencia_cargo',
+            'cargos_pms.concecutivo_abono',
+            'cargos_pms.concecutivo_deposito',
+            'cargos_pms.cargo_anulado',
+            'cargos_pms.motivo_anulacion',
+            'cargos_pms.fecha_anulacion',
+            'cargos_pms.usuario_anulacion',
+            'cargos_pms.numero_reserva',
+            'cargos_pms.habitacion_cargo',
+            'cargos_pms.fecha_sistema_cargo',
+            'cargos_pms.factura_numero',
+            'cargos_pms.id_reserva',
+        ], [
+            'cargos_pms.numero_reserva' => $reserva,
+            'cargos_pms.fecha_cargo' => $fecha,
+            'cargos_pms.cargo_anulado' => 0,
+            'cargos_pms.tipo_factura' => 0,
+            'ORDER' => [
+                'habitacion_cargo' => 'ASC',
+            ],
+        ]);
+
+        return $data;
+    }
+
+    public function borraHistoricoCargos()
+    {
+        global $database;
+
+        $data = $database->delete('cargos_pms', [
+            'AND' => [
+                'factura_numero[>]' => 0,
+            ],
+        ]);
+
+        return $data;
+    }
+
+    public function enviaHistoricoCargos()
+    {
+        global $database;
+
+        $data = $database->query('INSERT INTO historico_cargos_pms SELECT * FROM cargos_pms WHERE factura_numero != 0')->fetchAll();
+
+        return $data;
+    }
+
+    public function borraHistoricoSalidas($fecha, $tipo)
+    {
+        global $database;
+
+        $data = $database->delete('reservas_pms', [
+            'AND' => [
+            'estado' => $tipo,
+            ],
+        ]);
+
+        return $data;
+    }
+
+    public function enviaHistoricoSalidas($fecha, $tipo)
+    {
+        global $database;
+
+        $data = $database->query("INSERT INTO historico_reservas_pms SELECT * FROM reservas_pms WHERE estado = '$tipo'")->fetchAll();
+
+        return $data;
+    }
+
+    public function cambiaEstadoHistorico($fecha, $tipo)
+    {
+        global $database;
+
+        $data = $database->update('historico_reservas_pms', [
+            'estado' => 'NS',
+        ], [
+            'fecha_llegada' => $fecha,
+            'estado' => $tipo,
+        ]);
+
+        return $data;
+    }
+
+    public function borraEnviadasaHistorico($fecha, $tipo)
+    {
+        global $database;
+
+        $data = $database->delete('reservas_pms', [
+            'AND' => [
+            'fecha_llegada' => $fecha,
+            'estado' => $tipo,
+            ],
+        ]);
+
+        return $data;
+    }
+
+    public function borraCanceladasHistorico($tipo)
+    {
+        global $database;
+
+        $data = $database->delete('reservas_pms', [
+            'AND' => [
+                'estado' => $tipo,
+            ],
+        ]);
+
+        return $data;
+    }
+
+    public function enviaHistoricoCanceladas($tipo)
+    {
+        global $database;
+
+        $data = $database->query("INSERT INTO historico_reservas_pms SELECT * FROM reservas_pms WHERE estado = '$tipo'")->fetchAll();
+
+        return $data;
+    }
+
+    public function enviaHistoricoEstadias($fecha, $tipo)
+    {
+        global $database;
+
+        $data = $database->query("INSERT INTO historico_reservas_pms SELECT * FROM reservas_pms WHERE estado = '$tipo' AND fecha_llegada = '$fecha'")->fetchAll();
+
+        return $data;
+    }
+
+    public function getBuscarHuespedReserva($buscar)
+    {
+        global $database;
+
+        $data = $database->query("SELECT huespedes.apellido1, huespedes.apellido2, huespedes.nombre1, huespedes.nombre2, huespedes.email, huespedes.identificacion, huespedes.id_huesped  FROM huespedes WHERE identificacion LIKE '%$buscar%' OR  nombre_completo LIKE '%$buscar%' order by huespedes.apellido1")->fetchAll();
+
+        return $data;
+    }
+
+    public function getCargosAnuladosdelDiaporcajero($fecha, $usuario, $tipo, $estado)
+    {
+        global $database;
+
+        $data = $database->select('cargos_pms', [
+            '[>]huespedes' => 'id_huesped',
+            '[>]codigos_vta' => ['id_codigo_cargo' => 'id_cargo'],
+        ], [
+            'huespedes.nombre1',
+            'huespedes.nombre2',
+            'huespedes.apellido1',
+            'huespedes.apellido2',
+            'cargos_pms.fecha_cargo',
+            'cargos_pms.monto_cargo',
+            'cargos_pms.base_impuesto',
+            'cargos_pms.impuesto',
+            'cargos_pms.codigo_impto',
+            'cargos_pms.id_codigo_cargo',
+            'cargos_pms.habitacion_cargo',
+            'cargos_pms.descripcion_cargo',
+            'cargos_pms.usuario',
+            'cargos_pms.id_huesped',
+            'cargos_pms.cantidad_cargo',
+            'cargos_pms.informacion_cargo',
+            'cargos_pms.valor_cargo',
+            'cargos_pms.folio_cargo',
+            'cargos_pms.pagos_cargos',
+            'cargos_pms.referencia_cargo',
+            'cargos_pms.concecutivo_abono',
+            'cargos_pms.concecutivo_deposito',
+            'cargos_pms.cargo_anulado',
+            'cargos_pms.motivo_anulacion',
+            'cargos_pms.fecha_anulacion',
+            'cargos_pms.usuario_anulacion',
+            'cargos_pms.numero_reserva',
+            'cargos_pms.habitacion_cargo',
+            'cargos_pms.fecha_sistema_cargo',
+            'cargos_pms.factura_numero',
+        ], [
+            'cargos_pms.fecha_anulacion' => $fecha,
+            'cargos_pms.usuario_anulacion' => $usuario,
+            'cargos_pms.cargo_anulado' => $estado,
+            'codigos_vta.tipo_codigo' => $tipo,
+            'ORDER' => [
+                'habitacion_cargo' => 'ASC',
+            ],
+        ]);
+
+        return $data;
+    }
+
+    public function getCargosDia($fecha, $tipo)
+    {
+        global $database;
+
+        $data = $database->query("SELECT cargos_pms.descripcion_cargo, count(cargos_pms.monto_cargo) as canti, Sum(cargos_pms.monto_cargo) as cargos, Sum(cargos_pms.impuesto) as imptos, sum(cargos_pms.monto_cargo+cargos_pms.impuesto) as total_cargo, Sum(cargos_pms.pagos_cargos) as pagos FROM cargos_pms , codigos_vta WHERE cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND cargos_pms.cargo_anulado = 0 AND codigos_vta.tipo_codigo = '$tipo' AND cargos_pms.fecha_cargo = '$fecha' GROUP BY cargos_pms.descripcion_cargo ORDER BY cargos_pms.descripcion_cargo ASC")->fetchAll();
+
+        return $data;
+    }
+
+    public function getBalanceSaldoAnterior($fecha)
+    {
+        global $database;
+
+        $data = $database->query("SELECT Sum(cargos_pms.monto_cargo) AS saldo_viene, Sum(cargos_pms.impuesto) AS impto_viene, Sum(cargos_pms.pagos_cargos) AS pagos_viene, Sum(cargos_pms.monto_cargo + cargos_pms.impuesto - cargos_pms.pagos_cargos) AS total_viene FROM cargos_pms , reservas_pms WHERE cargos_pms.numero_reserva = reservas_pms.num_reserva AND reservas_pms.tipo_reserva = 2 AND cargos_pms.fecha_cargo < '$fecha' AND cargos_pms.cargo_anulado = 0 AND reservas_pms.cargo_habitacion < '9450'")->fetchAll();
+
+        return $data;
+    }
+
+    public function getBalanceSaldodelDia($fecha)
+    {
+        global $database;
+
+        $data = $database->query("SELECT Sum(cargos_pms.monto_cargo) AS saldo_viene, Sum(cargos_pms.impuesto) AS impto_viene, Sum(cargos_pms.pagos_cargos) AS pagos_viene, Sum(cargos_pms.monto_cargo + cargos_pms.impuesto - cargos_pms.pagos_cargos) AS total_viene FROM cargos_pms , reservas_pms WHERE cargos_pms.numero_reserva = reservas_pms.num_reserva AND reservas_pms.tipo_reserva = 2 AND cargos_pms.fecha_cargo = '$fecha' AND cargos_pms.cargo_anulado = 0 AND reservas_pms.cargo_habitacion < '9450'")->fetchAll();
+
+        return $data;
+    }
+
+    public function cambiaFechaAuditoria($fecha)
+    {
+        global $database;
+
+        $data = $database->update('parametros_pms', [
+            'fecha_auditoria' => $fecha,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function limpiaProcesosAuditoria()
+    {
+        global $database;
+
+        $data = $database->update('auditoria', [
+            'estado_proceso' => 0,
+        ]);
+
+        return $data;
+    }
+
+    public function getExtranjerosSaliendo($pais, $fecha, $estado)
+    {
+        global $database;
+
+        $data = $database->query("SELECT huespedes.identificacion, huespedes.apellido1, huespedes.apellido2, huespedes.nombre1, huespedes.nombre2, huespedes.direccion, huespedes.email, huespedes.pais, huespedes.tipo_identifica, huespedes.sexo, reservas_pms.fecha_llegada, reservas_pms.fecha_salida, reservas_pms.salida_checkout, reservas_pms.dias_reservados, reservas_pms.num_habitacion, reservas_pms.tarifa, reservas_pms.tipo_habitacion, reservas_pms.can_hombres, reservas_pms.can_mujeres, reservas_pms.can_ninos, reservas_pms.valor_diario FROM huespedes, reservas_pms WHERE huespedes.id_huesped = reservas_pms.id_huesped AND reservas_pms.estado = '$estado' AND reservas_pms.salida_checkout = '$fecha' AND huespedes.pais <> '$pais'")->fetchAll();
+
+        return $data;
+    }
+
+    public function buscaNacionalidad($pais)
+    {
+        global $database;
+
+        $data = $database->select('paices', [
+            'descripcion',
+        ], [
+            'id_pais' => $pais,
+        ]);
+        if (count($data) == 0) {
+            return '';
+        } else {
+            return $data[0]['descripcion'];
+        }
+    }
+
+    public function getExtranjerosLlegando($pais, $fecha)
+    {
+        global $database;
+
+        $data = $database->query("SELECT huespedes.identificacion, huespedes.apellido1, huespedes.apellido2, huespedes.nombre1, huespedes.nombre2, huespedes.direccion, huespedes.email, huespedes.pais, huespedes.tipo_identifica, huespedes.sexo, reservas_pms.fecha_llegada, reservas_pms.fecha_salida, reservas_pms.dias_reservados, reservas_pms.num_habitacion, reservas_pms.tarifa, reservas_pms.tipo_habitacion, reservas_pms.can_hombres, reservas_pms.can_mujeres, reservas_pms.can_ninos, reservas_pms.valor_diario FROM huespedes, reservas_pms WHERE huespedes.id_huesped = reservas_pms.id_huesped AND reservas_pms.estado = 'CA' AND reservas_pms.fecha_llegada = '$fecha' AND huespedes.pais <> '$pais'")->fetchAll();
+
+        return $data;
+    }
+
+    public function updateEstadia($impto, $salida, $noches, $numero, $motivo, $fuente, $segmento, $formapa, $orden)
+    {
+        global $database;
+
+        $data = $database->update('reservas_pms', [
+            'causar_impuesto' => $impto,
+            'fecha_salida' => $salida,
+            'dias_reservados' => $noches,
+            'motivo_viaje' => $motivo,
+            'fuente_reserva' => $fuente,
+            'segmento_mercado' => $segmento,
+            'forma_pago' => $formapa,
+            'orden_reserva' => $orden,
+            'causar_impuesto' => $impto,
+        ], [
+            'num_reserva' => $numero,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function EstadoAuditoriaPMS($tipo)
+    {
+        global $database;
+
+        $data = $database->update('parametros_pms', [
+            'proceso_auditoria' => $tipo,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function limpiaCargoHabitaciones()
+    {
+        global $database;
+
+        $data = $database->update('reservas_pms', [
+            'cargo_habitacion' => 0,
+        ], [
+            'cargo_habitacion' => 1,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function getHistoricoCargosUsuarios($fecha, $tipo)
+    {
+        global $database;
+
+        $data = $database->query("SELECT DISTINCT historico_cargos_pms.id_usuario, usuarios.apellidos, usuarios.nombres FROM historico_cargos_pms, usuarios, codigos_vta WHERE historico_cargos_pms.id_usuario = usuarios.usuario_id AND historico_cargos_pms.fecha_cargo = '$fecha' AND historico_cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND codigos_vta.tipo_codigo = '$tipo' ORDER BY usuarios.usuario")->fetchAll();
+
+        return $data;
+    }
+
+    public function getHistoricoCargosdelDiaporcajero($fecha, $usuario, $tipo, $estado)
+    {
+        global $database;
+
+        $data = $database->select('historico_cargos_pms', [
+            '[>]huespedes' => 'id_huesped',
+            '[>]codigos_vta' => ['id_codigo_cargo' => 'id_cargo'],
+        ], [
+            'huespedes.nombre1',
+            'huespedes.nombre2',
+            'huespedes.apellido1',
+            'huespedes.apellido2',
+            'historico_cargos_pms.fecha_cargo',
+            'historico_cargos_pms.monto_cargo',
+            'historico_cargos_pms.base_impuesto',
+            'historico_cargos_pms.impuesto',
+            'historico_cargos_pms.codigo_impto',
+            'historico_cargos_pms.id_codigo_cargo',
+            'historico_cargos_pms.habitacion_cargo',
+            'historico_cargos_pms.descripcion_cargo',
+            'historico_cargos_pms.usuario',
+            'historico_cargos_pms.id_usuario',
+            'historico_cargos_pms.id_huesped',
+            'historico_cargos_pms.cantidad_cargo',
+            'historico_cargos_pms.informacion_cargo',
+            'historico_cargos_pms.valor_cargo',
+            'historico_cargos_pms.folio_cargo',
+            'historico_cargos_pms.pagos_cargos',
+            'historico_cargos_pms.referencia_cargo',
+            'historico_cargos_pms.concecutivo_abono',
+            'historico_cargos_pms.concecutivo_deposito',
+            'historico_cargos_pms.cargo_anulado',
+            'historico_cargos_pms.motivo_anulacion',
+            'historico_cargos_pms.fecha_anulacion',
+            'historico_cargos_pms.usuario_anulacion',
+            'historico_cargos_pms.numero_reserva',
+            'historico_cargos_pms.habitacion_cargo',
+            'historico_cargos_pms.fecha_sistema_cargo',
+            'historico_cargos_pms.factura_numero',
+            'historico_cargos_pms.id_reserva',
+        ], [
+            'historico_cargos_pms.fecha_cargo' => $fecha,
+            'historico_cargos_pms.id_usuario' => $usuario,
+            'historico_cargos_pms.cargo_anulado' => $estado,
+            'codigos_vta.tipo_codigo' => $tipo,
+            'ORDER' => [
+                'habitacion_cargo' => 'ASC',
+            ],
+        ]);
+
+        return $data;
+    }
+
+    public function getHistoricoCargosAnuladosdelDiaporcajero($fecha, $usuario, $tipo, $estado)
+    {
+        global $database;
+
+        $data = $database->select('historico_cargos_pms', [
+            '[>]huespedes' => 'id_huesped',
+            '[>]codigos_vta' => ['id_codigo_cargo' => 'id_cargo'],
+        ], [
+            'huespedes.nombre1',
+            'huespedes.nombre2',
+            'huespedes.apellido1',
+            'huespedes.apellido2',
+            'historico_cargos_pms.fecha_cargo',
+            'historico_cargos_pms.monto_cargo',
+            'historico_cargos_pms.base_impuesto',
+            'historico_cargos_pms.impuesto',
+            'historico_cargos_pms.codigo_impto',
+            'historico_cargos_pms.id_codigo_cargo',
+            'historico_cargos_pms.habitacion_cargo',
+            'historico_cargos_pms.descripcion_cargo',
+            'historico_cargos_pms.id_usuario',
+            'historico_cargos_pms.usuario',
+            'historico_cargos_pms.id_huesped',
+            'historico_cargos_pms.cantidad_cargo',
+            'historico_cargos_pms.informacion_cargo',
+            'historico_cargos_pms.valor_cargo',
+            'historico_cargos_pms.folio_cargo',
+            'historico_cargos_pms.pagos_cargos',
+            'historico_cargos_pms.referencia_cargo',
+            'historico_cargos_pms.concecutivo_abono',
+            'historico_cargos_pms.concecutivo_deposito',
+            'historico_cargos_pms.cargo_anulado',
+            'historico_cargos_pms.motivo_anulacion',
+            'historico_cargos_pms.fecha_anulacion',
+            'historico_cargos_pms.usuario_anulacion',
+            'historico_cargos_pms.numero_reserva',
+            'historico_cargos_pms.habitacion_cargo',
+            'historico_cargos_pms.fecha_sistema_cargo',
+            'historico_cargos_pms.factura_numero',
+        ], [
+            'historico_cargos_pms.fecha_anulacion' => $fecha,
+            'historico_cargos_pms.id_usuario_anulacion' => $usuario,
+            'historico_cargos_pms.cargo_anulado' => $estado,
+            'codigos_vta.tipo_codigo' => $tipo,
+            'ORDER' => [
+                'habitacion_cargo' => 'ASC',
+            ],
+        ]);
+
+        return $data;
+    }
+
+    public function getUsuariosCargos($fecha, $tipo)
+    {
+        global $database;
+
+        $data = $database->query("SELECT DISTINCT cargos_pms.id_usuario, usuarios.apellidos, usuarios.nombres, usuarios.usuario FROM cargos_pms, usuarios, codigos_vta WHERE cargos_pms.id_usuario = usuarios.usuario_id AND cargos_pms.fecha_cargo = '$fecha' AND cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND codigos_vta.tipo_codigo = '$tipo' ORDER BY usuarios.usuario")->fetchAll();
+
+        return $data;
+    }
+
+    public function getCargosdelDiaporcajero($fecha, $usuario, $tipo, $estado)
+    {
+        global $database;
+
+        $data = $database->select('cargos_pms', [
+            '[>]huespedes' => 'id_huesped',
+            '[>]codigos_vta' => ['id_codigo_cargo' => 'id_cargo'],
+        ], [
+            'huespedes.nombre1',
+            'huespedes.nombre2',
+            'huespedes.apellido1',
+            'huespedes.apellido2',
+            'cargos_pms.fecha_cargo',
+            'cargos_pms.monto_cargo',
+            'cargos_pms.base_impuesto',
+            'cargos_pms.impuesto',
+            'cargos_pms.codigo_impto',
+            'cargos_pms.id_codigo_cargo',
+            'cargos_pms.habitacion_cargo',
+            'cargos_pms.descripcion_cargo',
+            'cargos_pms.usuario',
+            'cargos_pms.id_huesped',
+            'cargos_pms.cantidad_cargo',
+            'cargos_pms.informacion_cargo',
+            'cargos_pms.valor_cargo',
+            'cargos_pms.folio_cargo',
+            'cargos_pms.pagos_cargos',
+            'cargos_pms.referencia_cargo',
+            'cargos_pms.concecutivo_abono',
+            'cargos_pms.concecutivo_deposito',
+            'cargos_pms.cargo_anulado',
+            'cargos_pms.motivo_anulacion',
+            'cargos_pms.fecha_anulacion',
+            'cargos_pms.usuario_anulacion',
+            'cargos_pms.numero_reserva',
+            'cargos_pms.habitacion_cargo',
+            'cargos_pms.fecha_sistema_cargo',
+            'cargos_pms.factura_numero',
+            'cargos_pms.id_reserva',
+        ], [
+            'cargos_pms.fecha_cargo' => $fecha,
+            'cargos_pms.usuario' => $usuario,
+            'cargos_pms.cargo_anulado' => $estado,
+            'codigos_vta.tipo_codigo' => $tipo,
+            'cargos_pms.concecutivo_deposito' => 0,
+            'ORDER' => [
+                'habitacion_cargo' => 'ASC',
+            ],
+        ]);
+
+        return $data;
+    }
+
+    public function updateProcesoAuditoria($id, $estado)
+    {
+        global $database;
+
+        $data = $database->update('auditoria', [
+            'estado_proceso' => $estado,
+        ], [
+            'id_proceso' => $id,
+        ]);
+
+        return $data;
+    }
+
+    public function getProcesoAuditoria()
+    {
+        global $database;
+
+        $data = $database->select('auditoria', [
+            'id_proceso',
+            'titulo_proceso',
+            'estado_proceso',
+            'nombre_proceso',
+            'tipo_proceso',
+            'reporte',
+        ], [
+            'actived_at' => 1,
+            'ORDER' => ['orden_proceso' => 'ASC'],
+        ]);
+
+        return $data;
+    }
+
+    public function actualizaNumeroFolio($folio, $id)
+    {
+        global $database;
+
+        $data = $database->update('cargos_pms', [
+            'folio_cargo' => $folio,
+        ], [
+            'id_cargo' => $id,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function movimientoTotalDia($fecha)
+    {
+        global $database;
+
+        $data = $database->query("SELECT cargos_pms.habitacion_cargo, Sum(cargos_pms.monto_cargo) as cargosDia, sum(cargos_pms.impuesto) as imptosDia, sum(cargos_pms.pagos_cargos) as pagosDia FROM cargos_pms WHERE cargos_pms.fecha_cargo = '$fecha' AND cargos_pms.cargo_anulado = 0 GROUP BY cargos_pms.fecha_cargo")->fetchAll();
+        if (count($data) == 0) {
+            return 0;
+        } else {
+            return $data;
+        }
+    }
+
+    public function updateEstadoHabitacion($room)
+    {
+        global $database;
+
+        $data = $database->update('habitaciones', [
+            'estado_fo' => 'SV',
+            'estado_hk' => 'SV',
+        ], [
+            'numero_hab' => $room,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function getSaldoHabitacion($reserva)
+    {
+        global $database;
+
+        $data = $database->query("SELECT cargos_pms.habitacion_cargo, Sum(cargos_pms.monto_cargo) as cargos, Sum(cargos_pms.impuesto) as imptos, Sum(cargos_pms.pagos_cargos) as pagos FROM cargos_pms WHERE cargos_pms.numero_reserva = '$reserva' and cargos_pms.cargo_anulado = 0 AND factura_numero = 0 GROUP BY cargos_pms.numero_reserva")->fetchAll();
+
+        return $data;
+    }
+
+    public function saldoFolio($reserva, $folio)
+    {
+        global $database;
+
+        $data = $database->query("SELECT cargos_pms.habitacion_cargo, Sum(cargos_pms.monto_cargo+cargos_pms.impuesto) as saldoFol FROM cargos_pms WHERE cargos_pms.numero_reserva = '$reserva' AND cargos_pms.cargo_anulado = 0 AND cargos_pms.folio_cargo = '$folio' AND factura_numero = 0 GROUP BY cargos_pms.numero_reserva, cargos_pms.folio_cargo")->fetchAll();
+        if (count($data) == 0) {
+            return 0;
+        } else {
+            return $data[0]['saldoFol'];
+        }
+    }
+
+    public function pagosFolio($reserva, $folio)
+    {
+        global $database;
+
+        $data = $database->query("SELECT cargos_pms.habitacion_cargo, Sum(cargos_pms.pagos_cargos) as saldoFol FROM cargos_pms WHERE cargos_pms.numero_reserva = '$reserva' AND cargos_pms.cargo_anulado = 0 AND cargos_pms.folio_cargo = '$folio' AND factura_numero = 0 GROUP BY cargos_pms.numero_reserva")->fetchAll();
+        if (count($data) == 0) {
+            return 0;
+        } else {
+            return $data[0]['saldoFol'];
+        }
+    }
+
+    public function cambiaTarifaHabitacion($id, $tipo, $habi)
+    {
+        global $database;
+
+        $data = $database->update('reservas_pms', [
+            'valor_diario' => $habi,
+            'tarifa' => $tipo,
+        ], [
+            'num_reserva' => $id,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function updateMmtoRoom($habi, $mmto)
+    {
+        global $database;
+
+        $data = $database->update('habitaciones', [
+            'estado' => $mmto,
+            'estado_fo' => 'FS',
+            'estado_hk' => 'FS',
+        ], [
+            'numero_hab' => $habi,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function insertCambioHabitaciones($id, $tipoact, $habiact, $tiponue, $habinue, $mmto, $motivo, $observa, $fecha, $tipo)
+    {
+        global $database;
+
+        $data = $database->insert('traslado_habitaciones', [
+            'tipo_desde' => $tipoact,
+            'tipo_hasta' => $tiponue,
+            'hab_desde' => $habiact,
+            'hab_hasta' => $habinue,
+            'fecha' => $fecha,
+            'id_reserva' => $id,
+            'motivo_cambio' => $motivo,
+            'observaciones' => $observa,
+            'tipo_traslado' => $tipo,
+        ]);
+
+        return $database->id();
+    }
+
+    public function cambiaHabitacion($id, $tipo, $habi)
+    {
+        global $database;
+
+        $data = $database->update('reservas_pms', [
+            'num_habitacion' => $habi,
+            'tipo_habitacion' => $tipo,
+        ], [
+            'num_reserva' => $id,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function updateReserva($iden, $llegada, $salida, $noches, $hombres, $mujeres, $ninos, $orden, $tipohabi, $nrohabitacion, $tarifahab, $valortarifa, $origen, $destino, $motivo, $fuente, $segmento, $idhuesp, $numero, $observa, $formapa, $impto)
+    {
+        global $database;
+
+        $data = $database->update('reservas_pms', [
+            'fecha_llegada' => $llegada,
+            'fecha_salida' => $salida,
+            'dias_reservados' => $noches,
+            'can_hombres' => $hombres,
+            'can_mujeres' => $mujeres,
+            'can_ninos' => $ninos,
+            'orden_reserva' => $orden,
+            'tipo_habitacion' => $tipohabi,
+            'num_habitacion' => $nrohabitacion,
+            'tarifa' => $tarifahab,
+            'valor_reserva' => ($valortarifa * $noches),
+            'valor_diario' => $valortarifa,
+            'origen_reserva' => $origen,
+            'destino_reserva' => $destino,
+            'motivo_viaje' => $motivo,
+            'fuente_reserva' => $fuente,
+            'segmento_mercado' => $segmento,
+            'observaciones' => $observa,
+            'forma_pago' => $formapa,
+            'causar_impuesto' => $impto,
+        ], [
+            'num_reserva' => $numero,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function getBuscaReserva($id)
+    {
+        global $database;
+
+        $data = $database->select('reservas_pms', [
+            '[>]huespedes' => 'id_huesped',
+        ], [
+            'huespedes.nombre1',
+            'huespedes.nombre2',
+            'huespedes.apellido1',
+            'huespedes.apellido2',
+            'huespedes.id_huesped',
+            'huespedes.nombre_completo',
+            'reservas_pms.cantidad',
+            'reservas_pms.dias_reservados',
+            'reservas_pms.estado',
+            'reservas_pms.fecha_llegada',
+            'reservas_pms.fecha_salida',
+            'reservas_pms.tipo_reserva',
+            'reservas_pms.num_habitacion',
+            'reservas_pms.num_reserva',
+            'reservas_pms.can_hombres',
+            'reservas_pms.can_mujeres',
+            'reservas_pms.can_ninos',
+            'reservas_pms.orden_reserva',
+            'reservas_pms.origen_reserva',
+            'reservas_pms.destino_reserva',
+            'reservas_pms.id_agencia',
+            'reservas_pms.id_compania',
+            'reservas_pms.idCentroCia',
+            'reservas_pms.id_huesped',
+            'reservas_pms.tarifa',
+            'reservas_pms.tipo_habitacion',
+            'reservas_pms.tipo_ocupacion',
+            'reservas_pms.tipo_reserva',
+            'reservas_pms.valor_reserva',
+            'reservas_pms.valor_diario',
+            'reservas_pms.motivo_viaje',
+            'reservas_pms.fecha_reserva',
+            'reservas_pms.fecha_ingreso',
+            'reservas_pms.usuario',
+            'reservas_pms.observaciones',
+            'reservas_pms.fuente_reserva',
+            'reservas_pms.segmento_mercado',
+            'reservas_pms.cargo_habitacion',
+            'reservas_pms.causar_impuesto',
+            'reservas_pms.forma_pago',
+        ], [
+            'reservas_pms.num_reserva' => $id,
+        ]);
+
+        return $data;
+    }
+
+    public function getHistoricoReservasCia($id)
+    {
+        global $database;
+
+        $data = $database->select('historico_reservas_pms', [
+            '[>]huespedes' => 'id_huesped',
+            '[>]tipo_habitaciones' => ['tipo_habitacion' => 'id'],
+        ], [
+            'huespedes.id_huesped',
+            'huespedes.nombre_completo',
+            'tipo_habitaciones.descripcion_habitacion',
+            'historico_reservas_pms.dias_reservados',
+            'historico_reservas_pms.estado',
+            'historico_reservas_pms.fecha_llegada',
+            'historico_reservas_pms.fecha_salida',
+            'historico_reservas_pms.salida_checkout',
+            'historico_reservas_pms.tipo_reserva',
+            'historico_reservas_pms.num_habitacion',
+            'historico_reservas_pms.num_reserva',
+            'historico_reservas_pms.can_hombres',
+            'historico_reservas_pms.can_mujeres',
+            'historico_reservas_pms.can_ninos',
+            'historico_reservas_pms.id_huesped',
+            'historico_reservas_pms.tipo_habitacion',
+        ], [
+            'historico_reservas_pms.id_compania' => $id,
+        ]);
+
+        return $data;
+    }
+
+    public function getReservasEsperadasCia($id)
+    {
+        global $database;
+
+        $data = $database->select('reservas_pms', [
+            '[>]huespedes' => 'id_huesped',
+            '[>]tipo_habitaciones' => ['tipo_habitacion' => 'id'],
+        ], [
+            'huespedes.id_huesped',
+            'huespedes.nombre_completo',
+            'tipo_habitaciones.descripcion_habitacion',
+            'reservas_pms.dias_reservados',
+            'reservas_pms.estado',
+            'reservas_pms.fecha_llegada',
+            'reservas_pms.fecha_salida',
+            'reservas_pms.tipo_reserva',
+            'reservas_pms.num_habitacion',
+            'reservas_pms.num_reserva',
+            'reservas_pms.can_hombres',
+            'reservas_pms.can_mujeres',
+            'reservas_pms.can_ninos',
+            'reservas_pms.id_huesped',
+            'reservas_pms.tarifa',
+        ], [
+            'reservas_pms.id_compania' => $id,
+        ]);
+
+        return $data;
+    }
+
+    public function getHuespedesCia($id)
+    {
+        global $database;
+
+        $data = $database->select('huespedes', [
+            'id_huesped',
+            'nombre_completo',
+            'identificacion',
+            'direccion',
+            'telefono',
+            'email',
+            'tipo_identifica',
+            'tipo_huesped',
+            'fecha_nacimiento',
+            'sexo',
+            'celular',
+            'id_compania',
+            'estado_credito',
+        ], [
+            'id_compania' => $id,
+        ]);
+
+        return $data;
+    }
+
+    public function getContactosCia($id)
+    {
+        global $database;
+
+        $data = $database->select('contactos_compania', [
+            'id_contacto',
+            'apellidos',
+            'nombres',
+            'identificacion',
+            'cargo',
+            'area',
+            'celular',
+            'telefono',
+            'extencion',
+            'email',
+        ], [
+            'id_compania' => $id,
+            'actived_at' => 1,
+        ]);
+
+        return $data;
+    }
+
+    public function updateCompania($id, $nit, $dv, $tipodoc, $compania, $direccion, $ciudad, $telefono, $celular, $web, $correo, $tarifa, $formapago, $credito, $monto, $diascre, $diacorte, $tipoemp, $codciiu)
+    {
+        global $database;
+
+        $data = $database->update('companias', [
+            'empresa' => $compania,
+            'direccion' => $direccion,
+            'nit' => $nit,
+            'dv' => $dv,
+            'tipo_documento' => $tipodoc,
+            'telefono' => $telefono,
+            'celular' => $celular,
+            'email' => $correo,
+            'web' => $web,
+            'ciudad' => $ciudad,
+            'credito' => $credito,
+            'monto_credito' => $monto,
+            'dias_credito' => $diascre,
+            'id_forma_pago' => $formapago,
+            'dia_corte_credito' => $diacorte,
+            'id_tarifa' => $tarifa,
+            'tipo_empresa' => $tipoemp,
+            'updated_at' => date('Y-m-d H:i:s'),
+            'id_codigo_ciiu' => $codciiu,
+        ], [
+            'id_compania' => $id,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function getBuscaIdEmpresa($id)
+    {
+        global $database;
+
+        $data = $database->select('companias', [
+            'id_compania',
+            'empresa',
+            'direccion',
+            'nit',
+            'dv',
+            'tipo_documento',
+            'telefono',
+            'celular',
+            'email',
+            'web',
+            'ciudad',
+            'tipo_empresa',
+            'estado_credito',
+            'credito',
+            'monto_credito',
+            'dia_corte_credito',
+            'dias_credito',
+            'id_tarifa',
+            'id_forma_pago',
+            'id_codigo_ciiu',
+            'usuario',
+            'created_at',
+        ], [
+            'id_compania' => $id,
+        ]);
+
+        return $data;
+    }
+
+    public function updateHuesped($id, $iden, $tipodoc, $apellido1, $apellido2, $nombre1, $nombre2, $sexo, $direccion, $telefono, $celular, $correo, $fechanace, $tipohues, $tarifa, $pais, $ciudad, $formapago, $paisExp, $ciudadExp)
+    {
+        global $database;
+
+        $data = $database->update('huespedes', [
+            'nombre1' => $nombre1,
+            'nombre2' => $nombre2,
+            'apellido1' => $apellido1,
+            'apellido2' => $apellido2,
+            'direccion' => $direccion,
+            'telefono' => $telefono,
+            'email' => $correo,
+            'identificacion' => $iden,
+            'pais_expedicion' => $paisExp,
+            'ciudad_expedicion' => $ciudadExp,
+            'tipo_identifica' => $tipodoc,
+            'fecha_nacimiento' => $fechanace,
+            'sexo' => $sexo,
+            'id_forma_pago' => $formapago,
+            'celular' => $celular,
+            'tipo_huesped' => $tipohues,
+            'id_tarifa' => $tarifa,
+            'pais' => $pais,
+            'ciudad' => $ciudad,
+            'nombre_completo' => $apellido1.' '.$apellido2.' '.$nombre1.' '.$nombre2,
+            'id_forma_pago' => $formapago,
+            ], [
+            'id_huesped' => $id,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function getBuscaIdHuesped($id)
+    {
+        global $database;
+
+        $data = $database->select('huespedes', [
+            'id_huesped',
+            'nombre1',
+            'nombre2',
+            'apellido1',
+            'apellido2',
+            'nombre_completo',
+            'identificacion',
+            'direccion',
+            'telefono',
+            'email',
+            'tipo_identifica',
+            'tipo_huesped',
+            'pais_expedicion',
+            'ciudad_expedicion',
+            'fecha_nacimiento',
+            'sexo',
+            'celular',
+            'id_compania',
+            'idCentroCia',
+            'id_forma_pago',
+            'id_tarifa',
+            'estado_credito',
+            'pais',
+            'ciudad',
+            'id_forma_pago',
+        ], [
+            'id_huesped' => $id,
+        ]);
+
+        return $data;
+    }
+
+    public function updateCiaHuesped($idcia, $idhues, $idCentro)
+    {
+        global $database;
+
+        $data = $database->update('huespedes', [
+            'id_compania' => $idcia,
+            'idCentroCia' => $idCentro,
+        ], [
+            'id_huesped' => $idhues,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function getBuscaCentroCia($id)
+    {
+        global $database;
+
+        $data = $database->select('centrosCias', [
+            'descripcion_centro',
+            'id_centro',
+        ], [
+            'id_centro' => $id,
+        ]);
+
+        return $data;
+    }
+
+    public function getReservasEsperadas($id)
+    {
+        global $database;
+
+        $data = $database->select('reservas_pms', [
+            '[>]tipo_habitaciones' => ['tipo_habitacion' => 'id'],
+        ], [
+            'tipo_habitaciones.descripcion_habitacion',
+            'reservas_pms.id',
+            'reservas_pms.cantidad',
+            'reservas_pms.dias_reservados',
+            'reservas_pms.estado',
+            'reservas_pms.fecha_llegada',
+            'reservas_pms.fecha_salida',
+            'reservas_pms.tipo_reserva',
+            'reservas_pms.num_habitacion',
+            'reservas_pms.num_reserva',
+            'reservas_pms.num_registro',
+            'reservas_pms.can_hombres',
+            'reservas_pms.can_mujeres',
+            'reservas_pms.can_ninos',
+            'reservas_pms.orden_reserva',
+            'reservas_pms.origen_reserva',
+            'reservas_pms.destino_reserva',
+            'reservas_pms.id_agencia',
+            'reservas_pms.id_compania',
+            'reservas_pms.id_huesped',
+            'reservas_pms.tarifa',
+            'reservas_pms.tipo_habitacion',
+            'reservas_pms.tipo_ocupacion',
+            'reservas_pms.valor_reserva',
+            'reservas_pms.valor_diario',
+            'reservas_pms.motivo_viaje',
+            'reservas_pms.fecha_reserva',
+            'reservas_pms.usuario',
+            'reservas_pms.observaciones',
+            'reservas_pms.fuente_reserva',
+            'reservas_pms.causar_impuesto',
+            'reservas_pms.cargo_habitacion',
+        ], [
+            'id_huesped' => $id,
+        ]);
+
+        return $data;
+    }
+
+    public function getHistoricoReservas($id)
+    {
+        global $database;
+
+        $data = $database->select('historico_reservas_pms', [
+            '[>]huespedes' => 'id_huesped',
+            '[>]tipo_habitaciones' => ['tipo_habitacion' => 'id'],
+        ], [
+            'huespedes.id_huesped',
+            'huespedes.nombre_completo',
+            'tipo_habitaciones.descripcion_habitacion',
+            'historico_reservas_pms.dias_reservados',
+            'historico_reservas_pms.estado',
+            'historico_reservas_pms.fecha_llegada',
+            'historico_reservas_pms.fecha_salida',
+            'historico_reservas_pms.salida_checkout',
+            'historico_reservas_pms.tipo_reserva',
+            'historico_reservas_pms.num_habitacion',
+            'historico_reservas_pms.num_reserva',
+            'historico_reservas_pms.num_registro',
+            'historico_reservas_pms.orden_reserva',
+            'historico_reservas_pms.valor_diario',
+            'historico_reservas_pms.observaciones',
+            'historico_reservas_pms.tipo_habitacion',
+            'historico_reservas_pms.can_hombres',
+            'historico_reservas_pms.can_mujeres',
+            'historico_reservas_pms.can_ninos',
+            'historico_reservas_pms.id_huesped',
+            'historico_reservas_pms.tarifa',
+        ], [
+            'historico_reservas_pms.id_huesped' => $id,
+        ]);
+
+        return $data;
+    }
+
+    public function getPrimerDia($ctamaster)
+    {
+        global $database;
+
+        $data = $database->query("SELECT reservas_pms.fecha_llegada, reservas_pms.num_habitacion, reservas_pms.tipo_habitacion FROM reservas_pms WHERE (reservas_pms.tipo_habitacion <> '$ctamaster' AND reservas_pms.estado <> 'CX') AND (reservas_pms.tipo_habitacion <> 'CMA' AND reservas_pms.estado <> 'SA') ORDER BY reservas_pms.fecha_llegada ASC LIMIT 1")->fetchAll();
+
+        return $data[0]['fecha_llegada'];
+    }
+
+    public function getUltimoDia($ctamaster)
+    {
+        global $database;
+
+        $data = $database->query("SELECT reservas_pms.fecha_salida, reservas_pms.num_habitacion, reservas_pms.tipo_habitacion FROM reservas_pms WHERE (reservas_pms.tipo_habitacion <> '$ctamaster' AND reservas_pms.estado <> 'CX') OR (reservas_pms.tipo_habitacion <> '$ctamaster' AND reservas_pms.estado <> 'SA') ORDER BY reservas_pms.fecha_llegada DESC LIMIT 1")->fetchAll();
+
+        return $data[0]['fecha_salida'];
+    }
+
+    public function buscaCasa($fecha, $room)
+    {
+        global $database;
+
+        $data = $database->select('reservas_pms', [
+            '[>]huespedes' => 'id_huesped',
+        ], [
+            'huespedes.apellido1',
+            'huespedes.apellido2',
+            'huespedes.nombre1',
+            'huespedes.nombre2',
+            'reservas_pms.dias_reservados',
+            'reservas_pms.tarifa',
+            'reservas_pms.estado',
+            'reservas_pms.valor_diario',
+            'reservas_pms.num_reserva',
+            'reservas_pms.num_habitacion',
+            'reservas_pms.causar_impuesto',
+            'reservas_pms.fecha_llegada',
+            'reservas_pms.fecha_salida',
+        ], [
+            'reservas_pms.fecha_salida[>=]' => $fecha,
+            'reservas_pms.num_habitacion' => $room,
+            'reservas_pms.estado' => 'CA',
+        ]);
+
+        return $data;
+    }
+
+    public function buscaEstadia($fecha, $room)
+    {
+        global $database;
+
+        $data = $database->query("SELECT huespedes.apellido1, huespedes.apellido2, huespedes.nombre1, huespedes.nombre2,reservas_pms.dias_reservados, reservas_pms.tarifa, reservas_pms.estado, reservas_pms.valor_diario, reservas_pms.num_reserva, reservas_pms.num_habitacion, reservas_pms.can_hombres, reservas_pms.can_mujeres, reservas_pms.can_ninos, reservas_pms.fecha_llegada, reservas_pms.fecha_salida FROM huespedes, reservas_pms WHERE (huespedes.id_huesped = reservas_pms.id_huesped AND reservas_pms.num_habitacion = '$room' AND reservas_pms.fecha_llegada = '$fecha' AND reservas_pms.estado = 'CA') OR (huespedes.id_huesped = reservas_pms.id_huesped AND reservas_pms.num_habitacion = '$room' AND reservas_pms.fecha_llegada = '$fecha' AND reservas_pms.estado = 'ES') 
 				")->fetchAll();
 
-			return $data;
-		}
-
-		public function getTipoDocumentoHuesped($id){
-			global $database;
-
-			$data = $database->select('tipo_documento',[
-				'descripcion_documento'
-			],[
-				'id_doc' => $id
-			]);
-			return $data[0]['descripcion_documento'];
-		}
-
-		public function getDatosHuespedReserva($id){
-			global $database;
-
-			$data = $database->select('huespedes',[
-				'apellido1',
-				'apellido2',
-				'nombre1',
-				'nombre2',
-				'direccion',
-				'identificacion',
-				'telefono',
-				'email',
-				'celular',
-				'pais_expedicion',
-				'ciudad_expedicion',
-				'fecha_nacimiento',
-				'tipo_identifica',
-				'fecha_creacion',
-				'usuario_creador'
-			],[
-				'id_huesped' => $id
-			]);
-			return $data;
-		}
-
-		public function sumPagosdelDia($fecha){
-			global $database;
-
-			$data  = $database->sum('cargos_pms',[
-				'pagos_cargos'
-			],[
-					'fecha_cargo'             => $fecha,
-					'cargo_anulado'           => 0,
-					'concecutivo_deposito[>]' => 0,
-					'concecutivo_abono[>]'    => 0
-			]);
-			return $data;
-		}
-
-		public function sumDepositosdelDia($fecha){
-			global $database;
-
-			$data  = $database->sum('cargos_pms',[
-				'pagos_cargos'
-			],[
-				'fecha_cargo'             => $fecha,
-				'cargo_anulado'           => 0,
-				'concecutivo_deposito[>]' => 0
-			]);
-			return $data;
-		}
-
-		public function sumAbonosdelDia($fecha){
-			global $database;
-
-			$data  = $database->sum('cargos_pms',[
-				'pagos_cargos'
-			],[
-				'fecha_cargo'          => $fecha,
-				'cargo_anulado'        => 0,
-				'concecutivo_abono[>]' => 0
-			]);
-			return $data;
-		}
-
-		public function sumCargosdelDia($fecha){
-			global $database;
-
-			$data  = $database->sum('cargos_pms',[
-				'monto_cargo'
-			],[
-				'fecha_cargo'   => $fecha,
-				'cargo_anulado' => 0
-			]);
-			return $data;
-		}
-
-		public function updateAnulaConsumo($id,$motivo,$fecha,$usuario, $idusuario){
-			global $database;
-
-			$data = $database->update('cargos_pms',[
-				'cargo_anulado'        => 1,
-				'fecha_anulacion'      => $fecha,
-				'usuario_anulacion'    => $usuario,
-				'id_usuario_anulacion' => $idusuario,
-				'motivo_anulacion'     => $motivo
-			],[
-				'id_cargo' => $id
-			]);
-			return $data->rowCount();
-		}
-
-		public function getSalidasSinRealizar($ctamaster,$fecha){
-			global $database;
-
-			$data = $database->select('reservas_pms',[
-				'[>]huespedes' => 'id_huesped'
-			],[
-				'huespedes.nombre1',
-				'huespedes.nombre2',
-				'huespedes.apellido1',
-				'huespedes.apellido2',
-				'huespedes.id_huesped',
-				'reservas_pms.id',
-				'reservas_pms.cantidad',
-				'reservas_pms.dias_reservados',
-				'reservas_pms.estado',
-				'reservas_pms.fecha_llegada',
-				'reservas_pms.fecha_salida',
-				'reservas_pms.tipo_reserva',
-				'reservas_pms.num_habitacion',
-				'reservas_pms.num_reserva',
-				'reservas_pms.can_hombres',
-				'reservas_pms.can_mujeres',
-				'reservas_pms.can_ninos',
-				'reservas_pms.orden_reserva',
-				'reservas_pms.origen_reserva',
-				'reservas_pms.destino_reserva',
-				'reservas_pms.id_agencia',
-				'reservas_pms.id_compania',
-				'reservas_pms.id_huesped',
-				'reservas_pms.tarifa',
-				'reservas_pms.tipo_habitacion',
-				'reservas_pms.tipo_ocupacion',
-				'reservas_pms.valor_reserva',
-				'reservas_pms.valor_diario',
-				'reservas_pms.motivo_viaje',
-				'reservas_pms.fecha_reserva',
-				'reservas_pms.usuario',
-				'reservas_pms.observaciones',
-				'reservas_pms.fuente_reserva',
-				'reservas_pms.causar_impuesto',
-				'reservas_pms.cargo_habitacion'				
-			],[
-				'reservas_pms.tipo_habitacion[<>]' => $ctamaster,
-				'reservas_pms.estado'              => 'CA',
-				'reservas_pms.fecha_salida'        => $fecha
-			]);
-			return $data;
-		}
-
-		public function updateRoomChange($reserva){
-			global $database;
-
-			$data = $database->update('reservas_pms',[
-				'cargo_habitacion' => 1	
-			],[
-				'num_reserva' => $reserva
-			]);
-			return $data->rowCount();
-		}
-
-		public function buscaTextoCodigoVenta($codigo){
-			global $database;
-
-			$data = $database->select('codigos_vta',[
-				'id_cargo',
-				'descripcion_cargo',
-				'id_impto',
-				'decreto_turismo'
-			],[
-				'id_cargo' => $codigo
-			]);
-			return $data;
-		}
-
-		public function buscaCodigoTipoHabitacion($codigo){
-			global $database;
-
-
-			$data = $database->select('tipo_habitaciones',[
-				'deptoventa_habitacion'
-			],[
-				'id' => $codigo
-			]);
-			return $data[0]['deptoventa_habitacion'];
-		}
-
-		public function getCargoTodasHabitaciones($ctamaster){
-			global $database;
-
-			$data = $database->query("SELECT id, cantidad, dias_reservados, estado, fecha_llegada, fecha_salida, tipo_reserva, num_habitacion, num_reserva, can_hombres, can_mujeres, can_ninos, origen_reserva, destino_reserva, id_agencia, id_compania, id_huesped, tarifa, tipo_habitacion, tipo_ocupacion, valor_reserva, valor_diario, motivo_viaje, fecha_reserva, usuario, observaciones, fuente_reserva, causar_impuesto, cargo_habitacion FROM reservas_pms WHERE tipo_habitacion != '$ctamaster' AND estado = 'CA' ORDER BY num_habitacion")->fetchAll();
-			return $data;
-		}
-
-		public function getCargoUnaHabitacion($reserva){
-			global $database;
-
-			$data = $database->select('reservas_pms',[
-				'id',
-				'cantidad',
-				'dias_reservados',
-				'estado',
-				'fecha_llegada',
-				'fecha_salida',
-				'tipo_reserva',
-				'num_habitacion',
-				'num_reserva',
-				'can_hombres',
-				'can_mujeres',
-				'can_ninos',
-				'origen_reserva',
-				'destino_reserva',
-				'id_agencia',
-				'id_compania',
-				'id_huesped',
-				'tarifa',
-				'tipo_habitacion',
-				'tipo_ocupacion',
-				'valor_reserva',
-				'valor_diario',
-				'motivo_viaje',
-				'fecha_reserva',
-				'usuario',
-				'observaciones',
-				'fuente_reserva',
-				'causar_impuesto',
-				'cargo_habitacion'				
-			],[
-				'num_reserva' => $reserva
-			]);
-			return $data;
-		}
-
-		public function getReservaActual($reserva){
-			global $database;
-			
-			// Trae los Datos Actuales de la Reserva
-			$data = $database->select('reservas_pms',[
-				'id',
-				'cantidad',
-				'dias_reservados',
-				'estado',
-				'fecha_llegada',
-				'fecha_salida',
-				'tipo_reserva',
-				'num_habitacion',
-				'num_reserva',
-				'can_hombres',
-				'can_mujeres',
-				'can_ninos',
-				'orden_reserva',
-				'origen_reserva',
-				'destino_reserva',
-				'id_agencia',
-				'id_compania',
-				'id_huesped',
-				'tarifa',
-				'tipo_habitacion',
-				'tipo_ocupacion',
-				'valor_reserva',
-				'valor_diario',
-				'motivo_viaje',
-				'fecha_reserva',
-				'usuario',
-				'observaciones',
-				'causar_impuesto',
-				'fuente_reserva'
-			],[
-				'num_reserva' => $reserva
-			]);
-			return $data;
-		}
-
-		public function updateCargosReservaFolio($reserva,$factura,$folio,$fecha,$usuario,$idusuario,$tipofac,$id){
-			global $database;
-
-			// Asigna Numero de Habitacion a los Cargos del Huesped [Por Folio]
-			$data = $database->update('cargos_pms',[
-				'factura_numero'     => $factura,
-				'fecha_factura'      => $fecha,
-				'usuario_factura'    => $usuario,
-				'id_usuario_factura' => $idusuario,
-				'tipo_factura'       => $tipofac,
-				'id_perfil_factura'  => $id
-			],[
-				'folio_cargo'    => $folio,
-				'numero_reserva' => $reserva,
-				'factura_numero' => 0,
-				'cargo_anulado'  => 0 
-			]);
-			return $data->rowCount();
-		}
-
-		public function updateReservaHuespedSalida($reserva,$usuario,$idusuario,$fecha){ 
-			global $database;
-			// Cambia Estado habitacion a Salida Huesped
-			$data = $database->update('reservas_pms',[
-				'estado'              => "SA",
-				'salida_checkout'     => $fecha,
-				'usuario_checkout'    => $usuario,
-				'id_usuario_checkout' => $idusuario,
-				'fecha_checkout'      => date("Y-m-d H:i:s")
-			],[
-				'num_reserva' => $reserva
-			]);
-			return $data;
-		}
-
-		public function insertFacturaHuesped($codigo, $textcodigo, $valor, $refer, $numero, $room, $idhues, $folio, $canti, $usuario, $idUsuario, $fecha, $numfactura, $tipofac, $id, $idcentro){
-			global $database;
-
-			$data = $database->insert('cargos_pms',[
-				'fecha_cargo'         => $fecha, 
-				'id_codigo_cargo'     => $codigo,
-				'descripcion_cargo'   => $textcodigo,
-				'usuario'             => $usuario,
-				'id_usuario'          => $idUsuario,
-				'id_huesped'          => $idhues,
-				'cantidad_cargo'      => $canti,
-				'folio_cargo'         => $folio,
-				'pagos_cargos'        => $valor,
-				'habitacion_cargo'    => $room,
-				'factura_numero'      => $numfactura, 
-				'numero_reserva'      => $numero,
-				'referencia_cargo'    => $refer,
-				'tipo_factura'        => $tipofac,
-				'id_perfil_factura'   => $id,
-				'idCentroCosto'       => $idcentro,
-				'fecha_salida'        => FECHA_PMS,
-				'factura'             => 1,
-				'fecha_sistema_cargo' => date("Y-m-d H:i:s")
-			]);
-			return $database->id();
-		}
-
-		public function updateNumeroFactura($numero){
-			global $database;
-
-			$data = $database->update('parametros_pms',[
-				'con_factura' => $numero
-			]);
-			return $data;
-		}
-
-		public function getNumeroFactura(){
-			global $database;
-
-			$data =$database->select('parametros_pms',[
-				'con_factura'
-			]);
-			return $data[0]['con_factura'];
-		}
-
-		public function getCargosReservaModal($reserva){
-			global $database;
-
-			$data = $database->select('cargos_pms',[
-				'[>]codigos_vta' => ['id_codigo_cargo' => 'id_cargo']
-			],[			
-				'cargos_pms.id_cargo',
-				'cargos_pms.fecha_cargo',
-				'cargos_pms.monto_cargo',
-				'cargos_pms.habitacion_cargo',
-				'cargos_pms.impuesto',
-				'cargos_pms.descripcion_cargo',
-				'cargos_pms.usuario',
-				'cargos_pms.id_huesped',
-				'cargos_pms.cantidad_cargo',
-				'cargos_pms.informacion_cargo',
-				'cargos_pms.valor_cargo',
-				'cargos_pms.valor_unitario_sin_impto',	
-				'cargos_pms.folio_cargo',
-				'cargos_pms.pagos_cargos',
-				'cargos_pms.referencia_cargo',
-				'cargos_pms.concecutivo_abono',
-				'cargos_pms.concecutivo_deposito',
-				'cargos_pms.numero_reserva',
-				'cargos_pms.cargo_anulado',
-				'cargos_pms.factura_numero',
-				'cargos_pms.numero_factura_cargo',
-				'codigos_vta.tipo_codigo'
-			],[
-				'cargos_pms.numero_reserva' => $reserva,
-				'cargos_pms.cargo_anulado'  => 0,
-				'cargos_pms.tipo_factura'   => 0,
-				'ORDER'          => 'cargos_pms.id_cargo'
-			]);
-			return $data;
-		}
-
-		public function insertaNuevaAgencia($nit, $dv, $tipodoc, $agencia, $direccion, $ciudad, $telefono, $celular, $web, $correo, $tarifa, $formapago, $potencial, $comision, $credito, $monto, $diascre, $diacorte, $usuario){
-			global $database;
-
-			$data = $database->insert('agencias',[
-				'agencia'           => $agencia,
-				'nit'               => $nit,
-				'dv'                => $dv,
-				'direccion'         => $direccion,
-				'telefono'          => $telefono,
-				'celular'           => $celular,
-				'email'             => $correo,
-				'tipo_documento'    => $tipodoc,
-				'web'               => $web,
-				'ciudad'            => $ciudad,
-				'credito'           => $credito,
-				'monto_credito'     => $monto,
-				'dias_credito'      => $diascre,
-				'id_forma_pago'     => $formapago,
-				'potencial'         => $potencial,
-				'comision'          => $comision,
-				'dia_corte_credito' => $diacorte,
-				'created_at'        => date("Y-m-d H:i:s"),				
-				'id_tarifa'         => $tarifa,
-				'usuario'           => $usuario,
-				'activo'            => 1
-			]);
-			return $data->rowCount();
-		}
-
-		public function getCityName($tipo){
-			global $database;
-
-			$data = $database->select('ciudades',[
-				'municipio',
-				'depto'
-			],[
-				'id_ciudad' => $tipo
-			]);
-			if(count($data)==0){
-				return '';
-			}else{
-				return $data[0]['municipio'].' - '.$data[0]['depto'];
-			}
-		}
-
-		public function getLandName($tipo){
-			global $database;
-
-			$data = $database->select('paices',[
-				'descripcion'
-			],[
-				'id_pais' => $tipo
-			]);
-			if(count($data)==0){
-				return '';
-			}else{
-				return $data[0]['descripcion'];
-			}
-		}
-
-		public function getTypeCia($tipo){
-			global $database;
-
-			$data = $database->select('tipo_cia',[
-				'descripcion'
-			],[
-				'id_tipo_cia' => $tipo
-			]);
-			return $data[0]['descripcion'];
-		}
-
-		public function getInfoCia(){
-			global $database;
-
-			$data = $database->select('empresas',[
-				'con', 
-				'inv', 
-				'com', 
-				'cxp', 
-				'cxc', 
-				'pos', 
-				'tar', 
-				'pms', 
-				'res', 
-				'empresa',
-				'nit', 
-				'dv', 
-				'direccion', 
-				'pais',
-				'ciudad',
-				'celular',
-				'telefonos',
-				'web',
-				'correo',
-				'logo',
-				'xlogo',
-				'ylogo',
-				'tlogo',
-				'codigo_ciiu',
-				'tipo_empresa'
-			]);
-			return $data;
-		}
-
-		public function getConsumosReservaAgrupadoCodigo($numero){
-			global $database;
-
-			$data = $database->query("SELECT cargos_pms.descripcion_cargo, cargos_pms.habitacion_cargo,Sum(cargos_pms.monto_cargo) AS cargos, Sum(cargos_pms.impuesto) AS imptos, Sum(cargos_pms.pagos_cargos) AS pagos FROM cargos_pms WHERE cargos_pms.numero_reserva = '$numero' and cargos_pms.cargo_anulado = 0 GROUP BY cargos_pms.numero_reserva, cargos_pms.id_codigo_cargo ORDER BY cargos_pms.numero_reserva, cargos_pms.id_codigo_cargo")->fetchAll();
-			return $data;
-		}
-
-		public function getConsumosCongeladaReservaAgrupadoCodigoFolio($numero,$folio,$tipo){
-			global $database;
-
-			$data = $database->query("SELECT cargos_pms.descripcion_cargo, count(cargos_pms.id_codigo_cargo) AS cant, cargos_pms.habitacion_cargo, Sum(cargos_pms.monto_cargo) AS cargos, Sum(cargos_pms.impuesto) as imptos, Sum(cargos_pms.pagos_cargos) AS pagos, cargos_pms.factura_numero FROM cargos_pms, codigos_vta WHERE cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND cargos_pms.numero_reserva = '$numero' AND cargos_pms.cargo_anulado = 0 AND cargos_pms.folio_cargo = '$folio' AND codigos_vta.tipo_codigo = '$tipo' GROUP BY cargos_pms.numero_reserva, cargos_pms.id_codigo_cargo, cargos_pms.folio_cargo ORDER BY cargos_pms.numero_reserva, cargos_pms.id_codigo_cargo, cargos_pms.folio_cargo")->fetchAll();
-			return $data;
-		}
-
-
-		public function getConsumosReservaAgrupadoCodigoFolio($fact,$numero,$folio,$tipo){
-			global $database;
-
-			$data = $database->query("SELECT cargos_pms.descripcion_cargo, count(cargos_pms.id_codigo_cargo) AS cant, cargos_pms.habitacion_cargo, Sum(cargos_pms.monto_cargo) AS cargos, Sum(cargos_pms.impuesto) as imptos, Sum(cargos_pms.pagos_cargos) AS pagos, cargos_pms.factura_numero FROM cargos_pms, codigos_vta WHERE cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND cargos_pms.factura_numero = '$fact' AND cargos_pms.numero_reserva = '$numero' AND cargos_pms.cargo_anulado = 0 AND cargos_pms.folio_cargo = '$folio' AND codigos_vta.tipo_codigo = '$tipo' GROUP BY cargos_pms.numero_reserva, cargos_pms.id_codigo_cargo, cargos_pms.folio_cargo ORDER BY cargos_pms.numero_reserva, cargos_pms.id_codigo_cargo, cargos_pms.folio_cargo")->fetchAll();
-			return $data;
-		}
-
-		public function getValorImptoFolio($fact,$numero,$folio,$tipo){
-			global $database;
-
-			$data = $database->query("SELECT codigos_vta.descripcion_cargo, cargos_pms.habitacion_cargo, Sum(cargos_pms.monto_cargo) as cargos, Sum(cargos_pms.impuesto) as imptos, Sum(cargos_pms.pagos_cargos) as pagos, cargos_pms.factura_numero FROM cargos_pms, codigos_vta WHERE cargos_pms.codigo_impto = codigos_vta.id_cargo AND cargos_pms.factura_numero = '$fact' AND cargos_pms.numero_reserva = '$numero' and cargos_pms.cargo_anulado = 0 and cargos_pms.folio_cargo = $folio and codigos_vta.tipo_codigo = '$tipo' GROUP BY cargos_pms.numero_reserva, cargos_pms.codigo_impto, cargos_pms.folio_cargo ORDER BY cargos_pms.numero_reserva, cargos_pms.codigo_impto, cargos_pms.folio_cargo")->fetchAll();
-			return $data;
-		}
-
-		public function getCargosReserva($reserva,$folio){
-			global $database;
-
-			$data = $database->select('cargos_pms',[
-				'[>]codigos_vta' => ['id_codigo_cargo' => 'id_cargo']
-			],[			
-				'cargos_pms.id_cargo',
-				'cargos_pms.fecha_cargo',
-				'cargos_pms.monto_cargo',
-				'cargos_pms.impuesto',
-				'cargos_pms.habitacion_cargo',
-				'cargos_pms.descripcion_cargo',
-				'cargos_pms.usuario',
-				'cargos_pms.id_huesped',
-				'cargos_pms.cantidad_cargo',
-				'cargos_pms.informacion_cargo',
-				'cargos_pms.valor_cargo',
-				'cargos_pms.folio_cargo',
-				'cargos_pms.pagos_cargos',
-				'cargos_pms.referencia_cargo',
-				'cargos_pms.concecutivo_abono',
-				'cargos_pms.concecutivo_deposito',
-				'cargos_pms.numero_reserva',
-				'cargos_pms.cargo_anulado',
-				'cargos_pms.factura_numero',
-				'cargos_pms.numero_factura_cargo',
-				'cargos_pms.fecha_sistema_cargo',
-				'codigos_vta.tipo_codigo'
-			],[
-				'cargos_pms.numero_reserva' => $reserva,
-				'cargos_pms.folio_cargo'    => $folio,
-				'cargos_pms.cargo_anulado'  => 0,
-				'cargos_pms.factura_numero' => 0,
-				'ORDER'                     => 'cargos_pms.id_cargo'
-			]);
-			return $data;
-		}
-
-		public function getReservasHisDatos($reserva){
-			global $database;
-
-			$data = $database->select('reservas_pms',[
-				'[>]huespedes' => 'id_huesped'
-			],[
-				'reservas_pms.cantidad',
-				'reservas_pms.fecha_llegada',
-				'reservas_pms.fecha_salida',
-				'reservas_pms.dias_reservados',
-				'reservas_pms.tipo_habitacion',
-				'reservas_pms.num_habitacion',
-				'reservas_pms.num_reserva',
-				'reservas_pms.num_registro',
-				'reservas_pms.can_hombres',
-				'reservas_pms.can_mujeres',
-				'reservas_pms.can_ninos',
-				'reservas_pms.orden_reserva',
-				'reservas_pms.id_compania',
-				'reservas_pms.id_agencia',
-				'reservas_pms.tipo_ocupacion',
-				'reservas_pms.tarifa',
-				'reservas_pms.valor_reserva',
-				'reservas_pms.valor_diario',
-				'reservas_pms.estado',
-				'reservas_pms.motivo_viaje',
-				'reservas_pms.origen_reserva',
-				'reservas_pms.destino_reserva',
-				'reservas_pms.forma_pago',
-				'reservas_pms.causar_impuesto',
-				'reservas_pms.observaciones',
-				'huespedes.nombre1',
-				'huespedes.nombre2',
-				'huespedes.apellido1',
-				'huespedes.apellido2',
-				'huespedes.id_huesped'
-			],[
-				'reservas_pms.num_reserva' => $reserva
-			]);
-			return $data;
-		}
-
-		public function getReservasDatos($reserva){
-			global $database;
-
-			$data = $database->select('reservas_pms',[
-				'[>]huespedes' => 'id_huesped'
-			],[
-				'reservas_pms.cantidad',
-				'reservas_pms.fecha_llegada',
-				'reservas_pms.fecha_salida',
-				'reservas_pms.dias_reservados',
-				'reservas_pms.tipo_habitacion',
-				'reservas_pms.num_habitacion',
-				'reservas_pms.num_reserva',
-				'reservas_pms.num_registro',
-				'reservas_pms.can_hombres',
-				'reservas_pms.can_mujeres',
-				'reservas_pms.can_ninos',
-				'reservas_pms.orden_reserva',
-				'reservas_pms.id_compania',
-				'reservas_pms.idCentroCia',
-				'reservas_pms.id_agencia',
-				'reservas_pms.tipo_ocupacion',
-				'reservas_pms.tarifa',
-				'reservas_pms.valor_reserva',
-				'reservas_pms.valor_diario',
-				'reservas_pms.estado',
-				'reservas_pms.motivo_viaje',
-				'reservas_pms.origen_reserva',
-				'reservas_pms.destino_reserva',
-				'reservas_pms.forma_pago',
-				'reservas_pms.causar_impuesto',
-				'reservas_pms.salida_checkout',
-				'reservas_pms.observaciones',
-				'reservas_pms.observaciones_cancela',
-				'huespedes.nombre1',
-				'huespedes.nombre2',
-				'huespedes.apellido1',
-				'huespedes.apellido2',
-				'huespedes.nombre_completo',
-				'huespedes.identificacion',
-				'huespedes.id_huesped'
-			],[
-				'reservas_pms.num_reserva' => $reserva
-			]);
-			return $data;
-		}
-
-		public function getReservasDatosHistorico($reserva){
-			global $database;
-
-			$data = $database->select('reservas_pms',[
-				'[>]huespedes' => 'id_huesped'
-			],[
-				'reservas_pms.cantidad',
-				'reservas_pms.fecha_llegada',
-				'reservas_pms.fecha_salida',
-				'reservas_pms.dias_reservados',
-				'reservas_pms.tipo_habitacion',
-				'reservas_pms.num_habitacion',
-				'reservas_pms.num_reserva',
-				'reservas_pms.num_registro',
-				'reservas_pms.can_hombres',
-				'reservas_pms.can_mujeres',
-				'reservas_pms.can_ninos',
-				'reservas_pms.orden_reserva',
-				'reservas_pms.id_compania',
-				'reservas_pms.id_agencia',
-				'reservas_pms.tipo_ocupacion',
-				'reservas_pms.tarifa',
-				'reservas_pms.valor_reserva',
-				'reservas_pms.valor_diario',
-				'reservas_pms.estado',
-				'reservas_pms.motivo_viaje',
-				'reservas_pms.origen_reserva',
-				'reservas_pms.destino_reserva',
-				'reservas_pms.forma_pago',
-				'reservas_pms.causar_impuesto',
-				'reservas_pms.salida_checkout',
-				'reservas_pms.observaciones',
-				'reservas_pms.observaciones_cancela',
-				'huespedes.nombre1',
-				'huespedes.nombre2',
-				'huespedes.apellido1',
-				'huespedes.apellido2',
-				'huespedes.nombre_completo',
-				'huespedes.identificacion',
-				'huespedes.id_huesped'
-			],[
-				'reservas_pms.num_reserva' => $reserva
-			]);
-			return $data;
-		}
-
-
-
-		public function getForecastHabitacionFecha($room,$fecha){
-			global $database;
-
-			$data  = $database->select('reservas_pms',[
-				'id_huesped'
-			],[
-				
-			]);
-			return $data;
-		}
-
-		public function getHabitaciones($ctamaster){
-			global $database;
-
-			$data = $database->query("SELECT habitaciones.id, habitaciones.numero_hab, habitaciones.tipo_hab, habitaciones.pax, habitaciones.camas, habitaciones.estado_fo, habitaciones.estado_hk, tipo_habitaciones.descripcion_habitacion FROM habitaciones, tipo_habitaciones WHERE habitaciones.id_tipohabitacion = tipo_habitaciones.id AND tipo_habitaciones.tipo_habitacion = 1 AND habitaciones.active_at = 1 AND habitaciones.id_tipohabitacion <> '1' ORDER BY  habitaciones.numero_hab")->fetchAll();
-			return $data;
-		}
-
-		public function getMotivoGrupo($caja){
-			global $database;
-
-			$data = $database->select('grupos_cajas',[
-				'id_grupo',
-				'descripcion_grupo'
-			],[
-				'caja'  => $caja,
-				'ORDER' => 'descripcion_grupo'
-			]);
-			return $data;
-		}
-
-		public function getBuscaAgencia($id){
-			global $database;
-
-			$data = $database->count('agencias',[
-				'nit' => $id
-			]);
-			return $data;
-		}
-
-		public function getAgencias(){
-			global $database;
-
-			$data = $database->select('agencias',[
-				'id_agencia',
-				'agencia',
-				'nit',
-				'dv',
-				'direccion',
-				'telefono',
-				'fax',
-				'celular',
-				'email',
-				'id_tarifa',
-				'pais',
-				'ciudad',
-				'potencial',
-				'noches',
-				'comision',
-				'id_forma_pago',
-				'localizacion',
-				'segmento',
-				'estado_credito',
-				'activo'
-			]);
-			return $data;
-		}
-
-		public function getCiudadesPais($pais){
-			global $database;
-
-			$data = $database->select('ciudades',[
-				'id_ciudad',
-				'municipio',
-				'depto'
-			],[
-				'id_pais' => $pais,
-				'ORDER'   => 'municipio'
-			]);
-			return $data;
-		}
-
-		public function getPaices(){
-			global $database;
-
-			$data = $database->select('paices',[
-				'id_pais',
-				'descripcion'
-			],[
-				'ORDER' => 'descripcion'
-			]);
-			return $data;
-		}
-
-		public function getTotalHuespedeseCasaTipo($ctamaster,$tipo){
-			global $database;
-
-			if($tipo==1){
-				$campo = 'can_hombres';
-			}
-			if($tipo==2){
-				$campo = 'can_mujeres';
-			}
-			if($tipo==3){
-				$campo = 'can_ninos';
-			}
-
-
-
-			$data = $database->sum('reservas_pms',[
-				$campo
-			],[
-				'tipo_habitacion[<>]' => $ctamaster, 				
-				'estado'              => 'CA'
-			]);
-			return $data;
-		}
-
-		public function getHuespedesLlegando($ctamaster,$fecha){
-			global $database;
-
-			$data = $database->count('reservas_pms',[
-				'num_habitacion'
-			],[
-				'tipo_habitacion[>]' => $ctamaster, 				
-				'estado'             => 'ES',
-				'fecha_llegada'      => $fecha
-			]);
-			return $data;
-		}
-
-		public function getHuespedesSaliendo($ctamaster,$fecha){
-			global $database;
-
-			$data = $database->count('reservas_pms',[
-				'num_habitacion'
-			],[
-				'tipo_habitacion[>]' => $ctamaster, 				
-				'estado'             => 'SA',
-				'fecha_salida'       => $fecha
-			]);
-			return $data;
-		}
-
-		public function getHuespedesenCasaHotel($ctamaster){
-			global $database;
-
-			$data = $database->count('reservas_pms',[
-				'num_habitacion'
-			],[
-				'tipo_habitacion[>]' => $ctamaster, 				
-				'estado'             => 'CA'
-			]);
-			return $data;
-		}
-
-		public function getTotalHabitacionesOUT($ctamaster,$tipo){
-			global $database;
-
-			$data = $database->count('habitaciones',[
-				'numero_hab'
-			],[
-				'tipo_hab[>]' => $ctamaster,
-				'estado_hk'   => $tipo,
-				'active_at'   => 1
-			]);
-			return $data;
-		}
-
-		public function getTotalHabitacionesHotel($ctamaster){
-			global $database;
-
-			$data = $database->count('habitaciones',[
-				'numero_hab'
-			],[
-				'tipo_hab[>]' => $ctamaster,
-				'active_at'   => 1
-			]);
-			return $data;
-		}
-
-		public function getNombreHuesped($hues){
-			global $database;
-
-			$data = $database->select('huespedes',[
-				'nombre_completo',
-				'apellido1',
-				'apellido2',
-				'nombre1',
-				'nombre2'
-			],[
-				'id_huesped' => $hues
-			]);
-			if(count($data)==0){
-				return '';
-			}else{
-				return $data;
-			}
-		}
-
-		public function getHabitacionLlegandoHoy($hab, $fecha){
-			global $database;
-
-			$data = $database->select('reservas_pms',[
-				'id_huesped'
-			],[
-				'num_habitacion' => $hab,
-				'estado'         => 'ES',
-				'fecha_llegada'  => $fecha		
-			]);
-			if(count($data)==0){
-				return '0';
-			}else{
-				return $data[0]['id_huesped'];
-			}
-		}
-
-		public function getHabitacionenCasa($hab){
-			global $database;
-
-			$data = $database->select('reservas_pms',[
-				'id_huesped'
-			],[
-				'num_habitacion' => $hab,
-				'estado'         => 'CA',				
-			]);
-			if(count($data)==0){
-				return '0';
-			}else{
-				return $data[0]['id_huesped'];
-			}
-		}
-
-		public function getEstadoHabitaciones($ctamaster){
-			global $database;
-
-			$data = $database->select('habitaciones',[
- 				'id',
-				'numero_hab',
-				'estado_fo',
-				'estado_hk',
-				'camas',
-			],[
-				'tipo_hab[>]' => $ctamaster,
-				'active_at' => 1,
-				'ORDER'       => 'numero_hab'
-			]);
-			return $data;
-		}
-
-		public function getReservasActivas($tipo,$estado){
-			global $database;
-
-			$data = $database->count('reservas_pms',[
-				'num_reserva'
-			],[
-				'tipo_reserva'    => $tipo,
-				'estado'          => $estado
-			]);
-			return $data;
-		}
-
-		public function getHuespedesenSalida($tipo,$estado){
-			global $database;
-
-			$data = $database->select('reservas_pms',[
-				'[>]huespedes' => 'id_huesped'
-			],[
-				'reservas_pms.cantidad',
-				'reservas_pms.fecha_llegada',
-				'reservas_pms.fecha_salida',
-				'reservas_pms.dias_reservados',
-				'reservas_pms.tipo_habitacion',
-				'reservas_pms.num_habitacion',
-				'reservas_pms.num_reserva',
-				'reservas_pms.can_hombres',
-				'reservas_pms.can_mujeres',
-				'reservas_pms.can_ninos',
-				'reservas_pms.orden_reserva',
-				'reservas_pms.id_compania',
-				'reservas_pms.tipo_ocupacion',
-				'reservas_pms.tarifa',
-				'reservas_pms.valor_reserva',
-				'reservas_pms.valor_diario',
-				'reservas_pms.estado',
-				'reservas_pms.usuario_cancela',
-				'reservas_pms.fecha_cancela',
-				'reservas_pms.motivo_cancela',
-				'reservas_pms.causar_impuesto',
-				'reservas_pms.observaciones',
-				'huespedes.apellido1',
-				'huespedes.apellido2',
-				'huespedes.nombre1',
-				'huespedes.nombre2',
-				'huespedes.id_huesped'
-			],[
-				'reservas_pms.tipo_reserva' => $tipo,
-				'reservas_pms.estado'       => $estado,
-				'ORDER'                     => 'reservas_pms.num_habitacion'
-			]);
-			return $data;
-		}
-
-		public function getbuscaDatosHuesped($id){
-			global $database;
-
-			$data = $database->select('huespedes',[
-				'apellido1',
-				'apellido2',
-				'nombre1',
-				'nombre2',
-				'nombre_completo',
-				'identificacion',
-				'tipo_identifica',
-				'pais_expedicion',
-				'ciudad_expedicion',
-				'lugar_expedicion',
-				'fecha_nacimiento',
-				'direccion',
-				'telefono',
-				'email',
-				'ciudad',
-				'pais'
-			],[
-				'id_huesped' => $id
- 			]);
-			return $data;
-		}
-
-		public function getbuscaDatosReservaHuesped($reserva){
-			global $database;
-
-			$data = $database->select('reservas_pms',[
-				'num_habitacion',
-				'id_huesped',
-				'causar_impuesto'
-			],[
-				'num_reserva' => $reserva
-			]);
-			return $data;
-		}
-
-		public function getDescripcionIva($codigo){
-			global$database;
-
-			$data = $database->select('codigos_vta',[
-				'descripcion_cargo' 
-			],[
-				'id_cargo' => $codigo
-			]);
-			return $data[0]['descripcion_cargo'];
-		}
-
-		public function getCodigoIvaCargo($codigo){
-			global$database;
-
-			$data = $database->select('codigos_vta',[
-				'id_impto' 
-			],[
-				'id_cargo' => $codigo
-			]);
-			return $data[0]['id_impto'];
-		}
-
-		public function getPorcentajeIvaCargo($codigo){
-			global$database;
-
-			$data = $database->select('codigos_vta',[
-				'porcentaje_impto',
-				'decreto_turismo'
-			],[
-				'id_cargo' => $codigo
-			]);
-			return $data;
-		}
-
-		public function getNumeroAbono(){
-			global $database;
-
-			$data =$database->select('parametros_pms',[
-				'con_abonos'
-			]);
-			return $data[0]['con_abonos'];
-		}
-
-		public function updateNumeroAbonos($numero){
-			global $database;
-
-			$data = $database->update('parametros_pms',[
-				'con_abonos' => $numero
-			]);
-			return $data;
-		}
-
-		public function insertAbonosCuenta($codigo, $textcodigo, $valor, $refer, $detalle, $numero, $room, $idhues, $folio, $canti, $usuario, $idusuario, $fecha, $numabono){
-			global $database;
-
-			$data = $database->insert('cargos_pms',[
-				'fecha_cargo'         => $fecha, 
-				'id_codigo_cargo'     => $codigo,
-				'descripcion_cargo'   => 'ABONO EN '.$textcodigo,
-				'usuario'             => $usuario,
-				'id_usuario'          => $idusuario,
-				'id_huesped'          => $idhues,
-				'cantidad_cargo'      => $canti,
-				'folio_cargo'         => $folio,
-				'pagos_cargos'        => $valor,
-				'habitacion_cargo'    => $room,
-				'concecutivo_abono'   => $numabono, 
-				'numero_reserva'      => $numero,
-				'referencia_cargo'    => $refer,
-				'informacion_cargo'   => $detalle,
-				'fecha_sistema_cargo' => date("Y-m-d H:i:s")
-			]);
-			return $database->id();
-		}
-
-		public function insertCargosConsumos($codigo, $textcodigo, $valor, $canti, $refer, $folio, $detalle, $numero, $idhues, $usuario, $idusuario, $fecha, $room, $totalcargo, $impuesto, $baseimpto, $iva){
-			global $database;
-
-			$data = $database->insert('cargos_pms',[
-				'fecha_cargo'         => $fecha, 
-				'id_codigo_cargo'     => $codigo,
-				'descripcion_cargo'   => $textcodigo,
-				'usuario'             => $usuario,
-				'id_usuario'          => $idusuario,
-				'id_huesped'          => $idhues,
-				'cantidad_cargo'      => $canti,
-				'folio_cargo'         => $folio,
-				'valor_cargo'         => $valor,
-				'monto_cargo'         => $totalcargo,
-				'impuesto'            => $impuesto,
-				'codigo_impto'        => $iva,
-				'base_impuesto'       => $baseimpto,
-				'habitacion_cargo'    => $room,
-				'numero_reserva'      => $numero,
-				'referencia_cargo'    => $refer,
-				'informacion_cargo'   => $detalle,
-				'fecha_sistema_cargo' => date("Y-m-d H:i:s")
-			]);
-			return $database->id();
-		}
-
-		public function getCodigosConsumos($tipo){
-			global $database;
-
-			$data = $database->select('codigos_vta',[
-				'id_cargo',
-				'descripcion_cargo',
-				'id_impto',
-				'codigo_propina',
-				'decreto_turismo'
-			],[
-				'tipo_codigo' => $tipo,
-				'restringido' => 0, 
-				'ORDER'       => 'descripcion_cargo'
-			]);
-			return $data;
-		}
-
-		public function getConsumosReservaFolio($numero,$folio){
-			global $database;
-
-			$data = $database->query("SELECT cargos_pms.habitacion_cargo, Sum(cargos_pms.monto_cargo) as cargos, Sum(cargos_pms.impuesto) as imptos, Sum(cargos_pms.pagos_cargos) as pagos FROM cargos_pms WHERE cargos_pms.numero_reserva = '$numero' and cargos_pms.cargo_anulado = 0 and cargos_pms.factura_numero = 0 and cargos_pms.folio_cargo = '$folio' GROUP BY cargos_pms.numero_reserva ORDER BY cargos_pms.numero_reserva")->fetchAll();
-			return $data;
-		}
-
-		public function getSaldoHabitacion01($reserva){
-			global $database;
-
-			$data = $database->query("SELECT cargos_pms.habitacion_cargo, Sum(cargos_pms.monto_cargo) as cargos, Sum(cargos_pms.impuesto) as imptos, Sum(cargos_pms.pagos_cargos) as pagos FROM cargos_pms WHERE cargos_pms.numero_reserva = '$reserva' and cargos_pms.cargo_anulado = 0 GROUP BY cargos_pms.numero_reserva")->fetchAll();
-			return $data;
-		}
-
-		public function getConsumosReserva($numero){
-			global $database;
-
-			$data = $database->query("SELECT cargos_pms.habitacion_cargo, Sum(cargos_pms.monto_cargo) as cargos, Sum(cargos_pms.impuesto) as imptos, Sum(cargos_pms.pagos_cargos) as pagos FROM cargos_pms WHERE cargos_pms.numero_reserva = '$numero' and cargos_pms.cargo_anulado = 0 AND cargos_pms.tipo_factura = 0 GROUP BY cargos_pms.numero_reserva ORDER BY cargos_pms.numero_reserva")->fetchAll();
-			return $data;
-		}
-
-		public function updateDepositoReserva($numero,$huesped,$hab){
-			global $database;
-
-			$data = $database->update('cargos_pms',[
-				'numero_reserva'   => $numero,
-				'habitacion_cargo' => $hab,
-				'id_huesped'       => $huesped
-			],[
-				'id_reserva' => $numero
-			]);
-			return $data->rowCount();
-		}
-
-		public function getBuscaReservaDeposito($numero){
-			global $database;
-
-			$data = $database->select('reservas_pms',[
-				'id_huesped',
-				'num_habitacion',
-				'tipo_habitacion',
-				'num_reserva'
-			],[
-				'num_reserva' => $numero
-			]);
-			if(count($data)==0){
-				return 0;
-			}else{
-				return $data[0];
-			}
-		}
-
-		public function getBuscaDeposito($numero){
-			global $database;
-
-			$data = $database->count('cargos_pms',[
-				'id_reserva' => $numero
-			]);
-			return $data;
-		}
-
-		public function getRegistroHotelero($numero){
-			global $database;
-
-			$data = $database->select('reservas_pms',[
-				'num_registro'
-			],[
-				'num_reserva' => $numero
-			]);
-			if(count($data)==0){
-				return 0;
-			}else{
-				return $data[0]['num_registro'];
-			}
-		}
-
-		public function updateIngresaReserva($numero, $usuario){
-			global $database;
-
-			$data = $database->update('reservas_pms',[
-				'estado'          => 'CA',
-				'tipo_reserva'    => 2,
-				'usuario_ingreso' => $usuario,
-				'hora_llegada'    => date("H:i:s"),
-				'fecha_ingreso'   => date("Y-m-d H:i:s")
- 			],[
- 				'num_reserva' => $numero
-			]);
-			return $data->rowCount();
-		}
-
-		public function getFacturacionenCasa($tipo,$estado){
-			global $database;
-
-			$data = $database->query("SELECT cargos_pms.habitacion_cargo, Sum(cargos_pms.monto_cargo) as cargos, Sum(cargos_pms.impuesto) as imptos, Sum(cargos_pms.pagos_cargos) as pagos, cargos_pms.descripcion_cargo, reservas_pms.num_reserva, reservas_pms.tipo_habitacion, reservas_pms.orden_reserva, reservas_pms.num_habitacion, reservas_pms.fecha_llegada, reservas_pms.causar_impuesto, reservas_pms.fecha_salida, huespedes.nombre1, huespedes.nombre2, huespedes.apellido1, huespedes.apellido2,  huespedes.identificacion FROM cargos_pms, reservas_pms, huespedes WHERE cargos_pms.numero_reserva = reservas_pms.num_reserva AND reservas_pms.tipo_reserva = '$tipo' AND reservas_pms.estado = '$estado' AND cargos_pms.cargo_anulado = 0 AND reservas_pms.id_huesped = huespedes.id_huesped GROUP BY cargos_pms.habitacion_cargo, cargos_pms.numero_reserva ORDER BY cargos_pms.habitacion_cargo ASC, cargos_pms.numero_reserva ASC")->fetchAll();
-			return $data;
-		}
-
-		public function getNumeroPMDeposito($cuenta){
-			global $database;
-
-			$data = $database->select('reservas_pms',[
-				'num_reserva'
-			],[
-				'num_habitacion' => $cuenta,
-				'estado'         => 'CA'
-			]);
-			if(count($data)==0){
-				return '0';
-			}else{			
-				return $data[0]['num_reserva'];
-			}
-		}
-
-		public function insertDepositoReserva($fecha, $forma, $valor, $detalle, $numero, $idhues, $idusuario, $usuario, $ctadeposito, $folio, $numdeposito, $encasa, $textoforma){
-			global $database;
-
-			$data = $database->insert('cargos_pms',[
-				'fecha_cargo'          => $fecha, 
-				'id_codigo_cargo'      => $forma,
-				'habitacion_cargo'     => $ctadeposito,
-				'descripcion_cargo'    => 'DEPOSITO EN '.$textoforma,
-				'usuario'              => $usuario,
-				'id_usuario'           => $idusuario,
-				'id_huesped'           => $idhues,
-				'cantidad_cargo'       => 1,
-				'folio_cargo'          => $folio,
-				'pagos_cargos'         => $valor,
-				'concecutivo_deposito' => $numdeposito,
-				'informacion_cargo'    => $detalle,
-				'numero_reserva'       => $encasa,
-				'id_reserva'           => $numero,
-				'fecha_sistema_cargo'  => date("Y-m-d H:i:s")
-			]);
-			return $database->id();
-		}
-
-		public function getNumeroDeposito(){
-			global $database;
-
-			$data =$database->select('parametros_pms',[
-				'con_deposito'
-			]);
-			return $data[0]['con_deposito'];
-		}
-
-		public function updateNumeroDeposito($numero){
-			global $database;
-
-			$data = $database->update('parametros_pms',[
-				'con_deposito' => $numero
-			]);
-			return $data;
-		}
-
-		public function getCuentaDepositosPms(){
-			global $database;
-
-			$data = $database->select('parametros_pms',[
-				'cuenta_depositos'
-			]);
-			return $data[0]['cuenta_depositos'];
-		}
-
-		public function getMotivoCancelacion($tipo){
-			global $database;
-
-			$data = $database->select('motivo_cancelacion',[
-				'id_cancela',
-				'descripcion_motivo'
-			],[
-				'tipo_cancelacion' => $tipo,
-				'ORDER'            => 'descripcion_motivo'
-			]);
-			return $data;
-		}
-
-		public function updateCancelaReserva($numero, $usuario, $motivo, $observa){
-			global $database;
-
-			$data = $database->update('reservas_pms',[
-				'estado'          => 'CX',
-				'motivo_cancela'  => $motivo,
-				'usuario_cancela' => $usuario,
-				'observaciones_cancela' => $observa,
-				'fecha_cancela'   => date("Y-m-d H:i:s")
- 			],[
- 				'num_reserva' => $numero
-			]);
-			return $data->rowCount();
-		}
-
-		public function getCountHuespedesenCasa($ctamaster,$fecha){
-			global $database;
-
-			$data = $database->count('reservas_pms',[
-				'id'
-			],[
-				'tipo_reserva'        => 2,
-				'estado'              => 'CA'
-			]);
-			return $data;
-		}
-
-		public function getCountCuentasMaestrasenCasa($ctamaster,$fecha){
-			global $database;
-
-			$data = $database->count('reservas_pms',[
-				'id'
-			],[
-				'tipo_reserva'    => 2,
-				'estado'          => 'CA',
-				'tipo_habitacion' => $ctamaster
-			]);
-			return $data;
-		}
-
-		public function getTotalHuespedeseCasa($tipo){
-			global $database;
-
-			$data = $database->query("SELECT count(id) as habi, Sum(reservas_pms.can_hombres) AS hom, Sum(reservas_pms.can_mujeres) AS muj, Sum(reservas_pms.can_ninos) AS nin FROM reservas_pms WHERE reservas_pms.estado = 'CA' AND reservas_pms.tipo_habitacion <> 'CMA'")->fetchAll(); 
-
-			return $data;
-		}
-
-		public function getTotalCuentasMaestras(){
-			global $database;
-
-			$data = $database->count('reservas_pms',[
-				'id'
-			],[
-				'tipo_habitacion' => 'CMA',
-				'estado'          => 'CA'
-			]);
-			/// $data = $database->query("SELECT count(id) as cmaster, FROM reservas_pms WHERE reservas_pms.estado = 'CA' AND reservas_pms.tipo_habitacion = 'CMA'")->fetchAll(); 
-
-			return $data;
-		}
-
-		public function getTotalHuespedeseCasaOld($ctamaster,$tipo){
-			global $database;
-
-			$data = $database->query("SELECT count(id) as habi, Sum(reservas_pms.can_hombres) AS hom, Sum(reservas_pms.can_mujeres) AS muj, Sum(reservas_pms.can_ninos) AS nin FROM reservas_pms WHERE reservas_pms.estado = 'CA' AND reservas_pms.tipo_habitacion <> 'CMA'")->fetchAll(); 
-
-			return $data;
-		}
-
-		public function getTotalHuespedeseSaliendo(){
-			global $database;
-			
-			$fecha  = FECHA_PMS;
-			$ctamas = CTA_MASTER;
-
-			$data = $database->query("SELECT count(id) as habi, Sum(reservas_pms.can_hombres) AS hom, Sum(reservas_pms.can_mujeres) AS muj, Sum(reservas_pms.can_ninos) AS nin FROM reservas_pms WHERE reservas_pms.estado = 'CA' AND reservas_pms.fecha_salida = '$fecha'")->fetchAll(); 
-
-			return $data;
-		}
-
-		public function getTotalHuespedeseLlegando(){
-			global $database;
-			
-			$fecha  = FECHA_PMS;
-			$ctamas = CTA_MASTER;
-
-			$data = $database->query("SELECT count(id) as habi, Sum(reservas_pms.can_hombres) AS hom, Sum(reservas_pms.can_mujeres) AS muj, Sum(reservas_pms.can_ninos) AS nin FROM reservas_pms WHERE reservas_pms.estado = 'ES' AND reservas_pms.fecha_llegada = '$fecha'")->fetchAll(); 
-
-			return $data;
-		}
-
-
-		public function getLlegadasDelDia($tipo,$fecha,$estado){
-			global $database;
-
-			$data = $database->count('reservas_pms',[
-				'id'
-			],[
-				'tipo_reserva'        => $tipo,
-				'fecha_llegada'       => $fecha,
-				'estado'              => $estado
-			]);
-			return $data;
-		}
-
-		public function getRegistrosDelDia($fecha){
-			global $database;
-
-			$data = $database->count('reservas_pms',[
-				'id'
-			],[
-				'estado'       => 'CA',
-				'num_registro' => 0
-			]);
-			return $data;
-		}
-
-		public function getSalidasDelDia($fecha){
-			global $database;
-
-			$data = $database->count('reservas_pms',[
-				'id'
-			],[
-				'tipo_reserva' => 2,
-				'fecha_salida' => $fecha,
-				'estado'       => 'CA'
-			]);
-			return $data;
-		}
-
-		public function getNumeroTarifa($id){
-			global $database;
-
-			$data = $database->select('tarifas',[
-			]);
-			return $data;
-		} 
-
-		public function getNombreTarifa($tipo){
-			global $database;
-
-			$data = $database->select('valores_tarifas',[
-				'[<]tarifas' => ['id_subtarifa' => 'id_tarifa']
-			],[
-				'tarifas.descripcion_tarifa'
-			],[
-				'valores_tarifas.id' => $tipo
-			]);
-			return $data[0]['descripcion_tarifa'];
-		}
-
-		public function getNombreTipoHabitacion($tipo){
-			global $database;
-
-			$data = $database->select('tipo_habitaciones',[
-				'descripcion_habitacion'
-			],[
-				'id' => $tipo
-			]);
-			return $data;
-		}
-
-		public function getMotivoViaje(){
-			global $database;
-
-			$data  = $database->select('tipo_viaje',[
-				'id_tipo_viaje',
-				'descripcion_viaje'
-			],[
-				'ORDER' => 'descripcion_viaje'
-			]);
-			return $data;
-		}
-
-		public function getbuscaCompania($id){
-			global $database;
-
-			$data = $database->count('companias',[
-				'nit' => $id
-			]);
-			return $data;
-		}
-
-		public function insertaNuevaCompania($nit, $dv, $tipodoc, $compania, $direccion, $ciudad, $telefono, $celular, $web, $correo, $tarifa, $formapago, $credito, $monto, $diascre, $diacorte, $usuario, $tipoemp, $codciiu){
-			global $database;
-
-			$data = $database->insert('companias',[
-				'empresa'           => $compania,
-				'direccion'         => $direccion,
-				'nit'               => $nit,
-				'dv'                => $dv,
-				'tipo_documento'    => $tipodoc,
-				'telefono'          => $telefono,
-				'celular'           => $celular,
-				'email'             => $correo,
-				'web'               => $web,
-				'ciudad'            => $ciudad,
-				'credito'           => $credito,
-				'monto_credito'     => $monto,
-				'dias_credito'      => $diascre,
-				'id_forma_pago'     => $formapago,
-				'dia_corte_credito' => $diacorte,
-				'created_at'        => date("Y-m-d H:i:s"),				
-				'id_tarifa'         => $tarifa,
-				'usuario'           => $usuario,
-				'activo'            => 1,
-				'tipo_empresa'      => $tipoemp,
-				'id_codigo_ciiu'    => $codciiu,
-				'tipo_compania'     => 3
-			]);
-			return $database->id();
-		}
-
-		public function getFormasPago(){
-			global $database;
-
-			$data = $database->select('codigos_vta',[
-				'id',
-				'descripcion'
-			],[	
-				'ORDER' => 'descripcion'
-			]);
-			return $data;
-		}
-
-		public function getTarifasHuespedes(){
-			global $database;
-
-			$data = $database->select('tarifas',[
-				'id_tarifa',
-				'descripcion_tarifa'
-			],[
-				'ORDER' => 'descripcion_tarifa'
-			]);
-			return $data;
-		}
-
-		public function getTipoHuespedes(){
-			global $database;
-
-			$data  = $database->select('tipo_huesped',[
-				'id_tipo_huesped',
-				'descripcion_tipo'
-			]);
-			return $data;
-		} 
-
-		public function insertaNuevoHuesped($iden, $tipodoc, $apellido1, $apellido2, $nombre1, $nombre2, $sexo, $direccion, $telefono,  $celular, $correo, $fechanace, $tipohues, $tarifa, $pais, $ciudad, $formapago, $paisExp, $ciudadExp, $usuario, $idusuario){
-			global $database;
-
-			$data = $database->insert('huespedes',[
-				'apellido1'         => $apellido1,
-				'apellido2'         => $apellido2,
-				'nombre1'           => $nombre1,
-				'nombre2'           => $nombre2,
-				'direccion'         => $direccion,
-				'telefono'          => $telefono,
-				'email'             => $correo,
-				'identificacion'    => $iden,
-				'tipo_identifica'   => $tipodoc,
-				'pais_expedicion'   => $paisExp,
-				'ciudad_expedicion' => $ciudadExp,
-				'fecha_nacimiento'  => $fechanace,
-				'estado_credito'    => 1,
-				'sexo'              => $sexo,
-				'usuario_creador'   => $usuario,
-				'id_usuario'        => $idusuario,
-				'fecha_creacion'    => date("Y-m-d H:i:s"),
-				'celular'           => $celular,
-				'tipo_huesped'      => $tipohues,
-				'id_tarifa'         => $tarifa,
-				'pais'              => $pais,
-				'ciudad'            => $ciudad,
-				'nombre_completo'   => $apellido1.' '.$apellido2.' '.$nombre1.' '.$nombre2,
-				'id_forma_pago'     => $formapago
-			]);
-			return $database->id();
-		}
-
-		public function getTipoDocumento(){
-			global $database;
-
-			$data = $database->select('tipo_documento',[
-				'id_doc',
-				'descripcion_documento'
-			],[
-				'ORDER' => 'descripcion_documento'
-			]);
-			return $data;
-		}
-
-		public function getbuscaHuesped($id){
-			global $database;
-
-			$data = $database->count('huespedes',[
-				'identificacion' => $id
-			]);
-			return $data;
-		}
-
-		public function getNombreEmpresa($id){
-			global $database;
-
-			$data = $database->select('companias',[
-				'nit',
-				'dv',
-				'empresa'
-			],[
-				'id_compania' => $id
-			]);
-			return $data;
-		}
-
-		public function insertNuevaReserva($iden, $llegada, $salida, $noches, $hombres, $mujeres, $ninos, $orden, $tipohabi, $nrohabitacion, $tarifahab, $valortarifa, $origen, $destino, $motivo, $fuente, $segmento, $idhuesp, $idcia, $idCentro, $numero, $usuario, $estado, $observa, $formapa, $sinrese, $impto, $idusuario, $tipo){
-			global $database;
-
-			$data = $database->insert('reservas_pms',[
-				'cantidad'           => 1,
-				'estado'             => $estado,				
-				'dias_reservados'    => $noches,
-				'fecha_llegada'      => $llegada,
-				'fecha_salida'       => $salida,
-				'num_habitacion'     => $nrohabitacion,
-				'num_reserva'        => $numero,
-				'can_hombres'        => $hombres,
-				'can_mujeres'        => $mujeres,
-				'can_ninos'          => $ninos,
-				'orden_reserva'      => $orden,
-				'origen_reserva'     => $origen,
-				'destino_reserva'    => $destino,
-				'id_compania'        => $idcia,
-				'idCentroCia'        => $idCentro,
-				'id_huesped'         => $idhuesp,
-				'segmento_mercado'   => $segmento,
-				'tarifa'             => $tarifahab,
-				'tipo_habitacion'    => $tipohabi,
-				'valor_reserva'      => ($valortarifa * $noches),
-				'valor_diario'       => $valortarifa,
-				'motivo_viaje'       => $motivo,
-				'fecha_reserva'      => FECHA_PMS,
-				'hora_llegada'       => date("H:i:s"),
-				'fuente_reserva'     => $fuente,
-				'usuario'            => $usuario,
-				'usuario_ingreso'    => $usuario,
-				'id_usuario_ingreso' => $idusuario,
-				'observaciones'      => $observa,
-				'sinreserva'         => $sinrese,
-				'forma_pago'         => $formapa,
-				'causar_impuesto'    => $impto,
-				'tipo_reserva'       => $tipo,
-				'fecha_ingreso'      => date("Y-m-d H:i:s")
-			]);
-			return $database->id();
-		}
-
-		public function updateNumeroReserva($numero){
-			global $database;
-
-			$data = $database->update('parametros_pms',[
-				'con_reserva' => $numero
-			]);
-			return $data->rowCount();
-		}
-
-		public function getNumeroReserva(){
-			global $database;
-
-			$data =$database->select('parametros_pms',[
-				'con_reserva'
-			]);
-			return $data[0]['con_reserva'];
-		}
-
-		public function getCiudades(){
-			global $database;
-
-			$data = $database->select('ciudades',[
-				'id_ciudad',
-				'codigo',
-				'municipio',
-				'depto'
-			],[
-				'ORDER' => 'municipio'
-			]);
-			return $data;
-		}
-
-		public function getSeleccionFuente(){
-			global $database;
-
-			$data = $database->select('fuente_reserva',[
-				'id_fuente',
-				'descripcion_fuente'
-			],[
-				'ORDER' => 'descripcion_fuente'
-			],[
-				'active_at' => 1
-			]);
-			return $data;
-		}
-
-		public function getBuscaCia($id){
-			global $database;
-
-			$data = $database->select('companias',[
-				'empresa',
-				'nit',
-				'dv'
-			],[
-				'id_compania' => $id
-			]);
-			return $data;
-		}
-
-
-		public function getSeleccionaCompania($id){
-			global $database;
-
-			$data = $database->select('companias',[
-				'id_compania',
-				'empresa',
-				'nit',
-				'dv',
-				'direccion',
-				'telefono',
-				'celular',
-				'email',
-				'ciudad',
-				'credito',
-				'dias_credito',
-				'dia_corte_credito',
-				'estado_credito',
-				'activo'
-			],[
-				'id_compania' => $id
-			]);
-			return $data;
-		}
-
-		public function getSeleccionaAgencia($id){
-			global $database;
-
-			$data = $database->select('agencias',[
-				'id_agencia',
-				'agencia',
-				'nit',
-				'dv',
-				'direccion',
-				'telefono',
-				'email'
-			],[
-				'id_compania' => $id
-			]);
-			return $data;
-		}
-
-		public function getSeleccionaHuesped($id){
-			global $database;
-
-			$data = $database->select('huespedes',[
-				'id_huesped',
-				'identificacion',
-				'apellido1',
-				'apellido2',
-				'nombre1',
-				'nombre2',
-				'direccion',
-				'celular',
-				'tipo_identifica',
-				'email',
-				'sexo',
-				'id_compania',
-				'idCentroCia',
-				'pais'
-			],[
-				'id_huesped' => $id
-			]);
-			return $data;
-		}
-
-		public function getValorTarifa($tarifa){
-			global $database;
-
-			$data = $database->select('valores_tarifas',[
-				'valor_un_pax',
-				'valor_dos_pax',
-				'valor_tre_pax',
-				'valor_cua_pax',
-				'valor_cin_pax',
-				'valor_sei_pax',
-				'valor_sie_pax',
-				'valor_och_pax',
-				'valor_nue_pax',
-				'valor_die_pax',
-				'valor_nino',
-				'valor_adicional',
-				'valor_dormitorio'
-			],[
-				'id' => $tarifa
-			]);
-			return $data;
-		}
-
-		public function getSeleccionaTarifa($tipo,$llega,$sale){
-			global $database;
-			$data = $database->select('valores_tarifas',[
-				'[>]tarifas' => ['id_subtarifa' => 'id_tarifa']
-			],[
-				'valores_tarifas.id',
-				'tarifas.descripcion_tarifa',
-				'valores_tarifas.id_tipohabitacion'
-			],[
-				'valores_tarifas.id_tipohabitacion' => $tipo,
-				'ORDER' => 'tarifas.descripcion_tarifa'
-			]);
-			return $data;
-		}
-
-		public function getSeleccionaDormitorio($tipo){
-			global $database;
-
-			$data = $database->select('habitaciones',[
-				'numero_hab',
-				'dormitorios'
-			],[
-				'ORDER' => 'orden_dormitorio'
-			],[
-				'tipo_hab' => $tipo,
-				'orden_dormitorio' => Null
-			]);
-			return $data;
-		}
-
-		public function getSeleccionaHabitacionesTipo($tipo){
-			global $database;
-
-			$data = $database->query("SELECT numero_hab as num_habitacion FROM habitaciones WHERE id_tipohabitacion = '$tipo' AND active_at = 1 ORDER BY numero_hab")->fetchAll();
-
-			return $data;
-		}
-
-		public function getTipoHabitacion(){
-			global $database;
-
-			$data = $database->select('tipo_habitaciones',[
-				'id',
-				'codigo',
-				'descripcion_habitacion',
-				'sector_habitacion',
-				'deptoventa_habitacion',
-				'tipo_habitacion',
-			],[
-				'active_at'       => 1, 
-				'ORDER'           => 'descripcion_habitacion'
-			]);
-			return $data;
-		}
-
-		public function getDatePms(){
-			global $database;
-
-			$data = $database->select('parametros_pms',[
-				'fecha_auditoria'
-			],[
-				"LIMIT"      => 1
-			]);
-			return $data;
-		}
-
-		public function getPerfilHuespedes($regis, $filas){
-			global $database;
-
-			$data = $database->select('huespedes',[
-				'id_huesped',
-				'nombre1',
-				'nombre2',
-				'apellido1',
-				'apellido2',
-				'nombre_completo',
-				'identificacion',
-				'direccion',
-				'telefono',
-				'email',
-				'tipo_identifica',
-				'tipo_huesped',
-				'fecha_nacimiento',
-				'sexo', 
-				'celular',
-				'id_compania',
-				'idCentroCia',
-				'estado_credito'
-			],[
-				"LIMIT" => [$regis, $filas],
-				'ORDER' => 'apellido1'
-			]);
-			return $data;
-		}
-
-		public function getCompanias(){
-			global $database;
-
-			$data = $database->select('companias',[
-				'id_compania',
-				'empresa',
-				'direccion',
-				'nit',
-				'dv',
-				'tipo_documento',
-				'telefono',
-				'celular',
-				'fax',
-				'email',
-				'id_tarifa',
-				'estado_credito',
-				'activo'
-			],[
-				'ORDER' => 'empresa'
-			]);
-			return $data;
-		}
-
-		public function getReservasActuales($tipo){
-			global $database;
-
-			$data = $database->select('reservas_pms',[
-				'[>]huespedes' => 'id_huesped'
-			],[
-				'reservas_pms.cantidad',
-				'reservas_pms.fecha_llegada',
-				'reservas_pms.fecha_salida',
-				'reservas_pms.dias_reservados',
-				'reservas_pms.tipo_habitacion',
-				'reservas_pms.tipo_reserva',
-				'reservas_pms.num_habitacion',
-				'reservas_pms.num_reserva',
-				'reservas_pms.can_hombres',
-				'reservas_pms.can_mujeres',
-				'reservas_pms.can_ninos',
-				'reservas_pms.id_compania',
-				'reservas_pms.idCentroCia',
-				'reservas_pms.tipo_ocupacion',
-				'reservas_pms.tarifa',
-				'reservas_pms.valor_reserva',
-				'reservas_pms.valor_diario',
-				'reservas_pms.estado',
-				'reservas_pms.observaciones',
-				'reservas_pms.observaciones_cancela',
-				'reservas_pms.salida_checkout',
-				'reservas_pms.causar_impuesto',
-				'reservas_pms.orden_reserva',
-				'huespedes.nombre_completo',
-				'huespedes.nombre1',
-				'huespedes.nombre2',
-				'huespedes.apellido1',
-				'huespedes.apellido2',
-				'huespedes.fecha_nacimiento',
-				'huespedes.id_huesped'
-			],[
-				'reservas_pms.tipo_reserva' => $tipo
-			]);
-			return $data;
-		}
-
-		public function getHuespedesenCasa($tipo,$estado){
-			global $database;
-
-			$data = $database->select('reservas_pms',[
-				'[>]huespedes' => 'id_huesped'
-			],[
-				'reservas_pms.id',
-				'reservas_pms.cantidad',
-				'reservas_pms.fecha_llegada',
-				'reservas_pms.fecha_salida',
-				'reservas_pms.dias_reservados',
-				'reservas_pms.tipo_reserva',
-				'reservas_pms.tipo_habitacion',
-				'reservas_pms.num_habitacion',
-				'reservas_pms.num_reserva',
-				'reservas_pms.can_hombres',
-				'reservas_pms.can_mujeres',
-				'reservas_pms.can_ninos',
-				'reservas_pms.id_compania',
-				'reservas_pms.idCentroCia',
-				'reservas_pms.tipo_ocupacion',
-				'reservas_pms.tarifa',
-				'reservas_pms.valor_reserva',
-				'reservas_pms.valor_diario',
-				'reservas_pms.estado',
-				'reservas_pms.salida_checkout',
-				'reservas_pms.observaciones',
-				'reservas_pms.causar_impuesto',
-				'reservas_pms.usuario',
-				'reservas_pms.fecha_ingreso',
-				'huespedes.nombre_completo',
-				'huespedes.nombre1',
-				'huespedes.nombre2',
-				'huespedes.apellido1',
-				'huespedes.apellido2',
-				'huespedes.fecha_nacimiento',
-				'huespedes.id_huesped'
-			],[
-				'reservas_pms.tipo_reserva' => $tipo,
-				'reservas_pms.estado'       => $estado,
-				'ORDER'                     => 'reservas_pms.num_habitacion'
-			]);
-			return $data;
-		}
-
-		public function getHuespedesenCasasinCtaMaster($tipo,$estado,$ctamaster){
-			global $database;
-
-			$data = $database->select('reservas_pms',[
-				'[>]huespedes'         => 'id_huesped',
-				'[>]tipo_habitaciones' => ['tipo_habitacion' => 'id']
-			],[
-				'reservas_pms.cantidad',
-				'reservas_pms.fecha_llegada',
-				'reservas_pms.fecha_salida',
-				'reservas_pms.dias_reservados',
-				'reservas_pms.tipo_habitacion',
-				'reservas_pms.num_habitacion',
-				'reservas_pms.num_reserva',
-				'reservas_pms.can_hombres',
-				'reservas_pms.can_mujeres',
-				'reservas_pms.can_ninos',
-				'reservas_pms.id_compania',
-				'reservas_pms.idCentroCia',
-				'reservas_pms.tipo_ocupacion',
-				'reservas_pms.tarifa',
-				'reservas_pms.valor_reserva',
-				'reservas_pms.valor_diario',
-				'reservas_pms.estado',
-				'reservas_pms.observaciones',
-				'reservas_pms.causar_impuesto',
-				'huespedes.nombre_completo',
-				'huespedes.nombre1',
-				'huespedes.nombre2',
-				'huespedes.apellido1',
-				'huespedes.apellido2',
-				'huespedes.fecha_nacimiento',
-				'huespedes.id_huesped'
-			],[
-				'reservas_pms.fecha_salida[>]'      => FECHA_PMS,
-				'reservas_pms.tipo_reserva'         => $tipo,
-				'tipo_habitaciones.tipo_habitacion' => 1,
-				'reservas_pms.estado'               => $estado,
-				'ORDER'                             => 'reservas_pms.num_habitacion'
-			]);
-			return $data;
-		}
-
-		public function getCtaMasterinHouse($tipo,$estado,$ctamaster){
-			global $database;
-
-			$data = $database->select('reservas_pms',[
-				'[>]huespedes' => 'id_huesped'
-			],[
-				'reservas_pms.cantidad',
-				'reservas_pms.fecha_llegada',
-				'reservas_pms.fecha_salida',
-				'reservas_pms.dias_reservados',
-				'reservas_pms.tipo_habitacion',
-				'reservas_pms.num_habitacion',
-				'reservas_pms.num_reserva',
-				'reservas_pms.can_hombres',
-				'reservas_pms.can_mujeres',
-				'reservas_pms.can_ninos',
-				'reservas_pms.id_compania',
-				'reservas_pms.idCentroCia',
-				'reservas_pms.tipo_ocupacion',
-				'reservas_pms.tarifa',
-				'reservas_pms.valor_reserva',
-				'reservas_pms.valor_diario',
-				'reservas_pms.estado',
-				'reservas_pms.observaciones',
-				'reservas_pms.causar_impuesto',
-				'huespedes.nombre1',
-				'huespedes.nombre2',
-				'huespedes.apellido1',
-				'huespedes.apellido2',
-				'huespedes.id_huesped'
-			],[
-				'reservas_pms.tipo_reserva' => $tipo,
-				'reservas_pms.estado'       => $estado,
-				'ORDER'                     => 'reservas_pms.num_habitacion'
-			]);
-			return $data;
-		}
-
-		public function getReservasDia($fecha,$tipo,$estado){
-			global $database;
-
-			$data = $database->select('reservas_pms',[
-				'[>]huespedes' => 'id_huesped'
-			],[
-				'reservas_pms.cantidad',
-				'reservas_pms.fecha_llegada',
-				'reservas_pms.fecha_salida',
-				'reservas_pms.dias_reservados',
-				'reservas_pms.tipo_habitacion',
-				'reservas_pms.num_habitacion',
-				'reservas_pms.num_reserva',
-				'reservas_pms.can_hombres',
-				'reservas_pms.can_mujeres',
-				'reservas_pms.can_ninos',
-				'reservas_pms.id_compania',
-				'reservas_pms.idCentroCia',
-				'reservas_pms.id_huesped',
-				'reservas_pms.tarifa',
-				'reservas_pms.valor_reserva',
-				'reservas_pms.valor_diario',
-				'reservas_pms.observaciones',
-				'reservas_pms.tipo_ocupacion',
-				'reservas_pms.tipo_reserva',
-				'reservas_pms.estado',
-				'reservas_pms.causar_impuesto',
-				'huespedes.nombre1',
-				'huespedes.nombre2',
-				'huespedes.apellido1',
-				'huespedes.apellido2',
-				'huespedes.fecha_nacimiento',
-				'huespedes.nombre_completo'
-			],[
-				'reservas_pms.tipo_reserva'  => $tipo,
-				'reservas_pms.estado'        => $estado,
-				'reservas_pms.fecha_llegada' => $fecha,
-				'ORDER' => ['reservas_pms.num_habitacion' => 'ASC']
-			]);
-			return $data;
-		}
-
-		public function getSalidasDia($fecha,$tipo,$estado){
-			global $database;
-
-			$data = $database->select('reservas_pms',[
-				'[>]huespedes' => 'id_huesped'
-			],[
-				'reservas_pms.cantidad',
-				'reservas_pms.fecha_llegada',
-				'reservas_pms.fecha_salida',
-				'reservas_pms.salida_checkout',
-				'reservas_pms.dias_reservados',
-				'reservas_pms.tipo_habitacion',
-				'reservas_pms.num_habitacion',
-				'reservas_pms.num_reserva',
-				'reservas_pms.can_hombres',
-				'reservas_pms.can_mujeres',
-				'reservas_pms.can_ninos',
-				'reservas_pms.id_compania',
-				'reservas_pms.idCentroCia',
-				'reservas_pms.tarifa',
-				'reservas_pms.valor_reserva',
-				'reservas_pms.valor_diario',
-				'reservas_pms.observaciones',
-				'reservas_pms.tipo_ocupacion',
-				'reservas_pms.tipo_reserva',
-				'reservas_pms.estado',
-				'reservas_pms.causar_impuesto',
-				'huespedes.id_huesped',
-				'huespedes.nombre_completo',
-				'huespedes.nombre1',
-				'huespedes.nombre2',
-				'huespedes.apellido1',
-				'huespedes.apellido2'
-			],[
-				'tipo_reserva' => $tipo,
-				'estado'       => $estado,
-				'fecha_salida' => $fecha,
-				'ORDER' => ['reservas_pms.num_habitacion' => 'ASC']
-			]);
-			return $data;
-		}
-
-	}
- ?>
+        return $data;
+    }
+
+    public function getTipoDocumentoHuesped($id)
+    {
+        global $database;
+
+        $data = $database->select('tipo_documento', [
+            'descripcion_documento',
+        ], [
+            'id_doc' => $id,
+        ]);
+
+        return $data[0]['descripcion_documento'];
+    }
+
+    public function getDatosHuespedReserva($id)
+    {
+        global $database;
+
+        $data = $database->select('huespedes', [
+            'apellido1',
+            'apellido2',
+            'nombre1',
+            'nombre2',
+            'direccion',
+            'identificacion',
+            'telefono',
+            'email',
+            'celular',
+            'pais_expedicion',
+            'ciudad_expedicion',
+            'fecha_nacimiento',
+            'tipo_identifica',
+            'fecha_creacion',
+            'usuario_creador',
+        ], [
+            'id_huesped' => $id,
+        ]);
+
+        return $data;
+    }
+
+    public function sumPagosdelDia($fecha)
+    {
+        global $database;
+
+        $data = $database->sum('cargos_pms', [
+            'pagos_cargos',
+        ], [
+                'fecha_cargo' => $fecha,
+                'cargo_anulado' => 0,
+                'concecutivo_deposito[>]' => 0,
+                'concecutivo_abono[>]' => 0,
+        ]);
+
+        return $data;
+    }
+
+    public function sumDepositosdelDia($fecha)
+    {
+        global $database;
+
+        $data = $database->sum('cargos_pms', [
+            'pagos_cargos',
+        ], [
+            'fecha_cargo' => $fecha,
+            'cargo_anulado' => 0,
+            'concecutivo_deposito[>]' => 0,
+        ]);
+
+        return $data;
+    }
+
+    public function sumAbonosdelDia($fecha)
+    {
+        global $database;
+
+        $data = $database->sum('cargos_pms', [
+            'pagos_cargos',
+        ], [
+            'fecha_cargo' => $fecha,
+            'cargo_anulado' => 0,
+            'concecutivo_abono[>]' => 0,
+        ]);
+
+        return $data;
+    }
+
+    public function sumCargosdelDia($fecha)
+    {
+        global $database;
+
+        $data = $database->sum('cargos_pms', [
+            'monto_cargo',
+        ], [
+            'fecha_cargo' => $fecha,
+            'cargo_anulado' => 0,
+        ]);
+
+        return $data;
+    }
+
+    public function updateAnulaConsumo($id, $motivo, $fecha, $usuario, $idusuario)
+    {
+        global $database;
+
+        $data = $database->update('cargos_pms', [
+            'cargo_anulado' => 1,
+            'fecha_anulacion' => $fecha,
+            'usuario_anulacion' => $usuario,
+            'id_usuario_anulacion' => $idusuario,
+            'motivo_anulacion' => $motivo,
+        ], [
+            'id_cargo' => $id,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function getSalidasSinRealizar($ctamaster, $fecha)
+    {
+        global $database;
+
+        $data = $database->select('reservas_pms', [
+            '[>]huespedes' => 'id_huesped',
+        ], [
+            'huespedes.nombre1',
+            'huespedes.nombre2',
+            'huespedes.apellido1',
+            'huespedes.apellido2',
+            'huespedes.id_huesped',
+            'reservas_pms.id',
+            'reservas_pms.cantidad',
+            'reservas_pms.dias_reservados',
+            'reservas_pms.estado',
+            'reservas_pms.fecha_llegada',
+            'reservas_pms.fecha_salida',
+            'reservas_pms.tipo_reserva',
+            'reservas_pms.num_habitacion',
+            'reservas_pms.num_reserva',
+            'reservas_pms.can_hombres',
+            'reservas_pms.can_mujeres',
+            'reservas_pms.can_ninos',
+            'reservas_pms.orden_reserva',
+            'reservas_pms.origen_reserva',
+            'reservas_pms.destino_reserva',
+            'reservas_pms.id_agencia',
+            'reservas_pms.id_compania',
+            'reservas_pms.id_huesped',
+            'reservas_pms.tarifa',
+            'reservas_pms.tipo_habitacion',
+            'reservas_pms.tipo_ocupacion',
+            'reservas_pms.valor_reserva',
+            'reservas_pms.valor_diario',
+            'reservas_pms.motivo_viaje',
+            'reservas_pms.fecha_reserva',
+            'reservas_pms.usuario',
+            'reservas_pms.observaciones',
+            'reservas_pms.fuente_reserva',
+            'reservas_pms.causar_impuesto',
+            'reservas_pms.cargo_habitacion',
+        ], [
+            'reservas_pms.tipo_habitacion[<>]' => $ctamaster,
+            'reservas_pms.estado' => 'CA',
+            'reservas_pms.fecha_salida' => $fecha,
+        ]);
+
+        return $data;
+    }
+
+    public function updateRoomChange($reserva)
+    {
+        global $database;
+
+        $data = $database->update('reservas_pms', [
+            'cargo_habitacion' => 1,
+        ], [
+            'num_reserva' => $reserva,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function buscaTextoCodigoVenta($codigo)
+    {
+        global $database;
+
+        $data = $database->select('codigos_vta', [
+            'id_cargo',
+            'descripcion_cargo',
+            'id_impto',
+            'decreto_turismo',
+        ], [
+            'id_cargo' => $codigo,
+        ]);
+
+        return $data;
+    }
+
+    public function buscaCodigoTipoHabitacion($codigo)
+    {
+        global $database;
+
+        $data = $database->select('tipo_habitaciones', [
+            'deptoventa_habitacion',
+        ], [
+            'id' => $codigo,
+        ]);
+
+        return $data[0]['deptoventa_habitacion'];
+    }
+
+    public function getCargoTodasHabitaciones($ctamaster)
+    {
+        global $database;
+
+        $data = $database->query("SELECT id, cantidad, dias_reservados, estado, fecha_llegada, fecha_salida, tipo_reserva, num_habitacion, num_reserva, can_hombres, can_mujeres, can_ninos, origen_reserva, destino_reserva, id_agencia, id_compania, id_huesped, tarifa, tipo_habitacion, tipo_ocupacion, valor_reserva, valor_diario, motivo_viaje, fecha_reserva, usuario, observaciones, fuente_reserva, causar_impuesto, cargo_habitacion FROM reservas_pms WHERE tipo_habitacion != '$ctamaster' AND estado = 'CA' ORDER BY num_habitacion")->fetchAll();
+
+        return $data;
+    }
+
+    public function getCargoUnaHabitacion($reserva)
+    {
+        global $database;
+
+        $data = $database->select('reservas_pms', [
+            'id',
+            'cantidad',
+            'dias_reservados',
+            'estado',
+            'fecha_llegada',
+            'fecha_salida',
+            'tipo_reserva',
+            'num_habitacion',
+            'num_reserva',
+            'can_hombres',
+            'can_mujeres',
+            'can_ninos',
+            'origen_reserva',
+            'destino_reserva',
+            'id_agencia',
+            'id_compania',
+            'id_huesped',
+            'tarifa',
+            'tipo_habitacion',
+            'tipo_ocupacion',
+            'valor_reserva',
+            'valor_diario',
+            'motivo_viaje',
+            'fecha_reserva',
+            'usuario',
+            'observaciones',
+            'fuente_reserva',
+            'causar_impuesto',
+            'cargo_habitacion',
+        ], [
+            'num_reserva' => $reserva,
+        ]);
+
+        return $data;
+    }
+
+    public function getReservaActual($reserva)
+    {
+        global $database;
+
+        // Trae los Datos Actuales de la Reserva
+        $data = $database->select('reservas_pms', [
+            'id',
+            'cantidad',
+            'dias_reservados',
+            'estado',
+            'fecha_llegada',
+            'fecha_salida',
+            'tipo_reserva',
+            'num_habitacion',
+            'num_reserva',
+            'can_hombres',
+            'can_mujeres',
+            'can_ninos',
+            'orden_reserva',
+            'origen_reserva',
+            'destino_reserva',
+            'id_agencia',
+            'id_compania',
+            'id_huesped',
+            'tarifa',
+            'tipo_habitacion',
+            'tipo_ocupacion',
+            'valor_reserva',
+            'valor_diario',
+            'motivo_viaje',
+            'fecha_reserva',
+            'usuario',
+            'observaciones',
+            'causar_impuesto',
+            'fuente_reserva',
+        ], [
+            'num_reserva' => $reserva,
+        ]);
+
+        return $data;
+    }
+
+    public function updateCargosReservaFolio($reserva, $factura, $folio, $fecha, $usuario, $idusuario, $tipofac, $id)
+    {
+        global $database;
+
+        // Asigna Numero de Habitacion a los Cargos del Huesped [Por Folio]
+        $data = $database->update('cargos_pms', [
+            'factura_numero' => $factura,
+            'fecha_factura' => $fecha,
+            'usuario_factura' => $usuario,
+            'id_usuario_factura' => $idusuario,
+            'tipo_factura' => $tipofac,
+            'id_perfil_factura' => $id,
+        ], [
+            'folio_cargo' => $folio,
+            'numero_reserva' => $reserva,
+            'factura_numero' => 0,
+            'cargo_anulado' => 0,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function updateReservaHuespedSalida($reserva, $usuario, $idusuario, $fecha)
+    {
+        global $database;
+        // Cambia Estado habitacion a Salida Huesped
+        $data = $database->update('reservas_pms', [
+            'estado' => 'SA',
+            'salida_checkout' => $fecha,
+            'usuario_checkout' => $usuario,
+            'id_usuario_checkout' => $idusuario,
+            'fecha_checkout' => date('Y-m-d H:i:s'),
+        ], [
+            'num_reserva' => $reserva,
+        ]);
+
+        return $data;
+    }
+
+    public function insertFacturaHuesped($codigo, $textcodigo, $valor, $refer, $numero, $room, $idhues, $folio, $canti, $usuario, $idUsuario, $fecha, $numfactura, $tipofac, $id, $idcentro)
+    {
+        global $database;
+
+        $data = $database->insert('cargos_pms', [
+            'fecha_cargo' => $fecha,
+            'id_codigo_cargo' => $codigo,
+            'descripcion_cargo' => $textcodigo,
+            'usuario' => $usuario,
+            'id_usuario' => $idUsuario,
+            'id_huesped' => $idhues,
+            'cantidad_cargo' => $canti,
+            'folio_cargo' => $folio,
+            'pagos_cargos' => $valor,
+            'habitacion_cargo' => $room,
+            'factura_numero' => $numfactura,
+            'numero_reserva' => $numero,
+            'referencia_cargo' => $refer,
+            'tipo_factura' => $tipofac,
+            'id_perfil_factura' => $id,
+            'idCentroCosto' => $idcentro,
+            'fecha_salida' => FECHA_PMS,
+            'factura' => 1,
+            'fecha_sistema_cargo' => date('Y-m-d H:i:s'),
+        ]);
+
+        return $database->id();
+    }
+
+    public function updateNumeroFactura($numero)
+    {
+        global $database;
+
+        $data = $database->update('parametros_pms', [
+            'con_factura' => $numero,
+        ]);
+
+        return $data;
+    }
+
+    public function getNumeroFactura()
+    {
+        global $database;
+
+        $data = $database->select('parametros_pms', [
+            'con_factura',
+        ]);
+
+        return $data[0]['con_factura'];
+    }
+
+    public function getCargosReservaModal($reserva)
+    {
+        global $database;
+
+        $data = $database->select('cargos_pms', [
+            '[>]codigos_vta' => ['id_codigo_cargo' => 'id_cargo'],
+        ], [
+            'cargos_pms.id_cargo',
+            'cargos_pms.fecha_cargo',
+            'cargos_pms.monto_cargo',
+            'cargos_pms.habitacion_cargo',
+            'cargos_pms.impuesto',
+            'cargos_pms.descripcion_cargo',
+            'cargos_pms.usuario',
+            'cargos_pms.id_huesped',
+            'cargos_pms.cantidad_cargo',
+            'cargos_pms.informacion_cargo',
+            'cargos_pms.valor_cargo',
+            'cargos_pms.valor_unitario_sin_impto',
+            'cargos_pms.folio_cargo',
+            'cargos_pms.pagos_cargos',
+            'cargos_pms.referencia_cargo',
+            'cargos_pms.concecutivo_abono',
+            'cargos_pms.concecutivo_deposito',
+            'cargos_pms.numero_reserva',
+            'cargos_pms.cargo_anulado',
+            'cargos_pms.factura_numero',
+            'cargos_pms.numero_factura_cargo',
+            'codigos_vta.tipo_codigo',
+        ], [
+            'cargos_pms.numero_reserva' => $reserva,
+            'cargos_pms.cargo_anulado' => 0,
+            'cargos_pms.tipo_factura' => 0,
+            'ORDER' => 'cargos_pms.id_cargo',
+        ]);
+
+        return $data;
+    }
+
+    public function insertaNuevaAgencia($nit, $dv, $tipodoc, $agencia, $direccion, $ciudad, $telefono, $celular, $web, $correo, $tarifa, $formapago, $potencial, $comision, $credito, $monto, $diascre, $diacorte, $usuario)
+    {
+        global $database;
+
+        $data = $database->insert('agencias', [
+            'agencia' => $agencia,
+            'nit' => $nit,
+            'dv' => $dv,
+            'direccion' => $direccion,
+            'telefono' => $telefono,
+            'celular' => $celular,
+            'email' => $correo,
+            'tipo_documento' => $tipodoc,
+            'web' => $web,
+            'ciudad' => $ciudad,
+            'credito' => $credito,
+            'monto_credito' => $monto,
+            'dias_credito' => $diascre,
+            'id_forma_pago' => $formapago,
+            'potencial' => $potencial,
+            'comision' => $comision,
+            'dia_corte_credito' => $diacorte,
+            'created_at' => date('Y-m-d H:i:s'),
+            'id_tarifa' => $tarifa,
+            'usuario' => $usuario,
+            'activo' => 1,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function getCityName($tipo)
+    {
+        global $database;
+
+        $data = $database->select('ciudades', [
+            'municipio',
+            'depto',
+        ], [
+            'id_ciudad' => $tipo,
+        ]);
+        if (count($data) == 0) {
+            return '';
+        } else {
+            return $data[0]['municipio'].' - '.$data[0]['depto'];
+        }
+    }
+
+    public function getLandName($tipo)
+    {
+        global $database;
+
+        $data = $database->select('paices', [
+            'descripcion',
+        ], [
+            'id_pais' => $tipo,
+        ]);
+        if (count($data) == 0) {
+            return '';
+        } else {
+            return $data[0]['descripcion'];
+        }
+    }
+
+    public function getTypeCia($tipo)
+    {
+        global $database;
+
+        $data = $database->select('tipo_cia', [
+            'descripcion',
+        ], [
+            'id_tipo_cia' => $tipo,
+        ]);
+
+        return $data[0]['descripcion'];
+    }
+
+    public function getInfoCia()
+    {
+        global $database;
+
+        $data = $database->select('empresas', [
+            'con',
+            'inv',
+            'com',
+            'cxp',
+            'cxc',
+            'pos',
+            'tar',
+            'pms',
+            'res',
+            'empresa',
+            'nit',
+            'dv',
+            'direccion',
+            'pais',
+            'ciudad',
+            'celular',
+            'telefonos',
+            'web',
+            'correo',
+            'logo',
+            'xlogo',
+            'ylogo',
+            'tlogo',
+            'codigo_ciiu',
+            'tipo_empresa',
+        ]);
+
+        return $data;
+    }
+
+    public function getConsumosReservaAgrupadoCodigo($numero)
+    {
+        global $database;
+
+        $data = $database->query("SELECT cargos_pms.descripcion_cargo, cargos_pms.habitacion_cargo,Sum(cargos_pms.monto_cargo) AS cargos, Sum(cargos_pms.impuesto) AS imptos, Sum(cargos_pms.pagos_cargos) AS pagos FROM cargos_pms WHERE cargos_pms.numero_reserva = '$numero' and cargos_pms.cargo_anulado = 0 GROUP BY cargos_pms.numero_reserva, cargos_pms.id_codigo_cargo ORDER BY cargos_pms.numero_reserva, cargos_pms.id_codigo_cargo")->fetchAll();
+
+        return $data;
+    }
+
+    public function getConsumosCongeladaReservaAgrupadoCodigoFolio($numero, $folio, $tipo)
+    {
+        global $database;
+
+        $data = $database->query("SELECT cargos_pms.descripcion_cargo, count(cargos_pms.id_codigo_cargo) AS cant, cargos_pms.habitacion_cargo, Sum(cargos_pms.monto_cargo) AS cargos, Sum(cargos_pms.impuesto) as imptos, Sum(cargos_pms.pagos_cargos) AS pagos, cargos_pms.factura_numero FROM cargos_pms, codigos_vta WHERE cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND cargos_pms.numero_reserva = '$numero' AND cargos_pms.cargo_anulado = 0 AND cargos_pms.folio_cargo = '$folio' AND codigos_vta.tipo_codigo = '$tipo' GROUP BY cargos_pms.numero_reserva, cargos_pms.id_codigo_cargo, cargos_pms.folio_cargo ORDER BY cargos_pms.numero_reserva, cargos_pms.id_codigo_cargo, cargos_pms.folio_cargo")->fetchAll();
+
+        return $data;
+    }
+
+    public function getConsumosReservaAgrupadoCodigoFolio($fact, $numero, $folio, $tipo)
+    {
+        global $database;
+
+        $data = $database->query("SELECT cargos_pms.descripcion_cargo, count(cargos_pms.id_codigo_cargo) AS cant, cargos_pms.habitacion_cargo, Sum(cargos_pms.monto_cargo) AS cargos, Sum(cargos_pms.impuesto) as imptos, Sum(cargos_pms.pagos_cargos) AS pagos, cargos_pms.factura_numero FROM cargos_pms, codigos_vta WHERE cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND cargos_pms.factura_numero = '$fact' AND cargos_pms.numero_reserva = '$numero' AND cargos_pms.cargo_anulado = 0 AND cargos_pms.folio_cargo = '$folio' AND codigos_vta.tipo_codigo = '$tipo' GROUP BY cargos_pms.numero_reserva, cargos_pms.id_codigo_cargo, cargos_pms.folio_cargo ORDER BY cargos_pms.numero_reserva, cargos_pms.id_codigo_cargo, cargos_pms.folio_cargo")->fetchAll();
+
+        return $data;
+    }
+
+    public function getValorImptoFolio($fact, $numero, $folio, $tipo)
+    {
+        global $database;
+
+        $data = $database->query("SELECT codigos_vta.descripcion_cargo, cargos_pms.habitacion_cargo, Sum(cargos_pms.monto_cargo) as cargos, Sum(cargos_pms.impuesto) as imptos, Sum(cargos_pms.pagos_cargos) as pagos, cargos_pms.factura_numero FROM cargos_pms, codigos_vta WHERE cargos_pms.codigo_impto = codigos_vta.id_cargo AND cargos_pms.factura_numero = '$fact' AND cargos_pms.numero_reserva = '$numero' and cargos_pms.cargo_anulado = 0 and cargos_pms.folio_cargo = $folio and codigos_vta.tipo_codigo = '$tipo' GROUP BY cargos_pms.numero_reserva, cargos_pms.codigo_impto, cargos_pms.folio_cargo ORDER BY cargos_pms.numero_reserva, cargos_pms.codigo_impto, cargos_pms.folio_cargo")->fetchAll();
+
+        return $data;
+    }
+
+    public function getCargosReserva($reserva, $folio)
+    {
+        global $database;
+
+        $data = $database->select('cargos_pms', [
+            '[>]codigos_vta' => ['id_codigo_cargo' => 'id_cargo'],
+        ], [
+            'cargos_pms.id_cargo',
+            'cargos_pms.fecha_cargo',
+            'cargos_pms.monto_cargo',
+            'cargos_pms.impuesto',
+            'cargos_pms.habitacion_cargo',
+            'cargos_pms.descripcion_cargo',
+            'cargos_pms.usuario',
+            'cargos_pms.id_huesped',
+            'cargos_pms.cantidad_cargo',
+            'cargos_pms.informacion_cargo',
+            'cargos_pms.valor_cargo',
+            'cargos_pms.folio_cargo',
+            'cargos_pms.pagos_cargos',
+            'cargos_pms.referencia_cargo',
+            'cargos_pms.concecutivo_abono',
+            'cargos_pms.concecutivo_deposito',
+            'cargos_pms.numero_reserva',
+            'cargos_pms.cargo_anulado',
+            'cargos_pms.factura_numero',
+            'cargos_pms.numero_factura_cargo',
+            'cargos_pms.fecha_sistema_cargo',
+            'codigos_vta.tipo_codigo',
+        ], [
+            'cargos_pms.numero_reserva' => $reserva,
+            'cargos_pms.folio_cargo' => $folio,
+            'cargos_pms.cargo_anulado' => 0,
+            'cargos_pms.factura_numero' => 0,
+            'ORDER' => 'cargos_pms.id_cargo',
+        ]);
+
+        return $data;
+    }
+
+    public function getReservasHisDatos($reserva)
+    {
+        global $database;
+
+        $data = $database->select('reservas_pms', [
+            '[>]huespedes' => 'id_huesped',
+        ], [
+            'reservas_pms.cantidad',
+            'reservas_pms.fecha_llegada',
+            'reservas_pms.fecha_salida',
+            'reservas_pms.dias_reservados',
+            'reservas_pms.tipo_habitacion',
+            'reservas_pms.num_habitacion',
+            'reservas_pms.num_reserva',
+            'reservas_pms.num_registro',
+            'reservas_pms.can_hombres',
+            'reservas_pms.can_mujeres',
+            'reservas_pms.can_ninos',
+            'reservas_pms.orden_reserva',
+            'reservas_pms.id_compania',
+            'reservas_pms.id_agencia',
+            'reservas_pms.tipo_ocupacion',
+            'reservas_pms.tarifa',
+            'reservas_pms.valor_reserva',
+            'reservas_pms.valor_diario',
+            'reservas_pms.estado',
+            'reservas_pms.motivo_viaje',
+            'reservas_pms.origen_reserva',
+            'reservas_pms.destino_reserva',
+            'reservas_pms.forma_pago',
+            'reservas_pms.causar_impuesto',
+            'reservas_pms.observaciones',
+            'huespedes.nombre1',
+            'huespedes.nombre2',
+            'huespedes.apellido1',
+            'huespedes.apellido2',
+            'huespedes.id_huesped',
+        ], [
+            'reservas_pms.num_reserva' => $reserva,
+        ]);
+
+        return $data;
+    }
+
+    public function getReservasDatos($reserva)
+    {
+        global $database;
+
+        $data = $database->select('reservas_pms', [
+            '[>]huespedes' => 'id_huesped',
+        ], [
+            'reservas_pms.cantidad',
+            'reservas_pms.fecha_llegada',
+            'reservas_pms.fecha_salida',
+            'reservas_pms.dias_reservados',
+            'reservas_pms.tipo_habitacion',
+            'reservas_pms.num_habitacion',
+            'reservas_pms.num_reserva',
+            'reservas_pms.num_registro',
+            'reservas_pms.can_hombres',
+            'reservas_pms.can_mujeres',
+            'reservas_pms.can_ninos',
+            'reservas_pms.orden_reserva',
+            'reservas_pms.id_compania',
+            'reservas_pms.idCentroCia',
+            'reservas_pms.id_agencia',
+            'reservas_pms.tipo_ocupacion',
+            'reservas_pms.tarifa',
+            'reservas_pms.valor_reserva',
+            'reservas_pms.valor_diario',
+            'reservas_pms.estado',
+            'reservas_pms.motivo_viaje',
+            'reservas_pms.origen_reserva',
+            'reservas_pms.destino_reserva',
+            'reservas_pms.forma_pago',
+            'reservas_pms.causar_impuesto',
+            'reservas_pms.salida_checkout',
+            'reservas_pms.observaciones',
+            'reservas_pms.observaciones_cancela',
+            'huespedes.nombre1',
+            'huespedes.nombre2',
+            'huespedes.apellido1',
+            'huespedes.apellido2',
+            'huespedes.nombre_completo',
+            'huespedes.identificacion',
+            'huespedes.id_huesped',
+        ], [
+            'reservas_pms.num_reserva' => $reserva,
+        ]);
+
+        return $data;
+    }
+
+    public function getReservasDatosHistorico($reserva)
+    {
+        global $database;
+
+        $data = $database->select('reservas_pms', [
+            '[>]huespedes' => 'id_huesped',
+        ], [
+            'reservas_pms.cantidad',
+            'reservas_pms.fecha_llegada',
+            'reservas_pms.fecha_salida',
+            'reservas_pms.dias_reservados',
+            'reservas_pms.tipo_habitacion',
+            'reservas_pms.num_habitacion',
+            'reservas_pms.num_reserva',
+            'reservas_pms.num_registro',
+            'reservas_pms.can_hombres',
+            'reservas_pms.can_mujeres',
+            'reservas_pms.can_ninos',
+            'reservas_pms.orden_reserva',
+            'reservas_pms.id_compania',
+            'reservas_pms.id_agencia',
+            'reservas_pms.tipo_ocupacion',
+            'reservas_pms.tarifa',
+            'reservas_pms.valor_reserva',
+            'reservas_pms.valor_diario',
+            'reservas_pms.estado',
+            'reservas_pms.motivo_viaje',
+            'reservas_pms.origen_reserva',
+            'reservas_pms.destino_reserva',
+            'reservas_pms.forma_pago',
+            'reservas_pms.causar_impuesto',
+            'reservas_pms.salida_checkout',
+            'reservas_pms.observaciones',
+            'reservas_pms.observaciones_cancela',
+            'huespedes.nombre1',
+            'huespedes.nombre2',
+            'huespedes.apellido1',
+            'huespedes.apellido2',
+            'huespedes.nombre_completo',
+            'huespedes.identificacion',
+            'huespedes.id_huesped',
+        ], [
+            'reservas_pms.num_reserva' => $reserva,
+        ]);
+
+        return $data;
+    }
+
+    public function getForecastHabitacionFecha($room, $fecha)
+    {
+        global $database;
+
+        $data = $database->select('reservas_pms', [
+            'id_huesped',
+        ], [
+        ]);
+
+        return $data;
+    }
+
+    public function getHabitaciones($ctamaster)
+    {
+        global $database;
+
+        $data = $database->query("SELECT habitaciones.id, habitaciones.numero_hab, habitaciones.tipo_hab, habitaciones.pax, habitaciones.camas, habitaciones.estado_fo, habitaciones.estado_hk, tipo_habitaciones.descripcion_habitacion FROM habitaciones, tipo_habitaciones WHERE habitaciones.id_tipohabitacion = tipo_habitaciones.id AND tipo_habitaciones.tipo_habitacion = 1 AND habitaciones.active_at = 1 AND habitaciones.id_tipohabitacion <> '1' ORDER BY  habitaciones.numero_hab")->fetchAll();
+
+        return $data;
+    }
+
+    public function getMotivoGrupo($caja)
+    {
+        global $database;
+
+        $data = $database->select('grupos_cajas', [
+            'id_grupo',
+            'descripcion_grupo',
+        ], [
+            'caja' => $caja,
+            'ORDER' => 'descripcion_grupo',
+        ]);
+
+        return $data;
+    }
+
+    public function getBuscaAgencia($id)
+    {
+        global $database;
+
+        $data = $database->count('agencias', [
+            'nit' => $id,
+        ]);
+
+        return $data;
+    }
+
+    public function getAgencias()
+    {
+        global $database;
+
+        $data = $database->select('agencias', [
+            'id_agencia',
+            'agencia',
+            'nit',
+            'dv',
+            'direccion',
+            'telefono',
+            'fax',
+            'celular',
+            'email',
+            'id_tarifa',
+            'pais',
+            'ciudad',
+            'potencial',
+            'noches',
+            'comision',
+            'id_forma_pago',
+            'localizacion',
+            'segmento',
+            'estado_credito',
+            'activo',
+        ]);
+
+        return $data;
+    }
+
+    public function getCiudadesPais($pais)
+    {
+        global $database;
+
+        $data = $database->select('ciudades', [
+            'id_ciudad',
+            'municipio',
+            'depto',
+        ], [
+            'id_pais' => $pais,
+            'ORDER' => 'municipio',
+        ]);
+
+        return $data;
+    }
+
+    public function getPaices()
+    {
+        global $database;
+
+        $data = $database->select('paices', [
+            'id_pais',
+            'descripcion',
+        ], [
+            'ORDER' => 'descripcion',
+        ]);
+
+        return $data;
+    }
+
+    public function getTotalHuespedeseCasaTipo($ctamaster, $tipo)
+    {
+        global $database;
+
+        if ($tipo == 1) {
+            $campo = 'can_hombres';
+        }
+        if ($tipo == 2) {
+            $campo = 'can_mujeres';
+        }
+        if ($tipo == 3) {
+            $campo = 'can_ninos';
+        }
+
+        $data = $database->sum('reservas_pms', [
+            $campo,
+        ], [
+            'tipo_habitacion[<>]' => $ctamaster,
+            'estado' => 'CA',
+        ]);
+
+        return $data;
+    }
+
+    public function getHuespedesLlegando($ctamaster, $fecha)
+    {
+        global $database;
+
+        $data = $database->count('reservas_pms', [
+            'num_habitacion',
+        ], [
+            'tipo_habitacion[>]' => $ctamaster,
+            'estado' => 'ES',
+            'fecha_llegada' => $fecha,
+        ]);
+
+        return $data;
+    }
+
+    public function getHuespedesSaliendo($ctamaster, $fecha)
+    {
+        global $database;
+
+        $data = $database->count('reservas_pms', [
+            'num_habitacion',
+        ], [
+            'tipo_habitacion[>]' => $ctamaster,
+            'estado' => 'SA',
+            'fecha_salida' => $fecha,
+        ]);
+
+        return $data;
+    }
+
+    public function getHuespedesenCasaHotel($ctamaster)
+    {
+        global $database;
+
+        $data = $database->count('reservas_pms', [
+            'num_habitacion',
+        ], [
+            'tipo_habitacion[>]' => $ctamaster,
+            'estado' => 'CA',
+        ]);
+
+        return $data;
+    }
+
+    public function getTotalHabitacionesOUT($ctamaster, $tipo)
+    {
+        global $database;
+
+        $data = $database->count('habitaciones', [
+            'numero_hab',
+        ], [
+            'tipo_hab[>]' => $ctamaster,
+            'estado_hk' => $tipo,
+            'active_at' => 1,
+        ]);
+
+        return $data;
+    }
+
+    public function getTotalHabitacionesHotel($ctamaster)
+    {
+        global $database;
+
+        $data = $database->count('habitaciones', [
+            'numero_hab',
+        ], [
+            'tipo_hab[>]' => $ctamaster,
+            'active_at' => 1,
+        ]);
+
+        return $data;
+    }
+
+    public function getNombreHuesped($hues)
+    {
+        global $database;
+
+        $data = $database->select('huespedes', [
+            'nombre_completo',
+            'apellido1',
+            'apellido2',
+            'nombre1',
+            'nombre2',
+        ], [
+            'id_huesped' => $hues,
+        ]);
+        if (count($data) == 0) {
+            return '';
+        } else {
+            return $data;
+        }
+    }
+
+    public function getHabitacionLlegandoHoy($hab, $fecha)
+    {
+        global $database;
+
+        $data = $database->select('reservas_pms', [
+            'id_huesped',
+        ], [
+            'num_habitacion' => $hab,
+            'estado' => 'ES',
+            'fecha_llegada' => $fecha,
+        ]);
+        if (count($data) == 0) {
+            return '0';
+        } else {
+            return $data[0]['id_huesped'];
+        }
+    }
+
+    public function getHabitacionenCasa($hab)
+    {
+        global $database;
+
+        $data = $database->select('reservas_pms', [
+            'id_huesped',
+        ], [
+            'num_habitacion' => $hab,
+            'estado' => 'CA',
+        ]);
+        if (count($data) == 0) {
+            return '0';
+        } else {
+            return $data[0]['id_huesped'];
+        }
+    }
+
+    public function getEstadoHabitaciones($ctamaster)
+    {
+        global $database;
+
+        $data = $database->select('habitaciones', [
+            'id',
+            'numero_hab',
+            'estado_fo',
+            'estado_hk',
+            'camas',
+        ], [
+            'tipo_hab[>]' => $ctamaster,
+            'active_at' => 1,
+            'ORDER' => 'numero_hab',
+        ]);
+
+        return $data;
+    }
+
+    public function getReservasActivas($tipo, $estado)
+    {
+        global $database;
+
+        $data = $database->count('reservas_pms', [
+            'num_reserva',
+        ], [
+            'tipo_reserva' => $tipo,
+            'estado' => $estado,
+        ]);
+
+        return $data;
+    }
+
+    public function getHuespedesenSalida($tipo, $estado)
+    {
+        global $database;
+
+        $data = $database->select('reservas_pms', [
+            '[>]huespedes' => 'id_huesped',
+        ], [
+            'reservas_pms.cantidad',
+            'reservas_pms.fecha_llegada',
+            'reservas_pms.fecha_salida',
+            'reservas_pms.dias_reservados',
+            'reservas_pms.tipo_habitacion',
+            'reservas_pms.num_habitacion',
+            'reservas_pms.num_reserva',
+            'reservas_pms.can_hombres',
+            'reservas_pms.can_mujeres',
+            'reservas_pms.can_ninos',
+            'reservas_pms.orden_reserva',
+            'reservas_pms.id_compania',
+            'reservas_pms.tipo_ocupacion',
+            'reservas_pms.tarifa',
+            'reservas_pms.valor_reserva',
+            'reservas_pms.valor_diario',
+            'reservas_pms.estado',
+            'reservas_pms.usuario_cancela',
+            'reservas_pms.fecha_cancela',
+            'reservas_pms.motivo_cancela',
+            'reservas_pms.causar_impuesto',
+            'reservas_pms.observaciones',
+            'huespedes.apellido1',
+            'huespedes.apellido2',
+            'huespedes.nombre1',
+            'huespedes.nombre2',
+            'huespedes.id_huesped',
+        ], [
+            'reservas_pms.tipo_reserva' => $tipo,
+            'reservas_pms.estado' => $estado,
+            'ORDER' => 'reservas_pms.num_habitacion',
+        ]);
+
+        return $data;
+    }
+
+    public function getbuscaDatosHuesped($id)
+    {
+        global $database;
+
+        $data = $database->select('huespedes', [
+            'apellido1',
+            'apellido2',
+            'nombre1',
+            'nombre2',
+            'nombre_completo',
+            'identificacion',
+            'tipo_identifica',
+            'pais_expedicion',
+            'ciudad_expedicion',
+            'lugar_expedicion',
+            'fecha_nacimiento',
+            'direccion',
+            'telefono',
+            'email',
+            'ciudad',
+            'pais',
+        ], [
+            'id_huesped' => $id,
+        ]);
+
+        return $data;
+    }
+
+    public function getbuscaDatosReservaHuesped($reserva)
+    {
+        global $database;
+
+        $data = $database->select('reservas_pms', [
+            'num_habitacion',
+            'id_huesped',
+            'causar_impuesto',
+        ], [
+            'num_reserva' => $reserva,
+        ]);
+
+        return $data;
+    }
+
+    public function getDescripcionIva($codigo)
+    {
+        global $database;
+
+        $data = $database->select('codigos_vta', [
+            'descripcion_cargo',
+        ], [
+            'id_cargo' => $codigo,
+        ]);
+
+        return $data[0]['descripcion_cargo'];
+    }
+
+    public function getCodigoIvaCargo($codigo)
+    {
+        global $database;
+
+        $data = $database->select('codigos_vta', [
+            'id_impto',
+        ], [
+            'id_cargo' => $codigo,
+        ]);
+
+        return $data[0]['id_impto'];
+    }
+
+    public function getPorcentajeIvaCargo($codigo)
+    {
+        global $database;
+
+        $data = $database->select('codigos_vta', [
+            'porcentaje_impto',
+            'decreto_turismo',
+        ], [
+            'id_cargo' => $codigo,
+        ]);
+
+        return $data;
+    }
+
+    public function getNumeroAbono()
+    {
+        global $database;
+
+        $data = $database->select('parametros_pms', [
+            'con_abonos',
+        ]);
+
+        return $data[0]['con_abonos'];
+    }
+
+    public function updateNumeroAbonos($numero)
+    {
+        global $database;
+
+        $data = $database->update('parametros_pms', [
+            'con_abonos' => $numero,
+        ]);
+
+        return $data;
+    }
+
+    public function insertAbonosCuenta($codigo, $textcodigo, $valor, $refer, $detalle, $numero, $room, $idhues, $folio, $canti, $usuario, $idusuario, $fecha, $numabono)
+    {
+        global $database;
+
+        $data = $database->insert('cargos_pms', [
+            'fecha_cargo' => $fecha,
+            'id_codigo_cargo' => $codigo,
+            'descripcion_cargo' => 'ABONO EN '.$textcodigo,
+            'usuario' => $usuario,
+            'id_usuario' => $idusuario,
+            'id_huesped' => $idhues,
+            'cantidad_cargo' => $canti,
+            'folio_cargo' => $folio,
+            'pagos_cargos' => $valor,
+            'habitacion_cargo' => $room,
+            'concecutivo_abono' => $numabono,
+            'numero_reserva' => $numero,
+            'referencia_cargo' => $refer,
+            'informacion_cargo' => $detalle,
+            'fecha_sistema_cargo' => date('Y-m-d H:i:s'),
+        ]);
+
+        return $database->id();
+    }
+
+    public function insertCargosConsumos($codigo, $textcodigo, $valor, $canti, $refer, $folio, $detalle, $numero, $idhues, $usuario, $idusuario, $fecha, $room, $totalcargo, $impuesto, $baseimpto, $iva)
+    {
+        global $database;
+
+        $data = $database->insert('cargos_pms', [
+            'fecha_cargo' => $fecha,
+            'id_codigo_cargo' => $codigo,
+            'descripcion_cargo' => $textcodigo,
+            'usuario' => $usuario,
+            'id_usuario' => $idusuario,
+            'id_huesped' => $idhues,
+            'cantidad_cargo' => $canti,
+            'folio_cargo' => $folio,
+            'valor_cargo' => $valor,
+            'monto_cargo' => $totalcargo,
+            'impuesto' => $impuesto,
+            'codigo_impto' => $iva,
+            'base_impuesto' => $baseimpto,
+            'habitacion_cargo' => $room,
+            'numero_reserva' => $numero,
+            'referencia_cargo' => $refer,
+            'informacion_cargo' => $detalle,
+            'fecha_sistema_cargo' => date('Y-m-d H:i:s'),
+        ]);
+
+        return $database->id();
+    }
+
+    public function getCodigosConsumos($tipo)
+    {
+        global $database;
+
+        $data = $database->select('codigos_vta', [
+            'id_cargo',
+            'descripcion_cargo',
+            'id_impto',
+            'codigo_propina',
+            'decreto_turismo',
+        ], [
+            'tipo_codigo' => $tipo,
+            'restringido' => 0,
+            'ORDER' => 'descripcion_cargo',
+        ]);
+
+        return $data;
+    }
+
+    public function getConsumosReservaFolio($numero, $folio)
+    {
+        global $database;
+
+        $data = $database->query("SELECT cargos_pms.habitacion_cargo, Sum(cargos_pms.monto_cargo) as cargos, Sum(cargos_pms.impuesto) as imptos, Sum(cargos_pms.pagos_cargos) as pagos FROM cargos_pms WHERE cargos_pms.numero_reserva = '$numero' and cargos_pms.cargo_anulado = 0 and cargos_pms.factura_numero = 0 and cargos_pms.folio_cargo = '$folio' GROUP BY cargos_pms.numero_reserva ORDER BY cargos_pms.numero_reserva")->fetchAll();
+
+        return $data;
+    }
+
+    public function getSaldoHabitacion01($reserva)
+    {
+        global $database;
+
+        $data = $database->query("SELECT cargos_pms.habitacion_cargo, Sum(cargos_pms.monto_cargo) as cargos, Sum(cargos_pms.impuesto) as imptos, Sum(cargos_pms.pagos_cargos) as pagos FROM cargos_pms WHERE cargos_pms.numero_reserva = '$reserva' and cargos_pms.cargo_anulado = 0 GROUP BY cargos_pms.numero_reserva")->fetchAll();
+
+        return $data;
+    }
+
+    public function getConsumosReserva($numero)
+    {
+        global $database;
+
+        $data = $database->query("SELECT cargos_pms.habitacion_cargo, Sum(cargos_pms.monto_cargo) as cargos, Sum(cargos_pms.impuesto) as imptos, Sum(cargos_pms.pagos_cargos) as pagos FROM cargos_pms WHERE cargos_pms.numero_reserva = '$numero' and cargos_pms.cargo_anulado = 0 AND cargos_pms.tipo_factura = 0 GROUP BY cargos_pms.numero_reserva ORDER BY cargos_pms.numero_reserva")->fetchAll();
+
+        return $data;
+    }
+
+    public function updateDepositoReserva($numero, $huesped, $hab)
+    {
+        global $database;
+
+        $data = $database->update('cargos_pms', [
+            'numero_reserva' => $numero,
+            'habitacion_cargo' => $hab,
+            'id_huesped' => $huesped,
+        ], [
+            'id_reserva' => $numero,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function getBuscaReservaDeposito($numero)
+    {
+        global $database;
+
+        $data = $database->select('reservas_pms', [
+            'id_huesped',
+            'num_habitacion',
+            'tipo_habitacion',
+            'num_reserva',
+        ], [
+            'num_reserva' => $numero,
+        ]);
+        if (count($data) == 0) {
+            return 0;
+        } else {
+            return $data[0];
+        }
+    }
+
+    public function getBuscaDeposito($numero)
+    {
+        global $database;
+
+        $data = $database->count('cargos_pms', [
+            'id_reserva' => $numero,
+        ]);
+
+        return $data;
+    }
+
+    public function getRegistroHotelero($numero)
+    {
+        global $database;
+
+        $data = $database->select('reservas_pms', [
+            'num_registro',
+        ], [
+            'num_reserva' => $numero,
+        ]);
+        if (count($data) == 0) {
+            return 0;
+        } else {
+            return $data[0]['num_registro'];
+        }
+    }
+
+    public function updateIngresaReserva($numero, $usuario)
+    {
+        global $database;
+
+        $data = $database->update('reservas_pms', [
+            'estado' => 'CA',
+            'tipo_reserva' => 2,
+            'usuario_ingreso' => $usuario,
+            'hora_llegada' => date('H:i:s'),
+            'fecha_ingreso' => date('Y-m-d H:i:s'),
+        ], [
+            'num_reserva' => $numero,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function getFacturacionenCasa($tipo, $estado)
+    {
+        global $database;
+
+        $data = $database->query("SELECT cargos_pms.habitacion_cargo, Sum(cargos_pms.monto_cargo) as cargos, Sum(cargos_pms.impuesto) as imptos, Sum(cargos_pms.pagos_cargos) as pagos, cargos_pms.descripcion_cargo, reservas_pms.num_reserva, reservas_pms.tipo_habitacion, reservas_pms.orden_reserva, reservas_pms.num_habitacion, reservas_pms.fecha_llegada, reservas_pms.causar_impuesto, reservas_pms.fecha_salida, huespedes.nombre1, huespedes.nombre2, huespedes.apellido1, huespedes.apellido2,  huespedes.identificacion FROM cargos_pms, reservas_pms, huespedes WHERE cargos_pms.numero_reserva = reservas_pms.num_reserva AND reservas_pms.tipo_reserva = '$tipo' AND reservas_pms.estado = '$estado' AND cargos_pms.cargo_anulado = 0 AND reservas_pms.id_huesped = huespedes.id_huesped GROUP BY cargos_pms.habitacion_cargo, cargos_pms.numero_reserva ORDER BY cargos_pms.habitacion_cargo ASC, cargos_pms.numero_reserva ASC")->fetchAll();
+
+        return $data;
+    }
+
+    public function getNumeroPMDeposito($cuenta)
+    {
+        global $database;
+
+        $data = $database->select('reservas_pms', [
+            'num_reserva',
+        ], [
+            'num_habitacion' => $cuenta,
+            'estado' => 'CA',
+        ]);
+        if (count($data) == 0) {
+            return '0';
+        } else {
+            return $data[0]['num_reserva'];
+        }
+    }
+
+    public function insertDepositoReserva($fecha, $forma, $valor, $detalle, $numero, $idhues, $idusuario, $usuario, $ctadeposito, $folio, $numdeposito, $encasa, $textoforma)
+    {
+        global $database;
+
+        $data = $database->insert('cargos_pms', [
+            'fecha_cargo' => $fecha,
+            'id_codigo_cargo' => $forma,
+            'habitacion_cargo' => $ctadeposito,
+            'descripcion_cargo' => 'DEPOSITO EN '.$textoforma,
+            'usuario' => $usuario,
+            'id_usuario' => $idusuario,
+            'id_huesped' => $idhues,
+            'cantidad_cargo' => 1,
+            'folio_cargo' => $folio,
+            'pagos_cargos' => $valor,
+            'concecutivo_deposito' => $numdeposito,
+            'informacion_cargo' => $detalle,
+            'numero_reserva' => $encasa,
+            'id_reserva' => $numero,
+            'fecha_sistema_cargo' => date('Y-m-d H:i:s'),
+        ]);
+
+        return $database->id();
+    }
+
+    public function getNumeroDeposito()
+    {
+        global $database;
+
+        $data = $database->select('parametros_pms', [
+            'con_deposito',
+        ]);
+
+        return $data[0]['con_deposito'];
+    }
+
+    public function updateNumeroDeposito($numero)
+    {
+        global $database;
+
+        $data = $database->update('parametros_pms', [
+            'con_deposito' => $numero,
+        ]);
+
+        return $data;
+    }
+
+    public function getCuentaDepositosPms()
+    {
+        global $database;
+
+        $data = $database->select('parametros_pms', [
+            'cuenta_depositos',
+        ]);
+
+        return $data[0]['cuenta_depositos'];
+    }
+
+    public function getMotivoCancelacion($tipo)
+    {
+        global $database;
+
+        $data = $database->select('motivo_cancelacion', [
+            'id_cancela',
+            'descripcion_motivo',
+        ], [
+            'tipo_cancelacion' => $tipo,
+            'ORDER' => 'descripcion_motivo',
+        ]);
+
+        return $data;
+    }
+
+    public function updateCancelaReserva($numero, $usuario, $motivo, $observa)
+    {
+        global $database;
+
+        $data = $database->update('reservas_pms', [
+            'estado' => 'CX',
+            'motivo_cancela' => $motivo,
+            'usuario_cancela' => $usuario,
+            'observaciones_cancela' => $observa,
+            'fecha_cancela' => date('Y-m-d H:i:s'),
+        ], [
+            'num_reserva' => $numero,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function getCountHuespedesenCasa($ctamaster, $fecha)
+    {
+        global $database;
+
+        $data = $database->count('reservas_pms', [
+            'id',
+        ], [
+            'tipo_reserva' => 2,
+            'estado' => 'CA',
+        ]);
+
+        return $data;
+    }
+
+    public function getCountCuentasMaestrasenCasa($ctamaster, $fecha)
+    {
+        global $database;
+
+        $data = $database->count('reservas_pms', [
+            'id',
+        ], [
+            'tipo_reserva' => 2,
+            'estado' => 'CA',
+            'tipo_habitacion' => $ctamaster,
+        ]);
+
+        return $data;
+    }
+
+    public function getTotalHuespedeseCasa($tipo)
+    {
+        global $database;
+
+        $data = $database->query("SELECT count(id) as habi, Sum(reservas_pms.can_hombres) AS hom, Sum(reservas_pms.can_mujeres) AS muj, Sum(reservas_pms.can_ninos) AS nin FROM reservas_pms WHERE reservas_pms.estado = 'CA' AND reservas_pms.tipo_habitacion <> 'CMA'")->fetchAll();
+
+        return $data;
+    }
+
+    public function getTotalCuentasMaestras()
+    {
+        global $database;
+
+        $data = $database->count('reservas_pms', [
+            'id',
+        ], [
+            'tipo_habitacion' => 'CMA',
+            'estado' => 'CA',
+        ]);
+        // / $data = $database->query("SELECT count(id) as cmaster, FROM reservas_pms WHERE reservas_pms.estado = 'CA' AND reservas_pms.tipo_habitacion = 'CMA'")->fetchAll();
+
+        return $data;
+    }
+
+    public function getTotalHuespedeseCasaOld($ctamaster, $tipo)
+    {
+        global $database;
+
+        $data = $database->query("SELECT count(id) as habi, Sum(reservas_pms.can_hombres) AS hom, Sum(reservas_pms.can_mujeres) AS muj, Sum(reservas_pms.can_ninos) AS nin FROM reservas_pms WHERE reservas_pms.estado = 'CA' AND reservas_pms.tipo_habitacion <> 'CMA'")->fetchAll();
+
+        return $data;
+    }
+
+    public function getTotalHuespedeseSaliendo()
+    {
+        global $database;
+
+        $fecha = FECHA_PMS;
+        $ctamas = CTA_MASTER;
+
+        $data = $database->query("SELECT count(id) as habi, Sum(reservas_pms.can_hombres) AS hom, Sum(reservas_pms.can_mujeres) AS muj, Sum(reservas_pms.can_ninos) AS nin FROM reservas_pms WHERE reservas_pms.estado = 'CA' AND reservas_pms.fecha_salida = '$fecha'")->fetchAll();
+
+        return $data;
+    }
+
+    public function getTotalHuespedeseLlegando()
+    {
+        global $database;
+
+        $fecha = FECHA_PMS;
+        $ctamas = CTA_MASTER;
+
+        $data = $database->query("SELECT count(id) as habi, Sum(reservas_pms.can_hombres) AS hom, Sum(reservas_pms.can_mujeres) AS muj, Sum(reservas_pms.can_ninos) AS nin FROM reservas_pms WHERE reservas_pms.estado = 'ES' AND reservas_pms.fecha_llegada = '$fecha'")->fetchAll();
+
+        return $data;
+    }
+
+    public function getLlegadasDelDia($tipo, $fecha, $estado)
+    {
+        global $database;
+
+        $data = $database->count('reservas_pms', [
+            'id',
+        ], [
+            'tipo_reserva' => $tipo,
+            'fecha_llegada' => $fecha,
+            'estado' => $estado,
+        ]);
+
+        return $data;
+    }
+
+    public function getRegistrosDelDia($fecha)
+    {
+        global $database;
+
+        $data = $database->count('reservas_pms', [
+            'id',
+        ], [
+            'estado' => 'CA',
+            'num_registro' => 0,
+        ]);
+
+        return $data;
+    }
+
+    public function getSalidasDelDia($fecha)
+    {
+        global $database;
+
+        $data = $database->count('reservas_pms', [
+            'id',
+        ], [
+            'tipo_reserva' => 2,
+            'fecha_salida' => $fecha,
+            'estado' => 'CA',
+        ]);
+
+        return $data;
+    }
+
+    public function getNumeroTarifa($id)
+    {
+        global $database;
+
+        $data = $database->select('tarifas', [
+        ]);
+
+        return $data;
+    }
+
+    public function getNombreTarifa($tipo)
+    {
+        global $database;
+
+        $data = $database->select('valores_tarifas', [
+            '[<]tarifas' => ['id_subtarifa' => 'id_tarifa'],
+        ], [
+            'tarifas.descripcion_tarifa',
+        ], [
+            'valores_tarifas.id' => $tipo,
+        ]);
+
+        return $data[0]['descripcion_tarifa'];
+    }
+
+    public function getNombreTipoHabitacion($tipo)
+    {
+        global $database;
+
+        $data = $database->select('tipo_habitaciones', [
+            'descripcion_habitacion',
+        ], [
+            'id' => $tipo,
+        ]);
+
+        return $data;
+    }
+
+    public function getMotivoViaje()
+    {
+        global $database;
+
+        $data = $database->select('tipo_viaje', [
+            'id_tipo_viaje',
+            'descripcion_viaje',
+        ], [
+            'ORDER' => 'descripcion_viaje',
+        ]);
+
+        return $data;
+    }
+
+    public function getbuscaCompania($id)
+    {
+        global $database;
+
+        $data = $database->count('companias', [
+            'nit' => $id,
+        ]);
+
+        return $data;
+    }
+
+    public function insertaNuevaCompania($nit, $dv, $tipodoc, $compania, $direccion, $ciudad, $telefono, $celular, $web, $correo, $tarifa, $formapago, $credito, $monto, $diascre, $diacorte, $usuario, $tipoemp, $codciiu)
+    {
+        global $database;
+
+        $data = $database->insert('companias', [
+            'empresa' => $compania,
+            'direccion' => $direccion,
+            'nit' => $nit,
+            'dv' => $dv,
+            'tipo_documento' => $tipodoc,
+            'telefono' => $telefono,
+            'celular' => $celular,
+            'email' => $correo,
+            'web' => $web,
+            'ciudad' => $ciudad,
+            'credito' => $credito,
+            'monto_credito' => $monto,
+            'dias_credito' => $diascre,
+            'id_forma_pago' => $formapago,
+            'dia_corte_credito' => $diacorte,
+            'created_at' => date('Y-m-d H:i:s'),
+            'id_tarifa' => $tarifa,
+            'usuario' => $usuario,
+            'activo' => 1,
+            'tipo_empresa' => $tipoemp,
+            'id_codigo_ciiu' => $codciiu,
+            'tipo_compania' => 3,
+        ]);
+
+        return $database->id();
+    }
+
+    public function getFormasPago()
+    {
+        global $database;
+
+        $data = $database->select('codigos_vta', [
+            'id',
+            'descripcion',
+        ], [
+            'ORDER' => 'descripcion',
+        ]);
+
+        return $data;
+    }
+
+    public function getTarifasHuespedes()
+    {
+        global $database;
+
+        $data = $database->select('tarifas', [
+            'id_tarifa',
+            'descripcion_tarifa',
+        ], [
+            'ORDER' => 'descripcion_tarifa',
+        ]);
+
+        return $data;
+    }
+
+    public function getTipoHuespedes()
+    {
+        global $database;
+
+        $data = $database->select('tipo_huesped', [
+            'id_tipo_huesped',
+            'descripcion_tipo',
+        ]);
+
+        return $data;
+    }
+
+    public function insertaNuevoHuesped($iden, $tipodoc, $apellido1, $apellido2, $nombre1, $nombre2, $sexo, $direccion, $telefono, $celular, $correo, $fechanace, $tipohues, $tarifa, $pais, $ciudad, $formapago, $paisExp, $ciudadExp, $usuario, $idusuario)
+    {
+        global $database;
+
+        $data = $database->insert('huespedes', [
+            'apellido1' => $apellido1,
+            'apellido2' => $apellido2,
+            'nombre1' => $nombre1,
+            'nombre2' => $nombre2,
+            'direccion' => $direccion,
+            'telefono' => $telefono,
+            'email' => $correo,
+            'identificacion' => $iden,
+            'tipo_identifica' => $tipodoc,
+            'pais_expedicion' => $paisExp,
+            'ciudad_expedicion' => $ciudadExp,
+            'fecha_nacimiento' => $fechanace,
+            'estado_credito' => 1,
+            'sexo' => $sexo,
+            'usuario_creador' => $usuario,
+            'id_usuario' => $idusuario,
+            'fecha_creacion' => date('Y-m-d H:i:s'),
+            'celular' => $celular,
+            'tipo_huesped' => $tipohues,
+            'id_tarifa' => $tarifa,
+            'pais' => $pais,
+            'ciudad' => $ciudad,
+            'nombre_completo' => $apellido1.' '.$apellido2.' '.$nombre1.' '.$nombre2,
+            'id_forma_pago' => $formapago,
+        ]);
+
+        return $database->id();
+    }
+
+    public function getTipoDocumento()
+    {
+        global $database;
+
+        $data = $database->select('tipo_documento', [
+            'id_doc',
+            'descripcion_documento',
+        ], [
+            'ORDER' => 'descripcion_documento',
+        ]);
+
+        return $data;
+    }
+
+    public function getbuscaHuesped($id)
+    {
+        global $database;
+
+        $data = $database->count('huespedes', [
+            'identificacion' => $id,
+        ]);
+
+        return $data;
+    }
+
+    public function getNombreEmpresa($id)
+    {
+        global $database;
+
+        $data = $database->select('companias', [
+            'nit',
+            'dv',
+            'empresa',
+        ], [
+            'id_compania' => $id,
+        ]);
+
+        return $data;
+    }
+
+    public function insertNuevaReserva($iden, $llegada, $salida, $noches, $hombres, $mujeres, $ninos, $orden, $tipohabi, $nrohabitacion, $tarifahab, $valortarifa, $origen, $destino, $motivo, $fuente, $segmento, $idhuesp, $idcia, $idCentro, $numero, $usuario, $estado, $observa, $formapa, $sinrese, $impto, $idusuario, $tipo)
+    {
+        global $database;
+
+        $data = $database->insert('reservas_pms', [
+            'cantidad' => 1,
+            'estado' => $estado,
+            'dias_reservados' => $noches,
+            'fecha_llegada' => $llegada,
+            'fecha_salida' => $salida,
+            'num_habitacion' => $nrohabitacion,
+            'num_reserva' => $numero,
+            'can_hombres' => $hombres,
+            'can_mujeres' => $mujeres,
+            'can_ninos' => $ninos,
+            'orden_reserva' => $orden,
+            'origen_reserva' => $origen,
+            'destino_reserva' => $destino,
+            'id_compania' => $idcia,
+            'idCentroCia' => $idCentro,
+            'id_huesped' => $idhuesp,
+            'segmento_mercado' => $segmento,
+            'tarifa' => $tarifahab,
+            'tipo_habitacion' => $tipohabi,
+            'valor_reserva' => ($valortarifa * $noches),
+            'valor_diario' => $valortarifa,
+            'motivo_viaje' => $motivo,
+            'fecha_reserva' => FECHA_PMS,
+            'hora_llegada' => date('H:i:s'),
+            'fuente_reserva' => $fuente,
+            'usuario' => $usuario,
+            'usuario_ingreso' => $usuario,
+            'id_usuario_ingreso' => $idusuario,
+            'observaciones' => $observa,
+            'sinreserva' => $sinrese,
+            'forma_pago' => $formapa,
+            'causar_impuesto' => $impto,
+            'tipo_reserva' => $tipo,
+            'fecha_ingreso' => date('Y-m-d H:i:s'),
+        ]);
+
+        return $database->id();
+    }
+
+    public function updateNumeroReserva($numero)
+    {
+        global $database;
+
+        $data = $database->update('parametros_pms', [
+            'con_reserva' => $numero,
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function getNumeroReserva()
+    {
+        global $database;
+
+        $data = $database->select('parametros_pms', [
+            'con_reserva',
+        ]);
+
+        return $data[0]['con_reserva'];
+    }
+
+    public function getCiudades()
+    {
+        global $database;
+
+        $data = $database->select('ciudades', [
+            'id_ciudad',
+            'codigo',
+            'municipio',
+            'depto',
+        ], [
+            'ORDER' => 'municipio',
+        ]);
+
+        return $data;
+    }
+
+    public function getSeleccionFuente()
+    {
+        global $database;
+
+        $data = $database->select('fuente_reserva', [
+            'id_fuente',
+            'descripcion_fuente',
+        ], [
+            'ORDER' => 'descripcion_fuente',
+        ], [
+            'active_at' => 1,
+        ]);
+
+        return $data;
+    }
+
+    public function getBuscaCia($id)
+    {
+        global $database;
+
+        $data = $database->select('companias', [
+            'empresa',
+            'nit',
+            'dv',
+        ], [
+            'id_compania' => $id,
+        ]);
+
+        return $data;
+    }
+
+    public function getSeleccionaCompania($id)
+    {
+        global $database;
+
+        $data = $database->select('companias', [
+                    'id_compania',
+                    'empresa',
+                    'nit',
+                    'dv',
+                                            'telefono',
+                    'celular',
+                    'email',
+                    'activo',
+                    'ciudad',
+                    'direccion',
+                    'estado_credito',
+                    'credito',
+                    'monto_credito',
+                    'dia_corte_credito',
+                    'dias_credito',
+                ], [
+                    'id_compania' => $id,
+        ]);
+
+        return $data;
+    }
+
+    public function getSeleccionaAgencia($id)
+    {
+        global $database;
+
+        $data = $database->select('agencias', [
+            'id_agencia',
+            'agencia',
+            'nit',
+            'dv',
+            'direccion',
+            'telefono',
+            'email',
+        ], [
+            'id_compania' => $id,
+        ]);
+
+        return $data;
+    }
+
+    public function getSeleccionaHuesped($id)
+    {
+        global $database;
+
+        $data = $database->select('huespedes', [
+            'id_huesped',
+            'identificacion',
+            'apellido1',
+            'apellido2',
+            'nombre1',
+            'nombre2',
+            'direccion',
+            'celular',
+            'tipo_identifica',
+            'email',
+            'sexo',
+            'id_compania',
+            'idCentroCia',
+            'pais',
+        ], [
+            'id_huesped' => $id,
+        ]);
+
+        return $data;
+    }
+
+    public function getValorTarifa($tarifa)
+    {
+        global $database;
+
+        $data = $database->select('valores_tarifas', [
+            'valor_un_pax',
+            'valor_dos_pax',
+            'valor_tre_pax',
+            'valor_cua_pax',
+            'valor_cin_pax',
+            'valor_sei_pax',
+            'valor_sie_pax',
+            'valor_och_pax',
+            'valor_nue_pax',
+            'valor_die_pax',
+            'valor_nino',
+            'valor_adicional',
+            'valor_dormitorio',
+        ], [
+            'id' => $tarifa,
+        ]);
+
+        return $data;
+    }
+
+    public function getSeleccionaTarifa($tipo, $llega, $sale)
+    {
+        global $database;
+        $data = $database->select('valores_tarifas', [
+            '[>]tarifas' => ['id_subtarifa' => 'id_tarifa'],
+        ], [
+            'valores_tarifas.id',
+            'tarifas.descripcion_tarifa',
+            'valores_tarifas.id_tipohabitacion',
+        ], [
+            'valores_tarifas.id_tipohabitacion' => $tipo,
+            'ORDER' => 'tarifas.descripcion_tarifa',
+        ]);
+
+        return $data;
+    }
+
+    public function getSeleccionaDormitorio($tipo)
+    {
+        global $database;
+
+        $data = $database->select('habitaciones', [
+            'numero_hab',
+            'dormitorios',
+        ], [
+            'ORDER' => 'orden_dormitorio',
+        ], [
+            'tipo_hab' => $tipo,
+            'orden_dormitorio' => null,
+        ]);
+
+        return $data;
+    }
+
+    public function getSeleccionaHabitacionesTipo($tipo)
+    {
+        global $database;
+
+        $data = $database->query("SELECT numero_hab as num_habitacion FROM habitaciones WHERE id_tipohabitacion = '$tipo' AND active_at = 1 ORDER BY numero_hab")->fetchAll();
+
+        return $data;
+    }
+
+    public function getTipoHabitacion()
+    {
+        global $database;
+
+        $data = $database->select('tipo_habitaciones', [
+            'id',
+            'codigo',
+            'descripcion_habitacion',
+            'sector_habitacion',
+            'deptoventa_habitacion',
+            'tipo_habitacion',
+        ], [
+            'active_at' => 1,
+            'ORDER' => 'descripcion_habitacion',
+        ]);
+
+        return $data;
+    }
+
+    public function getDatePms()
+    {
+        global $database;
+
+        $data = $database->select('parametros_pms', [
+            'fecha_auditoria',
+        ], [
+            'LIMIT' => 1,
+        ]);
+
+        return $data;
+    }
+
+    public function getPerfilHuespedes($regis, $filas)
+    {
+        global $database;
+
+        $data = $database->select('huespedes', [
+            'id_huesped',
+            'nombre1',
+            'nombre2',
+            'apellido1',
+            'apellido2',
+            'nombre_completo',
+            'identificacion',
+            'direccion',
+            'telefono',
+            'email',
+            'tipo_identifica',
+            'tipo_huesped',
+            'fecha_nacimiento',
+            'sexo',
+            'celular',
+            'id_compania',
+            'idCentroCia',
+            'estado_credito',
+        ], [
+            'LIMIT' => [$regis, $filas],
+            'ORDER' => 'apellido1',
+        ]);
+
+        return $data;
+    }
+
+    public function getCompanias()
+    {
+        global $database;
+
+        $data = $database->select('companias', [
+            'id_compania',
+            'empresa',
+            'direccion',
+            'nit',
+            'dv',
+            'tipo_documento',
+            'telefono',
+            'celular',
+            'fax',
+            'email',
+            'id_tarifa',
+            'estado_credito',
+            'activo',
+        ], [
+            'ORDER' => 'empresa',
+        ]);
+
+        return $data;
+    }
+
+    public function getReservasActuales($tipo)
+    {
+        global $database;
+
+        $data = $database->select('reservas_pms', [
+            '[>]huespedes' => 'id_huesped',
+        ], [
+            'reservas_pms.cantidad',
+            'reservas_pms.fecha_llegada',
+            'reservas_pms.fecha_salida',
+            'reservas_pms.dias_reservados',
+            'reservas_pms.tipo_habitacion',
+            'reservas_pms.tipo_reserva',
+            'reservas_pms.num_habitacion',
+            'reservas_pms.num_reserva',
+            'reservas_pms.can_hombres',
+            'reservas_pms.can_mujeres',
+            'reservas_pms.can_ninos',
+            'reservas_pms.id_compania',
+            'reservas_pms.idCentroCia',
+            'reservas_pms.tipo_ocupacion',
+            'reservas_pms.tarifa',
+            'reservas_pms.valor_reserva',
+            'reservas_pms.valor_diario',
+            'reservas_pms.estado',
+            'reservas_pms.observaciones',
+            'reservas_pms.observaciones_cancela',
+            'reservas_pms.salida_checkout',
+            'reservas_pms.causar_impuesto',
+            'reservas_pms.orden_reserva',
+            'huespedes.nombre_completo',
+            'huespedes.nombre1',
+            'huespedes.nombre2',
+            'huespedes.apellido1',
+            'huespedes.apellido2',
+            'huespedes.fecha_nacimiento',
+            'huespedes.id_huesped',
+        ], [
+            'reservas_pms.tipo_reserva' => $tipo,
+        ]);
+
+        return $data;
+    }
+
+    public function getHuespedesenCasa($tipo, $estado)
+    {
+        global $database;
+
+        $data = $database->select('reservas_pms', [
+            '[>]huespedes' => 'id_huesped',
+        ], [
+            'reservas_pms.id',
+            'reservas_pms.cantidad',
+            'reservas_pms.fecha_llegada',
+            'reservas_pms.fecha_salida',
+            'reservas_pms.dias_reservados',
+            'reservas_pms.tipo_reserva',
+            'reservas_pms.tipo_habitacion',
+            'reservas_pms.num_habitacion',
+            'reservas_pms.num_reserva',
+            'reservas_pms.can_hombres',
+            'reservas_pms.can_mujeres',
+            'reservas_pms.can_ninos',
+            'reservas_pms.id_compania',
+            'reservas_pms.idCentroCia',
+            'reservas_pms.tipo_ocupacion',
+            'reservas_pms.tarifa',
+            'reservas_pms.valor_reserva',
+            'reservas_pms.valor_diario',
+            'reservas_pms.estado',
+            'reservas_pms.salida_checkout',
+            'reservas_pms.observaciones',
+            'reservas_pms.causar_impuesto',
+            'reservas_pms.usuario',
+            'reservas_pms.fecha_ingreso',
+            'huespedes.nombre_completo',
+            'huespedes.nombre1',
+            'huespedes.nombre2',
+            'huespedes.apellido1',
+            'huespedes.apellido2',
+            'huespedes.fecha_nacimiento',
+            'huespedes.id_huesped',
+        ], [
+            'reservas_pms.tipo_reserva' => $tipo,
+            'reservas_pms.estado' => $estado,
+            'ORDER' => 'reservas_pms.num_habitacion',
+        ]);
+
+        return $data;
+    }
+
+    public function getHuespedesenCasasinCtaMaster($tipo, $estado, $ctamaster)
+    {
+        global $database;
+
+        $data = $database->select('reservas_pms', [
+            '[>]huespedes' => 'id_huesped',
+            '[>]tipo_habitaciones' => ['tipo_habitacion' => 'id'],
+        ], [
+            'reservas_pms.cantidad',
+            'reservas_pms.fecha_llegada',
+            'reservas_pms.fecha_salida',
+            'reservas_pms.dias_reservados',
+            'reservas_pms.tipo_habitacion',
+            'reservas_pms.num_habitacion',
+            'reservas_pms.num_reserva',
+            'reservas_pms.can_hombres',
+            'reservas_pms.can_mujeres',
+            'reservas_pms.can_ninos',
+            'reservas_pms.id_compania',
+            'reservas_pms.idCentroCia',
+            'reservas_pms.tipo_ocupacion',
+            'reservas_pms.tarifa',
+            'reservas_pms.valor_reserva',
+            'reservas_pms.valor_diario',
+            'reservas_pms.estado',
+            'reservas_pms.observaciones',
+            'reservas_pms.causar_impuesto',
+            'huespedes.nombre_completo',
+            'huespedes.nombre1',
+            'huespedes.nombre2',
+            'huespedes.apellido1',
+            'huespedes.apellido2',
+            'huespedes.fecha_nacimiento',
+            'huespedes.id_huesped',
+        ], [
+            'reservas_pms.fecha_salida[>]' => FECHA_PMS,
+            'reservas_pms.tipo_reserva' => $tipo,
+            'tipo_habitaciones.tipo_habitacion' => 1,
+            'reservas_pms.estado' => $estado,
+            'ORDER' => 'reservas_pms.num_habitacion',
+        ]);
+
+        return $data;
+    }
+
+    public function getCtaMasterinHouse($tipo, $estado, $ctamaster)
+    {
+        global $database;
+
+        $data = $database->select('reservas_pms', [
+            '[>]huespedes' => 'id_huesped',
+        ], [
+            'reservas_pms.cantidad',
+            'reservas_pms.fecha_llegada',
+            'reservas_pms.fecha_salida',
+            'reservas_pms.dias_reservados',
+            'reservas_pms.tipo_habitacion',
+            'reservas_pms.num_habitacion',
+            'reservas_pms.num_reserva',
+            'reservas_pms.can_hombres',
+            'reservas_pms.can_mujeres',
+            'reservas_pms.can_ninos',
+            'reservas_pms.id_compania',
+            'reservas_pms.idCentroCia',
+            'reservas_pms.tipo_ocupacion',
+            'reservas_pms.tarifa',
+            'reservas_pms.valor_reserva',
+            'reservas_pms.valor_diario',
+            'reservas_pms.estado',
+            'reservas_pms.observaciones',
+            'reservas_pms.causar_impuesto',
+            'huespedes.nombre1',
+            'huespedes.nombre2',
+            'huespedes.apellido1',
+            'huespedes.apellido2',
+            'huespedes.id_huesped',
+        ], [
+            'reservas_pms.tipo_reserva' => $tipo,
+            'reservas_pms.estado' => $estado,
+            'ORDER' => 'reservas_pms.num_habitacion',
+        ]);
+
+        return $data;
+    }
+
+    public function getReservasDia($fecha, $tipo, $estado)
+    {
+        global $database;
+
+        $data = $database->select('reservas_pms', [
+            '[>]huespedes' => 'id_huesped',
+        ], [
+            'reservas_pms.cantidad',
+            'reservas_pms.fecha_llegada',
+            'reservas_pms.fecha_salida',
+            'reservas_pms.dias_reservados',
+            'reservas_pms.tipo_habitacion',
+            'reservas_pms.num_habitacion',
+            'reservas_pms.num_reserva',
+            'reservas_pms.can_hombres',
+            'reservas_pms.can_mujeres',
+            'reservas_pms.can_ninos',
+            'reservas_pms.id_compania',
+            'reservas_pms.idCentroCia',
+            'reservas_pms.id_huesped',
+            'reservas_pms.tarifa',
+            'reservas_pms.valor_reserva',
+            'reservas_pms.valor_diario',
+            'reservas_pms.observaciones',
+            'reservas_pms.tipo_ocupacion',
+            'reservas_pms.tipo_reserva',
+            'reservas_pms.estado',
+            'reservas_pms.causar_impuesto',
+            'huespedes.nombre1',
+            'huespedes.nombre2',
+            'huespedes.apellido1',
+            'huespedes.apellido2',
+            'huespedes.fecha_nacimiento',
+            'huespedes.nombre_completo',
+        ], [
+            'reservas_pms.tipo_reserva' => $tipo,
+            'reservas_pms.estado' => $estado,
+            'reservas_pms.fecha_llegada' => $fecha,
+            'ORDER' => ['reservas_pms.num_habitacion' => 'ASC'],
+        ]);
+
+        return $data;
+    }
+
+    public function getSalidasDia($fecha, $tipo, $estado)
+    {
+        global $database;
+
+        $data = $database->select('reservas_pms', [
+            '[>]huespedes' => 'id_huesped',
+        ], [
+            'reservas_pms.cantidad',
+            'reservas_pms.fecha_llegada',
+            'reservas_pms.fecha_salida',
+            'reservas_pms.salida_checkout',
+            'reservas_pms.dias_reservados',
+            'reservas_pms.tipo_habitacion',
+            'reservas_pms.num_habitacion',
+            'reservas_pms.num_reserva',
+            'reservas_pms.can_hombres',
+            'reservas_pms.can_mujeres',
+            'reservas_pms.can_ninos',
+            'reservas_pms.id_compania',
+            'reservas_pms.idCentroCia',
+            'reservas_pms.tarifa',
+            'reservas_pms.valor_reserva',
+            'reservas_pms.valor_diario',
+            'reservas_pms.observaciones',
+            'reservas_pms.tipo_ocupacion',
+            'reservas_pms.tipo_reserva',
+            'reservas_pms.estado',
+            'reservas_pms.causar_impuesto',
+            'huespedes.id_huesped',
+            'huespedes.nombre_completo',
+            'huespedes.nombre1',
+            'huespedes.nombre2',
+            'huespedes.apellido1',
+            'huespedes.apellido2',
+        ], [
+            'tipo_reserva' => $tipo,
+            'estado' => $estado,
+            'fecha_salida' => $fecha,
+            'ORDER' => ['reservas_pms.num_habitacion' => 'ASC'],
+        ]);
+
+        return $data;
+    }
+}

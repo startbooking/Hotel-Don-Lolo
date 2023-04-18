@@ -138,7 +138,7 @@ foreach ($codigos as $codigo) { ?>
                   <select name="codigoAjuste" id="codigoAjuste" required>
                     <option value="">Seleccione el Ajuste</option>
                     <?php
-$codigos = $hotel->getCodigosConsumos(4);
+                      $codigos = $hotel->getCodigosConsumos(4);
 foreach ($codigos as $codigo) { ?>
                       <option value="<?php echo $codigo['id_cargo']; ?>"><?php echo $codigo['descripcion_cargo']; ?></option>
                       <?php
@@ -234,10 +234,10 @@ foreach ($codigos as $codigo) { ?>
                   <select name="codigoAbono" id="codigoAbono" required>
                     <option value="">Seleccione Concepto</option>
                     <?php
-                    $codigos = $hotel->getCodigosConsumos(3);
+  $codigos = $hotel->getCodigosConsumos(3);
 foreach ($codigos as $codigo) { ?>
-                      <option value="<?php echo $codigo['id_cargo']; ?>"><?php echo $codigo['descripcion_cargo']; ?></option>
-                      <?php
+                        <option value="<?php echo $codigo['id_cargo']; ?>"><?php echo $codigo['descripcion_cargo']; ?></option>
+                        <?php
 }
 ?>
                   </select>
@@ -348,31 +348,31 @@ foreach ($codigos as $codigo) { ?>
             <input type="hidden" name="diasCreditoCia" id="diasCreditoCia" value="0">
             <input type="hidden" name="credito" id="credito" value="0">
             <div class="form-group">
-              <label for="llegada" class="col-sm-2 control-label">Facturar A </label>
+              <label style="margin-top: 3px;" for="llegada" class="col-sm-2 control-label">Facturar A </label>
               <div class="col-sm-6" style="padding:0;height: 30px">
                 <div class="col-sm-6">
                   <div class="form-check form-check-inline">
-                    <input style="margin-top:5px" class="form-check-input" type="radio" name="habitacionOptionCon" id="inlineRadio1" value="1" onclick="apagaselecomp(this.value)" checked="">
-                    <label style="margin-top:-25px;margin-left:25px" class="form-check-label" for="inlineRadio1" >Huesped</label>
+                    <input style="margin-top:5px" class="form-check-input" type="radio" name="habitacionOptionCon" id="inlineRadio1" value="1" onclick="apagaselecomp(this.value)" >
+                    <label style="margin-top:-20px;margin-left:25px" class="form-check-label" for="inlineRadio1" >Huesped</label>
                   </div>                     
                 </div>
                 <div class="col-sm-6">
                   <div class="form-check form-check-inline">
                     <input style="margin-top:5px" class="form-check-input" type="radio" name="habitacionOptionCon" id="inlineRadio2" value="2" onclick="apagaselecomp(this.value)">
-                    <label style="margin-top:-25px;margin-left:25px" class="form-check-label" for="inlineRadio2" >Compañia</label>
+                    <label style="margin-top:-20px;margin-left:25px" class="form-check-label" for="inlineRadio2" >Compañia</label>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="form-group" id="selecomp" style="display: none;">
+            <div class="form-group" id="selecomp">
               <label class="control-label col-xs-2">Compañia</label>
               <div class="col-lg-8 col-xs-8">
                 <select name="txtIdCiaSal" id="txtIdCiaSal"  readonly disabled>
                   <?php
-                    foreach ($cias as $key => $value) { ?> 
+foreach ($cias as $key => $value) { ?> 
                       <option value="<?php echo $value['id_compania']; ?>"><?php echo $value['empresa']; ?></option>
                       <?php
-                    }
+}
 ?>
                 </select>
               </div>
@@ -398,16 +398,16 @@ foreach ($codigos as $codigo) { ?>
               <div class="col-lg-2 col-xs-2">
                 <input style="font-size:12px;height: 25px !important" class="form-control padInput" type="text" name='txtNumeroHabSal' id='txtNumeroHabSal' readonly>
               </div>
-            </div>
-            <div class="form-group">
-              <label style="font-size:12px;height: 25px !important" class="control-label col-lg-2">Apellidos</label>
+            <!-- </div>
+            <div class="form-group"> -->
+              <label style="font-size:12px;height: 25px !important" class="control-label col-lg-2">Huesped</label>
               <div class="col-lg-4 col-xs-4">
-                <input style="font-size:12px;height: 25px !important" class="form-control padInput" type="text" name="txtApellidosSal" id='txtApellidosSal' value='0' readonly>
+                <input style="font-size:12px;height: 25px !important" class="form-control padInput" type="text" name="txtHuespedSal" id='txtHuespedSal' value='0' readonly>
               </div>
-              <label style="font-size:12px;height: 25px !important" class="control-label col-lg-2">Nombres</label>
+              <!-- <label style="font-size:12px;height: 25px !important" class="control-label col-lg-2">Nombres</label>
               <div class="col-lg-4 col-xs-4">
                 <input style="font-size:12px;height: 25px !important" class="form-control padInput" type="text" name="txtNombresSal" id='txtNombresSal' value='0' readonly>
-              </div>
+              </div> -->
             </div>
             <div id="estadoCuenta"></div>
           </div>

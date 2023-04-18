@@ -194,6 +194,10 @@ input[type="date"].form-control {
   text-align: center;
 }
 
+#dataRegisterRoom .modal-md {
+  width: 60%;
+}
+
 
 .inner > p{
   text-align: center;

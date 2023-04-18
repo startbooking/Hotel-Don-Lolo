@@ -13,8 +13,9 @@ if (count($datosReserva) == 0) {?>
 }
 
 $dia = substr(FECHA_PMS, 8, 2);
+
 $datosCompania = $hotel->getSeleccionaCompania($datosReserva[0]['id_compania']);
-// $datosAgencia = $hotel->getSeleccionaAgencia($datosReserva[0]['id_agencia']);
+
 $tipoHabitacion = $hotel->getNombreTipoHabitacion($datosReserva[0]['tipo_habitacion']);
 
 if (count($datosCompania) == 0) {

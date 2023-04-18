@@ -281,10 +281,8 @@ include_once '../views/modal/modalUsuario.php';
     
     <script>
       sesion    = JSON.parse(localStorage.getItem('sesion'))
-      /*  
-      let { user } = sesion;
-      let { usuario_id, usuario, nombres, apellidos, tipo } = user 
-      */
+      /* let { user } = sesion;
+      let { usuario_id, usuario, nombres, apellidos, tipo } = user  */
       /* idusr     = usuario_id
       user      = usuario
       nombres   = nombres

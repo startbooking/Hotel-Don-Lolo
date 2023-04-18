@@ -1,8 +1,9 @@
 sesion = JSON.parse(localStorage.getItem("sesion"));
-if (sesion != null) {
+/* if (sesion) {
   let { user } = sesion;
-  let { usuario_id, usuario, nombres, apellidos } = user;
-}
+  var { usuario_id, usuario, nombres, apellidos } = user;
+  // console.log(usuario);
+} */
 
 function solicitudSoporte() {
   nombres = $("#nombres").val();
@@ -41,13 +42,14 @@ function solicitudSoporte() {
 
 function activaSesion() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-
+  let { moduloPms } = sesion;
+  let { fecha_auditoria } = moduloPms;
   parametros = {
-    user: sesion["usuario"][0]["usuario"],
-    userId: sesion["usuario"][0]["usuario_id"],
-    fecha: sesion["pms"][0]["fecha_auditoria"],
-    tipoUser: sesion["usuario"][0]["tipo"],
-    cajeroUser: sesion["usuario"][0]["estado_usuario_pms"],
+    user: usuario,
+    userId: susuario_id,
+    fecha: fecha_auditoria,
+    tipoUser: tipo,
+    cajeroUser: estado_usuario_pms,
   };
 }
 

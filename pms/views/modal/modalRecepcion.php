@@ -290,12 +290,12 @@
               <div class="col-lg-8 col-md-8" >
                 <select name="motivoCancela" id="motivoCancela" required>
                   <option value="">Motivo Cancelacion Reserva</option>
-                  <?php 
+                  <?php
                   $motivos = $hotel->getMotivoCancelacion(1);
                   foreach ($motivos as $motivo) { ?>
-                    <option value="<?=$motivo['id_cancela']?>"><?=$motivo['descripcion_motivo']?></option>}
+                    <option value="<?php echo $motivo['id_cancela']; ?>"><?php echo $motivo['descripcion_motivo']; ?></option>}
                      option 
-                    <?php  
+                    <?php
                   }
                   ?>
                 </select>
@@ -498,7 +498,7 @@
             <div class="form-group">
               <label class="control-label col-lg-2">Reserva</label>
               <div class="col-lg-2 col-md-2">
-                <input type="text" name="idregis" id="txtIdReservaAnu" value="">
+                <input class="form-control" type="text" name="idregis" id="txtIdReservaAnu" value="">
               </div>
               <label class="control-label col-lg-2">Tipo Habitacion</label>
               <div class="col-lg-2 col-md-2">
