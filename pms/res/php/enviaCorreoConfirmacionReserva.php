@@ -1,49 +1,48 @@
 <?php
 
-  require_once '../config.php' ;  
+  require_once '../config.php';
   require_once '../app_top.php';
   require_once '../titles.php';
 
-  $info    = $_POST['info'];
+  $info = $_POST['info'];
   $reserva = $_POST['reserva'];
   $idhotel = $_POST['idhotel'];
-  $pago    = $_POST['pago'];
-  
- 
-  $nro_reserva     = $reserva;
-  $datapay         = $user->getDataPayHotel($idhotel);
-  
-  $nombrehotel     = $hotel[0]['hotel_name'];
-  
-  $infoBooking     = $user->getDetailBooking($idhotel,$nro_reserva);
-  
-  $infoBook        = $user->getBookingInfo($idhotel); 
-  $nombhab         = $user->getRoomName($infoBooking[0]['id_room']);
-  
-  $email_message   = '';
-  $email_to        = $hotel[0]['email_book'];
-  $mailbooking     = $email_to;
-  
-  $error_message   = "Error";
-  $mail            = strtolower($infoBooking[0]['email']);
-  
-  $title_booking   = $infoBook[0]['sub_confirm_booking'];
+  $pago = $_POST['pago'];
+
+  $nro_reserva = $reserva;
+  $datapay = $user->getDataPayHotel($idhotel);
+
+  $nombrehotel = $hotel[0]['hotel_name'];
+
+  $infoBooking = $user->getDetailBooking($idhotel, $nro_reserva);
+
+  $infoBook = $user->getBookingInfo($idhotel);
+  $nombhab = $user->getRoomName($infoBooking[0]['id_room']);
+
+  $email_message = '';
+  $email_to = $hotel[0]['email_book'];
+  $mailbooking = $email_to;
+
+  $error_message = 'Error';
+  $mail = strtolower($infoBooking[0]['email']);
+
+  $title_booking = $infoBook[0]['sub_confirm_booking'];
   $message_booking = $infoBook[0]['message_confirm_booking'];
-  
-  $email_subject   = $title_booking;
-  
-  $landname        = $user->getNameLand($infoBooking[0]['id_land']);
-  
-  $tipor           = $infoBooking[0]['id_room'];
-  $nameRoom        = $user->getNameRoom($tipor);
 
-  $estadoRs = 1 ;
-  $tx_tax   = 0 ;
-  $infopago = 0 ;
+  $email_subject = $title_booking;
 
-  $updbook  = $user->updateBookingPayu($idhotel,$nro_reserva,$estadoRs,$tx_tax, $infopago);
+  $landname = $user->getNameLand($infoBooking[0]['id_land']);
 
-  //A partir de aqui se contruye el cuerpo del mensaje tal y como llegará al correo
+  $tipor = $infoBooking[0]['id_room'];
+  $nameRoom = $user->getNameRoom($tipor);
+
+  $estadoRs = 1;
+  $tx_tax = 0;
+  $infopago = 0;
+
+  $updbook = $user->updateBookingPayu($idhotel, $nro_reserva, $estadoRs, $tx_tax, $infopago);
+
+  // A partir de aqui se contruye el cuerpo del mensaje tal y como llegará al correo
 
   $email_message = "
     <div class='jarallax agile-about w3ls-section' style='margin-bottom: 30px'>
@@ -58,7 +57,7 @@
             <div class='form-group'>
               <label for='name' class='label-control col-lg-2'> Huesped</label>
               <div class='col-lg-4'>
-                <input name='name' type='text' id='name' class='form-control' value='".$infoBooking[0]['last_name']." ". $infoBooking[0]['name']."'>
+                <input name='name' type='text' id='name' class='form-control' value='".$infoBooking[0]['last_name'].' '.$infoBooking[0]['name']."'>
               </div>            
               <label for='name' class='label-control col-lg-2'> Identificacion</label>
               <div class='col-lg-4'>
@@ -96,7 +95,7 @@
               <div class='col-lg-4'>
                 <input name='name' type='text' class='form-control' value='".$infoBooking[0]['adults']."' >
               </div>            
-              <label for='name' class='label-control col-lg-2'>". utf8_decode('Niños')."</label>
+              <label for='name' class='label-control col-lg-2'>".utf8_decode('Niños')."</label>
               <div class='col-lg-4'>
                 <input name='name' type='text' class='form-control' value='".$infoBooking[0]['children']."' >
               </div>            
@@ -122,7 +121,7 @@
               </div>
               <label for='name' class='label-control col-lg-2 col-md-2'> Ciudad</label>
               <div class='col-lg-4 col-md-4'>
-                <input name='name' type='text' id='name' class='form-control' value='". strtoupper(ciudad_hotel($idhotel))."'>
+                <input name='name' type='text' id='name' class='form-control' value='".strtoupper(ciudad_hotel($idhotel))."'>
               </div>
             </div>
             <div class='form-group'>
@@ -134,7 +133,7 @@
             <div class='form-group'>
               <label for='name' class='label-control col-lg-2 col-md-2'> Fecha Estadia</label>
               <div class='col-lg-4 col-md-4'>
-                <input name='name' type='text' id='name' class='form-control' value='".date('Y-m-d',$infoBooking[0]['in_date'])." / ".date('Y-m-d',$infoBooking[0]['out_date'])."' >
+                <input name='name' type='text' id='name' class='form-control' value='".date('Y-m-d', $infoBooking[0]['in_date']).' / '.date('Y-m-d', $infoBooking[0]['out_date'])."' >
               </div>
               <label for='name' class='label-control col-lg-2 col-md-2'> Noches</label>
               <div class='col-lg-4 col-md-4'>
@@ -144,21 +143,21 @@
             <div class='form-group'>
               <label for='name' class='label-control col-lg-2 col-md-2'> Tarifa X Noche</label>
               <div class='col-lg-4 col-md-4'>
-                <input name='name' type='text' class='form-control' value='".number_format($infoBooking[0]['price'],2)."' >
+                <input name='name' type='text' class='form-control' value='".number_format($infoBooking[0]['price'], 2)."' >
               </div>            
               <label for='name' class='label-control col-lg-2 col-md-2'> Valor Estadia</label>
               <div class='col-lg-4 col-md-4'>
-                <input name='name' type='text' class='form-control' value='".number_format($infoBooking[0]['vlr_booking'],2)."'>
+                <input name='name' type='text' class='form-control' value='".number_format($infoBooking[0]['vlr_booking'], 2)."'>
               </div>       
             </div>            
             <div class='form-group'>
               <label for='name' class='label-control col-lg-2 col-md-2'> Valor impuestos</label>
               <div class='col-lg-4 col-md-4'>
-                <input name='name' type='text' class='form-control' value='".number_format($infoBooking[0]['tax_booking'],2)."'>
+                <input name='name' type='text' class='form-control' value='".number_format($infoBooking[0]['tax_booking'], 2)."'>
               </div>            
               <label for='name' class='label-control col-lg-2 col-md-2'> Valor TOTAL</label>
               <div class='col-lg-4 col-md-4'>
-                <input name='name' type='text' class='form-control' value='".number_format($infoBooking[0]['tax_booking']+$infoBooking[0]['vlr_booking'],2)."' >
+                <input name='name' type='text' class='form-control' value='".number_format($infoBooking[0]['tax_booking'] + $infoBooking[0]['vlr_booking'], 2)."' >
               </div>            
             </div>            
             <div class='form-group'>
@@ -191,7 +190,6 @@
     </div>
 ";
 
-
   $mensajeReserva = "
   <!DOCTYPE HTML>
     <html>
@@ -219,7 +217,7 @@
     </html>
   ";
 
-  $message   = "
+  $message = "
   <!DOCTYPE HTML>
     <html>
       <head></head>
@@ -252,85 +250,83 @@
       </body>
     </html>";
 
-
-
-  $headers  = 'MIME-Version: 1.0' . "\r\n";
-  $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+  $headers = 'MIME-Version: 1.0'."\r\n";
+  $headers .= 'Content-type: text/html; charset=iso-8859-1'."\r\n";
   $headers .= 'Bcc: sactel@gmail.com'."\r\n";
   $headers .= 'From: '.$mailbooking."\r\n";
 
-  /* Envia Mensaje de Reserva al Hotel */ 
-  @mail($email_to, $email_subject, $mensajeReserva, $headers);  
+  /* Envia Mensaje de Reserva al Hotel */
+  @mail($email_to, $email_subject, $mensajeReserva, $headers);
 
-  $headers  = 'MIME-Version: 1.0' . "\r\n";
-  $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+  $headers = 'MIME-Version: 1.0'."\r\n";
+  $headers .= 'Content-type: text/html; charset=iso-8859-1'."\r\n";
   $headers .= 'From: '.$mailbooking."\r\n";
-  /* Envia Mensaje de Reserva al Huesped */ 
-  @mail($mail, $email_subject, $message, $headers);  
+  /* Envia Mensaje de Reserva al Huesped */
+  @mail($mail, $email_subject, $message, $headers);
 
- ?>
+  ?>
     <!-- <div class="jarallax agile-about w3ls-section" style="margin-bottom: 30px">
       <div class="container">
-        <h2 class="w3ls_head" style="font-family: ubuntu"><?=RESUMEN_TRANSACTION?> </h2>
+        <h2 class="w3ls_head" style="font-family: ubuntu"><?php echo RESUMEN_TRANSACTION; ?> </h2>
         <h3 align="center"></h3>
       </div>
       <div class="container">
-        <?php 
-        ?>
+        <?php
+  ?>
         <div class="row">        
           <h3 align="center">Informacion del Huesped</h3>
           <div class="form-horizontal" style="margin-top:15px">
             <div class="form-group">
               <label for="name" class="label-control col-lg-3"> Huesped</label>
               <div class="col-lg-9">
-                <input name="name" type="text" id="name" class="form-control" value="<?=$infoBooking[0]['last_name']?> <?=$infoBooking[0]['name']?>" readonly>
+                <input name="name" type="text" id="name" class="form-control" value="<?php echo $infoBooking[0]['last_name']; ?> <?php echo $infoBooking[0]['name']; ?>" readonly>
               </div>            
             </div>            
             <div class="form-group">
               <label for="name" class="label-control col-lg-3"> Identificacion</label>
               <div class="col-lg-4">
-                <input name="name" type="text" class="form-control" value="<?=$infoBooking[0]['identify']?>" readonly>
+                <input name="name" type="text" class="form-control" value="<?php echo $infoBooking[0]['identify']; ?>" readonly>
               </div>            
               <label for="name" class="label-control col-lg-2"> Telefono</label>
               <div class="col-lg-3">
-                <input name="name" type="text" class="form-control" value="<?=$infoBooking[0]['phone']?>" readonly>
+                <input name="name" type="text" class="form-control" value="<?php echo $infoBooking[0]['phone']; ?>" readonly>
               </div>            
             </div>            
             <div class="form-group">
               <label for="name" class="label-control col-lg-3"> Email</label>
               <div class="col-lg-9">
-                <input name="name" type="text" class="form-control" value="<?=$infoBooking[0]['email']?>" readonly>
+                <input name="name" type="text" class="form-control" value="<?php echo $infoBooking[0]['email']; ?>" readonly>
               </div>            
             </div>            
             <div class="form-group">
               <label for="name" class="label-control col-lg-3"> Direccion</label>
               <div class="col-lg-9">
-                <input name="name" type="text" class="form-control" value="<?=$infoBooking[0]['adress']?>" readonly>
+                <input name="name" type="text" class="form-control" value="<?php echo $infoBooking[0]['adress']; ?>" readonly>
               </div>            
             </div>            
             <div class="form-group">
               <label for="name" class="label-control col-lg-3"> Ciudad</label>
               <div class="col-lg-9">
-                <input name="name" type="text" class="form-control" value="<?=$infoBooking[0]['city']?>" readonly>
+                <input name="name" type="text" class="form-control" value="<?php echo $infoBooking[0]['city']; ?>" readonly>
               </div>            
             </div>
             <div class="form-group">
               <label for="name" class="label-control col-lg-3"> Pais</label>
               <div class="col-lg-9">
-                <?php 
-                $landname = $user->getNameLand($infoBooking[0]['id_land']);
-                 ?>
-                <input name="name" type="text" class="form-control" value="<?=$landname?>" readonly>
+                <?php
+          $landname = $user->getNameLand($infoBooking[0]['id_land']);
+  ?>
+                <input name="name" type="text" class="form-control" value="<?php echo $landname; ?>" readonly>
               </div>            
             </div>
             <div class="form-group">
               <label for="name" class="label-control col-lg-3"> Adultos</label>
               <div class="col-lg-3">
-                <input name="name" type="text" class="form-control" value="<?=$infoBooking[0]['adults']?>" readonly>
+                <input name="name" type="text" class="form-control" value="<?php echo $infoBooking[0]['adults']; ?>" readonly>
               </div>            
               <label for="name" class="label-control col-lg-3"> Niños</label>
               <div class="col-lg-3">
-                <input name="name" type="text" class="form-control" value="<?=$infoBooking[0]['children']?>" readonly>
+                <input name="name" type="text" class="form-control" value="<?php echo $infoBooking[0]['children']; ?>" readonly>
               </div>            
             </div>            
           </div>
@@ -339,7 +335,7 @@
             <div class="form-group">
               <label for="name" class="label-control col-lg-4"> Estado de la transaccion</label>
               <div class="col-lg-8">
-                <input name="name" type="text" id="name" class="form-control" value="<?=$pago?>" readonly>
+                <input name="name" type="text" id="name" class="form-control" value="<?php echo $pago; ?>" readonly>
               </div>
             </div>
           </div>
@@ -350,73 +346,73 @@
             <div class="form-group">
               <label for="name" class="label-control col-lg-2 col-md-2"> Hotel</label>
               <div class="col-lg-4 col-md-4">
-                <input name="name" type="text" id="name" class="form-control" value="<?=$nombrehotel?>" readonly>
+                <input name="name" type="text" id="name" class="form-control" value="<?php echo $nombrehotel; ?>" readonly>
               </div>
               <label for="name" class="label-control col-lg-2 col-md-2"> Ciudad</label>
               <div class="col-lg-4 col-md-4">
-                <input name="name" type="text" id="name" class="form-control" value="<?php echo strtoupper(ciudad_hotel($idhotel))?>" readonly>
+                <input name="name" type="text" id="name" class="form-control" value="<?php echo strtoupper(ciudad_hotel($idhotel)); ?>" readonly>
               </div>
             </div>
             <div class="form-group">
               <label for="name" class="label-control col-lg-2 col-md-2"> Reserva Numero</label>
               <div class="col-lg-4 col-md-4">
-                <input name="name" type="text" id="name" class="form-control" value="<?=$nro_reserva?>" readonly>
+                <input name="name" type="text" id="name" class="form-control" value="<?php echo $nro_reserva; ?>" readonly>
               </div>
             </div>
             <div class="form-group">
               <label for="name" class="label-control col-lg-2 col-md-2"> Fecha Estadia</label>
               <div class="col-lg-4 col-md-4">
-                <input name="name" type="text" id="name" class="form-control" value="<?=date('Y-m-d',$infoBooking[0]['in_date'])?> / <?=date('Y-m-d',$infoBooking[0]['out_date'])?>" readonly>
+                <input name="name" type="text" id="name" class="form-control" value="<?php echo date('Y-m-d', $infoBooking[0]['in_date']); ?> / <?php echo date('Y-m-d', $infoBooking[0]['out_date']); ?>" readonly>
               </div>
               <label for="name" class="label-control col-lg-2 col-md-2"> Noches</label>
               <div class="col-lg-4 col-md-4">
-                <input name="name" type="text" id="name" class="form-control" value="<?=$infoBooking[0]['days']?>" readonly>
+                <input name="name" type="text" id="name" class="form-control" value="<?php echo $infoBooking[0]['days']; ?>" readonly>
               </div>
             </div>
             <div class="form-group">
               <label for="name" class="label-control col-lg-2 col-md-2"> Tarifa X Noche</label>
               <div class="col-lg-4 col-md-4">
-                <input name="name" type="text" class="form-control" value="<?=number_format($infoBooking[0]['price'],2)?>" readonly>
+                <input name="name" type="text" class="form-control" value="<?php echo number_format($infoBooking[0]['price'], 2); ?>" readonly>
               </div>            
               <label for="name" class="label-control col-lg-2 col-md-2"> Valor Estadia</label>
               <div class="col-lg-4 col-md-4">
-                <input name="name" type="text" class="form-control" value="<?=number_format($infoBooking[0]['vlr_booking'],2)?>" readonly>
+                <input name="name" type="text" class="form-control" value="<?php echo number_format($infoBooking[0]['vlr_booking'], 2); ?>" readonly>
               </div>       
             </div>            
             <div class="form-group">
               <label for="name" class="label-control col-lg-2 col-md-2"> Valor impuestos</label>
               <div class="col-lg-4 col-md-4">
-                <input name="name" type="text" class="form-control" value="<?=number_format($infoBooking[0]['tax_booking'],2)?>" readonly>
+                <input name="name" type="text" class="form-control" value="<?php echo number_format($infoBooking[0]['tax_booking'], 2); ?>" readonly>
               </div>            
               <label for="name" class="label-control col-lg-2 col-md-2"> Valor TOTAL</label>
               <div class="col-lg-4 col-md-4">
-                <input name="name" type="text" class="form-control" value="<?=number_format($infoBooking[0]['tax_booking']+$infoBooking[0]['vlr_booking'],2)?>" readonly>
+                <input name="name" type="text" class="form-control" value="<?php echo number_format($infoBooking[0]['tax_booking'] + $infoBooking[0]['vlr_booking'], 2); ?>" readonly>
               </div>            
             </div>            
             <div class="form-group">
               <label for="name" class="label-control col-lg-2 col-md-2"> Habitaciones Reservadas</label>
               <div class="col-lg-4 col-md-4">
-                <input name="name" type="text" class="form-control" value="<?=$infoBooking[0]['qty_room']?>" readonly>
+                <input name="name" type="text" class="form-control" value="<?php echo $infoBooking[0]['qty_room']; ?>" readonly>
               </div>            
               <label for="name" class="label-control col-lg-2 col-md-2"> Tipo de Habitacion</label>
               <div class="col-lg-4 col-md-4">
-                <?php 
-                $tipor    =  $infoBooking[0]['id_room'];
-                $nameRoom = $user->getNameRoom($tipor);
-                 ?>
-                <input name="name" type="text" class="form-control" value="<?=$nameRoom?>" readonly>
+                <?php
+                $tipor = $infoBooking[0]['id_room'];
+  $nameRoom = $user->getNameRoom($tipor);
+  ?>
+                <input name="name" type="text" class="form-control" value="<?php echo $nameRoom; ?>" readonly>
               </div>            
             </div> 
             <div class="form-group">
               <label for="name" class="label-control col-lg-2"> Comentarios</label>
               <div class="col-lg-10">
-                <textarea class="form-control" name="comments" id="comments" rows="5" readonly><?=$infoBooking[0]['comments']?></textarea>
+                <textarea class="form-control" name="comments" id="comments" rows="5" readonly><?php echo $infoBooking[0]['comments']; ?></textarea>
               </div>
             </div>
             <div class="form-group">
               <label for="name" class="label-control col-lg-2 col-md-2"> Fecha Creacion Reserva</label>
               <div class="col-lg-4 col-md-4">
-                <input name="name" type="text" class="form-control" value="<?=$infoBooking[0]['date_book']?>" readonly>
+                <input name="name" type="text" class="form-control" value="<?php echo $infoBooking[0]['date_book']; ?>" readonly>
               </div>            
             </div>
           </div>
@@ -424,6 +420,6 @@
         </div>
       </div>
       <div class="row" style="margin-top:25px;text-align: center">
-        <a href="home" class="btn btn-warning" ><i class="fa fa-home"></i> <?=HOME?></a>
+        <a href="home" class="btn btn-warning" ><i class="fa fa-home"></i> <?php echo HOME; ?></a>
       </div>
     </div> -->

@@ -1,15 +1,15 @@
-<?php 
-if($_GET['section']!='cajeroCerrado'){
- ?>
-  <input type="hidden" name="webPage" id="webPage" value="<?=BASE_PMS?>">
-  <input type="hidden" name="fechaProceso" id="fechaProceso" value="<?=FECHA_PMS?>">
+<?php
+if ($_GET['section'] != 'cajeroCerrado') {
+    ?>
+  <input type="hidden" name="webPage" id="webPage" value="<?php echo BASE_PMS; ?>">
+  <input type="hidden" name="fechaProceso" id="fechaProceso" value="<?php echo FECHA_PMS; ?>">
   <input type="hidden" name="usuarioActivo" id="usuarioActivo" value="">
   <aside class="main-sidebar" style="margin-top:50px;padding:0">
     <section class="sidebar">
       <ul class="sidebar-menu"> 
         <li style="text-align: center">
           <a href="home" style="font-weight: 700">
-            <img class="img-thumbnail" src="<?=BASE_IMG.LOGO?>" alt="" style="border-radius: 5px;margin-left: -10px;margin-top: 0px;height:80px;"> 
+            <img class="img-thumbnail" src="<?php echo BASE_IMG.LOGO; ?>" alt="" style="border-radius: 5px;margin-left: -10px;margin-top: 0px;height:80px;"> 
           </a>
         </li>
         <li class="treeview">
@@ -19,7 +19,7 @@ if($_GET['section']!='cajeroCerrado'){
           <ul class="treeview-menu">
             <li class="active"><a href="huespedesPerfil"><i class="fa fa-id-badge"></i> Huespedes</a></li>
             <li><a href="companias"><i class="fa fa-industry"></i> Compañias</a></li>
-            <li><a href="agencias"><i class="fa fa-plane "></i> Agencias</a></li>
+            <!-- <li><a href="agencias"><i class="fa fa-plane "></i> Agencias</a></li> -->
           </ul>
         </li>
         <li class="treeview">
@@ -202,6 +202,6 @@ if($_GET['section']!='cajeroCerrado'){
       </ul>
     </section>
   </aside>
-  <?php 
+  <?php
 }
 ?>

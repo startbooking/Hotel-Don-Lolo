@@ -1,3 +1,9 @@
+sesion = JSON.parse(localStorage.getItem("sesion"));
+if (sesion != null) {
+  let { user } = sesion;
+  let { usuario_id, usuario, nombres, apellidos } = user;
+}
+
 function solicitudSoporte() {
   nombres = $("#nombres").val();
   correo = $("#email").val();
@@ -64,13 +70,11 @@ function ingresoInv() {
 }
 
 function ingresoAdmin() {
-  sesion = JSON.parse(localStorage.getItem("sesion"));
-
-  idusr = sesion["usuario"][0]["usuario_id"];
+  /* idusr = sesion["usuario"][0]["usuario_id"];
   user = sesion["usuario"][0]["usuario"];
   nombres = sesion["usuario"][0]["nombres"];
-  apellidos = sesion["usuario"][0]["apellidos"];
-  $("#userivo").val(user);
+  apellidos = sesion["usuario"][0]["apellidos"]; */
+  $("#usuarioActivo").val(usuario);
   $("#nombreUsuario").html(
     apellidos + " " + nombres + ' <span class="caret"></span>'
   );
@@ -199,7 +203,7 @@ function activaModulos() {
 				<div class="small-box bg-green-gradient">
 					<div class="inner"> 
 						<h3>Puntos de Venta</h3> 
-						<p id="fechaPos">Ventas Restaurantes </p>
+						<p>Ventas Restaurantes </p>
 					</div>
 					<div class="icon">
 						<i class="ion ion-coffee"></i>

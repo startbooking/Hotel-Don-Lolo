@@ -1,20 +1,19 @@
-<?php 
+<?php
 
-  require '../../../res/php/titles.php';
-  require '../../../res/php/app_topHotel.php'; 
-  $reserva  =  $_POST['reserva'];
+require '../../../res/php/titles.php';
+require '../../../res/php/app_topHotel.php';
+$reserva = $_POST['reserva'];
 
-  $datosReserva   = $hotel->getReservasDatos($reserva); 
-  $datosCompania  = $hotel->getSeleccionaCompania($datosReserva[0]['id_compania']);
-  $datosAgencia   = $hotel->getSeleccionaAgencia($datosReserva[0]['id_agencia']);
-  $tipoHabitacion = $hotel->getNombreTipoHabitacion($datosReserva[0]['tipo_habitacion']);
-  $folios         = $hotel->getCargosReservaModal($reserva);
+$datosReserva = $hotel->getReservasDatos($reserva);
+$datosCompania = $hotel->getSeleccionaCompania($datosReserva[0]['id_compania']);
+// $datosAgencia   = $hotel->getSeleccionaAgencia($datosReserva[0]['id_agencia']);
+$tipoHabitacion = $hotel->getNombreTipoHabitacion($datosReserva[0]['tipo_habitacion']);
+$folios = $hotel->getCargosReservaModal($reserva);
 
-  $cia     = $hotel->getSeleccionaCompania($datosReserva[0]['id_compania']);
-  $centros = $hotel->getBuscaCentroCia($datosReserva[0]['idCentroCia']);
+$cia = $hotel->getSeleccionaCompania($datosReserva[0]['id_compania']);
+$centros = $hotel->getBuscaCentroCia($datosReserva[0]['idCentroCia']);
 
-
- ?>
+?>
 
 <div class="container-fluid" style="padding:0px;margin-top:10px;">
 	<form class="form-horizontal" id="formHuespedes" action="javascript:guardaHuesped()" method="POST">
@@ -24,51 +23,51 @@
 					<div class="form-group">
 			      <label for="apellidos" class="col-sm-2 control-label">Habitacion</label>
 			      <div class="col-sm-2">
-			        <input type="text" class="form-control" id="apellidos" placeholder="" value="<?php echo $datosReserva[0]['num_habitacion'] ?>" readonly>
+			        <input type="text" class="form-control" id="apellidos" placeholder="" value="<?php echo $datosReserva[0]['num_habitacion']; ?>" readonly>
 			      </div>
 			      <label for="apellidos" class="col-sm-2 control-label">Huesped </label>
 			      <div class="col-sm-6">
-			        <input type="text" class="form-control" id="apellidos" placeholder="" value="<?=$datosReserva[0]['nombre_completo']?>" readonly>
+			        <input type="text" class="form-control" id="apellidos" placeholder="" value="<?php echo $datosReserva[0]['nombre_completo']; ?>" readonly>
 			      </div>
 		      </div>
 					<div class="form-group">
 					  <label for="llegada" class="col-sm-2 control-label">Llegada</label>
 					  <div class="col-sm-3">
-					    <input type="text" class="form-control" name="llegada" id="llegada" readonly="" value="<?=$datosReserva[0]['fecha_llegada']?>"> 
+					    <input type="text" class="form-control" name="llegada" id="llegada" readonly="" value="<?php echo $datosReserva[0]['fecha_llegada']; ?>"> 
 					  </div>
 					  <label for="noches" class="col-sm-1 control-label">Noches</label>
 					  <div class="col-sm-2">
-					    <input type="text" class="form-control" name="noches" id="noches" readonly="" value='<?=$datosReserva[0]['dias_reservados']?>'>
+					    <input type="text" class="form-control" name="noches" id="noches" readonly="" value='<?php echo $datosReserva[0]['dias_reservados']; ?>'>
 					  </div>
 					  <label for="salida" class="col-sm-1 control-label">Salida</label>
 					  <div class="col-sm-3">
-					    <input type="text" class="form-control" name="salida" id="salida" readonly="" value="<?=$datosReserva[0]['fecha_salida']?>">
+					    <input type="text" class="form-control" name="salida" id="salida" readonly="" value="<?php echo $datosReserva[0]['fecha_salida']; ?>">
 					  </div>
 					</div>
-			    <?php 
-          if($datosReserva[0]['id_compania']!=0){ ?>
+			    <?php
+         if ($datosReserva[0]['id_compania'] != 0) { ?>
             <div class="form-group">
               <label for="inputEmail3" class="col-sm-2 control-label">Empresa</label>
               <div class="col-sm-6">
-                <input type="text" class="form-control" name="empresa" id="empresa" value="<?=$cia[0]['empresa']?>" disabled="">
+                <input type="text" class="form-control" name="empresa" id="empresa" value="<?php echo $cia[0]['empresa']; ?>" disabled="">
               </div>
               <label for="inputEmail3" class="col-sm-1 control-label">Nit</label>
               <div class="col-sm-3">
-                <input type="text" class="form-control" name="nit" id="nit" value="<?=$cia[0]['nit'].'-'.$cia[0]['dv']?>" disabled="">
+                <input type="text" class="form-control" name="nit" id="nit" value="<?php echo $cia[0]['nit'].'-'.$cia[0]['dv']; ?>" disabled="">
               </div>
             </div>
-            <?php 
-            if($datosReserva[0]['idCentroCia']!=0){ ?>
+            <?php
+           if ($datosReserva[0]['idCentroCia'] != 0) { ?>
               <div class="form-group">
                 <label for="inputEmail3" class="col-sm-2 control-label">Centro de Costo</label>
                 <div class="col-sm-6">
-                  <input type="text" class="form-control" name="centroCia" id="centroCia" value="<?=$centros[0]['descripcion_centro']?>" disabled="">
+                  <input type="text" class="form-control" name="centroCia" id="centroCia" value="<?php echo $centros[0]['descripcion_centro']; ?>" disabled="">
                 </div>
               </div>
               <?php
-            }
-          }
-					?>
+           }
+         }
+?>
 		    </div>
     	</div>
     	<div class="panel-body" style="padding:5px">
@@ -87,24 +86,24 @@
                 </tr>
               </thead>
               <tbody>
-                  <?php 
+                  <?php
                   $consumos = 0;
-                  $impto = 0;
-                  $pagos = 0;
-                  foreach ($folios as $folio1): 
-                    $consumos = $consumos + $folio1['monto_cargo'];
-                    $impto    = $impto + $folio1['impuesto'];
-                    $pagos    = $pagos + $folio1['pagos_cargos']; 
-                  ?>
+$impto = 0;
+$pagos = 0;
+foreach ($folios as $folio1) {
+    $consumos = $consumos + $folio1['monto_cargo'];
+    $impto = $impto + $folio1['impuesto'];
+    $pagos = $pagos + $folio1['pagos_cargos'];
+    ?>
                   <tr align="right">
-                    <td style="padding:4px" align="left"><?=$folio1['descripcion_cargo']?></td>
-                    <td style="padding:4px"><?=number_format($folio1['monto_cargo'],2)?></td>
-                    <td style="padding:4px"><?=number_format($folio1['impuesto'],2)?></td>
-                    <td style="padding:4px"><?=number_format($folio1['monto_cargo']+$folio1['impuesto'],2)?></td>
-                    <td style="padding:4px"><?=number_format($folio1['pagos_cargos'],2)?></td>
-                    <td style="padding:4px"><?=date($folio1['fecha_cargo'])?></td>
+                    <td style="padding:4px" align="left"><?php echo $folio1['descripcion_cargo']; ?></td>
+                    <td style="padding:4px"><?php echo number_format($folio1['monto_cargo'], 2); ?></td>
+                    <td style="padding:4px"><?php echo number_format($folio1['impuesto'], 2); ?></td>
+                    <td style="padding:4px"><?php echo number_format($folio1['monto_cargo'] + $folio1['impuesto'], 2); ?></td>
+                    <td style="padding:4px"><?php echo number_format($folio1['pagos_cargos'], 2); ?></td>
+                    <td style="padding:4px"><?php echo date($folio1['fecha_cargo']); ?></td>
                   </tr>
-                  <?php endforeach ?>
+                  <?php } ?>
               </tbody>
             </table>
           </div>
@@ -112,21 +111,21 @@
             <div class="form-group">
               <label for="apellidos" class="col-sm-3 control-label">Consumos</label>
               <div class="col-sm-3">
-                <input align="right" type="text" class="form-control" id="consumo" value="<?php echo number_format($consumos,2) ?>" readonly>
+                <input align="right" type="text" class="form-control" id="consumo" value="<?php echo number_format($consumos, 2); ?>" readonly>
               </div>
               <label for="apellidos" class="col-sm-3 control-label">Abonos / Pagos</label>
               <div class="col-sm-3">
-                <input align="right" type="text" class="form-control" id="apellidos" placeholder="" value="<?php echo number_format($pagos,2) ?>" readonly>
+                <input align="right" type="text" class="form-control" id="apellidos" placeholder="" value="<?php echo number_format($pagos, 2); ?>" readonly>
               </div>
             </div>          
             <div class="form-group">
               <label for="apellidos" class="col-sm-3 control-label">Impuesto</label>
               <div class="col-sm-3">
-                <input align="right" type="text" class="form-control" id="imptos" placeholder="" value="<?php echo number_format($impto,2)  ?>" readonly>
+                <input align="right" type="text" class="form-control" id="imptos" placeholder="" value="<?php echo number_format($impto, 2); ?>" readonly>
               </div>
               <label for="apellidos" class="col-sm-3 control-label">Total Folio</label>
               <div class="col-sm-3">
-                <input align="right" type="text" class="form-control" id="saldototal" placeholder="" value="<?php echo number_format(($consumos+ $impto)-$pagos,2)?>" readonly>
+                <input align="right" type="text" class="form-control" id="saldototal" placeholder="" value="<?php echo number_format(($consumos + $impto) - $pagos, 2); ?>" readonly>
               </div>
             </div>
           </div>				

@@ -281,14 +281,16 @@ include_once '../views/modal/modalUsuario.php';
     
     <script>
       sesion    = JSON.parse(localStorage.getItem('sesion'))
+      /*  
       let { user } = sesion;
-      let { usuario_id, usuario, nombres, apellidos, tipo } = user
-      idusr     = usuario_id
+      let { usuario_id, usuario, nombres, apellidos, tipo } = user 
+      */
+      /* idusr     = usuario_id
       user      = usuario
       nombres   = nombres
       nivel     = tipo
-      apellidos = apellidos
-      $('#usuarioActivo').val(user)
+      apellidos = apellidos */
+      $('#usuarioActivo').val(usuario)
       $('#nombreUsuario').html(`${apellidos} ${nombres} <span class="caret"></span>`)
       if(tipo <= 2){
         $('#menuAuditoria').css('display','block')
@@ -296,8 +298,8 @@ include_once '../views/modal/modalUsuario.php';
       $('#menuClave').html(`
           <a class="altoMenu" id="cambiaPass" 
             data-toggle    = 'modal'
-            data-id        = '${idusr}' 
-            data-user      = '${user}' 
+            data-id        = '${usuario_id}' 
+            data-user      = '${usuario}' 
             data-apellidos = '${apellidos}' 
             data-nombres   = '${nombres}' 
             href="#myModalCambiarClave" style="padding:10px 15px">Cambiar Contraseña
@@ -313,24 +315,19 @@ include_once '../views/modal/modalUsuario.php';
         <?php
   } elseif (isset($_GET['section']) && $_GET['section'] == 'cierreCajero') { ?>
         <script>
-          sesion    = JSON.parse(localStorage.getItem('sesion'))
-          let { usuario } = user; 
+/*           sesion    = JSON.parse(localStorage.getItem('sesion'))
+          let { usuario } = user;  */
           $('.tituloPagina').html(`<i class="fa fa-tachometer" style="font-size:36px;color:black" ></i> Cierre Cajero [${usuario}]`)
         </script>
         <?php
   } elseif ($_GET['section'] == 'reservasActivas' || $_GET['section'] == 'encasa' || $_GET['section'] == 'facturacionEstadia' || $_GET['section'] == 'salidasDelDia' || $_GET['section'] == 'salidasRealizadas' || $_GET['section'] == 'grupos') { ?>
         <script>
-          /* sesion    = JSON.parse(localStorage.getItem('sesion'))
-          let { user } = sesion;
-          let { tipo } = user;          
-          nivel     = tipo */
           if(tipo==1){
             $('#cambiaHuesped').css('display','block')
-          }else{
-
           } 
           $(function () {
             $('#example1').DataTable({
+              "iDisplayLength": 25,
               "paging": true,
               "lengthChange": true,
               "searching": true,
@@ -348,6 +345,7 @@ include_once '../views/modal/modalUsuario.php';
         <?php
   } elseif (isset($_GET['section']) && $_GET['section'] == 'cargosAnulados') { ?>
         <script>
+        
           var usuario = $('#usuarioActivo').val();
           $('#verInforme').attr('data','imprimir/informes/Informes_cajeros_'+usuario+'.pdf')
         </script>

@@ -1,3 +1,9 @@
+sesion = JSON.parse(localStorage.getItem("sesion"));
+let { user } = sesion;
+// let { usuario } = user;
+// console.log(user);
+let { usuario_id, usuario, nombres, apellidos, tipo } = user;
+
 $(document).ready(function () {
   let cia = document.getElementById("pantallaCompanias");
   if (cia != null) {
@@ -1897,6 +1903,7 @@ function traeFacturasEstadia() {
     success: function (data) {
       $("#paginaFacturacion").html(data);
       $("#example1").DataTable({
+        iDisplayLength: 25,
         paging: true,
         lengthChange: true,
         searching: true,
@@ -1923,6 +1930,7 @@ function traeLlegadasDia() {
     success: function (data) {
       $("#paginaLlegadas").html(data);
       $("#example1").DataTable({
+        iDisplayLength: 25,
         paging: true,
         lengthChange: true,
         searching: true,
@@ -1949,6 +1957,7 @@ function traeHuespedesenCasa() {
     success: function (data) {
       $("#paginaenCasa").html(data);
       $("#example1").DataTable({
+        iDisplayLength: 25,
         paging: true,
         lengthChange: true,
         searching: true,
@@ -1975,6 +1984,7 @@ function traeReservasActivas(tipo) {
     success: function (data) {
       $("#paginaReservas").html(data);
       $("#example1").DataTable({
+        iDisplayLength: 25,
         paging: true,
         lengthChange: true,
         searching: true,
@@ -3587,9 +3597,6 @@ function actualizaCiaRecepcion() {
 }
 
 function cierreCajero(user) {
-  sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario } = user;
   /* usuario = sesion["usuario"][0]["usuario"];
   idusuario = sesion["usuario"][0]["usuario_id"]; */
   var page = $("#rutaweb").val();
@@ -4540,7 +4547,7 @@ function activaFolio(reserva, folio) {
     data: parametros,
     success: function (data) {
       $(".saldoFolioRoom" + folio).html(data);
-      if (nivel == "A") {
+      if (tipo == 1) {
         $("#btnAnulaCargo").css("display", "block");
       }
     },
