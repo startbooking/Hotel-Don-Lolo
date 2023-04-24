@@ -1,9 +1,9 @@
 sesion = JSON.parse(localStorage.getItem("sesion"));
-/* if (sesion) {
-  let { user } = sesion;
-  var { usuario_id, usuario, nombres, apellidos } = user;
+if (sesion) {
+  var { user } = sesion;
+  var { usuario_id, usuario, nombres, apellidos, tipo } = user;
   // console.log(usuario);
-} */
+}
 
 function solicitudSoporte() {
   nombres = $("#nombres").val();
@@ -303,10 +303,10 @@ function valida_ingreso() {
       if (entro == "0") {
         muestraError("Usuario o Contraseña Incorrecto");
       } else {
-        let { estado, ingreso } = user;
+        let { estado, ingreso, multipleIngreso } = user;
         if (estado == "C") {
           muestraError("Usuario sin Acceso Permitido al Sistema");
-        } else if (ingreso == 1) {
+        } else if (ingreso == 1 && multipleIngreso == 0) {
           muestraError("Usuario Activo en el Sistema");
         } else {
           localStorage.setItem("sesion", JSON.stringify(data));

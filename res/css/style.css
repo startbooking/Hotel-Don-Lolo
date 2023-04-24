@@ -161,9 +161,9 @@ blockquote {
 
 .imgLogo,
 .logo img {
-  width: 40px;
+  width: 48px;
   border-radius: 50%;
-  margin: 8px 4px;
+  margin: 4px 4px;
 }
 
 .sidebar-mini.sidebar-collapse .main-header .logo > .logo-mini {
@@ -1242,7 +1242,7 @@ ul#produtos li h3 {
   font-size: 70px;
   font-family: ubuntu;
   width: 83%;
-  margin: 25px 0;
+  /* margin: 25px 0; */
 }
 
 .letraLogo > label {

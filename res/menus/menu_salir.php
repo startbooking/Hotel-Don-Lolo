@@ -1,6 +1,6 @@
 <header class="main-header" >
-  <a class="logo" style="height: 51px">
-    <img class="img_thumbnail" src="<?=BASE_WEB?>img/logoBarahona.png" style="margin-top:-3px;margin-left:5px;width:48px;">
+  <a class="logo">
+    <img class="img_thumbnail" src="<?php echo BASE_WEB; ?>img/logoBarahona.png">
     <span style="font-size:16px;font-weight: 600">Pagina Principal</span>
   </a>
   <nav class="navbar navbar-static-top" role="navigation">

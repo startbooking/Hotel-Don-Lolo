@@ -103,6 +103,7 @@ include_once '../views/modal/modalUsuario.php';
     <script>
       $(function () {
         $('#example1').DataTable({
+          "iDisplayLength": 25,
           "paging": true,
           "lengthChange": true,
           "searching": true,

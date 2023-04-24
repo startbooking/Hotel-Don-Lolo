@@ -1,12 +1,12 @@
 <header class="main-header" >
-  <a href="<?= BASE_VIE ?>modulos.php" class="logo" style="height: 51px;padding-left:10px">
-    <img src="<?=BASE_WEB?>img/logoBarahona.png" style="width: 45px">
+  <a href="<?php echo BASE_VIE; ?>modulos.php" class="logo">
+    <img src="<?php echo BASE_WEB; ?>img/logoBarahona.png">
     <span style="font-size:16px;font-weight: 600">Pagina Principal</span>
   </a>
   <nav class="navbar navbar-static-top" role="navigation">
     <ul class="nav navbar-nav ">
       <li>
-        <label for="" style="font-weight: 600;padding:11px 15px;color:#FFF;font-size:16px">Fecha Proceso <?=FECHA_PMS?></label>
+        <label for="" style="font-weight: 600;padding:11px 15px;color:#FFF;font-size:16px">Fecha Proceso <?php echo FECHA_PMS; ?></label>
       </li>          
     </ul>
     <div class="navbar-custom-menu">

@@ -1,6 +1,6 @@
 <header class="main-header" >
-  <a href="<?= BASE_VIE ?>modulos.php" class="logo" style="height: 51px;padding-left:10px">
-    <img src="<?=BASE_WEB?>img/logoBarahona.png" style="width: 35px">
+  <a href="<?php echo BASE_VIE; ?>modulos.php" class="logo">
+    <img src="<?php echo BASE_WEB; ?>img/logoBarahona.png">
     <span style="font-size:16px;font-weight: 600">Pagina Principal</span>
   </a>
   <nav class="navbar navbar-static-top" role="navigation">

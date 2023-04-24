@@ -1,8 +1,8 @@
-sesion = JSON.parse(localStorage.getItem("sesion"));
+/* sesion = JSON.parse(localStorage.getItem("sesion"));
 let { user } = sesion;
 // let { usuario } = user;
 // console.log(user);
-let { usuario_id, usuario, nombres, apellidos, tipo } = user;
+let { usuario_id, usuario, nombres, apellidos, tipo } = user; */
 
 $(document).ready(function () {
   let cia = document.getElementById("pantallaCompanias");
