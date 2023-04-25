@@ -16,7 +16,7 @@
 				'dianTributos.porcentaje'
 			],[
 				'id_cargo' => $codigo
-			]);
+			]); 
 			return $data;
 		}
 

@@ -1319,7 +1319,7 @@
          return $data;
      }
 
-     public function getPaquetesTarifa()
+     public function getPaquetesTarifa($id)
      {
          global $database;
 
@@ -1330,6 +1330,8 @@
              'paquetes_tarifas.id',
              'tarifas.descripcion_tarifa',
              'paquetes.descripcion',
+         ], [
+            'paquetes_tarifas.id' => $id,
          ]);
 
          return $data;

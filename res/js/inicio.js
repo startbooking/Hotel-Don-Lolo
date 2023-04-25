@@ -107,6 +107,7 @@ function ingresoPms() {
   });
 }
 
+/* 
 function ingresoPos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("sesion"));
@@ -122,7 +123,7 @@ function ingresoPos() {
     data: parametros,
     success: function (data) {},
   });
-}
+} */
 
 function cierraSesion() {
   sesion = JSON.parse(localStorage.getItem("sesion"));

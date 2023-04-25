@@ -3,11 +3,11 @@
     <a href="https://www.sactel.net" target="blank" style="color:#171414;">
     </a>
       <div class="col-xs-5">
-  	    <h6 style="margin-top:15px" ><strong>Todos lo Derechos Reservados <i class="fa fa-copyright" aria-hidden="true"></i> Bogota - Colombia 2016 </strong>	</h6>
+  	    <h6 style="margin-top:15px" ><strong>Todos lo Derechos Reservados <i class="fa fa-copyright" aria-hidden="true"></i> Bogota - Colombia 2016 - 2013 </strong>	</h6>
       </div>
       <div class="col-xs-2">
   	    <h6 align="center" style="margin:0px">
-          <img src="<?php echo BASE_IMG ?>logopeq10.png" class="img-thumbnail" alt="" style="vertical-align:middle;margin-top: 0px;"> 
+          <img src="<?php echo BASE_IMG; ?>logopeq10.png" class="img-thumbnail" alt="" style="vertical-align:middle;margin-top: 0px;"> 
         </h6>
       </div>
       <div class="col-xs-5" style="padding:5px;">

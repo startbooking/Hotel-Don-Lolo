@@ -7,11 +7,11 @@
   $ambienteSeleccionado = $pos->getAmbienteSeleccionado($ambSel);
   $ambi = $ambienteSeleccionado;
 
-  $_SESSION['NOMBRE_AMBIENTE'] = $ambienteSeleccionado[0]['nombre'];
+  /* $_SESSION['NOMBRE_AMBIENTE'] = $ambienteSeleccionado[0]['nombre'];
   $_SESSION['AMBIENTE'] = $ambienteSeleccionado[0]['id_ambiente'];
   $_SESSION['BODEGA_AMBIENTE'] = $ambienteSeleccionado[0]['id_bodega'];
   $_SESSION['LOGO_POS'] = $ambienteSeleccionado[0]['logo'];
-  $_SESSION['ENCUESTA'] = $ambienteSeleccionado[0]['encuesta'];
+  $_SESSION['ENCUESTA'] = $ambienteSeleccionado[0]['encuesta']; */
 
   $ventaPos = $pos->sumSalesDay($ambSel);
   $comandaPos = $pos->countComandasPos($ambSel, 'A');
@@ -30,7 +30,7 @@
         </h1>
       </div>
       <div class="col-xs-4">
-        <img class="img-thumbnail logoAmbiente" src="../img/<?php echo LOGO; ?>"" alt="">
+        <img class="img-thumbnail logoAmbiente" src="../img/<?php echo $ambienteSeleccionado[0]['logo']; ?>"" alt="">
       </div>
     </div>
     <?php

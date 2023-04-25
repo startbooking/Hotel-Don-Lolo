@@ -1,8 +1,10 @@
 function guardarProductosOriginal() {
   var productos = JSON.parse(localStorage.getItem("productoComanda"));
-  let { pos, usuarioAct } = sesion;
-  let { id_ambiente, nombre, impuesto, fecha_auditoria } = pos;
-  let { usuario } = usuarioAct;
+  oPos = JSON.parse(localStorage.getItem("oPos"));
+
+  let { pos, user } = sesion;
+  let { id_ambiente, nombre, impuesto, fecha_auditoria } = oPos[0];
+  let { usuario } = user;
 
   var regis = $("#cantProd").html();
   var pax = $("#numPax").val();
@@ -52,9 +54,11 @@ function imprimeComandaDiv() {
 
 function guardarProductosDiv() {
   var productos = JSON.parse(localStorage.getItem("nuevaComanda"));
-  let { pos, usuarioAct } = sesion;
-  let { id_ambiente, nombre, impuesto, fecha_auditoria } = pos;
-  let { usuario } = usuarioAct;
+  oPos = JSON.parse(localStorage.getItem("oPos"));
+
+  let { pos, user } = sesion;
+  let { id_ambiente, nombre, impuesto, fecha_auditoria } = oPos[0];
+  let { usuario } = user;
   let regis = $("#cantProd").html();
   let pax = $("#canpax").val();
   let mesa = $("#mesaDivide").val();
@@ -96,9 +100,9 @@ function guardaClienteComandaDiv() {
   var pax = $("#canpax").val();
   var mesa = $("#mesaDivide").val();
   var cliente = $("#nombreCliente").val();
-  sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { pos } = sesion;
-  let { id_ambiente } = pos;
+  oPos = JSON.parse(localStorage.getItem("oPos"));
+  // let { pos } = sesion;
+  let { id_ambiente } = oPos[0];
 
   guardarProductosDiv();
   guardarProductosOriginal();
@@ -160,11 +164,11 @@ function abonoComanda() {
   console.log(mBoton);
 
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { pos, usuarioAct } = sesion;
-  let { id_ambiente, nombre, fecha_auditoria } = pos;
-  let { usuario, usuario_id } = usuarioAct;
+  oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  // oPos = JSON.parse(localStorage.getItem("oPos"));
+  let { pos, user } = sesion;
+  let { id_ambiente, nombre, fecha_auditoria } = oPos[0];
+  let { usuario, usuario_id } = user;
 
   var parametros = {
     user: usuario,
@@ -227,9 +231,11 @@ function botonPagarDirecto() {
 
 function pagarFacturaDirecto() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { pos, usuarioAct } = sesion;
-  let { usuario, usuario_id } = usuarioAct;
-  let { id_ambiente, impuesto, nombre, fecha_auditoria } = pos;
+  oPos = JSON.parse(localStorage.getItem("oPos"));
+
+  let { pos, user } = sesion;
+  let { usuario, usuario_id } = user;
+  let { id_ambiente, impuesto, nombre, fecha_auditoria } = oPos[0];
 
   let productos = JSON.parse(localStorage.getItem("productoComanda"));
   let comanda = $("#pagarCuentaDirecto").serializeArray();
@@ -263,9 +269,8 @@ function pagarFacturaDirecto() {
 }
 
 function pagarFactura() {
-  sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { pos } = sesion;
-  let { id_ambiente } = pos;
+  oPos = JSON.parse(localStorage.getItem("oPos"));
+  let { id_ambiente } = oPos[0];
 
   idamb = id_ambiente;
   numero = $("#numeroComanda").val();
@@ -274,7 +279,7 @@ function pagarFactura() {
 
   totalCta = +$("#totalComanda").val();
 
-  oPos = JSON.parse(localStorage.getItem("oPos"));
+  // oPos = JSON.parse(localStorage.getItem("oPos"));
   abonos = $("#abonosComanda").val();
 
   var productos = localStorage.getItem("productoComanda");
@@ -312,9 +317,9 @@ function pagarFactura() {
 }
 
 function guardarCuentaRecuperadaPlano() {
-  let { pos, usuarioAct } = sesion;
-  let { usuario } = usuarioAct;
-  let { id_ambiente, impuesto, nombre, fecha_auditoria } = pos;
+  let { pos, user } = sesion;
+  let { usuario } = user;
+  let { id_ambiente, impuesto, nombre, fecha_auditoria } = oPos[0];
 
   imptoInc = impuesto;
 
@@ -407,9 +412,11 @@ function limpiaLista() {
 
 function botonDescuento() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { pos, usuarioAct } = sesion;
-  let { usuario_id } = usuarioAct;
-  let { id_ambiente, fecha_auditoria } = pos;
+  oPos = JSON.parse(localStorage.getItem("oPos"));
+
+  let { pos, user } = sesion;
+  let { usuario_id } = user;
+  let { id_ambiente, fecha_auditoria } = oPos[0];
 
   totdes = $("#descuentosComanda").val();
 
@@ -467,9 +474,9 @@ function imprimeComanda() {
 
 function anulaFactura() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { cia, pos, usuarioAct } = sesion;
+  let { cia, pos, user } = sesion;
   let { inv } = cia;
-  let { usuario, usuario_id } = usuarioAct;
+  let { usuario, usuario_id } = user;
   let { id_ambiente, fecha_auditoria, prefijo } = pos;
 
   var factura = $("#facturaActiva").val();
@@ -502,8 +509,8 @@ function anulaFactura() {
 function imprimeEstadoCuenta() {
   cuenta = $("#numeroComanda").val();
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { pos, usuarioAct } = sesion;
-  let { usuario } = usuarioAct;
+  let { pos, user } = sesion;
+  let { usuario } = user;
   let { id_ambiente, fecha_auditoria, nombre } = pos;
 
   parametros = {
@@ -536,9 +543,11 @@ function getAnulaComanda() {
   var comanda = $("#numeroComanda").val();
   var motivo = $("#motivoAnula").val();
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { pos, usuarioAct } = sesion;
-  let { usuario, usuario_id } = usuarioAct;
-  let { id_ambiente, fecha_auditoria } = pos;
+  oPos = JSON.parse(localStorage.getItem("oPos"));
+
+  let { pos, user } = sesion;
+  let { usuario, usuario_id } = user;
+  let { id_ambiente, fecha_auditoria } = oPos[0];
 
   parametros = {
     idamb: id_ambiente,
@@ -574,9 +583,11 @@ function getDescuento() {
   var motivo = $("#motivoDesc").val();
 
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { pos, usuarioAct } = sesion;
-  let { usuario_id } = usuarioAct;
-  let { id_ambiente, fecha_auditoria } = pos;
+  oPos = JSON.parse(localStorage.getItem("oPos"));
+
+  let { pos, user } = sesion;
+  let { usuario_id } = user;
+  let { id_ambiente, fecha_auditoria } = oPos[0];
 
   var parametros = {
     idusr: usuario_id,
@@ -604,8 +615,8 @@ function getDescuento() {
 
 function pagarFacturaComanda() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { pos, usuarioAct } = sesion;
-  let { usuario, usuario_id } = usuarioAct;
+  let { pos, user } = sesion;
+  let { usuario, usuario_id } = user;
   let { id_ambiente } = pos;
 
   user = usuario;
@@ -659,8 +670,8 @@ function pagarFacturaComanda() {
 
 function descargarInventario() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { pos, usuarioAct } = sesion;
-  let { usuario } = usuarioAct;
+  let { pos, user } = sesion;
+  let { usuario } = user;
   let { id_bodega, id_ambiente, fecha_auditoria, id_centrocosto } = pos;
 
   parametros = {
@@ -731,8 +742,8 @@ function botonPagarComanda() {
 
 function botonPagar() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { pos, usuarioAct } = sesion;
-  let { usuario } = usuarioAct;
+  let { pos, user } = sesion;
+  let { usuario } = user;
   let { id_ambiente } = pos;
 
   abonos = +$("#abonosComanda").val();
@@ -778,8 +789,8 @@ function botonPagar() {
 
 function guardaFactura() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { pos, usuarioAct } = sesion;
-  let { usuario, usuario_id } = usuarioAct;
+  let { pos, user } = sesion;
+  let { usuario, usuario_id } = user;
   let { id_ambiente } = pos;
 
   user = usuario;
@@ -847,9 +858,11 @@ function getBorraCuenta(usuario, amb) {
 
 function guardarCuentaRecuperada() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { pos, usuarioAct } = sesion;
-  let { usuario } = usuarioAct;
-  let { id_ambiente, impuesto, nombre, fecha_auditoria } = pos;
+  oPos = JSON.parse(localStorage.getItem("oPos"));
+
+  let { pos, user } = sesion;
+  let { usuario } = user;
+  let { id_ambiente, impuesto, nombre, fecha_auditoria } = oPos[0];
 
   $("#recuperarComanda").val(0);
   $("#guardaComandaDividida").css("display", "none");
@@ -936,9 +949,9 @@ function guardarCuenta() {
 }
 
 function guardaClienteComanda() {
-  sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { pos } = sesion;
-  let { id_ambiente } = pos;
+  oPos = JSON.parse(localStorage.getItem("oPos"));
+  // let { pos } = sesion;
+  let { id_ambiente } = oPos[0];
 
   var productos = JSON.parse(localStorage.getItem("productoComanda"));
   if (productos == null) {
@@ -975,9 +988,11 @@ function guardaClienteComanda() {
 function guardarProductosPago() {
   var productos = JSON.parse(localStorage.getItem("productoComanda"));
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { pos, usuarioAct } = sesion;
-  let { usuario } = usuarioAct;
-  let { id_ambiente, impuesto, nombre, fecha_auditoria } = pos;
+  oPos = JSON.parse(localStorage.getItem("oPos"));
+
+  let { pos, user } = sesion;
+  let { usuario } = user;
+  let { id_ambiente, impuesto, nombre, fecha_auditoria } = oPos[0];
 
   var regis = $("#cantProd").html();
   var pax = $("#numPax").val();
@@ -1026,9 +1041,11 @@ function guardarProductosPago() {
 function guardarProductos() {
   var productos = JSON.parse(localStorage.getItem("productoComanda"));
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { pos, usuarioAct } = sesion;
-  let { usuario } = usuarioAct;
-  let { id_ambiente, impuesto, nombre, fecha_auditoria } = pos;
+  oPos = JSON.parse(localStorage.getItem("oPos"));
+
+  let { pos, user } = sesion;
+  let { usuario } = user;
+  let { id_ambiente, impuesto, nombre, fecha_auditoria } = oPos[0];
   var regis = $("#cantProd").html();
   var pax = $("#numPax").val();
   var mesa = $("#nromesas").val();
@@ -1128,8 +1145,8 @@ function imprimeComandaGen() {
   var numComa = $("#numeroComanda").val();
   var mesa = $("#nromesas").val();
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { pos, usuarioAct } = sesion;
-  let { usuario } = usuarioAct;
+  let { pos, user } = sesion;
+  let { usuario } = user;
   let { id_ambiente, nombre } = pos;
 
   $.ajax({
@@ -1174,9 +1191,11 @@ function guardarCuentaRecu() {
   var mesa = $("#nromesas").val();
   var comanda = $("#numeroComanda").val();
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { pos, usuarioAct } = sesion;
-  let { usuario } = usuarioAct;
-  let { id_ambiente, nombre, fecha_auditoria } = pos;
+  oPos = JSON.parse(localStorage.getItem("oPos"));
+
+  let { pos, user } = sesion;
+  let { usuario } = user;
+  let { id_ambiente, nombre, fecha_auditoria } = oPos[0];
 
   var parametros = {
     pax,
@@ -1232,10 +1251,14 @@ function guardarCuentaRecu() {
 
 $(document).ready(function () {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  // console.log(sesion);
-  let { pos, usuarioAct } = sesion;
-  let { usuario } = usuarioAct;
-  let { id_ambiente, nombre, fecha_auditoria } = pos;
+  oPos = JSON.parse(localStorage.getItem("oPos"));
+
+  // console.log(oPos);
+
+  let { pos, user } = sesion;
+  let { usuario } = user;
+
+  let { id_ambiente, nombre, fecha_auditoria } = oPos[0];
 
   $("#myModalAbonos").on("show.bs.modal", function (event) {
     var canti = $("#cantProd").val();

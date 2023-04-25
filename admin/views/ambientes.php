@@ -1,7 +1,7 @@
-<?php 
-    $centros = $admin->getCentrosCosto(); 
-    $bodegas = $admin->getBodegas();
-    $codigos = $admin->getCodigosVentas(1); 
+<?php
+$centros = $admin->getCentrosCosto();
+$bodegas = $admin->getBodegas();
+$codigos = $admin->getCodigosVentas(1);
 
 ?>
 
@@ -11,16 +11,16 @@
       <div class="panel-heading"> 
         <div class="row">
           <div class="col-lg-6">
-            <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_ADM?>">                  
+            <input type="hidden" name="rutaweb" id="rutaweb" value="<?php echo BASE_ADM; ?>">                  
             <input type="hidden" name="ubicacion" id="ubicacion" value="ambientes">
             <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-cube"></i> Ambientes POS </h3>
           </div> 
-          <div class="col-lg-6" align="right">
+          <!-- <div class="col-lg-6" align="right">
             <a 
               data-toggle="modal" 
               style="margin:20px 0" type="button" class="btn btn-success" href="#myModalAdicionarAmbiente">
               <i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Adicionar Ambiente</a>
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="panel-body">
@@ -41,16 +41,16 @@
                 </tr>
               </thead>
               <tbody>
-                <?php 
+                <?php
                 foreach ($ambientes as $ambiente) { ?> 
                   <tr  align="right">
-                    <td align="left"><?php echo $ambiente["nombre"]?></td>
-                    <td align="left" style=""><?php echo $admin->getNombreBodega($ambiente["id_bodega"])?></td>
-                    <td><?php echo number_format($ambiente["conc_factura"])?></td>
-                    <td><?php echo number_format($ambiente["conc_orden"])?></td>
-                    <td><?php echo number_format($ambiente["conc_comanda"])?></td>
-                    <td align="left"><?php echo $admin->getCentroCosto($ambiente["id_centrocosto"])?></td>
-                    <td><?php echo estadoAmbiente($ambiente["active_at"])?></td>
+                    <td align="left"><?php echo $ambiente['nombre']; ?></td>
+                    <td align="left" style=""><?php echo $admin->getNombreBodega($ambiente['id_bodega']); ?></td>
+                    <td><?php echo number_format($ambiente['conc_factura']); ?></td>
+                    <td><?php echo number_format($ambiente['conc_orden']); ?></td>
+                    <td><?php echo number_format($ambiente['conc_comanda']); ?></td>
+                    <td align="left"><?php echo $admin->getCentroCosto($ambiente['id_centrocosto']); ?></td>
+                    <td><?php echo estadoAmbiente($ambiente['active_at']); ?></td>
 
                     <td align="center">
                       <div class="btn-toolbar" role="toolbar" aria-label="...">
@@ -58,36 +58,36 @@
                           <button type="button" class="btn btn-info btn-xs" 
                             data-toggle ="modal" 
                             data-target ="#myModalModificaAmbiente" 
-                            data-id     ="<?= $ambiente['id_ambiente']?>" 
-                            data-desc   ="<?= $ambiente['nombre']?>" 
-                            data-pref   ="<?= $ambiente['prefijo']?>" 
-                            data-fact   ="<?= $ambiente['conc_factura']?>" 
-                            data-orde   ="<?= $ambiente['conc_orden']?>" 
-                            data-coma   ="<?= $ambiente['conc_comanda']?>" 
-                            data-impu   ="<?= $ambiente['impuesto']?>" 
-                            data-bode   ="<?= $ambiente['id_bodega']?>" 
-                            data-cent   ="<?= $ambiente['id_centrocosto']?>" 
-                            data-vent   ="<?= $ambiente['codigo_venta']?>" 
-                            data-prop   ="<?= $ambiente['codigo_propina']?>" 
-                            data-logo   ="<?= $ambiente['logo']?>" 
+                            data-id     ="<?php echo $ambiente['id_ambiente']; ?>" 
+                            data-desc   ="<?php echo $ambiente['nombre']; ?>" 
+                            data-pref   ="<?php echo $ambiente['prefijo']; ?>" 
+                            data-fact   ="<?php echo $ambiente['conc_factura']; ?>" 
+                            data-orde   ="<?php echo $ambiente['conc_orden']; ?>" 
+                            data-coma   ="<?php echo $ambiente['conc_comanda']; ?>" 
+                            data-impu   ="<?php echo $ambiente['impuesto']; ?>" 
+                            data-bode   ="<?php echo $ambiente['id_bodega']; ?>" 
+                            data-cent   ="<?php echo $ambiente['id_centrocosto']; ?>" 
+                            data-vent   ="<?php echo $ambiente['codigo_venta']; ?>" 
+                            data-prop   ="<?php echo $ambiente['codigo_propina']; ?>" 
+                            data-logo   ="<?php echo $ambiente['logo']; ?>" 
                             title       ="Modificar el Ambiente Actual" >
                             <i class='fa fa-pencil-square'></i>
                           </button>
                           <button type="button" class="btn btn-warning btn-xs" 
                             data-toggle ="modal" 
                             data-target ="#myModalEliminaAmbiente" 
-                            data-id     ="<?= $ambiente['id_ambiente']?>" 
-                            data-desc   ="<?= $ambiente['nombre']?>" 
-                            data-pref   ="<?= $ambiente['prefijo']?>" 
-                            data-fact   ="<?= $ambiente['conc_factura']?>" 
-                            data-orde   ="<?= $ambiente['conc_orden']?>" 
-                            data-coma   ="<?= $ambiente['conc_comanda']?>" 
-                            data-impu   ="<?= $ambiente['impuesto']?>" 
-                            data-bode   ="<?= $ambiente['id_bodega']?>" 
-                            data-cent   ="<?= $ambiente['id_centrocosto']?>" 
-                            data-vent   ="<?= $ambiente['codigo_venta']?>" 
-                            data-prop   ="<?= $ambiente['codigo_propina']?>" 
-                            data-logo   ="<?= $ambiente['logo']?>" 
+                            data-id     ="<?php echo $ambiente['id_ambiente']; ?>" 
+                            data-desc   ="<?php echo $ambiente['nombre']; ?>" 
+                            data-pref   ="<?php echo $ambiente['prefijo']; ?>" 
+                            data-fact   ="<?php echo $ambiente['conc_factura']; ?>" 
+                            data-orde   ="<?php echo $ambiente['conc_orden']; ?>" 
+                            data-coma   ="<?php echo $ambiente['conc_comanda']; ?>" 
+                            data-impu   ="<?php echo $ambiente['impuesto']; ?>" 
+                            data-bode   ="<?php echo $ambiente['id_bodega']; ?>" 
+                            data-cent   ="<?php echo $ambiente['id_centrocosto']; ?>" 
+                            data-vent   ="<?php echo $ambiente['codigo_venta']; ?>" 
+                            data-prop   ="<?php echo $ambiente['codigo_propina']; ?>" 
+                            data-logo   ="<?php echo $ambiente['logo']; ?>" 
                             title       ="Elimina el Ambiente Actual" >
                             <i class='fa fa-trash'></i>
                           </button>
@@ -95,11 +95,11 @@
                         <div class="btn-group" role="group" aria-label="">
                           <button type="button" class="btn btn-danger btn-xs" 
                             data-toggle ="modal" 
-                            data-id     ="<?= $ambiente['id_ambiente']?>" 
-                            data-desc   ="<?= $ambiente['nombre']?>" 
-                            data-pref   ="<?= $ambiente['prefijo']?>" 
-                            data-estado ="<?php echo $ambiente['active_at']?>" 
-                            onclick     ="cambiaEstadoAmbiente(<?=$ambiente['id_ambiente']?>,<?=$ambiente['active_at']?>)"
+                            data-id     ="<?php echo $ambiente['id_ambiente']; ?>" 
+                            data-desc   ="<?php echo $ambiente['nombre']; ?>" 
+                            data-pref   ="<?php echo $ambiente['prefijo']; ?>" 
+                            data-estado ="<?php echo $ambiente['active_at']; ?>" 
+                            onclick     ="cambiaEstadoAmbiente(<?php echo $ambiente['id_ambiente']; ?>,<?php echo $ambiente['active_at']; ?>)"
                             title       ="Bloquea El Punto de Venta Actual" >
                             <i style="font-size:16px" class="fa fa-ban" aria-hidden="true"></i>
                           </button>                          
@@ -107,9 +107,9 @@
                       </div>
                     </td>
                   </tr>
-                  <?php 
+                  <?php
                 }
-                ?>
+?>
               </tbody>
             </table>
           </div>

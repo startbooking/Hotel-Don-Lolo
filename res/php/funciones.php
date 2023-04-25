@@ -10,7 +10,7 @@ function nombreMes($mes)
 
 function crearThumbJPEG($rutaImagen, $rutaDestino, $anchoThumb = 200, $altoThumb = 150, $calidad = 50)
 {
-    $original = imagecreatefromJPEG($rutaImagen);
+    $original = imagecreatefromjpeg($rutaImagen);
     if ($original !== false) {
         $thumb = imagecreatetruecolor($anchoThumb, $altoThumb);
         if ($thumb !== false) {
@@ -131,35 +131,35 @@ function estadoCompania($estado)
 
 function tipoUsuario($user)
 {
-    if ($user == 'A') {
+    if ($user == '1') {
         return '<span style="font-size:12px" class="label label-success">Administrador</span>';
     }
-    if ($user == 'B') {
+    if ($user == '2') {
         return '<span style="font-size:12px" class="label label-danger">Auditor</span>';
     }
-    if ($user == 'C') {
+    if ($user == '3') {
         return '<span style="font-size:12px" class="label label-warning">Cajero</span>';
     }
-    if ($user == 'D') {
+    if ($user == '4') {
         return '<span style="font-size:12px" class="label label-info">Digitador</span>';
     }
-    if ($user == 'U') {
+    if ($user == '5') {
         return '<span style="font-size:12px" class="label label-default">Consulta</span>';
     }
 }
 
 function estadoUsuario($user)
 {
-    if ($user == 'A') {
-        return '<span style="font-size:12px" class="label label-info">Activo</span>';
-    }
-    if ($user == 'I') {
+    if ($user == '0') {
         return '<span style="font-size:12px" class="label label-warning">InActivo</span>';
     }
-    if ($user == 'S') {
+    if ($user == '1') {
+        return '<span style="font-size:12px" class="label label-info">Activo</span>';
+    }
+    if ($user == '2') {
         return '<span style="font-size:12px" class="label label-danger">Suspendido</span>';
     }
-    if ($user == 'C') {
+    if ($user == '3') {
         return '<span style="font-size:12px" class="label label-danger">Bloqueado</span>';
     }
 }

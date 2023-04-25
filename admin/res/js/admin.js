@@ -2175,7 +2175,9 @@ $(document).ready(function () {
   /* Descuentos */
   $("#myModalEliminaDescuento").on("show.bs.modal", function (event) {
     var sesion = JSON.parse(localStorage.getItem("sesion"));
-    var pms = sesion["cia"][0]["pms"];
+    let { cia } = sesion;
+    let { pms } = cia;
+    // var pms = sesion["cia"][0]["pms"];
     var button = $(event.relatedTarget);
     var id = button.data("id");
     var descr = button.data("descri");
@@ -2193,7 +2195,9 @@ $(document).ready(function () {
 
   $("#myModalModificaDescuento").on("show.bs.modal", function (event) {
     var sesion = JSON.parse(localStorage.getItem("sesion"));
-    var pms = sesion["cia"][0]["pms"];
+    let { cia } = sesion;
+    let { pms } = cia;
+    // var pms = sesion["cia"][0]["pms"];
     var button = $(event.relatedTarget);
     var id = button.data("id");
     var descr = button.data("descri");
@@ -2214,7 +2218,9 @@ $(document).ready(function () {
     var pagina = $("#ubicacion").val();
     var ruta = $("#rutaweb").val();
     var sesion = JSON.parse(localStorage.getItem("sesion"));
-    var pms = sesion["cia"][0]["pms"];
+    let { cia } = sesion;
+    let { pms } = cia;
+    // var pms = sesion["cia"][0]["pms"];
     var modal = $(this);
 
     modal.find(".modal-title").text("Adicionar Ambiente");
@@ -2230,7 +2236,9 @@ $(document).ready(function () {
 
   $("#myModalEliminaAmbiente").on("show.bs.modal", function (event) {
     var sesion = JSON.parse(localStorage.getItem("sesion"));
-    var pms = sesion["cia"][0]["pms"];
+    let { cia } = sesion;
+    let { pms } = cia;
+    // var pms = sesion["cia"][0]["pms"];
     var button = $(event.relatedTarget);
     var id = button.data("id");
     var descr = button.data("desc");
@@ -2283,7 +2291,9 @@ $(document).ready(function () {
 
   $("#myModalModificaAmbiente").on("show.bs.modal", function (event) {
     var sesion = JSON.parse(localStorage.getItem("sesion"));
-    var pms = sesion["cia"][0]["pms"];
+    let { cia } = sesion;
+    let { pms } = cia;
+    // var pms = sesion["cia"][0]["pms"];
     var button = $(event.relatedTarget);
     var id = button.data("id");
     var descr = button.data("desc");
@@ -2800,7 +2810,7 @@ $(document).ready(function () {
       url: ruta + "res/php/paquetesTarifa.php",
       type: "POST",
       data: {
-        id: id,
+        id,
       },
       success: function (data) {
         $("#paquetesTarifa").html(data);
