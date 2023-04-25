@@ -32,7 +32,7 @@ $totvendia = 0;
 $totingmes = 0;
 $totimpmes = 0;
 $totvenmes = 0;
-$totingani = 0;
+$totingani = 0; 
 $totimpani = 0;
 $totvenani = 0;
 

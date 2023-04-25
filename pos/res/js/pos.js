@@ -3572,6 +3572,14 @@ function abonosCajero() {
     oPos[0];
   let { usuario, usuario_id, tipo } = user;
 
+  console.log({
+    id_ambiente,
+    nombre,
+    impuesto,
+    propina,
+    fecha_auditoria,
+    logo,
+  });
   parametros = {
     id: id_ambiente,
     amb: nombre,
@@ -3582,6 +3590,7 @@ function abonosCajero() {
     fecha: fecha_auditoria,
     logo,
   };
+  console.log(parametros);
 
   $.ajax({
     url: "informes/abonosCajero.php",
@@ -5187,7 +5196,6 @@ function getCuentasActivas(idamb) {
       $("#loader").html("<img src='../img/loader.gif'>");
     },
     success: function (x) {
-      console.log(x)
       $("#listaComandas").html("");
       $("#listaComandas").css("min-height", 240);
       $("#listaComandas").css("height", alto - 250);
@@ -5215,10 +5223,6 @@ function getCuentasActivas(idamb) {
               title   ="Comanda Numero ${x[i]["comanda"]}">
             <h3>Mesa ${x[i]["mesa"]}</h3>
             <h3>Comanda ${number_format(x[i]["comanda"], 0)}</h3>
-            <h4 class="badge tituloCliente">${x[i]["cliente"].substr(
-              0,
-              18
-            )}</h4>
             </button>`;
         $("#listaComandas").append(boton);
 

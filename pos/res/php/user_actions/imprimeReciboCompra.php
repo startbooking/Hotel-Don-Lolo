@@ -9,7 +9,7 @@
 	$pdf = new FPDF('P', 'mm', array(50,250));
 	$pdf->SetMargins(0, 3 , 0);
   $pdf->AddPage(); 
-  $pdf->Image('../../../../img/'.LOGO,2,5,10);
+  $pdf->Image('../../../../img/'.$logo,2,5,10);
   $pdf->SetFont('Arial','B',9);
 	$pdf->Cell(50,4,utf8_decode($nomambi),0,1,'C');
   $pdf->SetFont('Arial','',7);

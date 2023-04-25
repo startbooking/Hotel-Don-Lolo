@@ -18,7 +18,6 @@ $datosmesa = $pos->getDatosComanda($numerocomanda, $amb);
 $pax = $datosmesa[0]['pax'];
 $mesa = $datosmesa[0]['mesa'];
 $fec = $datosmesa[0]['fecha'];
-$cliente = $datosmesa[0]['cliente'];
 
 $pdf = new FPDF('P', 'mm', [50, 250]);
 $pdf->AddPage();
@@ -39,10 +38,6 @@ $pdf->SetFont('Arial', 'B', 7);
 $pdf->Cell(20, 4, 'Comanda Nro: ', 0, 0, 'L');
 $pdf->SetFont('Arial', '', 7);
 $pdf->Cell(20, 4, $pref.'-'.str_pad($numerocomanda, 5, '0', STR_PAD_LEFT), 0, 1, 'L');
-$pdf->SetFont('Arial', 'B', 7);
-$pdf->Cell(10, 4, 'Cliente: ', 0, 0, 'L');
-$pdf->SetFont('Arial', '', 7);
-$pdf->Cell(20, 4, substr(utf8_decode($cliente), 0, 24), 0, 1, 'L');
 $pdf->SetFont('Arial', 'B', 7);
 
 $pdf->Ln(2);

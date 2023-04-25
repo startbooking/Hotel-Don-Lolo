@@ -13,6 +13,7 @@
   $comanda = $_POST['comanda'];
   $totabo = $_POST['monto'];
   $comenta = strtoupper($_POST['comenta']);
+  $logo = $_POST['logo'];
 
   $numAbo = $pos->getNumeroAbono($idamb);
   $upd = $pos->updateNumeroAbono($idamb, $numAbo + 1);

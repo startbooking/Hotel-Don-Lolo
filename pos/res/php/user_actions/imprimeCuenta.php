@@ -24,7 +24,7 @@
 	$pdf = new FPDF('P', 'mm', array(50,250));
 	$pdf->SetMargins(0, 3 , 0);
   $pdf->AddPage();
-  $pdf->Image('../../../../img/'.LOGO,2,3,20);
+  $pdf->Image('../../../../img/'.$logo,2,3,20);
   /* $pdf->SetFont('Arial','B',14);
   $pdf->Cell(50,7,utf8_decode(NAME_EMPRESA),0,1,'C');
    */
@@ -37,9 +37,6 @@
   $pdf->Cell(50,5,utf8_decode(CIUDAD_EMPRESA.' '.PAIS_EMPRESA),0,1,'C');
   $pdf->Cell(50,5,'Telefono '.TELEFONO_EMPRESA.' Movil '.CELULAR_EMPRESA,0,1,'C');
 
-  // $pdf->Image('../../../../img/'.LOGO,2,5,10);
-  // $pdf->SetFont('Arial','B',9);
-  //$pdf->Cell(50,7,$nomamb,0,1,'C');
   $pdf->SetFont('Arial','',7);
   $pdf->Cell(50,4,'Fecha '.$fec.' Mesa '.$mesa,0,1,'L');
   $pdf->Cell(50,4,'Usuario: '.$_SESSION['usuario'],0,1,'L');

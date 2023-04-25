@@ -161,13 +161,12 @@ function abonoComanda() {
   // $("abonosComanda");
   abonos = abonos + monto;
   $(mBoton).attr("abonos", abonos);
-  console.log(mBoton);
 
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
   let { pos, user } = sesion;
-  let { id_ambiente, nombre, fecha_auditoria } = oPos[0];
+  let { id_ambiente, nombre, fecha_auditoria, logo } = oPos[0];
   let { usuario, usuario_id } = user;
 
   var parametros = {
@@ -176,6 +175,7 @@ function abonoComanda() {
     idamb: id_ambiente,
     nomamb: nombre,
     fecha: fecha_auditoria,
+    logo,
     comanda,
     monto,
     fpago,
@@ -184,14 +184,11 @@ function abonoComanda() {
     comenta,
   };
 
-  // console.log(parametros);
-
   $.ajax({
     type: "POST",
     data: parametros,
     url: "res/php/user_actions/ingresaAbono.php",
     success: function (datos) {
-      console.log(datos);
       var ventana = window.open(
         "impresiones/" + $.trim(datos),
         "PRINT",
@@ -474,10 +471,12 @@ function imprimeComanda() {
 
 function anulaFactura() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
+  oPos = JSON.parse(localStorage.getItem("oPos"));
+
   let { cia, pos, user } = sesion;
   let { inv } = cia;
   let { usuario, usuario_id } = user;
-  let { id_ambiente, fecha_auditoria, prefijo } = pos;
+  let { id_ambiente, fecha_auditoria, prefijo } = oPos[0];
 
   var factura = $("#facturaActiva").val();
   var salida = $("#salida").val();
@@ -509,9 +508,10 @@ function anulaFactura() {
 function imprimeEstadoCuenta() {
   cuenta = $("#numeroComanda").val();
   sesion = JSON.parse(localStorage.getItem("sesion"));
+  oPos = JSON.parse(localStorage.getItem("oPos"));
   let { pos, user } = sesion;
   let { usuario } = user;
-  let { id_ambiente, fecha_auditoria, nombre } = pos;
+  let { id_ambiente, fecha_auditoria, nombre, logo } = oPos[0];
 
   parametros = {
     cuenta: cuenta,
@@ -519,6 +519,7 @@ function imprimeEstadoCuenta() {
     idamb: id_ambiente,
     ambie: nombre,
     user: usuario,
+    logo,
   };
   if ((cuenta = 0)) {
     alert("Guardar Comanda");
@@ -615,9 +616,11 @@ function getDescuento() {
 
 function pagarFacturaComanda() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
+  oPos = JSON.parse(localStorage.getItem("oPos"));
+
   let { pos, user } = sesion;
   let { usuario, usuario_id } = user;
-  let { id_ambiente } = pos;
+  let { id_ambiente } = oPos[0];
 
   user = usuario;
   iduser = usuario_id;
@@ -670,9 +673,11 @@ function pagarFacturaComanda() {
 
 function descargarInventario() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
+  oPos = JSON.parse(localStorage.getItem("oPos"));
+
   let { pos, user } = sesion;
   let { usuario } = user;
-  let { id_bodega, id_ambiente, fecha_auditoria, id_centrocosto } = pos;
+  let { id_bodega, id_ambiente, fecha_auditoria, id_centrocosto } = oPos[0];
 
   parametros = {
     idbod: id_bodega,
@@ -690,9 +695,19 @@ function descargarInventario() {
 }
 
 function imprimeFactura() {
+  oPos = JSON.parse(localStorage.getItem("oPos"));
+
+  let { pos, user } = sesion;
+  let { usuario } = user;
+  let { logo } = oPos[0];
+
+  parametros = {
+    logo,
+  };
   $.ajax({
     url: "res/php/user_actions/imprime_factura.php",
     type: "POST",
+    data: parametros,
     success: function (data) {
       imprime = $.trim(data);
       var ventana = window.open(
@@ -742,9 +757,11 @@ function botonPagarComanda() {
 
 function botonPagar() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
+  oPos = JSON.parse(localStorage.getItem("oPos"));
+
   let { pos, user } = sesion;
   let { usuario } = user;
-  let { id_ambiente } = pos;
+  let { id_ambiente } = oPos[0];
 
   abonos = +$("#abonosComanda").val();
 
@@ -789,9 +806,11 @@ function botonPagar() {
 
 function guardaFactura() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
+  oPos = JSON.parse(localStorage.getItem("oPos"));
+
   let { pos, user } = sesion;
   let { usuario, usuario_id } = user;
-  let { id_ambiente } = pos;
+  let { id_ambiente } = oPos[0];
 
   user = usuario;
   iduser = usuario_id;
@@ -1145,9 +1164,10 @@ function imprimeComandaGen() {
   var numComa = $("#numeroComanda").val();
   var mesa = $("#nromesas").val();
   sesion = JSON.parse(localStorage.getItem("sesion"));
+  oPos = JSON.parse(localStorage.getItem("oPos"));
   let { pos, user } = sesion;
   let { usuario } = user;
-  let { id_ambiente, nombre } = pos;
+  let { id_ambiente, nombre } = oPos[0];
 
   $.ajax({
     url: "res/php/user_actions/imprimeComandaGen.php",
@@ -1252,8 +1272,6 @@ function guardarCuentaRecu() {
 $(document).ready(function () {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
-
-  // console.log(oPos);
 
   let { pos, user } = sesion;
   let { usuario } = user;

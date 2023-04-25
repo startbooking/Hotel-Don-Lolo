@@ -1,3 +1,6 @@
+<?php
+echo LAND_HOTEL;
+?>
 <div class="modal fade bs-example-modal-lg" id="myModalAdicionaCompania" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
@@ -21,11 +24,11 @@
             <div class="col-sm-4">
               <select name="tipodoc" required>
                 <option value="">Seleccione el Tipo de Documento</option>
-                <?php 
-                  $tipodocs = $hotel->getTipoDocumento(); 
-                  foreach ($tipodocs as $tipodoc): ?>
-                    <option value="<?=$tipodoc['id_doc']?>"><?=$tipodoc['descripcion_documento']?></option>
-                  <?php endforeach ?>
+                <?php
+                  $tipodocs = $hotel->getTipoDocumento();
+foreach ($tipodocs as $tipodoc) { ?>
+                    <option value="<?php echo $tipodoc['id_doc']; ?>"><?php echo $tipodoc['descripcion_documento']; ?></option>
+                  <?php } ?>
               </select>
             </div>
           </div>
@@ -40,26 +43,26 @@
             <div class="col-sm-4">
               <select name="tipoEmpresaAdi" id="tipoEmpresaAdi">
                 <option value="">Seleccione el Tipo de Empresa</option>
-                <?php 
-                  $motivos = $hotel->getMotivoGrupo('TEM');
-                  foreach ($motivos as $motivo) { ?>
-                    <option value="<?=$motivo['id_grupo']?>"><?=$motivo['descripcion_grupo']?></option>
-                    <?php 
-                  }
-                ?>
+                <?php
+$motivos = $hotel->getMotivoGrupo('TEM');
+foreach ($motivos as $motivo) { ?>
+                    <option value="<?php echo $motivo['id_grupo']; ?>"><?php echo $motivo['descripcion_grupo']; ?></option>
+                    <?php
+}
+?>
               </select>
             </div>
              <label for="codigoCiiuAdi" class="col-sm-2 control-label">Codigo CIIU</label>
             <div class="col-sm-4">
               <select name="codigoCiiuAdi" id="codigoCiiuAdi">
                 <option value="">Seleccione el Codigo CIIU</option>
-                <?php 
-                  $codigosCiiu = $admin->getCodigosCiiu();
-                  foreach ($codigosCiiu as $codigoCiiu) { ?>
-                    <option value="<?= $codigoCiiu['id_ciiu']?>"><?php echo $codigoCiiu['codigo'].' '.substr($codigoCiiu['descripcion'],0,50)?></option>
+                <?php
+  $codigosCiiu = $admin->getCodigosCiiu();
+foreach ($codigosCiiu as $codigoCiiu) { ?>
+                    <option value="<?php echo $codigoCiiu['id_ciiu']; ?>"><?php echo $codigoCiiu['codigo'].' '.substr($codigoCiiu['descripcion'], 0, 50); ?></option>
                     <?php
-                  }
-                ?>
+}
+?>
               </select>
             </div>
           </div>
@@ -72,13 +75,13 @@
             <div class="col-sm-4">
               <select name="ciudad" id="ciudad" required="">
                 <option value="">Seleccione la Ciudad</option>
-              <?php 
-                $ciudades = $hotel->getCiudadesPais(LAND_HOTEL);
-                foreach ($ciudades as $ciudad) { ?>
-                  <option value="<?=$ciudad['id_ciudad']?>"><?=$ciudad['municipio'].' '.$ciudad['depto']?></option>
-                  <?php 
-                }
-               ?>
+              <?php
+$ciudades = $hotel->getCiudadesPais(LAND_HOTEL);
+foreach ($ciudades as $ciudad) { ?>
+                  <option value="<?php echo $ciudad['id_ciudad']; ?>"><?php echo $ciudad['municipio'].' '.$ciudad['depto']; ?></option>
+                  <?php
+}
+?>
               </select>
             </div>
           </div>
@@ -106,24 +109,24 @@
             <label for="tarifa" class="col-sm-2 control-label">Tarifa </label>
             <div class="col-sm-4">
               <select name="tarifa" id="tarifa" required="">
-              <?php 
-                $tarifas = $hotel->getTarifasHuespedes(); ?>
-                <?php foreach ($tarifas as $tarifa): ?>
-                  <option value="<?=$tarifa['id_tarifa']?>"><?=$tarifa['descripcion_tarifa']?></option>
-                <?php endforeach ?>
+              <?php
+ $tarifas = $hotel->getTarifasHuespedes(); ?>
+                <?php foreach ($tarifas as $tarifa) { ?>
+                  <option value="<?php echo $tarifa['id_tarifa']; ?>"><?php echo $tarifa['descripcion_tarifa']; ?></option>
+                <?php } ?>
               </select>
             </div>
             <label for="formapago" class="col-sm-2 control-label">Forma de Pago </label>
             <div class="col-sm-4">
               <select name="formapago" id="formapago" required="">
               <option value="">Seleccione La Forma de Pago</option>
-                <?php 
-                  $codigos = $hotel->getCodigosConsumos(3);
-                  foreach ($codigos as $codigo) { ?>
-                    <option value="<?=$codigo['id_cargo']?>"><?=$codigo['descripcion_cargo']?></option>
-                    <?php   
-                  }
-                   ?>
+                <?php
+   $codigos = $hotel->getCodigosConsumos(3);
+foreach ($codigos as $codigo) { ?>
+                    <option value="<?php echo $codigo['id_cargo']; ?>"><?php echo $codigo['descripcion_cargo']; ?></option>
+                    <?php
+}
+?>
               </select>
             </div>
           </div>                           

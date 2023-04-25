@@ -12,7 +12,7 @@
 
   $pdf = new FPDF();
   $pdf->AddPage('L','letter');
-  $pdf->Image('../../../../img/'.LOGO,10,10,25);
+  $pdf->Image('../../../../img/'.$logo,10,10,25);
   $pdf->SetFont('Arial','B',13);
   $pdf->Cell(260,5,$amb,0,1,'C'); 
   $pdf->SetFont('Arial','',10);

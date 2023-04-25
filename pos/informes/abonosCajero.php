@@ -8,4 +8,6 @@ $nomamb = $_POST['amb'];
 $user = $_POST['user'];
 $iduser = $_POST['iduser'];
 $fecha = $_POST['fecha'];
+$logo = $_POST['logo'];
+
 include '../imprimir/imprimeAbonosCajero.php';
