@@ -30,13 +30,15 @@ $totabo = 0;
 $datosFac = $pos->getDatosFactura($amb, $nComa);
 // $abonos   = $pos->getTotalAbonos($amb,$nComa);
 
+echo print_r($datosFac);
+
 $mes = $datosFac[0]['mesa'];
 $pax = $datosFac[0]['pax'];
 $coma = $datosFac[0]['comanda'];
 $tot = $datosFac[0]['valor_total'];
 $des = $datosFac[0]['descuento'];
 $net = $datosFac[0]['valor_neto'];
-// $imp    = $datosFac[0]['impuesto'];
+$imp = $datosFac[0]['impuesto'];
 $pro = $datosFac[0]['propina'];
 $pag = $datosFac[0]['pagado'];
 $cam = $datosFac[0]['cambio'];
@@ -45,7 +47,7 @@ $usu = $datosFac[0]['usuario_factura'];
 $cli = $datosFac[0]['id_cliente'];
 $pms = $datosFac[0]['pms'];
 $fpa = $datosFac[0]['forma_pago'];
-$abonos = $datosFac[0]['abonos'];
+// $abonos = $datosFac[0]['abonos'];
 
 $fpago = $pos->nombrePago($fpa);
 $datosCliente = $pos->datosCliente($cli);

@@ -40,7 +40,7 @@
           </div>
           <div class="form-group" id="clientesPago">
             <label class="col-lg-3 col-md-3 control-label" style="padding-top:0">Cliente</label>
-            <div class="col-lg-8 col-md-8">
+            <div class="col-lg-8 col-md-8" name="divClientes" id='divClientes'>
               <select name="clientes" id='clientes' required>
                 <option value="">Seleccione el Cliente </option>
                 <?php

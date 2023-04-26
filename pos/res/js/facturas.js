@@ -273,10 +273,7 @@ function pagarFactura() {
   numero = $("#numeroComanda").val();
 
   var pago = +parseFloat($("#montopago").val().replace(",", ""));
-
   totalCta = +$("#totalComanda").val();
-
-  // oPos = JSON.parse(localStorage.getItem("oPos"));
   abonos = $("#abonosComanda").val();
 
   var productos = localStorage.getItem("productoComanda");
@@ -293,7 +290,7 @@ function pagarFactura() {
       imprimeFactura();
       descargarInventario();
       limpiaLista();
-      enviaInicio();
+      // enviaInicio();
 
       $("#myModalPagar").modal("hide");
       campo = "#comand" + $.trim(numero);

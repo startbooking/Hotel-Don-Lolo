@@ -3209,12 +3209,12 @@ class Pos_Actions
             global $database;
 
             $data = $database->select('facturas_pos', [
-                'forma_pago',
-                'factura',
-                'comanda',
                 'mesa',
                 'pax',
+                'comanda',
                 'valor_total',
+                'forma_pago',
+                'factura',
                 'valor_neto',
                 'impuesto',
                 'propina',
@@ -3341,7 +3341,7 @@ class Pos_Actions
             return $data->rowCount();
         }
 
-        public function insertProductoVentas($iamb, $inom, $iven, $ican, $iimp, $idpr, $vimp, $valimp, $numero, $pms, $usuario, $com, $vdes, $vpor)
+        public function insertProductoVentas($iamb, $inom, $iven, $ican, $iimp, $idpr, $vimp, $valimp, $numero, $usuario, $com, $vdes, $vpor, $pms)
         {
             global $database;
 

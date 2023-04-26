@@ -1762,24 +1762,42 @@ function resumenComanda() {
   var impuesto = 0;
   var venta = 0;
   var canti = 0;
-  let propina = 0;
-  // let abonos = 0;
+  var propina = 0;
+  var abonos = 0;
+  var totalCuenta = 0;
 
-  abonos = $("#abonosComanda").val();
+  // abonos = $("#abonosComanda").val();
 
   for (i = 0; i < listaComanda.length; i++) {
-    canti = canti + 1;
+    canti += canti;
     impuesto = impuesto + parseFloat(listaComanda[i]["valorimpto"]);
     venta = venta + parseFloat(listaComanda[i]["venta"]);
+    totalCuenta = venta + impuesto;
   }
 
-  miBoton = "comanda" + $("#numeroComanda").val();
-  total = venta + impuesto + propina - descuento - abonos;
-  $("#totalComanda").val(total);
+  // console.log(venta + impuesto);
+
+  console.log(canti);
+  console.log(impuesto);
+  console.log(venta);
+  console.log(canti);
+  console.log(propina);
+  console.log(abonos);
+  console.log(totalCuenta);
+
+  /* totalCuenta =
+    parseInt(venta) +
+    parseInt(impuesto) +
+    parseInt(propina) -
+    parseInt(descuento) -
+    parseInt(abonos); */
+  console.log(totalCuenta);
+  let miBoton = "comanda" + $("#numeroComanda").val();
+  $("#totalComanda").val(totalCuenta);
   $("#totalVta").html(number_format(venta, 2));
   $("#totalDesc").html(number_format(descuento, 2));
   $("#totalAbonos").html(number_format(abonos, 2));
-  $("#totalCuenta").html(number_format(total, 2));
+  $("#totalCuenta").html(number_format(totalCuenta, 2));
   $("#valorImpto").html(number_format(impuesto, 2));
   $("#cantProd").val(canti);
 
@@ -5035,8 +5053,9 @@ function getFormaPago(fpago) {
     url: "res/php/user_actions/getFormaPago.php",
     data: parametros,
     success: function (data) {
-      $("#clientes option").remove();
-      $("#clientes").append(data);
+      // $("#clientes option").remove();
+      $("#divClientes").html("");
+      $("#divClientes").html(data);
     },
   });
 }
@@ -5370,17 +5389,20 @@ function getComandas(comanda, numero) {
 
 function calculaCambio() {
   var coma = $("#numeroComanda").val();
-  miBoton = "#comanda" + coma;
+  let miBoton = "#comanda" + coma;
+  let pagado = 0;
+  let cambio = 0;
 
-  propina = parseFloat($("#propinaPag").val().replaceAll(",", ""));
-  subtotal = parseFloat($(miBoton).attr("subtotal"));
-  impuesto = parseFloat($(miBoton).attr("impto"));
-  descuento = parseFloat($(miBoton).attr("descuento"));
-  abonos = parseFloat($(miBoton).attr("abonos"));
-  total = parseFloat($(miBoton).attr("total"));
+  let propina = parseFloat($("#propinaPag").val().replaceAll(",", ""));
+  let subtotal = parseFloat($(miBoton).attr("subtotal"));
+  let impuesto = parseFloat($(miBoton).attr("impto"));
+  let descuento = parseFloat($(miBoton).attr("descuento"));
+  let abonos = parseFloat($(miBoton).attr("abonos"));
+  let total = parseFloat($(miBoton).attr("total"));
 
   pagado = parseFloat($("#montopago").val().replaceAll(",", ""));
-  cambio = subtotal + impuesto + propina - descuento - abonos - pagado;
+  console.log(pagado);
+  cambio = total - pagado;
 
   $("#cambio").val(cambio);
 
@@ -5410,19 +5432,26 @@ function calculaCambioDir() {
   $("#cambioDir").val(cambio);
   if (cambio == 0) {
     $("#resultadoDir").html(
-      `<label name='resultadoDir' class='avisoVta avisCambio alert alert-success'>SALDO PENDIENTE ${cambio}</label>`
+      `<label name='resultadoDir' class='avisoVta avisCambio alert alert-success'>SALDO PENDIENTE $ ${number_format(
+        cambio,
+        2
+      )}</label>`
     );
   }
   if (cambio > 0) {
     $("#resultadoDir").html(
-      `<label name='resultadoDir' class='avisoVta avisCambio alert alert-danger'>SALDO PENDIENTE $ ${cambio}</label>`
+      `<label name='resultadoDir' class='avisoVta avisCambio alert alert-danger'>SALDO PENDIENTE $ ${number_format(
+        cambio,
+        2
+      )}</label>`
     );
   }
   if (cambio < 0) {
     $("#resultadoDir").html(
-      `<label name='resultadoDir' class='avisoVta avisCambio alert alert-info'>VUELTAS/CAMBIO $ ${
-        cambio * -1
-      }</label>`
+      `<label name='resultadoDir' class='avisoVta avisCambio alert alert-info'>VUELTAS/CAMBIO $ ${number_format(
+        cambio * -1,
+        2
+      )}</label>`
     );
   }
 }
