@@ -232,7 +232,7 @@ $reservas = $hotel->getReservasActuales($tipo);
                                 >
                                 <i class="fa fa-times" aria-hidden="true"></i>Cancelar Reserva</a>
                             </li>
-                            <li>
+                            <!-- <li>
                               <a 
                                 data-toggle    ="modal" 
                                 data-id        ="<?php echo $reserva['num_reserva']; ?>" 
@@ -246,7 +246,7 @@ $reservas = $hotel->getReservasActuales($tipo);
                                 >
                                 <i class="fa fa-book" aria-hidden="true"></i>Confirmar Reserva
                               </a>
-                            </li>
+                            </li> -->
                             <li>
                               <a 
                                 data-toggle    ="modal" 

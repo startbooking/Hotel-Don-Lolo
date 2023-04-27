@@ -28,6 +28,11 @@ $(document).ready(function () {
 
   let casa = document.getElementById("pantallaenCasa");
   if (casa != null) {
+    /* 
+sesion = JSON.parse(localStorage.getItem("sesion"));
+let { user } = sesion;
+let { usuario_id, usuario, nombres, apellidos, tipo } = user; 
+*/
     traeHuespedesenCasa();
   }
 
@@ -1961,11 +1966,15 @@ function traeLlegadasDia() {
 }
 
 function traeHuespedesenCasa() {
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { user } = sesion;
+  let { tipo } = user;
+
   $.ajax({
     url: "res/php/traeHuespedesenCasa.php",
     type: "POST",
     data: {
-      tipo: "1",
+      tipo,
     },
     success: function (data) {
       $("#paginaenCasa").html(data);

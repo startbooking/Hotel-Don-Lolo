@@ -1,62 +1,59 @@
-<?php 
-	require '../../../res/php/titles.php';
-  require '../../../res/php/app_topHotel.php'; 
+<?php
 
-	$forma       = $_POST['formadePago'];
-	$textoforma  = $_POST['textforma']; 
-	$valor       = $_POST['txtValorDeposito'];
-	$detalle     = strtoupper($_POST['txtDetalleDeposito']);
-	$numero      = $_POST['txtIdReservaDep'];
-	$idhues      = $_POST['id'];
-	$usuario     = $_POST['usuario'];
-	$idusuario   = $_POST['idusuario'];
-	$ctadeposito = CTA_DEPOSITO;
-	$fecha       = FECHA_PMS;	
-	$folio       = 1;
+require '../../../res/php/titles.php';
+require '../../../res/php/app_topHotel.php';
 
-  $directorio = '../../uploads/';
+$forma = $_POST['formadePago'];
+$textoforma = $_POST['textforma'];
+$valor = $_POST['txtValorDeposito'];
+$detalle = strtoupper($_POST['txtDetalleDeposito']);
+$numero = $_POST['txtIdReservaDep'];
+$idhues = $_POST['id'];
+$usuario = $_POST['usuario'];
+$idusuario = $_POST['idusuario'];
+$ctadeposito = CTA_DEPOSITO;
+$fecha = FECHA_PMS;
+$folio = 1;
 
-  $dir  = opendir($directorio); 
-  //Abrimos el directorio de destino  $dir  = opendir($directorio); //Abrimos el directorio de destino
+$directorio = '../../uploads/';
 
-	$encasa      = $hotel->getNumeroPMDeposito($ctadeposito); 
-	// Numero de reserva de la cuenta maestra
-	$regis       = $encasa;
+$dir = opendir($directorio);
+// Abrimos el directorio de destino  $dir  = opendir($directorio); //Abrimos el directorio de destino
 
-	if($regis==0){
-		echo '-1';
-	}else{
-		$numdeposito = $hotel->getNumeroDeposito(); // Numero Actual de La Reserva
-		$nuevo       = $numdeposito + 1;
-		$nuevonumero = $hotel->updateNumeroDeposito($nuevo); // Actualiza Consecutivo de Reserva
-		$deposito    = $hotel->insertDepositoReserva($fecha, $forma, $valor, $detalle, $numero, $idhues, $idusuario, $usuario, $ctadeposito, $folio, $numdeposito, $encasa, $textoforma);
+$encasa = $hotel->getNumeroPMDeposito($ctadeposito);
+// Numero de reserva de la cuenta maestra
+$regis = $encasa;
 
-	}
+if ($regis == 0) {
+    echo '-1';
+} else {
+    $numdeposito = $hotel->getNumeroDeposito(); // Numero Actual de La Reserva
+    $nuevo = $numdeposito + 1;
+    $nuevonumero = $hotel->updateNumeroDeposito($nuevo); // Actualiza Consecutivo de Reserva
+    $deposito = $hotel->insertDepositoReserva($fecha, $forma, $valor, $detalle, $numero, $idhues, $idusuario, $usuario, $ctadeposito, $folio, $numdeposito, $encasa, $textoforma);
+}
 
-  if(is_array($_FILES)){  
-  	if(count($_FILES)!=0){
-	    foreach($_FILES['images']['name'] as $name => $value){  
-				$up         = 0 ;
-				$file_name   = $_FILES['images']['name'][$name];
-				$source      = $_FILES["images"]["tmp_name"][$name];      			
-				$target_path = $directorio.$file_name; 
+if (is_array($_FILES)) {
+    if (count($_FILES) != 0) {
+        foreach ($_FILES['images']['name'] as $name => $value) {
+            $up = 0;
+            $file_name = $_FILES['images']['name'][$name];
+            $source = $_FILES['images']['tmp_name'][$name];
+            $target_path = $directorio.$file_name;
 
-	      if($file_name!=''){
-	      	$up = crearThumbJPEG($source,$target_path,600,480,90); 
-	      }
+            if ($file_name != '') {
+                $up = crearThumbJPEG($source, $target_path, 600, 480, 90);
+            }
 
-	      if($up==1){
-	        $img  = $hotel->insertImagenPerfil(3,$numdeposito,$file_name,$numero, $idusuario);
-	      }
-	  	}
-    }  
-  }  
+            if ($up == 1) {
+                $img = $hotel->insertImagenPerfil(3, $numdeposito, $file_name, $numero, $idusuario);
+            }
+        }
+    }
+}
 
-  $numero = $numdeposito;
+$numero = $numdeposito;
 
-	include '../../imprimir/imprimeDepositoReserva.php';
+include '../../imprimir/imprimeDepositoReserva.php';
 
-  $filepdf = BASE_PMS.'imprimir/notas/Deposito_'.$numero.'.pdf';
-
-
- ?>
+$filepdf = BASE_PMS.'imprimir/notas/Deposito_'.$numero.'.pdf';
