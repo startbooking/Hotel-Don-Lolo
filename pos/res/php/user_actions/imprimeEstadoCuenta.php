@@ -107,8 +107,8 @@ $pdf->Cell(25,5,number_format($imp,2,",","."),0,1,'R');
 $pdf->Cell(25, 4, 'Propina', 0, 0, 'R');
 $pdf->Cell(20, 4, number_format($pro, 2, ',', '.'), 0, 1, 'R');
 // $pdf->Ln(1);
-$pdf->Cell(25, 4, 'Abonos', 0, 0, 'R');
-$pdf->Cell(20, 4, number_format($abonos, 2, ',', '.'), 0, 1, 'R');
+/* $pdf->Cell(25, 4, 'Abonos', 0, 0, 'R');
+$pdf->Cell(20, 4, number_format($abonos, 2, ',', '.'), 0, 1, 'R'); */
 $pdf->Ln(1);
 $pdf->SetFont('Arial', 'B', 7);
 $pdf->Cell(25, 4, 'Total Cuenta:', 0, 0, 'L');

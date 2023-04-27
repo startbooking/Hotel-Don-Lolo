@@ -30,7 +30,9 @@ $totabo = 0;
 $datosFac = $pos->getDatosFactura($amb, $nComa);
 // $abonos   = $pos->getTotalAbonos($amb,$nComa);
 
-echo print_r($datosFac);
+// echo $amb, $nComa;
+
+// echo print_r($datosFac);
 
 $mes = $datosFac[0]['mesa'];
 $pax = $datosFac[0]['pax'];
@@ -49,13 +51,29 @@ $pms = $datosFac[0]['pms'];
 $fpa = $datosFac[0]['forma_pago'];
 // $abonos = $datosFac[0]['abonos'];
 
-$fpago = $pos->nombrePago($fpa);
-$datosCliente = $pos->datosCliente($cli);
+// echo $fpa.' Forma de Pago ';
 
-$identif = $datosCliente[0]['identificacion'];
+$fpago = $pos->nombrePago($fpa);
+
+if ($pms == '1') {
+    $datosCliente = $pos->getDatosHuespedesenCasa($cli);
+    $nrohabi = $datosCliente[0]['num_habitacion'];
+    $nameImpr = 'ChequeCuenta_'.$pref.'_'.$nFact.'.pdf';
+    $file = '../../../impresiones/ChequeCuenta_'.$pref.'_'.$nFact.'.pdf';
+} else {
+    $datosCliente = $pos->datosCliente($cli);
+    $identif = $datosCliente[0]['identificacion'];
+    $nameImpr = 'Factura_'.$pref.'_'.$rpre.'-'.$nFact.'.pdf';
+    $file = '../../../impresiones/Factura_'.$pref.'_'.$rpre.'-'.$nFact.'.pdf';
+}
+$cliente = utf8_decode($datosCliente[0]['apellido1'].' '.$datosCliente[0]['apellido2'].' '.$datosCliente[0]['nombre1'].' '.$datosCliente[0]['nombre2']);
+
+// $datosCliente = $pos->datosCliente($cli);
+
+/* $identif = $datosCliente[0]['identificacion'];
 $nameImpr = 'Factura_'.$pref.'_'.$rpre.'-'.$nFact.'.pdf';
 $file = '../../../impresiones/Factura_'.$pref.'_'.$rpre.'-'.$nFact.'.pdf';
-$clienteact = utf8_decode($datosCliente[0]['apellido1'].' '.$datosCliente[0]['apellido2'].' '.$datosCliente[0]['nombre1'].' '.$datosCliente[0]['nombre2']);
+$clienteact = utf8_decode($datosCliente[0]['apellido1'].' '.$datosCliente[0]['apellido2'].' '.$datosCliente[0]['nombre1'].' '.$datosCliente[0]['nombre2']); */
 
 $productosventa = $pos->getProductosVendidosFactura($amb, $nComa);
 
@@ -68,7 +86,7 @@ $pdf->AddPage();
 $pdf->Image('../../../../img/'.$logo, 2, 5, 10);
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(50, 4, $nomamb, 0, 1, 'C');
-// $pdf->Cell(50,4,utf8_decode(NAME_EMPRESA),0,1,'C');
+$pdf->Cell(50, 4, utf8_decode(NAME_EMPRESA), 0, 1, 'C');
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(50, 4, 'NIT: '.NIT_EMPRESA, 0, 1, 'C');
 $pdf->Cell(50, 4, 'Iva Regimen Simplificado', 0, 1, 'C');
@@ -81,9 +99,18 @@ $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(50, 4, 'Fecha '.$fec.' '.$time.' Mesa '.$mes, 0, 1, 'L');
 $pdf->Cell(50, 4, 'Usuario: '.$_SESSION['usuario'], 0, 1, 'L');
 $pdf->Cell(50, 4, 'Forma de Pago: '.$fpago, 0, 1, 'L');
-$pdf->Cell(50, 4, 'Tiquete POS: '.$pref.'_'.$rpre.str_pad($nFact, 5, '0', STR_PAD_LEFT), 0, 1, 'L');
-$pdf->Cell(50, 4, 'Cliente: '.substr($clienteact, 0, 18), 0, 1, 'L');
-$pdf->Cell(50, 4, 'Iden. '.$identif, 0, 1, 'L');
+/* $pdf->Cell(50, 4, 'Tiquete POS: '.$pref.'_'.$rpre.str_pad($nFact, 5, '0', STR_PAD_LEFT), 0, 1, 'L');
+$pdf->Cell(50, 4, 'Cliente: '.substr($cliente, 0, 18), 0, 1, 'L');
+$pdf->Cell(50, 4, 'Iden. '.$identif, 0, 1, 'L'); */
+if ($pms == 0) {
+    $pdf->Cell(70, 5, 'Tiquete POS Nro:  '.$rpre.'-'.str_pad($nFact, 5, '0', STR_PAD_LEFT), 0, 1, 'L');
+    $pdf->Cell(65, 5, 'Cliente '.substr($cliente, 0, 20), 0, 0, 'L');
+    $pdf->Cell(25, 5, 'Iden. '.$identif, 0, 1, 'L');
+} else {
+    $pdf->Cell(70, 5, 'Cheque Cuenta Nro: '.str_pad($nFact, 5, '0', STR_PAD_LEFT), 0, 1, 'L');
+    $pdf->Cell(70, 5, 'Huesped '.substr($cliente, 0, 22), 0, 0, 'L');
+    $pdf->Cell(20, 5, ' Hab. '.$nrohabi, 0, 1, 'L');
+}
 $pdf->Ln(2);
 
 $subt = 0;
@@ -123,17 +150,25 @@ $pdf->Cell(25, 4, number_format($des, 2, ',', '.'), 0, 1, 'R');
 $pdf->Cell(20, 4, 'Propina', 0, 0, 'R');
 $pdf->Cell(25, 4, number_format($pro, 2, ',', '.'), 0, 1, 'R');
 $pdf->Ln(2);
-$pdf->SetFont('Arial', 'B', 7);
+/* $pdf->SetFont('Arial', 'B', 7);
 $pdf->Cell(20, 4, 'Abonos:', 0, 0, 'L');
 $pdf->Cell(25, 4, number_format($abonos, 2, ',', '.'), 0, 1, 'R');
-$pdf->Ln(2);
+$pdf->Ln(2); */
 $pdf->SetFont('Arial', 'B', 7);
 $pdf->Cell(20, 4, 'Total Cuenta:', 0, 0, 'L');
-$pdf->Cell(25, 4, number_format(($sub - $des + $pro + $imp) - $abonos, 2, ',', '.'), 0, 1, 'R');
+$pdf->Cell(25, 4, number_format($sub - $des + $pro + $imp, 2, ',', '.'), 0, 1, 'R');
 $pdf->Ln(2);
 $pdf->SetFont('Arial', '', 7);
-$pdf->MultiCell(45, 4, 'Son : '.numtoletras(($sub - $des + $pro + $imp) - $abonos), 0, 'L');
+$pdf->MultiCell(45, 4, 'Son : '.numtoletras($sub - $des + $pro + $imp), 0, 'L');
 $pdf->SetFont('Arial', '', 7);
+
+if ($pms == 1) {
+    $pdf->Ln(20);
+    $pdf->Cell(50, 5, str_repeat('_', 50), 0, 1, 'L');
+    $pdf->MultiCell(50, 5, 'Acepto se incluya en mi cuenta de Alojamiento el Presente Consumo', 0, 'C');
+    $pdf->Cell(50, 4, 'Firma Huesped', 0, 1, 'C');
+}
+$pdf->Ln(3);
 
 $pdf->Ln(3);
 $posY = $pdf->GetY();

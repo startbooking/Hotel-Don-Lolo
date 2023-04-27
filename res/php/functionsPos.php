@@ -2474,6 +2474,21 @@ class Pos_Actions
             return $database->id();
         }
 
+        public function traeInfoCodigosPMS($amb)
+        {
+            global $database;
+
+            $data = $database->select('ambientes', [
+                'codigo_propina',
+                'codigo_servicio',
+                'codigo_venta',
+            ], [
+                'id_ambiente' => $amb,
+            ]);
+
+            return $data;
+        }
+
         public function getDescripcionCargo($id)
         {
             global $database;
@@ -3280,7 +3295,9 @@ class Pos_Actions
             return $data;
         }
 
-        public function insertFacturaVentaPOS($nFactura, $com, $ambiente, $mesa, $pax, $usuario, $total, $subtotal, $impuesto, $propina, $descuento, $pagado, $cambio, $fecha, $pms, $estado, $fpago, $cliente)
+                        // insertFacturaVentaPOS($nFactura, $comanda, $ambiente, $mesa, $pax, $usuario, $total, $subtotal, $impuesto, $propina, $totaldesc, $pagado, $cambio, $fecha, 'A', $fpago, $cliente, $motivoDes, $abonos)
+
+        public function insertFacturaVentaPOS($nFactura, $com, $ambiente, $mesa, $pax, $usuario, $total, $subtotal, $impuesto, $propina, $descuento, $pagado, $cambio, $fecha, $pms, $estado, $fpago, $cliente, $motivoDes)
         {
             global $database;
 
@@ -3301,6 +3318,7 @@ class Pos_Actions
             'fecha' => $fecha,
             'fecha_factura' => date('Y-m-d H:i:s'),
             'usuario_factura' => $usuario,
+            'motivo_descuento' => $motivoDes,
             'pms' => $pms,
             'estado' => $estado,
             'forma_pago' => $fpago,
@@ -3369,6 +3387,7 @@ class Pos_Actions
                 'impto' => $vimp,
                 'created_at' => date('Y-m-d H:i:s'),
                 'valorimpto' => $valimp,
+                'pms' => $pms,
             ]);
 
             return $database->id();

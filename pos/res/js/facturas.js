@@ -290,7 +290,7 @@ function pagarFactura() {
       imprimeFactura();
       descargarInventario();
       limpiaLista();
-      // enviaInicio();
+      enviaInicio();
 
       $("#myModalPagar").modal("hide");
       campo = "#comand" + $.trim(numero);
@@ -822,6 +822,9 @@ function guardaFactura() {
   var tota = parseFloat($("#total").val().replace(",", ""));
   var coman = $("#numeroComanda").val();
   $("#comandaPag").val(coman);
+
+  // console.log(parametros);
+
   $.ajax({
     type: "POST",
     data: parametros,
