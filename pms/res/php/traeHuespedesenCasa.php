@@ -288,8 +288,8 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
                                 Datos Compañia</a>
                               </li>
                               <?php
-              }
-              if ($reserva['fecha_llegada'] == FECHA_PMS && $tipo == 1) { ?>
+                              }
+                              if ($reserva['fecha_llegada'] == FECHA_PMS && $tipo == 1) { ?>
                               <li id="cambiaHuesped">
                                 <a 
                                   data-toggle        ="modal" 

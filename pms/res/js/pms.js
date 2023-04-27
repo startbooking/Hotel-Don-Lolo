@@ -4205,6 +4205,8 @@ function imprimirRegistro(reserva, causar) {
 }
 
 function anulaConsumos() {
+  var web = $("#rutaweb").val();
+
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
   let { usuario, usuario_id } = user;
@@ -4403,7 +4405,7 @@ function salidaHuesped() {
             5000
           );
           $("#myModalSalidaHuesped").modal("hide");
-          activaFolio(reserva, data[1]);
+          // activaFolio(reserva, data[1]);
         }
       },
     });
@@ -5968,6 +5970,7 @@ function validaCierreDiario() {
         );
       },
       success: function (x) {
+        console.log(x);
         if (x == 1) {
           swal("Atencion", "Auditoria Terminada con Exito", "success");
           setTimeout(function () {
