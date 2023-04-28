@@ -68,13 +68,13 @@
               <td>Descuento</td>
               <td id="totalDescDiv"><?php echo '$ '.number_format(0 + 0 - 0, 2, ',', '.'); ?>
               </td>
-              <td>Abonos</td>
+              <!-- <td>Abonos</td>
               <td id="totalAbonosDiv"><?php echo '$ '.number_format(0 + 0 - 0, 2, ',', '.'); ?>
               </td>
             </tr> 
             <tr style="text-align:right">
               <td></td>
-              <td></td>
+              <td></td> -->
               <td>Valor Comanda</td>
               <td id="totalCuentaDiv"><?php echo '$ '.number_format(0 + 0 - 0, 2, ',', '.'); ?>
               </td>
@@ -129,13 +129,13 @@
                 <td>Descuento</td>
                 <td id="totalDesc"><?php echo '$ '.number_format(0 + 0 - 0, 2, ',', '.'); ?>
                 </td>
-                <td>Abonos</td>
+                <!-- <td>Abonos</td>
                 <td id="totalAbonos"><?php echo '$ '.number_format(0 + 0 - 0, 2, ',', '.'); ?>
                 </td>
               </tr>
               <tr style="text-align:right">
                 <td></td>
-                <td></td>
+                <td></td> -->
                 <td>Total a Pagar</td>
                 <td id="totalCuenta"><?php echo '$ '.number_format(0 + 0 - 0, 2, ',', '.'); ?>
                 </td>
@@ -210,7 +210,7 @@
               <?php
               }
   ?>
-              <button
+              <!-- <button
               style="background:cyan;"
               type="button"
               class="btn btn-default prende btnActivo btnRecu" 
@@ -219,10 +219,10 @@
               title="Dividir Presente Cuenta">
               <i class="fa fa-clone" aria-hidden="true"></i>
               Dividir
-            </button> 
+            </button>  -->
             <?php
   if ($nivel <= 3) { ?>
-              <button
+              <!-- <button
                 type        ="button"
                 style       ="margin-top:28px;background:chartreuse;color:#000; "
                 class       ="btn btn-warning prende btnActivo btnRecu"
@@ -231,7 +231,7 @@
                 title       ="Abonos a la Presente Cuenta">
                 <i class="fa fa-usd"></i> Abonos
 
-              </button>
+              </button> -->
               <button
                 style    ="margin-top:20px"
                 type     ="button"

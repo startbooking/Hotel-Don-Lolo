@@ -29,7 +29,7 @@ $rutaINV = BASE_POS.'datos/kardex.php';
           <span>Ventas</span>
         </a>
       </li>
-      <li class="treeview" id="menuCaja" style="display:none;">
+      <!-- <li class="treeview" id="menuCaja" style="display:none;">
         <a href="#">
           <i class="glyphicon glyphicon-lock"></i>
           <span>Caja </span>
@@ -49,7 +49,7 @@ $rutaINV = BASE_POS.'datos/kardex.php';
             <a class="menuPpal" onclick="estadoCartera()"><i class='glyphicon glyphicon-briefcase'></i> Estado Cartera Clientes</a>
           </li>
         </ul>
-      </li>
+      </li> -->
       <li class="treeview" id="menuMovi" style="display:none;">
         <a href="#">
           <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
@@ -90,9 +90,9 @@ $rutaINV = BASE_POS.'datos/kardex.php';
           <li>
             <a class="menuInfoCaje" style="display:none;" onclick="facturasCajero()"><i class="fa fa-users"></i> Facturas Cajero</a>
           </li>
-          <li>
+          <!-- <li>
             <a class="menuPpal" onclick="abonosCajero()"><i class="fa fa-users"></i> Abonos Cajero</a>
-          </li>
+          </li> -->
           <li>
             <a class="menuPpal" onclick="facturasAnuladasCajero()"><i class="fa fa-users"></i> Facturas Anuladas Cajero</a>
           </li>
@@ -104,11 +104,32 @@ $rutaINV = BASE_POS.'datos/kardex.php';
           </li> 
         </ul>
       </li>  
-      <li id="menuKardex" style="display:none;">
+      <!-- <li id="menuKardex" style="display:none;">
         <a class="menuPpal" onclick="kardexInventario()">
           <i class='fa fa-cubes'></i>
           <span> Kardex Almacen </span>
         </a>
+      </li> -->
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-clone" aria-hidden="true"></i>
+          <span>Interfases </span>
+          <small class="fa fa-angle-left pull-right"></small>
+        </a> 
+        <ul class="treeview-menu">
+          <li>
+            <a class="menuPpal" onclick="kardexInventario()">
+              <i class='fa fa-cubes'></i>
+              <span> Kardex Almacen </span>
+            </a>
+          </li>
+          <li>
+            <a class="menuPpal" onclick="huespedesenCasa()">
+              <i class="fa fa-bed" aria-hidden="true"></i>
+              <span> Huespedes en Casa </span>
+            </a>
+          </li>
+        </ul>
       </li>
       <li class="treeview" id=menuAudi style="display:none;">
         <a href="#">
@@ -124,7 +145,9 @@ $rutaINV = BASE_POS.'datos/kardex.php';
             <a class="menuPpal" onclick="cuentasAnuladasAuditoria()"><i class="fa fa-clipboard"></i> Comandas Anuladas del Dia</a>
           </li>
           <li>
-            <a class="menuPpal" onclick="cuentasActivasAuditoria()"><i class="fa fa-clone"></i> Comandas Activas</a>
+            <a class="menuPpal" onclick="cuentasActivasAuditoria()">
+              <i class="fa fa-check-square-o" aria-hidden="true"></i>
+            Comandas Activas</a>
           </li>
           <li>
             <a class="menuPpal" onclick="devolucionesDia()"><i class="fa fa-clipboard"></i> Devolucionde del Dia</a>
@@ -150,9 +173,9 @@ $rutaINV = BASE_POS.'datos/kardex.php';
               <li>
                 <a class="menuPpal" onclick="balanceCaja()"><i class="fa fa-users"></i> Balance de Caja</a>
               </li>
-              <li>
+              <!-- <li>
                 <a class="menuPpal" onclick="abonosDia()"><i class="fa fa-users"></i> Abonos del Dia</a>
-              </li>
+              </li> -->
               <li>
                 <a class="menuPpal" onclick="ventasDiaAuditoria()"><i class="fa fa-money"></i> Ventas del Dia</a>
               </li>
@@ -183,7 +206,11 @@ $rutaINV = BASE_POS.'datos/kardex.php';
             </ul> 
           </li>
           <li id="menuHist" style="display: none;">
-            <a href="#"><i class="fa fa-balance-scale"></i>Historico Movimientos<i class="fa fa-angle-left pull-right"></i></a>
+            <a href="#">
+              <i class="fa fa-history" aria-hidden="true"></i>
+              Historico Movimientos
+              <i class="fa fa-angle-left pull-right"></i>
+            </a>
             <ul class="treeview-menu">
               <li>
                 <a class="menuPpal" onclick="balanceHistorico()"><i class="fa fa-users"></i>Historico Balance de Caja</a>

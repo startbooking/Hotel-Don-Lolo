@@ -777,6 +777,8 @@ function botonPagar() {
   abonos = parseFloat($(miBoton).attr("abonos"));
   total = parseFloat($(miBoton).attr("total"));
 
+  // console.log(total);
+
   if (canti == 0) {
     swal("Precaucion", "Sin Productos Asignados a esta cuenta 2", "warning");
     return 0;
@@ -787,7 +789,8 @@ function botonPagar() {
     $("#propina").val(propina);
     $("#totalini").val(total);
     $("#totalImp").val(number_format(impuesto, 2));
-    $("#montopago").val(subtotal + propina + impuesto - descuento - abonos);
+    // $("#montopago").val(subtotal + propina + impuesto - descuento);
+    $("#montopago").val(total);
     $("#productosPag").val(canti);
     $("#ambientePag").val(id_ambiente);
     $("#usuarioPag").val(usuario);
@@ -798,6 +801,8 @@ function botonPagar() {
     $("#abonosComanda").val(abonos);
     $("#resultado").html("");
     $("#btnPagarCuenta").removeAttr("disabled");
+
+    // montopago
   }
 }
 

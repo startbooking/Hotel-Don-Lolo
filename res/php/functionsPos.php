@@ -5,6 +5,41 @@ date_default_timezone_set('America/Bogota');
 
 class Pos_Actions
 {
+    public function acumuladoMesProductosVendidos($amb, $anio, $mes)
+    {
+        global $database;
+
+        $data = $database->query("SELECT Sum(historico_detalle_facturas_pos.cant) as cantmes, Sum(historico_detalle_facturas_pos.venta) as ventasmes, Sum(historico_detalle_facturas_pos.descuento) AS descuentomes, Sum(historico_detalle_facturas_pos.valorimpto) AS imptosmes, historico_detalle_facturas_pos.nom, historico_detalle_facturas_pos.producto_id, historico_facturas_pos.ambiente, historico_facturas_pos.factura, historico_facturas_pos.comanda, historico_facturas_pos.fecha, historico_facturas_pos.estado FROM historico_facturas_pos, historico_detalle_facturas_pos WHERE historico_facturas_pos.ambiente = '$amb' AND YEAR(historico_facturas_pos.fecha) = '$anio' AND MONTH(historico_facturas_pos.fecha) = '$mes' AND historico_facturas_pos.estado = 'A' AND historico_facturas_pos.ambiente =  historico_detalle_facturas_pos.ambiente AND historico_facturas_pos.factura = historico_detalle_facturas_pos.factura GROUP BY historico_detalle_facturas_pos.nom ORDER BY historico_detalle_facturas_pos.nom ASC")->fetchAll();
+
+        return $data;
+    }
+
+    public function acumuladoDiarioProductosVendidos($amb, $fecha)
+    {
+        global $database;
+
+        $data = $database->query("SELECT Sum(historico_detalle_facturas_pos.cant) as cant, Sum(historico_detalle_facturas_pos.venta) as ventas, Sum(historico_detalle_facturas_pos.descuento) AS descuento, Sum(historico_detalle_facturas_pos.valorimpto) AS imptos, historico_detalle_facturas_pos.nom, historico_detalle_facturas_pos.producto_id, historico_facturas_pos.ambiente, historico_facturas_pos.factura, historico_facturas_pos.comanda, historico_facturas_pos.fecha, historico_facturas_pos.estado FROM historico_facturas_pos, historico_detalle_facturas_pos WHERE historico_facturas_pos.ambiente = '$amb' AND historico_facturas_pos.fecha = '$fecha' AND historico_facturas_pos.estado = 'A' AND historico_facturas_pos.ambiente =  historico_detalle_facturas_pos.ambiente AND historico_facturas_pos.factura = historico_detalle_facturas_pos.factura GROUP BY historico_detalle_facturas_pos.nom ORDER BY historico_detalle_facturas_pos.nom ASC")->fetchAll();
+
+        return $data;
+    }
+
+    public function getCajerosActivos($idamb)
+    {
+        global $database;
+
+        $data = $database->select('usuarios', [
+            'usuario_id',
+            'usuario',
+            'nombres',
+            'apellidos',
+            'estado_usuario_pos',
+        ], [
+            'estado' => 'A',
+        ]);
+
+        return $data;
+    }
+
     /* Actualiza Numero del Abono */
     public function updateNumeroAbono($amb, $nro)
     {
@@ -1456,7 +1491,7 @@ class Pos_Actions
             return $data;
         }
 
-        public function getPagosDia($fecha, $codi, $amb)
+        public function getPagosDiaOld($fecha, $codi, $amb)
         {
             global $database;
 
@@ -1465,7 +1500,36 @@ class Pos_Actions
             return $data;
         }
 
-        public function getPagosMes($anio, $mes, $codi, $amb)
+        public function getPagosDia($fecha, $amb)
+        {
+            global $database;
+
+            $data = $database->query("SELECT 
+            SUM(historico_facturas_pos.valor_total) as total, 
+            SUM(historico_facturas_pos.valor_neto) as neto, 
+            SUM(historico_facturas_pos.descuento) as descu, 
+            SUM(historico_facturas_pos.pagado) as pago, 
+            SUM(historico_facturas_pos.cambio) as cambio, 
+            SUM(historico_facturas_pos.impuesto) as impto, 
+            formas_pago.id_pago,  
+            formas_pago.descripcion  
+            FROM 
+            historico_facturas_pos, 
+            formas_pago 
+            WHERE 
+            historico_facturas_pos.forma_pago = formas_pago.id_pago AND 
+            historico_facturas_pos.ambiente = '$amb' AND 
+            historico_facturas_pos.estado = 'A' AND 
+            historico_facturas_pos.fecha = '$fecha'
+            GROUP BY
+            formas_pago.descripcion 
+            ORDER BY
+            formas_pago.descripcion ASC")->fetchAll();
+
+            return $data;
+        }
+
+        public function getPagosMesOld($anio, $mes, $codi, $amb)
         {
             global $database;
 
@@ -1474,11 +1538,79 @@ class Pos_Actions
             return $data;
         }
 
-        public function getPagosAnio($anio, $codi, $amb)
+        public function getPagosAnioOld($anio, $codi, $amb)
         {
             global $database;
 
             $data = $database->query("SELECT Sum(historico_facturas_pos.valor_total) as total, Sum(historico_facturas_pos.descuento) as descu, Sum(historico_facturas_pos.pagado) as pago, Sum(historico_facturas_pos.cambio) as cambio, Sum(historico_facturas_pos.impuesto) as impto, Sum(historico_facturas_pos.valor_neto) as neto, formas_pago.descripcion  FROM historico_facturas_pos, formas_pago WHERE historico_facturas_pos.forma_pago = formas_pago.id_pago AND historico_facturas_pos.ambiente = '$amb' AND historico_facturas_pos.estado = 'A' AND year(historico_facturas_pos.fecha) = '$anio' AND historico_facturas_pos.forma_pago = '$codi' GROUP BY formas_pago.descripcion ORDER BY formas_pago.descripcion")->fetchAll();
+
+            return $data;
+        }
+
+        public function acumuladoAnioProductosVendidos($amb, $anio)
+        {
+            global $database;
+
+            $data = $database->query("SELECT Sum(historico_detalle_facturas_pos.cant) as cantanio, Sum(historico_detalle_facturas_pos.venta) as ventasanio, Sum(historico_detalle_facturas_pos.descuento) AS descuentoanio, Sum(historico_detalle_facturas_pos.valorimpto) AS imptosanio, historico_detalle_facturas_pos.nom, historico_detalle_facturas_pos.producto_id, historico_facturas_pos.ambiente, historico_facturas_pos.factura, historico_facturas_pos.comanda, historico_facturas_pos.fecha, historico_facturas_pos.estado FROM historico_facturas_pos, historico_detalle_facturas_pos WHERE historico_facturas_pos.ambiente = '$amb' AND YEAR(historico_facturas_pos.fecha) = '$anio' AND historico_facturas_pos.estado = 'A' AND historico_facturas_pos.ambiente =  historico_detalle_facturas_pos.ambiente AND historico_facturas_pos.factura = historico_detalle_facturas_pos.factura GROUP BY historico_detalle_facturas_pos.nom ORDER BY historico_detalle_facturas_pos.nom ASC")->fetchAll();
+
+            return $data;
+        }
+
+        public function getPagosMes($anio, $mes, $amb)
+        {
+            global $database;
+
+            $data = $database->query("SELECT 
+            SUM(historico_facturas_pos.valor_total) as totalmes, 
+            SUM(historico_facturas_pos.valor_neto) as netomes, 
+            SUM(historico_facturas_pos.descuento) as descumes, 
+            SUM(historico_facturas_pos.pagado) as pagomes, 
+            SUM(historico_facturas_pos.cambio) as cambiomes, 
+            SUM(historico_facturas_pos.impuesto) as imptomes, 
+            formas_pago.id_pago,  
+            formas_pago.descripcion  
+            FROM 
+            historico_facturas_pos, 
+            formas_pago 
+            WHERE 
+            historico_facturas_pos.forma_pago = formas_pago.id_pago AND 
+            historico_facturas_pos.ambiente = '$amb' AND 
+            historico_facturas_pos.estado = 'A' AND 
+            YEAR(historico_facturas_pos.fecha) = '$anio' AND
+            MONTH(historico_facturas_pos.fecha) = '$mes'
+            GROUP BY
+            formas_pago.descripcion 
+            ORDER BY
+            formas_pago.descripcion ASC")->fetchAll();
+
+            return $data;
+        }
+
+        public function getPagosAnio($anio, $amb)
+        {
+            global $database;
+
+            $data = $database->query("SELECT 
+            SUM(historico_facturas_pos.valor_total) as totalanio, 
+            SUM(historico_facturas_pos.valor_neto) as netoanio, 
+            SUM(historico_facturas_pos.descuento) as descuanio, 
+            SUM(historico_facturas_pos.pagado) as pagoanio, 
+            SUM(historico_facturas_pos.cambio) as cambioanio, 
+            SUM(historico_facturas_pos.impuesto) as imptoanio, 
+            formas_pago.id_pago,  
+            formas_pago.descripcion  
+            FROM 
+            historico_facturas_pos, 
+            formas_pago 
+            WHERE 
+            historico_facturas_pos.forma_pago = formas_pago.id_pago AND 
+            historico_facturas_pos.ambiente = '$amb' AND 
+            historico_facturas_pos.estado = 'A' AND 
+            YEAR(historico_facturas_pos.fecha) = '$anio'
+            GROUP BY
+            formas_pago.descripcion 
+            ORDER BY
+            formas_pago.descripcion ASC")->fetchAll();
 
             return $data;
         }
@@ -1499,7 +1631,7 @@ class Pos_Actions
             return $data;
         }
 
-        public function getVentasDiaGrupos($fecha, $codi, $amb)
+        public function getVentasDiaGruposOld($fecha, $codi, $amb)
         {
             global $database;
 
@@ -1508,7 +1640,72 @@ class Pos_Actions
             return $data;
         }
 
-        public function getVentasMesGrupos($anio, $mes, $codi, $amb)
+        public function getVentasDiaGrupos($fecha, $amb)
+        {
+            global $database;
+
+            $data = $database->query("SELECT
+            SUM(historico_detalle_facturas_pos.venta) AS ventas, 
+            SUM(historico_detalle_facturas_pos.cant) AS cant, 
+            SUM(historico_detalle_facturas_pos.valorimpto) AS imptos, 
+            historico_detalle_facturas_pos.ambiente, 
+            secciones_pos.nombre_seccion,
+            secciones_pos.id_seccion
+            FROM
+                historico_detalle_facturas_pos, 
+                historico_facturas_pos,
+                producto,
+                secciones_pos
+            WHERE
+                historico_detalle_facturas_pos.factura = historico_facturas_pos.factura AND
+                historico_detalle_facturas_pos.producto_id = producto.producto_id AND
+                producto.seccion = secciones_pos.id_seccion AND
+                historico_facturas_pos.fecha = '$fecha' AND
+                historico_facturas_pos.estado = 'A' AND
+                historico_facturas_pos.ambiente = '$amb' AND
+                historico_detalle_facturas_pos.ambiente = '$amb'
+            GROUP BY 
+                secciones_pos.nombre_seccion 
+            ORDER BY 
+            secciones_pos.nombre_seccion")->fetchAll();
+
+            return $data;
+        }
+
+        public function getVentasMesGrupos($anio, $mes, $amb)
+        {
+            global $database;
+
+            $data = $database->query("SELECT
+                SUM(historico_detalle_facturas_pos.venta) AS ventasmes, 
+                SUM(historico_detalle_facturas_pos.cant) AS cantmes, 
+                SUM(historico_detalle_facturas_pos.valorimpto) AS imptosmes, 
+                historico_detalle_facturas_pos.ambiente, 
+                secciones_pos.nombre_seccion,
+                secciones_pos.id_seccion
+            FROM
+                historico_detalle_facturas_pos, 
+                historico_facturas_pos,
+                producto,
+                secciones_pos
+            WHERE
+                historico_detalle_facturas_pos.factura = historico_facturas_pos.factura AND
+                historico_detalle_facturas_pos.producto_id = producto.producto_id AND
+                producto.seccion = secciones_pos.id_seccion AND
+                YEAR(historico_facturas_pos.fecha) = '$anio' AND
+                MONTH(historico_facturas_pos.fecha) = '$mes' AND
+                historico_facturas_pos.estado = 'A' AND
+                historico_facturas_pos.ambiente = '$amb' AND
+                historico_detalle_facturas_pos.ambiente = '$amb'
+            GROUP BY 
+                secciones_pos.nombre_seccion 
+            ORDER BY 
+                secciones_pos.nombre_seccion")->fetchAll();
+
+            return $data;
+        }
+
+        public function getVentasMesGruposOld($anio, $mes, $codi, $amb)
         {
             global $database;
 
@@ -1517,7 +1714,41 @@ class Pos_Actions
             return $data;
         }
 
-        public function getVentasAnioGrupos($anio, $codi, $amb)
+        public function getVentasAnioGrupos($anio, $amb)
+        {
+            global $database;
+
+            $data = $database->query("SELECT
+                SUM(historico_detalle_facturas_pos.venta) AS ventasanio, 
+                SUM(historico_detalle_facturas_pos.cant) AS cantanio, 
+                SUM(historico_detalle_facturas_pos.valorimpto) AS imptosanio, 
+                historico_detalle_facturas_pos.ambiente, 
+                secciones_pos.nombre_seccion,
+                secciones_pos.id_seccion
+            FROM
+                historico_detalle_facturas_pos, 
+                historico_facturas_pos,
+                producto,
+                secciones_pos
+            WHERE
+                historico_detalle_facturas_pos.factura = historico_facturas_pos.factura AND
+                historico_detalle_facturas_pos.producto_id = producto.producto_id AND
+                producto.seccion = secciones_pos.id_seccion AND
+                YEAR(historico_facturas_pos.fecha) = '$anio' AND
+                historico_facturas_pos.estado = 'A' AND
+                historico_facturas_pos.ambiente = '$amb' AND
+                historico_detalle_facturas_pos.ambiente = '$amb'
+            GROUP BY 
+                secciones_pos.nombre_seccion 
+            ORDER BY 
+                secciones_pos.nombre_seccion")->fetchAll();
+
+            return $data;
+
+            return $data;
+        }
+
+        public function getVentasAnioGruposOld($anio, $codi, $amb)
         {
             global $database;
 
@@ -2220,6 +2451,24 @@ class Pos_Actions
             return $database->id();
         }
 
+        public function enviaHistoricoCaja($idamb)
+        {
+            global $database;
+
+            $data = $database->query("INSERT INTO historicoBaseCaja SELECT * FROM baseCaja WHERE idAmbiente = '$idamb'")->fetchAll();
+
+            return $database->id();
+        }
+
+        public function enviaHistoricoAbonos($idamb)
+        {
+            global $database;
+
+            $data = $database->query("INSERT INTO historicoAbonos SELECT * FROM abonos WHERE ambiente = '$idamb'")->fetchAll();
+
+            return $database->id();
+        }
+
         public function enviaHistoricoComandas($idamb)
         {
             global $database;
@@ -2227,6 +2476,24 @@ class Pos_Actions
             $data = $database->query("INSERT INTO historico_comandas SELECT * FROM comandas WHERE ambiente = '$idamb'")->fetchAll();
 
             return $database->id();
+        }
+
+        public function productoPOS($amb)
+        {
+            global $database;
+
+            $data = $database->select('producto', [
+                'producto_id',
+                'nom',
+            ], [
+                'deleted_at' => null,
+                'estado[<=]' => 2,
+                'ambiente' => $amb,
+                'active_at' => 1,
+                'ORDER' => ['nom' => 'ASC'],
+            ]);
+
+            return $data;
         }
 
         public function getVentasAnioPos($idamb, $anio)
@@ -2309,7 +2576,7 @@ class Pos_Actions
             return $data;
         }
 
-        public function ingresaDatosAuditoria($fecha, $mesasDis, $mesasVen, $mesasAnu, $comanAnu, $factAnu, $netoAnu, $imptAnu, $propAnu, $totaAnu, $descAnu, $factVen, $netoVen, $imptVen, $propVen, $descVen, $totaVen, $clieVen, $clieAnu, $comaAnu, $idamb, $user, $iduser)
+        public function ingresaDatosAuditoriaOld($fecha, $mesasDis, $mesasVen, $mesasAnu, $comanAnu, $factAnu, $netoAnu, $imptAnu, $propAnu, $totaAnu, $descAnu, $factVen, $netoVen, $imptVen, $propVen, $descVen, $totaVen, $clieVen, $clieAnu, $comaAnu, $idamb, $user, $iduser)
         {
             global $database;
 
@@ -2339,6 +2606,33 @@ class Pos_Actions
                 'clientes_vendidos' => $clieVen,
                 'clientes_anulados' => $clieAnu,
                 'clientes_comandas_anuladas' => $comaAnu,
+                'usuario_auditoria' => $user,
+                'id_usuario_auditoria' => $iduser,
+                'fecha_proceso_auditoria' => date('Y-m-d H:i:s'),
+            ]);
+
+            return $database->id();
+        }
+
+        public function ingresaDatosAuditoria($fecha, $mesasDis, $mesasVen, $mesasAnu, $comanAnu, $factVen, $netoVen, $imptVen, $propVen, $descVen, $totaVen, $clieVen, $idamb, $user, $iduser)
+        {
+            global $database;
+            $ingrpromes = 0;
+            $ingrprocli = 0;
+            $data = $database->insert('reporte_gerencia_pos', [
+                'fecha_auditoria' => $fecha,
+                'id_ambiente' => $idamb,
+                'mesas_disponibles' => $mesasDis,
+                'mesas_ocupadas' => $mesasVen,
+                'mesas_anuladas' => $mesasAnu,
+                'cuentas_anuladas' => $comanAnu,
+                'ingreso_ventas' => $netoVen,
+                'ingreso_impto' => $imptVen,
+                'ingreso_propina' => $propVen,
+                'ingreso_descuentos' => $descVen,
+                'ingreso_promedio_mesa' => $ingrpromes,
+                'ingreso_promedio_cliente' => round($netoVen / $clieVen, 0),
+                'clientes_vendidos' => $clieVen,
                 'usuario_auditoria' => $user,
                 'id_usuario_auditoria' => $iduser,
                 'fecha_proceso_auditoria' => date('Y-m-d H:i:s'),
@@ -2800,11 +3094,20 @@ class Pos_Actions
             return $data;
         }
 
-        public function getFacturasDiaAmbiente($estado, $idamb)
+        public function getFacturasDiaAmbienteOld($estado, $idamb)
         {
             global $database;
 
             $data = $database->query("SELECT count(facturas_pos.factura) as facturas, sum(valor_total) as total, ambientes.nombre  from facturas_pos, ambientes where estado = '$estado' and facturas_pos.ambiente = '$idamb' and facturas_pos.ambiente = ambientes.id_ambiente group by ambiente")->fetchAll();
+
+            return $data;
+        }
+
+        public function getFacturasDiaAmbiente($estado, $idamb)
+        {
+            global $database;
+
+            $data = $database->query("SELECT count(facturas_pos.factura) as facturas, sum(facturas_pos.pax) as pax, sum(facturas_pos.valor_total) as total, sum(facturas_pos.valor_neto) as neto, sum(facturas_pos.impuesto) as impto, sum(facturas_pos.propina) as propina, sum(facturas_pos.descuento) as descu, sum(facturas_pos.pagado) as pago, sum(facturas_pos.abonos) as abono, ambientes.nombre from facturas_pos, ambientes where estado = '$estado' and facturas_pos.ambiente = '$idamb' and facturas_pos.ambiente = ambientes.id_ambiente group by ambiente")->fetchAll();
 
             return $data;
         }

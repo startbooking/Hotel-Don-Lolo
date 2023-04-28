@@ -15,6 +15,7 @@
           <input type="hidden" name="nombreAmbiente" id="nombreAmbiente" value="<?php echo $amb; ?>">
           <input type="hidden" name='usuarioPag'     id='usuarioPag'     value=''>
           <input type="hidden" name='cambio'         id='cambio'         value='0'>
+          <input type="hidden" name='servicio'         id='servicio'     value='0'>
         </div>
         <div class="modal-body">
           <?php
@@ -56,27 +57,31 @@
             <div class="col-lg-3 col-md-3">
               <input value="0" min="0" type="number" class="suma_propina form-control" name="propinaPag" id="propinaPag" onblur="calcular_total()">
             </div>
-            <label class='col-lg-2 col-md-2 control-label ctrlCta' style="padding-top:0">Descuento</label>
+            <!-- <label class='col-lg-2 col-md-2 control-label ctrlCta' style="padding-top:0">Descuento</label>
             <div class="col-lg-3 col-md-3">
               <input type="text" class="form-control" name="descuento" id="descuento" value="0" min="0" readonly="">
-            </div>
+            </div> 
           </div>
           <div class="form-group">
-          <label for="total" class='col-lg-3 col-md-3 control-label ctrlCta' style="padding-top:0">Impuesto</label>
+            -->
+            <label for="total" class='col-lg-2 col-md-2 control-label ctrlCta' style="padding-top:0">Impuesto</label>
             <div class="col-lg-3 col-md-3">
               <input class="form-control" name="totalImp" id="totalImp" readonly>
             </div>
-            <label for="total" class='col-lg-2 col-md-2 control-label ctrlCta' style="padding-top:0">Total Cuenta</label>
+            </div>
+          <div class="form-group">
+            <label for="total" class='col-lg-3 col-md-3 control-label ctrlCta' style="padding-top:0">Total Cuenta</label>
             <div class="col-lg-3 col-md-3">
               <input class="form-control" name="total" id="total" readonly>
               <input type="hidden" name="totalini" id="totalini" readonly>
             </div>
+            <!-- 
           </div>
           <div class="form-group">
-            <label for="abono" class='col-lg-3 col-md-3 control-label ctrlCta' style="padding-top:0">Abonos</label>
+              <label for="abono" class='col-lg-3 col-md-3 control-label ctrlCta' style="padding-top:0">Abonos</label>
             <div class="col-lg-3 col-md-3">
               <input class="form-control" name="abono" id="abono" readonly>
-            </div>
+            </div> -->
             <label for="montopago" class='col-lg-2 col-md-2 control-label ctrlCta' style="padding-top:0">Valor a Pagar</label>
             <div class="col-lg-3 col-md-3">
               <input value="<?php echo $pagado; ?>" required type="number" class="form-control" name="montopago" id="montopago" onblur="calculaCambio()" >

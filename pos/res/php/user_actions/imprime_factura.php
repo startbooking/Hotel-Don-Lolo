@@ -89,7 +89,7 @@ $pdf->Cell(50, 4, $nomamb, 0, 1, 'C');
 $pdf->Cell(50, 4, utf8_decode(NAME_EMPRESA), 0, 1, 'C');
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(50, 4, 'NIT: '.NIT_EMPRESA, 0, 1, 'C');
-$pdf->Cell(50, 4, 'Iva Regimen Simplificado', 0, 1, 'C');
+$pdf->Cell(50, 4, 'Iva Regimen Comun', 0, 1, 'C');
 $pdf->Cell(50, 4, utf8_decode(ADRESS_EMPRESA), 0, 1, 'C');
 $pdf->Cell(50, 4, utf8_decode(CIUDAD_EMPRESA.' '.PAIS_EMPRESA), 0, 1, 'C');
 $pdf->Cell(50, 4, 'Telefono '.TELEFONO_EMPRESA, 0, 1, 'C');

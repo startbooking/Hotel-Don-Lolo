@@ -1777,13 +1777,13 @@ function resumenComanda() {
 
   // console.log(venta + impuesto);
 
-  console.log(canti);
+  /* console.log(canti);
   console.log(impuesto);
   console.log(venta);
   console.log(canti);
   console.log(propina);
   console.log(abonos);
-  console.log(totalCuenta);
+  console.log(totalCuenta); */
 
   /* totalCuenta =
     parseInt(venta) +
@@ -1791,7 +1791,7 @@ function resumenComanda() {
     parseInt(propina) -
     parseInt(descuento) -
     parseInt(abonos); */
-  console.log(totalCuenta);
+  // console.log(totalCuenta);
   let miBoton = "comanda" + $("#numeroComanda").val();
   $("#totalComanda").val(totalCuenta);
   $("#totalVta").html(number_format(venta, 2));
@@ -1805,7 +1805,7 @@ function resumenComanda() {
   $("#" + miBoton).attr("impto", impuesto);
   $("#" + miBoton).attr("descuento", descuento);
   $("#" + miBoton).attr("abonos", abonos);
-  $("#" + miBoton).attr("total", total);
+  $("#" + miBoton).attr("total", totalCuenta);
 }
 
 function resumenDescuento(ambiente, comanda) {
@@ -3956,6 +3956,8 @@ function calcular_total() {
   var coma = $("#numeroComanda").val();
   miBoton = "#comanda" + coma;
 
+  console.log(miBoton);
+
   propina = parseFloat($("#propinaPag").val().replaceAll(",", ""));
 
   subtotal = parseFloat($(miBoton).attr("subtotal"));
@@ -3964,7 +3966,9 @@ function calcular_total() {
   abonos = parseFloat($(miBoton).attr("abonos"));
   total = parseFloat($(miBoton).attr("total"));
 
-  $("#montopago").val(subtotal + propina - descuento - abonos);
+  console.log({ subtotal, impuesto, descuento, abonos, total });
+
+  $("#montopago").val(subtotal + impuesto + propina - descuento - abonos);
 }
 
 function calcular_totalDir() {
@@ -4065,12 +4069,14 @@ function activaPos() {
   ); */
 }
 
-function cierreCajero(user) {
+function cierreCajero(cajero) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
+  // console.log(user);
   // let { user, pos } = sesion;
   let { usuario_id, usuario } = user;
   let { fecha_auditoria, id_ambiente, nombre, logo } = oPos[0];
+  // console.log({ usuario_id, usuario });
 
   var web = $("#rutaweb").val();
   var parametros = {
@@ -4209,13 +4215,13 @@ async function cierreDiario() {
   const mensaje = await mensajeAuditoria(
     "Procesando Informacion, No Interrumpa "
   );
-  const backup = await fetch("auditoria/backupDiario.php", {
+  /* const backup = await fetch("auditoria/backupDiario.php", {
     method: "post",
     headers: {
       "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
     },
     body: "fecha=" + fecha_auditoria + "&prefijo=" + prefijo,
-  });
+  }); */
   const cajeros = await fetch("auditoria/balanceDiarioCajero.php", {
     method: "post",
     headers: {
@@ -4891,21 +4897,22 @@ function getVentas(nom, val, idp, imp, ambi) {
   descuento = 0;
   abonos = $("#abonosComanda").val();
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  // let { pos } = sesion;
   let { impuesto } = oPos[0];
 
   imptoInc = impuesto;
-  nohay = true;
+  let nohay = true;
 
   for (i = 0; i < listaComanda.length; i++) {
     if (listaComanda[i]["codigo"] === idp && listaComanda[i]["activo"] === 0) {
       canti = listaComanda[i]["cant"] + 1;
       totve = canti * listaComanda[i]["importe"];
-      if (imptoInc == 0) {
+
+      if (impuesto == 0) {
         porImpto = 0;
       } else {
         porImpto = listaComanda[i]["impto"];
       }
+
       subt = Math.round(
         (canti * listaComanda[i]["importe"]) / (1 + porImpto / 100),
         0
@@ -5231,6 +5238,7 @@ function getCuentasActivas(idamb) {
       */
 
       for (i = 0; i < x.length; i++) {
+        console.log(x[i]);
         miBoton = `comanda${x[i]["comanda"]}`;
         boton = `
             <button
@@ -5400,9 +5408,12 @@ function calculaCambio() {
   let abonos = parseFloat($(miBoton).attr("abonos"));
   let total = parseFloat($(miBoton).attr("total"));
 
+  nueProp = parseInt($("#propinaPag").val());
+
+  // console.log(nueProp);
+
   pagado = parseFloat($("#montopago").val().replaceAll(",", ""));
-  console.log(pagado);
-  cambio = total - pagado;
+  cambio = total + nueProp - pagado;
 
   $("#cambio").val(cambio);
 

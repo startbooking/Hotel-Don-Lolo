@@ -55,9 +55,22 @@
                             <td><?php echo number_format($factura['valor_total'], 2); ?></td>
                             <td><?php echo estadoFacturaAlert($factura['estado']); ?></td>
                             <td style="display:flex;">
-                              <button class="btn btn-info btn-xs" onclick="verfactura('Factura_<?php echo $prefijo; ?>_<?php echo $perfReso; ?>-<?php echo $factura['factura']; ?>')" type="button"><i class="fa fa-file-pdf-o" aria-hidden="true" title="Ver Factura"></i></button>
+                              <button 
+                                class="btn btn-info btn-xs" 
+                                <?php
+                                if ($factura['pms'] == 1) { ?>
+                                  onclick="verfactura('ChequeCuenta_<?php echo $prefijo; ?>_<?php echo $factura['factura']; ?>')" 
+                                <?php
+                                } else { ?>
+                                  onclick="verfactura('Factura_<?php echo $prefijo; ?>_<?php echo $factura['factura']; ?>')" 
+                                <?php
+                                }
+                ?>
+                                type="button">
+                                <i class="fa fa-file-pdf-o" aria-hidden="true" title="Ver Factura"></i>
+                              </button>
                               <?php
-                                if ($factura['estado'] == 'A' && $tipoUsr <= 2) {?>
+                if ($factura['estado'] == 'A' && $tipoUsr <= 2) {?>
                                                                 <button
                                   type         ="button"
                                   class        ="btn btn-danger btn-xs"
@@ -71,7 +84,7 @@
                                   <i class="fa fa-window-close"></i>
                                 </button>
                                 <?php
-                                }
+                }
                   if ($factura['num_movimiento_inv'] != 0) {  ?>
                                 <button class="btn btn-success btn-xs" onclick="verSalidaInventarios('Salida_<?php echo $factura['num_movimiento_inv']; ?>.pdf')" type="button"><i class="fa fa-inbox" aria-hidden="true" title="Ver Salida de Inventarios"></i></button>
                               <?php
