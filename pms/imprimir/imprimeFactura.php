@@ -23,11 +23,9 @@ $pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserv
 $tipoimptos = $hotel->getValorImptoFolio($nroFactura, $reserva, $nroFolio, 2);
 $fecha = $hotel->getDatePms();
 
-// echo 'Paso creacion de matrices';
-
 $pdf = new FPDF();
 $pdf->AddPage('P', 'letter');
-$pdf->Rect(10, 36, 190, 220);
+$pdf->Rect(10, 46, 190, 222);
 $pdf->Image('../../../img/'.LOGO, 10, 10, 20);
 $pdf->SetFont('Arial', 'B', 11);
 $pdf->Cell(190, 5, utf8_decode(NAME_EMPRESA), 0, 1, 'C');
@@ -35,16 +33,23 @@ $pdf->SetFont('Arial', '', 9);
 $pdf->Cell(190, 4, 'NIT: '.NIT_EMPRESA, 0, 1, 'C');
 
 $pdf->Cell(190, 4, utf8_decode(ADRESS_EMPRESA), 0, 1, 'C');
-$pdf->Cell(190, 4, utf8_decode(CIUDAD_EMPRESA).' '.PAIS_EMPRESA, 0, 1, 'C');
 $pdf->Cell(40, 4, '', 0, 0, 'C');
-$pdf->Cell(110, 4, 'Telefono '.TELEFONO_EMPRESA.' Movil '.CELULAR_EMPRESA, 0, 0, 'C');
+$pdf->Cell(110, 4, utf8_decode(CIUDAD_EMPRESA).' '.PAIS_EMPRESA, 0, 0, 'C');
+// $pdf->Cell(40, 4, '', 0, 1, 'C');
 $pdf->SetFont('Arial', 'B', 8);
-$pdf->Cell(40, 4, 'FACTURA ELECTRONICA DE VENTA ', 1, 1, 'C');
+$pdf->MultiCell(40, 4, 'FACTURA ELECTRONICA DE VENTA', 1, 'C');
 $pdf->Cell(40, 4, '', 0, 0, 'C');
-// $pdf->Cell(110, 4, NAME_HOTEL, 0, 0, 'C');
-// $pdf->MultiCell(190, 5, 'SON :'.numtoletras($total), 1, 'L');
-
-$pdf->Cell(40, 4, 'Nro HDL-'.str_pad($nroFactura, 4, '0', STR_PAD_LEFT), 1,1, 'C');
+$pdf->Cell(110, 4, 'IVA REGIMEN COMUN', 0, 0, 'C');
+$pdf->SetFont('Arial', 'B', 8);
+$pdf->Cell(40, 4, 'Nro HDL-'.str_pad($nroFactura, 4, '0', STR_PAD_LEFT), 1, 1, 'C');
+$pdf->Cell(40, 4, '', 0, 1, 'C');
+$pdf->SetFont('Arial', '', 8);
+$pdf->Cell(110, 4, 'Telefono '.TELEFONO_EMPRESA.' Movil '.CELULAR_EMPRESA, 0, 1, 'C');
+// $pdf->Cell(40, 4, 'FACTURA ELECTRONICA DE VENTA ', 1, 1, 'C');
+/* $pdf->Cell(40, 4, '', 0, 0, 'C');
+$pdf->Cell(110, 4, '', 0, 0, 'C');
+ */ // $pdf->MultiCell(190, 5, 'SON :'.numtoletras($total), 1, 'L');
+$pdf->SetFont('Arial', 'B', 8);
 $pdf->SetFont('Arial', '', 8);
 // $pdf->Cell(190, 4, 'Actividad economica principal 5511 - Actividad ICA 318 Tarifa 4x1000 ', 0, 1, 'C');
 // $pdf->Cell(190, 4, 'RESOLUCION DIAN No. 18764037773901 de 2022/10/12 Autorizacion Pref. HDL desde el No. 9410 AL 15000', 0, 1, 'C');
@@ -212,7 +217,7 @@ $pdf->MultiCell(95, 6, '
 
                         Firma                                              Fecha', 1, 'L');
 // $pdf->Cell(19,6,'',0,1,'L');
-$pdf->SetY(231);
+$pdf->SetY(233);
 $pdf->MultiCell(95, 4, 'RESOLUCION DIAN No. 18764037773901 de 2022/10/12 Autorizacion Pref. HDL desde el No. 9410 AL 15000, Esta Factura de venta se asimila en todos sus efectos a una leta de cambio Art. 774 del Codigo de Comercio, Actividad economica principal 5511 - Actividad ICA 318 Tarifa 4x1000', 1, 'C');
 // $pdf->MultiCell(95,4,'Impreso Pos '.$usuario,1,'C');
 $pdf->Ln(1);

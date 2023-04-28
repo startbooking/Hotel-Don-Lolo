@@ -352,14 +352,14 @@ $reservas = $hotel->getReservasActuales($tipo);
                                 <i class="fa fa-commenting-o" aria-hidden="true"></i>
                               Adicionar Observaciones</a>
                             </li>
-                            <li>
+                            <!-- <li>
                               <a 
                                 onclick="imprimirPreRegistro(<?php echo $reserva['num_reserva']; ?>)"
                                 title="Imprime Pre Registro Hotelero" >
                                 <i class='fa fa-file-text'></i>
                                 Imprimir Pre-Registro Hotelero
                               </a>
-                            </li> 
+                            </li>  -->
                           </ul>
                         </li>
                       </ul>

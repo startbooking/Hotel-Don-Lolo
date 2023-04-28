@@ -5,6 +5,32 @@ date_default_timezone_set('America/Bogota');
 
 class Pos_Actions
 {
+    public function eliminaAbonos($idamb)
+    {
+        global $database;
+
+        $data = $database->delete('abonos', [
+            'AND' => [
+                'ambiente' => $idamb,
+            ],
+        ]);
+
+        return $data->rowCount();
+    }
+
+    public function eliminaCaja($idamb)
+    {
+        global $database;
+
+        $data = $database->delete('baseCaja', [
+            'AND' => [
+                'idAmbiente' => $idamb,
+            ],
+        ]);
+
+        return $data->rowCount();
+    }
+
     public function acumuladoMesProductosVendidos($amb, $anio, $mes)
     {
         global $database;
