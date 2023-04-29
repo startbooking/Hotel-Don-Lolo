@@ -170,7 +170,7 @@
               </button>
               <?php
             }
-              if ($nivel <= 3) { ?>
+              if ($nivel <= 0) { ?>
               <button 
                 style       ="background-color: yellow;border-color:yellow;color:black;"
                 data-toggle ="modal"

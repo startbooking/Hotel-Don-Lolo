@@ -2292,6 +2292,11 @@
              'codigo_cta_master',
              'codigo_devoluciones',
              'hoteldemo',
+             'resolucion',
+             'actividad',
+             'info_banco',
+             'info_factura',
+             'info_pie',
          ], [
              'LIMIT' => 1,
          ]);
