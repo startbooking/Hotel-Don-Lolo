@@ -1165,7 +1165,7 @@ let { usuario_id, usuario, nombres, apellidos, tipo } = user;
     $("#txtIdCiaSal").val(0);
     $("#txtIdCentroCiaSal").val(0);
 
-    if (idcia == 0) {
+    /* if (idcia == 0) {
       $("#inlineRadio1").checked;
       $("#selecentro").css("display", "none");
       $("#selecomp").css("display", "none");
@@ -1173,7 +1173,7 @@ let { usuario_id, usuario, nombres, apellidos, tipo } = user;
       $("#inlineRadio2").checked;
       $("#selecentro").css("display", "block");
       $("#selecomp").css("display", "block");
-    }
+    } */
 
     var parametros = {
       turismo,
@@ -4228,12 +4228,15 @@ function anulaConsumos() {
     data: parametros,
     url: "res/php/anulaConsumos.php",
     success: function (data) {
-      activaFolio(reserva, 1);
       $("#mensajeCargo").html(
         '<h3 style="font-weight:600;color:brown">Cargo Anulado Con Exito</h3>'
       );
       $("#myModalAnulaCargo").modal("hide");
-      $(location).attr("href", web + "facturacionHuesped");
+      // activaFolio(reserva, 1);
+      // movimientosFactura(numero);
+      activaFolio(reserva, 1);
+
+      // $(location).attr("href", web + "facturacionHuesped");
     },
   });
 }

@@ -79,37 +79,33 @@ $productosventa = $pos->getProductosVendidosFactura($amb, $nComa);
 
 $time = date('H:m:i');
 
-$pdf = new FPDF('P', 'mm', [50, 350]);
-$pdf->SetMargins(0, 3, 0);
+$pdf = new FPDF('P', 'mm', [76, 350]);
+$pdf->SetMargins(5, 5, 5);
 
 $pdf->AddPage();
-$pdf->Image('../../../../img/'.$logo, 2, 5, 10);
-$pdf->SetFont('Arial', 'B', 8);
-$pdf->Cell(50, 4, $nomamb, 0, 1, 'C');
-$pdf->Cell(50, 4, utf8_decode(NAME_EMPRESA), 0, 1, 'C');
-$pdf->SetFont('Arial', '', 8);
-$pdf->Cell(50, 4, 'NIT: '.NIT_EMPRESA, 0, 1, 'C');
-$pdf->Cell(50, 4, 'Iva Regimen Comun', 0, 1, 'C');
-$pdf->Cell(50, 4, utf8_decode(ADRESS_EMPRESA), 0, 1, 'C');
-$pdf->Cell(50, 4, utf8_decode(CIUDAD_EMPRESA.' '.PAIS_EMPRESA), 0, 1, 'C');
-$pdf->Cell(50, 4, 'Telefono '.TELEFONO_EMPRESA, 0, 1, 'C');
-$pdf->SetFont('Arial', 'B', 8);
+// $pdf->Image('../../../../img/'.$logo, 2, 5, 10);
+$pdf->SetFont('Arial', 'B', 12);
+$pdf->Cell(65, 4, utf8_decode(NAME_EMPRESA), 0, 1, 'C');
+$pdf->SetFont('Arial', '', 10);
+$pdf->Cell(65, 4, 'NIT: '.NIT_EMPRESA, 0, 1, 'C');
+$pdf->Cell(65, 4, 'Iva Regimen Comun', 0, 1, 'C');
+$pdf->Cell(65, 4, utf8_decode(ADRESS_EMPRESA), 0, 1, 'C');
+$pdf->Cell(65, 4, utf8_decode(CIUDAD_EMPRESA.' '.PAIS_EMPRESA), 0, 1, 'C');
+$pdf->Cell(65, 4, 'Telefono '.TELEFONO_EMPRESA, 0, 1, 'C');
+$pdf->Cell(65, 4, $nomamb, 0, 1, 'C');
 $pdf->Ln(2);
-$pdf->SetFont('Arial', '', 8);
-$pdf->Cell(50, 4, 'Fecha '.$fec.' '.$time.' Mesa '.$mes, 0, 1, 'L');
-$pdf->Cell(50, 4, 'Usuario: '.$_SESSION['usuario'], 0, 1, 'L');
-$pdf->Cell(50, 4, 'Forma de Pago: '.$fpago, 0, 1, 'L');
-/* $pdf->Cell(50, 4, 'Tiquete POS: '.$pref.'_'.$rpre.str_pad($nFact, 5, '0', STR_PAD_LEFT), 0, 1, 'L');
-$pdf->Cell(50, 4, 'Cliente: '.substr($cliente, 0, 18), 0, 1, 'L');
-$pdf->Cell(50, 4, 'Iden. '.$identif, 0, 1, 'L'); */
+$pdf->SetFont('Arial', '', 10);
+$pdf->Cell(65, 4, 'Fecha '.$fec.' '.$time.' Mesa '.$mes, 0, 1, 'L');
+$pdf->Cell(65, 4, 'Mesero: '.$_SESSION['usuario'], 0, 1, 'L');
+$pdf->Cell(65, 4, 'Forma de Pago: '.substr($fpago, 0, 18), 0, 1, 'L');
 if ($pms == 0) {
-    $pdf->Cell(70, 5, 'Tiquete POS Nro:  '.$rpre.'-'.str_pad($nFact, 5, '0', STR_PAD_LEFT), 0, 1, 'L');
-    $pdf->Cell(65, 5, 'Cliente '.substr($cliente, 0, 20), 0, 0, 'L');
-    $pdf->Cell(25, 5, 'Iden. '.$identif, 0, 1, 'L');
+    $pdf->Cell(65, 5, 'Tiquete POS Nro:  '.str_pad($nFact, 5, '0', STR_PAD_LEFT), 0, 1, 'L');
+    $pdf->Cell(65, 5, 'Cliente '.substr($cliente, 0, 22), 0, 1, 'L');
+    $pdf->Cell(65, 5, 'Iden. '.$identif, 0, 1, 'L');
 } else {
-    $pdf->Cell(70, 5, 'Cheque Cuenta Nro: '.str_pad($nFact, 5, '0', STR_PAD_LEFT), 0, 1, 'L');
-    $pdf->Cell(70, 5, 'Huesped '.substr($cliente, 0, 22), 0, 0, 'L');
-    $pdf->Cell(20, 5, ' Hab. '.$nrohabi, 0, 1, 'L');
+    $pdf->Cell(65, 5, 'Cheque Cuenta Nro: '.str_pad($nFact, 5, '0', STR_PAD_LEFT), 0, 1, 'L');
+    $pdf->Cell(65, 5, 'Huesped '.substr($cliente, 0, 22), 0, 1, 'L');
+    $pdf->Cell(65, 5, 'Habitacion. '.$nrohabi, 0, 1, 'L');
 }
 $pdf->Ln(2);
 
@@ -120,13 +116,13 @@ $na = 0;
 $val = 0;
 $descu = 0;
 $imp = 0;
-$pdf->SetFont('Arial', 'B', 8);
+$pdf->SetFont('Arial', 'B', 10);
 
-$pdf->Cell(25, 4, 'PRODUCTO', 0, 0, 'C');
+$pdf->Cell(40, 4, 'PRODUCTO', 0, 0, 'C');
 $pdf->Cell(10, 4, 'CANT.', 0, 0, 'C');
-$pdf->Cell(10, 4, 'VALOR', 0, 1, 'C');
+$pdf->Cell(15, 4, 'VALOR', 0, 1, 'C');
 $pdf->Ln(1);
-$pdf->SetFont('Arial', '', 7);
+$pdf->SetFont('Arial', '', 9);
 
 foreach ($productosventa as $producto) {
     $na = $na + $producto['cant'];
@@ -134,48 +130,46 @@ foreach ($productosventa as $producto) {
     $descu = $descu - $producto['descuento'];
     $sub = $sub + $producto['venta'];
     $imp = $imp + $producto['valorimpto'];
-
-    $pdf->MultiCell(45, 4, utf8_decode($producto['nom']), 0, 'L');
-    $pdf->Cell(20, 4, $producto['cant'], 0, 0, 'R');
-    $pdf->Cell(25, 4, number_format($producto['venta'], 2, ',', '.'), 0, 1, 'R');
+    $pdf->Cell(35, 4, substr(utf8_decode($producto['nom']), 0, 17), 0, 0, 'L');
+    $pdf->Cell(10, 4, $producto['cant'], 0, 0, 'R');
+    $pdf->Cell(20, 4, number_format($producto['venta'], 2, ',', '.'), 0, 1, 'R');
 }
 
 $pdf->Ln(3);
-$pdf->Cell(20, 4, 'Subtotal', 0, 0, 'R');
+$pdf->Cell(40, 4, 'Subtotal', 0, 0, 'R');
 $pdf->Cell(25, 4, number_format($sub, 2, ',', '.'), 0, 1, 'R');
-$pdf->Cell(20, 4, 'Impuesto', 0, 0, 'R');
+$pdf->Cell(40, 4, 'Impuesto', 0, 0, 'R');
 $pdf->Cell(25, 4, number_format($imp, 2, ',', '.'), 0, 1, 'R');
-$pdf->Cell(20, 4, 'Descuento', 0, 0, 'R');
-$pdf->Cell(25, 4, number_format($des, 2, ',', '.'), 0, 1, 'R');
-$pdf->Cell(20, 4, 'Propina', 0, 0, 'R');
+/* $pdf->Cell(40, 4, 'Descuento', 0, 0, 'R');
+$pdf->Cell(25, 4, number_format($des, 2, ',', '.'), 0, 1, 'R'); */
+$pdf->Cell(40, 4, 'Propina', 0, 0, 'R');
 $pdf->Cell(25, 4, number_format($pro, 2, ',', '.'), 0, 1, 'R');
 $pdf->Ln(2);
 /* $pdf->SetFont('Arial', 'B', 7);
-$pdf->Cell(20, 4, 'Abonos:', 0, 0, 'L');
+$pdf->Cell(40, 4, 'Abonos:', 0, 0, 'L');
 $pdf->Cell(25, 4, number_format($abonos, 2, ',', '.'), 0, 1, 'R');
 $pdf->Ln(2); */
-$pdf->SetFont('Arial', 'B', 7);
-$pdf->Cell(20, 4, 'Total Cuenta:', 0, 0, 'L');
+$pdf->SetFont('Arial', 'B', 10);
+$pdf->Cell(40, 4, 'Total Cuenta:', 0, 0, 'L');
 $pdf->Cell(25, 4, number_format($sub - $des + $pro + $imp, 2, ',', '.'), 0, 1, 'R');
 $pdf->Ln(2);
-$pdf->SetFont('Arial', '', 7);
-$pdf->MultiCell(45, 4, 'Son : '.numtoletras($sub - $des + $pro + $imp), 0, 'L');
-$pdf->SetFont('Arial', '', 7);
+$pdf->SetFont('Arial', '', 8);
+$pdf->MultiCell(65, 4, 'Son : '.numtoletras($sub - $des + $pro + $imp), 0, 'L');
+// $pdf->SetFont('Arial', '', 10);
 
 if ($pms == 1) {
     $pdf->Ln(20);
-    $pdf->Cell(50, 5, str_repeat('_', 50), 0, 1, 'L');
-    $pdf->MultiCell(50, 5, 'Acepto se incluya en mi cuenta de Alojamiento el Presente Consumo', 0, 'C');
-    $pdf->Cell(50, 4, 'Firma Huesped', 0, 1, 'C');
+    $pdf->Cell(65, 5, str_repeat('_', 40), 0, 1, 'L');
+    $pdf->MultiCell(65, 4, 'Acepto se incluya en mi cuenta de Alojamiento el Presente Consumo', 0, 'C');
+    $pdf->Cell(65, 4, 'Firma Huesped', 0, 1, 'C');
 }
-$pdf->Ln(3);
 
 $pdf->Ln(3);
 $posY = $pdf->GetY();
 
 $pdf->SetFont('Arial', '', 6);
 
-$pdf->MultiCell(45, 4, 'Gracias por su compra ', 0, 'L');
+$pdf->MultiCell(65, 4, 'Gracias por su compra ', 0, 'C');
 
 $pdf->Output($file, 'F');
 echo $nameImpr;

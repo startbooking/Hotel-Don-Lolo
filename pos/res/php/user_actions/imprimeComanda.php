@@ -19,41 +19,43 @@ $pax = $datosmesa[0]['pax'];
 $mesa = $datosmesa[0]['mesa'];
 $fec = $datosmesa[0]['fecha'];
 
-$pdf = new FPDF('P', 'mm', [50, 250]);
+$pdf = new FPDF('P', 'mm', [76, 250]);
 $pdf->AddPage();
-$pdf->SetMargins(0, 3, 0);
+$pdf->SetMargins(5, 5, 5);
 $pdf->Ln(2);
 
-$pdf->SetFont('Arial', 'B', 8);
+$pdf->SetFont('Arial', 'B', 12);
+$pdf->Cell(65, 4, utf8_decode(NAME_EMPRESA), 0, 1, 'C');
+
 $pdf->Cell(50, 6, $nomamb, 0, 1, 'C');
-$pdf->SetFont('Arial', 'B', 7);
-$pdf->Cell(10, 4, 'Fecha ', 0, 0, 'L');
-$pdf->SetFont('Arial', '', 7);
+$pdf->SetFont('Arial', 'B', 10);
+$pdf->Cell(20, 4, 'Fecha ', 0, 0, 'L');
+$pdf->SetFont('Arial', '', 10);
 $pdf->Cell(20, 4, $fec, 0, 1, 'L');
-$pdf->SetFont('Arial', 'B', 7);
-$pdf->Cell(10, 4, 'Mesa ', 0, 0, 'L');
-$pdf->SetFont('Arial', '', 7);
+$pdf->SetFont('Arial', 'B', 10);
+$pdf->Cell(15, 4, 'Mesa ', 0, 0, 'L');
+$pdf->SetFont('Arial', '', 10);
 $pdf->Cell(20, 4, $mesa, 0, 1, 'L');
-$pdf->SetFont('Arial', 'B', 7);
-$pdf->Cell(20, 4, 'Comanda Nro: ', 0, 0, 'L');
-$pdf->SetFont('Arial', '', 7);
+$pdf->SetFont('Arial', 'B', 10);
+$pdf->Cell(30, 4, 'Comanda Nro: ', 0, 0, 'L');
+$pdf->SetFont('Arial', '', 10);
 $pdf->Cell(20, 4, $pref.'-'.str_pad($numerocomanda, 5, '0', STR_PAD_LEFT), 0, 1, 'L');
-$pdf->SetFont('Arial', 'B', 7);
+$pdf->SetFont('Arial', 'B', 10);
 
 $pdf->Ln(2);
-$pdf->Cell(35, 4, 'PRODUCTO', 0, 0, 'C');
+$pdf->Cell(55, 4, 'PRODUCTO', 0, 0, 'C');
 $pdf->Cell(10, 4, 'CANT.', 0, 1, 'C');
 $pdf->Ln(1);
-$pdf->SetFont('Arial', '', 7);
+$pdf->SetFont('Arial', '', 10);
 
 foreach ($productos as $producto) {
-    $pdf->Cell(35, 4, utf8_decode(substr($producto['producto'], 0, 23)), 0, 0, 'L');
+    $pdf->Cell(55, 4, utf8_decode(substr($producto['producto'], 0, 23)), 0, 0, 'L');
     $pdf->Cell(10, 4, $producto['cant'], 0, 1, 'R');
 }
 
 $pdf->Ln(3);
-$pdf->SetFont('Arial', '', 7);
-$pdf->Cell(50, 4, 'Usuario: '.$_SESSION['usuario'], 0, 1, 'L');
+$pdf->SetFont('Arial', '', 10);
+$pdf->Cell(65, 4, 'Mesero: '.$_SESSION['usuario'], 0, 1, 'L');
 $pdf->Ln(3);
 $pdf->SetFont('Arial', '', 6);
 $file = '../../../impresiones/comandaCocina_'.$pref.'_'.$numerocomanda.'.pdf';

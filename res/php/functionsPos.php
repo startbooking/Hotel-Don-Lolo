@@ -5,6 +5,38 @@ date_default_timezone_set('America/Bogota');
 
 class Pos_Actions
 {
+    public function getCantidadFormasPagoVendidos($amb)
+    {
+        global $database;
+
+        $data = $database->query("SELECT
+		formas_pago.descripcion,
+		ambientes.nombre,
+		sum(facturas_pos.valor_total) AS ventas,
+		count(formas_pago.id_pago) AS cant,
+		sum(facturas_pos.pax) AS pers,
+		sum(facturas_pos.valor_neto) AS neto,
+		sum(facturas_pos.impuesto) AS impto,
+		sum(facturas_pos.propina) AS propina,
+		sum(facturas_pos.descuento) AS descuento
+		FROM
+		facturas_pos ,
+		ambientes ,
+		formas_pago
+		WHERE
+		facturas_pos.ambiente = ambientes.id_ambiente AND
+		facturas_pos.estado = 'A' AND
+		ambientes.id_ambiente = $amb AND
+		facturas_pos.forma_pago = formas_pago.id_pago
+		GROUP BY
+		ambientes.nombre
+		ORDER BY
+		ambientes.nombre ASC
+		")->fetchAll();
+
+        return $data;
+    }
+
     public function eliminaAbonos($idamb)
     {
         global $database;
@@ -2268,11 +2300,35 @@ class Pos_Actions
             return $data;
         }
 
-        public function getCantidadProductosVendidos($amb)
+        public function getCantidadProductosVendidosOld($amb)
         {
             global $database;
 
             $data = $database->query("SELECT detalle_facturas_pos.nom, Sum(detalle_facturas_pos.venta) AS ventas, Sum(detalle_facturas_pos.cant) AS cant, Sum(facturas_pos.pax) AS pers, ambientes.nombre FROM detalle_facturas_pos , facturas_pos , ambientes WHERE facturas_pos.factura = detalle_facturas_pos.factura AND facturas_pos.ambiente = ambientes.id_ambiente AND facturas_pos.estado = 'A' AND ambientes.id_ambiente = '$amb' GROUP BY ambientes.nombre ORDER BY cant DESC ")->fetchAll();
+
+            return $data;
+        }
+
+        public function getCantidadProductosVendidos($amb)
+        {
+            global $database;
+
+            $data = $database->query("SELECT
+        ambientes.nombre, 
+        sum(detalle_facturas_pos.venta) AS ventas, 
+        sum(detalle_facturas_pos.cant) AS cant, 
+        sum(facturas_pos.pax) AS pers	
+    FROM
+        detalle_facturas_pos,
+        facturas_pos,
+        ambientes
+    WHERE
+        facturas_pos.comanda = detalle_facturas_pos.comanda AND
+        facturas_pos.ambiente = ambientes.id_ambiente AND
+        facturas_pos.estado = 'A' AND
+        ambientes.id_ambiente = '$amb'
+        GROUP BY 
+        ambientes.nombre ")->fetchAll();
 
             return $data;
         }
@@ -2290,7 +2346,7 @@ class Pos_Actions
         {
             global $database;
 
-            $data = $database->query("SELECT secciones_pos.nombre_seccion, sum(detalle_facturas_pos.venta) AS ventas, sum(detalle_facturas_pos.valorimpto) AS imptos, sum(detalle_facturas_pos.venta+detalle_facturas_pos.valorimpto) AS total, sum(detalle_facturas_pos.cant) AS cant, facturas_pos.pax AS pers, ambientes.nombre FROM detalle_facturas_pos , facturas_pos , ambientes , secciones_pos , producto WHERE facturas_pos.ambiente = ambientes.id_ambiente AND facturas_pos.estado = 'A' AND ambientes.id_ambiente = '$amb' AND producto.seccion = secciones_pos.id_seccion AND detalle_facturas_pos.producto_id = producto.producto_id AND detalle_facturas_pos.factura = facturas_pos.factura GROUP BY secciones_pos.nombre_seccion, ambientes.id_ambiente")->fetchAll();
+            $data = $database->query("SELECT secciones_pos.nombre_seccion, sum(detalle_facturas_pos.venta) AS ventas, sum(detalle_facturas_pos.valorimpto) AS imptos, sum(detalle_facturas_pos.venta+detalle_facturas_pos.valorimpto) AS total, sum(detalle_facturas_pos.cant) AS cant, facturas_pos.pax AS pers, ambientes.nombre FROM detalle_facturas_pos , facturas_pos , ambientes , secciones_pos , producto WHERE facturas_pos.ambiente = ambientes.id_ambiente AND facturas_pos.estado = 'A' AND ambientes.id_ambiente = '$amb' AND producto.seccion = secciones_pos.id_seccion AND detalle_facturas_pos.producto_id = producto.producto_id AND detalle_facturas_pos.comanda = facturas_pos.comanda GROUP BY secciones_pos.nombre_seccion, ambientes.id_ambiente")->fetchAll();
 
             return $data;
         }
@@ -3471,6 +3527,10 @@ class Pos_Actions
             ], [
                 'facturas_pos.ambiente' => $amb,
                 'facturas_pos.estado' => 'A',
+                'ORDER' => [
+                    'facturas_pos.pms' => 'ASC',
+                    'facturas_pos.factura' => 'ASC',
+                ],
             ]);
 
             return $data;

@@ -1125,14 +1125,7 @@ function abreCuenta(mesa) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
   let { pos, user } = sesion;
-  console.table({
-    id_ambiente,
-    nombre,
-    impuesto,
-    propina,
-    prefijo,
-    fecha_auditoria,
-  });
+
   let { id_ambiente, nombre, impuesto, propina, prefijo, fecha_auditoria } =
     oPos[0];
 
@@ -1775,23 +1768,6 @@ function resumenComanda() {
     totalCuenta = venta + impuesto;
   }
 
-  // console.log(venta + impuesto);
-
-  /* console.log(canti);
-  console.log(impuesto);
-  console.log(venta);
-  console.log(canti);
-  console.log(propina);
-  console.log(abonos);
-  console.log(totalCuenta); */
-
-  /* totalCuenta =
-    parseInt(venta) +
-    parseInt(impuesto) +
-    parseInt(propina) -
-    parseInt(descuento) -
-    parseInt(abonos); */
-  // console.log(totalCuenta);
   let miBoton = "comanda" + $("#numeroComanda").val();
   $("#totalComanda").val(totalCuenta);
   $("#totalVta").html(number_format(venta, 2));
@@ -3590,14 +3566,6 @@ function abonosCajero() {
     oPos[0];
   let { usuario, usuario_id, tipo } = user;
 
-  console.log({
-    id_ambiente,
-    nombre,
-    impuesto,
-    propina,
-    fecha_auditoria,
-    logo,
-  });
   parametros = {
     id: id_ambiente,
     amb: nombre,
@@ -3608,7 +3576,6 @@ function abonosCajero() {
     fecha: fecha_auditoria,
     logo,
   };
-  console.log(parametros);
 
   $.ajax({
     url: "informes/abonosCajero.php",
@@ -3956,17 +3923,14 @@ function calcular_total() {
   var coma = $("#numeroComanda").val();
   miBoton = "#comanda" + coma;
 
-  console.log(miBoton);
-
   propina = parseFloat($("#propinaPag").val().replaceAll(",", ""));
 
   subtotal = parseFloat($(miBoton).attr("subtotal"));
   impuesto = parseFloat($(miBoton).attr("impto"));
-  descuento = parseFloat($(miBoton).attr("descuento"));
+  // descuento = parseFloat($(miBoton).attr("descuento"));
+  let descuento = 0;
   abonos = parseFloat($(miBoton).attr("abonos"));
   total = parseFloat($(miBoton).attr("total"));
-
-  console.log({ subtotal, impuesto, descuento, abonos, total });
 
   $("#montopago").val(subtotal + impuesto + propina - descuento - abonos);
 }
@@ -4072,11 +4036,8 @@ function activaPos() {
 function cierreCajero(cajero) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  // console.log(user);
-  // let { user, pos } = sesion;
   let { usuario_id, usuario } = user;
   let { fecha_auditoria, id_ambiente, nombre, logo } = oPos[0];
-  // console.log({ usuario_id, usuario });
 
   var web = $("#rutaweb").val();
   var parametros = {
@@ -4517,7 +4478,6 @@ function eliminaProducto() {
 
 function guardarProducto() {
   var parametros = $("#guardarDatosProducto").serialize();
-  console.log(parametros);
   $.ajax({
     url: "res/php/user_actions/guardaProducto.php",
     type: "POST",
@@ -5238,7 +5198,6 @@ function getCuentasActivas(idamb) {
       */
 
       for (i = 0; i < x.length; i++) {
-        console.log(x[i]);
         miBoton = `comanda${x[i]["comanda"]}`;
         boton = `
             <button
@@ -5332,8 +5291,6 @@ function getComandas(comanda, numero) {
   mesa = parseFloat($(miBoton).attr("mesa"));
   pax = parseFloat($(miBoton).attr("pax"));
 
-  // console.log(abonos);
-
   listaComanda = [];
 
   var parametros = {
@@ -5409,8 +5366,6 @@ function calculaCambio() {
   let total = parseFloat($(miBoton).attr("total"));
 
   nueProp = parseInt($("#propinaPag").val());
-
-  // console.log(nueProp);
 
   pagado = parseFloat($("#montopago").val().replaceAll(",", ""));
   cambio = total + nueProp - pagado;

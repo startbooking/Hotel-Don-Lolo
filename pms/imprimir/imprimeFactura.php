@@ -10,6 +10,8 @@ if ($tipofac == 2) {
     $diasCre = $datosCompania[0]['dias_credito'];
 }
 
+$firma = 'W/eofOdb7ab24WMN3jRdAlKoXbyFGIwf7flA9oE6kRovu+KqWV9MBHTl1cfgN2axTAt3cfoaZoygVZhedk29lVQ3H4Z8BiLBIGrZcqlkr5odfd1ixEgT28NGMa9Ji3sAGdaVNT8Upe7MkW+tkG4dOvnhhi+N20ohx7RHVT0me1t40SI51
+dYA/LdUWiNZXOSE3FYBLMjNTueZs0+uGrOGPltl3G2LsSoTIuEK/x/DHCucDzmJFXpgGqlXrv1a1cZuad9mI+nN3XU3CAGyXl4acUjrH5ZWhYukW9z+uftnIzYRnwh01nVzOhHhzeVVWcGqaX4k8Vw9GVlhZbJaCsFvbw==';
 $fechaFac = FECHA_PMS;
 $fechaVen = $fechaFac;
 $fechaVen = strtotime('+ '.$diasCre.' day', strtotime($fechaFac));
@@ -46,7 +48,6 @@ $pdf->Cell(110, 4, 'Telefono '.TELEFONO_EMPRESA.' Movil '.CELULAR_EMPRESA, 0, 1,
 $pdf->Cell(40, 4, '', 0, 0, 'C');
 $pdf->Cell(110, 4, utf8_decode(ACTIVIDAD), 0, 0, 'C');
 $pdf->SetFont('Arial', 'B', 7);
-
 $pdf->MultiCell(40, 4, 'FACTURA ELECTRONICA DE VENTA', 1, 'C');
 $pdf->SetFont('Arial', '', 7);
 $pdf->setY(42);
@@ -55,114 +56,103 @@ $pdf->MultiCell(110, 4, utf8_decode(TEXTORESOLUCION), 0, 'C');
 $pdf->Cell(150, 4, '', 0, 0, 'C');
 $pdf->setY(46);
 $pdf->setX(160);
-$pdf->SetFont('Arial', 'B', 7);
-$pdf->MultiCell(40, 4, 'Nro HDL-'.str_pad($nroFactura, 4, '0', STR_PAD_LEFT), 1, 'C');
-$pdf->SetFont('Arial', '', 7);
-
-// $pdf->Cell(40, 4, 'Nro HDL-'.str_pad($nroFactura, 4, '0', STR_PAD_LEFT), 1, 1, 'C');
-
-// $pdf->Cell(40, 4, 'FACTURA ELECTRONICA DE VENTA ', 1, 1, 'C');
-/* $pdf->Cell(40, 4, '', 0, 0, 'C');
-$pdf->Cell(110, 4, '', 0, 0, 'C');
- */ // $pdf->MultiCell(190, 5, 'SON :'.numtoletras($total), 1, 'L');
 $pdf->SetFont('Arial', 'B', 8);
+$pdf->MultiCell(40, 4, 'Nro HDL-'.str_pad($nroFactura, 4, '0', STR_PAD_LEFT), 1, 'C');
 $pdf->SetFont('Arial', '', 8);
-// $pdf->Cell(190, 4, 'Actividad economica principal 5511 - Actividad ICA 318 Tarifa 4x1000 ', 0, 1, 'C');
-// $pdf->Cell(190, 4, 'RESOLUCION DIAN No. 18764037773901 de 2022/10/12 Autorizacion Pref. HDL desde el No. 9410 AL 15000', 0, 1, 'C');
 
 $pdf->Ln(1);
 
-$pdf->SetFont('Arial', 'B', 10);
+$pdf->SetFont('Arial', 'B', 8);
 if ($tipofac == 2) {
     if (!empty($datosCompania)) {
-        $pdf->SetFont('Arial', '', 10);
-        $pdf->Cell(30, 5, 'RAZON SOCIAL', 0, 0, 'L');
+        $pdf->SetFont('Arial', '', 8);
+        $pdf->Cell(30, 4, 'RAZON SOCIAL', 0, 0, 'L');
+        $pdf->SetFont('Arial', 'B', 8);
+        $pdf->Cell(120, 4, utf8_decode($datosCompania[0]['empresa']), 0, 0, 'L');
+        $pdf->SetFont('Arial', '', 8);
+        $pdf->Cell(10, 4, 'NIT.', 0, 0, 'L');
+        $pdf->SetFont('Arial', 'B', 8);
+        $pdf->Cell(30, 4, number_format($datosCompania[0]['nit'], 0).'-'.$datosCompania[0]['dv'], 0, 1, 'L');
+        $pdf->SetFont('Arial', '', 8);
+        $pdf->Cell(30, 4, 'DIRECCION', 0, 0, 'L');
         $pdf->SetFont('Arial', 'B', 10);
-        $pdf->Cell(120, 5, utf8_decode($datosCompania[0]['empresa']), 0, 0, 'L');
-        $pdf->SetFont('Arial', '', 10);
-        $pdf->Cell(10, 5, 'NIT.', 0, 0, 'L');
-        $pdf->SetFont('Arial', 'B', 10);
-        $pdf->Cell(30, 5, number_format($datosCompania[0]['nit'], 0).'-'.$datosCompania[0]['dv'], 0, 1, 'L');
-        $pdf->SetFont('Arial', '', 10);
-        $pdf->Cell(30, 5, 'DIRECCION', 0, 0, 'L');
-        $pdf->SetFont('Arial', 'B', 10);
-        $pdf->Cell(70, 5, substr(utf8_decode($datosCompania[0]['direccion']), 0, 35), 0, 0, 'L');
-        $pdf->SetFont('Arial', '', 10);
-        $pdf->Cell(20, 5, 'CIUDAD', 0, 0, 'L');
-        $pdf->SetFont('Arial', 'B', 10);
-        $pdf->Cell(30, 5, utf8_decode(substr($hotel->getCityName($datosCompania[0]['ciudad']), 0, 12)), 0, 0, 'L');
-        $pdf->SetFont('Arial', '', 10);
-        $pdf->Cell(21, 5, 'TELEFONO', 0, 0, 'L');
-        $pdf->SetFont('Arial', 'B', 10);
-        $pdf->Cell(20, 5, $datosCompania[0]['telefono'], 0, 1, 'L');
+        $pdf->Cell(70, 4, substr(utf8_decode($datosCompania[0]['direccion']), 0, 35), 0, 0, 'L');
+        $pdf->SetFont('Arial', '', 8);
+        $pdf->Cell(20, 4, 'CIUDAD', 0, 0, 'L');
+        $pdf->SetFont('Arial', 'B', 8);
+        $pdf->Cell(30, 4, utf8_decode(substr($hotel->getCityName($datosCompania[0]['ciudad']), 0, 12)), 0, 0, 'L');
+        $pdf->SetFont('Arial', '', 8);
+        $pdf->Cell(21, 4, 'TELEFONO', 0, 0, 'L');
+        $pdf->SetFont('Arial', 'B');
+        $pdf->Cell(20, 4, $datosCompania[0]['telefono'], 0, 1, 'L');
     }
 } else {
-    $pdf->SetFont('Arial', '', 10);
-    $pdf->Cell(30, 5, 'CLIENTE', 0, 0, 'L');
-    $pdf->SetFont('Arial', 'B', 10);
-    $pdf->Cell(70, 5, substr(utf8_decode($datosHuesped[0]['apellido1'].' '.$datosHuesped[0]['apellido2'].' '.$datosHuesped[0]['nombre1'].' '.$datosHuesped[0]['nombre2']), 0, 30), 0, 0, 'L');
-    $pdf->SetFont('Arial', '', 10);
-    $pdf->Cell(35, 5, 'IDENTIFICACION', 0, 0, 'L');
-    $pdf->SetFont('Arial', 'B', 10);
-    $pdf->Cell(25, 5, $datosHuesped[0]['identificacion'], 0, 1, 'L');
-    $pdf->SetFont('Arial', '', 10);
-    $pdf->Cell(30, 5, 'DIRECCION', 0, 0, 'L');
-    $pdf->SetFont('Arial', 'B', 10);
-    $pdf->Cell(70, 5, utf8_decode($datosHuesped[0]['direccion']), 0, 0, 'L');
-    $pdf->SetFont('Arial', '', 10);
-    $pdf->Cell(15, 5, 'CIUDAD', 0, 0, 'L');
-    $pdf->SetFont('Arial', 'B', 10);
-    $pdf->Cell(30, 5, substr(utf8_decode($hotel->getCityName($datosHuesped[0]['ciudad'])), 0, 12), 0, 0, 'L');
-    $pdf->SetFont('Arial', '', 10);
-    $pdf->Cell(20, 5, 'TELEFONO', 0, 0, 'L');
-    $pdf->SetFont('Arial', 'B', 10);
-    $pdf->Cell(15, 5, $datosHuesped[0]['telefono'], 0, 1, 'L');
+    $pdf->SetFont('Arial', '', 8);
+    $pdf->Cell(30, 4, 'CLIENTE', 0, 0, 'L');
+    $pdf->SetFont('Arial', 'B', 8);
+    $pdf->Cell(70, 4, substr(utf8_decode($datosHuesped[0]['apellido1'].' '.$datosHuesped[0]['apellido2'].' '.$datosHuesped[0]['nombre1'].' '.$datosHuesped[0]['nombre2']), 0, 30), 0, 0, 'L');
+    $pdf->SetFont('Arial', '', 8);
+    $pdf->Cell(35, 4, 'IDENTIFICACION', 0, 0, 'L');
+    $pdf->SetFont('Arial', 'B', 8);
+    $pdf->Cell(25, 4, $datosHuesped[0]['identificacion'], 0, 1, 'L');
+    $pdf->SetFont('Arial', '', 8);
+    $pdf->Cell(30, 4, 'DIRECCION', 0, 0, 'L');
+    $pdf->SetFont('Arial', 'B', 8);
+    $pdf->Cell(70, 4, utf8_decode($datosHuesped[0]['direccion']), 0, 0, 'L');
+    $pdf->SetFont('Arial', '', 8);
+    $pdf->Cell(15, 4, 'CIUDAD', 0, 0, 'L');
+    $pdf->SetFont('Arial', 'B', 8);
+    $pdf->Cell(30, 4, substr(utf8_decode($hotel->getCityName($datosHuesped[0]['ciudad'])), 0, 12), 0, 0, 'L');
+    $pdf->SetFont('Arial', '', 8);
+    $pdf->Cell(20, 4, 'TELEFONO', 0, 0, 'L');
+    $pdf->SetFont('Arial', 'B', 8);
+    $pdf->Cell(15, 4, $datosHuesped[0]['telefono'], 0, 1, 'L');
 }
 
-$pdf->SetFont('Arial', '', 10);
-$pdf->Cell(30, 5, 'Huesped ', 0, 0, 'L');
-$pdf->SetFont('Arial', 'B', 10);
-$pdf->Cell(70, 5, substr(utf8_decode($datosHuesped[0]['apellido1'].' '.$datosHuesped[0]['apellido2'].' '.$datosHuesped[0]['nombre1'].' '.$datosHuesped[0]['nombre2']), 0, 30), 0, 0, 'L');
-$pdf->SetFont('Arial', '', 10);
-$pdf->Cell(25, 5, 'Identificacion', 0, 0, 'L');
-$pdf->SetFont('Arial', 'B', 10);
-$pdf->Cell(25, 5, $datosHuesped[0]['identificacion'], 0, 0, 'L');
+$pdf->SetFont('Arial', '', 8);
+$pdf->Cell(30, 4, 'Huesped ', 0, 0, 'L');
+$pdf->SetFont('Arial', 'B', 8);
+$pdf->Cell(70, 4, substr(utf8_decode($datosHuesped[0]['apellido1'].' '.$datosHuesped[0]['apellido2'].' '.$datosHuesped[0]['nombre1'].' '.$datosHuesped[0]['nombre2']), 0, 30), 0, 0, 'L');
+$pdf->SetFont('Arial', '', 8);
+$pdf->Cell(25, 4, 'Identificacion', 0, 0, 'L');
+$pdf->SetFont('Arial', 'B', 8);
+$pdf->Cell(25, 4, $datosHuesped[0]['identificacion'], 0, 0, 'L');
 // $pdf->ln(2);
-$pdf->SetFont('Arial', 'B', 10);
-$pdf->Cell(25, 5, utf8_decode(strtoupper(substr($datosReserva[0]['orden_reserva'], 0, 18))), 0, 1, 'L');
-$pdf->SetFont('Arial', '', 9);
-$pdf->Cell(38, 5, utf8_decode('ADULTOS / NIÑOS'), 1, 0, 'C');
-$pdf->Cell(38, 5, 'HABITACION', 1, 0, 'C');
-$pdf->Cell(38, 5, 'TARIFA', 1, 0, 'C');
-$pdf->Cell(38, 5, 'HORAL SALIDA', 1, 0, 'C');
-$pdf->Cell(38, 5, 'REGISTRO NRO', 1, 1, 'C');
-$pdf->Cell(38, 5, $datosReserva[0]['can_hombres'] + $datosReserva[0]['can_mujeres'].'/'.$datosReserva[0]['can_ninos'], 1, 0, 'C');
-$pdf->Cell(38, 5, $datosReserva[0]['num_habitacion'], 1, 0, 'C');
-$pdf->Cell(38, 5, number_format($datosReserva[0]['valor_diario'], 2), 1, 0, 'C');
-$pdf->Cell(38, 5, date('H:m:s'), 1, 0, 'C');
+$pdf->SetFont('Arial', 'B', 8);
+$pdf->Cell(25, 4, utf8_decode(strtoupper(substr($datosReserva[0]['orden_reserva'], 0, 18))), 0, 1, 'L');
+$pdf->SetFont('Arial', '', 8);
+$pdf->Cell(38, 4, utf8_decode('ADULTOS / NIÑOS'), 1, 0, 'C');
+$pdf->Cell(38, 4, 'HABITACION', 1, 0, 'C');
+$pdf->Cell(38, 4, 'TARIFA', 1, 0, 'C');
+$pdf->Cell(38, 4, 'HORAL SALIDA', 1, 0, 'C');
+$pdf->Cell(38, 4, 'REGISTRO NRO', 1, 1, 'C');
+$pdf->Cell(38, 4, $datosReserva[0]['can_hombres'] + $datosReserva[0]['can_mujeres'].'/'.$datosReserva[0]['can_ninos'], 1, 0, 'C');
+$pdf->Cell(38, 4, $datosReserva[0]['num_habitacion'], 1, 0, 'C');
+$pdf->Cell(38, 4, number_format($datosReserva[0]['valor_diario'], 2), 1, 0, 'C');
+$pdf->Cell(38, 4, date('H:m:s'), 1, 0, 'C');
 
-$pdf->Cell(38, 5, str_pad($datosReserva[0]['num_registro'], 4, '0', STR_PAD_LEFT), 1, 1, 'C');
+$pdf->Cell(38, 4, str_pad($datosReserva[0]['num_registro'], 4, '0', STR_PAD_LEFT), 1, 1, 'C');
 
-$pdf->SetFont('Arial', '', 9);
-$pdf->Cell(47, 5, 'FECHA LLEGADA', 1, 0, 'C');
-$pdf->Cell(47, 5, 'FECHA SALIDA', 1, 0, 'C');
-$pdf->Cell(48, 5, 'FECHA EXPEDICION', 1, 0, 'C');
-$pdf->Cell(48, 5, 'FECHA VENCIMIENTO', 1, 1, 'C');
-$pdf->SetFont('Arial', 'B', 10);
-$pdf->Cell(47, 5, $datosReserva[0]['fecha_llegada'], 1, 0, 'C');
-$pdf->Cell(47, 5, $datosReserva[0]['fecha_salida'], 1, 0, 'C');
-$pdf->Cell(48, 5, FECHA_PMS, 1, 0, 'C');
-$pdf->Cell(48, 5, $fechaVen, 1, 1, 'C');
-$pdf->SetFont('Arial', 'B', 9);
+$pdf->SetFont('Arial', '', 8);
+$pdf->Cell(47, 4, 'FECHA LLEGADA', 1, 0, 'C');
+$pdf->Cell(47, 4, 'FECHA SALIDA', 1, 0, 'C');
+$pdf->Cell(48, 4, 'FECHA EXPEDICION', 1, 0, 'C');
+$pdf->Cell(48, 4, 'FECHA VENCIMIENTO', 1, 1, 'C');
+$pdf->SetFont('Arial', 'B', 8);
+$pdf->Cell(47, 4, $datosReserva[0]['fecha_llegada'], 1, 0, 'C');
+$pdf->Cell(47, 4, $datosReserva[0]['fecha_salida'], 1, 0, 'C');
+$pdf->Cell(48, 4, FECHA_PMS, 1, 0, 'C');
+$pdf->Cell(48, 4, $fechaVen, 1, 1, 'C');
+$pdf->SetFont('Arial', 'B', 8);
 
 $pdf->Ln(4);
-$pdf->Cell(15, 5, 'CANT', 1, 0, 'C');
-$pdf->Cell(65, 5, 'CONCEPTO', 1, 0, 'C');
-$pdf->Cell(30, 5, 'VALOR', 1, 0, 'C');
-$pdf->Cell(20, 5, '% IMPTO', 1, 0, 'C');
-$pdf->Cell(30, 5, 'IMPTO', 1, 0, 'C');
-$pdf->Cell(30, 5, 'TOTAL', 1, 1, 'C');
-$pdf->SetFont('Arial', '', 9);
+$pdf->Cell(15, 8, 'CANT', 1, 0, 'C');
+$pdf->Cell(65, 8, 'CONCEPTO', 1, 0, 'C');
+$pdf->Cell(30, 8, 'VALOR', 1, 0, 'C');
+$pdf->Cell(20, 8, '% IMPTO', 1, 0, 'C');
+$pdf->Cell(30, 8, 'IMPTO', 1, 0, 'C');
+$pdf->Cell(30, 8, 'TOTAL', 1, 1, 'C');
+$pdf->SetFont('Arial', '', 8);
 
 $consumos = 0;
 $impto = 0;
@@ -223,57 +213,33 @@ foreach ($tipoimptos as $tipoimpto) {
 $pdf->Ln(1);
 $pdf->SetFont('Arial', '', 8);
 $pdf->MultiCell(190, 4, 'SON :'.numtoletras($total), 1, 'L');
+$pdf->SetFont('Arial', '', 5);
+$pdf->MultiCell(190, 3, utf8_decode('Representación impresa de la factura electrónica,Firma Electrónica y Cufe : ').'CUFE'.utf8_decode('Fecha Validación Dian = ').' FIRMA = '.$firma, 1, 'L');
 $pdf->setY(226);
 $pdf->SetFont('Arial', '', 7);
-$pdf->MultiCell(95, 4, utf8_decode(TEXTOBANCO), 1, 'C');
+$pdf->MultiCell(95, 4, utf8_decode(TEXTOBANCO).', '.utf8_decode(TEXTOFACTURA), 1, 'C');
 $y = $pdf->GetY();
 $pdf->SetY(226);
 $pdf->SetX(105);
+$pdf->SetFont('Arial', '', 8);
+
 $pdf->MultiCell(95, 6, '  
                         Nombre                                             Identificacion
 
                         Firma                                              Fecha', 1, 'L');
-// $pdf->Cell(19,6,'',0,1,'L');
-$pdf->SetY(234);
-$pdf->MultiCell(95, 4, utf8_decode(TEXTOFACTURA), 0, 'C');
-// $pdf->MultiCell(95,4,'Impreso Pos '.$usuario,1,'C');
-$pdf->Ln(2);
-
-$pdf->Cell(40, 6, 'FACTURADO POR :', 1, 0, 'C');
-$pdf->Cell(55, 6, $usuario, 1, 1, 'L');
-$pdf->Ln(2);
+$pdf->SetY(245);
+$pdf->Cell(40, 4, 'FACTURADO POR :', 1, 0, 'C');
+$pdf->Cell(55, 4, $usuario, 1, 1, 'L');
 
 $pdf->SetY(250);
 
+$pdf->Ln(1);
+$pdf->SetFont('Arial', '', 6);
+
 $pdf->MultiCell(190, 4, utf8_decode(PIEFACTURA), 0, 'C');
 
-// $file = 'Factura_'.$nroFactura.'.pdf';
-
 $file = '../../imprimir/facturas/Factura_'.$nroFactura.'.pdf';
-/* $pdf->Cell(100, 5, '', 0, 0, 'L');
-$pdf->SetFont('Arial', 'B', 11);
-$pdf->Ln(1);
-$pdf->SetFont('Arial', '', 10);
-$pdf->MultiCell(190, 5, 'SON :'.numtoletras($total), 1, 'L');
-$pdf->setY(155);
-$pdf->SetFont('Arial', 'B', 10);
 
-$y = $pdf->GetY();
-$pdf->SetY(226);
-$pdf->MultiCell(95, 4, '
-
-
-
-      Firma Cajero
-                        ', 1, 'C');
-$pdf->SetY(226);
-$pdf->SetX(105);
-$pdf->MultiCell(95, 6, '
-        Nombre                                             Identificacion
-
-        Firma                                              Fecha', 1, 'L');
-$pdf->Ln(1);
-$file = '../../imprimir/facturas/Factura_'.$nroFactura.'.pdf'; */
 $pdf->Output($file, 'F');
 
 array_push($estadofactura, 'Factura_'.$nroFactura.'.pdf');

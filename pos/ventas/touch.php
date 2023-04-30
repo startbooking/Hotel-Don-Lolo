@@ -91,9 +91,8 @@
                 </td>
               </tr>
               <tr style="text-align:right">
-                <td >Descuento</td>
-                <td id="totalDesc" ><?php echo '$ '.number_format(0 + 0 - 0, 2, ',', '.'); ?>
-                </td>
+                <td ></td>
+                <td id="totalDesc" ></td>
                 <td >Total a Pagar</td>
                 <td id="totalCuenta" ><?php echo '$ '.number_format(0 + 0 - 0, 2, ',', '.'); ?>
                 </td>

@@ -1,8 +1,8 @@
 <header class="main-header">
   <a href="<?php echo BASE_VIE; ?>modulos.php" class="logo">
-    <img class="img_thumbnail logo-mini imgLogo" src="<?php echo BASE_WEB; ?>img/logoBarahona.png">
+    <img class="img_thumbnail" src="<?php echo BASE_WEB; ?>img/logoBarahona.png">
     <div class="container-fluid logo-lg" style="transition:0.3s">
-      <img style="margin-top:2px !important;" class="img_thumbnail imgLogo" src="<?php echo BASE_WEB; ?>img/logoBarahona.png">
+      <img style="margin-top:2px !important;" class="img_thumbnail" src="<?php echo BASE_WEB; ?>img/logoBarahona.png">
       <span style="font-size:16px;font-weight: 600">Pagina Principal</span>
     </div>
   </a>

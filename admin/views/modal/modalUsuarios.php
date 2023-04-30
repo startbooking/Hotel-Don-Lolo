@@ -179,11 +179,11 @@
               <div class="col-lg-4 col-md-4">
                 <select name="tipoMod" id="tipoMod" required>
                   <option>Seleccione el Tipo Usuario</option>
-                  <option value="A">Administrador</option>
-                  <option value="B">Auditor</option>
-                  <option value="C">Cajero</option>
-                  <option value="D">Digitador</option>
-                  <option value="U">Usuario Consulta</option>
+                  <option value="1">Administrador</option>
+                  <option value="2">Auditor</option>
+                  <option value="3">Cajero</option>
+                  <option value="4">Digitador</option>
+                  <option value="5">Usuario Consulta</option>
                   ?>
                 </select>
               </div>
