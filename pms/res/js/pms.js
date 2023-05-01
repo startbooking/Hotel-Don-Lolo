@@ -4408,7 +4408,7 @@ function salidaHuesped() {
             5000
           );
           $("#myModalSalidaHuesped").modal("hide");
-          // activaFolio(reserva, data[1]);
+          activaFolio(reserva, data[1]);
         }
       },
     });

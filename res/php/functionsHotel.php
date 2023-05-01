@@ -5,6 +5,37 @@ date_default_timezone_set('America/Bogota');
 
 class Hotel_Actions
 {
+    public function traePaquetesHabitacion($tarifa)
+    {
+        global $database;
+
+        $data = $database->query("
+        SELECT
+            paquetes.codigo_vta, 
+            paquetes.valor, 
+            paquetes_tarifas.id_tarifa, 
+            paquetes_tarifas.id_paquete, 
+            codigos_vta.id_impto,
+            codigos_vta.porcentaje_impto,
+            codigos_vta.decreto_turismo,
+            codigos_vta.descripcion_cargo
+        FROM
+            paquetes
+            INNER JOIN
+            paquetes_tarifas
+            ON 
+                paquetes.id = paquetes_tarifas.id_paquete
+            INNER JOIN
+            codigos_vta
+            ON 
+                paquetes.codigo_vta = codigos_vta.id_cargo
+        WHERE
+            paquetes_tarifas.id_tarifa = '$tarifa'"
+        )->fetchAll();
+
+        return $data;
+    }
+
     public function getProductosAmenities($tipo)
     {
         global $database;

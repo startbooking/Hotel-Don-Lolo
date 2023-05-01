@@ -1,16 +1,16 @@
-<?php 
-  $encasa     = $hotel->getTotalHuespedeseCasa(1);
-  $llegan     = $hotel->getTotalHuespedeseLlegando();
-  $salen      = $hotel->getTotalHuespedeseSaliendo();
-  $reservas   = $hotel->getReservasActivas(1,'ES');
-  $congeladas = $hotel->getReservasActivas(2,'CO');
-  $maestras   = $hotel->getCuentasMaestras();
-  $cargos     = $hotel->sumCargosdelDia(FECHA_PMS);
-  $abonos     = $hotel->sumAbonosdelDia(FECHA_PMS);
-  $deposito   = $hotel->sumDepositosdelDia(FECHA_PMS);
-  $pagos      = $hotel->sumPagosdelDia(FECHA_PMS);
-  $rooms      = $hotel->habitacionesDisponibles(CTA_MASTER);
-  $cmaster    = $hotel->getTotalCuentasMaestras();
+<?php
+$encasa = $hotel->getTotalHuespedeseCasa(1);
+$llegan = $hotel->getTotalHuespedeseLlegando();
+$salen = $hotel->getTotalHuespedeseSaliendo();
+$reservas = $hotel->getReservasActivas(1, 'ES');
+$congeladas = $hotel->getReservasActivas(2, 'CO');
+$maestras = $hotel->getCuentasMaestras();
+$cargos = $hotel->sumCargosdelDia(FECHA_PMS);
+$abonos = $hotel->sumAbonosdelDia(FECHA_PMS);
+$deposito = $hotel->sumDepositosdelDia(FECHA_PMS);
+$pagos = $hotel->sumPagosdelDia(FECHA_PMS);
+$rooms = $hotel->habitacionesDisponibles(CTA_MASTER);
+$cmaster = $hotel->getTotalCuentasMaestras();
 
 ?>
 
@@ -18,13 +18,13 @@
 <div class="content-wrapper" >
   <section class="container-fluid" style="margin-bottom: 5px;">
     <div class="container-fluid">
-      <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_PMS?>">
+      <input type="hidden" name="rutaweb" id="rutaweb" value="<?php echo BASE_PMS; ?>">
       <input type="hidden" name="ubicacion" id="ubicacion" value="home">
       <h1 style="font-size:34px;">
       Panel de Control <br>
-      <span><?=NAME_HOTEL?></span>
+      <span><?php echo NAME_HOTEL; ?></span>
       <!--
-      <img style="margin-top:-40px;width: 80px" class="img-thumbnail" src="<?=BASE_WEB?>img/<?=LOGO?>" alt=""> 
+      <img style="margin-top:-40px;width: 80px" class="img-thumbnail" src="<?php echo BASE_WEB; ?>img/<?php echo LOGO; ?>" alt=""> 
       -->
       </h1>
     </div>
@@ -36,25 +36,25 @@
           <a class="small-box bg-aqua" href="llegadasDelDia">
             <div class="inner">
               <div class="container-fluid" style="padding:0">
-                <div class="inner col-sm-8">
-                  <?php 
-                   ?>
-                  <h3 style="margin:0"><?=$llegan[0]['habi']?></h3>
+                <div class="inner col-sm-8 col-xs-4">
+                  <?php
+?>
+                  <h3 style="margin:0"><?php echo $llegan[0]['habi']; ?></h3>
                   <p style="margin-bottom: 0">Llegadas en el Dia</p>
                 </div>
-                <div class="inner col-sm-2">
-                  <h3 style="margin:0" align="center"><?=$llegan[0]['hom']+$llegan[0]['muj']?></h3>
+                <div class="inner col-sm-2 col-xs-4">
+                  <h3 style="margin:0" align="center"><?php echo $llegan[0]['hom'] + $llegan[0]['muj']; ?></h3>
                   <p>Adultos</p>                    
                 </div>
-                <div class="inner col-sm-2">
+                <div class="inner col-sm-2 col-xs-4">
                   <h3 style="margin:0" align="center">
-                    <?php 
-                      if($llegan[0]['nin']==''){
-                        echo 0 ;
-                      }else{
-                        echo $llegan[0]['nin'];
-                      }
-                     ?>
+                    <?php
+   if ($llegan[0]['nin'] == '') {
+       echo 0;
+   } else {
+       echo $llegan[0]['nin'];
+   }
+?>
                     </h3>
                   <p>Niños</p>
                 </div>
@@ -73,23 +73,23 @@
             <div class="inner">
               <div class="container-fluid" style="padding:0">
                 <div class="row-fluid">
-                  <div class="inner col-sm-8">
-                    <h3 style="margin:0"><?=$encasa[0]['habi']?></h3>
+                  <div class="inner col-sm-8 col-xs-4">
+                    <h3 style="margin:0"><?php echo $encasa[0]['habi']; ?></h3>
                     <p style="margin-bottom: 0">Habitaciones Ocupadas</p>
                   </div>
-                  <div class="inner col-sm-2">
-                    <h3 style="margin:0" align="center"><?=$encasa[0]['hom']+$encasa[0]['muj']?></h3>
+                  <div class="inner col-sm-2 col-xs-4">
+                    <h3 style="margin:0" align="center"><?php echo $encasa[0]['hom'] + $encasa[0]['muj']; ?></h3>
                     <p>Adultos</p>                    
                   </div>
-                  <div class="inner col-sm-2">
+                  <div class="inner col-sm-2 col-xs-4">
                     <h3 style="margin:0" align="center">
-                      <?php 
-                        if($encasa[0]['nin']==''){
-                          echo 0 ;
-                        }else{
-                          echo $encasa[0]['nin'];
-                        }
-                       ?>                      
+                      <?php
+   if ($encasa[0]['nin'] == '') {
+       echo 0;
+   } else {
+       echo $encasa[0]['nin'];
+   }
+?>                      
                       </h3>
                     <p>Niños</p>
                   </div>
@@ -97,7 +97,7 @@
                 <!--
                 <div class="row-fluid">
                   <div class="inner col-sm-8">
-                    <h3 style="margin:0"><?=$cmaster?></h3>
+                    <h3 style="margin:0"><?php echo $cmaster; ?></h3>
                     <p style="margin-bottom: 0">Cuentas Maestas</p>
                   </div>
                 </div>
@@ -116,23 +116,23 @@
           <a class="small-box bg-yellow" href="salidasDelDia" >
             <div class="inner">
               <div class="container-fluid" style="padding:0">
-                <div class="inner col-sm-8">
-                  <h3 style="margin:0"><?=$salen[0]['habi']?></h3>
+                <div class="inner col-sm-8 col-xs-4">
+                  <h3 style="margin:0"><?php echo $salen[0]['habi']; ?></h3>
                   <p style="margin-bottom: 0">Salidas del Dia</p>                    
                 </div>
-                <div class="inner col-sm-2">
-                  <h3 style="margin:0" align="center"><?=$salen[0]['hom']+$salen[0]['muj']?></h3>
+                <div class="inner col-sm-2 col-xs-4">
+                  <h3 style="margin:0" align="center"><?php echo $salen[0]['hom'] + $salen[0]['muj']; ?></h3>
                   <p>Adultos</p>                    
                 </div>
-                <div class="inner col-sm-2">
+                <div class="inner col-sm-2 col-xs-4">
                   <h3 style="margin:0" align="center">
-                    <?php 
-                      if($salen[0]['nin']==''){
-                        echo 0 ;
-                      }else{
-                        echo $salen[0]['nin'];
+                    <?php
+                      if ($salen[0]['nin'] == '') {
+                          echo 0;
+                      } else {
+                          echo $salen[0]['nin'];
                       }
-                     ?>
+?>
                     </h3>
                   <p>Niños</p>
                 </div>
@@ -149,7 +149,7 @@
         <div>
           <a class="small-box bg-blue-gradient" href="reservasActivas">
             <div class="inner">
-              <h3><?=$reservas?></h3>
+              <h3><?php echo $reservas; ?></h3>
               <p>Reservas Activas</p>
             </div>
             <div class="icon">
@@ -164,7 +164,7 @@
         <div>
           <a href="cuentasCongeladas" class="small-box bg-light-blue-gradient">
             <div class="inner">
-              <h3><?=$congeladas?></h3>
+              <h3><?php echo $congeladas; ?></h3>
               <p>Cuentas Congeladas</p>
             </div>
             <div class="icon">
@@ -179,7 +179,7 @@
         <div>
           <a href="encasa" class="small-box bg-red-gradient">
             <div class="inner">
-              <h3><?=$maestras?></h3>
+              <h3><?php echo $maestras; ?></h3>
               <p>Cuentas Maestras Activas</p>
             </div>
             <div class="icon">
@@ -203,7 +203,7 @@
       </div>
     </div>
     <div class="container-fluid">
-      <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="col-md-3 col-sm-6 col-xs-6">
         <div class="info-box">
           <a 
             data-toggle="modal" 
@@ -216,7 +216,7 @@
           </a>
         </div>
       </div>
-      <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="col-md-3 col-sm-6 col-xs-6">
         <div class="info-box">
           <a 
             data-toggle="modal" 
@@ -229,7 +229,7 @@
         </div>
       </div>
       <div class="clearfix visible-sm-block"></div>
-      <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="col-md-3 col-sm-6 col-xs-6">
         <div class="info-box">
           <a href="ingresoConsumos">
             <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
@@ -239,7 +239,7 @@
           </a>
         </div>
       </div>
-      <div class="col-md-3 col-sm-6 col-xs-12">        
+      <div class="col-md-3 col-sm-6 col-xs-6">        
         <div class="info-box">
           <a href="forecast">
             <span class="info-box-icon bg-yellow"><i class="fa fa-area-chart"></i></span>
@@ -253,8 +253,8 @@
   </section>
 </div>
 
-<?php 
+<?php
   include_once 'views/modal/modalHome.php';
-  // include_once 'views/modal/modalReservas.php';
-  // include_once 'views/modal/modalHuespedes.php';
+// include_once 'views/modal/modalReservas.php';
+// include_once 'views/modal/modalHuespedes.php';
 ?>

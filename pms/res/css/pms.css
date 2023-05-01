@@ -428,19 +428,19 @@ a.info:hover span{ /*the span will display just on :hover state*/
   margin: 0;
 }
 
-.bg-limpiaOcu{
+.bg-limpiaVac{
   background-color: #02ebff;
 }
 
-.bg-limpiaVac{
+.bg-limpiaOcu{
   background-color: #038591;
 }
 
-.bg-suciaOcu{
+.bg-suciaVac{
   background-color: #fbfb04;
 }
 
-.bg-suciaVac{
+.bg-suciaOcu{
   background-color: #aeae05;
 }
 
@@ -451,6 +451,45 @@ a.info:hover span{ /*the span will display just on :hover state*/
 .bg-fueraSer{
   background-color: #02ebff;
 }
+
+.menuEstadHab{
+  list-style: none;
+  padding: 0;
+  color: #000;
+  font-size: 13px;
+}
+
+.menuEstadHab li{
+  padding:5px;
+  color:#000;
+  width: 48%;
+  display: inline flow-root list-item;
+}
+
+.btnRoomStatus {
+  padding:2px;margin:2px;color:#FFF;width: 11%;
+}
+.btnRoomStatus h3 {
+  font-size: 20px;
+  margin: 0;
+}
+
+.btnRoomStatus h4 {
+  text-align: center;
+  margin: 2px 0;
+  font-weight: bold;
+  color: #000;
+  font-size: 12px;
+}
+
+.btnRoomStatus h5 {
+  text-align: center;margin:2px 0;font-weight: bold;color:#000;
+}
+
+.btnRoomStatus .inner {
+  min-height: 90px;
+}
+
 
 .btnpage{
   text-decoration: none;
@@ -502,6 +541,23 @@ input[type="date"].form-control, input[type="time"].form-control, input[type="da
     height:140px;
     background-color: rgb(205,205,205,0.55);
   }
-  
+
+}
+
+
+@media (max-width:421px) {
+  .btnRoomStatus h4 {
+    font-size: 10px;
+  }
+
+  .btnRoomStatus h3 {
+    font-size: 16px;
+  }
+
+  h5 {
+    font-size: 10px;
+  }
+
+
 }
 

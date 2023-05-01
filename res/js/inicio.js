@@ -181,21 +181,21 @@ function activaModulos() {
     div =
       div +
       `<div id="inv" style="cursor: pointer;" class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-          <a onclick="ingresoInv()" class="small-box-footer">
-            <div class="small-box bg-yellow-gradient">	
-              <div class="inner">	
-                <h3>Inventarios</h3>
-                <p>Control de Stock</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-archive"></i>
-              </div>
-              <small class="small-box-footer" style="font-size:12px">Ingresar
-                <i class="fa fa-arrow-circle-right"></i>
-              </small>
+        <a onclick="ingresoInv()" class="small-box-footer">
+          <div class="small-box bg-yellow-gradient">	
+            <div class="inner">	
+              <h3>Inventarios</h3>
+              <p>Control de Stock</p>
             </div>
-          </a>
-       </div>`;
+            <div class="icon">
+              <i class="ion ion-archive"></i>
+            </div>
+            <small class="small-box-footer" style="font-size:12px">Ingresar
+              <i class="fa fa-arrow-circle-right"></i>
+            </small>
+          </div>
+        </a>
+      </div>`;
   }
   if (pos == "1") {
     div =
@@ -203,28 +203,27 @@ function activaModulos() {
       `
 			<div id="pos" class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
 				<a href="../pos/inicio.php" class="small-box-footer">
-				<div class="small-box bg-green-gradient">
-					<div class="inner"> 
-						<h3>Puntos de Venta</h3> 
-						<p>Ventas Restaurantes </p>
-					</div>
-					<div class="icon">
-						<i class="ion ion-coffee"></i>
-					</div>
-					<small class="small-box-footer" style="font-size:12px">Ingresar
-						<i class="fa fa-arrow-circle-right"></i>
-					</small>
-				</div>
-			</a>
-		</div>`;
+          <div class="small-box bg-green-gradient">
+            <div class="inner"> 
+              <h3>Puntos de Venta</h3> 
+              <p>Ventas Restaurantes </p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-coffee"></i>
+            </div>
+            <small class="small-box-footer" style="font-size:12px">Ingresar
+              <i class="fa fa-arrow-circle-right"></i>
+            </small>
+          </div>
+        </a>
+      </div>
+      `;
   }
   if (pms == "1") {
     div =
       div +
       `
-			<div id="pms" 
-				style="cursor: pointer;" 
-				class="col-lg-4 col-md-4 col-sm-6 col-xs-12">	
+			<div id="pms" style="cursor: pointer;" class="col-lg-4 col-md-4 col-sm-6 col-xs-12">	
 				<a onclick="ingresoPms()" >
 					<div class="small-box bg-blue-gradient">			
 						<div class="inner">				
@@ -240,30 +239,32 @@ function activaModulos() {
 					</div>	
 				</a>              
 			</div>
-		`;
+		  `;
   }
   if (tipo == "1") {
     div =
       div +
-      `
-		<div id="par" style="cursor: pointer;display:flex;margin-top:40px" class="container-fluid">
-			<div class="container moduloCentrar">
-				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
-					<a onclick="ingresoAdmin()" class="small-box-footer">                  
-						<div class="small-box bg-red-gradient">                    
-							<div class="inner">                      
-								<h3 style="overflow-x: hidden;">Configuracion General <br></h3> 
-								<p style="color:#FFF">Parametros del Sistema</p>
-							</div>                    
-							<div class="icon">
-								<i class="fa fa-cogs"></i>
-							</div>
-							<small class="small-box-footer" style="font-size:12px">Ingresar <i class="fa fa-arrow-circle-right"></i></small>
-						</div>
-					</a>
-				</div>
-			</div>
-		</div>
+      `</div>
+    <div class="container-fluid">
+      <div id="par" style="cursor: pointer;display:flex;margin-top:40px" class="container-fluid">
+        <div class="container">
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
+            <a onclick="ingresoAdmin()" class="small-box-footer">                  
+              <div class="small-box bg-red-gradient">                    
+                <div class="inner">                      
+                  <h3 style="overflow-x: hidden;">Configuracion General <br></h3> 
+                  <p style="color:#FFF">Parametros del Sistema</p>
+                </div>                    
+                <div class="icon">
+                  <i class="fa fa-cogs"></i>
+                </div>
+                <small class="small-box-footer" style="font-size:12px">Ingresar <i class="fa fa-arrow-circle-right"></i></small>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
 		`;
   }
   $("#modulos").html(div);
