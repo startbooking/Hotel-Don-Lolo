@@ -254,7 +254,7 @@
 
          $data = $database->insert('usuarios', [
              'identificacion' => $identificacion,
-             'estado' => 'A',
+             'estado' => '1',
              'nombres' => $nombres,
              'apellidos' => $apellidos,
              'correo' => $correo,

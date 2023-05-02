@@ -5,6 +5,26 @@ date_default_timezone_set('America/Bogota');
 
 class Pos_Actions
 {
+    public function getTotalProductosVendidosMes($amb, $desdefe, $hastafe)
+    {
+        global $database;
+
+        $data = $database->query("SELECT historico_detalle_facturas_pos.producto_id, historico_detalle_facturas_pos.nom,historico_detalle_facturas_pos.importe as unitario,  Sum( historico_detalle_facturas_pos.venta ) AS ventas, Sum( historico_detalle_facturas_pos.descuento ) AS descuento, Sum( historico_detalle_facturas_pos.valorimpto ) AS imptos, Sum( historico_detalle_facturas_pos.venta + historico_detalle_facturas_pos.valorimpto ) AS total, Sum( historico_detalle_facturas_pos.cant ) AS cant, Sum( historico_facturas_pos.pax ) AS pers, ambientes.nombre, producto.id_receta, producto.tipo_producto FROM historico_detalle_facturas_pos, historico_facturas_pos, ambientes, producto WHERE historico_facturas_pos.comanda = historico_detalle_facturas_pos.comanda AND historico_facturas_pos.ambiente = ambientes.id_ambiente AND historico_facturas_pos.estado = 'A' AND ambientes.id_ambiente = '$amb' AND historico_detalle_facturas_pos.producto_id = producto.producto_id AND historico_facturas_pos.fecha BETWEEN '$desdefe' AND '$hastafe' GROUP BY ambientes.nombre, historico_detalle_facturas_pos.nom ORDER BY historico_detalle_facturas_pos.nom ASC")->fetchAll();
+
+        return $data;
+    }
+
+    public function buscaIdentificacion($iden)
+    {
+        global $database;
+
+        $data = $database->count('clientes', [
+            'identificacion' => $iden,
+        ]);
+
+        return $data;
+    }
+
     public function getCantidadFormasPagoVendidos($amb)
     {
         global $database;
