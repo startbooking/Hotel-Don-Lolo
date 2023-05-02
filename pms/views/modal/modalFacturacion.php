@@ -1,6 +1,5 @@
 <?php
 $cias = $hotel->getCompanias();
-$centros = $hotel->getCentros();
 ?> 
 
 <div class="modal fade" id="myModalCargosConsumo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">  
@@ -377,14 +376,6 @@ foreach ($cias as $key => $value) { ?>
                 </select>
               </div>
             </div>            
-            <!-- <div class="form-group" id="selecentro" style="display: none;">
-              <label class="control-label col-xs-3">Centro de Costo</label>
-              <div class="col-lg-7 col-xs-7">
-                <select name="txtIdCentroCiaSal" id="txtIdCentroCiaSal" readonly disabled>
-                  <option value="<?php echo $centros[0]['id_centro']; ?>"><?php echo $centros[0]['descripcion_centro']; ?></option>
-                </select>
-              </div>
-            </div>  -->           
             <div class="form-group" id="selecomp">
               <label class="control-label col-xs-2">Titular</label>
               <div class="col-lg-8 col-xs-8">
@@ -709,7 +700,7 @@ foreach ($encasas as $encasa) { ?>
         </div>
       </div>
     </div>
-  </form> 
+  </form>  
 </div>
 
 <div class="modal fade" id="myModalCongelarCuenta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -740,27 +731,28 @@ foreach ($encasas as $encasa) { ?>
               </div>
             </div>
             <div class="form-group">
-              <label for="direccion" class="col-sm-2 control-label">Centro de Costo </label>
+              <!-- <label for="direccion" class="col-sm-2 control-label">Centro de Costo </label>
               <div class="col-sm-6">
                 <input type="text" class="form-control" id="txtCentroCon" name="txtCentroCon" value="" readonly>
                 <input type="hidden" name="txtIdCentroCia" id="txtIdCentroCia" value="">
+              </div> -->
+              
+            </div>
+            <div class="form-group">
+              <label class="control-label col-xs-2">Huesped</label>
+              <div class="col-lg-6 col-xs-5">
+                <input class="form-control padInput" type="text" name="txtApellidosCong" id='txtApellidosCong' value='0' readonly>
               </div>
-              <label class="control-label col-xs-2">Hab.</label>
+              <label class="control-label col-xs-1">Hab.</label>
               <div class="col-lg-2 col-xs-2">
                 <input class="form-control padInput" type="text" name='txtNumeroHabCong' id='txtNumeroHabCong' readonly>
               </div>
-            </div>
-            <div class="form-group">
-              <label class="control-label col-xs-2">Apellidos</label>
-              <div class="col-lg-4 col-xs-5">
-                <input class="form-control padInput" type="text" name="txtApellidosCong" id='txtApellidosCong' value='0' readonly>
-              </div>
-              <label class="control-label col-xs-2">Nombres</label>
+              <!-- <label class="control-label col-xs-2">Nombres</label>
               <div class="col-lg-4 col-xs-4">
                 <input class="form-control padInput" type="text" name="txtNombresCong" id='txtNombresCong' value='0' readonly>
-              </div>
+              </div> -->
             </div>
-            <div class="container-fluid alert alert-info" style="margin-top:20px">
+            <div class="form-group" style="margin-top:20px">
               <label class="control-label col-xs-2" style="color: #000;">Saldo Cuenta</label>
               <div class="col-lg-4 col-xs-4">
                 <input class="form-control padInput" type="number" name='valorSaldo' id='valorSaldo' readonly>

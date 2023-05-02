@@ -1,18 +1,17 @@
 <?php
-$encasa = $hotel->getTotalHuespedeseCasa(1);
-$llegan = $hotel->getTotalHuespedeseLlegando();
-$salen = $hotel->getTotalHuespedeseSaliendo();
-$reservas = $hotel->getReservasActivas(1, 'ES');
-$congeladas = $hotel->getReservasActivas(2, 'CO');
-$maestras = $hotel->getCuentasMaestras();
-$cargos = $hotel->sumCargosdelDia(FECHA_PMS);
-$abonos = $hotel->sumAbonosdelDia(FECHA_PMS);
-$deposito = $hotel->sumDepositosdelDia(FECHA_PMS);
-$pagos = $hotel->sumPagosdelDia(FECHA_PMS);
-$rooms = $hotel->habitacionesDisponibles(CTA_MASTER);
-$cmaster = $hotel->getTotalCuentasMaestras();
-
-?>
+  $encasa = $hotel->getTotalHuespedeseCasa(1);
+  $llegan = $hotel->getTotalHuespedeseLlegando();
+  $salen = $hotel->getTotalHuespedeseSaliendo();
+  $reservas = $hotel->getReservasActivas(1, 'ES');
+  $congeladas = $hotel->getReservasActivas(2, 'CO');
+  $maestras = $hotel->getCuentasMaestras();
+  $cargos = $hotel->sumCargosdelDia(FECHA_PMS);
+  $abonos = $hotel->sumAbonosdelDia(FECHA_PMS);
+  $deposito = $hotel->sumDepositosdelDia(FECHA_PMS);
+  $pagos = $hotel->sumPagosdelDia(FECHA_PMS);
+  $rooms = $hotel->habitacionesDisponibles(CTA_MASTER);
+  $cmaster = $hotel->getTotalCuentasMaestras();
+  ?>
 
 
 <div class="content-wrapper" >
@@ -37,8 +36,6 @@ $cmaster = $hotel->getTotalCuentasMaestras();
             <div class="inner">
               <div class="container-fluid" style="padding:0">
                 <div class="inner col-sm-8 col-xs-4">
-                  <?php
-?>
                   <h3 style="margin:0"><?php echo $llegan[0]['habi']; ?></h3>
                   <p style="margin-bottom: 0">Llegadas en el Dia</p>
                 </div>
@@ -47,14 +44,14 @@ $cmaster = $hotel->getTotalCuentasMaestras();
                   <p>Adultos</p>                    
                 </div>
                 <div class="inner col-sm-2 col-xs-4">
-                  <h3 style="margin:0" align="center">
+                  <h3 style="margin:0;text-align:center;">
                     <?php
-   if ($llegan[0]['nin'] == '') {
-       echo 0;
-   } else {
-       echo $llegan[0]['nin'];
-   }
-?>
+                        if ($llegan[0]['nin'] == '') {
+                            echo 0;
+                        } else {
+                            echo $llegan[0]['nin'];
+                        }
+  ?>
                     </h3>
                   <p>Niños</p>
                 </div>
@@ -84,12 +81,12 @@ $cmaster = $hotel->getTotalCuentasMaestras();
                   <div class="inner col-sm-2 col-xs-4">
                     <h3 style="margin:0" align="center">
                       <?php
-   if ($encasa[0]['nin'] == '') {
-       echo 0;
-   } else {
-       echo $encasa[0]['nin'];
-   }
-?>                      
+    if ($encasa[0]['nin'] == '') {
+        echo 0;
+    } else {
+        echo $encasa[0]['nin'];
+    }
+  ?>                      
                       </h3>
                     <p>Niños</p>
                   </div>
@@ -127,12 +124,12 @@ $cmaster = $hotel->getTotalCuentasMaestras();
                 <div class="inner col-sm-2 col-xs-4">
                   <h3 style="margin:0" align="center">
                     <?php
-                      if ($salen[0]['nin'] == '') {
-                          echo 0;
-                      } else {
-                          echo $salen[0]['nin'];
-                      }
-?>
+if ($salen[0]['nin'] == '') {
+    echo 0;
+} else {
+    echo $salen[0]['nin'];
+}
+  ?>
                     </h3>
                   <p>Niños</p>
                 </div>
@@ -254,7 +251,7 @@ $cmaster = $hotel->getTotalCuentasMaestras();
 </div>
 
 <?php
-  include_once 'views/modal/modalHome.php';
-// include_once 'views/modal/modalReservas.php';
-// include_once 'views/modal/modalHuespedes.php';
-?>
+    include_once 'views/modal/modalHome.php';
+  // include_once 'views/modal/modalReservas.php';
+  // include_once 'views/modal/modalHuespedes.php';
+  ?>

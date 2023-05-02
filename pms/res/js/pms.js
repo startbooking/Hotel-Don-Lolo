@@ -761,27 +761,20 @@ let { usuario_id, usuario, nombres, apellidos, tipo } = user;
         modal
           .find(".modal-title")
           .text(
-            "Congelar Cuenta  : " +
-              apellido1 +
-              " " +
-              apellido2 +
-              " " +
-              nombre1 +
-              " " +
-              nombre2
+            `Congelar Cuenta  : ${apellido1} ${apellido2} ${nombre1} ${nombre2}`
           );
         modal.find(".modal-body #txtIdCiaCong").val(idcia);
         modal.find(".modal-body #txtEmpresaCong").val(empresa);
-        modal.find(".modal-body #txtIdCentroCia").val(idcentro);
-        modal.find(".modal-body #txtCentroCon").val(centro);
+        // modal.find(".modal-body #txtIdCentroCia").val(idcentro);
+        // modal.find(".modal-body #txtCentroCon").val(centro);
         modal.find(".modal-body #txtNitCong").val(nit);
         modal.find(".modal-body #txtIdReservaCong").val(id);
         modal.find(".modal-body #txtIdHuespedCong").val(hues);
         modal.find(".modal-body #txtNumeroHabCong").val(nrohab);
         modal
           .find(".modal-body #txtApellidosCong")
-          .val(apellido1 + " " + apellido2);
-        modal.find(".modal-body #txtNombresCong").val(nombre1 + " " + nombre2);
+          .val(`${apellido1} ${apellido2} ${nombre1} ${nombre2}`);
+        // modal.find(".modal-body #txtNombresCong").val();
         modal.find(".modal-body #valorSaldo").val(saldo);
 
         traeHuespedes(reserva, hues);
@@ -3320,7 +3313,8 @@ function activaCongelado(reserva, folio) {
 function movimientosCongelada(reserva) {
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
-  var parametros = { reserva: reserva };
+  console.log(reserva);
+  var parametros = { reserva };
   $.ajax({
     type: "POST",
     url: web + "res/php/saldoHabitacion.php",
@@ -3329,7 +3323,7 @@ function movimientosCongelada(reserva) {
       $("#plantilla").html("");
       $("#plantilla").html(data);
       activaCongelado(reserva, 1);
-      /// $(location).attr('href','facturacionCongelada');
+      $(location).attr("href", "facturacionCongelada");
     },
   });
 }
@@ -3348,7 +3342,7 @@ function congelaHuesped() {
   var room = $("#nrohabitacion").val();
   var folio = $("#folioActivo").val();
   var idcia = $("#txtIdCiaCong").val();
-  var idcentro = $("#txtIdCentroCia").val();
+  // var idcentro = $("#txtIdCentroCia").val();
 
   var parametros = {
     room,
@@ -3356,7 +3350,7 @@ function congelaHuesped() {
     idhues,
     reserva,
     idcia,
-    idcentro,
+    // idcentro,
     usuario,
     idUser: usuario_id,
   };
@@ -3365,18 +3359,14 @@ function congelaHuesped() {
     url: web + "res/php/ingresoCongela.php",
     data: parametros,
     success: function (data) {
-      var ventana = window.open(
-        "imprimir/imprimeCongelada.php",
-        "PRINT",
-        "height=600,width=600"
-      );
+      var ventana = window.open(data, "PRINT", "height=600,width=600");
       swal(
         "Atencion",
         "Cuenta del Huesped Congelada con Exito",
         "success",
         5000
       );
-      $(location).attr("href", "facturacionEstadia");
+      // $(location).attr("href", "facturacionEstadia");
     },
   });
 }

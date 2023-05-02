@@ -1,7 +1,7 @@
-<?php 
+<?php
 
-$cias    =  $hotel->getCompanias();
-$centros = $hotel->getCentros();
+$cias = $hotel->getCompanias();
+// $centros = $hotel->getCentros();
 
 ?> 
 
@@ -51,14 +51,14 @@ $centros = $hotel->getCentros();
               <label class="control-label col-md-2">Compañia</label>
               <div class="col-lg-8 col-md-8">
                 <select class="form-control" name="seleccionaPagoCiaCon" id="seleccionaPagoCiaCon" style="padding:3px 12px;" required="" value="">
-                  <?php 
+                  <?php
                     $companias = $hotel->getCompanias();
-                    foreach ($companias as $compania) { 
-                      ?>
-                      <option value="<?=$compania['id_compania']?>"><?=$compania['empresa'].' '.$compania['nit'].'-'.$compania['dv']?> </option>
-                      <?php 
-                    } 
-                  ?>        
+foreach ($companias as $compania) {
+    ?>
+                      <option value="<?php echo $compania['id_compania']; ?>"><?php echo $compania['empresa'].' '.$compania['nit'].'-'.$compania['dv']; ?> </option>
+                      <?php
+}
+?>        
                 </select>
               </div>
             </div>
@@ -67,23 +67,23 @@ $centros = $hotel->getCentros();
               <label class="control-label col-xs-3">Compañia</label>
               <div class="col-lg-8 col-xs-8">
                 <select name="txtIdCiaSal" id="txtIdCiaSal"  readonly disabled>
-                  <?php 
-                    foreach ($cias as $key => $value) { ?> 
-                      <option value="<?=$value['id_compania']?>"><?=$value['empresa']?></option>
-                      <?php 
-                    }
-                  ?>
+                  <?php
+  foreach ($cias as $key => $value) { ?> 
+                      <option value="<?php echo $value['id_compania']; ?>"><?php echo $value['empresa']; ?></option>
+                      <?php
+  }
+?>
                 </select>
               </div>
             </div>            
-            <div class="form-group" id="selecentro">
+            <!-- <div class="form-group" id="selecentro">
               <label class="control-label col-xs-3">Centro de Costo</label>
               <div class="col-lg-8 col-xs-8">
                 <select name="txtIdCentroCiaSal" id="txtIdCentroCiaSal" readonly disabled>
-                  <option value="<?=$centros[0]['id_centro']?>"><?=$centros[0]['descripcion_centro']?></option>
+                  <option value="<?php echo $centros[0]['id_centro']; ?>"><?php echo $centros[0]['descripcion_centro']; ?></option>
                 </select>
               </div>
-            </div>            
+            </div>  -->           
 
             <div class="form-group" id="seletitular">
               <label class="control-label col-md-3">Titular</label>
@@ -159,13 +159,13 @@ $centros = $hotel->getCentros();
                 <div class="col-lg-9 col-xs-9" >
                   <select name="codigoConsumo" id="codigoConsumo" required>
                     <option value="">Seleccione Concepto</option>
-                    <?php 
-                      $codigos = $hotel->getCodigosConsumos(1);
-                      foreach ($codigos as $codigo) { ?>
-                        <option value="<?=$codigo['id_cargo']?>"><?=$codigo['descripcion_cargo']?></option>
-                        <?php  
-                      }
-                    ?>
+                    <?php
+    $codigos = $hotel->getCodigosConsumos(1);
+foreach ($codigos as $codigo) { ?>
+                        <option value="<?php echo $codigo['id_cargo']; ?>"><?php echo $codigo['descripcion_cargo']; ?></option>
+                        <?php
+}
+?>
                   </select>
                 </div>
               </div>

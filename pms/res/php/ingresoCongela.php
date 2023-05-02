@@ -1,32 +1,29 @@
-<?php 
-  session_start();
-  require '../../../res/php/app_topHotel.php'; 
+<?php
 
-	$room         = $_POST['room'];
-	$folio        = $_POST['folio'];
-	$idhues       = $_POST['idhues'];
-	$numero       = $_POST['reserva'];
-	$idcia        = $_POST['idcia'];
-	$idcentro     = $_POST['idcentro'];
-	$usuario      = $_POST['usuario'];
-	$idUser       = $_POST['idUser'];
-	
-	$canti        = 1;
-		
-	$fecha        = FECHA_PMS;	
-	
-	$numcongela  = $hotel->getNumeroCongela(); // Numero Actual del Abono
+session_start();
+require '../../../res/php/app_topHotel.php';
 
-	$nuevonumero = $hotel->updateNumeroCongela($numcongela + 1); // Actualiza Consecutivo del Abono
+$room = $_POST['room'];
+$folio = $_POST['folio'];
+$idhues = $_POST['idhues'];
+$reserva = $_POST['reserva'];
+$idcia = $_POST['idcia'];
+// $idcentro = $_POST['idcentro'];
+$usuario = $_POST['usuario'];
+$idUser = $_POST['idUser'];
 
-	$_SESSION['reserva']  = $numero;
-	$_SESSION['congela']  = $numcongela;
-	$_SESSION['idperfil'] = $idcia;	
-	$_SESSION['idcentro'] = $idcentro;	
+$canti = 1;
 
-	/* Verificar Saldo en la cuenta de esa habitacion*/ 
-	$salida   = $hotel->updateReservaHuespedCongela($numero,$usuario, $idUser, $fecha, $numcongela);		
-	/// $habSucia = $hotel->updateEstadoHabitacion($room);		
-	echo '-1';
+$fecha = FECHA_PMS;
 
- ?>
+$numcongela = $hotel->getNumeroCongela(); // Numero Actual del Abono
+
+$nuevonumero = $hotel->updateNumeroCongela($numcongela + 1); // Actualiza Consecutivo del Abono
+
+/* Verificar Saldo en la cuenta de esa habitacion */
+$salida = $hotel->updateReservaHuespedCongela($reserva, $usuario, $idUser, $fecha, $numcongela);
+// / $habSucia = $hotel->updateEstadoHabitacion($room);
+
+echo $salida;
+
+include_once '../../imprimir/imprimeCongelada.php';
