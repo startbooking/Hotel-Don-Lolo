@@ -1,6 +1,6 @@
 sesion = JSON.parse(localStorage.getItem("sesion"));
-let { usuarioAct } = sesion;
-let { usuario, usuario_id, apellidos, nombres } = usuarioAct;
+// let { user } = sesion;
+// let { usuario, usuario_id, apellidos, nombres } = user;
 
 function buscaCantidad() {
   desde = $("#llegada").val();

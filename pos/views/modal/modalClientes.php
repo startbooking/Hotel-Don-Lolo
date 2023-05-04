@@ -69,6 +69,13 @@
               <input type="email" class="form-control" id="correo" name="correo" required maxlength="80">
             </div>
           </div>
+          <div class="form-group">
+            <label for="empleado" class="control-label col-lg-2 col-md-2"></label>
+            <div class="col-lg-4 col-md-4" style="padding-left:0px;">
+              <label class="col-lg-6 col-md-6">
+                <input style="margin-right: 10px;" type="checkbox" name="empleado" id="empleado" value="1">Empleado</label>
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>

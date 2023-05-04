@@ -4928,6 +4928,7 @@ function cancelaReserva() {
         mensaje = "Reserva Cancelada con Exito ";
         alerta = "warning";
       }
+      /* */
       swal(titulo, mensaje, alerta);
       $(location).attr("href", pagina);
     },
@@ -5429,13 +5430,15 @@ function ingresaDeposito() {
     contentType: false,
     processData: false,
     success: function (datos) {
+      datos = $.trim(datos);
+      console.log(datos);
       var ventana = window.open(
-        "imprimir/notas/" + $.trim(datos),
+        `imprimir/notas/Abono_${datos}.pdf`,
         "PRINT",
         "height=600,width=600"
       );
       $("#myModalDepositoReserva").modal("hide");
-      $(location).attr("href", pagina);
+      // $(location).attr("href", pagina);
     },
   });
 }

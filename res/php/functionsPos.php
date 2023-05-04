@@ -3324,7 +3324,7 @@ class Pos_Actions
             return $data;
         }
 
-        public function adicionaCliente($nombre1, $nombre2, $apellido1, $apellido2, $identificacion, $direccion, $telefono, $celular, $correo, $estado, $tipodoc, $idusr)
+        public function adicionaCliente($nombre1, $nombre2, $apellido1, $apellido2, $identificacion, $direccion, $telefono, $celular, $correo, $estado, $tipodoc, $idusr, $empleado)
         {
             global $database;
 
@@ -3340,6 +3340,7 @@ class Pos_Actions
                 'email' => $correo,
                 'id_tipo_doc' => $tipodoc,
                 'id_usuario' => $idusr,
+                'empleado' => $empleado,
                 'created_at' => date('Y-m-d H:i:s'),
                 'estado' => $estado,
             ]);

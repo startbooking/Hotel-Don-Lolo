@@ -1,6 +1,5 @@
-<?php 
-  $cias    = $hotel->getCompanias();
-  $centros = $hotel->getCentros();
+<?php
+$cias = $hotel->getCompanias();
 ?> 
 
 <div class="modal fade" id="myModalCargosConsumo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">  
@@ -42,13 +41,13 @@
                 <div class="col-lg-9 col-xs-9" >
                   <select name="codigoConsumo" id="codigoConsumo" required>
                     <option value="">Seleccione Concepto</option>
-                    <?php 
+                    <?php
                       $codigos = $hotel->getCodigosConsumos(1);
-                      foreach ($codigos as $codigo) { ?>
-                        <option value="<?=$codigo['id_cargo']?>"><?=$codigo['descripcion_cargo']?></option>
-                        <?php  
-                      }
-                    ?>
+foreach ($codigos as $codigo) { ?>
+                        <option value="<?php echo $codigo['id_cargo']; ?>"><?php echo $codigo['descripcion_cargo']; ?></option>
+                        <?php
+}
+?>
                   </select>
                 </div>
               </div>
@@ -115,7 +114,6 @@
             <input type="hidden" name="txtIdHuespedSal"   id="txtIdHuespedSal"   value="">
             <input type="hidden" name="txtImptoTuriSal"   id="txtImptoTuriSal"   value="">
             <input type="hidden" name="txtIdCiaSal"       id="txtIdCiaSal"       value="">
-            <input type="hidden" name="txtIdCentroCiaSal" id="txtIdCentroCiaSal" value=""> 
             <input type="hidden" name="creditoCia"        id="creditoCia"        value="0">
             <input type="hidden" name="diasCreditoCia"    id="diasCreditoCia"    value="0">
             <input type="hidden" name="credito"           id="credito"           value="0">
@@ -140,23 +138,16 @@
               <label class="control-label col-xs-2">Compañia</label>
               <div class="col-lg-8 col-xs-8">
                 <select name="txtIdCiaSal" id="txtIdCiaSal"  readonly disabled>
-                  <?php 
-                    foreach ($cias as $key => $value) { ?> 
-                      <option value="<?=$value['id_compania']?>"><?=$value['empresa']?></option>
-                      <?php 
-                    }
-                  ?>
+                  <?php
+foreach ($cias as $key => $value) { ?> 
+                      <option value="<?php echo $value['id_compania']; ?>"><?php echo $value['empresa']; ?></option>
+                      <?php
+}
+?>
                 </select>
               </div>
             </div>            
-            <div class="form-group" id="selecentro" style="display: none;">
-              <label class="control-label col-xs-3">Centro de Costo</label>
-              <div class="col-lg-7 col-xs-7">
-                <select name="txtIdCentroCiaSal" id="txtIdCentroCiaSal" readonly disabled>
-                  <option value="<?=$centros[0]['id_centro']?>"><?=$centros[0]['descripcion_centro']?></option>
-                </select>
-              </div>
-            </div>            
+                       
             <div class="form-group" id="selecomp">
               <label class="control-label col-xs-2">Titular</label>
               <div class="col-lg-8 col-xs-8">

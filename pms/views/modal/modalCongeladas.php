@@ -1,7 +1,6 @@
 <?php
 
 $cias = $hotel->getCompanias();
-// $centros = $hotel->getCentros();
 
 ?> 
 
@@ -26,10 +25,7 @@ $cias = $hotel->getCompanias();
                 <input type="hidden" name="txtIdReservaCon" id="txtIdReservaCon" value="">
                 <input type="hidden" name="txtIdHuespedCon" id="txtIdHuespedCon" value="">
               </div>
-            <!--
-            </div>
-            <div class="form-group">
-            -->
+            
               <label for="llegada" class="col-sm-2 control-label">Facturar A </label>
               <div class="col-sm-6" style="padding:0;height: 30px">
                 <div class="col-sm-6">
@@ -46,23 +42,6 @@ $cias = $hotel->getCompanias();
                 </div>
               </div>
             </div>
-            <!--
-            <div class="form-group" id="selecomp">
-              <label class="control-label col-md-2">Compañia</label>
-              <div class="col-lg-8 col-md-8">
-                <select class="form-control" name="seleccionaPagoCiaCon" id="seleccionaPagoCiaCon" style="padding:3px 12px;" required="" value="">
-                  <?php
-                    $companias = $hotel->getCompanias();
-foreach ($companias as $compania) {
-    ?>
-                      <option value="<?php echo $compania['id_compania']; ?>"><?php echo $compania['empresa'].' '.$compania['nit'].'-'.$compania['dv']; ?> </option>
-                      <?php
-}
-?>        
-                </select>
-              </div>
-            </div>
-            -->
             <div class="form-group" id="selecomp">
               <label class="control-label col-xs-3">Compañia</label>
               <div class="col-lg-8 col-xs-8">
@@ -76,15 +55,6 @@ foreach ($companias as $compania) {
                 </select>
               </div>
             </div>            
-            <!-- <div class="form-group" id="selecentro">
-              <label class="control-label col-xs-3">Centro de Costo</label>
-              <div class="col-lg-8 col-xs-8">
-                <select name="txtIdCentroCiaSal" id="txtIdCentroCiaSal" readonly disabled>
-                  <option value="<?php echo $centros[0]['id_centro']; ?>"><?php echo $centros[0]['descripcion_centro']; ?></option>
-                </select>
-              </div>
-            </div>  -->           
-
             <div class="form-group" id="seletitular">
               <label class="control-label col-md-3">Titular</label>
               <div class="col-lg-8 col-md-8">
@@ -93,20 +63,6 @@ foreach ($companias as $compania) {
                 </select>
               </div>
             </div>
-            <!-- Cambio Opcion Perfil en la factura Cierre-->
-
-            <!--
-            <div class="form-group">
-              <label class="control-label col-md-2">Apellidos</label>
-              <div class="col-lg-4 col-md-4">
-                <input style="font-size:12px;height: 25px !important" class="form-control padInput" type="text" name="txtApellidosSal" id='txtApellidosSal' value='' readonly>
-              </div> 
-              <label class="control-label col-md-2">Nombres</label>
-              <div class="col-lg-10 col-md-10">
-                <input style="font-size:12px;height: 25px !important" class="form-control padInput" type="text" name="txtNombresSal" id='txtNombresSal' value='' readonly>
-              </div>
-            </div>
-            -->
             <div id="estadoCuentaCon"></div>
           </div>
           <div class="modal-footer" style="text-align: center">

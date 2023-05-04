@@ -1,7 +1,8 @@
 sesion = JSON.parse(localStorage.getItem("sesion"));
 if (sesion) {
   var { user } = sesion;
-  var { usuario_id, usuario, nombres, apellidos, tipo } = user;
+  var { usuario_id, usuario, nombres, apellidos, tipo, estado_usuario_pms } =
+    user;
   // console.log(usuario);
 }
 
@@ -16,12 +17,12 @@ function solicitudSoporte() {
     url: "../res/php/user_action/enviaCorreo.php",
     type: "POST",
     data: {
-      nombres: nombres,
-      correo: correo,
-      telefono: telefono,
-      asunto: asunto,
-      comments: comments,
-      idSoporte: idSoporte,
+      nombres,
+      correo,
+      telefono,
+      asunto,
+      comments,
+      idSoporte,
     },
     beforeSend: function () {
       $("#mensaje").html(
@@ -54,13 +55,17 @@ function activaSesion() {
 }
 
 function ingresoInv() {
-  sesion = JSON.parse(localStorage.getItem("sesion"));
+  /* sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { user } = sesion;
+  let { usuario, usuario_id, tipo } = user; */
   parametros = {
-    user: sesion["usuario"][0]["usuario"],
-    userId: sesion["usuario"][0]["usuario_id"],
+    /* 
+    usuario,
+    usuario_id,
     fecha: sesion["pms"][0]["fecha_auditoria"],
     tipoUser: sesion["usuario"][0]["tipo"],
-    cajeroUser: sesion["usuario"][0]["estado_usuario_pms"],
+    cajeroUser: sesion["usuario"][0]["estado_usuario_pms"], 
+    */
   };
   $.ajax({
     type: "POST",
@@ -247,7 +252,7 @@ function activaModulos() {
       `</div>
     <div class="container-fluid">
       <div id="par" style="cursor: pointer;display:flex;margin-top:40px" class="container-fluid">
-        <div class="container">
+        <div class="container moduloCentrar">
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
             <a onclick="ingresoAdmin()" class="small-box-footer">                  
               <div class="small-box bg-red-gradient">                    

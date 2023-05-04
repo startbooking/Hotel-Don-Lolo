@@ -31,7 +31,7 @@ $reservas = $hotel->getReservasActuales($tipo);
         <?php
       foreach ($reservas as $reserva) {
           $depositos = $hotel->getDepositosReservas($reserva['num_reserva']);
-          if (empty($reserva['id_compania'])) {
+          if ($reserva['id_compania'] == 0) {
               $nombrecia = 'SIN COMPAÑIA ASOCIADA';
               $nitcia = '';
           } else {
@@ -396,7 +396,7 @@ $reservas = $hotel->getReservasActuales($tipo);
       <?php
 foreach ($reservas as $reserva) {
     $depositos = $hotel->getDepositosReservas($reserva['num_reserva']);
-    if (empty($reserva['id_compania'])) {
+    if ($reserva['id_compania'] == 0) {
         $nombrecia = 'SIN COMPAÑIA ASOCIADA';
         $nitcia = '';
     } else {

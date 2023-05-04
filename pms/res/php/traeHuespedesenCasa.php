@@ -288,7 +288,7 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
                                 Datos Compañia</a>
                               </li>
                               <?php
-                              }
+              }
                               if ($reserva['fecha_llegada'] == FECHA_PMS && $tipo == 1) { ?>
                               <li id="cambiaHuesped">
                                 <a 
@@ -316,7 +316,7 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
                                 </a>
                               </li>
                             <?php
-              }
+                              }
             ?>
                           <li>
                             <a 
@@ -371,7 +371,7 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
       <?php
 foreach ($reservas as $reserva) {
     $depositos = $hotel->getDepositosReservas($reserva['num_reserva']);
-    if (empty($reserva['id_compania'])) {
+    if ($reserva['id_compania'] == 0) {
         $nombrecia = 'SIN COMPAÑIA ASOCIADA';
         $nitcia = '222.222';
     } else {

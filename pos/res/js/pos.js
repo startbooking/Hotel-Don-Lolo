@@ -4518,6 +4518,18 @@ function eliminaCliente() {
 
 function guardaCliente() {
   var parametros = $("#guardarDatosCliente").serializeArray();
+
+  if ($("#empleado").is(":checked")) {
+    empleado = 1;
+  } else {
+    empleado = 0;
+    parametros.push({ name: "empleado", value: empleado });
+  }
+
+  console.log(empleado);
+
+  console.log(parametros);
+
   $.ajax({
     url: "res/php/user_actions/guardarCliente.php",
     type: "POST",

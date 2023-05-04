@@ -5958,7 +5958,7 @@ class Hotel_Actions
             'cantidad_cargo' => 1,
             'folio_cargo' => $folio,
             'pagos_cargos' => $valor,
-            'concecutivo_deposito' => $numdeposito,
+            'concecutivo_abono' => $numdeposito,
             'informacion_cargo' => $detalle,
             'numero_reserva' => $encasa,
             'id_reserva' => $numero,

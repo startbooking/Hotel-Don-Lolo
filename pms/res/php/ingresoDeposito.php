@@ -27,9 +27,13 @@ $regis = $encasa;
 if ($regis == 0) {
     echo '-1';
 } else {
-    $numdeposito = $hotel->getNumeroDeposito(); // Numero Actual de La Reserva
+    $numdeposito = $hotel->getNumeroAbono(); // Numero Actual del Abono
     $nuevo = $numdeposito + 1;
-    $nuevonumero = $hotel->updateNumeroDeposito($nuevo); // Actualiza Consecutivo de Reserva
+    $nuevonumero = $hotel->updateNumeroAbonos($nuevo); // Actualiza Consecutivo del Abono
+
+    /* $numdeposito = $hotel->getNumeroDeposito(); // Numero Actual de La Reserva
+    $nuevo = $numdeposito + 1;
+    $nuevonumero = $hotel->updateNumeroDeposito($nuevo); // Actualiza Consecutivo de Reserva */
     $deposito = $hotel->insertDepositoReserva($fecha, $forma, $valor, $detalle, $numero, $idhues, $idusuario, $usuario, $ctadeposito, $folio, $numdeposito, $encasa, $textoforma);
 }
 
@@ -52,8 +56,14 @@ if (is_array($_FILES)) {
     }
 }
 
-$numero = $numdeposito;
+// $numero = $numdeposito;
 
-include '../../imprimir/imprimeDepositoReserva.php';
+$_SESSION['abono'] = $numdeposito;
+// $numero = $numabono;
+$_SESSION['reserva'] = $numero;
+$_SESSION['idperfil'] = $idhues;
 
-$filepdf = BASE_PMS.'imprimir/notas/Deposito_'.$numero.'.pdf';
+// include '../../imprimir/imprimeDepositoReserva.php';
+include '../../imprimir/imprimeAbonoEstadia.php';
+
+$filepdf = BASE_PMS.'imprimir/notas/Deposito_'.$numdeposito.'.pdf';
