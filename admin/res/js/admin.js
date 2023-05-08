@@ -1174,10 +1174,10 @@ function eliminaTipoPlato() {
 }
 
 function actualizaTipoPlato() {
-  var pagina = $("#ubicacion").val();
-  var ruta = $("#rutaweb").val();
-  var conversion = $("#modificaDatosAgrupacion").serialize();
-  var parametros = conversion;
+  let pagina = $("#ubicacion").val();
+  let ruta = $("#rutaweb").val();
+  let parametros = $("#modificaDatosAgrupacion").serialize();
+  // var parametros = conversion;
   $.ajax({
     url: ruta + "res/php/actualizaTipoPlato.php",
     type: "POST",

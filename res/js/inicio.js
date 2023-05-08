@@ -47,7 +47,7 @@ function activaSesion() {
   let { fecha_auditoria } = moduloPms;
   parametros = {
     user: usuario,
-    userId: susuario_id,
+    userId: usuario_id,
     fecha: fecha_auditoria,
     tipoUser: tipo,
     cajeroUser: estado_usuario_pms,

@@ -1922,7 +1922,7 @@ class Pos_Actions
                 'id_producto' => $id,
             ]);
 
-            return $data;
+            return $data[0];
         }
 
         public function getProductosInventario()

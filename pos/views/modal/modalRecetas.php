@@ -29,10 +29,10 @@ $imptos = $pos->getImpuestos();
               <select name="tipoReceta" id="tipoReceta" required>
                 <option value="">Seleccione el Tipo de Receta</option>
                 <?php
-               foreach ($tipos as $tipo) { ?>
+                foreach ($tipos as $tipo) { ?>
                   <option value="<?php echo $tipo['id_seccion']; ?>"><?php echo $tipo['nombre_seccion']; ?></option>
                   <?php
-               }
+                }
 ?>
               </select>
             </div>
@@ -223,7 +223,7 @@ foreach ($imptos as $impto) { ?>
             <label for="medidaRec" class="control-label col-lg-2 col-md-2">Medida</label>
             <div class="col-lg-4 col-md-4">
               <input type="hidden" id='idMedida' name='idMedida'>
-              <input type="text" class="form-control" id="medidaRec" name="medidaRec" disabled readonly="">
+              <input type="text" class="form-control" id="medidaRec" name="medidaRec" readonly="">
             </div>
           </div>
           <div class="form-group">

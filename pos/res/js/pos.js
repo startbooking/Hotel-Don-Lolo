@@ -2118,13 +2118,13 @@ function guardarMateriaPrima() {
     success: function (data) {
       $("#modalAdicionaProductoReceta").modal("hide");
       agregarFila(
-        idprod,
+        idProd,
         producto,
         cantidad,
         medida,
         valUnita,
         valTotal,
-        idrece
+        idRece
       );
       $("#btnRecetas").css("display", "block");
       $("#btnRecetas").addClass("pull-right");
@@ -2146,26 +2146,21 @@ function datosProducto(id) {
     url: "res/php/user_actions/getInfoProducto.php",
     type: "POST",
     dataType: "json",
-    data: { id: id },
+    data: { id },
     success: function (unidad) {
-      if (unidad.length > 0) {
-        traeUnidad(unidad["unidad_procesa"]);
-        can = $("#cantidadRec").val();
-        $("#idMedida").val(unidad["unidad_procesa"]);
-        $("#valorUni").val(
-          number_format(
-            unidad["valor_promedio"] / unidad["valor_conversion"],
-            2
-          )
-        );
-        $("#valorTot").val(
-          number_format(
-            can * (unidad["valor_promedio"] / unidad["valor_conversion"]),
-            2
-          )
-        );
-        $("#cantidadRec").focus();
+      let { unidad_procesa, valor_promedio, valor_conversion } = unidad;
+      if (unidad_procesa == 0) {
+        $("#medidaRec").val("SIN UNIDAD ASIGNADA");
+      } else {
+        traeUnidad(unidad_procesa);
       }
+      can = $("#cantidadRec").val();
+      $("#idMedida").val(unidad_procesa);
+      $("#valorUni").val(number_format(valor_promedio / valor_conversion, 2));
+      $("#valorTot").val(
+        number_format(can * (valor_promedio / valor_conversion), 2)
+      );
+      $("#cantidadRec").focus();
     },
   });
 }
@@ -2175,7 +2170,7 @@ function traeUnidad(id) {
     url: "res/php/user_actions/getTraeUnidad.php",
     type: "POST",
     data: {
-      id: id,
+      id,
     },
     success: function (data) {
       $("#medidaRec").val(data);
@@ -2211,8 +2206,9 @@ function adicionaMateriaPrima() {
     success: function (data) {
       $("#productoRec option").remove();
       for (i = 0; i < data.length; i++) {
-        $("#productoRec").append(`
-          <option value="${data[i]["id_producto"]}">${data[i]["nombre_producto"]}</option>'`);
+        $("#productoRec").append(
+          `<option value="${data[i]["id_producto"]}">${data[i]["nombre_producto"]}</option>`
+        );
       }
     },
   });

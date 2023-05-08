@@ -5438,7 +5438,7 @@ function ingresaDeposito() {
         "height=600,width=600"
       );
       $("#myModalDepositoReserva").modal("hide");
-      // $(location).attr("href", pagina);
+      $(location).attr("href", pagina);
     },
   });
 }

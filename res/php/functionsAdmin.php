@@ -149,7 +149,7 @@
              'id' => $id,
          ]);
 
-         return $database->rowCount();
+         return $data->rowCount();
      }
 
      public function updateEquipo($id, $equipo, $descrip)
@@ -164,7 +164,7 @@
              'id' => $id,
          ]);
 
-         return $database->id();
+         return $data->id();
      }
 
      public function insertEquipo($equipo, $descrip)
@@ -838,7 +838,7 @@
              'id_familia' => $id,
          ]);
 
-         return $database->rowCount();
+         return $data->rowCount();
      }
 
      public function insertFamilia($familia)
@@ -1240,7 +1240,7 @@
                  'id_seccion' => $id,
              ]);
 
-             return $database->rowCount();
+             return $data->rowCount();
          }
 
          public function eliminaTipoPlato($id)
@@ -1845,7 +1845,7 @@
              'id_sector' => $id,
          ]);
 
-         return $database->rowCount();
+         return $data->rowCount();
      }
 
      public function eliminaSector($id)
@@ -1919,7 +1919,7 @@
              'id' => $id,
          ]);
 
-         return $database->rowCount();
+         return $data->rowCount();
      }
 
      public function insertAgrupacion($agrup)

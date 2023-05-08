@@ -68,13 +68,6 @@ if ($pms == '1') {
 }
 $cliente = utf8_decode($datosCliente[0]['apellido1'].' '.$datosCliente[0]['apellido2'].' '.$datosCliente[0]['nombre1'].' '.$datosCliente[0]['nombre2']);
 
-// $datosCliente = $pos->datosCliente($cli);
-
-/* $identif = $datosCliente[0]['identificacion'];
-$nameImpr = 'Factura_'.$pref.'_'.$rpre.'-'.$nFact.'.pdf';
-$file = '../../../impresiones/Factura_'.$pref.'_'.$rpre.'-'.$nFact.'.pdf';
-$clienteact = utf8_decode($datosCliente[0]['apellido1'].' '.$datosCliente[0]['apellido2'].' '.$datosCliente[0]['nombre1'].' '.$datosCliente[0]['nombre2']); */
-
 $productosventa = $pos->getProductosVendidosFactura($amb, $nComa);
 
 $time = date('H:m:i');
@@ -92,8 +85,9 @@ $pdf->Cell(65, 4, 'Iva Regimen Comun', 0, 1, 'C');
 $pdf->Cell(65, 4, utf8_decode(ADRESS_EMPRESA), 0, 1, 'C');
 $pdf->Cell(65, 4, utf8_decode(CIUDAD_EMPRESA.' '.PAIS_EMPRESA), 0, 1, 'C');
 $pdf->Cell(65, 4, 'Telefono '.TELEFONO_EMPRESA, 0, 1, 'C');
+$pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell(65, 4, $nomamb, 0, 1, 'C');
-$pdf->Ln(2);
+$pdf->Ln(1);
 $pdf->SetFont('Arial', '', 10);
 $pdf->Cell(65, 4, 'Fecha '.$fec.' '.$time.' Mesa '.$mes, 0, 1, 'L');
 $pdf->Cell(65, 4, 'Mesero: '.$_SESSION['usuario'], 0, 1, 'L');
