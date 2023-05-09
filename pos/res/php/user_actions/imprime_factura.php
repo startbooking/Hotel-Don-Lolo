@@ -63,8 +63,8 @@ if ($pms == '1') {
 } else {
     $datosCliente = $pos->datosCliente($cli);
     $identif = $datosCliente[0]['identificacion'];
-    $nameImpr = 'Factura_'.$pref.'_'.$rpre.'-'.$nFact.'.pdf';
-    $file = '../../../impresiones/Factura_'.$pref.'_'.$rpre.'-'.$nFact.'.pdf';
+    $nameImpr = 'Factura_'.$pref.'-'.$nFact.'.pdf';
+    $file = '../../../impresiones/Factura_'.$pref.'_'.$nFact.'.pdf';
 }
 $cliente = utf8_decode($datosCliente[0]['apellido1'].' '.$datosCliente[0]['apellido2'].' '.$datosCliente[0]['nombre1'].' '.$datosCliente[0]['nombre2']);
 
@@ -97,7 +97,7 @@ if ($pms == 0) {
     $pdf->Cell(65, 5, 'Cliente '.substr($cliente, 0, 22), 0, 1, 'L');
     $pdf->Cell(65, 5, 'Iden. '.$identif, 0, 1, 'L');
 } else {
-    $pdf->Cell(65, 5, 'Cheque Cuenta Nro: '.str_pad($nFact, 5, '0', STR_PAD_LEFT), 0, 1, 'L');
+    $pdf->Cell(65, 5, 'Cuenta Huesped Nro: '.str_pad($nFact, 5, '0', STR_PAD_LEFT), 0, 1, 'L');
     $pdf->Cell(65, 5, 'Huesped '.substr($cliente, 0, 22), 0, 1, 'L');
     $pdf->Cell(65, 5, 'Habitacion. '.$nrohabi, 0, 1, 'L');
 }
