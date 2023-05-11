@@ -5,6 +5,48 @@ date_default_timezone_set('America/Bogota');
 
 class Hotel_Actions
 {
+    public function getResponsabilidadTributaria()
+    {
+        global $database;
+
+        $data = $database->select('dianResponsabilidadTributaria', [
+            'descripcionResponsabilidad',
+            'id',
+        ], [
+            'ORDER' => ['descripcionResponsabilidad' => 'ASC'],
+        ]);
+
+        return $data;
+    }
+
+    public function getTipoAdquiriente()
+    {
+        global $database;
+
+        $data = $database->select('dianTipoAdquiriente', [
+            'descripcionAdquiriente',
+            'id',
+        ], [
+            'ORDER' => ['descripcionAdquiriente' => 'ASC'],
+        ]);
+
+        return $data;
+    }
+
+    public function getTipoResponsabilidad()
+    {
+        global $database;
+
+        $data = $database->select('dianTipoResponsabilidad', [
+            'descripcionResponsabilidad',
+            'id',
+        ], [
+            'ORDER' => ['descripcionResponsabilidad' => 'ASC'],
+        ]);
+
+        return $data;
+    }
+
     public function traePaquetesHabitacion($tarifa)
     {
         global $database;
@@ -4238,7 +4280,7 @@ class Hotel_Actions
         return $data;
     }
 
-    public function updateCompania($id, $nit, $dv, $tipodoc, $compania, $direccion, $ciudad, $telefono, $celular, $web, $correo, $tarifa, $formapago, $credito, $monto, $diascre, $diacorte, $tipoemp, $codciiu)
+    public function updateCompania($id, $nit, $dv, $tipodoc, $compania, $direccion, $ciudad, $telefono, $celular, $web, $correo, $tarifa, $formapago, $credito, $monto, $diascre, $diacorte, $tipoemp, $codciiu, $tipoAdqui, $tipoRespo, $repoTribu)
     {
         global $database;
 
@@ -4262,6 +4304,9 @@ class Hotel_Actions
             'tipo_empresa' => $tipoemp,
             'updated_at' => date('Y-m-d H:i:s'),
             'id_codigo_ciiu' => $codciiu,
+            'tipoAdquiriente' => $tipoAdqui,
+            'tipoResponsabilidad' => $tipoRespo,
+            'responsabilidadTributaria' => $repoTribu,
         ], [
             'id_compania' => $id,
         ]);
@@ -4295,6 +4340,9 @@ class Hotel_Actions
             'id_forma_pago',
             'id_codigo_ciiu',
             'usuario',
+            'tipoAdquiriente',
+            'tipoResponsabilidad',
+            'responsabilidadTributaria',
             'created_at',
         ], [
             'id_compania' => $id,
@@ -4303,7 +4351,7 @@ class Hotel_Actions
         return $data;
     }
 
-    public function updateHuesped($id, $iden, $tipodoc, $apellido1, $apellido2, $nombre1, $nombre2, $sexo, $direccion, $telefono, $celular, $correo, $fechanace, $tipohues, $tarifa, $pais, $ciudad, $formapago, $paisExp, $ciudadExp)
+    public function updateHuesped($id, $iden, $tipodoc, $apellido1, $apellido2, $nombre1, $nombre2, $sexo, $direccion, $telefono, $celular, $correo, $fechanace, $tipohues, $tarifa, $pais, $ciudad, $formapago, $paisExp, $ciudadExp, $tipoAdqui, $tipoRespo, $repoTribu)
     {
         global $database;
 
@@ -4329,7 +4377,10 @@ class Hotel_Actions
             'ciudad' => $ciudad,
             'nombre_completo' => $apellido1.' '.$apellido2.' '.$nombre1.' '.$nombre2,
             'id_forma_pago' => $formapago,
-            ], [
+            'tipoAdquiriente' => $tipoAdqui,
+            'tipoResponsabilidad' => $tipoRespo,
+            'responsabilidadTributaria' => $repoTribu,
+        ], [
             'id_huesped' => $id,
         ]);
 
@@ -4366,6 +4417,9 @@ class Hotel_Actions
             'pais',
             'ciudad',
             'id_forma_pago',
+            'tipoAdquiriente',
+            'tipoResponsabilidad',
+            'responsabilidadTributaria',
         ], [
             'id_huesped' => $id,
         ]);
@@ -6226,7 +6280,7 @@ class Hotel_Actions
         return $data;
     }
 
-    public function insertaNuevaCompania($nit, $dv, $tipodoc, $compania, $direccion, $ciudad, $telefono, $celular, $web, $correo, $tarifa, $formapago, $credito, $monto, $diascre, $diacorte, $usuario, $tipoemp, $codciiu)
+    public function insertaNuevaCompania($nit, $dv, $tipodoc, $compania, $direccion, $ciudad, $telefono, $celular, $web, $correo, $tarifa, $formapago, $credito, $monto, $diascre, $diacorte, $usuario, $tipoemp, $codciiu, $tipoAdqui, $tipoRespo, $repoTribu)
     {
         global $database;
 
@@ -6253,6 +6307,9 @@ class Hotel_Actions
             'tipo_empresa' => $tipoemp,
             'id_codigo_ciiu' => $codciiu,
             'tipo_compania' => 3,
+            'tipoAdquiriente' => $tipoAdqui,
+            'tipoResponsabilidad' => $tipoRespo,
+            'responsabilidadTributaria' => $repoTribu,
         ]);
 
         return $database->id();
@@ -6298,7 +6355,7 @@ class Hotel_Actions
         return $data;
     }
 
-    public function insertaNuevoHuesped($iden, $tipodoc, $apellido1, $apellido2, $nombre1, $nombre2, $sexo, $direccion, $telefono, $celular, $correo, $fechanace, $tipohues, $tarifa, $pais, $ciudad, $formapago, $paisExp, $ciudadExp, $usuario, $idusuario)
+    public function insertaNuevoHuesped($iden, $tipodoc, $apellido1, $apellido2, $nombre1, $nombre2, $sexo, $direccion, $telefono, $celular, $correo, $fechanace, $tipohues, $tarifa, $pais, $ciudad, $formapago, $paisExp, $ciudadExp, $usuario, $idusuario, $tipoAdqui, $tipoRespo, $repoTribu)
     {
         global $database;
 
@@ -6327,6 +6384,9 @@ class Hotel_Actions
             'ciudad' => $ciudad,
             'nombre_completo' => $apellido1.' '.$apellido2.' '.$nombre1.' '.$nombre2,
             'id_forma_pago' => $formapago,
+            'tipoAdquiriente' => $tipoAdqui,
+            'tipoResponsabilidad' => $tipoRespo,
+            'responsabilidadTributaria' => $repoTribu,
         ]);
 
         return $database->id();
@@ -6340,6 +6400,7 @@ class Hotel_Actions
             'id_doc',
             'descripcion_documento',
         ], [
+            'deleted_at' => null,
             'ORDER' => 'descripcion_documento',
         ]);
 

@@ -10,7 +10,7 @@ $PMS = $pos->getPagoPMS($fpa);
 if ($PMS == 1) {
     $huespedes = $pos->getHuespedesAlojadosPOS();
     foreach ($huespedes as $huesped) { ?>
-		<option value="<?php echo $huesped['num_reserva']; ?>"><?php echo $huesped['num_habitacion'].' | '.$huesped['nombre_completo']; ?></option>;
+		<option value="<?php echo $huesped['num_reserva']; ?>"><?php echo $huesped['num_habitacion'].' | '.$huesped['nombre_completo']; ?></option>
 	<?php
     }
 } else {

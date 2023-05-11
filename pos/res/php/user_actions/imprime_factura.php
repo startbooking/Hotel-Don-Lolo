@@ -49,9 +49,6 @@ $usu = $datosFac[0]['usuario_factura'];
 $cli = $datosFac[0]['id_cliente'];
 $pms = $datosFac[0]['pms'];
 $fpa = $datosFac[0]['forma_pago'];
-// $abonos = $datosFac[0]['abonos'];
-
-// echo $fpa.' Forma de Pago ';
 
 $fpago = $pos->nombrePago($fpa);
 

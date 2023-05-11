@@ -3101,6 +3101,15 @@ class Pos_Actions
         {
             global $database;
 
+            $data = $database->query("SELECT Sum(facturas_pos.valor_total) AS total, Sum(facturas_pos.pagado) AS pagado, Sum(facturas_pos.cambio) AS cambio, count(facturas_pos.forma_pago) as cant, Sum(facturas_pos.valor_neto) AS neto, Sum(facturas_pos.impuesto) AS impto, Sum(facturas_pos.propina) AS prop, Sum(facturas_pos.descuento) AS `desc`, formas_pago.id_pago, formas_pago.descripcion, ambientes.nombre FROM facturas_pos , formas_pago , ambientes WHERE facturas_pos.estado = '$estado' AND facturas_pos.forma_pago = formas_pago.id_pago AND facturas_pos.usuario_factura = '$usu' AND facturas_pos.ambiente = ambientes.id_ambiente AND facturas_pos.ambiente = $amb GROUP BY facturas_pos.forma_pago, ambientes.nombre")->fetchAll();
+
+            return $data;
+        }
+
+        public function getDetalleFormasdePagoCajeroOld($estado, $usu, $amb)
+        {
+            global $database;
+
             $data = $database->query("SELECT Sum(facturas_pos.valor_total) AS total, Sum(facturas_pos.pagado) AS pagado, Sum(facturas_pos.cambio) AS cambio, count(facturas_pos.forma_pago) as cant, Sum(facturas_pos.valor_neto) AS neto, Sum(facturas_pos.impuesto) AS impto, Sum(facturas_pos.propina) AS prop, Sum(facturas_pos.descuento) AS `desc`, formas_pago.descripcion, ambientes.nombre FROM facturas_pos , formas_pago , ambientes WHERE facturas_pos.estado = '$estado' AND facturas_pos.forma_pago = formas_pago.id_pago AND facturas_pos.usuario_factura = '$usu' AND facturas_pos.ambiente = ambientes.id_ambiente AND facturas_pos.ambiente = $amb GROUP BY facturas_pos.forma_pago, ambientes.nombre")->fetchAll();
 
             return $data;
@@ -3274,7 +3283,7 @@ class Pos_Actions
             return $data;
         }
 
-        public function getTipoPlatos()
+        public function getTipoPlatos($idamb)
         {
             global $database;
 
@@ -3283,6 +3292,7 @@ class Pos_Actions
                 'nombre_seccion',
             ], [
                 'estado_seccion' => 1,
+                'id_ambiente' => $idamb,
                 'deleted_at' => null,
                 'ORDER' => ['nombre_seccion' => 'ASC'],
             ]);
@@ -4556,7 +4566,7 @@ class Pos_Actions
         }
 
         /* Tipos de Platos */
-        public function getSeccionesPos()
+        public function getSeccionesPos($idamb)
         {
             global $database;
 
@@ -4566,6 +4576,7 @@ class Pos_Actions
                 'nombre_seccion',
             ], [
                 'estado_seccion' => 1,
+                'id_ambiente' => $idamb,
                 'deleted_at' => null,
                 'ORDER' => ['nombre_seccion' => 'ASC'],
             ]);

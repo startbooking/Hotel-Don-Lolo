@@ -1,4 +1,4 @@
-<!-- Modal Pagar-->
+<!-- Modal Pagar--> 
 <div class="modal fade" id="myModalPagar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <form class="form-horizontal" method="POST" accept-charset="utf-8" id="pagarCuenta" action="javascript:pagarFactura()">
     <div class="modal-dialog modal-md" role="document">

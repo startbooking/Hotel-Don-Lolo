@@ -413,7 +413,7 @@ function balanceCajaCajero() {
     type: "POST",
     data: parametros,
     success: function (data) {
-      creaHTMLReportes(data, `Balance del Dia Cajero ${user}`);
+      creaHTMLReportes(data, `Balance del Dia Cajero ${usuario}`);
     },
   });
 }

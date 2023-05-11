@@ -1,18 +1,19 @@
-<?php 
+<?php
 
-  require '../../../res/php/app_topAdmin.php'; 
+require '../../../res/php/app_topAdmin.php';
 
-	$ambiente = $_POST['ambiente'];
-	$estado   = $_POST['estado'];
+$ambiente = $_POST['ambiente'];
+$estado = $_POST['estado'];
 
-	if($estado==='1'){
-		$estadoen = '0';
-	}else if($estado==='0'){
-		$estadoen = '1';
-	}
+if ($estado === '1') {
+    $estadoen = '0';
+} elseif ($estado === '0') {
+    $estadoen = '1';
+}
 
-	$bloquea = $admin->activaAmbiente($ambiente, $estadoen) ;
+$bloquea = $admin->activaAmbiente($ambiente, $estadoen);
 
-	echo $bloquea ;
+echo $bloquea;
 
- ?>
+?>
+ 

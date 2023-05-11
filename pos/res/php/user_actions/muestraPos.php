@@ -51,7 +51,7 @@
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pd0">
               <a style="cursor:pointer;" onclick="muestraTouch()" class="small-box-footer">
                 <div class="small-box bg-green-gradient">
-                  <div class="inner">
+                  <div class="inner"> 
                     <h3>Ingresar Venta</h3>
                     <p>Crea una Nueva Cuenta</p> 
                   </div>

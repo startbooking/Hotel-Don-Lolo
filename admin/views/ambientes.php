@@ -73,7 +73,7 @@ $codigos = $admin->getCodigosVentas(1);
                             title       ="Modificar el Ambiente Actual" >
                             <i class='fa fa-pencil-square'></i>
                           </button>
-                          <button type="button" class="btn btn-warning btn-xs" 
+                          <!-- <button type="button" class="btn btn-warning btn-xs" 
                             data-toggle ="modal" 
                             data-target ="#myModalEliminaAmbiente" 
                             data-id     ="<?php echo $ambiente['id_ambiente']; ?>" 
@@ -90,7 +90,7 @@ $codigos = $admin->getCodigosVentas(1);
                             data-logo   ="<?php echo $ambiente['logo']; ?>" 
                             title       ="Elimina el Ambiente Actual" >
                             <i class='fa fa-trash'></i>
-                          </button>
+                          </button> -->
                         </div>
                         <div class="btn-group" role="group" aria-label="">
                           <button type="button" class="btn btn-danger btn-xs" 

@@ -98,7 +98,7 @@ foreach ($ciudades as $ciudad) { ?>
           <div class="form-group">
             <label for="web" class="col-sm-2 control-label">Pagina Web </label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" name="web" id="web" placeholder="" value="" >
+              <input type="text" class="form-control" name="web" id="web" placeholder="Pagina Web" value="" >
             </div>
             <label for="correo" class="col-sm-2 control-label">Correo </label>
             <div class="col-sm-4">
@@ -109,8 +109,10 @@ foreach ($ciudades as $ciudad) { ?>
             <label for="tarifa" class="col-sm-2 control-label">Tarifa </label>
             <div class="col-sm-4">
               <select name="tarifa" id="tarifa" required="">
+              <option value="">Seleccione La Tarifa</option>
+
               <?php
- $tarifas = $hotel->getTarifasHuespedes(); ?>
+                $tarifas = $hotel->getTarifasHuespedes(); ?>
                 <?php foreach ($tarifas as $tarifa) { ?>
                   <option value="<?php echo $tarifa['id_tarifa']; ?>"><?php echo $tarifa['descripcion_tarifa']; ?></option>
                 <?php } ?>
@@ -121,7 +123,7 @@ foreach ($ciudades as $ciudad) { ?>
               <select name="formapago" id="formapago" required="">
               <option value="">Seleccione La Forma de Pago</option>
                 <?php
-   $codigos = $hotel->getCodigosConsumos(3);
+                  $codigos = $hotel->getCodigosConsumos(3);
 foreach ($codigos as $codigo) { ?>
                     <option value="<?php echo $codigo['id_cargo']; ?>"><?php echo $codigo['descripcion_cargo']; ?></option>
                     <?php
@@ -129,6 +131,62 @@ foreach ($codigos as $codigo) { ?>
 ?>
               </select>
             </div>
+          </div>
+          <div class="form-group">
+            <label for="fechanace" class="col-sm-2 control-label">Tipo Adquiriente </label>
+            <div class="col-sm-4">
+              <select name="tipoAdquiriente" id="tipoAdquiriente" >
+                <option value="">Seleccione el Tipo Adquiriente</option>
+                <?php
+  $tipoAdquiere = $hotel->getTipoAdquiriente();
+foreach ($tipoAdquiere as $tipoAdqui) { ?>
+                    <option value="<?php echo $tipoAdqui['id']; ?>"><?php echo $tipoAdqui['descripcionAdquiriente']; ?></option>
+                    <?php
+}
+?> 
+              </select>
+            </div>
+            <label for="correo" class="col-sm-2 control-label">Tipo Responsabilidad </label>
+            <div class="col-sm-4">
+              <select name="tipoResponsabilidad" id="tipoResponsabilidad" >
+                <option value="">Seleccione Tipo de Responsabilidad</option>
+                <?php
+  $tipoRespo = $hotel->getTipoResponsabilidad();
+foreach ($tipoRespo as $tipoRes) { ?>
+                    <option value="<?php echo $tipoRes['id']; ?>"><?php echo $tipoRes['descripcionResponsabilidad']; ?></option>
+                    <?php
+}
+?> 
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="correo" class="col-sm-2 control-label">Responsabilidad Tributaria </label>
+            <div class="col-sm-4">
+            <select name="responsabilidadTribu" id="responsabilidadTribu" >
+              <option value="">Seleccione Responsabilidad Tributaria</option>
+              <?php
+$tipoTribus = $hotel->getResponsabilidadTributaria();
+foreach ($tipoTribus as $tipoTribu) { ?>
+                  <option value="<?php echo $tipoTribu['id']; ?>"><?php echo $tipoTribu['descripcionResponsabilidad']; ?></option>
+                  <?php
+}
+?> 
+              </select>
+            </div>
+            <!-- <label for="tipohuesped" class="col-sm-2 control-label">Tipo Huesped </label>
+            <div class="col-sm-4">
+              <select name="tipohuesped" id="tipohuesped" >
+                <option value="">Seleccione el Tipo de Huesped</option>
+                <?php
+  $tipohesps = $hotel->getTipoHuespedes();
+foreach ($tipohesps as $tipohesp) { ?>
+                    <option value="<?php echo $tipohesp['id_tipo_huesped']; ?>"><?php echo $tipohesp['descripcion_tipo']; ?></option>
+                    <?php
+}
+?>
+              </select>
+            </div> -->
           </div>                           
           <div class="divs divCredito">
             <div class="form-group">

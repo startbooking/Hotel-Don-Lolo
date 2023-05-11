@@ -76,7 +76,7 @@ $rutaINV = BASE_POS.'datos/kardex.php';
         </a>
         <ul class="treeview-menu">  
           <li> 
-            <a class="menuInfoCaje" style="display:none;" onclick="balanceCajaCajero()"><i class="fa fa-users"></i> Balance de Caja</a>
+            <a class="menuInfoCaje" onclick="balanceCajaCajero()"><i class="fa fa-users"></i> Balance de Caja</a>
           </li>
           <li> 
             <a class="menuPpal" onclick="cuentasActivasCajero()"><i class="fa fa-users"></i> Comandas Activas Cajero</a>
@@ -88,7 +88,7 @@ $rutaINV = BASE_POS.'datos/kardex.php';
             <a class="menuPpal" onclick="devolucionesCajero()"><i class="fa fa-users"></i> Devolucion Productos Cajero</a>
           </li>
           <li>
-            <a class="menuInfoCaje" style="display:none;" onclick="facturasCajero()"><i class="fa fa-users"></i> Facturas Cajero</a>
+            <a class="menuInfoCaje" onclick="facturasCajero()"><i class="fa fa-users"></i> Facturas Cajero</a>
           </li>
           <!-- <li>
             <a class="menuPpal" onclick="abonosCajero()"><i class="fa fa-users"></i> Abonos Cajero</a>

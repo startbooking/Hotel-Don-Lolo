@@ -1515,7 +1515,7 @@ let { usuario_id, usuario, nombres, apellidos, tipo } = user;
     modal.find(".modal-body #txtIdCiaUpd").val(id);
 
     $.ajax({
-      type: "POST",
+      type: "POST", 
       data: parametros,
       url: "res/php/dataUpdateCia.php",
       // beforeSend: function (objeto) {},
@@ -4959,8 +4959,6 @@ function guardaCompania() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
   let { usuario, usuario_id } = user;
-  /*  usuario = sesion["usuario"][0]["usuario"];
-  idusuario = sesion["usuario"][0]["usuario_id"]; */
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var parametros = $("#formCompania").serializeArray();

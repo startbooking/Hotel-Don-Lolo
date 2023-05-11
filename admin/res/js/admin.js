@@ -167,8 +167,8 @@ function bloqueaUsuario() {
   var id = $("#idUserBloq").val();
   var estado = $("#estadoBloq").val();
   parametros = {
-    id: id,
-    estado: estado,
+    id,
+    estado,
   };
   $.ajax({
     url: ruta + "res/php/bloqueaUsuario.php",

@@ -820,6 +820,8 @@ function guardaFactura() {
 
   var parametros = $("#pagarCuenta").serializeArray();
 
+  console.log(parametros);
+
   parametros.push({ name: "usuario", value: user });
   parametros.push({ name: "idusuario", value: iduser });
 
@@ -827,8 +829,6 @@ function guardaFactura() {
   var tota = parseFloat($("#total").val().replace(",", ""));
   var coman = $("#numeroComanda").val();
   $("#comandaPag").val(coman);
-
-  // console.log(parametros);
 
   $.ajax({
     type: "POST",

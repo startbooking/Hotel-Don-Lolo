@@ -192,7 +192,7 @@
                 data-target ="#myImprimirCuenta" 
                 onclick     ="imprimeEstadoCuenta()"
                 title       ="Imprimir Estado de Cuenta">
-                <i class="fa fa-print"></i> Cuenta
+                <i class="fa fa-print"></i> Pre-Cuenta
               </button>
               <?php
               }
