@@ -24,7 +24,13 @@ $nroFolio = $folio;
 $idhuesped = $idhues;
 $diasCre = 0;
 
+$horaFact = date('H:s:i');
+
+// echo $horaFact;
+
 $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
+$resFac = $hotel->getResolucion();
+
 
 $fechaFac = FECHA_PMS;
 $fechaVen = $fechaFac;
@@ -73,9 +79,55 @@ if (count($saldofactura) == 0) {
     $totalFolio = ($saldofactura[0]['cargos'] + $saldofactura[0]['imptos']) - $saldofactura[0]['pagos'];
 }
 
-include_once '../../imprimir/imprimeFactura.php';
+// include_once '../../api/Crea_Factura.php';
 
-if ($totalFolio != 0) {
+$eFact = [];
+
+/* array_push($encabezadoFactura, {name:'number',value:$nroFactura});
+
+array_push($encabezadoFactura, ) */
+// { name: "usuario", value: usuario }
+
+$eFact['number'] = $nroFactura;
+$eFact['type_document_id'] = $datosHuesped[0]['tipo_identifica'];
+$eFact['date'] = $fechaFac;
+$eFact['time'] = $horaFact;
+$eFact['resolution_number'] = 
+"": "18764040460991",
+	"prefix": "ELP",
+  "notes": "ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA",
+  "disable_confirmation_text": true,
+	"sendmail": true,
+	"sendmailtome": true,
+	"head_note": "PRUEBA DE TEXTO LIBRE QUE DEBE POSICIONARSE EN EL ENCABEZADO DE PAGINA DE LA REPRESENTACION GRAFICA DE LA FACTURA ELECTRONICA VALIDACION PREVIA DIAN",
+	"foot_note": "PRUEBA DE TEXTO LIBRE QUE DEBE POSICIONARSE EN EL PIE DE PAGINA DE LA REPRESENTACION GRAFICA DE LA FACTURA ELECTRONICA VALIDACION PREVIA DIAN",
+
+
+/* echo print_r($eFact);
+echo 'Seis  ';
+
+echo json_encode($eFact);
+
+var_dump($eFact);
+
+echo 'PAso por Aca ';
+ */
+/* "number": 63677,
+"type_document_id": 1,
+"date": "2022-12-07",
+"time": "04:08:12",
+"resolution_number": "18764040460991",
+"prefix": "ELP",
+"notes": "ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA",
+"disable_confirmation_text": true,
+"sendmail": true,
+"sendmailtome": true,
+"head_note": "PRUEBA DE TEXTO LIBRE QUE DEBE POSICIONARSE EN EL ENCABEZADO DE PAGINA DE LA REPRESENTACION GRAFICA DE LA FACTURA ELECTRONICA VALIDACION PREVIA DIAN",
+"foot_note": "PRUEBA DE TEXTO LIBRE QUE DEBE POSICIONARSE EN EL PIE DE PAGINA DE LA REPRESENTACION GRAFICA DE LA FACTURA ELECTRONICA VALIDACION PREVIA DIAN", */
+
+// / include_once '../../imprimir/imprimeFactura.php';
+
+/* if ($totalFolio != 0) {
     $saldohabi = ($saldofactura[0]['cargos'] + $saldofactura[0]['imptos']) - $saldofactura[0]['pagos'];
     $saldofolio1 = $hotel->saldoFolio($numero, 1);
     $saldofolio2 = $hotel->saldoFolio($numero, 2);
@@ -94,11 +146,11 @@ if ($totalFolio != 0) {
     if ($saldofolio4 != 0) {
         array_push($estadofactura, '4');
     }
-} else {
-    /* Verificar Saldo en la cuenta de esa habitacion */
-    $salida = $hotel->updateReservaHuespedSalida($numero, $usuario, $idUsuario, FECHA_PMS);
-    $habSucia = $hotel->updateEstadoHabitacion($room);
-    array_push($estadofactura, '0');
+} else { */
+/* Verificar Saldo en la cuenta de esa habitacion */
+/* $salida = $hotel->updateReservaHuespedSalida($numero, $usuario, $idUsuario, FECHA_PMS);
+$habSucia = $hotel->updateEstadoHabitacion($room);
+array_push($estadofactura, '0');
 }
 
-echo json_encode($estadofactura);
+echo json_encode($estadofactura); */

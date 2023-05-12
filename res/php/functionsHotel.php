@@ -5,6 +5,25 @@ date_default_timezone_set('America/Bogota');
 
 class Hotel_Actions
 {
+    public function getResolucion()
+    {
+        global $database;
+
+        $data = $database->select('resoluciones', [
+            'resolucion',
+            'fecha',
+            'prefijo',
+            'desde',
+            'hasta',
+            'estado',
+            'tipo',
+        ], [
+            'estado' => 1,
+        ]);
+
+        return $data;
+    }
+
     public function getResponsabilidadTributaria()
     {
         global $database;

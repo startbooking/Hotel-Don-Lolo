@@ -1515,7 +1515,7 @@ let { usuario_id, usuario, nombres, apellidos, tipo } = user;
     modal.find(".modal-body #txtIdCiaUpd").val(id);
 
     $.ajax({
-      type: "POST", 
+      type: "POST",
       data: parametros,
       url: "res/php/dataUpdateCia.php",
       // beforeSend: function (objeto) {},
@@ -4375,6 +4375,12 @@ function salidaHuesped() {
       dataType: "json",
       data: parametros,
       success: function (data) {
+        /* var ventana = window.open(
+          "api/Crea_Factura.php",
+          // "imprimir/facturas/" + data[0],
+          "PRINT",
+          "height=600,width=600"
+        ); */
         var ventana = window.open(
           "imprimir/facturas/" + data[0],
           "PRINT",
