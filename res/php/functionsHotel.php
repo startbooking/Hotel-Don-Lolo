@@ -5,6 +5,31 @@ date_default_timezone_set('America/Bogota');
 
 class Hotel_Actions
 {
+    public function traeCodigoCiudad($id)
+    {
+        global $database;
+        $data = $database->select('ciudades', [
+            'codigo',
+        ], [
+            'id_ciudad' => $id,
+        ]);
+
+        return $data[0]['codigo'];
+    }
+
+    public function traeCodigoIdentifica($id)
+    {
+        global $database;
+
+        $data = $database->select('tipo_documento', [
+            'codigo',
+        ], [
+            'id_doc' => $id,
+        ]);
+
+        return $data[0]['codigo'];
+    }
+
     public function getResolucion()
     {
         global $database;
@@ -5409,6 +5434,19 @@ class Hotel_Actions
         return $data;
     }
 
+    public function buscaTipoEmpresa($id)
+    {
+        global $database;
+
+        $data = $database->select('grupos_cajas', [
+            'descripcion_grupo',
+        ], [
+            'id_grupo' => $id,
+        ]);
+
+        return $data[0]['descripcion_grupo'];
+    }
+
     public function getBuscaAgencia($id)
     {
         global $database;
@@ -5729,6 +5767,9 @@ class Hotel_Actions
             'email',
             'ciudad',
             'pais',
+            'tipoAdquiriente',
+            'tipoResponsabilidad',
+            'responsabilidadTributaria',
         ], [
             'id_huesped' => $id,
         ]);
@@ -6570,23 +6611,27 @@ class Hotel_Actions
         global $database;
 
         $data = $database->select('companias', [
-                    'id_compania',
-                    'empresa',
-                    'nit',
-                    'dv',
-                                            'telefono',
-                    'celular',
-                    'email',
-                    'activo',
-                    'ciudad',
-                    'direccion',
-                    'estado_credito',
-                    'credito',
-                    'monto_credito',
-                    'dia_corte_credito',
-                    'dias_credito',
-                ], [
-                    'id_compania' => $id,
+            'id_compania',
+            'empresa',
+            'nit',
+            'dv',
+            'tipo_documento',
+            'telefono',
+            'celular',
+            'email',
+            'activo',
+            'ciudad',
+            'direccion',
+            'estado_credito',
+            'credito',
+            'monto_credito',
+            'dia_corte_credito',
+            'dias_credito',
+            'tipoAdquiriente',
+            'tipoResponsabilidad',
+            'responsabilidadTributaria',
+        ], [
+            'id_compania' => $id,
         ]);
 
         return $data;

@@ -19,6 +19,7 @@ $idcentro = $_POST['idcentro'];
 $tipofac = $_POST['tipofac'];
 $usuario = $_POST['usuario'];
 $idUsuario = $_POST['idusuario'];
+$detallePag = $_POST['txtDetallePag'];
 $reserva = $numero;
 $nroFolio = $folio;
 $idhuesped = $idhues;
@@ -26,11 +27,8 @@ $diasCre = 0;
 
 $horaFact = date('H:s:i');
 
-// echo $horaFact;
-
 $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
 $resFac = $hotel->getResolucion();
-
 
 $fechaFac = FECHA_PMS;
 $fechaVen = $fechaFac;
@@ -81,34 +79,110 @@ if (count($saldofactura) == 0) {
 
 // include_once '../../api/Crea_Factura.php';
 
+if ($tipofac == 2) {
+    $datosCompania = $hotel->getSeleccionaCompania($idperfil);
+    $diasCre = $datosCompania[0]['dias_credito'];
+    $nomFact = utf8_decode($datosCompania[0]['empresa']);
+    $nitFact = $datosCompania[0]['nit'];
+    $dvFact = $datosCompania[0]['dv'];
+    $dirFact = utf8_decode($datosCompania[0]['direccion']);
+    $telFact = $datosCompania[0]['telefono'];
+    $emaFact = $datosCompania[0]['email'];
+    $merFact = '';
+    $tdiFact = $hotel->traeCodigoIdentifica($datosCompania[0]['tipo_documento']);
+    $torFact = $datosCompania[0]['tipoAdquiriente'];
+    $tliFact = '';
+    $munFact = $hotel->traeCodigoCiudad($datosCompania[0]['ciudad']);
+    $triFact = $datosCompania[0]['responsabilidadTributaria'];
+} else {
+    $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
+    $nitFact = $datosHuesped[0]['identificacion'];
+    $dvFact = '';
+    $nomFact = utf8_decode($datosHuesped[0]['nombre1'].' '.$datosHuesped[0]['nombre2'].' '.$datosHuesped[0]['apellido1'].' '.$datosHuesped[0]['apellido2']);
+    $telFact = $datosHuesped[0]['telefono'];
+    $dirFact = utf8_decode($datosHuesped[0]['direccion']);
+    $emaFact = $datosHuesped[0]['email'];
+    $merFact = '';
+    $tdiFact = $hotel->traeCodigoIdentifica($datosHuesped[0]['tipo_identifica']);
+    $torFact = $datosHuesped[0]['tipoAdquiriente'];
+    $tliFact = '';
+    $munFact = $hotel->traeCodigoCiudad($datosHuesped[0]['ciudad']);
+    $triFact = $datosHuesped[0]['responsabilidadTributaria'];
+}
+
+/* "customer": {
+    "identification_number": 1017129099,
+    "dv": 7,
+    "name": "JUAN CARLOS DELGADO",
+    "phone": "3013391116",
+    "address": "CLL 4 NRO 33-90",
+    "email": "juandelagado@gmail.com",
+    "merchant_registration": "0000000-00",
+    "type_document_identification_id": 3,
+    "type_organization_id": 2,
+    "type_liability_id": 117,
+    "municipality_id": 822,
+    "type_regime_id": 2
+}, */
+
 $eFact = [];
+$eCust = [];
 
 /* array_push($encabezadoFactura, {name:'number',value:$nroFactura});
 
 array_push($encabezadoFactura, ) */
 // { name: "usuario", value: usuario }
-
+// echo 'Inicio ';
 $eFact['number'] = $nroFactura;
 $eFact['type_document_id'] = $datosHuesped[0]['tipo_identifica'];
 $eFact['date'] = $fechaFac;
 $eFact['time'] = $horaFact;
-$eFact['resolution_number'] = 
-"": "18764040460991",
-	"prefix": "ELP",
-  "notes": "ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA",
-  "disable_confirmation_text": true,
-	"sendmail": true,
-	"sendmailtome": true,
-	"head_note": "PRUEBA DE TEXTO LIBRE QUE DEBE POSICIONARSE EN EL ENCABEZADO DE PAGINA DE LA REPRESENTACION GRAFICA DE LA FACTURA ELECTRONICA VALIDACION PREVIA DIAN",
-	"foot_note": "PRUEBA DE TEXTO LIBRE QUE DEBE POSICIONARSE EN EL PIE DE PAGINA DE LA REPRESENTACION GRAFICA DE LA FACTURA ELECTRONICA VALIDACION PREVIA DIAN",
+$eFact['resolution_number'] = $resFac[0]['resolucion'];
+$eFact['prefix'] = $resFac[0]['prefijo'];
+$eFact['notes'] = $detallePag;
+$eFact['disable_confirmation_text'] = true;
+$eFact['sendmail'] = true;
+$eFact['sendmailtome'] = true;
+$eFact['head_note'] = 'PRUEBA DE TEXTO LIBRE QUE DEBE POSICIONARSE EN EL ENCABEZADO DE PAGINA DE LA REPRESENTACION GRAFICA DE LA FACTURA ELECTRONICA VALIDACION PREVIA DIAN';
+$eFact['foot_note'] = 'PRUEBA DE TEXTO LIBRE QUE DEBE POSICIONARSE EN EL PIE DE PAGINA DE LA REPRESENTACION GRAFICA DE LA FACTURA ELECTRONICA VALIDACION PREVIA DIAN';
 
+$eCust['identification_number'] = $nitFact;
+$eCust['dv'] = $dvFact;
+$eCust['name'] = $nomFact;
+$eCust['phone'] = $telFact;
+$eCust['address'] = $dirFact;
+$eCust['email'] = $emaFact;
+$eCust['merchant_registration'] = $merFact;
+$eCust['type_document_identification_id'] = $tdiFact;
+$eCust['type_organization_id'] = $torFact;
+$eCust['type_liability_id'] = $tliFact;
+$eCust['municipality_id'] = $munFact;
+$eCust['type_regime_id'] = $triFact;
 
-/* echo print_r($eFact);
+$ePago = [];
+
+$ePago['payment_form_id'];
+$ePago['payment_method_id'];
+$ePago['payment_due_date'];
+$ePago['duration_measure'];
+
+$eFact['customer'] = $eCust;
+$eFact['payment_form'] = $ePago;
+
+$eFact = json_encode($eFact);
+
+// echo $eFact;
+
+include_once '../../api/Crea_Factura.php';
+
+// echo print_r($eFact);
+
+/*
+echo json_encode($eFact);
 echo 'Seis  ';
 
-echo json_encode($eFact);
-
 var_dump($eFact);
+
 
 echo 'PAso por Aca ';
  */
@@ -125,9 +199,9 @@ echo 'PAso por Aca ';
 "head_note": "PRUEBA DE TEXTO LIBRE QUE DEBE POSICIONARSE EN EL ENCABEZADO DE PAGINA DE LA REPRESENTACION GRAFICA DE LA FACTURA ELECTRONICA VALIDACION PREVIA DIAN",
 "foot_note": "PRUEBA DE TEXTO LIBRE QUE DEBE POSICIONARSE EN EL PIE DE PAGINA DE LA REPRESENTACION GRAFICA DE LA FACTURA ELECTRONICA VALIDACION PREVIA DIAN", */
 
-// / include_once '../../imprimir/imprimeFactura.php';
+include_once '../../imprimir/imprimeFactura.php';
 
-/* if ($totalFolio != 0) {
+if ($totalFolio != 0) {
     $saldohabi = ($saldofactura[0]['cargos'] + $saldofactura[0]['imptos']) - $saldofactura[0]['pagos'];
     $saldofolio1 = $hotel->saldoFolio($numero, 1);
     $saldofolio2 = $hotel->saldoFolio($numero, 2);
@@ -146,11 +220,11 @@ echo 'PAso por Aca ';
     if ($saldofolio4 != 0) {
         array_push($estadofactura, '4');
     }
-} else { */
-/* Verificar Saldo en la cuenta de esa habitacion */
-/* $salida = $hotel->updateReservaHuespedSalida($numero, $usuario, $idUsuario, FECHA_PMS);
-$habSucia = $hotel->updateEstadoHabitacion($room);
-array_push($estadofactura, '0');
+} else {
+    /* Verificar Saldo en la cuenta de esa habitacion */
+    $salida = $hotel->updateReservaHuespedSalida($numero, $usuario, $idUsuario, FECHA_PMS);
+    $habSucia = $hotel->updateEstadoHabitacion($room);
+    array_push($estadofactura, '0');
 }
 
-echo json_encode($estadofactura); */
+echo json_encode($estadofactura);

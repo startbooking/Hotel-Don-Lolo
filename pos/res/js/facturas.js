@@ -820,8 +820,6 @@ function guardaFactura() {
 
   var parametros = $("#pagarCuenta").serializeArray();
 
-  console.log(parametros);
-
   parametros.push({ name: "usuario", value: user });
   parametros.push({ name: "idusuario", value: iduser });
 
