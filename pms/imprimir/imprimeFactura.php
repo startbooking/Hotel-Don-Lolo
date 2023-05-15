@@ -10,6 +10,8 @@ if ($tipofac == 2) {
     $diasCre = $datosCompania[0]['dias_credito'];
 }
 
+$textoResol = 'RESOLUCION DIAN No.'.$resolucion.' de '.$fechaRes.' Autorizacion Pref. '. $prefijo.' desde el No. '.$desde.' AL ' $hasta;
+
 $firma = 'W/eofOdb7ab24WMN3jRdAlKoXbyFGIwf7flA9oE6kRovu+KqWV9MBHTl1cfgN2axTAt3cfoaZoygVZhedk29lVQ3H4Z8BiLBIGrZcqlkr5odfd1ixEgT28NGMa9Ji3sAGdaVNT8Upe7MkW+tkG4dOvnhhi+N20ohx7RHVT0me1t40SI51
 dYA/LdUWiNZXOSE3FYBLMjNTueZs0+uGrOGPltl3G2LsSoTIuEK/x/DHCucDzmJFXpgGqlXrv1a1cZuad9mI+nN3XU3CAGyXl4acUjrH5ZWhYukW9z+uftnIzYRnwh01nVzOhHhzeVVWcGqaX4k8Vw9GVlhZbJaCsFvbw==';
 $fechaFac = FECHA_PMS;
@@ -52,7 +54,7 @@ $pdf->MultiCell(40, 4, 'FACTURA ELECTRONICA DE VENTA', 1, 'C');
 $pdf->SetFont('Arial', '', 7);
 $pdf->setY(42);
 $pdf->Cell(40, 4, '', 0, 0, 'C');
-$pdf->MultiCell(110, 4, utf8_decode(TEXTORESOLUCION), 0, 'C');
+$pdf->MultiCell(110, 4, utf8_decode($textoResol), 0, 'C');
 $pdf->Cell(150, 4, '', 0, 0, 'C');
 $pdf->setY(46);
 $pdf->setX(160);
@@ -75,7 +77,7 @@ if ($tipofac == 2) {
         $pdf->Cell(30, 4, number_format($datosCompania[0]['nit'], 0).'-'.$datosCompania[0]['dv'], 0, 1, 'L');
         $pdf->SetFont('Arial', '', 8);
         $pdf->Cell(30, 4, 'DIRECCION', 0, 0, 'L');
-        $pdf->SetFont('Arial', 'B', 10);
+        $pdf->SetFont('Arial', 'B', 8);
         $pdf->Cell(70, 4, substr(utf8_decode($datosCompania[0]['direccion']), 0, 35), 0, 0, 'L');
         $pdf->SetFont('Arial', '', 8);
         $pdf->Cell(20, 4, 'CIUDAD', 0, 0, 'L');
@@ -228,8 +230,8 @@ $pdf->MultiCell(95, 6, '
 
                         Firma                                              Fecha', 1, 'L');
 $pdf->SetY(245);
-$pdf->Cell(40, 4, 'FACTURADO POR :', 1, 0, 'C');
-$pdf->Cell(55, 4, $usuario, 1, 1, 'L');
+$pdf->Cell(40, 5, 'FACTURADO POR :', 1, 0, 'C');
+$pdf->Cell(55, 5, $usuario, 1, 1, 'L');
 
 $pdf->SetY(250);
 

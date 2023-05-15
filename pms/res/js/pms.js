@@ -501,8 +501,9 @@ let { usuario_id, usuario, nombres, apellidos, tipo } = user;
 
     modal.find(".modal-title").text("Anular Factura: " + numero);
     modal.find(".modal-body #factura").val(numero);
-    modal.find(".modal-body #apellidos").val(apellidos);
-    modal.find(".modal-body #nombres").val(nombres);
+    modal.find(".modal-body #huespedAnu").val(apellidos + " " + nombres);
+    /* modal.find(".modal-body #apellidos").val(apellidos);
+    modal.find(".modal-body #nombres").val(nombres); */
     modal.find(".modal-body #llegada").val(llega);
     modal.find(".modal-body #salida").val(sale);
     modal.find(".modal-body #numero").val(numero);
@@ -3161,7 +3162,7 @@ function anulaFactura() {
       idusuario: usuario_id,
     },
     success: function () {
-      $(location).attr("href", pagina);
+      // $(location).attr("href", pagina);
     },
   });
 }

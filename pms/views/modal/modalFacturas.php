@@ -23,22 +23,22 @@
               </div>
             </div>
             <div class="form-group">
-              <label class="control-label col-lg-2">Apellidos</label>
-              <div class="col-lg-4 col-md-4">
-                <input class="form-control padInput" type="text" name="apellidos" id='apellidos' value='' readonly>
+              <label class="control-label col-lg-2">Huesped</label>
+              <div class="col-lg-8 col-md-8">
+                <input class="form-control padInput" type="text" name="huespedAnu" id='huespedAnu' value='' readonly>
               </div>
-              <label class="control-label col-lg-2">Nombres</label>
+<!--          <label class="control-label col-lg-2">Nombres</label>
               <div class="col-lg-4 col-md-4">
                 <input class="form-control padInput" type="text" name="nombres" id='nombres' value='' readonly>
-              </div>
+              </div> -->
             </div>
             <div class="form-group">
               <label for="llegada" class="col-sm-2 control-label">Llegada</label>
-              <div class="col-sm-4" style="padding-right: 20px">
+              <div class="col-sm-3" style="padding-right: 20px">
                 <input type="date" class="form-control" name="llegada" id="llegada" readonly=""> 
               </div>
               <label for="salida" class="col-sm-2 control-label">Salida</label>
-              <div class="col-sm-4" style="padding-right: 20px">
+              <div class="col-sm-3" style="padding-right: 20px">
                 <input type="date" class="form-control" name="salida" id="salida" readonly="">
               </div>
             </div>

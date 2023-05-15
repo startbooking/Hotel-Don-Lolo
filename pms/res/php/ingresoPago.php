@@ -30,6 +30,12 @@ $horaFact = date('H:s:i');
 $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
 $resFac = $hotel->getResolucion();
 
+$resolucion = $refFac[0]['resolucion'];
+$prefijo = $refFac[0]['prefijo'];
+$fechaRes = $refFac[0]['fecha'];
+$desde = $refFac[0]['desde'];
+$hasta = $refFac[0]['hasta'];
+
 $fechaFac = FECHA_PMS;
 $fechaVen = $fechaFac;
 $diasCre = 0;
@@ -42,7 +48,6 @@ if ($tipofac == 1) {
     $id = $idhues;
 } else {
     $id = $idcia;
-
     $dataCompany = $hotel->getSeleccionaCompania($id);
 
     if ($codigo == 2) {
@@ -77,7 +82,11 @@ if (count($saldofactura) == 0) {
     $totalFolio = ($saldofactura[0]['cargos'] + $saldofactura[0]['imptos']) - $saldofactura[0]['pagos'];
 }
 
-// include_once '../../api/Crea_Factura.php';
+$folios = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserva, $nroFolio, 1);
+$pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserva, $nroFolio, 3);
+$tipoimptos = $hotel->getValorImptoFolio($nroFactura, $reserva, $nroFolio, 2);
+
+$subtotales = $hotel->getConsumosReservaAgrupadoFolio($nroFactura, $reserva, $nroFolio, 1);
 
 if ($tipofac == 2) {
     $datosCompania = $hotel->getSeleccionaCompania($idperfil);
@@ -110,35 +119,19 @@ if ($tipofac == 2) {
     $triFact = $datosHuesped[0]['responsabilidadTributaria'];
 }
 
-/* "customer": {
-    "identification_number": 1017129099,
-    "dv": 7,
-    "name": "JUAN CARLOS DELGADO",
-    "phone": "3013391116",
-    "address": "CLL 4 NRO 33-90",
-    "email": "juandelagado@gmail.com",
-    "merchant_registration": "0000000-00",
-    "type_document_identification_id": 3,
-    "type_organization_id": 2,
-    "type_liability_id": 117,
-    "municipality_id": 822,
-    "type_regime_id": 2
-}, */
-
 $eFact = [];
 $eCust = [];
+$ePago = [];
+$eLmon = [];
+$eTaxe = [];
+$eInvo = [];
 
-/* array_push($encabezadoFactura, {name:'number',value:$nroFactura});
-
-array_push($encabezadoFactura, ) */
-// { name: "usuario", value: usuario }
-// echo 'Inicio ';
 $eFact['number'] = $nroFactura;
 $eFact['type_document_id'] = $datosHuesped[0]['tipo_identifica'];
 $eFact['date'] = $fechaFac;
 $eFact['time'] = $horaFact;
-$eFact['resolution_number'] = $resFac[0]['resolucion'];
-$eFact['prefix'] = $resFac[0]['prefijo'];
+$eFact['resolution_number'] = $resolucion;
+$eFact['prefix'] = $prefijo;
 $eFact['notes'] = $detallePag;
 $eFact['disable_confirmation_text'] = true;
 $eFact['sendmail'] = true;
@@ -159,45 +152,70 @@ $eCust['type_liability_id'] = $tliFact;
 $eCust['municipality_id'] = $munFact;
 $eCust['type_regime_id'] = $triFact;
 
-$ePago = [];
+$ePago['payment_form_id'] = $codigo;
+$ePago['payment_method_id'] = $codigo;
+$ePago['payment_due_date'] = $fechaVen;
+$ePago['duration_measure'] = $diasCre;
 
-$ePago['payment_form_id'];
-$ePago['payment_method_id'];
-$ePago['payment_due_date'];
-$ePago['duration_measure'];
+$eLmon['line_extension_amount'] = $subtotales[0]['cargos'];
+$eLmon['tax_exclusive_amount'] = $subtotales[0]['cargos'];
+$eLmon['tax_inclusive_amount'] = $subtotales[0]['cargos'] + $subtotales[0]['imptos'];
+$eLmon['allowance_total_amount'] = 0;
+$eLmon['payable_amount'] = $subtotales[0]['cargos'] + $subtotales[0]['imptos'];
+
+$tax_totals = [];
+foreach ($folios as $folio1) {
+    $taxTot = [];
+    $taxTot = [
+        'tax_id' => $folio1['codigo_impto'],
+        'tax_amount' => $folio1['imptos'],
+        'taxable_amount' => $folio1['cargos'],
+        'percent' => number_format($folio1['porcentaje_impto'], 0),
+    ];
+
+    array_push($tax_totals, $taxTot);
+
+    $invo = [
+      'unit_measure_id' => $folio1['id_codigo_cargo'],
+      'invoiced_quantity' => 1,
+      'line_extension_amount' => $folio1['cargos'],
+      'free_of_charge_indicator' => false,
+      'tax_totals' => $taxTot,
+      'description' => $folio1['descripcion_cargo'],
+      'notes' => '',
+      'code' => '',
+      'type_item_identification_id' => $folio1['id_codigo_cargo'],
+      'price_amount' => $folio1['imptos'] + $folio1['cargos'],
+      'base_quantity' => 1,
+    ];
+
+    array_push($eInvo, $invo);
+}
+
+foreach ($tipoimptos as $impto) {
+    $tax = [
+        'tax_id' => $impto['id_cargo'],
+        'tax_amount' => $impto['imptos'],
+        'taxable_amount' => $impto['cargos'],
+        'percent' => number_format($impto['porcentaje_impto'], 0),
+    ];
+
+    array_push($eTaxe, $tax);
+}
 
 $eFact['customer'] = $eCust;
 $eFact['payment_form'] = $ePago;
+$eFact['legal_monetary_totals'] = $eLmon;
+$eFact['tax_totals'] = $eTaxe;
+$eFact['invoice_lines'] = $eInvo;
 
 $eFact = json_encode($eFact);
 
-// echo $eFact;
-
 include_once '../../api/Crea_Factura.php';
 
-// echo print_r($eFact);
-
-/*
-echo json_encode($eFact);
-echo 'Seis  ';
-
-var_dump($eFact);
-
-
-echo 'PAso por Aca ';
- */
-/* "number": 63677,
-"type_document_id": 1,
-"date": "2022-12-07",
-"time": "04:08:12",
-"resolution_number": "18764040460991",
-"prefix": "ELP",
-"notes": "ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA, ESTA ES UNA NOTA DE PRUEBA",
-"disable_confirmation_text": true,
-"sendmail": true,
-"sendmailtome": true,
-"head_note": "PRUEBA DE TEXTO LIBRE QUE DEBE POSICIONARSE EN EL ENCABEZADO DE PAGINA DE LA REPRESENTACION GRAFICA DE LA FACTURA ELECTRONICA VALIDACION PREVIA DIAN",
-"foot_note": "PRUEBA DE TEXTO LIBRE QUE DEBE POSICIONARSE EN EL PIE DE PAGINA DE LA REPRESENTACION GRAFICA DE LA FACTURA ELECTRONICA VALIDACION PREVIA DIAN", */
+// Actualizar la factura con el response de la plataforma !!!
+// echo $response;
+// utilizar variable inserta [Numero de registro de la factura]
 
 include_once '../../imprimir/imprimeFactura.php';
 
