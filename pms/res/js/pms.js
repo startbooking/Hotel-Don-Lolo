@@ -1905,6 +1905,19 @@ let { usuario_id, usuario, nombres, apellidos, tipo } = user;
   });
 });
 
+function traePerfilVenta(id) {
+  $.ajax({
+    url: "res/php/traePerfilCodigo.php",
+    type: "POST",
+    data: {
+      id,
+    },
+    success: function (data) {
+      $("#perfilFactura").val(data.trim());
+    },
+  });
+}
+
 function traeFacturasEstadia() {
   $.ajax({
     url: "res/php/traeFacturacionEstadia.php",
@@ -3351,7 +3364,6 @@ function congelaHuesped() {
     idhues,
     reserva,
     idcia,
-    // idcentro,
     usuario,
     idUser: usuario_id,
   };
@@ -3367,7 +3379,7 @@ function congelaHuesped() {
         "success",
         5000
       );
-      // $(location).attr("href", "facturacionEstadia");
+      $(location).attr("href", "facturacionEstadia");
     },
   });
 }
@@ -4314,17 +4326,27 @@ function salidaHuesped() {
   var pagina = $("#ubicacion").val();
   var saldo = $("#SaldoActual").val();
   var abonos = $("#totalPagos").val();
+  let perfil = $("#perfilFactura").val();
   var tipofac = $(
     "input[name=habitacionOptionCon]:checked",
     "#guardarPagosRoomSal"
   ).val();
+
+  // console.log(tipofac);
+
+  if (tipofac == 2 && perfil == 2) {
+    swal(
+      "Precaucion",
+      "NO pude Utilziar esa Forma de Pago para la presente Cuenta",
+      "warning"
+    );
+    return;
+  }
+
   var pago = $("#txtValorPago").val();
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
   let { usuario, usuario_id, tipo } = user;
-  /* usuario = sesion["usuario"][0]["usuario"];
-  idusuario = sesion["usuario"][0]["usuario_id"];
-  nivel = sesion["usuario"][0]["tipo"]; */
 
   if (pago < saldo) {
     $("#mensajeSal").html(

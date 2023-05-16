@@ -44,6 +44,7 @@ define('CELULAR_EMPRESA', $empresa[0]['celular']);
 define('ID_PAIS_EMPRESA', $empresa[0]['pais']);
 define('PAIS_EMPRESA', $hotel->getLandName($empresa[0]['pais']));
 define('CIUDAD_EMPRESA', $hotel->getCityName($empresa[0]['ciudad']));
+define('CODE_CITY_COMPANY', $empresa[0]['ciudad']);
 define('WEB_EMPRESA', $empresa[0]['web']);
 define('CORREO_EMPRESA', $empresa[0]['correo']);
 define('LOGO', $empresa[0]['logo']);

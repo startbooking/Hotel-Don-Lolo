@@ -142,13 +142,8 @@ $pdf->Ln(1);
 
 $pdf->MultiCell(190, 4, utf8_decode('Acepto los consumos del Estado de Cuenta, autorizo con mi firma en la presente estado de cuenta y la generacion de la factura de cobro sin la misma, segun el contrato establecido con la empresa.'), 0, 'C');
 
-$file = '../../imprimir/congela/Cuenta_Congelada_'.$nrocongela.'.pdf';
-
-// echo $file;
-// $file = '../../imprimir/facturas/Factura_'.$nroFactura.'.pdf';
+$file = '../../imprimir/congela/Cuenta_Congelada_'.$numcongela.'.pdf';
 
 $pdf->Output($file, 'F');
-
-// $pdf->Output();
 
 echo $file;

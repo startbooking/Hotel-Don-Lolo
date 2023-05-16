@@ -5,11 +5,55 @@ date_default_timezone_set('America/Bogota');
 
 class Hotel_Actions
 {
-    public function infoFactura($numero)
+    public function getTipoPerfilCodigo($id)
     {
         global $database;
 
-        echo $numero;
+        $data = $database->select('codigos_vta', [
+            'perfil_venta',
+        ], [
+            'id_cargo' => $id,
+        ]);
+
+        return $data[0]['perfil_venta'];
+    }
+
+    public function getPrefijoNC()
+    {
+        global $database;
+
+        $data = $database->select('parametros_pms', [
+            'pref_credito',
+        ]);
+
+        return $data[0]['pref_credito'];
+    }
+
+    public function getNumeroCredito()
+    {
+        global $database;
+
+        $data = $database->select('parametros_pms', [
+            'con_credito',
+        ]);
+
+        return $data[0]['con_credito'];
+    }
+
+    public function actualizaNumeroCredito($id)
+    {
+        global $database;
+
+        $data = $database->update('parametros_pms', [
+            'con_credito' => $id,
+        ]);
+
+        return $data;
+    }
+
+    public function infoFactura($numero)
+    {
+        global $database;
 
         $data = $database->select('cargos_pms', [
             'id_codigo_cargo',
@@ -22,6 +66,7 @@ class Hotel_Actions
             'tipo_factura',
             'id_perfil_factura',
             'numero_reserva',
+            'prefijo_factura',
             'factura_numero',
             'fecha_factura',
             'factura',
@@ -5013,7 +5058,7 @@ class Hotel_Actions
         return $data;
     }
 
-    public function insertFacturaHuesped($codigo, $textcodigo, $valor, $refer, $numero, $room, $idhues, $folio, $canti, $usuario, $idUsuario, $fecha, $numfactura, $tipofac, $id, $idcentro)
+    public function insertFacturaHuesped($codigo, $textcodigo, $valor, $refer, $numero, $room, $idhues, $folio, $canti, $usuario, $idUsuario, $fecha, $numfactura, $tipofac, $id, $idcentro, $prefijo)
     {
         global $database;
 
@@ -5036,6 +5081,7 @@ class Hotel_Actions
             'idCentroCosto' => $idcentro,
             'fecha_salida' => FECHA_PMS,
             'factura' => 1,
+            'prefijo_factura' => $prefijo,
             'fecha_sistema_cargo' => date('Y-m-d H:i:s'),
         ]);
 

@@ -346,6 +346,7 @@ foreach ($codigos as $codigo) { ?>
             <input type="hidden" name="creditoCia" id="creditoCia" value="0">
             <input type="hidden" name="diasCreditoCia" id="diasCreditoCia" value="0">
             <input type="hidden" name="credito" id="credito" value="0">
+            <input type="hidden" name="perfilFactura" id="perfilFactura" value="0">
             <div class="form-group">
               <label style="margin-top: 3px;" for="llegada" class="col-sm-2 control-label">Facturar A </label>
               <div class="col-sm-6" style="padding:0;height: 30px">
