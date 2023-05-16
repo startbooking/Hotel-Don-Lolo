@@ -59,7 +59,7 @@ $pdf->Cell(150, 4, '', 0, 0, 'C');
 $pdf->setY(46);
 $pdf->setX(160);
 $pdf->SetFont('Arial', 'B', 8);
-$pdf->MultiCell(40, 4, 'Nro HDL-'.str_pad($nroFactura, 4, '0', STR_PAD_LEFT), 1, 'C');
+$pdf->MultiCell(40, 4, 'Nro '.$prefijo.' '.str_pad($nroFactura, 4, '0', STR_PAD_LEFT), 1, 'C');
 $pdf->SetFont('Arial', '', 8);
 
 $pdf->Ln(1);

@@ -7,7 +7,7 @@ $numero = $_POST['numero'];
 $motivo = strtoupper($_POST['motivo']);
 $reserva = $_POST['reserva'];
 $usuario = $_POST['usuario'];
-$idusuario = $_POST['idusuario'];
+$idusuario = $_POST['usuario_id'];
 
 $horaDoc = date('H:s:i');
 $fechaDoc = FECHA_PMS;
@@ -174,11 +174,10 @@ include_once '../../api/NotaCredito.php';
 include_once '../../imprimir/imprimeNotaCredito.php';
 
 /*
-
 include_once '../../imprimir/imprimeFacturaAnulada.php';
+*/
 
 $cargos = $hotel->actualizaCargosFacturas($numero);
 $anula = $hotel->anulaFactura($numero, $motivo, $usuario, $idusuario);
 $entra = $hotel->updateEstadoReserva($reserva);
- */
 // echo $entra;

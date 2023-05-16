@@ -335,9 +335,9 @@ foreach ($codigos as $codigo) { ?>
             <span class="glyphicon glyphicon-off"></span>
             </button> 
             <h3 class="modal-title" id="exampleModalLabel">Salida Huesped</h3>
-          </div>
+          </div> 
           <div id="mensajeSal"></div>
-          <div class="modal-body">
+          <div class="modal-body"> 
             <input type="hidden" name="txtIdReservaSal" id="txtIdReservaSal" value="">
             <input type="hidden" name="txtIdHuespedSal" id="txtIdHuespedSal" value="">
             <input type="hidden" name="txtImptoTuriSal" id="txtImptoTuriSal" value="">

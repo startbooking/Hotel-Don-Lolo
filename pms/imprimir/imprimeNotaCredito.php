@@ -190,7 +190,7 @@ $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(50, 4, 'TOTAL ', 1, 0, 'C');
 $pdf->Cell(30, 4, number_format($total, 2), 1, 1, 'R');
 $pdf->Ln(1);
-$pdf->SetFont('Arial', '', 8);
+$pdf->SetFont('Arial', '', 7);
 // $pdf->setY(155);
 /* $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(190, 4, 'FORMAS DE PAGO ', 1, 1, 'C');
@@ -229,7 +229,7 @@ $pdf->Ln(1);
 $pdf->SetFont('Arial', '', 8);
 */
 $pdf->MultiCell(190, 4, 'SON :'.numtoletras($total), 1, 'L');
-$pdf->SetFont('Arial', '', 7);
+$pdf->SetFont('Arial', 'B', 8);
 $pdf->MultiCell(190, 4, utf8_decode('FACTURA ANULADA NRO: '.$prefijo.' '.$numero.' MOTIVO : '.$motivo), 1, 'J');
 // $pdf->setY(226);
 // $pdf->SetFont('Arial', '', 7);
@@ -260,7 +260,7 @@ $file = '../../imprimir/notas/NotaCredito_'.$numDoc.'.pdf';
 
 $pdf->Output($file, 'F');
 
-// echo $file;
+echo $file;
 
 // array_push($estadofactura, 'NotaCredito_'.$numDoc.'.pdf');
 

@@ -5058,7 +5058,8 @@ class Hotel_Actions
         return $data;
     }
 
-    public function insertFacturaHuesped($codigo, $textcodigo, $valor, $refer, $numero, $room, $idhues, $folio, $canti, $usuario, $idUsuario, $fecha, $numfactura, $tipofac, $id, $idcentro, $prefijo)
+    /* public function insertFacturaHuesped($codigo, ) */
+    public function insertFacturaHuesped($codigo, $textcodigo, $valor, $refer, $numero, $room, $idhues, $folio, $canti, $usuario, $idUsuario, $fecha, $numfactura, $tipofac, $id, $idcentro, $prefijo, $perfilFac, $detallePag)
     {
         global $database;
 
@@ -5081,7 +5082,9 @@ class Hotel_Actions
             'idCentroCosto' => $idcentro,
             'fecha_salida' => FECHA_PMS,
             'factura' => 1,
+            'informacion_cargo' => $detallePag,
             'prefijo_factura' => $prefijo,
+            'perfil_factura' => $perfilFac,
             'fecha_sistema_cargo' => date('Y-m-d H:i:s'),
         ]);
 

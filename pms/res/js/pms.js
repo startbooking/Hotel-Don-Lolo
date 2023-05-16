@@ -575,9 +575,6 @@ let { usuario_id, usuario, nombres, apellidos, tipo } = user;
     sesion = JSON.parse(localStorage.getItem("sesion"));
     let { user } = sesion;
     let { usuario, usuario_id } = user;
-    /* usuario = sesion["usuario"][0]["usuario"];
-    idusuario = sesion["usuario"][0]["usuario_id"]; */
-
     var web = $("#rutaweb").val();
     var pagina = $("#ubicacion").val();
     var folio = $("#folioActivo").val();
@@ -3172,10 +3169,15 @@ function anulaFactura() {
       motivo,
       reserva,
       usuario,
-      idusuario: usuario_id,
+      usuario_id,
     },
-    success: function () {
-      // $(location).attr("href", pagina);
+    success: function (data) {
+      var ventana = window.open(data.trim(), "PRINT", "height=600,width=600");
+      setTimeout(function () {
+        swal("Atencion", "Salida del Huesped realizada con Exito", "success");
+        // $(location).attr("href", "home");
+        $(location).attr("href", pagina);
+      }, 2000);
     },
   });
 }
@@ -3327,7 +3329,6 @@ function activaCongelado(reserva, folio) {
 function movimientosCongelada(reserva) {
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
-  console.log(reserva);
   var parametros = { reserva };
   $.ajax({
     type: "POST",
@@ -3337,7 +3338,7 @@ function movimientosCongelada(reserva) {
       $("#plantilla").html("");
       $("#plantilla").html(data);
       activaCongelado(reserva, 1);
-      $(location).attr("href", "facturacionCongelada");
+      // $(location).attr("href", "facturacionCongelada");
     },
   });
 }
@@ -4326,15 +4327,13 @@ function salidaHuesped() {
   var pagina = $("#ubicacion").val();
   var saldo = $("#SaldoActual").val();
   var abonos = $("#totalPagos").val();
-  let perfil = $("#perfilFactura").val();
+  let perfilFac = $("#perfilFactura").val();
   var tipofac = $(
     "input[name=habitacionOptionCon]:checked",
     "#guardarPagosRoomSal"
   ).val();
 
-  // console.log(tipofac);
-
-  if (tipofac == 2 && perfil == 2) {
+  if (tipofac == 2 && perfilFac == 2) {
     swal(
       "Precaucion",
       "NO pude Utilziar esa Forma de Pago para la presente Cuenta",
@@ -4371,10 +4370,11 @@ function salidaHuesped() {
     var room = $("#txtNumeroHabSal").val();
     var codigo = $("#codigoPago").val();
     var textopago = $("#codigoPago option:selected").text();
+    var detalle = $("#txtDetallePag").val();
     var refer = $("#txtReferenciaPag").val();
     var folio = $("#folioActivo").val();
     var idcia = $("#txtIdCiaSal").val();
-    // var idcentro = $("#txtIdCentroCiaSal").val();
+    // let perfilFac = $("#perfilFactura").val();
     var idcentro = 0;
 
     var parametros = {
@@ -4390,7 +4390,9 @@ function salidaHuesped() {
       idcia,
       idcentro,
       usuario,
-      idusuario: usuario_id,
+      usuario_id,
+      perfilFac,
+      detalle,
     };
     $.ajax({
       type: "POST",
@@ -4398,12 +4400,6 @@ function salidaHuesped() {
       dataType: "json",
       data: parametros,
       success: function (data) {
-        /* var ventana = window.open(
-          "api/Crea_Factura.php",
-          // "imprimir/facturas/" + data[0],
-          "PRINT",
-          "height=600,width=600"
-        ); */
         var ventana = window.open(
           "imprimir/facturas/" + data[0],
           "PRINT",
@@ -6193,9 +6189,12 @@ function salidaHuespedCongelada() {
     var room = $("#txtNumeroHabSalCon").val();
     var codigo = $("#codigoPago").val();
     var textopago = $("#codigoPago option:selected").text();
-    var refer = $("#txtDetallePag").val();
+    var detalle = $("#txtDetallePag").val();
+    var refer = $("#txtReferenciaPag").val();
     var folio = $("#folioActivo").val();
     var idcia = $("#seleccionaPagoCiaCon").val();
+    let perfilFac = $("#perfilFactura").val();
+    var idcentro = 0;
 
     var parametros = {
       codigo,
@@ -6209,7 +6208,8 @@ function salidaHuespedCongelada() {
       tipofac,
       idcia,
       usuario,
-      idusuario: usuario_id,
+      usuario_id,
+      perfilFac,
     };
     $.ajax({
       type: "POST",

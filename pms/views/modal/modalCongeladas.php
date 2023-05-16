@@ -16,7 +16,17 @@ $cias = $hotel->getCompanias();
             <h3 class="modal-title" id="exampleModalLabel">Salida Huesped</h3>
           </div>
           <div id="mensajeSal"></div>
-          <div class="modal-body">  
+          <div class="modal-body">
+            <input type="hidden" name="txtIdReservaSal" id="txtIdReservaSal" value="">
+            <input type="hidden" name="txtIdHuespedSal" id="txtIdHuespedSal" value="">
+            <input type="hidden" name="txtImptoTuriSal" id="txtImptoTuriSal" value="">
+            <input type="hidden" name="txtIdCiaSal" id="txtIdCiaSal" value="">
+            <input type="hidden" name="txtIdCentroCiaSal" id="txtIdCentroCiaSal" value=""> 
+            <input type="hidden" name="creditoCia" id="creditoCia" value="0">
+            <input type="hidden" name="diasCreditoCia" id="diasCreditoCia" value="0">
+            <input type="hidden" name="credito" id="credito" value="0">
+            <input type="hidden" name="perfilFactura" id="perfilFactura" value="1">
+  
             <!-- Cambio Opcion Perfil en la factura Inicio // Agos-30 -2019 --->
             <div class="form-group">
               <label class="control-label col-md-2">Hab.</label>
@@ -27,23 +37,23 @@ $cias = $hotel->getCompanias();
               </div>
             
               <label for="llegada" class="col-sm-2 control-label">Facturar A </label>
-              <div class="col-sm-6" style="padding:0;height: 30px">
+              <div class="col-sm-4" style="padding:0;height: 30px">
                 <div class="col-sm-6">
                   <div class="form-check form-check-inline">
                     <input style="margin-top:5px" class="form-check-input" type="radio" name="habitacionOptionCon" id="inlineRadio1" value="1" onclick="apagaselecomp(this.value)" disabled>
-                    <label style="margin-top:-25px;margin-left:25px" class="form-check-label" for="inlineRadio1" >Huesped</label>
+                    <label style="margin-top:-18px;margin-left:25px" class="form-check-label" for="inlineRadio1" >Huesped</label>
                   </div>                     
                 </div>
                 <div class="col-sm-6">
                   <div class="form-check form-check-inline">
                     <input style="margin-top:5px" class="form-check-input" type="radio" name="habitacionOptionCon" id="inlineRadio2" value="2" onclick="apagaselecomp(this.value)" checked required>
-                    <label style="margin-top:-25px;margin-left:25px" class="form-check-label" for="inlineRadio2" >Compañia</label>
+                    <label style="margin-top:-18px;margin-left:25px" class="form-check-label" for="inlineRadio2" >Compañia</label>
                   </div>
                 </div>
               </div>
             </div>
             <div class="form-group" id="selecomp">
-              <label class="control-label col-xs-3">Compañia</label>
+              <label class="control-label col-xs-2">Compañia</label>
               <div class="col-lg-8 col-xs-8">
                 <select name="txtIdCiaSal" id="txtIdCiaSal"  readonly disabled>
                   <?php
@@ -56,7 +66,7 @@ $cias = $hotel->getCompanias();
               </div>
             </div>            
             <div class="form-group" id="seletitular">
-              <label class="control-label col-md-3">Titular</label>
+              <label class="control-label col-md-2">Titular</label>
               <div class="col-lg-8 col-md-8">
                 <select class="form-control" name="titular" id="titular" style="padding:3px 12px;" onchange="cambiaTitularCon()" readonly disabled>
                   <option value="">Seleccione El Titular de la Factura</option>         

@@ -18,8 +18,9 @@ $idcia = $_POST['idcia'];
 $idcentro = $_POST['idcentro'];
 $tipofac = $_POST['tipofac'];
 $usuario = $_POST['usuario'];
-$idUsuario = $_POST['idusuario'];
-$detallePag = $_POST['txtDetallePag'];
+$idUsuario = $_POST['usuario_id'];
+$detallePag = strtoupper($_POST['detalle']);
+$perfilFac = $_POST['perfilFac'];
 $reserva = $numero;
 $nroFolio = $folio;
 $idhuesped = $idhues;
@@ -30,11 +31,11 @@ $horaFact = date('H:s:i');
 $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
 $resFac = $hotel->getResolucion();
 
-$resolucion = $refFac['resolucion'];
-$prefijo = $refFac['prefijo'];
-$fechaRes = $refFac['fecha'];
-$desde = $refFac['desde'];
-$hasta = $refFac['hasta'];
+$resolucion = $resFac[0]['resolucion'];
+$prefijo = $resFac[0]['prefijo'];
+$fechaRes = $resFac[0]['fecha'];
+$desde = $resFac[0]['desde'];
+$hasta = $resFac[0]['hasta'];
 
 $fechaFac = FECHA_PMS;
 $fechaVen = $fechaFac;
@@ -61,7 +62,7 @@ if ($tipofac == 1) {
 $nroFactura = $numfactura;
 $idperfil = $id;
 
-$inserta = $hotel->insertFacturaHuesped($codigo, $textcodigo, $valor, $refer, $numero, $room, $idhues, $folio, $canti, $usuario, $idUsuario, $fecha, $numfactura, $tipofac, $id, $idcentro);
+$inserta = $hotel->insertFacturaHuesped($codigo, $textcodigo, $valor, $refer, $numero, $room, $idhues, $folio, $canti, $usuario, $idUsuario, $fecha, $numfactura, $tipofac, $id, $idcentro, $prefijo, $perfilFac, $detallePag);
 
 $factu = $hotel->updateCargosReservaFolio($numero, $numfactura, $folio, $fecha, $usuario, $idUsuario, $tipofac, $id);
 
