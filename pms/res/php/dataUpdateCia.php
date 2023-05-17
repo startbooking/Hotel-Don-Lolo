@@ -251,7 +251,7 @@ foreach ($tipoTribus as $tipoTribu) { ?>
                 }
 ?>
                 >
-                <label style="margin-top:-25px;margin-left:25px" class="form-check-label" for="inlineRadio1" >Si</label>
+                <label style="margin-top:-18px;margin-left:25px" class="form-check-label" for="inlineRadio1" >Si</label>
               </div>                    
             </div>
             <div class="col-sm-6"> 
@@ -263,12 +263,41 @@ if ($empresa[0]['credito'] == 2) { ?>
                 	<?php
 }
 ?>
-
                 >
-                <label style="margin-top:-25px;margin-left:25px" class="form-check-label" for="inlineRadio2">No</label>
+                <label style="margin-top:-18px;margin-left:25px" class="form-check-label" for="inlineRadio2">No</label>
               </div>
-            </div>                  
+            </div>
           </div>
+          <label for="reteIva" class="col-sm-1 control-label">ReteIva </label>
+          <div class="col-sm-1">
+            <div class="form-check form-check-inline">
+              <input style="margin-top:5px" class="form-check-input" type="checkbox" name="reteIva" id="reteIva" value="1" <?php if ($empresa[0]['reteiva'] == 1) {?>
+                checked
+                <?php
+              }?>
+              >
+            </div>
+          </div>
+          <label for="reteIca" class="col-sm-1 control-label">ReteICa </label>
+          <div class="col-sm-1">
+            <div class="form-check form-check-inline">
+              <input style="margin-top:5px" class="form-check-input" type="checkbox" name="reteIca" id="reteIca" value="1" <?php if ($empresa[0]['reteica'] == 1) { ?>
+                checked
+                <?php
+              }
+?>>
+            </div>
+          </div>
+          <label for="retefuente" class="col-sm-1 control-label">ReteFuente </label>
+          <div class="col-sm-1">
+            <div class="form-check form-check-inline">
+              <input style="margin-top:5px" class="form-check-input" type="checkbox" name="retefuente" id="retefuente" value="1" <?php if ($empresa[0]['retefuente'] == 1) { ?>
+                checked
+                <?php
+              }
+?>>
+            </div>
+          </div>                  
         </div>
         <div class="form-group" id='estadocreditoUpd' style=
         <?php

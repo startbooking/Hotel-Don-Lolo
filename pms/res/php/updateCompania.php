@@ -26,6 +26,21 @@ $tipoAdqui = $_POST['tipoAdquiriente'];
 $tipoRespo = $_POST['tipoResponsabilidad'];
 $repoTribu = $_POST['responsabilidadTribu'];
 
-$updateCompania = $hotel->updateCompania($id, $nit, $dv, $tipodoc, $compania, $direccion, $ciudad, $telefono, $celular, $web, $correo, $tarifa, $formapago, $credito, $monto, $diascre, $diacorte, $tipoemp, $codciiu, $tipoAdqui, $tipoRespo, $repoTribu);
+$reteIva = 0;
+$reteFte = 0;
+$reteIca = 0;
+
+if (isset($_POST['reteIva'])) {
+    $reteIva = 1;
+}
+if (isset($_POST['reteIca'])) {
+    $reteIca = 1;
+}
+
+if (isset($_POST['retefuente'])) {
+    $reteFte = 1;
+}
+
+$updateCompania = $hotel->updateCompania($id, $nit, $dv, $tipodoc, $compania, $direccion, $ciudad, $telefono, $celular, $web, $correo, $tarifa, $formapago, $credito, $monto, $diascre, $diacorte, $tipoemp, $codciiu, $tipoAdqui, $tipoRespo, $repoTribu, $reteIva, $reteIca, $reteFte);
 
 echo $updateCompania;

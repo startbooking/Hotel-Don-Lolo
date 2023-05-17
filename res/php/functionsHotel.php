@@ -83,6 +83,18 @@ class Hotel_Actions
         return $data;
     }
 
+    public function traeCodigoPais($id)
+    {
+        global $database;
+        $data = $database->select('paices', [
+            'numero',
+        ], [
+            'id_pais' => $id,
+        ]);
+
+        return $data[0]['numero'];
+    }
+
     public function traeCodigoCiudad($id)
     {
         global $database;
@@ -4403,7 +4415,7 @@ class Hotel_Actions
         return $data;
     }
 
-    public function updateCompania($id, $nit, $dv, $tipodoc, $compania, $direccion, $ciudad, $telefono, $celular, $web, $correo, $tarifa, $formapago, $credito, $monto, $diascre, $diacorte, $tipoemp, $codciiu, $tipoAdqui, $tipoRespo, $repoTribu)
+    public function updateCompania($id, $nit, $dv, $tipodoc, $compania, $direccion, $ciudad, $telefono, $celular, $web, $correo, $tarifa, $formapago, $credito, $monto, $diascre, $diacorte, $tipoemp, $codciiu, $tipoAdqui, $tipoRespo, $repoTribu, $reteIva, $reteIca, $reteFte)
     {
         global $database;
 
@@ -4425,6 +4437,9 @@ class Hotel_Actions
             'dia_corte_credito' => $diacorte,
             'id_tarifa' => $tarifa,
             'tipo_empresa' => $tipoemp,
+            'reteiva' => $reteIva,
+            'reteica' => $reteIca,
+            'retefuente' => $reteFte,
             'updated_at' => date('Y-m-d H:i:s'),
             'id_codigo_ciiu' => $codciiu,
             'tipoAdquiriente' => $tipoAdqui,
@@ -4463,6 +4478,9 @@ class Hotel_Actions
             'id_forma_pago',
             'id_codigo_ciiu',
             'usuario',
+            'reteiva',
+            'reteica',
+            'retefuente',
             'tipoAdquiriente',
             'tipoResponsabilidad',
             'responsabilidadTributaria',
@@ -5859,6 +5877,7 @@ class Hotel_Actions
             'email',
             'ciudad',
             'pais',
+            'sexo',
             'tipoAdquiriente',
             'tipoResponsabilidad',
             'responsabilidadTributaria',
@@ -6432,7 +6451,7 @@ class Hotel_Actions
         return $data;
     }
 
-    public function insertaNuevaCompania($nit, $dv, $tipodoc, $compania, $direccion, $ciudad, $telefono, $celular, $web, $correo, $tarifa, $formapago, $credito, $monto, $diascre, $diacorte, $usuario, $tipoemp, $codciiu, $tipoAdqui, $tipoRespo, $repoTribu)
+    public function insertaNuevaCompania($nit, $dv, $tipodoc, $compania, $direccion, $ciudad, $telefono, $celular, $web, $correo, $tarifa, $formapago, $credito, $monto, $diascre, $diacorte, $usuario, $tipoemp, $codciiu, $tipoAdqui, $tipoRespo, $repoTribu, $reteIva, $reteIca, $reteFte)
     {
         global $database;
 
@@ -6459,6 +6478,9 @@ class Hotel_Actions
             'tipo_empresa' => $tipoemp,
             'id_codigo_ciiu' => $codciiu,
             'tipo_compania' => 3,
+            'reteiva' => $reteIva,
+            'reteica' => $reteIca,
+            'retefuente' => $reteFte,
             'tipoAdquiriente' => $tipoAdqui,
             'tipoResponsabilidad' => $tipoRespo,
             'responsabilidadTributaria' => $repoTribu,

@@ -27,7 +27,22 @@ $tipoAdqui = $_POST['tipoAdquiriente'];
 $tipoRespo = $_POST['tipoResponsabilidad'];
 $repoTribu = $_POST['responsabilidadTribu'];
 
+$reteIva = 0;
+$reteFte = 0;
+$reteIca = 0;
+
+if (isset($_POST['reteIva'])) {
+    $reteIva = 1;
+}
+if (isset($_POST['reteIca'])) {
+    $reteIca = 1;
+}
+
+if (isset($_POST['retefuente'])) {
+    $reteFte = 1;
+}
+
 $nuevaCompania = $hotel->insertaNuevaCompania($nit, $dv, $tipodoc, $compania, $direccion, $ciudad, $telefono, $celular, $web, $correo, $tarifa, $formapago, $credito, $monto, $diascre, $diacorte, $usuario, $tipoemp, $codciiu, $tipoAdqui,
-    $tipoRespo, $repoTribu);
+    $tipoRespo, $repoTribu, $reteIva, $reteIca, $reteFte);
 
 echo $nuevaCompania;

@@ -89,8 +89,9 @@ include_once 'menus/menu_titulo.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'cuentasCongeladas') {
       require 'views/cuentasCongeladas.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'facturacionCongelada') {
-      // / echo $_SESSION('reserva');
       require 'views/facturacionCongelada.php';
+  } elseif (isset($_GET['section']) && $_GET['section'] == 'exportaFacturas') {
+      require 'views/exportaFacturas.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'historicoFacturas') {
       require 'views/historicoFacturas.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'historicoReservas') {

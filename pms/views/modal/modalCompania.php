@@ -9,7 +9,7 @@ echo LAND_HOTEL;
 				<h4 class="modal-title" id="myModalLabel">Adicionar Compañia</h4>
 	  	</div>
       <form class="form-horizontal" id="formCompania" action="javascript:guardaCompania()" method="POST">
-  	    <div class="modal-body">
+  	    <div class="modal-body"> 
           <div class="form-group">
             <label for="nit" class="col-sm-2 control-label">Nit</label>
             <div class="col-sm-2">
@@ -195,15 +195,33 @@ foreach ($tipohesps as $tipohesp) { ?>
                 <div class="col-sm-6">
                   <div class="form-check form-check-inline">
                     <input style="margin-top:5px" class="form-check-input" type="radio" name="creditOption" id="inlineRadio1" value="1" onclick="cambiaEstadoCredito(this.value)">
-                    <label style="margin-top:-25px;margin-left:25px" class="form-check-label" for="inlineRadio1" >Si</label>
+                    <label style="margin-top:-18px;margin-left:25px" class="form-check-label" for="inlineRadio1" >Si</label>
                   </div>                    
                 </div>
                 <div class="col-sm-6"> 
                   <div class="form-check form-check-inline">
                     <input style="margin-top:5px" class="form-check-input" type="radio" name="creditOption" id="inlineRadio2" value="2" checked onclick="cambiaEstadoCredito(this.value)">
-                    <label style="margin-top:-25px;margin-left:25px" class="form-check-label" for="inlineRadio2">No</label>
+                    <label style="margin-top:-18px;margin-left:25px" class="form-check-label" for="inlineRadio2">No</label>
                   </div>
                 </div>                  
+              </div>
+              <label for="reteIva" class="col-sm-1 control-label">ReteIva </label>
+              <div class="col-sm-1">
+                <div class="form-check form-check-inline">
+                  <input style="margin-top:5px" class="form-check-input" type="checkbox" name="reteIva" id="reteIva" value="1" >
+                </div>
+              </div>
+              <label for="creditOption" class="col-sm-1 control-label">ReteICa </label>
+              <div class="col-sm-1">
+                <div class="form-check form-check-inline">
+                  <input style="margin-top:5px" class="form-check-input" type="checkbox" name="reteIca" id="reteIca" value="1">
+                </div>
+              </div>
+              <label for="creditOption" class="col-sm-1 control-label">ReteFuente </label>
+              <div class="col-sm-1">
+                <div class="form-check form-check-inline">
+                  <input style="margin-top:5px" class="form-check-input" type="checkbox" name="retefuente" id="retefuente" value="1" >
+                </div>
               </div>
             </div>
             <div class="form-group" id='estadocredito'>

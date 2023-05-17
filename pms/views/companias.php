@@ -1,12 +1,12 @@
 <?php
 
   require_once '../res/php/functionsHotel.php';
-  
+
   $filahue = 25;
   $regcias = $hotel->getCantidadCompanias();
-  $paginas = ceil($regcias / $filahue) ; 
+  $paginas = ceil($regcias / $filahue);
 
-?> 
+  ?> 
 
 <div class="content-wrapper" id="pantallaCompanias"> 
   <section class="content">
@@ -14,12 +14,12 @@
       <div class="panel-heading"> 
         <div class="row"> 
           <div class="col-lg-6">
-            <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_PMS?>">                  
+            <input type="hidden" name="rutaweb" id="rutaweb" value="<?php echo BASE_PMS; ?>">                  
             <input type="hidden" name="ubicacion" id="ubicacion" value="companias">
-            <input type="hidden" name="paginas" id="paginas" value="<?=$paginas?>">
-            <input type="hidden" name="regiscia" id="regiscia" value="<?=$regcias?>">
+            <input type="hidden" name="paginas" id="paginas" value="<?php echo $paginas; ?>">
+            <input type="hidden" name="regiscia" id="regiscia" value="<?php echo $regcias; ?>">
             <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-industry"></i> Compania </h3>
-          </div>
+          </div> 
           <div class="col-lg-6" align="right">
             <a 
               class="btn btn-success"

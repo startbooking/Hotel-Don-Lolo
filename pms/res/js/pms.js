@@ -1902,6 +1902,42 @@ let { usuario_id, usuario, nombres, apellidos, tipo } = user;
   });
 });
 
+function buscaFacturasExporta() {
+  fecha = document.querySelector("#buscarFecha").value;
+  url = "res/php/exportaFactura.php";
+  fetch(url, {
+    method: "post",
+    headers: {
+      "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+    },
+    body: "fecha=" + fecha,
+  })
+    .then((response) => response.text())
+    .then((data) => llenaFacturas(data));
+}
+
+function llenaFacturas(datos) {
+  facturasHTML = document.querySelector("#dataTable tbody");
+  resultado = document.querySelector(".alert");
+  if (datos.trim() == "1") {
+    facturasHTML.innerHTML = "";
+    resultado.classList.remove("apaga");
+    resultado.innerHTML =
+      '<p style="text-align:center;"> Sin Facturas Generadas para el dia Seleccionado<p>  ';
+    setTimeout(() => {
+      resultado.classList.add("apaga");
+    }, 3000);
+  } else {
+    facturasHTML.innerHTML = datos;
+  }
+}
+
+function LimpiaFacturasHTML() {
+  while (facturasHTML.firstChild) {
+    facturasHTML.removeChild(facturasHTML.firstChild);
+  }
+}
+
 function traePerfilVenta(id) {
   $.ajax({
     url: "res/php/traePerfilCodigo.php",
