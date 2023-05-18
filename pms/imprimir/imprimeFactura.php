@@ -217,6 +217,7 @@ $pdf->SetFont('Arial', '', 8);
 $pdf->MultiCell(190, 4, 'SON :'.numtoletras($total), 1, 'L');
 $pdf->SetFont('Arial', '', 5);
 $pdf->MultiCell(190, 3, utf8_decode('Representación impresa de la factura electrónica,Firma Electrónica y Cufe : ').'CUFE'.utf8_decode('Fecha Validación Dian = ').' FIRMA = '.$firma, 1, 'L');
+$pdf->MultiCell(190, 3, utf8_decode('Observaciones ').utf8_decode($detallePag), 1, 'L');
 $pdf->setY(226);
 $pdf->SetFont('Arial', '', 7);
 $pdf->MultiCell(95, 4, utf8_decode(TEXTOBANCO).', '.utf8_decode(TEXTOFACTURA), 1, 'C');

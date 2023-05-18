@@ -107,5 +107,5 @@ if (!isset($_GET['section'])) {
 } elseif (isset($_GET['section']) && $_GET['section'] == 'mantenimiento') {
     $mmtos = $hotel->habitacionesMantenimiento();
 }
-
+ 
 ?> 

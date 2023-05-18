@@ -497,6 +497,8 @@ let { usuario_id, usuario, nombres, apellidos, tipo } = user;
     var fecha = button.data("fechafac");
     var numero = button.data("numero");
     var reserva = button.data("reserva");
+    var perfil = button.data("perfil");
+    var idperfil = button.data("idperfil");
     var modal = $(this);
 
     modal.find(".modal-title").text("Anular Factura: " + numero);
@@ -508,11 +510,19 @@ let { usuario_id, usuario, nombres, apellidos, tipo } = user;
     modal.find(".modal-body #salida").val(sale);
     modal.find(".modal-body #numero").val(numero);
     modal.find(".modal-body #reserva").val(reserva);
+    modal.find(".modal-body #perfil").val(perfil);
+    modal.find(".modal-body #idperfil").val(idperfil);
     modal.find(".modal-body #fechafac").val(fecha);
     modal.find(".modal-body #motivoAnula").val("");
-    var factura = "Factura_" + numero + ".pdf";
 
-    $("#verFacturaModal").attr("data", web + "imprimir/facturas/" + factura);
+    if (perfil == 1) {
+      var factura = "Factura_" + numero + ".pdf";
+      $("#verFacturaModal").attr("data", web + "imprimir/facturas/" + factura);
+    } else {
+      var factura = "Abono_" + numero + ".pdf";
+      $("#verFacturaModal").attr("data", web + "imprimir/notas/" + factura);
+    }
+
     $(".alert").hide();
   });
 
@@ -3196,6 +3206,7 @@ function anulaFactura() {
   var numero = $("#factura").val();
   var motivo = $("#motivoAnula").val();
   var reserva = $("#reserva").val();
+  var perfil = $("#perfil").val();
 
   $.ajax({
     url: "res/php/anulaFactura.php",
@@ -3206,14 +3217,17 @@ function anulaFactura() {
       reserva,
       usuario,
       usuario_id,
+      perfil,
     },
     success: function (data) {
-      var ventana = window.open(data.trim(), "PRINT", "height=600,width=600");
-      setTimeout(function () {
+      // var ventana = window.open(data.trim(), "PRINT", "height=600,width=600");
+      swal("Atencion", "Documento Anulado Con Exito", "success", 5000);
+      $(location).attr("href", pagina);
+      // $(location).attr("href", "facturacionEstadia");
+      /* setTimeout(function () {
         swal("Atencion", "Salida del Huesped realizada con Exito", "success");
         // $(location).attr("href", "home");
-        $(location).attr("href", pagina);
-      }, 2000);
+      }, 2000); */
     },
   });
 }
@@ -3466,9 +3480,14 @@ function buscaAuditoriasFecha() {
   });
 }
 
-function verfactura(fact) {
-  var factura = "Factura_" + fact + ".pdf";
-  $("#verFactura").attr("data", "imprimir/facturas/" + factura);
+function verfactura(fact, perfil) {
+  if (perfil == 1) {
+    var factura = "Factura_" + fact + ".pdf";
+    $("#verFactura").attr("data", "imprimir/facturas/" + factura);
+  } else {
+    var factura = "Abono_" + fact + ".pdf";
+    $("#verFactura").attr("data", "imprimir/notas/" + factura);
+  }
 }
 
 function buscaFacturasFecha() {
@@ -4436,11 +4455,19 @@ function salidaHuesped() {
       dataType: "json",
       data: parametros,
       success: function (data) {
-        var ventana = window.open(
-          "imprimir/facturas/" + data[0],
-          "PRINT",
-          "height=600,width=600"
-        );
+        if (perfilFac == 1) {
+          var ventana = window.open(
+            "imprimir/facturas/" + data[0],
+            "PRINT",
+            "height=600,width=600"
+          );
+        } else {
+          var ventana = window.open(
+            "imprimir/notas/" + data[0],
+            "PRINT",
+            "height=600,width=600"
+          );
+        }
 
         if (data[1] == "0") {
           setTimeout(function () {
@@ -6324,14 +6351,15 @@ function cambiaTitular() {
   $("#txtIdHuespedSal").val(idhuesp);
 }
 
-function verCargosFacturaDia(factura, reserva) {
+function verCargosFacturaDia(factura, reserva, perfil) {
   huesped = $("#txtIdHuespedHis").val();
   $.ajax({
     url: "res/php/buscaCargosFacturaDia.php",
     type: "POST",
     data: {
-      factura: factura,
-      reserva: reserva,
+      factura,
+      reserva,
+      perfil,
     },
     beforeSend: function (objeto) {
       $("#verFactura").html('<div><img src="" alt="" /></div>');

@@ -19,8 +19,7 @@ $idusuario = $_POST['idusuario'];
 $fecha = FECHA_PMS;
 
 $numabono = $hotel->getNumeroAbono(); // Numero Actual del Abono
-$nuevo = $numabono + 1;
-$nuevonumero = $hotel->updateNumeroAbonos($nuevo); // Actualiza Consecutivo del Abono
+$nuevonumero = $hotel->updateNumeroAbonos($numabono + 1); // Actualiza Consecutivo del Abono
 
 $abono = $hotel->insertAbonosCuenta($codigo, $textcodigo, $valor, $refer, $detalle, $numero, $room, $idhues, $folio, $canti, $usuario, $idusuario, $fecha, $numabono);
 

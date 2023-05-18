@@ -42,8 +42,14 @@ $fechaVen = $fechaFac;
 $diasCre = 0;
 $paganticipo = 0;
 
-$numfactura = $hotel->getNumeroFactura(); // Numero Actual del Abono
-$nuevonumero = $hotel->updateNumeroFactura($numfactura + 1); // Actualiza Consecutivo del Abono
+if ($perfilFac == 1) {
+    $numfactura = $hotel->getNumeroFactura(); // Numero Actual del Abono
+    $nuevonumero = $hotel->updateNumeroFactura($numfactura + 1); // Actualiza Consecutivo del Abono
+} else {
+    $numfactura = $hotel->getNumeroAbono(); // Numero Actual del Abono
+    // echo 'Numero Abono '.$numfactura;
+    $nuevonumero = $hotel->updateNumeroAbonos($numfactura + 1); // Actualiza Consecutivo del Abono
+}
 
 if ($tipofac == 1) {
     $id = $idhues;
@@ -89,6 +95,8 @@ $tipoimptos = $hotel->getValorImptoFolio($nroFactura, $reserva, $nroFolio, 2);
 
 $subtotales = $hotel->getConsumosReservaAgrupadoFolio($nroFactura, $reserva, $nroFolio, 1);
 
+// echo 'Tipo Factura '.$tipofac;
+
 if ($tipofac == 2) {
     $datosCompania = $hotel->getSeleccionaCompania($idperfil);
     $diasCre = $datosCompania[0]['dias_credito'];
@@ -120,105 +128,113 @@ if ($tipofac == 2) {
     $triFact = $datosHuesped[0]['responsabilidadTributaria'];
 }
 
-$eFact = [];
-$eCust = [];
-$ePago = [];
-$eLmon = [];
-$eTaxe = [];
-$eInvo = [];
+// echo 'Perfil Factura '.$perfilFac;
 
-$eFact['number'] = $nroFactura;
-$eFact['type_document_id'] = $datosHuesped[0]['tipo_identifica'];
-$eFact['date'] = $fechaFac;
-$eFact['time'] = $horaFact;
-$eFact['resolution_number'] = $resolucion;
-$eFact['prefix'] = $prefijo;
-$eFact['notes'] = $detallePag;
-$eFact['disable_confirmation_text'] = true;
-$eFact['sendmail'] = true;
-$eFact['sendmailtome'] = true;
-$eFact['head_note'] = 'PRUEBA DE TEXTO LIBRE QUE DEBE POSICIONARSE EN EL ENCABEZADO DE PAGINA DE LA REPRESENTACION GRAFICA DE LA FACTURA ELECTRONICA VALIDACION PREVIA DIAN';
-$eFact['foot_note'] = 'PRUEBA DE TEXTO LIBRE QUE DEBE POSICIONARSE EN EL PIE DE PAGINA DE LA REPRESENTACION GRAFICA DE LA FACTURA ELECTRONICA VALIDACION PREVIA DIAN';
+if ($perfilFac == 1) {
+    $eFact = [];
+    $eCust = [];
+    $ePago = [];
+    $eLmon = [];
+    $eTaxe = [];
+    $eInvo = [];
 
-$eCust['identification_number'] = $nitFact;
-$eCust['dv'] = $dvFact;
-$eCust['name'] = $nomFact;
-$eCust['phone'] = $telFact;
-$eCust['address'] = $dirFact;
-$eCust['email'] = $emaFact;
-$eCust['merchant_registration'] = $merFact;
-$eCust['type_document_identification_id'] = $tdiFact;
-$eCust['type_organization_id'] = $torFact;
-$eCust['type_liability_id'] = $tliFact;
-$eCust['municipality_id'] = $munFact;
-$eCust['type_regime_id'] = $triFact;
+    $eFact['number'] = $nroFactura;
+    $eFact['type_document_id'] = $datosHuesped[0]['tipo_identifica'];
+    $eFact['date'] = $fechaFac;
+    $eFact['time'] = $horaFact;
+    $eFact['resolution_number'] = $resolucion;
+    $eFact['prefix'] = $prefijo;
+    $eFact['notes'] = $detallePag;
+    $eFact['disable_confirmation_text'] = true;
+    $eFact['sendmail'] = true;
+    $eFact['sendmailtome'] = true;
+    $eFact['head_note'] = 'PRUEBA DE TEXTO LIBRE QUE DEBE POSICIONARSE EN EL ENCABEZADO DE PAGINA DE LA REPRESENTACION GRAFICA DE LA FACTURA ELECTRONICA VALIDACION PREVIA DIAN';
+    $eFact['foot_note'] = 'PRUEBA DE TEXTO LIBRE QUE DEBE POSICIONARSE EN EL PIE DE PAGINA DE LA REPRESENTACION GRAFICA DE LA FACTURA ELECTRONICA VALIDACION PREVIA DIAN';
 
-$ePago['payment_form_id'] = $codigo;
-$ePago['payment_method_id'] = $codigo;
-$ePago['payment_due_date'] = $fechaVen;
-$ePago['duration_measure'] = $diasCre;
+    $eCust['identification_number'] = $nitFact;
+    $eCust['dv'] = $dvFact;
+    $eCust['name'] = $nomFact;
+    $eCust['phone'] = $telFact;
+    $eCust['address'] = $dirFact;
+    $eCust['email'] = $emaFact;
+    $eCust['merchant_registration'] = $merFact;
+    $eCust['type_document_identification_id'] = $tdiFact;
+    $eCust['type_organization_id'] = $torFact;
+    $eCust['type_liability_id'] = $tliFact;
+    $eCust['municipality_id'] = $munFact;
+    $eCust['type_regime_id'] = $triFact;
 
-$eLmon['line_extension_amount'] = $subtotales[0]['cargos'];
-$eLmon['tax_exclusive_amount'] = $subtotales[0]['cargos'];
-$eLmon['tax_inclusive_amount'] = $subtotales[0]['cargos'] + $subtotales[0]['imptos'];
-$eLmon['allowance_total_amount'] = 0;
-$eLmon['payable_amount'] = $subtotales[0]['cargos'] + $subtotales[0]['imptos'];
+    $ePago['payment_form_id'] = $codigo;
+    $ePago['payment_method_id'] = $codigo;
+    $ePago['payment_due_date'] = $fechaVen;
+    $ePago['duration_measure'] = $diasCre;
 
-$tax_totals = [];
-foreach ($folios as $folio1) {
-    $taxTot = [];
-    $taxTot = [
-        'tax_id' => $folio1['codigo_impto'],
-        'tax_amount' => $folio1['imptos'],
-        'taxable_amount' => $folio1['cargos'],
-        'percent' => number_format($folio1['porcentaje_impto'], 0),
-    ];
+    $eLmon['line_extension_amount'] = $subtotales[0]['cargos'];
+    $eLmon['tax_exclusive_amount'] = $subtotales[0]['cargos'];
+    $eLmon['tax_inclusive_amount'] = $subtotales[0]['cargos'] + $subtotales[0]['imptos'];
+    $eLmon['allowance_total_amount'] = 0;
+    $eLmon['payable_amount'] = $subtotales[0]['cargos'] + $subtotales[0]['imptos'];
 
-    array_push($tax_totals, $taxTot);
+    $tax_totals = [];
+    foreach ($folios as $folio1) {
+        $taxTot = [];
+        $taxTot = [
+            'tax_id' => $folio1['codigo_impto'],
+            'tax_amount' => $folio1['imptos'],
+            'taxable_amount' => $folio1['cargos'],
+            'percent' => number_format($folio1['porcentaje_impto'], 0),
+        ];
 
-    $invo = [
-      'unit_measure_id' => $folio1['id_codigo_cargo'],
-      'invoiced_quantity' => 1,
-      'line_extension_amount' => $folio1['cargos'],
-      'free_of_charge_indicator' => false,
-      'tax_totals' => $taxTot,
-      'description' => $folio1['descripcion_cargo'],
-      'notes' => '',
-      'code' => '',
-      'type_item_identification_id' => $folio1['id_codigo_cargo'],
-      'price_amount' => $folio1['imptos'] + $folio1['cargos'],
-      'base_quantity' => 1,
-    ];
+        array_push($tax_totals, $taxTot);
 
-    array_push($eInvo, $invo);
+        $invo = [
+        'unit_measure_id' => $folio1['id_codigo_cargo'],
+        'invoiced_quantity' => 1,
+        'line_extension_amount' => $folio1['cargos'],
+        'free_of_charge_indicator' => false,
+        'tax_totals' => $taxTot,
+        'description' => $folio1['descripcion_cargo'],
+        'notes' => '',
+        'code' => '',
+        'type_item_identification_id' => $folio1['id_codigo_cargo'],
+        'price_amount' => $folio1['imptos'] + $folio1['cargos'],
+        'base_quantity' => 1,
+        ];
+
+        array_push($eInvo, $invo);
+    }
+
+    foreach ($tipoimptos as $impto) {
+        $tax = [
+            'tax_id' => $impto['id_cargo'],
+            'tax_amount' => $impto['imptos'],
+            'taxable_amount' => $impto['cargos'],
+            'percent' => number_format($impto['porcentaje_impto'], 0),
+        ];
+
+        array_push($eTaxe, $tax);
+    }
+
+    $eFact['customer'] = $eCust;
+    $eFact['payment_form'] = $ePago;
+    $eFact['legal_monetary_totals'] = $eLmon;
+    $eFact['tax_totals'] = $eTaxe;
+    $eFact['invoice_lines'] = $eInvo;
+
+    $eFact = json_encode($eFact);
+
+    include_once '../../api/Crea_Factura.php';
+
+    // Actualizar la factura con el response de la plataforma !!!
+    // echo $response;
+    // utilizar variable inserta [Numero de registro de la factura]
+
+    include_once '../../imprimir/imprimeFactura.php';
+} else {
+    // echo 'Entro Imprimir Abono ';
+
+    include_once '../../imprimir/imprimeReciboFactura.php';
 }
-
-foreach ($tipoimptos as $impto) {
-    $tax = [
-        'tax_id' => $impto['id_cargo'],
-        'tax_amount' => $impto['imptos'],
-        'taxable_amount' => $impto['cargos'],
-        'percent' => number_format($impto['porcentaje_impto'], 0),
-    ];
-
-    array_push($eTaxe, $tax);
-}
-
-$eFact['customer'] = $eCust;
-$eFact['payment_form'] = $ePago;
-$eFact['legal_monetary_totals'] = $eLmon;
-$eFact['tax_totals'] = $eTaxe;
-$eFact['invoice_lines'] = $eInvo;
-
-$eFact = json_encode($eFact);
-
-include_once '../../api/Crea_Factura.php';
-
-// Actualizar la factura con el response de la plataforma !!!
-// echo $response;
-// utilizar variable inserta [Numero de registro de la factura]
-
-include_once '../../imprimir/imprimeFactura.php';
 
 if ($totalFolio != 0) {
     $saldohabi = ($saldofactura[0]['cargos'] + $saldofactura[0]['imptos']) - $saldofactura[0]['pagos'];

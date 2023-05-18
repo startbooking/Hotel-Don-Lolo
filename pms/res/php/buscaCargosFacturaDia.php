@@ -1,12 +1,13 @@
-<?php 
+<?php
 
-  require '../../../res/php/titles.php';
-  require '../../../res/php/app_topHotel.php'; 
+require '../../../res/php/titles.php';
+require '../../../res/php/app_topHotel.php';
 
-	$factura =  $_POST['factura'];
-	$reserva =  $_POST['reserva'];
+$factura = $_POST['factura'];
+$reserva = $_POST['reserva'];
+$perfil = $_POST['perfil'];
 
-	$cargos  = $hotel->getBuscaCargosFacturaDia($factura,$reserva);
+$cargos = $hotel->getBuscaCargosFacturaDia($factura, $reserva, $perfil);
 ?>
 
 <div class="container-fluid" style="padding:0">
@@ -25,43 +26,43 @@
 	    </tr>
 	 	</thead>
 	 	<tbody>
-		  <?php 
-	      $consumos = 0;
-	      $impto    = 0;
-	      $pagos    = 0;
-			  foreach ($cargos as $folio1): 
-	        $consumos = $consumos + $folio1['monto_cargo'];
-	        $impto    = $impto + $folio1['impuesto'];
-	        $pagos    = $pagos + $folio1['pagos_cargos'];	
-	        $folio = $folio1['folio_cargo'];	
-	      		?>
+		  <?php
+          $consumos = 0;
+$impto = 0;
+$pagos = 0;
+foreach ($cargos as $folio1) {
+    $consumos = $consumos + $folio1['monto_cargo'];
+    $impto = $impto + $folio1['impuesto'];
+    $pagos = $pagos + $folio1['pagos_cargos'];
+    $folio = $folio1['folio_cargo'];
+    ?>
 	          <tr align="right">
-	     			  <td align="left"><?=$folio1['descripcion_cargo']?></td>
-	    	 		  <td><?=number_format($folio1['monto_cargo'],2)?></td>
-	    	 		  <td><?=number_format($folio1['impuesto'],2)?></td>
-	            <td><?=number_format($folio1['monto_cargo']+$folio1['impuesto'],2)?></td>
-	    	 		  <td><?=number_format($folio1['pagos_cargos'],2)?></td>
-	    	 		  <td><?=date($folio1['fecha_cargo'])?></td>
-	    	 		  <td><?=$folio1['usuario']?></td>
+	     			  <td align="left"><?php echo $folio1['descripcion_cargo']; ?></td>
+	    	 		  <td><?php echo number_format($folio1['monto_cargo'], 2); ?></td>
+	    	 		  <td><?php echo number_format($folio1['impuesto'], 2); ?></td>
+	            <td><?php echo number_format($folio1['monto_cargo'] + $folio1['impuesto'], 2); ?></td>
+	    	 		  <td><?php echo number_format($folio1['pagos_cargos'], 2); ?></td>
+	    	 		  <td><?php echo date($folio1['fecha_cargo']); ?></td>
+	    	 		  <td><?php echo $folio1['usuario']; ?></td>
 	    	 		  <td>
-	    	 		  	<?php 
-                  if($folio1['numero_factura_cargo']!=0){ ?>
+	    	 		  	<?php
+    if ($folio1['numero_factura_cargo'] != 0) { ?>
                   <button type="button" class="btn btn-warning btn-xs" 
                     data-toggle  ="modal" 
                     data-target  ="#verCargosFacturaDia" 
-                    data-cheque  ="<?php echo $folio1['numero_factura_cargo']?>" 
-                    onclick      = "imprimechequeCuenta(<?php echo $folio1['numero_factura_cargo']?>)"
+                    data-cheque  ="<?php echo $folio1['numero_factura_cargo']; ?>" 
+                    onclick      = "imprimechequeCuenta(<?php echo $folio1['numero_factura_cargo']; ?>)"
                     title="Var cheque Cuenta POS" >
                     <i class='fa fa-file'></i>
                   </button>
-                  <?php 
-                  }
-                ?>
+                  <?php
+    }
+    ?>
               </td>
 	  		    </tr>
-		      <?php 
-	      endforeach 
-	    ?>
+		      <?php
+}
+?>
 	 	</tbody>
 	   </table>
 	</div>
@@ -69,21 +70,21 @@
 		<div class="form-group">
 	    <label for="consumo" class="col-sm-2 control-label">Consumos</label>
 	    <div class="col-sm-4">
-	      <input type="text" style="text-align: right;" class="form-control" id="consumo<?=$folio?>" value="<?php echo number_format($consumos,2) ?>" readonly>
+	      <input type="text" style="text-align: right;" class="form-control" id="consumo<?php echo $folio; ?>" value="<?php echo number_format($consumos, 2); ?>" readonly>
 	    </div>
 	    <label for="impto" class="col-sm-2 control-label">Impuesto</label>
 	    <div class="col-sm-4">
-	      <input type="text" style="text-align: right;" class="form-control" id="impto<?=$folio?>" placeholder="" value="<?php echo number_format($impto,2)  ?>" readonly>
+	      <input type="text" style="text-align: right;" class="form-control" id="impto<?php echo $folio; ?>" placeholder="" value="<?php echo number_format($impto, 2); ?>" readonly>
 	    </div>
 	  </div>    			
 		<div class="form-group">
 	    <label for="abonos" class="col-sm-2 control-label">Abonos / Pagos</label>
 	    <div class="col-sm-4">
-	      <input type="text" style="text-align: right;" class="form-control" id="abonos<?=$folio?>" placeholder="" value="<?php echo number_format($pagos,2) ?>" readonly>
+	      <input type="text" style="text-align: right;" class="form-control" id="abonos<?php echo $folio; ?>" placeholder="" value="<?php echo number_format($pagos, 2); ?>" readonly>
 	    </div>
 	    <label for="total" class="col-sm-2 control-label" style="font-size:11px;">Total Folio</label>
 	    <div class="col-sm-4">
-	      <input type="text" style="font-size:14px;text-align: right;font-weight: 600" class="form-control" id="total<?=$folio?>" placeholder="" value="<?php echo number_format(($consumos+ $impto)-$pagos,2)?>" readonly>
+	      <input type="text" style="font-size:14px;text-align: right;font-weight: 600" class="form-control" id="total<?php echo $folio; ?>" placeholder="" value="<?php echo number_format(($consumos + $impto) - $pagos, 2); ?>" readonly>
 	    </div>
 	  </div>
 	</div>

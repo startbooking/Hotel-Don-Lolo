@@ -48,7 +48,7 @@ if ($regis >= 1 && $tipo == 2) { ?>
           </tbody>
         </table>
       </div>			
-		</div>
+		</div> 
 		<?php
 } else {
     foreach ($cargoshab as $cargohab) {

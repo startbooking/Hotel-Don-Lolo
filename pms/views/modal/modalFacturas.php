@@ -7,10 +7,12 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class='glyphicon glyphicon-off' style="color:#530505"></span></button>
             <h3 class="modal-title" id="exampleModalLabel">Anular Factura</h3>
           </div>
-          <div id="mensaje">  
+          <div id="mensaje">   
           </div> 
           <div class="modal-body">
             <input type="hidden" name="reserva" id="reserva" value="">
+            <input type="hidden" name="perfil" id="perfil" value="">
+            <input type="hidden" name="idperfil" id="idperfil" value="">
             <input type="hidden" name="txtFacturaNro" id="txtFacturaNro" value="">
             <div class="form-group">
               <label for="noches" class="col-sm-2 control-label">Factura Nro</label>

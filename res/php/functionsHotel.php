@@ -1365,7 +1365,7 @@ class Hotel_Actions
         return $data;
     }
 
-    public function getBuscaCargosFacturaDia($factura, $reserva)
+    public function getBuscaCargosFacturaDia($factura, $reserva, $perfil)
     {
         global $database;
 
@@ -1382,6 +1382,7 @@ class Hotel_Actions
             'cargo_anulado' => 0,
             'factura_numero' => $factura,
             'numero_reserva' => $reserva,
+            'perfil_factura' => $perfil,
             'ORDER' => [
                 'id_cargo' => 'ASC',
             ],
@@ -1525,7 +1526,7 @@ class Hotel_Actions
         return $data;
     }
 
-    public function anulafacturaHistoricoXCongelada($factura, $reserva, $motivo, $usuario, $idusuario)
+    public function anulafacturaHistoricoXCongelada($factura, $reserva, $motivo, $usuario, $idusuario, $perfil)
     {
         global $database;
 
@@ -1539,6 +1540,7 @@ class Hotel_Actions
         ], [
             'factura_numero' => $factura,
             'numero_reserva' => $reserva,
+            'perfil_factura' => $perfil,
             'factura' => 1,
         ]);
 
@@ -2127,7 +2129,7 @@ class Hotel_Actions
         return $data->rowCount();
     }
 
-    public function anulaFactura($nro, $motivo, $usuario, $idusuario)
+    public function anulaFactura($nro, $motivo, $usuario, $idusuario, $perfil)
     {
         global $database;
 
@@ -2140,16 +2142,17 @@ class Hotel_Actions
             'fecha_anulacion' => FECHA_PMS,
         ], [
             'factura_numero' => $nro,
+            'perfil_factura' => $perfil,
         ]);
 
         return $data->rowCount();
     }
 
-    public function actualizaCargosFacturas($nro)
+    public function actualizaCargosFacturas($nro, $perfil)
     {
         global $database;
 
-        $data = $database->query("UPDATE cargos_pms SET factura_numero = 0, fecha_factura = null, tipo_factura = 0, usuario_factura = null, id_usuario_factura = 0,  id_perfil_factura= 0  WHERE factura_numero = '$nro' AND factura <> 1 AND cargo_anulado = 0")->fetchAll();
+        $data = $database->query("UPDATE cargos_pms SET factura_numero = 0, fecha_factura = null, tipo_factura = 0, usuario_factura = null, id_usuario_factura = 0,  id_perfil_factura= 0  WHERE factura_numero = '$nro' AND factura <> 1 AND cargo_anulado = 0 AND perfil_factura = $perfil")->fetchAll();
 
         return $data;
     }
@@ -2987,6 +2990,8 @@ class Hotel_Actions
             'cargos_pms.total_pagos',
             'cargos_pms.fecha_factura',
             'cargos_pms.factura_anulada',
+            'cargos_pms.perfil_factura',
+            'cargos_pms.id_perfil_factura',
             'cargos_pms.fecha_sistema_cargo',
         ], [
             'cargos_pms.fecha_cargo' => $fecha,
