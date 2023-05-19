@@ -2873,7 +2873,6 @@ function buscarCompania() {
     },
     beforeSend: function (data) {},
     success: function (data) {
-      console.log(data);
       $("#listaCompanias").html("");
       $("#barraPaginas").html("");
       var pages = Math.ceil(data.length / filas);
@@ -3696,9 +3695,21 @@ function cierreCajero(user) {
   });
 }
 
+function calculaRetenciones(id) {
+  $.ajax({
+    type: "POST",
+    url: "res/php/traeRetencionesCia.php",
+    data: id,
+    success: function (data) {},
+  });
+}
+
 function apagaselecomp(tipo) {
   idCiaFac = $("#txtIdCiaSal").val();
   idCenFac = $("#txtIdCentroCiaSal").val();
+  var reteFte = 0;
+  var reteIva = 0;
+  var reteIca = 0;
 
   if (tipo == 2) {
     if (idCiaFac == 0) {
@@ -3714,14 +3725,98 @@ function apagaselecomp(tipo) {
     $("#selecomp").css("display", "block");
     $("#seleccionaCiaCon").attr("disabled", true);
     $("#seleccionaCiaCon").attr("disabled", true);
-    /// $("#seleccionaCiaCon").val(idCiaFac)
-    /// $("#txtIdCentroCiaSal").val(idCenFac)
+    $(".retencion").removeClass("apaga");
+    totalRteFte = parseInt($("#totalBase").val());
+    totalImpto = parseInt($("#totalIva").val());
+
+    traeRetencionesCia(idCiaFac);
+    setTimeout(() => {
+      retenciones = JSON.parse($("#retenciones").val());
+      reteCia = JSON.parse($("#retencionCia").val());
+
+      let rFte = retenciones.filter((retencion) => retencion.idRetencion === 1);
+      let rIva = retenciones.filter((retencion) => retencion.idRetencion === 2);
+      let rIca = retenciones.filter((retencion) => retencion.idRetencion === 3);
+
+      let { reteiva, reteica, retefuente } = reteCia[0];
+
+      if (retefuente == 1) {
+        if (rFte[0].baseRetencion <= totalRteFte) {
+          reteFte = totalRteFte * (rFte[0].porcentajeRetencion / 100);
+        }
+      }
+
+      if (reteiva == 1) {
+        if (rFte[0].baseRetencion <= totalRteFte) {
+          reteIva = totalImpto * (rIva[0].porcentajeRetencion / 100);
+        }
+      }
+      if (reteica == 1) {
+        if (rIca[0].baseRetencion <= totalRteFte) {
+          reteIca = totalRteFte * (rIca[0].porcentajeRetencion / 100);
+        }
+      }
+      reteFte = parseInt(reteFte.toFixed(0));
+      reteIva = parseInt(reteIva.toFixed(0));
+      reteIca = parseInt(reteIca.toFixed(0));
+
+      $("#reteiva").val(number_format(reteIva, 2));
+      $("#reteica").val(number_format(reteIca, 2));
+      $("#retefuente").val(number_format(reteFte, 2));
+
+      $("#totalReteiva").val(reteIva);
+      $("#totalReteica").val(reteIca);
+      $("#totalRetefuente").val(reteFte);
+
+      sumaTotales();
+    }, 100);
   } else {
+    $(".retencion").addClass("apaga");
     $("#selecentro").css("display", "none");
     $("#selecomp").css("display", "none");
+    $("#reteiva").val(0);
+    $("#reteica").val(0);
+    $("#retefuente").val(0);
+    $("#totalReteiva").val(0);
+    $("#totalReteica").val(0);
+    $("#totalRetefuente").val(0);
+    $("#totalBase").val(0);
+    $("#totalIva").val(0);
+
+    sumaTotales();
+
     /// $("#seleccionaCiaCon").attr("required", false);
     /// $("#seleccionaCiaCon").val('');
   }
+}
+
+function sumaTotales() {
+  toCon = parseInt($("#totalConsumo").val());
+  toImp = parseInt($("#totalImpuesto").val());
+  toAbo = parseInt($("#totalAbono").val());
+  toRiv = parseInt($("#totalReteiva").val());
+  toRic = parseInt($("#totalReteica").val());
+  toFue = parseInt($("#totalRetefuente").val());
+
+  totGen = toCon + toImp - toAbo - toRiv - toRic - toFue;
+
+  $("#total").val(number_format(totGen, 2));
+  $("#SaldoFolioActual").val(totGen);
+  $("#txtValorPago").val(totGen);
+}
+
+function traeRetencionesCia(cia) {
+  parametros = {
+    cia,
+  };
+  $.ajax({
+    type: "POST",
+    url: "res/php/traeRetencionesCia.php",
+    data: parametros,
+    success: function (data) {
+      $("#retencionCia").val(data);
+    },
+  });
 }
 
 function anulaIngreso() {
@@ -4429,6 +4524,13 @@ function salidaHuesped() {
     var refer = $("#txtReferenciaPag").val();
     var folio = $("#folioActivo").val();
     var idcia = $("#txtIdCiaSal").val();
+    var baseRete = $("#totalBase").val();
+    var baseIva = $("#totalIva").val();
+    var baseIca = $("#totalBase").val();
+    var reteiva = $("#totalReteiva").val();
+    var reteica = $("#totalReteica").val();
+    var retefuente = $("#totalRetefuente").val();
+
     // let perfilFac = $("#perfilFactura").val();
     var idcentro = 0;
 
@@ -4448,6 +4550,12 @@ function salidaHuesped() {
       usuario_id,
       perfilFac,
       detalle,
+      baseRete,
+      baseIva,
+      baseIca,
+      reteiva,
+      reteica,
+      retefuente,
     };
     $.ajax({
       type: "POST",

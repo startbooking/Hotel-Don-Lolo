@@ -337,7 +337,11 @@ foreach ($codigos as $codigo) { ?>
             <h3 class="modal-title" id="exampleModalLabel">Salida Huesped</h3>
           </div> 
           <div id="mensajeSal"></div>
-          <div class="modal-body"> 
+          <div class="modal-body">
+            <?php
+            $retenciones = $hotel->getRetenciones();
+?>
+            
             <input type="hidden" name="txtIdReservaSal" id="txtIdReservaSal" value="">
             <input type="hidden" name="txtIdHuespedSal" id="txtIdHuespedSal" value="">
             <input type="hidden" name="txtImptoTuriSal" id="txtImptoTuriSal" value="">
@@ -346,7 +350,10 @@ foreach ($codigos as $codigo) { ?>
             <input type="hidden" name="creditoCia" id="creditoCia" value="0">
             <input type="hidden" name="diasCreditoCia" id="diasCreditoCia" value="0">
             <input type="hidden" name="credito" id="credito" value="0">
+            
             <input type="hidden" name="perfilFactura" id="perfilFactura" value="0">
+            <input type="hidden" name="retencionCia" id="retencionCia" value=''>
+            <input type="hidden" name="retenciones" id="retenciones" value='<?php echo json_encode($retenciones); ?>'>
             <div class="form-group">
               <label style="margin-top: 3px;" for="llegada" class="col-sm-2 control-label">Facturar A </label>
               <div class="col-sm-6" style="padding:0;height: 30px">
@@ -390,16 +397,10 @@ foreach ($cias as $key => $value) { ?>
               <div class="col-lg-2 col-xs-2">
                 <input style="font-size:12px;height: 25px !important" class="form-control padInput" type="text" name='txtNumeroHabSal' id='txtNumeroHabSal' readonly>
               </div>
-            <!-- </div>
-            <div class="form-group"> -->
               <label style="font-size:12px;height: 25px !important" class="control-label col-lg-2">Huesped</label>
               <div class="col-lg-4 col-xs-4">
                 <input style="font-size:12px;height: 25px !important" class="form-control padInput" type="text" name="txtHuespedSal" id='txtHuespedSal' value='0' readonly>
               </div>
-              <!-- <label style="font-size:12px;height: 25px !important" class="control-label col-lg-2">Nombres</label>
-              <div class="col-lg-4 col-xs-4">
-                <input style="font-size:12px;height: 25px !important" class="form-control padInput" type="text" name="txtNombresSal" id='txtNombresSal' value='0' readonly>
-              </div> -->
             </div>
             <div id="estadoCuenta"></div>
           </div>
@@ -428,7 +429,7 @@ foreach ($cias as $key => $value) { ?>
             <input type="hidden" name="txtIdReservaSaldo" id="txtIdReservaSaldo" value="">
             <input type="hidden" name="txtIdHuespedSaldo" id="txtIdHuespedSaldo" value="">
             <input type="hidden" name="txtImptoTuriSaldo" id="txtImptoTuriSaldo" value="">
-          </div>
+          </div> 
           <div class="modal-body">
             <div id="saldoHuesped" style="margin :-20px 0 -30px 0;font-size: 12px"></div>
           </div>

@@ -70,6 +70,11 @@
   background: cornsilk;
 }
 
+.btnReten {
+  padding: 3px 6px;
+  font-size: 12px;
+}
+
 .divDeposito {
   background: lavenderblush;
   padding: 12px 12px 0px 12px;
@@ -94,10 +99,9 @@ input[type="date"].form-control {
   font-weight: 500;
 }
 
-.apaga {
-  display: none;
-}
-
+.apaga,
+.ciaRete,
+a.info span,
 #estadocredito {
   display: none;
 }
@@ -333,10 +337,6 @@ a.info:hover {
   z-index: 60;
   background-color: #ff0;
   position: absolute;
-}
-
-a.info span {
-  display: none;
 }
 
 a.info:hover span {

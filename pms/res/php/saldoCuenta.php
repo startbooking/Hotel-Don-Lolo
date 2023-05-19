@@ -8,6 +8,10 @@ $folio = $_POST['folio'];
 $nrohab = $_POST['nrohab'];
 
 $consumos = $hotel->getConsumosReservaFolio($reserva, $folio);
+$totImptos = $hotel->getIvaReservaFolio($reserva, $folio);
+
+$baseImpto = $totImptos[0]['baseImpto'];
+$totImpto = $totImptos[0]['imptos'];
 
 if (count($consumos) == 0) {
     $consumos[0]['cargos'] = 0;
@@ -17,29 +21,57 @@ if (count($consumos) == 0) {
 $consumo = $consumos[0]['cargos'];
 $impto = $consumos[0]['imptos'];
 $abono = $consumos[0]['pagos'];
-$totalFolio = ($consumo + $impto) - $abono;
+$reteiva = 0;
+$reteica = 0;
+$retefuente = 0;
+$totalFolio = ($consumo + $impto) - ($abono - $reteiva - $reteica - $retefuente);
 ?>
 
 <div class="container-fluid" style="padding:15px;background-color:#dff0d8;border-radius: 10px;">
   <div class="form-group">
     <label style="font-size:12px;height: 25px !important" for="consumo" class="col-sm-2 control-label">Consumos</label>
-    <div class="col-sm-4">
+    <div class="col-sm-3">
+      <input type="hidden" id="totalIva" name="totalIva" value='<?php echo $totImpto; ?>'>
+      <input type="hidden" id="totalBase" name="totalBase" value='<?php echo $baseImpto; ?>'>
+      <input type="hidden" id="totalConsumo" name="totalConsumo" value='<?php echo $consumo; ?>'>
+      <input type="hidden" id="totalImpuesto" name="totalImpuesto" value='<?php echo $impto; ?>'>
+      <input type="hidden" id="totalAbono" name="totalAbono" value='<?php echo $abono; ?>'>
+      <input type="hidden" id="totalReteiva" name="totalReteiva" value='<?php echo $reteiva; ?>'>
+      <input type="hidden" id="totalReteica" name="totalReteica" value='<?php echo $reteica; ?>'>
+      <input type="hidden" id="totalRetefuente" name="totalRetefuente" value='<?php echo $retefuente; ?>'>
+      <input type="hidden" id="baseRetenciones" name="baseRetenciones" value='<?php echo $retefuente; ?>'>
+
+
       <input type="hidden" id="SaldoFolioActual" name="SaldoFolioActual" value="<?php echo $totalFolio; ?>">
-      <input style="font-size:12px;height: 25px !important" type="text" style="text-align: right;" class="form-control" id="consumo" value="<?php echo number_format($consumo, 2); ?>" readonly>
+      <input style="font-size:12px;height: 25px !important;text-align: right;" type="text" class="form-control" id="consumo" value="<?php echo number_format($consumo, 2); ?>" readonly>
     </div>
-    <label style="font-size:12px;height: 25px !important" for="impto" class="col-sm-2 control-label">Impuesto</label>
-    <div class="col-sm-4">
-      <input style="font-size:12px;height: 25px !important" type="text" style="text-align: right;" class="form-control" id="impto" placeholder="" value="<?php echo number_format($impto, 2); ?>" readonly>
+    <label style="font-size:12px;height: 25px !important" for="impto" class="col-sm-1 control-label">Impuesto</label>
+    <div class="col-sm-3">
+      <input style="font-size:12px;height: 25px !important;text-align: right;" type="text" class="form-control" id="impto" placeholder="" value="<?php echo number_format($impto, 2); ?>" readonly>
+    </div>
+  </div>
+  <div class="form-group retencion">
+    <label style="font-size:12px;height: 25px !important" for="reteiva" class="col-sm-2 control-label">ReteIva</label>
+    <div class="col-sm-3">
+      <input style="font-size:12px;height: 25px !important; text-align:right;" type="text" class="form-control" id="reteiva" placeholder="" value="<?php echo number_format($reteiva, 2); ?>" readonly>
+    </div>
+    <label style="font-size:12px;height: 25px !important" for="reteica" class="col-sm-1 control-label">ReteIca</label>
+    <div class="col-sm-3">
+      <input style="font-size:12px;height: 25px !important; text-align:right;" type="text" class="form-control" id="reteica" placeholder="" value="<?php echo number_format($reteica, 2); ?>" readonly>
+    </div>
+    <label style="font-size:12px;height: 25px !important" for="retefuente" class="col-sm-1 control-label">ReteFuente</label>
+    <div class="col-sm-2">
+      <input style="font-size:12px;height: 25px !important; text-align:right;" type="text" class="form-control" id="retefuente" placeholder="" value="<?php echo number_format($retefuente, 2); ?>" readonly>
     </div>
   </div>          
   <div class="form-group">
     <label style="font-size:12px;height: 25px !important" for="abono" class="col-sm-2 control-label">Abonos</label>
-    <div class="col-sm-4">
-      <input style="font-size:12px;height: 25px !important" type="text" style="text-align: right;" class="form-control" id="abono" placeholder="" value="<?php echo number_format($abono, 2); ?>" readonly>
+    <div class="col-sm-3">
+      <input style="font-size:12px;height: 25px !important; text-align:right;" type="text" class="form-control" id="abono" placeholder="" value="<?php echo number_format($abono, 2); ?>" readonly>
     </div>
-    <label style="font-size:12px;height: 25px !important" for="total" class="col-sm-2 control-label">Total Folio</label>
-    <div class="col-sm-4">
-      <input style="font-size:12px;height: 25px !important" type="text" style="text-align: right;" class="form-control" id="total" placeholder="" value="<?php echo number_format($totalFolio, 2); ?>" readonly>
+    <label style="font-size:12px;height: 25px !important" for="total" class="col-sm-1 control-label">Total Folio</label>
+    <div class="col-sm-3">
+      <input style="font-size:12px;height: 25px !important; text-align:right;" type="text" class="form-control" id="total" placeholder="" value="<?php echo number_format($totalFolio, 2); ?>" readonly>
     </div>
   </div>
 </div>

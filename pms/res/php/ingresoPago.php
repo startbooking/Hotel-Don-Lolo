@@ -21,6 +21,25 @@ $usuario = $_POST['usuario'];
 $idUsuario = $_POST['usuario_id'];
 $detallePag = strtoupper($_POST['detalle']);
 $perfilFac = $_POST['perfilFac'];
+$baseRete = $_POST['baseRete'];
+$baseIva = $_POST['baseIva'];
+$baseIca = $_POST['baseIca'];
+$reteiva = $_POST['reteiva'];
+$reteica = $_POST['reteica'];
+$retefuente = $_POST['retefuente'];
+
+if ($reteiva == 0) {
+    $baseIva = 0;
+}
+
+if ($retefuente == 0) {
+    $retefuente = 0;
+}
+
+if ($reteica == 0) {
+    $baseIca = 0;
+}
+
 $reserva = $numero;
 $nroFolio = $folio;
 $idhuesped = $idhues;
@@ -68,9 +87,9 @@ if ($tipofac == 1) {
 $nroFactura = $numfactura;
 $idperfil = $id;
 
-$inserta = $hotel->insertFacturaHuesped($codigo, $textcodigo, $valor, $refer, $numero, $room, $idhues, $folio, $canti, $usuario, $idUsuario, $fecha, $numfactura, $tipofac, $id, $idcentro, $prefijo, $perfilFac, $detallePag);
+$inserta = $hotel->insertFacturaHuesped($codigo, $textcodigo, $valor, $refer, $numero, $room, $idhues, $folio, $canti, $usuario, $idUsuario, $fecha, $numfactura, $tipofac, $id, $idcentro, $prefijo, $perfilFac, $detallePag, $baseRete, $baseIva, $baseIca, $reteiva, $reteica, $retefuente);
 
-$factu = $hotel->updateCargosReservaFolio($numero, $numfactura, $folio, $fecha, $usuario, $idUsuario, $tipofac, $id);
+$factu = $hotel->updateCargosReservaFolio($numero, $numfactura, $folio, $fecha, $usuario, $idUsuario, $tipofac, $id, $perfilFac);
 
 $saldos = $hotel->getValorFactura($numfactura);
 $anticipos = $hotel->valorAnticipos($numfactura);
@@ -91,11 +110,10 @@ if (count($saldofactura) == 0) {
 
 $folios = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserva, $nroFolio, 1);
 $pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserva, $nroFolio, 3);
+
 $tipoimptos = $hotel->getValorImptoFolio($nroFactura, $reserva, $nroFolio, 2);
 
 $subtotales = $hotel->getConsumosReservaAgrupadoFolio($nroFactura, $reserva, $nroFolio, 1);
-
-// echo 'Tipo Factura '.$tipofac;
 
 if ($tipofac == 2) {
     $datosCompania = $hotel->getSeleccionaCompania($idperfil);
@@ -127,8 +145,6 @@ if ($tipofac == 2) {
     $munFact = $hotel->traeCodigoCiudad($datosHuesped[0]['ciudad']);
     $triFact = $datosHuesped[0]['responsabilidadTributaria'];
 }
-
-// echo 'Perfil Factura '.$perfilFac;
 
 if ($perfilFac == 1) {
     $eFact = [];
@@ -231,8 +247,6 @@ if ($perfilFac == 1) {
 
     include_once '../../imprimir/imprimeFactura.php';
 } else {
-    // echo 'Entro Imprimir Abono ';
-
     include_once '../../imprimir/imprimeReciboFactura.php';
 }
 

@@ -5,6 +5,39 @@ date_default_timezone_set('America/Bogota');
 
 class Hotel_Actions
 {
+    public function getRetenciones()
+    {
+        global $database;
+
+        $data = $database->select('retenciones', [
+            'idRetencion',
+            'porcentajeRetencion',
+            'baseRetencion',
+            'tipoRetencion',
+            'codigoPuc',
+            'descripcionRetencion',
+        ], [
+            'estado' => 1,
+        ]);
+
+        return $data;
+    }
+
+    public function traeRetencionesCia($cia)
+    {
+        global $database;
+
+        $data = $database->select('companias', [
+            'reteiva',
+            'reteica',
+            'retefuente',
+        ], [
+            'id_compania' => $cia,
+        ]);
+
+        return $data;
+    }
+
     public function getTipoPerfilCodigo($id)
     {
         global $database;
@@ -5042,7 +5075,7 @@ class Hotel_Actions
         return $data;
     }
 
-    public function updateCargosReservaFolio($reserva, $factura, $folio, $fecha, $usuario, $idusuario, $tipofac, $id)
+    public function updateCargosReservaFolio($reserva, $factura, $folio, $fecha, $usuario, $idusuario, $tipofac, $id, $perfilFac)
     {
         global $database;
 
@@ -5054,6 +5087,7 @@ class Hotel_Actions
             'id_usuario_factura' => $idusuario,
             'tipo_factura' => $tipofac,
             'id_perfil_factura' => $id,
+            'perfil_factura' => $perfilFac,
         ], [
             'folio_cargo' => $folio,
             'numero_reserva' => $reserva,
@@ -5082,7 +5116,7 @@ class Hotel_Actions
     }
 
     /* public function insertFacturaHuesped($codigo, ) */
-    public function insertFacturaHuesped($codigo, $textcodigo, $valor, $refer, $numero, $room, $idhues, $folio, $canti, $usuario, $idUsuario, $fecha, $numfactura, $tipofac, $id, $idcentro, $prefijo, $perfilFac, $detallePag)
+    public function insertFacturaHuesped($codigo, $textcodigo, $valor, $refer, $numero, $room, $idhues, $folio, $canti, $usuario, $idUsuario, $fecha, $numfactura, $tipofac, $id, $idcentro, $prefijo, $perfilFac, $detallePag, $baseRete, $baseIva, $baseIca, $reteiva, $reteica, $retefuente)
     {
         global $database;
 
@@ -5108,6 +5142,12 @@ class Hotel_Actions
             'informacion_cargo' => $detallePag,
             'prefijo_factura' => $prefijo,
             'perfil_factura' => $perfilFac,
+            'baseretefuente' => $baseRete,
+            'basereteiva' => $baseIva,
+            'basereteica' => $baseIca,
+            'reteiva' => $reteiva,
+            'reteica' => $reteica,
+            'retefuente' => $retefuente,
             'fecha_sistema_cargo' => date('Y-m-d H:i:s'),
         ]);
 
@@ -5309,7 +5349,7 @@ class Hotel_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT cargos_pms.id_codigo_cargo, cargos_pms.descripcion_cargo, count(cargos_pms.id_codigo_cargo) AS cant, cargos_pms.habitacion_cargo, Sum(cargos_pms.monto_cargo) AS cargos, Sum(cargos_pms.impuesto) as imptos, cargos_pms.codigo_impto, Sum(cargos_pms.pagos_cargos) AS pagos, cargos_pms.factura_numero, codigos_vta.porcentaje_impto FROM cargos_pms, codigos_vta WHERE cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND cargos_pms.factura_numero = '$fact' AND cargos_pms.numero_reserva = '$numero' AND cargos_pms.cargo_anulado = 0 AND cargos_pms.folio_cargo = '$folio' AND codigos_vta.tipo_codigo = '$tipo' GROUP BY cargos_pms.numero_reserva, cargos_pms.id_codigo_cargo, cargos_pms.folio_cargo ORDER BY cargos_pms.numero_reserva, cargos_pms.id_codigo_cargo, cargos_pms.folio_cargo")->fetchAll();
+        $data = $database->query("SELECT cargos_pms.id_codigo_cargo, cargos_pms.descripcion_cargo, count(cargos_pms.id_codigo_cargo) AS cant, cargos_pms.habitacion_cargo, Sum(cargos_pms.monto_cargo) AS cargos, Sum(cargos_pms.impuesto) as imptos, cargos_pms.codigo_impto, Sum(cargos_pms.pagos_cargos) AS pagos, Sum(cargos_pms.reteiva) AS reteiva, Sum(cargos_pms.reteica) AS reteica, Sum(cargos_pms.retefuente) AS retefuente, Sum(cargos_pms.basereteiva) AS basereteiva, Sum(cargos_pms.reteica) AS basereteica, Sum(cargos_pms.baseretefuente) AS baseretefuente,cargos_pms.factura_numero, codigos_vta.porcentaje_impto FROM cargos_pms, codigos_vta WHERE cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND cargos_pms.factura_numero = '$fact' AND cargos_pms.numero_reserva = '$numero' AND cargos_pms.cargo_anulado = 0 AND cargos_pms.folio_cargo = '$folio' AND codigos_vta.tipo_codigo = '$tipo' GROUP BY cargos_pms.numero_reserva, cargos_pms.id_codigo_cargo, cargos_pms.folio_cargo ORDER BY cargos_pms.numero_reserva, cargos_pms.id_codigo_cargo, cargos_pms.folio_cargo")->fetchAll();
 
         return $data;
     }
@@ -6038,6 +6078,15 @@ class Hotel_Actions
             'restringido' => 0,
             'ORDER' => 'descripcion_cargo',
         ]);
+
+        return $data;
+    }
+
+    public function getIvaReservaFolio($numero, $folio)
+    {
+        global $database;
+
+        $data = $database->query("SELECT cargos_pms.habitacion_cargo, Sum(cargos_pms.monto_cargo) as baseImpto, Sum(cargos_pms.impuesto) as imptos, Sum(cargos_pms.pagos_cargos) as pagos FROM cargos_pms WHERE cargos_pms.numero_reserva = '$numero' and cargos_pms.cargo_anulado = 0 and cargos_pms.factura_numero = 0 and cargos_pms.folio_cargo = '$folio' and cargos_pms.codigo_impto = 23 GROUP BY cargos_pms.numero_reserva ORDER BY cargos_pms.numero_reserva")->fetchAll();
 
         return $data;
     }
@@ -6949,6 +6998,9 @@ class Hotel_Actions
             'email',
             'id_tarifa',
             'estado_credito',
+            'reteiva',
+            'reteica',
+            'retefuente',
             'activo',
         ], [
             'ORDER' => 'empresa',
