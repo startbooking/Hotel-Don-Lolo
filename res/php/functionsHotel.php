@@ -5,6 +5,19 @@ date_default_timezone_set('America/Bogota');
 
 class Hotel_Actions
 {
+    public function traeTipoResponsabilidad($id)
+    {
+        global $database;
+
+        $data = $database->select('dianTipoResponsabilidad', [
+            'feCode',
+        ], [
+            'id' => $id,
+        ]);
+
+        return $data[0]['feCode'];
+    }
+
     public function getRetenciones()
     {
         global $database;
@@ -132,7 +145,7 @@ class Hotel_Actions
     {
         global $database;
         $data = $database->select('ciudades', [
-            'codigo',
+            'id_ciudad',
         ], [
             'id_ciudad' => $id,
         ]);
@@ -145,12 +158,12 @@ class Hotel_Actions
         global $database;
 
         $data = $database->select('tipo_documento', [
-            'codigo',
+            'feCode',
         ], [
             'id_doc' => $id,
         ]);
 
-        return $data[0]['codigo'];
+        return $data[0]['feCode'];
     }
 
     public function getResolucion()
@@ -1322,7 +1335,6 @@ class Hotel_Actions
             'cargos_pms.pagos_cargos',
             'cargos_pms.referencia_cargo',
             'cargos_pms.concecutivo_abono',
-            'cargos_pms.concecutivo_deposito',
             'cargos_pms.cargo_anulado',
             'cargos_pms.motivo_anulacion',
             'cargos_pms.fecha_anulacion',
@@ -1336,9 +1348,9 @@ class Hotel_Actions
             'cargos_pms.fecha_cargo' => $fecha,
             'cargos_pms.cargo_anulado' => $estado,
             'codigos_vta.tipo_codigo' => $tipo,
-            'cargos_pms.concecutivo_deposito[>]' => 0,
+            'cargos_pms.concecutivo_abono[>]' => 0,
             'ORDER' => [
-                'concecutivo_deposito' => 'ASC',
+                'concecutivo_abono' => 'ASC',
             ],
         ]);
 
@@ -1374,7 +1386,6 @@ class Hotel_Actions
             'cargos_pms.pagos_cargos',
             'cargos_pms.referencia_cargo',
             'cargos_pms.concecutivo_abono',
-            'cargos_pms.concecutivo_deposito',
             'cargos_pms.cargo_anulado',
             'cargos_pms.motivo_anulacion',
             'cargos_pms.fecha_anulacion',
@@ -1389,9 +1400,9 @@ class Hotel_Actions
             'cargos_pms.usuario' => $usuario,
             'cargos_pms.cargo_anulado' => $estado,
             'codigos_vta.tipo_codigo' => $tipo,
-            'cargos_pms.concecutivo_deposito[>]' => 0,
+            'cargos_pms.concecutivo_abono[>]' => 0,
             'ORDER' => [
-                'concecutivo_deposito' => 'ASC',
+                'concecutivo_abono' => 'ASC',
             ],
         ]);
 
@@ -2308,7 +2319,7 @@ class Hotel_Actions
             'cantidad_cargo',
             'folio_cargo',
             'pagos_cargos',
-            'concecutivo_deposito',
+            'concecutivo_abono',
             'informacion_cargo',
             'numero_reserva',
             'id_reserva',
@@ -2345,13 +2356,13 @@ class Hotel_Actions
             'pagos_cargos',
             'informacion_cargo',
             'fecha_cargo',
-            'concecutivo_deposito',
+            'concecutivo_abono',
             'id_usuario',
             'id_codigo_cargo',
         ], [
             'id_reserva' => $id,
             'cargo_anulado' => 0,
-            'concecutivo_deposito[>=]' => 1,
+            'concecutivo_abono[>=]' => 1,
         ]);
 
         return $data;
@@ -2371,13 +2382,13 @@ class Hotel_Actions
             'cantidad_cargo',
             'folio_cargo',
             'pagos_cargos',
-            'concecutivo_deposito',
+            'concecutivo_abono',
             'informacion_cargo',
             'numero_reserva',
             'id_reserva',
             'fecha_sistema_cargo',
         ], [
-            'concecutivo_deposito' => $id,
+            'concecutivo_abono' => $id,
         ]);
 
         return $data;
@@ -2832,7 +2843,6 @@ class Hotel_Actions
             'cargos_pms.pagos_cargos',
             'cargos_pms.referencia_cargo',
             'cargos_pms.concecutivo_abono',
-            'cargos_pms.concecutivo_deposito',
             'cargos_pms.cargo_anulado',
             'cargos_pms.motivo_anulacion',
             'cargos_pms.fecha_anulacion',
@@ -2883,7 +2893,6 @@ class Hotel_Actions
             'cargos_pms.pagos_cargos',
             'cargos_pms.referencia_cargo',
             'cargos_pms.concecutivo_abono',
-            'cargos_pms.concecutivo_deposito',
             'cargos_pms.cargo_anulado',
             'cargos_pms.motivo_anulacion',
             'cargos_pms.fecha_anulacion',
@@ -2909,7 +2918,7 @@ class Hotel_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT huespedes.apellido1, huespedes.apellido2, huespedes.nombre1, huespedes.nombre2, reservas_pms.num_reserva, reservas_pms.fecha_llegada, reservas_pms.fecha_salida, reservas_pms.num_habitacion, cargos_pms.fecha_cargo, cargos_pms.descripcion_cargo, cargos_pms.pagos_cargos, cargos_pms.concecutivo_deposito, cargos_pms.id_usuario FROM huespedes, reservas_pms, cargos_pms WHERE huespedes.id_huesped = reservas_pms.id_huesped AND reservas_pms.estado = 'ES' AND reservas_pms.num_reserva = cargos_pms.id_reserva AND cargos_pms.cargo_anulado = 0")->fetchAll();
+        $data = $database->query("SELECT huespedes.apellido1, huespedes.apellido2, huespedes.nombre1, huespedes.nombre2, reservas_pms.num_reserva, reservas_pms.fecha_llegada, reservas_pms.fecha_salida, reservas_pms.num_habitacion, cargos_pms.fecha_cargo, cargos_pms.descripcion_cargo, cargos_pms.pagos_cargos, cargos_pms.concecutivo_abono, cargos_pms.id_usuario FROM huespedes, reservas_pms, cargos_pms WHERE huespedes.id_huesped = reservas_pms.id_huesped AND reservas_pms.estado = 'ES' AND reservas_pms.num_reserva = cargos_pms.id_reserva AND cargos_pms.cargo_anulado = 0")->fetchAll();
 
         return $data;
     }
@@ -3377,7 +3386,6 @@ class Hotel_Actions
             'cargos_pms.pagos_cargos',
             'cargos_pms.referencia_cargo',
             'cargos_pms.concecutivo_abono',
-            'cargos_pms.concecutivo_deposito',
             'cargos_pms.cargo_anulado',
             'cargos_pms.motivo_anulacion',
             'cargos_pms.fecha_anulacion',
@@ -3552,7 +3560,6 @@ class Hotel_Actions
             'cargos_pms.pagos_cargos',
             'cargos_pms.referencia_cargo',
             'cargos_pms.concecutivo_abono',
-            'cargos_pms.concecutivo_deposito',
             'cargos_pms.cargo_anulado',
             'cargos_pms.motivo_anulacion',
             'cargos_pms.fecha_anulacion',
@@ -3602,7 +3609,6 @@ class Hotel_Actions
             'cargos_pms.pagos_cargos',
             'cargos_pms.referencia_cargo',
             'cargos_pms.concecutivo_abono',
-            'cargos_pms.concecutivo_deposito',
             'cargos_pms.cargo_anulado',
             'cargos_pms.motivo_anulacion',
             'cargos_pms.fecha_anulacion',
@@ -3766,7 +3772,6 @@ class Hotel_Actions
             'cargos_pms.pagos_cargos',
             'cargos_pms.referencia_cargo',
             'cargos_pms.concecutivo_abono',
-            'cargos_pms.concecutivo_deposito',
             'cargos_pms.cargo_anulado',
             'cargos_pms.motivo_anulacion',
             'cargos_pms.fecha_anulacion',
@@ -3955,7 +3960,6 @@ class Hotel_Actions
             'historico_cargos_pms.pagos_cargos',
             'historico_cargos_pms.referencia_cargo',
             'historico_cargos_pms.concecutivo_abono',
-            'historico_cargos_pms.concecutivo_deposito',
             'historico_cargos_pms.cargo_anulado',
             'historico_cargos_pms.motivo_anulacion',
             'historico_cargos_pms.fecha_anulacion',
@@ -4008,7 +4012,6 @@ class Hotel_Actions
             'historico_cargos_pms.pagos_cargos',
             'historico_cargos_pms.referencia_cargo',
             'historico_cargos_pms.concecutivo_abono',
-            'historico_cargos_pms.concecutivo_deposito',
             'historico_cargos_pms.cargo_anulado',
             'historico_cargos_pms.motivo_anulacion',
             'historico_cargos_pms.fecha_anulacion',
@@ -4068,7 +4071,6 @@ class Hotel_Actions
             'cargos_pms.pagos_cargos',
             'cargos_pms.referencia_cargo',
             'cargos_pms.concecutivo_abono',
-            'cargos_pms.concecutivo_deposito',
             'cargos_pms.cargo_anulado',
             'cargos_pms.motivo_anulacion',
             'cargos_pms.fecha_anulacion',
@@ -4083,7 +4085,7 @@ class Hotel_Actions
             'cargos_pms.usuario' => $usuario,
             'cargos_pms.cargo_anulado' => $estado,
             'codigos_vta.tipo_codigo' => $tipo,
-            'cargos_pms.concecutivo_deposito' => 0,
+            'cargos_pms.concecutivo_abono' => 0,
             'ORDER' => [
                 'habitacion_cargo' => 'ASC',
             ],
@@ -4822,7 +4824,6 @@ class Hotel_Actions
         ], [
                 'fecha_cargo' => $fecha,
                 'cargo_anulado' => 0,
-                'concecutivo_deposito[>]' => 0,
                 'concecutivo_abono[>]' => 0,
         ]);
 
@@ -4838,7 +4839,7 @@ class Hotel_Actions
         ], [
             'fecha_cargo' => $fecha,
             'cargo_anulado' => 0,
-            'concecutivo_deposito[>]' => 0,
+            'concecutivo_abono[>]' => 0,
         ]);
 
         return $data;
@@ -5199,7 +5200,6 @@ class Hotel_Actions
             'cargos_pms.pagos_cargos',
             'cargos_pms.referencia_cargo',
             'cargos_pms.concecutivo_abono',
-            'cargos_pms.concecutivo_deposito',
             'cargos_pms.numero_reserva',
             'cargos_pms.cargo_anulado',
             'cargos_pms.factura_numero',
@@ -5394,7 +5394,6 @@ class Hotel_Actions
             'cargos_pms.pagos_cargos',
             'cargos_pms.referencia_cargo',
             'cargos_pms.concecutivo_abono',
-            'cargos_pms.concecutivo_deposito',
             'cargos_pms.numero_reserva',
             'cargos_pms.cargo_anulado',
             'cargos_pms.factura_numero',

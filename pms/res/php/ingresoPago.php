@@ -124,11 +124,11 @@ if ($tipofac == 2) {
     $dirFact = utf8_decode($datosCompania[0]['direccion']);
     $telFact = $datosCompania[0]['telefono'];
     $emaFact = $datosCompania[0]['email'];
-    $merFact = '';
+    $merFact = '0000000-00';
     $tdiFact = $hotel->traeCodigoIdentifica($datosCompania[0]['tipo_documento']);
     $torFact = $datosCompania[0]['tipoAdquiriente'];
-    $tliFact = '';
-    $munFact = $hotel->traeCodigoCiudad($datosCompania[0]['ciudad']);
+    $tliFact = $hotel->traeTipoResponsabilidad($datosCompania[0]['responsabilidadTributaria']);
+    $munFact = $datosCompania[0]['ciudad'];
     $triFact = $datosCompania[0]['responsabilidadTributaria'];
 } else {
     $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
@@ -138,11 +138,11 @@ if ($tipofac == 2) {
     $telFact = $datosHuesped[0]['telefono'];
     $dirFact = utf8_decode($datosHuesped[0]['direccion']);
     $emaFact = $datosHuesped[0]['email'];
-    $merFact = '';
+    $merFact = '0000000-00';
     $tdiFact = $hotel->traeCodigoIdentifica($datosHuesped[0]['tipo_identifica']);
     $torFact = $datosHuesped[0]['tipoAdquiriente'];
     $tliFact = '';
-    $munFact = $hotel->traeCodigoCiudad($datosHuesped[0]['ciudad']);
+    $munFact = $datosHuesped[0]['ciudad'];
     $triFact = $datosHuesped[0]['responsabilidadTributaria'];
 }
 
@@ -155,7 +155,7 @@ if ($perfilFac == 1) {
     $eInvo = [];
 
     $eFact['number'] = $nroFactura;
-    $eFact['type_document_id'] = $datosHuesped[0]['tipo_identifica'];
+    $eFact['type_document_id'] = $hotel->traeCodigoIdentifica($datosHuesped[0]['tipo_identifica']);
     $eFact['date'] = $fechaFac;
     $eFact['time'] = $horaFact;
     $eFact['resolution_number'] = $resolucion;
@@ -164,8 +164,8 @@ if ($perfilFac == 1) {
     $eFact['disable_confirmation_text'] = true;
     $eFact['sendmail'] = true;
     $eFact['sendmailtome'] = true;
-    $eFact['head_note'] = 'PRUEBA DE TEXTO LIBRE QUE DEBE POSICIONARSE EN EL ENCABEZADO DE PAGINA DE LA REPRESENTACION GRAFICA DE LA FACTURA ELECTRONICA VALIDACION PREVIA DIAN';
-    $eFact['foot_note'] = 'PRUEBA DE TEXTO LIBRE QUE DEBE POSICIONARSE EN EL PIE DE PAGINA DE LA REPRESENTACION GRAFICA DE LA FACTURA ELECTRONICA VALIDACION PREVIA DIAN';
+    $eFact['head_note'] = '';
+    $eFact['foot_note'] = '';
 
     $eCust['identification_number'] = $nitFact;
     $eCust['dv'] = $dvFact;
