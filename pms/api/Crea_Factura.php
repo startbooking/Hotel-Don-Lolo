@@ -15,11 +15,11 @@ curl_setopt_array($curl, [
   CURLOPT_HTTPHEADER => [
     'Content-Type: application/json',
     'Accept: application/json',
-    'Authorization: Bearer 88ffa79e99bb9cd025c5a95313495533ac38cb12438d751c74c8cc2466c401c1',
+    'Authorization: Bearer '.$token,
   ],
 ]);
 
 $response = curl_exec($curl);
 
 curl_close($curl);
-// echo $response;
+echo $response;

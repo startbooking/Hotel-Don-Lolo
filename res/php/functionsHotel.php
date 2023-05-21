@@ -5,6 +5,31 @@ date_default_timezone_set('America/Bogota');
 
 class Hotel_Actions
 {
+    public function traeCodigoDianVenta($codigo)
+    {
+        global $database;
+
+        $data = $database->select('codigos_vta', [
+            'identificador_dian',
+        ], [
+            'id_cargo' => $codigo,
+        ]);
+
+        return $data[0]['identificador_dian'];
+    }
+
+    public function datosTokenCia()
+    {
+        global $database;
+
+        $data = $database->select('parametros_pms', [
+            'token',
+            'password',
+        ]);
+
+        return $data;
+    }
+
     public function traeTipoResponsabilidad($id)
     {
         global $database;
@@ -158,12 +183,12 @@ class Hotel_Actions
         global $database;
 
         $data = $database->select('tipo_documento', [
-            'feCode',
+            'codigo',
         ], [
             'id_doc' => $id,
         ]);
 
-        return $data[0]['feCode'];
+        return $data[0]['codigo'];
     }
 
     public function getResolucion()

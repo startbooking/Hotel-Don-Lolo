@@ -10,6 +10,11 @@ $usuario = $_POST['usuario'];
 $idusuario = $_POST['usuario_id'];
 $perfil = $_POST['perfil'];
 
+$eToken = $hotel->datosTokenCia();
+
+$token = $eToken[0]['token'];
+$password = $eToken[0]['password'];
+
 if ($perfil == 1) {
     $horaDoc = date('H:s:i');
     $fechaDoc = FECHA_PMS;

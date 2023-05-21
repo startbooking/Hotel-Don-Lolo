@@ -13,9 +13,9 @@ curl_setopt_array($curl, [
     CURLOPT_CUSTOMREQUEST => 'POST',
     CURLOPT_POSTFIELDS => $eNote,
     CURLOPT_HTTPHEADER => [
-            'Content-Type: application/json',
-            'Accept: application/json',
-            'Authorization: Bearer 7692a20fec92af0aa5729d796b019d27c83c9955407994630a0cdd7702ca2329',
+        'Content-Type: application/json',
+        'Accept: application/json',
+        'Authorization: Bearer '.$token,
     ],
 ]);
 

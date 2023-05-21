@@ -137,7 +137,7 @@ foreach ($codigos as $codigo) { ?>
                   <select name="codigoAjuste" id="codigoAjuste" required>
                     <option value="">Seleccione el Ajuste</option>
                     <?php
-                      $codigos = $hotel->getCodigosConsumos(4);
+  $codigos = $hotel->getCodigosConsumos(4);
 foreach ($codigos as $codigo) { ?>
                       <option value="<?php echo $codigo['id_cargo']; ?>"><?php echo $codigo['descripcion_cargo']; ?></option>
                       <?php
@@ -340,8 +340,7 @@ foreach ($codigos as $codigo) { ?>
           <div class="modal-body">
             <?php
             $retenciones = $hotel->getRetenciones();
-?>
-            
+?>            
             <input type="hidden" name="txtIdReservaSal" id="txtIdReservaSal" value="">
             <input type="hidden" name="txtIdHuespedSal" id="txtIdHuespedSal" value="">
             <input type="hidden" name="txtImptoTuriSal" id="txtImptoTuriSal" value="">
@@ -349,8 +348,7 @@ foreach ($codigos as $codigo) { ?>
             <input type="hidden" name="txtIdCentroCiaSal" id="txtIdCentroCiaSal" value=""> 
             <input type="hidden" name="creditoCia" id="creditoCia" value="0">
             <input type="hidden" name="diasCreditoCia" id="diasCreditoCia" value="0">
-            <input type="hidden" name="credito" id="credito" value="0">
-            
+            <input type="hidden" name="credito" id="credito" value="0">            
             <input type="hidden" name="perfilFactura" id="perfilFactura" value="0">
             <input type="hidden" name="retencionCia" id="retencionCia" value=''>
             <input type="hidden" name="retenciones" id="retenciones" value='<?php echo json_encode($retenciones); ?>'>

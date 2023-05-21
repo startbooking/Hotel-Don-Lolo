@@ -3220,8 +3220,8 @@ function anulaFactura() {
     },
     success: function (data) {
       // var ventana = window.open(data.trim(), "PRINT", "height=600,width=600");
-      swal("Atencion", "Documento Anulado Con Exito", "success", 5000);
-      $(location).attr("href", pagina);
+      swal("Atencion", "Documento Anulado Con Exito", "success");
+      // $(location).attr("href", pagina);
       // $(location).attr("href", "facturacionEstadia");
       /* setTimeout(function () {
         swal("Atencion", "Salida del Huesped realizada con Exito", "success");
@@ -3711,6 +3711,8 @@ function apagaselecomp(tipo) {
   var reteIva = 0;
   var reteIca = 0;
 
+  // swal(tipo);
+
   if (tipo == 2) {
     if (idCiaFac == 0) {
       /*
@@ -3734,24 +3736,32 @@ function apagaselecomp(tipo) {
       retenciones = JSON.parse($("#retenciones").val());
       reteCia = JSON.parse($("#retencionCia").val());
 
+      // console.log(retenciones);
+      // console.log(reteCia);
+
       let rFte = retenciones.filter((retencion) => retencion.idRetencion === 1);
       let rIva = retenciones.filter((retencion) => retencion.idRetencion === 2);
       let rIca = retenciones.filter((retencion) => retencion.idRetencion === 3);
 
       let { reteiva, reteica, retefuente } = reteCia[0];
 
-      if (retefuente == 1) {
+      // console.log({ reteiva, reteica, retefuente });
+
+      if (retefuente == "1") {
+        // console.log("Entro Retefuente");
         if (rFte[0].baseRetencion <= totalRteFte) {
           reteFte = totalRteFte * (rFte[0].porcentajeRetencion / 100);
         }
       }
 
-      if (reteiva == 1) {
+      if (reteiva == "1") {
+        // console.log("Entro ReteIva");
         if (rFte[0].baseRetencion <= totalRteFte) {
           reteIva = totalImpto * (rIva[0].porcentajeRetencion / 100);
         }
       }
-      if (reteica == 1) {
+      if (reteica == "1") {
+        // console.log("Entro ReteIca");
         if (rIca[0].baseRetencion <= totalRteFte) {
           reteIca = totalRteFte * (rIca[0].porcentajeRetencion / 100);
         }
@@ -3780,9 +3790,9 @@ function apagaselecomp(tipo) {
     $("#totalReteiva").val(0);
     $("#totalReteica").val(0);
     $("#totalRetefuente").val(0);
-    $("#totalBase").val(0);
+    /*     $("#totalBase").val(0);
     $("#totalIva").val(0);
-
+ */
     sumaTotales();
 
     /// $("#seleccionaCiaCon").attr("required", false);
