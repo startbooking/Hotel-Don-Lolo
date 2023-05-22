@@ -5,7 +5,7 @@
         <div class="panel-heading">
           <div class="row">
             <div class="col-lg-9"> 
-              <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_PMS?>">
+              <input type="hidden" name="rutaweb" id="rutaweb" value="<?php echo BASE_PMS; ?>">
               <input type="hidden" name="ubicacion" id="ubicacion" value="cierreDiario">
               <input type="hidden" name="pagina" id="pagina" value="cierreDiario">
               <input type="hidden" name="pasos" id="pasos">
@@ -16,7 +16,7 @@
           </div>
         </div> 
         <div class="container-fluid centrar" style="padding-top:20px">
-          <div class="mensaje"></div>
+          <div class="col-lg-8 mensaje"></div>
         </div>
         <form id="formCierreDiario" class="form-horizontal" action="javascript:validaCierreDiario()" method="POST" enctype="multipart/form-data">
           <div class="panel-body">
@@ -24,7 +24,7 @@
               <div class="form-group">
                 <label style="margin-top:8px" for="fechaAuditoria" class="col-sm-5 control-label">Fecha Auditoria </label>
                 <div class="col-sm-6">
-                  <h3 id="fechaAuditoria" style="font-weight: 700;margin-top: 0;font-size:30px;color:brown"><?=FECHA_PMS?></h3>
+                  <h3 id="fechaAuditoria" style="font-weight: 700;margin-top: 0;font-size:30px;color:brown"><?php echo FECHA_PMS; ?></h3>
                 </div>
               </div>
             </div>

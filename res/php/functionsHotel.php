@@ -5,6 +5,32 @@ date_default_timezone_set('America/Bogota');
 
 class Hotel_Actions
 {
+    public function traeIdItemDianVenta($codigo)
+    {
+        global $database;
+
+        $data = $database->select('codigos_vta', [
+            'idItem',
+        ], [
+            'id_cargo' => $codigo,
+        ]);
+
+        return $data[0]['idItem'];
+    }
+
+    public function traeTipoUnidadDianVenta($codigo)
+    {
+        global $database;
+
+        $data = $database->select('codigos_vta', [
+            'tipoUnidad',
+        ], [
+            'id_cargo' => $codigo,
+        ]);
+
+        return $data[0]['tipoUnidad'];
+    }
+
     public function traeCodigoDianVenta($codigo)
     {
         global $database;
@@ -25,6 +51,7 @@ class Hotel_Actions
         $data = $database->select('parametros_pms', [
             'token',
             'password',
+            'facturador',
         ]);
 
         return $data;
@@ -242,11 +269,11 @@ class Hotel_Actions
     {
         global $database;
 
-        $data = $database->select('dianTipoResponsabilidad', [
-            'descripcionResponsabilidad',
+        $data = $database->select('dianRegimenFiscal', [
+            'descripcion',
             'id',
         ], [
-            'ORDER' => ['descripcionResponsabilidad' => 'ASC'],
+            'ORDER' => ['descripcion' => 'ASC'],
         ]);
 
         return $data;

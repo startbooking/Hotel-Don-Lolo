@@ -151,13 +151,13 @@ if ($huesped[0]['pais'] == $pais['id_pais']) {?>
     </div>
     <label for="celular" class="col-sm-2 control-label">Celular</label>
     <div class="col-sm-4">
-      <input type="text" class="form-control" name="celular" id="celular"  value="<?php echo $huesped[0]['celular']; ?>">
+      <input type="text" class="form-control" name="celular" id="celular"  value="<?php echo $huesped[0]['celular']; ?>" minlength="10">
     </div>
   </div>
   <div class="form-group">
     <label for="correo" class="col-sm-2 control-label">Correo </label>
     <div class="col-sm-4">
-      <input type="email" class="form-control" name="correo" id="correo"  value="<?php echo $huesped[0]['email']; ?>">
+      <input type="email" class="form-control" name="correo" id="correo"  value="<?php echo $huesped[0]['email']; ?>" required>
     </div>
     <label for="fechanace" class="col-sm-2 control-label">Fecha Nacimiento </label>
     <div class="col-sm-4">
@@ -165,10 +165,10 @@ if ($huesped[0]['pais'] == $pais['id_pais']) {?>
     </div>
   </div>
   <div class="form-group">
-    <label for="fechanace" class="col-sm-2 control-label">Tipo Adquiriente </label>
+    <label for="fechanace" class="col-sm-2 control-label">Tipo Persona </label>
     <div class="col-sm-4">
-      <select name="tipoAdquiriente" id="tipoAdquiriente" >
-        <option value="">Seleccione el Tipo Adquiriente</option>
+      <select name="tipoAdquiriente" id="tipoAdquiriente" required>
+        <option value="">Seleccione el Tipo Persona</option>
         <?php
           $tipoAdquiere = $hotel->getTipoAdquiriente();
 foreach ($tipoAdquiere as $tipoAdqui) { ?>
@@ -185,9 +185,9 @@ if ($huesped[0]['tipoAdquiriente'] == $tipoAdqui['id']) {?>
 ?> 
       </select>
     </div>
-    <label for="correo" class="col-sm-2 control-label">Tipo Responsabilidad </label>
+    <label for="correo" class="col-sm-2 control-label">Tipo Regimen </label>
     <div class="col-sm-4">
-      <select name="tipoResponsabilidad" id="tipoResponsabilidad" >
+      <select name="tipoResponsabilidad" id="tipoResponsabilidad" required>
         <option value="">Seleccione Tipo de Responsabilidad</option>
         <?php
     $tipoRespo = $hotel->getTipoResponsabilidad();
@@ -199,7 +199,7 @@ foreach ($tipoRespo as $tipoRes) { ?>
                 <?php
     }
     ?>                                      
-            ><?php echo $tipoRes['descripcionResponsabilidad']; ?></option>
+            ><?php echo $tipoRes['descripcion']; ?></option>
             <?php
 }
 ?>  
@@ -207,10 +207,10 @@ foreach ($tipoRespo as $tipoRes) { ?>
     </div>
   </div>
   <div class="form-group">
-            <label for="correo" class="col-sm-2 control-label">Responsabilidad Tributaria </label>
+            <label for="correo" class="col-sm-2 control-label">Tipo Obligacion </label>
             <div class="col-sm-4">
-            <select name="responsabilidadTribu" id="responsabilidadTribu" >
-              <option value="">Seleccione Responsabilidad Tributaria</option>
+            <select name="responsabilidadTribu" id="responsabilidadTribu" required>
+              <option value="">Seleccione Tipo Obligacion</option>
               <?php
                 $tipoTribus = $hotel->getResponsabilidadTributaria();
 foreach ($tipoTribus as $tipoTribu) { ?>
@@ -253,24 +253,6 @@ foreach ($tipohesps as $tipohesp) { ?>
 
 
   <div class="form-group">
-    <!-- <label for="tipohuesped" class="col-sm-2 control-label">Tipo Huesped </label>
-    <div class="col-sm-4">
-      <select name="tipohuesped" id="tipohuesped" required="">
-      <?php
-        $tipohesps = $hotel->getTipoHuespedes(); ?>
-        <?php foreach ($tipohesps as $tipohesp) { ?>
-          <option value="<?php echo $tipohesp['id_tipo_huesped']; ?>"
-            <?php
-     if ($huesped[0]['tipo_huesped'] == $tipohesp['id_tipo_huesped']) { ?>
-                selected
-                <?php
-     }
-            ?>
-            ><?php echo $tipohesp['descripcion_tipo']; ?></option>}
-        <?php } ?>
-       ?>
-      </select>
-    </div> -->
     <label for="tarifa" class="col-sm-2 control-label">Tarifa </label>
     <div class="col-sm-4">
       <select name="tarifa" id="tarifa" required="">
@@ -288,8 +270,6 @@ foreach ($tipohesps as $tipohesp) { ?>
         <?php } ?>
       </select>
     </div>
-  <!-- </div>
-  <div class="form-group"> -->
     <label for="formapago" class="col-sm-2 control-label">Forma de Pago </label>
     <div class="col-sm-4">
       <select name="formapago" id="formapago" required="">

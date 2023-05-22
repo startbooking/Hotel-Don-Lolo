@@ -1,11 +1,12 @@
-<?php 
-	$fecha    = FECHA_PMS;
-  $reservas = $hotel->getSalidasDia($fecha,2,"CA");  
+<?php
+$fecha = FECHA_PMS;
+$reservas = $hotel->getSalidasDia($fecha, 2, 'CA');
 ?> 
 <section class="content centrar" style="margin-bottom: 0px;"> 
-  <div class="col-md-10">
+  <div class="col-md-12">
 		<div class="alert alert-danger">
-      <h4 align="center" style="font-weight: 600;">Actualize las Salidas Antes de Realizar el Cierre del Dia</h4>
+      <h4 style="font-weight: 600;text-align:center"><i class="fa fa-exclamation-triangle fa-2x" aria-hidden="true"></i>
+ Actualize las Salidas Antes de Realizar el Cierre del Dia</h4>
     </div>
 		<div class="table-responsive">
       <table id="example1" class="table table-bordered">
@@ -24,9 +25,9 @@
               <td><?php echo $sinSalida['nombre_completo']; ?></td>
               <td><?php echo $sinSalida['fecha_salida']; ?></td>
             </tr>
-            <?php 
-            }
-          ?>
+            <?php
+          }
+?>
         </tbody>
       </table>
     </div>			

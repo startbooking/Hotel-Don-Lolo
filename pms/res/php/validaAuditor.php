@@ -9,11 +9,6 @@
 
   $user = $hotel->getLogin($usu, $pass3);
 
-  /* echo json_encode($user);
-  echo $usu;
-  echo $pass;
-  echo $pass3; */
-
   $fecha = FECHA_PMS;
 
   if (!empty($user)) {

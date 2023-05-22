@@ -37,8 +37,6 @@ if ($perfil == 1) {
     $reserva = $dFactura[0]['numero_reserva'];
     $nroFolio = $dFactura[0]['folio_cargo'];
 
-    // echo print_r($dFactura);
-
     $folios = $hotel->getConsumosReservaAgrupadoCodigoFolio($numero, $reserva, $nroFolio, 1);
     $pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolio($numero, $reserva, $nroFolio, 3);
     $tipoimptos = $hotel->getValorImptoFolio($numero, $reserva, $nroFolio, 2);

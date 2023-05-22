@@ -22,7 +22,6 @@ $reservas = $hotel->getReservasActuales($tipo);
           <td>Noc</td>
           <td>Hom</td>
           <td>Muj</td>
-          <!-- <td>Ni</td> -->
           <td>Estado</td>
           <td style="width: 9%" align="center">Accion</td>
         </tr>
@@ -116,7 +115,7 @@ $reservas = $hotel->getReservasActuales($tipo);
             <!-- <td align="center"><?php echo $reserva['can_ninos']; ?></td> -->
         
             <td><?php echo estadoReserva($reserva['estado']); ?></td>
-            <td style="padding:3px;width: 13%">
+            <td style="padding:3px;width: 15%">
               <?php
             if ($reserva['estado'] == 'ES') { ?>
                   <nav class="navbar navbar-default" style="margin-bottom: 0px;min-height:0px;">

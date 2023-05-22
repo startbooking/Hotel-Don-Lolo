@@ -357,13 +357,13 @@ foreach ($codigos as $codigo) { ?>
               <div class="col-sm-6" style="padding:0;height: 30px">
                 <div class="col-sm-6">
                   <div class="form-check form-check-inline">
-                    <input style="margin-top:5px" class="form-check-input" type="radio" name="habitacionOptionCon" id="inlineRadio1" value="1" onclick="apagaselecomp(this.value)" >
+                    <input style="margin-top:5px" class="form-check-input" type="radio" name="habitacionOptionCon" for="inlineRadio1" id="inlineRadio1" value="1" onclick="apagaselecomp(this.value)" >
                     <label style="margin-top:-20px;margin-left:25px" class="form-check-label" for="inlineRadio1" >Huesped</label>
                   </div>                     
                 </div>
                 <div class="col-sm-6">
                   <div class="form-check form-check-inline">
-                    <input style="margin-top:5px" class="form-check-input" type="radio" name="habitacionOptionCon" id="inlineRadio2" value="2" onclick="apagaselecomp(this.value)">
+                    <input style="margin-top:5px" class="form-check-input" type="radio" name="habitacionOptionCon" for="inlineRadio2" id="inlineRadio2" value="2" onclick="apagaselecomp(this.value)">
                     <label style="margin-top:-20px;margin-left:25px" class="form-check-label" for="inlineRadio2" >Compañia</label>
                   </div>
                 </div>

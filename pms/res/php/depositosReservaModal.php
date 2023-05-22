@@ -1,11 +1,11 @@
-<?php 
+<?php
 
-  require '../../../res/php/titles.php';
-  require '../../../res/php/app_topHotel.php'; 
-  $reserva  =  $_POST['reserva'];
+require '../../../res/php/titles.php';
+require '../../../res/php/app_topHotel.php';
+$reserva = $_POST['reserva'];
 
-  $datosReserva = $hotel->getReservasDatos($reserva); 
-  $depositos    = $hotel->getDepositosReservas($reserva);
+$datosReserva = $hotel->getReservasDatos($reserva);
+$depositos = $hotel->getDepositosReservas($reserva);
 
 ?> 
 
@@ -17,25 +17,25 @@
 					<div class="form-group">
 			      <label for="apellidos" class="col-sm-2 control-label">Habitacion</label>
 			      <div class="col-sm-2">
-			        <input type="text" class="form-control" id="apellidos" placeholder="" value="<?php echo $datosReserva[0]['num_habitacion'] ?>" readonly>
+			        <input type="text" class="form-control" id="apellidos" placeholder="" value="<?php echo $datosReserva[0]['num_habitacion']; ?>" readonly>
 			      </div>
 			      <label for="apellidos" class="col-sm-2 control-label">Huesped </label>
 			      <div class="col-sm-6">
-			        <input type="text" class="form-control" id="apellidos" placeholder="" value="<?=$datosReserva[0]['nombre_completo']?>" readonly>
+			        <input type="text" class="form-control" id="apellidos" placeholder="" value="<?php echo $datosReserva[0]['nombre_completo']; ?>" readonly>
 			      </div>
 		      </div>
 					<div class="form-group">
 					  <label for="llegada" class="col-sm-2 control-label">Llegada</label>
 					  <div class="col-sm-3">
-					    <input type="text" class="form-control" name="llegada" id="llegada" readonly="" value="<?=$datosReserva[0]['fecha_llegada']?>"> 
+					    <input type="text" class="form-control" name="llegada" id="llegada" readonly="" value="<?php echo $datosReserva[0]['fecha_llegada']; ?>"> 
 					  </div>
 					  <label for="noches" class="col-sm-1 control-label">Noches</label>
 					  <div class="col-sm-2">
-					    <input type="text" class="form-control" name="noches" id="noches" readonly="" value='<?=$datosReserva[0]['dias_reservados']?>'>
+					    <input type="text" class="form-control" name="noches" id="noches" readonly="" value='<?php echo $datosReserva[0]['dias_reservados']; ?>'>
 					  </div>
 					  <label for="salida" class="col-sm-1 control-label">Salida</label>
 					  <div class="col-sm-3">
-					    <input type="text" class="form-control" name="salida" id="salida" readonly="" value="<?=$datosReserva[0]['fecha_salida']?>">
+					    <input type="text" class="form-control" name="salida" id="salida" readonly="" value="<?php echo $datosReserva[0]['fecha_salida']; ?>">
 					  </div>
 					</div>
 		    </div>
@@ -56,37 +56,37 @@
                 </tr>
               </thead>
               <tbody>
-                  <?php 
+                  <?php
                   $pagos = 0;
-                  foreach ($depositos as $deposito): 
-                    $pagos = $pagos + $deposito['pagos_cargos']; 
-                    $docu  = $hotel->buscaDocumentoDeposito($deposito['concecutivo_deposito']);
-                  ?>
+foreach ($depositos as $deposito) {
+    $pagos = $pagos + $deposito['pagos_cargos'];
+    $docu = $hotel->buscaDocumentoDeposito($deposito['concecutivo_abono']);
+    ?>
                   <tr align="right">
-                    <td><?=$deposito['concecutivo_deposito']?></td>
-                    <td align="left"><?=$deposito['descripcion_cargo']?></td>
-                    <td align="left"><?=$deposito['informacion_cargo']?></td>
-                    <td><?=$deposito['fecha_cargo']?></td>
-                    <td><?=number_format($deposito['pagos_cargos'],2)?></td>
-                    <td><?=$hotel->nombreUsuario($deposito['id_usuario'])?></td>
+                    <td><?php echo $deposito['concecutivo_abono']; ?></td>
+                    <td align="left"><?php echo $deposito['descripcion_cargo']; ?></td>
+                    <td align="left"><?php echo $deposito['informacion_cargo']; ?></td>
+                    <td><?php echo $deposito['fecha_cargo']; ?></td>
+                    <td><?php echo number_format($deposito['pagos_cargos'], 2); ?></td>
+                    <td><?php echo $hotel->nombreUsuario($deposito['id_usuario']); ?></td>
                     <td>
-                      <?php 
-                        if($docu!=''){ ?>
+                      <?php
+          if ($docu != '') { ?>
                           <a 
                             class="btn btn-danger btn-xs" 
                             data-toggle="modal" 
-                            data-imagen="<?=BASE_PMS?>uploads/<?php echo $docu?>" 
+                            data-imagen="<?php echo BASE_PMS; ?>uploads/<?php echo $docu; ?>" 
                             title="Ver Comprobante de Deposito"
                             href="#myModalMuestraDeposito">
                             <i class="fa fa-file"></i>
                           </a> 
                           <?php
-                        }
-                      ?>
+          }
+    ?>
                     </td>
 
                   </tr>
-                  <?php endforeach ?>
+                  <?php } ?>
               </tbody>
             </table>
           </div>
@@ -94,7 +94,7 @@
             <div class="form-group">
               <label for="apellidos" class="col-sm-3 control-label">Total Deposito</label>
               <div class="col-sm-3">
-                <input align="right" type="text" class="form-control" id="saldototal" placeholder="" value="<?php echo number_format($pagos,2)?>" readonly>
+                <input align="right" type="text" class="form-control" id="saldototal" placeholder="" value="<?php echo number_format($pagos, 2); ?>" readonly>
               </div>
             </div>
           </div>				

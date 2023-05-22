@@ -1,0 +1,742 @@
+SQLSTATE[
+  23000
+]: Integrity constraint violation: 1062 Duplicate entry 'HDL-9410' for key 'documents_prefix_number_unique' (SQL: insert into `documents` (`user_id`, `external_id`, `establishment_id`, `establishment`, `soap_type_id`, `send_server`, `type_environment_id`, `shipping_two_steps`, `type_document_id`, `prefix`, `number`, `type_invoice_id`, `customer_id`, `customer`, `currency_id`, `date_expiration`, `date_of_issue`, `time_of_issue`, `observation`, `reference_id`, `note_concept_id`, `sale`, `total_discount`, `taxes`, `total_tax`, `subtotal`, `total`, `version_ubl_id`, `ambient_id`, `payment_form_id`, `payment_method_id`, `time_days_credit`, `response_api`, `response_api_status`, `correlative_api`, `sale_note_id`, `quotation_id`, `order_reference`, `updated_at`, `created_at`) values (1,
+995e935f-45f7-4a3f-a5f7-e5c289d2a615,
+1,
+{
+  "country_id": 47,
+  "country": {
+    "id": 47,
+    "name": "Colombia"
+  },
+  "department_id": 779,
+  "department": {
+    "id": 779,
+    "name": "Bogota"
+  },
+  "city_id": 12688,
+  "city": {
+    "id": 12688,
+    "name": "Bogota"
+  },
+  "urbanization": null,
+  "address": "-",
+  "email": "sactel@gmail.com",
+  "telephone": "-",
+  "code": "0000",
+  "trade_address": null,
+  "web_address": null,
+  "aditional_information": null,
+  "description": "Oficina Principal"
+},
+01,
+0,
+2,
+1,
+5, HDL,
+9410,
+1,
+3,
+{
+  "id": 3,
+  "type": "customers",
+  "dv": "7",
+  "code": "79518919",
+  "type_regime_id": 2,
+  "type_person_id": 2,
+  "identity_document_type_id": 3,
+  "number": "79518919",
+  "name": "BARAHONA BELTRAN RAFAEL",
+  "trade_name": null,
+  "country_id": 47,
+  "department_id": 779,
+  "city_id": 12688,
+  "address": "CRA 102 NRO 16F 12",
+  "postal_code": null,
+  "email": "barahona@sactel.net",
+  "telephone": "2980301",
+  "perception_agent": 0,
+  "type_obligation_id": 117,
+  "person_type_id": null,
+  "contact_phone": null,
+  "contact_name": null,
+  "comment": null,
+  "percentage_perception": null,
+  "enabled": 1,
+  "created_at": "2023-05-22 10:00:13",
+  "updated_at": "2023-05-22 12:02:09",
+  "status": 1,
+  "type_person": {
+    "id": 2,
+    "name": "Persona Natural",
+    "deleted_at": null,
+    "created_at": "2023-05-11 14:07:25",
+    "updated_at": "2023-05-11 14:07:25"
+  },
+  "type_regime": {
+    "id": 2,
+    "name": "No Responsable de IVA",
+    "code": "49",
+    "deleted_at": null,
+    "created_at": "2023-05-11 14:07:25",
+    "updated_at": "2023-05-11 14:07:25"
+  },
+  "identity_document_type": {
+    "id": 3,
+    "name": "C\u00e9dula de ciudadan\u00eda",
+    "code": "13",
+    "deleted_at": null,
+    "created_at": "2023-05-11 14:07:25",
+    "updated_at": "2023-05-11 14:07:25"
+  },
+  "country": {
+    "id": 47,
+    "name": "Colombia",
+    "code": "CO",
+    "code_phone": 57,
+    "deleted_at": null,
+    "created_at": "2023-05-11 14:07:25",
+    "updated_at": "2023-05-11 14:07:25"
+  },
+  "department": {
+    "id": 779,
+    "name": "Bogota",
+    "country_id": 47,
+    "deleted_at": null,
+    "created_at": "2023-05-11 14:07:25",
+    "updated_at": "2023-05-11 14:07:25"
+  },
+  "city": {
+    "id": 12688,
+    "name": "Bogota",
+    "department_id": 779,
+    "deleted_at": null,
+    "created_at": "2023-05-11 14:07:25",
+    "updated_at": "2023-05-11 14:07:25"
+  }
+},
+170,
+2023-05-22 00: 00: 00,
+2023-05-22 00: 00: 00,
+12: 07: 43, factura de prueba 002,
+,
+,
+691195.00,
+0.00,
+[
+  {
+    "id": 1,
+    "name": "IVA5",
+    "code": "71",
+    "rate": "5.00",
+    "conversion": "100.00",
+    "is_percentage": true,
+    "is_fixed_value": false,
+    "is_retention": false,
+    "in_base": false,
+    "in_tax": null,
+    "type_tax_id": 1,
+    "type_tax": {
+      "id": 1,
+      "name": "IVA",
+      "description": "Impuesto de Valor Agregado",
+      "code": "01",
+      "created_at": "2023-05-11 14:07:25",
+      "updated_at": "2023-05-11 14:07:25"
+    },
+    "retention": 0,
+    "total": 0
+  },
+  {
+    "id": 2,
+    "name": "IMPUESTO AL CONSUMO",
+    "code": "02",
+    "rate": "8.00",
+    "conversion": "100.00",
+    "is_percentage": true,
+    "is_fixed_value": false,
+    "is_retention": false,
+    "in_base": false,
+    "in_tax": null,
+    "type_tax_id": 2,
+    "type_tax": {
+      "id": 2,
+      "name": "IC",
+      "description": "Impuesto al Consumo",
+      "code": "02",
+      "created_at": "2023-05-11 14:07:25",
+      "updated_at": "2023-05-11 14:07:25"
+    },
+    "retention": 0,
+    "total": "6029.68"
+  },
+  {
+    "id": 3,
+    "name": "RETE.ICA",
+    "code": "03",
+    "rate": "4.00",
+    "conversion": "1000.00",
+    "is_percentage": true,
+    "is_fixed_value": false,
+    "is_retention": true,
+    "in_base": true,
+    "in_tax": null,
+    "type_tax_id": 7,
+    "type_tax": {
+      "id": 7,
+      "name": "ReteICA",
+      "description": "Retenci\u00f3n sobre el ICA",
+      "code": "07",
+      "created_at": "2023-05-11 14:07:25",
+      "updated_at": "2023-05-11 14:07:25"
+    },
+    "retention": 0,
+    "total": 0
+  },
+  {
+    "id": 4,
+    "name": "IMPUESTO NACIONAL AL CONSUMO",
+    "code": "04",
+    "rate": "4.00",
+    "conversion": "100.00",
+    "is_percentage": true,
+    "is_fixed_value": false,
+    "is_retention": false,
+    "in_base": false,
+    "in_tax": null,
+    "type_tax_id": 4,
+    "type_tax": {
+      "id": 4,
+      "name": "INC",
+      "description": "Impuesto Nacional al Consumo",
+      "code": "04",
+      "created_at": "2023-05-11 14:07:25",
+      "updated_at": "2023-05-11 14:07:25"
+    },
+    "retention": 0,
+    "total": 0
+  },
+  {
+    "id": 5,
+    "name": "RETE.FUENTE_3.5",
+    "code": null,
+    "rate": "3.50",
+    "conversion": "100.00",
+    "is_percentage": true,
+    "is_fixed_value": false,
+    "is_retention": true,
+    "in_base": true,
+    "in_tax": null,
+    "type_tax_id": 6,
+    "type_tax": {
+      "id": 6,
+      "name": "ReteFuente",
+      "description": "Retenci\u00f3n sobre Renta",
+      "code": "06",
+      "created_at": "2023-05-11 14:07:25",
+      "updated_at": "2023-05-11 14:07:25"
+    },
+    "retention": 0,
+    "total": 0
+  },
+  {
+    "id": 6,
+    "name": "RETE.IVA",
+    "code": null,
+    "rate": "15.00",
+    "conversion": "100.00",
+    "is_percentage": true,
+    "is_fixed_value": false,
+    "is_retention": true,
+    "in_base": false,
+    "in_tax": 10,
+    "type_tax_id": 5,
+    "type_tax": {
+      "id": 5,
+      "name": "ReteIVA",
+      "description": "Retenci\u00f3n sobre el IVA",
+      "code": "05",
+      "created_at": "2023-05-11 14:07:25",
+      "updated_at": "2023-05-11 14:07:25"
+    },
+    "retention": 0,
+    "total": 0
+  },
+  {
+    "id": 7,
+    "name": "IVA5",
+    "code": "71",
+    "rate": "5.00",
+    "conversion": "100.00",
+    "is_percentage": true,
+    "is_fixed_value": false,
+    "is_retention": false,
+    "in_base": false,
+    "in_tax": null,
+    "type_tax_id": 1,
+    "type_tax": {
+      "id": 1,
+      "name": "IVA",
+      "description": "Impuesto de Valor Agregado",
+      "code": "01",
+      "created_at": "2023-05-11 14:07:25",
+      "updated_at": "2023-05-11 14:07:25"
+    },
+    "retention": 0,
+    "total": 0
+  },
+  {
+    "id": 8,
+    "name": "EXCENTO",
+    "code": "07",
+    "rate": "0.00",
+    "conversion": "100.00",
+    "is_percentage": true,
+    "is_fixed_value": false,
+    "is_retention": false,
+    "in_base": false,
+    "in_tax": null,
+    "type_tax_id": 1,
+    "type_tax": {
+      "id": 1,
+      "name": "IVA",
+      "description": "Impuesto de Valor Agregado",
+      "code": "01",
+      "created_at": "2023-05-11 14:07:25",
+      "updated_at": "2023-05-11 14:07:25"
+    },
+    "retention": 0,
+    "total": "0.00"
+  },
+  {
+    "id": 9,
+    "name": "IVA0AIU",
+    "code": "98",
+    "rate": "0.00",
+    "conversion": "100.00",
+    "is_percentage": true,
+    "is_fixed_value": false,
+    "is_retention": false,
+    "in_base": false,
+    "in_tax": null,
+    "type_tax_id": 1,
+    "type_tax": {
+      "id": 1,
+      "name": "IVA",
+      "description": "Impuesto de Valor Agregado",
+      "code": "01",
+      "created_at": "2023-05-11 14:07:25",
+      "updated_at": "2023-05-11 14:07:25"
+    },
+    "retention": 0,
+    "total": 0
+  },
+  {
+    "id": 10,
+    "name": "IVA19AIU",
+    "code": "99",
+    "rate": "19.00",
+    "conversion": "100.00",
+    "is_percentage": true,
+    "is_fixed_value": false,
+    "is_retention": false,
+    "in_base": false,
+    "in_tax": null,
+    "type_tax_id": 1,
+    "type_tax": {
+      "id": 1,
+      "name": "IVA",
+      "description": "Impuesto de Valor Agregado",
+      "code": "01",
+      "created_at": "2023-05-11 14:07:25",
+      "updated_at": "2023-05-11 14:07:25"
+    },
+    "retention": 0,
+    "total": "115459.96"
+  },
+  {
+    "id": 11,
+    "name": "RETE.FUENTE_4.0",
+    "code": null,
+    "rate": "4.00",
+    "conversion": "100.00",
+    "is_percentage": true,
+    "is_fixed_value": false,
+    "is_retention": true,
+    "in_base": true,
+    "in_tax": null,
+    "type_tax_id": 6,
+    "type_tax": {
+      "id": 6,
+      "name": "ReteFuente",
+      "description": "Retenci\u00f3n sobre Renta",
+      "code": "06",
+      "created_at": "2023-05-11 14:07:25",
+      "updated_at": "2023-05-11 14:07:25"
+    },
+    "retention": 0,
+    "total": 0
+  }
+],
+121489.64,
+812684.64,
+812684.64,
+1,
+1,
+1,
+10,
+0,
+{
+  "message": "Error: Trying to get property 'code' of non-object (View: /var/www/html/apidian/resources/templates/xml/_tax_totals.blade.php) (View: /var/www/html/apidian/resources/templates/xml/_tax_totals.blade.php)",
+  "exception": "Exception",
+  "file": "/var/www/html/apidian/app/Traits/DocumentTrait.php",
+  "line": 226,
+  "trace": [
+    {
+      "file": "/var/www/html/apidian/app/Http/Controllers/Api/InvoiceController.php",
+      "line": 698,
+      "function": "createXML",
+      "class": "App\\Http\\Controllers\\Api\\InvoiceController",
+      "type": "->"
+    },
+    {
+      "function": "testSetStore",
+      "class": "App\\Http\\Controllers\\Api\\InvoiceController",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/laravel/framework/src/Illuminate/Routing/Controller.php",
+      "line": 54,
+      "function": "call_user_func_array"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php",
+      "line": 45,
+      "function": "callAction",
+      "class": "Illuminate\\Routing\\Controller",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/laravel/framework/src/Illuminate/Routing/Route.php",
+      "line": 219,
+      "function": "dispatch",
+      "class": "Illuminate\\Routing\\ControllerDispatcher",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/laravel/framework/src/Illuminate/Routing/Route.php",
+      "line": 176,
+      "function": "runController",
+      "class": "Illuminate\\Routing\\Route",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/laravel/framework/src/Illuminate/Routing/Router.php",
+      "line": 680,
+      "function": "run",
+      "class": "Illuminate\\Routing\\Route",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php",
+      "line": 30,
+      "function": "Illuminate\\Routing\\{closure}",
+      "class": "Illuminate\\Routing\\Router",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/mtownsend/request-xml/src/Middleware/XmlRequest.php",
+      "line": 20,
+      "function": "Illuminate\\Routing\\{closure}",
+      "class": "Illuminate\\Routing\\Pipeline",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+      "line": 163,
+      "function": "handle",
+      "class": "Mtownsend\\RequestXml\\Middleware\\XmlRequest",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php",
+      "line": 53,
+      "function": "Illuminate\\Pipeline\\{closure}",
+      "class": "Illuminate\\Pipeline\\Pipeline",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/app/Http/Middleware/ApiLog.php",
+      "line": 28,
+      "function": "Illuminate\\Routing\\{closure}",
+      "class": "Illuminate\\Routing\\Pipeline",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+      "line": 163,
+      "function": "handle",
+      "class": "App\\Http\\Middleware\\ApiLog",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php",
+      "line": 53,
+      "function": "Illuminate\\Pipeline\\{closure}",
+      "class": "Illuminate\\Pipeline\\Pipeline",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php",
+      "line": 41,
+      "function": "Illuminate\\Routing\\{closure}",
+      "class": "Illuminate\\Routing\\Pipeline",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+      "line": 163,
+      "function": "handle",
+      "class": "Illuminate\\Routing\\Middleware\\SubstituteBindings",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php",
+      "line": 53,
+      "function": "Illuminate\\Pipeline\\{closure}",
+      "class": "Illuminate\\Pipeline\\Pipeline",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/laravel/framework/src/Illuminate/Auth/Middleware/Authenticate.php",
+      "line": 43,
+      "function": "Illuminate\\Routing\\{closure}",
+      "class": "Illuminate\\Routing\\Pipeline",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+      "line": 163,
+      "function": "handle",
+      "class": "Illuminate\\Auth\\Middleware\\Authenticate",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php",
+      "line": 53,
+      "function": "Illuminate\\Pipeline\\{closure}",
+      "class": "Illuminate\\Pipeline\\Pipeline",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+      "line": 104,
+      "function": "Illuminate\\Routing\\{closure}",
+      "class": "Illuminate\\Routing\\Pipeline",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/laravel/framework/src/Illuminate/Routing/Router.php",
+      "line": 682,
+      "function": "then",
+      "class": "Illuminate\\Pipeline\\Pipeline",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/laravel/framework/src/Illuminate/Routing/Router.php",
+      "line": 657,
+      "function": "runRouteWithinStack",
+      "class": "Illuminate\\Routing\\Router",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/laravel/framework/src/Illuminate/Routing/Router.php",
+      "line": 623,
+      "function": "runRoute",
+      "class": "Illuminate\\Routing\\Router",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/laravel/framework/src/Illuminate/Routing/Router.php",
+      "line": 612,
+      "function": "dispatchToRoute",
+      "class": "Illuminate\\Routing\\Router",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php",
+      "line": 176,
+      "function": "dispatch",
+      "class": "Illuminate\\Routing\\Router",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php",
+      "line": 30,
+      "function": "Illuminate\\Foundation\\Http\\{closure}",
+      "class": "Illuminate\\Foundation\\Http\\Kernel",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/app/Http/Middleware/Cors.php",
+      "line": 19,
+      "function": "Illuminate\\Routing\\{closure}",
+      "class": "Illuminate\\Routing\\Pipeline",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+      "line": 163,
+      "function": "handle",
+      "class": "App\\Http\\Middleware\\Cors",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php",
+      "line": 53,
+      "function": "Illuminate\\Pipeline\\{closure}",
+      "class": "Illuminate\\Pipeline\\Pipeline",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/fideloper/proxy/src/TrustProxies.php",
+      "line": 57,
+      "function": "Illuminate\\Routing\\{closure}",
+      "class": "Illuminate\\Routing\\Pipeline",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+      "line": 163,
+      "function": "handle",
+      "class": "Fideloper\\Proxy\\TrustProxies",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php",
+      "line": 53,
+      "function": "Illuminate\\Pipeline\\{closure}",
+      "class": "Illuminate\\Pipeline\\Pipeline",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php",
+      "line": 21,
+      "function": "Illuminate\\Routing\\{closure}",
+      "class": "Illuminate\\Routing\\Pipeline",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+      "line": 163,
+      "function": "handle",
+      "class": "Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php",
+      "line": 53,
+      "function": "Illuminate\\Pipeline\\{closure}",
+      "class": "Illuminate\\Pipeline\\Pipeline",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php",
+      "line": 21,
+      "function": "Illuminate\\Routing\\{closure}",
+      "class": "Illuminate\\Routing\\Pipeline",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+      "line": 163,
+      "function": "handle",
+      "class": "Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php",
+      "line": 53,
+      "function": "Illuminate\\Pipeline\\{closure}",
+      "class": "Illuminate\\Pipeline\\Pipeline",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php",
+      "line": 27,
+      "function": "Illuminate\\Routing\\{closure}",
+      "class": "Illuminate\\Routing\\Pipeline",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+      "line": 163,
+      "function": "handle",
+      "class": "Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php",
+      "line": 53,
+      "function": "Illuminate\\Pipeline\\{closure}",
+      "class": "Illuminate\\Pipeline\\Pipeline",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/CheckForMaintenanceMode.php",
+      "line": 62,
+      "function": "Illuminate\\Routing\\{closure}",
+      "class": "Illuminate\\Routing\\Pipeline",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+      "line": 163,
+      "function": "handle",
+      "class": "Illuminate\\Foundation\\Http\\Middleware\\CheckForMaintenanceMode",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php",
+      "line": 53,
+      "function": "Illuminate\\Pipeline\\{closure}",
+      "class": "Illuminate\\Pipeline\\Pipeline",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+      "line": 104,
+      "function": "Illuminate\\Routing\\{closure}",
+      "class": "Illuminate\\Routing\\Pipeline",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php",
+      "line": 151,
+      "function": "then",
+      "class": "Illuminate\\Pipeline\\Pipeline",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php",
+      "line": 116,
+      "function": "sendRequestThroughRouter",
+      "class": "Illuminate\\Foundation\\Http\\Kernel",
+      "type": "->"
+    },
+    {
+      "file": "/var/www/html/apidian/public/index.php",
+      "line": 55,
+      "function": "handle",
+      "class": "Illuminate\\Foundation\\Http\\Kernel",
+      "type": "->"
+    }
+  ]
+},
+,
+9410,
+,
+,
+,
+2023-05-22 12: 07: 43,
+2023-05-22 12: 07: 43))

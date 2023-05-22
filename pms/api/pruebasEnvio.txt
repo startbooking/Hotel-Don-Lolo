@@ -1,0 +1,569 @@
+// Informacion Factura  //
+{
+  "number": 12578,
+  "type_document_id": "13",
+  "date": "2023-05-04",
+  "time": "12:48:43",
+  "resolution_number": "18764040460991",
+  "prefix": "HDL",
+  "notes": "",
+  "disable_confirmation_text": true,
+  "sendmail": true,
+  "sendmailtome": true,
+  "head_note": "",
+  "foot_note": "",
+  "customer": {
+    "identification_number": "91237045",
+    "dv": "",
+    "name": "JUAN FERNANDO CAMACHO GOMEZ ",
+    "phone": "3162992797",
+    "address": "CRA 57 B 66 B 08 BOGOTA",
+    "email": "fernando_camacho16@hotmail.com",
+    "merchant_registration": "0000000-00",
+    "type_document_identification_id": "13",
+    "type_organization_id": 2,
+    "type_liability_id": "",
+    "municipality_id": "149",
+    "type_regime_id": 1
+  },
+  "payment_form": {
+    "payment_form_id": "1",
+    "payment_method_id": "4",
+    "payment_due_date": "2023-05-04",
+    "duration_measure": 0
+  },
+  "legal_monetary_totals": {
+    "line_extension_amount": 45000,
+    "tax_exclusive_amount": 45000,
+    "tax_inclusive_amount": 48600,
+    "allowance_total_amount": 0,
+    "payable_amount": 48600
+  },
+  "tax_totals": [
+    {
+      "tax_id": "4",
+      "tax_amount": 3600,
+      "taxable_amount": 45000,
+      "percent": "8"
+    }
+  ],
+  "invoice_lines": [
+    {
+      "unit_measure_id": 29,
+      "invoiced_quantity": 1,
+      "line_extension_amount": 45000,
+      "free_of_charge_indicator": false,
+      "tax_totals": [
+        {
+          "tax_id": "4",
+          "tax_amount": 3600,
+          "taxable_amount": 45000,
+          "percent": "8"
+        }
+      ],
+      "description": "RESTAURANTE",
+      "notes": "",
+      "code": "",
+      "type_item_identification_id": 29,
+      "price_amount": 48600,
+      "base_quantity": 1
+    }
+  ]
+}
+// Informacion Error 
+{
+  "message": "The given data was invalid.",
+  "errors": {
+    "type_document_id": [
+      "type document id es inv\u00e1lido.",
+      "La resoluci\u00f3n no est\u00e1 configurada."
+    ],
+    "number": [
+      "number tiene que estar entre - o no se establecio el atributo que define el minimo y maximo."
+    ],
+    "customer.type_document_identification_id": [
+      "customer.type document identification id es inv\u00e1lido."
+    ],
+    "invoice_lines.0.code": [
+      "El campo invoice_lines.0.code es obligatorio."
+    ],
+    "invoice_lines.0.type_item_identification_id": [
+      "invoice_lines.0.type_item_identification_id es inv\u00e1lido."
+    ]
+  }
+}
+
+
+{
+  "message": "The given data was invalid.",
+  "errors": {
+    "type_document_id": [
+      "type document id es inv\u00e1lido.",
+      "La resoluci\u00f3n no est\u00e1 configurada."
+    ],
+    "number": [
+      "number tiene que estar entre - o no se establecio el atributo que define el minimo y maximo."
+    ],
+    "customer.type_document_identification_id": [
+      "customer.type document identification id es inv\u00e1lido."
+    ],
+    "invoice_lines.0.code": [
+      "El campo invoice_lines.0.code es obligatorio."
+    ],
+    "invoice_lines.0.type_item_identification_id": [
+      "invoice_lines.0.type_item_identification_id es inv\u00e1lido."
+    ]
+  }
+} 
+    
+{
+  "number": 12579,
+  "type_document_id": "3",
+  "date": "2023-05-04",
+  "time": "12:02:54",
+  "resolution_number": "18764040460991",
+  "prefix": "HDL",
+  "notes": "",
+  "disable_confirmation_text": true,
+  "sendmail": true,
+  "sendmailtome": true,
+  "head_note": "",
+  "foot_note": "",
+  "customer": {
+    "identification_number": "91237045",
+    "dv": "",
+    "name": "JUAN FERNANDO CAMACHO GOMEZ ",
+    "phone": "3162992797",
+    "address": "CRA 57 B 66 B 08 BOGOTA",
+    "email": "fernando_camacho16@hotmail.com",
+    "merchant_registration": "0000000-00",
+    "type_document_identification_id": "13",
+    "type_organization_id": 2,
+    "type_liability_id": "",
+    "municipality_id": "149",
+    "type_regime_id": 1
+  },
+  "payment_form": {
+    "payment_form_id": "1",
+    "payment_method_id": "4",
+    "payment_due_date": "2023-05-04",
+    "duration_measure": 0
+  },
+  "legal_monetary_totals": {
+    "line_extension_amount": 45000,
+    "tax_exclusive_amount": 45000,
+    "tax_inclusive_amount": 48600,
+    "allowance_total_amount": 0,
+    "payable_amount": 48600
+  },
+  "tax_totals": [
+    {
+      "tax_id": "4",
+      "tax_amount": 3600,
+      "taxable_amount": 45000,
+      "percent": "8"
+    }
+  ],
+  "invoice_lines": [
+    {
+      "unit_measure_id": "RESTA",
+      "invoiced_quantity": 1,
+      "line_extension_amount": 45000,
+      "free_of_charge_indicator": false,
+      "tax_totals": [
+        {
+          "tax_id": "4",
+          "tax_amount": 3600,
+          "taxable_amount": 45000,
+          "percent": "8"
+        }
+      ],
+      "description": "RESTAURANTE",
+      "notes": "",
+      "code": "",
+      "type_item_identification_id": 29,
+      "price_amount": 48600,
+      "base_quantity": 1
+    }
+  ]
+}
+
+
+{
+  "message": "The given data was invalid.",
+  "errors": {
+    "type_document_id": [
+      "type document id es inv\u00e1lido.",
+      "La resoluci\u00f3n no est\u00e1 configurada."
+    ],
+    "number": [
+      "number tiene que estar entre - o no se establecio el atributo que define el minimo y maximo."
+    ],
+    "customer.type_document_identification_id": [
+      "customer.type document identification id es inv\u00e1lido."
+    ],
+    "invoice_lines.0.unit_measure_id": [
+      "invoice_lines.0.unit_measure_id es inv\u00e1lido."
+    ],
+    "invoice_lines.0.code": [
+      "El campo invoice_lines.0.code es obligatorio."
+    ],
+    "invoice_lines.0.type_item_identification_id": [
+      "invoice_lines.0.type_item_identification_id es inv\u00e1lido."
+    ]
+  }
+}{
+  "message": "The given data was invalid.",
+  "errors": {
+    "type_document_id": [
+      "type document id es inv\u00e1lido.",
+      "La resoluci\u00f3n no est\u00e1 configurada."
+    ],
+    "number": [
+      "number tiene que estar entre - o no se establecio el atributo que define el minimo y maximo."
+    ],
+    "customer.type_document_identification_id": [
+      "customer.type document identification id es inv\u00e1lido."
+    ],
+    "invoice_lines.0.unit_measure_id": [
+      "invoice_lines.0.unit_measure_id es inv\u00e1lido."
+    ],
+    "invoice_lines.0.code": [
+      "El campo invoice_lines.0.code es obligatorio."
+    ],
+    "invoice_lines.0.type_item_identification_id": [
+      "invoice_lines.0.type_item_identification_id es inv\u00e1lido."
+    ]
+  }
+}
+// ["Factura_12579.pdf","1"]
+// Verificacion 003
+{
+  "number": 12580,
+  "type_document_id": "3",
+  "date": "2023-05-04",
+  "time": "13:44:36",
+  "resolution_number": "18764040460991",
+  "prefix": "HDL",
+  "notes": "",
+  "disable_confirmation_text": true,
+  "sendmail": true,
+  "sendmailtome": true,
+  "head_note": "",
+  "foot_note": "",
+  "customer": {
+    "identification_number": "91237045",
+    "dv": "",
+    "name": "JUAN FERNANDO CAMACHO GOMEZ ",
+    "phone": "3162992797",
+    "address": "CRA 57 B 66 B 08 BOGOTA",
+    "email": "fernando_camacho16@hotmail.com",
+    "merchant_registration": "0000000-00",
+    "type_document_identification_id": "3",
+    "type_organization_id": 2,
+    "type_liability_id": "",
+    "municipality_id": "149",
+    "type_regime_id": 1
+  },
+  "payment_form": {
+    "payment_form_id": "1",
+    "payment_method_id": "4",
+    "payment_due_date": "2023-05-04",
+    "duration_measure": 0
+  },
+  "legal_monetary_totals": {
+    "line_extension_amount": 250000,
+    "tax_exclusive_amount": 250000,
+    "tax_inclusive_amount": 290350,
+    "allowance_total_amount": 0,
+    "payable_amount": 290350
+  },
+  "tax_totals": [
+    {
+      "tax_id": "4",
+      "tax_amount": 5200,
+      "taxable_amount": 65000,
+      "percent": "8"
+    },
+    {
+      "tax_id": "1",
+      "tax_amount": 35150,
+      "taxable_amount": 185000,
+      "percent": "19"
+    }
+  ],
+  "invoice_lines": [
+    {
+      "unit_measure_id": "10",
+      "invoiced_quantity": 1,
+      "line_extension_amount": 185000,
+      "free_of_charge_indicator": false,
+      "tax_totals": [
+        {
+          "tax_id": "1",
+          "tax_amount": 35150,
+          "taxable_amount": 185000,
+          "percent": "19"
+        }
+      ],
+      "description": "ALOJAMIENTO",
+      "notes": "",
+      "code": "NOSHOW",
+      "type_item_identification_id": 27,
+      "price_amount": 220150,
+      "base_quantity": 1
+    },
+    {
+      "unit_measure_id": "10",
+      "invoiced_quantity": 1,
+      "line_extension_amount": 65000,
+      "free_of_charge_indicator": false,
+      "tax_totals": [
+        {
+          "tax_id": "1",
+          "tax_amount": 35150,
+          "taxable_amount": 185000,
+          "percent": "19"
+        },
+        {
+          "tax_id": "4",
+          "tax_amount": 5200,
+          "taxable_amount": 65000,
+          "percent": "8"
+        }
+      ],
+      "description": "RESTAURANTE",
+      "notes": "",
+      "code": "RESTA",
+      "type_item_identification_id": 29,
+      "price_amount": 70200,
+      "base_quantity": 1
+    }
+  ]
+}
+
+{
+  "message": "The given data was invalid.",
+  "errors": {
+    "type_document_id": [
+      "type document id es inv\u00e1lido.",
+      "La resoluci\u00f3n no est\u00e1 configurada."
+    ],
+    "number": [
+      "number tiene que estar entre - o no se establecio el atributo que define el minimo y maximo."
+    ],
+    "invoice_lines.0.type_item_identification_id": [
+      "invoice_lines.0.type_item_identification_id es inv\u00e1lido."
+    ],
+    "invoice_lines.1.type_item_identification_id": [
+      "invoice_lines.1.type_item_identification_id es inv\u00e1lido."
+    ]
+  }
+}
+
+{
+  "message": "The given data was invalid.",
+  "errors": {
+    "type_document_id": [
+      "type document id es inv\u00e1lido.",
+      "La resoluci\u00f3n no est\u00e1 configurada."
+    ],
+    "number": [
+      "number tiene que estar entre - o no se establecio el atributo que define el minimo y maximo."
+    ],
+    "invoice_lines.0.type_item_identification_id": [
+      "invoice_lines.0.type_item_identification_id es inv\u00e1lido."
+    ],
+    "invoice_lines.1.type_item_identification_id": [
+      "invoice_lines.1.type_item_identification_id es inv\u00e1lido."
+    ]
+  }
+} 
+  
+[
+  "Factura_12580.pdf",
+  "1"
+]
+
+
+{
+  "number": 12581,
+  "type_document_id": "3",
+  "date": "2023-05-04",
+  "time": "13:45:47",
+  "resolution_number": "18764040460991",
+  "prefix": "HDL",
+  "notes": "",
+  "disable_confirmation_text": true,
+  "sendmail": true,
+  "sendmailtome": true,
+  "head_note": "",
+  "foot_note": "",
+  "customer": {
+    "identification_number": "91237045",
+    "dv": "",
+    "name": "JUAN FERNANDO CAMACHO GOMEZ ",
+    "phone": "3162992797",
+    "address": "CRA 57 B 66 B 08 BOGOTA",
+    "email": "fernando_camacho16@hotmail.com",
+    "merchant_registration": "0000000-00",
+    "type_document_identification_id": "3",
+    "type_organization_id": 2,
+    "type_liability_id": "",
+    "municipality_id": "149",
+    "type_regime_id": 1
+  },
+  "payment_form": {
+    "payment_form_id": "1",
+    "payment_method_id": "4",
+    "payment_due_date": "2023-05-04",
+    "duration_measure": 0
+  },
+  "legal_monetary_totals": {
+    "line_extension_amount": 150000,
+    "tax_exclusive_amount": 150000,
+    "tax_inclusive_amount": 178500,
+    "allowance_total_amount": 0,
+    "payable_amount": 178500
+  },
+  "tax_totals": [
+    {
+      "tax_id": "1",
+      "tax_amount": 28500,
+      "taxable_amount": 150000,
+      "percent": "19"
+    }
+  ],
+  "invoice_lines": [
+    {
+      "unit_measure_id": "10",
+      "invoiced_quantity": 1,
+      "line_extension_amount": 150000,
+      "free_of_charge_indicator": false,
+      "tax_totals": [
+        {
+          "tax_id": "1",
+          "tax_amount": 28500,
+          "taxable_amount": 150000,
+          "percent": "19"
+        }
+      ],
+      "description": "ALOJAMIENTO",
+      "notes": "",
+      "code": "NOSHOW",
+      "type_item_identification_id": "6",
+      "price_amount": 178500,
+      "base_quantity": 1
+    }
+  ]
+}
+
+{
+  "message": "The given data was invalid.",
+  "errors": {
+    "type_document_id": [
+      "type document id es inv\u00e1lido.",
+      "La resoluci\u00f3n no est\u00e1 configurada."
+    ],
+    "number": [
+      "number tiene que estar entre - o no se establecio el atributo que define el minimo y maximo."
+    ],
+    "invoice_lines.0.type_item_identification_id": [
+      "invoice_lines.0.type_item_identification_id es inv\u00e1lido."
+    ]
+  }
+} 
+
+[
+  "Factura_12581.pdf",
+  "1"
+]
+
+
+
+{
+  "number": 991000001,
+  "type_document_id": 1,
+  "date": "2023-05-04",
+  "time": "14:07:55",
+  "resolution_number": "18760000001",
+  "prefix": "SETP",
+  "notes": "",
+  "disable_confirmation_text": true,
+  "sendmail": true,
+  "sendmailtome": true,
+  "head_note": "",
+  "foot_note": "",
+  "customer": {
+    "identification_number": "91237045",
+    "dv": "",
+    "name": "JUAN FERNANDO CAMACHO GOMEZ ",
+    "phone": "3162992797",
+    "address": "CRA 57 B 66 B 08 BOGOTA",
+    "email": "fernando_camacho16@hotmail.com",
+    "merchant_registration": "0000000-00",
+    "type_document_identification_id": "3",
+    "type_organization_id": 2,
+    "type_liability_id": "",
+    "municipality_id": "149",
+    "type_regime_id": 1
+  },
+  "payment_form": {
+    "payment_form_id": "1",
+    "payment_method_id": "4",
+    "payment_due_date": "2023-05-04",
+    "duration_measure": 0
+  },
+  "legal_monetary_totals": {
+    "line_extension_amount": 450000,
+    "tax_exclusive_amount": 450000,
+    "tax_inclusive_amount": 535500,
+    "allowance_total_amount": 0,
+    "payable_amount": 535500
+  },
+  "tax_totals": [
+    {
+      "tax_id": "1",
+      "tax_amount": 85500,
+      "taxable_amount": 450000,
+      "percent": "19"
+    }
+  ],
+  "invoice_lines": [
+    {
+      "unit_measure_id": "10",
+      "invoiced_quantity": 1,
+      "line_extension_amount": 450000,
+      "free_of_charge_indicator": false,
+      "tax_totals": [
+        {
+          "tax_id": "1",
+          "tax_amount": 85500,
+          "taxable_amount": 450000,
+          "percent": "19"
+        }
+      ],
+      "description": "ALOJAMIENTO",
+      "notes": "",
+      "code": "ALOJA",
+      "type_item_identification_id": "6",
+      "price_amount": 535500,
+      "base_quantity": 1
+    }
+  ]
+}
+    
+    
+    
+    {
+  "message": "The given data was invalid.",
+  "errors": {
+    "invoice_lines.0.type_item_identification_id": [
+      "invoice_lines.0.type_item_identification_id es inv\u00e1lido."
+    ]
+  }
+}
+     [
+  "Factura_991000001.pdf",
+  "1"
+]

@@ -10,8 +10,13 @@ $nrohab = $_POST['nrohab'];
 $consumos = $hotel->getConsumosReservaFolio($reserva, $folio);
 $totImptos = $hotel->getIvaReservaFolio($reserva, $folio);
 
-$baseImpto = $totImptos[0]['baseImpto'];
-$totImpto = $totImptos[0]['imptos'];
+if (count($totImptos) == 0) {
+    $baseImpto = 0;
+    $totImpto = 0;
+} else {
+    $baseImpto = $totImptos[0]['baseImpto'];
+    $totImpto = $totImptos[0]['imptos'];
+}
 
 if (count($consumos) == 0) {
     $consumos[0]['cargos'] = 0;

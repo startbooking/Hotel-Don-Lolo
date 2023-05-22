@@ -6,6 +6,7 @@ $eToken = $hotel->datosTokenCia();
 
 $token = $eToken[0]['token'];
 $password = $eToken[0]['password'];
+$facturador = $eToken[0]['facturador'];
 
 $estadofactura = [];
 
@@ -54,7 +55,7 @@ $horaFact = date('H:s:i');
 
 $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
 
-if ($tipofac == 2) {
+/* if ($tipofac == 2) {
     $datosCompania = $hotel->getSeleccionaCompania($idperfil);
     $diasCre = $datosCompania[0]['dias_credito'];
     $nomFact = utf8_decode($datosCompania[0]['empresa']);
@@ -64,7 +65,8 @@ if ($tipofac == 2) {
     $telFact = $datosCompania[0]['telefono'];
     $emaFact = $datosCompania[0]['email'];
     $merFact = '0000000-00';
-    $tdiFact = $hotel->traeCodigoIdentifica($datosCompania[0]['tipo_documento']);
+    // $tdiFact = $hotel->traeCodigoIdentifica($datosCompania[0]['tipo_documento']);
+    $tdiFact = $datosCompania[0]['tipo_documento'];
     $torFact = $datosCompania[0]['tipoAdquiriente'];
     $tliFact = $hotel->traeTipoResponsabilidad($datosCompania[0]['responsabilidadTributaria']);
     $munFact = $datosCompania[0]['ciudad'];
@@ -78,19 +80,19 @@ if ($tipofac == 2) {
     $dirFact = utf8_decode($datosHuesped[0]['direccion']);
     $emaFact = $datosHuesped[0]['email'];
     $merFact = '0000000-00';
-    $tdiFact = $hotel->traeCodigoIdentifica($datosHuesped[0]['tipo_identifica']);
+    // $tdiFact = $hotel->traeCodigoIdentifica($datosHuesped[0]['tipo_identifica']);
+    $tdiFact = $datosHuesped[0]['tipo_identifica'];
     $torFact = $datosHuesped[0]['tipoAdquiriente'];
     $tliFact = $hotel->traeTipoResponsabilidad($datosCompania[0]['responsabilidadTributaria']);
     $munFact = $datosHuesped[0]['ciudad'];
     $triFact = $datosHuesped[0]['responsabilidadTributaria'];
 }
-
-if ($tdiFact == '' || $torFact == '' || $tliFact) {
+ */
+/* if ($tdiFact == '' || $torFact == '' || $tliFact) {
     array_push($estadofactura, '0');
     echo json_encode($estadofactura);
-
     return;
-}
+} */
 
 $resFac = $hotel->getResolucion();
 $resolucion = $resFac[0]['resolucion'];
@@ -106,10 +108,11 @@ $paganticipo = 0;
 
 // validar campos obligatorios Facturacion
 
-if ($perfilFac == 1) {
+if ($perfilFac == 1 && $facturador == 1) {
     $numfactura = $hotel->getNumeroFactura(); // Numero Actual del Abono
     $nuevonumero = $hotel->updateNumeroFactura($numfactura + 1); // Actualiza Consecutivo del Abono
 } else {
+    $perfilFac == 2;
     $numfactura = $hotel->getNumeroAbono(); // Numero Actual del Abono
     // echo 'Numero Abono '.$numfactura;
     $nuevonumero = $hotel->updateNumeroAbonos($numfactura + 1); // Actualiza Consecutivo del Abono
@@ -124,7 +127,7 @@ if ($tipofac == 1) {
     if ($codigo == 2) {
         $diasCre = $dataCompany[0]['dias_credito'];
         $fechaVen = strtotime('+ '.$diasCre.' day', strtotime($fechaFac));
-        $fechaVen = date('Y-m-j', $fechaVen);
+        $fechaVen = date('Y-m-d', $fechaVen);
     }
 }
 
@@ -169,7 +172,8 @@ if ($tipofac == 2) {
     $telFact = $datosCompania[0]['telefono'];
     $emaFact = $datosCompania[0]['email'];
     $merFact = '0000000-00';
-    $tdiFact = $hotel->traeCodigoIdentifica($datosCompania[0]['tipo_documento']);
+    // $tdiFact = $hotel->traeCodigoIdentifica($datosCompania[0]['tipo_documento']);
+    $tdiFact = $datosCompania[0]['tipo_documento'];
     $torFact = $datosCompania[0]['tipoAdquiriente'];
     $tliFact = $hotel->traeTipoResponsabilidad($datosCompania[0]['responsabilidadTributaria']);
     $munFact = $datosCompania[0]['ciudad'];
@@ -183,14 +187,15 @@ if ($tipofac == 2) {
     $dirFact = utf8_decode($datosHuesped[0]['direccion']);
     $emaFact = $datosHuesped[0]['email'];
     $merFact = '0000000-00';
-    $tdiFact = $hotel->traeCodigoIdentifica($datosHuesped[0]['tipo_identifica']);
+    // $tdiFact = $hotel->traeCodigoIdentifica($datosHuesped[0]['tipo_identifica']);
+    $tdiFact = $datosHuesped[0]['tipo_identifica'];
     $torFact = $datosHuesped[0]['tipoAdquiriente'];
     $tliFact = '';
     $munFact = $datosHuesped[0]['ciudad'];
     $triFact = $datosHuesped[0]['responsabilidadTributaria'];
 }
 
-if ($perfilFac == 1) {
+if ($perfilFac == 1 && $facturador == 1) {
     $eFact = [];
     $eCust = [];
     $ePago = [];
@@ -200,7 +205,9 @@ if ($perfilFac == 1) {
 
     $eFact['number'] = $nroFactura;
 
-    $eFact['type_document_id'] = $hotel->traeCodigoIdentifica($datosHuesped[0]['tipo_identifica']);
+    // $eFact['type_document_id'] = $hotel->traeCodigoIdentifica($datosHuesped[0]['tipo_identifica']);
+    // $eFact['type_document_id'] = $datosHuesped[0]['tipo_identifica'];
+    $eFact['type_document_id'] = 1;
     $eFact['date'] = $fechaFac;
     $eFact['time'] = $horaFact;
     $eFact['resolution_number'] = $resolucion;
@@ -250,15 +257,16 @@ if ($perfilFac == 1) {
         array_push($tax_totals, $taxTot);
 
         $invo = [
-        'unit_measure_id' => $folio1['id_codigo_cargo'],
+        'unit_measure_id' => $hotel->traeTipoUnidadDianVenta($folio1['id_codigo_cargo']),
         'invoiced_quantity' => 1,
         'line_extension_amount' => $folio1['cargos'],
         'free_of_charge_indicator' => false,
         'tax_totals' => $tax_totals,
         'description' => $folio1['descripcion_cargo'],
         'notes' => '',
-        'code' => '',
-        'type_item_identification_id' => $folio1['id_codigo_cargo'],
+        'code' => $hotel->traeCodigoDianVenta($folio1['id_codigo_cargo']),
+        // 'type_item_identification_id' => $hotel->traeIdItemDianVenta($folio1['id_codigo_cargo']),
+        'type_item_identification_id' => 1,
         'price_amount' => $folio1['imptos'] + $folio1['cargos'],
         'base_quantity' => 1,
         ];
@@ -285,7 +293,11 @@ if ($perfilFac == 1) {
 
     $eFact = json_encode($eFact);
 
+    // echo $eFact;
+
     include_once '../../api/Crea_Factura.php';
+
+    echo $response;
 
     // Actualizar la factura con el response de la plataforma !!!
     // echo $response;

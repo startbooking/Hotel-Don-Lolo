@@ -1526,7 +1526,6 @@ let { usuario_id, usuario, nombres, apellidos, tipo } = user;
       type: "POST",
       data: parametros,
       url: "res/php/dataUpdateCia.php",
-      // beforeSend: function (objeto) {},
       success: function (datos) {
         $("#datosCia").html(datos);
       },
@@ -3198,9 +3197,6 @@ function anulaFactura() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
   let { usuario, usuario_id } = user;
-  /* usuario = sesion["usuario"][0]["usuario"];
-  idusuario = sesion["usuario"][0]["usuario_id"]; */
-
   var pagina = $("#ubicacion").val();
   var numero = $("#factura").val();
   var motivo = $("#motivoAnula").val();
@@ -3221,7 +3217,7 @@ function anulaFactura() {
     success: function (data) {
       // var ventana = window.open(data.trim(), "PRINT", "height=600,width=600");
       swal("Atencion", "Documento Anulado Con Exito", "success");
-      // $(location).attr("href", pagina);
+      $(location).attr("href", pagina);
       // $(location).attr("href", "facturacionEstadia");
       /* setTimeout(function () {
         swal("Atencion", "Salida del Huesped realizada con Exito", "success");
@@ -3732,20 +3728,23 @@ function apagaselecomp(tipo) {
     totalImpto = parseInt($("#totalIva").val());
 
     traeRetencionesCia(idCiaFac);
-    setTimeout(() => {
+    setTimeout(function () {
       retenciones = JSON.parse($("#retenciones").val());
       reteCia = JSON.parse($("#retencionCia").val());
 
-      // console.log(retenciones);
-      // console.log(reteCia);
-
-      let rFte = retenciones.filter((retencion) => retencion.idRetencion === 1);
-      let rIva = retenciones.filter((retencion) => retencion.idRetencion === 2);
-      let rIca = retenciones.filter((retencion) => retencion.idRetencion === 3);
+      let rFte = retenciones.filter(
+        (retencion) => retencion.idRetencion === "1"
+      );
+      let rIva = retenciones.filter(
+        (retencion) => retencion.idRetencion === "2"
+      );
+      let rIca = retenciones.filter(
+        (retencion) => retencion.idRetencion === "3"
+      );
 
       let { reteiva, reteica, retefuente } = reteCia[0];
 
-      // console.log({ reteiva, reteica, retefuente });
+      console.log(rFte);
 
       if (retefuente == "1") {
         // console.log("Entro Retefuente");
@@ -6147,8 +6146,6 @@ function validaCierreDiario() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
   let { usuario, usuario_id } = user;
-  /* usuario = sesion["usuario"][0]["usuario"];
-  idusuario = sesion["usuario"][0]["usuario_id"]; */
   var pagina = $("#ubicacion").val();
   login = $("#login").val().toUpperCase();
   pass = $("#pass").val();
@@ -6170,7 +6167,6 @@ function validaCierreDiario() {
         );
       },
       success: function (x) {
-        console.log(x);
         if (x == 1) {
           swal("Atencion", "Auditoria Terminada con Exito", "success");
           setTimeout(function () {

@@ -46,11 +46,11 @@ foreach ($tipodocs as $tipodoc) { ?>
       <div class="form-group">
         <label for="tipoEmpresaAdi" class="col-sm-2 control-label">Tipo de Empresa</label>
         <div class="col-sm-4">
-          <select name="tipoEmpresaUpd" id="tipoEmpresaUpd">
+          <select name="tipoEmpresaUpd" id="tipoEmpresaUpd" required>
             <option value="<?php echo $empresa[0]['tipo_compania']; ?>">Seleccione el Tipo de Empresa</option>
             <?php
               $motivos = $hotel->getMotivoGrupo('TEM');
-foreach ($motivos as $motivo) { ?>
+foreach ($motivos as $motivo) { ?> 
                 <option value="<?php echo $motivo['id_grupo']; ?>" 
                   <?php
       if ($empresa[0]['tipo_empresa'] == $motivo['id_grupo']) { ?>
@@ -66,7 +66,7 @@ foreach ($motivos as $motivo) { ?>
         </div>
          <label for="codigoCiiuAdi" class="col-sm-2 control-label">Codigo CIIU</label>
         <div class="col-sm-4">
-          <select name="codigoCiiuUpd" id="codigoCiiuUpd">
+          <select name="codigoCiiuUpd" id="codigoCiiuUpd" required>
             <option value="<?php echo $empresa[0]['id_codigo_ciiu']; ?>">Seleccione el Codigo CIIU</option>
             <?php
   $codigosCiiu = $admin->getCodigosCiiu();
@@ -118,7 +118,7 @@ foreach ($ciudades as $ciudad) { ?>
         </div>
         <label for="celular" class="col-sm-2 control-label">Celular</label>
         <div class="col-sm-4">
-          <input type="text" class="form-control" name="celular" id="celular" value="<?php echo $empresa[0]['celular']; ?>">
+          <input type="text" class="form-control" name="celular" id="celular" minlength="10" value="<?php echo $empresa[0]['celular']; ?>">
         </div>
       </div>
       <div class="form-group">
@@ -171,10 +171,10 @@ foreach ($codigos as $codigo) { ?>
         </div> 
       </div>
       <div class="form-group">
-    <label for="fechanace" class="col-sm-2 control-label">Tipo Adquiriente </label>
+    <label for="fechanace" class="col-sm-2 control-label">Tipo Empresa </label>
     <div class="col-sm-4">
       <select name="tipoAdquiriente" id="tipoAdquiriente" >
-        <option value="">Seleccione el Tipo Adquiriente</option>
+        <option value="">Seleccione el Tipo Empresa</option>
         <?php
           $tipoAdquiere = $hotel->getTipoAdquiriente();
 foreach ($tipoAdquiere as $tipoAdqui) { ?>
@@ -191,10 +191,10 @@ if ($empresa[0]['tipoAdquiriente'] == $tipoAdqui['id']) {?>
 ?> 
       </select>
     </div>
-    <label for="correo" class="col-sm-2 control-label">Tipo Responsabilidad </label>
+    <label for="correo" class="col-sm-2 control-label">Tipo Regimen </label>
     <div class="col-sm-4">
       <select name="tipoResponsabilidad" id="tipoResponsabilidad" >
-        <option value="">Seleccione Tipo de Responsabilidad</option>
+        <option value="">Seleccione Tipo de Regimen</option>
         <?php
     $tipoRespo = $hotel->getTipoResponsabilidad();
 foreach ($tipoRespo as $tipoRes) { ?>
@@ -205,7 +205,7 @@ foreach ($tipoRespo as $tipoRes) { ?>
                 <?php
     }
     ?>                                      
-            ><?php echo $tipoRes['descripcionResponsabilidad']; ?></option>
+            ><?php echo $tipoRes['descripcion']; ?></option>
             <?php
 }
 ?>  
@@ -213,10 +213,10 @@ foreach ($tipoRespo as $tipoRes) { ?>
     </div>
   </div>
   <div class="form-group">
-            <label for="correo" class="col-sm-2 control-label">Responsabilidad Tributaria </label>
+            <label for="correo" class="col-sm-2 control-label">Tipo Obligacion </label>
             <div class="col-sm-4">
             <select name="responsabilidadTribu" id="responsabilidadTribu" >
-              <option value="">Seleccione Responsabilidad Tributaria</option>
+              <option value="">Seleccione Tipo Obligacion</option>
               <?php
                 $tipoTribus = $hotel->getResponsabilidadTributaria();
 foreach ($tipoTribus as $tipoTribu) { ?>
