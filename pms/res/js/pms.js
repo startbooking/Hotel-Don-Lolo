@@ -3731,36 +3731,33 @@ function apagaselecomp(tipo) {
     setTimeout(function () {
       retenciones = JSON.parse($("#retenciones").val());
       reteCia = JSON.parse($("#retencionCia").val());
+      retenCia = $("#retencionCia").val();
+      console.log(retenciones);
 
       let rFte = retenciones.filter(
-        (retencion) => retencion.idRetencion === "1"
+        (retencion) => retencion.idRetencion == "1"
       );
       let rIva = retenciones.filter(
-        (retencion) => retencion.idRetencion === "2"
+        (retencion) => retencion.idRetencion == "2"
       );
       let rIca = retenciones.filter(
-        (retencion) => retencion.idRetencion === "3"
+        (retencion) => retencion.idRetencion == "3"
       );
 
-      let { reteiva, reteica, retefuente } = reteCia[0];
-
-      console.log(rFte);
+      let { reteiva, reteica, retefuente } = reteCia;
 
       if (retefuente == "1") {
-        // console.log("Entro Retefuente");
         if (rFte[0].baseRetencion <= totalRteFte) {
           reteFte = totalRteFte * (rFte[0].porcentajeRetencion / 100);
         }
       }
 
       if (reteiva == "1") {
-        // console.log("Entro ReteIva");
         if (rFte[0].baseRetencion <= totalRteFte) {
           reteIva = totalImpto * (rIva[0].porcentajeRetencion / 100);
         }
       }
       if (reteica == "1") {
-        // console.log("Entro ReteIca");
         if (rIca[0].baseRetencion <= totalRteFte) {
           reteIca = totalRteFte * (rIca[0].porcentajeRetencion / 100);
         }
@@ -3778,7 +3775,7 @@ function apagaselecomp(tipo) {
       $("#totalRetefuente").val(reteFte);
 
       sumaTotales();
-    }, 100);
+    }, 1000);
   } else {
     $(".retencion").addClass("apaga");
     $("#selecentro").css("display", "none");

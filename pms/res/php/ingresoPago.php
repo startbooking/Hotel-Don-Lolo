@@ -55,45 +55,6 @@ $horaFact = date('H:s:i');
 
 $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
 
-/* if ($tipofac == 2) {
-    $datosCompania = $hotel->getSeleccionaCompania($idperfil);
-    $diasCre = $datosCompania[0]['dias_credito'];
-    $nomFact = utf8_decode($datosCompania[0]['empresa']);
-    $nitFact = $datosCompania[0]['nit'];
-    $dvFact = $datosCompania[0]['dv'];
-    $dirFact = utf8_decode($datosCompania[0]['direccion']);
-    $telFact = $datosCompania[0]['telefono'];
-    $emaFact = $datosCompania[0]['email'];
-    $merFact = '0000000-00';
-    // $tdiFact = $hotel->traeCodigoIdentifica($datosCompania[0]['tipo_documento']);
-    $tdiFact = $datosCompania[0]['tipo_documento'];
-    $torFact = $datosCompania[0]['tipoAdquiriente'];
-    $tliFact = $hotel->traeTipoResponsabilidad($datosCompania[0]['responsabilidadTributaria']);
-    $munFact = $datosCompania[0]['ciudad'];
-    $triFact = $datosCompania[0]['responsabilidadTributaria'];
-} else {
-    // $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
-    $nitFact = $datosHuesped[0]['identificacion'];
-    $dvFact = '';
-    $nomFact = utf8_decode($datosHuesped[0]['nombre1'].' '.$datosHuesped[0]['nombre2'].' '.$datosHuesped[0]['apellido1'].' '.$datosHuesped[0]['apellido2']);
-    $telFact = $datosHuesped[0]['telefono'];
-    $dirFact = utf8_decode($datosHuesped[0]['direccion']);
-    $emaFact = $datosHuesped[0]['email'];
-    $merFact = '0000000-00';
-    // $tdiFact = $hotel->traeCodigoIdentifica($datosHuesped[0]['tipo_identifica']);
-    $tdiFact = $datosHuesped[0]['tipo_identifica'];
-    $torFact = $datosHuesped[0]['tipoAdquiriente'];
-    $tliFact = $hotel->traeTipoResponsabilidad($datosCompania[0]['responsabilidadTributaria']);
-    $munFact = $datosHuesped[0]['ciudad'];
-    $triFact = $datosHuesped[0]['responsabilidadTributaria'];
-}
- */
-/* if ($tdiFact == '' || $torFact == '' || $tliFact) {
-    array_push($estadofactura, '0');
-    echo json_encode($estadofactura);
-    return;
-} */
-
 $resFac = $hotel->getResolucion();
 $resolucion = $resFac[0]['resolucion'];
 $prefijo = $resFac[0]['prefijo'];
@@ -157,6 +118,8 @@ if (count($saldofactura) == 0) {
 
 $folios = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserva, $nroFolio, 1);
 $pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserva, $nroFolio, 3);
+
+echo print_r($pagosfolio);
 
 $tipoimptos = $hotel->getValorImptoFolio($nroFactura, $reserva, $nroFolio, 2);
 
@@ -234,7 +197,7 @@ if ($perfilFac == 1 && $facturador == 1) {
     $eCust['type_regime_id'] = $triFact;
 
     $ePago['payment_form_id'] = $hotel->traeCodigoDianVenta($codigo);
-    $ePago['payment_method_id'] = $codigo;
+    $ePago['payment_method_id'] = $hotel->traeCodigoDianVenta($codigo);
     $ePago['payment_due_date'] = $fechaVen;
     $ePago['duration_measure'] = $diasCre;
 

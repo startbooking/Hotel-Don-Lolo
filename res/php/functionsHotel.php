@@ -100,7 +100,7 @@ class Hotel_Actions
             'id_compania' => $cia,
         ]);
 
-        return $data;
+        return $data[0];
     }
 
     public function getTipoPerfilCodigo($id)
