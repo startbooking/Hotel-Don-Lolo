@@ -20,7 +20,6 @@ curl_setopt_array($curl, [
 ]);
 
 $response = curl_exec($curl);
-
 curl_close($curl);
 
 // echo $response;

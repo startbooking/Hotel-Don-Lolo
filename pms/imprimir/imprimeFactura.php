@@ -1,6 +1,15 @@
 <?php
 
 require '../../../res/fpdf/fpdf.php';
+require '../../../res/phpqrcode/qrlib.php';
+
+$filename = '../../../img/pms/QR_'.$prefijo.'-'.$nroFactura.'.png';
+
+$size = 100; // Tamaño en píxeles
+$level = 'L'; // Nivel de corrección (L, M, Q, H)
+
+// Generar el código QR
+QRcode::png($QRStr, $filename, $level, $size);
 
 $datosReserva = $hotel->getReservasDatos($reserva);
 $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
@@ -12,8 +21,6 @@ if ($tipofac == 2) {
 
 $textoResol = 'RESOLUCION DIAN No.'.$resolucion.' de '.$fechaRes.' Autorizacion Pref '.$prefijo.' desde el No. '.$desde.' AL '.$hasta;
 
-$firma = 'W/eofOdb7ab24WMN3jRdAlKoXbyFGIwf7flA9oE6kRovu+KqWV9MBHTl1cfgN2axTAt3cfoaZoygVZhedk29lVQ3H4Z8BiLBIGrZcqlkr5odfd1ixEgT28NGMa9Ji3sAGdaVNT8Upe7MkW+tkG4dOvnhhi+N20ohx7RHVT0me1t40SI51
-dYA/LdUWiNZXOSE3FYBLMjNTueZs0+uGrOGPltl3G2LsSoTIuEK/x/DHCucDzmJFXpgGqlXrv1a1cZuad9mI+nN3XU3CAGyXl4acUjrH5ZWhYukW9z+uftnIzYRnwh01nVzOhHhzeVVWcGqaX4k8Vw9GVlhZbJaCsFvbw==';
 $fechaFac = FECHA_PMS;
 $fechaVen = $fechaFac;
 $fechaVen = strtotime('+ '.$diasCre.' day', strtotime($fechaFac));
@@ -31,6 +38,8 @@ $pdf = new FPDF();
 $pdf->AddPage('P', 'letter');
 $pdf->Rect(10, 50, 190, 210);
 $pdf->Image('../../../img/'.LOGO, 10, 5, 40);
+$pdf->Image($filename, 163, 5, 35);
+
 $pdf->SetFont('Arial', 'B', 11);
 $pdf->Cell(190, 4, utf8_decode(NAME_EMPRESA), 0, 1, 'C');
 $pdf->SetFont('Arial', '', 8);
@@ -239,9 +248,10 @@ foreach ($tipoimptos as $tipoimpto) {
 $pdf->Ln(1);
 $pdf->SetFont('Arial', '', 8);
 $pdf->MultiCell(190, 4, 'SON :'.numtoletras($total), 1, 'L');
-$pdf->SetFont('Arial', '', 5);
-$pdf->MultiCell(190, 3, utf8_decode('Representación impresa de la factura electrónica,Firma Electrónica y Cufe : ').'CUFE'.utf8_decode('Fecha Validación Dian = ').' FIRMA = '.$firma, 1, 'L');
-$pdf->MultiCell(190, 4, utf8_decode('Observaciones ').utf8_decode($detallePag), 1, 'L');
+$pdf->SetFont('Arial', '', 6);
+$pdf->MultiCell(190, 4, utf8_decode('Factura Nro : ').$prefijo.' '.$nroFactura.' '.utf8_decode(' Fecha Validación Dian ').$timeCrea.' CUFE '.$cufe, 1, 'L');
+$pdf->SetFont('Arial', '', 7);
+$pdf->MultiCell(190, 5, utf8_decode('Observaciones ').utf8_decode($detallePag), 1, 'L');
 $pdf->setY(226);
 $pdf->SetFont('Arial', '', 7);
 $pdf->MultiCell(95, 4, utf8_decode(TEXTOBANCO).', '.utf8_decode(TEXTOFACTURA), 1, 'C');

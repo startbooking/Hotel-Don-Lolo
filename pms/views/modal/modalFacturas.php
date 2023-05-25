@@ -29,10 +29,6 @@
               <div class="col-lg-8 col-md-8">
                 <input class="form-control padInput" type="text" name="huespedAnu" id='huespedAnu' value='' readonly>
               </div>
-<!--          <label class="control-label col-lg-2">Nombres</label>
-              <div class="col-lg-4 col-md-4">
-                <input class="form-control padInput" type="text" name="nombres" id='nombres' value='' readonly>
-              </div> -->
             </div>
             <div class="form-group">
               <label for="llegada" class="col-sm-2 control-label">Llegada</label>

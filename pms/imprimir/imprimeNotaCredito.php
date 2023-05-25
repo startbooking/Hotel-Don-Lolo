@@ -1,12 +1,21 @@
 <?php
 
 require '../../../res/fpdf/fpdf.php';
+require '../../../res/phpqrcode/qrlib.php';
+
+$filename = '../../../img/pms/QR_'.$prefNC.'-'.$numDoc.'.png';
+
+$size = 100; // Tamaño en píxeles
+$level = 'L'; // Nivel de corrección (L, M, Q, H)
+
+// Generar el código QR
+QRcode::png($QRStr, $filename, $level, $size);
 
 if ($tipofac == 2) {
     $datosCompania = $hotel->getSeleccionaCompania($idperfil);
 // $diasCre = $datosCompania[0]['dias_credito'];
 } else {
-    $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
+    $datosHuesped = $hotel->getbuscaDatosHuesped($idperfil);
 }
 
 $folios = $hotel->getConsumosReservaAgrupadoCodigoFolio($numero, $reserva, $nroFolio, 1);
@@ -34,6 +43,7 @@ $pdf = new FPDF();
 $pdf->AddPage('P', 'letter');
 $pdf->Rect(10, 43, 190, 105);
 $pdf->Image('../../../img/'.LOGO, 10, 5, 35);
+$pdf->Image($filename, 173, 5, 25);
 $pdf->SetFont('Arial', 'B', 11);
 $pdf->Cell(190, 4, utf8_decode(NAME_EMPRESA), 0, 1, 'C');
 $pdf->SetFont('Arial', '', 8);
@@ -229,8 +239,11 @@ $pdf->Ln(1);
 $pdf->SetFont('Arial', '', 8);
 */
 $pdf->MultiCell(190, 4, 'SON :'.numtoletras($total), 1, 'L');
-$pdf->SetFont('Arial', 'B', 8);
+$pdf->SetFont('Arial', '', 7);
 $pdf->MultiCell(190, 4, utf8_decode('FACTURA ANULADA NRO: '.$prefijo.' '.$numero.' MOTIVO : '.$motivo), 1, 'J');
+$pdf->MultiCell(190, 4, utf8_decode('CUFE: '.$uuid), 1, 'J');
+$pdf->MultiCell(190, 4, utf8_decode('CUDE: '.$cude), 1, 'J');
+
 // $pdf->setY(226);
 // $pdf->SetFont('Arial', '', 7);
 // $pdf->MultiCell(95, 4, utf8_decode(TEXTOBANCO).', '.utf8_decode(TEXTOFACTURA), 1, 'C');
@@ -248,8 +261,8 @@ $pdf->Cell(95, 5, 'ELABORADO POR ', 0, 0, 'C');
 $pdf->Cell(95, 5, 'RECIBO ', 0, 1, 'C');
 $pdf->Cell(95, 5, $usuario, 0, 0, 'C');
 $pdf->Cell(95, 5, 'C.C - NIT.', 0, 1, 'C');
-
-$file = '../../imprimir/notas/NotaCredito_'.$numDoc.'.pdf';
+$arcPdf = 'NotaCredito_'.$numDoc.'.pdf';
+$file = '../../imprimir/notas/'.$arcPdf;
 
 $pdf->Output($file, 'F');
 

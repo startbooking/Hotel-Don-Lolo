@@ -29,6 +29,9 @@ $abono = $consumos[0]['pagos'];
 $reteiva = 0;
 $reteica = 0;
 $retefuente = 0;
+$porceiva = 0;
+$porceica = 0;
+$porcefuente = 0;
 $totalFolio = ($consumo + $impto) - ($abono - $reteiva - $reteica - $retefuente);
 ?>
 
@@ -44,6 +47,9 @@ $totalFolio = ($consumo + $impto) - ($abono - $reteiva - $reteica - $retefuente)
       <input type="hidden" id="totalReteiva" name="totalReteiva" value='<?php echo $reteiva; ?>'>
       <input type="hidden" id="totalReteica" name="totalReteica" value='<?php echo $reteica; ?>'>
       <input type="hidden" id="totalRetefuente" name="totalRetefuente" value='<?php echo $retefuente; ?>'>
+      <input type="hidden" id="porceReteiva" name="porceReteiva" value='<?php echo $reteiva; ?>'>
+      <input type="hidden" id="porceReteica" name="porceReteica" value='<?php echo $reteica; ?>'>
+      <input type="hidden" id="porceRetefuente" name="porceRetefuente" value='<?php echo $retefuente; ?>'>
       <input type="hidden" id="baseRetenciones" name="baseRetenciones" value='<?php echo $retefuente; ?>'>
 
 

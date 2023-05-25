@@ -5,6 +5,89 @@ date_default_timezone_set('America/Bogota');
 
 class Hotel_Actions
 {
+    public function traeDatosPerfilFactura($numero)
+    {
+        global $database;
+
+        $data = $database->select('cargos_pms', [
+            'perfil_factura',
+            'id_perfil_factura',
+            'tipo_factura',
+        ], [
+            'factura' => 1,
+            'factura_numero' => $numero,
+        ]);
+
+        return $data;
+    }
+
+    public function traeDatosFE($numero)
+    {
+        global $database;
+
+        $data = $database->select('datosFE', [
+            'cufe',
+        ], [
+            'facturaNumero' => $numero,
+        ]);
+
+        return $data;
+    }
+
+    public function ingresaDatosFe($nroFactura, $prefijo, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cufe, $QRStr, $recibeCurl)
+    {
+        global $database;
+
+        $data = $database->insert('datosFE', [
+            'facturaNumero' => $nroFactura,
+            'prefijo' => $prefijo,
+            'timeCreated' => $timeCrea,
+            'message' => $message,
+            'send_email_success' => $sendSucc,
+            'send_email_date_time' => $sendDate,
+            'responseDian' => $respo,
+            'invoicexml' => $invoicexml,
+            'zipinvoicexml' => $zipinvoicexml,
+            'unsignedinvoicexml' => $unsignedinvoicexml,
+            'reqfe' => $reqfe,
+            'rptafe' => $rptafe,
+            'attacheddocument' => $attacheddocument,
+            'urlinvoicexml' => $urlinvoicexml,
+            'urlinvoicepdf' => $urlinvoicepdf,
+            'cufe' => $cufe,
+            'QRStr' => $QRStr,
+            'recibeCurl' => $recibeCurl,
+        ]);
+
+        return $database->id();
+    }
+
+    public function traeIdRegimenFiscal($codigo)
+    {
+        global $database;
+
+        $data = $database->select('dianRegimenFiscal', [
+            'codigo',
+        ], [
+            'id' => $codigo,
+        ]);
+
+        return $data[0]['codigo'];
+    }
+
+    public function traeIdResponsabilidadDianVenta($codigo)
+    {
+        global $database;
+
+        $data = $database->select('dianTipoResponsabilidad', [
+            'feCode',
+        ], [
+            'id' => $codigo,
+        ]);
+
+        return $data[0]['feCode'];
+    }
+
     public function traeIdItemDianVenta($codigo)
     {
         global $database;
@@ -241,7 +324,7 @@ class Hotel_Actions
     {
         global $database;
 
-        $data = $database->select('dianResponsabilidadTributaria', [
+        $data = $database->select('dianTipoResponsabilidad', [
             'descripcionResponsabilidad',
             'id',
         ], [

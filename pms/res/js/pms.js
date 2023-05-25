@@ -1136,8 +1136,6 @@ let { usuario_id, usuario, nombres, apellidos, tipo } = user;
     sesion = JSON.parse(localStorage.getItem("sesion"));
     let { user } = sesion;
     let { usuario, usuario_id } = user;
-    /* usuario = sesion["usuario"][0]["usuario"];
-    idusuario = sesion["usuario"][0]["usuario_id"]; */
     var credito = 0;
     var web = $("#rutaweb").val();
     var pagina = $("#ubicacion").val();
@@ -3215,14 +3213,13 @@ function anulaFactura() {
       perfil,
     },
     success: function (data) {
-      // var ventana = window.open(data.trim(), "PRINT", "height=600,width=600");
+      var ventana = window.open(
+        "imprimir/notas/" + data.trim(),
+        "PRINT",
+        "height=600,width=600"
+      );
       swal("Atencion", "Documento Anulado Con Exito", "success");
-      $(location).attr("href", pagina);
-      // $(location).attr("href", "facturacionEstadia");
-      /* setTimeout(function () {
-        swal("Atencion", "Salida del Huesped realizada con Exito", "success");
-        // $(location).attr("href", "home");
-      }, 2000); */
+      // $(location).attr("href", pagina);
     },
   });
 }
@@ -3659,7 +3656,7 @@ function actualizaCiaRecepcion() {
 
   var parametros = {
     idreserva: idrese,
-    idcia: idcia,
+    idcia,
     /// 'idcentro':idcentro,
   };
   $.ajax({
@@ -3673,11 +3670,9 @@ function actualizaCiaRecepcion() {
 }
 
 function cierreCajero(user) {
-  /* usuario = sesion["usuario"][0]["usuario"];
-  idusuario = sesion["usuario"][0]["usuario_id"]; */
   var page = $("#rutaweb").val();
   var parametros = {
-    usuario: usuario,
+    usuario,
     page,
   };
   $.ajax({
@@ -3707,8 +3702,6 @@ function apagaselecomp(tipo) {
   var reteIva = 0;
   var reteIca = 0;
 
-  // swal(tipo);
-
   if (tipo == 2) {
     if (idCiaFac == 0) {
       /*
@@ -3732,7 +3725,6 @@ function apagaselecomp(tipo) {
       retenciones = JSON.parse($("#retenciones").val());
       reteCia = JSON.parse($("#retencionCia").val());
       retenCia = $("#retencionCia").val();
-      console.log(retenciones);
 
       let rFte = retenciones.filter(
         (retencion) => retencion.idRetencion == "1"
@@ -3770,6 +3762,10 @@ function apagaselecomp(tipo) {
       $("#reteica").val(number_format(reteIca, 2));
       $("#retefuente").val(number_format(reteFte, 2));
 
+      $("#porceReteiva").val(number_format(rIca[0].porcentajeRetencion, 2));
+      $("#porceReteica").val(number_format(rIva[0].porcentajeRetencion, 2));
+      $("#porceRetefuente").val(number_format(rFte[0].porcentajeRetencion, 2));
+
       $("#totalReteiva").val(reteIva);
       $("#totalReteica").val(reteIca);
       $("#totalRetefuente").val(reteFte);
@@ -3786,13 +3782,8 @@ function apagaselecomp(tipo) {
     $("#totalReteiva").val(0);
     $("#totalReteica").val(0);
     $("#totalRetefuente").val(0);
-    /*     $("#totalBase").val(0);
-    $("#totalIva").val(0);
- */
-    sumaTotales();
 
-    /// $("#seleccionaCiaCon").attr("required", false);
-    /// $("#seleccionaCiaCon").val('');
+    sumaTotales();
   }
 }
 

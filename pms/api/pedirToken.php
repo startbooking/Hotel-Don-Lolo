@@ -12,11 +12,11 @@ $dataHotel = [
   'municipality_id' => 687,
   'address' => 'CRA 39#20-32 BARRIO CAMOA',
   'phone' => '6086706020',
-  'email' => 'reservas@donlolohotel.com',
+  'email' => 'alexander_obando@hotmail.com',
   'mail_host' => 'smtp.gmail.com',
-  'mail_port' => '58',
-  'mail_username' => 'reservas@donlolohotel.com',
-  'mail_password' => 'reservA24',
+  'mail_port' => '587',
+  'mail_username' => 'backupsbabel7@gmail.com',
+  'mail_password' => 'ccsdfjruqddyxcsjgfggqlqvttt',
   'mail_encryption' => 'tls',
 ];
 

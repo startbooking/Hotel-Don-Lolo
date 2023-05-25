@@ -8,7 +8,6 @@
 	$amb    = $_POST['idamb'];
 	$nomamb = $_POST['nomamb'];
 
-
   $regis = $pos->getProductosComanda($usu,$amb);
 
 	if($regis==0){

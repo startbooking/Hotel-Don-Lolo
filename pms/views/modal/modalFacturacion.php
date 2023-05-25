@@ -339,7 +339,7 @@ foreach ($codigos as $codigo) { ?>
           <div id="mensajeSal"></div>
           <div class="modal-body">
             <?php
-            $retenciones = $hotel->getRetenciones();
+              $retenciones = $hotel->getRetenciones();
 ?>            
             <input type="hidden" name="txtIdReservaSal" id="txtIdReservaSal" value="">
             <input type="hidden" name="txtIdHuespedSal" id="txtIdHuespedSal" value="">
@@ -352,7 +352,7 @@ foreach ($codigos as $codigo) { ?>
             <input type="hidden" name="perfilFactura" id="perfilFactura" value="0">
             <input type="hidden" name="retencionCia" id="retencionCia" value=''>
             <input type="hidden" name="retenciones" id="retenciones" value='<?php echo json_encode($retenciones); ?>'>
-            <div class="form-group">
+            <div class="form-group"> 
               <label style="margin-top: 3px;" for="llegada" class="col-sm-2 control-label">Facturar A </label>
               <div class="col-sm-6" style="padding:0;height: 30px">
                 <div class="col-sm-6">
@@ -374,10 +374,10 @@ foreach ($codigos as $codigo) { ?>
               <div class="col-lg-8 col-xs-8">
                 <select name="txtIdCiaSal" id="txtIdCiaSal"  readonly disabled>
                   <?php
-foreach ($cias as $key => $value) { ?> 
+        foreach ($cias as $key => $value) { ?> 
                       <option value="<?php echo $value['id_compania']; ?>"><?php echo $value['empresa']; ?></option>
                       <?php
-}
+        }
 ?>
                 </select>
               </div>

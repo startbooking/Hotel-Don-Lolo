@@ -9,8 +9,6 @@
   $hastaFe = $_POST['hastaFe'];
   $huesped = $_POST['huesped'];
 
-  /// echo $idamb;
-  
   $rpre = '';
 
   $sele = "SELECT huespedes.nombre_completo, historico_facturas_pos.factura, historico_facturas_pos.comanda, historico_facturas_pos.ambiente, historico_facturas_pos.mesa, historico_facturas_pos.pax, historico_facturas_pos.usuario, historico_facturas_pos.valor_total, historico_facturas_pos.valor_neto, historico_facturas_pos.impuesto, historico_facturas_pos.propina, historico_facturas_pos.descuento,  historico_facturas_pos.pagado, historico_facturas_pos.cambio, historico_facturas_pos.fecha, historico_facturas_pos.pms, historico_facturas_pos.estado FROM huespedes, historico_facturas_pos WHERE ";
@@ -50,9 +48,6 @@
           <td>Propina</td>
           <td>Pago</td>
           <td>Estado</td>
-          <!--
-          <td>Accion</td>
-          -->
         </tr>
       </thead>
       <tbody>
