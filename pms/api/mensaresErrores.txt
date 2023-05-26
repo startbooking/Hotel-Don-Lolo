@@ -1,0 +1,25 @@
+// Error al Generar la factura 
+
+
+"ErrorMessage": {
+  "string": [
+    "Regla: FAU04, Rechazo: Base Imponible es distinto a la suma de los valores de las bases imponibles de todas líneas de detalle.",
+    "Regla: FAB08b, Rechazo: Fecha final del rango de numeración informado no corresponde a la fecha final del rango vigente para el ABS",
+    "Regla: FAB11b, Rechazo: Valor inicial del rango de numeración informado no corresponde a un valor inicial de los rangos vigente para el contribuyente emisor.",
+    "Regla: SinCódigo, Notificación: La validación del estado del RUT próximamente estará disponible."
+  ]
+}
+
+// Error al Generar la Nota Credito
+
+"ErrorMessage": {
+  "string": [
+    "Regla: CAU04, Rechazo: Base Imponible es distinto a la suma de los valores de las bases imponibles de todas líneas de detalle.",
+    "Regla: CBG04a, Rechazo: Documento referenciado no existe en los registros de la DIAN.",
+    "Regla: CAS14, Notificación: No corresponde a un código valido de la lista. ",
+    "Regla: CAS14, Notificación: No corresponde a un código valido de la lista. ",
+    "Regla: SinCódigo, Notificación: La validación del estado del RUT próximamente estará disponible."
+  ]
+}
+
+

@@ -284,9 +284,10 @@ if ($perfilFac == 1 && $facturador == 1) {
         'percent' => number_format($porceica, 2),
     ];
 
-    array_push($eRete, $rret);
-    array_push($eRete, $riva);
-    array_push($eRete, $rica);
+    /*     array_push($eTaxe, $rret);
+        array_push($eTaxe, $riva);
+        array_push($eTaxe, $rica);
+     */ // array_push($eTaxe, $tax);
 
     $eFact['customer'] = $eCust;
     $eFact['payment_form'] = $ePago;
@@ -325,8 +326,6 @@ if ($perfilFac == 1 && $facturador == 1) {
     $secu = $head['Security'];
     $time = $secu['Timestamp'];
     $timeCrea = $time['Created'];
-
-    // echo print_r($time);
 
     $regis = $hotel->ingresaDatosFe($nroFactura, $prefijo, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cufe, $QRStr, $response);
 

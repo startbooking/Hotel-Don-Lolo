@@ -3219,7 +3219,7 @@ function anulaFactura() {
         "height=600,width=600"
       );
       swal("Atencion", "Documento Anulado Con Exito", "success");
-      // $(location).attr("href", pagina);
+      $(location).attr("href", pagina);
     },
   });
 }

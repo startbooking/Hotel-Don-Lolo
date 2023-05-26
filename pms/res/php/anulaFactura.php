@@ -52,12 +52,8 @@ if ($perfil == 1) {
     $eTaxe = [];
     $eInvo = [];
 
-    // echo 'Tipo factura '.$tipofac;
-
     if ($tipofac == 2) {
         $datosCompania = $hotel->getSeleccionaCompania($idperfil);
-
-        // echo print_r($datosCompania);
 
         $diasCre = $datosCompania[0]['dias_credito'];
         $nomFact = utf8_decode($datosCompania[0]['empresa']);
@@ -72,24 +68,8 @@ if ($perfil == 1) {
         $tliFact = $hotel->traeIdResponsabilidadDianVenta($datosCompania[0]['responsabilidadTributaria']);
         $munFact = $datosCompania[0]['ciudad'];
         $triFact = 1;
-
-        /* $datosCompania = $hotel->getSeleccionaCompania($idperfil);
-        $nomFact = utf8_decode($datosCompania[0]['empresa']);
-        $nitFact = $datosCompania[0]['nit'];
-        $dvFact = $datosCompania[0]['dv'];
-        $dirFact = utf8_decode($datosCompania[0]['direccion']);
-        $telFact = $datosCompania[0]['telefono'];
-        $emaFact = $datosCompania[0]['email'];
-        $merFact = '';
-        $munFact = $hotel->traeCodigoCiudad($datosCompania[0]['ciudad']);
-        $triFact = $datosCompania[0]['responsabilidadTributaria'];
-        $tdiFact = $datosCompania[0]['tipo_documento'];
-        $torFact = $datosCompania[0]['tipoAdquiriente'];
-        $tliFact = $hotel->traeIdResponsabilidadDianVenta($datosCompania[0]['responsabilidadTributaria']); */
     } else {
         $datosHuesped = $hotel->getbuscaDatosHuesped($idperfil);
-
-        // echo print_r($datosHuesped);
 
         $nitFact = $datosHuesped[0]['identificacion'];
         $dvFact = '';
@@ -103,25 +83,6 @@ if ($perfil == 1) {
         $tliFact = $hotel->traeIdResponsabilidadDianVenta($datosHuesped[0]['responsabilidadTributaria']);
         $munFact = $datosHuesped[0]['ciudad'];
         $triFact = 2;
-
-        /* $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
-        $nitFact = $datosHuesped[0]['identificacion'];
-        $dvFact = '';
-        $nomFact = utf8_decode($datosHuesped[0]['nombre1'].' '.$datosHuesped[0]['nombre2'].' '.$datosHuesped[0]['apellido1'].' '.$datosHuesped[0]['apellido2']);
-        $telFact = $datosHuesped[0]['telefono'];
-        $dirFact = utf8_decode($datosHuesped[0]['direccion']);
-        $emaFact = $datosHuesped[0]['email'];
-        $merFact = '';
-        // $tdiFact = $hotel->traeCodigoIdentifica($datosHuesped[0]['tipo_identifica']);
-        // $torFact = $datosHuesped[0]['tipoAdquiriente'];
-        // $tliFact = '';
-        $munFact = $hotel->traeCodigoCiudad($datosHuesped[0]['ciudad']);
-        // $triFact = $datosHuesped[0]['responsabilidadTributaria'];
-
-        $triFact = $datosCompania[0]['responsabilidadTributaria'];
-        $tdiFact = $datosCompania[0]['tipo_documento'];
-        $torFact = $datosCompania[0]['tipoAdquiriente'];
-        $tliFact = $hotel->traeIdResponsabilidadDianVenta($datosCompania[0]['responsabilidadTributaria']); */
     }
 
     $eBill['number'] = $dFactura[0]['prefijo'].$dFactura[0]['factura_numero'];
@@ -221,6 +182,8 @@ if ($perfil == 1) {
     include_once '../../api/NotaCredito.php';
 
     $recibeCurl = json_decode($response, true);
+
+    // echo json_encode($recibeCurl);
 
     $message = $recibeCurl['message'];
 

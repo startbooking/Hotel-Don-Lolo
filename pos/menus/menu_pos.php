@@ -83,7 +83,7 @@ $rutaINV = BASE_POS.'datos/kardex.php';
           </li>
           <li>
             <a class="menuPpal" onclick="cuentasAnuladasCajero()"><i class="fa fa-users"></i> Comandas Anuladas Cajero</a>
-          </li>
+          </li> 
           <li>
             <a class="menuPpal" onclick="devolucionesCajero()"><i class="fa fa-users"></i> Devolucion Productos Cajero</a>
           </li>

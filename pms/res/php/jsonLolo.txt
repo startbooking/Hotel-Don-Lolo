@@ -1,0 +1,226 @@
+// SIN RETENCIONES
+{
+  "number": 991000080,
+  "type_document_id": 1,
+  "date": "2023-05-23",
+  "time": "11:42:28",
+  "resolution_number": "18760000001",
+  "prefix": "SETP",
+  "notes": "",
+  "disable_confirmation_text": true,
+  "sendmail": true,
+  "sendmailtome": true,
+  "head_note": "",
+  "foot_note": "",
+  "customer": {
+    "identification_number": 901484327,
+    "dv": 8,
+    "name": "AU CORPORATION S.A.S",
+    "phone": "3138523719",
+    "address": "CR 19 6 50 P 2",
+    "email": "aucorporation1@gmail.com",
+    "merchant_registration": "0000000-00",
+    "type_document_identification_id": 8,
+    "type_organization_id": 1,
+    "type_liability_id": 117,
+    "municipality_id": "149",
+    "type_regime_id": 1
+  },
+  "payment_form": {
+    "payment_form_id": "2",
+    "payment_method_id": "2",
+    "payment_due_date": "2023-07-07",
+    "duration_measure": 45
+  },
+  "legal_monetary_totals": {
+    "line_extension_amount": 725000,
+    "tax_exclusive_amount": 725000,
+    "tax_inclusive_amount": 854500,
+    "allowance_total_amount": 0,
+    "payable_amount": 854500
+  },
+  "tax_totals": [
+    {
+      "tax_id": "4",
+      "tax_amount": 6000,
+      "taxable_amount": 75000,
+      "percent": "8"
+    },
+    {
+      "tax_id": "1",
+      "tax_amount": 123500,
+      "taxable_amount": 650000,
+      "percent": "19"
+    }
+  ],
+  "invoice_lines": [
+    {
+      "unit_measure_id": "10",
+      "invoiced_quantity": 1,
+      "line_extension_amount": 650000,
+      "free_of_charge_indicator": false,
+      "tax_totals": [
+        {
+          "tax_id": "1",
+          "tax_amount": 123500,
+          "taxable_amount": 650000,
+          "percent": "19"
+        }
+      ],
+      "description": "ALOJAMIENTO",
+      "notes": "",
+      "code": "ALOJA",
+      "type_item_identification_id": 1,
+      "price_amount": 773500,
+      "base_quantity": 1
+    },
+    {
+      "unit_measure_id": "10",
+      "invoiced_quantity": 1,
+      "line_extension_amount": 75000,
+      "free_of_charge_indicator": false,
+      "tax_totals": [
+        {
+          "tax_id": "1",
+          "tax_amount": 123500,
+          "taxable_amount": 650000,
+          "percent": "19"
+        },
+        {
+          "tax_id": "4",
+          "tax_amount": 6000,
+          "taxable_amount": 75000,
+          "percent": "8"
+        }
+      ],
+      "description": "RESTAURANTE",
+      "notes": "",
+      "code": "RESTA",
+      "type_item_identification_id": 1,
+      "price_amount": 81000,
+      "base_quantity": 1
+    }
+  ]
+}
+// CON RETENCIONES 
+{
+  "number": 991000081,
+  "type_document_id": 1,
+  "date": "2023-05-23",
+  "time": "11:54:30",
+  "resolution_number": "18760000001",
+  "prefix": "SETP",
+  "notes": "",
+  "disable_confirmation_text": true,
+  "sendmail": true,
+  "sendmailtome": true,
+  "head_note": "",
+  "foot_note": "",
+  "customer": {
+    "identification_number": 901484327,
+    "dv": 8,
+    "name": "AU CORPORATION S.A.S",
+    "phone": "3138523719",
+    "address": "CR 19 6 50 P 2",
+    "email": "aucorporation1@gmail.com",
+    "merchant_registration": "0000000-00",
+    "type_document_identification_id": 8,
+    "type_organization_id": 1,
+    "type_liability_id": 117,
+    "municipality_id": "149",
+    "type_regime_id": 1
+  },
+  "payment_form": {
+    "payment_form_id": "1",
+    "payment_method_id": "1",
+    "payment_due_date": "2023-05-23",
+    "duration_measure": 45
+  },
+  "legal_monetary_totals": {
+    "line_extension_amount": 610925,
+    "tax_exclusive_amount": 610925,
+    "tax_inclusive_amount": 726644,
+    "allowance_total_amount": 0,
+    "payable_amount": 726644
+  },
+  "tax_totals": [
+    {
+      "tax_id": "4",
+      "tax_amount": 259,
+      "taxable_amount": 3241,
+      "percent": "8"
+    },
+    {
+      "tax_id": "1",
+      "tax_amount": 115460,
+      "taxable_amount": 607684,
+      "percent": "19"
+    },
+    {
+      "tax-id": "06",
+      "tax_amount": "21269",
+      "taxable_amount": "607684",
+      "percent": "0.00"
+    },
+    {
+      "tax-id": "05",
+      "tax_amount": "0",
+      "taxable_amount": 0,
+      "percent": "0.00"
+    },
+    {
+      "tax-id": "06",
+      "tax_amount": "0",
+      "taxable_amount": 0,
+      "percent": "0.00"
+    }
+  ],
+  "invoice_lines": [
+    {
+      "unit_measure_id": "10",
+      "invoiced_quantity": 1,
+      "line_extension_amount": 607684,
+      "free_of_charge_indicator": false,
+      "tax_totals": [
+        {
+          "tax_id": "1",
+          "tax_amount": 115460,
+          "taxable_amount": 607684,
+          "percent": "19"
+        }
+      ],
+      "description": "ALOJAMIENTO",
+      "notes": "",
+      "code": "ALOJA",
+      "type_item_identification_id": 1,
+      "price_amount": 723144,
+      "base_quantity": 1
+    },
+    {
+      "unit_measure_id": "10",
+      "invoiced_quantity": 1,
+      "line_extension_amount": 3241,
+      "free_of_charge_indicator": false,
+      "tax_totals": [
+        {
+          "tax_id": "1",
+          "tax_amount": 115460,
+          "taxable_amount": 607684,
+          "percent": "19"
+        },
+        {
+          "tax_id": "4",
+          "tax_amount": 259,
+          "taxable_amount": 3241,
+          "percent": "8"
+        }
+      ],
+      "description": "BEBIDAS",
+      "notes": "",
+      "code": "BEBID",
+      "type_item_identification_id": 1,
+      "price_amount": 3500,
+      "base_quantity": 1
+    }
+  ]
+}
