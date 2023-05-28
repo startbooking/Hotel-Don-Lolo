@@ -5,6 +5,25 @@ date_default_timezone_set('America/Bogota');
 
 class Hotel_Actions
 {
+    public function trarRetenciones($numero)
+    {
+        global $database;
+
+        $data = $database->select('retenciones', [
+            'feCode',
+            'descripcionRetencion',
+            'porcentajeRetencion',
+            'baseRetencion',
+            'tipoRetencion',
+            'codigoPuc',
+        ], [
+            'tipoRetencion' => $numero,
+            'estado' => 1,
+        ]);
+
+        return $data;
+    }
+
     public function traeDatosPerfilFactura($numero)
     {
         global $database;

@@ -1,0 +1,78 @@
+{
+  "success": true,
+  "message": "Empresa creada/actualizada con éxito",
+  "password": "$2y$10$DDjKn2WuACVIlxQuwOVQWOSypG6M1RRIYZiyYU41pW.aSamZF1IxW",
+  "token": "13e5b0375855ae69baffd8dd8f4cfe7d0a25d5773dc5ad26238ae76696778fab",
+  "company": {
+    "id": 5,
+    "user_id": 10,
+    "identification_number": "892002427",
+    "dv": "7",
+    "language_id": 79,
+    "tax_id": 1,
+    "type_environment_id": 2,
+    "payroll_type_environment_id": 2,
+    "type_operation_id": 10,
+    "type_document_identification_id": 3,
+    "country_id": 46,
+    "type_currency_id": 35,
+    "type_organization_id": 2,
+    "type_regime_id": 2,
+    "type_liability_id": 14,
+    "municipality_id": 820,
+    "merchant_registration": "0000000-00",
+    "address": "CRA 21A NRO 11-25",
+    "phone": "3103891693",
+    "password": null,
+    "newpassword": null,
+    "type_plan_id": 0,
+    "type_plan2_id": 0,
+    "type_plan3_id": 0,
+    "type_plan4_id": 0,
+    "start_plan_date": null,
+    "start_plan_date2": null,
+    "start_plan_date3": null,
+    "start_plan_date4": null,
+    "absolut_start_plan_date": null,
+    "state": 1,
+    "created_at": "2023-05-11 09:06:58",
+    "updated_at": "2023-05-27 22:05:16",
+    "user": {
+      "id": 10,
+      "name": "Hotel Lolo",
+      "email": "reservas@donlolohotel.com",
+      "email_verified_at": null,
+      "created_at": "2023-05-11 09:06:58",
+      "updated_at": "2023-05-27 22:05:16",
+      "id_administrator": null,
+      "mail_host": "smtp.gmail.com",
+      "mail_port": "587",
+      "mail_username": "backupsbabel7@gmail.com",
+      "mail_password": "ccsdfjruqddyxcsjgfggqlqvttt",
+      "mail_encryption": "tls"
+    },
+    "send": [
+      {
+        "id": 19,
+        "year": 2023,
+        "next_consecutive": 56,
+        "created_at": "2023-05-22 12:29:25",
+        "updated_at": "2023-05-27 21:41:58"
+      },
+      {
+        "id": 24,
+        "year": 2023,
+        "next_consecutive": 26,
+        "created_at": "2023-05-24 11:39:12",
+        "updated_at": "2023-05-25 11:04:12"
+      },
+      {
+        "id": 20,
+        "year": 2023,
+        "next_consecutive": 81,
+        "created_at": "2023-05-22 12:29:25",
+        "updated_at": "2023-05-27 21:41:58"
+      }
+    ]
+  }
+}

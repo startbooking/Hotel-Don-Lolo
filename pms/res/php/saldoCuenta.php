@@ -26,6 +26,7 @@ if (count($consumos) == 0) {
 $consumo = $consumos[0]['cargos'];
 $impto = $consumos[0]['imptos'];
 $abono = $consumos[0]['pagos'];
+$baseRetenciones = $consumo;
 $reteiva = 0;
 $reteica = 0;
 $retefuente = 0;
@@ -39,19 +40,18 @@ $totalFolio = ($consumo + $impto) - ($abono - $reteiva - $reteica - $retefuente)
   <div class="form-group">
     <label style="font-size:12px;height: 25px !important" for="consumo" class="col-sm-2 control-label">Consumos</label>
     <div class="col-sm-3">
-      <input type="hidden" id="totalIva" name="totalIva" value='<?php echo $totImpto; ?>'>
-      <input type="hidden" id="totalBase" name="totalBase" value='<?php echo $baseImpto; ?>'>
-      <input type="hidden" id="totalConsumo" name="totalConsumo" value='<?php echo $consumo; ?>'>
-      <input type="hidden" id="totalImpuesto" name="totalImpuesto" value='<?php echo $impto; ?>'>
-      <input type="hidden" id="totalAbono" name="totalAbono" value='<?php echo $abono; ?>'>
-      <input type="hidden" id="totalReteiva" name="totalReteiva" value='<?php echo $reteiva; ?>'>
-      <input type="hidden" id="totalReteica" name="totalReteica" value='<?php echo $reteica; ?>'>
+      <input type="hidden" id="totalIva"        name="totalIva"        value='<?php echo $totImpto; ?>'>
+      <input type="hidden" id="totalBaseIva"    name="totalBaseIva"       value='<?php echo $baseImpto; ?>'>
+      <input type="hidden" id="totalConsumo"    name="totalConsumo"    value='<?php echo $consumo; ?>'>
+      <input type="hidden" id="totalImpuesto"   name="totalImpuesto"   value='<?php echo $impto; ?>'>
+      <input type="hidden" id="totalAbono"      name="totalAbono"      value='<?php echo $abono; ?>'>
+      <input type="hidden" id="totalReteiva"    name="totalReteiva"    value='<?php echo $reteiva; ?>'>
+      <input type="hidden" id="totalReteica"    name="totalReteica"    value='<?php echo $reteica; ?>'>
       <input type="hidden" id="totalRetefuente" name="totalRetefuente" value='<?php echo $retefuente; ?>'>
-      <input type="hidden" id="porceReteiva" name="porceReteiva" value='<?php echo $reteiva; ?>'>
-      <input type="hidden" id="porceReteica" name="porceReteica" value='<?php echo $reteica; ?>'>
+      <input type="hidden" id="porceReteiva"    name="porceReteiva"    value='<?php echo $reteiva; ?>'>
+      <input type="hidden" id="porceReteica"    name="porceReteica"    value='<?php echo $reteica; ?>'>
       <input type="hidden" id="porceRetefuente" name="porceRetefuente" value='<?php echo $retefuente; ?>'>
-      <input type="hidden" id="baseRetenciones" name="baseRetenciones" value='<?php echo $retefuente; ?>'>
-
+      <input type="hidden" id="baseRetenciones" name="baseRetenciones" value='<?php echo $consumo; ?>'>
 
       <input type="hidden" id="SaldoFolioActual" name="SaldoFolioActual" value="<?php echo $totalFolio; ?>">
       <input style="font-size:12px;height: 25px !important;text-align: right;" type="text" class="form-control" id="consumo" value="<?php echo number_format($consumo, 2); ?>" readonly>

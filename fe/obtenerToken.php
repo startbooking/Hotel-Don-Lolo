@@ -21,7 +21,7 @@ curl_setopt_array($curl, [
     "municipality_id": 820,
     "address": "CRA 21A NRO 11-25",
     "phone": 3103891693,
-    "email": "alexander_obando@hotmail.com",
+    "email": "reservas@donlolohotel.com",
     "mail_host": "smtp.gmail.com",
     "mail_port": "587",
     "mail_username": "backupsbabel7@gmail.com",

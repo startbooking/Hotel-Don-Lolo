@@ -3717,14 +3717,16 @@ function apagaselecomp(tipo) {
     $("#seleccionaCiaCon").attr("disabled", true);
     $("#seleccionaCiaCon").attr("disabled", true);
     $(".retencion").removeClass("apaga");
-    totalRteFte = parseInt($("#totalBase").val());
+    totalRteFte = parseInt($("#baseRetenciones").val());
     totalImpto = parseInt($("#totalIva").val());
+    totalBaseImpto = parseInt($("#totalBaseIva").val());
 
     traeRetencionesCia(idCiaFac);
+
     setTimeout(function () {
       retenciones = JSON.parse($("#retenciones").val());
       reteCia = JSON.parse($("#retencionCia").val());
-      retenCia = $("#retencionCia").val();
+      // retenCia = $("#retencionCia").val();
 
       let rFte = retenciones.filter(
         (retencion) => retencion.idRetencion == "1"
@@ -3762,8 +3764,8 @@ function apagaselecomp(tipo) {
       $("#reteica").val(number_format(reteIca, 2));
       $("#retefuente").val(number_format(reteFte, 2));
 
-      $("#porceReteiva").val(number_format(rIca[0].porcentajeRetencion, 2));
-      $("#porceReteica").val(number_format(rIva[0].porcentajeRetencion, 2));
+      $("#porceReteiva").val(number_format(rIva[0].porcentajeRetencion, 2));
+      $("#porceReteica").val(number_format(rIca[0].porcentajeRetencion, 2));
       $("#porceRetefuente").val(number_format(rFte[0].porcentajeRetencion, 2));
 
       $("#totalReteiva").val(reteIva);
@@ -4521,12 +4523,15 @@ function salidaHuesped() {
     var refer = $("#txtReferenciaPag").val();
     var folio = $("#folioActivo").val();
     var idcia = $("#txtIdCiaSal").val();
-    var baseRete = $("#totalBase").val();
     var baseIva = $("#totalIva").val();
-    var baseIca = $("#totalBase").val();
+    var baseRete = $("#baseRetenciones").val();
+    var baseIca = $("#baseRetenciones").val();
     var reteiva = $("#totalReteiva").val();
     var reteica = $("#totalReteica").val();
     var retefuente = $("#totalRetefuente").val();
+    var porceReteiva = $("#porceReteiva").val();
+    var porceReteica = $("#porceReteica").val();
+    var porceRetefuente = $("#porceRetefuente").val();
 
     // let perfilFac = $("#perfilFactura").val();
     var idcentro = 0;
@@ -4553,6 +4558,9 @@ function salidaHuesped() {
       reteiva,
       reteica,
       retefuente,
+      porceReteiva,
+      porceReteica,
+      porceRetefuente,
     };
     $.ajax({
       type: "POST",

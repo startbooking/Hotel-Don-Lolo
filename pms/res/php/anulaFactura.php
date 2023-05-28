@@ -27,6 +27,8 @@ if ($perfil == 1) {
 
     $resFac = $hotel->getResolucion();
 
+    $retenciones = $hotel->trarRetenciones(1);
+
     $resolucion = $resFac[0]['resolucion'];
     $prefijo = $resFac[0]['prefijo'];
     $fechaRes = $resFac[0]['fecha'];
@@ -206,8 +208,6 @@ if ($perfil == 1) {
     $secu = $head['Security'];
     $time = $secu['Timestamp'];
     $timeCrea = $time['Created'];
-
-    // echo print_r($time);
 
     $regis = $hotel->ingresaDatosFe($numDoc, $prefNC, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cude, $QRStr, $response);
 

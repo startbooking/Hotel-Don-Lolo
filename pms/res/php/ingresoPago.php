@@ -37,12 +37,16 @@ $porceiva = $_POST['porceReteiva'];
 $porceica = $_POST['porceReteica'];
 $porcefuente = $_POST['porceRetefuente'];
 
+/* echo $porceiva.' Porce Rete IVA';
+echo $porceica.' Porce Rete ICA';
+echo $porcefuente.' Porce Rete Fte'; */
+
 if ($reteiva == 0) {
     $baseIva = 0;
 }
 
 if ($retefuente == 0) {
-    $retefuente = 0;
+    $baseRete = 0;
 }
 
 if ($reteica == 0) {
@@ -122,10 +126,9 @@ if (count($saldofactura) == 0) {
 $folios = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserva, $nroFolio, 1);
 $pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserva, $nroFolio, 3);
 
-// echo print_r($pagosfolio);
+// echo json_encode($folios);
 
 $tipoimptos = $hotel->getValorImptoFolio($nroFactura, $reserva, $nroFolio, 2);
-
 $subtotales = $hotel->getConsumosReservaAgrupadoFolio($nroFactura, $reserva, $nroFolio, 1);
 
 if ($tipofac == 2) {
@@ -138,13 +141,10 @@ if ($tipofac == 2) {
     $telFact = $datosCompania[0]['telefono'];
     $emaFact = $datosCompania[0]['email'];
     $merFact = '0000000-00';
-    // $tdiFact = $hotel->traeCodigoIdentifica($datosCompania[0]['tipo_documento']);
     $tdiFact = $datosCompania[0]['tipo_documento'];
     $torFact = $datosCompania[0]['tipoAdquiriente'];
-    // $tliFact = $hotel->traeTipoResponsabilidad($datosCompania[0]['responsabilidadTributaria']);
     $tliFact = $hotel->traeIdResponsabilidadDianVenta($datosCompania[0]['responsabilidadTributaria']);
     $munFact = $datosCompania[0]['ciudad'];
-    // $triFact = $hotel->traeIdResponsabilidadDianVenta($datosCompania[0]['tipoResponsabilidad']);
     $triFact = 1;
 } else {
     $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
@@ -155,18 +155,12 @@ if ($tipofac == 2) {
     $dirFact = utf8_decode($datosHuesped[0]['direccion']);
     $emaFact = $datosHuesped[0]['email'];
     $merFact = '0000000-00';
-    // $tdiFact = $hotel->traeCodigoIdentifica($datosHuesped[0]['tipo_identifica']);
     $tdiFact = $datosHuesped[0]['tipo_identifica'];
     $torFact = $datosHuesped[0]['tipoAdquiriente'];
-    // $tliFact = '';
     $tliFact = $hotel->traeIdResponsabilidadDianVenta($datosHuesped[0]['responsabilidadTributaria']);
     $munFact = $datosHuesped[0]['ciudad'];
-    // $triFact = $datosHuesped[0]['responsabilidadTributaria'];
-    // $triFact = $hotel->traeIdResponsabilidadDianVenta($datosHuesped[0]['tipoResponsabilidad']);
     $triFact = 2;
 }
-
-// echo 'Paso 1';
 
 if ($perfilFac == 1 && $facturador == 1) {
     $eFact = [];
@@ -179,8 +173,6 @@ if ($perfilFac == 1 && $facturador == 1) {
 
     $eFact['number'] = $nroFactura;
 
-    // $eFact['type_document_id'] = $hotel->traeCodigoIdentifica($datosHuesped[0]['tipo_identifica']);
-    // $eFact['type_document_id'] = $datosHuesped[0]['tipo_identifica'];
     $eFact['type_document_id'] = 1;
     $eFact['date'] = $fechaFac;
     $eFact['time'] = $horaFact;
@@ -200,15 +192,11 @@ if ($perfilFac == 1 && $facturador == 1) {
     $eCust['address'] = $dirFact;
     $eCust['email'] = $emaFact;
     $eCust['merchant_registration'] = $merFact;
-    // echo $tdiFact;
     $eCust['type_document_identification_id'] = $tdiFact;
     $eCust['type_organization_id'] = $torFact;
     $eCust['type_liability_id'] = $tliFact;
     $eCust['municipality_id'] = $munFact;
-    // $eCust['type_regime_id'] = $hotel->traeIdResponsabilidadDianVenta($triFact);
     $eCust['type_regime_id'] = $triFact;
-
-    // echo $triFact;
 
     $ePago['payment_form_id'] = $hotel->traeCodigoDianVenta($codigo);
     $ePago['payment_method_id'] = $hotel->traeCodigoDianVenta($codigo);
@@ -223,6 +211,7 @@ if ($perfilFac == 1 && $facturador == 1) {
 
     $tax_totals = [];
     foreach ($folios as $folio1) {
+        $taxfolio = [];
         $taxTot = [];
         $taxTot = [
             'tax_id' => $hotel->traeCodigoDianVenta($folio1['codigo_impto']),
@@ -231,21 +220,21 @@ if ($perfilFac == 1 && $facturador == 1) {
             'percent' => number_format($folio1['porcentaje_impto'], 0),
         ];
 
+        array_push($taxfolio, $taxTot);
         array_push($tax_totals, $taxTot);
 
         $invo = [
-        'unit_measure_id' => $hotel->traeTipoUnidadDianVenta($folio1['id_codigo_cargo']),
-        'invoiced_quantity' => 1,
-        'line_extension_amount' => $folio1['cargos'],
-        'free_of_charge_indicator' => false,
-        'tax_totals' => $tax_totals,
-        'description' => $folio1['descripcion_cargo'],
-        'notes' => '',
-        'code' => $hotel->traeCodigoDianVenta($folio1['id_codigo_cargo']),
-        // 'type_item_identification_id' => $hotel->traeIdItemDianVenta($folio1['id_codigo_cargo']),
-        'type_item_identification_id' => 1,
-        'price_amount' => $folio1['imptos'] + $folio1['cargos'],
-        'base_quantity' => 1,
+          'unit_measure_id' => $hotel->traeTipoUnidadDianVenta($folio1['id_codigo_cargo']),
+          'invoiced_quantity' => 1,
+          'line_extension_amount' => $folio1['cargos'],
+          'free_of_charge_indicator' => false,
+          'tax_totals' => $taxfolio,
+          'description' => $folio1['descripcion_cargo'],
+          'notes' => '',
+          'code' => $hotel->traeCodigoDianVenta($folio1['id_codigo_cargo']),
+          'type_item_identification_id' => 1,
+          'price_amount' => $folio1['imptos'] + $folio1['cargos'],
+          'base_quantity' => 1,
         ];
 
         array_push($eInvo, $invo);
@@ -262,38 +251,47 @@ if ($perfilFac == 1 && $facturador == 1) {
         array_push($eTaxe, $tax);
     }
 
-    // "with_holding_tax_total": [];
-
     $eRete = [];
-    $rret = [
-        'tax-id' => '06',
-        'tax_amount' => $retefuente,
-        'taxable_amount' => $baseRete,
-        'percent' => number_format($porcefuente, 2),
-    ];
+
     $riva = [
-        'tax-id' => '05',
+        'tax_id' => '5',
         'tax_amount' => $reteiva,
         'taxable_amount' => $baseIva,
-        'percent' => number_format($porceiva, 2),
-    ];
-    $rica = [
-        'tax-id' => '06',
-        'tax_amount' => $reteica,
-        'taxable_amount' => $baseIca,
-        'percent' => number_format($porceica, 2),
+        'percent' => $porceiva,
     ];
 
-    /*     array_push($eTaxe, $rret);
-        array_push($eTaxe, $riva);
-        array_push($eTaxe, $rica);
-     */ // array_push($eTaxe, $tax);
+    $rret = [
+        'tax_id' => '6',
+        'tax_amount' => $retefuente,
+        'taxable_amount' => $baseRete,
+        'percent' => $porcefuente,
+    ];
+    $rica = [
+        'tax_id' => '5',
+        'tax_amount' => $reteica,
+        'taxable_amount' => $baseIca,
+        'percent' => $porceica,
+    ];
+
+    /*  echo $reteiva;
+     echo $retefuente;
+     echo $reteica; */
+
+    if ($reteiva > 0) {
+        array_push($eRete, $riva);
+    }
+    if ($retefuente > 0) {
+        array_push($eRete, $rret);
+    }
+    if ($reteica > 0) {
+        array_push($eRete, $rica);
+    }
 
     $eFact['customer'] = $eCust;
     $eFact['payment_form'] = $ePago;
     $eFact['legal_monetary_totals'] = $eLmon;
+    $eFact['with_holding_tax_total'] = $eRete;
     $eFact['tax_totals'] = $eTaxe;
-    // $eFact['with_holding_tax_total'] = $eRete;
     $eFact['invoice_lines'] = $eInvo;
 
     $eFact = json_encode($eFact);
