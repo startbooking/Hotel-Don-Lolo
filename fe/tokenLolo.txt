@@ -13,16 +13,16 @@
     "type_environment_id": 2,
     "payroll_type_environment_id": 2,
     "type_operation_id": 10,
-    "type_document_identification_id": 3,
+    "type_document_identification_id": 6,
     "country_id": 46,
     "type_currency_id": 35,
-    "type_organization_id": 2,
-    "type_regime_id": 2,
+    "type_organization_id": 1,
+    "type_regime_id": 1,
     "type_liability_id": 14,
-    "municipality_id": 820,
-    "merchant_registration": "0000000-00",
-    "address": "CRA 21A NRO 11-25",
-    "phone": "3103891693",
+    "municipality_id": 687,
+    "merchant_registration": "7700",
+    "address": "CRA 39#20-32 BARRIO CAMOA",
+    "phone": "6086706020",
     "password": null,
     "newpassword": null,
     "type_plan_id": 0,
@@ -36,14 +36,14 @@
     "absolut_start_plan_date": null,
     "state": 1,
     "created_at": "2023-05-11 09:06:58",
-    "updated_at": "2023-05-27 22:05:16",
+    "updated_at": "2023-05-28 11:11:24",
     "user": {
       "id": 10,
-      "name": "Hotel Lolo",
+      "name": "HOTEL DON LOLO LTDA",
       "email": "reservas@donlolohotel.com",
       "email_verified_at": null,
       "created_at": "2023-05-11 09:06:58",
-      "updated_at": "2023-05-27 22:05:16",
+      "updated_at": "2023-05-28 11:11:24",
       "id_administrator": null,
       "mail_host": "smtp.gmail.com",
       "mail_port": "587",
@@ -55,9 +55,9 @@
       {
         "id": 19,
         "year": 2023,
-        "next_consecutive": 56,
+        "next_consecutive": 59,
         "created_at": "2023-05-22 12:29:25",
-        "updated_at": "2023-05-27 21:41:58"
+        "updated_at": "2023-05-28 11:06:53"
       },
       {
         "id": 24,
@@ -69,9 +69,9 @@
       {
         "id": 20,
         "year": 2023,
-        "next_consecutive": 81,
+        "next_consecutive": 84,
         "created_at": "2023-05-22 12:29:25",
-        "updated_at": "2023-05-27 21:41:58"
+        "updated_at": "2023-05-28 11:06:53"
       }
     ]
   }

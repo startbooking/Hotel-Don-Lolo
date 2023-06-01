@@ -1164,8 +1164,9 @@ let { usuario_id, usuario, nombres, apellidos, tipo } = user;
     $("#txtIdCiaSal").val(0);
     $("#txtIdCentroCiaSal").val(0);
 
-    /* if (idcia == 0) {
-      $("#inlineRadio1").checked;
+    /*
+    $("#inlineRadio1").checked;
+      if (idcia == 0) {
       $("#selecentro").css("display", "none");
       $("#selecomp").css("display", "none");
     } else {
@@ -1235,7 +1236,7 @@ let { usuario_id, usuario, nombres, apellidos, tipo } = user;
           .val(`${apellido1} ${apellido2} ${nombre1} ${nombre2}`);
         // modal.find(".modal-body #txtNombresSal").val(nombre1 + " " + nombre2);
 
-        if (idcia == 0) {
+        /* if (idcia == 0) {
           $("#inlineRadio1").prop("disabled", "disabled");
           $("#inlineRadio2").prop("disabled", "disabled");
         }
@@ -1243,7 +1244,7 @@ let { usuario_id, usuario, nombres, apellidos, tipo } = user;
         if (turismo == 2) {
           $("#inlineRadio1").attr("disabled", true);
           $("#inlineRadio2").attr("disabled", true);
-        }
+        } */
 
         traeHuespedes(reserva, hues);
 
@@ -3702,8 +3703,8 @@ function apagaselecomp(tipo) {
   var reteIva = 0;
   var reteIca = 0;
 
-  if (tipo == 2) {
-    if (idCiaFac == 0) {
+  if (tipo == "2") {
+    if (idCiaFac == "0") {
       /*
 			$('#inlineRadio2').prop('checked',false);
 			$('#inlineRadio1').prop('checked',true);
@@ -4569,11 +4570,11 @@ function salidaHuesped() {
       data: parametros,
       success: function (data) {
         if (perfilFac == 1) {
-          var ventana = window.open(
+          /* var ventana = window.open(
             "imprimir/facturas/" + data[0],
             "PRINT",
             "height=600,width=600"
-          );
+          ); */
         } else {
           var ventana = window.open(
             "imprimir/notas/" + data[0],

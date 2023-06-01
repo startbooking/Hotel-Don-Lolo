@@ -129,7 +129,7 @@ foreach ($codigos as $codigo) { ?>
                     <?php
 }
 ?>
-              </select>
+              </select> 
             </div>
           </div>
           <div class="form-group">

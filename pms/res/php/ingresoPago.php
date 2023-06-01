@@ -37,10 +37,6 @@ $porceiva = $_POST['porceReteiva'];
 $porceica = $_POST['porceReteica'];
 $porcefuente = $_POST['porceRetefuente'];
 
-/* echo $porceiva.' Porce Rete IVA';
-echo $porceica.' Porce Rete ICA';
-echo $porcefuente.' Porce Rete Fte'; */
-
 if ($reteiva == 0) {
     $baseIva = 0;
 }
@@ -124,9 +120,8 @@ if (count($saldofactura) == 0) {
 }
 
 $folios = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserva, $nroFolio, 1);
-$pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserva, $nroFolio, 3);
 
-// echo json_encode($folios);
+$pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserva, $nroFolio, 3);
 
 $tipoimptos = $hotel->getValorImptoFolio($nroFactura, $reserva, $nroFolio, 2);
 $subtotales = $hotel->getConsumosReservaAgrupadoFolio($nroFactura, $reserva, $nroFolio, 1);
@@ -180,8 +175,14 @@ if ($perfilFac == 1 && $facturador == 1) {
     $eFact['prefix'] = $prefijo;
     $eFact['notes'] = $detallePag;
     $eFact['disable_confirmation_text'] = true;
+    $eFact['establishment_name'] = NAME_EMPRESA;
+    $eFact['establishment_address'] = ADRESS_EMPRESA;
+    $eFact['establishment_phone'] = TELEFONO_EMPRESA;
+    $eFact['establishment_municipality'] = CODE_CITY_COMPANY;
+    $eFact['establishment_email'] = MAIL_HOTEL;
     $eFact['sendmail'] = true;
     $eFact['sendmailtome'] = true;
+    $eFact['send_customer_credentials'] = false;
     $eFact['head_note'] = '';
     $eFact['foot_note'] = '';
 
@@ -206,7 +207,7 @@ if ($perfilFac == 1 && $facturador == 1) {
     $eLmon['line_extension_amount'] = $subtotales[0]['cargos'];
     $eLmon['tax_exclusive_amount'] = $subtotales[0]['cargos'];
     $eLmon['tax_inclusive_amount'] = $subtotales[0]['cargos'] + $subtotales[0]['imptos'];
-    $eLmon['allowance_total_amount'] = 0;
+    // $eLmon['allowance_total_amount'] = 0;
     $eLmon['payable_amount'] = $subtotales[0]['cargos'] + $subtotales[0]['imptos'];
 
     $tax_totals = [];
@@ -216,8 +217,8 @@ if ($perfilFac == 1 && $facturador == 1) {
         $taxTot = [
             'tax_id' => $hotel->traeCodigoDianVenta($folio1['codigo_impto']),
             'tax_amount' => $folio1['imptos'],
-            'taxable_amount' => $folio1['cargos'],
             'percent' => number_format($folio1['porcentaje_impto'], 0),
+            'taxable_amount' => $folio1['cargos'],
         ];
 
         array_push($taxfolio, $taxTot);
@@ -233,7 +234,7 @@ if ($perfilFac == 1 && $facturador == 1) {
           'notes' => '',
           'code' => $hotel->traeCodigoDianVenta($folio1['id_codigo_cargo']),
           'type_item_identification_id' => 1,
-          'price_amount' => $folio1['imptos'] + $folio1['cargos'],
+          'price_amount' => $folio1['cargos'] + $folio1['imptos'],
           'base_quantity' => 1,
         ];
 
@@ -267,15 +268,11 @@ if ($perfilFac == 1 && $facturador == 1) {
         'percent' => $porcefuente,
     ];
     $rica = [
-        'tax_id' => '5',
+        'tax_id' => '7',
         'tax_amount' => $reteica,
         'taxable_amount' => $baseIca,
         'percent' => $porceica,
     ];
-
-    /*  echo $reteiva;
-     echo $retefuente;
-     echo $reteica; */
 
     if ($reteiva > 0) {
         array_push($eRete, $riva);
@@ -286,6 +283,8 @@ if ($perfilFac == 1 && $facturador == 1) {
     if ($reteica > 0) {
         array_push($eRete, $rica);
     }
+
+    $eLmon['payable_amount'] = $subtotales[0]['cargos'] + $subtotales[0]['imptos'] - $retefuente - $reteica - $reteiva;
 
     $eFact['customer'] = $eCust;
     $eFact['payment_form'] = $ePago;
@@ -298,7 +297,7 @@ if ($perfilFac == 1 && $facturador == 1) {
 
     // echo $eFact;
 
-    include_once '../../api/Crea_Factura.php';
+    include_once '../../api/enviaFactura.php';
 
     $recibeCurl = json_decode($response, true);
 
@@ -328,6 +327,19 @@ if ($perfilFac == 1 && $facturador == 1) {
     $regis = $hotel->ingresaDatosFe($nroFactura, $prefijo, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cufe, $QRStr, $response);
 
     include_once '../../imprimir/imprimeFactura.php';
+
+    $ePDF = [];
+
+    $ePDF['prefix'] = $prefijo;
+    $ePDF['number'] = $nroFactura;
+    $ePDF['base64graphicrepresentation'] = $base64Factura;
+
+    $ePDF = json_encode($ePDF);
+
+    echo $ePDF;
+    // $ePDF['alternate_email'] = 'email_alterno@nextpyme.plus';
+
+    include_once '../../api/enviaPDF.php';
 } else {
     include_once '../../imprimir/imprimeReciboFactura.php';
 }

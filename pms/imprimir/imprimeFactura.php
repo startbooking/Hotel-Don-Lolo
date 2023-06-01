@@ -24,7 +24,7 @@ $textoResol = 'RESOLUCION DIAN No.'.$resolucion.' de '.$fechaRes.' Autorizacion 
 $fechaFac = FECHA_PMS;
 $fechaVen = $fechaFac;
 $fechaVen = strtotime('+ '.$diasCre.' day', strtotime($fechaFac));
-$fechaVen = date('Y-m-j', $fechaVen);
+$fechaVen = date('Y-m-d', $fechaVen);
 
 $tipoHabitacion = $hotel->getNombreTipoHabitacion($datosReserva[0]['tipo_habitacion']);
 
@@ -275,11 +275,17 @@ $pdf->SetFont('Arial', '', 6);
 
 $pdf->MultiCell(190, 4, utf8_decode(PIEFACTURA), 0, 'C');
 
-$file = '../../imprimir/facturas/Factura_'.$nroFactura.'.pdf';
+$file = '../../imprimir/facturas/'.$prefijo.$nroFactura.'.pdf';
 
 $pdf->Output($file, 'F');
 
-array_push($estadofactura, 'Factura_'.$nroFactura.'.pdf');
+$pdfFile = $pdf->Output('', 'S');
+$base64Factura = chunk_split(base64_encode($pdfFile));
+
+echo $base64String;
+
+array_push($estadofactura, $prefijo.$nroFactura.'.pdf');
+// array_push($estadofactura, $base64String);
 
 ?>
 
