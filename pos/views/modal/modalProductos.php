@@ -1,7 +1,7 @@
-<?php 
-  $tipos  = $pos->getTipoPlatos($idamb);
-  $imptos = $pos->getImpuestos();
- ?>
+<?php
+$tipos = $pos->getTipoPlatos($idamb);
+$imptos = $pos->getImpuestos();
+?>
 
 <div class="modal fade" id="modalAdicionaProducto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
   <form id="guardarDatosProducto" class="form-horizontal" action="javascript:guardarProducto()">
@@ -14,7 +14,7 @@
         <div id="datos_ajax_register"></div>
         <div class="modal-body"> 
           <div class="form-group">
-            <input type="hidden" name="idamb" id="idamb" value="<?=$idamb?>">
+            <input type="hidden" name="idamb" id="idamb" value="<?php echo $idamb; ?>">
             <label for="producto" class="control-label col-lg-2 col-md-2">Producto</label>
             <div class="col-lg-6 col-md-6">
               <input type="text" class="form-control" id="producto" name="producto" required>
@@ -29,12 +29,12 @@
             <div class="col-lg-4 col-md-4">
               <select name="seccion" id="seccion" required>
                 <option value="">Seleccione el Tipo de Plato</option>
-                <?php 
-                foreach ($tipos as $tipo) { ?>
-                  <option value="<?= $tipo['id_seccion']?>"><?php echo $tipo['nombre_seccion']?></option>
-                  <?php 
-                }
-                ?>
+                <?php
+                  foreach ($tipos as $tipo) { ?>
+                  <option value="<?php echo $tipo['id_seccion']; ?>"><?php echo $tipo['nombre_seccion']; ?></option>
+                  <?php
+                  }
+?>
               </select>
             </div>
             <label for="costo0" class="control-label col-lg-2  col-md-2">Precio Venta</label>
@@ -48,11 +48,11 @@
               <select name="impto" id="impto" required>
                 <option value="">Seleccione el Impuesto</option>
                 <?php
-                foreach ($imptos as $impto) { ?>
-                  <option value="<?=$impto['id_cargo']?>"><?php echo $impto['descripcion_cargo']?></option>
-                  <?php 
-                } 
-                ?>
+foreach ($imptos as $impto) { ?>
+                  <option value="<?php echo $impto['id_cargo']; ?>"><?php echo $impto['descripcion_cargo']; ?></option>
+                  <?php
+}
+?>
               </select>
             </div>
             <label for="tipo" class="control-label col-lg-2  col-md-2">Tipo</label>
@@ -104,7 +104,7 @@
           <div class="btn-group">
           </div>
         </div>
-      </div>
+      </div> 
     </div>
   </form>
 </div>

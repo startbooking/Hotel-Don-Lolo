@@ -69,36 +69,34 @@ foreach ($imptos as $impto) { ?>
   <label for="tipo" class="control-label col-lg-2  col-md-2">Tipo</label>
   <div class="col-lg-4 col-md-4" style="font-size:12px">
     <label class="radio-inline">
-      <input onclick="activaSelecReceta(0)" type="radio" name="tipo" id="tipo" value="0" 
+      <input onclick="activaSelecRecetaUpd(0)" type="radio" name="tipo" id="tipo" value="0" 
       <?php
-if ($updateProd[0]['tipo_producto'] == 0) {
-    ?>
+        if ($updateProd[0]['tipo_producto'] == 0) {?>
         checked
         <?php
-}
+        }
 ?>
       > Servicio
     </label>            
     <label class="radio-inline">
-      <input onclick="activaSelecReceta(1)" type="radio" name="tipo" id="tipo" value="1"
+      <input onclick="activaSelecRecetaUpd(1)" type="radio" name="tipo" id="tipo" value="1"
       <?php
-if ($updateProd[0]['tipo_producto'] == 1) {
-    ?>
-        checked
-        <?php
-}
+  if ($updateProd[0]['tipo_producto'] == 1) {
+      ?>
+          checked
+          <?php
+  }
 ?>
-
       > Producto
     </label>
     <label class="radio-inline">
-      <input onclick="activaSelecReceta(2)" type="radio" name="tipo" id="tipo" value="2"
+      <input onclick="activaSelecRecetaUpd(2)" type="radio" name="tipo" id="tipo" value="2"
       <?php
-if ($updateProd[0]['tipo_producto'] == 2) {
-    ?>
+  if ($updateProd[0]['tipo_producto'] == 2) {
+      ?>
         checked
         <?php
-}
+  }
 ?>
 
       > Receta
@@ -109,7 +107,7 @@ if ($updateProd[0]['tipo_producto'] == 2) {
 <?php
 if ($updateProd[0]['tipo_producto'] != 0) {
     ?>
-  <div class="form-group" id="receta" name="receta">
+  <div class="form-group" id="recetaUpd" name="recetaUpd">
     <label id="labelReceta" class="control-label col-lg-2  col-md-2">
     <?php
         if ($updateProd[0]['tipo_producto'] == 1) { ?>

@@ -1278,8 +1278,9 @@ $(document).ready(function () {
 
   let { pos, user } = sesion;
   let { usuario } = user;
-
-  let { id_ambiente, nombre, fecha_auditoria } = oPos[0];
+  if (oPos) {
+    let { id_ambiente, nombre, fecha_auditoria } = oPos[0];
+  }
 
   $("#myModalAbonos").on("show.bs.modal", function (event) {
     var canti = $("#cantProd").val();

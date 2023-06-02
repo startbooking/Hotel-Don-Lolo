@@ -185,8 +185,6 @@ if ($perfil == 1) {
 
     $recibeCurl = json_decode($response, true);
 
-    // echo json_encode($recibeCurl);
-
     $message = $recibeCurl['message'];
 
     $sendSucc = $recibeCurl['send_email_success'];

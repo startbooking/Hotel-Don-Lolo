@@ -19,5 +19,5 @@ curl_setopt_array($curl, [
   ],
 ]);
 
-$response = curl_exec($curl);
+$respopdf = curl_exec($curl);
 curl_close($curl);

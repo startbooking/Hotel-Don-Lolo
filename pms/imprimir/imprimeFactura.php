@@ -275,7 +275,7 @@ $pdf->SetFont('Arial', '', 6);
 
 $pdf->MultiCell(190, 4, utf8_decode(PIEFACTURA), 0, 'C');
 
-$file = '../../imprimir/facturas/'.$prefijo.$nroFactura.'.pdf';
+$file = '../../imprimir/facturas/FES-'.$prefijo.$nroFactura.'.pdf';
 
 $pdf->Output($file, 'F');
 

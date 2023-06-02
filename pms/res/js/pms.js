@@ -4570,11 +4570,13 @@ function salidaHuesped() {
       data: parametros,
       success: function (data) {
         if (perfilFac == 1) {
-          /* var ventana = window.open(
-            "imprimir/facturas/" + data[0],
+          var ventana = window.open(
+            "imprimir/facturas/FES-" + data[0],
             "PRINT",
             "height=600,width=600"
-          ); */
+          );
+          /*
+           */
         } else {
           var ventana = window.open(
             "imprimir/notas/" + data[0],
@@ -5822,7 +5824,10 @@ function terminaMmto() {
 
 function adicionaObservacionMmto() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  usuario = sesion["usuario"][0]["usuario"];
+  let { user } = sesion;
+  let { usuario, usuario_id } = user;
+
+  // usuario = sesion["usuario"][0]["usuario"];
 
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
@@ -5867,7 +5872,10 @@ function fechaReservasStr() {
 
 function guardaMantenimiento() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  usuario = sesion["usuario"][0]["usuario"];
+  let { user } = sesion;
+  let { usuario, usuario_id } = user;
+
+  // usuario = sesion["usuario"][0]["usuario"];
 
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
@@ -5902,9 +5910,12 @@ function guardaMantenimiento() {
 
 function entregaObjeto() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  usuario = sesion["usuario"][0]["usuario"];
-  idusuario = sesion["usuario"][0]["usuario_id"];
+  let { user } = sesion;
+  let { usuario, usuario_id } = user;
 
+  /*   usuario = sesion["usuario"][0]["usuario"];
+  idusuario = sesion["usuario"][0]["usuario_id"];
+ */
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var parametros = $("#entregaObjetoOlvidado").serializeArray();

@@ -118,7 +118,7 @@ $rutaINV = BASE_POS.'datos/kardex.php';
         </a> 
         <ul class="treeview-menu">
           <li>
-            <a class="menuPpal" onclick="kardexInventario()">
+            <a class="menuPpal menuKardex" onclick="kardexInventario()" style="display:none;">
               <i class='fa fa-cubes'></i>
               <span> Kardex Almacen </span>
             </a>

@@ -119,7 +119,7 @@ foreach ($paices as $pais) { ?>
           <div class="form-group">
             <label for="telefono" class="col-sm-2 control-label">Telefono</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" name="telefono" id="telefono" placeholder="Telefono">
+              <input type="text" class="form-control" name="telefono" id="telefono" placeholder="Telefono" required="">
             </div>
             <label for="celular" class="col-sm-2 control-label">Celular</label>
             <div class="col-sm-4">

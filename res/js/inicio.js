@@ -367,6 +367,8 @@ function cambiaClave() {
         nuevaclave: nuevaclave,
       },
       success: function (x) {
+        console.log(x);
+
         if (x == 0) {
           $("#claveactual").val("");
           $("#nuevaclave").val("");
@@ -377,13 +379,14 @@ function cambiaClave() {
           $("#claveactual").focus();
         } else {
           if (x == "1") {
-            $("#mensaje").html(
+            /* $("#mensaje").html(
               '<div class="alert alert-success"> <span class="glyphicon glyphicon-info-sign"></span> Contraseña Actualizada con Exito !!</div>'
-            );
+            ); */
             $("#confirmaclave").val("");
             $("#nuevaclave").val("");
             $("#claveactual").focus();
-            $(location).attr("href", "modulos.php");
+            swal("Atencion", "Contraseña Cambiada con Exito", "success");
+            $(location).attr("href", "home");
           }
         }
       },
@@ -507,6 +510,17 @@ document.addEventListener("DOMContentLoaded", async () => {
         $(location).attr("href", "views/modulos.php");
       }, 2000);
       $("#myModalLogin").modal("hidden");
+    }
+  });
+
+  $("#myModalCambiarClave").on("show.bs.modal", function (event) {
+    $("#error").html("");
+    if (localStorage.getItem("sesion")) {
+      entro = JSON.parse(localStorage.getItem("sesion"));
+      let { user } = entro;
+      let { usuario, usuario_id } = user;
+      $("#idUserPass").val(usuario_id);
+      $("#userPass").val(usuario);
     }
   });
 });

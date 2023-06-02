@@ -147,7 +147,7 @@ if ($huesped[0]['pais'] == $pais['id_pais']) {?>
   <div class="form-group">
     <label for="telefono" class="col-sm-2 control-label">Telefono</label>
     <div class="col-sm-4">
-      <input type="text" class="form-control" name="telefono" id="telefono" value="<?php echo $huesped[0]['telefono']; ?>">
+      <input type="text" class="form-control" name="telefono" id="telefono" value="<?php echo $huesped[0]['telefono']; ?>" required="">
     </div>
     <label for="celular" class="col-sm-2 control-label">Celular</label>
     <div class="col-sm-4">

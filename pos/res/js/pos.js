@@ -1535,6 +1535,53 @@ function activaSelecReceta(codigo) {
   }
 }
 
+function activaSelecRecetaUpd(codigo) {
+  if (codigo == 0) {
+    $("#recetaUpd").css("display", "none");
+    $("#idrecetaUpd").val(0);
+    $("#idrecetaUpd").removeAttr("required");
+  } else {
+    $("#recetaUpd").css("display", "block");
+    $("#idrecetaUpd").attr("required", "required");
+  }
+
+  if (codigo == 1) {
+    $("#labelReceta").text("Producto de Inventario");
+    $.ajax({
+      url: "res/php/user_actions/getProductos.php",
+      type: "POST",
+      dataType: "json",
+      data: { param1: "value1" },
+      success: function (data) {
+        $("#idrecetaUpd option").remove();
+        for (i = 0; i < data.length; i++) {
+          $("#idrecetaUpd").append(`
+            <option value="${data[i]["id_producto"]}">${data[i]["nombre_producto"]}</option>
+            `);
+        }
+      },
+    });
+  }
+
+  if (codigo == 2) {
+    $("#labelReceta").text("Receta Estandar");
+    $.ajax({
+      url: "res/php/user_actions/getRecetas.php",
+      type: "POST",
+      dataType: "json",
+      data: { param1: "value1" },
+      success: function (data) {
+        $("#idrecetaUpd option").remove();
+        for (i = 0; i < data.length; i++) {
+          $("#idrecetaUpd").append(
+            `<option value="${data[i]["id_receta"]}">${data[i]["nombre_receta"]}</option>`
+          );
+        }
+      },
+    });
+  }
+}
+
 function devolucionProductos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
@@ -3988,11 +4035,11 @@ function ingresoPos() {
     $("#menuDiar").css("display", "block");
     $("#menuInfo").css("display", "block");
     $("#menuInfoCaje").css("display", "block");
+    $("#menuDatos").css("display", "block");
   }
 
   if (tipo <= 3) {
     $("#menuCaje").css("display", "block");
-    $("#menuDatos").css("display", "block");
     $("#menuVenta").css("display", "block");
     $("#menuCaja").css("display", "block");
   }
@@ -4776,6 +4823,7 @@ function productosActivos() {
           <button
             type="button"
             id="${i}"
+
             onclick="botonDevolverProducto('${numero}','${
             listaComanda[i]["codigo"]
           }','${listaComanda[i]["ambiente"]}','${listaComanda[i]["cant"]}','${
@@ -4783,7 +4831,7 @@ function productosActivos() {
           }','${listaComanda[i]["id"]}','${listaComanda[i]["importe"]}','${
             listaComanda[i]["impto"]
           }',this.id, this.parentNode.parentNode.parentNode.rowIndex)"
-            class="fa fa-share btn btn-danger btn-xs"
+            class="fa fa-share btn btn-danger btn-xs btnDevuelve"
             title="Devolver Producto Uno">
           </button>
           </td>

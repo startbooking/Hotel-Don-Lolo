@@ -111,6 +111,8 @@ if (count($anticipos) != 0) {
 
 $updFac = $hotel->updateFactura($idUsuario, $saldos[0]['cargos'], $saldos[0]['imptos'], $saldos[0]['pagos'], $saldos[0]['base'], $paganticipo, $fechaVen, $numfactura, $usuario, $fecha);
 
+$totalPago = $paganticipo + $saldos[0]['pagos'];
+
 $saldofactura = $hotel->getSaldoHabitacion($numero);
 
 if (count($saldofactura) == 0) {
@@ -180,8 +182,8 @@ if ($perfilFac == 1 && $facturador == 1) {
     $eFact['establishment_phone'] = TELEFONO_EMPRESA;
     $eFact['establishment_municipality'] = CODE_CITY_COMPANY;
     $eFact['establishment_email'] = MAIL_HOTEL;
-    $eFact['sendmail'] = true;
-    $eFact['sendmailtome'] = true;
+    $eFact['sendmail'] = false;
+    $eFact['sendmailtome'] = false;
     $eFact['send_customer_credentials'] = false;
     $eFact['head_note'] = '';
     $eFact['foot_note'] = '';
@@ -207,7 +209,6 @@ if ($perfilFac == 1 && $facturador == 1) {
     $eLmon['line_extension_amount'] = $subtotales[0]['cargos'];
     $eLmon['tax_exclusive_amount'] = $subtotales[0]['cargos'];
     $eLmon['tax_inclusive_amount'] = $subtotales[0]['cargos'] + $subtotales[0]['imptos'];
-    // $eLmon['allowance_total_amount'] = 0;
     $eLmon['payable_amount'] = $subtotales[0]['cargos'] + $subtotales[0]['imptos'];
 
     $tax_totals = [];
@@ -299,7 +300,7 @@ if ($perfilFac == 1 && $facturador == 1) {
 
     include_once '../../api/enviaFactura.php';
 
-    $recibeCurl = json_decode($response, true);
+    $recibeCurl = json_decode($respofact, true);
 
     // echo json_encode($recibeCurl);
 
@@ -324,22 +325,29 @@ if ($perfilFac == 1 && $facturador == 1) {
     $time = $secu['Timestamp'];
     $timeCrea = $time['Created'];
 
-    $regis = $hotel->ingresaDatosFe($nroFactura, $prefijo, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cufe, $QRStr, $response);
+    $regis = $hotel->ingresaDatosFe($nroFactura, $prefijo, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cufe, $QRStr, $respofact);
 
     include_once '../../imprimir/imprimeFactura.php';
 
     $ePDF = [];
 
+    $miFactura = strval($nroFactura);
+
     $ePDF['prefix'] = $prefijo;
-    $ePDF['number'] = $nroFactura;
+    $ePDF['number'] = $miFactura;
+    // {intval($variable_numero)}
     $ePDF['base64graphicrepresentation'] = $base64Factura;
 
     $ePDF = json_encode($ePDF);
 
-    echo $ePDF;
+    // echo $ePDF;
     // $ePDF['alternate_email'] = 'email_alterno@nextpyme.plus';
 
     include_once '../../api/enviaPDF.php';
+
+    $recibePDF = json_decode($respopdf, true);
+
+// echo json_encode($recibePDF);
 } else {
     include_once '../../imprimir/imprimeReciboFactura.php';
 }
