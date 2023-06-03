@@ -108,4 +108,4 @@ if (!isset($_GET['section'])) {
     $mmtos = $hotel->habitacionesMantenimiento();
 }
  
-?> 
+?>  

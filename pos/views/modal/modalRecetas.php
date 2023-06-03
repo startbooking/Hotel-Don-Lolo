@@ -1,5 +1,5 @@
 <?php
-$tipos = $pos->getTipoPlatos();
+$tipos = $pos->getTipoPlatos($idamb);
 $imptos = $pos->getImpuestos();
 ?>
 

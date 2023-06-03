@@ -12,7 +12,7 @@ $rutaINV = BASE_POS.'datos/kardex.php';
           <small class="fa fa-angle-left pull-right"></small>
         </a>
         <ul class="treeview-menu">
-          <li>
+          <li> 
             <a class="menuPpal" onclick="clientes()"><i class="fa fa-address-card-o" aria-hidden="true"></i> Clientes</a>
           </li>
           <li>

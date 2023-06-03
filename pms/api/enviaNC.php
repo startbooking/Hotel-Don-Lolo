@@ -3,7 +3,7 @@
 $curl = curl_init();
 
 curl_setopt_array($curl, [
-  CURLOPT_URL => 'https://api.nextpyme.plus/api/ubl2.1/invoice',
+  CURLOPT_URL => 'https://api.nextpyme.plus/api/ubl2.1/credit-note',
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -11,7 +11,7 @@ curl_setopt_array($curl, [
   CURLOPT_FOLLOWLOCATION => true,
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST => 'POST',
-  CURLOPT_POSTFIELDS => $eFact,
+  CURLOPT_POSTFIELDS => $eNote,
   CURLOPT_HTTPHEADER => [
     'Content-Type: application/json',
     'Accept: application/json',
@@ -19,5 +19,5 @@ curl_setopt_array($curl, [
   ],
 ]);
 
-$response = curl_exec($curl);
+$respoNC = curl_exec($curl);
 curl_close($curl);

@@ -282,7 +282,7 @@ $pdf->Output($file, 'F');
 $pdfFile = $pdf->Output('', 'S');
 $base64Factura = chunk_split(base64_encode($pdfFile));
 
-echo $base64String;
+// echo $base64Factura;
 
 array_push($estadofactura, $prefijo.$nroFactura.'.pdf');
 // array_push($estadofactura, $base64String);

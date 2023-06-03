@@ -262,9 +262,15 @@ $pdf->Cell(95, 5, 'RECIBO ', 0, 1, 'C');
 $pdf->Cell(95, 5, $usuario, 0, 0, 'C');
 $pdf->Cell(95, 5, 'C.C - NIT.', 0, 1, 'C');
 $arcPdf = 'NotaCredito_'.$numDoc.'.pdf';
+
 $file = '../../imprimir/notas/'.$arcPdf;
 
 $pdf->Output($file, 'F');
+
+$pdfFile = $pdf->Output('', 'S');
+$base64NC = chunk_split(base64_encode($pdfFile));
+
+// echo $base64Factura;
 
 echo $file;
 

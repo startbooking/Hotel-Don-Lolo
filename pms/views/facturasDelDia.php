@@ -33,7 +33,8 @@
                             </thead>
                             <tbody>
                               <?php
-                        foreach ($facturas as $factura) { ?>
+                        foreach ($facturas as $factura) {
+                            $numFactura = $factura['prefijo_factura'].$factura['factura_numero']; ?>
                                 <tr style='font-size:12px'>
                                   <td style="padding:3px 5px"><?php echo $factura['factura_numero']; ?></td>
                                   <td style="padding:3px 5px"><?php echo $factura['apellido1'].' '.$factura['apellido2'].' '.$factura['nombre1'].' '.$factura['nombre2']; ?></td>
@@ -43,12 +44,12 @@
                                   <td style="padding:3px 5px;width: 20%">
                                     <button 
                                         class="btn btn-info btn-xs" 
-                                        onclick="verfactura(<?php echo $factura['factura_numero']; ?>,<?php echo $factura['perfil_factura']; ?>)" 
+                                        onclick="verfactura('<?php echo $numFactura; ?>',<?php echo $factura['perfil_factura']; ?>)" 
                                         type="button">
                                         <i class="fa fa-file-pdf-o" aria-hidden="true" title="Ver Factura"></i>
                                       </button>
                                       <?php
-                                        if ($factura['factura_anulada'] == 0) {?>
+                                    if ($factura['factura_anulada'] == 0) {?>
                                           <a class="btn btn-danger btn-xs" 
                                             data-toggle    ="modal" 
                                             data-apellidos ="<?php echo $factura['apellido1'].' '.$factura['apellido2']; ?>" 
@@ -60,13 +61,14 @@
                                             data-reserva   ="<?php echo $factura['num_reserva']; ?>" 
                                             data-perfil    ="<?php echo $factura['perfil_factura']; ?>" 
                                             data-idperfil  ="<?php echo $factura['id_perfil_factura']; ?>" 
+                                            data-prefijo   ="<?php echo $factura['prefijo_factura']; ?>" 
                                             href="#myModalAnulaFactura"
                                             type="button"
                                             title="Anular Factura"
                                             >
                                             <i class="fa fa-window-close" aria-hidden="true" ></i></a>
                                           <?php
-                                        }
+                                    }
                             ?>
                                     <button 
                                       class="btn btn-success btn-xs" 

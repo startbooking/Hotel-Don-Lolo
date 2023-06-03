@@ -3179,6 +3179,7 @@ class Hotel_Actions
             'huespedes.apellido2',
             'huespedes.nombre1',
             'huespedes.nombre2',
+            'cargos_pms.prefijo_factura',
             'cargos_pms.factura_numero',
             'cargos_pms.id_usuario_factura',
             'cargos_pms.total_consumos',

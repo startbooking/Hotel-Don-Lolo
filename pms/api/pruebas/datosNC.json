@@ -1,0 +1,108 @@
+{
+  "billing_reference": {
+    "number": 990000025,
+    "uuid": "d794788c48364c8302ed144f73a105daa13e197d84ea251f033a518929133e66dd90ec5b873a0e462d5b5b45a3b4c8ba",
+    "issue_date": "2023-06-01"
+  },
+  "discrepancyresponsecode": 2,
+  "discrepancyresponsedescription": "ASF ASFAS F ASDF ASD",
+  "notes": "",
+  "resolution_number": "18760000001",
+  "prefix": "NC",
+  "number": 187,
+  "type_document_id": 4,
+  "date": "2023-06-01",
+  "time": "10:35:54",
+  "establishment_name": "HOTEL DON LOLO LTDA",
+  "establishment_address": "CRA 39 NRO 20 32 BARRIO CAMOA",
+  "establishment_phone": "3138153620",
+  "establishment_municipality": "684",
+  "sendmail": false,
+  "sendmailtome": false,
+  "seze": "2021-2017",
+  "head_note": "",
+  "foot_note": "",
+  "customer": {
+    "identification_number": 79518919,
+    "dv": 5,
+    "name": "RAFAEL BARAHONA B.",
+    "phone": "3174848930",
+    "address": "CRA 102 NRO 16F 12",
+    "email": "sactel@gmail.com",
+    "merchant_registration": "0000000-00",
+    "type_document_identification_id": 8,
+    "type_organization_id": 1,
+    "type_liability_id": 117,
+    "municipality_id": "149",
+    "type_regime_id": 1
+  },
+  "legal_monetary_totals": {
+    "line_extension_amount": 610925,
+    "tax_exclusive_amount": 610925,
+    "tax_inclusive_amount": 726644,
+    "allowance_total_amount": 0,
+    "payable_amount": 726644
+  },
+  "tax_totals": [
+    {
+      "tax_id": "4",
+      "tax_amount": 259,
+      "taxable_amount": 3241,
+      "percent": "8"
+    },
+    {
+      "tax_id": "1",
+      "tax_amount": 115460,
+      "taxable_amount": 607684,
+      "percent": "19"
+    }
+  ],
+  "credit_note_lines": [
+    {
+      "unit_measure_id": "70",
+      "invoiced_quantity": 1,
+      "line_extension_amount": 607684,
+      "free_of_charge_indicator": false,
+      "tax_totals": [
+        {
+          "tax_id": "1",
+          "tax_amount": 115460,
+          "taxable_amount": 607684,
+          "percent": "19"
+        }
+      ],
+      "description": "ALOJAMIENTO",
+      "notes": "",
+      "code": "ALOJA",
+      "type_item_identification_id": 1,
+      "price_amount": 723144,
+      "base_quantity": 1
+    },
+    {
+      "unit_measure_id": "70",
+      "invoiced_quantity": 1,
+      "line_extension_amount": 3241,
+      "free_of_charge_indicator": false,
+      "tax_totals": [
+        {
+          "tax_id": "1",
+          "tax_amount": 115460,
+          "taxable_amount": 607684,
+          "percent": "19"
+        },
+        {
+          "tax_id": "4",
+          "tax_amount": 259,
+          "taxable_amount": 3241,
+          "percent": "8"
+        }
+      ],
+      "description": "BEBIDAS",
+      "notes": "",
+      "code": "BEBID",
+      "type_item_identification_id": 1,
+      "price_amount": 3500,
+      "base_quantity": 1
+    }
+  ]
+}

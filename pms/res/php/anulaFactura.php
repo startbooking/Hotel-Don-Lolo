@@ -42,11 +42,14 @@ if ($perfil == 1) {
     $reserva = $dFactura[0]['numero_reserva'];
     $nroFolio = $dFactura[0]['folio_cargo'];
 
+    // echo $tipofac;
+
     $folios = $hotel->getConsumosReservaAgrupadoCodigoFolio($numero, $reserva, $nroFolio, 1);
     $pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolio($numero, $reserva, $nroFolio, 3);
     $tipoimptos = $hotel->getValorImptoFolio($numero, $reserva, $nroFolio, 2);
-
     $subtotales = $hotel->getConsumosReservaAgrupadoFolio($numero, $reserva, $nroFolio, 1);
+
+    $codigo = $pagosfolio[0]['id_codigo_cargo'];
 
     $eNote = [];
     $eBill = [];
@@ -56,7 +59,6 @@ if ($perfil == 1) {
 
     if ($tipofac == 2) {
         $datosCompania = $hotel->getSeleccionaCompania($idperfil);
-
         $diasCre = $datosCompania[0]['dias_credito'];
         $nomFact = utf8_decode($datosCompania[0]['empresa']);
         $nitFact = $datosCompania[0]['nit'];
@@ -72,7 +74,6 @@ if ($perfil == 1) {
         $triFact = 1;
     } else {
         $datosHuesped = $hotel->getbuscaDatosHuesped($idperfil);
-
         $nitFact = $datosHuesped[0]['identificacion'];
         $dvFact = '';
         $nomFact = utf8_decode($datosHuesped[0]['nombre1'].' '.$datosHuesped[0]['nombre2'].' '.$datosHuesped[0]['apellido1'].' '.$datosHuesped[0]['apellido2']);
@@ -87,7 +88,7 @@ if ($perfil == 1) {
         $triFact = 2;
     }
 
-    $eBill['number'] = $dFactura[0]['prefijo'].$dFactura[0]['factura_numero'];
+    $eBill['number'] = strval($dFactura[0]['factura_numero']);
     $eBill['uuid'] = $uuid;
     $eBill['issue_date'] = $dFactura[0]['fecha_factura'];
 
@@ -96,7 +97,7 @@ if ($perfil == 1) {
     $eNote['discrepancyresponsecode'] = 2;
     $eNote['discrepancyresponsedescription'] = $motivo;
     $eNote['notes'] = '';
-    $eNote['resolution_number'] = $resolucion;
+    // $eNote['resolution_number'] = $resolucion;
     $eNote['prefix'] = $prefNC;
     $eNote['number'] = $numDoc;
     $eNote['type_document_id'] = 4;
@@ -106,8 +107,8 @@ if ($perfil == 1) {
     $eNote['establishment_address'] = ADRESS_EMPRESA;
     $eNote['establishment_phone'] = TELEFONO_EMPRESA;
     $eNote['establishment_municipality'] = CODE_CITY_COMPANY;
-    $eNote['sendmail'] = true;
-    $eNote['sendmailtome'] = true;
+    $eNote['sendmail'] = false;
+    $eNote['sendmailtome'] = false;
     $eNote['seze'] = '2021-2017';
     $eNote['head_note'] = '';
     $eNote['foot_note'] = '';
@@ -137,29 +138,30 @@ if ($perfil == 1) {
 
     $tax_totals = [];
     foreach ($folios as $folio1) {
+        $taxfolio = [];
         $taxTot = [];
         $taxTot = [
             'tax_id' => $hotel->traeCodigoDianVenta($folio1['codigo_impto']),
             'tax_amount' => $folio1['imptos'],
-            'taxable_amount' => $folio1['cargos'],
             'percent' => number_format($folio1['porcentaje_impto'], 0),
+            'taxable_amount' => $folio1['cargos'],
         ];
 
+        array_push($taxfolio, $taxTot);
         array_push($tax_totals, $taxTot);
 
         $invo = [
-        'unit_measure_id' => $hotel->traeTipoUnidadDianVenta($folio1['id_codigo_cargo']),
-        'invoiced_quantity' => 1,
-        'line_extension_amount' => $folio1['cargos'],
-        'free_of_charge_indicator' => false,
-        'tax_totals' => $tax_totals,
-        'description' => $folio1['descripcion_cargo'],
-        'notes' => '',
-        'code' => $hotel->traeCodigoDianVenta($folio1['id_codigo_cargo']),
-        // 'type_item_identification_id' => $hotel->traeIdItemDianVenta($folio1['id_codigo_cargo']),
-        'type_item_identification_id' => 1,
-        'price_amount' => $folio1['imptos'] + $folio1['cargos'],
-        'base_quantity' => 1,
+            'unit_measure_id' => $hotel->traeTipoUnidadDianVenta($folio1['id_codigo_cargo']),
+            'invoiced_quantity' => 1,
+            'line_extension_amount' => $folio1['cargos'],
+            'free_of_charge_indicator' => false,
+            'tax_totals' => $taxfolio,
+            'description' => $folio1['descripcion_cargo'],
+            'notes' => '',
+            'code' => $hotel->traeCodigoDianVenta($folio1['id_codigo_cargo']),
+            'type_item_identification_id' => 1,
+            'price_amount' => $folio1['cargos'] + $folio1['imptos'],
+            'base_quantity' => 1,
         ];
 
         array_push($eInvo, $invo);
@@ -181,12 +183,15 @@ if ($perfil == 1) {
 
     $eNote = json_encode($eNote);
 
-    include_once '../../api/NotaCredito.php';
+    // echo $eNote;
 
-    $recibeCurl = json_decode($response, true);
+    include_once '../../api/enviaNC.php';
+
+    $recibeCurl = json_decode($respoNC, true);
+
+    // echo json_encode($recibeCurl);
 
     $message = $recibeCurl['message'];
-
     $sendSucc = $recibeCurl['send_email_success'];
     $sendDate = $recibeCurl['send_email_date_time'];
 
@@ -207,15 +212,29 @@ if ($perfil == 1) {
     $time = $secu['Timestamp'];
     $timeCrea = $time['Created'];
 
-    $regis = $hotel->ingresaDatosFe($numDoc, $prefNC, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cude, $QRStr, $response);
+    $regis = $hotel->ingresaDatosFe($numDoc, $prefNC, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cude, $QRStr, $respoNC);
 
     include_once '../../imprimir/imprimeNotaCredito.php';
-}
 
-// include_once '../../imprimir/imprimeFacturaAnulada.php';
+    $ePDF = [];
+
+    $numNC = strval($numDoc);
+
+    $ePDF['prefix'] = $prefNC;
+    $ePDF['number'] = $numNC;
+    $ePDF['base64graphicrepresentation'] = $base64NC;
+
+    $ePDF = json_encode($ePDF);
+
+    // echo $ePDF;
+
+    include_once '../../api/enviaPDF.php';
+
+    $recibePDF = json_decode($respopdf, true);
+
+    // echo json_encode($recibePDF);
+}
 
 $cargos = $hotel->actualizaCargosFacturas($numero, $perfil);
 $anula = $hotel->anulaFactura($numero, $motivo, $usuario, $idusuario, $perfil);
 $entra = $hotel->updateEstadoReserva($reserva);
-
-// echo $entra;

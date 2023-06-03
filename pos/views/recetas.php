@@ -3,7 +3,7 @@ require '../../res/php/titles.php';
 require '../../res/php/app_topPos.php';
 
 $idamb = $_POST['id'];
-$recetas = $pos->getRecetas();
+$recetas = $pos->getRecetas($idamb);
 
 ?>
   <section class="content">

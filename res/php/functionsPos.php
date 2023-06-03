@@ -3557,7 +3557,7 @@ class Pos_Actions
                 'formas_pago.descripcion',
             ], [
                 'facturas_pos.ambiente' => $amb,
-                'facturas_pos.estado' => 'A',
+                // 'facturas_pos.estado' => 'A',
                 'ORDER' => [
                     'facturas_pos.pms' => 'ASC',
                     'facturas_pos.factura' => 'ASC',

@@ -367,7 +367,10 @@ let { usuario_id, usuario, nombres, apellidos, tipo } = user;
     modal.find(".modal-title").text("Factura Numero : " + numero);
     var factura = "Factura_" + numero + ".pdf";
 
-    $("#verFacturaModal").attr("data", web + "imprimir/facturas/" + factura);
+    $("#verFacturaModal").attr(
+      "data",
+      web + "imprimir/facturas/FES-" + factura
+    );
     $(".alert").hide();
   });
 
@@ -499,9 +502,10 @@ let { usuario_id, usuario, nombres, apellidos, tipo } = user;
     var reserva = button.data("reserva");
     var perfil = button.data("perfil");
     var idperfil = button.data("idperfil");
+    var prefijo = button.data("prefijo");
     var modal = $(this);
 
-    modal.find(".modal-title").text("Anular Factura: " + numero);
+    modal.find(".modal-title").text(`Anular Factura: ${prefijo} ${numero}`);
     modal.find(".modal-body #factura").val(numero);
     modal.find(".modal-body #huespedAnu").val(apellidos + " " + nombres);
     /* modal.find(".modal-body #apellidos").val(apellidos);
@@ -516,8 +520,11 @@ let { usuario_id, usuario, nombres, apellidos, tipo } = user;
     modal.find(".modal-body #motivoAnula").val("");
 
     if (perfil == 1) {
-      var factura = "Factura_" + numero + ".pdf";
-      $("#verFacturaModal").attr("data", web + "imprimir/facturas/" + factura);
+      var factura = prefijo + numero + ".pdf";
+      $("#verFacturaModal").attr(
+        "data",
+        web + "imprimir/facturas/FES-" + factura
+      );
     } else {
       var factura = "Abono_" + numero + ".pdf";
       $("#verFacturaModal").attr("data", web + "imprimir/notas/" + factura);
@@ -3474,9 +3481,11 @@ function buscaAuditoriasFecha() {
 }
 
 function verfactura(fact, perfil) {
-  if (perfil == 1) {
-    var factura = "Factura_" + fact + ".pdf";
-    $("#verFactura").attr("data", "imprimir/facturas/" + factura);
+  // console.log(perfil);
+  if (perfil == "1") {
+    var factura = fact + ".pdf";
+    // console.log(factura);
+    $("#verFactura").attr("data", "imprimir/facturas/FES-" + factura);
   } else {
     var factura = "Abono_" + fact + ".pdf";
     $("#verFactura").attr("data", "imprimir/notas/" + factura);

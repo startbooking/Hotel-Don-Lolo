@@ -122,9 +122,7 @@ if (count($saldofactura) == 0) {
 }
 
 $folios = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserva, $nroFolio, 1);
-
 $pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserva, $nroFolio, 3);
-
 $tipoimptos = $hotel->getValorImptoFolio($nroFactura, $reserva, $nroFolio, 2);
 $subtotales = $hotel->getConsumosReservaAgrupadoFolio($nroFactura, $reserva, $nroFolio, 1);
 
@@ -296,13 +294,9 @@ if ($perfilFac == 1 && $facturador == 1) {
 
     $eFact = json_encode($eFact);
 
-    // echo $eFact;
-
     include_once '../../api/enviaFactura.php';
 
     $recibeCurl = json_decode($respofact, true);
-
-    // echo json_encode($recibeCurl);
 
     $message = $recibeCurl['message'];
     $sendSucc = $recibeCurl['send_email_success'];
@@ -335,19 +329,13 @@ if ($perfilFac == 1 && $facturador == 1) {
 
     $ePDF['prefix'] = $prefijo;
     $ePDF['number'] = $miFactura;
-    // {intval($variable_numero)}
     $ePDF['base64graphicrepresentation'] = $base64Factura;
 
     $ePDF = json_encode($ePDF);
 
-    // echo $ePDF;
-    // $ePDF['alternate_email'] = 'email_alterno@nextpyme.plus';
-
     include_once '../../api/enviaPDF.php';
 
     $recibePDF = json_decode($respopdf, true);
-
-// echo json_encode($recibePDF);
 } else {
     include_once '../../imprimir/imprimeReciboFactura.php';
 }
