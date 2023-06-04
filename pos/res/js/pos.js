@@ -1994,7 +1994,14 @@ function actualizaRece(cod, codigo, regis, regis2) {
 }
 
 function guardarReceta() {
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { user } = sesion;
+  let { usuario } = user;
+  var parametros = $("#formAdicionaHuespedes").serializeArray();
+  parametros.push({ name: "usuario", value: usuario });
+
   var parametros = $("#guardarDatosReceta").serialize();
+
   $.ajax({
     url: "res/php/user_actions/guardaReceta.php",
     type: "POST",

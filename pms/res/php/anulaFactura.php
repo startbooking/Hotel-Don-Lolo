@@ -212,7 +212,9 @@ if ($perfil == 1) {
     $time = $secu['Timestamp'];
     $timeCrea = $time['Created'];
 
-    $regis = $hotel->ingresaDatosFe($numDoc, $prefNC, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cude, $QRStr, $respoNC);
+    $Isvalid = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['IsValid'];
+
+    $regis = $hotel->ingresaDatosFe($numDoc, $prefNC, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cude, $QRStr, $respoNC, $Isvalid, $eNote);
 
     include_once '../../imprimir/imprimeNotaCredito.php';
 
@@ -232,7 +234,7 @@ if ($perfil == 1) {
 
     $recibePDF = json_decode($respopdf, true);
 
-    // echo json_encode($recibePDF);
+    // $infoRecibe = json_encode($recibePDF);
 }
 
 $cargos = $hotel->actualizaCargosFacturas($numero, $perfil);

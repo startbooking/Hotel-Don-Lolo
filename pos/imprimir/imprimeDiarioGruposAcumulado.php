@@ -24,7 +24,7 @@ $pdf->Cell(20, 5, utf8_decode('CANT AÑO'), 0, 0, 'C');
 $pdf->Cell(25, 5, 'IMPUESTO', 0, 0, 'C');
 $pdf->Cell(25, 5, utf8_decode('VENTAS AÑO'), 0, 1, 'C');
 
-$codigos = $pos->getSeccionesPos();
+$codigos = $pos->getSeccionesPos($idamb);
 
 $totingdia = 0;
 $totimpdia = 0;
@@ -85,8 +85,6 @@ foreach ($codigos as $codigo) {
         $pdf->Cell(25, 4, number_format(0, 2), 0, 0, 'R');
         $pdf->Cell(25, 4, number_format(0, 2), 0, 1, 'R');
     }
-
-
 }
 
 $pdf->Ln(3);

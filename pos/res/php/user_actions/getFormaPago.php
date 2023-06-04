@@ -3,6 +3,7 @@ require '../../../../res/php/titles.php';
 require '../../../../res/php/app_topPos.php';
 
 $fpa = $_POST['fpago'];
+
 $PMS = $pos->getPagoPMS($fpa);
 ?>
 <select name="clientes" id='clientes' required>

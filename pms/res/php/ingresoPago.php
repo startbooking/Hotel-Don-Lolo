@@ -298,6 +298,10 @@ if ($perfilFac == 1 && $facturador == 1) {
 
     $recibeCurl = json_decode($respofact, true);
 
+    // $Isvalid = $recibeCurl->ResponseDian->Envelope->Body->SendBillSyncResponse->SendBillSyncResult->IsValid;
+
+    $Isvalid = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['IsValid'];
+
     $message = $recibeCurl['message'];
     $sendSucc = $recibeCurl['send_email_success'];
     $sendDate = $recibeCurl['send_email_date_time'];
@@ -319,7 +323,7 @@ if ($perfilFac == 1 && $facturador == 1) {
     $time = $secu['Timestamp'];
     $timeCrea = $time['Created'];
 
-    $regis = $hotel->ingresaDatosFe($nroFactura, $prefijo, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cufe, $QRStr, $respofact);
+    $regis = $hotel->ingresaDatosFe($nroFactura, $prefijo, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cufe, $QRStr, $respofact, $Isvalid, $eFact);
 
     include_once '../../imprimir/imprimeFactura.php';
 
