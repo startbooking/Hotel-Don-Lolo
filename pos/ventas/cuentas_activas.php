@@ -222,16 +222,27 @@
             </button>  -->
             <?php
   if ($nivel <= 3) { ?>
-              <!-- <button
-                type        ="button"
-                style       ="margin-top:28px;background:chartreuse;color:#000; "
-                class       ="btn btn-warning prende btnActivo btnRecu"
-                data-toggle ="modal"
-                data-target ="#myModalAbonos"
-                title       ="Abonos a la Presente Cuenta">
-                <i class="fa fa-usd"></i> Abonos
+              <!-- 
+                <button
+                  type        ="button"
+                  style       ="margin-top:28px;background:chartreuse;color:#000; "
+                  class       ="btn btn-warning prende btnActivo btnRecu"
+                  data-toggle ="modal"
+                  data-target ="#myModalAbonos"
+                  title       ="Abonos a la Presente Cuenta">
+                  <i class="fa fa-usd"></i> Abonos
 
-              </button> -->
+                </button> 
+                <button
+                  style    ="margin-top:20px"
+                  type     ="button"
+                  class    ="btn btn-default prende btnActivo btnRecu"
+                  title    ="Cargar Room Service"
+                  onclick  ="calculaRoomService()"
+                  id       ="pagarComanda"
+                  ><i class="fa fa-money"></i> Room Service
+                </button>
+              -->
               <button
                 style    ="margin-top:20px"
                 type     ="button"

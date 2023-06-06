@@ -42,8 +42,6 @@ if ($perfil == 1) {
     $reserva = $dFactura[0]['numero_reserva'];
     $nroFolio = $dFactura[0]['folio_cargo'];
 
-    // echo $tipofac;
-
     $folios = $hotel->getConsumosReservaAgrupadoCodigoFolio($numero, $reserva, $nroFolio, 1);
     $pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolio($numero, $reserva, $nroFolio, 3);
     $tipoimptos = $hotel->getValorImptoFolio($numero, $reserva, $nroFolio, 2);
@@ -183,13 +181,9 @@ if ($perfil == 1) {
 
     $eNote = json_encode($eNote);
 
-    // echo $eNote;
-
     include_once '../../api/enviaNC.php';
 
     $recibeCurl = json_decode($respoNC, true);
-
-    // echo json_encode($recibeCurl);
 
     $message = $recibeCurl['message'];
     $sendSucc = $recibeCurl['send_email_success'];
@@ -228,13 +222,9 @@ if ($perfil == 1) {
 
     $ePDF = json_encode($ePDF);
 
-    // echo $ePDF;
-
     include_once '../../api/enviaPDF.php';
 
     $recibePDF = json_decode($respopdf, true);
-
-    // $infoRecibe = json_encode($recibePDF);
 }
 
 $cargos = $hotel->actualizaCargosFacturas($numero, $perfil);

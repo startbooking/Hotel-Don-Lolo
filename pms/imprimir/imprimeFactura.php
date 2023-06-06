@@ -11,6 +11,11 @@ $level = 'L'; // Nivel de corrección (L, M, Q, H)
 // Generar el código QR
 QRcode::png($QRStr, $filename, $level, $size);
 
+/* $detallePag ;
+$refer ;
+$correofac ;
+ */
+
 $datosReserva = $hotel->getReservasDatos($reserva);
 $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
 
@@ -127,10 +132,9 @@ $pdf->Cell(70, 4, substr(utf8_decode($datosHuesped[0]['apellido1'].' '.$datosHue
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(25, 4, 'Identificacion', 0, 0, 'L');
 $pdf->SetFont('Arial', 'B', 8);
-$pdf->Cell(25, 4, $datosHuesped[0]['identificacion'], 0, 0, 'L');
-// $pdf->ln(2);
-$pdf->SetFont('Arial', 'B', 8);
-$pdf->Cell(25, 4, utf8_decode(strtoupper(substr($datosReserva[0]['orden_reserva'], 0, 18))), 0, 1, 'L');
+$pdf->Cell(25, 4, $datosHuesped[0]['identificacion'], 0, 1, 'L');
+$pdf->SetFont('Arial', '', 8);
+$pdf->Cell(190, 4, utf8_decode(strtoupper($datosReserva[0]['orden_reserva'])), 0, 1, 'L');
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(38, 4, utf8_decode('ADULTOS / NIÑOS'), 1, 0, 'C');
 $pdf->Cell(38, 4, 'HABITACION', 1, 0, 'C');
@@ -251,7 +255,7 @@ $pdf->MultiCell(190, 4, 'SON :'.numtoletras($total), 1, 'L');
 $pdf->SetFont('Arial', '', 6);
 $pdf->MultiCell(190, 4, utf8_decode('Factura Nro : ').$prefijo.' '.$nroFactura.' '.utf8_decode(' Fecha Validación Dian ').$timeCrea.' CUFE '.$cufe, 1, 'L');
 $pdf->SetFont('Arial', '', 7);
-$pdf->MultiCell(190, 5, utf8_decode('Observaciones ').utf8_decode($detallePag), 1, 'L');
+$pdf->MultiCell(190, 5, utf8_decode('Observaciones ').utf8_decode(strtoupper($detallePag)).' '.utf8_decode(strtoupper($refer)), 1, 'L');
 $pdf->setY(226);
 $pdf->SetFont('Arial', '', 7);
 $pdf->MultiCell(95, 4, utf8_decode(TEXTOBANCO).', '.utf8_decode(TEXTOFACTURA), 1, 'C');
@@ -281,8 +285,6 @@ $pdf->Output($file, 'F');
 
 $pdfFile = $pdf->Output('', 'S');
 $base64Factura = chunk_split(base64_encode($pdfFile));
-
-// echo $base64Factura;
 
 array_push($estadofactura, $prefijo.$nroFactura.'.pdf');
 // array_push($estadofactura, $base64String);

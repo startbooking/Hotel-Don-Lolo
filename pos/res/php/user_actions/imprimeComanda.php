@@ -27,7 +27,8 @@ $pdf->Ln(2);
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(65, 4, utf8_decode(NAME_EMPRESA), 0, 1, 'C');
 
-$pdf->Cell(50, 6, $nomamb, 0, 1, 'C');
+// $pdf->Cell(65, 6, $nomamb, 1, 1, 'C');
+$pdf->MultiCell(65, 6, $nomamb, 0, 'C');
 $pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell(20, 4, 'Fecha ', 0, 0, 'L');
 $pdf->SetFont('Arial', '', 10);

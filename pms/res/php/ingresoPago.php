@@ -13,7 +13,6 @@ $estadofactura = [];
 $codigo = $_POST['codigo'];
 $textcodigo = $_POST['textopago'];
 $valor = $_POST['valor'];
-$refer = strtoupper($_POST['refer']);
 $numero = $_POST['reserva'];
 $room = $_POST['room'];
 $idhues = $_POST['idhues'];
@@ -26,6 +25,8 @@ $tipofac = $_POST['tipofac'];
 $usuario = $_POST['usuario'];
 $idUsuario = $_POST['usuario_id'];
 $detallePag = strtoupper($_POST['detalle']);
+$refer = strtoupper($_POST['refer']);
+$correofac = strtolower($_POST['correofac']);
 $perfilFac = $_POST['perfilFac'];
 $baseRete = $_POST['baseRete'];
 $baseIva = $_POST['baseIva'];
@@ -78,7 +79,6 @@ if ($perfilFac == 1 && $facturador == 1) {
 } else {
     $perfilFac == 2;
     $numfactura = $hotel->getNumeroAbono(); // Numero Actual del Abono
-    // echo 'Numero Abono '.$numfactura;
     $nuevonumero = $hotel->updateNumeroAbonos($numfactura + 1); // Actualiza Consecutivo del Abono
 }
 
@@ -98,7 +98,7 @@ if ($tipofac == 1) {
 $nroFactura = $numfactura;
 $idperfil = $id;
 
-$inserta = $hotel->insertFacturaHuesped($codigo, $textcodigo, $valor, $refer, $numero, $room, $idhues, $folio, $canti, $usuario, $idUsuario, $fecha, $numfactura, $tipofac, $id, $idcentro, $prefijo, $perfilFac, $detallePag, $baseRete, $baseIva, $baseIca, $reteiva, $reteica, $retefuente);
+$inserta = $hotel->insertFacturaHuesped($codigo, $textcodigo, $valor, $refer, $numero, $room, $idhues, $folio, $canti, $usuario, $idUsuario, $fecha, $numfactura, $tipofac, $id, $idcentro, $prefijo, $perfilFac, $detallePag, $baseRete, $baseIva, $baseIca, $reteiva, $reteica, $retefuente, $correofac);
 
 $factu = $hotel->updateCargosReservaFolio($numero, $numfactura, $folio, $fecha, $usuario, $idUsuario, $tipofac, $id, $perfilFac);
 
@@ -298,8 +298,6 @@ if ($perfilFac == 1 && $facturador == 1) {
 
     $recibeCurl = json_decode($respofact, true);
 
-    // $Isvalid = $recibeCurl->ResponseDian->Envelope->Body->SendBillSyncResponse->SendBillSyncResult->IsValid;
-
     $Isvalid = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['IsValid'];
 
     $message = $recibeCurl['message'];
@@ -317,6 +315,7 @@ if ($perfilFac == 1 && $facturador == 1) {
     $cufe = $recibeCurl['cufe'];
     $QRStr = $recibeCurl['QRStr'];
     $respo = $recibeCurl['ResponseDian'];
+
     $envelo = $respo['Envelope'];
     $head = $envelo['Header'];
     $secu = $head['Security'];
@@ -334,6 +333,15 @@ if ($perfilFac == 1 && $facturador == 1) {
     $ePDF['prefix'] = $prefijo;
     $ePDF['number'] = $miFactura;
     $ePDF['base64graphicrepresentation'] = $base64Factura;
+
+    if ($correofac != '') {
+        $correos = [];
+        $emailadi = [
+            'email' => $correofac,
+        ];
+        array_push($correos, $emailadi);
+        $ePDF['email_cc_list'] = $correos;
+    }
 
     $ePDF = json_encode($ePDF);
 

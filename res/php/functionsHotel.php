@@ -5275,7 +5275,7 @@ class Hotel_Actions
     }
 
     /* public function insertFacturaHuesped($codigo, ) */
-    public function insertFacturaHuesped($codigo, $textcodigo, $valor, $refer, $numero, $room, $idhues, $folio, $canti, $usuario, $idUsuario, $fecha, $numfactura, $tipofac, $id, $idcentro, $prefijo, $perfilFac, $detallePag, $baseRete, $baseIva, $baseIca, $reteiva, $reteica, $retefuente)
+    public function insertFacturaHuesped($codigo, $textcodigo, $valor, $refer, $numero, $room, $idhues, $folio, $canti, $usuario, $idUsuario, $fecha, $numfactura, $tipofac, $id, $idcentro, $prefijo, $perfilFac, $detallePag, $baseRete, $baseIva, $baseIca, $reteiva, $reteica, $retefuente, $correofac)
     {
         global $database;
 
@@ -5307,6 +5307,7 @@ class Hotel_Actions
             'reteiva' => $reteiva,
             'reteica' => $reteica,
             'retefuente' => $retefuente,
+            'correo' => $correofac,
             'fecha_sistema_cargo' => date('Y-m-d H:i:s'),
         ]);
 

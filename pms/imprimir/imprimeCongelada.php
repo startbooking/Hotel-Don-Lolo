@@ -1,8 +1,7 @@
 <?php
 
-session_start();
+//  session_start();
 require_once '../../../res/php/app_topHotel.php';
-// require_once '../../res/fpdf/fpdf.php';
 require_once '../../../res/fpdf/fpdf.php';
 
 $nrofolio = 1;

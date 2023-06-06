@@ -1,6 +1,6 @@
 <?php
 
-require 'init.php';
+require_once 'init.php';
 date_default_timezone_set('America/Bogota');
 
 class Pos_Actions
@@ -3715,9 +3715,9 @@ class Pos_Actions
             return $data;
         }
 
-                        // insertFacturaVentaPOS($nFactura, $comanda, $ambiente, $mesa, $pax, $usuario, $total, $subtotal, $impuesto, $propina, $totaldesc, $pagado, $cambio, $fecha, 'A', $fpago, $cliente, $motivoDes, $abonos)
+        // insertFacturaVentaPOS($nFactura, $comanda, $ambiente, $mesa, $pax, $usuario, $total, $subtotal, $impuesto, $propina, $totaldesc, $pagado, $cambio, $fecha, 'A', $fpago, $cliente, $motivoDes, $abonos)
 
-        public function insertFacturaVentaPOS($nFactura, $com, $ambiente, $mesa, $pax, $usuario, $total, $subtotal, $impuesto, $propina, $descuento, $pagado, $cambio, $fecha, $pms, $estado, $fpago, $cliente, $motivoDes)
+        public function insertFacturaVentaPOS($nFactura, $com, $ambiente, $mesa, $pax, $usuario, $total, $subtotal, $impuesto, $propina, $descuento, $pagado, $cambio, $fecha, $pms, $estado, $fpago, $cliente, $motivoDes, $servicio)
         {
             global $database;
 

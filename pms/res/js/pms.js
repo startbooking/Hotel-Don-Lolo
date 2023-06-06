@@ -28,11 +28,6 @@ $(document).ready(function () {
 
   let casa = document.getElementById("pantallaenCasa");
   if (casa != null) {
-    /* 
-sesion = JSON.parse(localStorage.getItem("sesion"));
-let { user } = sesion;
-let { usuario_id, usuario, nombres, apellidos, tipo } = user; 
-*/
     traeHuespedesenCasa();
   }
 
@@ -45,6 +40,42 @@ let { usuario_id, usuario, nombres, apellidos, tipo } = user;
   if (fact != null) {
     traeFacturasEstadia();
   }
+
+  $("#myModalConfirmaReserva").on("show.bs.modal", function (event) {
+    var button = $(event.relatedTarget);
+
+    let id = button.data("id");
+    let huesped = button.data("huesped");
+    let orden = button.data("orden");
+    let causar = button.data("causar");
+    let llegada = button.data("llegada");
+    let salida = button.data("salida");
+    let noches = button.data("noches");
+    let tipohab = button.data("tipohab");
+    let nrohab = button.data("nrohab");
+    var modal = $(this);
+
+    modal.find(".modal-title").text("Confirmacion Reserfva : " + huesped);
+
+    $("#txtTipoHabEst").val(tipohab);
+    $("#txtNumeroHabEst").val(nrohab);
+    $("#txtNombresEst").val(huesped);
+    $.ajax({
+      url: "imprimie/confirmaReserva.php",
+      type: "POST",
+      data: {
+        id,
+      },
+      success: function (datos) {
+        $("#verInforme").attr(
+          "data",
+          `data:application/pdf;base64,${$.trim(datos)}`
+        );
+        /* $("#idCiaAdi").val(id);
+        $("#centrosCia").html(datos); */
+      },
+    });
+  });
 
   $("#myModalEliminaCentroCia").on("show.bs.modal", function (event) {
     var button = $(event.relatedTarget);
@@ -505,7 +536,6 @@ let { usuario_id, usuario, nombres, apellidos, tipo } = user;
     var prefijo = button.data("prefijo");
     var modal = $(this);
 
-    modal.find(".modal-title").text(`Anular Factura: ${prefijo} ${numero}`);
     modal.find(".modal-body #factura").val(numero);
     modal.find(".modal-body #huespedAnu").val(apellidos + " " + nombres);
     /* modal.find(".modal-body #apellidos").val(apellidos);
@@ -520,12 +550,14 @@ let { usuario_id, usuario, nombres, apellidos, tipo } = user;
     modal.find(".modal-body #motivoAnula").val("");
 
     if (perfil == 1) {
+      modal.find(".modal-title").text(`Anular Factura: ${prefijo} ${numero}`);
       var factura = prefijo + numero + ".pdf";
       $("#verFacturaModal").attr(
         "data",
         web + "imprimir/facturas/FES-" + factura
       );
     } else {
+      modal.find(".modal-title").text(`Anular Abono: ${numero}`);
       var factura = "Abono_" + numero + ".pdf";
       $("#verFacturaModal").attr("data", web + "imprimir/notas/" + factura);
     }
@@ -1171,17 +1203,6 @@ let { usuario_id, usuario, nombres, apellidos, tipo } = user;
     $("#txtIdCiaSal").val(0);
     $("#txtIdCentroCiaSal").val(0);
 
-    /*
-    $("#inlineRadio1").checked;
-      if (idcia == 0) {
-      $("#selecentro").css("display", "none");
-      $("#selecomp").css("display", "none");
-    } else {
-      $("#inlineRadio2").checked;
-      $("#selecentro").css("display", "block");
-      $("#selecomp").css("display", "block");
-    } */
-
     var parametros = {
       turismo,
       folio,
@@ -1241,17 +1262,6 @@ let { usuario_id, usuario, nombres, apellidos, tipo } = user;
         modal
           .find(".modal-body #txtHuespedSal")
           .val(`${apellido1} ${apellido2} ${nombre1} ${nombre2}`);
-        // modal.find(".modal-body #txtNombresSal").val(nombre1 + " " + nombre2);
-
-        /* if (idcia == 0) {
-          $("#inlineRadio1").prop("disabled", "disabled");
-          $("#inlineRadio2").prop("disabled", "disabled");
-        }
-
-        if (turismo == 2) {
-          $("#inlineRadio1").attr("disabled", true);
-          $("#inlineRadio2").attr("disabled", true);
-        } */
 
         traeHuespedes(reserva, hues);
 
@@ -3264,9 +3274,6 @@ function guardaHuesped() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
   let { usuario, usuario_id, tipo } = user;
-  /* usuario = sesion["usuario"][0]["usuario"];
-  idusuario = sesion["usuario"][0]["usuario_id"];
-  nivel = sesion["usuario"][0]["tipo"]; */
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var parametros = $("#formAdicionaHuespedes").serializeArray();
@@ -3590,20 +3597,25 @@ function eliminaAcompanante(id) {
 }
 
 function trasladarConsumos() {
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { user } = sesion;
+  let { usuario } = user;
+
   var web = $("#rutaweb").val();
   var idconsumo = $("#txtIdConsumoTras").val();
   var idreserva = $("#txtIdReservaTras").val();
   var idhuesped = $("#txtIdHuespedTras").val();
   var newreserva = $("#roomChange").val();
-  var motivoTras = $("#txtMotivoTras").val();
+  var motivotras = $("#txtMotivoTras").val();
   var numero = $("#reservaActual").val();
 
   var parametros = {
-    idconsumo: idconsumo,
-    idreserva: idreserva,
-    idhuesped: idhuesped,
-    motivotras: motivoTras,
-    newreserva: newreserva,
+    idconsumo,
+    idreserva,
+    idhuesped,
+    motivotras,
+    newreserva,
+    usuario,
   };
   $.ajax({
     url: web + "res/php/trasladarCargo.php",
@@ -4424,8 +4436,6 @@ function cargarHabitaciones() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
   let { usuario, usuario_id } = user;
-  /* usuario = sesion["usuario"][0]["usuario"];
-  idusuario = sesion["usuario"][0]["usuario_id"]; */
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   $("input:radio:checked").each(function () {
@@ -4437,7 +4447,7 @@ function cargarHabitaciones() {
     cargar,
     cargo,
     usuario,
-    idusuario: usuario_id,
+    usuario_id,
   };
   $.ajax({
     type: "POST",
@@ -4492,14 +4502,23 @@ function salidaHuesped() {
     "#guardarPagosRoomSal"
   ).val();
 
+  // console.log(tipofac);
+
+  if (tipofac == 0 || tipofac == undefined) {
+    swal("Precaucion", "Seleccione a quien va a Facturar ", "warning");
+    return;
+  }
+
   if (tipofac == 2 && perfilFac == 2) {
     swal(
       "Precaucion",
-      "NO pude Utilziar esa Forma de Pago para la presente Cuenta",
+      "NO pude Utilizar esa Forma de Pago para la presente Cuenta",
       "warning"
     );
     return;
   }
+
+  // return;
 
   var pago = $("#txtValorPago").val();
   sesion = JSON.parse(localStorage.getItem("sesion"));
@@ -4529,8 +4548,9 @@ function salidaHuesped() {
     var room = $("#txtNumeroHabSal").val();
     var codigo = $("#codigoPago").val();
     var textopago = $("#codigoPago option:selected").text();
-    var detalle = $("#txtDetallePag").val();
-    var refer = $("#txtReferenciaPag").val();
+    let detalle = $("#txtDetallePag").val();
+    let refer = $("#txtReferenciaPag").val();
+    let correofac = $("#txtCorreoPag").val();
     var folio = $("#folioActivo").val();
     var idcia = $("#txtIdCiaSal").val();
     var baseIva = $("#totalIva").val();
@@ -4543,14 +4563,23 @@ function salidaHuesped() {
     var porceReteica = $("#porceReteica").val();
     var porceRetefuente = $("#porceRetefuente").val();
 
-    // let perfilFac = $("#perfilFactura").val();
+    if (detalle == "") {
+      detalle = "";
+    }
+    if (refer == "") {
+      refer = "";
+    }
+    if (correofac == "") {
+      correofac = "";
+    }
+
+    $("#perfilFactura").val();
     var idcentro = 0;
 
     var parametros = {
       codigo,
       textopago,
       valor: pago,
-      refer,
       room,
       folio,
       idhues,
@@ -4562,6 +4591,7 @@ function salidaHuesped() {
       usuario_id,
       perfilFac,
       detalle,
+      refer,
       baseRete,
       baseIva,
       baseIca,
@@ -4571,6 +4601,7 @@ function salidaHuesped() {
       porceReteiva,
       porceReteica,
       porceRetefuente,
+      correofac,
     };
     $.ajax({
       type: "POST",

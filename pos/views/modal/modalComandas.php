@@ -15,7 +15,9 @@
           <input type="hidden" name="nombreAmbiente" id="nombreAmbiente" value="<?php echo $amb; ?>">
           <input type="hidden" name='usuarioPag'     id='usuarioPag'     value=''>
           <input type="hidden" name='cambio'         id='cambio'         value='0'>
-          <input type="hidden" name='servicio'         id='servicio'     value='0'>
+          <input type="hidden" name='servicio'       id='servicio'       value='0'>
+          <input type="hidden" name='subtotal'       id='subtotal'       value='0'>
+          <input type="hidden" name='subtotImto'     id='subtotImto'       value='0'>
         </div>
         <div class="modal-body">
           <?php
@@ -57,14 +59,18 @@
             <div class="col-lg-3 col-md-3">
               <input value="0" min="0" type="number" class="suma_propina form-control" name="propinaPag" id="propinaPag" onblur="calcular_total()">
             </div>
-            <!-- <label class='col-lg-2 col-md-2 control-label ctrlCta' style="padding-top:0">Descuento</label>
-            <div class="col-lg-3 col-md-3">
-              <input type="text" class="form-control" name="descuento" id="descuento" value="0" min="0" readonly="">
+              <label class='col-lg-2 col-md-2 control-label ctrlCta' style="padding-top:0">Room Service</label>
+            <div class="col-lg-3 col-md-3" style="paddin-rigth:0px;">
+              <input type="text" class="form-control" name="roomService" id="roomService" value="0" min="0" onblur="calculaRoomService()">
+            </div>
+            <div class="col-lg-1" style="padding-left:0px;margin-left:-14px;display:flex;">
+              <input class="btn btn-info" style="padding: 4px 8px;width:28px;" onclick="calculaRoomService()">
+                <i class="fa fa-plus-circle" aria-hidden="true" style="position:absolute;margin:7px;cursor:pointer;" onclick="calculaRoomService()"></i>
+              </input>
             </div> 
           </div>
           <div class="form-group">
-            -->
-            <label for="total" class='col-lg-2 col-md-2 control-label ctrlCta' style="padding-top:0">Impuesto</label>
+            <label for="total" class='col-lg-3 col-md-3 control-label ctrlCta' style="padding-top:0">Impuestos</label>
             <div class="col-lg-3 col-md-3">
               <input class="form-control" name="totalImp" id="totalImp" readonly>
             </div>

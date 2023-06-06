@@ -23,7 +23,8 @@
     $monto = str_replace(',', '', $_POST['montopago']);
     // $abonos = str_replace(',', '', $_POST['abono']);
     $cambio = $_POST['cambio'];
-    $servicio = 0;
+    // $servicio = 0;
+    $servicio = $_POST['servicio'];
 
     $pagado = $monto + $cambio;
 
@@ -96,7 +97,7 @@
         $factura = $pos->insertProductoVentas($iamb, $inom, $iven, $ican, $iimp, $idpr, $vimp, $valimp, $nFactura, $usuario, $comanda, $vdes, $vpor, $pms);
     }
 
-    $insFact = $pos->insertFacturaVentaPOS($nFactura, $comanda, $ambiente, $mesa, $pax, $usuario, $total, $subtotal, $impuesto, $propina, $totaldesc, $pagado, $cambio, $fecha, $pms, 'A', $fpago, $cliente, $motivoDes);
+    $insFact = $pos->insertFacturaVentaPOS($nFactura, $comanda, $ambiente, $mesa, $pax, $usuario, $total, $subtotal, $impuesto, $propina, $totaldesc, $pagado, $cambio, $fecha, $pms, 'A', $fpago, $cliente, $motivoDes, $servicio);
 
     $actComanda = $pos->updateFacturaComanda($nFactura, 'P', $usuario, $fecha, $comanda, $ambiente);
 

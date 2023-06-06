@@ -109,15 +109,19 @@ foreach ($codigos as $codigo) { ?>
     </div>
   <!-- </div>
   <div class="form-group">  -->
-    <label for="txtReferenciaAbo" class="col-sm-2 control-label">Referencia</label>
-    <div class="col-sm-4">
+    <label for="txtReferenciaAbo" class="col-sm-1 control-label">Referencia</label>
+    <div class="col-sm-5">
       <input style="font-size:12px;height: 25px !important"  class="form-control padInput" type="text" name="txtReferenciaPag" id="txtReferenciaPag" value="" min="1">
     </div>
   </div>
   <div class="form-group">
     <label for="txtDetalleAbo" class="col-sm-2 control-label">Comentarios</label>
-    <div class="col-sm-6">
+    <div class="col-sm-4">
       <input style="font-size:12px;height: 25px !important"  class="form-control padInput" type="text" name="txtDetallePag" id="txtDetallePag" value='' placeholder="Informacion del Pago ">
+    </div>
+    <label for="txtDetalleAbo" class="col-sm-2 control-label">Correo Alterno</label>
+    <div class="col-sm-4">
+      <input style="font-size:12px;height: 25px !important"  class="form-control padInput" type="mail" name="txtCorreoPag" id="txtCorreoPag" value='' placeholder="Correo Envio Factura ">
     </div>
   </div>
 </div>          

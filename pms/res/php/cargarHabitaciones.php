@@ -8,7 +8,7 @@ $tipo = $_POST['cargo'];
 $folio = 1;
 $canti = 1;
 $usuario = $_POST['usuario'];
-$idusuario = $_POST['idusuario'];
+$idusuario = $_POST['usuario_id'];
 $fecha = FECHA_PMS;
 $refer = FECHA_PMS;
 $detalle = 'Cargo Noche del '.FECHA_PMS;
@@ -21,35 +21,36 @@ if ($tipo == 1) {
 }
 
 $sinSalir = $hotel->getSalidasSinRealizar(CTA_MASTER, FECHA_PMS);
+
 $regis = count($sinSalir);
 if ($regis >= 1 && $tipo == 2) { ?>
-		<div class="container-fluid">
-			<div class="alert alert-warning" style="padding:0;padding-top:5px;"><h4 align="center" style="font-weight: 600;">Actualize las Salidas Antes de Realizar el Cargo de las Habitaciones</h4></div>
-			<div class="table-responsive">
+    <div class="container-fluid">
+      <div class="alert alert-warning" style="padding:0;padding-top:5px;"><h4 align="center" style="font-weight: 600;">Actualize las Salidas Antes de Realizar el Cargo de las Habitaciones</h4></div>
+        <div class="table-responsive">
         <table id="example1" class="table table-bordered">
-          <thead>
+            <thead>
             <tr class="warning" style="font-weight: bold">
-              <td>Nro Hab.</td>
-              <td>Huesped</td>
-              <td>Salida</td>
+                <td>Nro Hab.</td>
+                <td>Huesped</td>
+                <td>Salida</td>
             </tr>
-          </thead>
-          <tbody>
+            </thead>
+            <tbody>
             <?php
-        foreach ($sinSalir as $sinSalida) { ?>
-              <tr style='font-size:12px'>
-                <td><?php echo $sinSalida['num_habitacion']; ?></td>
-                <td><?php echo $sinSalida['apellido1'].' '.$sinSalida['apellido2'].' '.$sinSalida['nombre1'].' '.$sinSalida['nombre2']; ?></td>
-                <td><?php echo $sinSalida['fecha_salida']; ?></td>
-              </tr>
-              <?php
-        }
+            foreach ($sinSalir as $sinSalida) { ?>
+                <tr style='font-size:12px'>
+                    <td><?php echo $sinSalida['num_habitacion']; ?></td>
+                    <td><?php echo $sinSalida['apellido1'].' '.$sinSalida['apellido2'].' '.$sinSalida['nombre1'].' '.$sinSalida['nombre2']; ?></td>
+                    <td><?php echo $sinSalida['fecha_salida']; ?></td>
+                </tr>
+                <?php
+            }
     ?>
-          </tbody>
+            </tbody>
         </table>
-      </div>			
-		</div> 
-		<?php
+        </div>			
+    </div> 
+    <?php
 } else {
     foreach ($cargoshab as $cargohab) {
         if ($cargohab['cargo_habitacion'] == 0) {

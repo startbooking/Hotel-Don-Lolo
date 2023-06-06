@@ -1,3 +1,19 @@
+function calculaRoomService() {
+  subtota = document.querySelector("#subtotal").value;
+  // console.log(subtota);
+  roomSer = subtota * 0.1;
+
+  if (document.querySelector("#servicio").value == 0) {
+    document.querySelector("#roomService").value = roomSer.toFixed(0);
+    document.querySelector("#servicio").value = roomSer.toFixed(0);
+  } else {
+    document.querySelector("#roomService").value = 0;
+    document.querySelector("#servicio").value = 0;
+  }
+
+  calcular_total();
+}
+
 function guardarProductosOriginal() {
   var productos = JSON.parse(localStorage.getItem("productoComanda"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
@@ -275,6 +291,7 @@ function pagarFactura() {
   var pago = +parseFloat($("#montopago").val().replace(",", ""));
   totalCta = +$("#totalComanda").val();
   abonos = $("#abonosComanda").val();
+  roomservice = $("#servicio").val();
 
   var productos = localStorage.getItem("productoComanda");
 
@@ -697,9 +714,11 @@ function imprimeFactura() {
   let { pos, user } = sesion;
   let { usuario } = user;
   let { logo } = oPos[0];
+  let rs = document.querySelector("#servicio").value;
 
   parametros = {
     logo,
+    rs,
   };
   $.ajax({
     url: "res/php/user_actions/imprime_factura.php",
@@ -777,8 +796,6 @@ function botonPagar() {
   abonos = parseFloat($(miBoton).attr("abonos"));
   total = parseFloat($(miBoton).attr("total"));
 
-  // console.log(total);
-
   if (canti == 0) {
     swal("Precaucion", "Sin Productos Asignados a esta cuenta 2", "warning");
     return 0;
@@ -799,6 +816,9 @@ function botonPagar() {
     $("#abono").val(number_format(abonos, 2));
     $("#montopago").focus();
     $("#abonosComanda").val(abonos);
+    $("#subtotal").val(subtotal);
+    $("#subtotImto").val(impuesto);
+
     $("#resultado").html("");
     $("#btnPagarCuenta").removeAttr("disabled");
 
@@ -961,6 +981,7 @@ function guardarCuenta() {
         closeOnConfirm: true,
       },
       function () {
+        // ACA
         $("#myModalClienteComanda").modal("hide");
       }
     );

@@ -10,7 +10,7 @@
       $tiempo = $_POST['tiempo'];
       $preparacion = strtoupper($_POST['preparacion']);
       $montaje = strtoupper($_POST['montaje']);
-      $usuario = $_SESSION['usuario'];
+      $usuario = $_POST['usuario'];
 
       if (isset($_POST['subreceta'])) {
           $subreceta = 1;

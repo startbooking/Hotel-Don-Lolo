@@ -1851,8 +1851,28 @@ function resumenDescuento(ambiente, comanda) {
   });
 }
 
-function verFoto(e) {
+function verFoto(event) {
+  const input = event.target;
+
+  imgPrev = document.querySelector("#imgPreview");
+
+  // Verificamos si existe una imagen seleccionada
+  if (!input.files.length) return;
+
+  //Recuperamos el archivo subido
+  file = input.files[0];
+
+  //Creamos la url
+  objectURL = URL.createObjectURL(file);
+
+  //Modificamos el atributo src de la etiqueta img
+  imgPreview.src = objectURL;
+}
+
+function verFoto02(e) {
   if (e.files && e.files) {
+    // console.log(e.files.type);
+
     if (e.files.type.match("image.*")) {
       var reader = new FileReader();
       reader.onload = function (e) {
@@ -1889,12 +1909,22 @@ function subirFoto() {
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var formData = new FormData($("#formFotoReceta"));
+  // var formData = new FormData($('#form-id'));
+  /* foto = document.querySelector("#imgSelect").files[0];
+  receta = document.querySelector("#idRecetaFoto").value;
+
+  let parametros = {
+    foto,
+    receta,
+  }; */
+
+  // console.log(formData);
   $.ajax({
     url: "res/php/user_actions/subirFotoReceta.php",
     type: "post",
-    data: formData,
-    contentType: false,
-    processData: false,
+    data: parametros,
+    /* contentType: false,
+    processData: false, */
     success: function (response) {
       $("#myModalFotoReceta").modal("hide");
     },
@@ -1911,6 +1941,7 @@ function muestraProductoKardex() {
       id,
       bodega,
     };
+    file;
     var modal = $(this);
     modal.find(".modal-title").html(`Movimientos Producto : ${nombre}`);
     $.ajax({
@@ -1940,12 +1971,17 @@ function actualizaReceta() {
 }
 
 function updateReceta(id, receta) {
+  oPos = JSON.parse(localStorage.getItem("oPos"));
+  let { id_ambiente } = oPos[0];
   $("#dataUpdateReceta").modal("show");
   $(".modal-title").text("Receta Estandar : " + receta);
   $.ajax({
     url: "res/php/user_actions/updateReceta.php",
     type: "POST",
-    data: { id: id },
+    data: {
+      id,
+      id_ambiente,
+    },
     success: function (data) {
       $("#traeReceta").html(data);
     },
@@ -1997,10 +2033,8 @@ function guardarReceta() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
   let { usuario } = user;
-  var parametros = $("#formAdicionaHuespedes").serializeArray();
+  let parametros = $("#guardarDatosReceta").serializeArray();
   parametros.push({ name: "usuario", value: usuario });
-
-  var parametros = $("#guardarDatosReceta").serialize();
 
   $.ajax({
     url: "res/php/user_actions/guardaReceta.php",
@@ -3977,12 +4011,18 @@ function calcular_total() {
 
   subtotal = parseFloat($(miBoton).attr("subtotal"));
   impuesto = parseFloat($(miBoton).attr("impto"));
+  roomser = parseFloat(document.querySelector("#servicio").value);
+
+  // console.log(roomser);
+
   // descuento = parseFloat($(miBoton).attr("descuento"));
   let descuento = 0;
   abonos = parseFloat($(miBoton).attr("abonos"));
   total = parseFloat($(miBoton).attr("total"));
 
-  $("#montopago").val(subtotal + impuesto + propina - descuento - abonos);
+  $("#montopago").val(
+    subtotal + impuesto + propina - descuento - abonos + roomser
+  );
 }
 
 function calcular_totalDir() {
@@ -5427,11 +5467,12 @@ function calculaCambio() {
   let descuento = parseFloat($(miBoton).attr("descuento"));
   let abonos = parseFloat($(miBoton).attr("abonos"));
   let total = parseFloat($(miBoton).attr("total"));
+  let roomser = parseInt(document.querySelector("#servicio").value);
 
   nueProp = parseInt($("#propinaPag").val());
 
   pagado = parseFloat($("#montopago").val().replaceAll(",", ""));
-  cambio = total + nueProp - pagado;
+  cambio = total + nueProp + roomser - pagado;
 
   $("#cambio").val(cambio);
 

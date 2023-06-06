@@ -1,15 +1,13 @@
-<?php 
-	
-  require '../../../res/php/app_topAdmin.php'; 
+<?php
 
-	$id     = $_POST['id'];
-	$codigo = strtoupper(addslashes($_POST['codigo']));
-	$descr  = strtoupper(addslashes($_POST['descr']));
-	$tipoh  = $_POST['tipoh'];
-	$codvta = $_POST['codvta'];
+require '../../../res/php/app_topAdmin.php';
 
-	$updateTipoHab = $admin->updateTipoHabi($id, $codigo, $descr, $tipoh, $codvta) ;
+$id = $_POST['id'];
+$codigo = strtoupper(addslashes($_POST['codigo']));
+$descr = strtoupper(addslashes($_POST['descr']));
+$tipoh = $_POST['id'];
+$codvta = $_POST['codvta'];
 
-	echo $updateTipoHab ;
+$updateTipoHab = $admin->updateTipoHabi($id, $codigo, $descr, $tipoh, $codvta);
 
- ?>
+echo $updateTipoHab;

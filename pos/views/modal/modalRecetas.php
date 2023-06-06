@@ -294,14 +294,16 @@ foreach ($imptos as $impto) { ?>
             <form method="POST" name="formFotoReceta" id="formFotoReceta" style='padding:0' enctype="multipart/form-data" action='javascript:subirFoto()'>
               <div class="divs divDeposito">
                 <div class="form-group">
-                  <div class="container-fluid" id="mostrarFoto"></div>
+                  <div class="container-fluid">
+                    <img id="imgPreview" name="imgPreview" class="img-thumbnail" style="width:100%;margin-top:0;">
+                  </div>
                 </div>
                 <div class="form-group">
                   <input type="hidden" name="idRecetaFoto" id="idRecetaFoto">
                   <input type="hidden" name="nombreReceta" id="nombreReceta">
                   <label for="idRecetaFoto" class="col-sm-3 control-label">Foto Receta</label>
                   <div class="col-sm-9">
-                    <input type="file" name="images[]" id="imgSelect" onchange="verFoto(this)" class='form-control' accept='.jpg,.png'style="min-height: 35px" required="">
+                    <input type="file" name="images[]" id="imgSelect" onchange="verFoto(event)" class='form-control' accept='.jpg,.png'style="min-height: 35px" required="">
                   </div>
                 </div>
               </div>

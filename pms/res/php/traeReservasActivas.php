@@ -231,21 +231,28 @@ $reservas = $hotel->getReservasActuales($tipo);
                                 >
                                 <i class="fa fa-times" aria-hidden="true"></i>Cancelar Reserva</a>
                             </li>
-                            <!-- <li>
+                              <!-- 
+                              -->
+                            <li> 
                               <a 
                                 data-toggle    ="modal" 
+                                data-target    = "#myModalConfirmaReserva"                                
                                 data-id        ="<?php echo $reserva['num_reserva']; ?>" 
-                                data-apellido1 ="<?php echo $reserva['apellido1']; ?>" 
-                                data-apellido2 ="<?php echo $reserva['apellido2']; ?>" 
-                                data-nombre1   ="<?php echo $reserva['nombre1']; ?>" 
-                                data-nombre2   ="<?php echo $reserva['nombre2']; ?>" 
+                                data-huesped   ="<?php echo $reserva['nombre_completo']; ?>" 
                                 data-orden     ="<?php echo $reserva['orden_reserva']; ?>" 
                                 data-causar    ="<?php echo $reserva['causar_impuesto']; ?>" 
+                                data-llegada   ="<?php echo $reserva['fecha_llegada']; ?>" 
+                                data-salida    ="<?php echo $reserva['fecha_salida']; ?>" 
+                                data-noches    ="<?php echo $reserva['dias_reservados']; ?>" 
+                                data-tarifa        ="<?php echo $hotel->getNombreTarifa($reserva['tarifa']); ?>" 
+                                data-tipohab   ="<?php echo descripcionTipoHabitacion($reserva['tipo_habitacion']); ?>"                                       
+                                data-nrohab    ="<?php echo $reserva['num_habitacion']; ?>" 
+                                  
                                 onclick        ="confirmarReserva(<?php echo $reserva['num_reserva']; ?>)" 
                                 >
                                 <i class="fa fa-book" aria-hidden="true"></i>Confirmar Reserva
                               </a>
-                            </li> -->
+                            </li> 
                             <li>
                               <a 
                                 data-toggle    ="modal" 

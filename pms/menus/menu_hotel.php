@@ -58,7 +58,7 @@ if ($_GET['section'] != 'cajeroCerrado') {
           <ul class="treeview-menu"> 
             <li><a href="facturacionEstadia"><i class="fa fa-money"></i> Facturacion Huespedes</a></li>
             <li><a href="ingresoConsumos"><i class="glyphicon glyphicon-download-alt"></i> Ingreso Consumos</a></li>
-            <li><a href="ventasDirectas"><i class="fa fa-archive"></i>Ventas Directas</a></li> 
+            <!-- <li><a href="ventasDirectas"><i class="fa fa-archive"></i>Ventas Directas</a></li>  -->
             <li><a href="facturasDelDia"><i class="fa fa-archive"></i>Facturas Del Dia</a></li> 
             <li><a href="exportaFacturas"><i class="fa fa-archive"></i>Exportar Facturas</a></li> 
             <li>

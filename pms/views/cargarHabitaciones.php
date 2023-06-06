@@ -5,11 +5,11 @@
             <div class="panel-heading">
               <div class="row">
                 <div class="col-lg-9">
-                  <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_PMS?>">
+                  <input type="hidden" name="rutaweb" id="rutaweb" value="<?php echo BASE_PMS; ?>">
                   <input type="hidden" name="ubicacion" id="ubicacion" value="index.php">
                   <h3 class="w3ls_head tituloPagina"> <i class="fa fa-money icon" style="font-size:36px;color:black" ></i> Cargar Habitaciones</h3>
                 </div>
-              </div>
+              </div> 
             </div>
             <div class="datos_ajax_delete"></div>
             <form id="formCargarHabitaciones" class="form-horizontal" action="javascript:cargarHabitaciones()" method="POST" enctype="multipart/form-data">
@@ -36,13 +36,13 @@
                   <div class="col-sm-9">
                     <select name="cargarHabitacion" id="cargarHabitacion">
                       <option value="">Seleccione Habitacion</option>
-                      <?php 
-                      $habitaciones = $hotel->getHuespedesenCasasinCtaMaster(2,'CA',CTA_MASTER);
-                      foreach ($habitaciones as $habitacion) { ?>
-                        <option value="<?=$habitacion['num_reserva']?>"><?=$habitacion['num_habitacion'].' '.$habitacion['apellido1'].' '.$habitacion['apellido2'].' '.$habitacion['nombre1'].' '.$habitacion['nombre2']?></option>
-                      <?php 
-                      }
-                      ?>
+                      <?php
+                      $habitaciones = $hotel->getHuespedesenCasasinCtaMaster(2, 'CA', CTA_MASTER);
+                  foreach ($habitaciones as $habitacion) { ?>
+                        <option value="<?php echo $habitacion['num_reserva']; ?>"><?php echo $habitacion['num_habitacion'].' '.$habitacion['apellido1'].' '.$habitacion['apellido2'].' '.$habitacion['nombre1'].' '.$habitacion['nombre2']; ?></option>
+                      <?php
+                  }
+                  ?>
                     </select>
                   </div>
                 </div>
@@ -52,7 +52,7 @@
                 <div class="row">
                   <div class="col-lg-8 col-lg-offset-2" >
                     <div class="col-lg-6" style="padding:0">
-                      <a type="button" class="btn btn-warning btn-block" href="<?=BASE_PMS?>index.php"><i class="fa fa-reply"></i> Regresar</a>
+                      <a type="button" class="btn btn-warning btn-block" href="<?php echo BASE_PMS; ?>index.php"><i class="fa fa-reply"></i> Regresar</a>
                     </div>
                     <div class="col-lg-6" style="padding:0">
                       <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-save"></i> Procesar</button>

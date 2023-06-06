@@ -5,6 +5,7 @@ require '../../../../res/php/app_topPos.php';
 require '../../../../res/fpdf/fpdf.php';
 
 $logo = $_POST['logo'];
+$rooms = $_POST['rs'];
 
 clearstatcache();
 $nComa = $_SESSION['NUMERO_COMANDA'];
@@ -60,7 +61,7 @@ if ($pms == '1') {
 } else {
     $datosCliente = $pos->datosCliente($cli);
     $identif = $datosCliente[0]['identificacion'];
-    $nameImpr = 'Factura_'.$pref.'-'.$nFact.'.pdf';
+    $nameImpr = 'Factura_'.$pref.'_'.$nFact.'.pdf';
     $file = '../../../impresiones/Factura_'.$pref.'_'.$nFact.'.pdf';
 }
 $cliente = utf8_decode($datosCliente[0]['apellido1'].' '.$datosCliente[0]['apellido2'].' '.$datosCliente[0]['nombre1'].' '.$datosCliente[0]['nombre2']);
@@ -83,7 +84,8 @@ $pdf->Cell(65, 4, utf8_decode(ADRESS_EMPRESA), 0, 1, 'C');
 $pdf->Cell(65, 4, utf8_decode(CIUDAD_EMPRESA.' '.PAIS_EMPRESA), 0, 1, 'C');
 $pdf->Cell(65, 4, 'Telefono '.TELEFONO_EMPRESA, 0, 1, 'C');
 $pdf->SetFont('Arial', 'B', 10);
-$pdf->Cell(65, 4, $nomamb, 0, 1, 'C');
+$pdf->MultiCell(65, 6, $nomamb, 0, 'C');
+// $pdf->Cell(65, 4, $nomamb, 0, 1, 'C');
 $pdf->Ln(1);
 $pdf->SetFont('Arial', '', 10);
 $pdf->Cell(65, 4, 'Fecha '.$fec.' '.$time.' Mesa '.$mes, 0, 1, 'L');
@@ -136,23 +138,26 @@ $pdf->Cell(25, 4, number_format($des, 2, ',', '.'), 0, 1, 'R'); */
 $pdf->Cell(40, 4, 'Propina', 0, 0, 'R');
 $pdf->Cell(25, 4, number_format($pro, 2, ',', '.'), 0, 1, 'R');
 $pdf->Ln(2);
+$pdf->Cell(40, 4, 'Room Service', 0, 0, 'R');
+$pdf->Cell(25, 4, number_format($rooms, 2, ',', '.'), 0, 1, 'R');
 /* $pdf->SetFont('Arial', 'B', 7);
-$pdf->Cell(40, 4, 'Abonos:', 0, 0, 'L');
-$pdf->Cell(25, 4, number_format($abonos, 2, ',', '.'), 0, 1, 'R');
 $pdf->Ln(2); */
 $pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell(40, 4, 'Total Cuenta:', 0, 0, 'L');
-$pdf->Cell(25, 4, number_format($sub - $des + $pro + $imp, 2, ',', '.'), 0, 1, 'R');
+$pdf->Cell(25, 4, number_format($sub - $des + $pro + $imp + $rooms, 2, ',', '.'), 0, 1, 'R');
 $pdf->Ln(2);
 $pdf->SetFont('Arial', '', 8);
-$pdf->MultiCell(65, 4, 'Son : '.numtoletras($sub - $des + $pro + $imp), 0, 'L');
+$pdf->MultiCell(65, 4, 'Son : '.numtoletras($sub - $des + $pro + $imp + $rooms), 0, 'L');
 // $pdf->SetFont('Arial', '', 10);
 
+$pdf->Ln(20);
+$pdf->Cell(65, 5, str_repeat('_', 40), 0, 1, 'L');
 if ($pms == 1) {
-    $pdf->Ln(20);
-    $pdf->Cell(65, 5, str_repeat('_', 40), 0, 1, 'L');
     $pdf->MultiCell(65, 4, 'Acepto se incluya en mi cuenta de Alojamiento el Presente Consumo', 0, 'C');
     $pdf->Cell(65, 4, 'Firma Huesped', 0, 1, 'C');
+} else {
+    $pdf->MultiCell(65, 4, 'Acepto el Presente Consumo', 0, 'C');
+    $pdf->Cell(65, 4, 'Firma Empleado', 0, 1, 'C');
 }
 
 $pdf->Ln(3);

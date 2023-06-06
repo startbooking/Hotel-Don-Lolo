@@ -357,7 +357,7 @@ foreach ($codigos as $codigo) { ?>
               <div class="col-sm-6" style="padding:0;height: 30px">
                 <div class="col-sm-6">
                   <div class="form-check form-check-inline">
-                    <input style="margin-top:5px" class="form-check-input" type="radio" name="habitacionOptionCon" for="inlineRadio1" id="inlineRadio1" value="1" onclick="apagaselecomp(this.value)" >
+                    <input style="margin-top:5px" class="form-check-input" type="radio" name="habitacionOptionCon" for="inlineRadio1" id="inlineRadio1" value="1" onclick="apagaselecomp(this.value)" selected>
                     <label style="margin-top:-20px;margin-left:25px" class="form-check-label" for="inlineRadio1" >Huesped</label>
                   </div>                     
                 </div>
@@ -658,8 +658,7 @@ foreach ($codigos as $codigo) { ?>
             <div class="form-group">
               <label for="txtDetalleCargoAnu" class="col-sm-3 control-label">Comentarios</label>
               <div class="col-sm-8">
-                <?php
-?>
+                <?php ?>
                 <input class="form-control padInput" type="text" name="txtDetalleCargoTras" id="txtDetalleCargoTras" value='' readonly disabled="">
               </div>
             </div>
@@ -669,7 +668,7 @@ foreach ($codigos as $codigo) { ?>
                 <select name="roomChange" id="roomChange" required="">
                   <option value="">Seleccione la Nueva Habitacion</option>
                   <?php
-   $encasas = $hotel->getHuespedesenCasa(2, 'CA');
+  $encasas = $hotel->getHuespedesenCasa(2, 'CA');
 foreach ($encasas as $encasa) { ?>
                       <option value="<?php echo $encasa['num_reserva']; ?>"><?php echo $encasa['num_habitacion'].' '.$encasa['apellido1'].' '.$encasa['apellido2'].' '.$encasa['nombre1'].' '.$encasa['nombre2']; ?></option>
                       <?php

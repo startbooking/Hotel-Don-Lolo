@@ -45,7 +45,9 @@ $pdf->AddPage();
 $pdf->SetFont('Arial', 'B', 12);
 
 $pdf->Cell(65, 4, utf8_decode(NAME_EMPRESA), 0, 1, 'C');
-$pdf->Cell(65, 4, $nomamb, 0, 1, 'C');
+// $pdf->Cell(65, 4, $nomamb, 0, 1, 'C');
+$pdf->MultiCell(65, 6, $nomamb, 0, 'C');
+
 $pdf->SetFont('Arial', '', 10);
 $pdf->Cell(65, 4, 'NIT: '.NIT_EMPRESA, 0, 1, 'C');
 /*   $pdf->Cell(50,5,'Iva Regimen Comun',0,1,'C');

@@ -9,11 +9,12 @@ date_default_timezone_set('America/Bogota');
 header('Cache-Control: no-cache, must-revalidate');
 header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
 
-require 'functionsPos.php';
-require 'functionsAdmin.php';
-require 'funcionesPos.php';
-require 'funciones.php';
-require 'rutas.php';
+require_once 'functionsInventario.php';
+require_once 'functionsPos.php';
+require_once 'functionsAdmin.php';
+require_once 'funcionesPos.php';
+require_once 'funciones.php';
+require_once 'rutas.php';
 
 $pos = new Pos_Actions();
 $admin = new Hotel_Admin();

@@ -7,7 +7,7 @@
           <h4 class="modal-title" id="exampleModalLabel">Adicionar Tipo de Habitacion</h4>
         </div>
         <div id="datos_ajax_register"></div>
-        <div class="modal-body">
+        <div class="modal-body"> 
           <div id="mensaje"></div>
           <div class="form-group">
             <label for="nombre" class="control-label col-lg-4 col-md-4">Abreviatura </label>
@@ -24,15 +24,15 @@
           <div class="form-group">
             <label for="nombre" class="control-label col-lg-4 col-md-4">Codigo de Venta  </label>
             <div class="col-lg-6 col-md-6">
-              <?php 
-                $codigoVtas = $admin->getCodigosVentas(1)
+              <?php
+                $codigoVtas = $admin->getCodigosVentas(1);
               ?>
               <select name="CodTipoHabiAdi" id="CodTipoHabiAdi" required="">
                 <option value="">Seleccione el Codigo de Ventas </option>
-                <?php foreach ($codigoVtas as $codigo): ?>
-                <option value="<?=$codigo['id_cargo']?>"><?=$codigo['descripcion_cargo']?></option>
+                <?php foreach ($codigoVtas as $codigo) { ?>
+                <option value="<?php echo $codigo['id_cargo']; ?>"><?php echo $codigo['descripcion_cargo']; ?></option>
                   
-                <?php endforeach ?>
+                <?php } ?>
               </select>
             </div>
           </div>
@@ -87,14 +87,14 @@
           <div class="form-group">
             <label for="nombre" class="control-label col-lg-4 col-md-4">Codigo de Venta  </label>
             <div class="col-lg-6 col-md-6">
-              <?php 
-                $codigoVtas = $admin->getCodigosVentas(1)
+              <?php
+                $codigoVtas = $admin->getCodigosVentas(1);
               ?>
               <select name="CodTipoHabiEli" id="CodTipoHabiEli" disabled="">
-                <?php foreach ($codigoVtas as $codigo): ?>
-                <option value="<?=$codigo['id_cargo']?>"><?=$codigo['descripcion_cargo']?></option>
+                <?php foreach ($codigoVtas as $codigo) { ?>
+                <option value="<?php echo $codigo['id_cargo']; ?>"><?php echo $codigo['descripcion_cargo']; ?></option>
                   
-                <?php endforeach ?>
+                <?php } ?>
               </select>
             </div>
           </div>
@@ -107,7 +107,6 @@
     </div>
   </form>
 </div>
-
 
 <div class="modal fade" id="myModalModificaTipoHabitacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
   <form id="modificaDatosTipoHabi" class="form-horizontal" action="javascript:actualizaTipoHabi()">
@@ -150,15 +149,15 @@
           <div class="form-group">
             <label for="nombre" class="control-label col-lg-4 col-md-4">Codigo de Venta  </label>
             <div class="col-lg-6 col-md-6">
-              <?php 
-                $codigoVtas = $admin->getCodigosVentas(1)
+              <?php
+                $codigoVtas = $admin->getCodigosVentas(1);
               ?>
               <select name="CodTipoHabiMod" id="CodTipoHabiMod" required="">
                 <option value="">Seleccione el Codigo de Ventas </option>
-                <?php foreach ($codigoVtas as $codigo): ?>
-                <option value="<?=$codigo['id_cargo']?>"><?=$codigo['descripcion_cargo']?></option>
+                <?php foreach ($codigoVtas as $codigo) { ?>
+                <option value="<?php echo $codigo['id_cargo']; ?>"><?php echo $codigo['descripcion_cargo']; ?></option>
                   
-                <?php endforeach ?>
+                <?php } ?>
               </select>
             </div>
           </div>

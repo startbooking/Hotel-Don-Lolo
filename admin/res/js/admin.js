@@ -1606,11 +1606,11 @@ function actualizaTipoHabi() {
   var codvta = $("#CodTipoHabiMod").val();
 
   var parametros = {
-    id: id,
-    codigo: codigo,
-    descr: descr,
-    tipoh: tipoh,
-    codvta: codvta,
+    id,
+    codigo,
+    descr,
+    tipoh,
+    codvta,
   };
 
   $.ajax({
@@ -3137,7 +3137,7 @@ $(document).ready(function () {
     var id = button.data("id");
     var descr = button.data("descri");
     var codigo = button.data("codigo");
-    var tipoh = button.data("tipo");
+    // var tipoh = button.data("tipo");
     var codvta = button.data("venta");
     var modal = $(this);
 
@@ -3145,7 +3145,7 @@ $(document).ready(function () {
     modal.find(".modal-body #idTipoHabiMod").val(id);
     modal.find(".modal-body #CodigoMod").val(codigo);
     modal.find(".modal-body #nombreMod").val(descr);
-    modal.find(".modal-body #TipoHabiMod").val(tipoh);
+    modal.find(".modal-body #TipoHabiMod").val(id);
     modal.find(".modal-body #CodTipoHabiMod").val(codvta);
   });
 
