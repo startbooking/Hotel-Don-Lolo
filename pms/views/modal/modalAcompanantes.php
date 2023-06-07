@@ -49,11 +49,11 @@
             <div class="col-sm-4">
               <select name="tipodoc" id='tipodoc'>
                 <option value="">Seleccione el Tipo de Documeto</option>
-                <?php 
+                <?php
                   $tipodocs = $hotel->getTipoDocumento(); ?>
-                  <?php foreach ($tipodocs as $tipodoc): ?>
-                    <option value="<?=$tipodoc['id_doc']?>"><?=$tipodoc['descripcion_documento']?></option>}
-                  <?php endforeach ?>
+                  <?php foreach ($tipodocs as $tipodoc) { ?>
+                    <option value="<?php echo $tipodoc['id_doc']; ?>"><?php echo $tipodoc['descripcion_documento']; ?></option>}
+                  <?php } ?>
               </select>
             </div>
           </div>
@@ -103,11 +103,11 @@
             <div class="col-sm-4">
               <select name="paices" id="paices" onchange="getCiudadesPais(this.value)">
                 <option value="">Seleccione la Nacionalidad</option>
-                <?php 
-                $paices =  $hotel->getPaices();
+                <?php
+                $paices = $hotel->getPaices();
                 foreach ($paices as $pais) { ?>
-                  <option value="<?=$pais['id_pais']?>"><?=$pais['descripcion']?></option>
-                  <?php 
+                  <option value="<?php echo $pais['id_pais']; ?>"><?php echo $pais['descripcion']; ?></option>
+                  <?php
                 }
                 ?>
               </select>
@@ -117,13 +117,13 @@
                 <div class="col-sm-4">
                   <select name="ciudad" id='ciudad'>
                     <option value="">Ciudad</option>
-                    <?php 
+                    <?php
                     $ciudades = $hotel->getCiudades();
-                    foreach ($ciudades as $ciudad) { ?> 
-                      <option value="<?=$ciudad['id_ciudad']?>"><?=$ciudad['municipio'].' '.$ciudad['depto']?></option>
-                      <?php 
-                    }
-                    ?>
+                foreach ($ciudades as $ciudad) { ?> 
+                      <option value="<?php echo $ciudad['id_ciudad']; ?>"><?php echo $ciudad['municipio'].' '.$ciudad['depto']; ?></option>
+                      <?php
+                }
+                ?>
                   </select>
                 </div>
             </div>
@@ -139,7 +139,6 @@
     </div>
   </div>
 </div>
-
 
 <div class="modal fade bs-example-modal-lg" id="myModalAcompanantesHistoricoReserva" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-md" role="document"> 

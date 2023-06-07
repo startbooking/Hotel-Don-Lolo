@@ -1,54 +1,42 @@
-<?php 
+<?php
 
-  require '../../../res/php/app_topHotel.php'; 
-  $id      =  $_POST['id'];
-  $huesped = $hotel->getSeleccionaHuesped($id);
+require '../../../res/php/app_topHotel.php';
+$id = $_POST['id'];
+$huesped = $hotel->getSeleccionaHuesped($id);
 
-  if(!empty($huesped[0]['tipo_identifica'])){
+if (!empty($huesped[0]['tipo_identifica'])) {
     $tipoDoc = $hotel->getTipoDocumentoHuesped($huesped[0]['tipo_identifica']);
-  }else{
+} else {
     $tipoDoc = '';
-  }
+}
 
-  $cia     = $hotel->getSeleccionaCompania($huesped[0]['id_compania']);
-  $centros = $hotel->getBuscaCentroCia($huesped[0]['idCentroCia']);
+$cia = $hotel->getSeleccionaCompania($huesped[0]['id_compania']);
+// $centros = $hotel->getBuscaCentroCia($huesped[0]['idCentroCia']);
 
-  if(empty($huesped)){
+if (empty($huesped)) {
     echo '0';
-  }else{ ?>
+} else { ?>
     <div class="form-group">
       <label for="apellidos" class="col-sm-2 control-label">Huesped </label>
       <div class="col-sm-6">
-        <input type="text" class="form-control" id="apellido1" placeholder="" value="<?=$huesped[0]['apellido1'].' '.$huesped[0]['apellido2'].' '.$huesped[0]['nombre1'].' '.$huesped[0]['nombre2'] ?>" readonly>
-        <input type="hidden" name="sexo" id="sexo" value="<?=$huesped[0]['sexo']?>">
-        <input type="hidden" name="idhuesped" id="idhuesped" value="<?=$huesped[0]['id_huesped']?>">
-        <input type="hidden" name="identifica" id="identifica" value="<?=$huesped[0]['identificacion']?>">
-        <input type="hidden" name="idcia" id="idcia" value="<?=$huesped[0]['id_compania']?>">
-        <input type="hidden" name="idCentro" id="idCentro" value="<?=$huesped[0]['idCentroCia']?>">
+        <input type="text" class="form-control" id="apellido1" placeholder="" value="<?php echo $huesped[0]['apellido1'].' '.$huesped[0]['apellido2'].' '.$huesped[0]['nombre1'].' '.$huesped[0]['nombre2']; ?>" readonly>
+        <input type="hidden" name="sexo" id="sexo" value="<?php echo $huesped[0]['sexo']; ?>">
+        <input type="hidden" name="idhuesped" id="idhuesped" value="<?php echo $huesped[0]['id_huesped']; ?>">
+        <input type="hidden" name="identifica" id="identifica" value="<?php echo $huesped[0]['identificacion']; ?>">
+        <input type="hidden" name="idcia" id="idcia" value="<?php echo $huesped[0]['id_compania']; ?>">
+        <input type="hidden" name="idCentro" id="idCentro" value="<?php echo $huesped[0]['idCentroCia']; ?>">
       </div>
     </div>
-    <?php 
-    if($huesped[0]['id_compania']!=0){ ?>
-      <div class="form-group">
-        <label for="inputEmail3" class="col-sm-2 control-label">Empresa</label>
-        <div class="col-sm-6">
-          <input type="text" class="form-control" name="empresa" id="empresa" value="<?=$cia[0]['empresa']?>" disabled="">
-        </div>
-        <label for="inputEmail3" class="col-sm-1 control-label">Nit</label>
-        <div class="col-sm-3">
-          <input type="text" class="form-control" name="nit" id="nit" value="<?=$cia[0]['nit'].'-'.$cia[0]['dv']?>" disabled="">
-        </div>
+    <div class="form-group">
+      <label for="inputEmail3" class="col-sm-2 control-label">Empresa</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" name="empresa" id="empresa" value="<?php echo $cia[0]['empresa']; ?>" disabled="">
       </div>
-      <?php 
-      if($huesped[0]['idCentroCia']!=0){ ?>
-        <div class="form-group">
-          <label for="inputEmail3" class="col-sm-2 control-label">Centro de Costo</label>
-          <div class="col-sm-6">
-            <input type="text" class="form-control" name="centroCia" id="centroCia" value="<?=$centros[0]['descripcion_centro']?>" disabled="">
-          </div>
-        </div>
-        <?php
-      }
-    }
-  }
+      <label for="inputEmail3" class="col-sm-1 control-label">Nit</label>
+      <div class="col-sm-3">
+        <input type="text" class="form-control" name="nit" id="nit" value="<?php echo $cia[0]['nit'].'-'.$cia[0]['dv']; ?>" disabled="">
+      </div>
+    </div>
+  <?php
+}
 ?>

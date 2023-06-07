@@ -1182,6 +1182,7 @@ $(document).ready(function () {
     var reserva = $("#reservaActual").val();
     var consumo = $("#saldoActual").val();
     var abonos = $("#totalPagos").val();
+
     var saldo = consumo - abonos;
 
     var button = $(event.relatedTarget);
@@ -3517,16 +3518,39 @@ function buscaFacturasFecha() {
   });
 }
 
+function guardaHuespedReserva() {
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { user } = sesion;
+  let { usuario, usuario_id } = user;
+  var web = $("#rutaweb").val();
+  var ubicacion = $("#ubicacion").val();
+  var idreser = $("#idreservaAco").val();
+  var parametros = $("#nuevoHuespedReserva").serializeArray();
+  parametros.push({ name: "usuario", value: usuario });
+  parametros.push({ name: "idusuario", value: usuario_id });
+  $.ajax({
+    type: "POST",
+    data: parametros,
+    url: web + "res/php/guardaHuespedReserva.php",
+    success: function (datos) {
+      $("#myModalAdicionaHuespedReserva").modal("hide");
+      $("#buscarHuesped").val(datos.trim());
+      swal(
+        "Precaucion",
+        "Hueped Creado con Exito, No Olvide Actualizar la Informacion del Cliente",
+        "success"
+      );
+    },
+  });
+}
+
 function guardaAcompanante() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
   let { usuario, usuario_id } = user;
-  /* usuario = sesion["usuario"][0]["usuario"];
-  idusuario = sesion["usuario"][0]["usuario_id"]; */
   var web = $("#rutaweb").val();
   var ubicacion = $("#ubicacion").val();
   var idreser = $("#idreservaAco").val();
-  /// var parametros = $('#acompananteReserva').serialize();
   var parametros = $("#acompananteReserva").serializeArray();
 
   parametros.push({ name: "usuario", value: usuario });
@@ -3893,6 +3917,7 @@ function seleccionaHuespedReserva(id) {
     data: parametros,
     success: function (data) {
       $("#datosHuespedAdi").html(data);
+      // ide = $("#identifica").val();
     },
   });
 
@@ -4502,7 +4527,7 @@ function salidaHuesped() {
     "#guardarPagosRoomSal"
   ).val();
 
-  // console.log(tipofac);
+  console.log(tipofac);
 
   if (tipofac == 0 || tipofac == undefined) {
     swal("Precaucion", "Seleccione a quien va a Facturar ", "warning");
@@ -4512,11 +4537,13 @@ function salidaHuesped() {
   if (tipofac == 2 && perfilFac == 2) {
     swal(
       "Precaucion",
-      "NO pude Utilizar esa Forma de Pago para la presente Cuenta",
+      "NO Puede Utilizar esa Forma de Pago para la presente Cuenta",
       "warning"
     );
     return;
   }
+
+  return;
 
   // return;
 
@@ -4543,6 +4570,7 @@ function salidaHuesped() {
           '"></div>'
       );
     }
+
     var reserva = $("#reservaActual").val();
     var idhues = $("#titular").val();
     var room = $("#txtNumeroHabSal").val();
@@ -4562,6 +4590,9 @@ function salidaHuesped() {
     var porceReteiva = $("#porceReteiva").val();
     var porceReteica = $("#porceReteica").val();
     var porceRetefuente = $("#porceRetefuente").val();
+
+    $(".btnSalida").css("display:none;");
+    $(".mensajeSalida").css("display:block;");
 
     if (detalle == "") {
       detalle = "";
@@ -4615,8 +4646,6 @@ function salidaHuesped() {
             "PRINT",
             "height=600,width=600"
           );
-          /*
-           */
         } else {
           var ventana = window.open(
             "imprimir/notas/" + data[0],
@@ -4773,6 +4802,10 @@ function activaFolio(reserva, folio) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
   let { usuario, usuario_id, tipo } = user;
+  $(".btnSalida").css("display:block;");
+  $(".mensajeSalida").css("display:none;");
+
+  // activaFolio
   /*
   usuario = sesion["usuario"][0]["usuario"];
   idusuario = sesion["usuario"][0]["usuario_id"]; 
@@ -5417,8 +5450,6 @@ function guardaReserva() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
   let { usuario, usuario_id } = user;
-  /*  usuario = sesion["usuario"][0]["usuario"];
-  idusuario = sesion["usuario"][0]["usuario_id"]; */
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var parametros = $("#formReservas").serializeArray();

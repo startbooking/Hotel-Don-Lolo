@@ -11,6 +11,7 @@ $hoy = date('Y-m-d');
 				</button>
 				<h4 class="modal-title" id="myModalLabel"> <i class="fa fa-user-plus"></i> Adiciona Perfil del Huesped</h4>
         <input type="hidden" name="editaPer" id="editaPer" value="0">
+        <input type="hidden" name="paginaviene" id="paginaviene" value="">
         <div class="container-fluid" ></div>
 	  	</div>
       <form class="form-horizontal" id="formAdicionaHuespedes" action="javascript:guardaHuesped()" method="POST">
@@ -100,10 +101,10 @@ foreach ($tipodocs as $tipodoc) { ?>
               <select name="paices" id="paices" onblur="getCiudadesPais(this.value,'')" required="">
                 <option value="">Seleccione la Nacionalidad</option>
                 <?php
-foreach ($paices as $pais) { ?>
+  foreach ($paices as $pais) { ?>
                   <option value="<?php echo $pais['id_pais']; ?>"><?php echo $pais['descripcion']; ?></option>
                   <?php
-}
+  }
 ?> 
               </select>
             </div>
@@ -144,11 +145,11 @@ foreach ($paices as $pais) { ?>
                 <option value="">Seleccione el Tipo Persona</option>
                 <?php
                   $tipoAdquiere = $hotel->getTipoAdquiriente();
-foreach ($tipoAdquiere as $tipoAdqui) { ?>
+                  foreach ($tipoAdquiere as $tipoAdqui) { ?>
                     <option value="<?php echo $tipoAdqui['id']; ?>"><?php echo $tipoAdqui['descripcionAdquiriente']; ?></option>
                     <?php
-}
-?> 
+                  }
+                ?> 
               </select>
             </div>
             <label for="correo" class="col-sm-2 control-label">Tipo Regimen </label>
@@ -156,12 +157,12 @@ foreach ($tipoAdquiere as $tipoAdqui) { ?>
               <select name="tipoResponsabilidad" id="tipoResponsabilidad" required>
                 <option value="">Seleccione Tipo de Regimen</option>
                 <?php
-  $tipoRespo = $hotel->getTipoResponsabilidad();
-foreach ($tipoRespo as $tipoRes) { ?>
+                  $tipoRespo = $hotel->getTipoResponsabilidad();
+                  foreach ($tipoRespo as $tipoRes) { ?>
                     <option value="<?php echo $tipoRes['id']; ?>"><?php echo $tipoRes['descripcion']; ?></option>
                     <?php
-}
-?> 
+                  }
+                ?> 
               </select>
             </div>
           </div>

@@ -10,4 +10,4 @@ $perfil = $hotel->getTipoPerfilCodigo($id);
 
 echo $perfil;
 
-?>
+?> 

@@ -403,9 +403,10 @@ foreach ($codigos as $codigo) { ?>
             <div id="estadoCuenta"></div>
           </div>
           <div class="modal-footer">
+            <div id="mensajeSalida" style="display:none;"><div class="alert alert-danger"><i style="font-size:3em;margin-top:1px;color:#BBB0B0; " class="ion ion-ios-gear-outline fa-spin"></i> <h1>Procesando Informacion, NO interrumpir</h1></div></div>
             <div class="btn-group">              
               <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
-              <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Procesar </button>
+              <button type="submit" class="btn btn-primary btnSalida"><i class="fa fa-save"></i> Procesar </button>
             </div>
           </div>
         </div>

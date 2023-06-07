@@ -5,8 +5,9 @@ require_once 'res/php/app_top.php';
 <!DOCTYPE html>
 <html lang="es">
 
+
 <head>
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-99252638-1"></script>
+	<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-99252638-1"></script>
 	<script>
 		window.dataLayer = window.dataLayer || [];
 
@@ -16,11 +17,11 @@ require_once 'res/php/app_top.php';
 		gtag('js', new Date());
 
 		gtag('config', 'UA-99252638-1');
-	</script>
-	<title><?= TITLE ?> Ingreso al Sistema</title>
+	</script> -->
+	<title><?php echo TITLE; ?> Ingreso al Sistema</title>
 	<?php
-	include_once("res/shared/archivo_head.php");
-	?>
+    include_once 'res/shared/archivo_head.php';
+?>
 	<link href="res/css/estilocms.css" rel="stylesheet" type="text/css" media="all" />
 	<link href="res/css/miestilo.css" rel="stylesheet" type="text/css" media="all" />
 	<link rel="stylesheet" href="res/css/flexslider.css" type="text/css" media="screen" property="" />
@@ -28,11 +29,11 @@ require_once 'res/php/app_top.php';
 
 <body class="skin-green sidebar-mini">
 	<?php
-	$busca = $user->buscaDireccion($ip);
-	?>
+$busca = $user->buscaDireccion($ip);
+?>
 	<section id="pantallaPpal">
 		<div class="row-fluid">
-			<?php include_once("res/menus/menu_index.php"); ?>
+			<?php include_once 'res/menus/menu_index.php'; ?>
 		</div>
 		<section class="centrar">
 			<div class="col-xs-8" style="margin-top:10%;">
@@ -88,10 +89,10 @@ require_once 'res/php/app_top.php';
 		</div>
 	</div>
 	<?php
-	include_once("res/shared/archivo_pie.php");
-	include_once("res/shared/archivo_script.php")
-	?>
-	<script src="<?= BASE_JS ?>inicio.js"></script>
+include_once 'res/shared/archivo_pie.php';
+include_once 'res/shared/archivo_script.php';
+?>
+	<script src="<?php echo BASE_JS; ?>inicio.js"></script>
 </body>
 
 </html>

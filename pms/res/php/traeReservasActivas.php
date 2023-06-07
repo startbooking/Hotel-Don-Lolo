@@ -244,7 +244,7 @@ $reservas = $hotel->getReservasActuales($tipo);
                                 data-llegada   ="<?php echo $reserva['fecha_llegada']; ?>" 
                                 data-salida    ="<?php echo $reserva['fecha_salida']; ?>" 
                                 data-noches    ="<?php echo $reserva['dias_reservados']; ?>" 
-                                data-tarifa        ="<?php echo $hotel->getNombreTarifa($reserva['tarifa']); ?>" 
+                                data-tarifa    ="<?php echo $hotel->getNombreTarifa($reserva['tarifa']); ?>" 
                                 data-tipohab   ="<?php echo descripcionTipoHabitacion($reserva['tipo_habitacion']); ?>"                                       
                                 data-nrohab    ="<?php echo $reserva['num_habitacion']; ?>" 
                                   

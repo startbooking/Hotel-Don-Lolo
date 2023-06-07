@@ -91,7 +91,7 @@ $totalFolio = ($consumo + $impto) - ($abono - $reteiva - $reteica - $retefuente)
     <label class="control-label col-md-2" for="codigoConsumo">Forma de Pago</label>
     <div class="col-lg-4 col-md-4" >
       <select name="codigoPago" id="codigoPago" required onblur="traePerfilVenta(this.value)">
-        <option value="">Seleccione Forma de Pago</option>
+        <!-- <option value="">Seleccione Forma de Pago</option> -->
         <?php
        $codigos = $hotel->getCodigosConsumos(3);
 foreach ($codigos as $codigo) { ?>

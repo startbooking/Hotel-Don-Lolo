@@ -170,7 +170,7 @@
                 <div class="form-group">
                   <label for="llegada" class="col-sm-2 control-label">Llegada</label>
                   <div class="col-sm-3" style="padding-right: 20px">
-                    <input type="date" class="form-control" name="llegada" id="llegada" required="" value="<?=FECHA_PMS?>" min="<?=FECHA_PMS?>"> 
+                    <input type="date" class="form-control" name="llegada" id="llegada" required="" value="<?php echo FECHA_PMS; ?>" min="<?php echo FECHA_PMS; ?>"> 
                   </div>
                   <label for="noches" class="col-sm-1 control-label">Noches</label>
                   <div class="col-sm-2">
@@ -178,7 +178,7 @@
                   </div>
                   <label for="salida" class="col-sm-1 control-label">Salida</label>
                   <div class="col-sm-3" style="padding-right: 20px">
-                    <input type="date" onfocus="sumarDias()" onblur="restaFechas()" class="form-control" name="salida" id="salida" required="" value="<?=FECHA_PMS?>" min="<?=FECHA_PMS?>">
+                    <input type="date" onfocus="sumarDias()" onblur="restaFechas()" class="form-control" name="salida" id="salida" required="" value="<?php echo FECHA_PMS; ?>" min="<?php echo FECHA_PMS; ?>">
                   </div>
                 </div>
                 <div class="form-group">
@@ -234,26 +234,26 @@
                   <div class="col-sm-4">
                     <select name="origen" id="origen">
                       <option value="">Seleccione la Procedencia</option>
-                      <?php 
+                      <?php
                         $ciudades = $hotel->getCiudades();
-                        foreach ($ciudades as $ciudad) { ?>
-                          <option value="<?=$ciudad['id_ciudad']?>"><?=$ciudad['municipio'].' '.$ciudad['depto']?></option>}
-                          <?php 
-                        }
-                       ?>
+                    foreach ($ciudades as $ciudad) { ?>
+                          <option value="<?php echo $ciudad['id_ciudad']; ?>"><?php echo $ciudad['municipio'].' '.$ciudad['depto']; ?></option>}
+                          <?php
+                    }
+                    ?>
                     </select>
                   </div>
                   <label for="tarifahab" class="col-sm-2 control-label">Destino</label>
                   <div class="col-sm-4">
                     <select name="destino" id="destino">
                       <option value="">Seleccione el Destino</option>
-                      <?php 
-                        $ciudades = $hotel->getCiudades();
-                        foreach ($ciudades as $ciudad) { ?>
-                          <option value="<?=$ciudad['id_ciudad']?>"><?=$ciudad['municipio'].' '.$ciudad['depto']?></option>}
-                          <?php 
-                        }
-                       ?>
+                      <?php
+                     $ciudades = $hotel->getCiudades();
+                    foreach ($ciudades as $ciudad) { ?>
+                          <option value="<?php echo $ciudad['id_ciudad']; ?>"><?php echo $ciudad['municipio'].' '.$ciudad['depto']; ?></option>}
+                          <?php
+                    }
+                    ?>
                     </select>
                   </div>
                 </div>            
@@ -262,26 +262,26 @@
                   <div class="col-sm-4">
                     <select name="motivo" id="motivo">
                       <option value="">Seleccione el Motivo</option>
-                      <?php 
+                      <?php
                       $motivos = $hotel->getMotivoGrupo('MVI');
-                      foreach ($motivos as $motivo) { ?>
-                        <option value="<?=$motivo['id_grupo']?>"><?=$motivo['descripcion_grupo']?></option>}
-                        <?php 
-                      }
-                       ?>
+                    foreach ($motivos as $motivo) { ?>
+                        <option value="<?php echo $motivo['id_grupo']; ?>"><?php echo $motivo['descripcion_grupo']; ?></option>}
+                        <?php
+                    }
+                    ?>
                     </select>
                   </div>
                   <label for="tarifahab" class="col-sm-2 control-label">Fuente de Reserva</label>
                   <div class="col-sm-4">
                     <select name="fuente" id="fuente">
                       <option value="">Seleccione Fuente</option>
-                      <?php 
-                        $motivos = $hotel->getMotivoGrupo('FRE');
-                        foreach ($motivos as $motivo) { ?>
-                          <option value="<?=$motivo['id_grupo']?>"><?=$motivo['descripcion_grupo']?></option>}
-                          <?php 
-                        }
-                       ?>
+                      <?php
+                     $motivos = $hotel->getMotivoGrupo('FRE');
+                    foreach ($motivos as $motivo) { ?>
+                          <option value="<?php echo $motivo['id_grupo']; ?>"><?php echo $motivo['descripcion_grupo']; ?></option>}
+                          <?php
+                    }
+                    ?>
                     </select>
                   </div>
                 </div>
@@ -290,26 +290,26 @@
                   <div class="col-sm-4">
                     <select name="segmento" id="segmento">
                       <option value="">Seleccione el Segmento</option>
-                      <?php 
-                        $motivos = $hotel->getMotivoGrupo('SME');
-                        foreach ($motivos as $motivo) { ?>
-                          <option value="<?=$motivo['id_grupo']?>"><?=$motivo['descripcion_grupo']?></option>}
-                          <?php 
-                        }
-                       ?>
+                      <?php
+                     $motivos = $hotel->getMotivoGrupo('SME');
+                    foreach ($motivos as $motivo) { ?>
+                          <option value="<?php echo $motivo['id_grupo']; ?>"><?php echo $motivo['descripcion_grupo']; ?></option>}
+                          <?php
+                    }
+                    ?>
                     </select>
                   </div>
                   <label for="formapago" class="col-sm-2 control-label">Forma de Pago </label>
                   <div class="col-sm-4">
                     <select name="formapago" id="formapago">
                       <option value="">Seleccione La Forma de Pago</option>
-                      <?php 
-                        $codigos = $hotel->getCodigosConsumos(3);
-                        foreach ($codigos as $codigo) { ?>
-                          <option value="<?=$codigo['id_cargo']?>"><?=$codigo['descripcion_cargo']?></option>
-                          <?php  
-                        }
-                         ?>
+                      <?php
+                     $codigos = $hotel->getCodigosConsumos(3);
+                    foreach ($codigos as $codigo) { ?>
+                          <option value="<?php echo $codigo['id_cargo']; ?>"><?php echo $codigo['descripcion_cargo']; ?></option>
+                          <?php
+                    }
+                    ?>
                     </select>
                   </div>
                 </div>

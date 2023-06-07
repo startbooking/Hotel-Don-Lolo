@@ -5,7 +5,13 @@ $tipo = $_POST['tipo'];
 
 $hoy = substr(FECHA_PMS, 5, 5);
 
+/* error_reporting(E_ALL);
+
+ini_set('display_errors', '1'); */
+
 $reservas = $hotel->getHuespedesenCasa(2, 'CA');
+
+// echo print_r($reservas);
 
 ?>
   <div class="table-responsive">
@@ -32,7 +38,7 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
             $depositos = $hotel->getDepositosReservas($reserva['num_reserva']);
             if ($reserva['id_compania'] == 0) {
                 $nombrecia = 'SIN COMPAÑIA ASOCIADA';
-                $nitcia = '222.222';
+                $nitcia = '222.222.222';
             } else {
                 $cias = $hotel->getBuscaCia($reserva['id_compania']);
                 if (count($cias) != 0) {
@@ -140,6 +146,7 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
                               data-ninos         ="<?php echo $reserva['can_ninos']; ?>" 
                               data-tipo          ="<?php echo $reserva['tipo_reserva']; ?>" 
                               data-tarifa        ="<?php echo $hotel->getNombreTarifa($reserva['tarifa']); ?>" 
+                              data-idtarifa      ="<?php echo $reserva['tarifa']; ?>" 
                               data-valor         ="<?php echo $reserva['valor_diario']; ?>" 
                               data-observaciones ="<?php echo $reserva['observaciones']; ?>" 
                               >
@@ -172,6 +179,7 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
                               data-hombres       ="<?php echo $reserva['can_hombres']; ?>" 
                               data-mujeres       ="<?php echo $reserva['can_mujeres']; ?>" 
                               data-tarifa        ="<?php echo $hotel->getNombreTarifa($reserva['tarifa']); ?>" 
+                              data-idtarifa      ="<?php echo $reserva['tarifa']; ?>" 
                               data-ninos         ="<?php echo $reserva['can_ninos']; ?>" 
                               data-valor         ="<?php echo $reserva['valor_reserva']; ?>" 
                               data-observaciones ="<?php echo $reserva['observaciones']; ?>" 

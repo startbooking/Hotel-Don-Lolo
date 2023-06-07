@@ -65,7 +65,7 @@ if ($perfil == 1) {
         $telFact = $datosCompania[0]['telefono'];
         $emaFact = $datosCompania[0]['email'];
         $merFact = '0000000-00';
-        $tdiFact = $datosCompania[0]['tipo_documento'];
+        $tdiFact = $datosCompania[0]['tipo_documento']; 
         $torFact = $datosCompania[0]['tipoAdquiriente'];
         $tliFact = $hotel->traeIdResponsabilidadDianVenta($datosCompania[0]['responsabilidadTributaria']);
         $munFact = $datosCompania[0]['ciudad'];

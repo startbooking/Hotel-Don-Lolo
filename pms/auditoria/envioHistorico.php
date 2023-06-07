@@ -117,11 +117,7 @@ if ($ingresocia[0]['cargos'] == '') {
     $ingcia = $ingresocia[0]['cargos'];
 }
 
-/* if ($ingresoage[0]['cargos'] == '') {
-    $ingage = 0;
-} else {
-    $ingage = $ingresoage[0]['cargos'];
-} */
+$ingage = 0;
 
 if ($ingresogru[0]['cargos'] == '') {
     $inggru = 0;

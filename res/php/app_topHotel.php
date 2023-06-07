@@ -1,9 +1,9 @@
 <?php
 // / session_start();
-/*
-error_reporting(E_ALL);
-ini_set('display_errors', '0');
-*/
+
+/* error_reporting(E_ALL);
+ini_set('display_errors', '1');
+ */
 setlocale(LC_ALL, 'es_CO.utf8', 'es_CO', 'esp');
 date_default_timezone_set('America/Bogota');
 
@@ -107,5 +107,5 @@ if (!isset($_GET['section'])) {
 } elseif (isset($_GET['section']) && $_GET['section'] == 'mantenimiento') {
     $mmtos = $hotel->habitacionesMantenimiento();
 }
- 
+
 ?>  

@@ -1546,7 +1546,7 @@ function activaSelecRecetaUpd(codigo) {
   }
 
   if (codigo == 1) {
-    $("#labelReceta").text("Producto de Inventario");
+    $("#labelRecetaUpd").text("Producto de Inventario");
     $.ajax({
       url: "res/php/user_actions/getProductos.php",
       type: "POST",
@@ -1564,7 +1564,7 @@ function activaSelecRecetaUpd(codigo) {
   }
 
   if (codigo == 2) {
-    $("#labelReceta").text("Receta Estandar");
+    $("#labelRecetaUpd").text("Receta Estandar");
     $.ajax({
       url: "res/php/user_actions/getRecetas.php",
       type: "POST",

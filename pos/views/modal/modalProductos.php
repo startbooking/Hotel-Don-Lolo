@@ -10,7 +10,7 @@ $imptos = $pos->getImpuestos();
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-off"></span></button>
           <h4 class="modal-title" id="exampleModalLabel"><span class="fa fa-cube"></span> Adicionar Producto</h4>
-        </div>
+        </div> 
         <div id="datos_ajax_register"></div>
         <div class="modal-body"> 
           <div class="form-group">
