@@ -5,14 +5,14 @@ require_once '../res/php/app_topHotel.php';
 <!DOCTYPE html>  
 <html> 
   <head> 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-99252638-1"></script>
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-99252638-1"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
       gtag('config', 'UA-99252638-1');
-    </script>
+    </script> -->
     <title><?php echo TITLE_ADM; ?> | Administracion Hotelera</title>
     <?php include_once '../res/shared/archivo_head.php'; ?>
     <link rel="stylesheet" type="text/css" href="res/css/pms.css">  

@@ -5885,10 +5885,10 @@ function terminaMmto() {
       costo,
       room,
       usuario,
-      idusuario: usuario_id,
+      usuario_id,
     },
     success: function () {
-      $(location).attr("href", pagina);
+      // $(location).attr("href", pagina);
     },
   });
 }
@@ -5946,13 +5946,13 @@ function guardaMantenimiento() {
   let { user } = sesion;
   let { usuario, usuario_id } = user;
 
-  // usuario = sesion["usuario"][0]["usuario"];
-
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
+  var roomNroAdi = $("#roomAdi option:selected").text();
   var parametros = $("#formAdicionaMantenimiento").serializeArray();
 
   parametros.push({ name: "usuario", value: usuario });
+  parametros.push({ name: "roomNroAdi", value: roomNroAdi });
 
   $.ajax({
     type: "POST",
@@ -5966,15 +5966,6 @@ function guardaMantenimiento() {
         "height=600,width=600"
       );
       $(location).attr("href", pagina);
-      /*
-			if(datos==1){
-			}else{
-				$("#btnMmto").attr('disabled','disabled');	
-	  		$('#modalReservasIns').css('display','none')
-	  		$('#mensajeMmto').css('display','block')
-	  		$('#mensajeMmto').html(datos)
-			}
-			*/
     },
   });
 }
@@ -5984,9 +5975,6 @@ function entregaObjeto() {
   let { user } = sesion;
   let { usuario, usuario_id } = user;
 
-  /*   usuario = sesion["usuario"][0]["usuario"];
-  idusuario = sesion["usuario"][0]["usuario_id"];
- */
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var parametros = $("#entregaObjetoOlvidado").serializeArray();

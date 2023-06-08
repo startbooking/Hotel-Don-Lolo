@@ -1002,7 +1002,7 @@ class Hotel_Actions
             'fecha_mmto',
             'valor_mmto',
         ], [
-            'con_mantenimiento' => $id,
+            'id_mmto' => $id,
         ]);
 
         return $data;
@@ -1048,7 +1048,7 @@ class Hotel_Actions
             'estado_hk' => $estadoHab,
             'estado' => 2,
           ], [
-            'id' => $room,
+            'numero_hab' => $room,
           ]);
 
           return $data->rowCount();
@@ -3051,6 +3051,7 @@ class Hotel_Actions
             'cargos_pms.concecutivo_abono',
             'cargos_pms.cargo_anulado',
             'cargos_pms.motivo_anulacion',
+            'cargos_pms.factura_anulada',
             'cargos_pms.fecha_anulacion',
             'cargos_pms.usuario_anulacion',
             'cargos_pms.numero_reserva',
@@ -7227,6 +7228,7 @@ class Hotel_Actions
             'reservas_pms.tipo_habitacion',
             'reservas_pms.num_habitacion',
             'reservas_pms.num_reserva',
+            'reservas_pms.num_registro',
             'reservas_pms.can_hombres',
             'reservas_pms.can_mujeres',
             'reservas_pms.can_ninos',

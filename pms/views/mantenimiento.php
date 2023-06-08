@@ -1,11 +1,12 @@
+
 <div class="content-wrapper"> 
   <section class="content">
     <div class="panel panel-success">
       <div class="panel-heading"> 
         <div class="row">
           <div class="col-lg-6">
-            <input type="hidden" name="fechaweb" id="fechaweb" value="<?=FECHA_PMS?>">
-            <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_PMS?>">
+            <input type="hidden" name="fechaweb" id="fechaweb" value="<?php echo FECHA_PMS; ?>">
+            <input type="hidden" name="rutaweb" id="rutaweb" value="<?php echo BASE_PMS; ?>">
             <input type="hidden" name="ubicacion" id="ubicacion" value="mantenimiento">
             <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-wrench" aria-hidden="true"></i> Mantenimiento Habitaciones </h3>
           </div>
@@ -39,17 +40,17 @@
             </thead>
             <tbody>
               <?php
-              foreach ($mmtos as $mmto) { 
-                ?>
+              foreach ($mmtos as $mmto) {
+                  ?>
                 <tr style='font-size:12px'>
                   <td><?php echo $hotel->getNumeroHab($mmto['id_habitacion']); ?></td>
                   <td><?php echo $mmto['descripcion_grupo']; ?></td>
-                  <td><?php echo $mmto['desde_fecha'];?></td>
+                  <td><?php echo $mmto['desde_fecha']; ?></td>
                   <td><?php echo $mmto['hasta_fecha']; ?></td>
                   <td align="center"><?php echo estadoInventario($mmto['tipo_bloqueo']); ?></td>
                   <td align="center"><?php echo estadoMmto($mmto['estado_mmto']); ?></td>
                   <td align="center"><?php echo estadoInventario($mmto['retirar_inventario']); ?></td>
-                  <td align="right"><?php echo number_format($mmto['presupuesto'],2); ?></td>
+                  <td align="right"><?php echo number_format($mmto['presupuesto'], 2); ?></td>
                   <td>
                     <nav class="navbar navbar-default" style="margin-bottom: 0px;min-height:0px;">
                       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:1px">
@@ -59,44 +60,44 @@
                             <ul class="dropdown-menu" style="float:left;margin-left:none;top:40px;left: -195px">  
                               <li>
                                 <a data-toggle="modal" 
-                                  data-id="<?php echo $mmto['id_mmto']?>" 
+                                  data-id="<?php echo $mmto['id_mmto']; ?>" 
                                   href="#myModalExtenderMantenimiento">
                                 <i class="fa fa-sign-out" aria-hidden="true"></i>
                                  Extender Mantenimiento</a> 
                               </li>
                               <li>
                                 <a data-toggle="modal" 
-                                  data-id="<?php echo $mmto['con_mantenimiento']?>" 
+                                  data-id="<?php echo $mmto['con_mantenimiento']; ?>" 
                                   href="#myModalInformacionMmto">
                                 <i class="fa fa-sign-out" aria-hidden="true"></i>
                                  Informacion Mantenimiento</a> 
                               </li>
                               <li>
                                 <a data-toggle="modal" 
-                                  data-id="<?php echo $mmto['id_mmto']?>" 
-                                  data-mmto="<?php echo $mmto['descripcion_grupo']?>" 
-                                  data-observa="<?php echo $mmto['observaciones']?>" 
+                                  data-id="<?php echo $mmto['id_mmto']; ?>" 
+                                  data-mmto="<?php echo $mmto['descripcion_grupo']; ?>" 
+                                  data-observa="<?php echo $mmto['observaciones']; ?>" 
                                   data-room="<?php echo $hotel->getNumeroHab($mmto['id_habitacion']); ?>"
                                   href="#myModalAdicionaObservacionesMantenimiento">
                                 <i class="fa fa-sign-out" aria-hidden="true"></i>
                                  Adicionar Observaciones</a> 
                               </li>
-                              <?php 
-                              if($mmto['estado_mmto']==1){ ?>
+                              <?php
+                                if ($mmto['estado_mmto'] == 1) { ?>
                                 <li>
                                   <a data-toggle="modal" 
-                                    data-id="<?php echo $mmto['con_mantenimiento']?>" 
+                                    data-id="<?php echo $mmto['id_mmto']; ?>" 
                                     data-room="<?php echo $hotel->getNumeroHab($mmto['id_habitacion']); ?>"
                                     href="#myModalTerminaMmto">
                                   <i class="fa fa-sign-out" aria-hidden="true"></i>
                                    Terminar Mantenimiento</a> 
                                 </li>
-                                <?php 
-                              }
-                              ?>
+                                <?php
+                                }
+                  ?>
                               <li>
                                 <a 
-                                  onclick="imprimirOrdenM('<?=$mmto['con_mantenimiento'];?>')" 
+                                  onclick="imprimirOrdenM('<?php echo $mmto['id_mmto']; ?>')" 
                                   >
                                 <i class="fa fa-sign-out" aria-hidden="true"></i>
                                  Imprimir Orden de Trabajo</a> 
@@ -109,9 +110,9 @@
                   </td>
                 </tr>
 
-                <?php 
+                <?php
               }
-              ?>
+            ?>
             </tbody>
           </table>
         </div>

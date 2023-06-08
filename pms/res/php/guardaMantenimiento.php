@@ -5,6 +5,7 @@
 require '../../../res/php/app_topHotel.php';
 
 $room = $_POST['roomAdi'];
+$nroroom = $_POST['roomNroAdi'];
 $desde = $_POST['desdeFechaAdi'];
 $hasta = $_POST['hastaFechaAdi'];
 $motivo = $_POST['motivoAdi'];
@@ -37,7 +38,7 @@ if (count($buscaRe) == 0) {
     $adicional = $hotel->adicionaMantenimiento($room, $desde, $hasta, $motivo, $inventario, $estadoHab, $observa, $presup, $numero, $tipo, $usuario);
 
     if ($adicional != 0) {
-        $actualizaHab = $hotel->actualizaMmtoHabitacion($room, $estadoHab);
+        $actualizaHab = $hotel->actualizaMmtoHabitacion($nroroom, $estadoHab);
         include_once '../../imprimir/imprimeMantenimiento.php';
     } else {
         $actualizaHab = 0;
