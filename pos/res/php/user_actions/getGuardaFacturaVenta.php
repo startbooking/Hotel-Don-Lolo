@@ -117,7 +117,7 @@
             $descri = $pos->getDescripcionCargo($codigoPro);
             $descargo = $descri[0]['descripcion_cargo'];
             $impcargo = $descri[0]['id_impto'];
-            $cargoPro = $pos->cargosInterfasePOS($fechapos, $propina, 0, $codigoPro, $nrohabi, $descargo, 0, $idhues, $prefijo.'_'.$nFactura, $nrores, $comanda, $usuario, $idusuario);
+            $cargoPro = $pos->cargosInterfasePOS($fechapos, $propina, 0, $codigoPro, $nrohabi, $descargo, $impcargo, $idhues, $prefijo.'_'.$nFactura, $nrores, $comanda, $usuario, $idusuario);
             echo $cargoPro;
         }
 
@@ -125,7 +125,7 @@
             $descri = $pos->getDescripcionCargo($codigoSer);
             $descargo = $descri[0]['descripcion_cargo'];
             $impcargo = $descri[0]['id_impto'];
-            $cargoPro = $pos->cargosInterfasePOS($fechapos, $servicio, 0, $codigoSer, $nrohabi, $descargo, 0, $idhues, $prefijo.'_'.$nFactura, $nrores, $comanda, $usuario, $idusuario);
+            $cargoPro = $pos->cargosInterfasePOS($fechapos, $servicio, 0, $codigoSer, $nrohabi, $descargo, $impcargo, $idhues, $prefijo.'_'.$nFactura, $nrores, $comanda, $usuario, $idusuario);
             echo $cargoPro;
         }
     }

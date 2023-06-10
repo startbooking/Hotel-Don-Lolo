@@ -4522,6 +4522,7 @@ function salidaHuesped() {
   var saldo = $("#SaldoActual").val();
   var abonos = $("#totalPagos").val();
   let perfilFac = $("#perfilFactura").val();
+
   var tipofac = $(
     "input[name=habitacionOptionCon]:checked",
     "#guardarPagosRoomSal"
@@ -4543,7 +4544,7 @@ function salidaHuesped() {
     return;
   }
 
-  return;
+  // return;
 
   // return;
 

@@ -107,7 +107,7 @@ if ($_GET['section'] != 'cajeroCerrado') {
                 <li><a href="javascript:imprimeInformeAuditoria('imprimePagosAnuladosdelDia','Pagos Anulados en el Dia')"><i class="glyphicon glyphicon-usd"></i>Pagos Anulados en el Dia</a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeBalanceTotalHuesped','Saldo Huespedes')"><i class="fa fa-money"></i>Saldo Huespedes</a></li> 
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeBalanceDiario','Saldo Huespedes')"><i class="fa fa-bar-chart"></i>Balance Diario</a></li> 
-                <li><a href="javascript:imprimeInformeAuditoria('imprimeReservasDiaDepositos','Depositos a Reserva del Dia')"><i class="glyphicon glyphicon-download-alt"></i>Depositos a Reserva del Dia </a></li>
+                <li><a href="javascript:imprimeInformeAuditoria('imprimeReservasDiaDepositos','Depositos a Reserva del Dia')"><i class="glyphicon glyphicon-download-alt"></i>Abonos - Depositos del Dia </a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeBalanceCongeladas','Depositos a Reserva del Dia')"><i class="fa fa-snowflake-o"></i>Cuentas Congeladas </a></li>
               </ul>
             </li>
@@ -170,7 +170,7 @@ if ($_GET['section'] != 'cajeroCerrado') {
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeCargosdelDiaHabitacion','Cargos del Dia Por Habitacion')"><i class="glyphicon glyphicon-paste"></i>Cargos del Dia Por Habitacion</a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeCargosAnuladosdelDia','Cargos Anulados en el Dia ')"><i class="glyphicon glyphicon-copy"></i>Cargos Anulados en el Dia </a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimePagosdelDia','Pagos del Dia')"><i class="glyphicon glyphicon-save-file"></i>Pagos del Dia</a></li>
-                <li><a href="javascript:imprimeInformeAuditoria('imprimePagosdelDiaConcepto','Pagos del Dia por Concepto')"><i class="glyphicon glyphicon-save-file"></i>Pagos del Dia por Concepto</a></li>
+                <li><a href="javascript:imprimeInformeAuditoria('imprimePagosdelDiaConcepto','Pagos del Dia por Concepto')"><i class="glyphicon glyphicon-save-file"></i>Flujo de Caja</a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimePagosdelDiaCajero','Pagos del Dia por Cajero')"><i class="glyphicon glyphicon-save-file"></i>Pagos del Dia por Cajero</a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimePagosdelDiaHabitacion','Pagos del Dia Por Habitacion')"><i class="glyphicon glyphicon-paste"></i>Pagos del Dia Por Habitacion</a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimePagosAnuladosdelDia','Pagos Anulados en el Dia')"><i class="glyphicon glyphicon-usd"></i>Pagos Anulados en el Dia</a></li>
@@ -179,7 +179,7 @@ if ($_GET['section'] != 'cajeroCerrado') {
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeBalanceTotalHuesped','Saldo Huespedes')"><i class="fa fa-circle-o"></i>Saldo Huespedes</a></li> 
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeBalanceDiario','Balance Diario')"><i class="fa fa-circle-o"></i>Balance Diario</a></li> 
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeBalanceCongeladas','Cuentas Congeladas')"><i class="fa fa-snowflake-o"></i>Cuentas Congeladas</a></li>
-                <li><a href="javascript:imprimeInformeAuditoria('imprimeReservasDiaDepositos','Depositos a Reserva del Dia ')"><i class="glyphicon glyphicon-download-alt"></i>Depositos a Reserva del Dia </a></li>
+                <li><a href="javascript:imprimeInformeAuditoria('imprimeReservasDiaDepositos','Depositos a Reserva del Dia ')"><i class="glyphicon glyphicon-download-alt"></i>Abonos - Depositos del Dia </a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeEstadoCartera','Estado Cartera ')"><i class="fa fa-snowflake-o"></i>Estado Cartera</a></li>
               </ul>
             </li>

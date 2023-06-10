@@ -3,14 +3,14 @@
 require '../../res/php/titles.php';
 require '../../res/php/app_topPos.php';
 
-$idamb = $_POST['idamb'];
-$nomamb = $_POST['amb'];
-$user = $_POST['user'];
-$iduser = $_POST['iduser'];
+$idamb = $_POST['id_ambiente'];
+$nomamb = $_POST['nombre'];
+$user = $_POST['usuario'];
+$iduser = $_POST['usuario_id'];
 $logo = $_POST['logo'];
 $desdefe = $_POST['desdeFe'];
 $hastafe = $_POST['hastaFe'];
-$oldfile = $_POST['file'];
+// $oldfile = $_POST['file'];
 
 $periodos = $pos->getVentasPeriodosMes($idamb, $desdefe, $hastafe);
 

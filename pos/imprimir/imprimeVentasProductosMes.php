@@ -21,7 +21,7 @@ require_once '../../res/fpdf/fpdf.php';
 
 $pdf = new FPDF();
 $pdf->AddPage('P', 'letter');
-$pdf->Image('../../img/'.LOGO, 10, 10, 22);
+$pdf->Image('../../img/'.$logo, 10, 10, 22);
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(195, 5, $nomamb, 0, 1, 'C');
 $pdf->SetFont('Arial', '', 10);

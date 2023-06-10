@@ -11,11 +11,6 @@ $level = 'L'; // Nivel de corrección (L, M, Q, H)
 // Generar el código QR
 QRcode::png($QRStr, $filename, $level, $size);
 
-/* $detallePag ;
-$refer ;
-$correofac ;
- */
-
 $datosReserva = $hotel->getReservasDatos($reserva);
 $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
 
@@ -223,6 +218,7 @@ $pdf->setX(105);
 
 $pdf->SetFont('Arial', '', 8);
 foreach ($pagosfolio as $pagofolio) {
+    $pdf->setX(105);
     $pagos = $pagos + $pagofolio['pagos'];
     $pdf->Cell(60, 4, $pagofolio['descripcion_cargo'], 0, 0, 'L');
     $pdf->Cell(35, 4, number_format($pagofolio['pagos'], 2), 0, 1, 'R');

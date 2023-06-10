@@ -3,7 +3,7 @@
 require_once '../../../res/php/app_topHotel.php';
 
 $eToken = $hotel->datosTokenCia();
- 
+
 $token = $eToken[0]['token'];
 $password = $eToken[0]['password'];
 $facturador = $eToken[0]['facturador'];
@@ -37,6 +37,7 @@ $retefuente = $_POST['retefuente'];
 $porceiva = $_POST['porceReteiva'];
 $porceica = $_POST['porceReteica'];
 $porcefuente = $_POST['porceRetefuente'];
+// $perfilFac = 1;
 
 if ($reteiva == 0) {
     $baseIva = 0;
@@ -79,6 +80,7 @@ if ($perfilFac == 1 && $facturador == 1) {
 } else {
     $perfilFac == 2;
     $numfactura = $hotel->getNumeroAbono(); // Numero Actual del Abono
+    // echo 'Numero Abono '.$numfactura;
     $nuevonumero = $hotel->updateNumeroAbonos($numfactura + 1); // Actualiza Consecutivo del Abono
 }
 
@@ -189,10 +191,10 @@ if ($perfilFac == 1 && $facturador == 1) {
     $eCust['identification_number'] = $nitFact;
     $eCust['dv'] = $dvFact;
     $eCust['name'] = $nomFact;
-    $eCust['phone'] = $telFact;
     $eCust['email'] = $emaFact;
     if($tipofac == 2){
-      $eCust['address'] = str_replace('#','Nro',$dirFact);
+      $eCust['address'] = str_replace('#','Nro ',$dirFact);
+      $eCust['phone'] = $telFact;
       $eCust['merchant_registration'] = $merFact;
       $eCust['type_document_identification_id'] = $tdiFact;
       $eCust['type_organization_id'] = $torFact;
@@ -205,7 +207,7 @@ if ($perfilFac == 1 && $facturador == 1) {
     $ePago['payment_method_id'] = $hotel->traeCodigoDianVenta($codigo);
     $ePago['payment_due_date'] = $fechaVen;
     $ePago['duration_measure'] = $diasCre;
-
+    
     $eLmon['line_extension_amount'] = $subtotales[0]['cargos'];
     $eLmon['tax_exclusive_amount'] = $subtotales[0]['cargos'];
     $eLmon['tax_inclusive_amount'] = $subtotales[0]['cargos'] + $subtotales[0]['imptos'];
@@ -286,7 +288,7 @@ if ($perfilFac == 1 && $facturador == 1) {
     }
 
     $eLmon['payable_amount'] = $subtotales[0]['cargos'] + $subtotales[0]['imptos'] - $retefuente - $reteica - $reteiva;
-
+    
     $eFact['customer'] = $eCust;
     $eFact['payment_form'] = $ePago;
     $eFact['legal_monetary_totals'] = $eLmon;
@@ -295,7 +297,7 @@ if ($perfilFac == 1 && $facturador == 1) {
     $eFact['invoice_lines'] = $eInvo;
 
     $eFact = json_encode($eFact);
-
+    
     include_once '../../api/enviaFactura.php';
 
     $recibeCurl = json_decode($respofact, true);

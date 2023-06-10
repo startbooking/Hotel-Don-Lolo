@@ -137,11 +137,9 @@ $pdf->Cell(25, 4, number_format($imp, 2, ',', '.'), 0, 1, 'R');
 $pdf->Cell(25, 4, number_format($des, 2, ',', '.'), 0, 1, 'R'); */
 $pdf->Cell(40, 4, 'Propina', 0, 0, 'R');
 $pdf->Cell(25, 4, number_format($pro, 2, ',', '.'), 0, 1, 'R');
-$pdf->Ln(2);
 $pdf->Cell(40, 4, 'Room Service', 0, 0, 'R');
 $pdf->Cell(25, 4, number_format($rooms, 2, ',', '.'), 0, 1, 'R');
-/* $pdf->SetFont('Arial', 'B', 7);
-$pdf->Ln(2); */
+$pdf->Ln(2);
 $pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell(40, 4, 'Total Cuenta:', 0, 0, 'L');
 $pdf->Cell(25, 4, number_format($sub - $des + $pro + $imp + $rooms, 2, ',', '.'), 0, 1, 'R');
