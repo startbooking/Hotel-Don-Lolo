@@ -19,7 +19,7 @@
                   <label for="inputEmail3" class="col-sm-2 control-label">Huesped</label>
                   <div class="form-group has-success has-feedback col-sm-6" >
                     <div class="input-group" style="padding-left:15px;">
-                      <input type="text" class="form-control" id="buscarHuesped" aria-describedby="inputGroupSuccess4Status" style="background:#FFF" required>
+                      <input type="text" class="form-control" id="buscarHuesped" aria-describedby="inputGroupSuccess4Status" style="background:#FFF">
                       <span class="input-group-addon" style="padding:1px;border:none">
                         <a data-toggle="modal"
                           href="#myModalBuscaHuesped">
@@ -856,7 +856,7 @@
 </div>
 
 <div class="modal fade" id="myModalConfirmaReserva" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <form id="guardarDatosRooms" class="form-horizontal" action="javascript:imprimeEstadoCuenta()" method="POST" enctype="multipart/form-data">
+  <form id="guardarDatosRooms" class="form-horizontal" method="POST" enctype="multipart/form-data">
     <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -888,7 +888,7 @@
               </div>
             </div>
             <div class="divs" id="divConsumos" >
-              <object id="verEstadoCuenta" width="100%" height="350" data=""></object> 
+              <object id="verConfirmaReserva" width="100%" height="350" data=""></object> 
             </div>          
           </div>
           <div class="modal-footer" style="text-align: center">

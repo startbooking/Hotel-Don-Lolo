@@ -231,9 +231,7 @@ $reservas = $hotel->getReservasActuales($tipo);
                                 >
                                 <i class="fa fa-times" aria-hidden="true"></i>Cancelar Reserva</a>
                             </li>
-                              <!-- 
-                              -->
-                            <li> 
+                            <li>  
                               <a 
                                 data-toggle    ="modal" 
                                 data-target    = "#myModalConfirmaReserva"                                
@@ -247,8 +245,6 @@ $reservas = $hotel->getReservasActuales($tipo);
                                 data-tarifa    ="<?php echo $hotel->getNombreTarifa($reserva['tarifa']); ?>" 
                                 data-tipohab   ="<?php echo descripcionTipoHabitacion($reserva['tipo_habitacion']); ?>"                                       
                                 data-nrohab    ="<?php echo $reserva['num_habitacion']; ?>" 
-                                  
-                                onclick        ="confirmarReserva(<?php echo $reserva['num_reserva']; ?>)" 
                                 >
                                 <i class="fa fa-book" aria-hidden="true"></i>Confirmar Reserva
                               </a>

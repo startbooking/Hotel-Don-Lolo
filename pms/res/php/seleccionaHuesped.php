@@ -27,16 +27,24 @@ if (empty($huesped)) {
         <input type="hidden" name="idCentro" id="idCentro" value="<?php echo $huesped[0]['idCentroCia']; ?>">
       </div>
     </div>
-    <div class="form-group">
-      <label for="inputEmail3" class="col-sm-2 control-label">Empresa</label>
-      <div class="col-sm-6">
-        <input type="text" class="form-control" name="empresa" id="empresa" value="<?php echo $cia[0]['empresa']; ?>" disabled="">
+    
+    <?php
+    if($huesped[0]['id_compania'] != 0) {
+      ?>
+      <div class="form-group">
+        <label for="inputEmail3" class="col-sm-2 control-label">Empresa</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" name="empresa" id="empresa" value="<?php echo $cia[0]['empresa']; ?>" disabled="">
+        </div>
+        <label for="inputEmail3" class="col-sm-1 control-label">Nit</label>
+        <div class="col-sm-3">
+          <input type="text" class="form-control" name="nit" id="nit" value="<?php echo $cia[0]['nit'].'-'.$cia[0]['dv']; ?>" disabled="">
+        </div>
       </div>
-      <label for="inputEmail3" class="col-sm-1 control-label">Nit</label>
-      <div class="col-sm-3">
-        <input type="text" class="form-control" name="nit" id="nit" value="<?php echo $cia[0]['nit'].'-'.$cia[0]['dv']; ?>" disabled="">
-      </div>
-    </div>
+      <?php
+    }
+
+    ?>
   <?php
 }
 ?>

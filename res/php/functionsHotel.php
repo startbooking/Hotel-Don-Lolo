@@ -5,6 +5,19 @@ date_default_timezone_set('America/Bogota');
 
 class Hotel_Actions
 {
+    public function traeNombreUsuario($id){
+        global $database;
+
+        $data = $database->select('usuarios',[
+            'apellidos',
+            'nombres',
+        ],[
+            'usuario_id' => $id
+
+        ]);
+        return $data[0]['apellidos'].' '.$data[0]['nombres'];
+    }
+    
     public function trarRetenciones($numero)
     {
         global $database;
@@ -5650,12 +5663,18 @@ class Hotel_Actions
             'reservas_pms.salida_checkout',
             'reservas_pms.observaciones',
             'reservas_pms.observaciones_cancela',
+            'reservas_pms.fecha_ingreso',
+            'reservas_pms.id_usuario_ingreso',
             'huespedes.nombre1',
             'huespedes.nombre2',
             'huespedes.apellido1',
             'huespedes.apellido2',
             'huespedes.nombre_completo',
             'huespedes.identificacion',
+            'huespedes.telefono',
+            'huespedes.fecha_nacimiento',
+            'huespedes.celular',
+            'huespedes.email',
             'huespedes.id_huesped',
         ], [
             'reservas_pms.num_reserva' => $reserva,

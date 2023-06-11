@@ -2256,7 +2256,7 @@
              'habitaciones',
              'email',
              'telefono',
-             'fax',
+             'fax', 
              'celular',
              'licencia',
              'camas',

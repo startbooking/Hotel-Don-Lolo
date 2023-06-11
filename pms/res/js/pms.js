@@ -55,26 +55,16 @@ $(document).ready(function () {
     let nrohab = button.data("nrohab");
     var modal = $(this);
 
-    modal.find(".modal-title").text("Confirmacion Reserfva : " + huesped);
+    modal.find(".modal-title").text("Confirmacion Reserva : " + huesped);
 
     $("#txtTipoHabEst").val(tipohab);
     $("#txtNumeroHabEst").val(nrohab);
     $("#txtNombresEst").val(huesped);
-    $.ajax({
-      url: "imprimie/confirmaReserva.php",
-      type: "POST",
-      data: {
-        id,
-      },
-      success: function (datos) {
-        $("#verInforme").attr(
-          "data",
-          `data:application/pdf;base64,${$.trim(datos)}`
-        );
-        /* $("#idCiaAdi").val(id);
-        $("#centrosCia").html(datos); */
-      },
-    });
+
+    $("#verConfirmaReserva").attr(
+      "data",
+      "imprimir/reservas/ConfirmacionReserva_" + id + ".pdf"
+    );
   });
 
   $("#myModalEliminaCentroCia").on("show.bs.modal", function (event) {
@@ -3271,7 +3261,7 @@ function asignaTipoHabitacion() {
   });
 }
 
-function guardaHuesped() {
+function guardaHuesped() { 
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
   let { usuario, usuario_id, tipo } = user;
@@ -3914,7 +3904,7 @@ function seleccionaHuespedReserva(id) {
   $.ajax({
     url: web + "/res/php/seleccionaHuesped.php",
     type: "POST",
-    data: parametros,
+    data: parametros, 
     success: function (data) {
       $("#datosHuespedAdi").html(data);
       // ide = $("#identifica").val();
@@ -5463,8 +5453,43 @@ function guardaReserva() {
     data: parametros,
     url: "res/php/ingresoReserva.php",
     success: function (datos) {
-      swal("Reserva Nro " + datos, "Reserva Creada con Exito", "success");
-      $(location).attr("href", "home");
+      confirmarReserva(datos)
+      /* swal(
+        {
+          title: "Cuenta sin Consumos !",
+          text: "Esta Cuenta no Presenta Consumos, Desea Realizar la Salida ?",
+          type: "warning",
+          showCancelButton: true,
+          cancelButtonClass: "btn-warning",
+          cancelButtonText: "Cancelar Salida",
+          confirmButtonClass: "btn-danger",
+          confirmButtonText: "Si, Realizar Salida!",
+          closeOnConfirm: false,
+        },
+        function () {
+          $.ajax({
+            type: "POST",
+            url: web + "res/php/salidaSinPago.php",
+            data: parametros,
+            success: function (data) {
+              swal(
+                "Atencion",
+                "Salida del Huesped realizada con Exito",
+                "success",
+                5000
+              );
+              $(location).attr("href", "home");
+            },
+          });
+        }
+      ); */
+
+
+      swal("Atencion ", `Reserva ${datos} Creada con Exito`, "success");
+      setTimeout(function () {
+        $(location).attr("href", "home");
+      }, 5000);
+      // $(location).attr("href", "home");
     },
   });
 }
@@ -5705,7 +5730,7 @@ function ingresaDeposito() {
     processData: false,
     success: function (datos) {
       datos = $.trim(datos);
-      console.log(datos);
+      // console.log(datos);
       var ventana = window.open(
         `imprimir/notas/Abono_${datos}.pdf`,
         "PRINT",
@@ -5824,12 +5849,13 @@ function imprimirPreRegistro(reserva) {
 }
 
 function confirmarReserva(reserva) {
+
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
   let { usuario } = user;
-  // usuario = sesion["usuario"][0]["usuario"];
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
+  reserva = $.trim(reserva)
   var parametros = {
     reserva,
     usuario,
@@ -5838,12 +5864,13 @@ function confirmarReserva(reserva) {
     type: "POST",
     data: parametros,
     url: web + "imprimir/confirmaReserva.php",
-    beforeSend: function (objeto) {},
     success: function (datos) {
-      $("#confirmaReserva").html(datos);
-      setTimeout(function () {
-        $("#confirmaReserva").html("");
-      }, 5000);
+      console.log(datos)
+      var ventana = window.open(
+        "imprimir/"+$.trim(datos),
+        "PRINT",
+        "height=600,width=600"
+      );
     },
   });
 }

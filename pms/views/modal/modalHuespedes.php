@@ -1,7 +1,7 @@
 <?php
 $paices = $hotel->getPaices();
 $hoy = date('Y-m-d');
-
+ 
 ?>  
 <div class="modal fade bs-example-modal-lg" id="myModalAdicionaPerfil" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog modal-lg" role="document">

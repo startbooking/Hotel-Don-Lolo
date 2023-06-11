@@ -5,4 +5,4 @@
   $dbname = 'donlolo';
   // $dbname = 'donloloweb';
   $dbuser = 'root';
-  $dbpass = '#eO18z5jkJEK';
+  $dbpass = 'b4r4h0n4';
