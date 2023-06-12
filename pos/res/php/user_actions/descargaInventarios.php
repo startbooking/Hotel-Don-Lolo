@@ -20,10 +20,8 @@ $tipo = 2;
 
 $tipoMovi = $pos->traeDatosMovimiento();
 
-// echo print_r($tipoMovi);
-
 $movimiento = $tipoMovi[0]['tipo'];
-$tipoMov = $tipoMovi[0]['id_tipomovi'];
+$tipoMov    = $tipoMovi[0]['id_tipomovi'];
 
 $productosVenta = $pos->getDescargaInventario($amb, $nComa, 1);
 $recetasVenta = $pos->getProductosRecetasVenta($amb, $nComa, 2);
@@ -56,7 +54,7 @@ if (count($productosVenta) == 0 && count($recetasVenta) == 0) {
             $subtotal = $unit * $cantidad;
             $costo = $subtotal;
 
-            $adiRec = $pos->insertaMovimiento($tipoMovi, $tipo, $movimiento, $numeroMov, $fecha, $centroCosto, $docu, $producto, $cantidad, $unidadalm, $unit, $subtotal, $costo, $almacen, 1, $usuario);
+            $adiRec = $pos->insertaMovimiento($tipoMov, $tipo, $movimiento, $numeroMov, $fecha, $centroCosto, $docu, $producto, $cantidad, $unidadalm, $unit, $subtotal, $costo, $almacen, 1, $usuario);
         }
     }
 

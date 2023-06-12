@@ -10,7 +10,7 @@
             <h3 class="w3ls_head tituloPagina"> <i style="color:black;font-size:36px" class="fa fa-briefcase" aria-hidden="true"></i> Huespedes Sin Reserva</h3>
           </div>
 
-        </div>
+        </div> 
         <div id="mensaje"></div>
       </div>
       <form class="form-horizontal" id="formReservas" action="javascript:guardasinReserva()" method="POST">

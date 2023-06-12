@@ -14,31 +14,15 @@
   $datosHuesped = $hotel->getbuscaDatosHuesped($datosReserva[0]['id_huesped']);
   $datosCompania = $hotel->getSeleccionaCompania($datosReserva[0]['id_compania']);
   
-//   echo print_r($datosReserva);
-
-  /* $nombres = $datosHuesped[0]['nombre1'].' '.$datosHuesped[0]['nombre2'];
-  $llega = fechaReserva($datosReserva[0]['fecha_llegada']);
-  $sale = fechaReserva($datosReserva[0]['fecha_salida']);
-  $huesped = $datosHuesped[0]['apellido1'].' '.$datosHuesped[0]['apellido2'].' '.$datosHuesped[0]['nombre1'].' '.$datosHuesped[0]['nombre2'];
-  $iden = $datosHuesped[0]['identificacion']; */
-
-  // $regisCia = count($datosCompania);
-  // $fecha = $hotel->getDatePms();
-
-// echo LOGO;
-
   $pdf = new FPDF();
   $pdf->AddPage('P', 'letter');
   $pdf->Rect(10, 35, 190, 230);
-//   $pdf->Image('../../img/'.LOGO, xPOS, yPOS, tPOS);
   $pdf->Image('../../img/'.LOGO, 10, 5, 30);
 
-  // echo 'Paso ';
   $pdf->SetFont('Arial', 'B', 13);
   $pdf->Cell(190, 5, utf8_decode(NAME_EMPRESA), 0, 1, 'C');
   $pdf->SetFont('Arial', '', 10);
   $pdf->Cell(190, 4, 'NIT: '.NIT_EMPRESA, 0, 1, 'C');
-//   $pdf->Cell(190, 5, REGIMEN, 0, 1, 'C');
   $pdf->Cell(190, 4, utf8_decode(ADRESS_EMPRESA), 0, 1, 'C');
   $pdf->Cell(190, 4, utf8_decode(CIUDAD_EMPRESA).' '.PAIS_EMPRESA, 0, 1, 'C');
   $pdf->Cell(40, 4, '', 0, 0, 'C');
@@ -120,13 +104,9 @@ $pdf->SetFont('Arial', 'B', 10);
   $pdf->MultiCell(190, 4, '- Via BALOTOy EFECTY - SERVIENTREGA o Consignacion Bancaria a la Cuenta Corriente Nro 700-04603-0 Banco de Occidente a nombre de Hotel Don Lolo Ltda, o enviar scanner de Tarjeta de Credito con coopua de documento y carta de autorizacion donde especifique el valor a debita. Favor enviar al correo electronico reservas@donlolohotel.com la informacion del pago. ' , 0, 'J');
   $pdf->MultiCell(190, 4, utf8_decode('Condiciones, no se genera recargo por alojamiento de infantes de  0 - 1 año, se efectuara un recargo para infantes en edades de 1 - 7 años y deberan compartir la estancia en la habitacion de los adultos responsables, aplica a partir de acomodacion doble con una restriccion de maximo 2 infantes, de 7 años en adelante se considera como adulto') , 0, 'J');
   $pdf->MultiCell(190, 4, utf8_decode('Todos los Huespedes (Adultos o menores de edad) deberan presentar su documento de identificacion en el Check-In sin excepcion') , 0, 'J');
-  $pdf->MultiCell(190, 4, 'Peticiones especiales sujetas a disponibilidad en el momento de Chack-In' , 0, 'J');
+  $pdf->MultiCell(190, 4, 'Peticiones especiales sujetas a disponibilidad en el momento de Check-In' , 0, 'J');
 
   $file = 'reservas/ConfirmacionReserva_'.$reserva.'.pdf';
   echo $file;
 
   $pdf->Output($file, 'F');
-
-/*   $pdfFile = $pdf->Output('', 'S');
-  $base64Factura = chunk_split(base64_encode($pdfFile));
- */

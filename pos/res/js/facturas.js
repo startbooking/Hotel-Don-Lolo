@@ -699,7 +699,7 @@ function descargarInventario() {
     fecha: fecha_auditoria,
     centr: id_centrocosto,
     user: usuario,
-  };
+  }; 
   $.ajax({
     url: "res/php/user_actions/descargaInventarios.php",
     type: "POST",

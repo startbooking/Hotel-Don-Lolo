@@ -7,4 +7,5 @@
   $anula   = $hotel->eliminaAcompanante($id); 
 
   ?>
-  <h4 align="center" class="bg-red" style="padding:10px"><span style="font-size:24px;font-weight: 700;font-family: 'ubuntu';">Acompañante Eliminado con Exito</span></h4>
+  <!-- <h4 align="center" class="bg-red" style="padding:10px"><span style="font-size:24px;font-weight: 700;font-family: 'ubuntu';">Acompañante Eliminado con Exito</span></h4>
+ -->

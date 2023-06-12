@@ -3180,6 +3180,44 @@ class Hotel_Actions
         return $data;
     }
 
+
+    public function getBuscaRecibosDia($fecha)
+    {
+        global $database;
+
+        $data = $database->select('cargos_pms', [
+            '[>]huespedes' => 'id_huesped',
+            '[>]reservas_pms' => ['numero_reserva' => 'num_reserva'],
+        ], [
+            'reservas_pms.fecha_llegada',
+            'reservas_pms.fecha_salida',
+            'reservas_pms.num_reserva',
+            'reservas_pms.num_habitacion',
+            'huespedes.nombre_completo',
+            'cargos_pms.prefijo_factura',
+            'cargos_pms.factura_numero',
+            'cargos_pms.concecutivo_abono',
+            'cargos_pms.pagos_cargos',
+            'cargos_pms.id_usuario_factura',
+            'cargos_pms.total_consumos',
+            'cargos_pms.total_impuesto',
+            'cargos_pms.total_pagos',
+            'cargos_pms.fecha_cargo',
+            'cargos_pms.factura_anulada',
+            'cargos_pms.perfil_factura',
+            'cargos_pms.id_perfil_factura',
+            'cargos_pms.fecha_sistema_cargo',
+        ], [
+            'cargos_pms.fecha_cargo' => $fecha,
+            'cargos_pms.concecutivo_abono[>]' => 0,
+            'cargos_pms.factura' => 0,
+            'ORDER' => ['cargos_pms.concecutivo_abono'],
+        ]);
+
+        return $data;
+    }
+
+
     public function getBuscaFacturasDia($fecha)
     {
         global $database;
@@ -3204,6 +3242,7 @@ class Hotel_Actions
             'cargos_pms.fecha_factura',
             'cargos_pms.factura_anulada',
             'cargos_pms.perfil_factura',
+            'cargos_pms.tipo_factura',
             'cargos_pms.id_perfil_factura',
             'cargos_pms.fecha_sistema_cargo',
         ], [
@@ -6838,7 +6877,7 @@ class Hotel_Actions
 
         return $data;
     }
-
+ 
     public function insertNuevaReserva($iden, $llegada, $salida, $noches, $hombres, $mujeres, $ninos, $orden, $tipohabi, $nrohabitacion, $tarifahab, $valortarifa, $origen, $destino, $motivo, $fuente, $segmento, $idhuesp, $idcia, $idCentro, $numero, $usuario, $estado, $observa, $formapa, $sinrese, $impto, $idusuario, $tipo)
     {
         global $database;

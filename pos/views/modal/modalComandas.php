@@ -6,7 +6,6 @@
         <div class="modal-header">
           <button type="button" class="close glyphicon glyphicon-off" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
           <h3 style="font-weight: 700;font-family: 'ubuntu" class="modal-title" id="myModalLabel"><i class="fa fa-money"></i> Pagar Presente Cuenta</h3>
-          <!-- <h4 style="font-weight: 500;font-family: 'ubuntu"> <?php echo $amb; ?></h4> -->
           <input type="hidden" name="comandaPag"     id="comandaPag"     value="0"> 
           <input type="hidden" name="productosPag"   id="productosPag"   value="0"> 
           <input type="hidden" name="prefijo"        id="prefijo"        value="<?php echo $prefijo; ?>"> 
@@ -27,7 +26,7 @@
           ?>
           <div class="form-group" >
             <input type="hidden" id="sugerida" value="<?php echo $pro; ?>">
-            <label class="col-lg-3 col-md-3 control-label" style="padding-top:0">Forma de Pago</label>
+            <label class="col-lg-3 col-md-3 control-label" style="padding-top:0;">Forma de Pago</label>
             <div class="col-lg-8 col-md-8"> 
               <select onchange="getFormaPago(this.value)" name='formapago' id='formapago' required >
                 <option value="">Seleccione la Forma de Pago</option>
@@ -60,8 +59,8 @@
               <input value="0" min="0" type="number" class="suma_propina form-control" name="propinaPag" id="propinaPag" onblur="calcular_total()">
             </div>
               <label class='col-lg-2 col-md-2 control-label ctrlCta' style="padding-top:0">Room Service</label>
-            <div class="col-lg-3 col-md-3" style="paddin-rigth:0px;">
-              <input type="text" class="form-control" name="roomService" id="roomService" value="0" min="0" onblur="calculaRoomService()">
+            <div class="col-lg-3 col-md-3" style="padding-rigth:0px;">
+              <input type="text" class="form-control" name="roomService" id="roomService" value="0" min="0">
             </div>
             <div class="col-lg-1" style="padding-left:0px;margin-left:-14px;display:flex;">
               <input class="btn btn-info" style="padding: 4px 8px;width:28px;" onclick="calculaRoomService()">
@@ -81,13 +80,6 @@
               <input class="form-control" name="total" id="total" readonly>
               <input type="hidden" name="totalini" id="totalini" readonly>
             </div>
-            <!-- 
-          </div>
-          <div class="form-group">
-              <label for="abono" class='col-lg-3 col-md-3 control-label ctrlCta' style="padding-top:0">Abonos</label>
-            <div class="col-lg-3 col-md-3">
-              <input class="form-control" name="abono" id="abono" readonly>
-            </div> -->
             <label for="montopago" class='col-lg-2 col-md-2 control-label ctrlCta' style="padding-top:0">Valor a Pagar</label>
             <div class="col-lg-3 col-md-3">
               <input value="<?php echo $pagado; ?>" required type="number" class="form-control" name="montopago" id="montopago" onblur="calculaCambio()" >

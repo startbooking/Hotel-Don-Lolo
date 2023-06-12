@@ -103,6 +103,8 @@ if (!isset($_GET['section'])) {
     $facturas = $hotel->getBuscaFacturasDia(FECHA_PMS);
 } elseif (isset($_GET['section']) && $_GET['section'] == 'facturasDelDia') {
     $facturas = $hotel->getBuscaFacturasDia(FECHA_PMS);
+} elseif (isset($_GET['section']) && $_GET['section'] == 'recibosCajaDelDia') {
+    $recibos = $hotel->getBuscaRecibosDia(FECHA_PMS);
 } elseif (isset($_GET['section']) && $_GET['section'] == 'objetosOlvidados') {
     $objetos = $hotel->objetosOlvidados();
 } elseif (isset($_GET['section']) && $_GET['section'] == 'mantenimiento') {

@@ -35,12 +35,12 @@
 	$observa       =  strtoupper($_POST['observaciones']);
 	if($observa!=''){
 		$observa       =  $observa . ' Usuario: '.$_POST['usuario'].' Fecha Observacion: '.date('Y.m.d H:i:s');
-	}
+	} 
 
 	$numero       = $hotel->getNumeroReserva(); // Numero Actual de La Reserva
 	$nuevonumero  = $hotel->updateNumeroReserva($numero + 1); // Actualiza 
 
 	$nueva = $hotel->insertNuevaReserva($iden, $llegada, $salida, $noches, $hombres, $mujeres, $ninos, $orden, $tipohabi, $nrohabitacion, $tarifahab, $valortarifa, $origen, $destino, $motivo, $fuente, $segmento, $idhuesp, $idcia, $idcentro, $numero, $usuario, $estado, $observa, $formapa, 1, $impto, $idusuario, $tipo);
 
-	echo $nueva;	
+	echo $numero;	
 ?>

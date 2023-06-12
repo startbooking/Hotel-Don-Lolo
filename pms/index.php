@@ -5,14 +5,6 @@ require_once '../res/php/app_topHotel.php';
 <!DOCTYPE html>  
 <html> 
   <head> 
-    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-99252638-1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'UA-99252638-1');
-    </script> -->
     <title><?php echo TITLE_ADM; ?> | Administracion Hotelera</title>
     <?php include_once '../res/shared/archivo_head.php'; ?>
     <link rel="stylesheet" type="text/css" href="res/css/pms.css">  
@@ -72,7 +64,9 @@ include_once 'menus/menu_titulo.php';
       require 'views/ingresoConsumos.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'facturasDelDia') {
       require 'views/facturasDelDia.php';
-  } elseif (isset($_GET['section']) && $_GET['section'] == 'facturasDiaNew') {
+    } elseif (isset($_GET['section']) && $_GET['section'] == 'recibosCajaDelDia') {
+        require 'views/recibosCajaDelDia.php';
+    } elseif (isset($_GET['section']) && $_GET['section'] == 'facturasDiaNew') {
       require 'views/facturasDelDiaNew.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'cargosDelDia') {
       require 'views/cargosDelDia.php';

@@ -14,7 +14,7 @@
             <div class="form-group">
               <label class="control-label col-lg-2">Reserva Nro</label>
               <div class="col-lg-2 col-md-2">
-                <input type="text" name="idregis" id="txtIdReservaIng" value="">
+                <input class="form-control padInput" type="text" name="idregis" id="txtIdReservaIng" value="">
               </div>
               <label class="control-label col-lg-2">Tipo Hab.</label>
               <div class="col-lg-3 col-md-3">

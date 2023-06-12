@@ -1,0 +1,133 @@
+{
+  "message": "The given data was invalid.",
+  "errors": {
+    "customer.phone": [
+      "customer.phone no debe ser mayor que 20 caracteres."
+    ]
+  }
+}
+
+
+{
+  "number": "13097",
+  "type_document_id": 1,
+  "date": "2023-06-12",
+  "time": "07:50:18",
+  "resolution_number": "18764037773901",
+  "prefix": "HDL",
+  "notes": "",
+  "disable_confirmation_text": true,
+  "establishment_name": "HOTEL DON LOLO LTDA",
+  "establishment_address": "CRA 39 NRO 20 32 BARRIO CAMOA",
+  "establishment_phone": "3138153620",
+  "establishment_municipality": "687",
+  "establishment_email": "RESERVAS@DONLOLOHOTEL.COM",
+  "sendmail": false,
+  "sendmailtome": false,
+  "send_customer_credentials": false,
+  "head_note": "",
+  "foot_note": "",
+  "customer": {
+    "identification_number": "52808326",
+    "dv": "",
+    "name": "MARTHA  BIBIANA PARADA  MARTINEZ",
+    "phone": "FINCA LA PONDEROSA VEREDA  CUCUTA",
+    "address": "FINCA LA PONDEROSA VEREDA  CUCUTA",
+    "email": "bibiparada1980@hotmail.com",
+    "merchant_registration": "0000000-00",
+    "type_document_identification_id": "3",
+    "type_organization_id": "2",
+    "type_liability_id": "117",
+    "municipality_id": "149",
+    "type_regime_id": 2
+  },
+  "payment_form": {
+    "payment_form_id": "1",
+    "payment_method_id": "1",
+    "payment_due_date": "2023-06-12",
+    "duration_measure": 0
+  },
+  "legal_monetary_totals": {
+    "line_extension_amount": "442545",
+    "tax_exclusive_amount": "442545",
+    "tax_inclusive_amount": 525304,
+    "payable_amount": 525304
+  },
+  "with_holding_tax_total": [],
+  "tax_totals": [
+    {
+      "tax_id": "4",
+      "tax_amount": "963",
+      "taxable_amount": "12037",
+      "percent": "8"
+    },
+    {
+      "tax_id": "1",
+      "tax_amount": "81796",
+      "taxable_amount": "430508",
+      "percent": "19"
+    }
+  ],
+  "invoice_lines": [
+    {
+      "unit_measure_id": "70",
+      "invoiced_quantity": 1,
+      "line_extension_amount": "417064",
+      "free_of_charge_indicator": false,
+      "tax_totals": [
+        {
+          "tax_id": "1",
+          "tax_amount": "79242",
+          "percent": "19",
+          "taxable_amount": "417064"
+        }
+      ],
+      "description": "ALOJAMIENTO",
+      "notes": "",
+      "code": "ALOJA",
+      "type_item_identification_id": 1,
+      "price_amount": 496306,
+      "base_quantity": 1
+    },
+    {
+      "unit_measure_id": "70",
+      "invoiced_quantity": 1,
+      "line_extension_amount": "12037",
+      "free_of_charge_indicator": false,
+      "tax_totals": [
+        {
+          "tax_id": "4",
+          "tax_amount": "963",
+          "percent": "8",
+          "taxable_amount": "12037"
+        }
+      ],
+      "description": "BEBIDAS",
+      "notes": "",
+      "code": "BEBID",
+      "type_item_identification_id": 1,
+      "price_amount": 13000,
+      "base_quantity": 1
+    },
+    {
+      "unit_measure_id": "70",
+      "invoiced_quantity": 1,
+      "line_extension_amount": "13444",
+      "free_of_charge_indicator": false,
+      "tax_totals": [
+        {
+          "tax_id": "1",
+          "tax_amount": "2554",
+          "percent": "19",
+          "taxable_amount": "13444"
+        }
+      ],
+      "description": "SEGURO HOTELERO",
+      "notes": "",
+      "code": "SEGHOT",
+      "type_item_identification_id": 1,
+      "price_amount": 15998,
+      "base_quantity": 1
+    }
+  ]
+}

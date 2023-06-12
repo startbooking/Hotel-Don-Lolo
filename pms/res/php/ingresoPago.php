@@ -188,7 +188,7 @@ if ($perfilFac == 1 && $facturador == 1) {
 
     $eCust['identification_number'] = $nitFact;
     $eCust['dv'] = $dvFact;
-    $eCust['name'] = $nomFact;
+    $eCust['name'] = str_replace('Ñ','N',$nomFact);
     $eCust['phone'] = $telFact;
     $eCust['email'] = $emaFact;
     if($tipofac == 2){

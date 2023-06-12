@@ -15,16 +15,17 @@
                   <?php
                     $regis = count($facturas);
               if ($regis == 0) { ?>
-                      <h4 class="bg-red-gradient" style="padding:10px;text-align: center;font-weight: 600;width: 30%">Sin Facturas Generadas En el Dia <span style="font-size:16px;font-weight: 600;font-family: 'ubuntu'"></span></h4>         
+                      <h4 class="bg-red-gradient" style="padding:10px;text-align: center;font-weight: 600;">Sin Facturas Generadas En el Dia <span style="font-size:16px;font-weight: 600;font-family: 'ubuntu'"></span></h4>         
                       <?php
               } else { ?> 
-                      <div class="col-lg-6" id="muestraResultado" style="font-size:12px">
+                      <div class="col-lg-12" id="muestraResultado" style="font-size:12px">
                         <div class="table-responsive"> 
                           <table id="example1" class="table table-bordered">
                             <thead>
                               <tr class="warning">
                                 <td>Factura</td>
                                 <td>Huesped</td>
+                                <td>Empresa</td>
                                 <td>Fecha Llegada</td>
                                 <td>Fecha Factura</td>
                                 <td>Estado</td>
@@ -33,11 +34,21 @@
                             </thead>
                             <tbody>
                               <?php
-                        foreach ($facturas as $factura) {
+
+                            foreach ($facturas as $factura) {
+                            if ($factura['tipo_factura'] == 1) {
+                              $nombrecia = 'SIN COMPAÑIA ASOCIADA';
+                              $nitcia = '';
+                            } else {
+                              $cias = $hotel->getBuscaCia($factura['id_perfil_factura']);
+                              $nombrecia = $cias[0]['empresa'];
+                              $nitcia = $cias[0]['nit'].'-'.$cias[0]['dv'];
+                            }
                             $numFactura = $factura['prefijo_factura'].$factura['factura_numero']; ?>
                                 <tr style='font-size:12px'>
                                   <td style="padding:3px 5px"><?php echo $factura['factura_numero']; ?></td>
                                   <td style="padding:3px 5px"><?php echo $factura['apellido1'].' '.$factura['apellido2'].' '.$factura['nombre1'].' '.$factura['nombre2']; ?></td>
+                                  <td style="padding:3px 5px"><?php echo $nombrecia; ?></td>
                                   <td style="padding:3px 5px"><?php echo $factura['fecha_llegada']; ?></td>
                                   <td style="padding:3px 5px"><?php echo $factura['fecha_factura']; ?></td>
                                   <td style="padding:3px 5px"><?php echo estadoFactura($factura['factura_anulada']); ?></td>

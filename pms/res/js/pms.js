@@ -880,7 +880,7 @@ $(document).ready(function () {
     var nombre = button.data("nombre");
     var modal = $(this);
     var parametros = {
-      idres: idres,
+      idres,
     };
     modal.find(".modal-title").text("Acompañantes : " + nombre);
     modal.find(".modal-body #idreservaAco").val(idres);
@@ -3479,15 +3479,18 @@ function buscaAuditoriasFecha() {
 }
 
 function verfactura(fact, perfil) {
-  // console.log(perfil);
   if (perfil == "1") {
     var factura = fact + ".pdf";
-    // console.log(factura);
     $("#verFactura").attr("data", "imprimir/facturas/FES-" + factura);
   } else {
     var factura = "Abono_" + fact + ".pdf";
     $("#verFactura").attr("data", "imprimir/notas/" + factura);
   }
+}
+
+function verRecibo(fact) {
+    var recibo = 'Abono_'+fact + ".pdf";
+    $("#verFactura").attr("data", "imprimir/notas/" + recibo);
 }
 
 function buscaFacturasFecha() {
@@ -3534,13 +3537,28 @@ function guardaHuespedReserva() {
   });
 }
 
+function traeAcompanantes(idres){
+  idres = parseInt(idres);
+  var param = {
+    idres,
+  };
+  $.ajax({
+    type: "POST",
+    data: param,
+    url: "res/php/dataBuscarAcompanantes.php",
+    success: function (datos) {      
+      $("#acompanantes").html(datos);
+    },
+  });
+}
+
 function guardaAcompanante() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
   let { usuario, usuario_id } = user;
   var web = $("#rutaweb").val();
   var ubicacion = $("#ubicacion").val();
-  var idreser = $("#idreservaAco").val();
+  var idreser = $("#idReservaAdiAco").val();
   var parametros = $("#acompananteReserva").serializeArray();
 
   parametros.push({ name: "usuario", value: usuario });
@@ -3550,10 +3568,8 @@ function guardaAcompanante() {
     data: parametros,
     url: web + "res/php/guardaAcompanante.php",
     success: function (datos) {
-      $("#mensajeEliAco").html(datos);
       $("#myModalAdicionaAcompanante").modal("hide");
-      $("#myModalAcompanantesReserva").modal("hide");
-      $(location).attr("href", ubicacion);
+      traeAcompanantes(idreser);
     },
   });
 }
@@ -3561,7 +3577,7 @@ function guardaAcompanante() {
 function buscaHuespedAcompanante(id) {
   var web = $("#rutaweb").val();
   var parametros = {
-    id: id,
+    id,
   };
   $.ajax({
     url: web + "res/php/buscaIdenAcompana.php",
@@ -3569,26 +3585,35 @@ function buscaHuespedAcompanante(id) {
     dataType: "json",
     data: parametros,
     success: function (datos) {
-      if (datos == 0) {
+      console.log(datos)
+      if (datos.length == 0) {
         $("#nuevoPax").val(1);
-        $("#tipodoc").val("");
-        $("#apellido1").val("");
-        $("#apellido2").val("");
-        $("#nombre1").val("");
-        $("#nombre2").val("");
-        $("#fechanace").val("");
+        $("#idHuesAdi").val("");
+        $("#tipodocAdiAco").val("");
+        $("#apellido1AdiAco").val("");
+        $("#apellido2AdiAco").val("");
+        $("#nombre1AdiAco").val("");
+        $("#nombre2AdiAco").val("");
+        $("#sexOptionAdiAco").val("");
+        $("#fechanaceAdiAco").val("");
+        $("#paicesAdiAco").val("");
+        $("#ciudadAdiAco").val("");
+
+
       } else {
+        let { id_huesped, tipo_identifica, apellido1, apellido2, nombre1, nombre2, sexo, fecha_nacimiento, pais, ciudad } = datos[0];
+
         $("#nuevoPax").val(2);
-        $("#idHuesAdi").val(datos[0]["id_huesped"]);
-        $("#tipodoc").val(datos[0]["tipo_identifica"]);
-        $("#apellido1").val(datos[0]["apellido1"]);
-        $("#apellido2").val(datos[0]["apellido2"]);
-        $("#nombre1").val(datos[0]["nombre1"]);
-        $("#nombre2").val(datos[0]["nombre2"]);
-        $("#sexOption").val(datos[0]["sexo"]);
-        $("#fechanace").val(datos[0]["fecha_nacimiento"]);
-        $("#paices").val(datos[0]["pais"]);
-        $("#ciudad").val(datos[0]["ciudad"]);
+        $("#idHuesAdi").val(id_huesped);
+        $("#tipodocAdiAco").val(tipo_identifica);
+        $("#apellido1AdiAco").val(apellido1);
+        $("#apellido2AdiAco").val(apellido2);
+        $("#nombre1AdiAco").val(nombre1);
+        $("#nombre2AdiAco").val(nombre2);
+        $("#sexOptionAdiAco").val(parseInt(sexo));
+        $("#fechanaceAdiAco").val(fecha_nacimiento);
+        $("#paicesAdiAco").val(parseInt(pais));
+        $("#ciudadAdiAco").val(parseInt(ciudad));
       }
     },
   });
@@ -4460,7 +4485,7 @@ function cargarHabitaciones() {
   var cargar = $("#cargarHabitacion").val();
   var parametros = {
     cargar,
-    cargo,
+    cargo, 
     usuario,
     usuario_id,
   };
@@ -4479,6 +4504,41 @@ function cargarHabitaciones() {
     },
   });
 }
+
+
+function cargarHabitacionCkeckIn(habi) {
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { user } = sesion;
+  let { usuario, usuario_id } = user;
+  var web = $("#rutaweb").val();
+  var pagina = $("#ubicacion").val();
+  cargo = 1;
+  /*   $("input:radio:checked").each(function () {
+    });
+ */
+  var cargar = habi;
+  var parametros = {
+    cargar,
+    cargo, 
+    usuario,
+    usuario_id,
+  };
+  $.ajax({
+    type: "POST",
+    data: parametros,
+    url: "res/php/cargarHabitaciones.php",
+    success: function (datos) {
+      if (datos == 1) {
+        $("#aviso").html(
+          '<div class="alert alert-info" style="margin-bottom: 30px"><h4 align="center" style="color:brown;font-weight: 700">Habitaciones Cargadas con Exito</h4></div>'
+        );
+      } else {
+        $("#aviso").html(datos);
+      }
+    },
+  });
+}
+
 
 function cambiaEstadoCargarHabitaciones(tipo) {
   if (tipo == 1) {
@@ -4917,9 +4977,8 @@ function guardasinReserva() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
   let { usuario, usuario_id } = user;
-  /* usuario = sesion["usuario"][0]["usuario"];
-  idusuario = sesion["usuario"][0]["usuario_id"]; */
   iden = $("#identifica").val();
+
   if (typeof iden == "undefined") {
     swal("Precaucion", "Seleccione el Huesped a Reservar", "warning");
     return;
@@ -4937,8 +4996,12 @@ function guardasinReserva() {
     url: "res/php/ingresoSinReserva.php",
     beforeSend: function (objeto) {},
     success: function (datos) {
-      swal("Atencion", "Huesped Registrado Con Exito", "success");
-      $(location).attr("href", "home");
+      cargarHabitacionCkeckIn(datos);
+      swal("Atencion", "Huesped Registrado Con Exito", "success",2000);
+      setTimeout(function () {
+        $(location).attr("href", "home");
+        // $(location).attr("href", "home");
+      }, 2000);
     },
   });
 }
@@ -5117,7 +5180,6 @@ function ingresaReserva() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
   let { usuario } = user;
-  // usuario = sesion["usuario"][0]["usuario"];
   var pagina = $("#ubicacion").val();
   var numero = $("#txtIdReservaIng").val();
   var habita = $("#txtNumeroHabIng").val();
@@ -5132,11 +5194,19 @@ function ingresaReserva() {
     data: parametros,
     success: function (data) {
       if (data == 1) {
+        cargarHabitacionCkeckIn(numero);
+        // swal("Atencion", "Huesped Registrado Con Exito", "success",2000);
         swal(
           "Reserva Ingresada !",
           "Su Reserva a Sido ingresada con Exito",
           "success"
         );
+        setTimeout(function () {
+          $(location).attr("href", "home");
+          // $(location).attr("href", "home");
+        }, 5000);
+        
+
       } else {
         swal("Precaucion !", "Su Reserva no se pudo ingresar", "warning");
       }
@@ -5454,42 +5524,10 @@ function guardaReserva() {
     url: "res/php/ingresoReserva.php",
     success: function (datos) {
       confirmarReserva(datos)
-      /* swal(
-        {
-          title: "Cuenta sin Consumos !",
-          text: "Esta Cuenta no Presenta Consumos, Desea Realizar la Salida ?",
-          type: "warning",
-          showCancelButton: true,
-          cancelButtonClass: "btn-warning",
-          cancelButtonText: "Cancelar Salida",
-          confirmButtonClass: "btn-danger",
-          confirmButtonText: "Si, Realizar Salida!",
-          closeOnConfirm: false,
-        },
-        function () {
-          $.ajax({
-            type: "POST",
-            url: web + "res/php/salidaSinPago.php",
-            data: parametros,
-            success: function (data) {
-              swal(
-                "Atencion",
-                "Salida del Huesped realizada con Exito",
-                "success",
-                5000
-              );
-              $(location).attr("href", "home");
-            },
-          });
-        }
-      ); */
-
-
       swal("Atencion ", `Reserva ${datos} Creada con Exito`, "success");
       setTimeout(function () {
         $(location).attr("href", "home");
       }, 5000);
-      // $(location).attr("href", "home");
     },
   });
 }

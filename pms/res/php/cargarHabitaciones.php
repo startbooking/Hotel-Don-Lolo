@@ -5,7 +5,7 @@ require '../../../res/php/app_topHotel.php';
 
 $reserva = $_POST['cargar'];
 $tipo = $_POST['cargo'];
-$folio = 1;
+$folio = 1; 
 $canti = 1;
 $usuario = $_POST['usuario'];
 $idusuario = $_POST['usuario_id'];

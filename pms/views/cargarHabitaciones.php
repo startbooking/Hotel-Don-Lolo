@@ -2,7 +2,7 @@
       <section class="content" style="height: 780px;display: flex;justify-content: center;">
         <div class="col-md-8 center-block" style="margin: 50px 0;">
           <div class="panel panel-success">
-            <div class="panel-heading">
+            <div class="panel-heading"> 
               <div class="row">
                 <div class="col-lg-9">
                   <input type="hidden" name="rutaweb" id="rutaweb" value="<?php echo BASE_PMS; ?>">
@@ -21,7 +21,7 @@
                       <div class="form-check form-check-inline">
                         <input style="margin-top:5px" class="form-check-input" type="radio" name="roomOption" id="inlineRadio1" value="1" onclick="cambiaEstadoCargarHabitaciones(this.value)">
                         <label style="margin-top:-25px;margin-left:25px" class="form-check-label" for="inlineRadio1" >Una Habitacion</label>
-                      </div>                    
+                      </div>                      
                     </div>
                     <div class="col-sm-6"> 
                       <div class="form-check form-check-inline">
