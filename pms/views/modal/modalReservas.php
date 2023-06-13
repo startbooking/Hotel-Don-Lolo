@@ -32,7 +32,7 @@
                     <a
                       class="btn btn-success"
                       data-toggle="modal"
-                      href="#myModalAdicionaHuespedReserva">
+                      href="#myModalAdicionaPerfil">
                       <i class="fa fa-user-plus" aria-hidden="true"></i>  Adicionar Huesped
                     </a>
                   </div>

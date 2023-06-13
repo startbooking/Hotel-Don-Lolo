@@ -129,10 +129,10 @@ $subtotales = $hotel->getConsumosReservaAgrupadoFolio($nroFactura, $reserva, $nr
 if ($tipofac == 2) {
     $datosCompania = $hotel->getSeleccionaCompania($idperfil);
     $diasCre = $datosCompania[0]['dias_credito'];
-    $nomFact = utf8_decode($datosCompania[0]['empresa']);
+    $nomFact = $datosCompania[0]['empresa'];
     $nitFact = $datosCompania[0]['nit'];
     $dvFact = $datosCompania[0]['dv'];
-    $dirFact = utf8_decode($datosCompania[0]['direccion']);
+    $dirFact = $datosCompania[0]['direccion'];
     $telFact = $datosCompania[0]['telefono'];
     $emaFact = $datosCompania[0]['email'];
     $merFact = '0000000-00';
@@ -145,9 +145,9 @@ if ($tipofac == 2) {
     $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
     $nitFact = $datosHuesped[0]['identificacion'];
     $dvFact = '';
-    $nomFact = utf8_decode($datosHuesped[0]['nombre1'].' '.$datosHuesped[0]['nombre2'].' '.$datosHuesped[0]['apellido1'].' '.$datosHuesped[0]['apellido2']);
+    $nomFact = $datosHuesped[0]['nombre1'].' '.$datosHuesped[0]['nombre2'].' '.$datosHuesped[0]['apellido1'].' '.$datosHuesped[0]['apellido2'];
     $telFact = $datosHuesped[0]['telefono'];
-    $dirFact = utf8_decode($datosHuesped[0]['direccion']);
+    $dirFact = $datosHuesped[0]['direccion'];
     $emaFact = $datosHuesped[0]['email'];
     $merFact = '0000000-00';
     $tdiFact = $datosHuesped[0]['tipo_identifica'];
@@ -188,11 +188,11 @@ if ($perfilFac == 1 && $facturador == 1) {
 
     $eCust['identification_number'] = $nitFact;
     $eCust['dv'] = $dvFact;
-    $eCust['name'] = str_replace('Ñ','N',$nomFact);
+    $eCust['name'] = $nomFact;
     $eCust['phone'] = $telFact;
     $eCust['email'] = $emaFact;
     if($tipofac == 2){
-      $eCust['address'] = str_replace('#','Nro',$dirFact);
+      $eCust['address'] = $dirFact;
       $eCust['merchant_registration'] = $merFact;
       $eCust['type_document_identification_id'] = $tdiFact;
       $eCust['type_organization_id'] = $torFact;
@@ -296,8 +296,10 @@ if ($perfilFac == 1 && $facturador == 1) {
 
     $eFact = json_encode($eFact);
 
+    echo $eFact;
+    
     include_once '../../api/enviaFactura.php';
-
+    
     $recibeCurl = json_decode($respofact, true);
 
     $Isvalid = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['IsValid'];
@@ -349,7 +351,7 @@ if ($perfilFac == 1 && $facturador == 1) {
 
     include_once '../../api/enviaPDF.php';
 
-    $recibePDF = json_decode($respopdf, true);
+    $recibePDF = json_decode($respopdf, true); 
 } else {
     include_once '../../imprimir/imprimeReciboFactura.php';
 }

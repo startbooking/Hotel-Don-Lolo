@@ -2058,8 +2058,9 @@ function traeReservasActivas(tipo) {
     type: "POST",
     data: {
       tipo: tipo,
-    },
+    },  
     success: function (data) {
+      console.log(data);
       $("#paginaReservas").html(data);
       $("#example1").DataTable({
         iDisplayLength: 25,
@@ -4571,14 +4572,13 @@ function salidaHuesped() {
   var pagina = $("#ubicacion").val();
   var saldo = $("#SaldoActual").val();
   var abonos = $("#totalPagos").val();
-  let perfilFac = $("#perfilFactura").val();
+  let perfilFac = 1;
+  
 
   var tipofac = $(
     "input[name=habitacionOptionCon]:checked",
     "#guardarPagosRoomSal"
   ).val();
-
-  console.log(tipofac);
 
   if (tipofac == 0 || tipofac == undefined) {
     swal("Precaucion", "Seleccione a quien va a Facturar ", "warning");
@@ -4593,10 +4593,6 @@ function salidaHuesped() {
     );
     return;
   }
-
-  // return;
-
-  // return;
 
   var pago = $("#txtValorPago").val();
   sesion = JSON.parse(localStorage.getItem("sesion"));
@@ -4642,8 +4638,8 @@ function salidaHuesped() {
     var porceReteica = $("#porceReteica").val();
     var porceRetefuente = $("#porceRetefuente").val();
 
-    $(".btnSalida").css("display:none;");
-    $(".mensajeSalida").css("display:block;");
+    $(".btnSalida").css("display","none");
+    $("#mensajeSalida").css("display","block");
 
     if (detalle == "") {
       detalle = "";
@@ -4655,7 +4651,6 @@ function salidaHuesped() {
       correofac = "";
     }
 
-    $("#perfilFactura").val();
     var idcentro = 0;
 
     var parametros = {
@@ -4725,7 +4720,7 @@ function salidaHuesped() {
           activaFolio(reserva, data[1]);
         }
       },
-    });
+    }); 
   }
 }
 
@@ -4853,15 +4848,9 @@ function activaFolio(reserva, folio) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
   let { usuario, usuario_id, tipo } = user;
-  $(".btnSalida").css("display:block;");
-  $(".mensajeSalida").css("display:none;");
+  $(".btnSalida").css("display","block;");
+  $(".mensajeSalida").css("display","none;");
 
-  // activaFolio
-  /*
-  usuario = sesion["usuario"][0]["usuario"];
-  idusuario = sesion["usuario"][0]["usuario_id"]; 
-  nivel = sesion["usuario"][0]["tipo"];
-  */
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var nrohabi = $("#nrohabitacion").val();
@@ -5195,14 +5184,13 @@ function ingresaReserva() {
     success: function (data) {
       if (data == 1) {
         cargarHabitacionCkeckIn(numero);
-        // swal("Atencion", "Huesped Registrado Con Exito", "success",2000);
         swal(
           "Reserva Ingresada !",
           "Su Reserva a Sido ingresada con Exito",
           "success"
         );
         setTimeout(function () {
-          $(location).attr("href", "home");
+          // $(location).attr("href", "home");
           // $(location).attr("href", "home");
         }, 5000);
         
@@ -6462,8 +6450,6 @@ function salidaHuespedCongelada() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
   let { usuario, usuario_id } = user;
-  /* usuario = sesion["usuario"][0]["usuario"];
-  idusuario = sesion["usuario"][0]["usuario_id"]; */
 
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
@@ -6503,7 +6489,7 @@ function salidaHuespedCongelada() {
     var refer = $("#txtReferenciaPag").val();
     var folio = $("#folioActivo").val();
     var idcia = $("#seleccionaPagoCiaCon").val();
-    let perfilFac = $("#perfilFactura").val();
+    let perfilFac = 1;
     var idcentro = 0;
 
     var parametros = {
@@ -6520,18 +6506,42 @@ function salidaHuespedCongelada() {
       usuario,
       usuario_id,
       perfilFac,
+
+
+      /* 
+      idcentro,
+      detalle,
+      refer,
+      baseRete,
+      baseIva,
+      baseIca,
+      reteiva,
+      reteica,
+      retefuente,
+      porceReteiva,
+      porceReteica,
+      porceRetefuente,
+      correofac, 
+      */
+
+
     };
     $.ajax({
       type: "POST",
       url: web + "res/php/ingresoPago.php",
       data: parametros,
       success: function (data) {
-        var ventana = window.open(
+         var ventana = window.open(
+            "imprimir/facturas/FES-" + data[0],
+            "PRINT",
+            "height=600,width=600"
+          );
+        /* var ventana = window.open(
           "imprimir/imprimeFactura.php",
           "PRINT",
           "height=600,width=600"
-        );
-        if (data == -1) {
+        ); */
+        /* if (data == -1) {
           setTimeout(function () {
             swal(
               "Atencion",
@@ -6578,6 +6588,26 @@ function salidaHuespedCongelada() {
             $("#folio4").css("display", "block");
           }
           $(data).click();
+        } */
+      
+        if (data[1] == "0") {
+          setTimeout(function () {
+            swal(
+              "Atencion",
+              "Salida del Huesped realizada con Exito",
+              "success"
+            );
+            $(location).attr("href", "home");
+          }, 2000);
+        } else {
+          swal(
+            "Atencion",
+            "La Cuenta Actual Presenta Folios con Saldos",
+            "warning",
+            5000
+          );
+          $("#myModalSalidaHuesped").modal("hide");
+          activaFolio(reserva, data[1]);
         }
       },
     });

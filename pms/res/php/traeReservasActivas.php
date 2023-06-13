@@ -1,11 +1,15 @@
 <?php
 require '../../../res/php/app_topHotel.php';
 
+echo 'Paso ';
+
 $tipo = $_POST['tipo'];
 $hoy = substr(FECHA_PMS, 5, 5);
 
 $reservas = $hotel->getReservasActuales($tipo);
 
+echo print_r($reservas);
+ 
 ?>
   <div class='table-responsive'>
     <table id="example1" class="table modalTable table-condensed">
@@ -33,7 +37,7 @@ $reservas = $hotel->getReservasActuales($tipo);
           if ($reserva['id_compania'] == 0) {
               $nombrecia = 'SIN COMPAÑIA ASOCIADA';
               $nitcia = '';
-          } else {
+          } else { 
               $cias = $hotel->getBuscaCia($reserva['id_compania']);
               $nombrecia = $cias[0]['empresa'];
               $nitcia = $cias[0]['nit'].'-'.$cias[0]['dv'];
@@ -293,7 +297,7 @@ $reservas = $hotel->getReservasActuales($tipo);
                                 data-mujeres       ="<?php echo $reserva['can_mujeres']; ?>" 
                                 data-ninos         ="<?php echo $reserva['can_ninos']; ?>" 
                                 data-orden         ="<?php echo $reserva['orden_reserva']; ?>" 
-                                data-tarifa        ="<?php echo $hotel->getNombreTarifa($reserva['tarifa']); ?>" 
+                                data-tarifa        ="<?php echo ($reserva['tarifa'] ?>" 
                                 data-valor         ="<?php echo $reserva['valor_reserva']; ?>" 
                                 data-observaciones ="<?php echo $reserva['observaciones']; ?>" 
                                 >
@@ -354,14 +358,7 @@ $reservas = $hotel->getReservasActuales($tipo);
                                 <i class="fa fa-commenting-o" aria-hidden="true"></i>
                               Adicionar Observaciones</a>
                             </li>
-                            <!-- <li>
-                              <a 
-                                onclick="imprimirPreRegistro(<?php echo $reserva['num_reserva']; ?>)"
-                                title="Imprime Pre Registro Hotelero" >
-                                <i class='fa fa-file-text'></i>
-                                Imprimir Pre-Registro Hotelero
-                              </a>
-                            </li>  -->
+                            
                           </ul>
                         </li>
                       </ul>

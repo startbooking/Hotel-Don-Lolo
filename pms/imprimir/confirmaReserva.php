@@ -14,6 +14,12 @@
   $datosHuesped = $hotel->getbuscaDatosHuesped($datosReserva[0]['id_huesped']);
   $datosCompania = $hotel->getSeleccionaCompania($datosReserva[0]['id_compania']);
   
+if($datosReserva[0]['id_compania']== 0){
+  $nomEmpresa = '';
+}else{
+  $nomEmpresa = $datosCompania[0]['empresa'];
+}
+
   $pdf = new FPDF();
   $pdf->AddPage('P', 'letter');
   $pdf->Rect(10, 35, 190, 230);
@@ -58,31 +64,33 @@
   $pdf->Cell(30, 4, 'Informacion de la Reserva ', 0, 1, 'L');  
   $pdf->Ln(1);
   $pdf->SetFont('Arial', '', 10);
-  $pdf->MultiCell(190, 5, 'Habitacion '. $datosReserva[0]['num_habitacion'].' Tarifa '.number_format($datosReserva[0]['valor_diario'],2).' Huesped '.$datosReserva[0]['nombre_completo'].' Empresa '.$datosCompania[0]['empresa'].' Identificacion '. $datosReserva[0]['identificacion'].' Telefono '. $datosReserva[0]['telefono'].' Fecha de Nacimiento '. $datosReserva[0]['fecha_nacimiento'].' Celular '. $datosReserva[0]['celular'].' Correo '. $datosReserva[0]['email'] , 0, 'J');
+  $pdf->MultiCell(190, 5, 'Habitacion '. $datosReserva[0]['num_habitacion'].' Tarifa '.number_format($datosReserva[0]['valor_diario'],2).' Huesped '.$datosReserva[0]['nombre_completo'].' Empresa '.$nomEmpresa.' Identificacion '. $datosReserva[0]['identificacion'].' Telefono '. $datosReserva[0]['telefono'].' Fecha de Nacimiento '. $datosReserva[0]['fecha_nacimiento'].' Celular '. $datosReserva[0]['celular'].' Correo '. $datosReserva[0]['email'] , 0, 'J');
 
   $pdf->Ln(5);
 
   $pdf->SetFont('Arial', 'B', 10);
   $pdf->Cell(30, 4, 'Informacion Empresa ', 0, 1, 'L');  
   $pdf->Ln(2);
-  $pdf->SetFont('Arial', '', 10);
-  $pdf->Cell(30, 5, 'Empresa ', 0, 0, 'L');
+  if($datosReserva[0]['id_compania']!=0){
+    $pdf->SetFont('Arial', '', 10);
+    $pdf->Cell(30, 5, 'Empresa ', 0, 0, 'L');
+    $pdf->SetFont('Arial', 'B', 10);
+    $pdf->Cell(160, 5, $datosCompania[0]['empresa'], 0, 1, 'L');
+    $pdf->SetFont('Arial', '', 10);
+    $pdf->Cell(30, 5, 'Direccion ', 0, 0, 'L');
+    $pdf->SetFont('Arial', 'B', 10);
+    $pdf->Cell(160, 5, $datosCompania[0]['direccion'], 0, 1, 'L');
+    $pdf->SetFont('Arial', '', 10);
+    $pdf->Cell(30, 5, 'Telefono ', 0, 0, 'L');
+    $pdf->SetFont('Arial', 'B', 10);
+    $pdf->Cell(60, 5, $datosCompania[0]['telefono'], 0, 0, 'L');
+    $pdf->SetFont('Arial', '', 10);
+    $pdf->Cell(30, 5, 'Celular ', 0, 0, 'L');
+    $pdf->SetFont('Arial', 'B', 10);
+    $pdf->Cell(60, 5, $datosCompania[0]['celular'], 0, 1, 'L');
+  }
+  
   $pdf->SetFont('Arial', 'B', 10);
-  $pdf->Cell(160, 5, $datosCompania[0]['empresa'], 0, 1, 'L');
-  $pdf->SetFont('Arial', '', 10);
-  $pdf->Cell(30, 5, 'Direccion ', 0, 0, 'L');
-  $pdf->SetFont('Arial', 'B', 10);
-  $pdf->Cell(160, 5, $datosCompania[0]['direccion'], 0, 1, 'L');
-  $pdf->SetFont('Arial', '', 10);
-  $pdf->Cell(30, 5, 'Telefono ', 0, 0, 'L');
-  $pdf->SetFont('Arial', 'B', 10);
-  $pdf->Cell(60, 5, $datosCompania[0]['telefono'], 0, 0, 'L');
-  $pdf->SetFont('Arial', '', 10);
-  $pdf->Cell(30, 5, 'Celular ', 0, 0, 'L');
-  $pdf->SetFont('Arial', 'B', 10);
-  $pdf->Cell(60, 5, $datosCompania[0]['celular'], 0, 1, 'L');
-
-$pdf->SetFont('Arial', 'B', 10);
   $pdf->Ln(2);
   $pdf->Cell(30, 4, 'Observaciones de la Reserva ', 0, 1, 'L');  
   $pdf->Ln(2);

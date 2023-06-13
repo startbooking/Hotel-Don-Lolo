@@ -54,93 +54,92 @@ require_once '../../../res/fpdf/fpdf.php';
   }
 
   $pdf->setY(79);
-  $pdf->SetFont('Arial','',6);
-  $pdf->Cell(15,6,'Direccion',1,0,'L');
-  $pdf->Cell(55,6,substr($datosHuesped[0]['direccion'],0,45),1,0,'L');
-  $pdf->Cell(10,6,'Telefono',1,0,'L');
-  $pdf->Cell(20,6,$datosHuesped[0]['telefono'],1,0,'L');
-  $pdf->Cell(12,6,'Fecha Nac',1,0,'l');
-  $pdf->Cell(18,6,$datosHuesped[0]['fecha_nacimiento'],1,0,'L');
-  $pdf->Cell(10,6,'Ciudad',1,0,'L');
-  $pdf->Cell(20,6,substr(utf8_decode($hotel->getCityExp($datosHuesped[0]['ciudad'])),0,13),1,0,'L');
-  $pdf->Cell(10,6,'Pais',1,0,'L');
-  $pdf->Cell(20,6,$hotel->getLandGUest($datosHuesped[0]['pais']),1,1,'L');
-  $pdf->SetFont('Arial','',6);
-  $pdf->Ln(1);
+  $pdf->SetFont('Arial','',7);
+  $pdf->Cell(15,5,'Direccion',1,0,'L');
+  $pdf->Cell(50,5,substr($datosHuesped[0]['direccion'],0,45),1,0,'L');
+  $pdf->Cell(12,5,'Telefono',1,0,'L');
+  $pdf->Cell(20,5,$datosHuesped[0]['telefono'],1,0,'L');
+  $pdf->Cell(15,5,'Fecha Nac',1,0,'l');
+  $pdf->Cell(18,5,$datosHuesped[0]['fecha_nacimiento'],1,0,'L');
+  $pdf->Cell(10,5,'Ciudad',1,0,'L');
+  $pdf->Cell(20,5,substr(utf8_decode($hotel->getCityExp($datosHuesped[0]['ciudad'])),0,13),1,0,'L');
+  $pdf->Cell(10,5,'Pais',1,0,'L');
+  $pdf->Cell(20,5,$hotel->getLandGUest($datosHuesped[0]['pais']),1,1,'L');
+  // $pdf->SetFont('Arial','',7);
+  // $pdf->Ln(1);
 
-  $pdf->Cell(15,6,'Empresa',1,0,'L');
+  $pdf->Cell(15,5,'Empresa',1,0,'L');
   if($regisCia==0){
-    $pdf->Cell(85,6,'',1,0,'L');
+    $pdf->Cell(80,5,'',1,0,'L');
   }else{    
-    $pdf->Cell(85,6,$datosCompania[0]['empresa'],1,0,'L');
+    $pdf->Cell(80,5,$datosCompania[0]['empresa'],1,0,'L');
   }
-  $pdf->Cell(10,6,'Nit',1,0,'L');
+  $pdf->Cell(10,5,'Nit',1,0,'L');
   if($regisCia==0){
-    $pdf->Cell(20,6,'',1,0,'L');
+    $pdf->Cell(20,5,'',1,0,'L');
   }else{
-    $pdf->Cell(20,6,$datosCompania[0]['nit'].'-'.$datosCompania[0]['dv'],1,0,'L');
+    $pdf->Cell(20,5,$datosCompania[0]['nit'].'-'.$datosCompania[0]['dv'],1,0,'L');
   }
-  $pdf->Cell(10,6,'Celular',1,0,'l');
+  $pdf->Cell(10,5,'Celular',1,0,'l');
   if($regisCia==0){
-    $pdf->Cell(20,6,'',1,0,'L');
+    $pdf->Cell(20,5,'',1,0,'L');
   }else{
-    $pdf->Cell(20,6,$datosCompania[0]['celular'],1,0,'L');    
+    $pdf->Cell(20,5,$datosCompania[0]['celular'],1,0,'L');    
   }
-  $pdf->Cell(10,6,'Telefono',1,0,'L');
+  $pdf->Cell(15,5,'Telefono',1,0,'L');
   if($regisCia==0){
-    $pdf->Cell(20,6,'',1,1,'L');
+    $pdf->Cell(20,5,'',1,1,'L');
   }else{
-    $pdf->Cell(20,6,$datosCompania[0]['telefono'],1,1,'L');    
+    $pdf->Cell(20,5,$datosCompania[0]['telefono'],1,1,'L');    
   }
 
-  $pdf->Ln(1);
+  // $pdf->Ln(1);
 
-  $pdf->Cell(20,6,'Motivo Viaje',1,0,'L');
-  $pdf->Cell(30,6,$hotel->motivoViaje($datosReserva[0]['motivo_viaje']),1,0,'L');
-  $pdf->Cell(20,6,'Procedencia',1,0,'L');
-  $pdf->Cell(30,6,substr(utf8_decode($hotel->getCityExp($datosReserva[0]['origen_reserva'])),0,20),1,0,'L');
-  $pdf->Cell(20,6,'Destino',1,0,'l');
-  $pdf->Cell(30,6,substr(utf8_decode($hotel->getCityExp($datosReserva[0]['destino_reserva'])),0,20),1,0,'L');
-  $pdf->Cell(10,6,'Email',1,0,'L');
-  $pdf->Cell(30,6,$datosHuesped[0]['email'],1,1,'L');
+  $pdf->Cell(20,5,'Motivo Viaje',1,0,'L');
+  $pdf->Cell(30,5,substr($hotel->motivoViaje($datosReserva[0]['motivo_viaje']),0,20),1,0,'L');
+  $pdf->Cell(20,5,'Procedencia',1,0,'L');
+  $pdf->Cell(30,5,substr(utf8_decode($hotel->getCityExp($datosReserva[0]['origen_reserva'])),0,20),1,0,'L');
+  $pdf->Cell(20,5,'Destino',1,0,'l');
+  $pdf->Cell(30,5,substr(utf8_decode($hotel->getCityExp($datosReserva[0]['destino_reserva'])),0,20),1,0,'L');
+  $pdf->Cell(10,5,'Email',1,0,'L');
+  $pdf->Cell(30,5,$datosHuesped[0]['email'],1,1,'L');
 
-  $pdf->Ln(1);
+  // $pdf->Ln(1);
 
-  $pdf->Cell(40,6,'Ocupacion',1,0,'L');
-  $pdf->Cell(40,6,'Estadia',1,0,'L');
-  $pdf->Cell(15,6,'Habitacion',1,0,'L');
-  $pdf->Cell(10,6,$datosReserva[0]['num_habitacion'],1,0,'C');
-  $pdf->Cell(45,6,'Equipaje',1,0,'L');
-  $pdf->Cell(20,6,'Recepcionista',1,0,'L');
-  $pdf->Cell(20,6,$usuario,1,1,'L');
-  $pdf->Ln(1);
-  $pdf->Cell(20,6,'Forma de Pago',1,0,'L');
-  $pdf->Cell(50,6,$hotel->formaPago($datosReserva[0]['forma_pago']),1,0,'L');
-  $pdf->Cell(15,6,'Reserva Nro ',1,0,'L');
-  $pdf->SetFont('Arial','',8);
-  $pdf->Cell(25,6,$reserva,1,0,'L');
-  $pdf->SetFont('Arial','',6);
+  $pdf->Cell(40,5,'Ocupacion',1,0,'L');
+  $pdf->Cell(40,5,'Estadia',1,0,'L');
+  $pdf->Cell(15,5,'Habitacion',1,0,'L');
+  $pdf->Cell(10,5,$datosReserva[0]['num_habitacion'],1,0,'C');
+  $pdf->Cell(45,5,'Equipaje',1,0,'L');
+  $pdf->Cell(20,5,'Recepcionista',1,0,'L');
+  $pdf->Cell(20,5,$usuario,1,1,'L');
+  // $pdf->Ln(1);
+  $pdf->Cell(20,5,'Forma de Pago',1,0,'L');
+  $pdf->Cell(50,5,$hotel->formaPago($datosReserva[0]['forma_pago']),1,0,'L');
+  $pdf->Cell(20,5,'Reserva Nro ',1,0,'L');
+  $pdf->SetFont('Arial','B',8);
+  $pdf->Cell(20,5,$reserva,1,0,'L');
   $pdf->SetFont('Arial','',10);
-  $pdf->Cell(80,6,'FIRMA',0,1,'C');
-  $pdf->Ln(1);
+  $pdf->Cell(80,5,'FIRMA',0,1,'C');
+  // $pdf->Ln(1);
   $pdf->SetFont('Arial','',14);
   $pdf->Cell(110,16,'Comentarios',1,0,'L');
   $pdf->MultiCell(80,16,'Acepto el Contrato de Hospedaje',0,'C');
-  $pdf->Ln(1);
+  // $pdf->Ln(1);
   $pdf->SetFont('Arial','B',10);
   $pdf->Cell(190,10,'PARA USO DEL HOTEL',1,1,'C');
+  $pdf->SetFont('Arial','',7);
+  $pdf->Cell(20,5,'TARIFA $',1,0,'L');
+  $pdf->Cell(30,5,number_format($datosReserva[0]['valor_diario'],2),1,0,'C');
+  $pdf->Cell(20,5,'LLEGADA',1,0,'L');
+  $pdf->Cell(30,5,$datosReserva[0]['fecha_llegada'],1,0,'C');
+  $pdf->Cell(20,5,'SALIDA',1,0,'L');
+  $pdf->Cell(30,5,$datosReserva[0]['fecha_salida'],1,0,'C');
+  $pdf->Cell(20,5,utf8_decode('Adultos / Niños'),1,0,'L');
+  $pdf->Cell(20,5,$datosReserva[0]['can_hombres']+$datosReserva[0]['can_mujeres'].' / '.$datosReserva[0]['can_ninos'],1,1,'C');
   $pdf->SetFont('Arial','',6);
-  $pdf->Cell(20,6,'TARIFA $',1,0,'L');
-  $pdf->Cell(30,6,number_format($datosReserva[0]['valor_diario'],2),1,0,'C');
-  $pdf->Cell(20,6,'LLEGADA',1,0,'L');
-  $pdf->Cell(30,6,$datosReserva[0]['fecha_llegada'],1,0,'C');
-  $pdf->Cell(20,6,'SALIDA',1,0,'L');
-  $pdf->Cell(30,6,$datosReserva[0]['fecha_salida'],1,0,'C');
-  $pdf->Cell(20,6,utf8_decode('Adultos / Niños'),1,0,'L');
-  $pdf->Cell(20,6,$datosReserva[0]['can_hombres']+$datosReserva[0]['can_mujeres'].' / '.$datosReserva[0]['can_ninos'],1,1,'C');
-  $pdf->SetFont('Arial','',5);
   $pdf->Ln(1);
-  $pdf->MultiCell(190,3,utf8_decode($textoContrato),1,'L');
+  $pdf->MultiCell(190,3,utf8_decode($textoContrato),1,'J');
 
 
   $pdf->AddPage('P','letter');

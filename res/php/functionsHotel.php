@@ -6680,8 +6680,11 @@ class Hotel_Actions
         ], [
             'valores_tarifas.id' => $tipo,
         ]);
-
-        return $data[0]['descripcion_tarifa'];
+        if(count($data)==0){
+            return 'Sin Datos '.$tipo;
+        }else{
+            return $data[0]['descripcion_tarifa']; 
+        }
     }
 
     public function getNombreTipoHabitacion($tipo)

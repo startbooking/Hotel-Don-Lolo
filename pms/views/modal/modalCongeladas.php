@@ -26,7 +26,10 @@ $cias = $hotel->getCompanias();
             <input type="hidden" name="diasCreditoCia" id="diasCreditoCia" value="0">
             <input type="hidden" name="credito" id="credito" value="0">
             <input type="hidden" name="perfilFactura" id="perfilFactura" value="1">
-  
+            <input type="hidden" name="creditoCia" id="creditoCia" value="0">
+            <input type="hidden" name="retencionCia" id="retencionCia" value=''>
+            <input type="hidden" name="retenciones" id="retenciones" value='<?php echo json_encode($retenciones); ?>'>
+            
             <!-- Cambio Opcion Perfil en la factura Inicio // Agos-30 -2019 --->
             <div class="form-group">
               <label class="control-label col-md-2">Hab.</label>
@@ -57,11 +60,11 @@ $cias = $hotel->getCompanias();
               <div class="col-lg-8 col-xs-8">
                 <select name="txtIdCiaSal" id="txtIdCiaSal"  readonly disabled>
                   <?php
-  foreach ($cias as $key => $value) { ?> 
+                    foreach ($cias as $key => $value) { ?> 
                       <option value="<?php echo $value['id_compania']; ?>"><?php echo $value['empresa']; ?></option>
                       <?php
-  }
-?>
+                    }
+                  ?>
                 </select>
               </div>
             </div>            
@@ -76,8 +79,14 @@ $cias = $hotel->getCompanias();
             <div id="estadoCuentaCon"></div>
           </div>
           <div class="modal-footer" style="text-align: center">
+            <div id="mensajeSalida" style="display:none">
+              <div class="alert alert-danger">
+                <i style="font-size:3em;margin-top:1px;color:#BBB0B0; " class="ion ion-ios-gear-outline fa-spin"></i> 
+                <h3>Procesando Factura Informacion, NO interrumpir</h3>
+              </div>
+            </div>
             <button style="width: 20%" type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
-            <button style="width: 20%" class="btn btn-primary"><i class="fa fa-save"></i> Procesar</button>
+            <button style="width: 20%" class="btn btn-primary btnSalida"><i class="fa fa-save"></i> Procesar</button>
           </div>
         </div>
       </div>

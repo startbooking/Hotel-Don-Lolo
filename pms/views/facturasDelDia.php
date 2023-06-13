@@ -14,10 +14,10 @@
                 <div class="row">
                   <?php
                     $regis = count($facturas);
-              if ($regis == 0) { ?>
+                    if ($regis == 0) { ?>
                       <h4 class="bg-red-gradient" style="padding:10px;text-align: center;font-weight: 600;">Sin Facturas Generadas En el Dia <span style="font-size:16px;font-weight: 600;font-family: 'ubuntu'"></span></h4>         
                       <?php
-              } else { ?> 
+                    } else { ?> 
                       <div class="col-lg-12" id="muestraResultado" style="font-size:12px">
                         <div class="table-responsive"> 
                           <table id="example1" class="table table-bordered">
@@ -99,8 +99,8 @@
                       <?php
               }
               ?>                    
-                  <div class="col-lg-6" id="verCargosFactura"></div>
-                  <div class="col-lg-6" id="Factura">
+                  <div class="col-lg-12" id="verCargosFactura"></div>
+                  <div class="col-lg-12" id="Factura">
                     <object id="verFactura" width="100%" height="500" data=""></object> 
                   </div>
                 </div>               
