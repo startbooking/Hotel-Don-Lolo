@@ -28,7 +28,6 @@ $cias = $hotel->getCompanias();
             <input type="hidden" name="perfilFactura" id="perfilFactura" value="1">
             <input type="hidden" name="creditoCia" id="creditoCia" value="0">
             <input type="hidden" name="retencionCia" id="retencionCia" value=''>
-            <input type="hidden" name="retenciones" id="retenciones" value='<?php echo json_encode($retenciones); ?>'>
             
             <!-- Cambio Opcion Perfil en la factura Inicio // Agos-30 -2019 --->
             <div class="form-group">

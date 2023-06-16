@@ -14,7 +14,7 @@
               <h3 class="w3ls_head tituloPagina"> <i class="fa fa-tachometer" style="font-size:36px;color:black" ></i> Auditoria Nocturna</h3>
             </div>
           </div>
-        </div> 
+        </div>  
         <div class="container-fluid centrar" style="padding-top:20px">
           <div class="col-lg-8 mensaje"></div>
         </div>

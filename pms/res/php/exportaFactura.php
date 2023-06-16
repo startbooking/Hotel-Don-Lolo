@@ -8,73 +8,70 @@
 
   $facturas = $hotel->getFacturasPorRango($query);
 
+  //  echo json_encode($facturas,FALSE);
+
   if (count($facturas) == 0) {
-      echo '1';
+    echo '1';
   } else {
-      ?>
-		<tbody>
-			<?php
-        $numero = 0;
-
+    ?>
+	  <tbody>
+		<?php
+      $numero = 0;
       foreach ($facturas as $factura) {
-          $apellido1 = '';
-          $apellido2 = '';
-          $nombre1 = '';
-          $nombre2 = '';
-          $empresa = '';
-          $nit = '';
-          $dv = '';
-          $codDepto = '';
-          $codCiudad = '';
-          $direccion = '';
-          $telefono = '';
-          $anulada = 'N';
-          $sexo = '';
-
-          if ($factura['factura_anulada'] == 1) {
-              $anulada = 'S';
-          }
-
-          if ($numero == $factura['factura_numero']) {
-              ++$i;
-          } else {
-              $i = 1;
-              $numero = $factura['factura_numero'];
-          }
-          if ($factura['tipo_factura'] == 1) {
-              $idC = $factura['id_perfil_factura'];
-              $cliente = $hotel->getbuscaDatosHuesped($idC);
-              $apellido1 = $cliente[0]['apellido1'];
-              $apellido2 = $cliente[0]['apellido2'];
-              $nombre1 = $cliente[0]['nombre1'];
-              $nombre2 = $cliente[0]['nombre2'];
-              $nit = $cliente[0]['identificacion'];
-              $sexo = $cliente[0]['sexo'];
-          } else {
-              $idC = $factura['id_perfil_factura'];
-              $cliente = $hotel->getSeleccionaCompania($idC);
-              $empresa = $cliente[0]['empresa'];
-              $nit = $cliente[0]['nit'];
-              $dv = $cliente[0]['dv'];
-          }
-          $codigoMun = $hotel->traeCodigoCiudad($cliente[0]['ciudad']);
-          $codCiudad = substr($codigoMun, 2, 3);
-          $codDepto = substr($codigoMun, 0, 2);
-          $direccion = $cliente[0]['direccion'];
-          $telefono = $cliente[0]['telefono'];
-
-          if ($factura['total_pagos'] == 0) {
-              $totales = $factura['monto'];
-          } else {
-              $totales = $factura['total_pagos'];
-          }
-
-          ?>
+        $apellido1 = '';
+        $apellido2 = '';
+        $nombre1 = '';
+        $nombre2 = '';
+        $empresa = '';
+        $nit = '';
+        $dv = '';
+        $codDepto = '';
+        $codCiudad = '';
+        $direccion = '';
+        $telefono = '';
+        $anulada = 'N';
+        $sexo = '';
+        if ($factura['factura_anulada'] == 1) {
+          $anulada = 'S';
+        }
+        if ($numero == $factura['factura_numero']) {
+          ++$i;
+        } else {
+          $i = 1;
+          $numero = $factura['factura_numero'];
+        }
+        if ($factura['tipo_factura'] == 1) {
+          $idC = $factura['id_perfil_factura'];
+          $cliente = $hotel->getbuscaDatosHuesped($idC);
+          $apellido1 = $cliente[0]['apellido1'];
+          $apellido2 = $cliente[0]['apellido2'];
+          $nombre1 = $cliente[0]['nombre1'];
+          $nombre2 = $cliente[0]['nombre2'];
+          $nit = $cliente[0]['identificacion'];
+          $sexo = $cliente[0]['sexo'];
+        } else {
+          $idC = $factura['id_perfil_factura'];
+          $cliente = $hotel->getSeleccionaCompania($idC);
+          $empresa = $cliente[0]['empresa'];
+          $nit = $cliente[0]['nit'];
+          $dv = $cliente[0]['dv'];
+        }
+        $codigoMun = $hotel->traeCodigoCiudad($cliente[0]['ciudad']);
+        $codCiudad = substr($codigoMun, 2, 3);
+        $codDepto = substr($codigoMun, 0, 2);
+        $direccion = $cliente[0]['direccion'];
+        $telefono = $cliente[0]['telefono'];
+        if ($factura['total_pagos'] == 0) {
+          $totales = $factura['pagos'];
+        } else {
+          $totales = $factura['total_pagos'];
+        }
+      ?>
 				<tr>
-					<td>1</td>
-					<td><?php echo $factura['anio']; ?></td>
-					<td>3</td>
-					<td><?php echo $factura['factura_numero']; ?></td>
+				  <td>1</td>
+				  <td><?php echo $factura['anio']; ?></td>
+				  <td>3</td>
+				  <td><?php echo $factura['factura_numero']; ?></td>
 					<td><?php echo substr($factura['fecha_factura'], 8, 2).'/'.substr($factura['fecha_factura'], 5, 2).'/'.substr($factura['fecha_factura'], 0, 4); ?></td>
 					<td><?php echo $factura['descripcion_cargo']; ?></td>
 					<td><?php echo $anulada; ?></td>
@@ -102,7 +99,14 @@
 					<td><?php echo $factura['referencia_cargo']; ?></td>
 					<td><?php echo $factura['descripcion_contable']; ?></td>
 					<td style="text-align:right;"><?php echo $factura['monto']; ?></td>
-					<td style="text-align:right;"><?php echo $factura['total_pagos']; ?></td>
+					<td style="text-align:right;">
+          <?php 
+            if ($factura['total_pagos'] == 0) {
+              echo $factura['pagos'];
+            } else {
+              echo $factura['total_pagos'];
+            }
+          ?></td>
 					<td><?php echo $vacio; ?></td>
 					<td><?php echo $vacio; ?></td>
 					<td><?php echo $vacio; ?></td>
@@ -111,8 +115,8 @@
 			<?php
       }
       ?>
-		</tbody>
-		<?php
+	  </tbody>
+	<?php
   }
   ?>
 

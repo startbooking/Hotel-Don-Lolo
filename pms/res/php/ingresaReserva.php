@@ -8,6 +8,7 @@
 
   $ingresa = $hotel->updateingresaReserva($numero, $usuario); 
   $estHabi = $hotel->cambiaEstadoHabitacion($habita,'LO');
+  $estHabi = $hotel->cambiaOcupacionHabitacon($habita,'1');
 
   if($ingresa==1){
   	$buscadeposito = $hotel->getBuscaDeposito($numero);

@@ -462,9 +462,11 @@ a.info:hover span {
 
 .menuEstadHab {
   list-style: none;
+  display: flex;
   padding: 0;
   color: #000;
   font-size: 13px;
+  text-align: center;
 }
 
 .menuEstadHab li {

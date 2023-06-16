@@ -171,7 +171,7 @@ if ($_GET['section'] != 'cajeroCerrado') {
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeCargosdelDiaHabitacion','Cargos del Dia Por Habitacion')"><i class="glyphicon glyphicon-paste"></i>Cargos del Dia Por Habitacion</a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeCargosAnuladosdelDia','Cargos Anulados en el Dia ')"><i class="glyphicon glyphicon-copy"></i>Cargos Anulados en el Dia </a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimePagosdelDia','Pagos del Dia')"><i class="glyphicon glyphicon-save-file"></i>Pagos del Dia</a></li>
-                <li><a href="javascript:imprimeInformeAuditoria('imprimePagosdelDiaConcepto','Pagos del Dia por Concepto')"><i class="glyphicon glyphicon-save-file"></i>Flujo de Caja</a></li>
+                <li><a href="javascript:imprimeInformeAuditoria('imprimePagosdelDiaConcepto','Flujo de Caja del Dia')"><i class="glyphicon glyphicon-save-file"></i>Flujo de Caja</a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimePagosdelDiaCajero','Pagos del Dia por Cajero')"><i class="glyphicon glyphicon-save-file"></i>Pagos del Dia por Cajero</a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimePagosdelDiaHabitacion','Pagos del Dia Por Habitacion')"><i class="glyphicon glyphicon-paste"></i>Pagos del Dia Por Habitacion</a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimePagosAnuladosdelDia','Pagos Anulados en el Dia')"><i class="glyphicon glyphicon-usd"></i>Pagos Anulados en el Dia</a></li>
@@ -195,6 +195,7 @@ if ($_GET['section'] != 'cajeroCerrado') {
                 <li><a href="historicoReservas"><i class="fa fa-files-o"></i>Historico Reservas</a></li>
                 <li><a href="historicoCajeros"><i class="fa fa-files-o"></i>Historico Cajeros</a></li>
                 <li><a href="informeFacturasRango"><i class="fa fa-files-o"></i>Historico Facturas</a></li>
+                <li><a href="informeRecibosCajaRango"><i class="fa fa-files-o"></i>Historico Recibos de Caja</a></li>
                 <li><a href="historicoAuditoria"><i class="fa fa-circle-o"></i>Historico Auditorias</a></li> 
               </ul>
             </li> 

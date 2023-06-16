@@ -1,14 +1,12 @@
 <?php
+
 require '../../../res/php/app_topHotel.php';
 
-echo 'Paso ';
 
 $tipo = $_POST['tipo'];
 $hoy = substr(FECHA_PMS, 5, 5);
 
 $reservas = $hotel->getReservasActuales($tipo);
-
-echo print_r($reservas);
  
 ?>
   <div class='table-responsive'>
@@ -96,18 +94,18 @@ echo print_r($reservas);
                 </label>
               </span>
               <?php
-          $acompanas = $hotel->buscaAcompanantes($reserva['num_reserva']);
-          if (count($acompanas) > 0) {
-              foreach ($acompanas as $key => $acompana) { ?>
+              $acompanas = $hotel->buscaAcompanantes($reserva['num_reserva']);
+                if (count($acompanas) > 0) {
+                  foreach ($acompanas as $key => $acompana) { ?>
                     <span class="badge" style="background: #3faa558a;margin-top:2px;margin-left:15px;font-size:12px">
                       <label for="" class="control-label" style="font-size:11px;text-align: left;padding: 5px 0px 2px 2px;color:#000"><?php echo $acompana['nombre_completo']; ?>
                       </label>
                     </span>
         
                     <?php
-              }
-          }
-          ?>
+                  }
+                }
+              ?>
             </td>
             <td style="width:20%;"><?php echo $nombrecia; ?></td> 
             <td style="text-align:right;"><?php echo number_format($reserva['valor_diario'], 2); ?></td> 
@@ -297,7 +295,7 @@ echo print_r($reservas);
                                 data-mujeres       ="<?php echo $reserva['can_mujeres']; ?>" 
                                 data-ninos         ="<?php echo $reserva['can_ninos']; ?>" 
                                 data-orden         ="<?php echo $reserva['orden_reserva']; ?>" 
-                                data-tarifa        ="<?php echo ($reserva['tarifa'] ?>" 
+                                data-tarifa        ="<?php echo $hotel->getNombreTarifa($reserva['tarifa']) ?>" 
                                 data-valor         ="<?php echo $reserva['valor_reserva']; ?>" 
                                 data-observaciones ="<?php echo $reserva['observaciones']; ?>" 
                                 >

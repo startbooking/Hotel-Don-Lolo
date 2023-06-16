@@ -386,7 +386,7 @@ $(document).ready(function () {
     var modal = $(this);
 
     modal.find(".modal-title").text("Factura Numero : " + numero);
-    var factura = "Factura_" + numero + ".pdf";
+    var factura = "HDL" + numero + ".pdf";
 
     $("#verFacturaModal").attr(
       "data",
@@ -394,6 +394,23 @@ $(document).ready(function () {
     );
     $(".alert").hide();
   });
+
+  $("#myModalVerReciboCaja").on("show.bs.modal", function (event) {
+    var web = $("#rutaweb").val();
+    var button = $(event.relatedTarget);
+    var numero = button.data("numero");
+    var modal = $(this);
+
+    modal.find(".modal-title").text("Recibo de Caja Nro : " + numero);
+    var recibo = "Abono_" + numero + ".pdf";
+
+    $("#verFacturaModal").attr(
+      "data",
+      web + "imprimir/notas/" + recibo
+    );
+    $(".alert").hide();
+  });
+
 
   $("#myModalAdicionaObservaciones").on("show.bs.modal", function (event) {
     var button = $(event.relatedTarget);
@@ -3997,7 +4014,7 @@ function cierreDiario() {
           $("#aviso").html("");
           $("#aviso").html(
             '<h4 class="bg-red" style="padding:10px;display:flex"><img style="margin-bottom:0" class="thumbnail" src="../img/loader.gif" alt="" /><span style="font-size:24px;font-weight: 700;font-family: ubuntu;margin:15px">Procesando Informacion, No Interrumpa </span></h4>'
-          );
+          ); 
         },
         success: function (datos) {
           $.each(datos, function (i, item) {
@@ -5190,8 +5207,6 @@ function ingresaReserva() {
           "success"
         );
         setTimeout(function () {
-          // $(location).attr("href", "home");
-          // $(location).attr("href", "home");
         }, 5000);
         
 
@@ -5679,14 +5694,19 @@ function filePreview(input) {
 }
 
 function reservasPorFecha() {
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { user } = sesion;
+  let { usuario, usuario_id } = user;
   var web = $("#rutaweb").val();
   desdeFe = $("#desdeFecha").val();
   hastaFe = $("#hastaFecha").val();
   huesped = $("#desdeHuesped").val();
   parametros = {
-    desdeFe: desdeFe,
-    hastaFe: hastaFe,
-    huesped: huesped,
+    desdeFe,
+    hastaFe,
+    huesped,
+    usuario,
+    usuario_id,
   };
 
   if (desdeFe == "" && hastaFe == "" && huesped == "" && empresa == "") {
@@ -5709,8 +5729,8 @@ function verCargosFacturaHistorico(numero, reserva) {
     url: "res/php/buscaCargosHistoricoFactura.php",
     type: "POST",
     data: {
-      numero: numero,
-      reserva: reserva,
+      numero,
+      reserva,
     },
     beforeSend: function (objeto) {
       $("#verFactura").html('<div><img src="" alt="" /></div>');
@@ -6097,67 +6117,37 @@ function guardaObjeto() {
   });
 }
 
-function cambiaEstado(habi, estado, cambio) {
+function cambiaEstadoAseo(habi, estado, cambio) {
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
 
   switch (cambio) {
-    case "SO":
+    case "1":
       color = "bg-suciaOcu";
       break;
-    case "SV":
-      color = "bg-suciaVac";
-      break;
-    case "LO":
-      color = "bg-limpiaOcu";
-      break;
-    case "LV":
+    case "0":
       color = "bg-limpiaVac";
-      break;
-    case "FO":
-      color = "bg-maroon";
-      break;
-    case "FS":
-      color = "bg-red";
-      break;
-    default:
-      $color = "aliceblue";
-      break;
+    break;
   }
 
   switch (estado) {
-    case "SO":
-      actual = "bg-suciaOcu";
-      break;
-    case "SV":
-      actual = "bg-suciaVac";
-      break;
-    case "LO":
-      actual = "bg-limpiaOcu";
-      break;
-    case "LV":
+    case "0":
       actual = "bg-limpiaVac";
       break;
-    case "FO":
-      actual = "bg-maroon";
-      break;
-    case "FS":
-      actual = "bg-red";
-      break;
-    default:
-      actual = "aliceblue";
+    case "1":
+      actual = "bg-suciaOcu";
       break;
   }
 
   $.ajax({
-    url: "res/php/cambiaEstadoHabitacion.php",
+    url: "res/php/cambiaEstadoAseoHabitacion.php",
     type: "POST",
     data: {
-      habi: habi,
-      cambio: cambio,
-      estado: estado,
+      habi,
+      cambio,
     },
     success: function () {
+
       $("#" + habi).removeClass(actual);
       $("#" + habi).addClass(color);
     },
@@ -6262,6 +6252,49 @@ function facturasPorFecha() {
     });
   }
 }
+
+
+function recibosPorFecha() {
+  var web = $("#rutaweb").val();
+  desdeFe = $("#desdeFecha").val();
+  hastaFe = $("#hastaFecha").val();
+  desdeNu = $("#desdeNumero").val();
+  hastaNu = $("#hastaNumero").val();
+  huesped = $("#desdeHuesped").val();
+  formaPa = $("#desdeFormaPago").val();
+  parametros = {
+    desdeFe,
+    hastaFe,
+    desdeNu,
+    hastaNu,
+    huesped,
+    formaPa,
+  };
+
+  if (
+    desdeFe == "" &&
+    hastaFe == "" &&
+    desdeNu == "" &&
+    hastaNu == "" &&
+    huesped == "" &&
+    empresa == "" &&
+    formaPa == ""
+  ) {
+    swal("Atencion", "Seleccione un Criterio de Busqueda", "warning");
+  } else {
+    $.ajax({
+      url: web + "res/php/recibosPorRango.php",
+      type: "POST",
+      data: parametros,
+      success: function (x) {
+        $(".imprimeInforme").html(x);
+      },
+    });
+  }
+}
+
+
+
 
 function validaCierreDiario() {
   sesion = JSON.parse(localStorage.getItem("sesion"));

@@ -1,4 +1,6 @@
 <?php 
+  $usuario = $_POST['usuario'];
+  $usuario_id = $_POST['usuario_id'];
   $hoy  = FECHA_PMS;
   $ayer = strtotime ( '-1 day' , strtotime ( $hoy ) ) ;
   $ayer = date ('Y-m-d' , $ayer );
@@ -11,7 +13,7 @@
             <div class="panel-heading"> 
               <div class="row">
                 <div class="col-lg-9">
-                  <input type="hidden" name="usuarioActivo" id="usuarioActivo" value="<?=$_SESSION['usuario']?>">
+                  <input type="hidden" name="usuarioActivo" id="usuarioActivo" value="<?=$usuario?>">
                   <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_PMS?>">                  
                   <input type="hidden" name="ubicacion" id="ubicacion" value="informeFacturasRango">
                   <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-industry"></i> Historico de Reservas</h3>

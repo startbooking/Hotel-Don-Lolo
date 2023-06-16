@@ -336,7 +336,7 @@ foreach ($codigos as $codigo) { ?>
             </button> 
             <h3 class="modal-title" id="exampleModalLabel">Salida Huesped</h3>
           </div> 
-          <div id="mensajeSal"></div>
+          <div id="mensajeSal"></div> 
           <div class="modal-body">
             <?php
               $retenciones = $hotel->getRetenciones();

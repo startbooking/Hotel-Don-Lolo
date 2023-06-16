@@ -1095,7 +1095,7 @@ class Hotel_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT habitaciones.id, habitaciones.numero_hab, habitaciones.tipo_hab, habitaciones.pax, habitaciones.camas, habitaciones.estado_fo, habitaciones.estado_hk, tipo_habitaciones.descripcion_habitacion FROM  habitaciones, tipo_habitaciones WHERE habitaciones.id_tipohabitacion = tipo_habitaciones.id AND tipo_habitaciones.tipo_habitacion = 1 AND habitaciones.active_at = 1 AND habitaciones.estado = 1 AND substr(habitaciones.estado_fo,1,1) <> 'F'  ORDER BY  habitaciones.numero_hab")->fetchAll();
+        $data = $database->query("SELECT habitaciones.id, habitaciones.numero_hab, habitaciones.tipo_hab, habitaciones.pax, habitaciones.camas, habitaciones.estado_fo, habitaciones.estado_hk, habitaciones.mantenimiento, habitaciones.sucia, habitaciones.ocupada, tipo_habitaciones.descripcion_habitacion FROM  habitaciones, tipo_habitaciones WHERE habitaciones.id_tipohabitacion = tipo_habitaciones.id AND tipo_habitaciones.tipo_habitacion = 1 AND habitaciones.active_at = 1 AND habitaciones.estado = 1 AND substr(habitaciones.estado_fo,1,1) <> 'F'  ORDER BY  habitaciones.numero_hab")->fetchAll();
 
         return $data;
     }
@@ -3195,7 +3195,7 @@ class Hotel_Actions
             'reservas_pms.num_habitacion',
             'huespedes.nombre_completo',
             'cargos_pms.prefijo_factura',
-            'cargos_pms.factura_numero',
+            'cargos_pms.factura_numero', 
             'cargos_pms.concecutivo_abono',
             'cargos_pms.pagos_cargos',
             'cargos_pms.id_usuario_factura',
@@ -3636,14 +3636,27 @@ class Hotel_Actions
         global $database;
 
         $data = $database->update('habitaciones', [
-            'estado_fo' => $estado,
-            'estado_hk' => $estado,
+            'sucia' => $estado,
         ], [
             'numero_hab' => $habita,
         ]);
 
         return $data->rowCount();
     }
+
+    public function cambiaOcupacionHabitacon($habita, $estado)
+    {
+        global $database;
+
+        $data = $database->update('habitaciones', [
+            'ocupada' => $estado,
+        ], [
+            'numero_hab' => $habita,
+        ]);
+
+        return $data->rowCount();
+    }
+
 
     public function getDataUser($user)
     {
@@ -5786,7 +5799,7 @@ class Hotel_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT habitaciones.id, habitaciones.numero_hab, habitaciones.tipo_hab, habitaciones.pax, habitaciones.camas, habitaciones.estado_fo, habitaciones.estado_hk, tipo_habitaciones.descripcion_habitacion FROM habitaciones, tipo_habitaciones WHERE habitaciones.id_tipohabitacion = tipo_habitaciones.id AND tipo_habitaciones.tipo_habitacion = 1 AND habitaciones.active_at = 1 AND habitaciones.id_tipohabitacion <> '1' ORDER BY  habitaciones.numero_hab")->fetchAll();
+        $data = $database->query("SELECT habitaciones.id, habitaciones.numero_hab, habitaciones.tipo_hab, habitaciones.pax, habitaciones.camas, habitaciones.estado_fo, habitaciones.estado_hk, tipo_habitaciones.descripcion_habitacion, habitaciones.mantenimiento, habitaciones.sucia, habitaciones.ocupada FROM habitaciones, tipo_habitaciones WHERE habitaciones.id_tipohabitacion = tipo_habitaciones.id AND tipo_habitaciones.tipo_habitacion = 1 AND habitaciones.active_at = 1 AND habitaciones.id_tipohabitacion <> '1' ORDER BY  habitaciones.numero_hab")->fetchAll();
 
         return $data;
     }

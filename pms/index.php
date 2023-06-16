@@ -158,7 +158,9 @@ include_once 'menus/menu_titulo.php';
       require 'views/auditoria/facturasDelDiaAuditoria.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'informeFacturasRango') {
       require 'views/informes/facturasPorRango.php';
-  } elseif (isset($_GET['section']) && $_GET['section'] == 'estadoCartera') {
+    } elseif (isset($_GET['section']) && $_GET['section'] == 'informeRecibosCajaRango') {
+        require 'views/informes/recibosCajaPorRango.php';
+    } elseif (isset($_GET['section']) && $_GET['section'] == 'estadoCartera') {
       require 'views/informes/estadoCartera.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'balanceCajeros') {
       require 'views/balanceCajeros.php';

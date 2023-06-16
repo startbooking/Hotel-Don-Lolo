@@ -212,7 +212,7 @@ $rutaINV = BASE_POS.'datos/kardex.php';
               <i class="fa fa-angle-left pull-right"></i>
             </a>
             <ul class="treeview-menu">
-              <li>
+              <li> 
                 <a class="menuPpal" onclick="balanceHistorico()"><i class="fa fa-users"></i>Historico Balance de Caja</a>
               </li>
               <li>
