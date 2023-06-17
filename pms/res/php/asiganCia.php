@@ -2,9 +2,8 @@
 
   require '../../../res/php/app_topHotel.php'; 
   
-  $idres    = $_POST['idres'];
+  // $idres    = $_POST['idres'];
   $idcia    = $_POST['idcia'];
-  
   $cias     = $hotel->getCompanias();
 
 ?>
@@ -27,7 +26,7 @@
         ><?=$value['empresa']?></option>
       <?php 
       }
-       ?>
+      ?>
     </select>
   </div>
 </div>

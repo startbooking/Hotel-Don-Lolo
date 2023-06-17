@@ -59,7 +59,7 @@
                                         type="button">
                                         <i class="fa fa-file-pdf-o" aria-hidden="true" title="Ver Factura"></i>
                                       </button>
-                                      <?php
+                                      <?php 
                                     if ($factura['factura_anulada'] == 0) {?>
                                           <a class="btn btn-danger btn-xs" 
                                             data-toggle    ="modal" 

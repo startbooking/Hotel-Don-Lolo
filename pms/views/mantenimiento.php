@@ -58,19 +58,17 @@
                           <li class="dropdown submenu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="padding: 3px 1px;font-weight: 400">Ficha Mantenimiento<span class="caret"></span></a>
                             <ul class="dropdown-menu" style="float:left;margin-left:none;top:40px;left: -195px">  
-                              <li>
+                              <!-- <li>
                                 <a data-toggle="modal" 
                                   data-id="<?php echo $mmto['id_mmto']; ?>" 
                                   href="#myModalExtenderMantenimiento">
-                                <i class="fa fa-sign-out" aria-hidden="true"></i>
-                                 Extender Mantenimiento</a> 
-                              </li>
+                                <i class="fa fa-sign-out" aria-hidden="true"></i>Extender Mantenimiento</a> 
+                              </li> -->
                               <li>
                                 <a data-toggle="modal" 
-                                  data-id="<?php echo $mmto['con_mantenimiento']; ?>" 
+                                  data-id="<?php echo $mmto['id_mmto']; ?>" 
                                   href="#myModalInformacionMmto">
-                                <i class="fa fa-sign-out" aria-hidden="true"></i>
-                                 Informacion Mantenimiento</a> 
+                                <i class="fa fa-sign-out" aria-hidden="true"></i>Informacion Mantenimiento</a> 
                               </li>
                               <li>
                                 <a data-toggle="modal" 
@@ -79,8 +77,7 @@
                                   data-observa="<?php echo $mmto['observaciones']; ?>" 
                                   data-room="<?php echo $hotel->getNumeroHab($mmto['id_habitacion']); ?>"
                                   href="#myModalAdicionaObservacionesMantenimiento">
-                                <i class="fa fa-sign-out" aria-hidden="true"></i>
-                                 Adicionar Observaciones</a> 
+                                <i class="fa fa-sign-out" aria-hidden="true"></i>Adicionar Observaciones</a> 
                               </li>
                               <?php
                                 if ($mmto['estado_mmto'] == 1) { ?>

@@ -4,7 +4,7 @@ require '../../../res/php/app_topHotel.php';
 
 $turismo = $_POST['turismo'];
 $reserva = $_POST['reserva'];
-$folio = $_POST['folio'];
+$folio = $_POST['folio']; 
 $nrohab = $_POST['nrohab'];
 
 $consumos = $hotel->getConsumosReservaFolio($reserva, $folio);

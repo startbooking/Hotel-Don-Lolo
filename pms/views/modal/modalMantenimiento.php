@@ -36,7 +36,7 @@
               <div class="col-sm-2" style="padding-right: 5px">
                 <input style="padding: 4px;" type="date" class="form-control" name="desdeFechaAdi" id="desdeFechaAdi" required="" value="<?=FECHA_PMS?>" onblur="cambiaFecha()">
               </div>
-               <label for="hastaFechaAdi" class="col-sm-2 control-label">Hasta Fecha</label>
+              <label for="hastaFechaAdi" class="col-sm-2 control-label">Hasta Fecha</label>
               <div class="col-sm-2" style="padding-right: 5px">
                 <input style="padding: 4px;" type="date" class="form-control" name="hastaFechaAdi" id="hastaFechaAdi" required="" value="<?=FECHA_PMS?>">
               </div>
@@ -109,7 +109,7 @@
           </div>
         </form>
       </div>
-    </div>
+    </div> 
   </div>
 </div>
 

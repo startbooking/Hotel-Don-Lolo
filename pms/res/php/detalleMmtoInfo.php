@@ -5,8 +5,11 @@
   require '../../../res/php/app_topHotel.php'; 
   
   $id         = $_POST['id'];
-
+ 
   $detalles = $hotel->getInformacionMantenimiento($id);
+
+
+
   $nroHab   = $hotel->getNumeroHab($detalles[0]['id_habitacion']);
 
 ?>

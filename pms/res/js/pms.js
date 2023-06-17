@@ -3228,6 +3228,8 @@ function anulaFactura() {
   var reserva = $("#reserva").val();
   var perfil = $("#perfil").val();
 
+  $('.btnAnulaFac').css('display','none')
+
   $.ajax({
     url: "res/php/anulaFactura.php",
     type: "POST",
