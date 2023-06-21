@@ -4,9 +4,10 @@
   require '../../../res/php/app_topHotel.php'; 
   $numero  = $_POST['numero'];
   $habita  = $_POST['habita'];
-  $usuario = $_POST['usuario'];
+  $usuario = $_POST['usuario']; 
 
   $ingresa = $hotel->updateingresaReserva($numero, $usuario); 
+  
   $estHabi = $hotel->cambiaEstadoHabitacion($habita,'LO');
   $estHabi = $hotel->cambiaOcupacionHabitacon($habita,'1');
 

@@ -238,6 +238,7 @@
           <input type="hidden" name='ambientePag' id='ambientePag' value=''>
           <input type="hidden" name='usuarioPag' id='usuarioPag' value=''>
           <input type="hidden" name='cambioDir' id='cambioDir' value='0'>
+          <input type="hidden" name='totalCuenta' id='totalCuenta' value=''>
           <input type="hidden" name='mesaDir' id='mesaDir' value=''>
         </div>
         <div class="modal-body">

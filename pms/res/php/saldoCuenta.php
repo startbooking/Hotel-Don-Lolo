@@ -16,7 +16,7 @@ if (count($totImptos) == 0) {
 } else {
     $baseImpto = $totImptos[0]['baseImpto'];
     $totImpto = $totImptos[0]['imptos'];
-}
+} 
 
 if (count($consumos) == 0) {
     $consumos[0]['cargos'] = 0;
@@ -90,7 +90,7 @@ $totalFolio = ($consumo + $impto) - ($abono - $reteiva - $reteica - $retefuente)
   <div class="form-group">
     <label class="control-label col-md-2" for="codigoConsumo">Forma de Pago</label>
     <div class="col-lg-4 col-md-4" >
-      <select name="codigoPago" id="codigoPago" required onblur="traePerfilVenta(this.value)">
+      <select name="codigoPago" id="codigoPago" required>
         <option value="">Seleccione Forma de Pago</option>
         <?php
        $codigos = $hotel->getCodigosConsumos(3);

@@ -904,7 +904,7 @@ $(document).ready(function () {
     modal.find(".modal-body #idhuespedAco").val(nombre);
     $.ajax({
       type: "POST",
-      data: parametros,
+      data: parametros, 
       url: web + "res/php/dataBuscarAcompanantes.php",
       success: function (datos) {
         $("#acompanantes").html(datos);
@@ -3569,9 +3569,9 @@ function traeAcompanantes(idres){
     success: function (datos) {      
       $("#acompanantes").html(datos);
     },
-  });
+  }); 
 }
-
+ 
 function guardaAcompanante() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
@@ -5367,9 +5367,9 @@ function seleccionaHabitacion() {
   var sale = $("#salida").val();
   var tipo = $("#tipohabi").val();
   var parametros = {
-    llega: llega,
-    sale: sale,
-    tipo: tipo,
+    llega,
+    sale,
+    tipo,
   };
   $.ajax({
     type: "POST",

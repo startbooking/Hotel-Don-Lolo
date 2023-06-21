@@ -278,13 +278,6 @@ include_once '../views/modal/modalUsuario.php';
     
     <script>
       sesion    = JSON.parse(localStorage.getItem('sesion'))
-      /* let { user } = sesion;
-      let { usuario_id, usuario, nombres, apellidos, tipo } = user  */
-      /* idusr     = usuario_id
-      user      = usuario
-      nombres   = nombres
-      nivel     = tipo
-      apellidos = apellidos */
       $('#usuarioActivo').val(usuario)
       $('#nombreUsuario').html(`${apellidos} ${nombres} <span class="caret"></span>`)
       if(tipo <= 2){
@@ -315,7 +308,7 @@ include_once '../views/modal/modalUsuario.php';
           $('.tituloPagina').html(`<i class="fa fa-tachometer" style="font-size:36px;color:black" ></i> Cierre Cajero [${usuario}]`)
         </script>
         <?php
-  } elseif ($_GET['section'] == 'reservasActivas' || $_GET['section'] == 'encasa' || $_GET['section'] == 'facturacionEstadia' || $_GET['section'] == 'salidasDelDia' || $_GET['section'] == 'salidasRealizadas' || $_GET['section'] == 'grupos') { ?>
+  } elseif ($_GET['section'] == 'reservasActivas' || $_GET['section'] == 'encasa' || $_GET['section'] == 'facturacionEstadia' || $_GET['section'] == 'salidasDelDia' || $_GET['section'] == 'salidasRealizadas' || $_GET['section'] == 'grupos' || $_GET['section'] == 'mantenimiento') { ?>
         <script>
           if(tipo==1){
             $('#cambiaHuesped').css('display','block')

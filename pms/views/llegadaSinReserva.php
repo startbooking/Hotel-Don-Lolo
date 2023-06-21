@@ -1,3 +1,11 @@
+  
+  
+  <?php
+  $hoy  = FECHA_PMS;
+  $manana = strtotime ( '+1 day' , strtotime ( $hoy ) ) ;
+  $manana = date ('Y-m-d' , $manana );
+?>
+
 <div class="content-wrapper"> 
   <section class="content" style="width: 90%">
     <div id="crearReserva"></div>
@@ -23,9 +31,12 @@
               <div class="input-group" style="padding-left:15px;">
                 <input type="text" class="form-control" id="buscarHuesped" aria-describedby="inputGroupSuccess4Status">
                 <span class="input-group-addon" style="padding:1px;border:none">
-                  <a data-toggle="modal" 
+                  <a 
+                    class="btn btn-info"  
+                    data-toggle="modal" 
+                    style="padding: 3px 10px"
                     href="#myModalBuscaHuesped">
-                    <i style="padding:5px 10px" class="fa fa-search" aria-hidden="true"></i>
+                    <i class="fa fa-search" aria-hidden="true"></i>
                   </a>
                 </span>
               </div>
@@ -64,7 +75,7 @@
           <div class="form-group">
             <label for="llegada" class="col-sm-2 control-label">Llegada</label>
             <div class="col-sm-3">
-              <input type="date" class="form-control" name="llegada" id="llegada" required="" value="<?=FECHA_PMS?>" readonly min="<?=FECHA_PMS?>">
+              <input type="date" class="form-control" name="llegada" id="llegada" required="" value="<?=$hoy?>" readonly min="<?=$hoy?>">
             </div>
             <label for="noches" class="col-sm-1 control-label">Noches</label>
             <div class="col-sm-2">
@@ -72,7 +83,7 @@
             </div>
             <label for="salida" class="col-sm-1 control-label">Salida</label>
             <div class="col-sm-3">
-              <input type="date" onblur="restaFechas()" class="form-control" name="salida" id="salida" required="" value="<?=FECHA_PMS?>">
+              <input type="date" onblur="restaFechas()" class="form-control" name="salida" id="salida" required="" value="<?=$manana?>">
             </div>
           </div>
           <div class="form-group">
@@ -92,7 +103,7 @@
             <div class="col-sm-3">
               <input type="text" class="form-control" name="orden" id="orden" value="">
             </div>
-          </div>
+          </div> 
           <div class="form-group">
             <label for="tipohabi" class="col-sm-2 control-label">Tipo Habitacion</label>
             <div class="col-sm-4">

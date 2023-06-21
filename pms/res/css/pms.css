@@ -61,7 +61,7 @@
 }
 
 .divHuesped {
-  background: cornsilk;
+  /* background: cornsilk; */
   padding: 5px;
   margin-bottom: 10px;
 }
@@ -466,7 +466,7 @@ a.info:hover span {
   padding: 0;
   color: #000;
   font-size: 13px;
-  text-align: center;
+  text-align: center; 
 }
 
 .menuEstadHab li {

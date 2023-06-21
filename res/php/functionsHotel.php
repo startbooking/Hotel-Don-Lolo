@@ -231,6 +231,7 @@ class Hotel_Actions
         ]);
 
         return $data[0]['perfil_venta'];
+        
     }
 
     public function getPrefijoNC()
@@ -319,7 +320,11 @@ class Hotel_Actions
             'id_ciudad' => $id,
         ]);
 
-        return $data[0]['codigo'];
+        if(count($data)==0){
+            return 'Sin Datos ';
+        }else{
+            return $data[0]['codigo']; 
+        }
     }
 
     public function traeCodigoIdentifica($id)
@@ -4381,6 +4386,8 @@ class Hotel_Actions
         $data = $database->update('habitaciones', [
             'estado_fo' => 'SV',
             'estado_hk' => 'SV',
+            'sucia' => 1,
+            'ocupada' => 0,
         ], [
             'numero_hab' => $room,
         ]);
@@ -7142,11 +7149,11 @@ class Hotel_Actions
         return $data;
     }
 
-    public function getSeleccionaHabitacionesTipo($tipo)
+    public function getSeleccionaHabitacionesTipoDia($tipo)
     {
         global $database;
 
-        $data = $database->query("SELECT numero_hab as num_habitacion FROM habitaciones WHERE id_tipohabitacion = '$tipo' AND active_at = 1 ORDER BY numero_hab")->fetchAll();
+        $data = $database->query("SELECT numero_hab as num_habitacion FROM habitaciones WHERE id_tipohabitacion = '$tipo' AND active_at = 1 AND mantenimiento = 0 AND sucia = 0 AND ocupada = 0 ORDER BY numero_hab")->fetchAll();
 
         return $data;
     }

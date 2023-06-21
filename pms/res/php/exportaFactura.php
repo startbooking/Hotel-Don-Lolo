@@ -8,6 +8,7 @@
 
   $facturas = $hotel->getFacturasPorRango($query);
 
+  $vacio = '';
   //  echo json_encode($facturas,FALSE);
 
   if (count($facturas) == 0) {

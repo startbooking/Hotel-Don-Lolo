@@ -36,7 +36,7 @@ $pagofolio2 = $hotel->pagosFolio($reserva, 2);
 $pagofolio3 = $hotel->pagosFolio($reserva, 3);
 $pagofolio4 = $hotel->pagosFolio($reserva, 4);
 
-$centros = $hotel->getBuscaCentroCia($datosReserva[0]['idCentroCia']);
+// $centros = $hotel->getBuscaCentroCia($datosReserva[0]['idCentroCia']);
 
 $saldoCuenta = $saldofolio1 + $saldofolio2 + $saldofolio3 + $saldofolio4;
 $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
@@ -153,14 +153,6 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
                 <div class="col-sm-2">
                   <input type="text" class="form-control" name="nit" id="nit" value="<?php echo $datosCompania[0]['nit'].'-'.$datosCompania[0]['dv']; ?>" disabled="">
                 </div>
-              <?php
-              if ($datosReserva[0]['idCentroCia'] != 0) { ?>
-                  <label for="inputEmail3" class="col-sm-1 control-label">Centro de Costo</label>
-                  <div class="col-sm-3">
-                    <input type="text" class="form-control" name="centroCia" id="centroCia" value="<?php echo $centros[0]['descripcion_centro']; ?>" disabled="">
-                  </div>
-                <?php
-              } ?>
               </div>
               <?php
             }

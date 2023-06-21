@@ -4,9 +4,10 @@ require '../../../res/php/app_topHotel.php';
 
 $tipo = $_POST['tipo'];
 $llega = $_POST['llega'];
-$sale = $_POST['sale'];
+$sale = $_POST['sale']; 
 
-$habitaciones = $hotel->getSeleccionaHabitacionesTipo($tipo);
+$habitaciones = $hotel->getSeleccionaHabitacionesTipoDia($tipo);
+
 
 $encasa = $hotel->getReservasporTipoHab($tipo, $llega, $sale, 'CA');
 $salidas = $hotel->getReservasporTipoHabSalida($tipo, $llega, $sale, 'ES');

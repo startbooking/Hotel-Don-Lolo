@@ -18,7 +18,7 @@
 	$nacion         = $_POST['paicesAdiAco']; 
 	$ciudad         = $_POST['ciudadAdiAco']; 
 	$usuario        = $_POST['usuario']; 
-	$idusuario      = $_POST['usuario_id']; 
+	$idusuario      = $_POST['idusuario']; 
 	
 	if($nuevo==1){
 		$creaHues = $hotel->creaHuespedAdicional($apellido1, $apellido2, $nombre1, $nombre2, $identificacion, $tipoiden, $sexo, $fechanace, $nacion, $ciudad, $idusuario);

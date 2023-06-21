@@ -15,9 +15,7 @@
               class="btn btn-success"
               data-toggle="modal" 
               href="#myModalAdicionaMantenimiento">
-              <i class="fa fa-plus" aria-hidden="true"></i>
-               Adicionar Mantenimiento
-            </a>
+              <i class="fa fa-plus" aria-hidden="true"></i>Adicionar Mantenimiento </a>
           </div> 
         </div>
       </div>

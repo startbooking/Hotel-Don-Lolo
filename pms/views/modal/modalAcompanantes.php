@@ -1,6 +1,6 @@
 <div class="modal fade bs-example-modal-lg" id="myModalAcompanantesReserva" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-md" role="document"> 
-    <div class="modal-content"> 
+    <div class="modal-content">  
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class='glyphicon glyphicon-off' style="color:#530505"></span></button>
         <h4 class="modal-title" id="myModalLabel">Acompañantes en la Reserva</h4>
@@ -14,7 +14,7 @@
           <input type="hidden" name="numeroReserva" id="numeroReserva">
           <button class="btn btn-primary pull-right" type="button" 
             data-toggle="modal" 
-            data-target="#myModalAdicionaAcompanante" 
+            data-target="#myModalAdicionaAcompanante"  
             title="Adicionar Acompañante Reserva">
             <i class="fa fa-plus" aria-hidden="true"></i> Adicionar
           </button>
@@ -95,7 +95,7 @@
                   <input style="margin-top:5px" class="form-check-input" type="radio" name="sexOptionAdiAco" id="inlineRadio2AdiAco" value="2">
                   <label style="margin-top:-25px;margin-left:25px" class="form-check-label" for="inlineRadio2">Femenino</label>
                 </div>
-              </div>
+              </div> 
             </div>
           </div>
           <div class="form-group">
