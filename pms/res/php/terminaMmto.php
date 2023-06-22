@@ -12,7 +12,7 @@ $idusuario = $_POST['usuario_id'];
 $termina = $hotel->terminaMantenimiento($id, $costo, $idusuario);
 
 if ($termina != 0) {
-    $actualizaHab = $hotel->actualizaMmtoHabitacion($room, 'SV');
+    $actualizaHab = $hotel->actualizaMmtoHabitacion($room, '0');
 } else {
     $actualizaHab = 0;
 }

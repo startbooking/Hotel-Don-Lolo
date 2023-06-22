@@ -32,7 +32,7 @@
                 <td>Bloqueada</td>
                 <td>Estado</td>
                 <td>Inventario</td>
-                <td>Presupuesto</td>
+                <!-- <td>Presupuesto</td> -->
                 <td>Accion</td>
               </tr>
             </thead>
@@ -48,7 +48,7 @@
                   <td align="center"><?php echo estadoInventario($mmto['tipo_bloqueo']); ?></td>
                   <td align="center"><?php echo estadoMmto($mmto['estado_mmto']); ?></td>
                   <td align="center"><?php echo estadoInventario($mmto['retirar_inventario']); ?></td>
-                  <td align="right"><?php echo number_format($mmto['presupuesto'], 2); ?></td>
+                  <!-- <td align="right"><?php echo number_format($mmto['presupuesto'], 2); ?></td> -->
                   <td>
                     <nav class="navbar navbar-default" style="margin-bottom: 0px;min-height:0px;">
                       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:1px">

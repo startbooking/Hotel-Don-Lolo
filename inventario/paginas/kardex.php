@@ -69,7 +69,7 @@
                     </tr>
                     <?php 
                       
-                      $sql = $sql.' and '
+                      $sql = $sql.' and ';
                       while($row = mysqli_fetch_array($result)) { ?>
                     <tr>
                       <td><?php echo $row['PRD_MOVI'] ?></td>

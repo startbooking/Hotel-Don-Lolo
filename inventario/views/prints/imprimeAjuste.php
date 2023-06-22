@@ -15,7 +15,7 @@
   $pdf->SetFont('Arial','',10);
   $pdf->Cell(25,6,$numeroTra,0,0,'L');
   $pdf->SetFont('Arial','B',10);
-  $pdf->Cell(30,6,'FECHA ',0,0,'L');
+  $pdf->Cell(30,6,'FECHA ',0,0,'L'); 
   $pdf->SetFont('Arial','',10);
   $pdf->Cell(25,6,$movimientos[0]['fecha_movimiento'],0,0,'L');
   $pdf->SetFont('Arial','B',10);

@@ -31,7 +31,13 @@
             <td><?php echo $inven->buscaUnidad($salida['unidad_alm']); ?></td> 
             <td align="right"><?php echo number_format($salida['cantidad'],0); ?></td>
             <td align="right"><?php echo number_format($salida['valor_unitario'],2); ?></td>
-            <td align="right"><?php echo number_format($salida['impuesto'],2); ?></td>
+            <td align="right"><?php 
+            if($salida['impuesto']==''){
+              echo number_format(0,2); 
+            }else{
+              echo number_format($salida['impuesto'],2); 
+            }
+            ?></td>
             <td align="right"><?php echo number_format($salida['valor_total'],2); ?></td>
           </tr>
           <?php 

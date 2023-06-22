@@ -26,7 +26,7 @@
           ?>
           <div class="form-group" >
             <input type="hidden" id="sugerida" value="<?php echo $pro; ?>">
-            <label class="col-lg-3 col-md-3 control-label" style="padding-top:0;">Forma de Pago</label>
+            <label class="col-lg-3 col-md-3 control-label" style="padding-top:0">Forma de Pago</label>
             <div class="col-lg-8 col-md-8"> 
               <select onchange="getFormaPago(this.value)" name='formapago' id='formapago' required >
                 <option value="">Seleccione la Forma de Pago</option>
@@ -59,7 +59,7 @@
               <input value="0" min="0" type="number" class="suma_propina form-control" name="propinaPag" id="propinaPag" onblur="calcular_total()">
             </div>
               <label class='col-lg-2 col-md-2 control-label ctrlCta' style="padding-top:0">Room Service</label>
-            <div class="col-lg-3 col-md-3" style="padding-rigth:0px;">
+            <div class="col-lg-3 col-md-3" style="padding-right:0px;">
               <input type="text" class="form-control" name="roomService" id="roomService" value="0" min="0">
             </div>
             <div class="col-lg-1" style="padding-left:0px;margin-left:-14px;display:flex;">

@@ -9,8 +9,8 @@ $nroroom = $_POST['roomNroAdi'];
 $desde = $_POST['desdeFechaAdi'];
 $hasta = $_POST['hastaFechaAdi'];
 $motivo = $_POST['motivoAdi'];
-$inventario = $_POST['mmtoOption'];
-$presup = $_POST['presupuestoAdi'];
+$inventario = 1;
+$presup = 0;
 $tipo = $_POST['tipoMmtoOption'];
 $observa = strtoupper($_POST['observacionesAdi']);
 $usuario = $_POST['usuario'];
@@ -20,8 +20,6 @@ if ($inventario == 1) {
 } else {
     $estadoHab = 'FS';
 }
-
-// echo 'PAso a Guardar ';
 
 if ($observa != '') {
     $observa = $observa.' Usuario '.$usuario.'  Fecha Ingreso '.date('Y-m-d H:i:s');
@@ -38,7 +36,7 @@ if (count($buscaRe) == 0) {
     $adicional = $hotel->adicionaMantenimiento($room, $desde, $hasta, $motivo, $inventario, $estadoHab, $observa, $presup, $numero, $tipo, $usuario);
 
     if ($adicional != 0) {
-        $actualizaHab = $hotel->actualizaMmtoHabitacion($nroroom, $estadoHab);
+        $actualizaHab = $hotel->actualizaMmtoHabitacion($nroroom, 1);
         include_once '../../imprimir/imprimeMantenimiento.php';
     } else {
         $actualizaHab = 0;

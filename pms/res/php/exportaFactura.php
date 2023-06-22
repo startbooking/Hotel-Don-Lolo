@@ -11,7 +11,7 @@
   $vacio = '';
   //  echo json_encode($facturas,FALSE);
 
-  if (count($facturas) == 0) {
+  if (count($facturas) == 0) { 
     echo '1';
   } else {
     ?>

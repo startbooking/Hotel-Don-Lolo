@@ -23,6 +23,8 @@ $nombreAlm = $pos->buscaAlmacen($bodega);
 
 $kardexs = $pos->getTraeKardex($bodega);
 
+// echo print_r($kardexs);
+
 ?>
 
 <section class="content">
@@ -64,15 +66,24 @@ $kardexs = $pos->getTraeKardex($bodega);
                 <td style="text-align: right"><?php echo number_format($kardex['entradas'], 2); ?></td>
                 <td style="text-align: right"><?php echo number_format($kardex['salidas'], 2); ?></td>
                 <td style="text-align: right"><?php echo number_format($kardex['saldo'], 2); ?></td>
-                <td style="text-align: right"><?php echo number_format($kardex['promedio'], 2); ?></td>
+                <td style="text-align: right"><?php 
+                if($kardex['promedio']==''){
+                  echo number_format(0, 2);
+                }else{
+                  echo number_format($kardex['promedio'], 2); 
+                }
+                ?>
+              </td>
                 <td style="text-align: right"><?php echo number_format($kardex['promedio'] * $kardex['saldo'], 2); ?></td>
-
                 <td style="text-align:center;">
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#modalConsultaKardex" data-id="<?php echo $kardex['id_producto']; ?>" data-bodega="<?php echo $bodega; ?>" data-nombre="<?php echo $kardex['nombre_producto']; ?>" onclick="muestraProductoKardex()" title="Muestra Movimientos de Inventario">
-                      <i class='glyphicon glyphicon-edit'></i>
-                    </button>
-                  </div>
+                  <button type="button" class="btn btn-info btn-xs" data-toggle="modal" 
+                  data-target="#modalConsultaKardex" 
+                  data-id="<?php echo $kardex['id_producto']; ?>" data-bodega="<?php echo $bodega; ?>" 
+                  data-nombre="<?php echo $kardex['nombre_producto']; ?>" title="Muestra Movimientos de Inventario">
+                    <i class='glyphicon glyphicon-edit'></i>
+                  </button>
+                  <!-- <div class="btn-group">
+                  </div> -->
                 </td>
               </tr>
             <?php } ?>
@@ -97,11 +108,11 @@ $kardexs = $pos->getTraeKardex($bodega);
               <tr>
                 <td><?php echo $kardex['nombre_producto']; ?></td>
                 <td><?php echo $kardex['descripcion_unidad']; ?></td>
-                <td style="text-align: right"><?php echo number_format($kardex['entradas'], 2); ?></td>
-                <td style="text-align: right"><?php echo number_format($kardex['salidas'], 2); ?></td>
-                <td style="text-align: right"><?php echo number_format($kardex['saldo'], 2); ?></td>
-                <td style="text-align: right"><?php echo number_format($kardex['promedio'], 2); ?></td>
-                <td style="text-align: right"><?php echo number_format($kardex['promedio'] * $kardex['saldo'], 2); ?></td>
+                <td style="text-align: right"><?php echo $kardex['entradas']; ?></td>
+                <td style="text-align: right"><?php echo $kardex['salidas']; ?></td>
+                <td style="text-align: right"><?php echo $kardex['saldo']; ?></td>
+                <td style="text-align: right"><?php echo $kardex['promedio']; ?></td>
+                <td style="text-align: right"><?php echo $kardex['promedio'] * $kardex['saldo']; ?></td>
 
               </tr>
             <?php } ?>
@@ -112,25 +123,3 @@ $kardexs = $pos->getTraeKardex($bodega);
     </div>
   </div>
 </section>
-
-<div class="modal fade" id="modalConsultaKardex" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-  <form id="dataMovimientosProducto" class="form-horizontal" action="#">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="glyphicon glyphicon-off"></span></button>
-          <h2 class="modal-title" id="exampleModalLabel">Modificar Producto</h2>
-          <input type="hidden" name="idproducto" id="idproducto">
-        </div>
-        <div class="modal-body" id='movimientosProducto' style="height: 400px;overflow: auto">
-          <div id="datos_ajax"></div>
-        </div>
-        <div class="modal-footer">
-          <div class="btn-group">
-            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </form>
-</div>

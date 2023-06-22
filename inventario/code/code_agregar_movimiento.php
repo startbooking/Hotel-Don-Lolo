@@ -9,7 +9,7 @@ Version de PHP: 5.6.3
 	/*Inicia validacion del lado del servidor*/
 
 	include_once('../../Conn/Conn.php');
-		echo $_POST['productos']
+		echo $_POST['productos'];
 	 	if (empty($_POST['bodega'])){
 			$errors[] = "Sin Bodega Asignada al Movimiento";
 	 	}else if (empty($_POST['tipomovi'])){
@@ -22,7 +22,7 @@ Version de PHP: 5.6.3
 			$errors[] = "Sin Numero de Factura Asignada al Movimiento";
 	 	}else if ($_POST['productos']==0){
 	 		echo $_POST['productos'];
-	 		echo "Sin Productos al movimiento"
+	 		echo "Sin Productos al movimiento";
 			$errors[] = "Sin Productos Asociados al Movimiento";
 		} else if (
 			!empty($_POST['bodega']) && 

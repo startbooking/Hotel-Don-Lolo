@@ -7,12 +7,12 @@ require '../../../../res/fpdf/fpdf.php';
 $nComa = $_SESSION['NUMERO_COMANDA'];
 $nFact = $_SESSION['NUMERO_FACTURA'];
 $nomamb = $_SESSION['NOMBRE_AMBIENTE'];
-
+ 
 $amb = $_POST['idamb'];
 $almacen = $_POST['idbod'];
 $fecha = $_POST['fecha'];
 $centroCosto = $_POST['centr'];
-$usuario = $_POST['user'];
+$usuario = $_POST['usuario'];
 
 $pref = $pos->getPrefijoAmbiente($amb);
 $docu = $pref.$nFact;

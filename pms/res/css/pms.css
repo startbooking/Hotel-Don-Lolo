@@ -436,6 +436,28 @@ a.info:hover span {
   margin: 0;
 }
 
+.escoba {
+  font-size: 7rem;
+  position: absolute;
+  text-align: center;
+  margin: auto;
+  color: #FFFFFF75;
+}
+
+.iconoEstado {
+  color: #000;
+  z-index: 10;
+  position: absolute;
+  margin: auto;
+  right: 10px;
+  top: 8px;
+}
+
+.escoba:hover {
+  font-size: 8rem;
+  transition:0.5s;
+}
+
 .bg-limpiaVac {
   background-color: #02ebff;
 }

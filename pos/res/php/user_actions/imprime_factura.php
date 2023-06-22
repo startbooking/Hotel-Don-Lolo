@@ -8,9 +8,9 @@ $logo = $_POST['logo'];
 $rooms = $_POST['rs'];
 
 clearstatcache();
-$nComa = $_SESSION['NUMERO_COMANDA'];
+$nComa = $_SESSION['NUMERO_COMANDA']; 
 $nFact = $_SESSION['NUMERO_FACTURA'];
-$amb = $_SESSION['AMBIENTE_ID'];
+$amb   = $_SESSION['AMBIENTE_ID'];
 $nomamb = $_SESSION['NOMBRE_AMBIENTE'];
 
 include_once 'encabezado_impresiones.php';

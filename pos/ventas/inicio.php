@@ -41,7 +41,7 @@
                 <small>Panel de Control XXX</small>
               </h1>
             </div>
-            <div class="col-sm-4 col-sm-6 col-xs-12" style="">          
+            <div class="col-sm-4 col-sm-6 col-xs-12">          
               <img style="width: 150px;margin-top:5px;float: right;" class="img-thumbnail" src="../img/<?=$ambienteSeleccionado[0]['logo']?>" alt=""> 
             </div>  
           </div>
@@ -49,7 +49,7 @@
         <section class="container-fluid" style="margin-bottom: 5px;">
           <?php 
             if($ambienteSeleccionado[0]['plano']!=1){
-                include_once 'views/plano.php'
+                include_once 'views/plano.php';
             }else {
               ?>
               <div class="container-fluid moduloCentrar" style='display:flex;'>

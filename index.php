@@ -7,17 +7,6 @@ require_once 'res/php/app_top.php';
 
 
 <head>
-	<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-99252638-1"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-
-		function gtag() {
-			dataLayer.push(arguments);
-		}
-		gtag('js', new Date());
-
-		gtag('config', 'UA-99252638-1');
-	</script> -->
 	<title><?php echo TITLE; ?> Ingreso al Sistema</title>
 	<?php
     include_once 'res/shared/archivo_head.php';
@@ -28,9 +17,6 @@ require_once 'res/php/app_top.php';
 </head>
 
 <body class="skin-green sidebar-mini">
-	<?php
-$busca = $user->buscaDireccion($ip);
-?>
 	<section id="pantallaPpal">
 		<div class="row-fluid">
 			<?php include_once 'res/menus/menu_index.php'; ?>

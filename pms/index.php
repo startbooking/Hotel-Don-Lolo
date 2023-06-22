@@ -308,7 +308,7 @@ include_once '../views/modal/modalUsuario.php';
           $('.tituloPagina').html(`<i class="fa fa-tachometer" style="font-size:36px;color:black" ></i> Cierre Cajero [${usuario}]`)
         </script>
         <?php
-  } elseif ($_GET['section'] == 'reservasActivas' || $_GET['section'] == 'encasa' || $_GET['section'] == 'facturacionEstadia' || $_GET['section'] == 'salidasDelDia' || $_GET['section'] == 'salidasRealizadas' || $_GET['section'] == 'grupos' || $_GET['section'] == 'mantenimiento') { ?>
+  } elseif ($_GET['section'] == 'reservasActivas' || $_GET['section'] == 'encasa' || $_GET['section'] == 'facturacionEstadia' || $_GET['section'] == 'salidasDelDia' || $_GET['section'] == 'salidasRealizadas' || $_GET['section'] == 'grupos' || $_GET['section'] == 'mantenimiento' || $_GET['section'] == 'facturasDelDia') { ?>
         <script>
           if(tipo==1){
             $('#cambiaHuesped').css('display','block')

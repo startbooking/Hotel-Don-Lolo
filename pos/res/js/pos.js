@@ -319,7 +319,6 @@ function carteradelDia() {
 function muestraFacturasCliente(idcliente) {
   $("#dataEstadoCartera").on("show.bs.modal", function (event) {
     let oPos = JSON.parse(localStorage.getItem("oPos"));
-    // let { pos } = sesion;
     let { id_ambiente } = oPos[0];
 
     let idambi = id_ambiente;
@@ -618,6 +617,31 @@ $(document).ready(function () {
     var modal = $(this);
 
     $("#idusrdel").val(usuario_id);
+  });
+
+  $("#modalConsultaKardex").on("show.bs.modal", function (event) {
+    sesion = JSON.parse(localStorage.getItem("sesion"));
+    let { user } = sesion;
+    let { usuario_id } = user;
+    var button = $(event.relatedTarget);
+    var producto = button.data("id");
+    var bodega = button.data("bodega");
+    var nombre = button.data("nombre");
+    var modal = $(this);
+    parametros = {
+      producto,
+      bodega,
+    };
+    modal.find(".modal-title").html(`Movimientos Producto : ${nombre}`);
+    $.ajax({
+      url: "res/php/user_actions/getMuestraMovimientosProducto.php",
+      type: "POST",
+      data: parametros,
+      success: function (data) {
+        $("#movimientosProducto").html(data);
+      },
+    });
+
   });
 });
 
@@ -1909,29 +1933,17 @@ function subirFoto() {
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var formData = new FormData($("#formFotoReceta"));
-  // var formData = new FormData($('#form-id'));
-  /* foto = document.querySelector("#imgSelect").files[0];
-  receta = document.querySelector("#idRecetaFoto").value;
-
-  let parametros = {
-    foto,
-    receta,
-  }; */
-
-  // console.log(formData);
   $.ajax({
     url: "res/php/user_actions/subirFotoReceta.php",
     type: "post",
     data: parametros,
-    /* contentType: false,
-    processData: false, */
     success: function (response) {
       $("#myModalFotoReceta").modal("hide");
     },
   });
 }
 
-function muestraProductoKardex() {
+/* function muestraProductoKardex() {
   $("#modalConsultaKardex").on("show.bs.modal", function (event) {
     var button = $(event.relatedTarget); // Botón que activó el modal
     var id = button.data("id"); // Extraer la información de atributos de datos
@@ -1953,7 +1965,7 @@ function muestraProductoKardex() {
       },
     });
   });
-}
+} */
 
 function actualizaReceta() {
   var parametros = $("#actualidarDatosReceta").serialize();
@@ -4071,8 +4083,8 @@ function ingresoPos() {
   if (inv == 1 && tipo <= 2) {
     $("#menuInve").css("display", "block");
   }
-  if (tipo <= 1) {
-    $("#menuKardex").css("display", "block");
+  if (tipo <= 1) { 
+    $(".menuKardex").css("display", "block");
   }
 
   if (tipo <= 2) {

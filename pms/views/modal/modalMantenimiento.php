@@ -28,10 +28,6 @@
                   ?>                      
                 </select>
               </div>
-              <!--
-            </div>
-            <div class="form-group">
-            -->
               <label for="desdeFechaAdi" class="col-sm-2 control-label">Desde Fecha</label>
               <div class="col-sm-2" style="padding-right: 5px">
                 <input style="padding: 4px;" type="date" class="form-control" name="desdeFechaAdi" id="desdeFechaAdi" required="" value="<?=FECHA_PMS?>" onblur="cambiaFecha()">
@@ -41,10 +37,27 @@
                 <input style="padding: 4px;" type="date" class="form-control" name="hastaFechaAdi" id="hastaFechaAdi" required="" value="<?=FECHA_PMS?>">
               </div>
             </div>
+            <div class="apaga" id="divReserva">
+              <div class="table-responsive">
+                <div class="alert alert-warning" style="text-align:center;margin:0px;"><h4 style="margin:0px;">Asigne Primero Nueva Habitacion a las Reservas </h4></div> 
+                <table id="example1" class="table table-bordered">
+                  <thead>
+                    <tr class="warning">
+                      <td style="text-align:center;">Reserva</td>
+                      <td style="text-align:center;">Llegada</td>
+                      <td style="text-align:center;">Salida</td>
+                      <td style="text-align:center;">Huesped</td>
+                    </tr>
+                  </thead>
+                  <tbody id='huespedesMmto'>
+                  </tbody>
+                </table>
+              </div>
+            </div>    
             <div class="form-group">              
               <label for="motivoAdi" class="col-sm-2 control-label">Motivo</label>
               <div class="col-sm-4" style='padding-right: 5px'>
-                <select name="motivoAdi" id="motivoAdi" >
+                <select name="motivoAdi" id="motivoAdi" onfocus="traeReservasMmto()">
                   <?php 
                     foreach ($motivos as $motivo) { ?>
                       <option value="<?=$motivo['id_grupo']?>"><?=$motivo['descripcion_grupo']?></option>
@@ -53,7 +66,7 @@
                   ?>
                 </select>
               </div>
-              <label for="inputEmail3" class="col-sm-3 control-label"> Retirar de Inventario </label>
+              <!-- <label for="inputEmail3" class="col-sm-3 control-label"> Retirar de Inventario </label>
               <div class="col-sm-3 ondisplay">
                 <div class="wrap">
                   <div class="col-sm-6" style="padding:0;height: 15px">
@@ -69,30 +82,31 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> 
             </div>
             <div class="form-group">
-              <label for="inputEmail3" class="col-sm-2 control-label"> Mantenimiento </label>
-              <div class="col-sm-4 ondisplay">
+              -->
+              <label for="inputEmail3" class="col-sm-2 control-label" style="margin-top:10px;"> Mantenimiento </label>
+              <div class="col-sm-4 ondisplay" style="margin-top:10px;font-size:12px;">
                 <div class="wrap">
                   <div class="col-sm-6" style="padding:0;height: 15px">
                     <div class="form-check form-check-inline">
                       <input style="margin-top:5px" class="form-check-input" type="radio" name="tipoMmtoOption" id="inlineRadio1" value="1" checked>
-                      <label style="margin-top:-25px;margin-left:25px" class="form-check-label" for="inlineRadio1" >Preventivo</label>
+                      <label style="margin-top:-20px;margin-left:25px" class="form-check-label" for="inlineRadio1" >Preventivo</label>
                     </div>                    
                   </div>
                   <div class="col-sm-6" style="padding:0;height: 15px"> 
                     <div class="form-check form-check-inline">
                       <input style="margin-top:5px" class="form-check-input" type="radio" name="tipoMmtoOption" id="inlineRadio2" value="2">
-                      <label style="margin-top:-25px;margin-left:25px" class="form-check-label" for="inlineRadio2">Correctivo</label>
+                      <label style="margin-top:-20px;margin-left:25px" class="form-check-label" for="inlineRadio2">Correctivo</label>
                     </div>
                   </div>
                 </div>
               </div>
-              <label for="presupuestoAdi" class="col-sm-2 control-label">Presupuesto</label>
+              <!-- <label for="presupuestoAdi" class="col-sm-2 control-label">Presupuesto</label>
               <div class="col-sm-3" style="padding-right: 5px">
                 <input type="number" class="form-control" name="presupuestoAdi" id="presupuestoAdi" required="" value="0" min="0">
-              </div>
+              </div> -->
             </div>
             <div class="form-group">
               <label for="motivo" class="col-sm-2 control-label">Observaciones</label>
@@ -102,9 +116,9 @@
             </div>                 
           </div>
           <div class="modal-footer">
-            <div class="btn-group" style="width: 30%;margin-left:35%">
+            <div class="btn-group" style="width: 40%;">
               <button style="width: 50%" type="button" class="btn btn-warning btn-block" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>                  
-              <button id="btnMmto" style="width: 50%" class="btn btn-success" align="right"><i class="fa fa-save" aria-hidden="true"></i> Guardar</button>
+              <button id="btnMmto" style="width: 50%" class="btn btn-success"><i class="fa fa-save" aria-hidden="true"></i> Guardar</button>
             </div>                 
           </div>
         </form>

@@ -698,7 +698,7 @@ function descargarInventario() {
     idamb: id_ambiente,
     fecha: fecha_auditoria,
     centr: id_centrocosto,
-    user: usuario,
+    usuario,
   }; 
   $.ajax({
     url: "res/php/user_actions/descargaInventarios.php",

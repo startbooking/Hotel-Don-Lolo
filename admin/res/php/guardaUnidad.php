@@ -7,8 +7,8 @@
 	$guarda = $admin->insertUnidad($descrip) ;
 
 	if($guarda!=0){
-		$conver = $$admin->insertConversion($guarda, $guarda, 1)
-	}
+		$conver = $$admin->insertConversion($guarda, $guarda, 1);
+	};
 
 	echo $guarda ;
 

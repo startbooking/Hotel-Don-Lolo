@@ -41,7 +41,7 @@ $_SESSION['usuario_id']      = $iduser;
                       <i style="padding:5px 10px" class="fa fa-search" aria-hidden="true"></i>
                     </a>
                   </span>
-                </div>
+                </div> 
               </div>
             </div>
             <div class="col-lg-6" id='facturas'></div>

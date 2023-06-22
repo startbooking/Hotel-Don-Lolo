@@ -86,9 +86,7 @@
           title="Recuperar Presente Cuenta">
           <i class="fa fa-save"></i> ReImprimir Factura
         </button>
-        <?php 
-        if()
-         ?>
+        
         <button 
           style="height: 64px;"
           data-toggle    ="modal" 

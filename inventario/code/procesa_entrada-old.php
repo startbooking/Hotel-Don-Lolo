@@ -59,7 +59,7 @@ $rescon = mysqli_query($conn,'UPDATE parametros_inv SET c_entradas = c_entradas 
 			$sqlupd = "UPDATE productos_inve SET cen_prod = cen_prod + cantidad, exi_prod = exi_prod + cantidad where cod_prod='$codigo'";
 			$resupd = mysqli_query($conn,$sqlupd);			
 		}else{
-			echo "No inserto Producto".$;
+			echo "No inserto Producto";
 		}
 
 

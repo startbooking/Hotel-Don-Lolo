@@ -29,7 +29,7 @@
 		$bodega     = $_POST["bodega"];
 		$date_added = date("Y-m-d H:i:s");
 		$usuario    = $_SESSION["usuario"];
-		$fecha      = $fecha;
+		// $fecha      = $fecha;
 		$id_par     = 1; 
 		$numsql = "SELECT c_entradas FROM parametros_inv WHERE id = '$id_par'";
 		$numres = mysqli_query($conn,$numsql);
@@ -45,7 +45,6 @@
 		$tmpsql = "SELECT * FROM tmp_movi WHERE session_id = '$session'";
 		$tmpres = mysqli_query($conn,$tmpsql);
 		$tmprow = mysqli_fetch_array($tmpres);
-		echo 
 		while($row = mysqli_fetch_array($tmprow)){
 			$valor    = $row["valor"];
 			$cantidad = $row["cantidad"];

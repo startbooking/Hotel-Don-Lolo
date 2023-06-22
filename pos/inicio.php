@@ -20,14 +20,14 @@
   <body class="skin-green sidebar-mini sidebar-collapse" id="ppal">
     <div class="wrapper">
       <?php
-      include_once 'menus/menu_titulo_venta.php';
-  include_once 'menus/menu_pos.php';
-  ?>
+        include_once 'menus/menu_titulo_venta.php';
+        include_once 'menus/menu_pos.php';
+      ?>
       <div class="content-wrapper" id="Escritorio" style="background-color:#FCFCEF;"> 
         <div class="container-fluid" id="pantalla" style="padding:0px;margin-bottom:0px;">
           <?php
-    include_once 'res/php/escritorio_pos.php';
-  ?>
+            include_once 'res/php/escritorio_pos.php';
+          ?>
         </div>
       </div>
       <div class="control-sidebar-bg"></div>
@@ -36,6 +36,10 @@
   </body>
   <?php
     include_once '../views/modal/modalUsuario.php';
+    include_once 'views/modal/modalKardex.php';
+
+    /* if ($_GET['section'] == 'reservasActivas' || $_GET['section'] == 'encasa' || $_GET['section'] == 'facturacionEstadia' || $_GET['section'] == 'salidasDelDia' || $_GET['section'] == 'salidasRealizadas' || $_GET['section'] == 'grupos' || $_GET['section'] == 'mantenimiento' || $_GET['section'] == 'facturasDelDia'){} */
+
   ?>
 
   <script>

@@ -1200,8 +1200,8 @@ function muestraProductoKardex() {
     var bodega = button.data("bodega"); // Extraer la información de atributos de datos
     var nombre = button.data("nombre"); // Extraer la información de atributos de datos
     parametros = {
-      id: id,
-      bodega: bodega,
+      id,
+      bodega,
     };
     var modal = $(this);
     modal.find(".modal-title").html("Movimientos Producto : " + nombre);
@@ -1222,13 +1222,12 @@ function procesaAjuste(tipo) {
   var almacen = localStorage.getItem("almacenAju");
   var tipomovi = localStorage.getItem("movimientoAju");
   var fecha = localStorage.getItem("fechaAju");
-  // var usua = sesion["usuario"][0]["usuario"];
   tipo = $("#claseMovimientoAju").val();
   asignaConsecutivo(4);
 
   setTimeout(function () {
     numeroMov = $("#numeroMovimiento").val();
-    tipo = $("#tipoMovimientoAju").val();
+    movimi = $("#tipoMovimientoAju").val();
     var storageList = localStorage.getItem("AjusteProductosLista");
     ajustes = JSON.parse(storageList);
     parametros = {
@@ -1236,7 +1235,7 @@ function procesaAjuste(tipo) {
       almacen,
       tipo,
       tipomovi,
-      movimi: tipo,
+      movimi,
       numeroMov,
       fecha,
       ajustes,
@@ -1486,11 +1485,11 @@ function btnMuestraProductos() {
     var descripcion = button.data("descripcion");
     var bodega = button.data("bodega");
     parametros = {
-      numero: numero,
-      tipo: tipo,
-      movimiento: movimiento,
-      descripcion: descripcion,
-      bodega: bodega,
+      numero,
+      tipo,
+      movimiento,
+      descripcion,
+      bodega,
     };
     var modal = $(this);
     modal

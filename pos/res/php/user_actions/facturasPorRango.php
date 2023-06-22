@@ -81,10 +81,10 @@
                 data-apellidos ="<?= $factura['apellido1'].' '.$factura['apellido2']?>" 
                 data-nombres   ="<?= $factura['nombre1'].' '.$factura['nombre2']?>" 
                 data-fechafac  ="<?= $factura['fecha']?>" 
-                data-factura   ="Factura_<?=$prefijo?>_<?=$rpre?>-<?= $factura['factura']?>" 
+                data-factura   ="ChequeCuenta_<?=$prefijo?>_<?= $factura['factura']?>" 
                 data-numero    ="<?= $factura['factura']?>" 
                 data-pms       ="<?= $factura['pms']?>"                   
-                onclick        = "verfacturaHis('<?= $factura['factura']?>','Factura_<?=$prefijo?>_<?=$rpre?>-<?= $factura['factura']?>.pdf')"
+                onclick        = "verfacturaHis('<?= $factura['factura']?>','ChequeCuenta_<?=$prefijo?>_<?=$rpre?>-<?= $factura['factura']?>.pdf')"
                 title          ="Ver Factura"
                 >
                 <i class="fa fa-file-pdf-o" aria-hidden="true" ></i>

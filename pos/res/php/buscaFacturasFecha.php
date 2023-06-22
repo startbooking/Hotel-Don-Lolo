@@ -33,9 +33,9 @@
           foreach ($facturas as $factura) { ?>
             <tr style='font-size:12px'>
               <td style="padding:2px 5px"><?php echo $factura['factura']; ?></td>
-              <td style="padding:2px 5px;text-align: right;"><?php echo money_format('%.2n', $factura['valor_neto']); ?></td>
-              <td style="padding:2px 5px;text-align: right;"><?php echo money_format('%.2n', $factura['impuesto']); ?></td>
-              <td style="padding:2px 5px;text-align: right;"><?php echo money_format('%.2n', $factura['valor_total']); ?></td>
+              <td style="padding:2px 5px;text-align: right;"><?php echo number_format($factura['valor_neto'],2); ?></td>
+              <td style="padding:2px 5px;text-align: right;"><?php echo number_format($factura['impuesto'],2); ?></td>
+              <td style="padding:2px 5px;text-align: right;"><?php echo number_format($factura['valor_total'],2); ?></td>
               <td style="padding:2px 5px;text-align: center">
                 <div class="btn-group">
                   <?php 
@@ -45,7 +45,7 @@
                     <?php 
                   }else{
                     ?>
-                    <button class="btn btn-info btn-xs" title="Ver Factura "onclick="verfactura('Factura_<?=$pref?>_<?=$rpre?>-<?=$factura['factura']?>')" type="button"><i class="fa fa-money" aria-hidden="true" ></i></button>
+                    <button class="btn btn-info btn-xs" title="Ver Factura "onclick="verfactura('Factura_<?=$pref?>_<?=$rpre?><?=$factura['factura']?>')" type="button"><i class="fa fa-money" aria-hidden="true" ></i></button>
                     <?php 
                   }
                   ?>

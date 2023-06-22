@@ -5,6 +5,17 @@ date_default_timezone_set('America/Bogota');
 
 class Hotel_Actions
 {
+    public function buscaHabitacionesMmto($query){
+        global $database;
+
+        $data = $database->query($query)->fetchAll();
+        return $data;
+
+    }
+    
+    
+    
+    
     public function traeNombreUsuario($id){
         global $database;
 
@@ -443,7 +454,7 @@ class Hotel_Actions
             'productos_amenities.id_producto',
             'productos_amenities.cantidad',
         ], [
-            'id_tipohabitacion' => $tipoget,
+            'id_tipohabitacion' => $tipo,
         ]);
 
         return $data;
@@ -1057,24 +1068,24 @@ class Hotel_Actions
         return $data;
     }
 
-      public function actualizaMmtoHabitacion($room, $estadoHab)
+      public function actualizaMmtoHabitacion($room, $mmto)
       {
           global $database;
 
           $data = $database->update('habitaciones', [
-            'estado_fo' => $estadoHab,
-            'estado_hk' => $estadoHab,
-            'estado' => 2,
+            'estado' => 1,
+            'mantenimiento' => $mmto,
+            'sucia' => 1,
           ], [
             'numero_hab' => $room,
           ]);
 
           return $data->rowCount();
       }
-
+     
     public function adicionaMantenimiento($room, $desde, $hasta, $motivo, $inventario, $estadoHab, $observa, $presup, $numero, $tipo, $usuario)
     {
-        global $database;
+        global $database; 
 
         $data = $database->insert('mantenimiento_habitaciones', [
             'id_habitacion' => $room,
@@ -1100,7 +1111,7 @@ class Hotel_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT habitaciones.id, habitaciones.numero_hab, habitaciones.tipo_hab, habitaciones.pax, habitaciones.camas, habitaciones.estado_fo, habitaciones.estado_hk, habitaciones.mantenimiento, habitaciones.sucia, habitaciones.ocupada, tipo_habitaciones.descripcion_habitacion FROM  habitaciones, tipo_habitaciones WHERE habitaciones.id_tipohabitacion = tipo_habitaciones.id AND tipo_habitaciones.tipo_habitacion = 1 AND habitaciones.active_at = 1 AND habitaciones.estado = 1 AND substr(habitaciones.estado_fo,1,1) <> 'F'  ORDER BY  habitaciones.numero_hab")->fetchAll();
+        $data = $database->query("SELECT habitaciones.id, habitaciones.numero_hab, habitaciones.tipo_hab, habitaciones.pax, habitaciones.camas, habitaciones.estado_fo, habitaciones.estado_hk, habitaciones.mantenimiento, habitaciones.sucia, habitaciones.ocupada, tipo_habitaciones.descripcion_habitacion FROM  habitaciones, tipo_habitaciones WHERE habitaciones.id_tipohabitacion = tipo_habitaciones.id AND tipo_habitaciones.tipo_habitacion = 1 AND habitaciones.active_at = 1 AND habitaciones.mantenimiento = 0 ORDER BY  habitaciones.numero_hab")->fetchAll();
 
         return $data;
     }
@@ -4117,7 +4128,6 @@ class Hotel_Actions
             'segmento_mercado' => $segmento,
             'forma_pago' => $formapa,
             'orden_reserva' => $orden,
-            'causar_impuesto' => $impto,
         ], [
             'num_reserva' => $numero,
         ]);
@@ -4788,7 +4798,6 @@ class Hotel_Actions
             'pais' => $pais,
             'ciudad' => $ciudad,
             'nombre_completo' => $apellido1.' '.$apellido2.' '.$nombre1.' '.$nombre2,
-            'id_forma_pago' => $formapago,
             'tipoAdquiriente' => $tipoAdqui,
             'tipoResponsabilidad' => $tipoRespo,
             'responsabilidadTributaria' => $repoTribu,
@@ -7148,6 +7157,16 @@ class Hotel_Actions
 
         return $data;
     }
+
+    public function getSeleccionaHabitacionesTipo($tipo)
+    {
+        global $database;
+
+        $data = $database->query("SELECT numero_hab as num_habitacion FROM habitaciones WHERE id_tipohabitacion = '$tipo' AND active_at = 1 AND mantenimiento = 0 AND sucia = 0 AND ocupada = 0 ORDER BY numero_hab")->fetchAll();
+
+        return $data;
+    }
+
 
     public function getSeleccionaHabitacionesTipoDia($tipo)
     {

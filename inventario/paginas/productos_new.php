@@ -153,12 +153,12 @@
                         </div>
                       </div>
                     <div>
-                      <div class="modal-footer">
-                        <button class="btn" data-dismiss="modal" aria-hidden="true"><i class="icon-remove"></i> <strong>Cerrar</strong></button>
-                        <button type="submit" class="btn btn-primary"><i class="icon-ok"></i> <strong>Actualizar</strong></button>
-                      </div>
+                    <div class="modal-footer">
+                      <button class="btn" data-dismiss="modal" aria-hidden="true"><i class="icon-remove"></i> <strong>Cerrar</strong></button>
+                      <button type="submit" class="btn btn-primary"><i class="icon-ok"></i> <strong>Actualizar</strong></button>
+                    </div>
                   </form>
-                     </div>
+                </div>
                       
                   </td>
                 </tr>

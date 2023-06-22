@@ -135,6 +135,14 @@ $(document).ready(function () {
     $("#modalReservasIns").css("display", "block");
     $("#observacionesAdi").val("");
     $("#btnMmto").removeAttr("disabled");
+    divRese = document.querySelector('#divReserva');
+    divRese.classList.add('apaga');  
+    FormMmto = document.querySelector('#formAdicionaMantenimiento')
+    dataTableMmto = document.querySelector('#huespedesMmto');
+    FormMmto.reset()
+    limpiaHabitacionesMmto();
+  
+  
   });
 
   $("#myModalEntregaObjeto").on("show.bs.modal", function (event) {
@@ -229,7 +237,7 @@ $(document).ready(function () {
     $.ajax({
       url: web + "res/php/detalleMmto.php",
       type: "POST",
-      data: { id: id },
+      data: { id },
       success: function (data) {
         $("#infoMto").html(data);
       },
@@ -1935,6 +1943,75 @@ $(document).ready(function () {
   });
 });
 
+function traeReservasMmto(){
+  mmtoHab = document.querySelector('#roomAdi');
+  desde = document.querySelector('#desdeFechaAdi').value;
+  hasta = document.querySelector('#hastaFechaAdi').value;
+  let nroHab = mmtoHab.options[mmtoHab.selectedIndex].text;
+  let idHab = mmtoHab.value
+
+  url = "res/php/reservasHabMmto.php";
+  fetch(url, {
+    method: "post",
+    headers: {
+      "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+    },
+    body: `nroHab=${nroHab}&desde=${desde}&hasta=${hasta}`,
+  })
+  .then((response) => response.json())
+  .then((data) => muestraHabitacionesMmto(data));
+}
+
+function muestraHabitacionesMmto(mmtos){
+  if(mmtos.length >= 1){
+    divRese = document.querySelector('#divReserva');
+    divRese.classList.remove('apaga');
+    dataTableMmto = document.querySelector('#huespedesMmto');
+    limpiaHabitacionesMmto();
+
+    mmtos.forEach((mmto) => {
+      const {
+        num_reserva,
+        fecha_llegada,
+        fecha_salida,
+        nombre_completo,
+      } = mmto;
+      const trRese = document.createElement("tr");
+      const tdNro = document.createElement("td");
+      const tdDes = document.createElement("td");
+      const tdHab = document.createElement("td");
+      const tdNom = document.createElement("td");
+      tdNro.innerHTML = num_reserva;
+      tdDes.innerHTML = fecha_llegada;
+      tdHab.innerHTML = fecha_salida;
+      tdNom.innerHTML = nombre_completo;
+
+
+      trRese.appendChild(tdNro);
+      trRese.appendChild(tdDes);
+      trRese.appendChild(tdHab);
+      trRese.appendChild(tdNom);
+
+      dataTableMmto.appendChild(trRese);
+    });
+
+    setTimeout(() => {
+      divRese.classList.add('apaga');
+      limpiaHabitacionesMmto();
+      // alerta.classList.add("oculto");
+    }, 5000);
+
+  }
+}
+
+
+function limpiaHabitacionesMmto() {
+  while (dataTableMmto.firstChild) {
+    dataTableMmto.removeChild(dataTableMmto.firstChild);
+  }
+}
+
+
 function buscaFacturasExporta() {
   fecha = document.querySelector("#buscarFecha").value;
   url = "res/php/exportaFactura.php";
@@ -2077,7 +2154,6 @@ function traeReservasActivas(tipo) {
       tipo: tipo,
     },  
     success: function (data) {
-      console.log(data);
       $("#paginaReservas").html(data);
       $("#example1").DataTable({
         iDisplayLength: 25,
@@ -3605,7 +3681,6 @@ function buscaHuespedAcompanante(id) {
     dataType: "json",
     data: parametros,
     success: function (datos) {
-      console.log(datos)
       if (datos.length == 0) {
         $("#nuevoPax").val(1);
         $("#idHuesAdi").val("");
@@ -5913,7 +5988,6 @@ function confirmarReserva(reserva) {
     data: parametros,
     url: web + "imprimir/confirmaReserva.php",
     success: function (datos) {
-      console.log(datos)
       var ventana = window.open(
         "imprimir/"+$.trim(datos),
         "PRINT",
@@ -5964,7 +6038,7 @@ function terminaMmto() {
       usuario_id,
     },
     success: function () {
-      // $(location).attr("href", pagina);
+      $(location).attr("href", pagina);
     },
   });
 }
@@ -6032,7 +6106,7 @@ function guardaMantenimiento() {
 
   $.ajax({
     type: "POST",
-    datatype: "JSON",
+    datatype: "JSON", 
     data: parametros,
     url: "res/php/guardaMantenimiento.php",
     success: function (datos) {
@@ -6043,7 +6117,7 @@ function guardaMantenimiento() {
       );
       $(location).attr("href", pagina);
     },
-  });
+  }); 
 }
 
 function entregaObjeto() {
@@ -6099,8 +6173,6 @@ function guardaObjeto() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
   let { usuario, usuario_id } = user;
-  /* usuario = sesion["usuario"][0]["usuario"];
-  idusuario = sesion["usuario"][0]["usuario_id"]; */
 
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
@@ -6119,7 +6191,7 @@ function guardaObjeto() {
   });
 }
 
-function cambiaEstadoAseo(habi, estado, cambio) {
+function cambiaEstadoAseo(habi, ocupada, sucia, cambio) {
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
 
@@ -6129,17 +6201,32 @@ function cambiaEstadoAseo(habi, estado, cambio) {
       break;
     case "0":
       color = "bg-limpiaVac";
+      break;
+  }
+
+  switch (sucia) {
+    case "0":
+      actual = "bg-suciaOcu";
+    break;
+    case "1":
+      actual = "bg-limpiaVac";
     break;
   }
 
-  switch (estado) {
+  switch (ocupada) {
+    /* 
+    */
     case "0":
-      actual = "bg-limpiaVac";
-      break;
+      /* color = "bg-limpiaVac";
+      console.log('Cinco '); */
+
+      break; 
     case "1":
-      actual = "bg-suciaOcu";
+      color = "bg-limpiaOcu";
+      // console.log('Seis ');
       break;
   }
+
 
   $.ajax({
     url: "res/php/cambiaEstadoAseoHabitacion.php",
@@ -6149,9 +6236,13 @@ function cambiaEstadoAseo(habi, estado, cambio) {
       cambio,
     },
     success: function () {
-
       $("#" + habi).removeClass(actual);
       $("#" + habi).addClass(color);
+      if(sucia == 1){
+        $("#" + habi+" .fa-broom").removeClass('apaga');
+      }else{
+        $("#" + habi+" .fa-broom").addClass('apaga');
+      }
     },
   });
 }
@@ -6163,9 +6254,9 @@ function cambiaEstadoHK(habi, estado, cambio) {
     url: "res/php/cambiaEstadoHabitacion.php",
     type: "POST",
     data: {
-      habi: habi,
-      cambio: cambio,
-      estado: estado,
+      habi,
+      cambio,
+      estado,
     },
     success: function () {
       $(location).attr("href", "hk.php");
@@ -6183,13 +6274,13 @@ function facturasPorImpuesto() {
   empresa = $("#desdeEmpresa").val();
   formaPa = $("#desdeFormaPago").val();
   parametros = {
-    desdeFe: desdeFe,
-    hastaFe: hastaFe,
-    desdeNu: desdeNu,
-    hastaNu: hastaNu,
-    huesped: huesped,
-    empresa: empresa,
-    formaPa: formaPa,
+    desdeFe,
+    hastaFe,
+    desdeNu,
+    hastaNu,
+    huesped,
+    empresa,
+    formaPa,
   };
 
   if (

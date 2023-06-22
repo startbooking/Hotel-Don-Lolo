@@ -2,27 +2,27 @@
 
 	require '../../../res/php/app_topInventario.php'; 
 
-	$numeroMov       = $_POST['numeroMov']
-	$almacen         = $_POST['almacen']
-	$movimi          = $_POST['movimi']
-	$provee          = $_POST['provee']
-	$fecham          = $_POST['fecham']
-	$factur          = $_POST['factur']
-	$codigo          = $_POST['codigo']
-	$descripcion     = $_POST['descripcion']
-	$subtotal        = $_POST['subtotal']
-	$unit            = $_POST['unit']
-	$desunid         = $_POST['desunid']
-	$impto           = $_POST['impto']
-	$desimpto        = $_POST['desimpto']
-	$total           = $_POST['total']
-	$producto        = $_POST['producto']
-	$porcentajeImpto = $_POST['porcentajeImpto']
-	$impuesto        = $_POST['impuesto']
-	$incluido        = $_POST['incluido']
-	$unidad          = $_POST['unidad']
-	$cantidad        = $_POST['cantidad']
-	$costo           = $_POST['costo']
+	$numeroMov       = $_POST['numeroMov'];
+	$almacen         = $_POST['almacen'];
+	$movimi          = $_POST['movimi'];
+	$provee          = $_POST['provee'];
+	$fecham          = $_POST['fecham'];
+	$factur          = $_POST['factur'];
+	$codigo          = $_POST['codigo'];
+	$descripcion     = $_POST['descripci;on'];
+	$subtotal        = $_POST['subtotal'];
+	$unit            = $_POST['unit'];
+	$desunid         = $_POST['desunid'];
+	$impto           = $_POST['impto'];
+	$desimpto        = $_POST['desimpto'];
+	$total           = $_POST['total'];
+	$producto        = $_POST['producto'];
+	$porcentajeImpto = $_POST['porcentajeImpto'];
+	$impuesto        = $_POST['impuesto'];
+	$incluido        = $_POST['incluido'];
+	$unidad          = $_POST['unidad'];
+	$cantidad        = $_POST['cantidad'];
+	$costo           = $_POST['costo'];
 
 /*
 
