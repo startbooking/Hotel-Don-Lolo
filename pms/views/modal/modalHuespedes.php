@@ -200,32 +200,50 @@ foreach ($tipohesps as $tipohesp) { ?>
             <div class="col-sm-4">
               <select name="tarifa" id="tarifa">
                 <option value="">Seleccione La Tarifa</option>
-
               <?php
-$tarifas = $hotel->getTarifasHuespedes();
-foreach ($tarifas as $tarifa) { ?>
+                $tarifas = $hotel->getTarifasHuespedes();
+                foreach ($tarifas as $tarifa) { ?>
                   <option value="<?php echo $tarifa['id_tarifa']; ?>"><?php echo $tarifa['descripcion_tarifa']; ?></option>
                   <?php
-}
-?>
+                }
+              ?>
               </select>
             </div>
-          <!-- </div>
-          <div class="form-group"> -->
             <label for="formapago" class="col-sm-2 control-label">Forma de Pago </label>
             <div class="col-sm-4">
               <select name="formapago" id="formapago">
                 <option value="">Seleccione La Forma de Pago</option>
                 <?php
-    $codigos = $hotel->getCodigosConsumos(3);
-foreach ($codigos as $codigo) { ?>
+                    $codigos = $hotel->getCodigosConsumos(3);
+                    foreach ($codigos as $codigo) { ?>
                     <option value="<?php echo $codigo['id_cargo']; ?>"><?php echo $codigo['descripcion_cargo']; ?></option>
                     <?php
-}
-?>
+                    }
+                    ?>
               </select>
             </div>
-          </div>            
+          </div>
+          <div class="form-group">
+            <label for="empresa" class="col-sm-2 control-label">Empresa </label>
+            <div class="col-sm-6">
+              <select name="empresaAdi" id="empresaAdi" required="">
+                <option value="">Seleccione La Empresa</option>
+                <option value="0">SIN COMPAÑIA</option>
+                <?php
+                  $companias = $hotel->getCompanias(); 
+                  foreach ($companias as $compañia) { ?>
+                    <option value="<?=$compañia['id_compania']?>"><?=$compañia['empresa']?></option>
+                    <?php
+                  }?>
+              </select>
+            </div>  
+          </div>
+          <!-- 
+          <div class="form-group">
+             
+          </div>
+            -->
+
   		  </div>
         <div class="modal-footer">
           <div class="btn-group">
@@ -318,13 +336,13 @@ foreach ($codigos as $codigo) { ?>
                 <div class="col-sm-8">
                   <select name="companiaSele" id="companiaSele" onblur="seleccionaCentro(this.value)">
                     <?php
-    if (count($companias) != 0) {
-        foreach ($companias as $key => $value) { ?> 
-                      <option value="<?php echo $value['id_compania']; ?>"><?php echo $value['empresa']; ?></option>
-                      <?php
-        }
-    }
-?>
+                      if (count($companias) != 0) {
+                        foreach ($companias as $key => $value) { ?> 
+                          <option value="<?php echo $value['id_compania']; ?>"><?php echo $value['empresa']; ?></option>
+                          <?php
+                        }
+                      }
+                    ?>
                   </select>
                 </div>
               </div>

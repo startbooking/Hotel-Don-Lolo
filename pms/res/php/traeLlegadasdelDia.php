@@ -139,6 +139,33 @@ $reservas = $hotel->getReservasDia(FECHA_PMS, 1, 'ES');
                           <i class="fa fa-sign-out" aria-hidden="true"></i>
                           Ingresar Reserva</a>
                       </li>
+                      <li id="cambiaHuesped">
+                              <a 
+                                data-toggle        ="modal" 
+                                data-target        = "#myModalReasignarHuesped"
+                                data-reserva       ="<?php echo $reserva['num_reserva']; ?>" 
+                                data-tipohab       ="<?php echo descripcionTipoHabitacion($reserva['tipo_habitacion']); ?>" 
+                                data-nrohab        ="<?php echo $reserva['num_habitacion']; ?>" 
+                                data-apellido1     ="<?php echo $reserva['apellido1']; ?>" 
+                                data-apellido2     ="<?php echo $reserva['apellido2']; ?>" 
+                                data-nombre1       ="<?php echo $reserva['nombre1']; ?>" 
+                                data-nombre2       ="<?php echo $reserva['nombre2']; ?>"  
+                                data-llegada       ="<?php echo $reserva['fecha_llegada']; ?>" 
+                                data-salida        ="<?php echo $reserva['fecha_salida']; ?>" 
+                                data-noches        ="<?php echo $reserva['dias_reservados']; ?>" 
+                                data-hombres       ="<?php echo $reserva['can_hombres']; ?>" 
+                                data-mujeres       ="<?php echo $reserva['can_mujeres']; ?>" 
+                                data-ninos         ="<?php echo $reserva['can_ninos']; ?>" 
+                                data-orden         ="<?php echo $reserva['orden_reserva']; ?>" 
+                                data-tipo          ="<?php echo $reserva['tipo_reserva']; ?>" 
+                                data-tarifa        ="<?php echo $hotel->getNombreTarifa($reserva['tarifa']); ?>" 
+                                data-valor         ="<?php echo $reserva['valor_diario']; ?>" 
+                                data-observaciones ="<?php echo $reserva['observaciones']; ?>" 
+                                >
+                                <i class="fa fa-user-plus" aria-hidden="true"></i>Reasignar Huesped
+                              </a>
+                            </li>
+
                       <li>
                         <a 
                           data-toggle="modal" 
@@ -174,7 +201,7 @@ $reservas = $hotel->getReservasDia(FECHA_PMS, 1, 'ES');
                           >
                           <i class="fa fa-book" aria-hidden="true"></i>
                         Imprimir Registro Hotelero</a>
-                      </li>
+                      </li> 
                       <li>
                         <a data-toggle="modal" 
                           data-target = "#myModalCancelaReserva"

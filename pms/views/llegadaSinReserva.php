@@ -1,6 +1,6 @@
   
   
-  <?php
+<?php
   $hoy  = FECHA_PMS;
   $manana = strtotime ( '+1 day' , strtotime ( $hoy ) ) ;
   $manana = date ('Y-m-d' , $manana );

@@ -6,6 +6,9 @@ require '../../../res/php/app_topHotel.php';
 $id = $_POST['id'];
 
 $huesped = $hotel->getBuscaIdHuesped($id);
+
+// echo print_r($huesped);
+
 $tipodocs = $hotel->getTipoDocumento();
 $paices = $hotel->getPaices();
 $nombreExp = $hotel->getNombreCiudad($huesped[0]['ciudad_expedicion']);
@@ -276,20 +279,43 @@ foreach ($tipohesps as $tipohesp) { ?>
         <option value="">Seleccione La Forma de Pago</option>
         <?php
           $codigos = $hotel->getCodigosConsumos(3);
-foreach ($codigos as $codigo) { ?>
+          foreach ($codigos as $codigo) { ?>
             <option value="<?php echo $codigo['id_cargo']; ?>"
               <?php
-    if ($huesped[0]['id_forma_pago'] == $codigo['id_cargo']) { ?>
+              if ($huesped[0]['id_forma_pago'] == $codigo['id_cargo']) { ?>
                 selected
                 <?php
-    }
-    ?>
+              }
+            ?>
               ><?php echo $codigo['descripcion_cargo']; ?></option>
             <?php
-}
-?>
+              }
+            ?>
       </select>
     </div>
+  </div>
+  <div class="form-group">
+    <label for="empresa" class="col-sm-2 control-label">Empresa </label>
+    <div class="col-sm-6">
+      <select name="empresaUpd" id="empresaUpd">
+        <!-- <option value="">Seleccione La Empresa</option> -->
+        <option value="">SIN COMPAÑIA</option>
+        <?php
+          $companias = $hotel->getCompanias(); 
+          foreach ($companias as $compañia) { ?>
+            <option value="<?=$compañia['id_compania']?>"
+            <?php
+            if ($huesped[0]['id_compania'] == $compañia['id_compania']) { ?>
+              selected
+              <?php
+            }
+            ?>
+            
+            ><?=$compañia['empresa']?></option>
+            <?php
+          }?>
+      </select>
+    </div>  
   </div>    
   <div class="container-fluid">    
     <div class="btn-group" style="margin-top:15px">

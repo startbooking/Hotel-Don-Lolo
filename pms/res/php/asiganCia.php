@@ -2,7 +2,7 @@
 
   require '../../../res/php/app_topHotel.php'; 
   
-  // $idres    = $_POST['idres'];
+  $idres    = $_POST['idres'];
   $idcia    = $_POST['idcia'];
   $cias     = $hotel->getCompanias();
 
@@ -12,7 +12,7 @@
   <input type="hidden" id="idReservaCia" name="idReservaCia" value="<?=$idres?>">
   <label for="direccion" class="col-sm-3 control-label">Empresa </label>
   <div class="col-sm-8">
-    <select name="companiaSele" id="companiaSele" onblur="seleccionaCentro(this.value)">
+    <select name="companiaSele" id="companiaSele">
       <option value="">Seleccione la Compañia</option>
       <?php 
       foreach ($cias as $key => $value) { ?> 

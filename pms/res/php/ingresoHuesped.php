@@ -27,8 +27,9 @@ $tipoRespo = $_POST['tipoResponsabilidad'];
 $repoTribu = $_POST['responsabilidadTribu'];
 $usuario = $_POST['usuario'];
 $idusuario = $_POST['idusuario'];
+$empresa = $_POST['empresaAdi'];
 
-$regis = $hotel->insertaNuevoHuesped($iden, $tipodoc, $apellido1, $apellido2, $nombre1, $nombre2, $sexo, $direccion, $telefono, $celular, $correo, $fechanace, $tipohues, $tarifa, $pais, $ciudad, $formapago, $paisExp, $ciudadExp, $usuario, $idusuario, $tipoAdqui, $tipoRespo, $repoTribu);
+$regis = $hotel->insertaNuevoHuesped($iden, $tipodoc, $apellido1, $apellido2, $nombre1, $nombre2, $sexo, $direccion, $telefono, $celular, $correo, $fechanace, $tipohues, $tarifa, $pais, $ciudad, $formapago, $paisExp, $ciudadExp, $usuario, $idusuario, $tipoAdqui, $tipoRespo, $repoTribu, $empresa);
 
 $accion = 'ADICIONA HUESPED';
 $id = $idusuario;

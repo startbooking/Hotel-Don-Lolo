@@ -26,7 +26,8 @@ $formapago = $_POST['formapago'];
 $tipoAdqui = $_POST['tipoAdquiriente'];
 $tipoRespo = $_POST['tipoResponsabilidad'];
 $repoTribu = $_POST['responsabilidadTribu'];
+$empresa   = $_POST['empresaUpd'];
 
-$updateHuesped = $hotel->updateHuesped($id, $iden, $tipodoc, $apellido1, $apellido2, $nombre1, $nombre2, $sexo, $direccion, $telefono, $celular, $correo, $fechanace, $tipohues, $tarifa, $pais, $ciudad, $formapago, $paisExp, $ciudadExp, $tipoAdqui, $tipoRespo, $repoTribu);
+$updateHuesped = $hotel->updateHuesped($id, $iden, $tipodoc, $apellido1, $apellido2, $nombre1, $nombre2, $sexo, $direccion, $telefono, $celular, $correo, $fechanace, $tipohues, $tarifa, $pais, $ciudad, $formapago, $paisExp, $ciudadExp, $tipoAdqui, $tipoRespo, $repoTribu, $empresa);
 
 echo $updateHuesped;

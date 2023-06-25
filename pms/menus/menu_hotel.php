@@ -110,6 +110,7 @@ if ($_GET['section'] != 'cajeroCerrado') {
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeBalanceDiario','Saldo Huespedes')"><i class="fa fa-bar-chart"></i>Balance Diario</a></li> 
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeReservasDiaDepositos','Depositos a Reserva del Dia')"><i class="glyphicon glyphicon-download-alt"></i>Abonos - Depositos del Dia </a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeBalanceCongeladas','Depositos a Reserva del Dia')"><i class="fa fa-snowflake-o"></i>Cuentas Congeladas </a></li>
+                <li><a href="javascript:imprimeInformeAuditoria('imprimePagosdelDiaConcepto','Flujo de Caja del Dia')"><i class="glyphicon glyphicon-save-file"></i>Flujo de Caja</a></li>
               </ul>
             </li>
             <li><a href="cargarHabitaciones"><i class="fa glyphicon glyphicon-sort-by-attributes"></i> Cargar Habitaciones</a></li>
@@ -159,7 +160,8 @@ if ($_GET['section'] != 'cajeroCerrado') {
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeHuespedesAcompanantes','Huespedes con Acompañantes')"><i class="fa fa-users"></i>Huespedes con Acompañantes</a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeHuespedesSalidasHoy','Salidas del Dia')"><i class="fa fa-sign-out"></i>Salidas del Dia</a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeHuespedesPorSalir','Salidas Pendientes')"><i class="glyphicon glyphicon-download-alt"></i>Salidas Pendientes</a></li>
-                <li><a href="javascript:imprimeInformeAuditoria('imprimeBalanceTotalHuesped','Balance Huespedes')"><i class="fa fa-balance-scale"></i>Balance Huespedes</a></li> 
+                <li><a href="javascript:imprimeInformeAuditoria('imprimeBalanceTotalHuesped','Balance Huespedes')"><i class="fa fa-balance-scale"></i>Balance Huespedes</a></li>
+                <li><a href="javascript:imprimeInformeAuditoria('imprimeExtranjerosenCasa','Extranjeros en Casa')"><i class="fa fa-circle-o"></i>Extranjeros en Casa</a></li> 
               </ul>
             </li> 
             <li>

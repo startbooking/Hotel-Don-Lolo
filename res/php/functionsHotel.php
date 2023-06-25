@@ -3548,6 +3548,8 @@ class Hotel_Actions
 
         $data = $database->select('reservas_pms', [
             'num_habitacion',
+            'fecha_llegada',
+            'fecha_salida',
         ], [
             'fecha_llegada[>=]' => $llega,
             'fecha_salida[<=]' => $sale,
@@ -3565,14 +3567,30 @@ class Hotel_Actions
         $data = $database->select('reservas_pms', [
             'num_habitacion',
         ], [
-            'fecha_llegada[<]' => $sale,
-            'fecha_salida[>]' => $llega,
+            'fecha_salida[<=]' => $sale,
             'tipo_habitacion' => $tipo,
             'estado' => $estado,
         ]);
 
         return $data;
     }
+
+    public function getEnCasaporTipoHab($tipo, $llega, $sale, $estado)
+    {
+        global $database;
+
+        $data = $database->select('reservas_pms', [
+            'num_habitacion',
+        ], [
+            'fecha_llegada[>=]' => $llega,
+            'fecha_salida[<=]' => $sale,
+            'tipo_habitacion' => $tipo,
+            'estado' => $estado,
+        ]);
+
+        return $data;
+    }
+
 
     public function cargosDelDia($fecha, $tipo, $estado)
     {
@@ -4105,6 +4123,16 @@ class Hotel_Actions
             return $data[0]['descripcion'];
         }
     }
+
+    public function getExtranjerosenCasa($pais, $fecha, $estado)
+    {
+        global $database;
+
+        $data = $database->query("SELECT huespedes.identificacion, huespedes.apellido1, huespedes.apellido2, huespedes.nombre1, huespedes.nombre2, huespedes.direccion, huespedes.email, huespedes.pais, huespedes.tipo_identifica, huespedes.sexo, reservas_pms.fecha_llegada, reservas_pms.fecha_salida, reservas_pms.dias_reservados, reservas_pms.num_habitacion, reservas_pms.tarifa, reservas_pms.tipo_habitacion, reservas_pms.can_hombres, reservas_pms.can_mujeres, reservas_pms.can_ninos, reservas_pms.valor_diario FROM huespedes, reservas_pms WHERE huespedes.id_huesped = reservas_pms.id_huesped AND reservas_pms.estado = '$estado' AND reservas_pms.fecha_llegada = '$fecha' AND huespedes.pais <> '$pais'")->fetchAll();
+
+        return $data;
+    }
+
 
     public function getExtranjerosLlegando($pais, $fecha)
     {
@@ -4773,7 +4801,7 @@ class Hotel_Actions
         return $data;
     }
 
-    public function updateHuesped($id, $iden, $tipodoc, $apellido1, $apellido2, $nombre1, $nombre2, $sexo, $direccion, $telefono, $celular, $correo, $fechanace, $tipohues, $tarifa, $pais, $ciudad, $formapago, $paisExp, $ciudadExp, $tipoAdqui, $tipoRespo, $repoTribu)
+    public function updateHuesped($id, $iden, $tipodoc, $apellido1, $apellido2, $nombre1, $nombre2, $sexo, $direccion, $telefono, $celular, $correo, $fechanace, $tipohues, $tarifa, $pais, $ciudad, $formapago, $paisExp, $ciudadExp, $tipoAdqui, $tipoRespo, $repoTribu, $empresa)
     {
         global $database;
 
@@ -4801,6 +4829,7 @@ class Hotel_Actions
             'tipoAdquiriente' => $tipoAdqui,
             'tipoResponsabilidad' => $tipoRespo,
             'responsabilidadTributaria' => $repoTribu,
+            'id_compania' => $empresa,
         ], [
             'id_huesped' => $id,
         ]);
@@ -4841,6 +4870,7 @@ class Hotel_Actions
             'tipoAdquiriente',
             'tipoResponsabilidad',
             'responsabilidadTributaria',
+
         ], [
             'id_huesped' => $id,
         ]);
@@ -6832,7 +6862,7 @@ class Hotel_Actions
         return $data;
     }
 
-    public function insertaNuevoHuesped($iden, $tipodoc, $apellido1, $apellido2, $nombre1, $nombre2, $sexo, $direccion, $telefono, $celular, $correo, $fechanace, $tipohues, $tarifa, $pais, $ciudad, $formapago, $paisExp, $ciudadExp, $usuario, $idusuario, $tipoAdqui, $tipoRespo, $repoTribu)
+    public function insertaNuevoHuesped($iden, $tipodoc, $apellido1, $apellido2, $nombre1, $nombre2, $sexo, $direccion, $telefono, $celular, $correo, $fechanace, $tipohues, $tarifa, $pais, $ciudad, $formapago, $paisExp, $ciudadExp, $usuario, $idusuario, $tipoAdqui, $tipoRespo, $repoTribu, $empresa)
     {
         global $database;
 
@@ -6864,6 +6894,7 @@ class Hotel_Actions
             'tipoAdquiriente' => $tipoAdqui,
             'tipoResponsabilidad' => $tipoRespo,
             'responsabilidadTributaria' => $repoTribu,
+            'id_compania' => $empresa,
         ]);
 
         return $database->id();
@@ -7159,6 +7190,15 @@ class Hotel_Actions
     }
 
     public function getSeleccionaHabitacionesTipo($tipo)
+    {
+        global $database;
+
+        $data = $database->query("SELECT numero_hab as num_habitacion FROM habitaciones WHERE id_tipohabitacion = '$tipo' AND active_at = 1 AND mantenimiento = 0 AND sucia = 0 AND ocupada = 0 ORDER BY numero_hab")->fetchAll();
+
+        return $data;
+    }
+
+    public function getSeleccionaHabitacionesTipoOld($tipo)
     {
         global $database;
 

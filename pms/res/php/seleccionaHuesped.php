@@ -10,9 +10,6 @@ if (!empty($huesped[0]['tipo_identifica'])) {
     $tipoDoc = '';
 }
 
-$cia = $hotel->getSeleccionaCompania($huesped[0]['id_compania']);
-// $centros = $hotel->getBuscaCentroCia($huesped[0]['idCentroCia']);
-
 if (empty($huesped)) {
     echo '0';
 } else { ?>
@@ -24,27 +21,35 @@ if (empty($huesped)) {
         <input type="hidden" name="idhuesped" id="idhuesped" value="<?php echo $huesped[0]['id_huesped']; ?>">
         <input type="hidden" name="identifica" id="identifica" value="<?php echo $huesped[0]['identificacion']; ?>">
         <input type="hidden" name="idcia" id="idcia" value="<?php echo $huesped[0]['id_compania']; ?>">
-        <input type="hidden" name="idCentro" id="idCentro" value="<?php echo $huesped[0]['idCentroCia']; ?>">
       </div>
     </div>
     
-    <?php
-    if($huesped[0]['id_compania'] != 0) {
-      ?>
-      <div class="form-group">
-        <label for="inputEmail3" class="col-sm-2 control-label">Empresa</label>
-        <div class="col-sm-6">
-          <input type="text" class="form-control" name="empresa" id="empresa" value="<?php echo $cia[0]['empresa']; ?>" disabled="">
-        </div>
-        <label for="inputEmail3" class="col-sm-1 control-label">Nit</label>
-        <div class="col-sm-3">
-          <input type="text" class="form-control" name="nit" id="nit" value="<?php echo $cia[0]['nit'].'-'.$cia[0]['dv']; ?>" disabled="">
-        </div>
-      </div>
-      <?php
-    }
 
-    ?>
-  <?php
-}
-?>
+    <div class="form-group">
+      <label for="inputEmail3" class="col-sm-2 control-label">Empresa</label>
+      <div class="col-lg-6">
+        <select class="form-control" name="empresaUpd" id="empresaUpd" >
+          <option value="0">SIN COMPAÑIA</option>
+          <?php
+            $companias = $hotel->getCompanias(); 
+            foreach ($companias as $compañia) { ?>
+              <option value="<?=$compañia['id_compania']?>"
+              <?php
+              if ($huesped[0]['id_compania'] == $compañia['id_compania']) { ?>
+                selected
+                <?php
+              }
+              ?>
+              
+              ><?=$compañia['empresa']?></option>
+              <?php
+            }?>
+        </select>
+
+      </div> 
+    </div>
+    <?php
+  }
+
+  ?>
+  

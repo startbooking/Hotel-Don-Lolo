@@ -6,49 +6,43 @@ $tipo = $_POST['tipo'];
 $llega = $_POST['llega'];
 $sale = $_POST['sale']; 
 
-$habitaciones = $hotel->getSeleccionaHabitacionesTipoDia($tipo);
+$habitaciones = $hotel->getSeleccionaHabitacionesTipo($tipo);
 
+$encasas = $hotel->getEnCasaporTipoHab($tipo, $llega, $sale, 'CA');
 
-$encasa = $hotel->getReservasporTipoHab($tipo, $llega, $sale, 'CA');
 $salidas = $hotel->getReservasporTipoHabSalida($tipo, $llega, $sale, 'ES');
-$reservasact = $hotel->getReservasporTipoHab($tipo, $llega, $sale, 'ES');
+$reservas = $hotel->getReservasporTipoHab($tipo, $llega, $sale, 'ES');
 
 $disponibles = [];
+$encasaOff = [];
+$salidasOff = [];
+$reservasOff = [];
+
 foreach ($habitaciones as $habitacion) {
     $disponibles[] = $habitacion['num_habitacion'];
 }
 
-foreach ($encasa as $encas) {
-    $habi = $encas['num_habitacion'];
-    $indice = array_search($habi, $disponibles);
-    if ($indice) {
-        unset($disponibles[$indice]);
-    }
+foreach ($encasas as $encasa) {
+    $encasaOff[] = $encasa['num_habitacion'];
 }
-
-foreach ($reservasact as $reservaact) {
-    $habi = $reservaact['num_habitacion'];
-    $indice = array_search($habi, $disponibles);
-    if ($indice) {
-        unset($disponibles[$indice]);
-    }
-}
-
 foreach ($salidas as $salida) {
-    $habi = $salida['num_habitacion'];
-    $indice = array_search($habi, $disponibles);
-    if ($indice) {
-        unset($disponibles[$indice]);
-    }
+    $salidasOff[] = $salida['num_habitacion'];
 }
+
+foreach ($resevas as $reserva) {
+    $reservasOff[] = $reserva['num_habitacion'];
+}
+
+
+$dispos = array_diff($disponibles,$encasaOff,$salidasOff,$reservasOff);
 
 ?>
 
     <option value="">Seleccione la Habitacion</option>
     <?php
 
-  foreach ($disponibles as $disponible) { ?>
-      <option value="<?php echo $disponible; ?>"><?php echo $disponible; ?></option>
+  foreach ($dispos as $dispo) { ?>
+      <option value="<?php echo $dispo; ?>"><?php echo $dispo; ?></option>
       <?php
   }
 ?>

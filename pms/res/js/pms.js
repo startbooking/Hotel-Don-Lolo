@@ -4113,7 +4113,7 @@ function cierreDiario() {
             },
             function () {
               /// $(location).attr('href','home');
-              cierraSesion();
+              /// cierraSesion();
             }
           );
         },
@@ -5456,7 +5456,7 @@ function seleccionaHabitacion() {
       $("#nrohabitacion").focus();
     },
   });
-}
+} 
 
 function seleccionaDormitorio() {
   var tipo = $("#tipohabi").val();

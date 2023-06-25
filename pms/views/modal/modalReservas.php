@@ -1,3 +1,10 @@
+
+<?php
+  $hoy  = FECHA_PMS;
+  $manana = strtotime ( '+1 day' , strtotime ( $hoy ) ) ;
+  $manana = date ('Y-m-d' , $manana );
+?>
+
 <div class="modal fade" id="myModalAdicionaReserva" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
     <div class="modal-dialog modal-lg" role="document">
@@ -70,7 +77,7 @@
                   </div>
                   <label for="salida" class="col-sm-1 control-label">Salida</label>
                   <div class="col-sm-3" style="padding-right: 20px">
-                    <input type="date" onfocus="sumarDias()" onblur="restaFechas()" class="form-control" name="salida" id="salida" required="" value="<?php echo FECHA_PMS; ?>" min="<?php echo FECHA_PMS; ?>">
+                    <input type="date" onfocus="sumarDias()" onblur="restaFechas()" class="form-control" name="salida" id="salida" required="" value="<?php echo $manana; ?>" min="<?php echo $manana; ?>">
                   </div>
                 </div>
                 <div class="form-group">
@@ -670,16 +677,16 @@
             </div>
           </div>
           <div class="modal-footer">
-            <div class="row">
-              <div class="col-lg-6 col-lg-offset-3" >
-                <div class="col-lg-6">
-                  <button type="button" class="btn btn-warning btn-block" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
-                </div>
-                <div class="col-lg-6">
-                  <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-save"></i> Procesar</button>
-                </div>                
+            <div class="col-lg-8 col-lg-offset-2" >
+              <div class="col-lg-6">
+                <button type="button" class="btn btn-warning btn-block" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
               </div>
+              <div class="col-lg-6">
+                <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-save"></i> Procesar</button>
+              </div>                
             </div>
+            <!-- <div class="row">
+            </div> -->
           </div>
         </form>
       </div>

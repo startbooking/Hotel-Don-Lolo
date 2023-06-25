@@ -3,7 +3,7 @@
     <div class="modal-content">  
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class='glyphicon glyphicon-off' style="color:#530505"></span></button>
-        <h4 class="modal-title" id="myModalLabel">Acompañantes en la Reserva</h4>
+        <h4 class="modal-title" id="myModalLabel">Acompañantes en la Reserva X</h4>
       </div>
       <div class="modal-body">
         <input type="hidden" id="idreservaAco" name="idreservaAco">

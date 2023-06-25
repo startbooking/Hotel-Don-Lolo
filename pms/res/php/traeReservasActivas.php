@@ -157,7 +157,7 @@ $reservas = $hotel->getReservasActuales($tipo);
                                 <i class="fa fa-users" aria-hidden="true"></i>Acompañantes Reserva
                               </a>
                             </li>
-                            <li id="cambiaHuesped" style="display: none">
+                            <li id="cambiaHuesped">
                               <a 
                                 data-toggle        ="modal" 
                                 data-target        = "#myModalReasignarHuesped"
