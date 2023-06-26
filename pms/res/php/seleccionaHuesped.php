@@ -27,7 +27,7 @@ if (empty($huesped)) {
 
     <div class="form-group">
       <label for="inputEmail3" class="col-sm-2 control-label">Empresa</label>
-      <div class="col-lg-6">
+      <div class="col-lg-6 col-md-6">
         <select class="form-control" name="empresaUpd" id="empresaUpd" >
           <option value="0">SIN COMPAÑIA</option>
           <?php

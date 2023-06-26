@@ -8,14 +8,24 @@ $sale = $_POST['sale'];
 
 $habitaciones = $hotel->getSeleccionaHabitacionesTipo($tipo);
 
+$estadohab = $hotel->traeEstadoHabitacionesHotel($tipo, $llega, $sale);
+
+echo print_r($estadohab);
+
 $encasas = $hotel->getEnCasaporTipoHab($tipo, $llega, $sale, 'CA');
+echo 'En Casa <br>';
+echo print_r($encasas);
 
 $salidas = $hotel->getReservasporTipoHabSalida($tipo, $llega, $sale, 'ES');
-$reservas = $hotel->getReservasporTipoHab($tipo, $llega, $sale, 'ES');
+echo 'En Salidas '.'<br>';
 
+echo print_r($salidas);
+$reservas = $hotel->getReservasporTipoHab($tipo, $llega, $sale, 'ES');
+echo 'En Reserva <br>';
+echo print_r($reservas);
 $disponibles = [];
 $encasaOff = [];
-$salidasOff = [];
+$salidasOff = []; 
 $reservasOff = [];
 
 foreach ($habitaciones as $habitacion) {

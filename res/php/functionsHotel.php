@@ -3566,7 +3566,10 @@ class Hotel_Actions
 
         $data = $database->select('reservas_pms', [
             'num_habitacion',
+            'fecha_llegada',
+            'fecha_salida',
         ], [
+            'fecha_llegada[>=]' => $llega,
             'fecha_salida[<=]' => $sale,
             'tipo_habitacion' => $tipo,
             'estado' => $estado,
@@ -3574,6 +3577,28 @@ class Hotel_Actions
 
         return $data;
     }
+
+    public function traeEstadoHabitacionesHotel($tipo, $llega, $sale){
+        global $database;
+
+        $data = $database->query("SELECT 
+        num_habitacion, fecha_llegada, fecha_salida, estado 
+        FROM 
+        reservas_pms
+        WHERE 
+        tipo_habitacion = '$tipo' AND 
+        estado != 'CX' AND
+        estado != 'SA' AND
+        fecha_salida <= '$sale' OR
+        tipo_habitacion = '$tipo' AND 
+        estado != 'CX' AND
+        estado != 'SA' AND
+        fecha_llegada <= '$llega' 
+        ORDER BY num_habitacion, fecha_llegada")->fetchAll();
+        return $data;
+    }
+
+
 
     public function getEnCasaporTipoHab($tipo, $llega, $sale, $estado)
     {
@@ -3583,7 +3608,7 @@ class Hotel_Actions
             'num_habitacion',
         ], [
             'fecha_llegada[>=]' => $llega,
-            'fecha_salida[<=]' => $sale,
+            'fecha_salida[>=]' => $sale,
             'tipo_habitacion' => $tipo,
             'estado' => $estado,
         ]);
@@ -4528,7 +4553,7 @@ class Hotel_Actions
         return $data->rowCount();
     }
 
-    public function updateReserva($iden, $llegada, $salida, $noches, $hombres, $mujeres, $ninos, $orden, $tipohabi, $nrohabitacion, $tarifahab, $valortarifa, $origen, $destino, $motivo, $fuente, $segmento, $idhuesp, $numero, $observa, $formapa, $impto)
+    public function updateReserva($iden, $llegada, $salida, $noches, $hombres, $mujeres, $ninos, $orden, $tipohabi, $nrohabitacion, $tarifahab, $valortarifa, $origen, $destino, $motivo, $fuente, $segmento, $idhuesp, $numero, $observa, $formapa, $impto, $empresa)
     {
         global $database;
 
@@ -4553,6 +4578,7 @@ class Hotel_Actions
             'observaciones' => $observa,
             'forma_pago' => $formapa,
             'causar_impuesto' => $impto,
+            'id_compania' => $empresa,
         ], [
             'num_reserva' => $numero,
         ]);

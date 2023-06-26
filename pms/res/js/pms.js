@@ -978,7 +978,7 @@ $(document).ready(function () {
       url: web + "res/php/getDatosCia.php",
       type: "POST",
       data: parametros,
-      success: function (data) {
+      success: function (data) { 
         $("#datosCia").html(data);
       },
     });

@@ -508,21 +508,21 @@
           <div class="modal-body">
             <input type="hidden" name="idregis" id="txtIdReservaHue" value="">
             <div class="form-group">
-              <label class="control-label col-lg-2">1r Apellido</label>
+              <label class="control-label col-lg-2 col-md-2">1r Apellido</label>
               <div class="col-lg-4 col-md-4">
                 <input class="form-control padInput" type="text" name="txtApellido1" id="txtApellido1" readonly>
               </div>
-              <label class="control-label col-lg-2">2o Apellidos</label>
+              <label class="control-label col-lg-2 col-md-2">2o Apellidos</label>
               <div class="col-lg-4 col-md-4">
                 <input class="form-control padInput" type="text" name="txtApellido2" id="txtApellido2" readonly>
               </div>
             </div>
             <div class="form-group">
-              <label class="control-label col-lg-2">1r Nombre</label>
+              <label class="control-label col-lg-2 col-md-2">1r Nombre</label>
               <div class="col-lg-4 col-md-4">
                 <input class="form-control padInput" type="text" name='txtNombre1' id='txtNombre1' readonly >    
               </div>
-              <label class="control-label col-lg-2">2o Nombre</label>
+              <label class="control-label col-lg-2 col-md-2">2o Nombre</label>
               <div class="col-lg-4 col-md-4">
                 <input class="form-control padInput" type="text" name='txtNombre2' id='txtNombre2' readonly >    
               </div>
@@ -556,49 +556,49 @@
           <div class="modal-body modalReservas">
             <form method="POST" name="formDepositoReserva" id="formDepositoReserva" style='padding:0' enctype="multipart/form-data" action='javascript:ingresaDeposito()'>
               <div class="form-group">
-                <label class="control-label col-lg-2">Reserva Nro</label>
+                <label class="control-label col-lg-2 col-md-2">Reserva Nro</label>
                 <div class="col-lg-2 col-md-2">
                   <input class="form-control padInput" type="text" name="txtIdReservaDep" id="txtIdReservaDep" value="">
                 </div>
-                <label class="control-label col-lg-2">Tipo Hab.</label>
+                <label class="control-label col-lg-2 col-md-2">Tipo Hab.</label>
                 <div class="col-lg-3 col-md-3">
                   <input class="form-control padInput" type="text" name="txtTipoHab" id="txtTipoHab" readonly>
                 </div>
-                <label class="control-label col-lg-1">Numero</label>
+                <label class="control-label col-lg-1 col-md-1">Numero</label>
                 <div class="col-lg-2 col-md-2">
                   <input class="form-control padInput" type="text" name='txtNumeroHab' id='txtNumeroHab' readonly>
                 </div>
               </div>
               <div class="form-group">
-                <label class="control-label col-lg-2">Huesped</label>
+                <label class="control-label col-lg-2 col-md-2">Huesped</label>
                 <div class="col-lg-10 col-md-10">
                   <input class="form-control padInput" type="text" name="txtHuesped" id="txtHuesped" readonly>
                 </div>
               </div>
               <div class="form-group">
-                <label class="control-label col-lg-2">Llegada</label>
+                <label class="control-label col-lg-2 col-md-2">Llegada</label>
                 <div class="col-lg-3 col-md-3">
                   <input class="form-control padInput" type="text" name="txtLlegada" id='txtLlegada' value='0' readonly>
                 </div>
-                <label class="control-label col-lg-1">Noc</label>
+                <label class="control-label col-lg-1 col-md-1">Noc</label>
                 <div class="col-lg-1 col-md-1">
                   <input style="margin:0;padding:5px" class="form-control padInput" type="text" name="txtNoches" id="txtNoches" value='0' readonly>
                 </div>
-                <label class="control-label col-lg-2">Salida</label>
+                <label class="control-label col-lg-2 col-md-2">Salida</label>
                 <div class="col-lg-3 col-md-3">
                   <input class="form-control padInput" type="text" name="txtSalida" id='txtSalida' value='1' readonly>
                 </div>
               </div>
               <div class="form-group">
-                <label class="form-label control-label col-lg-2">Hombres</label>
+                <label class="form-label control-label col-lg-2 col-md-2">Hombres</label>
                 <div class="col-lg-2 col-md-2">
                   <input class="form-control padInput" type="text" name="txtHombres" id='txtHombres' value='0' readonly>
                 </div>
-                <label class="form-label control-label col-lg-2">Mujeres</label>
+                <label class="form-label control-label col-lg-2 col-md-2">Mujeres</label>
                 <div class="col-lg-2 col-md-2">
                   <input class="form-control padInput" type="text" name="txtMujeres" id='txtMujeres' value='0' readonly>
                 </div>
-                <label class="form-label control-label col-lg-2">Niños</label>
+                <label class="form-label control-label col-lg-2 col-md-2">Niños</label>
                 <div class="col-lg-2 col-md-2">
                   <input class="form-control padInput" type="text" name="txtNinos" id='txtNinos' value='0' readonly>
                 </div>
@@ -616,8 +616,8 @@
               <div class="divs divDeposito">
                 <div class="form-group">
                   <input type="hidden" name="txtIdHuespedDep" id="txtIdHuespedDep" value="">
-                  <label class="control-label col-lg-3" for="formadePago">Forma de Pago</label>
-                  <div class="col-lg-9 col-md-" >
+                  <label class="control-label col-lg-3 col-md-3" for="formadePago">Forma de Pago</label>
+                  <div class="col-lg-9 col-md-9" >
                     <select name="formadePago" id="formadePago" required>
                       <option value="">Forma de Pago</option>
                       <?php
@@ -650,8 +650,11 @@
                 </div>
               </div>
               <div class="btn-group" style="float: right">
+              <div>
+
                 <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
                 <button class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i> Procesar</button>
+              </div>   
               </div>
             </form>
           </div>
