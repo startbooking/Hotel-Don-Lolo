@@ -5,6 +5,15 @@ date_default_timezone_set('America/Bogota');
 
 class Hotel_Actions
 {
+    public function habitacionesMmto(){
+        global $database;
+
+        $data = $database->count('habitaciones',[
+            'mantenimiento' => 1,
+        ]);
+        return $data;
+    }
+    
     public function buscaHabitacionesMmto($query){
         global $database;
 
@@ -12,10 +21,6 @@ class Hotel_Actions
         return $data;
 
     }
-    
-    
-    
-    
     public function traeNombreUsuario($id){
         global $database;
 
@@ -3380,7 +3385,7 @@ class Hotel_Actions
         }
     }
 
-    public function creaHuespedAdicional($apellido1, $apellido2, $nombre1, $nombre2, $identificacion, $tipoiden, $sexo, $fechanace, $nacion, $ciudad, $idusuario)
+    public function creaHuespedAdicional($apellido1, $apellido2, $nombre1, $nombre2, $identificacion, $tipoiden, $sexo, $fechanace, $nacion, $ciudad, $idusuario, $correo)
     {
         global $database;
 
@@ -3398,6 +3403,7 @@ class Hotel_Actions
             'ciudad' => $ciudad,
             'usuario_creador' => $idusuario,
             'nombre_completo' => $apellido1.' '.$apellido2.' '.$nombre1.' '.$nombre2,
+            'email' => $correo,
             'fecha_creacion' => date('Y-m-d H:i:s'),
         ]);
 
@@ -4659,6 +4665,11 @@ class Hotel_Actions
             'historico_reservas_pms.tipo_reserva',
             'historico_reservas_pms.num_habitacion',
             'historico_reservas_pms.num_reserva',
+            'historico_reservas_pms.num_registro',
+            'historico_reservas_pms.orden_reserva',
+            'historico_reservas_pms.tarifa',
+            'historico_reservas_pms.valor_diario',
+            'historico_reservas_pms.observaciones',
             'historico_reservas_pms.can_hombres',
             'historico_reservas_pms.can_mujeres',
             'historico_reservas_pms.can_ninos',
@@ -4666,6 +4677,7 @@ class Hotel_Actions
             'historico_reservas_pms.tipo_habitacion',
         ], [
             'historico_reservas_pms.id_compania' => $id,
+            'ORDER' => 'historico_reservas_pms.fecha_llegada',
         ]);
 
         return $data;
@@ -5018,7 +5030,7 @@ class Hotel_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT reservas_pms.fecha_llegada, reservas_pms.num_habitacion, reservas_pms.tipo_habitacion FROM reservas_pms WHERE (reservas_pms.tipo_habitacion <> '$ctamaster' AND reservas_pms.estado <> 'CX') AND (reservas_pms.tipo_habitacion <> 'CMA' AND reservas_pms.estado <> 'SA') ORDER BY reservas_pms.fecha_llegada ASC LIMIT 1")->fetchAll();
+        $data = $database->query("SELECT reservas_pms.fecha_llegada, reservas_pms.num_habitacion, reservas_pms.tipo_habitacion FROM reservas_pms WHERE (reservas_pms.tipo_habitacion <> '$ctamaster' AND reservas_pms.estado = 'CA') ORDER BY reservas_pms.fecha_llegada ASC LIMIT 1")->fetchAll();
 
         return $data[0]['fecha_llegada'];
     }
@@ -5027,7 +5039,7 @@ class Hotel_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT reservas_pms.fecha_salida, reservas_pms.num_habitacion, reservas_pms.tipo_habitacion FROM reservas_pms WHERE (reservas_pms.tipo_habitacion <> '$ctamaster' AND reservas_pms.estado <> 'CX') OR (reservas_pms.tipo_habitacion <> '$ctamaster' AND reservas_pms.estado <> 'SA') ORDER BY reservas_pms.fecha_llegada DESC LIMIT 1")->fetchAll();
+        $data = $database->query("SELECT reservas_pms.fecha_salida, reservas_pms.num_habitacion, reservas_pms.tipo_habitacion FROM reservas_pms WHERE (reservas_pms.tipo_habitacion <> '$ctamaster' AND reservas_pms.estado = 'CA') ORDER BY reservas_pms.fecha_llegada DESC LIMIT 1")->fetchAll();
 
         return $data[0]['fecha_salida'];
     }
@@ -7529,7 +7541,6 @@ class Hotel_Actions
             'reservas_pms.can_mujeres',
             'reservas_pms.can_ninos',
             'reservas_pms.id_compania',
-            'reservas_pms.idCentroCia',
             'reservas_pms.id_huesped',
             'reservas_pms.tarifa',
             'reservas_pms.valor_reserva',
@@ -7539,6 +7550,7 @@ class Hotel_Actions
             'reservas_pms.tipo_reserva',
             'reservas_pms.estado',
             'reservas_pms.causar_impuesto',
+            'reservas_pms.orden_reserva',
             'huespedes.nombre1',
             'huespedes.nombre2',
             'huespedes.apellido1',

@@ -600,7 +600,7 @@ $(document).ready(function () {
       beforeSend: function (objeto) {},
       success: function (datos) {
         $("#historicoFacturas").html(datos);
-      },
+      }, 
     });
     $(".alert").hide();
   });
@@ -760,9 +760,9 @@ $(document).ready(function () {
     var modal = $(this);
 
     var parametros = {
-      folio: folio,
-      reserva: reserva,
-      nrohab: nrohab,
+      folio,
+      reserva,
+      nrohab,
     };
 
     if (folio == 0) {
@@ -827,8 +827,6 @@ $(document).ready(function () {
           );
         modal.find(".modal-body #txtIdCiaCong").val(idcia);
         modal.find(".modal-body #txtEmpresaCong").val(empresa);
-        // modal.find(".modal-body #txtIdCentroCia").val(idcentro);
-        // modal.find(".modal-body #txtCentroCon").val(centro);
         modal.find(".modal-body #txtNitCong").val(nit);
         modal.find(".modal-body #txtIdReservaCong").val(id);
         modal.find(".modal-body #txtIdHuespedCong").val(hues);
@@ -836,7 +834,6 @@ $(document).ready(function () {
         modal
           .find(".modal-body #txtApellidosCong")
           .val(`${apellido1} ${apellido2} ${nombre1} ${nombre2}`);
-        // modal.find(".modal-body #txtNombresCong").val();
         modal.find(".modal-body #valorSaldo").val(saldo);
 
         traeHuespedes(reserva, hues);
@@ -1391,6 +1388,7 @@ $(document).ready(function () {
 
   $("#myModalAdicionaReserva").on("show.bs.modal", function (event) {
     $("#edita").val(0);
+    $("#editaRes").val(0);
   });
 
   $("#myModalModificaReserva").on("show.bs.modal", function (event) {
@@ -2208,7 +2206,7 @@ function consumoVentaDirecta() {
     room,
     turismo,
     usuario,
-    idusuario: usuario_id,
+    usuario_id ,
   };
   $.ajax({
     type: "POST",
@@ -2864,8 +2862,8 @@ function traeTotalHuespedes(regis, filas) {
 													data-toggle   ="modal" 
 													data-id       ="${data[i]["id_huesped"]}" 
 													data-nombre   ="${data[i]["nombre_completo"]}" 
-													data-idcia    ="${data[i]["id_compania"]}" 
-													data-idcentro ="${data[i]["idCentroCia"]}" 
+													data-idcia    ="${data[i]["id_compania"]}"
+													data-idres    ="0"
 													href        ="#myModalAsignarCompania">
                         <i class="fa fa-industry" aria-hidden="true"></i>
                          Asignar Compañia</a>
@@ -2903,8 +2901,8 @@ function traeTotalHuespedes(regis, filas) {
 }
 
 function verfacturaHistorico(fact) {
-  var factura = "Factura_" + fact + ".pdf";
-  $("#verFactura").attr("data", "imprimir/facturas/" + factura);
+  var factura = fact + ".pdf";
+  $("#verFactura").attr("data", "imprimir/facturas/FES-HDL" + factura);
 }
 
 function anulaFacturaHistorico() {
@@ -3457,8 +3455,8 @@ function activaCongelado(reserva, folio) {
 
   $("#folioActivo").val(folio);
   var parametros = {
-    reserva: reserva,
-    folio: folio,
+    reserva,
+    folio,
   };
   $.ajax({
     type: "POST",
@@ -4234,16 +4232,16 @@ function ingresaAjuste() {
   var turismo = $("#txtImptoTurismo").val();
 
   var parametros = {
-    codigo: codigo,
-    textcodigo: textcodigo,
-    canti: canti,
-    valor: valor,
-    refer: refer,
-    folio: folio,
-    detalle: detalle,
-    numero: numero,
-    idhues: idhues,
-    room: room,
+    codigo,
+    textcodigo,
+    canti,
+    valor,
+    refer,
+    folio,
+    detalle,
+    numero,
+    idhues,
+    room,
   };
   $.ajax({
     type: "POST",
@@ -5126,7 +5124,7 @@ function sumarDias() {
     var fecha = $("#llegada").val();
     var dias = $("#noches").val();
   }
-  var parametros = { fecha: fecha, dias: dias };
+  var parametros = { fecha, dias };
   $.ajax({
     type: "POST",
     url: web + "res/php/sumaFecha.php",
@@ -5206,6 +5204,7 @@ function ingresaConsumos() {
   let { usuario, usuario_id } = user;
   /* usuario = sesion["usuario"][0]["usuario"];
   idusuario = sesion["usuario"][0]["usuario_id"]; */
+  var congela = $("#cuentaCongelada").val();
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var ingreso = $("#ingreso").val();
@@ -5216,10 +5215,11 @@ function ingresaConsumos() {
   var refer = $("#txtReferencia").val();
   var folio = $("#txtFolio").val();
   var detalle = $("#txtDetalleCargo").val();
-  var numero = $("#txtIdReservaCon").val();
-  var idhues = $("#txtIdHuespedCon").val();
+  var numero = $("#reservaActual").val();
+  var idhues = $("#idHuespedSal").val();
   var room = $("#txtNumeroHabCon").val();
   var turismo = $("#txtImptoTurismo").val();
+
   var parametros = {
     codigo,
     textcodigo,
@@ -5233,7 +5233,7 @@ function ingresaConsumos() {
     room,
     turismo,
     usuario,
-    idusuario: usuario_id,
+    usuario_id ,
   };
   $.ajax({
     type: "POST",
@@ -5253,8 +5253,12 @@ function ingresaConsumos() {
         $(location).attr("href", pagina);
       } else {
         $("#myModalCargosConsumo").modal("hide");
-        movimientosFactura(numero);
-      }
+        if(congela==1){
+          activaCongelado(numero, 1)
+        }else{
+          movimientosFactura(numero);
+        }
+      } 
     },
   });
 }
@@ -6632,12 +6636,8 @@ function salidaHuespedCongelada() {
       usuario,
       usuario_id,
       perfilFac,
-
-
-      /* 
       idcentro,
       detalle,
-      refer,
       baseRete,
       baseIva,
       baseIca,
@@ -6648,6 +6648,8 @@ function salidaHuespedCongelada() {
       porceReteica,
       porceRetefuente,
       correofac, 
+      
+      /* 
       */
 
 

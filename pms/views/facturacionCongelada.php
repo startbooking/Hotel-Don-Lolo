@@ -42,6 +42,7 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
                 <div class="panel-title">
                   <input type="hidden" name="folioActivo" id="folioActivo" value="0">
                   <input type="hidden" name="reservaActual" id="reservaActual" value="<?php echo $reserva; ?>">
+                  <input type="hidden" name="cuentaCongelada" id="cuentaCongelada" value="1">
                   <input type="hidden" name="saldoActual" id="saldoActual" value="<?php echo $saldoCuenta; ?>">
                   <input type="hidden" name="totalPagos" id="totalPagos" value="<?php echo $pagoCuenta; ?>">
                   <input type="hidden" name="nrofolio1" id="nrofolio1" value="<?php echo $saldofolio1; ?>">
@@ -109,15 +110,6 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
                     <div class="col-sm-2">
                       <input type="text" class="form-control" name="nit" id="nit" value="<?php echo $datosCompania[0]['nit'].'-'.$datosCompania[0]['dv']; ?>" disabled="">
                     </div>
-<!--                     <?php
-                   if ($datosReserva[0]['idCentroCia'] != 0) { ?>
-                        <label for="inputEmail3" class="col-sm-1 control-label">Centro de Costo</label>
-                        <div class="col-sm-3">
-                          <input type="text" class="form-control" name="centroCia" id="centroCia" value="<?php echo $centros[0]['descripcion_centro']; ?>" disabled="">
-                        </div>
-                      <?php
-                   } ?>
- -->
                   </div>
                 </div> 
               </div>

@@ -59,7 +59,7 @@
                   data-room    ="<?php echo $folio1['habitacion_cargo']?>" 
                   data-cant    ="<?php echo $folio1['cantidad_cargo']?>" 
                   data-tipo    ="<?php echo $folio1['tipo_codigo']?>" 
-                  title="Movel a Otro Folio el Cargo Actual" >
+                  title="Mueve el a Otro Folio el Cargo Actual" >
                   <i class='fa fa-share'></i>
                 </button>
                 <?php 

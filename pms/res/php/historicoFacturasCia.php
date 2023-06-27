@@ -36,25 +36,8 @@
                     <td style="padding:3px 5px"><?php echo $factura['fecha_factura']; ?></td>
                     <td style="padding:3px 5px"><?php echo estadoFactura($factura['factura_anulada']); ?></td>
                     <td style="padding:3px 5px;width: 20%">
-                      <button class="btn btn-info btn-xs" onclick="verfactura(<?=$factura['factura_numero']?>)" type="button"><i class="fa fa-file-pdf-o" aria-hidden="true" title="Ver Factura"></i></button>
-                    <?php 
-                      if($factura['factura_anulada']==0){?>
-                        <a class="btn btn-danger btn-xs" 
-                          data-toggle    ="modal" 
-                          data-apellidos ="<?= $factura['apellido1'].' '.$factura['apellido2']?>" 
-                          data-nombres   ="<?= $factura['nombre1'].' '.$factura['nombre2']?>" 
-                          data-fechafac  ="<?= $factura['fecha_factura']?>" 
-                          data-numero    ="<?= $factura['factura_numero']?>" 
-                          data-reserva   ="<?= $factura['numero_reserva']?>" 
-                          href="#myModalAnulaFacturaHistorico"
-                          type="button"
-                          title="Anular Factura"
-                          >
-                          <i class="fa fa-window-close" aria-hidden="true" ></i></a>
-                        <?php 
-                      } 
-                    ?>
-                    <button class="btn btn-success btn-xs" onclick="verCargosFacturaHistorico(<?=$factura['factura_numero']?>,<?=$factura['numero_reserva']?>)" type="button"><i class="fa fa-file-pdf-o" aria-hidden="true" title="Ver Factura"></i></button>
+                      <button class="btn btn-info btn-xs" onclick="verfacturaHistorico(<?=$factura['factura_numero']?>)" type="button"><i class="fa fa-file-pdf-o" aria-hidden="true" title="Ver Factura"></i></button>
+                      <button class="btn btn-success btn-xs" onclick="verCargosFacturaHistorico(<?=$factura['factura_numero']?>,<?=$factura['numero_reserva']?>)" type="button"><i class="fa fa-file-pdf-o" aria-hidden="true" title="Ver Factura"></i></button>
                     </td>
                   </tr>
                   <?php 

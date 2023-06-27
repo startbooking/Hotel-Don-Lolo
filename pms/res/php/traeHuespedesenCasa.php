@@ -56,7 +56,7 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
                   <?php
                     if ($reserva['causar_impuesto'] == 2) { ?>
                       <span class="fa-stack fa-xs" title="Sin Impuestos" style="margin-left:5px;cursor:pointer;">
-                        <i style="font-size:10px;margin-top: -2px;margin-left: -3px;" class="fa fa-percent fa-stack-1x"></i>
+                        <i style="font-size:10px;margin-top: 1px;margin-left: -3px;" class="fa fa-percent fa-stack-1x"></i>
                         <i style="font-size:20px" class="fa fa-ban text-danger"></i>
                       </span>
                       <?php
@@ -64,21 +64,21 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
                     if (count($depositos) != 0) { ?>
                       <span class="fa-stack fa-xs" title="Reserva con Depositos" style="margin-left:0px;cursor:pointer;" onclick="verDepositos('<?php echo $reserva['num_reserva']; ?>')">
                         <i style="font-size:20px;color: #085908" class="fa fa-circle fa-stack-2x"></i>
-                        <i style="font-size:10px;margin-top: -2px;margin-left: 1px;" class="fa fa-usd fa-stack-1x fa-inverse"></i>
+                        <i style="font-size:10px;margin-top: 1px;margin-left: 1px;" class="fa fa-usd fa-stack-1x fa-inverse"></i>
                       </span>
                       <?php
                     }
                     if (!empty($reserva['observaciones'])) { ?>
                       <span class="fa-stack fa-xs" title="Observaciones a la Reserva" style="margin-left:0px;cursor:pointer;" onclick="verObservaciones(<?php echo $reserva['num_reserva']; ?>,'1')">
                         <i style="font-size:20px;color: #2993dd" class="fa fa-circle fa-stack-2x"></i>
-                        <i style="font-size:10px;margin-top: -2px;margin-left: 1px;" class="fa fa-commenting-o fa-stack-1x fa-inverse"></i>
+                        <i style="font-size:10px;margin-top: 1px;margin-left: 1px;" class="fa fa-commenting-o fa-stack-1x fa-inverse"></i>
                       </span>
                       <?php
                     }
                     if ($hoy == substr($reserva['fecha_nacimiento'], 5, 5)) { ?>
                       <span class="fa-stack fa-xs" title="El Huesped esta de Cumpleaños" style="margin-left:0px;cursor:pointer;" >
                         <i style="font-size:20px;color: yellow" class="fa fa-circle fa-stack-2x"></i>
-                        <i style="font-size:10px;margin-top: -2px;margin-left: 1px;color:black" class="fa fa-birthday-cake fa-stack-1x fa-inverse"></i> 
+                        <i style="font-size:10px;margin-top: 1px;margin-left: 1px;color:black" class="fa fa-birthday-cake fa-stack-1x fa-inverse"></i> 
                       </span>
                     <?php
                     }

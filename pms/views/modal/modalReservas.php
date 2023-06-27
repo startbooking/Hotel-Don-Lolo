@@ -274,7 +274,7 @@
             <div class="form-group">
               <label class="control-label col-lg-2">Llegada</label>
               <div class="col-lg-3 col-md-3">
-                <input class="form-control padInput" type="text" name="txtLlegadaInf" id='txtLlegadaInf' value='0' readonly>
+                <input class="form-control padInput" type="text" name="txtLlegadaInf" id='txtLlegadaInf' value='' readonly>
               </div>
               <label class="control-label col-lg-1">Noches</label>
               <div class="col-lg-2 col-md-2">
@@ -282,7 +282,7 @@
               </div>
               <label class="control-label col-lg-1">Salida</label>
               <div class="col-lg-3 col-md-3">
-                <input class="form-control padInput" type="text" name="txtSalidaInf" id='txtSalidaInf' value='1' readonly>
+                <input class="form-control padInput" type="text" name="txtSalidaInf" id='txtSalidaInf' value='' readonly>
               </div>
             </div>
             <div class="form-group">
@@ -909,8 +909,6 @@
     </div> 
   </form>
 </div> 
-
-
 
 <div class="modal fade" id="myModalAdicionaHuespedReserva" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-lg" role="document">

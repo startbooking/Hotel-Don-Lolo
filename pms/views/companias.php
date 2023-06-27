@@ -18,7 +18,7 @@
             <input type="hidden" name="ubicacion" id="ubicacion" value="companias">
             <input type="hidden" name="paginas" id="paginas" value="<?php echo $paginas; ?>">
             <input type="hidden" name="regiscia" id="regiscia" value="<?php echo $regcias; ?>">
-            <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-industry"></i> Compania </h3>
+            <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-industry"></i> Compañia </h3>
           </div> 
           <div class="col-lg-6" align="right">
             <a 
@@ -36,7 +36,7 @@
         <div id="imprimeRegistroHotelero"></div>
         <div class="row-fluid" style="padding:0 15px 15px 15px;">
           <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-6 col-md-6">
               <div class="input-group">
                 <label for="">Mostrar 
                   <select name="numFiles" id="numFiles" onblur="traeTotalCompanias(0,this.value)">
@@ -49,7 +49,7 @@
                 </label>
               </div>              
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-6 col-md-6">
               <div class="input-group"> 
                 <input name="search" id="search" type="search" class="form-control" style="height: 30px;text-transform: uppercase;" placeholder="Busca Compania">
                 <span class="input-group-btn">

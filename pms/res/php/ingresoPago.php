@@ -296,7 +296,7 @@ if ($perfilFac == 1 && $facturador == 1) {
 
     $eFact = json_encode($eFact);
 
-    echo $eFact;
+    // echo $eFact;
     
     include_once '../../api/enviaFactura.php';
     

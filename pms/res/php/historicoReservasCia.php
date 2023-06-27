@@ -11,9 +11,6 @@
 	<?php 
 	}else{
 		?>
-  	<div class="container-fluid" style="padding-bottom: 15px;">
-      <button style="float: right;" class="btn btn-info" onclick="exportTableToExcel('tablaReservas')"><i class="glyphicon glyphicon-th" aria-hidden="true"></i> Exportar</button> 
-    </div>
 	  <div class='table-responsive'>	  	
 	    <table id="example1" class="table table-bordered">
 	      <thead>
@@ -35,7 +32,7 @@
 	          <tr style='font-size:12px'>
 	            <td><?php echo $reserva['num_reserva']?></td>
 	            <td align="left"><?php echo $reserva['nombre_completo']; ?></td>
-	            <td><?php echo $reserva['descripcion_habitacion']; ?></td>
+	            <td align="left"><?php echo $reserva['descripcion_habitacion']; ?></td>
 	            <td><?php echo $reserva['num_habitacion']; ?></td>
 	            <td><?php echo $reserva['fecha_llegada']; ?></td>
               <?php 
@@ -135,7 +132,7 @@
 	          <tr style='font-size:12px'>
 	            <td><?php echo $reserva['num_reserva']?></td>
 	            <td align="left"><?php echo $reserva['nombre_completo']; ?></td>
-	            <td><?php echo $reserva['tipo_habitacion']; ?></td>
+	            <td><?php echo $reserva['descripcion_habitacion']; ?></td>
 	            <td><?php echo $reserva['num_habitacion']; ?></td>
 	            <td><?php echo $reserva['fecha_llegada']; ?></td>
 	            <td><?php echo $reserva['fecha_salida']; ?></td>

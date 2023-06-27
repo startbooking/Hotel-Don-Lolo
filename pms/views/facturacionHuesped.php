@@ -48,11 +48,12 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
       <h3 style="text-align: center;margin-bottom: 25px" class="w3ls_head tituloPagina">Estado Cuenta Huesped</h3>
       <div class="panel panel-success panelFolio">
         <div class="panel-heading">
-          <div class="panel-title">
+          <div class="panel-title"> 
             <input type="hidden" name="ingreso" id="ingreso" value="2">
             <input type="hidden" name="folioActivo" id="folioActivo" value="0">
             <input type="hidden" name="reservaActual" id="reservaActual" value="<?php echo $reserva; ?>">
             <input type="hidden" name="saldoActual" id="saldoActual" value="<?php echo $saldoCuenta; ?>">
+            <input type="hidden" name="cuentaCongelada" id="cuentaCongelada" value="0">
             <input type="hidden" name="totalPagos" id="totalPagos" value="<?php echo $pagoCuenta; ?>">
             <input type="hidden" name="nrofolio1" id="nrofolio1" value="<?php echo $saldofolio1 - $pagofolio1; ?>">
             <input type="hidden" name="nrofolio2" id="nrofolio2" value="<?php echo $saldofolio2 - $pagofolio2; ?>">

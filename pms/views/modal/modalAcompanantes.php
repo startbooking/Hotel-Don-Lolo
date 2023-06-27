@@ -22,7 +22,6 @@
       </div>
       <div class="modal-footer">
         <a href="reservasActivas" class="btn btn-warning"><i class="fa fa-reply" aria-hidden="true"></i> Regresar</a>
-        <!-- <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply" aria-hidden="true"></i> Regresar</button> -->
       </div>
     </div> 
   </div>
@@ -114,19 +113,25 @@
               </select>
             </div>
             <div id="ciudadesPais">
-                <label class="col-lg-1 col-md-1 control-label" style="padding-top:0">Ciudad</label>
-                <div class="col-sm-4">
-                  <select name="ciudadAdiAco" id='ciudadAdiAco'>
-                    <option value="">Ciudad</option>
-                    <?php
+              <label class="col-lg-1 col-md-1 control-label" style="padding-top:0">Ciudad</label>
+              <div class="col-sm-4">
+                <select name="ciudadAdiAco" id='ciudadAdiAco'>
+                  <option value="">Ciudad</option>
+                  <?php
                     $ciudades = $hotel->getCiudades();
-                foreach ($ciudades as $ciudad) { ?> 
+                    foreach ($ciudades as $ciudad) { ?> 
                       <option value="<?php echo $ciudad['id_ciudad']; ?>"><?php echo $ciudad['municipio'].' '.$ciudad['depto']; ?></option>
-                      <?php
-                }
-                ?>
-                  </select>
-                </div>
+                    <?php
+                    }
+                  ?>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="correo" class="col-sm-2 control-label">Correo </label>
+            <div class="col-sm-4">
+              <input type="email" class="form-control" name="correoAco" id="correoAco" placeholder="Correo Electronico" required>
             </div>
           </div>
         </div>

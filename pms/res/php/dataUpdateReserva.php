@@ -9,7 +9,7 @@ $sale = $reserva[0]['fecha_salida'];
 $huesped = $hotel->getBuscaIdHuesped($reserva[0]['id_huesped']);
 $tipohab = $reserva[0]['tipo_habitacion'];
 $cia = $hotel->getBuscaCia($reserva[0]['id_compania']);
-$centros = $hotel->getBuscaCentroCia($reserva[0]['idCentroCia']);
+// $centros = $hotel->getBuscaCentroCia($reserva[0]['idCentroCia']);
 $tipodocs = $hotel->getTipoDocumento();
 $tipos = $hotel->getTipoHabitacion();
 $ciudades = $hotel->getCiudades();
@@ -53,32 +53,23 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
       <div class="form-group">
         <label for="inputEmail3" class="col-sm-2 control-label">Empresa</label>
         <div class="col-lg-6 col-md-6">
-        <select class="form-control" name="empresaUpd" id="empresaUpd" >
-          <option value="0">SIN COMPAÑIA</option>
-          <?php
-            $companias = $hotel->getCompanias(); 
-            foreach ($companias as $compañia) { ?>
-              <option value="<?=$compañia['id_compania']?>"
-              <?php
-              if ($huesped[0]['id_compania'] == $compañia['id_compania']) { ?>
-                selected
+          <select class="form-control" name="empresaUpd" id="empresaUpd" >
+            <option value="0">SIN COMPAÑIA</option>
+            <?php
+              $companias = $hotel->getCompanias(); 
+              foreach ($companias as $compañia) { ?>
+                <option value="<?=$compañia['id_compania']?>"
                 <?php
-              }
-              ?>              
-              ><?=$compañia['empresa']?></option>
-              <?php
-            }?>
-        </select>
-
-      </div>         
-        <!-- <div class="col-sm-6">
-          <input type="hidden" name="idcia" id="idcia" value="<?php echo $reserva[0]['id_compania']; ?>">
-          <input type="text" class="form-control" name="empresa" id="empresa" value="<?php echo $cia[0]['empresa']; ?>" disabled="">
-        </div>
-        <label for="inputEmail3" class="col-sm-1 control-label">Nit</label>
-        <div class="col-sm-3">
-          <input type="text" class="form-control" name="nit" id="nit" value="<?php echo $cia[0]['nit'].'-'.$cia[0]['dv']; ?>" disabled="">
-        </div> -->
+                if ($reserva[0]['id_compania'] == $compañia['id_compania']) { ?>
+                  selected
+                  <?php
+                }
+                ?>              
+                ><?=$compañia['empresa']?></option>
+                <?php
+              }?>
+          </select>
+        </div>         
       </div>
     </div>    
     <div class="panel-body" style="padding:5px">

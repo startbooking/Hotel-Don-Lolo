@@ -14,7 +14,7 @@
 	$room       = $_POST['room'];
 	$turismo    = $_POST['turismo'];
 	$usuario    = $_POST['usuario'];
-	$idusuario  = $_POST['idusuario'];
+	$idusuario  = $_POST['usuario_id']; 
 	$fecha      = FECHA_PMS;
 	$totalcargo = $valor * $canti; 	
 	$baseimpto  = 0; 

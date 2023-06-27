@@ -107,10 +107,8 @@ foreach ($codigos as $codigo) { ?>
     <div class="col-sm-4">
       <input style="font-size:12px" class="form-control padInput" type="number" name="txtValorPago" id="txtValorPago" value="<?php echo $totalFolio; ?>" max="<?php echo $totalFolio; ?>" readonly>
     </div>
-  <!-- </div>
-  <div class="form-group">  -->
-    <label for="txtReferenciaAbo" class="col-sm-1 control-label">Referencia</label>
-    <div class="col-sm-5">
+    <label for="txtReferenciaAbo" class="col-sm-2 control-label">Referencia</label>
+    <div class="col-sm-4">
       <input style="font-size:12px;height: 25px !important"  class="form-control padInput" type="text" name="txtReferenciaPag" id="txtReferenciaPag" value="" min="1">
     </div>
   </div>

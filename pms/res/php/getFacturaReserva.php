@@ -33,7 +33,7 @@
               <td style="padding:3px 5px;width: 20%">
                 <div class="btn-group" role="group" aria-label="Basic example">
                   <button class="btn btn-info btn-xs" onclick="verfacturaHistorico(<?=$factura['factura_numero']?>)" type="button"><i class="fa fa-file-pdf-o" aria-hidden="true" title="Ver Factura"></i></button>
-                  <?php 
+                  <!-- <?php 
                     if($factura['factura_anulada']==0){?>
                       <a class="btn btn-danger btn-xs" 
                         data-toggle    ="modal" 
@@ -51,7 +51,7 @@
                         <i class="fa fa-window-close" aria-hidden="true" ></i></a>
                       <?php 
                     }
-                  ?>
+                  ?> -->
                   <button class="btn btn-success btn-xs" onclick="verCargosFacturaHistorico(<?=$factura['factura_numero']?>,<?=$factura['numero_reserva']?>)" type="button"><i class="fa fa-file-pdf-o" aria-hidden="true" title="Ver Detalle Consumos Factura"></i></button>
                 </div>
               </td>

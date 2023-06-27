@@ -10,10 +10,12 @@
   $motor     = count($hotel->cantidadHabitaciones(3));
   $campi     = count($hotel->cantidadHabitaciones(4));
   $pm        = count($hotel->cantidadHabitaciones(5));
+  $cabana    = count($hotel->cantidadHabitaciones(6));
 
 
-  $canford     = $hotel->getHabitacionsBloqueadas('FO');
-  $canfser     = $hotel->getHabitacionsBloqueadas('FS');
+  /* $canford     = $hotel->getHabitacionsBloqueadas('FO');
+  $canfser     = $hotel->getHabitacionsBloqueadas('FS'); */
+  $canMmto     = $hotel->habitacionesMmto();
   $cancamas    = $hotel->getCamasDisponibles();
   $salidadia   = $hotel->getSalidasHabitacionesDia(FECHA_PMS);
   $salidaspm   = $hotel->getSalidaspmDia(FECHA_PMS);
@@ -27,7 +29,7 @@
   $llegadasdia = $llegadasdia - $llegadaspm;
   $salidadia   = $salidadia - $salidaspm;
 
-  $habdisp  = $rooms-$canford -$canfser ;
+  $habdisp  = $rooms-$canMmto ;
   $vacantes = $habdisp - $paxs[0]['habi'];
 
 
@@ -41,9 +43,7 @@
         <div class="panel-heading">
           <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_PMS?>">
           <input type="hidden" name="ubicacion" id="ubicacion" value="home">
-          <h1 style="font-size:34px;text-align:center">
-          Estado Hotel
-          </h1>
+          <h1 style="font-size:34px;text-align:center">Estado Hotel</h1>
         </div>
         <div class="panel-body">
           <div class="container-fluid">
@@ -53,16 +53,16 @@
               <div class="col-sm-2">
                 <input type="text" class="form-control" name="habiDisp" id="nihabiDispt" readonly="" value="<?=$rooms?>">
               </div>
-              <label for="nit" class="col-sm-4 control-label">Habitaciones Fuera de Orden</label>
+              <label for="nit" class="col-sm-4 control-label">Habitaciones Mantenimiento</label>
               <div class="col-sm-2">
-                <input type="text" class="form-control" name="habiDisp" id="nihabiDispt" readonly="" value="<?=$canford?>">
+                <input type="text" class="form-control" name="habMmto" id="habMmto" readonly="" value="<?=$canMmto?>">
               </div>
             </div>
             <div class="form-group">
-              <label for="nit" class="col-sm-4 control-label">Habitaciones Fuera de Servicio</label>
+              <!-- <label for="nit" class="col-sm-4 control-label">Habitaciones Fuera de Servicio</label>
               <div class="col-sm-2">
                 <input type="text" class="form-control" name="habiDisp" id="nihabiDispt" readonly="" value="<?=$canfser?>">
-              </div>
+              </div> -->
               <label for="nit" class="col-sm-4 control-label">Habitaciones Diponibles</label>
               <div class="col-sm-2">
                 <input type="text" class="form-control" name="habiDisp" id="nihabiDispt" readonly="" value="<?=$habdisp?>">

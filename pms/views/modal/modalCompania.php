@@ -13,7 +13,7 @@ echo LAND_HOTEL;
           <div class="form-group">
             <label for="nit" class="col-sm-2 control-label">Nit</label>
             <div class="col-sm-2">
-              <input type="text" class="form-control" name="nit" id="nit" placeholder="Nit" onblur="buscaCompaniaActiva(this.value)" required="">
+              <input type="text" class="form-control" name="nit" id="nit" placeholder="Nit" onblur="buscaCompaniaActiva(this.value)" required="" minlength="9" maxlength="12" pattern="[0-9]+">
             </div>
             <label for="dv" class="col-sm-1 control-label">Digito</label>
             <div class="col-sm-1">
@@ -88,11 +88,11 @@ foreach ($ciudades as $ciudad) { ?>
           <div class="form-group">                  
             <label for="telefono" class="col-sm-2 control-label">Telefono</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" name="telefono" id="telefono" placeholder="Telefono" required="">
+              <input type="text" class="form-control" name="telefono" id="telefono" placeholder="Telefono" required="" minlength="10" maxlength="18" pattern="[0-9]+">
             </div>
             <label for="celular" class="col-sm-2 control-label">Celular</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" name="celular" id="celular" placeholder="Nro celular" >
+              <input type="text" class="form-control" name="celular" id="celular" placeholder="Nro celular" minlength="10" maxlength="18" pattern="[0-9]+">
             </div>
           </div>
           <div class="form-group">
@@ -359,19 +359,8 @@ foreach ($tipoTribus as $tipoTribu) { ?>
           <button style="float: right;margin-top: -25px" class="btn btn-info" onclick="exportTableToExcel('tablaReservas')"><i class="glyphicon glyphicon-th" aria-hidden="true"></i> Exportar</button> 
           <input type="hidden" name="txtIdReservasCiaHis" id="txtIdReservasCiaHis">
         </div>
-        <!--     
-          <div class="modal-header">
-            <input type="hidden" name="txtIdHuespedHis" id="txtIdHuespedHis">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class='glyphicon glyphicon-off' style="color:#530505"></span></button>
-            <h3 class="modal-title" id="myModalLabel">Historico Reservas</h3>
-            <input type="hidden" name="txtIdReservasCiaHis" id="txtIdReservasCiaHis">
-            <div class="container-fluid" style="padding-bottom: 15px;">
-            <button style="float: right;" class="btn btn-info" onclick="exportTableToExcel('tablaReservas')"><i class="glyphicon glyphicon-th" aria-hidden="true"></i> Exportar</button> 
-          </div>
-        </div>
-        -->
     	  <div id="datos_ajax_register"></div>
-        <div class="modal-body">
+        <div class="modal-body" style="height: 480px;overflow: auto;">
 				  <div id="historicoReserva" style="position: relative;	text-align: center;top: 5px;width: 100%;"></div>
 		    </div>
       </div>
@@ -392,7 +381,7 @@ foreach ($tipoTribus as $tipoTribu) { ?>
 				<h3 class="modal-title" id="myModalLabel">Historico Reservas</h3>
 	  	</div>
     	<div id="datos_ajax_register"></div>
-	  	<div class="modal-body">
+	  	<div class="modal-body" style="height: 480px;overflow: auto;">
 				<div id="historicoFacturas" style="position:relative;text-align:center;top:5px;width:100%;"></div>
 		  </div>
 	  	</div>

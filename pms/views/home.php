@@ -11,6 +11,7 @@
   $pagos = $hotel->sumPagosdelDia(FECHA_PMS);
   $rooms = $hotel->habitacionesDisponibles(CTA_MASTER);
   $cmaster = $hotel->getTotalCuentasMaestras();
+  $canMmto     = $hotel->habitacionesMmto();
   ?>
 
 
@@ -22,9 +23,6 @@
       <h1 style="font-size:34px;">
       Panel de Control <br>
       <span><?php echo NAME_HOTEL; ?></span>
-      <!--
-      <img style="margin-top:-40px;width: 80px" class="img-thumbnail" src="<?php echo BASE_WEB; ?>img/<?php echo LOGO; ?>" alt=""> 
-      -->
       </h1>
     </div>
   </section>
@@ -81,24 +79,16 @@
                   <div class="inner col-sm-2 col-xs-4">
                     <h3 style="margin:0" align="center">
                       <?php
-    if ($encasa[0]['nin'] == '') {
-        echo 0;
-    } else {
-        echo $encasa[0]['nin'];
-    }
-  ?>                      
+                        if ($encasa[0]['nin'] == '') {
+                            echo 0;
+                        } else {
+                            echo $encasa[0]['nin'];
+                        }
+                      ?>                      
                       </h3>
                     <p>Niños</p>
                   </div>
                 </div>
-                <!--
-                <div class="row-fluid">
-                  <div class="inner col-sm-8">
-                    <h3 style="margin:0"><?php echo $cmaster; ?></h3>
-                    <p style="margin-bottom: 0">Cuentas Maestas</p>
-                  </div>
-                </div>
-              -->
               </div>
             </div>
             <div class="icon">
@@ -124,12 +114,12 @@
                 <div class="inner col-sm-2 col-xs-4">
                   <h3 style="margin:0" align="center">
                     <?php
-if ($salen[0]['nin'] == '') {
-    echo 0;
-} else {
-    echo $salen[0]['nin'];
-}
-  ?>
+                      if ($salen[0]['nin'] == '') {
+                          echo 0;
+                      } else {
+                          echo $salen[0]['nin'];
+                      }
+                    ?>
                     </h3>
                   <p>Niños</p>
                 </div>
@@ -187,8 +177,21 @@ if ($salen[0]['nin'] == '') {
           </a>
         </div>
       </div>
-      <!--
-      -->
+      <div class="col-lg-4 col-md-6 col-xs-12">
+        <div>
+          <a href="mantenimiento" class="small-box bg-maroon">
+            <div class="inner">
+              <h3><?php echo $canMmto; ?></h3>
+              <p>habitaciones en Mantenimiento</p>
+            </div>
+            <div class="icon">
+              <i style="margin-top:30px"  class="fa fa-snowflake-o icon"></i>
+            </div>
+            <span class="small-box-footer">ver Habitaciones en Mantenimiento <i class="fa fa-arrow-circle-right"></i>            
+            </span>
+          </a>
+        </div>
+      </div>
     </div>
   </section>
   <section class="container-fluid">

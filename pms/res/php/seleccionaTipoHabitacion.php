@@ -39,7 +39,7 @@ foreach ($salidas as $salida) {
     $salidasOff[] = $salida['num_habitacion'];
 }
 
-foreach ($resevas as $reserva) {
+foreach ($reservas as $reserva) {
     $reservasOff[] = $reserva['num_habitacion'];
 }
 
