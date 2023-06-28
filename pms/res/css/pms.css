@@ -26,6 +26,10 @@
   text-align: left;
 }
 
+.centro {
+  text-align: center;
+}
+
 .badgeImpto {
   background-color: green;
 }

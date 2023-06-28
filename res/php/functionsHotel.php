@@ -5,6 +5,38 @@ date_default_timezone_set('America/Bogota');
 
 class Hotel_Actions
 {
+    public function getFacturasCompanias($id){
+        global $database;
+
+        $data = $database->select('historico_cargos_pms',[
+            '[>]huespedes' => ['id_huesped' => 'id_huesped'] 
+        ],[
+            'huespedes.nombre_completo',
+            'historico_cargos_pms.pagos_cargos',
+            'historico_cargos_pms.fecha_factura',            
+            'historico_cargos_pms.factura_numero',            
+        ],[
+            'historico_cargos_pms.tipo_factura' => 2,
+            'historico_cargos_pms.factura' => 1,
+            'historico_cargos_pms.factura_anulada' => 0,
+            'historico_cargos_pms.cartera' => 0,
+            'historico_cargos_pms.id_perfil_factura' => $id, 
+            'historico_cargos_pms.id_codigo_cargo' => 2,
+            'ORDER' => ['historico_cargos_pms.factura_numero' => 'ASC']
+        ]);
+        return $data;
+    }
+    
+    
+    public function traeClientesCartera()
+    {
+        global $database;
+
+        $data = $database->query("SELECT companias.id_compania, companias.empresa, companias.nit, companias.dv, companias.direccion, companias.email, Sum(historico_cargos_pms.pagos_cargos) as total FROM companias , historico_cargos_pms WHERE companias.id_compania = historico_cargos_pms.id_perfil_factura AND historico_cargos_pms.id_codigo_cargo = 2 AND historico_cargos_pms.cartera = 0 AND historico_cargos_pms.factura_anulada = 0 AND historico_cargos_pms.tipo_factura = 2 GROUP BY companias.id_compania ORDER BY companias.empresa")->fetchAll();
+
+        return $data;
+    }
+
     public function habitacionesMmto(){
         global $database;
 
@@ -19,7 +51,6 @@ class Hotel_Actions
 
         $data = $database->query($query)->fetchAll();
         return $data;
-
     }
     public function traeNombreUsuario($id){
         global $database;

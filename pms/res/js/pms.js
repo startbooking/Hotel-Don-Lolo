@@ -419,7 +419,6 @@ $(document).ready(function () {
     $(".alert").hide();
   });
 
-
   $("#myModalAdicionaObservaciones").on("show.bs.modal", function (event) {
     var button = $(event.relatedTarget);
     var id = button.data("id");
@@ -586,7 +585,7 @@ $(document).ready(function () {
     var empresa = button.data("empresa");
     var nit = button.data("nit");
     var parametros = {
-      id: id,
+      id,
     };
     var modal = $(this);
 
@@ -617,7 +616,7 @@ $(document).ready(function () {
     $("#edita").val(1);
 
     var parametros = {
-      id: id,
+      id,
     };
     var modal = $(this);
 
@@ -969,7 +968,7 @@ $(document).ready(function () {
     var modal = $(this);
     modal.find(".modal-title").text("Informacion Huesped: " + nombre);
     parametros = {
-      idcia: idcia,
+      idcia,
     };
     $.ajax({
       url: web + "res/php/getDatosCia.php",
@@ -1058,7 +1057,7 @@ $(document).ready(function () {
     var modal = $(this);
     var buscar = $("#buscarHuesped").val();
     var parametros = {
-      buscar: buscar,
+      buscar,
     };
     modal.find(".modal-title").text("Buscar Huesped Por : " + buscar);
     $.ajax({
@@ -1149,7 +1148,7 @@ $(document).ready(function () {
 
   $("#myModalEstadoCuenta").on("show.bs.modal", function (event) {
     var button = $(event.relatedTarget);
-    var id = button.data("id");
+    var reserva = button.data("id");
     var hues = button.data("idhuesped");
     var nombre = button.data("nombre");
     var turismo = button.data("impto");
@@ -1157,7 +1156,7 @@ $(document).ready(function () {
     var tipohab = button.data("tipohab");
     var modal = $(this);
     var parametros = {
-      reserva: id,
+      reserva,
     };
 
     web = $("#rutaweb").val();
@@ -1318,7 +1317,7 @@ $(document).ready(function () {
     var nombre2 = button.data("nombre2");
     var modal = $(this);
     var parametros = {
-      id: id,
+      id,
     };
 
     modal
@@ -1358,7 +1357,7 @@ $(document).ready(function () {
     var nombre2 = button.data("nombre2");
     var modal = $(this);
     var parametros = {
-      id: id,
+      id,
     };
 
     modal
@@ -1398,7 +1397,7 @@ $(document).ready(function () {
     var modal = $(this);
     $("#editaRes").val(1);
     var parametros = {
-      id: id,
+      id,
     };
     modal.find(".modal-title").text("Modifica Reserva Actual: " + nombre);
 
@@ -1421,7 +1420,7 @@ $(document).ready(function () {
     var modal = $(this);
     $("#editaRes").val(1);
     var parametros = {
-      id: id,
+      id,
     };
     modal.find(".modal-title").text("Cancela Reserva Actual: " + nombre);
 
@@ -1443,7 +1442,7 @@ $(document).ready(function () {
     var empresa = button.data("empresa");
     var nit = button.data("nit");
     var parametros = {
-      id: id,
+      id,
     };
     var modal = $(this);
 
@@ -1468,7 +1467,7 @@ $(document).ready(function () {
     var empresa = button.data("empresa");
     var nit = button.data("nit");
     var parametros = {
-      id: id,
+      id,
     };
     var modal = $(this);
 
@@ -1493,7 +1492,7 @@ $(document).ready(function () {
     var empresa = button.data("empresa");
     var nit = button.data("nit");
     var parametros = {
-      id: id,
+      id,
     };
     var modal = $(this);
 
@@ -1518,7 +1517,7 @@ $(document).ready(function () {
     var empresa = button.data("empresa");
     var nit = button.data("nit");
     var parametros = {
-      id: id,
+      id,
     };
     var modal = $(this);
 
@@ -1543,7 +1542,7 @@ $(document).ready(function () {
     var empresa = button.data("empresa");
     var nit = button.data("nit");
     var parametros = {
-      id: id,
+      id,
     };
     var modal = $(this);
 
@@ -1618,7 +1617,7 @@ $(document).ready(function () {
     var id = button.data("id");
     var nombre = button.data("nombre");
     var parametros = {
-      id: id,
+      id,
     };
     var modal = $(this);
 
@@ -1847,7 +1846,7 @@ $(document).ready(function () {
     modal.find(".modal-body #txtNombre1").val(nombre1);
     modal.find(".modal-body #txtNombre2").val(nombre2);
     parametros = {
-      id: id,
+      id,
     };
     $.ajax({
       url: web + "res/php/getHuespedReserva.php",
@@ -1939,6 +1938,31 @@ $(document).ready(function () {
     modal.find(".modal-body #txtValorTarifaIng").val(number_format(valor, 2));
     $(".alert").hide();
   });
+
+  $("#dataEstadoCartera").on("show.bs.modal", function (event) {
+    var button = $(event.relatedTarget);
+    var id = button.data("id");
+    var compania = button.data("compania");
+    var modal = $(this);
+    modal.find(".modal-title").text(`Cartera Compañia : ${compania}`);
+    $.ajax({
+      url: "res/php/traeFacturasCompanias.php",
+      type: "POST",
+      data: { id },
+      beforeSend: function () {
+        $("#datosClienteCartera").html("");
+        $("#datosClienteCartera").html("<img src='../img/loader.gif'>");
+      },
+      success: function (data) {
+        $("#datosClienteCartera").html("");
+        $("#datosClienteCartera").html(data);
+        $(".rowAsigna").hide();
+        $(".form-group").css("display", "none");
+      },
+    });
+  });
+
+  
 });
 
 function traeReservasMmto(){

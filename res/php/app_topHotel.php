@@ -92,6 +92,8 @@ if (!isset($_GET['section'])) {
     $reservas = $hotel->getSalidasRealizadas(FECHA_PMS, 2, 'SA');
 } elseif (isset($_GET['section']) && $_GET['section'] == 'facturacionEstadia') {
     // $reservas = $hotel->getHuespedesenCasa(2,'CA');
+} elseif (isset($_GET['section']) && $_GET['section'] == 'carteraClientes') {
+    $clientes = $hotel->traeClientesCartera();
 } elseif (isset($_GET['section']) && $_GET['section'] == 'facturacionHuesped') {
 } elseif (isset($_GET['section']) && $_GET['section'] == 'ingresoConsumos') {
     $reservas = $hotel->getHuespedesenCasa(2, 'CA');

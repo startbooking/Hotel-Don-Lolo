@@ -64,9 +64,11 @@ include_once 'menus/menu_titulo.php';
       require 'views/ingresoConsumos.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'facturasDelDia') {
       require 'views/facturasDelDia.php';
-    } elseif (isset($_GET['section']) && $_GET['section'] == 'recibosCajaDelDia') {
-        require 'views/recibosCajaDelDia.php';
-    } elseif (isset($_GET['section']) && $_GET['section'] == 'facturasDiaNew') {
+  } elseif (isset($_GET['section']) && $_GET['section'] == 'carteraClientes') {
+    require 'views/carteraClientes.php';
+  } elseif (isset($_GET['section']) && $_GET['section'] == 'recibosCajaDelDia') {
+    require 'views/recibosCajaDelDia.php';
+  } elseif (isset($_GET['section']) && $_GET['section'] == 'facturasDiaNew') {
       require 'views/facturasDelDiaNew.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'cargosDelDia') {
       require 'views/cargosDelDia.php';
@@ -308,7 +310,7 @@ include_once '../views/modal/modalUsuario.php';
           $('.tituloPagina').html(`<i class="fa fa-tachometer" style="font-size:36px;color:black" ></i> Cierre Cajero [${usuario}]`)
         </script>
         <?php
-  } elseif ($_GET['section'] == 'reservasActivas' || $_GET['section'] == 'encasa' || $_GET['section'] == 'facturacionEstadia' || $_GET['section'] == 'salidasDelDia' || $_GET['section'] == 'salidasRealizadas' || $_GET['section'] == 'grupos' || $_GET['section'] == 'mantenimiento' || $_GET['section'] == 'facturasDelDia') { ?>
+  } elseif ($_GET['section'] == 'reservasActivas' || $_GET['section'] == 'encasa' || $_GET['section'] == 'facturacionEstadia' || $_GET['section'] == 'salidasDelDia' || $_GET['section'] == 'salidasRealizadas' || $_GET['section'] == 'grupos' || $_GET['section'] == 'mantenimiento' || $_GET['section'] == 'facturasDelDia' || $_GET['section'] == 'carteraClientes') { ?>
         <script>
           if(tipo==1){
             $('#cambiaHuesped').css('display','block')

@@ -5,13 +5,7 @@ $tipo = $_POST['tipo'];
 
 $hoy = substr(FECHA_PMS, 5, 5);
 
-/* error_reporting(E_ALL);
-
-ini_set('display_errors', '1'); */
-
 $reservas = $hotel->getHuespedesenCasa(2, 'CA');
-
-// echo print_r($reservas);
 
 ?>
   <div class="table-responsive">
