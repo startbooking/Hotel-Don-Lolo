@@ -35,10 +35,8 @@
     <?php include_once '../res/shared/archivo_pie.php'; ?>
   </body>
   <?php
-    include_once '../views/modal/modalUsuario.php';
+    include_once '../views/modal/modalUsuario.php'; 
     include_once 'views/modal/modalKardex.php';
-
-    /* if ($_GET['section'] == 'reservasActivas' || $_GET['section'] == 'encasa' || $_GET['section'] == 'facturacionEstadia' || $_GET['section'] == 'salidasDelDia' || $_GET['section'] == 'salidasRealizadas' || $_GET['section'] == 'grupos' || $_GET['section'] == 'mantenimiento' || $_GET['section'] == 'facturasDelDia'){} */
 
   ?>
 

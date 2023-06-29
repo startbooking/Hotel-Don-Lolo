@@ -105,7 +105,7 @@ class Inventario_User
             'tipo' => 1,
             'cierre' => 1,
         ]);
-
+ 
         return $database->id();
     }
 

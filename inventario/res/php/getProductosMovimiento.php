@@ -8,7 +8,7 @@
   $movimientos = $inven->getMovimientos($tipo,$numero, $bodega);
 
 ?>
-</div>
+<div class="container-fluid">
   <div class='table-responsive'>
     <table id="example1" class="table modalTable table-striped table-condensed">
       <thead>
@@ -24,7 +24,10 @@
       </thead>
       <tbody>
         <?php
-        foreach ($movimientos as $salida) { ?>
+        $totalMov = 0;
+        foreach ($movimientos as $salida) { 
+          $totalMov = $totalMov + $salida['valor_total'];
+          ?>
           <tr style='font-size:12px'>
             <td align="left"><?php echo $inven->buscaAlmacen($salida['id_bodega']); ?></td>
             <td><?php echo $salida['nombre_producto'];?></td>
@@ -46,5 +49,11 @@
       </tbody>
     </table>
   </div>
-<div class="container">
+  <table style="font-size:2rem;">
+    <tr class="derecha">
+      <td>Total Movimiento</td>
+      <td><?php echo number_format($totalMov,2)?></td>
+    </tr>
+  </table>
+</div>
   

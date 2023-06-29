@@ -6,7 +6,10 @@
               <div class="col-lg-6 col-xs-12">
                 <input type="hidden" name="rutaweb" id="rutaweb" value="<?php echo BASE_INV; ?>">                  
                 <input type="hidden" name="ubicacion" id="ubicacion" value="proveedores">
-                <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-cubes"></i> Catalogo de Proveedores</h3>
+                <h3 class="w3ls_head tituloPagina">
+                  <!-- <i style="color:black;font-size:36px;" class="fa fa-cubes"></i>  -->
+                  <i class="fa-solid fa-users-viewfinder fa-2x" style="color:#000;"></i>
+                    Catalogo de Proveedores</h3>
               </div>
               <div class="col-lg-6 col-xs-12" align="right">
                 <a 
@@ -22,7 +25,7 @@
               <div class="datos_ajax_delete"></div>
               <div class="row">              
                 <div class="table-responsive"> 
-                  <table id="example1" class="table table-bordered table-condensed">
+                  <table id="example1" class="table table-bordered table-condensed" style="width:100%;">
                     <thead>
                       <tr class="warning">
                         <td>Nit</td>
@@ -46,7 +49,7 @@
                           <td><?php echo $compania['email']; ?></td>
                           <td><?php echo estadoCompania($compania['activo']); ?></td>
                           <td><?php echo tipoCompania($compania['tipo_compania']); ?></td>
-                          <td>
+                          <td style="text-align:center;">
                             <button type="button" class="btn btn-info btn-xs" 
                               onclick="botonModificaProveedor('<?php echo $compania['id_compania']; ?>','<?php echo $compania['empresa']; ?>')"
                               idprov = "<?php echo $compania['id_compania']; ?>"

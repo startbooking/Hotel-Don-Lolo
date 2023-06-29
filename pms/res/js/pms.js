@@ -6435,7 +6435,7 @@ function validaCierreDiario() {
     $.ajax({
       url: "res/php/validaAuditor.php",
       type: "POST",
-      data: parametros,
+      data: parametros, 
       beforeSend: function (objeto) {
         $(".mensaje").html(
           '<h3 class="alert alert-danger"><i style="font-size:3em;margin-top:1px;color:#BBB0B0; " class="ion ion-ios-gear-outline fa-spin"></i>Procesando Auditoria, NO Interrumpir</h3>'

@@ -26,7 +26,7 @@ $entradas = $inven->getMovimientosInventarios(1);
       <div class="panel-body">
         <div id="imprimeRegistroHotelero"></div>
         <div class='table-responsive'>
-          <table id="example1" class="table modalTable table-condensed" >
+          <table id="example1" class="table modalTable table-condensed" style="width:100%;">
             <thead>
               <tr class="warning">
                 <td>Entrada Nro</td>
@@ -57,9 +57,9 @@ $entradas = $inven->getMovimientosInventarios(1);
                     }
                   ?></td>
 
-                  <td><?php echo number_format($entrada['subtotal'], 2); ?></td> 
-                  <td><?php echo number_format($entrada['impto'], 2); ?></td>
-                  <td><?php echo number_format($entrada['total'], 2); ?></td>
+                  <td class="derecha"><?php echo number_format($entrada['subtotal'], 2); ?></td> 
+                  <td class="derecha"><?php echo number_format($entrada['impto'], 2); ?></td>
+                  <td class="derecha"><?php echo number_format($entrada['total'], 2); ?></td>
                   <td>
                     <span 
                     <?php
@@ -72,7 +72,7 @@ $entradas = $inven->getMovimientosInventarios(1);
                     }
                   ?>
                     ><?php echo estadoMovimiento($entrada['estado']); ?></span></td>
-                  <td style="display:flex;">
+                  <td style="text-align:center;">
                       <button 
                         type             = "button" 
                         class            = "btn btn-xs btn-warning" 

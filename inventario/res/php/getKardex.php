@@ -43,19 +43,19 @@ foreach ($kardexs as $kardex) {
 						<tr>
 							<td><?php echo $kardex['nombre_producto']; ?></td>
 							<td><?php echo $kardex['descripcion_unidad']; ?></td>
-							<td class="t-right;"><?php echo number_format($kardex['entradas'], 2); ?></td>
-							<td class="t-right;"><?php echo number_format($kardex['salidas'], 2); ?></td>
-							<td class="t-right;"><?php echo number_format($kardex['saldo'], 2); ?></td>
-							<td class="t-right;"><?php
-                                if ($kardex['promedio'] == '') {
-                                    echo number_format(0, 2);
-                                } else {
-                                    echo number_format($kardex['promedio'], 2);
-                                }
-    ?>
+							<td class="derecha"><?php echo number_format($kardex['entradas'], 2); ?></td>
+							<td class="derecha"><?php echo number_format($kardex['salidas'], 2); ?></td>
+							<td class="derecha"><?php echo number_format($kardex['saldo'], 2); ?></td>
+							<td class="derecha"><?php
+								if ($kardex['promedio'] == '') {
+										echo number_format(0, 2);
+								} else {
+										echo number_format($kardex['promedio'], 2);
+								}
+    						?>
 						</td>
-							<td class="t-right;"><?php echo number_format($kardex['promedio'] * $kardex['saldo'], 2); ?></td>
-							<td> 
+							<td class="derecha"><?php echo number_format($kardex['promedio'] * $kardex['saldo'], 2); ?></td>
+							<td class="centro"> 
 								<button 
 									type        = "button" 
 									class       = "btn btn-info btn-xs" 

@@ -285,7 +285,7 @@ if ($perfilFac == 1 && $facturador == 1) {
         array_push($eRete, $rica);
     }
 
-    $eLmon['payable_amount'] = $subtotales[0]['cargos'] + $subtotales[0]['imptos'] - $retefuente - $reteica - $reteiva;
+    // $eLmon['payable_amount'] = $subtotales[0]['cargos'] + $subtotales[0]['imptos'];
 
     $eFact['customer'] = $eCust;
     $eFact['payment_form'] = $ePago;

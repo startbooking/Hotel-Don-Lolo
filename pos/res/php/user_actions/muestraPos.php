@@ -7,12 +7,6 @@
   $ambienteSeleccionado = $pos->getAmbienteSeleccionado($ambSel);
   $ambi = $ambienteSeleccionado;
 
-  /* $_SESSION['NOMBRE_AMBIENTE'] = $ambienteSeleccionado[0]['nombre'];
-  $_SESSION['AMBIENTE'] = $ambienteSeleccionado[0]['id_ambiente'];
-  $_SESSION['BODEGA_AMBIENTE'] = $ambienteSeleccionado[0]['id_bodega'];
-  $_SESSION['LOGO_POS'] = $ambienteSeleccionado[0]['logo'];
-  $_SESSION['ENCUESTA'] = $ambienteSeleccionado[0]['encuesta']; */
-
   $ventaPos = $pos->sumSalesDay($ambSel);
   $comandaPos = $pos->countComandasPos($ambSel, 'A');
   $comandaAnuladaPos = $pos->countComandasPos($ambSel, 'X');

@@ -1488,7 +1488,7 @@ function btnMuestraProductos() {
       numero,
       tipo,
       movimiento,
-      descripcion,
+      descripcion, 
       bodega,
     };
     var modal = $(this);
@@ -1497,7 +1497,7 @@ function btnMuestraProductos() {
       .html(
         "Ver Movimiento : " + descripcion + "<br> Movimiento Nro : " + numero
       );
-    $.ajax({
+    $.ajax({ 
       url: "res/php/getProductosMovimiento.php",
       type: "POST",
       data: parametros,

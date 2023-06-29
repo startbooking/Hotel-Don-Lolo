@@ -8,16 +8,19 @@
       </li> -->
       <li class="treeview">
         <a href="#">
-          <i class="fa fa-dashboard"></i> <span>Datos</span> <i class="fa fa-angle-left pull-right"></i>
+        <i class="fa-solid fa-tachograph-digital"></i> <span>Datos</span> <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
           <li class="active"><a href="productos"><i class="fa fa-cubes"></i> Productos</a></li>
-          <li><a href="proveedores"><i class="fa fa-user-circle"></i> Proveedores</a></li>
+          <li><a href="proveedores"><i class="fa-solid fa-users-viewfinder"></i> Proveedores</a></li>
         </ul>
       </li>
       <li class="treeview">
         <a href="#">
-          <i class="fa fa-files-o"></i> <span>Movimientos</span> <i class="fa fa-angle-left pull-right"></i>
+        <i class="fa-solid fa-down-left-and-up-right-to-center"></i>
+        
+          <!-- <i class="fa fa-files-o"></i> -->
+           <span>Movimientos</span> <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
           <li id="topNavManageOrder" class="active"><a href="entradas"><i class="fa fa-sign-in"></i> Entradas</a></li>
@@ -32,7 +35,7 @@
       </li>
       <li>
         <a href="kardex">
-          <i class="fa fa-calendar"></i> <span>Kardex</span>
+        <i class="fa-solid fa-magnifying-glass-chart"></i> <span>Kardex</span>
           <small class="label pull-right bg-red"></small>
         </a>
       </li>

@@ -18,7 +18,7 @@
               <div class="small-box bg-green-gradient">
                 <div class="inner">
                   <button onclick="getSeleccionaAmbiente(this.name)" name="<?php echo $ambiente['id_ambiente']; ?>" style="background-color:transparent" class="btn btn-block" title="<?php echo $ambiente['nombre']; ?>">
-                  <h3><?php echo substr($ambiente['nombre'], 0, 20); ?></h3>
+                  <h3 style="overflow:hidden;"><?php echo substr($ambiente['nombre'], 0, 20); ?></h3>
                   </button>
                   <?php
                     $comandas = count($pos->getComandasActivas($ambiente['id_ambiente'], 'A'));

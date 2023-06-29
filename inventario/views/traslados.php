@@ -27,14 +27,14 @@ $entradas = $inven->getMovimientosTraslados(1);
       <div class="panel-body">
         <div id="imprimeRegistroHotelero"></div>
         <div class='table-responsive'>
-          <table id="example1" class="table modalTable table-condensed">
+          <table id="example1" class="table modalTable table-condensed" >
             <thead>
               <tr class="warning">
                 <td>Traslado Nro</td>
                 <td>Fecha</td>
                 <td>Tipo Movimiento</td>
-                <td>Desde Almacen</td>
-                <td>Destino Almacen</td>
+                <td style="width:12%">Desde Almacen</td>
+                <td style="width:12%">Destino Almacen</td>
                 <td>Total</td>
                 <td>Estado</td>
                 <td style="width: 9%" align="center">Accion</td>
@@ -48,7 +48,13 @@ $entradas = $inven->getMovimientosTraslados(1);
                   <td><?php echo $entrada['fecha_movimiento']; ?></td>
                   <td><?php echo $entrada['descripcion_tipo']; ?></td>
                   <td><?php echo $entrada['descripcion_bodega']; ?></td>
-                  <td><?php echo $inven->buscaAlmacen($entrada['id_proveedor']); ?></td>
+                  <td><?php
+                  if($entrada['id_proveedor']== '0'){
+                    echo STRTOUPPER('Sin Almacen Seleccionado');
+                  }else{
+                    echo $inven->buscaAlmacen($entrada['id_proveedor']); 
+                  }
+                  ?></td>
                   <td align="right"><?php echo number_format($entrada['total'], 2); ?></td>
                   <td align="left"><span 
                     <?php

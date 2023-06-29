@@ -4129,6 +4129,7 @@ function activaPos() {
   let { fecha_auditoria } = oPos[0];
   let { nombres, apellidos } = user;
   $("#fechaAuditoria").val(fecha_auditoria);
+  
   /*
   $("#nombreUsuario").html(
     `${apellidos} ${nombres} <span class="caret"></span>`

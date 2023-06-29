@@ -10,7 +10,7 @@ $("#modalConsultaKardex").on("show.bs.modal", function (event) {
   var modal = $(this);
   $(".modal-title").html("<h4>Modificar Proveedor : " + nombre + "</h4>");
 });
-
+ 
 function muestraKardex(bodega) {
   $.ajax({
     url: "res/php/getKardex.php",
@@ -55,9 +55,6 @@ function anulaMovimiento(id, movimiento, bodega) {
   var ubica = $("#ubicacion").val();
   var id = id;
   var tipo = movimiento;
-  /* sesion = JSON.parse(localStorage.getItem("sesion"));
-  usuario = sesion["usuario"][0]["usuario"];
- */
   parametros = {
     id,
     tipo,

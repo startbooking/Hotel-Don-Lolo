@@ -7,12 +7,29 @@
   font-size: 12px !important;
 }
 
-.table-condensed > tbody > tr > td {
+#movimientosProducto .table > tbody > tr > td {
   padding: 3px 5px;
 }
 
 .control-label {
   padding: 0;
+}
+
+#example1 {
+  width: 100% !important;
+}
+
+#productosMov {
+  max-height: 430px;
+  overflow: auto;
+}
+
+.centro {
+  text-align: center;
+}
+
+.derecha {
+  text-align: right;
 }
 
 .titulo {
@@ -24,9 +41,9 @@
   padding: 10px;
 }
 
-.content-wrapper {
+/* .content-wrapper {
   margin-left: 50px;
-}
+} */
 
 .t-right {
   text-align: right;

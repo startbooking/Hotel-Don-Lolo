@@ -892,17 +892,33 @@ function validaMonto(valor, campo) {}
 function cambiaEstadoAmbiente(ambiente, estado) {
   var pagina = $("#ubicacion").val();
   var ruta = $("#rutaweb").val();
-  $.ajax({
-    url: ruta + "res/php/cambiaEstadoAmbiente.php",
-    type: "POST",
-    data: {
-      ambiente: ambiente,
-      estado: estado,
+  swal(
+    {
+      title: "Esta Seguro de Bloquear El Punto de Venta Actual ?",
+      text: "No Podra Realizar Ventas desde este Punto ",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Si Bloquea El Punto de Venta",
+      closeOnConfirm: true,
     },
-    success: function (objeto) {
-      $(location).attr("href", ruta + pagina);
-    },
-  });
+    function () {
+      $.ajax({
+        url: ruta + "res/php/cambiaEstadoAmbiente.php",
+        type: "POST",
+        data: {
+          ambiente: ambiente,
+          estado: estado,
+        },
+        success: function (objeto) {
+          $(location).attr("href", ruta + pagina);
+        },
+      });
+    }
+  );
+
+
+
 }
 
 function guardaFormaPagoPos() {

@@ -23,7 +23,10 @@ $periodo = $inven->mesCerrar();
             <input type="hidden" name="pagina" id="pagina" value="cierreMes">
             <input type="hidden" name="periodo" id="periodo" value="<?php echo $periodo; ?>">
             <input type="hidden" name="contador" id="contador">
-            <h3 class="w3ls_head tituloPagina"> <i class="fa fa-tachometer" style="font-size:36px;color:black" ></i> Cierre Periodo </h3>
+            <h3 class="w3ls_head tituloPagina"> 
+              <!-- <i class="fa fa-tachometer" style="font-size:36px;color:black"></i> -->
+              <i class="fa-solid fa-download fa-2x" style="color:#000"></i>
+             Cierre Periodo </h3>
           </div>
         </div>   
       </div> 

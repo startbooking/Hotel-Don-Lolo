@@ -27,7 +27,7 @@ $salidas = $inven->getSalidasInventarios(2);
       <div class="panel-body">
         <div id="imprimeRegistroHotelero"></div>
         <div class='table-responsive'>
-          <table id="example1" class="table modalTable table-condensed">
+          <table id="example1" class="table modalTable table-condensed" style="width:100%;">
             <thead>
               <tr class="warning">
                 <td>Salida Nro</td>
@@ -49,7 +49,7 @@ $salidas = $inven->getSalidasInventarios(2);
                   <td><?php echo $salida['descripcion_bodega']; ?></td>
                   <td><?php echo $salida['descripcion_tipo']; ?></td>
                   <td><?php echo $salida['descripcion_centro']; ?></td>
-                  <td><?php echo number_format($salida['total'], 2); ?></td>
+                  <td class="derecha"><?php echo number_format($salida['total'], 2); ?></td>
                   <td><span 
                     <?php
                       if ($salida['estado'] == 0) { ?>
@@ -61,7 +61,7 @@ $salidas = $inven->getSalidasInventarios(2);
                       }
                   ?>
                     ><?php echo estadoMovimiento($salida['estado']); ?></span></td>
-                  <td style="display:flex;">
+                  <td class="centro">
                     <button 
                       type             = "button" 
                       class            = "btn btn-xs btn-warning" 

@@ -1,4 +1,4 @@
-<?php 
+|<?php 
 
   require '../../../res/php/app_topHotel.php'; 
 	$idcia    =  $_POST['idcia'];

@@ -21,7 +21,7 @@
             <div class="datos_ajax_delete"></div>
             <div class="row">              
               <div class="container-fluid"> 
-                <table id="example1" class="table table-bordered table-condensed">
+                <table id="example1" class="table table-bordered table-condensed" style="width:100%;">
                   <thead>
                     <tr class="warning">
                       <td>Codigo</td>
@@ -43,8 +43,8 @@
                         <td><?php echo $inven->getDescriptionGrupo($producto['id_grupo']); ?></td>
                         <td><?php echo $inven->getDescriptionSubGrupo($producto['id_subgrupo']); ?></td>
                         <td><?php echo $inven->getDescriptionUnidades($producto['unidad_compra']); ?></td>                       
-                        <td>
-                          <div class="btn-group" style="display:flex;">
+                        <td style="text-align:center;">
+                          <div class="btn-group">
                             <button type="button" 
                               class="btn btn-info btn-xs" 
                               data-toggle="modal" 
