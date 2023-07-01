@@ -29,6 +29,7 @@
                                 <td>Fecha Llegada</td>
                                 <td>Fecha Factura</td>
                                 <td>Estado</td>
+                                <td>Estado DIAN</td>
                                 <td>Accion</td>
                               </tr>
                             </thead>
@@ -52,41 +53,65 @@
                                   <td style="padding:3px 5px"><?php echo $factura['fecha_llegada']; ?></td>
                                   <td style="padding:3px 5px"><?php echo $factura['fecha_factura']; ?></td>
                                   <td style="padding:3px 5px"><?php echo estadoFactura($factura['factura_anulada']); ?></td>
+                                  <td style="padding:3px 5px"><?php echo estadoFacturaDIAN($factura['estadoEnvio']); ?></td>
                                   <td style="padding:3px 5px;width: 20%">
-                                    <button 
-                                        class="btn btn-info btn-xs" 
-                                        onclick="verfactura('<?php echo $numFactura; ?>',<?php echo $factura['perfil_factura']; ?>)" 
-                                        type="button">
-                                        <i class="fa fa-file-pdf-o" aria-hidden="true" title="Ver Factura"></i>
+                                    <button class="btn btn-info btn-xs" 
+                                      type="button"
+                                      data-toggle    ="modal" 
+                                      data-apellidos ="<?= $factura['apellido1'].' '.$factura['apellido2']?>" 
+                                      data-nombres   ="<?= $factura['nombre1'].' '.$factura['nombre2']?>" 
+                                      data-fechafac  ="<?= $factura['fecha_factura']?>" 
+                                      data-numero    ="<?= $factura['factura_numero']?>" 
+                                      data-reserva   ="<?= $factura['numero_reserva']?>" 
+                                      href="#myModalVerFactura"
+                                      title="Ver Factura"
+                                      >
+                                      <i class="fa fa-file-pdf-o" aria-hidden="true" ></i>
+                                    </button>
+                                    <?php 
+                                      if ($factura['factura_anulada'] == 0) {?>
+                                        <a class="btn btn-danger btn-xs" 
+                                          data-toggle    ="modal" 
+                                          data-apellidos ="<?php echo $factura['apellido1'].' '.$factura['apellido2']; ?>" 
+                                          data-nombres   ="<?php echo $factura['nombre1'].' '.$factura['nombre2']; ?>" 
+                                          data-llegada   ="<?php echo $factura['fecha_llegada']; ?>" 
+                                          data-salida    ="<?php echo $factura['fecha_salida']; ?>" 
+                                          data-fechafac  ="<?php echo $factura['fecha_factura']; ?>" 
+                                          data-numero    ="<?php echo $factura['factura_numero']; ?>" 
+                                          data-reserva   ="<?php echo $factura['num_reserva']; ?>" 
+                                          data-perfil    ="<?php echo $factura['perfil_factura']; ?>" 
+                                          data-idperfil  ="<?php echo $factura['id_perfil_factura']; ?>" 
+                                          data-prefijo   ="<?php echo $factura['prefijo_factura']; ?>" 
+                                          href="#myModalAnulaFactura"
+                                          type="button"
+                                          title="Anular Factura"
+                                          >
+                                          <i class="fa fa-window-close" aria-hidden="true" ></i></a>
+                                        <?php
+                                      }
+                                    ?>
+                                      <button 
+                                        class="btn btn-default btn-xs" 
+                                        onclick="descargarAttach('<?php echo $factura['factura_numero']; ?>')"
+                                        type="button"
+                                        title="Descarga ZIP Attached">
+                                        <i class="fa-solid fa-download"></i>
+                                        <!-- <i class="fa fa-file-pdf-o" aria-hidden="true" 
+                                        title="Descargar Attached ">
+                                        </i> -->
                                       </button>
-                                      <?php 
-                                    if ($factura['factura_anulada'] == 0) {?>
-                                          <a class="btn btn-danger btn-xs" 
-                                            data-toggle    ="modal" 
-                                            data-apellidos ="<?php echo $factura['apellido1'].' '.$factura['apellido2']; ?>" 
-                                            data-nombres   ="<?php echo $factura['nombre1'].' '.$factura['nombre2']; ?>" 
-                                            data-llegada   ="<?php echo $factura['fecha_llegada']; ?>" 
-                                            data-salida    ="<?php echo $factura['fecha_salida']; ?>" 
-                                            data-fechafac  ="<?php echo $factura['fecha_factura']; ?>" 
-                                            data-numero    ="<?php echo $factura['factura_numero']; ?>" 
-                                            data-reserva   ="<?php echo $factura['num_reserva']; ?>" 
-                                            data-perfil    ="<?php echo $factura['perfil_factura']; ?>" 
-                                            data-idperfil  ="<?php echo $factura['id_perfil_factura']; ?>" 
-                                            data-prefijo   ="<?php echo $factura['prefijo_factura']; ?>" 
-                                            href="#myModalAnulaFactura"
-                                            type="button"
-                                            title="Anular Factura"
-                                            >
-                                            <i class="fa fa-window-close" aria-hidden="true" ></i></a>
-                                          <?php
-                                    }
-                            ?>
-                                    <button 
+
+
+                                    <!-- <button 
                                       class="btn btn-success btn-xs" 
                                       onclick="verCargosFacturaDia(<?php echo $factura['factura_numero']; ?>,<?php echo $factura['num_reserva']; ?>,<?php echo $factura['perfil_factura']; ?>)" 
                                       type="button"><i 
                                       class="fa fa-file-pdf-o" 
-                                      aria-hidden="true" title="Ver Cargos Detallados Factura"></i></button>
+                                      aria-hidden="true" title="Ver Cargos Detallados Factura"></i></button> -->
+                                      <!-- 
+                                        -->
+                                      
+
                                   </td>
                                 </tr>
                                 <?php
@@ -99,10 +124,10 @@
                       <?php
               }
               ?>                    
-                  <div class="col-lg-12" id="verCargosFactura"></div>
+                  <!-- <div class="col-lg-12" id="verCargosFactura"></div>
                   <div class="col-lg-12" id="Factura">
                     <object id="verFactura" width="100%" height="500" data=""></object> 
-                  </div>
+                  </div> -->
                 </div>               
               </div>
               <div class="panel-footer">
@@ -119,3 +144,6 @@
         </div>
       </section>
     </div>
+<?php 
+  // include_once 'views/modal/modalInformesfacturas.php';
+?>

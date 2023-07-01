@@ -103,6 +103,20 @@ function estadoFactura($estado)
     }
 }
 
+function estadoFacturaDIAN($estado)
+{
+    switch ($estado) {
+        case '0':
+            return '<span style="font-size:12px" class="label label-warning">No Procesada</span>';
+        case '1':
+            return '<span style="font-size:12px" class="label label-success">Emitida</span>';
+        case 'false':
+            return '<span style="font-size:12px" class="label label-warning">No Procesada</span>';
+        case 'true':
+            return '<span style="font-size:12px" class="label label-success">Emitida</span>';
+    }
+}
+
 function tipoCompania($estado)
 {
     switch ($estado) {

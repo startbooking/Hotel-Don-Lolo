@@ -17,12 +17,12 @@
 	$fechanace      = $_POST['fechanaceAdiAco'];
 	$nacion         = $_POST['paicesAdiAco']; 
 	$ciudad         = $_POST['ciudadAdiAco']; 
-	$correo          = $_POST['correoAco']; 
+	$correo         = $_POST['correoAco']; 
 	$usuario        = $_POST['usuario']; 
 	$idusuario      = $_POST['idusuario']; 
 	
 	if($nuevo==1){
-		$creaHues = $hotel->creaHuespedAdicional($apellido1, $apellido2, $nombre1, $nombre2, $identificacion, $tipoiden, $sexo, $fechanace, $nacion, $ciudad, $idusuario, $correo);
+		$creaHues = $hotel->creaHuespedAdicional($apellido1, $apellido2, $nombre1, $nombre2, $identificacion, $tipoiden, $sexo, $fechanace, $nacion, $ciudad, $usuario, $idusuario, $correo);
 		$idhues = $creaHues;
 	}
  

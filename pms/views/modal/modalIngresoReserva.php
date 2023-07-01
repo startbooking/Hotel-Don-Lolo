@@ -13,27 +13,27 @@
           <div class="modal-body">
             <input type="hidden" name="idregis" id="txtIdReserva" value="">
             <div class="form-group">
-              <label class="form-label col-lg-2">Tipo Habitacion</label>
+              <label class="form-label col-lg-2 col-md-2">Tipo Habitacion</label>
               <div class="col-lg-4 col-md-4">
                 <input class="form-control" type="text" name="txtTipoHab" id="txtTipoHab" required>
               </div>
-              <label class="form-label col-lg-2">Numero</label>
-              <div class="col-lg-2 col-md-2">
+              <label class="form-label col-lg-2 col-md-2">Numero</label>
+              <div class="col-lg-2 col-md-2 col-md-2">
                 <input class="form-control" type="text" name='txtNumeroHab' id='txtNumeroHab' required>    
               </div>
             </div>
             <div class="form-group">
-              <label class="form-label col-lg-2">Apellidos</label>
+              <label class="form-label col-lg-2 col-md-2">Apellidos</label>
               <div class="col-lg-4 col-md-4">
                 <input class="form-control" type="text" name="txtApellidos" id='txtApellidos' value='0'>
               </div>
-              <label class="form-label col-lg-2">Nombres</label>
+              <label class="form-label col-lg-2 col-md-2">Nombres</label>
               <div class="col-lg-4 col-md-4">
                 <input class="form-control" type="text" name="txtNombres" id='txtNombres' value='0'>
               </div>
             </div>
             <div class="form-group">
-              <label class="form-label col-lg-2">Fecha Llegada</label>
+              <label class="form-label col-lg-2 col-md-2">Fecha Llegada</label>
               <div class="col-lg-3 col-md-3">
                 <input class="form-control" type="text" name="txtLlegada" id='txtLlegada' value='0'>
               </div>
@@ -41,27 +41,27 @@
               <div class="col-lg-1 col-md-1">
                 <input class="form-control" type="text" name="txtNoches" id="txtNoches" value='0'>
               </div>
-              <label class="form-label col-lg-2">Fecha Salida</label>
+              <label class="form-label col-lg-2 col-md-2">Fecha Salida</label>
               <div class="col-lg-3 col-md-3">
                 <input class="form-control" type="text" name="txtSalida" id='txtSalida' value='1'>
               </div>
             </div>
             <div class="form-group">
-              <label class="form-label col-lg-2">Hombres</label>
-              <div class="col-lg-2 col-md-2">
+              <label class="form-label col-lg-2 col-md-2">Hombres</label>
+              <div class="col-lg-2 col-md-2 col-md-2">
                 <input class="form-control" type="text" name="txtHombres" id='txtHombres' value='0'>
               </div>
-              <label class="form-label col-lg-2">Mujeres</label>
-              <div class="col-lg-2 col-md-2">
+              <label class="form-label col-lg-2 col-md-2">Mujeres</label>
+              <div class="col-lg-2 col-md-2 col-md-2">
                 <input class="form-control" type="text" name="txtMujeres" id='txtMujeres' value='0'>
               </div>
-              <label class="form-label col-lg-2">Niños</label>
-              <div class="col-lg-2 col-md-2">
+              <label class="form-label col-lg-2 col-md-2">Niños</label>
+              <div class="col-lg-2 col-md-2 col-md-2">
                 <input class="form-control" type="text" name="txtNinos" id='txtNinos' value='0'>
               </div>
             </div>
             <div class="form-group" >
-              <label class="form-label col-lg-2" for="">Comentarios</label>
+              <label class="form-label col-lg-2 col-md-2" for="">Comentarios</label>
               <div class="col-lg-10 col-md-10" >
                 <textarea class="form-control" id="areaComentarios" name="areaComentarios" placeholder="Comentarios de la Reserva"></textarea>  
               </div>          

@@ -84,7 +84,16 @@
       </thead>
       <tbody>
         <?php
-        foreach ($facturas as $factura) { ?>
+        $totalFac = 0 ;
+        $totalCon = 0;
+        $totalImp = 0;
+        foreach ($facturas as $factura) { 
+          if($factura['factura_anulada']=='0'){
+            $totalFac = $totalFac + $factura['total_pagos'];
+            $totalCon = $totalCon + $factura['total_consumos'];
+            $totalImp = $totalImp + $factura['total_impuesto'];
+          }
+          ?>
           <tr style='font-size:12px'>
             <td style="padding:3px 5px"><?php echo $factura['factura_numero']; ?></td>
             <?php 
@@ -193,4 +202,21 @@
       <object id="verFactura" width="100%" height="500" data=""></object> 
     </div>
   </div>
+  <div class="row-fluid" style="padding:0">
+  <table id="dataTable" class="table table-bordered">
+    <thead>
+      <tr class="derecha">
+        <td>Total Consumos</td>
+        <td><?php echo number_format($totalCon,2)?></td>
+        <td>Total Impuestos</td>
+        <td><?php echo number_format($totalImp,2)?></td>
+        <td>Total Facturas</td>
+        <td><?php echo number_format($totalFac,2)?></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </thead>
+  </table>
+  </div>
+
 </div>

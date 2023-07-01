@@ -8,9 +8,6 @@
 	
 	$huespedes = $hotel->getBuscarAcompanantesReserva($idres);
 
-	// echo print_r($huespedes);
-
-
 	if(count($huespedes)==0){ ?>
 		<h4 align="center" class="bg-red" style="padding:10px"><span style="font-size:24px;font-weight: 700;font-family: 'ubuntu';">Sin Acompañantes</span></h4>
 	<?php 
@@ -30,11 +27,10 @@
 	        <?php
 		        foreach ($huespedes as $huesped) { ?>
 		          <tr style='font-size:12px'>
-		            <td style="padding: 3px 5px;" align="right"><?php echo $huesped['identificacion']?></td>
+		            <td style="padding: 3px 5px;text-align:left"><?php echo $huesped['identificacion']?></td>
 		            <td style="padding: 3px 5px;"><?php echo $huesped['nombre_completo']; ?></td>
 		            <td style="padding: 3px 5px;"><?php echo sexo($huesped['sexo']); ?></td>
-		            <td style="padding: 3px 5px;" align="center">
-		            	
+		            <td style="padding: 3px 5px;text-align:center;">
 		            	<button 
 		            		onclick="eliminaAcompanante(<?=$huesped['id']?>)" 
 		            		type="button" 

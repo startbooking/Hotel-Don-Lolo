@@ -396,7 +396,7 @@ $(document).ready(function () {
     modal.find(".modal-title").text("Factura Numero : " + numero);
     var factura = "HDL" + numero + ".pdf";
 
-    $("#verFacturaModal").attr(
+    $("#verFacturaModalCon").attr(
       "data",
       web + "imprimir/facturas/FES-" + factura
     );
@@ -755,10 +755,13 @@ $(document).ready(function () {
     var nrohab = button.data("nrohab");
     var idcia = button.data("idcia");
     var idcentro = button.data("idcentro");
+    var turismo = button.data("impto");
+
 
     var modal = $(this);
 
     var parametros = {
+      turismo,
       folio,
       reserva,
       nrohab,
@@ -851,15 +854,18 @@ $(document).ready(function () {
 
   $("#myModalAdicionaAcompanante").on("show.bs.modal", function (event) {
     $("#mensajeEli").html("");
+    // dataTableMmto = document.querySelector('#acompananteReserva');
     let idrese = $("#idreservaAco").val();
     let huespe = $("#idhuespedAco").val();
-    $("#nuevoPax").val(1);
+    FormAcompa = document.querySelector('#acompananteReserva')
+    FormAcompa.reset()
+    /* $("#nuevoPax").val(1);
     $("#identifica").val("");
     $("#tipodoc").val("");
     $("#apellido1").val("");
     $("#apellido2").val("");
     $("#nombre1").val("");
-    $("#nombre2").val("");
+    $("#nombre2").val(""); */
     $("#idReservaAdiAco").val(idrese);
     $("#mensajeEliAco").html("");
     $(".alert").hide();
@@ -899,6 +905,10 @@ $(document).ready(function () {
     var button = $(event.relatedTarget);
     var idres = button.data("id");
     var nombre = button.data("nombre");
+    let pagina = $("#ubicacion").val();
+    console.log(pagina);
+    let btnSle = document.querySelector('.btnSaleAco');
+    btnSle.setAttribute("href",pagina);
     var modal = $(this);
     var parametros = {
       idres,
@@ -1925,8 +1935,8 @@ $(document).ready(function () {
     modal.find(".modal-body #txtIdHuespedINg").val(hues);
     modal.find(".modal-body #txtTipoHabIng").val(tipohab);
     modal.find(".modal-body #txtNumeroHabIng").val(nrohab);
-    modal.find(".modal-body #txtApellidosIng").val(apellido1 + " " + apellido2);
-    modal.find(".modal-body #txtNombresIng").val(nombre1 + " " + nombre1);
+    modal.find(".modal-body #txtHuespedIng").val(nombre);
+    // modal.find(".modal-body #txtNombresIng").val(nombre1 + " " + nombre1);
     modal.find(".modal-body #txtLlegadaIng").val(llegada);
     modal.find(".modal-body #txtSalidaIng").val(salida);
     modal.find(".modal-body #txtNochesIng").val(noches);
@@ -1964,6 +1974,22 @@ $(document).ready(function () {
 
   
 });
+
+function descargarAttach(numero){
+  $.ajax({
+    url: "api/descargarZIP.php",
+    type: "POST",
+    data: {
+      numero,
+    },
+    success: function (data) {
+      $("#perfilFactura").val(data.trim());
+    },
+  });
+
+
+}
+
 
 function traeReservasMmto(){
   mmtoHab = document.querySelector('#roomAdi');
@@ -2020,19 +2046,16 @@ function muestraHabitacionesMmto(mmtos){
     setTimeout(() => {
       divRese.classList.add('apaga');
       limpiaHabitacionesMmto();
-      // alerta.classList.add("oculto");
     }, 5000);
 
   }
 }
-
 
 function limpiaHabitacionesMmto() {
   while (dataTableMmto.firstChild) {
     dataTableMmto.removeChild(dataTableMmto.firstChild);
   }
 }
-
 
 function buscaFacturasExporta() {
   fecha = document.querySelector("#buscarFecha").value;
@@ -4690,7 +4713,6 @@ function salidaHuesped() {
   var abonos = $("#totalPagos").val();
   let perfilFac = 1;
   
-
   var tipofac = $(
     "input[name=habitacionOptionCon]:checked",
     "#guardarPagosRoomSal"
@@ -4802,19 +4824,11 @@ function salidaHuesped() {
       dataType: "json",
       data: parametros,
       success: function (data) {
-        if (perfilFac == 1) {
-          var ventana = window.open(
-            "imprimir/facturas/FES-" + data[0],
-            "PRINT",
-            "height=600,width=600"
-          );
-        } else {
-          var ventana = window.open(
-            "imprimir/notas/" + data[0],
-            "PRINT",
-            "height=600,width=600"
-          );
-        }
+        var ventana = window.open(
+          "imprimir/facturas/FES-" + data[0],
+          "PRINT",
+          "height=600,width=600"
+        );
 
         if (data[1] == "0") {
           setTimeout(function () {
@@ -5859,8 +5873,6 @@ function ingresaDeposito() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
   let { usuario, usuario_id } = user;
-  /* usuario = sesion["usuario"][0]["usuario"];
-  idusuario = sesion["usuario"][0]["usuario_id"]; */
 
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
@@ -5897,8 +5909,6 @@ function subirArchivosCia() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
   let { usuario_id } = user;
-  /* usuario = sesion["usuario"][0]["usuario"];
-  idusuario = sesion["usuario"][0]["usuario_id"]; */
 
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
@@ -5977,7 +5987,6 @@ function imprimirPreRegistro(reserva) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
   let { usuario } = user;
-  // usuario = sesion["usuario"][0]["usuario"];
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var parametros = {
@@ -6343,13 +6352,13 @@ function facturasPorFecha() {
   empresa = $("#desdeEmpresa").val();
   formaPa = $("#desdeFormaPago").val();
   parametros = {
-    desdeFe: desdeFe,
-    hastaFe: hastaFe,
-    desdeNu: desdeNu,
-    hastaNu: hastaNu,
-    huesped: huesped,
-    empresa: empresa,
-    formaPa: formaPa,
+    desdeFe,
+    hastaFe,
+    desdeNu,
+    hastaNu,
+    huesped,
+    empresa,
+    formaPa,
   };
 
   if (
@@ -6672,11 +6681,6 @@ function salidaHuespedCongelada() {
       porceReteica,
       porceRetefuente,
       correofac, 
-      
-      /* 
-      */
-
-
     };
     $.ajax({
       type: "POST",

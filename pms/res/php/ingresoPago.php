@@ -71,7 +71,6 @@ $fechaVen = $fechaFac;
 $diasCre = 0;
 $paganticipo = 0;
 
-// validar campos obligatorios Facturacion
 
 if ($perfilFac == 1 && $facturador == 1) {
     $numfactura = $hotel->getNumeroFactura(); // Numero Actual del Abono
@@ -285,8 +284,6 @@ if ($perfilFac == 1 && $facturador == 1) {
         array_push($eRete, $rica);
     }
 
-    // $eLmon['payable_amount'] = $subtotales[0]['cargos'] + $subtotales[0]['imptos'];
-
     $eFact['customer'] = $eCust;
     $eFact['payment_form'] = $ePago;
     $eFact['legal_monetary_totals'] = $eLmon;
@@ -296,8 +293,6 @@ if ($perfilFac == 1 && $facturador == 1) {
 
     $eFact = json_encode($eFact);
 
-    // echo $eFact;
-    
     include_once '../../api/enviaFactura.php';
     
     $recibeCurl = json_decode($respofact, true);
@@ -377,8 +372,11 @@ if ($totalFolio != 0) {
     }
 } else {
     /* Verificar Saldo en la cuenta de esa habitacion */
+    $estadoReserva = $hotel->estadoReserva($room); 
     $salida = $hotel->updateReservaHuespedSalida($numero, $usuario, $idUsuario, FECHA_PMS);
-    $habSucia = $hotel->updateEstadoHabitacion($room);
+    if($estadoReserva== 'CA'){
+        $habSucia = $hotel->updateEstadoHabitacion($room);
+    }
     array_push($estadofactura, '0');
 }
 

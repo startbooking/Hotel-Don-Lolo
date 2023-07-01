@@ -21,7 +21,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <a href="reservasActivas" class="btn btn-warning"><i class="fa fa-reply" aria-hidden="true"></i> Regresar</a>
+        <a href="reservasActivas" class="btn btn-warning btnSaleAco"><i class="fa fa-reply" aria-hidden="true"></i> Regresar</a>
       </div>
     </div> 
   </div>

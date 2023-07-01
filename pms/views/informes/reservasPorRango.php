@@ -1,9 +1,8 @@
 <?php 
-  $usuario = $_POST['usuario'];
-  $usuario_id = $_POST['usuario_id'];
   $hoy  = FECHA_PMS;
   $ayer = strtotime ( '-1 day' , strtotime ( $hoy ) ) ;
   $ayer = date ('Y-m-d' , $ayer );
+  $inicial = date('Y-m-01', $ayer);
 ?>
 
     <div class="content-wrapper"> 
@@ -12,13 +11,13 @@
           <div class="panel panel-success">
             <div class="panel-heading"> 
               <div class="row">
-                <div class="col-lg-9">
+                <div class="col-lg-9 col-md-">
                   <input type="hidden" name="usuarioActivo" id="usuarioActivo" value="<?=$usuario?>">
                   <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_PMS?>">                  
                   <input type="hidden" name="ubicacion" id="ubicacion" value="informeFacturasRango">
                   <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-industry"></i> Historico de Reservas</h3>
                 </div>
-                <div class="col-md-3">
+                <div class="col-lg-3 col-md-6">
                   <button class="btn btn-success" type="buttom" onclick='reservasPorFecha()'><i class="fa fa-print" aria-hidden="true"></i> Imprimir</button>
                   <button class="btn btn-info" onclick="exportTableToExcel('tablaReserva')"><i class="glyphicon glyphicon-th" aria-hidden="true"></i> Exportar</button> 
                 </div>
@@ -29,7 +28,7 @@
                 <div class="form-group">
                   <label class="control-label col-md-2">Desde Fecha</label>
                   <div class="col-lg-3 col-md-3">
-                    <input class="form-control" type="date" min="1" name="desdeFecha" id='desdeFecha' value='<?=$ayer?>' max="<?=$ayer?>">
+                    <input class="form-control" type="date" min="1" name="desdeFecha" id='desdeFecha' value='<?=$inicial?>' max="<?=$ayer?>">
                   </div>
                   <label class="control-label col-md-2">Hasta Fecha</label>
                   <div class="col-lg-3 col-md-3">

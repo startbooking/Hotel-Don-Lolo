@@ -85,6 +85,7 @@ if ($_GET['section'] != 'cajeroCerrado') {
                 <li><a href="cierreCajero"><i class="glyphicon glyphicon-download-alt"></i>Cierre Cajero</a></li>
               </ul>
             </li>
+            <li><a href="informeFacturasRango"><i class="glyphicon glyphicon-paste"></i>Historico Facturas</a></li>
             <li><a href="cuentasCongeladas"><i class="fa fa-snowflake-o"></i>Cuentas Congeladas</a></li> 
           </ul>
         </li>
@@ -174,6 +175,7 @@ if ($_GET['section'] != 'cajeroCerrado') {
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeHuespedesPorSalir','Salidas Pendientes')"><i class="glyphicon glyphicon-download-alt"></i>Salidas Pendientes</a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeBalanceTotalHuesped','Balance Huespedes')"><i class="fa fa-balance-scale"></i>Balance Huespedes</a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeExtranjerosenCasa','Extranjeros en Casa')"><i class="fa fa-circle-o"></i>Extranjeros en Casa</a></li> 
+                <li><a href="javascript:imprimeInformeAuditoria('imprimeRegistrosHoteleros','Registros Hoteleros')"><i class="fa fa-circle-o"></i>Registros Hoteleros</a></li> 
               </ul>
             </li> 
             <li>
@@ -201,7 +203,7 @@ if ($_GET['section'] != 'cajeroCerrado') {
             <li>
               <a href="#"><i class="fa fa-bed"></i>Ama de LLaves<i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
-              </ul> 
+              </ul>  
             </li>
             <li>
               <a href="#"><i class="fa fa-clone"></i>Historico Movimientos<i class="fa fa-angle-left pull-right"></i></a>

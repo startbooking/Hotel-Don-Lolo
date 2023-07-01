@@ -2,6 +2,7 @@
   $hoy  = FECHA_PMS;
   $ayer = strtotime ( '-1 day' , strtotime ( $hoy ) ) ;
   $ayer = date ('Y-m-d' , $ayer );
+  $inicial = date('Y-m-01', $dia);
 ?>
     <div class="content-wrapper"> 
       <section class="content centrar">
@@ -25,7 +26,7 @@
                 <div class="form-group">
                   <label class="control-label col-md-2">Desde Fecha</label>
                   <div class="col-lg-3 col-md-3">
-                    <input class="form-control" type="date" min="1" name="desdeFecha" id='desdeFecha' value='<?=$ayer ?>' max="<?=$ayer ?>">
+                    <input class="form-control" type="date" min="1" name="desdeFecha" id='desdeFecha' value='<?=$inicial ?>' max="<?=$ayer ?>">
                   </div>
                   <label class="control-label col-md-2">Hasta Fecha</label>
                   <div class="col-lg-3 col-md-3">

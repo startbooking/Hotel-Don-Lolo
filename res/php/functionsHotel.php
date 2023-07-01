@@ -5,6 +5,17 @@ date_default_timezone_set('America/Bogota');
 
 class Hotel_Actions
 {
+    
+    public function estadoReserva($room){
+        global $database;
+        
+        $data = $database->select('reservas_pms',[
+            'estado'
+        ],[
+            'num_habitacion' => $room,
+        ]);
+        return $data[0]['estado'];
+    }
     public function getFacturasCompanias($id){
         global $database;
 
@@ -3275,9 +3286,11 @@ class Hotel_Actions
         global $database;
 
         $data = $database->select('cargos_pms', [
+            '[>]datosFE' => ['factura_numero' => 'facturaNumero'],
             '[>]huespedes' => 'id_huesped',
             '[>]reservas_pms' => ['numero_reserva' => 'num_reserva'],
         ], [
+            'datosFE.estadoEnvio',
             'reservas_pms.fecha_llegada',
             'reservas_pms.fecha_salida',
             'reservas_pms.num_reserva',
@@ -3416,7 +3429,7 @@ class Hotel_Actions
         }
     }
 
-    public function creaHuespedAdicional($apellido1, $apellido2, $nombre1, $nombre2, $identificacion, $tipoiden, $sexo, $fechanace, $nacion, $ciudad, $idusuario, $correo)
+    public function creaHuespedAdicional($apellido1, $apellido2, $nombre1, $nombre2, $identificacion, $tipoiden, $sexo, $fechanace, $nacion, $ciudad, $usuario, $idusuario, $correo)
     {
         global $database;
 
@@ -3432,7 +3445,8 @@ class Hotel_Actions
             'fecha_nacimiento' => $fechanace,
             'pais' => $nacion,
             'ciudad' => $ciudad,
-            'usuario_creador' => $idusuario,
+            'usuario_creador' => $usuario,
+            'id_usuario' => $idusuario,
             'nombre_completo' => $apellido1.' '.$apellido2.' '.$nombre1.' '.$nombre2,
             'email' => $correo,
             'fecha_creacion' => date('Y-m-d H:i:s'),

@@ -153,7 +153,7 @@ include_once 'menus/menu_titulo.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'pagosAnuladosdelDia') {
       require 'views/informes/pagosAnuladosdelDia.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'balanceDiario') {
-      require 'views/informes/balanceDiario.php';
+      require 'views/informes/balanceDiario.php'; 
   } elseif (isset($_GET['section']) && $_GET['section'] == 'balancecuentasCongeladas') {
       require 'views/informes/cuentasCongeladas.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'informeFacturasdelDia') {

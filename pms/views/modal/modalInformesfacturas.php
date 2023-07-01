@@ -20,7 +20,7 @@
             <button type="button" class="btn btn-warning" data-dismiss="modal"><I class="fa fa-reply"></I> Regresar</button>
           </div>
         </div>
-      </div>
+      </div> 
     </div> 
   </form>
 </div>

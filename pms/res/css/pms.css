@@ -207,6 +207,11 @@ a.info span,
   width: 60%;
 }
 
+#myModalVerCargosFactura .modal-body{
+  height: 420px;
+  overflow: auto;
+}
+
 .inner > p {
   text-align: center;
 }
@@ -441,7 +446,7 @@ a.info:hover span {
 }
 
 .escoba {
-  font-size: 7rem;
+  font-size: 5rem;
   position: absolute;
   text-align: center;
   margin: auto;
@@ -458,8 +463,8 @@ a.info:hover span {
 }
 
 .escoba:hover {
-  font-size: 8rem;
-  transition:0.5s;
+  font-size: 6rem;
+  transition:0.3s;
 }
 
 .bg-limpiaVac {
