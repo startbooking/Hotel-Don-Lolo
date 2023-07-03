@@ -1990,6 +1990,154 @@ function descargarAttach(numero){
 
 }
 
+const traeToken = async () => {
+  try {
+    const resultado = await fetch(`res/php/traeToken.php`, {
+      method: "post",
+      headers: {
+        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+    });
+    const datos = await resultado.json();
+    return datos;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+
+const donwloadFile = async (file, identification_number, typeFile, base64 = false) => {  
+  const eToken = await traeToken();
+
+  let { token } = eToken[0];
+
+  if (identification_number !== null) {
+      let fileSystem = null
+      if (typeFile == 'pdf') {
+          fileSystem = file
+      } else if (typeFile == 'xml') {
+          fileSystem = "ZipAttachm-HDL" + file
+      }
+      
+      url = `https://api.nextpyme.plus/api/ubl2.1/download/${identification_number}/${fileSystem}`;
+
+      try {
+          const DataFiles = {
+              url,
+              method: 'get',
+              headers: {
+                  "Content-Type": "application/json",
+                  "Authorization": 'Bearer ' + token,
+                  "Accept": "application/json",
+              },
+              typeResponse: 'blob',
+          }
+
+          console.log(DataFiles)
+
+          const ResponseAPIFiles = await RequestComponent(DataFiles);
+          console.log('Paso API Files');
+          console.log(ResponseAPIFiles);
+          spinner.removeAttribute('hidden');
+          if (ResponseAPIFiles['size'] <= 300) {
+              // spinner.setAttribute('hidden', '');
+              return Notifications(null, 'Error al descargar el archivo', 'Precaucion', true,
+                  'No es posible mostrar los documentos en este momento, por favor intente más tarde!',
+                  false)
+          }
+          // spinner.setAttribute('hidden', '');
+          Notifications(null, 'Archivo descargado con éxito!', 'success', true,
+              'El archivo se abrirá automaticamente!',
+              false)
+          var blob = new Blob([ResponseAPIFiles], {
+              type: ResponseAPIFiles['type'],
+          });
+          var url = URL.createObjectURL(blob);
+          window.open(url);
+      } catch (error) {
+          return Notifications(null, 'Error al descargar el archivo', 'error', true,
+              'No es posible mostrar los documentos en este momento, por favor intente más tarde!',
+              false)
+      }
+  }
+}
+
+const Notifications = (element, title, icon = 'info', isHtml, html, IsReload = null, position = 'center', Isallback = false, callback) => {
+    swal(
+      {
+        title: title,
+        text:html,
+        type: icon,
+        confirmButtonText: "Aceptar",
+        closeOnConfirm: false,
+      },
+      function () {
+        window.location.reload()
+        /* if (resultado.value) {
+          if (IsReload == true) {
+          }
+        } */
+      }
+    );
+};
+
+const RequestComponent = async ({ url, method, bodyRequest, headers, typeResponse, noSession = false }) => {
+
+  console.log({ url, method, bodyRequest, headers, typeResponse, noSession })
+
+  if (noSession !== true) {
+      const csrf = document.querySelector('input[name="_token"]').value;
+      const session = await fetch(masterUrl + '/session', {
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'X-CSRF-TOKEN': csrf
+          },
+          method: 'post'
+      })
+      const { id } = await session.json();
+      if (id == null || id == undefined) {
+          ToastR({ message: 'Â¡Su sesiÃ³n ha vencido. Por favor ingrese nuevamente!', icon: 'error' });
+          setTimeout(function () {
+              window.location.href = '/';
+              return;
+          }, 2000);
+      }
+  }
+  if (url == null || method == null || headers == null) ToastR({ message: 'Â¡La informaciÃ³n enviada es invalida! Complete los datos!', icon: 'error' });
+  try {
+      spinner.removeAttribute('hidden');
+      FullOptionsRequest = null
+      const optionsRequest = {
+          method: method,
+          credentials: "same-origin",
+          contentType: "application/json; charset=UTF-8",
+          headers: headers,
+      }
+      if (method == 'POST' || method == 'PUT') {
+          FullOptionsRequest = Object.assign(optionsRequest, {
+              body: bodyRequest
+          })
+      } else {
+          FullOptionsRequest = optionsRequest
+      }
+      const RequestComponent = await fetch(url, FullOptionsRequest)
+      ToastR({ message: 'Procesando, por favor espere..!', icon: 'info' })
+      spinner.setAttribute('hidden', '');
+      if (RequestComponent.status == 401) return ToastR({ message: 'Â¡El usuario no se encuentra registrado en la API o el Token es incorrecto..!', icon: 'info' });
+      // ToastR({ message:' 'Â¡Procesando, por favor espere..!', icon: 'info' });        
+      let ResponseComponent = null
+      if (typeResponse == 'json') return ResponseComponent = await RequestComponent.json()
+      if (typeResponse == 'text') return ResponseComponent = await RequestComponent.text()
+      if (typeResponse == 'blob') return ResponseComponent = await RequestComponent.blob()
+      return ResponseComponent.json()
+  } catch (error) {
+      spinner.setAttribute('hidden', '');
+      return ToastR({ message: 'Â¡Se ha producido un error en la peticiÃ³n! Intente nuevamente..!', icon: 'info' });
+  }
+}
+
 
 function traeReservasMmto(){
   mmtoHab = document.querySelector('#roomAdi');
@@ -4426,11 +4574,11 @@ function seleccionaTarifasUpd() {
   });
 }
 
-function seleccionaHabitacionUpd(actual, anterior, numero) {
+function seleccionaHabitacionUpd(tipo, anterior, numero) {
   var parametros = {
-    tipo: actual,
-    anterior: anterior,
-    numero: numero,
+    tipo,
+    anterior,
+    numero,
   };
   $.ajax({
     type: "POST",
@@ -5487,7 +5635,7 @@ function seleccionaHabitacion() {
     llega,
     sale,
     tipo,
-  };
+  }; 
   $.ajax({
     type: "POST",
     url: "res/php/seleccionaTipoHabitacion.php",

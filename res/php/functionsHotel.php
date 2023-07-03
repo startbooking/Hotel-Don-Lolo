@@ -7276,7 +7276,7 @@ class Hotel_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT numero_hab as num_habitacion FROM habitaciones WHERE id_tipohabitacion = '$tipo' AND active_at = 1 AND mantenimiento = 0 AND sucia = 0 AND ocupada = 0 ORDER BY numero_hab")->fetchAll();
+        $data = $database->query("SELECT numero_hab as num_habitacion FROM habitaciones WHERE id_tipohabitacion = '$tipo' AND active_at = 1 AND mantenimiento = 0 ORDER BY numero_hab")->fetchAll();
 
         return $data;
     }

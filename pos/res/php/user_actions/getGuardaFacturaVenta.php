@@ -80,6 +80,7 @@
 
     $subtotal = 0;
     $impuesto = 0;
+    $total = 0;
     foreach ($ventasdia as $ventadia) {
         $idpr = $ventadia['producto_id'];
         $inom = $ventadia['nom'];
@@ -93,6 +94,7 @@
         $valimp = $ventadia['valorimpto'];
         $subtotal = $subtotal + $iven;
         $impuesto = $impuesto + $valimp;
+        $total = $ventadia['importe'] + $total;
 
         $factura = $pos->insertProductoVentas($iamb, $inom, $iven, $ican, $iimp, $idpr, $vimp, $valimp, $nFactura, $usuario, $comanda, $vdes, $vpor, $pms);
     }
@@ -111,6 +113,9 @@
         $nrohabi = $datosCliente[0]['num_habitacion'];
         $idhues = $datosCliente[0]['id_huesped'];
         $nrores = $datosCliente[0]['num_reserva'];
+        
+        
+
         $cargoPMS = $pos->cargosInterfasePOS($fechapos, $subtotal, $impuesto, $codigoVen, $nrohabi, $descargo, $impcargo, $idhues, $prefijo.'_'.$nFactura, $nrores, $comanda, $usuario, $idusuario);
 
         if ($propina != 0) {

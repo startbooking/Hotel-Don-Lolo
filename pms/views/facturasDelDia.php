@@ -1,3 +1,4 @@
+  
     <div class="content-wrapper"> 
       <section class="content" style="height: 780px;">
         <div class="content" style="margin-bottom: 50px">
@@ -92,7 +93,7 @@
                                     ?>
                                       <button 
                                         class="btn btn-default btn-xs" 
-                                        onclick="descargarAttach('<?php echo $factura['factura_numero']; ?>')"
+                                        onclick="donwloadFile('<?php echo $factura['factura_numero']; ?>.xml','<?php echo NIT ?>','xml','false');"
                                         type="button"
                                         title="Descarga ZIP Attached">
                                         <i class="fa-solid fa-download"></i>

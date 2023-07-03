@@ -3911,7 +3911,7 @@ class Pos_Actions
 
             return $database->id();
         }
-
+ 
         public function getProductosVentaComanda($comanda, $ambiente)
         {
             global $database;
