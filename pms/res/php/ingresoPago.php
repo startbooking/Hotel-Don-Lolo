@@ -297,31 +297,44 @@ if ($perfilFac == 1 && $facturador == 1) {
     
     $recibeCurl = json_decode($respofact, true);
 
-    $Isvalid = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['IsValid'];
+    $errorMessage = json_encode($recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['ErrorMessage']);
+    $Isvalid      = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['IsValid'];
+    $statusCode   = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['StatusCode'];
+    $statusDesc   = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['StatusDescription'];
+    $statusMess   = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['StatusMessage'];
 
-    $message = $recibeCurl['message'];
+    // $message = $recibeCurl['message'];
+    $message = '';
     $sendSucc = $recibeCurl['send_email_success'];
     $sendDate = $recibeCurl['send_email_date_time'];
 
-    $invoicexml = $recibeCurl['invoicexml'];
-    $zipinvoicexml = $recibeCurl['zipinvoicexml'];
-    $unsignedinvoicexml = $recibeCurl['unsignedinvoicexml'];
-    $reqfe = $recibeCurl['reqfe'];
-    $rptafe = $recibeCurl['rptafe'];
-    $attacheddocument = $recibeCurl['attacheddocument'];
+    // $invoicexml = $recibeCurl['invoicexml'];
+    $invoicexml = '';
+    // $zipinvoicexml = $recibeCurl['zipinvoicexml'];
+    $zipinvoicexml = '';
+    // $unsignedinvoicexml = $recibeCurl['unsignedinvoicexml'];
+    $unsignedinvoicexml = '';
+    // $reqfe = $recibeCurl['reqfe'];
+    $reqfe = '';
+    // $rptafe = $recibeCurl['rptafe'];
+    $rptafe = '';
+    // $attacheddocument = $recibeCurl['attacheddocument'];
+    $attacheddocument = '';
     $urlinvoicexml = $recibeCurl['urlinvoicexml'];
     $urlinvoicepdf = $recibeCurl['urlinvoicepdf'];
     $cufe = $recibeCurl['cufe'];
     $QRStr = $recibeCurl['QRStr'];
-    $respo = $recibeCurl['ResponseDian'];
+    $timeCrea   = $recibeCurl['ResponseDian']['Envelope']['Header']['Security']['Timestamp']['Created'];
 
+/* 
+    $respo = $recibeCurl['ResponseDian'];
     $envelo = $respo['Envelope'];
     $head = $envelo['Header'];
-    $secu = $head['Security'];
+    $secu = $head['Security']; 
     $time = $secu['Timestamp'];
-    $timeCrea = $time['Created'];
+    $timeCrea = $time['Created']; */
 
-    $regis = $hotel->ingresaDatosFe($nroFactura, $prefijo, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cufe, $QRStr, $respofact, $Isvalid, $eFact);
+    $regis = $hotel->ingresaDatosFe($nroFactura, $prefijo, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cufe, $QRStr, $respofact, $Isvalid, $eFact, $errorMessage, $statusCode, $statusDesc, $statusMess);
 
     include_once '../../imprimir/imprimeFactura.php';
 

@@ -124,7 +124,7 @@ class Hotel_Actions
         return $data;
     }
 
-    public function ingresaDatosFe($nroFactura, $prefijo, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cufe, $QRStr, $recibeCurl, $Isvalid, $eFact)
+    public function ingresaDatosFe($nroFactura, $prefijo, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cufe, $QRStr, $recibeCurl, $Isvalid, $eFact, $errorMessage, $statusCode, $statusDesc, $statusMess)
     {
         global $database;
 
@@ -149,6 +149,10 @@ class Hotel_Actions
             'recibeCurl' => $recibeCurl,
             'estadoEnvio' => $Isvalid,
             'jsonEnviado' => $eFact,
+            'errorMessage' =>  $errorMessage,
+            'statusCode' =>  $statusCode,
+            'statusDesc' =>  $statusDesc,
+            'statusMess' =>  $statusMess,
         ]);
 
         return $database->id();
