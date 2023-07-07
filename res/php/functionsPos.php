@@ -5,6 +5,31 @@ date_default_timezone_set('America/Bogota');
 
 class Pos_Actions
 {
+    public function traeProductosVentaTotal($comanda, $ambiente){
+      global $database;
+
+      $data = $database->query("SELECT
+      nom,
+      venta,
+      cant,
+      importe,
+      impto,
+      valorimpto,
+      sum(importe * cant) as total,
+      sum(round((importe * cant ) / (1+(impto /100)),0)) as baseimpto,
+      sum(round((importe * cant ) / (1+(impto /100)),0) * round((impto /100),0)) as valimpto 
+    FROM
+      ventas_dia_pos 
+    WHERE
+      ambiente = $ambiente AND 
+      comanda = $comanda
+    GROUP BY
+        impto,
+        comanda 
+    ORDER BY
+        comanda")->fetchAll();
+        return $data;
+    }
     public function getTotalProductosVendidosMes($amb, $desdefe, $hastafe)
     {
         global $database;
@@ -680,7 +705,7 @@ class Pos_Actions
             return $data;
         }
 
-        public function devolucionParcialProducto($comanda, $devol, $saldo, $idprod, $valventa, $motivo, $user, $idamb, $fecha, $estado)
+        public function devolucionParcialProducto($comanda, $devol, $saldo, $idprod, $valventa, $montoimpto, $motivo, $user, $idamb, $fecha, $estado)
         {
             global $database;
 
@@ -692,6 +717,7 @@ class Pos_Actions
                 'cantidad_devo' => $devol,
                 'cant' => $saldo,
                 'venta' => $valventa,
+                'valorimpto' => $montoimpto,
             ], [
                 'ambiente' => $idamb,
                 'comanda' => $comanda,
@@ -838,9 +864,11 @@ class Pos_Actions
                 'ventas_dia_pos.motivo_devo',
                 'ventas_dia_pos.usuario_devo',
                 'ventas_dia_pos.fecha_devo',
+                'ventas_dia_pos.cantidad_devo',
+                'ventas_dia_pos.estado',
             ], [
                 'comandas.ambiente' => $ambi,
-                'ventas_dia_pos.estado' => 1,
+                'ventas_dia_pos.cantidad_devo[>=]' => 1,
                 'ORDER' => [
                     'comandas.comanda' => 'ASC',
                     'ventas_dia_pos.nom' => 'ASC',
@@ -907,10 +935,11 @@ class Pos_Actions
                 'ventas_dia_pos.cant',
                 'ventas_dia_pos.motivo_devo',
                 'ventas_dia_pos.usuario_devo',
+                'ventas_dia_pos.cantidad_devo',
                 'ventas_dia_pos.fecha_devo',
             ], [
                 'comandas.ambiente' => $ambi,
-                'ventas_dia_pos.estado' => 1,
+                'ventas_dia_pos.cantidad_devo[>=]' => 1,
                 'ORDER' => [
                     'comandas.comanda' => 'ASC',
                     'ventas_dia_pos.nom' => 'ASC',
@@ -3658,7 +3687,6 @@ class Pos_Actions
                 'formas_pago.descripcion',
             ], [
                 'facturas_pos.ambiente' => $amb,
-                // 'facturas_pos.estado' => 'A',
                 'ORDER' => [
                     'facturas_pos.pms' => 'ASC',
                     'facturas_pos.factura' => 'ASC',
@@ -4270,7 +4298,6 @@ class Pos_Actions
                 'usuario',
                 'factura',
                 'propina',
-                'valor_descuento',
                 'subtotal',
                 'impuesto',
                 'total',

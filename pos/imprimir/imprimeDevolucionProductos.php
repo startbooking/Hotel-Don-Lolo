@@ -35,7 +35,7 @@ if (count($productos) == 0) {
     foreach ($productos as $comanda) {
         $pdf->Cell(20, 5, $comanda['comanda'], 0, 0, 'R');
         $pdf->Cell(60, 5, utf8_decode($comanda['nom']), 0, 0, 'L');
-        $pdf->Cell(20, 5, $comanda['cant'], 0, 0, 'C');
+        $pdf->Cell(20, 5, $comanda['cantidad_devo'], 0, 0, 'C');
         $pdf->Cell(70, 5, utf8_decode($comanda['motivo_devo']), 0, 0, 'L');
         $pdf->Cell(25, 5, $comanda['usuario_devo'], 0, 1, 'L');
     }

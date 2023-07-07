@@ -44,7 +44,6 @@ $nombres = $_POST['nombres'];
       $pdf->Cell(25,6,number_format($reserva['valor_diario'],2),0,1,'R'); 
     }    
   }
-  // $file = '../../imprimir/auditorias/Extranjeros_llegando_'.FECHA_PMS.'.pdf';
 
 
   $fileOut = '../imprimir/informes/'.$file.'.pdf';
@@ -52,5 +51,5 @@ $nombres = $_POST['nombres'];
   echo $file.'.pdf';
   
 
-  $pdf->Output($file,'F');
+  // $pdf->Output($file,'F');
 ?>

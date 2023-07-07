@@ -18,13 +18,21 @@
   $total = 0;
 
   foreach ($productos as $comandaventa) {
-      $subt = round($comandaventa['venta'], 0);
-      $impt = $comandaventa['valorimpto'];
-      $ingresa = $pos->ingresoProductosComanda($amb, $usu, $comandaventa['producto'], $subt, $comandaventa['cant'], $comandaventa['importe'], $comandaventa['codigo'], $nrocomanda, $comandaventa['impto'], $impt);
-      $subtotal = $subtotal + $subt;
-      $imptos = $imptos + $impt;
-      $total = $total + ($subt + $impt);
+    $subt = round($comandaventa['venta'], 0);
+    $impt = $comandaventa['valorimpto'];
+    $ingresa = $pos->ingresoProductosComanda($amb, $usu, $comandaventa['producto'], $subt, $comandaventa['cant'], $comandaventa['importe'], $comandaventa['codigo'], $nrocomanda, $comandaventa['impto'], $impt);
+    /* $subtotal = $subtotal + $subt;
+    $imptos = $imptos + $impt;
+    $total = $total + ($subt + $impt); */
   }
+
+
+  $valComma = $pos->traeProductosVentaTotal($nrocomanda, $amb);
+
+  print_r($valComma);
+  $subtotal = $valComma[0]['baseimpto'];
+  $imptos = $valComma[0]['valimpto'];
+  $total = $valComma[0]['total'];
 
   $nuevacomanda = $pos->ingresoNuevaComanda($nrocomanda, $amb, $mesa, $pax, $usu, $fecha, 'A', $cliente);
   $actMesa = $pos->actualizaEstadoMesa($mesa, $amb, 'O');

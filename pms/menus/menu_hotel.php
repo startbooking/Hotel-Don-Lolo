@@ -52,18 +52,6 @@ if ($_GET['section'] != 'cajeroCerrado') {
         <li class="treeview">
           <a href="#">
             <i class="glyphicon glyphicon-edit"></i> 
-            <span>Cartera</span> 
-            <span class="fa fa-angle-left pull-right"></span>
-          </a>
-          <ul class="treeview-menu"> 
-            <li><a href="carteraClientes"><i class="fa-solid fa-money-bill-1-wave"></i></i> Cartera Compañias</a></li>
-            <li><a href="recaudosCartera"><i class='glyphicon glyphicon-briefcase'></i> Recaudos Cartera</a>
-          </li> 
-          </ul>
-        </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="glyphicon glyphicon-edit"></i> 
             <span>Facturacion</span> 
             <span class="fa fa-angle-left pull-right"></span>
           </a>
@@ -89,6 +77,19 @@ if ($_GET['section'] != 'cajeroCerrado') {
             <li><a href="cuentasCongeladas"><i class="fa fa-snowflake-o"></i>Cuentas Congeladas</a></li> 
           </ul>
         </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="glyphicon glyphicon-edit"></i> 
+            <span>Cartera</span> 
+            <span class="fa fa-angle-left pull-right"></span>
+          </a>
+          <ul class="treeview-menu"> 
+            <li><a href="carteraClientes"><i class="fa-solid fa-money-bill-1-wave"></i></i> Cartera Compañias</a></li>
+            <li><a href="recaudosCartera"><i class='glyphicon glyphicon-briefcase'></i> Recaudos Cartera</a>
+          </li> 
+          </ul>
+        </li>
+        
         <li class="treeview">
           <a href="#">
             <i class="fa fa-th"></i> 

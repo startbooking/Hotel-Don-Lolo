@@ -834,21 +834,19 @@ function guardaFactura() {
   let { usuario, usuario_id } = user;
   let { id_ambiente } = oPos[0];
 
-  user = usuario;
-  iduser = usuario_id;
   idamb = id_ambiente;
 
   var parametros = $("#pagarCuenta").serializeArray();
 
-  parametros.push({ name: "usuario", value: user });
-  parametros.push({ name: "idusuario", value: iduser });
+  parametros.push({ name: "usuario", value: usuario });
+  parametros.push({ name: "idusuario", value: usuario_id });
 
   var pago = parseFloat($("#montopago").val().replace(",", ""));
   var tota = parseFloat($("#total").val().replace(",", ""));
   var coman = $("#numeroComanda").val();
   $("#comandaPag").val(coman);
 
-  $.ajax({
+  $.ajax({ 
     type: "POST",
     data: parametros,
     url: "res/php/user_actions/getGuardaFacturaVenta.php",
@@ -857,7 +855,7 @@ function guardaFactura() {
     },
     success: function (datos) {
       if (datos == 0) {
-        swal(
+        swal( 
           "Precaucion",
           "Sin Productos Asignados a esta cuenta 3",
           "warning"
@@ -968,7 +966,7 @@ function guardarCuentaRecuperada() {
   });
 }
 
-function guardarCuenta() {
+function guardarCuentaOld() {
   var productos = JSON.parse(localStorage.getItem("productoComanda"));
   if (productos == null) {
     swal(
@@ -982,7 +980,7 @@ function guardarCuenta() {
       },
       function () {
         // ACA
-        $("#myModalClienteComanda").modal("hide");
+        // $("#myModalClienteComanda").modal("hide");
       }
     );
     return;
@@ -991,9 +989,9 @@ function guardarCuenta() {
   $("#myModalClienteComanda").modal("show");
 }
 
-function guardaClienteComanda() {
+// function guardaClienteComanda() {
+  function guardarCuenta() {
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  // let { pos } = sesion;
   let { id_ambiente } = oPos[0];
 
   var productos = JSON.parse(localStorage.getItem("productoComanda"));
@@ -1007,19 +1005,14 @@ function guardaClienteComanda() {
         confirmButtonColor: "#DD6B55",
         closeOnConfirm: true,
       },
-      function () {
-        $("#myModalClienteComanda").modal("hide");
-      }
     );
     return;
   }
 
-  $("#myModalClienteComanda").modal("hide");
-  $("#btnGuardarComanda").attr("disabled", "disabled");
   var regis = $("#cantProd").html();
   var pax = $("#numPax").val();
   var mesa = $("#nromesas").val();
-  var cliente = $("#nombreCliente").val();
+  var cliente = '';
   guardarProductos();
   setTimeout(function () {
     imprime = imprimeComandaVen();

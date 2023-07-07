@@ -43,7 +43,7 @@ $pdf->Cell(20, 5, '% Valor. ', 1, 1, 'C');
 $pdf->SetFont('Arial', '', 9);
 if (count($ventas) == 0) {
     $pdf->SetFont('Arial', 'B', 9);
-    $pdf->Cell(200, 5, 'SIN PRODUCTOS VENDIcanProdDOS EN EL DIA', 1, 1, 'C');
+    $pdf->Cell(200, 5, 'SIN PRODUCTOS VENDIDOS EN EL DIA', 1, 1, 'C');
 } else {
     foreach ($ventas as $comanda) {
         $pdf->Cell(60, 5, substr(utf8_decode($comanda['nom']), 0, 32), 0, 0, 'L');

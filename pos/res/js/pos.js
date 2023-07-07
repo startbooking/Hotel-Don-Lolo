@@ -1678,7 +1678,7 @@ function devolverProducto() {
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
   let { pos, user } = sesion;
-  let { fecha_auditoria } = oPos[0];
+  let { fecha_auditoria, impuesto } = oPos[0];
   let { usuario } = user;
 
   user = usuario;
@@ -1695,6 +1695,7 @@ function devolverProducto() {
     motivo,
     fecha,
     user,
+    impuesto
   };
 
   $.ajax({
@@ -1829,23 +1830,34 @@ function resumenComanda() {
   var propina = 0;
   var abonos = 0;
   var totalCuenta = 0;
+  var totalCta = 0;
 
   // abonos = $("#abonosComanda").val();
+
+  // console.log(listaComanda)
 
   for (i = 0; i < listaComanda.length; i++) {
     canti += canti;
     impuesto = impuesto + parseFloat(listaComanda[i]["valorimpto"]);
+
     venta = venta + parseFloat(listaComanda[i]["venta"]);
     totalCuenta = venta + impuesto;
+    totalCta = totalCta + (parseFloat(listaComanda[i]["importe"]) * parseFloat(listaComanda[i]["cant"]))
   }
 
+
+  /* const totalComa = listaComanda.reduce((valorAnterior, valorActual) => {
+    return valorAnterior + valorActual;
+  }, 0);
+ */
+
   let miBoton = "comanda" + $("#numeroComanda").val();
-  $("#totalComanda").val(totalCuenta);
-  $("#totalVta").html(number_format(venta, 2));
-  $("#totalDesc").html(number_format(descuento, 2));
-  $("#totalAbonos").html(number_format(abonos, 2));
-  $("#totalCuenta").html(number_format(totalCuenta, 2));
-  $("#valorImpto").html(number_format(impuesto, 2));
+  $("#totalComanda").val(totalCta);
+  // $("#totalVta").html(number_format(venta, 2));
+  /* $("#totalDesc").html(number_format(descuento, 2));
+  $("#totalAbonos").html(number_format(abonos, 2)); */
+  $("#totalCuenta").html(number_format(totalCta, 2));
+  // $("#valorImpto").html(number_format(impuesto, 2));
   $("#cantProd").val(canti);
 
   $("#" + miBoton).attr("subtotal", venta);
@@ -2954,7 +2966,7 @@ function recuperarCuenta() {
   $("#recuperaCuenta").css("display", "none");
   $(".btnActivo").css("display", "none");
   $("#regresarComanda").css("margin-top", "418px");
-  $("#productosComanda").css("height", "428px");
+  $("#productosComanda").css("height", "488px");
 
   $("#seccionList").css("display", "block");
   // $("#seccionList").css("margin-top", "5px");
@@ -3278,7 +3290,7 @@ function ventasProducto() {
     id: id_ambiente,
     amb: nombre,
     user: usuario,
-    iduser: usuario_id,
+    iduser: usuario_id, 
     impto: impuesto,
     prop: propina,
     fecha: fecha_auditoria,
@@ -3961,7 +3973,7 @@ function cuentasActivas() {
     success: function (data) {
       $("#pantalla").html(data);
       $(".prende").css("display", "none");
-      $("#productosComanda").css("height", alto - 334);
+      $("#productosComanda").css("height", alto - 275);
       $("#imprimeComanda").css("margin-top", "31px");
     },
   });
@@ -3982,7 +3994,7 @@ function muestraTouch() {
   parametros = {
     id: id_ambiente,
     amb: nombre,
-    user: usuario,
+    user: usuario, 
     impto: impuesto,
     prop: propina,
     prefijo,
@@ -4010,7 +4022,7 @@ function muestraTouch() {
       getSecciones();
       $("#pantalla").html("");
       $("#pantalla").html(data);
-      $("#productosComanda").css("height", alto - 320);
+      $("#productosComanda").css("height", alto - 290);
     },
   });
 }
@@ -4537,7 +4549,9 @@ async function cierreDiario() {
         closeOnConfirm: false,
       },
       function () {
-        cierraSesion();
+        localStorage.removeItem("oPos");
+        $(location).attr("href", "inicio.php");
+        // cierraSesion();
       }
     );
   }
@@ -4629,10 +4643,10 @@ function guardaCliente() {
     parametros.push({ name: "empleado", value: empleado });
   }
 
-  console.log(empleado);
+/*   console.log(empleado);
 
   console.log(parametros);
-
+ */
   $.ajax({
     url: "res/php/user_actions/guardarCliente.php",
     type: "POST",
@@ -4703,7 +4717,6 @@ function getVentasDia(idamb) {
 
 function getAmbientes() {
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  // let { pos } = sesion;
   let { id_ambiente } = oPos[0];
 
   var parametros = {
@@ -4883,7 +4896,6 @@ function productosActivos() {
           <button
             type="button"
             id="${i}"
-
             onclick="botonDevolverProducto('${numero}','${
             listaComanda[i]["codigo"]
           }','${listaComanda[i]["ambiente"]}','${listaComanda[i]["cant"]}','${
@@ -4891,8 +4903,9 @@ function productosActivos() {
           }','${listaComanda[i]["id"]}','${listaComanda[i]["importe"]}','${
             listaComanda[i]["impto"]
           }',this.id, this.parentNode.parentNode.parentNode.rowIndex)"
-            class="fa fa-share btn btn-danger btn-xs btnDevuelve"
+            class="btn btn-danger btn-xs btnDevuelve"
             title="Devolver Producto Uno">
+            <i class="fa-solid fa-reply"></i>
           </button>
           </td>
         </tr>`
@@ -4907,10 +4920,7 @@ function productosActivos() {
             `<tr>
               <td>${listaComanda[i]["producto"]}</td>
               <td>${listaComanda[i]["cant"]}</td>
-              <td class="t-right">${number_format(
-                listaComanda[i]["total"],
-                2
-              )}</td>
+              <td class="t-right">${number_format(listaComanda[i]["total"],2)}</td>
               <td class="t-center">
                 <button
                   type="button"
@@ -4922,9 +4932,10 @@ function productosActivos() {
             }','${listaComanda[i]["id"]}','${listaComanda[i]["importe"]}','${
               listaComanda[i]["impto"]
             }',this.id, this.parentNode.parentNode.parentNode.rowIndex)"
-                  class="fa fa-share btn btn-danger btn-xs"
+                  class="btn btn-danger btn-xs"
                   title="Devolver Producto Dos">
                 </button>
+                <i class="fa-solid fa-reply"></i>
               </td>
           </tr>`
           );
@@ -5009,7 +5020,7 @@ function getVentas(nom, val, idp, imp, ambi) {
     if (imptoInc == 0) {
       imp = 0;
     }
-    subt = (val * 1) / (1 + imp / 100);
+    subt = (val * 1) / (1 + (imp / 100));
     subt = Math.round(subt);
     impuesto = val * 1 - subt;
 
@@ -5025,6 +5036,7 @@ function getVentas(nom, val, idp, imp, ambi) {
       valorimpto: impuesto,
       ambiente: ambi,
       activo: 0,
+      importeTot: val * 1,
     };
     listaComanda.push(dataProd);
   }
@@ -5330,7 +5342,6 @@ function getCuentasActivas(idamb) {
 
         $("#" + miBoton).attr("subtotal", x[i]["subtotal"]);
         $("#" + miBoton).attr("impto", x[i]["impuesto"]);
-        $("#" + miBoton).attr("descuento", x[i]["valor_descuento"]);
         $("#" + miBoton).attr("propina", x[i]["propina"]);
         $("#" + miBoton).attr("abonos", x[i]["abonos"]);
         $("#" + miBoton).attr("total", x[i]["total"]);
@@ -5422,7 +5433,7 @@ function getComandas(comanda, numero) {
   };
   $("#numeroComanda").val(numero);
   $("#abonosComanda").val(abonos);
-  $("#descuentosComanda").val(descuento);
+  $("#descuentosComanda").val(0);
   $("#nromesa").val(mesa);
   $("#canpax").val(pax);
 
@@ -5454,6 +5465,7 @@ function getComandas(comanda, numero) {
           valorimpto: parseInt(data[i]["valorimpto"]),
           ambiente: parseInt(id_ambiente),
           activo: 1,
+          importeTot: parseInt(data[i]["importe"])*parseInt(data[i]["cant"]),
         };
         listaComanda.push(dataProd);
         localStorage.setItem("productoComanda", JSON.stringify(listaComanda));

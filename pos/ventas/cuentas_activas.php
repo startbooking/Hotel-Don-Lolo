@@ -39,7 +39,7 @@
   </div>
   <div class="row-fluid">
     <div class="col-lg-6 col-md-6 col-xs-12 tablas" id="divideComanda" style="display:none">
-      <div id='productosDivide' class="row-fluid" style="">
+      <div id='productosDivide' class="row-fluid">
         <input type="hidden" id="nroComandaDiv">
         <table class="table table-hover comandaDiv">
           <thead>
@@ -57,17 +57,17 @@
       <div class="row-fluid" id="valoresDiv" style='margin-top:0px;background-color: #B9E3E4B3'>
         <table class="table table-responsive estadoComandaDiv" style="margin-bottom: 0px;font-size:14px;font-weight:bold;">
           <tbody>
-            <tr style="text-align:right">
+            <!-- <tr style="text-align:right">
               <td>Valor Cuenta</td>
               <td id="totalVtaDiv"><?php echo '$ '.number_format(0 + 0 - 0, 2, ',', '.'); ?>
               <td>Impuesto</td>
               <td id="valorImptoDiv"><?php echo '$ '.number_format(0, 2); ?></td>
               </td>
-            </tr>
-              <tr style="text-align:right">
-              <td>Descuento</td>
+            </tr> -->
+            <tr style="text-align:right">
+              <!-- <td>Descuento</td>
               <td id="totalDescDiv"><?php echo '$ '.number_format(0 + 0 - 0, 2, ',', '.'); ?>
-              </td>
+              </td> -->
               <!-- <td>Abonos</td>
               <td id="totalAbonosDiv"><?php echo '$ '.number_format(0 + 0 - 0, 2, ',', '.'); ?>
               </td>
@@ -118,17 +118,17 @@
         <div class="row-fluid" id="valores" style='margin-top:0px;background-color: #B9E3E4B3'>
           <table class="table table-responsive estadoComanda" style="margin-bottom: 0px;font-size:14px">
             <tbody>
-              <tr style="text-align:right">
+              <!-- <tr style="text-align:right">
                 <td>Valor Cuenta</td>
                 <td id="totalVta"><?php echo '$ '.number_format(0 + 0 - 0, 2, ',', '.'); ?>
                 <td>Impuesto</td>
                 <td id="valorImpto"><?php echo '$ '.number_format(0, 2); ?></td>
                 </td>
-              </tr>
+              </tr> -->
               <tr style="text-align:right">
-                <td>Descuento</td>
+                <!-- <td>Descuento</td>
                 <td id="totalDesc"><?php echo '$ '.number_format(0 + 0 - 0, 2, ',', '.'); ?>
-                </td>
+                </td> -->
                 <!-- <td>Abonos</td>
                 <td id="totalAbonos"><?php echo '$ '.number_format(0 + 0 - 0, 2, ',', '.'); ?>
                 </td>
@@ -136,7 +136,7 @@
               <tr style="text-align:right">
                 <td></td>
                 <td></td> -->
-                <td>Total a Pagar</td>
+                <td>Total Cuenta</td>
                 <td id="totalCuenta"><?php echo '$ '.number_format(0 + 0 - 0, 2, ',', '.'); ?>
                 </td>
               </tr>

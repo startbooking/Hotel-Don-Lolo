@@ -25,7 +25,7 @@ define('CTA_DEPOSITO', $datosHotel[0]['cuenta_depositos']);
 define('CTA_CARGOS_PERD', $datosHotel[0]['cuenta_cargos_perdidos']);
 define('CTA_CARTERA', $datosHotel[0]['cuenta_cartera']);
 define('NAME_HOTEL', $datosHotel[0]['nombre_hotel']);
-define('NIT_HOTEL', $datosHotel[0]['nit_hotel'].'-'.$datosHotel[0]['dv']);
+define('NIT_HOTEL', $datosHotel[0]['nit_hotel'].'-'.$datosHotel[0]['dv_hotel']);
 define('MAIL_HOTEL', $datosHotel[0]['email']);
 define('IVA_INCLUIDO', $datosHotel[0]['iva_incluido']);
 define('MMTO', $datosHotel[0]['mantenimiento']);

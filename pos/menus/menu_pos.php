@@ -153,7 +153,7 @@ $rutaINV = BASE_POS.'datos/kardex.php';
             <a class="menuPpal" onclick="devolucionesDia()"><i class="fa fa-clipboard"></i> Devolucionde del Dia</a>
           </li>
           <li>
-            <a class="menuPpal" onclick="ventasCreditoDia()"><i class="fa fa-clipboard"></i> Ventas Credito del Dia</a>
+            <a class="menuPpal" onclick="ventasCreditoDia()"><i class="fa fa-clipboard"></i> Ventas Empleados del Dia</a>
           </li>
           <li>
             <a class="menuPpal" onclick="cierreDiarioAuditoria()"><i class="fa fa-sort-numeric-desc" aria-hidden="true"></i> Cierre Diario</a>
@@ -180,7 +180,7 @@ $rutaINV = BASE_POS.'datos/kardex.php';
                 <a class="menuPpal" onclick="ventasDiaAuditoria()"><i class="fa fa-money"></i> Ventas del Dia</a>
               </li>
               <li>
-                <a class="menuPpal" onclick="ventasCreditoDia()"><i class="fa fa-money"></i> Ventas Credito</a>
+                <a class="menuPpal" onclick="ventasCreditoDia()"><i class="fa fa-money"></i> Ventas Empleados</a>
               </li>
               <li>
                 <a class="menuPpal" onclick="cuentasActivasAuditoria()"><i class="fa fa-calendar"></i> Comandas Activas</a>

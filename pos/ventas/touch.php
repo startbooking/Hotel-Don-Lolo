@@ -36,7 +36,7 @@
                   <option value="<?php echo $mesa['numero_mesa']; ?>"><?php echo $mesa['numero_mesa']; ?></option>
                   <?php
                   }
-  ?>
+                ?>
               </select>
             </div>
             <label class="col-md-1 col-sm-1 col-xs-4" for="">Pers</label>
@@ -65,7 +65,7 @@
     <div class="col-lg-5 col-md-5 col-sm-4 col-xs-12 " id="ventasList">
       <input type="hidden" name="totalImpto" id="totalImpto" value="0">
       <div class="col-md-9 col-xs-12" style="padding:0 2px">
-        <div id='productosComanda' class="row-fluid" style="">
+        <div id='productosComanda' class="row-fluid">
           <table class="table table-hover comanda" id="comanda">
             <thead>
               <tr class="info" style="font-weight: bold">
@@ -82,18 +82,18 @@
         <div class="row-fluid" id="valores" style='margin-top:5px;background-color: #B9E3E4B3'>
           <table class="table table-responsive estadoComanda" style="margin-bottom: 0px;font-size:14px">
             <tbody>
-              <tr style="text-align:right">
+              <!-- <tr style="text-align:right">
                 <input type="hidden" name="cantProd" id="cantProd" value='0'>
                 <td>Valor Cuenta</td>
                 <td id="totalVta" ><?php echo '$ '.number_format(0 + 0 - 0, 2, ',', '.'); ?>
                 <td>Impuesto</td>
                 <td id="valorImpto"><?php echo '$ '.number_format(0, 2); ?></td>
                 </td>
-              </tr>
+              </tr> -->
               <tr style="text-align:right">
                 <td ></td>
                 <td id="totalDesc" ></td>
-                <td >Total a Pagar</td>
+                <td >Total Cuenta</td>
                 <td id="totalCuenta" ><?php echo '$ '.number_format(0 + 0 - 0, 2, ',', '.'); ?>
                 </td>
               </tr>
@@ -130,7 +130,7 @@
               type     ="button"
               class    ="btn btn-secondary btn-warning"
               name     ="<?php echo $user; ?>"
-              style    ="height: 64px;font-weight: 600;font-size:14px;margin-top:322px;" title="Anula Ingreso Presente Cuenta">
+              style    ="height: 64px;font-weight: 600;font-size:14px;margin-top:385px;" title="Anula Ingreso Presente Cuenta">
               <i class ="fa fa-reply"></i> Regresar
             </button>
           </div>

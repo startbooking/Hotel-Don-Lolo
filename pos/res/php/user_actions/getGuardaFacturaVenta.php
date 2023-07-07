@@ -95,14 +95,12 @@
         $subtotal = $subtotal + $iven;
         $impuesto = $impuesto + $valimp;
         $total = $ventadia['importe'] + $total;
-
+ 
         $factura = $pos->insertProductoVentas($iamb, $inom, $iven, $ican, $iimp, $idpr, $vimp, $valimp, $nFactura, $usuario, $comanda, $vdes, $vpor, $pms);
     }
 
     $insFact = $pos->insertFacturaVentaPOS($nFactura, $comanda, $ambiente, $mesa, $pax, $usuario, $total, $subtotal, $impuesto, $propina, $totaldesc, $pagado, $cambio, $fecha, $pms, 'A', $fpago, $cliente, $motivoDes, $servicio);
-
     $actComanda = $pos->updateFacturaComanda($nFactura, 'P', $usuario, $fecha, $comanda, $ambiente);
-
     $actMesa = $pos->updateMesaPos($ambiente, $mesa);
 
     if ($pms == 1) {
@@ -113,9 +111,12 @@
         $nrohabi = $datosCliente[0]['num_habitacion'];
         $idhues = $datosCliente[0]['id_huesped'];
         $nrores = $datosCliente[0]['num_reserva'];
-        
-        
+        $prodVta = $pos->traeProductosVentaTotal($comanda, $ambiente);
 
+        echo print_r($prodVta);
+
+        
+        
         $cargoPMS = $pos->cargosInterfasePOS($fechapos, $subtotal, $impuesto, $codigoVen, $nrohabi, $descargo, $impcargo, $idhues, $prefijo.'_'.$nFactura, $nrores, $comanda, $usuario, $idusuario);
 
         if ($propina != 0) {

@@ -114,12 +114,12 @@ function ingresoPos() {
 function cierraSesion() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   var id = sesion["usuario"][0]["usuario_id"];
-  var usua = sesion["usuario"][0]["usuario"];
+  var usuario = sesion["usuario"][0]["usuario"];
   $.ajax({
     url: "../res/shared/salir.php",
     type: "POST",
     data: {
-      id: id,
+      id,
       usuario: usua,
     },
     success: function () {

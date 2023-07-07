@@ -10,6 +10,8 @@ $pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(190, 6, $nomamb, 0, 1, 'C');
 $devoluciones = $pos->getDevolucionesDia($idamb);
 
+// print_r($devoluciones);
+
 $monto = 0;
 $impto = 0;
 $total = 0;
@@ -30,7 +32,7 @@ if (count($devoluciones) == 0) {
         $pdf->Cell(20, 5, $comanda['comanda'], 1, 0, 'C');
         $pdf->Cell(20, 5, $comanda['mesa'], 1, 0, 'C');
         $pdf->Cell(60, 5, utf8_decode($comanda['nom']), 1, 0, 'L');
-        $pdf->Cell(10, 5, $comanda['cant'], 1, 0, 'C');
+        $pdf->Cell(10, 5, $comanda['cantidad_devo'], 1, 0, 'C');
         $pdf->Cell(65, 5, utf8_decode($comanda['motivo_devo']), 1, 0, 'L');
         $pdf->Cell(25, 5, $comanda['usuario_devo'], 1, 1, 'L');
     }

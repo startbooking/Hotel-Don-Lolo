@@ -4,7 +4,7 @@ require_once '../../res/fpdf/fpdf.php';
 
 $ventas = $pos->getVentasCreditodelDia($idamb);
 
-$pdf = new FPDF();
+$pdf = new FPDF(); 
 $pdf->AddPage('P', 'letter');
 $pdf->Image('../../img/'.$logo, 10, 10, 22);
 $pdf->SetFont('Arial', 'B', 11);
@@ -12,7 +12,7 @@ $pdf->Cell(195, 5, $nomamb, 0, 1, 'C');
 $pdf->SetFont('Arial', '', 10);
 $pdf->Cell(195, 5, 'NIT: '.NIT_EMPRESA, 0, 1, 'C');
 $pdf->SetFont('Arial', 'B', 10);
-$pdf->Cell(195, 5, 'VENTAS CREDITO ', 0, 1, 'C');
+$pdf->Cell(195, 5, 'VENTAS A EMPLEADOS ', 0, 1, 'C');
 $pdf->SetFont('Arial', '', 10);
 $pdf->Cell(195, 5, 'Fecha'.$fecha, 0, 1, 'C');
 $pdf->Ln(2);
@@ -35,7 +35,7 @@ $pdf->Cell(20, 6, 'Hora ', 1, 1, 'C');
 $pdf->SetFont('Arial', '', 9);
 
 if (count($ventas) == 0) {
-    $pdf->Cell(195, 5, 'SIN VENTAS CREDITO EN EL DIA', 1, 1, 'C');
+    $pdf->Cell(195, 5, 'SIN VENTAS A EMPLEADOS EN EL DIA', 1, 1, 'C');
 } else {
     foreach ($ventas as $comanda) {
         ++$canti;

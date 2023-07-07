@@ -9,6 +9,7 @@ $idamb = $_POST['idambi'];
 $idprod = $_POST['idprod'];
 $importe = $_POST['importe'];
 $impto = $_POST['impto'];
+$impuesto = $_POST['impuesto'];
 
 $fecha = $_POST['fecha'];
 $inicial = $_POST['inicial'];
@@ -16,12 +17,19 @@ $devuelve = $_POST['cantidad'];
 $estado = 0;
 $cantidad = 0;
 $cantidad = $inicial - $devuelve;
-$valventa = $cantidad * $importe;
+
+$baseVta = round($cantidad * $importe,0);
+$montoimpto = round($baseVta * $impto,0);
+
+if($impuesto==1){
+    $baseVta =  round(($cantidad * $importe) / (1+($impto/100)),0);
+    $montoimpto = round(($cantidad * $importe)- $baseVta,0);
+}
 
 if ($inicial == $devuelve) {
     $estado = 1;
 }
-$devol = $pos->devolucionParcialProducto($comanda, $devuelve, $cantidad, $idprod, $valventa, $motivo, $user, $idamb, $fecha, $estado);
+$devol = $pos->devolucionParcialProducto($comanda, $devuelve, $cantidad, $idprod, $baseVta, $montoimpto, $motivo, $user, $idamb, $fecha, $estado);
 
 $saldos = $pos->getProductosEstadoCuenta($idamb, $comanda);
 
