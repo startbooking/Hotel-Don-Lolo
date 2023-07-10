@@ -12,7 +12,7 @@
             <div class="datos_ajax_delete"></div>
             <form id="formCierreDiario" class="form-horizontal" action="javascript:buscaFacturas()" method="POST" enctype="multipart/form-data">
               <div class="panel-body">
-                <div class="row">
+                <div class="row"> 
                   <?php
                     $regis = count($facturas);
                     if ($regis == 0) { ?>
@@ -63,7 +63,7 @@
                                       data-nombres   ="<?= $factura['nombre1'].' '.$factura['nombre2']?>" 
                                       data-fechafac  ="<?= $factura['fecha_factura']?>" 
                                       data-numero    ="<?= $factura['factura_numero']?>" 
-                                      data-reserva   ="<?= $factura['numero_reserva']?>" 
+                                      data-reserva   ="<?= $factura['num_reserva']?>" 
                                       href="#myModalVerFactura"
                                       title="Ver Factura"
                                       >

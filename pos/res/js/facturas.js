@@ -1052,7 +1052,7 @@ function guardarProductosPago() {
   }
 
   var parametros = {
-    pax,
+    pax, 
     mesa,
     user: usuario,
     idamb: id_ambiente,

@@ -39,7 +39,7 @@
       if($x==-1) $x=$this->x; 
       if($y==-1) $y=$this->y; 
     }
-    if($this->angle!=0);
+    if($this->angle!=0){
         $this->_out('Q'); 
         $this->angle=$angle; 
         if($angle!=0) { 
@@ -78,10 +78,15 @@
           parent::_enddoc(); 
       } 
       function _putextgstates() { 
-        for ($i = 1; $i < = count($this->extgstates); 
-        $i++) { 
-          $this->_newobj(); 
-          $this->extgstates[$i]['n'] = $this->n; $this->_out('< extgstates[$i]['parms'] as $k=>$v) $this->_out('/'.$k.' '.$v); 
-          $this->_out('>>'); $this->_out('endobj'); } } function _putresourcedict() { parent::_putresourcedict(); $this->_out('/ExtGState < <'); foreach($this->extgstates as $k=>$extgstate) $this->_out('/GS'.$k.' '.$extgstate['n'].' 0 R'); $this->_out('>>'); } function _putresources() { $this->_putextgstates(); parent::_putresources(); } } 
+        for ($i = 1; $i <= count($this->extgstates); $i++) { 
+            $this->_newobj(); 
+            $this->extgstates[$i]['n'] = $this->n; $this->_out('< extgstates[$i]['parms'] as $k=>$v) $this->_out('/'.$k.' '.$v); 
+            $this->_out('>>'); $this->_out('endobj'); } 
+          
+          
+          } function _putresourcedict() 
+          { parent::_putresourcedict(); $this->_out('/ExtGState < <'); foreach($this->extgstates as $k=>$extgstate) $this->_out('/GS'.$k.' '.$extgstate['n'].' 0 R'); $this->_out('>>'); } function _putresources() { $this->_putextgstates(); parent::_putresources(); } } 
+
+        } 
 
  ?>

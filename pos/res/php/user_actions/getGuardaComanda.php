@@ -29,7 +29,8 @@
 
   $valComma = $pos->traeProductosVentaTotal($nrocomanda, $amb);
 
-  print_r($valComma);
+  // print_r($valComma);
+  
   $subtotal = $valComma[0]['baseimpto'];
   $imptos = $valComma[0]['valimpto'];
   $total = $valComma[0]['total'];
