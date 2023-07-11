@@ -3,9 +3,9 @@
   require_once '../../res/php/app_topPos.php'; 
 
   $fecha = $_POST['fecha'];
-
   $ayer  = strtotime ( '-1 day' , strtotime (  $fecha  ) ) ;
   $ayer  = date ('Y-m-d' , $ayer );
+
   
 ?>
 

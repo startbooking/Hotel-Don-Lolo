@@ -1171,7 +1171,7 @@ $(document).ready(function () {
 
     web = $("#rutaweb").val();
     modal.find(".modal-title").text("Estado de Cuenta : " + nombre);
-    modal.find(".modal-body #txtIdReservaEst").val(id);
+    modal.find(".modal-body #txtIdReservaEst").val(reserva);
     modal.find(".modal-body #txtIdHuespedEst").val(hues);
     modal.find(".modal-body #txtTipoHabEst").val(tipohab);
     modal.find(".modal-body #txtNumeroHabEst").val(nrohab);
@@ -1185,7 +1185,7 @@ $(document).ready(function () {
       success: function (data) {
         $("#verEstadoCuenta").attr(
           "data",
-          web + "imprimir/informes/Estado_Cuenta_Huesped_" + id + ".pdf"
+          web + "imprimir/informes/Estado_Cuenta_Huesped_" + reserva + ".pdf"
         );
         /// $("#divConsumos").html(data);
       },

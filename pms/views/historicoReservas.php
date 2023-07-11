@@ -2,6 +2,7 @@
   $hoy  = FECHA_PMS;
   $ayer = strtotime ( '-1 day' , strtotime ( $hoy ) ) ;
   $ayer = date ('Y-m-d' , $ayer );
+  echo FECHA_PMS;
 ?>
 
     <div class="content-wrapper"> 

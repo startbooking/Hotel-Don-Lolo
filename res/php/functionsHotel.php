@@ -6,6 +6,18 @@ date_default_timezone_set('America/Bogota');
 class Hotel_Actions
 {
     
+    public function traeDescripcionContable($codigo){
+        global $database;
+
+        $data = $database->select('codigos_vta',[
+            'descripcion_contable',
+            'cuenta_puc',
+        ],[
+            'id_cargo' => $codigo,
+        ]);
+        return $data;
+    }
+
     public function estadoReserva($room){
         global $database;
         
@@ -378,6 +390,7 @@ class Hotel_Actions
         global $database;
         $data = $database->select('ciudades', [
             'id_ciudad',
+            'codigo',
         ], [
             'id_ciudad' => $id,
         ]);

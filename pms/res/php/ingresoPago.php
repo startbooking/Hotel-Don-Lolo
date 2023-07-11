@@ -303,8 +303,8 @@ if ($perfilFac == 1 && $facturador == 1) {
     $statusDesc   = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['StatusDescription'];
     $statusMess   = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['StatusMessage'];
 
-    // $message = $recibeCurl['message'];
-    $message = '';
+    $message = $recibeCurl['message'];
+    // $message = '';
     $sendSucc = $recibeCurl['send_email_success'];
     $sendDate = $recibeCurl['send_email_date_time'];
 
@@ -326,8 +326,9 @@ if ($perfilFac == 1 && $facturador == 1) {
     $QRStr = $recibeCurl['QRStr'];
     $timeCrea   = $recibeCurl['ResponseDian']['Envelope']['Header']['Security']['Timestamp']['Created'];
 
+    // $respo = $recibeCurl['ResponseDian'];
+    $respo = '';
 /* 
-    $respo = $recibeCurl['ResponseDian'];
     $envelo = $respo['Envelope'];
     $head = $envelo['Header'];
     $secu = $head['Security']; 

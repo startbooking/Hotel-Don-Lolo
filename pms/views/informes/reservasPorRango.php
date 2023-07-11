@@ -1,8 +1,9 @@
 <?php 
-  $hoy  = FECHA_PMS;
-  $ayer = strtotime ( '-1 day' , strtotime ( $hoy ) ) ;
-  $ayer = date ('Y-m-d' , $ayer );
-  $inicial = date('Y-m-01', $ayer);
+  $dia = strtotime('-1 day', strtotime(FECHA_PMS));
+  $ayer = date('Y-m-d', $dia);
+  $inicial = date('Y-m-01', $dia);
+
+
 ?>
 
     <div class="content-wrapper"> 
@@ -12,7 +13,6 @@
             <div class="panel-heading"> 
               <div class="row">
                 <div class="col-lg-9 col-md-">
-                  <input type="hidden" name="usuarioActivo" id="usuarioActivo" value="<?=$usuario?>">
                   <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_PMS?>">                  
                   <input type="hidden" name="ubicacion" id="ubicacion" value="informeFacturasRango">
                   <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-industry"></i> Historico de Reservas</h3>

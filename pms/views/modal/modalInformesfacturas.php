@@ -13,7 +13,7 @@
             <input type="hidden" name="reserva" id="reserva" value="">
             <input type="hidden" name="txtFacturaNro" id="txtFacturaNro" value="">
             <div class="form-group">
-              <object id="verFacturaModal" width="100%" height="450" data=""></object> 
+              <object id="verFacturaModalCon" width="100%" height="450" data=""></object> 
             </div>
           </div>
           <div class="modal-footer">

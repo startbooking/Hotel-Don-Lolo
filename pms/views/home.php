@@ -38,7 +38,7 @@
                   <p style="margin-bottom: 0">Llegadas en el Dia</p>
                 </div>
                 <div class="inner col-sm-2 col-xs-4">
-                  <h3 style="margin:0" align="center"><?php echo $llegan[0]['hom'] + $llegan[0]['muj']; ?></h3>
+                  <h3 style="margin:0;text-align:center;"><?php echo $llegan[0]['hom'] + $llegan[0]['muj']; ?></h3>
                   <p>Adultos</p>                    
                 </div>
                 <div class="inner col-sm-2 col-xs-4">

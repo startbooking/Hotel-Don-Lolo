@@ -59,19 +59,11 @@
               </div>
             </div>
             <div class="form-group">
-              <!-- <label for="nit" class="col-sm-4 control-label">Habitaciones Fuera de Servicio</label>
-              <div class="col-sm-2">
-                <input type="text" class="form-control" name="habiDisp" id="nihabiDispt" readonly="" value="<?=$canfser?>">
-              </div> -->
               <label for="nit" class="col-sm-4 control-label">Habitaciones Diponibles</label>
               <div class="col-sm-2">
                 <input type="text" class="form-control" name="habiDisp" id="nihabiDispt" readonly="" value="<?=$habdisp?>">
               </div>
             </div>
-            <!--
-            <div class="container-fluid">          
-            </div>
-            -->
           </div>
           <div class="container-fluid">
             <h4 class="alert-success" style="font-family: ubuntu;padding:15px 0;text-align: center;text-transform: uppercase;margin:40px">Ocupacion Hoy</h4>

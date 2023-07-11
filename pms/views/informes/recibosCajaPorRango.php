@@ -1,8 +1,7 @@
 <?php 
-  $hoy  = FECHA_PMS;
-  $ayer = strtotime ( '-1 day' , strtotime ( $hoy ) ) ;
-  $ayer = date ('Y-m-d' , $ayer );
-  $inicial = date('Y-m-01', $ayer);
+  $dia = strtotime('-1 day', strtotime(FECHA_PMS));
+  $ayer = date('Y-m-d', $dia);
+  $inicial = date('Y-m-01', $dia);
   
 
 ?>
