@@ -5,7 +5,21 @@ date_default_timezone_set('America/Bogota');
 
 class Hotel_Actions
 {
-    
+
+    public function updateCongelada($numero, $orden)
+    {
+        global $database;
+
+        $data = $database->update('reservas_pms', [
+            'orden_reserva' => $orden,
+        ], [
+            'num_reserva' => $numero,
+        ]);
+
+        return $data->rowCount();
+    }
+
+
     public function traeDescripcionContable($codigo){
         global $database;
 

@@ -45,7 +45,7 @@
                                   <td style="padding:3px 5px"><?php echo $recibo['nombre_completo']; ?></td>
                                   <td style="padding:3px 5px;text-align:right;"><?php echo $recibo['fecha_cargo']; ?></td>
                                   <td style="padding:3px 5px;text-align:right;"><?php echo number_format($recibo['pagos_cargos'],2); ?></td>
-                                  <td style="padding:3px 5px;width: 20%">
+                                  <td style="padding:3px 5px;text-align:center;">
                                     <button 
                                       class="btn btn-info btn-xs" 
                                       onclick="verRecibo('<?php echo $recibo['concecutivo_abono']; ?>')" 

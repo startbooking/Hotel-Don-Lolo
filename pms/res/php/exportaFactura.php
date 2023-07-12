@@ -103,6 +103,11 @@
 					<td><?php echo $sexo; ?></td>
 					<td><?php echo $factura['referencia_cargo']; ?></td>
 					<td><?php echo $factura['descripcion_contable']; ?></td>
+          <td style="text-align:right;">
+            <?php 
+                echo $factura['pagos'];
+            ?>
+          </td>
 					<td style="text-align:right;"><?php 
           if ($factura['factura_anulada'] == 1) {
             echo 0 ;
@@ -110,14 +115,6 @@
             echo $factura['monto']; 
           }
           
-          ?></td>
-					<td style="text-align:right;">
-          <?php 
-              echo $factura['pagos'];
-            /* if ($factura['total_pagos'] == 0) {
-            } else {
-              echo $factura['total_pagos'];
-            } */
           ?></td>
 					<td><?php echo $vacio; ?></td>
 					<td><?php echo $vacio; ?></td>
@@ -224,26 +221,27 @@
             <td><?php echo $sexo; ?></td>
             <td><?php echo $factura['referencia_cargo']; ?></td>
             <td><?php echo $descImpto; ?></td>
-            <td style="text-align:right;"><?php 
-            if ($factura['factura_anulada'] == 1) {
-              echo 0 ;
-            }else{
-              echo $factura['impto']; 
-            }
-            
-            ?></td>
             <td style="text-align:right;">
-            <?php
-              if($factura['factura_anulada']=='S'){
-                echo 0;
-              }else{
-                if ($factura['total_pagos'] == 0) {
-                  echo $factura['pagos'];
-                } else {
-                  echo $factura['total_pagos'];
+              <?php
+                if($factura['factura_anulada']=='S'){
+                  echo 0;
+                }else{
+                  if ($factura['total_pagos'] == 0) {
+                    echo $factura['pagos'];
+                  } else {
+                    echo $factura['total_pagos'];
+                  }
                 }
+              ?>
+            </td>
+              <td style="text-align:right;"><?php 
+              if ($factura['factura_anulada'] == 1) {
+                echo 0 ;
+              }else{
+                echo $factura['impto']; 
               }
-            ?></td>
+              
+              ?></td>
             <td><?php echo $vacio; ?></td>
             <td><?php echo $vacio; ?></td>
             <td><?php echo $vacio; ?></td>

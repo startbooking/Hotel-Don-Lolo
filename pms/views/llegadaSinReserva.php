@@ -41,7 +41,7 @@
                 </span>
               </div>
             </div>
-            <div class="col-sm-4" align="right" style="padding-right: 0">
+            <div class="col-sm-4" style="padding-right: 0;text-align:right;">
               <a 
                 style="height: 30px;padding: 4px 10px;" 
                 class="btn btn-success"
@@ -60,13 +60,13 @@
                 <div class="col-sm-6" style="padding:0;height: 15px">
                   <div class="form-check form-check-inline">
                     <input style="margin-top:5px" class="form-check-input" type="radio" name="imptoOption" id="inlineRadio1" value="1" checked>
-                    <label style="margin-top:-25px;margin-left:25px" class="form-check-label" for="inlineRadio1" >NO</label>
+                    <label style="margin-top:-20px;margin-left:25px" class="form-check-label" for="inlineRadio1" >NO</label>
                   </div>                    
                 </div>
                 <div class="col-sm-6" style="padding:0;height: 15px"> 
                   <div class="form-check form-check-inline">
                     <input style="margin-top:5px" class="form-check-input" type="radio" name="imptoOption" id="inlineRadio2" value="2">
-                    <label style="margin-top:-25px;margin-left:25px" class="form-check-label" for="inlineRadio2">SI</label>
+                    <label style="margin-top:-20px;margin-left:25px" class="form-check-label" for="inlineRadio2">SI</label>
                   </div>
                 </div>
               </div>

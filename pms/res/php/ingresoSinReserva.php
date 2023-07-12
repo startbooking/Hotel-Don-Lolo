@@ -3,7 +3,7 @@
   require '../../../res/php/titles.php';
   require '../../../res/php/app_topHotel.php'; 
 
-	$idcia         =  $_POST['idcia'];
+	$idcia         =  $_POST['empresaUpd'];
 	$idcentro      =  0;
 	
 	$iden          =  $_POST['identifica'];

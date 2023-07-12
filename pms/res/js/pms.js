@@ -1125,6 +1125,28 @@ $(document).ready(function () {
     $(".alert").hide();
   });
 
+  $("#myModalModificaCongelada").on("show.bs.modal", function (event) {
+    var button = $(event.relatedTarget);
+    var id = button.data("id");
+    var nombrecom = button.data("nombre");
+    var modal = $(this);
+    var parametros = {
+      id,
+    };
+    modal.find(".modal-title").text("Modifica Estadia : " + nombrecom);
+    $.ajax({
+      type: "POST",
+      data: parametros,
+      url: "res/php/dataUpdateCongelada.php",
+      beforeSend: function (objeto) {},
+      success: function (datos) {
+        $("#modalReservasCon").html("");
+        $("#modalReservasCon").html(datos);
+      },
+    });
+    $(".alert").hide();
+  });
+
   $("#myModalMoverCargo").on("show.bs.modal", function (event) {
     var button = $(event.relatedTarget);
     var id = button.data("id");
@@ -4264,6 +4286,22 @@ function updateEstadia() {
   });
 }
 
+function updateCongelada() {
+  var web = $("#rutaweb").val();
+  var pagina = $("#ubicacion").val();
+  var parametros = $("#formUpdateCongelada").serialize();
+
+  $.ajax({
+    type: "POST",
+    data: parametros,
+    url: "res/php/updateCongelada.php",
+    success: function (datos) {
+      $(location).attr("href", "cuentasCongeladas");
+    },
+  });
+}
+
+
 function cierreDiario() {
   var web = $("#rutaweb").val();
   $("#botonCierre").attr("disabled", "disabled");
@@ -5246,7 +5284,9 @@ function guardasinReserva() {
   let { usuario, usuario_id } = user;
   iden = $("#identifica").val();
 
-  if (typeof iden == "undefined") {
+  console.log(iden);
+
+  if (iden == '') {
     swal("Precaucion", "Seleccione el Huesped a Reservar", "warning");
     return;
   }
@@ -5266,7 +5306,6 @@ function guardasinReserva() {
       cargarHabitacionCkeckIn(datos);
       swal("Atencion", "Huesped Registrado Con Exito", "success",2000);
       setTimeout(function () {
-        $(location).attr("href", "home");
         // $(location).attr("href", "home");
       }, 2000);
     },

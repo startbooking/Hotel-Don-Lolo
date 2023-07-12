@@ -234,3 +234,25 @@ foreach ($codigos as $codigo) { ?>
   </form>
 </div> 
 
+<div class="modal fade" id="myModalModificaCongelada" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <form class="form-horizontal" id="formUpdateCongelada" action="javascript:updateCongelada()" method="POST">
+    <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="panel panel-success">
+            <div class="panel-heading">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span class="glyphicon glyphicon-off"></span>
+              </button> 
+              <h3 class="modal-title" id="exampleModalLabel">Modificar Estadia</h3>
+            </div>
+            <div class="panel-body">
+              <div id="modalReservasCon"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+

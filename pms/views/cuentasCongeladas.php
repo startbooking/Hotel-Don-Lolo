@@ -31,26 +31,47 @@
                 </thead>
                 <tbody>
                   <?php
+
+                  // print_r($reservas);
                   foreach ($reservas as $reserva) {
-                      $consumos = $hotel->getConsumosReserva($reserva['num_reserva']);
-                      if (count($consumos) == 0) {
-                          $consumos[0]['cargos'] = 0;
-                          $consumos[0]['imptos'] = 0;
-                          $consumos[0]['pagos'] = 0;
-                      }
-                      ?> 
+                    $consumos = $hotel->getConsumosReserva($reserva['num_reserva']);
+                    if (count($consumos) == 0) {
+                      $consumos[0]['cargos'] = 0;
+                      $consumos[0]['imptos'] = 0;
+                      $consumos[0]['pagos'] = 0;
+                    }
+                    ?> 
                     <tr style='font-size:12px'> 
                       <td>
-                        <?php
+                        <div style="display: flex">
+                          <?php
                             echo $reserva['num_habitacion'];
-                      if ($reserva['causar_impuesto'] == 2) { ?>
-                            <span class="fa-stack fa-xs" title="Sin Impuestos" style="margin-left:5px;cursor:pointer;">
-                              <i style="font-size:10px;margin-top: -2px;margin-left: -3px;" class="fa fa-percent fa-stack-1x"></i>
-                              <i style="font-size:20px" class="fa fa-ban text-danger"></i>
-                            </span>
+                            if ($reserva['causar_impuesto'] == 2) { ?>
+                              <span class="fa-stack fa-xs" title="Sin Impuestos" style="margin-left:5px;cursor:pointer;">
+                                <i style="font-size:10px;margin-top: 1px;margin-left: -3px;" class="fa fa-percent fa-stack-1x"></i>
+                                <i style="font-size:20px" class="fa fa-ban text-danger"></i>
+                              </span>
+                              <?php
+                            }                             
+                            if (!empty($reserva['observaciones'])) { ?>
+                              <span class="fa-stack fa-xs" title="Observaciones a la Reserva" style="margin-left:0px;cursor:pointer;" onclick="verObservaciones(<?php echo $reserva['num_reserva']; ?>,'1')">
+                                <i style="font-size:20px;color: #2993dd" class="fa fa-circle fa-stack-2x"></i>
+                                <i style="font-size:10px;margin-top: 1px;margin-left: 1px;" class="fa fa-commenting-o fa-stack-1x fa-inverse"></i>
+                              </span>
+                              <?php
+                            }
+                            if ($hoy == substr($reserva['fecha_nacimiento'], 5, 5)) { ?>
+                              <span class="fa-stack fa-xs" title="El Huesped esta de Cumpleaños" style="margin-left:0px;cursor:pointer;" >
+                                <i style="font-size:20px;color: yellow" class="fa fa-circle fa-stack-2x"></i>
+                                <i style="font-size:10px;margin-top: 1px;margin-left: 1px;color:black" class="fa fa-birthday-cake fa-stack-1x fa-inverse"></i> 
+                              </span>
                             <?php
-                      }
-                      ?>
+                            }
+                          ?>
+                        </div>
+
+                        <?php
+                        ?>
                       </td>
                       <!-- <td><?php echo $reserva['tipo_habitacion']; ?></td> -->
                       <td><?php echo $reserva['apellido1'].' '.$reserva['apellido2'].' '.$reserva['nombre1'].' '.$reserva['nombre2']; ?></td>
@@ -67,7 +88,29 @@
                             <ul class="nav navbar-nav" style="margin :0;width:100%">
                               <li class="dropdown submenu" style="width:100%">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="padding:3px 5px;font-weight: 700;color:#000">Facturacion<span class="caret" style="margin-left:10px;"></span></a>
-                                <ul class="dropdown-menu" style="float:left;margin-left:-180px;top:40px;"> 
+                                <ul class="dropdown-menu" style="float:left;margin-left:-180px;top:40px;">                                   
+                                  <li>
+                                    <a 
+                                      data-toggle        ="modal" 
+                                      data-target        = "#myModalModificaCongelada"
+                                      data-id            ="<?php echo $reserva['num_reserva']; ?>" 
+                                      data-tipohab       ="<?php echo descripcionTipoHabitacion($reserva['tipo_habitacion']); ?>" 
+                                      data-nrohab        ="<?php echo $reserva['num_habitacion']; ?>" 
+                                      data-nombre        ="<?php echo $reserva['nombre_completo']; ?>" 
+                                      data-impto         ="<?php echo $reserva['causar_impuesto']; ?>" 
+                                      data-llegada       ="<?php echo $reserva['fecha_llegada']; ?>" 
+                                      data-salida        ="<?php echo $reserva['fecha_salida']; ?>" 
+                                      data-noches        ="<?php echo $reserva['dias_reservados']; ?>" 
+                                      data-hombres       ="<?php echo $reserva['can_hombres']; ?>" 
+                                      data-mujeres       ="<?php echo $reserva['can_mujeres']; ?>" 
+                                      data-tarifa        ="<?php echo $hotel->getNombreTarifa($reserva['tarifa']); ?>" 
+                                      data-idtarifa      ="<?php echo $reserva['tarifa']; ?>" 
+                                      data-ninos         ="<?php echo $reserva['can_ninos']; ?>" 
+                                      data-valor         ="<?php echo $reserva['valor_reserva']; ?>" 
+                                      data-observaciones ="<?php echo $reserva['observaciones']; ?>" 
+                                      >
+                                      <i class="fa fa-pencil-square" aria-hidden="true"></i>Modificar Estadia</a>
+                                  </li>
                                   <li>
                                     <a 
                                       data-toggle        ="modal" 
@@ -115,7 +158,7 @@
                                       data-impto="<?php echo $reserva['causar_impuesto']; ?>" 
                                       href="#myModalInformacionCompania">
                                       <i class="fa fa-industry" aria-hidden="true"></i>
-                                    Datos Compañia</a>
+                                      Datos Compañia</a>
                                   </li>
                                   <li> 
                                     <a 

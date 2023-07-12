@@ -103,24 +103,12 @@
                   data-huesped   ="<?= $factura['nombre_completo']?>" 
                   data-fechafac  ="<?= $factura['fecha_cargo']?>" 
                   data-numero    ="<?= $factura['concecutivo_abono']?>" 
-                  data-reserva   ="<?= $factura['numero_reserva']?>" 
+                  data-reserva   ="<?= $factura['num_reserva']?>" 
                   href="#myModalVerReciboCaja"
                   title="Ver Factura"
                   >
                   <i class="fa fa-file-pdf-o" aria-hidden="true" ></i>
                 </button>
-                <!-- <button class="btn btn-success btn-xs" 
-                  type="button"
-                  data-toggle    ="modal" 
-                  data-huesped   ="<?= $factura['nombre_completo']?>" 
-                  data-fechafac  ="<?= $factura['fecha_cargo']?>" 
-                  data-numero    ="<?= $factura['concecutivo_abono']?>" 
-                  data-reserva   ="<?= $factura['numero_reserva']?>" 
-                  href="#myModalVerCargosFactura"
-                  title="Ver Cargos de la factura"
-                  >
-                  <i class="fa fa-bars" aria-hidden="true" ></i>
-                </button> -->
               </div>
             </td>
           </tr>
@@ -144,11 +132,11 @@
         <?php
         foreach ($facturas as $factura) { ?>
           <tr style='font-size:12px'>
-            <td style="padding:3px 5px"><?php echo $factura['concesutivo_abono']; ?></td>
+            <td style="padding:3px 5px"><?php echo $factura['concecutivo_abono']; ?></td>
             <td style="padding:3px 5px;text-align: left;"><?php echo $factura['nombre_completo'] ?></td>
-            <td style="padding:3px 5px"><?php echo $factura['fecha:_cargo']; ?></td>
+            <td style="padding:3px 5px"><?php echo $factura['fecha_cargo']; ?></td>
             <td style="padding:3px 5px"><?php echo $factura['descripcion_cargo']; ?></td>
-            <td style="text-align: right;"> <?=number_format($factura['total_pago'],2); ?></td>
+            <td style="text-align: right;"> <?=number_format($factura['total_pagos'],2); ?></td>
           </tr>
           <?php 
         }
