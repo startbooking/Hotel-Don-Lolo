@@ -39,6 +39,7 @@
                     <a
                       class="btn btn-success"
                       data-toggle="modal"
+                      data-reserva='1'
                       href="#myModalAdicionaPerfil">
                       <i class="fa fa-user-plus" aria-hidden="true"></i>  Adicionar Huesped
                     </a>

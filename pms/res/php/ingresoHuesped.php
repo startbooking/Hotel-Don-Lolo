@@ -38,4 +38,4 @@ $final = '';
 
 $log = $hotel->ingresoLog($regis, $usuario, $pc, $ip, $accion, $inicial, $final, 'HU');
 
-echo $log;
+echo $regis;

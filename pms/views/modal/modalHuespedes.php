@@ -10,6 +10,7 @@ $hoy = date('Y-m-d');
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class='glyphicon glyphicon-off' style="color:#530505"></span>
 				</button>
 				<h4 class="modal-title" id="myModalLabel"> <i class="fa fa-user-plus"></i> Adiciona Perfil del Huesped</h4>
+        <input type="hidden" name="creaReser" id="creaReser" value="0">
         <input type="hidden" name="editaPer" id="editaPer" value="0">
         <input type="hidden" name="paginaviene" id="paginaviene" value="">
         <div class="container-fluid" ></div>
