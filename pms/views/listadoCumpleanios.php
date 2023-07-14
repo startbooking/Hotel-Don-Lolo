@@ -33,42 +33,6 @@
                       </div>
                     </div>
                   </div>
-                  <!--
-                  <div class="col-md-4" style="padding:0">
-                    <label for="" class="control-label col-lg-2" style="margin-top: 5px;">Mes</label>
-                    <div class="col-md-10">
-                      <select  class="form-control" name="" id="">
-                        <option value="1">Enero</option>
-                        <option value="2">Febrero</option>
-                        <option value="3">Marzo</option>
-                        <option value="4">Abril</option>
-                        <option value="5">Mayo</option>
-                        <option value="6">Junio</option>
-                        <option value="7">Julio</option>
-                        <option value="8">Agosto</option>
-                        <option value="9">Septiembre</option>
-                        <option value="10">Octubre</option>
-                        <option value="11">Noviembre</option>
-                        <option value="12">Diciembre</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="direccion" class="col-sm-2 control-label">Desde </label>
-                    <div class="col-sm-4" >
-                      <select class="form-control" name="desdeApe" id="desdeApe">
-                        <option value="">Todos</option>
-                      </select>
-                    </div>
-                    <label for="direccion" class="col-sm-2 control-label">Hasta </label>
-                    <div class="col-sm-4" >
-                      <select class="form-control" name="desdeApe" id="desdeApe">
-                        <option value="">Todos</option>
-                      </select>
-                    </div>
-                  </div>                  
-                -->
                 </div>
                 <div class="col-md-3">
                   <div class="btn-group pull-right">                    
@@ -79,7 +43,7 @@
               </div>
               <div class="container-fluid">                  
                 <div class="row-fluid" id="muestraHuespedes">
-                  <object id="verHuespedes" width="100%" height="500" data=""></object> 
+                  <object id="verHuespedes" width="100%" height="75vh" data=""></object> 
                 </div>
                 <div class="row-fluid">
                   <div class="table" >

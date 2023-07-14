@@ -1,9 +1,8 @@
 <?php
+  $dia = strtotime('-1 day', strtotime(FECHA_PMS));
+  $ayer = date('Y-m-d', $dia);
+  $inicial = date('Y-m-01', $dia);
 
-// echo FECHA_PMS;
-$hoy = FECHA_PMS;
-$ayer = strtotime('-1 day', strtotime($hoy));
-$ayer = date('Y-m-d', $ayer);
 ?>
 
 
@@ -18,19 +17,45 @@ $ayer = date('Y-m-d', $ayer);
           <input type="hidden" name="formaPago" id="formaPago">
           <input type="hidden" name="cuentaPago" id="cuentaPago">
           <div class="container-fluid">
-            <div class="col-lg-9 col-xs-12">
-              <h3 class="w3ls_head tituloPagina"> <i class="fa fa-tachometer" style="font-size:36px;color:black" ></i> Exportar Facturas</h3>
-            </div>
-            <div class="col-lg-3 col-xs-12">
-              <button class="btn btn-info" style="float:right;" onclick="exportTableToExcel('dataTable')"><i class="glyphicon glyphicon-th" aria-hidden="true"></i> Exportar</button> 
-            </div>
+              <div class="row"> 
+                <div class="col-lg-9">
+                  <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_PMS?>">                  
+                  <input type="hidden" name="ubicacion" id="ubicacion" value="exportaFacturas">
+                  <h3 class="w3ls_head tituloPagina">
+                    <i class="fa-solid fa-download fa-2x"></i>  
+                  Exportar Facturas</h3>
+                </div>
+                <div class="col-md-3">
+                  <button class="btn btn-info pull-right" onclick="exportTableToExcel('dataTable')"><i class="glyphicon glyphicon-th" aria-hidden="true"></i> Exportar</button> 
+                </div>
+              </div>
           </div>
         </div> 
         <div class="datos_ajax_delete"></div>
         <form id="formCierreDiario" class="form-horizontal" method="POST" enctype="multipart/form-data">
           <div class="panel-body">
             <div class="row"> 
-              <div class="col-lg-6 col-md-6 col-xs-12 form-group">
+              <div class="form-horizontal">
+                <div class="form-group">
+                  <label class="control-label col-md-2">Desde Fecha</label>
+                  <div class="col-lg-3 col-md-3">
+                    <input class="form-control" type="date" min="1" name="desdeFecha" id='desdeFecha' value='<?=$inicial ?>' max="<?=$ayer ?>">
+                  </div>
+                  <label class="control-label col-md-2">Hasta Fecha</label>
+                  <div class="col-lg-3 col-md-3">
+                    <input class="form-control" type="date" min="1" name="hastaFecha" id='hastaFecha' value='<?=$ayer ?>' max="<?=$ayer ?>">
+                  </div>
+                  <div class="col-md-2">
+                    <a type="bottom" class="btn btn-success" style="padding:3px 10px ;"
+                      onclick="buscaFacturasExporta()"
+                      href="#">
+                      <i class="fa fa-search" aria-hidden="true"></i> Buscar
+                    </a>
+                  </div>   
+                </div> 
+                                               
+              </div>
+              <!-- <div class="col-lg-6 col-md-6 col-xs-12 form-group">
                 <label for="direccion" class="col-sm-4 control-label">Fecha Factura </label>
                 <div class="form-group has-success has-feedback col-sm-8" >
                   <div class="input-group" style="padding-left:15px;">
@@ -44,7 +69,7 @@ $ayer = date('Y-m-d', $ayer);
                     </span>
                   </div>
                 </div>
-              </div>
+              </div> -->
               <div class="col-lg-6 col-md-6 col-xs-12" id='loader'></div>
             </div>
             <div class="row">

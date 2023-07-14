@@ -7,7 +7,7 @@ $llega = $_POST['llega'];
 $sale = $_POST['sale']; 
 
 $habitaciones = $hotel->getSeleccionaHabitacionesTipo($tipo);
-// echo print_r($habitaciones);
+echo print_r($habitaciones);
 
 $estadohab = $hotel->traeEstadoHabitacionesHotel($tipo, $llega, $sale);
 
@@ -46,13 +46,17 @@ foreach ($reservas as $reserva) {
 
 
 $dispos = array_diff($disponibles,$encasaOff,$salidasOff,$reservasOff);
+$dispos1 = array_diff($dispos,$encasaOff,$salidasOff,$reservasOff);
+$dispos2 = array_diff($dispos1,$salidasOff,$reservasOff);
+$dispos3 = array_diff($dispos2,$reservasOff);
+
 
 ?>
 
     <option value="">Seleccione la Habitacion</option>
     <?php
 
-  foreach ($dispos as $dispo) { ?>
+  foreach ($dispos3 as $dispo) { ?>
       <option value="<?php echo $dispo; ?>"><?php echo $dispo; ?></option>
       <?php
   }

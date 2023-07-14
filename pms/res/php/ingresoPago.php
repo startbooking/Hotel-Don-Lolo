@@ -12,7 +12,7 @@ $estadofactura = [];
 
 $codigo = $_POST['codigo'];
 $textcodigo = $_POST['textopago'];
-$valor = $_POST['valor'];
+$valor = $_POST['valor']; 
 $numero = $_POST['reserva'];
 $room = $_POST['room'];
 $idhues = $_POST['idhues'];
@@ -304,21 +304,14 @@ if ($perfilFac == 1 && $facturador == 1) {
     $statusMess   = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['StatusMessage'];
 
     $message = $recibeCurl['message'];
-    // $message = '';
     $sendSucc = $recibeCurl['send_email_success'];
     $sendDate = $recibeCurl['send_email_date_time'];
 
-    // $invoicexml = $recibeCurl['invoicexml'];
     $invoicexml = '';
-    // $zipinvoicexml = $recibeCurl['zipinvoicexml'];
     $zipinvoicexml = '';
-    // $unsignedinvoicexml = $recibeCurl['unsignedinvoicexml'];
     $unsignedinvoicexml = '';
-    // $reqfe = $recibeCurl['reqfe'];
     $reqfe = '';
-    // $rptafe = $recibeCurl['rptafe'];
     $rptafe = '';
-    // $attacheddocument = $recibeCurl['attacheddocument'];
     $attacheddocument = '';
     $urlinvoicexml = $recibeCurl['urlinvoicexml'];
     $urlinvoicepdf = $recibeCurl['urlinvoicepdf'];
@@ -326,14 +319,7 @@ if ($perfilFac == 1 && $facturador == 1) {
     $QRStr = $recibeCurl['QRStr'];
     $timeCrea   = $recibeCurl['ResponseDian']['Envelope']['Header']['Security']['Timestamp']['Created'];
 
-    // $respo = $recibeCurl['ResponseDian'];
     $respo = '';
-/* 
-    $envelo = $respo['Envelope'];
-    $head = $envelo['Header'];
-    $secu = $head['Security']; 
-    $time = $secu['Timestamp'];
-    $timeCrea = $time['Created']; */
 
     $regis = $hotel->ingresaDatosFe($nroFactura, $prefijo, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cufe, $QRStr, $respofact, $Isvalid, $eFact, $errorMessage, $statusCode, $statusDesc, $statusMess);
 

@@ -36,7 +36,7 @@
               </div>
               <div class="container-fluid">                  
                 <div class="row-fluid" id="muestraHuespedes">
-                  <object id="verHuespedes" width="100%" height="500" data=""></object> 
+                  <object id="verHuespedes" width="100%" height="75vh" data=""></object> 
                 </div>
                 <div class="row-fluid">
                   <div class="table" >

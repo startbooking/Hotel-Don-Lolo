@@ -3652,7 +3652,7 @@ class Hotel_Actions
             'fecha_salida',
         ], [
             'fecha_llegada[>=]' => $llega,
-            'fecha_salida[<=]' => $sale,
+            'fecha_salida[>=]' => $sale,
             'tipo_habitacion' => $tipo,
             'estado' => $estado,
         ]);
@@ -3686,18 +3686,26 @@ class Hotel_Actions
     {
         global $database;
 
+        $data = $database->query("SELECT num_habitacion, fecha_llegada, fecha_salida FROM reservas_pms WHERE tipo_habitacion = $tipo AND estado = 'CA' AND (fecha_salida >= '$llega' ) ORDER BY num_habitacion ")->fetchAll();
+
+        return $data;
+    }
+
+    public function getEnCasaporTipoHabOld($tipo, $llega, $sale, $estado)
+    {
+        global $database;
+
         $data = $database->select('reservas_pms', [
             'num_habitacion',
         ], [
             'fecha_llegada[>=]' => $llega,
-            'fecha_salida[>=]' => $sale,
+            'fecha_salida[<=]' => $sale,
             'tipo_habitacion' => $tipo,
             'estado' => $estado,
         ]);
 
         return $data;
     }
-
 
     public function cargosDelDia($fecha, $tipo, $estado)
     {
@@ -3716,10 +3724,7 @@ class Hotel_Actions
             '[>]huespedes' => 'id_huesped',
             '[>]codigos_vta' => ['id_codigo_cargo' => 'id_cargo'],
         ], [
-            'huespedes.nombre1',
-            'huespedes.nombre2',
-            'huespedes.apellido1',
-            'huespedes.apellido2',
+            'huespedes.nombre_completo',
             'cargos_pms.fecha_cargo',
             'cargos_pms.monto_cargo',
             'cargos_pms.base_impuesto',
@@ -5153,7 +5158,7 @@ class Hotel_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT huespedes.apellido1, huespedes.apellido2, huespedes.nombre1, huespedes.nombre2,reservas_pms.dias_reservados, reservas_pms.tarifa, reservas_pms.estado, reservas_pms.valor_diario, reservas_pms.num_reserva, reservas_pms.num_habitacion, reservas_pms.can_hombres, reservas_pms.can_mujeres, reservas_pms.can_ninos, reservas_pms.fecha_llegada, reservas_pms.fecha_salida FROM huespedes, reservas_pms WHERE (huespedes.id_huesped = reservas_pms.id_huesped AND reservas_pms.num_habitacion = '$room' AND reservas_pms.fecha_llegada = '$fecha' AND reservas_pms.estado = 'CA') OR (huespedes.id_huesped = reservas_pms.id_huesped AND reservas_pms.num_habitacion = '$room' AND reservas_pms.fecha_llegada = '$fecha' AND reservas_pms.estado = 'ES') 
+        $data = $database->query("SELECT huespedes.apellido1, huespedes.apellido2, huespedes.nombre1, huespedes.nombre2, reservas_pms.dias_reservados, reservas_pms.tarifa, reservas_pms.estado, reservas_pms.valor_diario, reservas_pms.num_reserva, reservas_pms.num_habitacion, reservas_pms.can_hombres, reservas_pms.can_mujeres, reservas_pms.can_ninos, reservas_pms.fecha_llegada, reservas_pms.fecha_salida FROM huespedes, reservas_pms WHERE (huespedes.id_huesped = reservas_pms.id_huesped AND reservas_pms.num_habitacion = '$room' AND reservas_pms.fecha_llegada = '$fecha' AND reservas_pms.estado = 'CA') OR (huespedes.id_huesped = reservas_pms.id_huesped AND reservas_pms.num_habitacion = '$room' AND reservas_pms.fecha_llegada = '$fecha' AND reservas_pms.estado = 'ES') 
 				")->fetchAll();
 
         return $data;
@@ -7307,7 +7312,7 @@ class Hotel_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT numero_hab as num_habitacion FROM habitaciones WHERE id_tipohabitacion = '$tipo' AND active_at = 1 AND mantenimiento = 0 ORDER BY numero_hab")->fetchAll();
+        $data = $database->query("SELECT numero_hab as num_habitacion FROM habitaciones WHERE id_tipohabitacion = '$tipo' AND active_at = 1 ORDER BY numero_hab")->fetchAll();
 
         return $data;
     }

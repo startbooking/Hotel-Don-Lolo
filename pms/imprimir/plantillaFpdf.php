@@ -5,14 +5,14 @@
 		function Header(){
 		  $this->Image('../../img/'.LOGO,xPOS,yPOS,tPOS); 
 		  $this->SetFont('Arial','B',13);
-		  $this->Cell(190,7,NAME_EMPRESA,0,1,'C');
+		  $this->Cell(190,4,NAME_EMPRESA,0,1,'C');
 		  $this->SetFont('Arial','',10);
-		  $this->Cell(190,5,'Nit: '.NIT_EMPRESA,0,1,'C');
-		  $this->Cell(190,5,ADRESS_EMPRESA,0,1,'C');
-		  $this->Cell(190,5,utf8_decode(CIUDAD_EMPRESA.', '.PAIS_EMPRESA),0,1,'C');
-		  $this->Cell(190,5,'Telefono '.TELEFONO_EMPRESA.' Movil '.CELULAR_EMPRESA,0,1,'C');
-		  $this->SetFont('Arial','B',11);
-		  $this->Cell(190,6,NAME_HOTEL,0,1,'C');
+		  $this->Cell(190,4,'Nit: '.NIT_EMPRESA,0,1,'C');
+		  $this->Cell(190,4,ADRESS_EMPRESA,0,1,'C');
+		  $this->Cell(190,4,utf8_decode(CIUDAD_EMPRESA.', '.PAIS_EMPRESA),0,1,'C');
+		  $this->Cell(190,4,'Telefono '.TELEFONO_EMPRESA.' Movil '.CELULAR_EMPRESA,0,1,'C');
+		  $this->SetFont('Arial','B',10);
+		  $this->Cell(190,4,NAME_HOTEL,0,1,'C');
 		  $this->Ln(1);
 		}
 

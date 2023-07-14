@@ -185,30 +185,35 @@ if ($perfil == 1) {
 
     $recibeCurl = json_decode($respoNC, true);
 
+    
+
     $message = $recibeCurl['message'];
     $sendSucc = $recibeCurl['send_email_success'];
     $sendDate = $recibeCurl['send_email_date_time'];
 
-    $invoicexml = $recibeCurl['invoicexml'];
-    $zipinvoicexml = $recibeCurl['zipinvoicexml'];
-    $unsignedinvoicexml = $recibeCurl['unsignedinvoicexml'];
-    $reqfe = $recibeCurl['reqfe'];
-    $rptafe = $recibeCurl['rptafe'];
-    $attacheddocument = $recibeCurl['attacheddocument'];
+    $invoicexml = '';
+    $zipinvoicexml = '';
+    $unsignedinvoicexml = '';
+    $reqfe = '';
+    $rptafe = '';
+    $attacheddocument = '';
+
     $urlinvoicexml = $recibeCurl['urlinvoicexml'];
     $urlinvoicepdf = $recibeCurl['urlinvoicepdf'];
     $cude = $recibeCurl['cude'];
     $QRStr = $recibeCurl['QRStr'];
-    $respo = $recibeCurl['ResponseDian'];
-    $envelo = $respo['Envelope'];
-    $head = $envelo['Header'];
-    $secu = $head['Security'];
-    $time = $secu['Timestamp'];
-    $timeCrea = $time['Created'];
+    $timeCrea   = $recibeCurl['ResponseDian']['Envelope']['Header']['Security']['Timestamp']['Created'];
+    $respo = '';
+    
+    $errorMessage = json_encode($recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['ErrorMessage']);
+    $Isvalid      = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['IsValid'];
+    $statusCode   = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['StatusCode'];
+    $statusDesc   = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['StatusDescription'];
+    $statusMess   = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['StatusMessage'];
 
-    $Isvalid = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['IsValid'];
+    $message = $recibeCurl['message'];
 
-    $regis = $hotel->ingresaDatosFe($numDoc, $prefNC, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cude, $QRStr, $respoNC, $Isvalid, $eNote);
+    $regis = $hotel->ingresaDatosFe($numDoc, $prefNC, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cude, $QRStr, $recibeCurl, $Isvalid, $eNote, $errorMessage, $statusCode, $statusDesc, $statusMess);
 
     include_once '../../imprimir/imprimeNotaCredito.php';
 

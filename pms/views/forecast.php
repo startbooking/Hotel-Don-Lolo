@@ -1,6 +1,8 @@
 <?php 
   $fechapms = $hotel->getDatePms();
 
+  $tipohabis = $hotel->getTipoHabitacion();
+
   $rooms    = $hotel->getHabitaciones(CTA_MASTER);
   $fechaini = $hotel->getPrimerDia(CTA_MASTER);
   $fechafin = $hotel->getUltimoDia(CTA_MASTER);
@@ -13,11 +15,11 @@
   }
 
  ?>
-<style type="text/css" media="screen">
+<!-- <style type="text/css" media="screen">
   body{
     overflow : auto;
   }
-</style>
+</style> -->
 
 <div class="content-wrapper"> 
   <section class="content" style="margin-bottom: 100px !important">
@@ -27,30 +29,60 @@
           <div class="col-lg-6">
             <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_PMS?>">
             <input type="hidden" name="ubicacion" id="ubicacion" value="forecast">
-            <h3 class="w3ls_head tituloPagina"> <i style="color:black;font-size:36px;" class="fa fa-calendar" aria-hidden="true"></i> Forecast Hotel</h3>
+            <h3 class="w3ls_head tituloPagina" style="padding:0;"> <i style="color:black;" class="fa fa-calendar ga-2x" aria-hidden="true"></i> Forecast Hotel</h3>
+          </div>
+          <div class="col-lg-6" >
+          <div class="wrap">
+              <div class="store-wrapper">
+                <div class="category_list pull-right">                  
+                  <a href="#" class="category_item btn btn-default" category="all">Todo</a>
+                  <?php
+                    foreach($tipohabis as $tipohabi){
+                      ?>
+                      <a href="#" 
+                        class="category_item btn btn-default" 
+                        category="<?= $tipohabi['codigo'];?>"
+                        title="<?=$tipohabi['descripcion_habitacion']?>"
+                        >
+                      <?= $tipohabi['codigo'];?>
+                      </a>
+                      <?php
+                    }
+                  ?>                  
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
       <div class="panel-body" style="padding:0;">
-        <div class="row-fluid" style="overflow-y: auto;height: 490px">
+        <div class="row-fluid products-list" style="height: 75vh;overflow:auto;">
           <?php 
             $anchop = $dias*44; 
            ?>
-          <div class="col-sm-11 col-sm-offset-1" style="margin-left:6.1%;padding:2px;width: <?=$anchop?>px;height: 26px;">
+          <div class="col-sm-11 col-sm-offset-1" style="width: <?=$anchop?>px;padding:2px;height: 26px;">
             <?php 
               for ($i = 0; $i <= $dias; $i++) {
                 $fecha      = strtotime ( '+'.$i.'day',strtotime($fechaini)); ?>
-                  <div class="col-sm-1 btn btn-warning btn-sm" style="width: 40px;border-radius: 0px;padding:1px" title="<?= strftime("%A, %d de %B de %Y", $fecha);?>">
+                  <div class="col-sm-1 btn btn-warning btn-sm" style="width: 40px;border-radius: 0px;padding:1px" title="<?= date('Y-m-d',$fecha)?>">
                     <?=date ('d', $fecha );?>
                   </div>
                 <?php
               } 
             ?>   
           </div>                
-          <div class="col-sm-1" style="width: 6%;padding-left:2px;padding-right: 0">
+          <div class="col-sm-1" style="padding-left:2px;padding-right: 0">
             <?php 
             foreach ($rooms as $room) { ?>
-              <button style="width: 100%;padding:1px;margin-bottom: 1px;border-radius: 0" class="btn btn-success" type="button" title="<?=$room['descripcion_habitacion']?>"><?=$room['tipo_hab'].' '.$room['numero_hab']?></button>
+              <button 
+                style="width: 100%;padding:1px;margin-bottom: 1px;border-radius: 0" 
+                class="btn btn-success product-item" 
+                type="button" 
+                title="<?=$room['descripcion_habitacion']?>"
+                category="<?=$room['tipo_hab']?>"
+              >
+                <?=$room['tipo_hab'].' '.$room['numero_hab']?>
+              </button>
               <?php 
             }
             ?>      
@@ -59,7 +91,7 @@
             <?php 
               foreach ($rooms as $room) { 
                 $numero = $room['numero_hab']; ?>
-                <div class="row" style="width: <?=$anchop?>px;margin-left:0px;">
+                <div class="row product-item" category="<?=$room['tipo_hab'];?>" style="width: <?=$anchop?>px;margin-left:0px;">
                   <?php 
                   for ($i = 0; $i <= $dias; $i++) {
                     $fecha      = strtotime ( '+'.$i.'day' , strtotime ( $fechaini ) ) ;
@@ -97,7 +129,15 @@
                             $ancho = (40 * $estadia['dias_reservados'])-2;
                             if($estadia['estado']<>"SA" && $estadia['estado']<>"CX" ){
                           ?>
-                            <a type="button" style="padding:2px 12px;margin-bottom: 1px;height: <?=$altoh?>px;width: <?=$ancho?>px;margin-top:<?=$alto?>px;margin-left:20px;z-index:20;display: block;border: 1px solid #000A;position:absolute;border-radius: 0;font-size:10px;color:#000;overflow: hidden;font-weight: 600" class="info btn <?=$color?> reserva" title="" draggable="true"> 
+                            <a 
+                              type="button" 
+                              style="padding:2px 12px;margin-bottom: 1px;height: <?=$altoh?>px;width:<?=$ancho?>px;margin-top:<?=$alto?>px;margin-left:20px;z-index:20;display: block;border: 1px solid #000A;position:absolute;border-radius: 0;font-size:10px;color:#000;overflow: hidden;font-weight: 600" 
+                              class="info btn <?=$color?> reserva" 
+                              title="" 
+                              draggable="true" 
+                              onclick="muestraReserva(this)"
+                              reserva="<?=$estadia['num_reserva']?>"
+                              estado="<?=$estadia['estado']?>"> 
                               <span style="position: fixed;left: 500px; top: 52px;">Huesped <?=$estadia['apellido1'].' '.$estadia['apellido2'].' '.$estadia['nombre1'].' '.$estadia['nombre2']?><br>Habitacion <?=$estadia['num_habitacion']?><br>Adultos <?=$estadia['can_hombres']+$estadia['can_mujeres']?> Niños <?=$estadia['can_ninos']?> <br>Fecha Llegada <?=$estadia['fecha_llegada'] ?><br>Fecha Salida <?=$estadia['fecha_salida']?><br>Tarifa <?=number_format($estadia['valor_diario'],2)?></span>
                               <?=$estadia['apellido1']?>
                             </a>
@@ -114,7 +154,7 @@
                 </div>
                 <?php 
               }
-             ?>
+            ?>
           </div>
         </div>
       </div>

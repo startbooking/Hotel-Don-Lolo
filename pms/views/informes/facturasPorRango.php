@@ -28,7 +28,7 @@
                     <input class="form-control" type="date" min="1" name="desdeFecha" id='desdeFecha' value='<?=$inicial ?>' max="<?=$ayer ?>">
                   </div>
                   <label class="control-label col-md-2">Hasta Fecha</label>
-                  <div class="col-lg-3 col-md-3">ayer
+                  <div class="col-lg-3 col-md-3">
                     <input class="form-control" type="date" min="1" name="hastaFecha" id='hastaFecha' value='<?=$ayer ?>' max="<?=$ayer ?>">
                   </div>
                 </div>

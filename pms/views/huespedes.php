@@ -21,16 +21,17 @@
             <input type="hidden" name="ubicacion" id="ubicacion" value="huespedesPerfil">
             <input type="hidden" name="paginas" id="paginas" value="<?=$paginas?>">
             <input type="hidden" name="regishue" id="regishue" value="<?=$reghues?>">
-            <h3 class="w3ls_head tituloPagina"> <i class="fa fa-address-book" aria-hidden="true"></i> Huespedes </h3>
+            <h3 class="w3ls_head tituloPagina"> 
+            <i class="fa-solid fa-users-viewfinder"></i>
+            </i> Huespedes </h3>
           </div>
-          <div class="col-md-6" align="right">
+          <div class="col-md-6 pull-right">
             <a 
               class="btn btn-success"
               data-toggle="modal" 
               data-reserva='0'
               href="#myModalAdicionaPerfil">
-              <i class="fa fa-plus" aria-hidden="true"></i>
-               Adicionar Huesped
+              <i class="fa fa-plus" aria-hidden="true"></i> Adicionar Huesped
             </a>
           </div>
         </div>
