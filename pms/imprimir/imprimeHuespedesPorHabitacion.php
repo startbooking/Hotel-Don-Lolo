@@ -16,7 +16,7 @@ array_sort_by($reservas, 'num_habitacion', $order = SORT_ASC);
 $regis = count($reservas);
 $pdf = new PDF();
 $pdf->AddPage('P', 'letter');
-$pdf->SetFont('Arial', 'B', 12);
+$pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell(190, 5, 'HUESPEDES EN CASA POR HABITACION', 0, 1, 'C');
 $pdf->SetFont('Arial', '', 10);
 $pdf->Cell(190, 5, 'Fecha: '.FECHA_PMS, 0, 1, 'C');
@@ -42,15 +42,15 @@ if ($regis == 0) {
     $pdf->Cell(190, 6, 'SIN HUESPEDES EN CASA ', 0, 0, 'C');
 } else {
     foreach ($reservas as $reserva) {
-        $pdf->Cell(10, 5, $reserva['num_habitacion'], 0, 0, 'L');
-        $pdf->Cell(70, 5, substr(utf8_decode($reserva['nombre_completo']), 0, 34), 0, 0, 'L');
-        $pdf->Cell(25, 5, $reserva['fecha_llegada'], 0, 0, 'L');
-        $pdf->Cell(25, 5, $reserva['fecha_salida'], 0, 0, 'L');
-        $pdf->Cell(5, 5, $reserva['can_hombres'], 0, 0, 'C');
-        $pdf->Cell(5, 5, $reserva['can_mujeres'], 0, 0, 'C');
-        $pdf->Cell(5, 5, $reserva['can_ninos'], 0, 0, 'C');
-        $pdf->Cell(25, 5, number_format($reserva['valor_diario'], 2), 0, 0, 'R');
-        $pdf->Cell(15, 5, $reserva['num_registro'], 0, 1, 'R');
+        $pdf->Cell(10, 4, $reserva['num_habitacion'], 0, 0, 'L');
+        $pdf->Cell(70, 4, substr(utf8_decode($reserva['nombre_completo']), 0, 34), 0, 0, 'L');
+        $pdf->Cell(25, 4, $reserva['fecha_llegada'], 0, 0, 'L');
+        $pdf->Cell(25, 4, $reserva['fecha_salida'], 0, 0, 'L');
+        $pdf->Cell(5, 4, $reserva['can_hombres'], 0, 0, 'C');
+        $pdf->Cell(5, 4, $reserva['can_mujeres'], 0, 0, 'C');
+        $pdf->Cell(5, 4, $reserva['can_ninos'], 0, 0, 'C');
+        $pdf->Cell(25, 4, number_format($reserva['valor_diario'], 2), 0, 0, 'R');
+        $pdf->Cell(15, 4, $reserva['num_registro'], 0, 1, 'R');
         // $pdf->Cell(20, 5, $reserva['estado'], 0, 1, 'C');
         $acompanantes = $hotel->getBuscarAcompanantesReserva($reserva['num_reserva']);
         if (count($acompanantes) != 0) {

@@ -28,26 +28,25 @@
   $pdf->SetFont('Arial','',9);
   $cargos = $hotel->getFacturasdelDia(); 
 
-  //// echo print_r($cargos);
-
   $consu  = 0 ;
   $impto  = 0 ;
   $pagos  = 0 ;
 
   foreach ($cargos as $cargo) {
-    $pdf->Cell(10,6,$cargo['factura_numero'],0,0,'L');
-    $pdf->Cell(60,6,substr(utf8_decode($cargo['apellido1'].' '.$cargo['apellido2'].' '.$cargo['nombre1'].' '.$cargo['nombre2']),0,28),0,0,'L');
-    $pdf->Cell(22,6,number_format($cargo['total_consumos'],2),0,0,'R');
-    $pdf->Cell(22,6,number_format($cargo['total_impuesto'],2),0,0,'R');
-    $pdf->Cell(22,6,number_format($cargo['total_pagos'],2),0,0,'R');
-    $pdf->Cell(30,6,$hotel->nombreUsuario($cargo['id_usuario_factura']),0,0,'R'); 
-    $pdf->Cell(10,6,substr($cargo['fecha_sistema_cargo'],11,5),0,0,'R'); 
-    $pdf->Cell(20,6,estadoFacturaImp($cargo['factura_anulada']),0,0,'L'); 
-    $pdf->Cell(60,6,$hotel->getDescripcionIva($cargo['id_codigo_cargo']),0,1,'L'); 
-
-    $consu  = $consu + $cargo['total_consumos'];
-    $impto  = $impto + $cargo['total_impuesto'];
-    $pagos  = $pagos + $cargo['total_pagos'];
+    $pdf->Cell(10,4,$cargo['factura_numero'],0,0,'L');
+    $pdf->Cell(60,4,substr(utf8_decode($cargo['apellido1'].' '.$cargo['apellido2'].' '.$cargo['nombre1'].' '.$cargo['nombre2']),0,28),0,0,'L');
+    $pdf->Cell(22,4,number_format($cargo['total_consumos'],2),0,0,'R');
+    $pdf->Cell(22,4,number_format($cargo['total_impuesto'],2),0,0,'R');
+    $pdf->Cell(22,4,number_format($cargo['total_pagos'],2),0,0,'R');
+    $pdf->Cell(30,4,$hotel->nombreUsuario($cargo['id_usuario_factura']),0,0,'R'); 
+    $pdf->Cell(10,4,substr($cargo['fecha_sistema_cargo'],11,5),0,0,'R'); 
+    $pdf->Cell(20,4,estadoFacturaImp($cargo['factura_anulada']),0,0,'L'); 
+    $pdf->Cell(60,4,$hotel->getDescripcionIva($cargo['id_codigo_cargo']),0,1,'L'); 
+    if($cargo['factura_anulada']==0){
+      $consu  = $consu + $cargo['total_consumos'];
+      $impto  = $impto + $cargo['total_impuesto'];
+      $pagos  = $pagos + $cargo['total_pagos'];
+    }
 
   }
   $pdf->Ln(2);

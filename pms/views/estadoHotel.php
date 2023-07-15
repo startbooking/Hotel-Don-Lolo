@@ -43,7 +43,9 @@
         <div class="panel-heading">
           <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_PMS?>">
           <input type="hidden" name="ubicacion" id="ubicacion" value="home">
-          <h1 style="font-size:34px;text-align:center">Estado Hotel</h1>
+          <h3 class="tituloPagina">
+          <i class="fa-solid fa-city"></i>
+          Estado Hotel</h3>
         </div>
         <div class="panel-body">
           <div class="container-fluid">

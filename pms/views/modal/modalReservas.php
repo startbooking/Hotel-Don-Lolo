@@ -532,7 +532,7 @@
           </div>
           <div class="modal-footer">
             <div class="row">
-              <div class="col-lg-4 col-lg-offset-4" >
+              <div class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4" >
                   <button type="button" class="btn btn-warning btn-block" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
               </div>
             </div>
@@ -611,7 +611,7 @@
                 </div>
                 <label for="archivo" class="col-sm-1 control-label">Valor</label>
                 <div class="col-sm-3">
-                  <input class="form-control padInput" type="text" name="txtValorTarifa" id="txtValorTarifa" value=0 readonly="">
+                  <input class="form-control padInput" style="text-align:right;" type="text" name="txtValorTarifa" id="txtValorTarifa" value=0 readonly="" >
                 </div>
               </div>
               <div class="divs divDeposito">
@@ -681,16 +681,14 @@
             </div>
           </div>
           <div class="modal-footer">
-            <div class="col-lg-8 col-lg-offset-2" >
-              <div class="col-lg-6">
+            <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2" >
+              <div class="col-lg-6 col-md-6">
                 <button type="button" class="btn btn-warning btn-block" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
               </div>
-              <div class="col-lg-6">
+              <div class="col-lg-6 col-md-6">
                 <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-save"></i> Procesar</button>
               </div>                
             </div>
-            <!-- <div class="row">
-            </div> -->
           </div>
         </form>
       </div>
@@ -699,7 +697,7 @@
 </div> 
 
 <div class="modal fade bs-example-modal-lg" id="myModalInformacionCompania" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog modal-xs" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class='glyphicon glyphicon-off' style="color:#530505"></span></button>
@@ -883,17 +881,17 @@
             <input type="hidden" name="txtIdHuespedEst" id="txtIdHuespedEst" value="">
             <input type="hidden" name="txtImptoTurismo" id="txtImptoTuriEst" value="">
             <div class="form-group">
-              <label class="control-label col-lg-2">Tipo Hab</label>
+              <label class="control-label col-lg-2 col-md-2">Tipo Hab</label>
               <div class="col-lg-4 col-xs-4">
                 <input style="font-size:11px;" class="form-control padInput" type="text" name='txtTipoHabEst' id='txtTipoHabEst' readonly>
               </div>
-              <label class="control-label col-lg-2">Hab.</label>
+              <label class="control-label col-lg-2 col-md-2">Hab.</label>
               <div class="col-lg-2 col-xs-2">
                 <input style="font-size:11px;" class="form-control padInput" type="text" name='txtNumeroHabEst' id='txtNumeroHabEst' readonly>
               </div>
             </div>
             <div class="form-group">
-              <label class="control-label col-lg-2">Huesped</label>
+              <label class="control-label col-lg-2 col-md-2">Huesped</label>
               <div class="col-lg-10 col-xs-10">
                 <input style="font-size:11px;" class="form-control padInput" type="text" name="txtNombresEst" id='txtNombresEst' value='0' readonly>
               </div>

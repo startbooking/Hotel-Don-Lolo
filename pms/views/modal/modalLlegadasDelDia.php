@@ -76,7 +76,7 @@
               </div>
               <label for="archivo" class="col-sm-1 control-label">Valor</label>
               <div class="col-sm-3">
-                <input class="form-control padInput" type="text" name="txtValorTarifaIng" id="txtValorTarifaIng" value=0 >
+                <input class="form-control padInput" style="text-align:right;padding:0 3px;" type="text" name="txtValorTarifaIng" id="txtValorTarifaIng" value=0 >
               </div>
             </div>
           </div>

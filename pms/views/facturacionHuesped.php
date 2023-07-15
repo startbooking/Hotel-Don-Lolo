@@ -156,8 +156,8 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
                 </div>
               </div>
               <?php
-            }
-?>
+              }
+            ?>
 
           </div> 
         </div> 
@@ -173,7 +173,7 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
     if ($saldofolio1 != 0) { ?>
                   <span class="fa-stack fa-xs" title="Reserva con Depositos" style="margin-left:0px;cursor:pointer;">
                     <i style="font-size:20px;color: #085908" class="fa fa-circle fa-stack-2x"></i>
-                    <i style="font-size:10px;margin-top: -2px;margin-left: 1px;" class="fa fa-usd fa-stack-1x fa-inverse"></i>
+                    <i style="font-size:10px;" class="fa fa-usd fa-stack-1x fa-inverse"></i>
                   </span>
                   <?php
     }
@@ -186,7 +186,7 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
   if ($saldofolio2 != 0) { ?>
                     <span class="fa-stack fa-xs" title="Reserva con Depositos" style="margin-left:0px;cursor:pointer;">
                     <i style="font-size:20px;color: #085908" class="fa fa-circle fa-stack-2x"></i>
-                    <i style="font-size:10px;margin-top: -2px;margin-left: 1px;" class="fa fa-usd fa-stack-1x fa-inverse"></i>
+                    <i style="font-size:10px;" class="fa fa-usd fa-stack-1x fa-inverse"></i>
                   </span>
                     <?php
   }
@@ -199,7 +199,7 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
 if ($saldofolio3 != 0) { ?>
                     <span class="fa-stack fa-xs" title="Reserva con Depositos" style="margin-left:0px;cursor:pointer;">
                     <i style="font-size:20px;color: #085908" class="fa fa-circle fa-stack-2x"></i>
-                    <i style="font-size:10px;margin-top: -2px;margin-left: 1px;" class="fa fa-usd fa-stack-1x fa-inverse"></i>
+                    <i style="font-size:10px;" class="fa fa-usd fa-stack-1x fa-inverse"></i>
                   </span>
                     <?php
 }
@@ -212,7 +212,7 @@ if ($saldofolio3 != 0) { ?>
 if ($saldofolio4 != 0) { ?>
                     <span class="fa-stack fa-xs" title="Reserva con Depositos" style="margin-left:0px;cursor:pointer;">
                     <i style="font-size:20px;color: #085908" class="fa fa-circle fa-stack-2x"></i>
-                    <i style="font-size:10px;margin-top: -2px;margin-left: 1px;" class="fa fa-usd fa-stack-1x fa-inverse"></i>
+                    <i style="font-size:10px;" class="fa fa-usd fa-stack-1x fa-inverse"></i>
                   </span>
                     <?php
 }

@@ -3670,23 +3670,23 @@ class Hotel_Actions
         WHERE 
         tipo_habitacion = '$tipo' AND 
         estado != 'CX' AND
+        estado != 'CO' AND
         estado != 'SA' AND
         fecha_salida <= '$sale' OR
         tipo_habitacion = '$tipo' AND 
         estado != 'CX' AND
+        estado != 'CO' AND
         estado != 'SA' AND
         fecha_llegada <= '$llega' 
         ORDER BY num_habitacion, fecha_llegada")->fetchAll();
         return $data;
     }
 
-
-
     public function getEnCasaporTipoHab($tipo, $llega, $sale, $estado)
     {
         global $database;
 
-        $data = $database->query("SELECT num_habitacion, fecha_llegada, fecha_salida FROM reservas_pms WHERE tipo_habitacion = $tipo AND estado = 'CA' AND (fecha_salida >= '$llega' ) ORDER BY num_habitacion ")->fetchAll();
+        $data = $database->query("SELECT num_habitacion, fecha_llegada, fecha_salida, estado FROM reservas_pms WHERE (estado = 'CA'  OR estado = 'ES') AND tipo_habitacion = '$tipo' AND fecha_llegada >= '$llega' AND fecha_llegada < '$sale' ORDER BY num_habitacion")->fetchAll();
 
         return $data;
     }
@@ -3724,6 +3724,10 @@ class Hotel_Actions
             '[>]huespedes' => 'id_huesped',
             '[>]codigos_vta' => ['id_codigo_cargo' => 'id_cargo'],
         ], [
+            'huespedes.apellido1',
+            'huespedes.apellido2',
+            'huespedes.nombre1',
+            'huespedes.nombre2',
             'huespedes.nombre_completo',
             'cargos_pms.fecha_cargo',
             'cargos_pms.monto_cargo',

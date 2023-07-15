@@ -9,7 +9,7 @@
                   <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_PMS?>">
                   <input type="hidden" name="ubicacion" id="ubicacion" value="ingresoConsumos">
                   <input type="hidden" name="ingreso" id="ingreso" value="1">
-                  <h3 class="w3ls_head tituloPagina"> <i class="fa fa-money icon" style="font-size:40px;color:#06451E99" ></i> Ingreso Consumos</h3>
+                  <h3 class="w3ls_head tituloPagina"> <i class="fa fa-money icon fa-2x" style="color:black;" ></i> Ingreso Consumos</h3>
                 </div>
               </div>
             </div>
@@ -27,7 +27,7 @@
                           <option value="<?=$reserva['num_reserva']?>" ><?=$reserva['num_habitacion'].' '.$reserva['apellido1'].' '.$reserva['apellido2'].' '.$reserva['nombre1'].' '.$reserva['nombre2']?></option>
                         <?php 
                         }
-                       ?>
+                      ?>
                     </select>
                   </div>
                 </div>

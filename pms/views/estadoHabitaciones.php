@@ -1,7 +1,6 @@
 <?php
 $rooms = $hotel->getHabitaciones(5);
 
-// echo print_r($rooms);
 ?>
 
 <div class="content-wrapper" >
@@ -12,7 +11,7 @@ $rooms = $hotel->getHabitaciones(5);
           <input type="hidden" name="ubicacion" id="ubicacion" value="estadoHabitaciones">
           <div class="row">
             <div class="col-lg-6 col-xs-6">
-              <h1 style="font-size:34px;text-align:left;margin-bottom: 20px;"><i class="fa fa-language" aria-hidden="true"></i> Estado Habitaciones </h1>
+              <h3 class="tituloPagina"><i class="fa fa-language" aria-hidden="true"></i> Estado Habitaciones </h3>
             </div>
             <div class="col-lg-6 col-xs-6">
               <ul class="menuEstadHab">

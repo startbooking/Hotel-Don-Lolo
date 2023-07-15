@@ -473,40 +473,28 @@ foreach ($codigos as $codigo) { ?>
               <div class="form-group">
                 <label for="txtValorConsumo" class="col-sm-3 control-label">Valor Cargo</label>
                 <div class="col-sm-3">
-                  <input class="form-control padInput" type="text" name="txtValorConsumoAnu" id="txtValorConsumoAnu" readonly disabled="">
+                  <input class="form-control padInput" style="text-align: right;" type="text" name="txtValorConsumoAnu" id="txtValorConsumoAnu" readonly disabled="">
                 </div>
-                <label for="txtValorImptoAnu" class="col-sm-2 control-label">Impuesto</label>
+                <label for="txtValorImptoAnu" class="col-sm-1 control-label">Impuesto</label>
                 <div class="col-sm-3">
-                  <input class="form-control padInput" type="text" name="txtValorImptoAnu" id="txtValorImptoAnu" readonly disabled="">
+                  <input class="form-control padInput" style="text-align: right;" type="text" name="txtValorImptoAnu" id="txtValorImptoAnu" readonly disabled="">
                 </div>
               </div>
               <div class="form-group">
                 <label for="txtValorTotalAnu" class="col-sm-3 control-label">Total Cargo</label>
-                <div class="col-sm-4">
-                  <input class="form-control padInput" type="text" name="txtValorTotalAnu" id="txtValorTotalAnu" readonly disabled="">
+                <div class="col-sm-3">
+                  <input class="form-control padInput" style="text-align: right;" type="text" name="txtValorTotalAnu" id="txtValorTotalAnu" readonly disabled="">
                 </div>
               </div>              
             </div>
-            <div id="divPagos" style="display:none">
+            <div id="divPagos" >
               <div class="form-group">
                 <label for="txtValorConsumo" class="col-sm-3 control-label">Valor Pago</label>
-                <div class="col-sm-4">
-                  <input class="form-control padInput" type="text" name="txtPagoConsumoAnu" id="txtPagoConsumoAnu" readonly disabled="">
-                </div>
-                <!--<label for="txtValorImptoAnu" class="col-sm-2 control-label">Impuesto</label>
                 <div class="col-sm-3">
-                  <input class="form-control padInput" type="text" name="txtValorImptoAnu" id="txtValorImptoAnu" readonly disabled="">
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="txtValorTotalAnu" class="col-sm-3 control-label">Total Cargo</label>
-                <div class="col-sm-4">
-                  <input class="form-control padInput" type="text" name="txtValorTotalAnu" id="txtValorTotalAnu"readonly disabled="">
-                </div> -->
+                  <input class="form-control padInput" style="text-align: right;" type="text" name="txtPagoConsumoAnu" id="txtPagoConsumoAnu" readonly disabled="">
+                </div>                
               </div>              
-              
             </div>
-
             <div class="form-group">
               <label for="txtReferenciaAnu" class="col-sm-3 control-label">Referencia</label>
               <div class="col-sm-8">

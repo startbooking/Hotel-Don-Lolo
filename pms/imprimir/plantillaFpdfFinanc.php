@@ -8,7 +8,7 @@ class PDF extends FPDF
     {
         $this->Image('../../img/'.LOGO, xPOS, yPOS, tPOS);
         $this->SetFont('Arial', 'B', 12);
-        $this->Cell(260, 5, NAME_EMPRESA, 0, 1, 'C');
+        $this->Cell(260, 4, NAME_EMPRESA, 0, 1, 'C');
         $this->SetFont('Arial', '', 10);
         $this->Cell(260, 4, 'Nit: '.NIT_EMPRESA, 0, 1, 'C');
         $this->Cell(260, 4, ADRESS_EMPRESA, 0, 1, 'C');
@@ -16,7 +16,7 @@ class PDF extends FPDF
         $this->Cell(260, 4, 'Telefono '.TELEFONO_EMPRESA.' Movil '.CELULAR_EMPRESA, 0, 1, 'C');
         $this->SetFont('Arial', 'B', 11);
         $this->Cell(260, 4, NAME_HOTEL, 0, 1, 'C');
-        $this->Ln(1);
+        // $this->Ln(1);
     }
 
     public function Footer()

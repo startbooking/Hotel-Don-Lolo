@@ -11,10 +11,10 @@ require_once '../imprimir/plantillaFpdfFinancL.php';
 $pdf = new PDF();
 $pdf->AddPage('P', 'letter');
 $pdf->SetFont('Arial', 'B', 11);
-$pdf->Cell(195, 5, 'FLUJO DE CAJA', 0, 1, 'C');
+$pdf->Cell(195, 4, 'FLUJO DE CAJA', 0, 1, 'C');
 $pdf->SetFont('Arial', '', 9);
-$pdf->Cell(195, 5, 'Fecha : '.FECHA_PMS, 0, 1, 'C');
-$pdf->Ln(2);
+$pdf->Cell(195, 4, 'Fecha : '.FECHA_PMS, 0, 1, 'C');
+// $pdf->Ln(2);
 
 $pdf->SetFont('Arial', '', 8);
 $codigos = $hotel->cargosDelDia(FECHA_PMS, 3, 0);
@@ -22,13 +22,13 @@ $codigos = $hotel->cargosDelDia(FECHA_PMS, 3, 0);
 $pag = 0;
 $monto = 0;
 
-$pdf->Cell(20, 5, 'Numero', 0, 0, 'R');
-$pdf->Cell(20, 5, 'Hab.', 0, 0, 'R');
-$pdf->Cell(70, 5, 'Huesped', 0, 0, 'C');
-$pdf->Cell(10, 5, 'Cant. ', 0, 0, 'C');
-$pdf->Cell(25, 5, 'Pago', 0, 0, 'C');
-$pdf->Cell(30, 5, 'Usuario', 0, 0, 'C');
-$pdf->Cell(10, 5, 'Hora', 0, 1, 'C');
+$pdf->Cell(20, 5, 'Numero', 1, 0, 'R');
+$pdf->Cell(20, 5, 'Hab.', 1, 0, 'R');
+$pdf->Cell(70, 5, 'Huesped', 1, 0, 'C');
+$pdf->Cell(10, 5, 'Cant. ', 1, 0, 'C');
+$pdf->Cell(25, 5, 'Pago', 1, 0, 'C');
+$pdf->Cell(30, 5, 'Usuario', 1, 0, 'C');
+$pdf->Cell(10, 5, 'Hora', 1, 1, 'C');
 
 foreach ($codigos as $codigo) {
     $pdf->Cell(40, 5, 'Forma de Pago ', 0, 0, 'L');

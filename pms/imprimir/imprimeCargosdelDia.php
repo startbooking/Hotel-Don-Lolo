@@ -14,7 +14,7 @@ $pdf->SetFont('Arial', 'B', 9);
 $pdf->Cell(260, 4, 'CARGOS DEL DIA ', 0, 1, 'C');
 $pdf->SetFont('Arial', '', 9);
 $pdf->Cell(260, 4, 'Fecha : '.FECHA_PMS, 0, 1, 'C');
-$pdf->Ln(2);
+// $pdf->Ln(2);
 
 $pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell(10, 5, 'Hab.', 0, 0, 'C');

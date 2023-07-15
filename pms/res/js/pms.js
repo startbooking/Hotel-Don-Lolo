@@ -16,11 +16,15 @@ $(document).ready(function () {
 
 		// MOSTRANDO PRODUCTOS =========================
 		function showProduct(){
-      console.log(catProduct);
 			$('.product-item[category="'+catProduct+'"]').show();
 			$('.product-item[category="'+catProduct+'"]').css('transform', 'scale(1)');
-		} setTimeout(showProduct,400);
-	});
+		  } 
+      setTimeout(showProduct,400);
+      setTimeout(
+        $('.product-item[category="'+catProduct+'"]').css('transform', '')
+        ,400);
+
+    });
 
 	// MOSTRANDO TODOS LOS PRODUCTOS =======================
 
@@ -1481,7 +1485,7 @@ $(document).ready(function () {
     $("#editaRes").val(1);
     var parametros = {
       id,
-    };
+    }; 
     modal.find(".modal-title").text("Cancela Reserva Actual: " + nombre);
 
     $.ajax({
@@ -1731,10 +1735,10 @@ $(document).ready(function () {
     modal.find(".modal-body #txtNumeroHabAnu").val(room);
     modal.find(".modal-body #txtDescripcionAnu").val(descrip);
     modal.find(".modal-body #txtCantidadAnu").val(cant);
-    modal.find(".modal-body #txtValorConsumoAnu").val(monto);
-    modal.find(".modal-body #txtValorImptoAnu").val(impto);
-    modal.find(".modal-body #txtValorTotalAnu").val(total);
-    modal.find(".modal-body #txtPagoConsumoAnu").val(pagos);
+    modal.find(".modal-body #txtValorConsumoAnu").val(number_format(monto,2));
+    modal.find(".modal-body #txtValorImptoAnu").val(number_format(impto,2));
+    modal.find(".modal-body #txtValorTotalAnu").val(number_format(total,2));
+    modal.find(".modal-body #txtPagoConsumoAnu").val(number_format(pagos,2));
     modal.find(".modal-body #txtReferenciaAnu").val(refer);
     modal.find(".modal-body #txtDetalleCargoAnu").val(info);
     modal.find(".modal-body #txtMotivoAnula").val("");
@@ -1836,7 +1840,7 @@ $(document).ready(function () {
     modal.find(".modal-body #txtMujeres").val(mujeres);
     modal.find(".modal-body #txtNinos").val(ninos);
     modal.find(".modal-body #txtTarifa").val(tarifa);
-    modal.find(".modal-body #txtValorTarifa").val(valor);
+    modal.find(".modal-body #txtValorTarifa").val(number_format(valor,2));
     $("#txtValorDeposito").val(0);
     $("#formadePago").val("");
     $("#formadePago").focus();
@@ -3026,6 +3030,7 @@ function buscaTarifa(id) {
 
 function irPagina(id) {
   var filas = $("#numFiles").val();
+  console.log(filas);
   newregis = filas * id;
   traeTotalHuespedes(newregis, filas);
 }
@@ -3128,15 +3133,31 @@ function traeTotalHuespedes(regis, filas) {
           </td>
         </tr>`;
       }
+      barra =
+        barra +
+        `<button 
+        class="btn btn-success" 
+        data-page ="${1}"
+        onclick   ="irPagina(${1})"
+        > << </button>`;
       for (i = 1; i <= pages; i++) {
-        barra =
+        if(i <=10){
+          barra =
           barra +
           `<button 
-              class="btn btn-success" 
-              data-page ="${i - 1}"
-              onclick   ="irPagina(${i - 1})"
-            > ${i} </button>`;
+          class="btn btn-success" 
+          data-page ="${i - 1}"
+          onclick   ="irPagina(${i - 1})"
+          > ${i} </button>`;
+        }
       }
+      barra =
+        barra +
+        `<button 
+        class="btn btn-success" 
+        data-page ="${i - 1}"
+        onclick   ="irPagina(${i - 1})"
+        > >> </button>`;
       $("#listaHuespedes").append(lista);
       $("#barraPaginas").append(barra);
     },
@@ -4809,11 +4830,7 @@ function anulaConsumos() {
         '<h3 style="font-weight:600;color:brown">Cargo Anulado Con Exito</h3>'
       );
       $("#myModalAnulaCargo").modal("hide");
-      // activaFolio(reserva, 1);
-      // movimientosFactura(numero);
       activaFolio(reserva, 1);
-
-      // $(location).attr("href", web + "facturacionHuesped");
     },
   });
 }

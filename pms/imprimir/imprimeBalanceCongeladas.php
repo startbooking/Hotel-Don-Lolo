@@ -9,20 +9,20 @@
   
   $pdf = new PDF();  
   $pdf->AddPage('L','letter');
-  $pdf->SetFont('Arial','B',12);
+  $pdf->SetFont('Arial','B',11);
   $pdf->Cell(260,5,'CUENTAS CONGELADAS ',0,1,'C');
   $pdf->SetFont('Arial','',11);
   $pdf->Cell(260,5,'Fecha '.FECHA_PMS,0,1,'C');
   $pdf->Ln(1);
   $pdf->SetFont('Arial','B',11);
-  $pdf->Cell(10,5,'Hab.',0,0,'C');
-  $pdf->Cell(80,5,'Huesped',0,0,'C');
-  $pdf->Cell(25,5,'Llegada ',0,0,'C');
-  $pdf->Cell(25,5,'Salida ',0,0,'C');
-  $pdf->Cell(30,5,'Consumos. ',0,0,'C');
-  $pdf->Cell(30,5,'Impuestos',0,0,'C');
-  $pdf->Cell(30,5,'Pagos',0,0,'C');
-  $pdf->Cell(30,5,'Saldo',0,1,'C');
+  $pdf->Cell(10,5,'Hab.',1,0,'C');
+  $pdf->Cell(80,5,'Huesped',1,0,'C');
+  $pdf->Cell(25,5,'Llegada ',1,0,'C');
+  $pdf->Cell(25,5,'Salida ',1,0,'C');
+  $pdf->Cell(30,5,'Consumos. ',1,0,'C');
+  $pdf->Cell(30,5,'Impuestos',1,0,'C');
+  $pdf->Cell(30,5,'Pagos',1,0,'C');
+  $pdf->Cell(30,5,'Saldo',1,1,'C');
   $pdf->Ln(1);
   $pdf->SetFont('Arial','',11);
 
@@ -45,14 +45,14 @@
         $consumos[0]['imptos'] = 0;
         $consumos[0]['pagos']  = 0;
       } 
-      $pdf->Cell(10,5,$reserva['num_habitacion'],0,0,'R');
-      $pdf->Cell(80,5,utf8_decode($reserva['apellido1'].' '.$reserva['apellido2'].' '.$reserva['nombre1'].' '.$reserva['nombre2']),0,0,'L');
-      $pdf->Cell(25,5,$reserva['fecha_llegada'],0,0,'C');
-      $pdf->Cell(25,5,$reserva['fecha_salida'],0,0,'C');
-      $pdf->Cell(30,5,number_format($consumos[0]['cargos'],2),0,0,'R');
-      $pdf->Cell(30,5,number_format($consumos[0]['imptos'],2),0,0,'R');
-      $pdf->Cell(30,5,number_format($consumos[0]['pagos'],2),0,0,'R');
-      $pdf->Cell(30,5,number_format($consumos[0]['cargos']+$consumos[0]['imptos']-$consumos[0]['pagos'],2),0,1,'R');
+      $pdf->Cell(10,4,$reserva['num_habitacion'],0,0,'R');
+      $pdf->Cell(80,4,utf8_decode($reserva['apellido1'].' '.$reserva['apellido2'].' '.$reserva['nombre1'].' '.$reserva['nombre2']),0,0,'L');
+      $pdf->Cell(25,4,$reserva['fecha_llegada'],0,0,'C');
+      $pdf->Cell(25,4,$reserva['fecha_salida'],0,0,'C');
+      $pdf->Cell(30,4,number_format($consumos[0]['cargos'],2),0,0,'R');
+      $pdf->Cell(30,4,number_format($consumos[0]['imptos'],2),0,0,'R');
+      $pdf->Cell(30,4,number_format($consumos[0]['pagos'],2),0,0,'R');
+      $pdf->Cell(30,4,number_format($consumos[0]['cargos']+$consumos[0]['imptos']-$consumos[0]['pagos'],2),0,1,'R');
       $car = $car + $consumos[0]['cargos'];
       $imp = $imp + $consumos[0]['imptos'];
       $pag = $pag + $consumos[0]['pagos'];
@@ -60,7 +60,8 @@
     }
     $tot = $car+$imp-$pag;
 
-    $pdf->SetY(180);
+    // $pdf->SetY(180);
+    $pdf->ln(1);
     $pdf->SetFont('Arial','',9);
     $pdf->Cell(30,6,'Consumos',1,0,'C');
     $pdf->Cell(30,6,number_format($car,2),1,0,'R');

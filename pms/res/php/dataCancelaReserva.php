@@ -56,22 +56,10 @@ $centros = $hotel->getBuscaCentroCia($reserva[0]['idCentroCia']);
             <div class="col-sm-3">
               <input type="text" class="form-control" name="nit" id="nit" value="<?php echo $cia[0]['nit'].'-'.$cia[0]['dv']; ?>" disabled="">
             </div>
-          </div>
-          <?php
-            if ($reserva[0]['idCentroCia'] != 0) { ?> 
-              <div class="form-group">
-                <label for="inputEmail3" class="col-sm-2 control-label">Centro de Costo</label>
-                <div class="col-sm-6">
-                  <input type="hidden" name="idCentro" id="idCentro" value="<?php echo $reserva[0]['idCentroCia']; ?>">
-                  <input type="text" class="form-control" name="centroCia" id="centroCia" value="<?php echo $centros[0]['descripcion_centro']; ?>" disabled="">
-                </div>
-              </div>
-              <?php
-            }
-            ?>
+          </div>          
           <?php
         }
-?>
+      ?>
     </div>    
     <div class="panel-body" style="padding:5px">
       <div class="form-group">
@@ -82,11 +70,11 @@ $centros = $hotel->getBuscaCentroCia($reserva[0]['idCentroCia']);
               <div class="form-check form-check-inline">
                 <input style="margin-top:5px" class="form-check-input" type="radio" name="imptoOption" id="inlineRadio1" value="1" 
                 <?php
-            if ($reserva[0]['causar_impuesto'] == 1) { ?>
+                  if ($reserva[0]['causar_impuesto'] == 1) { ?>
                     checked
-                  <?php
-            }
-?>
+                    <?php
+                  }
+                ?>
                 >
                 <label style="margin-top:-25px;margin-left:25px" class="form-check-label" for="inlineRadio1" >NO</label>
               </div>                    
@@ -95,11 +83,11 @@ $centros = $hotel->getBuscaCentroCia($reserva[0]['idCentroCia']);
               <div class="form-check form-check-inline">
                 <input style="margin-top:5px" class="form-check-input" type="radio" name="imptoOption" id="inlineRadio2" value="2"
                 <?php
-  if ($reserva[0]['causar_impuesto'] == 2) { ?>
+                  if ($reserva[0]['causar_impuesto'] == 2) { ?>
                     checked
                   <?php
-  }
-?>
+                  }
+                ?>
                 >
                 <label style="margin-top:-25px;margin-left:25px" class="form-check-label" for="inlineRadio2">SI</label>
               </div>
@@ -121,7 +109,7 @@ $centros = $hotel->getBuscaCentroCia($reserva[0]['idCentroCia']);
               disabled="true"
               <?php
             }
-?>
+            ?>
             > 
         </div>
         <label for="noches" class="col-sm-1 control-label">Noches</label>
@@ -357,7 +345,7 @@ foreach ($codigos as $codigo) { ?>
         </div>
       </div>
       <div class="form-group">
-        <label class="control-label col-lg-2" for="">Motivo</label>
+        <label class="control-label col-lg-2 col-md-2" for="">Motivo</label>
         <div class="col-lg-6 col-md-6" >
           <select name="motivoCancela" id="motivoCancela" required>
             <option value="">Motivo Cancelacion Reserva</option>
@@ -372,7 +360,7 @@ foreach ($motivos as $motivo) { ?>
         </div>
       </div>
       <div class="form-group" >
-        <label class="control-label col-lg-2" for="">Observaciones</label>
+        <label class="control-label col-lg-2 col-md-2" for="">Observaciones</label>
         <div class="col-lg-10 col-md-10" >
           <textarea class="form-control padInput" id="areaObservacionesCan" name="areaObservacionesCan" style="height: 5em !important;min-height: 5em"></textarea>  
         </div>          

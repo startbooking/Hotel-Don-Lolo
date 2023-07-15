@@ -18,14 +18,14 @@
           <input type="hidden" name="cuentaPago" id="cuentaPago">
           <div class="container-fluid">
               <div class="row"> 
-                <div class="col-lg-9">
+                <div class="col-lg-9 col-md-9">
                   <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_PMS?>">                  
                   <input type="hidden" name="ubicacion" id="ubicacion" value="exportaFacturas">
                   <h3 class="w3ls_head tituloPagina">
                     <i class="fa-solid fa-download fa-2x"></i>  
                   Exportar Facturas</h3>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 col-md-3">
                   <button class="btn btn-info pull-right" onclick="exportTableToExcel('dataTable')"><i class="glyphicon glyphicon-th" aria-hidden="true"></i> Exportar</button> 
                 </div>
               </div>

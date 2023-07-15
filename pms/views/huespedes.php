@@ -25,9 +25,9 @@
             <i class="fa-solid fa-users-viewfinder"></i>
             </i> Huespedes </h3>
           </div>
-          <div class="col-md-6 pull-right">
+          <div class="col-md-6">
             <a 
-              class="btn btn-success"
+              class="btn btn-success pull-right"
               data-toggle="modal" 
               data-reserva='0'
               href="#myModalAdicionaPerfil">
