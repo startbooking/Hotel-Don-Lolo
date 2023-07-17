@@ -253,35 +253,35 @@
           </div>
           <div class="modal-body modalReservas">
             <div class="form-group">
-              <label class="control-label col-lg-2">Reserva Nro</label>
+              <label class="control-label col-xs-2">Reserva Nro</label>
               <div class="col-lg-2 col-md-2">
                 <input class="form-control padInput" type="text" name="idregis" id="txtIdReservaInf" value="">
               </div>
-              <label class="control-label col-lg-2">Tipo Hab.</label>
+              <label class="control-label col-xs-2">Tipo Hab.</label>
               <div class="col-lg-3 col-md-3">
                 <input class="form-control padInput" type="text" name="txtTipoHab" id="txtTipoHabInf" readonly>
               </div>
-              <label class="control-label col-lg-1">Numero</label>
+              <label class="control-label col-xs-1">Numero</label>
               <div class="col-lg-2 col-md-2">
                 <input class="form-control padInput" type="text" name='txtNumeroHabInf' id='txtNumeroHabInf' readonly>    
               </div>
             </div>
             <div class="form-group">
-              <label class="control-label col-lg-2">Huesped</label>
+              <label class="control-label col-xs-2">Huesped</label>
               <div class="col-lg-8 col-md-8">
                 <input class="form-control padInput" type="text" name="txtHuespedInf1" id="txtHuespedInf1" readonly>
               </div>
             </div>
             <div class="form-group">
-              <label class="control-label col-lg-2">Llegada</label>
+              <label class="control-label col-xs-2">Llegada</label>
               <div class="col-lg-3 col-md-3">
                 <input class="form-control padInput" type="text" name="txtLlegadaInf" id='txtLlegadaInf' value='' readonly>
               </div>
-              <label class="control-label col-lg-1">Noches</label>
+              <label class="control-label col-xs-1">Noches</label>
               <div class="col-lg-2 col-md-2">
                 <input style="margin:0;padding:5px" class="form-control padInput" type="text" name="txtNochesInf" id="txtNochesInf" value='0' readonly>
               </div>
-              <label class="control-label col-lg-1">Salida</label>
+              <label class="control-label col-xs-1">Salida</label>
               <div class="col-lg-3 col-md-3">
                 <input class="form-control padInput" type="text" name="txtSalidaInf" id='txtSalidaInf' value='' readonly>
               </div>

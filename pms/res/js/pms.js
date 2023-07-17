@@ -875,7 +875,7 @@ $(document).ready(function () {
         modal
           .find(".modal-body #txtApellidosCong")
           .val(`${apellido1} ${apellido2} ${nombre1} ${nombre2}`);
-        modal.find(".modal-body #valorSaldo").val(saldo);
+        modal.find(".modal-body #valorSaldo").val(number_format(saldo,2));
 
         traeHuespedes(reserva, hues);
 
@@ -2029,6 +2029,45 @@ $(document).ready(function () {
   
 });
 
+
+function regresaCasa(reserva){
+  swal(
+    {
+      title: "Cuenta Congelada",
+      text: "Desea regresar a Casa la Presente Cuenta Congelada",
+      type: "warning",
+      showCancelButton: true,
+      cancelButtonClass: "btn-warning",
+      cancelButtonText: "Cancelar Salida",
+      confirmButtonClass: "btn-danger",
+      confirmButtonText: "Si, Regersara a Casa !",
+      closeOnConfirm: false,
+    },
+    function () {
+      $.ajax({
+        type: "POST",
+        url: "res/php/regresaCasa.php",
+        data: {
+          reserva
+        },
+        success: function (data) {
+          swal(
+            {
+              title: "Atencion",
+              text: "Cuenta Reactivada con Exito",
+              type: "success",
+            },
+            function(){
+              $(location).attr("href", "cuentasCongeladas");
+            }
+          );
+        },
+      });
+    }
+  );
+
+}
+
 function muestraReserva(ev){
   console.log(ev)
   let reserva = ev.getAttribute('reserva');
@@ -2133,10 +2172,6 @@ const Notifications = (element, title, icon = 'info', isHtml, html, IsReload = n
       },
       function () {
         window.location.reload()
-        /* if (resultado.value) {
-          if (IsReload == true) {
-          }
-        } */
       }
     );
 };
@@ -3189,8 +3224,16 @@ function anulaFacturaHistorico() {
       reserva,
     },
     success: function (data) {
-      swal("Atencion", "Factura Anulada con Exito", "success", 5000);
-      $(location).attr("href", pagina);
+      swal(
+        {
+          title: "Atencion",
+          text: "Cuenta Reactivada con Exito",
+          type: "success",
+        },
+        function(){
+          $(location).attr("href", pagina);
+        }
+      );
     },
   });
 }
@@ -3788,12 +3831,15 @@ function congelaHuesped() {
     success: function (data) {
       var ventana = window.open(data, "PRINT", "height=600,width=600");
       swal(
-        "Atencion",
-        "Cuenta del Huesped Congelada con Exito",
-        "success",
-        5000
+        {
+          title: "Atencion",
+          text: "Cuenta Congelada con Exito",
+          type: "success",
+        },
+        function(){
+          $(location).attr("href", "facturacionEstadia");
+        }
       );
-      $(location).attr("href", "facturacionEstadia");
     },
   });
 }
@@ -3898,7 +3944,7 @@ function guardaHuespedReserva() {
       $("#buscarHuesped").val(datos.trim());
       swal(
         "Precaucion",
-        "Hueped Creado con Exito, No Olvide Actualizar la Informacion del Cliente",
+        "Huesped Creado con Exito, No Olvide Actualizar la Informacion del Cliente",
         "success"
       );
     },
@@ -4038,8 +4084,6 @@ function anulaSalida() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
   let { usuario, usuario_id } = user;
-  /* usuario = sesion["usuario"][0]["usuario"];
-  idusuario = sesion["usuario"][0]["usuario_id"]; */
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var numero = $("#txtIdReservaAnu").val();
@@ -4078,14 +4122,13 @@ function anulaSalida() {
 function actualizaCiaRecepcion() {
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
-  var idrese = $("#idReservaCia").val();
+  var idreserva = $("#idReservaCia").val();
   var idcia = $("#companiaSele").val();
   /// var idcentro = $("#centroCia").val();
 
   var parametros = {
-    idreserva: idrese,
+    idreserva,
     idcia,
-    /// 'idcentro':idcentro,
   };
   $.ajax({
     url: web + "res/php/updateCiaReserva.php",
@@ -4132,10 +4175,6 @@ function apagaselecomp(tipo) {
 
   if (tipo == "2") {
     if (idCiaFac == "0") {
-      /*
-			$('#inlineRadio2').prop('checked',false);
-			$('#inlineRadio1').prop('checked',true);
-			*/
       $("#habitacionOptionCon").val(1);
       swal("Precaucion", "Asigne Primero la Compañia", "warning");
       return;
@@ -4154,7 +4193,6 @@ function apagaselecomp(tipo) {
     setTimeout(function () {
       retenciones = JSON.parse($("#retenciones").val());
       reteCia = JSON.parse($("#retencionCia").val());
-      // retenCia = $("#retencionCia").val();
 
       let rFte = retenciones.filter(
         (retencion) => retencion.idRetencion == "1"
@@ -4250,8 +4288,6 @@ function anulaIngreso() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
   let { usuario, usuario_id } = user;
-  /* usuario = sesion["usuario"][0]["usuario"];
-  idusuario = sesion["usuario"][0]["usuario_id"]; */
 
   var pagina = $("#ubicacion").val();
   var numero = $("#txtIdReservaAnu").val();
@@ -4299,7 +4335,6 @@ function seleccionaHuespedReserva(id) {
     data: parametros, 
     success: function (data) {
       $("#datosHuespedAdi").html(data);
-      // ide = $("#identifica").val();
     },
   });
 
@@ -4400,8 +4435,6 @@ function cierreDiario() {
               closeOnConfirm: false,
             },
             function () {
-              /// $(location).attr('href','home');
-              /// cierraSesion();
             }
           );
         },
@@ -4497,9 +4530,6 @@ function moverConsumos() {
     type: "POST",
     data: parametros,
     success: function (data) {
-      /// $('#mensajeAnu').html(data)
-      ///	$('#myModalCargosConsumo').modal('hide')
-      /// $(location).attr('href',pagina);
       $("#myModalMoverCargo").modal("hide");
       movimientosFactura(numero);
     },
@@ -4557,20 +4587,20 @@ function cambiaTarifa() {
   var pagina = $("#ubicacion").val();
   var id = $("#txtIdReservaTar").val();
   var tipoact = $("#tarifaHabAct").val();
-  var actualval = $("#valortarifaAct").val();
+  var habiact = $("#valortarifaAct").val();
   var tiponue = $("#tarifahab").val();
-  var nuevoval = $("#valortarifa").val();
+  var habinue = $("#valortarifa").val();
   var motivo = $("#motivoCambio").val();
   var mmto = 0;
   var motivo = 0;
   var parametros = {
-    id: id,
-    tipoact: tipoact,
-    habiact: actualval,
-    tiponue: tiponue,
-    habinue: nuevoval,
-    motivo: motivo,
-    mmto: mmto,
+    id,
+    tipoact,
+    habiact,
+    tiponue,
+    habinue,
+    motivo,
+    mmto,
   };
   $.ajax({
     url: "res/php/cambiaTarifa.php",
@@ -4715,11 +4745,11 @@ function valorHabitacionUpd(tarifa) {
   } else {
     $("#mensaje").html("");
     var parametros = {
-      tarifa: tarifa,
-      tipo: tipo,
-      hom: hom,
-      muj: muj,
-      nin: nin,
+      tarifa,
+      tipo,
+      hom,
+      muj,
+      nin,
     };
     $.ajax({
       url: "res/php/valorTarifa.php",
@@ -4783,7 +4813,6 @@ function imprimirRegistro(reserva, causar) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
   let { usuario } = user;
-  // usuario = sesion["usuario"][0]["usuario"];
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var parametros = {
@@ -4808,8 +4837,6 @@ function anulaConsumos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
   let { usuario, usuario_id } = user;
-  /* usuario = sesion["usuario"][0]["usuario"];
-  idusuario = sesion["usuario"][0]["usuario_id"]; */
 
   var id = $("#txtIdConsumoAnu").val();
   var motivo = $("#txtMotivoAnula").val();
@@ -5110,7 +5137,7 @@ function imprimeFactura() {
 
 function saldoReserva(reserva) {
   parametros = {
-    reserva: reserva,
+    reserva,
   };
   $.ajax({
     type: "POST",
@@ -5126,8 +5153,6 @@ function guardaAgencia() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
   let { usuario, usuario_id } = user;
-  /* usuario = sesion["usuario"][0]["usuario"];
-  idusuario = sesion["usuario"][0]["usuario_id"]; */
 
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
@@ -5202,7 +5227,7 @@ function estadoCuenta(reserva) {
 function saldoTotal(reserva) {
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
-  var parametros = { reserva: reserva };
+  var parametros = { reserva };
   $.ajax({
     type: "POST",
     url: web + "res/php/movimientoReserva.php",
@@ -5629,8 +5654,18 @@ function cancelaReserva() {
         alerta = "warning";
       }
       /* */
-      swal(titulo, mensaje, alerta);
-      $(location).attr("href", pagina);
+      swal(
+        {
+          title: titulo,
+          text: mensaje,
+          type: alerta,
+        },
+        function(){
+          $(location).attr("href", pagina);
+        }
+      );
+      // swal(titulo, mensaje, alerta);
+      // $(location).attr("href", pagina);
     },
   });
 }

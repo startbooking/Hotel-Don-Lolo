@@ -206,18 +206,18 @@ foreach ($codigos as $codigo) { ?>
             <input type="hidden" name="txtIdHuespedEst" id="txtIdHuespedEst" value="">
             <input type="hidden" name="txtImptoTurismo" id="txtImptoTuriEst" value="">
             <div class="form-group">
-              <label class="control-label col-lg-2">Tipo Hab</label>
+              <label class="control-label col-xs-2">Tipo Hab</label>
               <div class="col-lg-4 col-xs-4">
                 <input style="font-size:11px;" class="form-control padInput" type="text" name='txtTipoHabEst' id='txtTipoHabEst' readonly>
               </div>
-              <label class="control-label col-lg-2">Hab.</label>
+              <label class="control-label col-xs-2">Hab.</label>
               <div class="col-lg-2 col-xs-2">
                 <input style="font-size:11px;" class="form-control padInput" type="text" name='txtNumeroHabEst' id='txtNumeroHabEst' readonly>
               </div>
             </div>
             <div class="form-group">
-              <label class="control-label col-lg-2">Huesped</label>
-              <div class="col-lg-10 col-xs-10">
+              <label class="control-label col-xs-2">Huesped</label>
+              <div class="col-lg-8 col-xs-8">
                 <input style="font-size:11px;" class="form-control padInput" type="text" name="txtNombresEst" id='txtNombresEst' value='0' readonly>
               </div>
             </div>

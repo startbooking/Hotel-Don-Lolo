@@ -81,7 +81,7 @@ $cias = $hotel->getCompanias();
           </div>
           <div class="modal-footer">
             <div class="row">
-              <div class="col-lg-6 col-lg-offset-3" >
+              <div class="col-xs-6 col-xs-offset-3" >
                 <div class="col-xs-6">
                   <button type="button" class="btn btn-warning btn-block" data-dismiss="modal"><I class="fa fa-reply"></I> Regresar</button>
                 </div>
@@ -264,11 +264,11 @@ foreach ($codigos as $codigo) { ?>
           </div>
           <div class="modal-footer">
             <div class="row">
-              <div class="col-lg-6 col-lg-offset-3" >
-                <div class="col-lg-6">
+              <div class="col-xs-6 col-xs-offset-3" >
+                <div class="col-xs-6">
                   <button type="button" class="btn btn-warning btn-block" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-xs-6">
                   <button class="btn btn-primary btn-block"><i class="fa fa-save"></i> Procesar</button>
                 </div>                
               </div>
@@ -297,17 +297,17 @@ foreach ($codigos as $codigo) { ?>
             <input type="hidden" name="txtIdHuespedEst" id="txtIdHuespedEst" value="">
             <input type="hidden" name="txtImptoTurismo" id="txtImptoTuriEst" value="">
             <div class="form-group">
-              <label class="control-label col-lg-2">Tipo Hab</label>
+              <label class="control-label col-xs-2">Tipo Hab</label>
               <div class="col-lg-4 col-xs-4">
                 <input style="font-size:11px;" class="form-control padInput" type="text" name='txtTipoHabEst' id='txtTipoHabEst' readonly>
               </div>
-              <label class="control-label col-lg-2">Hab.</label>
+              <label class="control-label col-xs-2">Hab.</label>
               <div class="col-lg-2 col-xs-2">
                 <input style="font-size:11px;" class="form-control padInput" type="text" name='txtNumeroHabEst' id='txtNumeroHabEst' readonly>
               </div>
             </div>
             <div class="form-group">
-              <label class="control-label col-lg-2">Huesped</label>
+              <label class="control-label col-xs-2">Huesped</label>
               <div class="col-lg-10 col-xs-10">
                 <input style="font-size:11px;" class="form-control padInput" type="text" name="txtNombresEst" id='txtNombresEst' value='0' readonly>
               </div>
@@ -391,11 +391,11 @@ foreach ($codigos as $codigo) { ?>
               </div>
             </div>
             <div class="form-group">
-              <label style="font-size:12px;height: 25px !important" class="control-label col-lg-2">Hab.</label>
+              <label style="font-size:12px;height: 25px !important" class="control-label col-lg-2 col-xs-2">Hab.</label>
               <div class="col-lg-2 col-xs-2">
                 <input style="font-size:12px;height: 25px !important" class="form-control padInput" type="text" name='txtNumeroHabSal' id='txtNumeroHabSal' readonly>
               </div>
-              <label style="font-size:12px;height: 25px !important" class="control-label col-lg-2">Huesped</label>
+              <label style="font-size:12px;height: 25px !important" class="control-label col-lg-2 col-xs-2">Huesped</label>
               <div class="col-lg-4 col-xs-4">
                 <input style="font-size:12px;height: 25px !important" class="form-control padInput" type="text" name="txtHuespedSal" id='txtHuespedSal' value='0' readonly>
               </div>
@@ -464,7 +464,7 @@ foreach ($codigos as $codigo) { ?>
             <input type="hidden" name="txtIdConsumoAnu" id="txtIdConsumoAnu" value="">
             <input type="hidden" name="txtImptoTuriAnu" id="txtImptoTuriAnu" value="">
             <div class="form-group">
-              <label class="control-label col-lg-3">Descripcion</label>
+              <label class="control-label col-lg-3 col-md-3">Descripcion</label>
               <div class="col-lg-7 col-xs-7">
                 <input class="form-control padInput" type="text" name="txtDescripcionAnu" id='txtDescripcionAnu' value='0' readonly disabled="">
               </div>
@@ -550,7 +550,7 @@ foreach ($codigos as $codigo) { ?>
             <input type="hidden" name="txtIdConsumoMov" id="txtIdConsumoMov" value="">
             <input type="hidden" name="txtImptoTuriMov" id="txtImptoTuriMov" value="">
             <div class="form-group">
-              <label class="control-label col-lg-3">Descripcion</label>
+              <label class="control-label col-lg-3 col-xs-3">Descripcion</label>
               <div class="col-lg-7 col-xs-7">
                 <input class="form-control padInput" type="text" name="txtDescripcionMov" id='txtDescripcionMov' value='0' readonly disabled="">
               </div>
@@ -588,11 +588,11 @@ foreach ($codigos as $codigo) { ?>
           </div>
           <div class="modal-footer">
             <div class="row">
-              <div class="col-lg-6 col-lg-offset-3" >
-                <div class="col-lg-6">
+              <div class="col-lg-6 col-lg-offset-3 col-xs-6 col-xs-offset-3" >
+                <div class="col-lg-6 col-xs-6">
                   <button type="button" class="btn btn-warning btn-block" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6 col-xs-6">
                   <button class="btn btn-primary btn-block"><i class="fa fa-save"></i> Procesar</button>
                 </div>                
               </div>
@@ -680,11 +680,11 @@ foreach ($encasas as $encasa) { ?>
           </div>
           <div class="modal-footer">
             <div class="row">
-              <div class="col-lg-6 col-lg-offset-3" >
-                <div class="col-lg-6">
+              <div class="col-lg-6 col-lg-offset-3 col-xs-6 col-xs-offset-3" >
+                <div class="col-lg-6 col-xs-6">
                   <button type="button" class="btn btn-warning btn-block" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6 col-xs-6">
                   <button class="btn btn-primary btn-block"><i class="fa fa-save"></i> Procesar</button>
                 </div>                
               </div>
@@ -722,33 +722,21 @@ foreach ($encasas as $encasa) { ?>
               <div class="col-sm-3">
                 <input type="text" class="form-control" id="txtNitCong" name ="txtNitCong" value="" readonly>
               </div>
-            </div>
-            <div class="form-group">
-              <!-- <label for="direccion" class="col-sm-2 control-label">Centro de Costo </label>
-              <div class="col-sm-6">
-                <input type="text" class="form-control" id="txtCentroCon" name="txtCentroCon" value="" readonly>
-                <input type="hidden" name="txtIdCentroCia" id="txtIdCentroCia" value="">
-              </div> -->
-              
-            </div>
+            </div>           
             <div class="form-group">
               <label class="control-label col-xs-2">Huesped</label>
-              <div class="col-lg-6 col-xs-5">
+              <div class="col-lg-6 col-xs-6">
                 <input class="form-control padInput" type="text" name="txtApellidosCong" id='txtApellidosCong' value='0' readonly>
               </div>
               <label class="control-label col-xs-1">Hab.</label>
               <div class="col-lg-2 col-xs-2">
                 <input class="form-control padInput" type="text" name='txtNumeroHabCong' id='txtNumeroHabCong' readonly>
               </div>
-              <!-- <label class="control-label col-xs-2">Nombres</label>
-              <div class="col-lg-4 col-xs-4">
-                <input class="form-control padInput" type="text" name="txtNombresCong" id='txtNombresCong' value='0' readonly>
-              </div> -->
             </div>
             <div class="form-group" style="margin-top:20px">
               <label class="control-label col-xs-2" style="color: #000;">Saldo Cuenta</label>
               <div class="col-lg-4 col-xs-4">
-                <input class="form-control padInput" type="number" name='valorSaldo' id='valorSaldo' readonly>
+                <input class="form-control padInput" style="text-align:right;" type="text" name='valorSaldo' id='valorSaldo' readonly>
               </div>
             </div>
             <div id="estadoCuenta"></div>

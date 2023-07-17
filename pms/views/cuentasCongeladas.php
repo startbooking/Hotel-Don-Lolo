@@ -66,15 +66,14 @@
                         <?php
                         ?>
                       </td>
-                      <!-- <td><?php echo $reserva['tipo_habitacion']; ?></td> -->
                       <td><?php echo $reserva['apellido1'].' '.$reserva['apellido2'].' '.$reserva['nombre1'].' '.$reserva['nombre2']; ?></td>
                       <td><?php echo number_format($reserva['valor_diario'], 2); ?></td>
                       <td><?php echo $reserva['fecha_llegada']; ?></td> 
                       <td><?php echo $reserva['fecha_salida']; ?></td>
-                      <td align="right"><a onclick="cargosHuesped(<?php echo $reserva['num_reserva']; ?>)"><?php echo number_format($consumos[0]['cargos'], 2); ?></a></td>
-                      <td align="right"><a onclick="cargosHuesped(<?php echo $reserva['num_reserva']; ?>)"><?php echo number_format($consumos[0]['imptos'], 2); ?></a></td>
-                      <td align="right"><a onclick="cargosHuesped(<?php echo $reserva['num_reserva']; ?>)"><?php echo number_format($consumos[0]['pagos'], 2); ?></a></td>
-                      <td align="right"><a onclick="cargosHuesped(<?php echo $reserva['num_reserva']; ?>)"><?php echo number_format($consumos[0]['cargos'] + $consumos[0]['imptos'] - $consumos[0]['pagos'], 2); ?></td>
+                      <td style="text-align:right;"><a onclick="cargosHuesped(<?php echo $reserva['num_reserva']; ?>)"><?php echo number_format($consumos[0]['cargos'], 2); ?></a></td>
+                      <td style="text-align:right;"><a onclick="cargosHuesped(<?php echo $reserva['num_reserva']; ?>)"><?php echo number_format($consumos[0]['imptos'], 2); ?></a></td>
+                      <td style="text-align:right;"><a onclick="cargosHuesped(<?php echo $reserva['num_reserva']; ?>)"><?php echo number_format($consumos[0]['pagos'], 2); ?></a></td>
+                      <td style="text-align:right;"><a onclick="cargosHuesped(<?php echo $reserva['num_reserva']; ?>)"><?php echo number_format($consumos[0]['cargos'] + $consumos[0]['imptos'] - $consumos[0]['pagos'], 2); ?></td>
                       <td style="padding:3px;width: 12%">
                         <nav class="navbar navbar-default" style="margin-bottom: 0px;min-height:0px;">
                           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:0px;">
@@ -82,6 +81,14 @@
                               <li class="dropdown submenu" style="width:100%">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="padding:3px 5px;font-weight: 700;color:#000">Facturacion<span class="caret" style="margin-left:10px;"></span></a>
                                 <ul class="dropdown-menu" style="float:left;margin-left:-180px;top:40px;">                                   
+                                  <li>
+                                    <a 
+                                      onclick="regresaCasa('<?php echo $reserva['num_reserva']; ?>')"
+                                      >
+                                      <i class="fa-solid fa-house"></i>
+                                      <!-- <i class="fa fa-pencil-square" aria-hidden="true"></i> -->
+                                      Regresar a Casa</a>
+                                  </li>
                                   <li>
                                     <a 
                                       data-toggle        ="modal" 
@@ -166,7 +173,7 @@
                                       <i class="fa fa-book" aria-hidden="true"></i>
                                     Estado de Cuenta</a>
                                   </li> 
-                                  <li>
+                                  <!-- <li>
                                     <a 
                                       data-toggle    ="modal" 
                                       data-id        ="<?php echo $reserva['num_reserva']; ?>" 
@@ -179,7 +186,7 @@
                                       href           ="">
                                     <i class="fa fa-address-card-o" aria-hidden="true"></i>
                                      Facturacion</a>  
-                                  </li>
+                                  </li> -->
                                 </ul>
                               </li>
                             </ul>

@@ -9,11 +9,11 @@
 
   $pdf = new PDF();
   $pdf->AddPage('P','letter');
-  $pdf->SetFont('Arial','B',12);
+  $pdf->SetFont('Arial','B',10);
   $pdf->Cell(195,5,'PAGOS DEL DIA POR USUARIO',0,1,'C');
-  $pdf->SetFont('Arial','',9);
+  $pdf->SetFont('Arial','',10);
   $pdf->Cell(195,5,'Fecha : '.FECHA_PMS,0,1,'C');
-  $pdf->Ln(1);
+  // $pdf->Ln(1);
   $pdf->SetFont('Arial','B',10);
   $usuarios = $hotel->getUsuariosCargos(FECHA_PMS,3,0); 
 
@@ -21,17 +21,17 @@
   $pago = 0 ;
 
   foreach ($usuarios as $usuario) {
-    $pdf->Cell(20,6,'Usuario ',0,0,'L');
-    $pdf->Cell(50,6,utf8_decode($usuario['usuario']),0,1,'L');
+    $pdf->Cell(20,5,'Usuario ',0,0,'L');
+    $pdf->Cell(50,5,utf8_decode($usuario['usuario']),0,1,'L');
       
     $cargos = $hotel->getCargosdelDiaporcajero(FECHA_PMS,$usuario['usuario'],3,0);
-    $pdf->Cell(20,6,'',0,0,'R');
-    $pdf->Cell(50,6,'Descripcion.',0,0,'C');
-    $pdf->Cell(10,6,'Hab.',0,0,'R');
-    $pdf->Cell(70,6,'Huesped',0,0,'C');
-    $pdf->Cell(10,6,'Cant. ',0,0,'C');
-    $pdf->Cell(25,6,'Pagos',0,0,'C');
-    $pdf->Cell(10,6,'Hora',0,1,'C');
+    $pdf->Cell(20,5,'',0,0,'R');
+    $pdf->Cell(50,5,'Descripcion.',0,0,'C');
+    $pdf->Cell(10,5,'Hab.',0,0,'R');
+    $pdf->Cell(70,5,'Huesped',0,0,'C');
+    $pdf->Cell(10,5,'Cant. ',0,0,'C');
+    $pdf->Cell(25,5,'Pagos',0,0,'C');
+    $pdf->Cell(10,5,'Hora',0,1,'C');
     $pdf->SetFont('Arial','',9);
     $pago  = 0 ;
 

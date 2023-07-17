@@ -79,11 +79,11 @@
               </div>
               <div class="panel-footer">
                 <div class="row">
-                  <div class="col-lg-6 col-lg-offset-3" >
-                    <div class="col-lg-6">
+                  <div class="col-xs-6 col-xs-offset-3" >
+                    <div class="col-xs-6">
                       <a type="button" class="btn btn-warning btn-block" href="home"><i class="fa fa-reply"></i> Regresar</a>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-xs-6">
                       <button class="btn btn-primary btn-block"><i class="fa fa-save"></i> Procesar</button>
                     </div>                
                   </div>

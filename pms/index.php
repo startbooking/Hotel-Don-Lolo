@@ -255,7 +255,7 @@ include_once '../views/modal/modalUsuario.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'cuentasCongeladas') {
       // / include_once 'views/modal/modalFacturacion.php' ;
       include_once 'views/modal/modalObservaciones.php';
-      include_once 'views/modal/modalRecepcion.php';
+      include_once 'views/modal/modalRecepcion.php'; 
       include_once 'views/modal/modalCongeladas.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'facturacionCongelada') {
       // / include_once 'views/modal/modalFacturacion.php' ;

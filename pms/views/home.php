@@ -108,11 +108,11 @@
                   <p style="margin-bottom: 0">Salidas del Dia</p>                    
                 </div>
                 <div class="inner col-sm-2 col-xs-4">
-                  <h3 style="margin:0" align="center"><?php echo $salen[0]['hom'] + $salen[0]['muj']; ?></h3>
+                  <h3 style="margin:0;text-align:center;"><?php echo $salen[0]['hom'] + $salen[0]['muj']; ?></h3>
                   <p>Adultos</p>                    
                 </div>
                 <div class="inner col-sm-2 col-xs-4">
-                  <h3 style="margin:0" align="center">
+                  <h3 style="margin:0;text-align:center;">
                     <?php
                       if ($salen[0]['nin'] == '') {
                           echo 0;
@@ -182,7 +182,7 @@
           <a href="mantenimiento" class="small-box bg-maroon">
             <div class="inner">
               <h3><?php echo $canMmto; ?></h3>
-              <p>habitaciones en Mantenimiento</p>
+              <p>Habitaciones en Mantenimiento</p>
             </div>
             <div class="icon">
               <i style="margin-top:30px"  class="fa fa-snowflake-o icon"></i>

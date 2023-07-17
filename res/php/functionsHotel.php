@@ -6,6 +6,19 @@ date_default_timezone_set('America/Bogota');
 class Hotel_Actions
 {
 
+    public function regresaCasa($reserva){
+        global $database;
+
+        $data = $database->update('reservas_pms',[
+            'estado'  => 'CA'
+        ],[
+            'num_reserva' => $reserva,
+        ]);
+        return $data->rowCount();
+
+
+    }
+
     public function updateCongelada($numero, $orden)
     {
         global $database;
@@ -3672,12 +3685,12 @@ class Hotel_Actions
         estado != 'CX' AND
         estado != 'CO' AND
         estado != 'SA' AND
-        fecha_salida <= '$sale' OR
+        fecha_salida < '$sale' OR
         tipo_habitacion = '$tipo' AND 
         estado != 'CX' AND
         estado != 'CO' AND
         estado != 'SA' AND
-        fecha_llegada <= '$llega' 
+        fecha_llegada < '$llega' 
         ORDER BY num_habitacion, fecha_llegada")->fetchAll();
         return $data;
     }
