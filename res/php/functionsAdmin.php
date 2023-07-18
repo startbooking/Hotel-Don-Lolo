@@ -1777,12 +1777,15 @@
          global $database;
 
          $data = $database->select('tipo_habitaciones', [
-             'id',
-             'codigo',
-             'descripcion_habitacion',
-             'sector_habitacion',
-             'deptoventa_habitacion',
-             'active_at',
+            '[<]sector_habitaciones' => ['sector_habitacion' => 'id_sector']
+         ],[
+            'sector_habitaciones.descripcion_sector',
+             'tipo_habitaciones.id',
+             'tipo_habitaciones.codigo',
+             'tipo_habitaciones.descripcion_habitacion',
+             'tipo_habitaciones.sector_habitacion',
+             'tipo_habitaciones.deptoventa_habitacion',
+             'tipo_habitaciones.active_at',
          ], [
              'ORDER' => 'descripcion_habitacion',
          ]);

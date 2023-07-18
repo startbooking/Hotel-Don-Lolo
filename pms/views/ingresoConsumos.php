@@ -18,7 +18,7 @@
               <div class="panel-body">
                 <div id="infoReserva"></div>
                 <div class="form-group"> 
-                  <label class="control-label col-lg-3">Habitacion</label>
+                  <label class="control-label col-lg-3 col-xs-3">Habitacion</label>
                   <div class="col-lg-6 col-md-6">
                     <select name="txtIdReservaCon" id="txtIdReservaCon" onchange="asignaHuesped(this.value)">
                       <option value="">Seleccione la Habitacion</option>
@@ -34,8 +34,8 @@
                 <div class="form-group" id="datosHuesped"></div>
                 <div class="divs divDeposito">
                   <div class="form-group">
-                    <label class="control-label col-lg-3" for="codigoConsumo">Codigo Consumo</label>
-                    <div class="col-lg-9 col-md-" >
+                    <label class="control-label col-xs-3" for="codigoConsumo">Codigo Consumo</label>
+                    <div class="col-xs-9" >
                       <select name="codigoConsumo" id="codigoConsumo" required>
                         <option value="">Seleccione Concepto</option>
                         <?php 

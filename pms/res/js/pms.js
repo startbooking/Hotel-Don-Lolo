@@ -1054,7 +1054,7 @@ $(document).ready(function () {
     modal.find(".modal-body #txtNinosAnu").val(ninos);
     modal.find(".modal-body #areaComentariosAnu").val(observaciones);
     modal.find(".modal-body #txtTarifaAnu").val(tarifa);
-    modal.find(".modal-body #txtValorTarifaAnu").val(valor);
+    modal.find(".modal-body #txtValorTarifaAnu").val(number_format(valor,2));
     $(".alert").hide();
   });
 
@@ -1090,7 +1090,7 @@ $(document).ready(function () {
     modal.find(".modal-body #txtNinosAnu").val(ninos);
     modal.find(".modal-body #areaComentariosAnu").val(observaciones);
     modal.find(".modal-body #txtTarifaAnu").val(tarifa);
-    modal.find(".modal-body #txtValorTarifaAnu").val(valor);
+    modal.find(".modal-body #txtValorTarifaAnu").val(number_format(valor,2));
     $(".alert").hide();
   });
 
@@ -5901,7 +5901,7 @@ function valorHabitacion(tarifa) {
 
 function guardaReserva() {
   iden = $("#identifica").val();
-  if (typeof iden == "undefined") {
+  if ( iden == "") {
     swal("Precaucion", "Seleccione el Huesped a Reservar", "warning");
     return;
   }
@@ -5921,10 +5921,16 @@ function guardaReserva() {
     url: "res/php/ingresoReserva.php",
     success: function (datos) {
       confirmarReserva(datos)
-      swal("Atencion ", `Reserva ${datos} Creada con Exito`, "success");
-      setTimeout(function () {
-        $(location).attr("href", "home");
-      }, 5000);
+      swal(
+        {
+          title: 'Atencion',
+          icon:'success',
+          text:`Reserva ${datos} Creada con Exito`,
+        },
+        function(){
+          $(location).attr("href", "home");
+        }
+      );
     },
   });
 }
@@ -6966,61 +6972,7 @@ function salidaHuespedCongelada() {
             "imprimir/facturas/FES-" + data[0],
             "PRINT",
             "height=600,width=600"
-          );
-        /* var ventana = window.open(
-          "imprimir/imprimeFactura.php",
-          "PRINT",
-          "height=600,width=600"
-        ); */
-        /* if (data == -1) {
-          setTimeout(function () {
-            swal(
-              "Atencion",
-              "Salida del Huesped realizada con Exito",
-              "success"
-            );
-            $(location).attr("href", "home");
-          }, 2000);
-        } else {
-          swal(
-            "Atencion",
-            "La Cuenta Actual Presenta Folios con Saldos",
-            "warning",
-            5000
-          );
-          $("#myModalSalidaCongelada").modal("hide");
-          $("#folios1").hide().removeClass("active").slideDown("fast");
-          $("#folios2").hide().removeClass("active").slideDown("fast");
-          $("#folios3").hide().removeClass("active").slideDown("fast");
-          $("#folios4").hide().removeClass("active").slideDown("fast");
-          $("#folio1").hide().removeClass("in active fade").slideDown("fast");
-          $("#folio2").hide().removeClass("in active fade").slideDown("fast");
-          $("#folio3").hide().removeClass("in active fade").slideDown("fast");
-          $("#folio4").hide().removeClass("in active fade").slideDown("fast");
-          $("#folio1").css("display", "none");
-          $("#folio2").css("display", "none");
-          $("#folio3").css("display", "none");
-          $("#folio4").css("display", "none");
-          $(data).hide().addClass("in active").slideDown("fast");
-          if (data == "folios1") {
-            $("#folio1").hide().addClass("in active").slideDown("fast");
-            $("#folio1").css("display", "block");
-          }
-          if (data == "folios2") {
-            $("#folio2").hide().addClass("in active").slideDown("fast");
-            $("#folio2").css("display", "block");
-          }
-          if (data == "folios3") {
-            $("#folio3").hide().addClass("in active").slideDown("fast");
-            $("#folio3").css("display", "block");
-          }
-          if (data == "folios4") {
-            $("#folio4").addClass("in active").slideDown("fast");
-            $("#folio4").css("display", "block");
-          }
-          $(data).click();
-        } */
-      
+          );                      
         if (data[1] == "0") {
           setTimeout(function () {
             swal(

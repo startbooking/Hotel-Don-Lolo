@@ -55,21 +55,6 @@
                 </div> 
                                                
               </div>
-              <!-- <div class="col-lg-6 col-md-6 col-xs-12 form-group">
-                <label for="direccion" class="col-sm-4 control-label">Fecha Factura </label>
-                <div class="form-group has-success has-feedback col-sm-8" >
-                  <div class="input-group" style="padding-left:15px;">
-                    <input type="date" class="form-control" id="buscarFecha" name="buscarFecha" aria-describedby="inputGroupSuccess4Status" value="<?php echo $ayer; ?>" max="<?php echo $ayer; ?>">
-                    <span class="input-group-addon" style="padding:1px;border:none">
-                      <a type="bottom" class="btn btn-success" style="padding:3px 10px ;"
-                        onclick="buscaFacturasExporta()"
-                        href="#">
-                        <i class="fa fa-search" aria-hidden="true"></i> Buscar
-                      </a>
-                    </span>
-                  </div>
-                </div>
-              </div> -->
               <div class="col-lg-6 col-md-6 col-xs-12" id='loader'></div>
             </div>
             <div class="row">
@@ -125,7 +110,7 @@
           </div>
           <div class="panel-footer">
             <div class="row">
-              <div class="col-lg-4 col-lg-offset-4" >
+              <div class="col-md-4 col-md-offset-4" >
                 <div class="col-xs-12" style="padding:0">
                   <a type="button" class="btn btn-warning btn-block" href="home"><i class="fa fa-reply"></i> Regresar</a>
                 </div>

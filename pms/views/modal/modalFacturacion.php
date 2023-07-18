@@ -340,6 +340,7 @@ foreach ($codigos as $codigo) { ?>
           <div class="modal-body">
             <?php
               $retenciones = $hotel->getRetenciones();
+              // print_r($retenciones);
 ?>            
             <input type="hidden" name="txtIdReservaSal" id="txtIdReservaSal" value="">
             <input type="hidden" name="txtIdHuespedSal" id="txtIdHuespedSal" value="">

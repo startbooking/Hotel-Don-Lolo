@@ -71,7 +71,7 @@
               </div>
               <div class="panel-footer">
                 <div class="row">
-                  <div class="col-lg-4 col-lg-offset-4" >
+                  <div class="col-md-4 col-md-offset-4" >
                     <div class="col-xs-12" style="padding:0">
                       <a type="button" class="btn btn-warning btn-block" href="home"><i class="fa fa-reply"></i> Regresar</a>
                     </div>

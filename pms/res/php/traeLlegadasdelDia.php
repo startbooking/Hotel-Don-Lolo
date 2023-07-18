@@ -21,7 +21,6 @@ $reservas = $hotel->getReservasDia(FECHA_PMS, 1, 'ES');
         <td>Hom</td>
         <td>Muj</td>
         <td>Niño</td>
-        <!-- <td>Estado</td> -->
         <td style="text-align:center">Accion</td>
       </tr>
     </thead>

@@ -17,7 +17,7 @@
       <input type="hidden" name="tipoocupacionAct" id="tipoocupacionAct" value="<?=$reserva[0]['tipo_ocupacion']?>">
       <input type="text" class="form-control" name="identifica" id="identifica" value="<?=$huesped[0]['identificacion']?>" readonly="">
     </div>
-    <label for="inputEmail3" class="col-sm-2 control-label">Tipo</label>
+    <label for="inputEmail3" class="col-sm-1 control-label">Tipo</label>
     <div class="col-sm-4">
       <select name="tipodoc" id="tipodoc" disabled="" readonly>
         <option value="">Seleccione el Tipo de Documeto</option>
@@ -36,19 +36,8 @@
     </div>
   </div>
   <div class="form-group">
-    <!--
-    <label for="inputEmail3" class="col-sm-2 control-label">Tipo hab</label>
-    <div class="col-sm-4">
-      <select name="tipoOcupacion" id="tipoOcupacion" disabled="" readonly>
-        <?php 
-      $desTipoAloja = tipoOcupacion($reserva[0]['tipo_ocupacion']);
-      ?>
-      <option value="$reserva[0]['tipo_ocupacion']"><?=$desTipoAloja?></option>
-      </select>
-    </div>
-  -->
     <label for="inputEmail3" class="col-sm-2 control-label">Decreto 297</label>
-    <div class="col-sm-4">
+    <div class="col-sm-3">
       <div class="wrap">
         <div class="col-sm-6" style="padding:0;height: 15px">
           <div class="form-check form-check-inline">
@@ -78,10 +67,10 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="form-group">
-    <label for="inputEmail3" class="col-sm-2 control-label">Huesped</label>
-    <div class="col-sm-8">
+  <!-- </div>
+  <div class="form-group"> -->
+    <label for="inputEmail3" class="col-sm-1 control-label">Huesped</label>
+    <div class="col-sm-6">
       <input type="hidden" name="idhuesped" id="idhuesped" value="<?=$reserva[0]['id_huesped']?>">
       <input type="text" class="form-control" name="apellidos" id="apellidos" value="<?=$huesped[0]['nombre_completo']?>" readonly disabled>
     </div>

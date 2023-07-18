@@ -9,12 +9,12 @@
           <div class="panel panel-success">
             <div class="panel-heading"> 
               <div class="row"> 
-                <div class="col-lg-9 col-md-9">
+                <div class="col-lg-9 col-sm-9">
                   <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_PMS?>">                  
                   <input type="hidden" name="ubicacion" id="ubicacion" value="informeFacturasRango">
                   <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-industry"></i> Historico de Facturas</h3>
                 </div>
-                <div class="col-lg-3 col-md-3">
+                <div class="col-lg-3 col-sm-3">
                   <button class="btn btn-success" type="buttom" onclick='facturasPorFecha()'><i class="fa fa-print" aria-hidden="true"></i> Imprimir</button>
                   <button class="btn btn-info" onclick="exportTableToExcel('tablaFacturas')"><i class="glyphicon glyphicon-th" aria-hidden="true"></i> Exportar</button> 
                 </div>
@@ -37,26 +37,26 @@
                   <div class="col-lg-2 col-md-2">
                     <input class="form-control" type="number" min="1" name="desdeNumero" id='desdeNumero' value=''>
                   </div>
-                  <label class="control-label col-md-2">Hasta Numero</label>
+                  <label class="control-label col-md-1">Hasta</label>
                   <div class="col-lg-2 col-md-2">
                     <input class="form-control" type="number" min="1" name="hastaNumero" id='hastaNumero' value=''>
                   </div>
-                </div>
-                <div class="form-group">
-                  <label class="control-label col-md-2">Huesped</label>
-                  <div class="col-lg-6 col-md-6">
+                <!-- </div>
+                <div class="form-group"> -->
+                  <label class="control-label col-md-1">Huesped</label>
+                  <div class="col-lg-4 col-md-4">
                     <input class="form-control" type="text" name="desdeHuesped" id='desdeHuesped' value=''>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="control-label col-md-2">Empresa</label>
-                  <div class="col-lg-6 col-md-6">
+                  <div class="col-lg-4 col-md-4">
                     <input class="form-control" type="text" name="desdeEmpresa" id='desdeEmpresa' value=''>
                   </div>
-                </div>
-                <div class="form-group">
+                <!-- </div>
+                <div class="form-group"> -->
                   <label class="control-label col-md-2">Forma de Pago</label>
-                  <div class="col-lg-6 col-md-6">
+                  <div class="col-lg-4 col-md-4">
                     <select name="desdeFormaPago" id="desdeFormaPago"  class="form-control" style="padding:4px 12px">
                       <option value=""></option>
                       <?php 

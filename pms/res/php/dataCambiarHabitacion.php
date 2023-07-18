@@ -24,13 +24,13 @@
         <option value=""><?=$destipohab?></option>
       </select>
     </div>
-    <label class="control-label col-lg-2">Numero</label>
+    <label class="control-label col-md-2">Numero</label>
     <div class="col-lg-3 col-md-3">
       <input class="form-control padInput" type="text" name='txtNumeroHabCam' id='txtNumeroHabCam' readonly value="<?=$reserva[0]['num_habitacion']?>">    
     </div>
   </div>
   <div class="form-group">
-    <label class="control-label col-lg-2">Nuevo Tipo Hab.</label>
+    <label class="control-label col-md-2">Nuevo Tipo Hab.</label>
     <div class="col-sm-5">
       <select name="tipohabi" id="tipohabi" required onblur="seleccionaHabitacion()">
         <option value="">Seleccione el Tipo de Habitacion</option>
@@ -56,7 +56,7 @@
     </div>
   </div>
   <div class="form-group">
-    <label class="control-label col-lg-2" for="">Motivo</label>
+    <label class="control-label col-md-2" for="">Motivo</label>
     <div class="col-lg-10 col-md-10" >
       <select name="motivoCambio" id="motivoCambio" required>
         <option value="">Motivo Cambio</option>
@@ -68,37 +68,16 @@
         ?>
       </select>
     </div>
-    <!--
-    <div class="col-lg-1 col-md-1" style="padding-left:0">
-      <button type="button" class="btn btn-info btn-xs" style="height: 30px;width: 30px;display:block"><i class="fa fa-cog" style="font-size: 18px"></i></button>
-    </div>
-  -->
   </div>    
     <div class="form-group">
-    <label class="control-label col-lg-2" for="">Observaciones</label>
+    <label class="control-label col-md-2" for="">Observaciones</label>
     <div class="col-lg-10 col-md-10" >
       <textarea class="form-control" name="observaCambio" id="observaCambio" rows="4"></textarea>
-      <!--
-      <select name="motivoCambio" id="motivoCambio" required>
-        <option value="">Motivo Cambio</option>
-        <?php 
-        foreach ($motivos as $motivo) { ?>
-          <option value="<?=$motivo['id_cancela']?>"><?=$motivo['descripcion_motivo']?></option>
-          <?php  
-        }
-        ?>
-      </select>
-    -->
     </div>
-    <!--
-    <div class="col-lg-1 col-md-1" style="padding-left:0">
-      <button type="button" class="btn btn-info btn-xs" style="height: 30px;width: 30px;display:block"><i class="fa fa-cog" style="font-size: 18px"></i></button>
-    </div>
-  -->
   </div>            
         
   <div class="form-group">
-    <label class="control-label col-lg-3" for="" style="margin-top:10px">Bloquear Habitacion</label>
+    <label class="control-label col-md-3" for="" style="margin-top:10px">Bloquear Habitacion</label>
     <div class="col-lg-8 col-md-8" >
       <div class="col-sm-4" style="padding:0">
         <div class="col-sm-6" style="height: 25px">

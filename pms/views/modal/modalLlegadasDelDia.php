@@ -16,7 +16,7 @@
               <div class="col-lg-2 col-md-2 ">
                 <input class="form-control padInput" type="text" name="idregis" id="txtIdReservaIng" value="">
               </div>
-              <label class="control-label col-lg-2 col-md-2">Tipo Hab.</label>
+              <label class="control-label col-lg-2 col-md-1">Tipo Hab.</label>
               <div class="col-lg-3 col-md-3">
                 <input class="form-control padInput" type="text" name="txtTipoHabIng" id="txtTipoHabIng" readonly="">
               </div>
@@ -30,10 +30,6 @@
               <div class="col-lg-4 col-md-4">
                 <input class="form-control padInput" type="text" name="txtHuespedIng" id='txtHuespedIng' value='0' readonly="">
               </div>
-              <!-- <label class="control-label col-lg-2 col-md-2">Nombres</label>
-              <div class="col-lg-4 col-md-4">
-                <input class="form-control padInput" type="text" name="txtNombresIng" id='txtNombresIng' value='0' readonly="">
-              </div> -->
             </div>
             <div class="form-group">
               <label class="control-label col-lg-2 col-md-2">Fecha Llegada</label>
@@ -82,11 +78,11 @@
           </div>
           <div class="modal-footer">
             <div class="row">
-              <div class="col-lg-6 col-lg-offset-3" >
-                <div class="col-lg-6">
+              <div class="col-md-6 col-md-offset-3" >
+                <div class="col-md-6">
                   <button type="button" class="btn btn-warning btn-block" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-md-6">
                   <button class="btn btn-primary btn-block" id="btnSaveRoom"><i class="fa fa-briefcase"></i> Registrar</button>
                 </div>                
               </div>

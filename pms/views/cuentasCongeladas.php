@@ -173,7 +173,7 @@
                                       <i class="fa fa-book" aria-hidden="true"></i>
                                     Estado de Cuenta</a>
                                   </li> 
-                                  <!-- <li>
+                                  <li>
                                     <a 
                                       data-toggle    ="modal" 
                                       data-id        ="<?php echo $reserva['num_reserva']; ?>" 
@@ -186,7 +186,7 @@
                                       href           ="">
                                     <i class="fa fa-address-card-o" aria-hidden="true"></i>
                                      Facturacion</a>  
-                                  </li> -->
+                                  </li>
                                 </ul>
                               </li>
                             </ul>

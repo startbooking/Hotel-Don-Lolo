@@ -1,9 +1,11 @@
 <?php 
 
-  $paxs       = $hotel->getTotalHuespedeseCasa(CTA_MASTER,1);
+  $paxs       = $hotel->getTotalHuespedeseCasa(CTA_MASTER);
   $llegan     = $hotel->getTotalHuespedeseLlegando();
   $salen      = $hotel->getTotalHuespedeseSaliendo();
   $rooms      = $hotel->habitacionesDisponibles(CTA_MASTER);
+
+  echo $rooms;
 
   $rooms     = count($hotel->cantidadHabitaciones(1));
   $dormi     = count($hotel->cantidadHabitaciones(2));

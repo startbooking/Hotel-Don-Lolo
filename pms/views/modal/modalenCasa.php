@@ -546,11 +546,11 @@
         </div>
         <div class="modal-footer">
           <div class="row">
-            <div class="col-lg-6 col-lg-offset-3" >
-              <div class="col-lg-6">
+            <div class="col-md-6 col-m d-offset-3" >
+              <div class="col-md-6">
                 <button type="button" class="btn btn-warning btn-block" data-dismiss="modal">Regresar</button>
               </div>
-              <div class="col-lg-6">
+              <div class="col-md-6">
                 <button type="submit" class="btn btn-primary btn-block">Procesar</button>
               </div>                
             </div>

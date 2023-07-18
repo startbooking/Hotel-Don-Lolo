@@ -12,10 +12,7 @@ if (!$facturas) { ?>
     <h4 class="bg-red-gradient" style="padding:10px;text-align:center;font-size:25px;">Sin Facturas Generadas Para Esta Compañia <span style="font-size:16px;font-weight: 600;font-family: 'ubuntu'"></span></h4>
   </div>
 <?php
-} else { ?>
-
-
-
+} else { ?> 
     <div class="table-responsive" style="max-height:355px;overflow:auto">
       <table 
         name="datosClienteCartera" 

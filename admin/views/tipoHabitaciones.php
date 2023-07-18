@@ -8,7 +8,7 @@
                 <input type="hidden" name="ubicacion" id="ubicacion" value="tipoHabitaciones">
                 <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-money"></i> Tipo de Habitaciones </h3>
               </div>
-              <div class="col-lg-6" align="right">
+              <div class="col-lg-6" style="text-align:right;">
                 <a style="margin:20px 0" 
                   data-toggle="modal" 
                   class = 'btn btn-success'
@@ -27,7 +27,7 @@
                     <tr class="warning">
                       <td>Abreviatura </td>
                       <td>Descripcion</td>
-                      <!-- <td>Tipo</td> -->
+                      <td>Sector</td>
                       <td>Estado</td>
                       <td>Accion</td>
                     </tr>
@@ -38,8 +38,9 @@
                       <tr style='font-size:12px'>
                         <td><?php echo $tipohab['codigo']; ?></td>
                         <td><?php echo $tipohab['descripcion_habitacion']; ?></td>
+                        <td><?php echo $tipohab['descripcion_sector']; ?></td>
                         <td><?php echo estadoTipoHabi($tipohab['active_at']); ?></td>
-                        <td align="center" style="padding:3px;width: 17%">
+                        <td style="text-align:center;padding:3px;width: 17%">
                           <?php
                       if ($tipohab['active_at'] == 1) {
                           $color = 'btn-success';

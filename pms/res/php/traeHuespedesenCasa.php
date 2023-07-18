@@ -178,7 +178,7 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
                               data-tarifa        ="<?php echo $hotel->getNombreTarifa($reserva['tarifa']); ?>" 
                               data-idtarifa      ="<?php echo $reserva['tarifa']; ?>" 
                               data-ninos         ="<?php echo $reserva['can_ninos']; ?>" 
-                              data-valor         ="<?php echo $reserva['valor_reserva']; ?>" 
+                              data-valor         ="<?php echo $reserva['valor_diario']; ?>" 
                               data-observaciones ="<?php echo $reserva['observaciones']; ?>" 
                               >
                               <i class="fa fa-pencil-square" aria-hidden="true"></i>Modificar Estadia</a>
@@ -201,7 +201,8 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
                                   data-mujeres       ="<?php echo $reserva['can_mujeres']; ?>" 
                                   data-ninos         ="<?php echo $reserva['can_ninos']; ?>" 
                                   data-tarifa        ="<?php echo $hotel->getNombreTarifa($reserva['tarifa']); ?>" 
-                                  data-valor         ="<?php echo $reserva['valor_reserva']; ?>" 
+                                  data-idtarifa      ="<?php echo $reserva['tarifa']; ?>" 
+                                  data-valor         ="<?php echo $reserva['valor_diario']; ?>" 
                                   data-observaciones ="<?php echo $reserva['observaciones']; ?>" 
                                   >
                                   <i class="fa fa-sign-out" aria-hidden="true"></i>

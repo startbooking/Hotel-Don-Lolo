@@ -13,7 +13,7 @@
             <input type="hidden" name="ubicacion" id="ubicacion" value="salidasDelDia">
             <h3 class="w3ls_head tituloPagina"> <i style="color:black;font-size:36px;" class="fa fa-home"></i> Salidas Pendientes del Dia </h3>
           </div>
-          <div class="col-lg-6" align="right">
+          <div class="col-lg-6" style"text-align:right;">
           </div>
         </div>
       </div>
@@ -33,7 +33,7 @@
                 <td>Muj</td>
                 <!-- <td>Niños</td> -->
                 <td>Tarifa</td>
-                <td align="center">Accion</td>
+                <td style="text-align:center;">Accion</td>
               </tr>
             </thead>
             <tbody>
@@ -103,11 +103,10 @@
                     <td><?php echo $nombrecia; ?></td>
                     <td><?php echo $reserva['fecha_llegada']; ?></td>
                     <td><?php echo $reserva['fecha_salida']; ?></td>
-                    <td align="center"><?php echo $reserva['dias_reservados']; ?></td>
-                    <td align="center"><?php echo $reserva['can_hombres']; ?></td>
-                    <td align="center"><?php echo $reserva['can_mujeres']; ?></td>
-                    <!-- <td align="center"><?php echo $reserva['can_ninos']; ?></td> -->
-                    <td align="right"><?php echo number_format($reserva['valor_diario'],2); ?></td>
+                    <td style="text-align:center;"><?php echo $reserva['dias_reservados']; ?></td>
+                    <td style="text-align:center;"><?php echo $reserva['can_hombres']; ?></td>
+                    <td style="text-align:center;"><?php echo $reserva['can_mujeres']; ?></td>
+                    <td style="text-align:right;"><?php echo number_format($reserva['valor_diario'],2); ?></td>
                     <td style="padding:2px;width: 13%">
                       <nav class="navbar navbar-default" style="margin-bottom: 0px;min-height:0px;">
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:0px;">
@@ -126,6 +125,7 @@
                                     data-apellido2     ="<?php echo $reserva['apellido2']?>" 
                                     data-nombre1       ="<?php echo $reserva['nombre1']?>" 
                                     data-nombre2       ="<?php echo $reserva['nombre2']?>" 
+                                    data-nombre       ="<?php echo $reserva['nombre_completo']?>" 
                                     data-impto         ="<?php echo $reserva['causar_impuesto']?>" 
                                     data-llegada       ="<?php echo $reserva['fecha_llegada']?>" 
                                     data-salida        ="<?php echo $reserva['fecha_salida']?>" 
@@ -253,6 +253,7 @@
                                     data-apellido2 ="<?php echo $reserva['apellido2']?>" 
                                     data-nombre1   ="<?php echo $reserva['nombre1']?>" 
                                     data-nombre2   ="<?php echo $reserva['nombre2']?>" 
+                                    data-nombre   ="<?php echo $reserva['nombre_completo']?>" 
                                     data-impto     ="<?php echo $reserva['causar_impuesto']?>" 
                                     href           ="#myModalInformacionHuesped">
                                   <i class="fa fa-user-md" aria-hidden="true"></i>
@@ -266,7 +267,7 @@
                                     data-idcentro  ="<?php echo $reserva['idCentroCia']?>" 
                                     data-tipohab   ="<?php echo descripcionTipoHabitacion($reserva['tipo_habitacion'])?>" 
                                     data-nrohab    ="<?php echo $reserva['num_habitacion']?>" 
-                                    data-nombrecom ="<?php echo $reserva['nombre_completo']?>" 
+                                    data-nombre    ="<?php echo $reserva['nombre_completo']?>" 
                                     data-impto     ="<?php echo $reserva['causar_impuesto']?>" 
                                     data-nombrecia ="<?php echo $nombrecia?>" 
                                     data-nitcia    ="<?php echo $nitcia?>" 
@@ -286,7 +287,7 @@
                                       data-apellido2 ="<?php echo $reserva['apellido2']?>" 
                                       data-nombre1   ="<?php echo $reserva['nombre1']?>" 
                                       data-nombre2   ="<?php echo $reserva['nombre2']?>" 
-                                      data-nombrecom ="<?php echo $reserva['nombre_completo']?>" 
+                                      data-nombre    ="<?php echo $reserva['nombre_completo']?>" 
                                       data-impto     ="<?php echo $reserva['causar_impuesto']?>" 
                                       href           ="#myModalInformacionCompania">
                                       <i class="fa fa-industry" aria-hidden="true"></i>

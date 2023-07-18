@@ -8,7 +8,8 @@ $sale = $_POST['sale'];
 
 $habitaciones = $hotel->getSeleccionaHabitacionesTipo($tipo);
 /* echo 'Total Habitaciones <br>';
-echo print_r($habitaciones); */
+*/
+echo print_r($habitaciones); 
 
 $estadohab = $hotel->traeEstadoHabitacionesHotel($tipo, $llega, $sale);
 echo 'Estado Habitaciones <br>';
@@ -29,32 +30,42 @@ $disponibles = [];
 $encasaOff = [];
 $salidasOff = []; 
 $reservasOff = [];
+$estadoOff = [];
+
+echo 'PAso 0' ;
 
 foreach ($habitaciones as $habitacion) {
     $disponibles[] = $habitacion['num_habitacion'];
 }
+echo 'PAso 1' ;
 
 foreach ($estadohab as $estadoha) {
     $estadoOff[] = $estadoha['num_habitacion'];
 }
+echo 'PAso 2' ;
 
 foreach ($encasas as $encasa) {
     $encasaOff[] = $encasa['num_habitacion'];
 }
+echo 'PAso 3' ;
+
 foreach ($salidas as $salida) {
     $salidasOff[] = $salida['num_habitacion'];
 }
+echo 'PAso 4' ;
 
 foreach ($reservas as $reserva) {
     $reservasOff[] = $reserva['num_habitacion'];
 }
+echo 'PAso 5' ;
 
-$dispos = array_diff($disponibles,$estadoOff);
+$dispos = array_diff($disponibles,$estadoOff, $encasaOff);
 
 /* $dispos = array_diff($disponibles,$encasaOff,$salidasOff,$reservasOff);
 $dispos1 = array_diff($dispos,$encasaOff,$salidasOff,$reservasOff);
 $dispos2 = array_diff($dispos1,$salidasOff,$reservasOff);
 $dispos3 = array_diff($dispos2,$reservasOff); */
+echo 'PAso 6' ;
 
 
 ?>

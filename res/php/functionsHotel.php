@@ -3673,7 +3673,17 @@ class Hotel_Actions
         return $data;
     }
 
-    public function traeEstadoHabitacionesHotel($tipo, $llega, $sale){
+
+     
+
+public function traeEstadoHabitacionesHotel($tipo, $llega, $sale){
+    global $database;
+
+    $data = $database->query("SELECT num_habitacion, fecha_llegada, fecha_salida, estado FROM reservas_pms WHERE (estado = 'CA'  OR estado = 'ES') AND tipo_habitacion = '$tipo' AND fecha_llegada <= '$llega' and fecha_salida >= '$sale' order BY num_habitacion")->fetchAll();
+    return $data;
+}
+
+    public function traeEstadoHabitacionesHotelOld2($tipo, $llega, $sale){
         global $database;
 
         $data = $database->query("SELECT 
@@ -3699,7 +3709,7 @@ class Hotel_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT num_habitacion, fecha_llegada, fecha_salida, estado FROM reservas_pms WHERE (estado = 'CA'  OR estado = 'ES') AND tipo_habitacion = '$tipo' AND fecha_llegada >= '$llega' AND fecha_llegada < '$sale' ORDER BY num_habitacion")->fetchAll();
+        $data = $database->query("SELECT num_habitacion, fecha_llegada, fecha_salida, estado FROM reservas_pms WHERE (estado = 'CA' OR estado = 'ES') AND tipo_habitacion = '$tipo' AND fecha_llegada >= '$llega' AND fecha_llegada < '$sale' ORDER BY num_habitacion")->fetchAll();
 
         return $data;
     }
@@ -3894,7 +3904,9 @@ class Hotel_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT COUNT(id) as rooms FROM habitaciones WHERE tipo_hab <> '$cuenta' AND active_at = 1")->fetchAll();
+        $data = $database->query("SELECT COUNT(id) as rooms FROM habitaciones WHERE id_tipohabitacion <> '$cuenta' AND active_at = 1")->fetchAll();
+        
+        // echo print_r($data);
 
         return $data[0]['rooms'];
     }

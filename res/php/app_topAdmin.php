@@ -86,7 +86,7 @@
 	}elseif(isset($_GET['section']) && $_GET['section'] == 'codigosVentas'){ 
   	$codigos  = $admin->getCodigosVentas(1); 
 	}elseif(isset($_GET['section']) && $_GET['section'] == 'tipoHabitaciones'){ 
-  	$tiposhab = $admin->getTipoHabitacion(); 
+  	$tiposhab = $admin->getTipoHabitacion();  
 	}elseif(isset($_GET['section']) && $_GET['section'] == 'sectoresHabitacion'){ 
   	$sectores = $admin->getSectorHabitacion(); 
 	}elseif(isset($_GET['section']) && $_GET['section'] == 'habitaciones'){ 
