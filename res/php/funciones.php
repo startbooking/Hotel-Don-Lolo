@@ -28,6 +28,18 @@ function crearThumbJPEG($rutaImagen, $rutaDestino, $anchoThumb = 200, $altoThumb
     return false;
 }
 
+function sucia($estado)
+{
+    switch ($estado) {
+        case 0:
+            return 'Limpia';
+        case 1:
+            return 'Sucia';
+        case 2:
+            return 'Sin Definir';
+    }
+}
+
 function estadoReceta($estado)
 {
     switch ($estado) {

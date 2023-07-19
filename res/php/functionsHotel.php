@@ -5,6 +5,47 @@ date_default_timezone_set('America/Bogota');
 
 class Hotel_Actions
 {
+    public function traeHabitacionesMmto(){
+        global $database;
+
+        $data = $database->select('mantenimiento_habitaciones',[
+            '[<]habitaciones' => ['id_habitacion' => 'id'],
+            '[<]grupos_cajas' => ['id_mantenimiento' => 'id_grupo']
+        ],[
+            'habitaciones.numero_hab',
+            'grupos_cajas.descripcion_grupo',
+            'mantenimiento_habitaciones.desde_fecha',
+            'mantenimiento_habitaciones.hasta_fecha',
+        ],[
+            'mantenimiento_habitaciones.estado_mmto' => 1,
+        ]);
+        return $data;
+    }
+ 
+ 
+    public function traeEstadoHabitaciones(){
+        global $database;
+
+        $data = $database->select('habitaciones',[
+            '[>]tipo_habitaciones' => ['id_tipohabitacion' => 'id']
+        ],[
+            'tipo_habitaciones.descripcion_habitacion',
+            'habitaciones.id_tipohabitacion',
+            'habitaciones.numero_hab',
+            'habitaciones.camas',
+            'habitaciones.pax',
+            'habitaciones.estado',
+            'habitaciones.mantenimiento',
+            'habitaciones.sucia',
+            'habitaciones.ocupada',
+        ],[
+            'tipo_habitaciones.tipo_habitacion' => 1,
+            'ORDER' => ['habitaciones.numero_hab' => 'ASC']
+        ]);
+        return $data;
+
+    }
+
 
     public function regresaCasa($reserva){
         global $database;
@@ -3663,11 +3704,13 @@ class Hotel_Actions
             'num_habitacion',
             'fecha_llegada',
             'fecha_salida',
+            'estado',
         ], [
-            'fecha_llegada[>=]' => $llega,
-            'fecha_salida[>=]' => $sale,
+            'fecha_salida[>=]' => $llega,
+            'fecha_salida[<]' => $sale,
             'tipo_habitacion' => $tipo,
             'estado' => $estado,
+
         ]);
 
         return $data;

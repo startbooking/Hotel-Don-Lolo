@@ -5922,9 +5922,10 @@ function guardaReserva() {
     success: function (datos) {
       confirmarReserva(datos)
       swal(
-        {
+        {      
           title: 'Atencion',
-          icon:'success',
+          type: "success",
+          confirmButtonText: "Aceptar",
           text:`Reserva ${datos} Creada con Exito`,
         },
         function(){

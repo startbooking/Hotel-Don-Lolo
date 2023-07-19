@@ -11,7 +11,7 @@ require_once '../imprimir/plantillaFpdf.php';
 $pdf = new PDF();
 $pdf->AddPage('P', 'letter');
 $pdf->SetFont('Arial', 'B', 12);
-$pdf->Cell(195, 5, 'PAGOS DEL DIA X', 0, 1, 'C');
+$pdf->Cell(195, 5, 'PAGOS DEL DIA', 0, 1, 'C');
 $pdf->SetFont('Arial', '', 9);
 $pdf->Cell(195, 5, 'Fecha : '.FECHA_PMS, 0, 1, 'C');
 $pdf->Ln(2);
@@ -27,8 +27,6 @@ $pdf->Cell(10, 6, 'Hora', 0, 0, 'C');
 $pdf->Cell(15, 6, 'Estado', 0, 1, 'C');
 $pdf->SetFont('Arial', '', 8);
 $cargos = $hotel->getCargosporFecha(FECHA_PMS, 3, 0);
-
-// echo json_decode($cargos);
 
 $pagos = 0;
 $impto = 0;

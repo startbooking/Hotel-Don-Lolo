@@ -72,7 +72,7 @@
     $totalPagos = $totalPagos + $pagodia['pagos'] ;
   }
 
-  $fileOut = '../imprimir/informes/'.$file.'.pdf'; 
+  $fileOut = '../informes/'.$file.'.pdf'; 
   $pdf->Output($fileOut,'F');
   echo $file.'.pdf';
 ?>

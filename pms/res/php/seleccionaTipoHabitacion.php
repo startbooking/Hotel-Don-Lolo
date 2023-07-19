@@ -19,11 +19,11 @@ $encasas = $hotel->getEnCasaporTipoHab($tipo, $llega, $sale, 'CA');
 echo 'En Casa <br>';
 echo print_r($encasas);
 
-$salidas = $hotel->getReservasporTipoHabSalida($tipo, $llega, $sale, 'ES');
+$salidas = $hotel->getReservasporTipoHabSalida($tipo, $llega, $sale, 'CA');
 echo 'En Salidas '.'<br>';
 
 echo print_r($salidas);
-$reservas = $hotel->getReservasporTipoHab($tipo, $llega, $sale, 'ES');
+$reservas = $hotel->getReservasporTipoHab($tipo, $llega, $sale, 'CA');
 echo 'En Reserva <br>';
 echo print_r($reservas);
 $disponibles = [];
@@ -31,6 +31,7 @@ $encasaOff = [];
 $salidasOff = []; 
 $reservasOff = [];
 $estadoOff = [];
+
 
 echo 'PAso 0' ;
 
@@ -58,8 +59,11 @@ foreach ($reservas as $reserva) {
     $reservasOff[] = $reserva['num_habitacion'];
 }
 echo 'PAso 5' ;
+echo print_r($reservasOff);
+echo 'PAso 6' ;
 
-$dispos = array_diff($disponibles,$estadoOff, $encasaOff);
+
+$dispos = array_diff($disponibles,$estadoOff, $encasaOff, $reservasOff);
 
 /* $dispos = array_diff($disponibles,$encasaOff,$salidasOff,$reservasOff);
 $dispos1 = array_diff($dispos,$encasaOff,$salidasOff,$reservasOff);

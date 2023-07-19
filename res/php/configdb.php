@@ -3,8 +3,8 @@
   $dbtype = 'mysql';
   $server = 'localhost';
   // $dbname = 'donlolo';
-  $dbname = 'donloloweb';
-  // $dbname = 'donlolonew';
+  // $dbname = 'donloloweb';
+  $dbname = 'donlolonew';
   // $dbname = 'donlolo28';
   // $dbname = 'donlolojul03';
   $dbuser = 'root';
