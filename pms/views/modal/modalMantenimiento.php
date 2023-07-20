@@ -11,7 +11,7 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span class="glyphicon glyphicon-off"></span>
           </button> 
-          <h3 class="modal-title" id="exampleModalLabel">Ingreso Nuevo Mantenimiento</h3>
+          <h3 class="modal-title" id="exampleModalLabel"><i class="fa-solid fa-user-gear"></i>Ingreso Nuevo Mantenimiento</h3>
         </div>
         <form class="form-horizontal" id="formAdicionaMantenimiento" action="javascript:guardaMantenimiento()" method="POST">
           <div id='mensajeMmto'></div> 
@@ -25,7 +25,7 @@
                       <option value="<?=$room['id']?>"><?=$room['numero_hab']?></option>
                       <?php 
                     }
-                  ?>                      
+                  ?>                       
                 </select>
               </div>
               <label for="desdeFechaAdi" class="col-sm-2 control-label">Desde Fecha</label>
@@ -66,26 +66,6 @@
                   ?>
                 </select>
               </div>
-              <!-- <label for="inputEmail3" class="col-sm-3 control-label"> Retirar de Inventario </label>
-              <div class="col-sm-3 ondisplay">
-                <div class="wrap">
-                  <div class="col-sm-6" style="padding:0;height: 15px">
-                    <div class="form-check form-check-inline">
-                      <input style="margin-top:5px" class="form-check-input" type="radio" name="mmtoOption" id="inlineRadio1" value="1" checked>
-                      <label style="margin-top:-25px;margin-left:25px" class="form-check-label" for="inlineRadio1" >SI</label>
-                    </div>                    
-                  </div>
-                  <div class="col-sm-6" style="padding:0;height: 15px"> 
-                    <div class="form-check form-check-inline">
-                      <input style="margin-top:5px" class="form-check-input" type="radio" name="mmtoOption" id="inlineRadio2" value="2">
-                      <label style="margin-top:-25px;margin-left:25px" class="form-check-label" for="inlineRadio2">NO</label>
-                    </div>
-                  </div>
-                </div>
-              </div> 
-            </div>
-            <div class="form-group">
-              -->
               <label for="inputEmail3" class="col-sm-2 control-label" style="margin-top:10px;"> Mantenimiento </label>
               <div class="col-sm-4 ondisplay" style="margin-top:10px;font-size:12px;">
                 <div class="wrap">
@@ -103,10 +83,6 @@
                   </div>
                 </div>
               </div>
-              <!-- <label for="presupuestoAdi" class="col-sm-2 control-label">Presupuesto</label>
-              <div class="col-sm-3" style="padding-right: 5px">
-                <input type="number" class="form-control" name="presupuestoAdi" id="presupuestoAdi" required="" value="0" min="0">
-              </div> -->
             </div>
             <div class="form-group">
               <label for="motivo" class="col-sm-2 control-label">Observaciones</label>
@@ -135,12 +111,15 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span class="glyphicon glyphicon-off"></span>
           </button> 
-          <h3 class="modal-title" id="exampleModalLabel">Informacion Mantenimiento</h3>
+          <h3 class="modal-title" id="exampleModalLabel"><i class="fa-solid fa-user-gear"></i> Informacion Mantenimiento</h3>
         </div>
-        <form class="form-horizontal" id="formInformacionObjetos" action="" method="POST">
+        <form class="form-horizontal" id="formInformacionMmto" action="javascript:actualizaMmto()" method="POST">
           <div class="modal-body" id="infoMtoVer"></div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
+            <div class="btn-group" style="width: 40%;">
+              <button style="width: 50%" type="button" class="btn btn-warning btn-block" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>                  
+              <button id="btnMmto" style="width: 50%" class="btn btn-success"><i class="fa fa-save" aria-hidden="true"></i> Actualizar</button>
+            </div>
           </div>
         </form>
       </div>
@@ -159,7 +138,7 @@
             </button> 
             <input type="hidden" name="idObsMto" id="idObsMto">
             <input type="hidden" name="observaAntMto" id="observaAntMto">
-            <h3 class="modal-title" id="exampleModalLabel">Observaciones al Manteiniento</h3>
+            <h3 class="modal-title" id="exampleModalLabel"><i class="fa-solid fa-pen-to-square"></i> Observaciones al Mantenimiento</h3>
 
           </div>
           <div class="modal-body">

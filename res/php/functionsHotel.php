@@ -441,6 +441,38 @@ class Hotel_Actions
         return $data;
     }
 
+    public function infoFacturaHis($numero)
+    {
+        global $database;
+
+        $data = $database->select('historico_cargos_pms', [
+            'id_codigo_cargo',
+            'habitacion_cargo',
+            'id_huesped',
+            'folio_cargo',
+            'pagos_cargos',
+            'fecha_salida',
+            'fecha_vencimiento',
+            'tipo_factura',
+            'id_perfil_factura',
+            'numero_reserva',
+            'prefijo_factura',
+            'factura_numero',
+            'fecha_factura',
+            'factura',
+            'total_consumos',
+            'total_impuesto',
+            'total_pagos',
+            'base_impuestos',
+            'total_anticipos',
+        ], [
+            'factura' => 1,
+            'factura_numero' => $numero,
+        ]);
+
+        return $data;
+    }
+
     public function traeCodigoPais($id)
     {
         global $database;
@@ -1256,23 +1288,23 @@ class Hotel_Actions
             '[>]grupos_cajas' => ['id_mantenimiento' => 'id_grupo'],
         ], [
             'grupos_cajas.descripcion_grupo',
-            'id_mmto',
-            'id_habitacion',
-            'id_mantenimiento',
-            'tipo_bloqueo',
-            'desde_fecha',
-            'hasta_fecha',
-            'observaciones',
-            'id_usuario',
-            'estado_mmto',
-            'retirar_inventario',
-            'con_mantenimiento',
-            'tipo_mmto',
-            'presupuesto',
-            'valor_mmto',
-            'created_at',
+            'mantenimiento_habitaciones.id_mmto',
+            'mantenimiento_habitaciones.id_habitacion',
+            'mantenimiento_habitaciones.id_mantenimiento',
+            'mantenimiento_habitaciones.tipo_bloqueo',
+            'mantenimiento_habitaciones.desde_fecha',
+            'mantenimiento_habitaciones.hasta_fecha',
+            'mantenimiento_habitaciones.observaciones',
+            'mantenimiento_habitaciones.id_usuario',
+            'mantenimiento_habitaciones.estado_mmto',
+            'mantenimiento_habitaciones.retirar_inventario',
+            'mantenimiento_habitaciones.con_mantenimiento',
+            'mantenimiento_habitaciones.tipo_mmto',
+            'mantenimiento_habitaciones.presupuesto',
+            'mantenimiento_habitaciones.valor_mmto',
+            'mantenimiento_habitaciones.created_at',
         ], [
-            'estado_mmto' => 1,
+            'mantenimiento_habitaciones.estado_mmto' => 1,
         ]);
 
         return $data;
@@ -1908,6 +1940,8 @@ class Hotel_Actions
         return $data;
     }
 
+
+
     public function eliminaHistoricoFacturaXCongelada($factura, $reserva)
     {
         global $database;
@@ -2490,7 +2524,7 @@ class Hotel_Actions
         return $data->rowCount();
     }
 
-    public function anulaFactura($nro, $motivo, $usuario, $idusuario, $perfil)
+    public function anulaFactura($nro, $motivo, $usuario, $idusuario, $perfil, $numDoc)
     {
         global $database;
 
@@ -2501,6 +2535,7 @@ class Hotel_Actions
             'usuario_anulacion' => $usuario,
             'id_usuario_anulacion' => $idusuario,
             'fecha_anulacion' => FECHA_PMS,
+            'numero_factura_cargo' => $numDoc,
         ], [
             'factura_numero' => $nro,
             'perfil_factura' => $perfil,
@@ -2508,6 +2543,29 @@ class Hotel_Actions
 
         return $data->rowCount();
     }
+
+    public function anulaFacturaHis($nro, $motivo, $usuario, $idusuario, $perfil, $numDoc)
+    {
+        global $database;
+
+        $data = $database->update('historico_cargos_pms', [
+            'cargo_anulado' => 1,
+            'factura_anulada' => 1,
+            'motivo_anulacion' => $motivo,
+            'usuario_anulacion' => $usuario,
+            'id_usuario_anulacion' => $idusuario,
+            'fecha_anulacion' => FECHA_PMS,
+            'numero_factura_cargo' => $numDoc,
+        ], [
+            'factura_numero' => $nro,
+            'perfil_factura' => $perfil,
+            'factura' => 1,
+
+        ]);
+
+        return $data->rowCount();
+    }
+
 
     public function actualizaCargosFacturas($nro, $perfil)
     {
@@ -2517,6 +2575,16 @@ class Hotel_Actions
 
         return $data;
     }
+
+    public function actualizaCargosFacturasHis($nro, $perfil)
+    {
+        global $database;
+
+        $data = $database->query("UPDATE historico_cargos_pms SET factura_numero = 0, fecha_factura = null, tipo_factura = 0, usuario_factura = null, id_usuario_factura = 0,  id_perfil_factura= 0  WHERE factura_numero = '$nro' AND factura <> 1 AND cargo_anulado = 0 AND perfil_factura = $perfil")->fetchAll();
+
+        return $data;
+    }
+
 
     public function getDatosFactura($nro)
     {
@@ -5816,6 +5884,15 @@ public function traeEstadoHabitacionesHotel($tipo, $llega, $sale){
         return $data;
     }
 
+    public function getConsumosReservaAgrupadoCodigoFolioHis($fact, $numero, $folio, $tipo)
+    {
+        global $database;
+
+        $data = $database->query("SELECT historico_cargos_pms.id_codigo_cargo, historico_cargos_pms.descripcion_cargo, count(historico_cargos_pms.id_codigo_cargo) AS cant, historico_cargos_pms.habitacion_cargo, Sum(historico_cargos_pms.monto_cargo) AS cargos, Sum(historico_cargos_pms.valor_cargo) AS total, Sum(historico_cargos_pms.impuesto) as imptos, historico_cargos_pms.codigo_impto, Sum(historico_cargos_pms.pagos_cargos) AS pagos, Sum(historico_cargos_pms.reteiva) AS reteiva, Sum(historico_cargos_pms.reteica) AS reteica, Sum(historico_cargos_pms.retefuente) AS retefuente, Sum(historico_cargos_pms.basereteiva) AS basereteiva, Sum(historico_cargos_pms.reteica) AS basereteica, Sum(historico_cargos_pms.baseretefuente) AS baseretefuente,historico_cargos_pms.factura_numero, codigos_vta.porcentaje_impto FROM historico_cargos_pms, codigos_vta WHERE historico_cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND historico_cargos_pms.factura_numero = '$fact' AND historico_cargos_pms.numero_reserva = '$numero' AND historico_cargos_pms.cargo_anulado = 0 AND historico_cargos_pms.folio_cargo = '$folio' AND codigos_vta.tipo_codigo = '$tipo' GROUP BY historico_cargos_pms.numero_reserva, historico_cargos_pms.id_codigo_cargo, historico_cargos_pms.folio_cargo ORDER BY historico_cargos_pms.numero_reserva, historico_cargos_pms.id_codigo_cargo, historico_cargos_pms.folio_cargo")->fetchAll();
+
+        return $data;
+    }
+
     public function getConsumosReservaAgrupadoFolio($fact, $numero, $folio, $tipo)
     {
         global $database;
@@ -5825,11 +5902,29 @@ public function traeEstadoHabitacionesHotel($tipo, $llega, $sale){
         return $data;
     }
 
+    public function getConsumosReservaAgrupadoFolioHis($fact, $numero, $folio, $tipo)
+    {
+        global $database;
+
+        $data = $database->query("SELECT historico_cargos_pms.descripcion_cargo, count(historico_cargos_pms.id_codigo_cargo) AS cant, historico_cargos_pms.habitacion_cargo, Sum(historico_cargos_pms.monto_cargo) AS cargos, Sum(historico_cargos_pms.impuesto) as imptos, Sum(historico_cargos_pms.pagos_cargos) AS pagos, historico_cargos_pms.factura_numero, codigos_vta.porcentaje_impto FROM historico_cargos_pms, codigos_vta WHERE historico_cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND historico_cargos_pms.factura_numero = '$fact' AND historico_cargos_pms.numero_reserva = '$numero' AND historico_cargos_pms.cargo_anulado = 0 AND historico_cargos_pms.folio_cargo = '$folio' AND codigos_vta.tipo_codigo = '$tipo' GROUP BY historico_cargos_pms.numero_reserva, historico_cargos_pms.folio_cargo ORDER BY historico_cargos_pms.numero_reserva, historico_cargos_pms.folio_cargo")->fetchAll();
+
+        return $data;
+    }
+
     public function getValorImptoFolio($fact, $numero, $folio, $tipo)
     {
         global $database;
 
         $data = $database->query("SELECT codigos_vta.id_cargo, codigos_vta.descripcion_cargo, codigos_vta.porcentaje_impto, cargos_pms.habitacion_cargo, Sum(cargos_pms.monto_cargo) as cargos, Sum(cargos_pms.impuesto) as imptos, Sum(cargos_pms.pagos_cargos) as pagos, cargos_pms.factura_numero FROM cargos_pms, codigos_vta WHERE cargos_pms.codigo_impto = codigos_vta.id_cargo AND cargos_pms.factura_numero = '$fact' AND cargos_pms.numero_reserva = '$numero' and cargos_pms.cargo_anulado = 0 and cargos_pms.folio_cargo = $folio and codigos_vta.tipo_codigo = '$tipo' GROUP BY cargos_pms.numero_reserva, cargos_pms.codigo_impto, cargos_pms.folio_cargo ORDER BY cargos_pms.numero_reserva, cargos_pms.codigo_impto, cargos_pms.folio_cargo")->fetchAll();
+
+        return $data;
+    }
+
+    public function getValorImptoFolioHis($fact, $numero, $folio, $tipo)
+    {
+        global $database;
+
+        $data = $database->query("SELECT codigos_vta.id_cargo, codigos_vta.descripcion_cargo, codigos_vta.porcentaje_impto, historico_cargos_pms.habitacion_cargo, Sum(historico_cargos_pms.monto_cargo) as cargos, Sum(historico_cargos_pms.impuesto) as imptos, Sum(historico_cargos_pms.pagos_cargos) as pagos, historico_cargos_pms.factura_numero FROM historico_cargos_pms, codigos_vta WHERE historico_cargos_pms.codigo_impto = codigos_vta.id_cargo AND historico_cargos_pms.factura_numero = '$fact' AND historico_cargos_pms.numero_reserva = '$numero' and historico_cargos_pms.cargo_anulado = 0 and historico_cargos_pms.folio_cargo = $folio and codigos_vta.tipo_codigo = '$tipo' GROUP BY historico_cargos_pms.numero_reserva, historico_cargos_pms.codigo_impto, historico_cargos_pms.folio_cargo ORDER BY historico_cargos_pms.numero_reserva, historico_cargos_pms.codigo_impto, historico_cargos_pms.folio_cargo")->fetchAll();
 
         return $data;
     }

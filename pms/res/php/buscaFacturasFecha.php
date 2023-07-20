@@ -32,7 +32,9 @@
               <td style="padding:3px 5px"><?php echo $factura['fecha_llegada']; ?></td>
               <td style="padding:3px 5px"><?php echo $factura['fecha_factura']; ?></td>
               <td style="padding:3px 5px">
-              	<button class="btn btn-info btn-xs" onclick="verfactura(<?=$factura['factura_numero']?>)" type="button"><i class="fa fa-file-pdf-o" aria-hidden="true" ></i></button>
+                <button class="btn btn-info btn-xs" onclick="verfactura(<?=$factura['factura_numero']?>)" type="button"><i class="fa fa-file-pdf-o" aria-hidden="true" ></i></button>
+                
+              	<!-- <button class="btn btn-danger btn-xs" onclick="anulaFacturaHist(<?=$factura['factura_numero']?>)" type="button"><i class="fa fa-file-pdf-o" aria-hidden="true" ></i></button> -->
               </td>
             </tr>
             <?php 

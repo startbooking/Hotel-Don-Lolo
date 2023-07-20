@@ -141,6 +141,3 @@
         </div>
       </section>
     </div>
-<?php 
-  // include_once 'views/modal/modalInformesfacturas.php';
-?>

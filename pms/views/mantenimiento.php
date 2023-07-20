@@ -32,12 +32,12 @@
                 <td>Bloqueada</td>
                 <td>Estado</td>
                 <td>Inventario</td>
-                <!-- <td>Presupuesto</td> -->
                 <td>Accion</td>
               </tr>
             </thead>
             <tbody>
               <?php
+              echo print_r($mmtos);
               foreach ($mmtos as $mmto) {
                   ?>
                 <tr style='font-size:12px'>
@@ -45,28 +45,22 @@
                   <td><?php echo $mmto['descripcion_grupo']; ?></td>
                   <td><?php echo $mmto['desde_fecha']; ?></td>
                   <td><?php echo $mmto['hasta_fecha']; ?></td>
-                  <td align="center"><?php echo estadoInventario($mmto['tipo_bloqueo']); ?></td>
-                  <td align="center"><?php echo estadoMmto($mmto['estado_mmto']); ?></td>
-                  <td align="center"><?php echo estadoInventario($mmto['retirar_inventario']); ?></td>
-                  <!-- <td align="right"><?php echo number_format($mmto['presupuesto'], 2); ?></td> -->
+                  <td style="text-align:center;"><?php echo estadoInventario($mmto['tipo_bloqueo']); ?></td>
+                  <td style="text-align:center;"><?php echo estadoMmto($mmto['estado_mmto']); ?></td>
+                  <td style="text-align:center;"><?php echo estadoInventario($mmto['retirar_inventario']); ?></td>
                   <td>
                     <nav class="navbar navbar-default" style="margin-bottom: 0px;min-height:0px;">
                       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:1px">
-                        <ul class="nav navbar-nav">
-                          <li class="dropdown submenu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="padding: 3px 1px;font-weight: 400">Ficha Mantenimiento<span class="caret"></span></a>
+                        <ul class="nav navbar-nav" style="width:100%;">
+                          <li class="dropdown submenu" style="width:100%;">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="padding: 3px 5px;font-weight: 500;width:100%">Ficha Mantenimiento
+                            <span style="position:absolute;top:13px;right:5px;" class="caret"></span></a>
                             <ul class="dropdown-menu" style="float:left;margin-left:none;top:40px;left: -195px">  
-                              <!-- <li>
-                                <a data-toggle="modal" 
-                                  data-id="<?php echo $mmto['id_mmto']; ?>" 
-                                  href="#myModalExtenderMantenimiento">
-                                <i class="fa fa-sign-out" aria-hidden="true"></i>Extender Mantenimiento</a> 
-                              </li> -->
                               <li>
                                 <a data-toggle="modal" 
                                   data-id="<?php echo $mmto['id_mmto']; ?>" 
                                   href="#myModalInformacionMmto">
-                                <i class="fa fa-sign-out" aria-hidden="true"></i>Informacion Mantenimiento</a> 
+                                  <i class="fa-solid fa-user-gear"></i> Informacion Mantenimiento</a> 
                               </li>
                               <li>
                                 <a data-toggle="modal" 
@@ -75,7 +69,14 @@
                                   data-observa="<?php echo $mmto['observaciones']; ?>" 
                                   data-room="<?php echo $hotel->getNumeroHab($mmto['id_habitacion']); ?>"
                                   href="#myModalAdicionaObservacionesMantenimiento">
-                                <i class="fa fa-sign-out" aria-hidden="true"></i>Adicionar Observaciones</a> 
+                                  <i class="fa-solid fa-pen-to-square"></i> Adicionar Observaciones</a> 
+                              </li>
+                              <li>
+                                <a 
+                                  onclick="imprimirOrdenM('<?php echo $mmto['id_mmto']; ?>')" 
+                                  >
+                                <i class="fa-solid fa-print"></i>
+                                Imprimir Orden de Trabajo</a> 
                               </li>
                               <?php
                                 if ($mmto['estado_mmto'] == 1) { ?>
@@ -85,18 +86,11 @@
                                     data-room="<?php echo $hotel->getNumeroHab($mmto['id_habitacion']); ?>"
                                     href="#myModalTerminaMmto">
                                   <i class="fa fa-sign-out" aria-hidden="true"></i>
-                                   Terminar Mantenimiento</a> 
+                                  Terminar Mantenimiento</a> 
                                 </li>
                                 <?php
                                 }
-                  ?>
-                              <li>
-                                <a 
-                                  onclick="imprimirOrdenM('<?php echo $mmto['id_mmto']; ?>')" 
-                                  >
-                                <i class="fa fa-sign-out" aria-hidden="true"></i>
-                                 Imprimir Orden de Trabajo</a> 
-                              </li>
+                              ?>
                             </ul>
                           </li>
                         </ul>

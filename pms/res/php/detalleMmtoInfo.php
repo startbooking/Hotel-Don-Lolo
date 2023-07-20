@@ -7,9 +7,6 @@
   $id         = $_POST['id'];
  
   $detalles = $hotel->getInformacionMantenimiento($id);
-
-
-
   $nroHab   = $hotel->getNumeroHab($detalles[0]['id_habitacion']);
 
 ?>
@@ -21,15 +18,13 @@
       <option value=""><?=$nroHab?></option>
     </select>
   </div>
-</div>
-<div class="form-group">
   <label for="desdeFechaAdi" class="col-sm-2 control-label">Desde Fecha</label>
-  <div class="col-sm-3" style="padding-right: 5px">
+  <div class="col-sm-2" style="padding-right: 5px">
     <input type="date" class="form-control" name="desdeFechaAdi" id="desdeFechaAdi" required="" value="<?=$detalles[0]['desde_fecha']?>" readonly>
   </div>
    <label for="hastaFechaAdi" class="col-sm-2 control-label">Hasta Fecha</label>
-  <div class="col-sm-3" style="padding-right: 5px">
-    <input type="date" class="form-control" name="hastaFechaAdi" id="hastaFechaAdi" required="" value="<?=$detalles[0]['hasta_fecha']?>" readonly>
+  <div class="col-sm-2" style="padding-right: 5px">
+    <input type="date" class="form-control" name="hastaFechaAdi" id="hastaFechaAdi" required="" value="<?=$detalles[0]['hasta_fecha']?>">
   </div>
 </div>
 <div class="form-group">              
@@ -39,41 +34,6 @@
       <option value=""><?=$detalles[0]['descripcion_grupo']?></option>
     </select>
   </div>
-  <label for="inputEmail3" class="col-sm-3 control-label"> Retirar de Inventario </label>
-  <div class="col-sm-3 ondisplay">
-    <div class="wrap">
-      <div class="col-sm-6" style="padding:0;height: 15px">
-        <div class="form-check form-check-inline">
-          <input style="margin-top:5px" class="form-check-input" type="radio" name="mmtoOption" id="inlineRadio1" value="1" readonly disabled 
-          <?php 
-            if($detalles[0]['retirar_inventario']==1){ ?>
-              checked
-              <?php 
-            } 
-          ?>
-          >
-          <label style="margin-top:-25px;margin-left:25px" class="form-check-label" for="inlineRadio1" >SI</label>
-        </div>                    
-      </div>
-      <div class="col-sm-6" style="padding:0;height: 15px"> 
-        <div class="form-check form-check-inline">
-          <input style="margin-top:5px" class="form-check-input" type="radio" name="mmtoOption" id="inlineRadio2" value="2" readonly disabled 
-          <?php 
-            if($detalles[0]['retirar_inventario']==2){ ?>
-              checked
-              <?php 
-            }
-          ?>
-          >
-          <label style="margin-top:-25px;margin-left:25px" class="form-check-label" for="inlineRadio2">NO</label>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<div class="form-group">
   <label for="inputEmail3" class="col-sm-2 control-label"> Mantenimiento </label>
   <div class="col-sm-4 ondisplay">
     <div class="wrap">
@@ -87,7 +47,7 @@
             }
           ?>
           >
-          <label style="margin-top:-25px;margin-left:25px" class="form-check-label" for="inlineRadio1" >Preventivo</label>
+          <label style="margin-top:-20px;margin-left:25px" class="form-check-label" for="inlineRadio1" >Preventivo</label>
         </div>                    
       </div>
       <div class="col-sm-6" style="padding:0;height: 15px"> 
@@ -100,14 +60,10 @@
             }
           ?>
           >
-          <label style="margin-top:-25px;margin-left:25px" class="form-check-label" for="inlineRadio2">Correctivo</label>
+          <label style="margin-top:-20px;margin-left:25px" class="form-check-label" for="inlineRadio2">Correctivo</label>
         </div>
       </div>
     </div>
-  </div>
-  <label for="presupuestoAdi" class="col-sm-2 control-label">Presupuesto</label>
-  <div class="col-sm-3" style="padding-right: 5px">
-    <input type="number" class="form-control" name="presupuestoAdi" id="presupuestoAdi" required="" value="<?php echo $detalles[0]['presupuesto'] ?>" min="0" readonly>
   </div>
 </div>
 <div class="form-group">

@@ -84,32 +84,34 @@
           </div> 
           <div class="modal-body">
             <div class="container-fluid">
+              <input type="hidden" name="perfilHis" id="perfilHis" value="">
+              <input type="hidden" name="idperfilHis" id="idperfilHis" value="">
               <input type="hidden" name="reservaHis" id="reservaHis" value="">
               <input type="hidden" name="txtFacturaNroHis" id="txtFacturaNroHis" value="">
               <div class="form-group">
-                <label for="noches" class="col-sm-3 control-label">Factura Nro</label>
+                <label for="noches" class="col-sm-2 control-label">Factura Nro</label>
                 <div class="col-sm-2">
                   <input type="number" class="form-control" name="facturaHis" id="facturaHis" readonly="">
                 </div> 
-                <label for="llegada" class="col-sm-3 control-label">Fecha Factura</label>
-                <div class="col-sm-4" style="padding-right: 20px">
+                <label for="llegada" class="col-sm-2 control-label">Fecha Factura</label>
+                <div class="col-sm-3" style="padding-right: 20px">
                   <input type="date" class="form-control" name="fechafac" id="fechafac" readonly=""> 
                 </div>
               </div>
               <div class="form-group">
                 <label class="control-label col-sm-2">Huesped</label>
-                <div class="col-sm-10">
+                <div class="col-sm-7">
                   <input class="form-control padInput" type="text" name="huesped" id='huesped' value='' readonly>
                 </div>
               </div>
               <div class="form-group">
                 <label for="llegada" class="col-sm-2 control-label">Llegada</label>
-                <div class="col-sm-4" style="padding-right: 20px">
-                  <input type="date" class="form-control" name="llegada" id="llegada" readonly=""> 
+                <div class="col-sm-3" style="padding-right: 20px">
+                  <input type="date" class="form-control" name="llegadaHis" id="llegadaHis" readonly=""> 
                 </div>
-                <label for="salida" class="col-sm-2 control-label">Salida</label>
-                <div class="col-sm-4" style="padding-right: 20px">
-                  <input type="date" class="form-control" name="salida" id="salida" readonly="">
+                <label for="salida" class="col-sm-1 control-label">Salida</label>
+                <div class="col-sm-3" style="padding-right: 20px">
+                  <input type="date" class="form-control" name="salidaHis" id="salidaHis" readonly="">
                 </div>
               </div>
               <div class="form-group">
@@ -119,8 +121,8 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="control-label col-sm-3" for="codigoConsumo">Motivo Anulacion</label>
-                <div class="col-sm-9">
+                <label class="control-label col-sm-2" for="codigoConsumo">Motivo Anulacion</label>
+                <div class="col-sm-10">
                   <input class="form-control" type="text" name="motivoAnulaHis" id="motivoAnulaHis" value="" required="">
                 </div>
               </div>
@@ -133,7 +135,7 @@
                   <button type="button" class="btn btn-warning btn-block" data-dismiss="modal"><I class="fa fa-reply"></I> Regresar</button>
                 </div>
                 <div class="col-md-6">
-                  <button class="btn btn-primary btn-block"><I class="fa fa-save"></I> Anular</button>
+                  <button class="btn btn-primary btn-block btnAnulaHis"><I class="fa fa-save"></I> Anular</button>
                 </div>                
               </div>
             </div>

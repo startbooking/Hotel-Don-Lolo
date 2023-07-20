@@ -260,8 +260,12 @@ include_once '../views/modal/modalUsuario.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'facturacionCongelada') {
       // / include_once 'views/modal/modalFacturacion.php' ;
       include_once 'views/modal/modalCongeladas.php';
+  } elseif (isset($_GET['section']) && $_GET['section'] == 'informeFacturasRango') {
+    // / include_once 'views/modal/modalTipoHabitaciones.php' ;
+    include_once 'views/modal/modalFacturas.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'historicoFacturas') {
-      // / include_once 'views/modal/modalTipoHabitaciones.php' ;
+    // / include_once 'views/modal/modalTipoHabitaciones.php' ;
+    include_once 'views/modal/modalFacturas.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'facturasDelDia') {
       include_once 'views/modal/modalFacturas.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'habitaciones') {

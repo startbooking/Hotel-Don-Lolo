@@ -10,6 +10,12 @@ $usuario = $_POST['usuario'];
 $idusuario = $_POST['usuario_id'];
 $perfil = $_POST['perfil'];
 
+$horaDoc = date('H:s:i');
+$fechaDoc = FECHA_PMS;
+$prefNC = $hotel->getPrefijoNC();
+$numDoc = $hotel->getNumeroCredito();
+$regis = $hotel->actualizaNumeroCredito($numDoc + 1);
+
 if ($perfil == 1) {
     $eToken = $hotel->datosTokenCia();
     $datosFact = $hotel->traeDatosFE($numero);
@@ -19,11 +25,6 @@ if ($perfil == 1) {
     $token = $eToken[0]['token'];
     $password = $eToken[0]['password'];
 
-    $horaDoc = date('H:s:i');
-    $fechaDoc = FECHA_PMS;
-    $prefNC = $hotel->getPrefijoNC();
-    $numDoc = $hotel->getNumeroCredito();
-    $regis = $hotel->actualizaNumeroCredito($numDoc + 1);
 
     $resFac = $hotel->getResolucion();
 
@@ -233,5 +234,5 @@ if ($perfil == 1) {
 }
 
 $cargos = $hotel->actualizaCargosFacturas($numero, $perfil);
-$anula = $hotel->anulaFactura($numero, $motivo, $usuario, $idusuario, $perfil);
+$anula = $hotel->anulaFactura($numero, $motivo, $usuario, $idusuario, $perfil, $numDoc);
 $entra = $hotel->updateEstadoReserva($reserva);

@@ -355,11 +355,6 @@ $(document).ready(function () {
     var button = $(event.relatedTarget);
     var tiporeserva = button.data("reserva");
     $('#creaReser').val(tiporeserva)
-
-    // console.log(tiporeserva)
-    // var numroom = button.data("room");
-
-
   });
 
   $("#myModalInformacionMmto").on("show.bs.modal", function (event) {
@@ -367,6 +362,7 @@ $(document).ready(function () {
     var pagina = $("#ubicacion").val();
     var button = $(event.relatedTarget);
     var id = button.data("id");
+    
     var numroom = button.data("room");
 
     $("#idMmtoTer").val(id);
@@ -375,7 +371,7 @@ $(document).ready(function () {
     $.ajax({
       url: web + "res/php/detalleMmtoInfo.php",
       type: "POST",
-      data: { id: id },
+      data: { id },
       success: function (data) {
         $("#infoMtoVer").html(data);
       },
@@ -523,17 +519,26 @@ $(document).ready(function () {
     var fecha = button.data("fechafac");
     var numero = button.data("numero");
     var reserva = button.data("reserva");
+    var perfil = button.data("perfil");
+    var idperfil = button.data("idperfil");
+    var prefijo = button.data("prefijo");
+
     var modal = $(this);
 
     modal.find(".modal-title").text("Anular Factura: " + numero);
     modal.find(".modal-body #facturaHis").val(numero);
     modal.find(".modal-body #huesped").val(apellidos + " " + nombres);
-    modal.find(".modal-body #llegada").val(llega);
-    modal.find(".modal-body #salida").val(sale);
+    modal.find(".modal-body #llegadaHis").val(llega);
+    modal.find(".modal-body #salidaHis").val(sale);
     modal.find(".modal-body #numero").val(numero);
     modal.find(".modal-body #reservaHis").val(reserva);
     modal.find(".modal-body #fechafac").val(fecha);
     modal.find(".modal-body #motivoAnulaHis").val("");
+    modal.find(".modal-body #perfilHis").val(perfil);
+    modal.find(".modal-body #idperfilHis").val(idperfil);
+    modal.find(".modal-body #fechafac").val(fecha);
+    modal.find(".modal-body #motivoAnula").val("");
+
     var factura = "Factura_" + numero + ".pdf";
 
     $("#verFacturaHistoricoModal").attr("data", "imprimir/facturas/" + factura);
@@ -591,8 +596,6 @@ $(document).ready(function () {
 
     modal.find(".modal-body #factura").val(numero);
     modal.find(".modal-body #huespedAnu").val(apellidos + " " + nombres);
-    /* modal.find(".modal-body #apellidos").val(apellidos);
-    modal.find(".modal-body #nombres").val(nombres); */
     modal.find(".modal-body #llegada").val(llega);
     modal.find(".modal-body #salida").val(sale);
     modal.find(".modal-body #numero").val(numero);
@@ -2029,6 +2032,12 @@ $(document).ready(function () {
   
 });
 
+function actualizaMmto(){
+  swal('Entro a Actualizar MMto');
+
+
+}
+
 
 function regresaCasa(reserva){
   swal(
@@ -2177,8 +2186,6 @@ const Notifications = (element, title, icon = 'info', isHtml, html, IsReload = n
 };
 
 const RequestComponent = async ({ url, method, bodyRequest, headers, typeResponse, noSession = false }) => {
-
-  // console.log({ url, method, bodyRequest, headers, typeResponse, noSession })
 
   if (noSession !== true) {
       const csrf = document.querySelector('input[name="_token"]').value;
@@ -3120,7 +3127,7 @@ function traeTotalHuespedes(regis, filas) {
 													data-nombre ="${data[i]["nombre_completo"]}" 
 													href        ="#myModalModificaPerfilHuesped">
                         <i class="fa fa-address-card-o" aria-hidden="true"></i>
-                         Modificar Perfil</a> 
+                        Modificar Perfil</a> 
                       </li>
                       <li>
                         <a  
@@ -3138,7 +3145,7 @@ function traeTotalHuespedes(regis, filas) {
 													data-nombre ="${data[i]["nombre_completo"]}" 
 													href        ="#myModalHistoricoReservas">
                           <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
-                         Historico Reservas</a> 
+                        Historico Reservas</a> 
                       </li>
                       <li>
                         <a 
@@ -3149,7 +3156,7 @@ function traeTotalHuespedes(regis, filas) {
 													data-idres    ="0"
 													href        ="#myModalAsignarCompania">
                         <i class="fa fa-industry" aria-hidden="true"></i>
-                         Asignar Compañia</a>
+                        Asignar Compañia</a>
                       </li>
                       <li>
                         <a 
@@ -3158,7 +3165,7 @@ function traeTotalHuespedes(regis, filas) {
 													data-nombre ="${data[i]["nombre_completo"]}" 
 													href        ="#myModalDocumentos">
                         <i class="fa fa-clone" aria-hidden="true"></i>
-                         Documentos</a>
+                        Documentos</a>
                       </li>
                     </ul>
                   </li>
@@ -3212,6 +3219,11 @@ function anulaFacturaHistorico() {
   var factura = $("#facturaHis").val();
   var motivo = $("#motivoAnulaHis").val();
   var reserva = $("#reservaHis").val();
+  var perfil = $("#perfilHis").val();
+
+
+  $('.btnAnulaFac').css('display','none')
+
 
   $.ajax({
     url: "res/php/anulaFacturaHistorico.php",
@@ -3220,18 +3232,19 @@ function anulaFacturaHistorico() {
       factura,
       motivo,
       usuario,
-      idusuario: usuario_id,
+      usuario_id,
       reserva,
+      perfil,
     },
     success: function (data) {
       swal(
         {
           title: "Atencion",
-          text: "Cuenta Reactivada con Exito",
+          text: "Factura Anulada con Exito",
           type: "success",
         },
         function(){
-          $(location).attr("href", pagina);
+          // $(location).attr("href", pagina);
         }
       );
     },
