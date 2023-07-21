@@ -5,6 +5,18 @@ date_default_timezone_set('America/Bogota');
 
 class Hotel_Actions
 {
+    
+    public function actualizaMmto($idmmto, $hasta){
+        global $database;
+
+        $data = $database->update('mantenimiento_habitaciones',[
+            'hasta_fecha' => $hasta,
+        ],[
+            'id_mmto' => $idmmto
+        ]);
+        return $data->rowCount();
+    }
+    
     public function traeHabitacionesMmto(){
         global $database;
 

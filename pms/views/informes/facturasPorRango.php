@@ -41,8 +41,6 @@
                   <div class="col-lg-2 col-md-2">
                     <input class="form-control" type="number" min="1" name="hastaNumero" id='hastaNumero' value=''>
                   </div>
-                <!-- </div>
-                <div class="form-group"> -->
                   <label class="control-label col-md-1">Huesped</label>
                   <div class="col-lg-4 col-md-4">
                     <input class="form-control" type="text" name="desdeHuesped" id='desdeHuesped' value=''>
@@ -53,8 +51,6 @@
                   <div class="col-lg-4 col-md-4">
                     <input class="form-control" type="text" name="desdeEmpresa" id='desdeEmpresa' value=''>
                   </div>
-                <!-- </div>
-                <div class="form-group"> -->
                   <label class="control-label col-md-2">Forma de Pago</label>
                   <div class="col-lg-4 col-md-4">
                     <select name="desdeFormaPago" id="desdeFormaPago"  class="form-control" style="padding:4px 12px">

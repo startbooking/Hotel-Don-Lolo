@@ -219,12 +219,6 @@ foreach ($codigos as $codigo) { ?>
               <div class="col-lg-10 col-xs-10">
                 <input class="form-control padInput" type="text" name="txtNombreCompleto" id='txtNombreCompleto' value='0' readonly>
               </div>
-              <!--
-              <label class="control-label col-xs-2">Nombres</label>
-              <div class="col-lg-4 col-xs-4">
-                <input class="form-control padInput" type="text" name="txtNombresAbo" id='txtNombresAbo' value='0' readonly>
-              </div>
-            -->
             </div>
             <div class="divs divDeposito">
               <div class="form-group">

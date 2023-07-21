@@ -112,6 +112,7 @@
           <span class="glyphicon glyphicon-off"></span>
           </button> 
           <h3 class="modal-title" id="exampleModalLabel"><i class="fa-solid fa-user-gear"></i> Informacion Mantenimiento</h3>
+          <input type="hidden" id="idMmtoUpd" name="idMmtoUpd" value=""> 
         </div>
         <form class="form-horizontal" id="formInformacionMmto" action="javascript:actualizaMmto()" method="POST">
           <div class="modal-body" id="infoMtoVer"></div>

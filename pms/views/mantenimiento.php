@@ -37,9 +37,7 @@
             </thead>
             <tbody>
               <?php
-              echo print_r($mmtos);
-              foreach ($mmtos as $mmto) {
-                  ?>
+              foreach ($mmtos as $mmto) { ?>
                 <tr style='font-size:12px'>
                   <td><?php echo $hotel->getNumeroHab($mmto['id_habitacion']); ?></td>
                   <td><?php echo $mmto['descripcion_grupo']; ?></td>
@@ -58,7 +56,8 @@
                             <ul class="dropdown-menu" style="float:left;margin-left:none;top:40px;left: -195px">  
                               <li>
                                 <a data-toggle="modal" 
-                                  data-id="<?php echo $mmto['id_mmto']; ?>" 
+                                  data-idmmto="<?php echo $mmto['id_mmto']; ?>" 
+                                  data-room="<?php echo $hotel->getNumeroHab($mmto['id_habitacion']); ?>"
                                   href="#myModalInformacionMmto">
                                   <i class="fa-solid fa-user-gear"></i> Informacion Mantenimiento</a> 
                               </li>
@@ -67,7 +66,7 @@
                                   data-id="<?php echo $mmto['id_mmto']; ?>" 
                                   data-mmto="<?php echo $mmto['descripcion_grupo']; ?>" 
                                   data-observa="<?php echo $mmto['observaciones']; ?>" 
-                                  data-room="<?php echo $hotel->getNumeroHab($mmto['id_habitacion']); ?>"
+                                  data-room="<?php echo $mmto['id_habitacion']; ?>"
                                   href="#myModalAdicionaObservacionesMantenimiento">
                                   <i class="fa-solid fa-pen-to-square"></i> Adicionar Observaciones</a> 
                               </li>

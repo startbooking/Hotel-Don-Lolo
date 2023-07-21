@@ -361,17 +361,18 @@ $(document).ready(function () {
     var web = $("#rutaweb").val();
     var pagina = $("#ubicacion").val();
     var button = $(event.relatedTarget);
-    var id = button.data("id");
-    
-    var numroom = button.data("room");
+    var idmmto = button.data("idmmto");
 
-    $("#idMmtoTer").val(id);
-    $("#numroom").val(numroom);
+    $("#idMmtoUpd").val(idmmto);
+    
+    /*  
+    var numroom = button.data("room");
+    $("#numroom").val(numroom); */
 
     $.ajax({
       url: web + "res/php/detalleMmtoInfo.php",
       type: "POST",
-      data: { id },
+      data: { idmmto },
       success: function (data) {
         $("#infoMtoVer").html(data);
       },
@@ -539,9 +540,13 @@ $(document).ready(function () {
     modal.find(".modal-body #fechafac").val(fecha);
     modal.find(".modal-body #motivoAnula").val("");
 
-    var factura = "Factura_" + numero + ".pdf";
+    var factura = "HDL" + numero + ".pdf";
 
-    $("#verFacturaHistoricoModal").attr("data", "imprimir/facturas/" + factura);
+
+    $("#verFacturaHistoricoModal").attr(
+      "data",
+      "imprimir/facturas/FES-" + factura
+    );
     $(".alert").hide();
   });
 
@@ -552,7 +557,7 @@ $(document).ready(function () {
     $.ajax({
       url: "res/php/getFacturaReserva.php",
       type: "POST",
-      data: { reserva: reserva },
+      data: { reserva },
       success: function (data) {
         $("#verFacturasHistorico").html(data);
       },
@@ -2033,7 +2038,32 @@ $(document).ready(function () {
 });
 
 function actualizaMmto(){
-  swal('Entro a Actualizar MMto');
+  idmmto = $("#idMmtoUpd").val();
+  hasta = $("#hastaFechaUpd").val();
+
+  console.log(idmmto)
+
+  $.ajax({
+    type: "POST",
+    url: "res/php/actualizaMmto.php",
+    data: {
+      idmmto,
+      hasta,
+    },
+    success: function (data) {
+      swal(
+        {
+          title: "Atencion",
+          text: "Mantenimiento Actualizado con Exito",
+          type: "success",
+        },
+        function(){
+          $(location).attr("href", "mantenimiento");
+        }
+      );
+    },
+  });
+
 
 
 }
