@@ -216,6 +216,9 @@ include_once '../views/modal/modalUsuario.php';
       include_once 'views/modal/modalDocumentosCia.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'agencias') {
       include_once 'views/modal/modalAgencia.php';
+  } elseif (isset($_GET['section']) && $_GET['section'] == 'grupos') {
+    include_once 'views/modal/modalGrupos.php';
+    include_once 'views/modal/modalCompania.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'reservasActivas') {
       include_once 'views/modal/modalReservas.php'; 
       include_once 'views/modal/modalAcompanantes.php'; 

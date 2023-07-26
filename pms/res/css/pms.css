@@ -81,6 +81,21 @@
   font-size: 12px;
 }
 
+/* 
+#bs-example-navbar-collapse-1 .navbar-nav, .navbar-nav .dropdown {
+  width: 100%;
+}
+.navbar-nav .dropdown, .dropdown-toggle {
+  font-weight:bold;
+  color:#000
+}
+
+#bs-example-navbar-collapse-1 .navbar-nav, .navbar-nav .dropdown a span{
+  position: absolute;
+  top: 12px;
+} */
+
+
 .divDeposito {
   background: lavenderblush;
   padding: 12px 12px 0px 12px;
@@ -134,6 +149,11 @@ a.info span,
 .dropdownForecast {
   margin-right: 0px !important;
   margin-top: 0px !important;
+}
+
+.btnAdi{
+  padding: 3px 5px;
+  margin-left: -27px;
 }
 
 .btnRoom {

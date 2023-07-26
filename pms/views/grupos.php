@@ -1,20 +1,25 @@
+
+<?php 
+echo 'Paso111 ';
+?>
+
 <div class="content-wrapper"> 
   <section class="content">
     <div class="panel panel-success">
       <div class="panel-heading"> 
         <div class="row">
-          <div class="col-lg-6">
+          <div class="col-xs-6">
             <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_PMS?>">
-            <input type="hidden" name="ubicacion" id="ubicacion" value="agencias">
-            <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-plane "></i> Grupos de Reserva </h3>
+            <input type="hidden" name="ubicacion" id="ubicacion" value="grupos">
+            <h3 class="w3ls_head tituloPagina"><i class="fa-solid fa-users-between-lines"></i> Grupos de Reserva </h3>
           </div>
-          <div class="col-lg-6" align="right">
+          <div class="col-xs-6" style="text-align:right;">
             <a 
               class="btn btn-success"
               data-toggle="modal" 
-              href="#myModalAdicionaAgencia">
+              href="#myModalAdicionaGrupo">
               <i class="fa fa-plus" aria-hidden="true"></i>
-               Adicionar Grupo
+              Adicionar Grupo
             </a>
           </div>
         </div>
@@ -25,12 +30,13 @@
           <table id="example1" class="table modalTable table-bordered">
             <thead>
               <tr class="warning">
+                <td>Empresa</td>
                 <td>Grupo</td>
                 <td>Fecha Llegada</td>
                 <td>Fecha Salida</td>
-                <td>Huespedes</td>
-                <td>Habitaciones</td>
-                <td>Cuenta</td>
+                <td>Huesp</td>
+                <td>Hab.</td>
+                <td>Cuenta Master</td>
                 <td>Tarifa</td>
                 <td>Estado</td>
                 <td>Accion</td>
@@ -38,8 +44,11 @@
             </thead>
             <tbody>
               <?php
-              foreach ($grupos as $grupo) { ?>
+              foreach ($grupos as $grupo) { 
+                // echo $grupos;
+                ?>
                 <tr style='font-size:12px'>
+                  <td><?=$grupo['empresa']?></td>
                   <td><?=$grupo['nombreGrupo']?></td>
                   <td><?=$grupo['fechaLlegada']?></td>
                   <td><?=$grupo['fechaSalida']?></td>
@@ -61,7 +70,7 @@
                                   data-agencia="" 
                                   href="#myModalIngresaReserva">
                                 <i class="fa fa-sign-out" aria-hidden="true"></i>
-                                 Modificar Grupo</a> 
+                                Modificar Grupo</a> 
                               </li>
                               <li>
                                 <a data-toggle="modal" 
@@ -69,7 +78,7 @@
                                   data-agencia="<?php echo $agencia['agencia']?>" 
                                   href="#myModalIngresaReserva">
                                 <i class="fa fa-sign-out" aria-hidden="true"></i>
-                                 Huespedes</a> 
+                                Huespedes</a> 
                               </li>
                               <li>
                                 <a data-toggle="modal" 
@@ -77,7 +86,7 @@
                                   data-agencia="" 
                                   href="#myModalInformacionFichareserva">
                                 <i class="fa fa-address-card-o" aria-hidden="true"></i>
-                                 Instrucciones de Factura</a> 
+                                Instrucciones de Factura</a> 
                               </li>
                               <li>
                                 <a data-toggle="modal" 
@@ -93,7 +102,7 @@
                                   data-agencia="<?php echo $agencia['agencia']?>" 
                                   href="#myModalInformacionMedicareserva">
                                 <i class="fa fa-money" aria-hidden="true"></i>
-                                 Cancelar Grupo</a>
+                                Cancelar Grupo</a>
                               </li>
                             </ul>
                           </li>

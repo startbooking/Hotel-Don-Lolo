@@ -7,9 +7,11 @@ $llega = $_POST['llega'];
 $sale = $_POST['sale']; 
 
 $habitaciones = $hotel->getSeleccionaHabitacionesTipo($tipo);
-/* echo 'Total Habitaciones <br>';
-*/
 echo print_r($habitaciones); 
+
+$mmtoHabi = $hotel->getMmtoHabitaciones($llega, $tipo);
+echo print_r($mmtoHabi); 
+echo 'Mantenimiento Habitaciones <br>';
 
 $estadohab = $hotel->traeEstadoHabitacionesHotel($tipo, $llega, $sale);
 echo 'Estado Habitaciones <br>';

@@ -20,6 +20,7 @@ $datosHotel = $admin->getDatosHotel();
 
 $empresa = $admin->getInfoCia();
 
+define('DEV', '1');
 define('FECHA_PMS', $datosHotel[0]['fecha_auditoria']);
 define('CTA_DEPOSITO', $datosHotel[0]['cuenta_depositos']);
 define('CTA_CARGOS_PERD', $datosHotel[0]['cuenta_cargos_perdidos']);
@@ -82,7 +83,7 @@ if (!isset($_GET['section'])) {
 } elseif (isset($_GET['section']) && $_GET['section'] == 'encasa') {
     // $reservas = $hotel->getHuespedesenCasa(2,'CA');
 } elseif (isset($_GET['section']) && $_GET['section'] == 'grupos') {
-    $grupos = $hotel->getGrupos();
+    $grupos = $hotel->getGrupos(); 
 } elseif (isset($_GET['section']) && $_GET['section'] == 'llegadasDelDia') {
     $hoy = $hotel->getDatePms();
 // $reservas = $hotel->getReservasDia(FECHA_PMS,1,"ES");

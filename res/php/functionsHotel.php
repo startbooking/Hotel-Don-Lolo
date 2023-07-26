@@ -6,6 +6,32 @@ date_default_timezone_set('America/Bogota');
 class Hotel_Actions
 {
     
+    public function creaGrupo($empresaGrupo, $nombreGrupo, $llegada, $noches, $salida, $hombres, $mujeres, $ninos, $cantHabi, $tarifahab, $valortar, $origen, $destino, $motivo, $fuente, $segmento, $formapago, $observaciones, $usuario, $idusuario){
+        global $database;
+
+        $data = $database->insert('grupos_pms',[
+            'nombreGrupo' => $nombreGrupo,
+            'hombres' => $hombres,
+            'mujeres' => $mujeres,
+            'ninos' => $ninos,
+            'totalHuespedes' =>  $hombres + $mujeres + $ninos,
+            'totalHabitaciones' => $cantHabi,
+            'fechaLlegada' => $llegada,
+            /* 
+            'noches' => $noches,
+            'fechaSalida' => $salida,
+            'idTarifa' => $tarifahab,
+            'formaPago' => $formapago,
+            'valorGrupo' => $valortar,
+            'idCompania' => $empresaGrupo,
+            'estado' => 1,
+            'observaciones' => $observaciones, 
+            'idUsuario' => $idusuario,
+            */
+        ]);
+        return $database->id();
+    }
+
     public function actualizaMmto($idmmto, $hasta){
         global $database;
 
@@ -16,7 +42,24 @@ class Hotel_Actions
         ]);
         return $data->rowCount();
     }
-    
+
+    public function getMmtoHabitaciones($llega, $tipo){
+        global $database;
+
+        $data = $database->select('mantenimiento_habitaciones',[
+            '[>]habitaciones' => ['id_habitacion' => 'id']
+        ],[
+            'habitaciones.numero_hab',
+            'mantenimiento_habitaciones.desde_fecha',
+            'mantenimiento_habitaciones.hasta_fecha',
+        ],[
+            'habitaciones.id_tipohabitacion' => $tipo,
+            'mantenimiento_habitaciones.hasta_fecha[>]' => $llega,
+            'mantenimiento_habitaciones.estado' => 1
+        ]);
+        return $data;
+    }
+
     public function traeHabitacionesMmto(){
         global $database;
 
@@ -33,8 +76,6 @@ class Hotel_Actions
         ]);
         return $data;
     }
- 
- 
     public function traeEstadoHabitaciones(){
         global $database;
 
@@ -874,13 +915,15 @@ class Hotel_Actions
         global $database;
 
         $data = $database->select('grupos_pms', [
+            '[>]companias' => ['idCompania' => 'id_compania'],
+        ],[
+            'companias.empresa',
             'idGrupo',
             'idCompania',
-            'idAgencia',
             'nombreGrupo',
             'fechaLlegada',
             'fechaSalida',
-            'dias',
+            'noches',
             'idTarifa',
             'cuentaMaestra',
             'formaPago',

@@ -5,7 +5,7 @@
 	$fecha             = FECHA_PMS;
 	$usuario           = $_SESSION['usuario'];
 	$orden             = $_POST['orden']; 
-	$_SESSION['orden'] = $orden;
+	// $_SESSION['orden'] = $orden;
 
   $filepdf = BASE_PMS.'imprimir/informes/order_Mantenimiento_'.$orden.'.pdf';
   

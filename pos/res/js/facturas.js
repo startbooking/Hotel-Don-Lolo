@@ -171,10 +171,7 @@ function abonoComanda() {
   let textopago = $("#formapagoAbono option:selected").text();
   var productos = JSON.parse(localStorage.getItem("productoComanda"));
 
-  // console.log(monto);
-
   mBoton = "#comanda" + $("#numeroComanda").val();
-  // $("abonosComanda");
   abonos = abonos + monto;
   $(mBoton).attr("abonos", abonos);
 

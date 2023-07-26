@@ -1,4 +1,8 @@
 $(document).ready(function () {
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { user } = sesion;
+  let { usuario, usuario_id } = user;
+
 
   $('.category_list .category_item[category="all"]').addClass('ct_item-active');
   $('.category_item').click(function(){
@@ -72,6 +76,13 @@ $(document).ready(function () {
     traeFacturasEstadia();
   }
 
+
+  $("#myModalAdicionaGrupo").on("show.bs.modal", function (event) {
+    document.querySelector('#formGrupo').reset();
+    document.querySelector('#idUsuario').value = usuario_id; 
+
+  });
+  
   $("#myModalConfirmaReserva").on("show.bs.modal", function (event) {
     var button = $(event.relatedTarget);
 
@@ -1460,6 +1471,7 @@ $(document).ready(function () {
   $("#myModalAdicionaReserva").on("show.bs.modal", function (event) {
     $("#edita").val(0);
     $("#editaRes").val(0);
+    document.querySelector('#formReservas').reset();
   });
 
   $("#myModalModificaReserva").on("show.bs.modal", function (event) {
@@ -2068,7 +2080,6 @@ function actualizaMmto(){
 
 }
 
-
 function regresaCasa(reserva){
   swal(
     {
@@ -2114,7 +2125,6 @@ function muestraReserva(ev){
 
   swal('Atencion','Dio CLick en Reserva'+reserva+estado,'success')
 }
-
 
 function descargarAttach(numero){
   $.ajax({
@@ -2268,6 +2278,37 @@ const RequestComponent = async ({ url, method, bodyRequest, headers, typeRespons
       return ToastR({ message: 'Â¡Se ha producido un error en la peticiÃ³n! Intente nuevamente..!', icon: 'info' });
   }
 }
+
+function guardaGrupo(){
+  formulario = document.querySelector('#formGrupo')
+  let formGrupo = new FormData(formulario);
+
+  object= {}
+  formGrupo.forEach((value, key) => object[key] = value);
+  // let data = JSON.stringify(object);
+  
+  numGrupo = guardaDatosGrupo(JSON.stringify(object))
+
+  console.log(numGrupo)
+
+
+}
+
+const guardaDatosGrupo = async (formGrupo) => {
+  try {
+    const resultado = await fetch(`res/php/guardaGrupo.php`, {
+      method: "POST",
+      body: formGrupo, // data puede ser string o un objeto
+      headers: {
+        "Content-Type": "application/json", // Y le decimos que los datos se enviaran como JSON
+      },
+    });
+    const datos = await resultado.json();
+    return datos;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 
 function traeReservasMmto(){
@@ -6218,7 +6259,6 @@ function ingresaDeposito() {
     processData: false,
     success: function (datos) {
       datos = $.trim(datos);
-      // console.log(datos);
       var ventana = window.open(
         `imprimir/notas/Abono_${datos}.pdf`,
         "PRINT",

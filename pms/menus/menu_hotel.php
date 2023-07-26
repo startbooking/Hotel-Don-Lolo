@@ -31,7 +31,12 @@ if ($_GET['section'] != 'cajeroCerrado') {
           <ul class="treeview-menu">
             <li><a href="reservasActivas"><i class="fa fa-calendar"></i> Reservas</a></li>
             <li><a href="forecast"><i class="fa fa-area-chart"></i> Forecast</a></li>
-            <!-- <li><a href="grupos"><i class="fa fa-users" aria-hidden="true"></i> Grupos</a></li> -->
+            <?php
+              if(DEV==1){ ?>
+                <li><a href="grupos"><i class="fa-solid fa-users-between-lines"></i> Grupos</a></li>
+                <?php
+              }
+            ?>
           </ul>
         </li>
         <li class="treeview">
@@ -134,7 +139,7 @@ if ($_GET['section'] != 'cajeroCerrado') {
         <li class="treeview">
           <a href="#">
             <i class="fa fa-book"></i>
-             <span>Informes</span>
+            <span>Informes</span>
             <span class="fa fa-angle-left pull-right"></span>
           </a>
           <ul class="treeview-menu">
