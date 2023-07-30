@@ -3315,7 +3315,7 @@ function anulaFacturaHistorico() {
           type: "success",
         },
         function(){
-          // $(location).attr("href", pagina);
+          $(location).attr("href", pagina);
         }
       );
     },
@@ -5061,6 +5061,9 @@ function salidaHuesped() {
   var pagina = $("#ubicacion").val();
   var saldo = $("#SaldoActual").val();
   var abonos = $("#totalPagos").val();
+  let facturador = document.querySelector('#facturador').value;
+
+  // swal(facturador);
   let perfilFac = 1;
   
   var tipofac = $(
@@ -5174,14 +5177,25 @@ function salidaHuesped() {
       dataType: "json",
       data: parametros,
       success: function (data) {
-        var ventana = window.open(
-          "imprimir/facturas/FES-" + data[0],
-          "PRINT",
-          "height=600,width=600"
-        );
+        if(facturador==1){
+          var ventana = window.open(
+            "imprimir/facturas/FES-" + data[0],
+            "PRINT",
+            "height=600,width=600"
+          );
+        }else{
+          var ventana = window.open(
+            "imprimir/abonos/" + data[0],
+            "PRINT",
+            "height=600,width=600"
+          );
+        }
 
         if (data[1] == "0") {
+          
+          
           setTimeout(function () {
+
             swal(
               "Atencion",
               "Salida del Huesped realizada con Exito",
@@ -7058,14 +7072,22 @@ function salidaHuespedCongelada() {
             "height=600,width=600"
           );                      
         if (data[1] == "0") {
-          setTimeout(function () {
+          swal({
+            title: "Error!",
+            text: "Sin Adultos en esta Reserva",
+            type: "error",
+            confirmButtonText: "Aceptar",
+          });
+          $(location).attr("href", "home");
+
+          /* setTimeout(function () {
             swal(
               "Atencion",
               "Salida del Huesped realizada con Exito",
               "success"
             );
             $(location).attr("href", "home");
-          }, 2000);
+          }, 2000); */
         } else {
           swal(
             "Atencion",

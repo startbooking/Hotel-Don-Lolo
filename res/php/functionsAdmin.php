@@ -2246,66 +2246,67 @@
          return $data;
      }
 
-     public function getDatosHotel()
-     {
-         global $database;
+    public function getDatosHotel()
+    {
+        global $database;
 
-         $data = $database->select('parametros_pms', [
-             'id',
-             'fecha_auditoria',
-             'nombre_hotel',
-             'direccion',
-             'nro_habitaciones',
-             'habitaciones',
-             'email',
-             'telefono',
-             'fax', 
-             'celular',
-             'licencia',
-             'camas',
-             'nit_hotel',
-             'dv_hotel',
-             'cuenta_cartera',
-             'cuenta_depositos',
-             'cuenta_cargos_perdidos',
-             'hora_salida',
-             'iva_incluido',
-             'ciudad',
-             'pais',
-             'con_lista_espera',
-             'con_factura',
-             'con_deposito',
-             'con_reserva',
-             'con_companias',
-             'con_agencia',
-             'con_huesped',
-             'con_contactos',
-             'con_avances',
-             'con_abonos',
-             'con_pago',
-             'con_cta_congelada',
-             'con_decreto',
-             'con_mantenimiento',
-             'con_registro_hotelero',
-             'con_efectivo',
-             'con_recaudos',
-             'mantenimiento',
-             'id_perfil_depositos',
-             'codigo_hotel',
-             'codigo_cta_master',
-             'codigo_devoluciones',
-             'hoteldemo',
-             'resolucion',
-             'actividad',
-             'info_banco',
-             'info_factura',
-             'info_pie',
-         ], [
-             'LIMIT' => 1,
-         ]);
+        $data = $database->select('parametros_pms', [
+            'id',
+            'fecha_auditoria',
+            'nombre_hotel',
+            'direccion',
+            'nro_habitaciones',
+            'habitaciones',
+            'email',
+            'telefono',
+            'fax', 
+            'celular',
+            'licencia',
+            'camas',
+            'nit_hotel',
+            'dv_hotel',
+            'cuenta_cartera',
+            'cuenta_depositos',
+            'cuenta_cargos_perdidos',
+            'hora_salida',
+            'iva_incluido',
+            'ciudad',
+            'pais',
+            'con_lista_espera',
+            'con_factura',
+            'con_deposito',
+            'con_reserva',
+            'con_companias',
+            'con_agencia',
+            'con_huesped',
+            'con_contactos',
+            'con_avances',
+            'con_abonos',
+            'con_pago',
+            'con_cta_congelada',
+            'con_decreto',
+            'con_mantenimiento',
+            'con_registro_hotelero',
+            'con_efectivo',
+            'con_recaudos',
+            'mantenimiento',
+            'id_perfil_depositos',
+            'codigo_hotel',
+            'codigo_cta_master',
+            'codigo_devoluciones',
+            'hoteldemo',
+            'resolucion',
+            'actividad',
+            'info_banco',
+            'info_factura',
+            'info_pie',
+            'facturador'
+        ], [
+            'LIMIT' => 1,
+        ]);
 
-         return $data;
-     }
+        return $data;
+    }
 
      public function actualizaNumeroFolio($folio, $id)
      {

@@ -189,7 +189,7 @@ if ($_GET['section'] != 'cajeroCerrado') {
               <ul class="treeview-menu">
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeCargosdelDia','Cargos del Dia')"><i class="glyphicon glyphicon-paste"></i>Cargos del Dia</a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeCargosdelDiaConcepto','Cargos del Dia por Concepto')"><i class="glyphicon glyphicon-paste"></i>Cargos del Dia por Concepto</a></li>
-                <li><a href=" javascript:imprimeInformeAuditoria('imprimeCargosdelDiaCajero','Cargos del Dia Por Cajeros')"><i class="glyphicon glyphicon-paste"></i>Cargos del Dia Por Cajeros</a></li>
+                <li><a href="javascript:imprimeInformeAuditoria('imprimeCargosdelDiaCajero','Cargos del Dia Por Cajeros')"><i class="glyphicon glyphicon-paste"></i>Cargos del Dia Por Cajeros</a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeCargosdelDiaHabitacion','Cargos del Dia Por Habitacion')"><i class="glyphicon glyphicon-paste"></i>Cargos del Dia Por Habitacion</a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeCargosAnuladosdelDia','Cargos Anulados en el Dia ')"><i class="glyphicon glyphicon-copy"></i>Cargos Anulados en el Dia </a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimePagosdelDia','Pagos del Dia')"><i class="glyphicon glyphicon-save-file"></i>Pagos del Dia</a></li>
@@ -220,6 +220,7 @@ if ($_GET['section'] != 'cajeroCerrado') {
                 <li><a href="historicoReservas"><i class="fa fa-files-o"></i>Historico Reservas</a></li>
                 <li><a href="historicoCajeros"><i class="fa fa-files-o"></i>Historico Cajeros</a></li>
                 <li><a href="informeFacturasRango"><i class="fa fa-files-o"></i>Historico Facturas</a></li>
+                <li><a href="historicoNC"><i class="fa fa-circle-o"></i>Historico Notas Credito</a></li> 
                 <li><a href="informeRecibosCajaRango"><i class="fa fa-files-o"></i>Historico Recibos de Caja</a></li>
                 <li><a href="historicoAuditoria"><i class="fa fa-circle-o"></i>Historico Auditorias</a></li> 
               </ul>

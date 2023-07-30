@@ -63,6 +63,7 @@ define('ACTIVIDAD', $datosHotel[0]['actividad']);
 define('TEXTOBANCO', $datosHotel[0]['info_banco']);
 define('TEXTOFACTURA', $datosHotel[0]['info_factura']);
 define('PIEFACTURA', $datosHotel[0]['info_pie']);
+define('FACTURADOR', $datosHotel[0]['facturador']);
 
 $pc = gethostname();
 $ip = $_SERVER['REMOTE_ADDR'];

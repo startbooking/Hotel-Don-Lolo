@@ -6,6 +6,20 @@ date_default_timezone_set('America/Bogota');
 class Hotel_Actions
 {
     
+    public function ingresaNCFactura($numero, $motivo, $idusuario, $numDoc){
+        global $database;
+
+        $data = $database->insert('notasCredito',[
+        'concecutivoNC' => $numDoc,
+        'motivoAnulacion' => $motivo,
+        'usuarioAnula' => $idusuario,
+        'facturaAnulada' => $numero,
+        'fechaAnulacion' => date('Y-m-d H:m:i'),
+        ]);
+        return $database->id();
+    }
+ 
+ 
     public function creaGrupo($empresaGrupo, $nombreGrupo, $llegada, $noches, $salida, $hombres, $mujeres, $ninos, $cantHabi, $tarifahab, $valortar, $origen, $destino, $motivo, $fuente, $segmento, $formapago, $observaciones, $usuario, $idusuario){
         global $database;
 
@@ -54,8 +68,8 @@ class Hotel_Actions
             'mantenimiento_habitaciones.hasta_fecha',
         ],[
             'habitaciones.id_tipohabitacion' => $tipo,
-            'mantenimiento_habitaciones.hasta_fecha[>]' => $llega,
-            'mantenimiento_habitaciones.estado' => 1
+            // 'mantenimiento_habitaciones.hasta_fecha[>=]' => $llega,
+            'mantenimiento_habitaciones.estado_mmto' => 1
         ]);
         return $data;
     }

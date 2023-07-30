@@ -19,11 +19,9 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
         <td>Tarifa</td>
         <td>Llegada</td>
         <td>Salida</td>
-        <!-- <td align="center">Consumos</td>
-        <td align="center">Impuesto</td> -->
-        <td align="center">Abonos</td>
-        <td align="center">Saldo</td>
-        <td align="center">Accion</td>
+        <td style="text-align:center;">Abonos</td>
+        <td style="text-align:center;">Saldo</td>
+        <td style="text-align:center;">Accion</td>
       </tr>
     </thead> 
     <tbody>
@@ -83,16 +81,16 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
         ?>
           </td> 
           <td>
-            <span class="badge" style="background: #20b2aa91;padding: 2px 6px 0px 11px;">
-              <label for="" class="control-label" style="text-align: left;color:#000">
-                <?php echo $reserva['nombre_completo']; ?>
-              </label>
-            </span>
+            <label for="" class="huespedPpal">
+              <?php echo $reserva['nombre_completo']; ?>
+            </label>
+            <!-- <span class="badge" style="background: #20b2aa91;padding: 2px 6px 0px 11px;">
+            </span> -->
             <?php
           $acompanas = $hotel->buscaAcompanantes($reserva['num_reserva']);
         if (count($acompanas) > 0) {
             foreach ($acompanas as $key => $acompana) { ?>
-                  <span class="badge" style="background: #3faa558a;margin-top:2px;margin-left:15px;font-size:12px">
+                  <span class="badge huespedAcom" style="background: #3faa558a;margin-top:2px;margin-left:15px;font-size:12px">
                     <label for="" class="control-label" style="font-size:11px;text-align: left;padding: 5px 0px 2px 2px;color:#000"><?php echo $acompana['nombre_completo']; ?>
                     </label>
                   </span>
@@ -106,8 +104,6 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
           <td style="width: 7%;text-align:right;"><?php echo number_format($reserva['valor_diario'], 2); ?></td>
           <td style="width: 7%"><?php echo $reserva['fecha_llegada']; ?></td> 
           <td style="width: 7%"><?php echo $reserva['fecha_salida']; ?></td>
-          <!-- <td align="right" style="width: 7%"><a onclick="cargosHuesped(<?php echo $reserva['num_reserva']; ?>)"><?php echo number_format($consumos[0]['cargos'], 2); ?></a></td>
-          <td align="right" style="width: 7%"><a onclick="cargosHuesped(<?php echo $reserva['num_reserva']; ?>)"><?php echo number_format($consumos[0]['imptos'], 2); ?></a></td> -->
           <td style="width: 7%;text-align:right;cursor: pointer;">
             <a onclick="cargosHuesped(<?php echo $reserva['num_reserva']; ?>)"><?php echo number_format($consumos[0]['pagos'], 2); ?></a>
           </td>
@@ -117,9 +113,9 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
           <td style="padding:3px;width: 30%">
             <nav class="navbar navbar-default" style="margin-bottom: 0px;min-height:0px;">
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:0px;">
-                <ul class="nav navbar-nav" style="margin :0;">
-                  <li class="dropdown submenu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="padding:3px 5px;font-weight: 700;color:#000">Ficha Facturacion<span class="caret" style="margin-left:2px;"></span></a>
+                <ul class="nav navbar-nav" style="margin :0;width:100%;">
+                  <li class="dropdown submenu" style="margin :0;width:100%;">
+                    <a href="#" class="dropdown-toggle aSub" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="padding:3px 5px;font-weight: 700;color:#000">Ficha Facturacion<span class="caret caretSub" ></span></a>
                     <ul class="dropdown-menu" style="float:left;margin-left:-180px;top:40px;">  
                       <li>
                         <a 

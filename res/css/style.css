@@ -82,7 +82,7 @@ h6 a {
 }
 
 a {
-  color: #666;
+  color: #333;
   text-decoration: none;
   border-bottom: solid 1px #ddd;
   -moz-transition: color 0.25s ease-in-out,
@@ -105,7 +105,7 @@ a strong {
 }
 
 a:hover {
-  color: #ed786a;
+  color: #050505;
   border-bottom-color: rgba(255, 255, 255, 0);
 }
 

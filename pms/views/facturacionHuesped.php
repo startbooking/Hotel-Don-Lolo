@@ -36,8 +36,6 @@ $pagofolio2 = $hotel->pagosFolio($reserva, 2);
 $pagofolio3 = $hotel->pagosFolio($reserva, 3);
 $pagofolio4 = $hotel->pagosFolio($reserva, 4);
 
-// $centros = $hotel->getBuscaCentroCia($datosReserva[0]['idCentroCia']);
-
 $saldoCuenta = $saldofolio1 + $saldofolio2 + $saldofolio3 + $saldofolio4;
 $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
 
@@ -49,6 +47,7 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
       <div class="panel panel-success panelFolio">
         <div class="panel-heading">
           <div class="panel-title"> 
+            <input type="hidden" name="facturador" id="facturador" value="<?=FACTURADOR?>">
             <input type="hidden" name="ingreso" id="ingreso" value="2">
             <input type="hidden" name="folioActivo" id="folioActivo" value="0">
             <input type="hidden" name="reservaActual" id="reservaActual" value="<?php echo $reserva; ?>">

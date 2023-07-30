@@ -90,6 +90,8 @@ include_once 'menus/menu_titulo.php';
       require 'views/exportaFacturas.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'historicoFacturas') {
       require 'views/historicoFacturas.php';
+  } elseif (isset($_GET['section']) && $_GET['section'] == 'historicoNC') {
+    require 'views/historicoNC.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'historicoReservas') {
       require 'views/informes/reservasPorRango.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'historicoCajeros') {

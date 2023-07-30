@@ -16,15 +16,15 @@ $prefNC = $hotel->getPrefijoNC();
 $numDoc = $hotel->getNumeroCredito();
 $regis = $hotel->actualizaNumeroCredito($numDoc + 1);
 
-if ($perfil == 1) {
-    $eToken = $hotel->datosTokenCia();
+$eToken = $hotel->datosTokenCia();
+$token = $eToken[0]['token'];
+$password = $eToken[0]['password'];
+$facturador = $eToken[0]['facturador'];
+
+if ($perfil == 1 && $facturador == 1) {
     $datosFact = $hotel->traeDatosFE($numero);
 
     $uuid = $datosFact[0]['cufe'];
-
-    $token = $eToken[0]['token'];
-    $password = $eToken[0]['password'];
-
 
     $resFac = $hotel->getResolucion();
 
@@ -186,8 +186,6 @@ if ($perfil == 1) {
 
     $recibeCurl = json_decode($respoNC, true);
 
-    
-
     $message = $recibeCurl['message'];
     $sendSucc = $recibeCurl['send_email_success'];
     $sendDate = $recibeCurl['send_email_date_time'];
@@ -235,4 +233,6 @@ if ($perfil == 1) {
 
 $cargos = $hotel->actualizaCargosFacturas($numero, $perfil);
 $anula = $hotel->anulaFactura($numero, $motivo, $usuario, $idusuario, $perfil, $numDoc);
+$regis = $hotel->ingresaNCFactura($numero, $motivo, $idusuario, $numDoc);
+
 $entra = $hotel->updateEstadoReserva($reserva);
