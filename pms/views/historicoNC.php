@@ -15,7 +15,7 @@
                   <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-industry"></i> Historico de Notas Credito</h3>
                 </div>
                 <div class="col-lg-3 col-sm-3">
-                  <button class="btn btn-success" type="buttom" onclick='historicoNC()'><i class="fa fa-print" aria-hidden="true"></i> Imprimir</button>
+                  <button class="btn btn-success" type="buttom" onclick='buscaHistoricoNC()'><i class="fa fa-print" aria-hidden="true"></i> Imprimir</button>
                   <button class="btn btn-info" onclick="exportTableToExcel('tablaFacturas')"><i class="glyphicon glyphicon-th" aria-hidden="true"></i> Exportar</button> 
                 </div>
               </div>  
@@ -40,10 +40,32 @@
                   <label class="control-label col-md-1">Hasta</label>
                   <div class="col-lg-2 col-md-2">
                     <input class="form-control" type="number" min="1" name="hastaNumero" id='hastaNumero' value=''>
+                  </div>                  
+                </div>                
+              </div>
+              <div class="row">
+                <div id="mensaje"></div>  
+                <div class="col-lg-12" id="muestraResultado" style="font-size:12px">
+                  <div class="table-responsive"> 
+                    <table id="dataNotas" class="table table-bordered">
+                      <thead>
+                        <tr class="warning">
+                          <td>Nota Credito</td>
+                          <td>Fecha</td>
+                          <td>Factura</td>
+                          <td class="centro">Motivo</td>
+                          <td>Estado DIAN</td>
+                          <td>Accion</td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                    </table>
                   </div>
-                  
-                </div>
-                
+                </div>                                        
+              </div>               
+              <div class="col-lg-6" id="muestraFactura">
+                <object id="verFactura" width="100%" height="500" data=""></object> 
               </div>
             </div>
             <div class="panel-footer">
@@ -56,7 +78,3 @@
         </div>
       </section>  
     </div>
-
-<?php 
-  // include_once 'views/modal/modalInformesfacturas.php';
-?>

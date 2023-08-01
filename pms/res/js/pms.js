@@ -2049,11 +2049,24 @@ $(document).ready(function () {
   
 });
 
+function estadoFacturaDIAN($estado)
+{
+    switch ($estado) {
+        case '0':
+            return '<span style="font-size:12px" class="label label-warning">No Procesada</span>';
+        case '1':
+            return '<span style="font-size:12px" class="label label-success">Emitida</span>';
+        case 'false':
+            return '<span style="font-size:12px" class="label label-warning">No Procesada</span>';
+        case 'true':
+            return '<span style="font-size:12px" class="label label-success">Emitida</span>';
+    }
+}
+
+
 function actualizaMmto(){
   idmmto = $("#idMmtoUpd").val();
   hasta = $("#hastaFechaUpd").val();
-
-  console.log(idmmto)
 
   $.ajax({
     type: "POST",
@@ -2285,7 +2298,6 @@ function guardaGrupo(){
 
   object= {}
   formGrupo.forEach((value, key) => object[key] = value);
-  // let data = JSON.stringify(object);
   
   numGrupo = guardaDatosGrupo(JSON.stringify(object))
 
@@ -2412,6 +2424,84 @@ function LimpiaFacturasHTML() {
   while (facturasHTML.firstChild) {
     facturasHTML.removeChild(facturasHTML.firstChild);
   }
+}
+
+function buscaHistoricoNC() {
+  desdef = document.querySelector("#desdeFecha").value;
+  hastaf = document.querySelector("#hastaFecha").value;
+  desden = document.querySelector("#desdeNumero").value;
+  hastan = document.querySelector("#hastaNumero").value;
+
+
+  url = "res/php/buscaHistoricoNC.php";
+  fetch(url, {
+    method: "post",
+    headers: {
+      "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+    },
+    body: "desdef=" + desdef+"&hastaf="+hastaf+"&desden=" + desden+"&hastan="+hastan,
+  })
+    .then((response) => response.json())
+    .then((data) => llenaHistoricoNC(data));
+}
+
+function llenaHistoricoNC(datos) {
+
+  ncHTML = document.querySelector("#dataNotas tbody");
+  resultado = document.querySelector("#muestraResultado");
+  
+  if (datos.length == 0) {
+    resultado.classList.add("apaga")
+    mensaje = document.querySelector('#mensaje');
+    mensaje.innerHTML = "";
+    mensaje.classList.remove("apaga");
+    mensaje.innerHTML =
+      `
+      <div class="alert alert-danger centro">
+      <h4> <i class="fa-solid fa-circle-exclamation fa-2x"></i> Sin Notas Credito Generadas el Rango de Fecha Seleccionada<h4>  
+      </div>
+      `;
+    setTimeout(() => {
+      mensaje.classList.add("apaga");
+      resultado.classList.remove("apaga")
+
+    }, 3000);
+  } else {
+    LimpiaNcHTML()
+
+    datos.map(function (dato){
+      let { facturaAnulada, fechaNC, motivoAnulacion, numeroNC, estadoEnvio } = dato
+      let rowNC = document.createElement("tr");
+
+      rowNC.innerHTML = `<td>${numeroNC}</td>
+              <td>${fechaNC}</td>
+              <td>${facturaAnulada}</td>
+              <td>${motivoAnulacion}</td>
+              <td>${estadoFacturaDIAN(estadoEnvio)}</td>
+              <td style="width: 10%;text-align: center">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                  <button 
+                    id="${numeroNC}"
+                    type="button" 
+                    href="#myModalVerFactura"
+                    class="btn btn-success btn-xs"
+                    onclick="mostrarNC(${numeroNC})">
+                    <i class="fa-solid fa-print"></i>
+                  </button>
+                </div>
+              </td>
+      `;
+
+      ncHTML.appendChild(rowNC);
+    })
+  }
+}
+
+function LimpiaNcHTML() {
+  ncHTML.innerHTML = '';
+/*   while (ncHTML.firstChild) {
+    ncHTML.removeChild(ncHTML.firstChild);
+  } */
 }
 
 function traePerfilVenta(id) {
@@ -3277,6 +3367,19 @@ function traeTotalHuespedes(regis, filas) {
   });
 }
 
+function mostrarNC(nc) {
+  
+  var nota = nc + ".pdf";
+  $("#myModalVerFactura").modal("show");
+
+  var titulo = document.querySelector('#myModalVerFactura #exampleModalLabel')
+
+  titulo.innerHTML = `Nota Credito :  ${nc}`;
+
+  $("#verFacturaModalCon").attr("data", "imprimir/notas/NotaCredito_" + nota);
+}
+
+
 function verfacturaHistorico(fact) {
   var factura = fact + ".pdf";
   $("#verFactura").attr("data", "imprimir/facturas/FES-HDL" + factura);
@@ -3292,9 +3395,7 @@ function anulaFacturaHistorico() {
   var reserva = $("#reservaHis").val();
   var perfil = $("#perfilHis").val();
 
-
   $('.btnAnulaFac').css('display','none')
-
 
   $.ajax({
     url: "res/php/anulaFacturaHistorico.php",
@@ -5683,19 +5784,22 @@ function ingresaReserva() {
     success: function (data) {
       if (data == 1) {
         cargarHabitacionCkeckIn(numero);
-        swal(
-          "Reserva Ingresada !",
-          "Su Reserva a Sido ingresada con Exito",
-          "success"
-        );
-        setTimeout(function () {
-        }, 5000);
-        
-
+        swal({
+          title: "Atencion!",
+          text: "Su Reserva a Sido ingresada con Exito",
+          type: "success",
+          confirmButtonText: "Aceptar",
+        },
+        function(){
+          $(location).attr("href", "llegadasDelDia");
+        }
+        )     
+      
       } else {
         swal("Precaucion !", "Su Reserva no se pudo ingresar", "warning");
+        $(location).attr("href", "llegadasDelDia");
+      
       }
-      $(location).attr("href", "llegadasDelDia");
     },
   });
 }
@@ -6019,8 +6123,7 @@ function guardaReserva() {
     url: "res/php/ingresoReserva.php",
     success: function (datos) {
       confirmarReserva(datos)
-      swal(
-        {      
+      swal({      
           title: 'Atencion',
           type: "success",
           confirmButtonText: "Aceptar",
@@ -7080,14 +7183,6 @@ function salidaHuespedCongelada() {
           });
           $(location).attr("href", "home");
 
-          /* setTimeout(function () {
-            swal(
-              "Atencion",
-              "Salida del Huesped realizada con Exito",
-              "success"
-            );
-            $(location).attr("href", "home");
-          }, 2000); */
         } else {
           swal(
             "Atencion",

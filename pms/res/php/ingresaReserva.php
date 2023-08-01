@@ -8,7 +8,7 @@
 
   $ingresa = $hotel->updateingresaReserva($numero, $usuario); 
   
-  $estHabi = $hotel->cambiaEstadoHabitacion($habita,'LO');
+  // $estHabi = $hotel->cambiaEstadoHabitacion($habita,'0');
   $estHabi = $hotel->cambiaOcupacionHabitacon($habita,'1');
 
   if($ingresa==1){

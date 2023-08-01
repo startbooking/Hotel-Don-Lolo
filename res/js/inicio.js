@@ -112,24 +112,6 @@ function ingresoPms() {
   });
 }
 
-/* 
-function ingresoPos() {
-  sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("sesion"));
-
-  console.log(oPos);
-
-  parametros = {
-    fecha: oPos[0]["fecha_auditoria"],
-  };
-  $.ajax({
-    url: "",
-    type: "POST",
-    data: parametros,
-    success: function (data) {},
-  });
-} */
-
 function cierraSesion() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
@@ -177,12 +159,17 @@ function activaModulos() {
   fechaAct =
     fecha.getDate() + "/" + (fecha.getMonth() + 1) + "/" + fecha.getFullYear();
   let { cia, user, moduloPms } = sesion;
-  let { estado, ingreso, tipo, apellidos, nombres } = user;
-  let { inv, pos, pms, res } = cia;
+  let { estado, ingreso, tipo, apellidos, nombres, inv, pos, pms, res } = user;
+
+  console.log({ estado, ingreso, tipo, apellidos, nombres, inv, pos, pms, res });
+
+  let { invMod, posMod, pmsMod, resMod } = cia;
+  console.log({ invMod, posMod, pmsMod, resMod });
+
   let { fecha_auditoria } = moduloPms;
 
   var div = '<div class="container-fluid moduloCentrar">';
-  if (inv == "1") {
+  if (invMod == "1" && inv == '1') {
     div =
       div +
       `<div id="inv" style="cursor: pointer;" class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
@@ -202,7 +189,7 @@ function activaModulos() {
         </a>
       </div>`;
   }
-  if (pos == "1") {
+  if (posMod == "1" && pos == '1') {
     div =
       div +
       `
@@ -224,7 +211,7 @@ function activaModulos() {
       </div>
       `;
   }
-  if (pms == "1") {
+  if (pmsMod == "1" && pms == '1') {
     div =
       div +
       `

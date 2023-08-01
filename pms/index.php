@@ -272,6 +272,8 @@ include_once '../views/modal/modalUsuario.php';
     // / include_once 'views/modal/modalTipoHabitaciones.php' ;
     include_once 'views/modal/modalFacturas.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'facturasDelDia') {
+    include_once 'views/modal/modalFacturas.php';
+  } elseif (isset($_GET['section']) && $_GET['section'] == 'historicoNC' ) {
       include_once 'views/modal/modalFacturas.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'habitaciones') {
       require 'views/modal/modalHabitaciones.php';

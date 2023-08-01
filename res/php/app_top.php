@@ -13,14 +13,11 @@
 
 	$empresa = $user->getInfoCia();
 
-	/// echo print_r($empresa);
-
 	define("NAME_EMPRESA", $empresa[0]['empresa']);
 	
 	$nit = number_format($empresa[0]['nit'],0);
 	$nit = str_replace(",",".",$nit);
 
-	// define("IP_CONECT", $_SERVER['REMOTE_ADDR']);
 	define("NIT_EMPRESA", $nit.'-'.$empresa[0]['dv']);
 	define("ADRESS_EMPRESA", $empresa[0]['direccion']);
 	define("TELEFONO_EMPRESA",$empresa[0]['telefonos']);
@@ -40,16 +37,6 @@
 	
 	$hotel         = $user->getHotelInfo();
 	
-	/* 
-	$hotelabout    = $user->getAboutHotel();	 
-	$rooms         = $user->getRoomHotel();
-	$sliders       = $user->getSliderHotel();	
-
-	$userTwitter   = $user->getUserSocial('Twitter');
-	$userGoogle    = $user->getUserSocial('Google');
-	$userFacebook  = $user->getUserSocial('Facebook');
-	$userInstagram = $user->getUserSocial('Instagram');
- */
 	define('ID_HOTEL', $hotel[0]['id_hotel']);
 	define("NAME_HOTEL", $hotel[0]['hotel_name']);
 	define("NIT_HOTEL", $hotel[0]['nit_hotel']);
@@ -86,22 +73,11 @@
   define("MMTO", $hotel[0]['mmto']);
   define("MENSAJEMMTO", $hotel[0]['textoMmto']);
 
-/* 	$hotelabout    = $user->getAboutHotel();	 
-	$rooms         = $user->getRoomHotel();
-
-	$userTwitter   = $user->getUserSocial('Twitter');
-	$userGoogle    = $user->getUserSocial('Google');
-	$userFacebook  = $user->getUserSocial('Facebook');
-	$userInstagram = $user->getUserSocial('Instagram'); */
-
-
-
 	$pc = gethostname();
 	$ip = $_SERVER['REMOTE_ADDR'];
 	if(!isset($_GET['section'])){
 		$link    = '';
 	}else{
-		/// $infoseo = $user->getInfoSeo($_GET['section'],ID_HOTEL);	
 		$link    = $_GET['section'];
 	}
 	if(empty($infoseo)){

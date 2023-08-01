@@ -15,12 +15,6 @@
   }
 
  ?>
-<!-- <style type="text/css" media="screen">
-  body{
-    overflow : auto;
-  }
-</style> -->
-
 <div class="content-wrapper"> 
   <section class="content" style="margin-bottom: 100px !important">
     <div class="panel panel-success">

@@ -372,12 +372,12 @@ if ($totalFolio != 0) {
     }
 } else {
     /* Verificar Saldo en la cuenta de esa habitacion */
-    $estadoReserva = $hotel->estadoReserva($room); 
+    $estadoReserva = $hotel->estadoReserva($reserva); 
     $salida = $hotel->updateReservaHuespedSalida($numero, $usuario, $idUsuario, FECHA_PMS);
+
     if($estadoReserva== 'CA'){
         $habSucia = $hotel->updateEstadoHabitacion($room);
-    }
-    array_push($estadofactura, '0');
+    } 
 }
 
 echo json_encode($estadofactura);

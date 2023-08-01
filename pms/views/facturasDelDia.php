@@ -91,40 +91,25 @@
                                         <?php
                                       }
                                     ?>
-                                      <button 
-                                        class="btn btn-default btn-xs" 
-                                        onclick="donwloadFile('<?php echo $factura['factura_numero']; ?>.xml','<?php echo NIT ?>','xml','false');"
-                                        type="button"
-                                        title="Descarga ZIP Attached">
-                                        <i class="fa-solid fa-download"></i>
-                                        <!-- <i class="fa fa-file-pdf-o" aria-hidden="true" 
-                                        title="Descargar Attached ">
-                                        </i> -->
-                                      </button>
-
-
-                                    <!-- <button 
-                                      class="btn btn-success btn-xs" 
-                                      onclick="verCargosFacturaDia(<?php echo $factura['factura_numero']; ?>,<?php echo $factura['num_reserva']; ?>,<?php echo $factura['perfil_factura']; ?>)" 
-                                      type="button"><i 
-                                      class="fa fa-file-pdf-o" 
-                                      aria-hidden="true" title="Ver Cargos Detallados Factura"></i></button> -->
-                                      <!-- 
-                                        -->
-                                      
-
+                                    <button 
+                                      class="btn btn-default btn-xs" 
+                                      onclick="donwloadFile('<?php echo $factura['factura_numero']; ?>.xml','<?php echo NIT ?>','xml','false');"
+                                      type="button"
+                                      title="Descarga ZIP Attached">
+                                      <i class="fa-solid fa-download"></i>
+                                    </button>
                                   </td>
                                 </tr>
                                 <?php
-                        }
-                  ?>
+                                }
+                              ?>
                             </tbody>
                           </table>
                         </div>
                       </div>
                       <?php
-              }
-              ?>                    
+                    }
+                  ?>                    
                 </div>               
               </div>
               <div class="panel-footer">

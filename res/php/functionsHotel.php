@@ -5,16 +5,61 @@ date_default_timezone_set('America/Bogota');
 
 class Hotel_Actions
 {
+
+
+    public function traeUsuarioNC($factura){
+        global $database;
     
-    public function ingresaNCFactura($numero, $motivo, $idusuario, $numDoc){
+        $data = $database->select('historico_cargos_pms',[
+            'id_usuario_anulacion'
+        ],[
+            'factura' => 1,
+            'factura_numero' => $factura,
+        ]);
+        return $data[0]['id_usuario_anulacion'];
+    }
+
+    public function ingresaNCImport($factura, $fecha, $motivo, $numero, $usuario){
         global $database;
 
         $data = $database->insert('notasCredito',[
-        'concecutivoNC' => $numDoc,
+            'numeroNC' => $numero,
+            'motivoAnulacion' => $motivo,
+            'facturaAnulada' => $factura,
+            'fechaNC' => $fecha,
+            'usuarioNC' => $usuario,
+
+
+        ]);
+        return $database->id();
+    }
+
+
+    public function traeNotas(){
+        global $database;
+
+        $data = $database->select('datosFE',[
+            'datosFE.facturaNumero',
+            'datosFE.prefijo',
+            'datosFE.id',
+            'datosFE.timeCreated',
+            'datosFE.jsonEnviado',
+        ],[
+            'datosFE.prefijo' => 'NC'
+        ]);
+        return $data;
+    }
+    
+    public function ingresaNCFactura($numero, $motivo, $idusuario, $numDoc, $fecha){
+        global $database;
+
+        $data = $database->insert('notasCredito',[
+        'numeroNC' => $numDoc,
         'motivoAnulacion' => $motivo,
-        'usuarioAnula' => $idusuario,
+        'usuarioNC' => $idusuario,
         'facturaAnulada' => $numero,
-        'fechaAnulacion' => date('Y-m-d H:m:i'),
+        'fechaNC' => $fecha,
+        'createdAt' => date('Y-m-d H:m:i'),
         ]);
         return $database->id();
     }
@@ -159,7 +204,7 @@ class Hotel_Actions
         $data = $database->select('reservas_pms',[
             'estado'
         ],[
-            'num_habitacion' => $room,
+            'num_reserva' => $room,
         ]);
         return $data[0]['estado'];
     }
@@ -204,6 +249,15 @@ class Hotel_Actions
         return $data;
     }
     
+public function lanzaQuery($sele){
+    global $database;
+
+    $data = $database->query($sele)->fetchAll();
+    return $data;
+
+}
+
+
     public function buscaHabitacionesMmto($query){
         global $database;
 
@@ -3806,8 +3860,8 @@ class Hotel_Actions
             'tipo_reserva' => 2,
             'usuario_ingreso' => $usuario,
             'id_usuario_ingreso' => $idusuario,
-            'hora_llegada' => date('H:i:s'),
-            'fecha_ingreso' => date('Y-m-d H:i:s'),
+            // 'hora_llegada' => date('H:i:s'),
+            // 'fecha_ingreso' => date('Y-m-d H:i:s'),
         ], [
             'num_reserva' => $numero,
         ]);
@@ -4100,8 +4154,8 @@ public function traeEstadoHabitacionesHotel($tipo, $llega, $sale){
             'tipo_reserva' => 1,
             'usuario_ingreso' => $usuario,
             'id_usuario_ingreso' => $idusuario,
-            'hora_llegada' => date('H:i:s'),
-            'fecha_ingreso' => date('Y-m-d H:i:s'),
+            // 'hora_llegada' => date('H:i:s'),
+            // 'fecha_ingreso' => date('Y-m-d H:i:s'),
         ], [
             'num_reserva' => $numero,
         ]);
@@ -4743,8 +4797,6 @@ public function traeEstadoHabitacionesHotel($tipo, $llega, $sale){
         global $database;
 
         $data = $database->update('habitaciones', [
-            'estado_fo' => 'SV',
-            'estado_hk' => 'SV',
             'sucia' => 1,
             'ocupada' => 0,
         ], [
@@ -5896,15 +5948,15 @@ public function traeEstadoHabitacionesHotel($tipo, $llega, $sale){
         global $database;
 
         $data = $database->select('empresas', [
-            'con',
-            'inv',
-            'com',
-            'cxp',
-            'cxc',
-            'pos',
-            'tar',
-            'pms',
-            'res',
+            'conMod',
+            'invMod',
+            'comMod',
+            'cxpMod',
+            'cxcMod',
+            'posMod',
+            'tarMod',
+            'pmsMod',
+            'resMod',
             'empresa',
             'nit',
             'dv',
@@ -6991,7 +7043,6 @@ public function traeEstadoHabitacionesHotel($tipo, $llega, $sale){
             'tipo_habitacion' => 'CMA',
             'estado' => 'CA',
         ]);
-        // / $data = $database->query("SELECT count(id) as cmaster, FROM reservas_pms WHERE reservas_pms.estado = 'CA' AND reservas_pms.tipo_habitacion = 'CMA'")->fetchAll();
 
         return $data;
     }
@@ -7324,7 +7375,7 @@ public function traeEstadoHabitacionesHotel($tipo, $llega, $sale){
             'valor_diario' => $valortarifa,
             'motivo_viaje' => $motivo,
             'fecha_reserva' => FECHA_PMS,
-            'hora_llegada' => date('H:i:s'),
+            // 'hora_llegada' => date('H:i:s'),
             'fuente_reserva' => $fuente,
             'usuario' => $usuario,
             'usuario_ingreso' => $usuario,
@@ -7334,7 +7385,8 @@ public function traeEstadoHabitacionesHotel($tipo, $llega, $sale){
             'forma_pago' => $formapa,
             'causar_impuesto' => $impto,
             'tipo_reserva' => $tipo,
-            'fecha_ingreso' => date('Y-m-d H:i:s'),
+            'reservaCreada' => date('Y-m-d H:i:s'),
+
         ]);
 
         return $database->id();

@@ -53,7 +53,6 @@
                     </a>
                   </div>   
                 </div> 
-                                               
               </div>
               <div class="col-lg-6 col-md-6 col-xs-12" id='loader'></div>
             </div>

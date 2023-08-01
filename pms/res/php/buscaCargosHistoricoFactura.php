@@ -37,31 +37,14 @@
 	        $pagos    = $pagos + $folio1['pagos_cargos'];	
 	        $folio = $folio1['folio_cargo'];	
 	      		?>
-	          <tr align="right">
-	     			  <td align="left"><?=$folio1['descripcion_cargo']?></td>
+	          <tr style="text-align:right;">
+	     			  <td style="text-align:left;"><?=$folio1['descripcion_cargo']?></td>
 	    	 		  <td><?=number_format($folio1['monto_cargo'],2)?></td>
 	    	 		  <td><?=number_format($folio1['impuesto'],2)?></td>
 	            <td><?=number_format($folio1['monto_cargo']+$folio1['impuesto'],2)?></td>
 	    	 		  <td><?=number_format($folio1['pagos_cargos'],2)?></td>
 	    	 		  <td><?=date($folio1['fecha_cargo'])?></td>
 	    	 		  <td><?=$folio1['usuario']?></td>
-	    	 		  <!--
-	    	 		  <td>
-	    	 		  	<?php 
-                  if($folio1['numero_factura_cargo']!=0){ ?>
-                  <button type="button" class="btn btn-warning btn-xs" 
-                    data-toggle  ="modal" 
-                    data-target  ="#myVerChequeCenta" 
-                    data-cheque  ="<?php echo $folio1['numero_factura_cargo']?>" 
-                    onclick      = "imprimechequeCuenta(<?php echo $folio1['numero_factura_cargo']?>)"
-                    title="Var cheque Cuenta POS" >
-                    <i class='fa fa-file'></i>
-                  </button>
-                  <?php 
-                  }
-                ?>
-              </td>
-            	-->
 	  		    </tr>
 		      <?php 
 	      endforeach 
