@@ -10,7 +10,7 @@
       </li>          
     </ul>
     <div class="navbar-custom-menu">
-      <ul class="nav navbar-nav">
+      <ul class="nav navbar-nav">      
         <li class="dropdown" id="datosLink">
           <a id="nombreUsuario" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
           <ul class="dropdown-menu" style="margin-top:0px !important;margin:0 !important">

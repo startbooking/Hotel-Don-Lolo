@@ -2,7 +2,7 @@
 $rutaINV = BASE_POS.'datos/kardex.php';
 ?>
 
-<aside id="menuPos"class="main-sidebar">
+<aside id="menuPos"class="main-sidebar apaga">
   <section class="sidebar">
     <ul class="sidebar-menu">
       <li class="treeview" id="menuDatos" style="display:none">

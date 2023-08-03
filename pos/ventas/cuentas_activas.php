@@ -2,13 +2,13 @@
   require '../../res/php/titles.php';
   require '../../res/php/app_topPos.php';
 
-  $idamb = $_POST['id'];
+  $idamb = $_POST['id_ambiente'];
 
-  $amb = $_POST['amb'];
-  $nivel = $_POST['nivel'];
-  $user = $_POST['user'];
+  $amb = $_POST['nombre'];
+  $nivel = $_POST['tipo'];
+  $user = $_POST['usuario'];
   $prefijo = $_POST['prefijo'];
-  $fecha = $_POST['fecha'];
+  $fecha = $_POST['fecha_auditoria'];
 
   $mesas = $pos->getMesasAmbi($idamb);
   $datosClientes = $pos->getClientes();
@@ -136,7 +136,7 @@
               <tr style="text-align:right">
                 <td></td>
                 <td></td> -->
-                <td>Total Cuenta</td>
+                <td>Total Cuenta </td>
                 <td id="totalCuenta"><?php echo '$ '.number_format(0 + 0 - 0, 2, ',', '.'); ?>
                 </td>
               </tr>
@@ -253,8 +253,8 @@
                 ><i class="fa fa-money"></i> Pagar
               </button>
               <?php
-  }
-  if ($nivel <= 4) { ?>
+        }
+        if ($nivel <= 4) { ?>
               <button
               style="margin-top:43px"
               type="button"
@@ -267,8 +267,8 @@
               <i class="fa fa-print"></i> Comanda
             </button>
             <?php
-  }
-  if ($nivel <= 4) { ?>
+            }
+            if ($nivel <= 0) { ?>
               <button
               style="display:none !important"
               type="button"
@@ -278,7 +278,7 @@
               onclick="guardarCuentaDividida()"
               id="guardaComandaDividida"
               title="Guarda Nueva Comanda">
-              <i class="fa fa-save"></i> Procesar - 
+              <i class="fa fa-save"></i> Procesar 
             </button> 
             <?php } ?>
             <button

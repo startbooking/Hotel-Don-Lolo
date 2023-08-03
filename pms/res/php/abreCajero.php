@@ -39,4 +39,4 @@ if ($cajero == 0) {
     $log = $hotel->ingresoLog($_SESSION['usuario_id'], $_SESSION['usuario'], $pc, $ip, 'ABRIO CAJERO', $valor, $nuevo, 'US');
 }
 
-echo print_r($users);
+echo $users;

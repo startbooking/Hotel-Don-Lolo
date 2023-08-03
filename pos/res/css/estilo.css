@@ -281,6 +281,11 @@
   font-size:16px
 }
 
+.apaga {
+  display: none;
+}
+
+
 .btn-outline,
 .btn-outline:hover {
   border-color: currentcolor;

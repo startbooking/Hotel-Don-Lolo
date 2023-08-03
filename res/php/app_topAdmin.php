@@ -49,10 +49,10 @@
 	define("CIIU", $empresa[0]['codigo_ciiu']);
 	define("TIPOEMPRESA", $admin->getTypeCia($empresa[0]['tipo_empresa']));
 
-	define("POS", $empresa[0]['pos']);
-	define("INV", $empresa[0]['inv']);
-	define("PMS", $empresa[0]['pms']);
-	define("RES", $empresa[0]['res']);
+	define("POS", $empresa[0]['posMod']);
+	define("INV", $empresa[0]['invMod']);
+	define("PMS", $empresa[0]['pmsMod']);
+	define("RES", $empresa[0]['resMod']);
 
 	if(!isset($_GET['section'])){
 	}elseif(isset($_GET['section']) && $_GET['section'] == 'home'){

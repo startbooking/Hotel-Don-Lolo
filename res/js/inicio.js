@@ -238,9 +238,9 @@ function activaModulos() {
       div +
       `</div>
     <div class="container-fluid">
-      <div id="par" style="cursor: pointer;display:flex;margin-top:40px" class="container-fluid">
-        <div class="container moduloCentrar">
-          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
+      <div id="par" style="cursor: pointer;margin-top:20px" class="container-fluid">
+        <div class="moduloCentrar">
+          <div class="col-sm-4 col-xs-12"> 
             <a onclick="ingresoAdmin()" class="small-box-footer">                  
               <div class="small-box bg-red-gradient">                    
                 <div class="inner">                      

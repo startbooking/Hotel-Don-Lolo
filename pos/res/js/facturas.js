@@ -415,7 +415,6 @@ function limpiaLista() {
   } else {
     listaComanda = JSON.parse(productos);
   }
-  // resumenComanda();
 }
 
 function botonDescuento() {
@@ -902,7 +901,7 @@ function guardarCuentaRecuperada() {
   let { id_ambiente, impuesto, nombre, fecha_auditoria } = oPos[0];
 
   $("#recuperarComanda").val(0);
-  $("#guardaComandaDividida").css("display", "none");
+  // $("#guardaComandaDividida").css("display", "none");
   $("#guardaCuenta").css("display", "none");
   $("#recuperaCuenta").css("display", "block");
   $("#listaComandas").css("display", "block");

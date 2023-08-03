@@ -217,7 +217,7 @@ function botonDivideComanda(
 }
 
 function dividirCuenta() {
-  $("#guardaComandaDividida").css("display", "block");
+  // $("#guardaComandaDividida").css("display", "block");
   nuevaComanda = [];
   localStorage.setItem("nuevaComanda", JSON.stringify(nuevaComanda));
 
@@ -2965,8 +2965,8 @@ function recuperarCuenta() {
   $("#guardaCuenta").css("display", "block");
   $("#recuperaCuenta").css("display", "none");
   $(".btnActivo").css("display", "none");
-  $("#regresarComanda").css("margin-top", "418px");
-  $("#productosComanda").css("height", "488px");
+  $("#regresarComanda").css("margin-top", "410px");
+  $("#productosComanda").css("height", "480px");
 
   $("#seccionList").css("display", "block");
   // $("#seccionList").css("margin-top", "5px");
@@ -3004,7 +3004,7 @@ function muestraPos(ambSel) {
     type: "POST",
     data: {
       ambSel,
-      tipousr: tipo,
+      tipo,
     },
     success: function (data) {
       $("#pantalla").html(data);
@@ -3955,13 +3955,13 @@ function cuentasActivas() {
   let { usuario, tipo } = user;
 
   parametros = {
-    id: id_ambiente,
-    amb: nombre,
-    user: usuario,
-    nivel: tipo,
+    id_ambiente,
+    nombre,
+    usuario,
+    tipo,
     impto: impuesto,
     prop: propina,
-    fecha: fecha_auditoria,
+    fecha_auditoria,
     prefijo,
   };
   $(".btn-menu").css("display", "block");
@@ -3973,7 +3973,7 @@ function cuentasActivas() {
     success: function (data) {
       $("#pantalla").html(data);
       $(".prende").css("display", "none");
-      $("#productosComanda").css("height", alto - 275);
+      $("#productosComanda").css("height", alto - 282);
       $("#imprimeComanda").css("margin-top", "31px");
     },
   });
@@ -4761,6 +4761,8 @@ function getSeleccionaAmbiente(codigo) {
       $("#loader").html("<img src='../img/loader.gif'>");
     },
     success: function (data) {
+      menu = document.querySelector('#menuPos');
+      menu.classList.remove('apaga')
       localStorage.setItem("oPos", JSON.stringify(data));
       muestraPos(codigo);
     },
@@ -4893,20 +4895,14 @@ function productosActivos() {
           <td>${listaComanda[i]["cant"]}</td>
           <td class="t-right">${number_format(listaComanda[i]["total"], 2)}</td>
           <td class="t-center">
-          <button
-            type="button"
-            id="${i}"
-            onclick="botonDevolverProducto('${numero}','${
-            listaComanda[i]["codigo"]
-          }','${listaComanda[i]["ambiente"]}','${listaComanda[i]["cant"]}','${
-            listaComanda[i]["producto"]
-          }','${listaComanda[i]["id"]}','${listaComanda[i]["importe"]}','${
-            listaComanda[i]["impto"]
-          }',this.id, this.parentNode.parentNode.parentNode.rowIndex)"
-            class="btn btn-danger btn-xs btnDevuelve"
-            title="Devolver Producto Uno">
-            <i class="fa-solid fa-reply"></i>
-          </button>
+            <button
+              type="button"
+              id="${i}"
+              onclick="botonDevolverProducto('${numero}','${listaComanda[i]["codigo"]}','${listaComanda[i]["ambiente"]}','${listaComanda[i]["cant"]}','${listaComanda[i]["producto"]}','${listaComanda[i]["id"]}','${listaComanda[i]["importe"]}','${listaComanda[i]["impto"]}',this.id, this.parentNode.parentNode.parentNode.rowIndex)"
+              class="btn btn-danger btn-xs btnDevuelve"
+              title="Devolver Producto Uno">
+              <i class="fa-solid fa-reply"></i>
+            </button> 
           </td>
         </tr>`
         );
@@ -4925,17 +4921,11 @@ function productosActivos() {
                 <button
                   type="button"
                   id="${i}"
-                  onclick="botonDevolverProducto('${numero}','${
-              listaComanda[i]["codigo"]
-            }','${listaComanda[i]["ambiente"]}','${listaComanda[i]["cant"]}','${
-              listaComanda[i]["producto"]
-            }','${listaComanda[i]["id"]}','${listaComanda[i]["importe"]}','${
-              listaComanda[i]["impto"]
-            }',this.id, this.parentNode.parentNode.parentNode.rowIndex)"
+                  onclick="botonDevolverProducto('${numero}','${listaComanda[i]["codigo"]}','${listaComanda[i]["ambiente"]}','${listaComanda[i]["cant"]}','${listaComanda[i]["producto"]}','${listaComanda[i]["id"]}','${listaComanda[i]["importe"]}','${listaComanda[i]["impto"]}',this.id, this.parentNode.parentNode.parentNode.rowIndex)"
                   class="btn btn-danger btn-xs"
                   title="Devolver Producto Dos">
+                  <i class="fa-solid fa-reply"></i>
                 </button>
-                <i class="fa-solid fa-reply"></i>
               </td>
           </tr>`
           );

@@ -1144,6 +1144,14 @@ ul#produtos li h3 {
   margin-left: 0;
 }
 
+.fontModule b {
+  font-weight: 800;
+}
+
+.derecha {
+  text-align: right;
+}
+
 .dropdown-menu > li > a {
   padding: 5px 15px;
   font-family: ubuntu;

@@ -19,7 +19,11 @@
 
 		if(count($valorventa)>0){
 			$valorPorci = $valorCosto / $valorventa[0]['cantidad'];
-			$porCosto   = ($valorPorci / $valorventa[0]['valor_porcion'])*100 ;
+			if($valorventa[0]['valor_porcion'] ==0){
+				$porCosto   = 0;
+			}else{				
+				$porCosto   = ($valorPorci / $valorventa[0]['valor_porcion'])*100 ;
+			}
 		}
 
 		$actCosto = $pos->actualizaCosto($receta,$porCosto, $valorCosto, $valorPorci);

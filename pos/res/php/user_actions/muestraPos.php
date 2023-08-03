@@ -1,6 +1,6 @@
 <?php
   $ambSel = $_POST['ambSel'];
-  $tipoUsr = $_POST['tipousr'];
+  $tipoUsr = $_POST['tipo'];
 
   require '../../../../res/php/app_topPos.php';
 

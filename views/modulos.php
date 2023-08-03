@@ -17,31 +17,37 @@
   <body class="skin-green sidebar-mini">
     <?php  include("../res/menus/menu_salir.php"); ?>
 	  
-    <section class="container" style="margin-top:5px">      
+    <section class="container" style="margin-top:3%">      
       <div class="container"> 
-        <div class="col-md-4 col-sm-4 col-xs-12">          
+        <div class="col-md-5 col-sm-5 col-xs-12">          
           <h1 class="fontModule">
-          <b style="font-weight: 800">Control Panel</b>
-          <small class="badge btn-info" style="border-radius:10px;padding:8px;background: #3c8dbc">Modulos del Sistema
-          </small>
-            <p style="font-weight: 600"></p>
+          Control Panel <br>
+          <small class="">Modulos del Sistema </small>
+            <!-- <p style="font-weight: 600"></p> -->
           </h1>
         </div>
-        <div class="col-sm-8 col-sm-8 col-xs-12">          
-          <div class="col-xs-3">
-            <img class="img-thumbnail" src="<?=BASE_WEB?>img/<?=LOGO_EMPRESA?>"> 
+        <div class="col-md-2 col-sm-2 col-xs-12 centro">
+            <div class="container-fluid">
+              <img class="img-thumbnail" style="margin-top:0;" src="<?=BASE_WEB?>img/<?=LOGO_EMPRESA?>"> 
+            </div>
+        </div>          
+        <div class="col-sm-5 col-sm-5 col-xs-12">          
+          <h1 class="derecha fontModule" >
+            <?=NAME_EMPRESA?>
+            <br>
+            <!-- <b style="font-weight: 800">
+            </b> -->
+            <small>
+              Nit <?=NIT_EMPRESA?>
+          </small>
+          </h1>
+          <!-- <div class="col-xs-3">
           </div>
           <div class="col-xs-9">
-            <h1 class="fontModule">
-              <b style="font-weight: 800"><?=NAME_EMPRESA?></b>
-              <small>
-                <p style="font-weight: 600">Nit <?=NIT_EMPRESA?></p>
-            </small>
-            </h1>
-          </div>
+          </div> -->
         </div>  
       </div>
-      <div id="modulos" class="container" style="margin-top:30px;"></div>       
+      <div id="modulos" class="container" style="margin-top:5%;"></div>       
     </section>
   </body>
   <?php  
