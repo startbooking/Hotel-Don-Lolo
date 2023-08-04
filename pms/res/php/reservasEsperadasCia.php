@@ -11,14 +11,14 @@
 	<?php 
 	}else{
 		?>
-	  <div class='table-responsive'>
+	  <div class='table-responsive' style="overflow: auto;max-height: 400px;">
 	    <table id="example1" class="table table-bordered">
 	      <thead>
 	        <tr class="warning" style="font-weight: bold">
-	          <td>Reserva Nro</td>
+	          <td>Reserva</td>
 	          <td>Huesped</td>
 	          <td>Tipo Hab.</td>
-	          <td>Nro Hab.</td>
+	          <td>Hab.</td>
 	          <td>Llegada</td>
 	          <td>Salida</td>
 	          <td>Noches</td>
@@ -30,7 +30,7 @@
 	        foreach ($reservas as $reserva) { ?>
 	          <tr style='font-size:12px;text-align:left'>
 	            <td><?php echo $reserva['num_reserva']?></td>
-	            <td align="left"><?php echo $reserva['nombre_completo']; ?></td>
+	            <td style="text-align:left;"><?php echo $reserva['nombre_completo']; ?></td>
 	            <td><?php echo $reserva['descripcion_habitacion']; ?></td>
 	            <td><?php echo $reserva['num_habitacion']; ?></td>
 	            <td><?php echo $reserva['fecha_llegada']; ?></td>

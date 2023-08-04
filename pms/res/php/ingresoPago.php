@@ -8,7 +8,7 @@ $token = $eToken[0]['token'];
 $password = $eToken[0]['password'];
 $facturador = $eToken[0]['facturador'];
 
-$estadofactura = [];
+$estadofactura = []; 
 
 $codigo = $_POST['codigo'];
 $textcodigo = $_POST['textopago'];

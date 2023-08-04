@@ -105,7 +105,7 @@
                     data-tarifa        ="<?php echo $hotel->getDescripcionTarifa($reserva['tarifa'])?>" 
                     data-valor         ="<?php echo $reserva['valor_diario']?>" 
                     data-observaciones ="<?php echo $reserva['observaciones']?>" 
-                    title              ="Ver Acompaè´–antes de la Estadia"
+                    title              ="Ver Acompa√±antes de la Estadia"
                     >
                     <i class="fa fa-users" aria-hidden="true"></i>
                   </button>
@@ -129,7 +129,7 @@
           <td>Noches</td>
           <td>Hombres</td>
           <td>Mujeres</td>
-          <td>Niè´–os</td>
+          <td>Ni√±os</td>
           <td>Estado</td>
         </tr>
       </thead>
@@ -142,10 +142,10 @@
             <td><?php echo $reserva['num_habitacion']; ?></td>
             <td><?php echo $reserva['fecha_llegada']; ?></td>
             <td><?php echo $reserva['fecha_salida']; ?></td>
-            <td align="center"><?php echo $reserva['dias_reservados']; ?></td>
-            <td align="center"><?php echo $reserva['can_hombres']; ?></td>
-            <td align="center"><?php echo $reserva['can_mujeres']; ?></td>
-            <td align="center"><?php echo $reserva['can_ninos']; ?></td>
+            <td style="text-align:center;"><?php echo $reserva['dias_reservados']; ?></td>
+            <td style="text-align:center;"><?php echo $reserva['can_hombres']; ?></td>
+            <td style="text-align:center;"><?php echo $reserva['can_mujeres']; ?></td>
+            <td style="text-align:center;"><?php echo $reserva['can_ninos']; ?></td>
             <td><?php echo estadoReserva($reserva['estado']); ?></td>
           </tr>
           <?php 

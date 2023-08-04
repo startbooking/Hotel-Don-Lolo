@@ -131,6 +131,20 @@ a.info span,
   display: none;
 }
 
+.modal-body{
+  padding: 5px 15px;
+}
+
+#reservasEsperadas {
+  position: relative;	
+  text-align: center;
+  top: 5px;
+  width: 100%;
+}
+
+#reservasEsperadas .alert{
+  margin-bottom: 5px;
+}
 .tituloPagina {
   font-weight: 500;
   font-family: "ubuntu";

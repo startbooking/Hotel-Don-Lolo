@@ -70,10 +70,10 @@ $centros = $hotel->getBuscaCentroCia($datosReserva[0]['idCentroCia']);
 ?>
 		    </div>
     	</div>
-    	<div class="panel-body" style="padding:5px">
+    	<div class="panel-body" style="padding:5px;max-height:360px; overflow:auto;">
 			  <div class="container-fluid" style="padding:0">
 			  	<h5 style="margin:10px;font-weight: 600;font-size: 14px;font-family: 'Ubuntu'">Consumo Huesped</h5>
-          <div class="table-responsive-lg">
+          <div class="table-responsive-lg" >
             <table id="example1" class="table table-bordered">
               <thead class="warning">
                 <tr>
@@ -81,7 +81,7 @@ $centros = $hotel->getBuscaCentroCia($datosReserva[0]['idCentroCia']);
                   <th>Consumos</th>
                   <th>Impuestos</th>
                   <th>Total</th>
-                  <th align="center">Abonos</th>
+                  <th style="text-align:center;">Abonos</th>
                   <th>Fecha</th>
                 </tr>
               </thead>
@@ -95,8 +95,8 @@ foreach ($folios as $folio1) {
     $impto = $impto + $folio1['impuesto'];
     $pagos = $pagos + $folio1['pagos_cargos'];
     ?>
-                  <tr align="right">
-                    <td style="padding:4px" align="left"><?php echo $folio1['descripcion_cargo']; ?></td>
+                  <tr style="text-align:right;">
+                    <td style="padding:4px" style="text-align:left;"><?php echo $folio1['descripcion_cargo']; ?></td>
                     <td style="padding:4px"><?php echo number_format($folio1['monto_cargo'], 2); ?></td>
                     <td style="padding:4px"><?php echo number_format($folio1['impuesto'], 2); ?></td>
                     <td style="padding:4px"><?php echo number_format($folio1['monto_cargo'] + $folio1['impuesto'], 2); ?></td>

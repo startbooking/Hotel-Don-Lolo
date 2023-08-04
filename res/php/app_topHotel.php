@@ -67,16 +67,10 @@ define('FACTURADOR', $datosHotel[0]['facturador']);
 
 $notificaciones = [];
 
-
-
 if(CTA_DEPOSITO == '0'){
-    // echo 'entro';
     $cta = array('mensaje' => 'Sin Cuenta de Depositos Asignada');
-
     array_push($notificaciones,$cta);
 };
-
-// echo json_encode($notificaciones);
 
 $pc = gethostname();
 $ip = $_SERVER['REMOTE_ADDR'];

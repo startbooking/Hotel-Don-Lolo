@@ -5,9 +5,8 @@ $id = $_POST['id'];
 $empresa = $hotel->getBuscaIdEmpresa($id);
 
 ?>
-<form class="form-horizontal" id="formUpdateCompania" action="javascript:updateCompania()" method="POST">
-  <div class="panel-body">
-    <div class="divs divHuesped">
+<form class="form-horizontal" style="padding:0;" id="formUpdateCompania" action="javascript:updateCompania()" method="POST">
+    <div class="divHuesped">
       <div class="form-group">
         <label for="nit" class="col-sm-2 control-label">Nit</label>
         <div class="col-sm-3">
@@ -21,19 +20,20 @@ $empresa = $hotel->getBuscaIdEmpresa($id);
         <label for="tipodoc" class="col-sm-2 control-label">Tipo Documento</label>
         <div class="col-sm-3">
           <select name="tipodoc" required >
-
             <?php
-             $tipodocs = $hotel->getTipoDocumento();
-foreach ($tipodocs as $tipodoc) { ?>
+              $tipodocs = $hotel->getTipoDocumento();
+              foreach ($tipodocs as $tipodoc) { ?>
                 <option value="<?php echo $tipodoc['id_doc']; ?>"
                 	<?php
-      if ($empresa[0]['tipo_documento'] == $tipodoc['id_doc']) { ?>
+                    if ($empresa[0]['tipo_documento'] == $tipodoc['id_doc']) { ?>
 										selected
                 		<?php
-      }
-    ?>
+                    }
+                  ?>
                 	><?php echo $tipodoc['descripcion_documento']; ?></option>}
-              <?php } ?>
+              <?php 
+              }
+            ?>
           </select>
         </div>
       </div> 
@@ -325,11 +325,8 @@ if ($empresa[0]['credito'] == 2) { ?>
         </div>
       </div>
     </div>
-  </div>
-  <div class="panel-footer">
     <div class="btn-group" style="width: 40%;">
-    <button style="width: 50%" type="button" class="btn btn-warning btn-block" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
-    <button style="width: 50%" class="btn btn-success" align="right"><i class="fa fa-save"></i> Actualizar</button>
-  </div>      
-  </div>
+      <button style="width: 50%" type="button" class="btn btn-warning btn-block" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
+      <button style="width: 50%" class="btn btn-success" style="text-align:right;"><i class="fa fa-save"></i> Actualizar</button>
+    </div>
 </form>

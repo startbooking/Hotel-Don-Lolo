@@ -412,3 +412,25 @@ foreach ($tipohesps as $tipohesp) { ?>
   </div>  
 </div>
 
+<div class="modal fade" id="myModalverRegistroHotelero" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document" style="width: 75%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close " data-dismiss="modal" aria-label="Close"><span class="fa fa-power-off" aria-hidden="true"></span></button>
+        <h4 class="modal-title" id="myModalLabel">Registro Hotelero</h4>
+      </div>
+      <div class="modal-body" style="font-size:12px;">
+        <div id="mensajeEli"></div>
+        <div class="form-group">
+          <object id="verRegistroHotelero" width="100%" height="450" data=""></object> 
+        </div>
+        <!-- <div id="" class="container-fluid" style="padding:0"></div> -->
+      </div>
+      <div class="modal-footer">
+        <div class="container-fluid">
+          <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
+        </div>
+      </div>
+    </div> 
+  </div>
+</div>

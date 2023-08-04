@@ -1629,7 +1629,7 @@ $(document).ready(function () {
       id,
     };
     var modal = $(this);
-
+ 
     modal
       .find(".modal-title")
       .text("Modifica Perfil de la Compañia: " + empresa);
@@ -1717,7 +1717,7 @@ $(document).ready(function () {
         $("#historicoReserva").html(datos);
       },
     });
-    $(".alert").hide();
+    $(".alert").hide(); 
   });
 
   $("#myModalAnulaCargo").on("show.bs.modal", function (event) {
@@ -3095,8 +3095,8 @@ function traeTotalCompanias(regis, filas) {
     type: "POST",
     dataType: "json",
     data: {
-      regis: regis,
-      filas: filas,
+      regis,
+      filas,
     },
     success: function (data) {
       $("#listaCompanias").html("");
@@ -3124,7 +3124,7 @@ function traeTotalCompanias(regis, filas) {
                       	role="button" 
                       	aria-haspopup="true" 
                       	aria-expanded="false" 
-                      	style="padding:3px 13px;font-weight: bold;color:#000">Ficha Compañia<span class="caret" style="margin-left:10px;"></span>
+                      	style="padding:3px 11px;font-weight: bold;color:#000">Ficha Compañia<span class="caret" style="margin-left:10px;"></span>
                       </a>
                       
                       <ul class="dropdown-menu submenu" style="float:left;margin-left:none;top:40px;left: -195px">  
@@ -5164,7 +5164,6 @@ function salidaHuesped() {
   var abonos = $("#totalPagos").val();
   let facturador = document.querySelector('#facturador').value;
 
-  // swal(facturador);
   let perfilFac = 1;
   
   var tipofac = $(
@@ -6451,8 +6450,29 @@ function ciudadesExpedicion(pais, city) {
 function imprimirHistoricoRegistro(registro) {
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
-  var parametros = {
-    registro: registro,
+  if(registro == 0){
+    swal({
+      title: "Precaucion!",
+      text: "Registro Hotelero no Impreso",
+      type: "error",
+      confirmButtonText: "Aceptar",
+    },
+    function(){
+    }
+    )
+  }else{
+
+    $('#myModalverRegistroHotelero').modal('show');
+    $("#verRegistroHotelero").attr(
+      "data",
+      "imprimir/registros/Registro_Hotelero_" + registro.padStart(5, '0')+".pdf"
+    );
+    
+
+
+  }
+  /* var parametros = {
+    registro,
   };
   $.ajax({
     type: "POST",
@@ -6460,9 +6480,9 @@ function imprimirHistoricoRegistro(registro) {
     url: web + "res/php/imprimeHistoricoRegistro.php",
     success: function (datos) {
       $("#imprimeRegistroHotelero").html(datos);
-      $(location).attr("href", pagina);
+      // $(location).attr("href", pagina);
     },
-  });
+  }); */
 }
 
 function imprimirPreRegistro(reserva) {

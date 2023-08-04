@@ -1,5 +1,5 @@
 <?php
-echo LAND_HOTEL;
+// echo LAND_HOTEL;
 ?>
 <div class="modal fade bs-example-modal-lg" id="myModalAdicionaCompania" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog modal-lg" role="document">
@@ -8,7 +8,7 @@ echo LAND_HOTEL;
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class='glyphicon glyphicon-off' style="color:#530505"></span></button>
 				<h4 class="modal-title" id="myModalLabel">Adicionar Compañia</h4>
 	  	</div>
-      <form class="form-horizontal" id="formCompania" action="javascript:guardaCompania()" method="POST">
+      <form class="form-horizontal" id="formCompania" action="javascript:guardaCompania()" style="padding :0;" method="POST">
   	    <div class="modal-body"> 
           <div class="form-group">
             <label for="nit" class="col-sm-2 control-label">Nit</label>
@@ -246,7 +246,7 @@ foreach ($tipoTribus as $tipoTribu) { ?>
 				<h4 class="modal-title" id="myModalLabel">Modifica Perfil Compañia</h4>
 	  	</div>
 	  	<div class="modal-body">
-				<div id="datosCia" style="position: relative;	text-align: center;top: 5px;width: 100%;"></div>
+				<div id="datosCia" style="position: relative;	text-align: center;width: 100%;"></div>
 		  </div>
 	  	<div class="modal-footer">
 	  	</div>
@@ -360,7 +360,7 @@ foreach ($tipoTribus as $tipoTribu) { ?>
           <input type="hidden" name="txtIdReservasCiaHis" id="txtIdReservasCiaHis">
         </div>
     	  <div id="datos_ajax_register"></div>
-        <div class="modal-body" style="height: 480px;overflow: auto;">
+        <div class="modal-body" style="max-height: 480px;overflow: auto;">
 				  <div id="historicoReserva" style="position: relative;	text-align: center;top: 5px;width: 100%;"></div>
 		    </div>
       </div>
@@ -389,5 +389,28 @@ foreach ($tipoTribus as $tipoTribu) { ?>
 				<button style="width: 25%;right:inherit" type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
 	  	</div>
 		</div> 
+  </div>
+</div>
+
+<div class="modal fade" id="myModalverRegistroHotelero" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document" style="width: 75%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close " data-dismiss="modal" aria-label="Close"><span class="fa fa-power-off" aria-hidden="true"></span></button>
+        <h4 class="modal-title" id="myModalLabel">Registro Hotelero</h4>
+      </div>
+      <div class="modal-body" style="font-size:12px;">
+        <div id="mensajeEli"></div>
+        <div class="form-group">
+          <object id="verRegistroHotelero" width="100%" height="450" data=""></object> 
+        </div>
+        <!-- <div id="" class="container-fluid" style="padding:0"></div> -->
+      </div>
+      <div class="modal-footer">
+        <div class="container-fluid">
+          <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
+        </div>
+      </div>
+    </div> 
   </div>
 </div>
