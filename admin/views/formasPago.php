@@ -9,7 +9,7 @@
                 <input type="hidden" name="ubicacion" id="ubicacion" value="formasdePago">
                 <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-money"></i> Formas de Pago </h3>
               </div>
-              <div class="col-lg-6" align="right">
+              <div class="col-lg-6" style="text-align:right;">
                 <a style="margin:20px 0" 
                   data-toggle="modal" 
                   class = 'btn btn-success'
@@ -21,7 +21,7 @@
           </div>
           <div class="panel-body">
             <div class="datos_ajax_delete"></div>
-            <div class="col-lg-8 col-lg-offset-2">            
+            <div class="col-lg-10 col-lg-offset-1">            
               <div class="table-responsive"> 
                 <table id="example1" class="table table-bordered">
                   <thead>
