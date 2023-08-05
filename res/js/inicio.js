@@ -91,6 +91,8 @@ function ingresoAdmin() {
 function ingresoPms() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
 
+  // console.log(sesion);
+
   let { user, moduloPms } = sesion;
   let { usuario, usuario_id, tipo, estado_usuario_pms } = user;
   let { fecha_auditoria } = moduloPms;
@@ -161,10 +163,10 @@ function activaModulos() {
   let { cia, user, moduloPms } = sesion;
   let { estado, ingreso, tipo, apellidos, nombres, inv, pos, pms, res } = user;
 
-  console.log({ estado, ingreso, tipo, apellidos, nombres, inv, pos, pms, res });
+  // console.log({ estado, ingreso, tipo, apellidos, nombres, inv, pos, pms, res });
 
   let { invMod, posMod, pmsMod, resMod } = cia;
-  console.log({ invMod, posMod, pmsMod, resMod });
+  // console.log({ invMod, posMod, pmsMod, resMod });
 
   let { fecha_auditoria } = moduloPms;
 
@@ -318,10 +320,10 @@ function recuperaClave() {
     type: "post",
     dataType: "json",
     data: {
-      correo: correo,
+      correo,
     },
     success: function (x) {
-      console.log(x);
+      // console.log(x);
       $("#mensaje").html(x.mensaje);
       $("#email").val("");
     },
@@ -354,7 +356,7 @@ function cambiaClave() {
         nuevaclave: nuevaclave,
       },
       success: function (x) {
-        console.log(x);
+        // console.log(x);
 
         if (x == 0) {
           $("#claveactual").val("");

@@ -3,7 +3,6 @@
 require '../../../res/php/app_topHotel.php';
 
 $user = $_POST['usuario'];
-
 $users = $hotel->getActiveUser($user);
 
 define('usuario_id', $users[0]['usuario_id']);
@@ -39,4 +38,4 @@ if ($cajero == 0) {
     $log = $hotel->ingresoLog($_SESSION['usuario_id'], $_SESSION['usuario'], $pc, $ip, 'ABRIO CAJERO', $valor, $nuevo, 'US');
 }
 
-echo $users;
+echo json_encode($users);

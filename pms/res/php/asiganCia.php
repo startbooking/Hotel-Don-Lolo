@@ -4,7 +4,10 @@
   
   $idres    = $_POST['idres'];
   $idcia    = $_POST['idcia'];
+  $id       = $_POST['id'];
   $cias     = $hotel->getCompanias();
+
+  echo $idcia;
 
 ?>
 
@@ -14,19 +17,9 @@
   <div class="col-sm-8">
     <select name="companiaSele" id="companiaSele">
       <option value="">Seleccione la Compañia</option>
-      <?php 
-      foreach ($cias as $key => $value) { ?> 
-        <option value="<?=$value['id_compania']?>"
-        <?php 
-        if($value['id_compania']==$idcia){ ?>
-          selected 
-          <?php 
-        }
-        ?>
-        ><?=$value['empresa']?></option>
-      <?php 
-      }
-      ?>
+      <?php foreach ($cias as $key => $value) { ?> 
+        <option value="<?=$value['id_compania']?>"<?php if($value['id_compania']==$idcia){ ?> selected <?php } ?>><?php echo $value['empresa']?></option>
+      <?php }?>
     </select>
   </div>
 </div>

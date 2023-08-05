@@ -2194,7 +2194,7 @@ const donwloadFile = async (file, identification_number, typeFile, base64 = fals
               typeResponse: 'blob',
           }
 
-          console.log(DataFiles)
+          // console.log(DataFiles)
 
           const ResponseAPIFiles = await RequestComponent(DataFiles);
           console.log('Paso API Files');
@@ -2900,7 +2900,7 @@ function buscaCredito(idCia) {
     type: "POST",
     dataType: "json",
     data: {
-      idCia: idCia,
+      idCia,
     },
     success: function (data) {
       /// $('#creditoCia').value(data)
@@ -3308,17 +3308,7 @@ function traeTotalHuespedes(regis, filas) {
                           <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
                         Historico Reservas</a> 
                       </li>
-                      <li>
-                        <a 
-													data-toggle   ="modal" 
-													data-id       ="${data[i]["id_huesped"]}" 
-													data-nombre   ="${data[i]["nombre_completo"]}" 
-													data-idcia    ="${data[i]["id_compania"]}"
-													data-idres    ="0"
-													href        ="#myModalAsignarCompania">
-                        <i class="fa fa-industry" aria-hidden="true"></i>
-                        Asignar Compañia</a>
-                      </li>
+                      
                       <li>
                         <a 
 													data-toggle ="modal" 

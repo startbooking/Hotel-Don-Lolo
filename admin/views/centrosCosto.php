@@ -9,7 +9,7 @@
                 <input type="hidden" name="ubicacion" id="ubicacion" value="centrosdeCosto">
                 <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-cubes"></i> Centros de Costo</h3>
               </div>
-              <div class="col-lg-6" align="right">
+              <div class="col-lg-6" style="text-align:right;">
                 <a 
                   data-toggle="modal" 
                   style="margin:20px 0" type="button" class="btn btn-success" href="#myModalAdicionarCentro">
@@ -20,7 +20,7 @@
           </div>
           <div class="panel-body">
             <div class="datos_ajax_delete"></div>
-            <div class="col-lg-8 col-lg-offset-2">              
+            <div class="col-lg-10 col-lg-offset-1">              
               <div class="container-fluid"> 
                 <table id="example1" class="table table-bordered">
                   <thead>
@@ -36,11 +36,11 @@
                     <?php
                     foreach ($centros as $centro) { ?>
                       <tr style='font-size:12px'>
-                        <td width="22px"><?php echo $centro['descripcion_centro']; ?></td>
-                        <td width="22px"><?php echo $admin->getDepto($centro['id_depto']); ?></td>
-                        <td width="22px"><?php echo $centro['puc1_costo']; ?></td>
-                        <td width="22px"><?php echo $centro['puc1_gasto']; ?></td>
-                        <td align="center" style="padding:3px;width: 12%">
+                        <td><?php echo $centro['descripcion_centro']; ?></td>
+                        <td><?php echo $admin->getDepto($centro['id_depto']); ?></td>
+                        <td><?php echo $centro['puc1_costo']; ?></td>
+                        <td><?php echo $centro['puc1_gasto']; ?></td>
+                        <td style="text-align:center;padding:3px;width: 12%">
                           <div class="btn-group" role="group" aria-label="Basic example">
                             <button type="button" class="btn btn-info btn-xs" 
                               data-toggle ="modal" 
