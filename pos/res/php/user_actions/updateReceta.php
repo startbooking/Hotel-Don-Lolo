@@ -42,36 +42,35 @@ $imptos = $pos->getImpuestos();
                 ><?php echo $tipo['nombre_seccion']; ?></option>
               <?php
             }
-?>
+            ?>
           </select>
         </div>
         <label for="impto" class="control-label col-lg-2  col-md-2">Impuesto</label>
         <div class="col-lg-3 col-md-3">
           <select name="impto" id="impto" required>
-
             <option value="">Seleccione el Impuesto</option>
             <?php
-foreach ($imptos as $impto) { ?>
-              <option value="<?php echo $impto['id_cargo']; ?>"
+              foreach ($imptos as $impto) { ?>
+                <option value="<?php echo $impto['id_cargo']; ?>"
                 <?php
-    if ($updateRec[0]['id_impuesto'] == $impto['id_cargo']) { ?>
+                  if ($updateRec[0]['id_impuesto'] == $impto['id_cargo']) { ?>
                   selected
-                <?php
-    }
-    ?>
+                  <?php
+                  }
+                ?>
                 ><?php echo $impto['descripcion_cargo']; ?></option>
-              <?php
-}
-?>
+                <?php
+              }
+              ?>
           </select>
         </div>
         <label class="control-label col-md-2" style="padding:0"><input  type="checkbox" name="subreceta" value="0"
           <?php
           if ($updateRec[0]['subreceta'] == 1) { ?>
             checked
-          <?php
+            <?php
           }
-?>
+          ?>
           > Sub Receta</label>
       </div>
       <div class="form-group">
@@ -90,7 +89,15 @@ foreach ($imptos as $impto) { ?>
       </div>
     </div> 
     <div class="col-md-3">
-      <img style="margin-top:0px" src="images/<?php echo $updateRec[0]['foto']; ?>" class="img-thumbnail" alt="">
+      <?php
+      if($updateRec[0]['foto']==''){ ?>
+        <img style="margin-top: 0px;width: 140px;float: right;" src="/img/noimage.png" class="img-thumbnail" alt="">
+        <?php
+      }else{ ?>
+        <img style="margin-top:0px" src="images/<?php echo $updateRec[0]['foto']; ?>" class="img-thumbnail" alt="">
+        <?php
+      }
+      ?>
     </div>
   </div>
   <div class="form-group">

@@ -3,10 +3,7 @@
 require '../../../../res/php/app_topPos.php';
 
 $directorio = '../../../images/';
-$idrec = $_POST['receta'];
-echo $_POST['receta'];
-/* foto
-receta */
+$idrec = $_POST['idRecetaFoto'];
 
 $dir = opendir($directorio);
 foreach ($_FILES['images']['name'] as $name => $value) {
@@ -20,3 +17,6 @@ foreach ($_FILES['images']['name'] as $name => $value) {
         $img = $pos->updateFotoReceta($file_name, $idrec);
     }
 }
+
+?>
+

@@ -29,12 +29,6 @@ $tipo = '';
 $totabo = 0;
 
 $datosFac = $pos->getDatosFactura($amb, $nComa);
-// $abonos   = $pos->getTotalAbonos($amb,$nComa);
-
-// echo $amb, $nComa;
-
-// echo print_r($datosFac);
-
 $mes = $datosFac[0]['mesa'];
 $pax = $datosFac[0]['pax'];
 $coma = $datosFac[0]['comanda'];
@@ -74,7 +68,6 @@ $pdf = new FPDF('P', 'mm', [76, 350]);
 $pdf->SetMargins(5, 5, 5);
 
 $pdf->AddPage();
-// $pdf->Image('../../../../img/'.$logo, 2, 5, 10);
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(65, 4, utf8_decode(NAME_EMPRESA), 0, 1, 'C');
 $pdf->SetFont('Arial', '', 10);
@@ -85,22 +78,21 @@ $pdf->Cell(65, 4, utf8_decode(CIUDAD_EMPRESA.' '.PAIS_EMPRESA), 0, 1, 'C');
 $pdf->Cell(65, 4, 'Telefono '.TELEFONO_EMPRESA, 0, 1, 'C');
 $pdf->SetFont('Arial', 'B', 10);
 $pdf->MultiCell(65, 6, $nomamb, 0, 'C');
-// $pdf->Cell(65, 4, $nomamb, 0, 1, 'C');
 $pdf->Ln(1);
 $pdf->SetFont('Arial', '', 10);
 $pdf->Cell(65, 4, 'Fecha '.$fec.' '.$time.' Mesa '.$mes, 0, 1, 'L');
 $pdf->Cell(65, 4, 'Mesero: '.$_SESSION['usuario'], 0, 1, 'L');
 $pdf->Cell(65, 4, 'Forma de Pago: '.substr($fpago, 0, 18), 0, 1, 'L');
 if ($pms == 0) {
-    $pdf->Cell(65, 5, 'Tiquete POS Nro:  '.str_pad($nFact, 5, '0', STR_PAD_LEFT), 0, 1, 'L');
-    $pdf->Cell(65, 5, 'Cliente '.substr($cliente, 0, 22), 0, 1, 'L');
-    $pdf->Cell(65, 5, 'Iden. '.$identif, 0, 1, 'L');
+    $pdf->Cell(65, 4, 'Tiquete POS Nro:  '.str_pad($nFact, 5, '0', STR_PAD_LEFT), 0, 1, 'L');
+    $pdf->Cell(65, 4, 'Cliente '.substr($cliente, 0, 22), 0, 1, 'L');
+    $pdf->Cell(65, 4, 'Iden. '.$identif, 0, 1, 'L');
 } else {
-    $pdf->Cell(65, 5, 'Cuenta Huesped Nro: '.str_pad($nFact, 5, '0', STR_PAD_LEFT), 0, 1, 'L');
-    $pdf->Cell(65, 5, 'Huesped '.substr($cliente, 0, 22), 0, 1, 'L');
-    $pdf->Cell(65, 5, 'Habitacion. '.$nrohabi, 0, 1, 'L');
+    $pdf->Cell(65, 4, 'Cuenta Huesped Nro: '.str_pad($nFact, 5, '0', STR_PAD_LEFT), 0, 1, 'L');
+    $pdf->Cell(65, 4, 'Huesped '.substr($cliente, 0, 22), 0, 1, 'L');
+    $pdf->Cell(65, 4, 'Habitacion. '.$nrohabi, 0, 1, 'L');
 }
-$pdf->Ln(2);
+$pdf->Ln(1);
 
 $subt = 0;
 $impt = 0;
@@ -133,8 +125,6 @@ $pdf->Cell(40, 4, 'Subtotal', 0, 0, 'R');
 $pdf->Cell(25, 4, number_format($sub, 2, ',', '.'), 0, 1, 'R');
 $pdf->Cell(40, 4, 'Impuesto', 0, 0, 'R');
 $pdf->Cell(25, 4, number_format($imp, 2, ',', '.'), 0, 1, 'R');
-/* $pdf->Cell(40, 4, 'Descuento', 0, 0, 'R');
-$pdf->Cell(25, 4, number_format($des, 2, ',', '.'), 0, 1, 'R'); */
 $pdf->Cell(40, 4, 'Propina', 0, 0, 'R');
 $pdf->Cell(25, 4, number_format($pro, 2, ',', '.'), 0, 1, 'R');
 $pdf->Cell(40, 4, 'Room Service', 0, 0, 'R');
@@ -143,11 +133,9 @@ $pdf->Ln(2);
 $pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell(40, 4, 'Total Cuenta:', 0, 0, 'L');
 $pdf->Cell(25, 4, number_format($sub - $des + $pro + $imp + $rooms, 2, ',', '.'), 0, 1, 'R');
-$pdf->Ln(2);
+$pdf->Ln(1);
 $pdf->SetFont('Arial', '', 8);
 $pdf->MultiCell(65, 4, 'Son : '.numtoletras($sub - $des + $pro + $imp + $rooms), 0, 'L');
-// $pdf->SetFont('Arial', '', 10);
-
 $pdf->Ln(20);
 $pdf->Cell(65, 5, str_repeat('_', 40), 0, 1, 'L');
 if ($pms == 1) {

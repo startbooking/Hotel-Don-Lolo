@@ -7,7 +7,7 @@
     </div>
   </a>
   <nav class="navbar navbar-static-top" role="navigation">
-    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button" style="border-bottom: none;padding:17px 15px;">
+    <a href="#" class="sidebar-toggle apaga" data-toggle="offcanvas" role="button" style="border-bottom: none;padding:17px 15px;">
       <span class="sr-only">Toggle navigation</span>
     </a>
     <ul class="nav navbar-nav ">

@@ -217,7 +217,6 @@ function botonDivideComanda(
 }
 
 function dividirCuenta() {
-  // $("#guardaComandaDividida").css("display", "block");
   nuevaComanda = [];
   localStorage.setItem("nuevaComanda", JSON.stringify(nuevaComanda));
 
@@ -575,6 +574,7 @@ function ventasCreditoDia() {
     },
   });
 }
+
 $(document).ready(function () {
   $("#myModalAnulaFactura").on("show.bs.modal", function (event) {
     var modal = $(this);
@@ -590,6 +590,7 @@ $(document).ready(function () {
     $("#facturaActiva").val(factura);
     $("#salida").val(movim);
   });
+
   $("#myModalFotoReceta").on("show.bs.modal", function (event) {
     var modal = $(this);
     var button = $(event.relatedTarget); // Botón que activó el modal
@@ -643,6 +644,36 @@ $(document).ready(function () {
     });
 
   });
+
+  $("#modalAdicionaSubReceta").on("show.bs.modal", function (event) {
+    swal('Entro adicionar Subreceta')
+    /* sesion = JSON.parse(localStorage.getItem("sesion"));
+    let { user } = sesion;
+    let { usuario_id } = user;
+    var button = $(event.relatedTarget);
+    var producto = button.data("id");
+    var bodega = button.data("bodega");
+    var nombre = button.data("nombre");
+    var modal = $(this);
+    parametros = {
+      producto,
+      bodega,
+    }; */
+    /* modal.find(".modal-title").html(`Movimientos Producto : ${nombre}`);
+    $.ajax({
+      url: "res/php/user_actions/getMuestraMovimientosProducto.php",
+      type: "POST",
+      data: parametros,
+      success: function (data) {
+        $("#movimientosProducto").html(data);
+      },
+    }); */
+
+  });
+
+  
+
+
 });
 
 function traeFacturasCliente() {
@@ -1941,7 +1972,7 @@ function subeFoto(id, receta, foto) {
   }
 }
 
-function subirFoto() {
+function subirFotoOld() {
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var formData = new FormData($("#formFotoReceta"));
@@ -1955,29 +1986,22 @@ function subirFoto() {
   });
 }
 
-/* function muestraProductoKardex() {
-  $("#modalConsultaKardex").on("show.bs.modal", function (event) {
-    var button = $(event.relatedTarget); // Botón que activó el modal
-    var id = button.data("id"); // Extraer la información de atributos de datos
-    var bodega = button.data("bodega"); // Extraer la información de atributos de datos
-    var nombre = button.data("nombre"); // Extraer la información de atributos de datos
-    parametros = {
-      id,
-      bodega,
-    };
-    file;
-    var modal = $(this);
-    modal.find(".modal-title").html(`Movimientos Producto : ${nombre}`);
-    $.ajax({
-      url: "res/php/user_actions/getMuestraMovimientosProducto.php",
-      type: "POST",
-      data: parametros,
-      success: function (data) {
-        $("#movimientosProducto").html(data);
-      },
-    });
+function subirFoto() {
+  var web = $("#rutaweb").val();
+  var pagina = $("#ubicacion").val();
+  var formData = new FormData($("#formFotoReceta")[0]);
+
+  $.ajax({
+    url: "res/php/user_actions/subirFotoReceta.php",
+    type: "post",
+    data: formData,
+    contentType: false,
+    processData: false,
+    success: function (response) {
+      $("#myModalFotoReceta").modal("hide");
+    },
   });
-} */
+}
 
 function actualizaReceta() {
   var parametros = $("#actualidarDatosReceta").serialize();
@@ -2002,7 +2026,7 @@ function updateReceta(id, receta) {
   $.ajax({
     url: "res/php/user_actions/updateReceta.php",
     type: "POST",
-    data: {
+    data: { 
       id,
       id_ambiente,
     },
@@ -4223,7 +4247,6 @@ function reimprimirFactura() {
 function enviaInicio() {
   localStorage.removeItem("productoComanda");
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  // let { pos } = sesion;
   let { id_ambiente } = oPos[0];
   getSeleccionaAmbiente(id_ambiente);
 }
@@ -4762,7 +4785,10 @@ function getSeleccionaAmbiente(codigo) {
     },
     success: function (data) {
       menu = document.querySelector('#menuPos');
+      menusup = document.querySelector('.sidebar-toggle')
+
       menu.classList.remove('apaga')
+      menusup.classList.remove('apaga')
       localStorage.setItem("oPos", JSON.stringify(data));
       muestraPos(codigo);
     },

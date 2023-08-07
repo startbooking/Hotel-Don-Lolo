@@ -50,12 +50,12 @@ $clientes = $pos->getClientes();
 							    <td><?php echo $cliente['direccion']; ?></td>
 							    <td><?php echo $cliente['celular']; ?></td>
 							    <td><?php echo $cliente['email']; ?></td>
-							    <td align="center"> 
+							    <td style="text-align:center;"> 
 							   		<button type="button" class="btn btn-success btn-xs" onclick="desactiva_usuario(<?php echo $cliente['id_cliente']; ?>)">	
 							   			<?php echo estado_cliente($cliente['estado']); ?>
 							   		</button>
 							   	</td> 
-							   	<td align='center'>
+							   	<td style="text-align:center;'>
 							   		<div class="btn-group">
 											<button 
 												type="button" class="btn btn-info btn-xs" 
@@ -82,18 +82,7 @@ $clientes = $pos->getClientes();
 												>
 												<i class='glyphicon glyphicon-trash '></i> 
 											</button>
-											<button 
-												type="button" class="btn btn-success btn-xs" 
-												data-toggle="modal" 
-												data-target="#dataEstadoCartera" 
-												data-id="<?php echo $cliente['id_cliente']; ?>" 
-												data-identificacion="<?php echo $cliente['identificacion']; ?>" 
-												data-cliente="<?php echo $cliente['apellido1'].' '.$cliente['apellido2'].' '.$cliente['nombre1'].' '.$cliente['nombre2']; ?>" 
-												title="lista Facturas Pendientes "
-												onclick="muestraFacturasCliente(<?php echo $cliente['id_cliente']; ?>)"
-												 >
-												<i class='fa fa-briefcase'></i>
-											</button>
+											
 							   		</div>	
 							   	</td>
 							 	</tr>

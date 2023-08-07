@@ -79,10 +79,10 @@ foreach ($imptos as $impto) { ?>
           </div>
         </div>
         <div class="modal-footer">
-          <div class="btn-group">
-            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
-            <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar Datos</button>
-          </div>
+          <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
+          <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar </button>
+          <!-- <div class="btn-group">
+          </div> -->
         </div>
       </div>
     </div>
@@ -101,10 +101,8 @@ foreach ($imptos as $impto) { ?>
           <div id="datos_ajax"></div>
         </div>
         <div class="modal-footer">
-          <div class="btn-group">
-            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
-            <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Actualizar datos</button>
-          </div>
+          <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
+          <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Actualizar</button>
         </div>
       </div>
     </div>
@@ -123,15 +121,15 @@ foreach ($imptos as $impto) { ?>
           <input type="hidden" id="idproducto" name="idproducto">
           <h3 class="text-center text-muted" style="color:#880505;font-weight:bold">Estas seguro?</h3>
           <p class="lead text-muted text-center" 
-              style="display: block;margin:10px">Esta acción eliminará de forma permanente los Datos del Producto.
-            <h4 align="center">Desea continuar?</h4>    
+              style="display: block;margin:10px">Esta acción eliminará de forma permanente los Datos de la Receta.
+            <h4 style="text-align:center;">Desea continuar?</h4>    
           </p>
         </div> 
         <div class="modal-footer">
-          <div class="btn-group">
-            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
-            <button type="submit" class="btn btn-primary"><i class="fa fa-trash-o"></i> Eliminar</button>
-          </div>
+          <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
+          <button type="submit" class="btn btn-primary"><i class="fa fa-trash-o"></i> Eliminar</button>
+          <!-- <div class="btn-group">
+          </div> -->
         </div>
       </div> 
     </div>
@@ -153,10 +151,20 @@ foreach ($imptos as $impto) { ?>
               <div class="panel-heading"> 
                 <div class="row producto" style="display: flex;">
                   <div class="col-lg-6">
+                    <!-- <h3 style="margin:0;" class="w3ls_head"> Materia Prima Receta Estandar </h3> -->
                     <h3 style="margin:0;" class="w3ls_head"> Materia Prima Receta Estandar </h3>
                   </div>
                   <div class="col-lg-6">
-                    <button type="button" class="btn btn-success pull-right" 
+                    <button 
+                      data-toggle="modal"  
+                      type="button" class="btn btn-info pull-right" 
+                      href="#modalAdicionaSubReceta"
+                      title="Materia Prima Receta Estandar"
+                      ><i class="fa fa-plus-circle" aria-hidden="true"></i> Adicionar SubReceta
+                    </button>
+                    <button 
+                      type="button" 
+                      class="btn btn-success pull-right" 
                       onclick='adicionaMateriaPrima()'
                       title="Materia Prima Receta Estandar"
                       ><i class="fa fa-plus-circle" aria-hidden="true"></i> Adicionar Producto
@@ -195,8 +203,8 @@ foreach ($imptos as $impto) { ?>
         </div>
         <div class="modal-footer">
           <div class="btn-group" id='btnRecetas'>
-            <button onclick="saleMP()" type="button" class="btn btn-warning"><i class="fa fa-reply"></i> Regresar</button>
-          </div>
+            <button onclick="saleMP()" type="button" class="btn btn-warning pull-right"><i class="fa fa-reply"></i> Regresar</button>
+            </div>
         </div>
       </div>
     </div>
@@ -307,15 +315,76 @@ foreach ($imptos as $impto) { ?>
                   </div>
                 </div>
               </div>
-              <div class="btn-group" style="float: right">
-                <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
-                <button class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i> Procesar</button>
+              <div class="container-fluid">
+                <div class="form-group" style="margin-top:10px;">
+                  <button class="btn btn-primary pull-right"><i class="fa fa-save" aria-hidden="true"></i> Procesar</button>
+                  <button type="button" class="btn btn-warning pull-right" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
+                </div>
               </div>
             </form>
-          </div>
-          <div class="modal-footer">
           </div>
         </div>
       </div>
     </div>
+</div>
+
+<div class="modal fade" id="modalAdicionaSubReceta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <form id="guardarSubReceta" class="form-horizontal" action="javascript:guardaSubReceta()">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-off"></span></button>
+          <!-- <h3 class="modal-title tituloPagina" id="exampleModalLabel"><span class="fa fa-cube"></span> Adicionar Materia Prima</h3> -->
+          <h3 style="margin:10px" id="exampleModalLabel">Adicionar SubReceta</h3>
+        </div>
+        <div id="datos_ajax_register"></div>
+        <div class="modal-body"> 
+        <table id="subRecetas" class="table table-bordered table-hover ">
+          <thead >
+            <tr class="warning">
+              <th>SubReceta</th>
+              <th>Valor</th>
+              <th>Selecciona</th>
+              <th>Cantidad</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>  
+          <!-- <div class="form-group">
+            <label for="productoRec" class="control-label col-lg-2 col-md-2">Producto</label>
+            <div class="col-lg-4 col-md-4">
+              <select id="productoRec" name="productoRec" onblur='datosProducto(this.value)'>
+              </select>
+            </div>
+            <label for="medidaRec" class="control-label col-lg-2 col-md-2">Medida</label>
+            <div class="col-lg-4 col-md-4">
+              <input type="hidden" id='idMedida' name='idMedida'>
+              <input type="text" class="form-control" id="medidaRec" name="medidaRec" readonly="">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="seccion" class="control-label col-lg-2 col-md-2">Cantidad</label> 
+            <div class="col-lg-2 col-md-2">
+              <input type="text" name="cantidadRec" id="cantidadRec" min="1" onblur='actualizaPrecio()'>
+            </div>
+            <label for="impto" class="control-label col-lg-2  col-md-2">Valor Unitario</label>
+            <div class="col-lg-2 col-md-2">
+              <input type="text" min='0' class="form-control" id="valorUni" name="valorUni" required maxlength="12" disabled readonly=""> 
+            </div>
+            <label for="impto" class="control-label col-lg-2  col-md-2">Valor Total</label>
+            <div class="col-lg-2 col-md-2">
+              <input type="text" min='0' class="form-control" id="valorTot" name="valorTot" required maxlength="12" disabled readonly=""> 
+            </div>
+          </div> -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="saleMat()"><i class="fa fa-reply"></i> Regresar</button>
+          <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar Datos</button>
+          <!-- <div class="btn-group">
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </form>
 </div>

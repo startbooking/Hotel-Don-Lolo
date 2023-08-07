@@ -8,7 +8,7 @@
   $directorio = '../../uploads/';
 
   if(!file_exists($directorio)){
-    mkdir($directorio, 0777) or die("No se puede crear el directorio de extracci&oacute;n");  
+    mkdir($directorio, 0755) or die("No se puede crear el directorio de extracci&oacute;n");  
   }   
 
   $dir  = opendir($directorio); 
