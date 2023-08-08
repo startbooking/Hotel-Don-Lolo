@@ -646,38 +646,25 @@ $(document).ready(function () {
   });
 
   $("#modalAdicionaSubReceta").on("show.bs.modal", function (event) {
+    console.log(event);
     swal('Entro adicionar Subreceta')
-    /* sesion = JSON.parse(localStorage.getItem("sesion"));
-    let { user } = sesion;
-    let { usuario_id } = user;
-    var button = $(event.relatedTarget);
-    var producto = button.data("id");
-    var bodega = button.data("bodega");
-    var nombre = button.data("nombre");
-    var modal = $(this);
-    parametros = {
-      producto,
-      bodega,
-    }; */
-    /* modal.find(".modal-title").html(`Movimientos Producto : ${nombre}`);
-    $.ajax({
-      url: "res/php/user_actions/getMuestraMovimientosProducto.php",
-      type: "POST",
-      data: parametros,
-      success: function (data) {
-        $("#movimientosProducto").html(data);
-      },
-    }); */
 
   });
-
-  
 
 
 });
 
+function modalSubReceta(){
+  var id = $("#idReceta").val();
+  var producto = $("#nomReceta").val();
+  $("#modalAdicionaSubReceta").modal('show');
+
+  swal(id);
+
+
+}
+
 function traeFacturasCliente() {
-  // let { pos } = sesion;
   let { id_ambiente } = oPos[0];
   let idambi = id_ambiente;
 
@@ -704,7 +691,6 @@ function traeFacturasCliente() {
 
 function ingresoCartera() {
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  // let { pos } = sesion;
   let { fecha_auditoria } = oPos[0];
 
   $.ajax({
@@ -1972,20 +1958,6 @@ function subeFoto(id, receta, foto) {
   }
 }
 
-function subirFotoOld() {
-  var web = $("#rutaweb").val();
-  var pagina = $("#ubicacion").val();
-  var formData = new FormData($("#formFotoReceta"));
-  $.ajax({
-    url: "res/php/user_actions/subirFotoReceta.php",
-    type: "post",
-    data: parametros,
-    success: function (response) {
-      $("#myModalFotoReceta").modal("hide");
-    },
-  });
-}
-
 function subirFoto() {
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
@@ -2350,32 +2322,77 @@ function adicionaMateriaPrima() {
   });
 }
 
-function btnRecetaProducto(id, nombre) {
+function btnRecetaProducto(boton) {
   $("#dataRecetaProducto").modal("show");
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
+  let receta = boton.dataset.receta;
+  let subreceta = boton.dataset.subreceta;
+  let id = boton.dataset.id;
   let { usuario_id, usuario } = user;
-  user = usuario;
-  var producto = nombre;
-  $("#nomReceta").val(producto);
-  $(".modal-title").html(`Receta Estandar : ${producto}`);
+  $("#nomReceta").val(receta);
+  $(".modal-title").html(`Receta Estandar : ${receta}`);
   $("#idusrupd").val(usuario_id);
   $("#idReceta").val(id);
+
+  subrece = document.querySelector('#btnSubReceta');
+
+  
+  if(subreceta==="1"){
+    subrece.classList.add('apaga')
+  }else{
+    subrece.classList.remove('apaga')
+  }
+
   $.ajax({
     url: "res/php/user_actions/getRecetasProductos.php",
     type: "POST",
     dataType: "json",
     data: {
-      id: id,
+      id,
     },
     beforeSend: function (objeto) {
       $("#materiaPrima > tbody").html("");
     },
-    success: function (data) {
+    success: function (recetas) {
       $("#materiaPrima > tbody").html("");
       $("#valorReceta > tbody").html("");
       valorReceta = 0;
-      for (i = 0; i < data.length; i++) {
+
+      recetas.map((receta) => {
+        let {nombre_producto,
+          cantidad,
+          descripcion_unidad,
+          valor_unitario_promedio,
+          valor_promedio,
+          id,
+          id_receta,
+          subreceta} = receta;
+
+          $("#materiaPrima > tbody").append(`
+            <tr>
+              <td>${nombre_producto}</td>
+              <td class="derecha">${cantidad}</td>
+              <td>${descripcion_unidad}</td>
+              <td class="derecha">${number_format(valor_unitario_promedio, 2)}</td>
+              <td class="derecha">${number_format(valor_promedio, 2)}</td>
+              <td class="centro">
+                <button 
+                id='${id}' 
+                receta='${id_receta}' 
+                subreceta = '${subreceta}'
+                class='btn btn-danger btn-xs elimina_articulo' onclick='actualizaRece(this.id,this.parentNode.parentNode.rowIndex,this.receta,"${id}");'><i class='glyphicon glyphicon-trash '></i></button>
+              </td>
+            </tr>`);
+      })
+
+      
+
+      /* listaComanda.map((productos) => {
+        let { id, producto, cant, total, codigo, ambiente } = productos;
+      }); */
+
+      /* for (i = 0; i < data.length; i++) {
         valorReceta += Number.parseFloat(data[i]["valor_promedio"], 2);
         $("#materiaPrima > tbody").append(`<tr>
           <td class='paddingCelda' align='left'>${
@@ -2397,18 +2414,22 @@ function btnRecetaProducto(id, nombre) {
             2
           )}</td>
           <td class='paddingCelda' align='center'>
-            <button id='${data[i]["id"]}' receta='${data[i]["id_receta"]}' 
+            <button 
+              id='${data[i]["id"]}' 
+              receta='${data[i]["id_receta"]}' 
+              subreceta = '${data[i]["subreceta"]}'
               class='btn btn-danger btn-xs elimina_articulo' onclick='actualizaRece(this.id,this.parentNode.parentNode.rowIndex,this.receta,"${
                 data[i]["id"]
               }");'><i class='glyphicon glyphicon-trash '></i></button>
               </td>
           </tr>`);
       }
+
       $("#valorReceta > tbody").append(
         "<tr><td>Valor Receta</td><td id='vlrTotal'>" +
           number_format(valorReceta, 2) +
           "</td><td></td></tr>"
-      );
+      ); */
     },
   });
 }
@@ -2446,7 +2467,7 @@ function updateCliente(id) {
     $.ajax({
       url: "res/php/user_actions/getUpdateCliente.php",
       type: "POST",
-      data: { id: id },
+      data: { id },
       success: function (data) {
         $("#datosCliente").html(data);
       },
@@ -4061,9 +4082,6 @@ function calcular_total() {
   impuesto = parseFloat($(miBoton).attr("impto"));
   roomser = parseFloat(document.querySelector("#servicio").value);
 
-  // console.log(roomser);
-
-  // descuento = parseFloat($(miBoton).attr("descuento"));
   let descuento = 0;
   abonos = parseFloat($(miBoton).attr("abonos"));
   total = parseFloat($(miBoton).attr("total"));

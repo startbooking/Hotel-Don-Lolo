@@ -20,6 +20,18 @@
   background: #000;
 }
 
+.izquierda {
+  text-align: left;
+}
+
+.derecha {
+  text-align: right;
+}
+
+.centro {
+  text-align: center;
+}
+
 .tituloCliente{
   width: 96%;
   border-radius: 1px;
@@ -284,7 +296,6 @@
 .apaga {
   display: none;
 }
-
 
 .btn-outline,
 .btn-outline:hover {

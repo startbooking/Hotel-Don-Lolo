@@ -1572,6 +1572,7 @@ class Pos_Actions
                 'codigos_vta.descripcion_cargo',
                 'secciones_pos.nombre_seccion',
                 'recetasEstandar.id_receta',
+                'recetasEstandar.subreceta',
                 'recetasEstandar.cantidad',
                 'recetasEstandar.nombre_receta',
                 'recetasEstandar.valor_costo',

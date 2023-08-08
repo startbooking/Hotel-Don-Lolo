@@ -151,15 +151,15 @@ foreach ($imptos as $impto) { ?>
               <div class="panel-heading"> 
                 <div class="row producto" style="display: flex;">
                   <div class="col-lg-6">
-                    <!-- <h3 style="margin:0;" class="w3ls_head"> Materia Prima Receta Estandar </h3> -->
                     <h3 style="margin:0;" class="w3ls_head"> Materia Prima Receta Estandar </h3>
                   </div>
                   <div class="col-lg-6">
                     <button 
                       data-toggle="modal"  
                       type="button" class="btn btn-info pull-right" 
-                      href="#modalAdicionaSubReceta"
-                      title="Materia Prima Receta Estandar"
+                      onclick="modalSubReceta()"
+                      id= "btnSubReceta"
+                      title="Sub Recetas - Receta Estandar"
                       ><i class="fa fa-plus-circle" aria-hidden="true"></i> Adicionar SubReceta
                     </button>
                     <button 
@@ -250,10 +250,10 @@ foreach ($imptos as $impto) { ?>
           </div>
         </div>
         <div class="modal-footer">
-          <div class="btn-group">
-            <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="saleMat()"><i class="fa fa-reply"></i> Regresar</button>
-            <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar Datos</button>
-          </div>
+          <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="saleMat()"><i class="fa fa-reply"></i> Regresar</button>
+          <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar Datos</button>
+          <!-- <div class="btn-group">
+          </div> -->
         </div>
       </div>
     </div>
@@ -334,7 +334,7 @@ foreach ($imptos as $impto) { ?>
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-off"></span></button>
-          <!-- <h3 class="modal-title tituloPagina" id="exampleModalLabel"><span class="fa fa-cube"></span> Adicionar Materia Prima</h3> -->
+          <h3 class="modal-title tituloPagina" id="exampleModalLabel"><span class="fa fa-cube"></span> Adicionar Materia Prima</h3>
           <h3 style="margin:10px" id="exampleModalLabel">Adicionar SubReceta</h3>
         </div>
         <div id="datos_ajax_register"></div>
