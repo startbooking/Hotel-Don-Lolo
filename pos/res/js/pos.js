@@ -654,15 +654,140 @@ $(document).ready(function () {
 
 });
 
-function modalSubReceta(){
-  var id = $("#idReceta").val();
-  var producto = $("#nomReceta").val();
-  $("#modalAdicionaSubReceta").modal('show');
 
-  swal(id);
+async function guardaSubReceta(){
+  // let recetas = document.querySelector('#')
+  let receta = document.querySelector("#idReceta").value
+
+  subReceSele = await traeSubRecetasSeleccionadas();
+  // console.log(subReceSele);
+  // Envia Subrecetas a fetch
+
 
 
 }
+
+async function modalSubReceta(){
+  // let receta = $("#idReceta").val();
+  let receta = document.querySelector("#idReceta").value
+  let producto = document.querySelector("#nomReceta").value
+  // let producto = $("#nomReceta").val();
+  $("#modalAdicionaSubReceta").modal('show');
+  $("#btnRecetas").css("display", "none");
+
+  const subrecetas = await traeSubRecetas(receta); 
+  
+  subRecetas = document.querySelector('#subRecetas tbody')
+  limpia = await limpiaSubRecetasHTML();
+
+  await muestraSubRecetasHTML(subrecetas)
+  
+  // console.log(subrecetas);
+
+}
+
+async function muestraSubRecetasHTML(subrecetas) {
+
+  subrecetas.forEach((subreceta) => {
+    const { id_receta, nombre_receta, valor_costo } = subreceta;
+    const row = document.createElement("tr");
+
+    row.innerHTML += `
+        <td>
+            ${nombre_receta}
+            <input type="hidden" value="${id_receta}">
+            
+          </td>
+          <td class="derecha">
+            ${number_format(valor_costo,2)}
+            <input type="hidden" value="${valor_costo}">
+        </td>
+        <td class="centro">  
+          <input class="form-check-input" type="checkbox" value="" id="seleSub">  
+        </td>
+        <td style="width:15%">
+          <input class="form-control" type="number" id="cantiSub" name="cantiSub" value=0>  
+        </td>
+    `;
+
+    subRecetas.appendChild(row);
+  });
+}
+
+
+async function traeSubRecetasSeleccionadas() {
+  const checkboxList = document.querySelectorAll('input[type="checkbox"]');
+  const checkedIds = [];
+  let idReceta = document.querySelector("#idReceta").value
+
+
+  for (let i = 0; i < checkboxList.length; i++) {
+    const checkbox = checkboxList[i];
+
+    if (checkbox.checked) {
+      fila = checkbox.closest("tr").querySelectorAll("td");
+      let nombre = checkbox.closest("tr").querySelectorAll("td")[0];
+      let fila1  = checkbox.closest("tr").querySelectorAll("td")[1];
+      let nombreSubRece = nombre.innerText;
+      let cantidad = checkbox.closest("tr").querySelectorAll("td")[3].childNodes[1].value;
+      let idSubRece = nombre.children[0].value;
+      let costoSubR = fila1.children[1].value;
+
+      /* 
+      console.log(idReceta)
+      console.log(fila);
+      console.log(fila[3])
+      console.log(nombre);
+      console.log(idSubRece);
+      console.log(cantidad); 
+      console.log(nombreSubRece);
+      */
+      
+      /* let descripcion = checkbox
+        .closest("tr")
+        .querySelectorAll("td")[1].innerHTML;
+      let idCliente = checkbox
+        .closest("tr")
+        .querySelectorAll("td")[2].innerHTML; */
+
+      // console.log(idCliente);
+      let data = {
+        idSubRece,
+        nombreSubRece,
+        idReceta,
+        costoSubR,
+      };
+      checkedIds.push(data);
+    }
+  }
+
+  // console.log(checkedIds);
+
+  return checkedIds;
+}
+
+
+async function limpiaSubRecetasHTML() {
+  while (subRecetas.firstChild) {
+    subRecetas.removeChild(subRecetas.firstChild);
+  }
+}
+
+const traeSubRecetas = async (receta,) => {
+  try {
+    const resultado = await fetch(`res/php/user_actions/traeSubRecetas.php`, {
+      method: "post",
+      headers: {
+        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+      body: "receta=" + receta,
+    });
+    const datos = await resultado.json();
+    return datos;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 function traeFacturasCliente() {
   let { id_ambiente } = oPos[0];
@@ -2337,6 +2462,9 @@ function btnRecetaProducto(boton) {
 
   subrece = document.querySelector('#btnSubReceta');
 
+  // document.querySelector("#btnRecetas").classList.add("apaga");
+
+
   
   if(subreceta==="1"){
     subrece.classList.add('apaga')
@@ -2386,7 +2514,7 @@ function btnRecetaProducto(boton) {
             </tr>`);
       })
 
-      
+      let totalRece = recetas.reduce((valor_promedio) => valor_promedio, 0);
 
       /* listaComanda.map((productos) => {
         let { id, producto, cant, total, codigo, ambiente } = productos;
@@ -2424,12 +2552,13 @@ function btnRecetaProducto(boton) {
               </td>
           </tr>`);
       }
-
+      
+      */
       $("#valorReceta > tbody").append(
         "<tr><td>Valor Receta</td><td id='vlrTotal'>" +
-          number_format(valorReceta, 2) +
+          number_format(totalRece, 2) +
           "</td><td></td></tr>"
-      ); */
+      ); 
     },
   });
 }

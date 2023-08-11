@@ -147,7 +147,7 @@ foreach ($imptos as $impto) { ?>
         </div>
         <div class="modal-body" id="traeReceta" style="padding:0;">
           <div class="container-fluid">
-            <div class="panel panel-success" style="padding-bottom: 0;">
+            <div class="panel panel-success" style="padding-bottom: 0;margin-bottom:0px;">
               <div class="panel-heading"> 
                 <div class="row producto" style="display: flex;">
                   <div class="col-lg-6">
@@ -172,7 +172,7 @@ foreach ($imptos as $impto) { ?>
                   </div>
                 </div>
               </div>
-              <div class="panel-body" style="padding:0px;">
+              <div class="panel-body" style="padding:0px;max-height: 350px;overflow: auto;">
                 <table id="materiaPrima" class="table table-bordered table-hover ">
                   <thead >
                     <tr class="warning">
@@ -338,7 +338,7 @@ foreach ($imptos as $impto) { ?>
           <h3 style="margin:10px" id="exampleModalLabel">Adicionar SubReceta</h3>
         </div>
         <div id="datos_ajax_register"></div>
-        <div class="modal-body"> 
+        <div class="modal-body" style="max-height: 400px;overflow: auto;"> 
         <table id="subRecetas" class="table table-bordered table-hover ">
           <thead >
             <tr class="warning">
@@ -350,39 +350,11 @@ foreach ($imptos as $impto) { ?>
           </thead>
           <tbody>
           </tbody>
-        </table>  
-          <!-- <div class="form-group">
-            <label for="productoRec" class="control-label col-lg-2 col-md-2">Producto</label>
-            <div class="col-lg-4 col-md-4">
-              <select id="productoRec" name="productoRec" onblur='datosProducto(this.value)'>
-              </select>
-            </div>
-            <label for="medidaRec" class="control-label col-lg-2 col-md-2">Medida</label>
-            <div class="col-lg-4 col-md-4">
-              <input type="hidden" id='idMedida' name='idMedida'>
-              <input type="text" class="form-control" id="medidaRec" name="medidaRec" readonly="">
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="seccion" class="control-label col-lg-2 col-md-2">Cantidad</label> 
-            <div class="col-lg-2 col-md-2">
-              <input type="text" name="cantidadRec" id="cantidadRec" min="1" onblur='actualizaPrecio()'>
-            </div>
-            <label for="impto" class="control-label col-lg-2  col-md-2">Valor Unitario</label>
-            <div class="col-lg-2 col-md-2">
-              <input type="text" min='0' class="form-control" id="valorUni" name="valorUni" required maxlength="12" disabled readonly=""> 
-            </div>
-            <label for="impto" class="control-label col-lg-2  col-md-2">Valor Total</label>
-            <div class="col-lg-2 col-md-2">
-              <input type="text" min='0' class="form-control" id="valorTot" name="valorTot" required maxlength="12" disabled readonly=""> 
-            </div>
-          </div> -->
+        </table>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="saleMat()"><i class="fa fa-reply"></i> Regresar</button>
           <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar Datos</button>
-          <!-- <div class="btn-group">
-          </div> -->
         </div>
       </div>
     </div>

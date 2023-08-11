@@ -5,6 +5,23 @@ date_default_timezone_set('America/Bogota');
 
 class Pos_Actions
 {
+
+    public function getSubRecetas($receta){
+        global $database;
+
+        $data = $database->select('recetasEstandar',[
+            'id_receta',
+            'nombre_receta',
+            'valor_costo',
+        ],[
+            'estado' => 1,
+            'subreceta' => 1,
+            'ORDER' => ['nombre_receta' => 'ASC']
+        ]);
+        return $data;
+    }
+
+
     public function traeProductosVentaTotal($comanda, $ambiente){
       global $database;
 
