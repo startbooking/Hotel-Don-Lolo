@@ -5,7 +5,9 @@
 	
 	$id          = $_POST['id'];
 	$prodRecetas = $pos->getProductosRecetas($id);
+	$subRecetas  = $pos->getSubRecetasProducto($id);
+	$productos = array_merge($prodRecetas, $subRecetas);
 
-	echo json_encode($prodRecetas);
+	echo json_encode($productos) 
 
 ?>	 

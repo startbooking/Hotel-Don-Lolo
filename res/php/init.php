@@ -13,6 +13,11 @@ try {
         'username' => $dbuser,
         'password' => $dbpass,
         'charset' => 'utf8',
+        /* 'option' => [
+            PDO::ATTR_CASE => PDO::FETCH_ASSOC
+        ], */
+        
+
     ]);
 } catch (PDOException $e) {
     echo 'No se pudo Conectar a la Base de Datos';

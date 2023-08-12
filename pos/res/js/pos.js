@@ -576,6 +576,11 @@ function ventasCreditoDia() {
 }
 
 $(document).ready(function () {
+
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { user } = sesion;
+  let { usuario_id, usuario, tipo, pos, estado, ingreso, estado_usuario_pms } = user;
+
   $("#myModalAnulaFactura").on("show.bs.modal", function (event) {
     var modal = $(this);
     var button = $(event.relatedTarget); // Botón que activó el modal
@@ -651,27 +656,50 @@ $(document).ready(function () {
 
   });
 
+  $("#modalAdicionaSubReceta").on("show.bs.modal", function () {
+    // Aquí va el código a ejecutar cuando se dispara el evento de cerrar la ventana modal
+});
+
 
 });
 
 
 async function guardaSubReceta(){
-  // let recetas = document.querySelector('#')
   let receta = document.querySelector("#idReceta").value
-
   subReceSele = await traeSubRecetasSeleccionadas();
-  // console.log(subReceSele);
-  // Envia Subrecetas a fetch
+  guarda = await guardaSubRecetas(subReceSele);
+  $("#modalAdicionaSubReceta").modal('hide');
+  $("#btnRecetas").css("display", "block");
+
+  console.log(receta)
+
+  recetas = await traeSubRecetas(receta)
 
 
 
 }
 
+
+const guardaSubRecetas = async (subReceta) => {
+  try {
+    const resultado = await fetch(`res/php/user_actions/guardaSubRecetas.php`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8", // Y le decimos que los datos se enviaran como JSON
+      },
+      body: JSON.stringify({ ...subReceta }),
+    });
+    const datos = await resultado.json();
+    return datos;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
 async function modalSubReceta(){
-  // let receta = $("#idReceta").val();
   let receta = document.querySelector("#idReceta").value
   let producto = document.querySelector("#nomReceta").value
-  // let producto = $("#nomReceta").val();
   $("#modalAdicionaSubReceta").modal('show');
   $("#btnRecetas").css("display", "none");
 
@@ -682,8 +710,6 @@ async function modalSubReceta(){
 
   await muestraSubRecetasHTML(subrecetas)
   
-  // console.log(subrecetas);
-
 }
 
 async function muestraSubRecetasHTML(subrecetas) {
@@ -731,32 +757,16 @@ async function traeSubRecetasSeleccionadas() {
       let nombreSubRece = nombre.innerText;
       let cantidad = checkbox.closest("tr").querySelectorAll("td")[3].childNodes[1].value;
       let idSubRece = nombre.children[0].value;
-      let costoSubR = fila1.children[1].value;
-
-      /* 
-      console.log(idReceta)
-      console.log(fila);
-      console.log(fila[3])
-      console.log(nombre);
-      console.log(idSubRece);
-      console.log(cantidad); 
-      console.log(nombreSubRece);
-      */
-      
-      /* let descripcion = checkbox
-        .closest("tr")
-        .querySelectorAll("td")[1].innerHTML;
-      let idCliente = checkbox
-        .closest("tr")
-        .querySelectorAll("td")[2].innerHTML; */
-
-      // console.log(idCliente);
+      let costoSubR = fila1.children[0].value;
       let data = {
         idSubRece,
         nombreSubRece,
         idReceta,
         costoSubR,
+        cantidad,
+        usuario_id,
       };
+      // console.log(data) ;
       checkedIds.push(data);
     }
   }
@@ -2303,17 +2313,15 @@ function agregarFila(
                       <td>${medida}</td>
                       <td align="right">${number_format(valUnita, 2)}</td>
                       <td align="right">${number_format(valTotal, 2)}</td>
-                      <td style="width: 10%;text-align: center">
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                          <button 
-                            id="${idprod}"
-                            type="button" 
-                            class="btn btn-danger btn-xs"
-                            receta='${idrece}'
-                            onclick="actualizaRece(this.id,this.parentNode.parentNode.rowIndex,this.receta,${idprod})">
-                            <i class="glyphicon glyphicon-trash"></i>
-                          </button>
-                        </div>
+                      <td style="text-align: center">
+                        <button 
+                          id="${idprod}"
+                          type="button" 
+                          class="btn btn-danger btn-xs"
+                          receta='${idrece}'
+                          onclick="actualizaRece(this.id,this.parentNode.parentNode.rowIndex,this.receta,${idprod})">
+                          <i class="glyphicon glyphicon-trash"></i>
+                        </button>
                       </td>
                     </tr>`;
   $("#materiaPrima tr:last").after(htmlTags);
@@ -2461,11 +2469,7 @@ function btnRecetaProducto(boton) {
   $("#idReceta").val(id);
 
   subrece = document.querySelector('#btnSubReceta');
-
-  // document.querySelector("#btnRecetas").classList.add("apaga");
-
-
-  
+ 
   if(subreceta==="1"){
     subrece.classList.add('apaga')
   }else{
@@ -2487,18 +2491,26 @@ function btnRecetaProducto(boton) {
       $("#valorReceta > tbody").html("");
       valorReceta = 0;
 
+      let clase = '';
+
       recetas.map((receta) => {
+        console.log(receta);
         let {nombre_producto,
           cantidad,
           descripcion_unidad,
           valor_unitario_promedio,
           valor_promedio,
+          tipoProducto,
           id,
           id_receta,
           subreceta} = receta;
 
+          if( tipoProducto == 1){
+            clase = "success"
+          }
+
           $("#materiaPrima > tbody").append(`
-            <tr>
+            <tr class="${clase}">
               <td>${nombre_producto}</td>
               <td class="derecha">${cantidad}</td>
               <td>${descripcion_unidad}</td>
@@ -2516,44 +2528,6 @@ function btnRecetaProducto(boton) {
 
       let totalRece = recetas.reduce((valor_promedio) => valor_promedio, 0);
 
-      /* listaComanda.map((productos) => {
-        let { id, producto, cant, total, codigo, ambiente } = productos;
-      }); */
-
-      /* for (i = 0; i < data.length; i++) {
-        valorReceta += Number.parseFloat(data[i]["valor_promedio"], 2);
-        $("#materiaPrima > tbody").append(`<tr>
-          <td class='paddingCelda' align='left'>${
-            data[i]["nombre_producto"]
-          }</td>
-          <td style="text-align:right">${number_format(
-            data[i]["cantidad"],
-            2
-          )}</td>
-          <td class='paddingCelda' align='left'>${
-            data[i]["descripcion_unidad"]
-          }</td>
-          <td class='paddingCelda' align='right'>${number_format(
-            data[i]["valor_unitario_promedio"],
-            2
-          )}</td>
-          <td class='paddingCelda' align='right'>${number_format(
-            data[i]["valor_promedio"],
-            2
-          )}</td>
-          <td class='paddingCelda' align='center'>
-            <button 
-              id='${data[i]["id"]}' 
-              receta='${data[i]["id_receta"]}' 
-              subreceta = '${data[i]["subreceta"]}'
-              class='btn btn-danger btn-xs elimina_articulo' onclick='actualizaRece(this.id,this.parentNode.parentNode.rowIndex,this.receta,"${
-                data[i]["id"]
-              }");'><i class='glyphicon glyphicon-trash '></i></button>
-              </td>
-          </tr>`);
-      }
-      
-      */
       $("#valorReceta > tbody").append(
         "<tr><td>Valor Receta</td><td id='vlrTotal'>" +
           number_format(totalRece, 2) +

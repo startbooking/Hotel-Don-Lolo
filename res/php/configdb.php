@@ -1,6 +1,7 @@
 <?php
 
   $dbtype = 'mysql';
+  $host   = 'localhost';
   $server = 'localhost';
   $dbname = 'donlolo';
   // $dbname = 'donloloweb';

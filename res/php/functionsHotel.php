@@ -1,12 +1,11 @@
 <?php
 
-require 'init.php';
+require_once 'init.php';
+
 date_default_timezone_set('America/Bogota');
 
 class Hotel_Actions
 {
-
-
     public function traeUsuarioNC($factura){
         global $database;
     

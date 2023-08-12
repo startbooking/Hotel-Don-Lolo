@@ -354,7 +354,7 @@ foreach ($imptos as $impto) { ?>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="saleMat()"><i class="fa fa-reply"></i> Regresar</button>
-          <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar Datos</button>
+          <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
         </div>
       </div>
     </div>

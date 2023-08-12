@@ -6,6 +6,67 @@ date_default_timezone_set('America/Bogota');
 class Pos_Actions
 {
 
+    public function getSubRecetasProductoOld($id){
+        global $database;
+
+        $data = $database->select('productos_recetas',[
+            'id_producto',
+            'id_unidad_procesa',
+        ]);
+        return $data;
+
+    }
+
+
+    public function getSubRecetasProducto($id)
+    {
+        global $database;
+
+        $data = $database->select('productos_recetas', [
+            '[>]recetasEstandar' => ['id_producto' => 'id_receta'],
+            '[>]unidades' => ['id_unidad_procesa' => 'id_unidad'],
+        ], [
+            'recetasEstandar.nombre_receta(nombre_producto)',
+            'productos_recetas.id_unidad_procesa',
+            'unidades.descripcion_unidad',
+            'productos_recetas.id',
+            'productos_recetas.tipoProducto',
+            'productos_recetas.id_producto',
+            'productos_recetas.id_receta',
+            'productos_recetas.valor_unitario_promedio',
+            'productos_recetas.valor_unitario_compra',
+            'productos_recetas.cantidad',
+            'productos_recetas.valor_promedio',
+            'productos_recetas.valor_compra',
+        ], [
+            'productos_recetas.id_receta' => $id,
+            'productos_recetas.tipoProducto' => 1,
+            'productos_recetas.deleted_at' => null,            
+            'ORDER' => ['recetasEstandar.nombre_receta' => 'ASC'],
+        ]);
+
+        return $data;
+    }
+
+
+    public function guardaSubReceta($subreceta,$idReceta,$costoSubR,$cantidad, $usr, $tipo){
+        global $database;
+
+        $data = $database->insert('productos_recetas',[
+            'id_receta' => $idReceta,
+            'id_producto' => $subreceta,
+            'tipoProducto' => $tipo,
+            'cantidad' => $cantidad,
+            'valor_unitario_promedio' => $costoSubR,
+            'valor_promedio' => $costoSubR * $cantidad,
+            'id_unidad_procesa' => 55,
+            'id_usuario' => $usr,
+            'created_at' => date('Y-m-d H:i:s'),
+
+        ]);
+        return $database->id();
+    }
+
     public function getSubRecetas($receta){
         global $database;
 
@@ -21,7 +82,14 @@ class Pos_Actions
         return $data;
     }
 
+    public function getSubRecetasAsignada($receta){
+        global $database;
 
+        $data = $database->query("SELECT recetasEstandar.id_receta, recetasEstandar.nombre_receta, recetasEstandar.valor_costo, recetasEstandar.subreceta FROM recetasEstandar, productos_recetas WHERE recetasEstandar.subreceta = 1 AND productos_recetas.tipoProducto = 1 AND productos_recetas.id_receta = $receta AND recetasEstandar.id_receta <> productos_recetas.id_producto ORDER BY recetasEstandar.nombre_receta ASC")->fetchAll();
+        return $data;
+    }
+
+    
     public function traeProductosVentaTotal($comanda, $ambiente){
       global $database;
 
@@ -2015,6 +2083,7 @@ class Pos_Actions
                 'unidades.descripcion_unidad',
                 'productos_recetas.id',
                 'productos_recetas.id_producto',
+                'productos_recetas.tipoProducto',
                 'productos_recetas.id_receta',
                 'productos_recetas.valor_unitario_promedio',
                 'productos_recetas.valor_unitario_compra',
@@ -2023,7 +2092,9 @@ class Pos_Actions
                 'productos_recetas.valor_compra',
             ], [
                 'productos_recetas.id_receta' => $id,
+                'productos_recetas.tipoProducto' => 0,
                 'productos_recetas.deleted_at' => null,
+                
                 'ORDER' => ['productos_inventario.nombre_producto' => 'ASC'],
             ]);
 
