@@ -651,18 +651,14 @@ $(document).ready(function () {
   });
 
   $("#modalAdicionaSubReceta").on("show.bs.modal", function (event) {
-    console.log(event);
     swal('Entro adicionar Subreceta')
 
   });
 
   $("#modalAdicionaSubReceta").on("show.bs.modal", function () {
     // Aquí va el código a ejecutar cuando se dispara el evento de cerrar la ventana modal
+  });
 });
-
-
-});
-
 
 async function guardaSubReceta(){
   let receta = document.querySelector("#idReceta").value
@@ -671,14 +667,12 @@ async function guardaSubReceta(){
   $("#modalAdicionaSubReceta").modal('hide');
   $("#btnRecetas").css("display", "block");
 
-  console.log(receta)
-
-  recetas = await traeSubRecetas(receta)
-
-
+  const productos = await traeProductosRecetas(receta);
+  materiaPrima = document.querySelector('#materiaPrima  tbody')
+  limpia = await limpiaProductosRecetasHMLT();
+  await muestraProductosRecetasHML(productos)
 
 }
-
 
 const guardaSubRecetas = async (subReceta) => {
   try {
@@ -696,7 +690,6 @@ const guardaSubRecetas = async (subReceta) => {
   }
 };
 
-
 async function modalSubReceta(){
   let receta = document.querySelector("#idReceta").value
   let producto = document.querySelector("#nomReceta").value
@@ -710,6 +703,8 @@ async function modalSubReceta(){
 
   await muestraSubRecetasHTML(subrecetas)
   
+
+
 }
 
 async function muestraSubRecetasHTML(subrecetas) {
@@ -766,12 +761,9 @@ async function traeSubRecetasSeleccionadas() {
         cantidad,
         usuario_id,
       };
-      // console.log(data) ;
       checkedIds.push(data);
     }
   }
-
-  // console.log(checkedIds);
 
   return checkedIds;
 }
@@ -782,7 +774,7 @@ async function limpiaSubRecetasHTML() {
     subRecetas.removeChild(subRecetas.firstChild);
   }
 }
-
+ 
 const traeSubRecetas = async (receta,) => {
   try {
     const resultado = await fetch(`res/php/user_actions/traeSubRecetas.php`, {
@@ -2455,7 +2447,7 @@ function adicionaMateriaPrima() {
   });
 }
 
-function btnRecetaProducto(boton) {
+async function btnRecetaProducto(boton) {
   $("#dataRecetaProducto").modal("show");
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
@@ -2470,13 +2462,14 @@ function btnRecetaProducto(boton) {
 
   subrece = document.querySelector('#btnSubReceta');
  
-  if(subreceta==="1"){
-    subrece.classList.add('apaga')
-  }else{
-    subrece.classList.remove('apaga')
-  }
+  const productos = await traeProductosRecetas(id);
+  materiaPrima = document.querySelector('#materiaPrima  tbody')
+  limpia = await limpiaProductosRecetasHMLT();
+  await muestraProductosRecetasHML(productos)
 
-  $.ajax({
+
+
+/*   $.ajax({
     url: "res/php/user_actions/getRecetasProductos.php",
     type: "POST",
     dataType: "json",
@@ -2535,6 +2528,73 @@ function btnRecetaProducto(boton) {
       ); 
     },
   });
+ */
+
+}
+
+
+
+async function muestraProductosRecetasHML(productos){
+  
+  productos.map((producto) => {
+    const { nombre_producto, cantidad, descripcion_unidad,valor_unitario_promedio, valor_promedio, tipoProducto, id, id_receta, subreceta } = producto;
+    const row = document.createElement("tr");
+    let aviso = '';
+
+    if( tipoProducto == 1){
+      aviso = `
+      <i class="fa-solid fa-registered info" style="color:green"></i>
+      `
+    }
+
+    row.innerHTML += `
+        <td>${aviso} ${nombre_producto}</td>
+        <td class="derecha">${cantidad}</td>
+        <td>${descripcion_unidad}</td>
+        <td class="derecha">${number_format(valor_unitario_promedio, 2)}</td>
+        <td class="derecha">${number_format(valor_promedio, 2)}</td>
+        <td class="centro">
+          <button 
+          id='${id}' 
+          receta='${id_receta}' 
+          subreceta = '${subreceta}'
+          class='btn btn-danger btn-xs elimina_articulo' onclick='actualizaRece(this.id,this.parentNode.parentNode.rowIndex,this.receta,"${id}");'><i class='glyphicon glyphicon-trash '></i></button>
+        </td>`;          
+      // console.log(row);
+      materiaPrima.appendChild(row);
+    }) 
+
+
+
+  // $("#materiaPrima > tbody").html("");
+  // $("#valorReceta > tbody").html("");
+
+
+
+
+}
+
+async function limpiaProductosRecetasHMLT(){
+  while (materiaPrima.firstChild) {
+    materiaPrima.removeChild(materiaPrima.firstChild);
+  }
+
+}
+
+async function traeProductosRecetas(id){
+  try {
+    const resultado = await fetch(`res/php/user_actions/getRecetasProductos.php`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+      body: "id="+id,
+    });
+    const datos = await resultado.json();
+    return datos;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 function actualizaCliente() {
@@ -3104,7 +3164,6 @@ function clientes() {
   });
 }
 
-// seccionList
 function recuperarCuenta() {
   $("#recuperarComanda").val(1);
   $("#listaComandas").css("display", "none");

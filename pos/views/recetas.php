@@ -50,10 +50,10 @@ $recetas = $pos->getRecetas($idamb);
 								    <td><?php echo $producto['nombre_seccion']; ?></td>
 								    <td class="t-right"><?php
 											if ($producto['valor_costo_porcion'] == '') {
-													echo number_format(0, 2);
+												echo number_format(0, 2);
 											} else {
-													echo number_format($producto['valor_costo_porcion'], 2);
-                                                }
+												echo number_format($producto['valor_costo_porcion'], 2);
+											}
 								    ?>
 										
 									</td>
@@ -73,6 +73,19 @@ $recetas = $pos->getRecetas($idamb);
 													>
 													<i class='fa fa-pie-chart'></i> 
 												</button>
+												<!-- <button 
+													data-toggle="modal" 
+													type="button" 
+													id='btnProductos'
+													class="btn btn-success btn-xs" 
+													data-receta="<?php echo $producto['nombre_receta']; ?>" 
+													data-id="<?php echo $producto['id_receta']; ?>" 
+													data-subreceta="<?php echo $producto['subreceta']; ?>" 
+													title="Componentes Receta [Materia Prima]"
+													href="#dataRecetaProducto"
+													>
+													<i class='fa fa-pie-chart'></i> 
+												</button> -->
 												<button 
 													type="button" 
 													class="btn btn-info btn-xs" 
