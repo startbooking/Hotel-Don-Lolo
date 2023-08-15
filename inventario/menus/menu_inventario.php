@@ -18,12 +18,10 @@
       <li class="treeview">
         <a href="#">
         <i class="fa-solid fa-down-left-and-up-right-to-center"></i>
-        
-          <!-- <i class="fa fa-files-o"></i> -->
            <span>Movimientos</span> <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
-          <li id="topNavManageOrder" class="active"><a href="entradas"><i class="fa fa-sign-in"></i> Entradas</a></li>
+          <li id="topNavManageOrder"><a href="entradas"><i class="fa fa-sign-in"></i> Entradas</a></li>
           <li><a href="salidas"><i class="fa fa-sign-out"></i> Salidas</a></li>
           <li><a href="traslados"><i class="fa fa-window-restore"></i> Traslados</a></li>
           <li><a href="ajustes"><i class="fa fa-random"></i> Ajustes</a></li>

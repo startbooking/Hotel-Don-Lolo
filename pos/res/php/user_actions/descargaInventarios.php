@@ -26,6 +26,9 @@ $tipoMov    = $tipoMovi[0]['id_tipomovi'];
 $productosVenta = $pos->getDescargaInventario($amb, $nComa, 1);
 $recetasVenta = $pos->getProductosRecetasVenta($amb, $nComa, 2);
 
+// echo print_r($recetasVenta);
+echo print_r($recetasVenta);
+
 if (count($productosVenta) == 0 && count($recetasVenta) == 0) {
     $numeroMov = 0;
 } else {

@@ -287,6 +287,11 @@ br.clear {
   width: 100%;
 }
 
+
+.form-horizontal .control-label {
+  padding-top: 0px;
+}
+
 .contenedor-img {
   background-color: #fff;
   border-radius: 10px;

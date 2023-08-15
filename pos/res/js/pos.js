@@ -2389,9 +2389,8 @@ function datosProducto(id) {
       }
       can = $("#cantidadRec").val();
       $("#idMedida").val(unidad_procesa);
-      $("#valorUni").val(number_format(valor_promedio / valor_conversion, 2));
-      $("#valorTot").val(
-        number_format(can * (valor_promedio / valor_conversion), 2)
+      $("#valorUni").val(number_format(valor_promedio, 2));
+      $("#valorTot").val(number_format(can * (valor_promedio), 2)
       );
       $("#cantidadRec").focus();
     },
@@ -2459,6 +2458,11 @@ async function btnRecetaProducto(boton) {
   $(".modal-title").html(`Receta Estandar : ${receta}`);
   $("#idusrupd").val(usuario_id);
   $("#idReceta").val(id);
+
+  if(subreceta ==1){
+    btnRece = document.querySelector('#btnSubReceta')
+    btnRece.classList.add('apaga');
+  }
 
   subrece = document.querySelector('#btnSubReceta');
  

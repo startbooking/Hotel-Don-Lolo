@@ -1356,12 +1356,20 @@ class Pos_Actions
             return $data();
         }
 
-        public function getProductosRecetasVenta($idamb, $nComa, $tipo)
+        public function getProductosRecetasVentaOld($idamb, $nComa, $tipo)
         {
             global $database;
 
             $data = $database->query("SELECT detalle_facturas_pos.cant, producto.id_receta, productos_recetas.cantidad, productos_inventario.id_producto, productos_inventario.unidad_almacena, productos_inventario.valor_promedio, productos_inventario.nombre_producto, detalle_facturas_pos.comanda FROM detalle_facturas_pos , producto , productos_recetas, productos_inventario WHERE productos_recetas.deleted_at is Null AND detalle_facturas_pos.producto_id = producto.producto_id AND producto.id_receta = productos_recetas.id_receta AND productos_recetas.id_producto = productos_inventario.id_producto AND detalle_facturas_pos.comanda = '$nComa' AND detalle_facturas_pos.ambiente = '$idamb' AND producto.tipo_producto = '$tipo'")->fetchAll();
 
+            return $data;
+        }
+
+        public function getProductosRecetasVenta($idamb, $nComa, $tipo)
+        {
+            global $database;
+
+            $data = $database->query("SELECT detalle_facturas_pos.cant, detalle_facturas_pos.producto_id, producto.id_receta, producto.nom, producto.venta, productos_recetas.cantidad, productos_recetas.valor_promedio, productos_recetas.id_producto, productos_inventario.unidad_almacena, productos_inventario.valor_promedio, productos_inventario.nombre_producto, productos_inventario.id_producto FROM detalle_facturas_pos, producto, productos_recetas, productos_inventario WHERE detalle_facturas_pos.comanda = '$nComa' AND detalle_facturas_pos.ambiente = '$idamb' AND detalle_facturas_pos.producto_id = producto.producto_id AND producto.id_receta = productos_recetas.id_receta AND producto.tipo_producto = '$tipo' AND productos_recetas.deleted_at IS NULL AND productos_recetas.tipoProducto = 0 AND productos_recetas.id_producto = productos_inventario.id_producto ORDER BY nombre_producto")->fetchAll();
             return $data;
         }
 

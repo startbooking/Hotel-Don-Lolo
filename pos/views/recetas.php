@@ -36,8 +36,8 @@ $recetas = $pos->getRecetas($idamb);
 								<tr class="warning">
 		              <th>Producto</th>
 		              <th>Seccion</th>
-		              <th>Valor Costo</th>
 		              <th>Precio Venta</th>
+		              <th>Valor Costo</th>
 		              <th>% Costo</th>
 		              <th>Estado</th>
 		              <th>Accion</th>
@@ -48,6 +48,7 @@ $recetas = $pos->getRecetas($idamb);
 								  <tr style='font-size:12px'>
 								    <td><?php echo $producto['nombre_receta']; ?></td>
 								    <td><?php echo $producto['nombre_seccion']; ?></td>
+										<td class="t-right"><?php echo number_format($producto['valor_porcion'], 2); ?></td>
 								    <td class="t-right"><?php
 											if ($producto['valor_costo_porcion'] == '') {
 												echo number_format(0, 2);
@@ -57,7 +58,6 @@ $recetas = $pos->getRecetas($idamb);
 								    ?>
 										
 									</td>
-								    <td class="t-right"><?php echo number_format($producto['valor_porcion'], 2); ?></td>
 								    <td class="t-right"><?php echo number_format($producto['por_costo'], 2); ?> %</td>
 								    <td class="t-center"><?php echo estadoReceta($producto['estado']); ?></td>
 								    <td style="display:flex;">

@@ -1807,7 +1807,7 @@ function procesaTraslado(tipo) {
         localStorage.removeItem("tipoMovSale");
         localStorage.removeItem("destinoTras");
         localStorage.removeItem("fechaTras");
-        $(location).attr("href", "traslados");
+        // $(location).attr("href", "traslados");
         imprimeMovimiento(data, 3);
       },
     });
