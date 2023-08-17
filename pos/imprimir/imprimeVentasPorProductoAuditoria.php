@@ -38,13 +38,13 @@ if (count($ventas) == 0) {
     $pdf->Cell(190, 5, 'SIN PRODUCTOS VENDIDOS EN EL DIA', 0, 0, 'C');
     $pdf->Ln(2);
 } else {
-    $pdf->Cell(60, 6, 'Producto.', 0, 0, 'C');
-    $pdf->Cell(20, 6, 'Cantidad ', 0, 0, 'C');
-    $pdf->Cell(25, 6, 'Valor. ', 0, 0, 'C');
-    $pdf->Cell(25, 6, 'Impuesto. ', 0, 0, 'C');
-    $pdf->Cell(25, 6, 'Total. ', 0, 0, 'C');
-    $pdf->Cell(20, 6, '% Cant. ', 0, 0, 'C');
-    $pdf->Cell(20, 6, '% Valor. ', 0, 1, 'C');
+    $pdf->Cell(60, 6, 'Producto.', 1, 0, 'C');
+    $pdf->Cell(20, 6, 'Cantidad ', 1, 0, 'C');
+    $pdf->Cell(25, 6, 'Valor. ', 1, 0, 'C');
+    $pdf->Cell(25, 6, 'Impuesto. ', 1, 0, 'C');
+    $pdf->Cell(25, 6, 'Total. ', 1, 0, 'C');
+    $pdf->Cell(20, 6, '% Cant. ', 1, 0, 'C');
+    $pdf->Cell(20, 6, '% Valor. ', 1, 1, 'C');
     foreach ($ventas as $comanda) {
         $pdf->Cell(60, 5, utf8_decode($comanda['nom']), 0, 0, 'L');
         $pdf->Cell(20, 5, $comanda['cant'], 0, 0, 'C');

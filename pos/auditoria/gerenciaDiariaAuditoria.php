@@ -18,10 +18,6 @@
   $anuladas = $pos->getFacturasDiaAmbiente('X', $idamb);
   $comandaAnuladas = $pos->getComandasActivas($idamb, 'X');
 
- /*  echo print_r($anuladas).'<br>';
-
-  echo count($anuladas).' Facturas Anuladas<br>'; */
-
   $mesasDis = $pos->getMesasDisponibles($idamb);
 
   $mesasVen = 0;
@@ -29,6 +25,7 @@
   $mesasAnu = 0;
   $imptVen = 0;
   $propVen = 0;
+  $servVen = 0;
   $descVen = 0;
   $totaVen = 0;
   $clieVen = 0;
@@ -39,7 +36,8 @@
       $netoVen = $facturas[0]['neto'];
       $imptVen = $facturas[0]['impto'];
       $propVen = $facturas[0]['propina'];
-      $descVen = $facturas[0]['descu'];
+      $descVen = $facturas[0]['descuento'];
+      $servVen = $facturas[0]['servicio'];
       $totaVen = $facturas[0]['total'];
       $clieVen = $facturas[0]['pax'];
   }
@@ -48,12 +46,10 @@
   }
   $comanAnu = count($comandaAnuladas);
 
-  $ingDia = $pos->ingresaDatosAuditoria($fecha, $mesasDis, $mesasVen, $mesasAnu, $comanAnu, $factVen, $netoVen, $imptVen, $propVen, $descVen, $totaVen, $clieVen, $idamb, $user, $iduser);
+  $ingDia = $pos->ingresaDatosAuditoria($fecha, $mesasDis, $mesasVen, $mesasAnu, $comanAnu, $factVen, $netoVen, $imptVen, $propVen, $servVen, $totaVen, $clieVen, $idamb, $user, $iduser, $descVen);
 
-  $ventasDia = $pos->getVentasDiaPos($idamb, $fecha);
-
-  $ventasMes = $pos->getVentasMesPos($idamb, $mes, $anio);
-
+  $ventasDia  = $pos->getVentasDiaPos($idamb, $fecha);
+  $ventasMes  = $pos->getVentasMesPos($idamb, $mes, $anio);
   $ventasAnio = $pos->getVentasAnioPos($idamb, $anio);
 
   require_once '../imprimir/imprimeGerenciaDiariaAuditoria.php';

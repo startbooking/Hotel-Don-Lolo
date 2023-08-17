@@ -25,9 +25,7 @@ $tipoMov    = $tipoMovi[0]['id_tipomovi'];
 
 $productosVenta = $pos->getDescargaInventario($amb, $nComa, 1);
 $recetasVenta = $pos->getProductosRecetasVenta($amb, $nComa, 2);
-
-// echo print_r($recetasVenta);
-echo print_r($recetasVenta);
+$subRecetas =  $pos->getProductosSubRecetasVenta($amb, $nComa, 2);
 
 if (count($productosVenta) == 0 && count($recetasVenta) == 0) {
     $numeroMov = 0;
@@ -50,6 +48,19 @@ if (count($productosVenta) == 0 && count($recetasVenta) == 0) {
 
     if (count($recetasVenta) > 0) {
         foreach ($recetasVenta as $key => $receta) {
+            $producto = $receta['id_producto'];
+            $cantidad = $receta['cant'] * $receta['cantidad'];
+            $unidadalm = $receta['unidad_almacena'];
+            $unit = $receta['valor_promedio'];
+            $subtotal = $unit * $cantidad;
+            $costo = $subtotal;
+
+            $adiRec = $pos->insertaMovimiento($tipoMov, $tipo, $movimiento, $numeroMov, $fecha, $centroCosto, $docu, $producto, $cantidad, $unidadalm, $unit, $subtotal, $costo, $almacen, 1, $usuario);
+        }
+    }
+
+    if (count($subRecetas) > 0) {
+        foreach ($subRecetas as $key => $receta) {
             $producto = $receta['id_producto'];
             $cantidad = $receta['cant'] * $receta['cantidad'];
             $unidadalm = $receta['unidad_almacena'];

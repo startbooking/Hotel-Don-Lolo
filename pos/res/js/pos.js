@@ -428,7 +428,7 @@ function balanceCaja() {
     id: id_ambiente,
     amb: nombre,
     user: usuario,
-    iduser: usuario_id,
+    iduser: usuario_id, 
     impto: impuesto,
     prop: propina,
     fecha: fecha_auditoria,
@@ -2736,7 +2736,6 @@ function facturasPorFecha() {
   huesped = $("#desdeHuesped").val();
   formaPa = $("#desdeFormaPago").val();
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  // let { pos } = sesion;
   let { id_ambiente, prefijo } = oPos[0];
 
   parametros = {
@@ -4850,10 +4849,6 @@ function guardaCliente() {
     parametros.push({ name: "empleado", value: empleado });
   }
 
-/*   console.log(empleado);
-
-  console.log(parametros);
- */
   $.ajax({
     url: "res/php/user_actions/guardarCliente.php",
     type: "POST",

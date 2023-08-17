@@ -10,8 +10,7 @@
   $user = $_POST['user'];
   $iduser = $_POST['iduser'];
 
-  $ventas = $pos->getTotalGruposVendidos($idamb);
-
+  $ventas   = $pos->getTotalGruposVendidos($idamb);
   $cantidad = $pos->getCantidadProductosVendidos($idamb);
 
   require_once '../imprimir/imprimeVentasPorGrupoAuditoria.php';

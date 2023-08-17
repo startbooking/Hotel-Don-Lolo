@@ -212,7 +212,7 @@ if ($perfil == 1 && $facturador == 1) {
 
     $message = $recibeCurl['message'];
 
-    $regis = $hotel->ingresaDatosFe($numDoc, $prefNC, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cude, $QRStr, $recibeCurl, $Isvalid, $eNote, $errorMessage, $statusCode, $statusDesc, $statusMess);
+    $regis = $hotel->ingresaDatosFe($numDoc, $prefNC, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cude, $QRStr, '', $Isvalid, $eNote, $errorMessage, $statusCode, $statusDesc, $statusMess);
 
     include_once '../../imprimir/imprimeNotaCredito.php';
 

@@ -6,7 +6,7 @@ function nombreMes($mes)
     $nombreMes = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 
     return $nombreMes[$mes - 1];
-}
+} 
 
 function crearThumbJPEG($rutaImagen, $rutaDestino, $anchoThumb = 200, $altoThumb = 150, $calidad = 50)
 {
@@ -110,6 +110,10 @@ function estadoFactura($estado)
             return '<span style="font-size:12px" class="label label-info">Activa</span>';
         case 1:
             return '<span style="font-size:12px" class="label label-danger">Anulada</span>';
+        case 'A':
+            return '<span style="font-size:12px" class="label label-info">Activa</span>';
+        case 'X':
+            return '<span style="font-size:12px" class="label label-danger">Anulada</span>'; 
         case 2:
             return '<span style="font-size:12px" class="label label-default">Sin Definir</span>';
     }

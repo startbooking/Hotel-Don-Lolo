@@ -11,6 +11,10 @@
   $logo = $_POST['logo'];
   $fecha = $_POST['fecha'];
 
+  $dia = strtotime('-1 day', strtotime($fecha));
+  $ayer = date('Y-m-d', $dia);
+  $inicial = date('Y-m-01', $dia);
+
   ?> 
 <section class="content centrar">
   <div class="container">
@@ -29,17 +33,17 @@
             <button class="btn btn-success btnTitle" type="buttom" onclick='historicoBalanceCaja()'><i class="fa fa-print" aria-hidden="true"></i> Imprimir</button>
           </div>
         </div>
-      </div> 
+      </div>  
       <div class="panel-body ">
         <div class="form-horizontal">
           <div class="form-group">
             <label class="control-label col-md-2">Desde Fecha</label>
             <div class="col-lg-3 col-md-3">
-              <input class="form-control" type="date" min="1" name="desdeFecha" id='desdeFecha' value='' style="line-height:16px" required>
+              <input class="form-control" type="date" min="1" name="desdeFecha" id='desdeFecha' value='<?=$inicial?>' style="line-height:16px" required>
             </div>
             <label class="control-label col-md-2">Hasta Fecha</label>
             <div class="col-lg-3 col-md-3">
-              <input class="form-control" type="date" min="1" name="hastaFecha" id='hastaFecha' value='' style="line-height:16px" required>
+              <input class="form-control" type="date" min="1" name="hastaFecha" id='hastaFecha' value='<?=$ayer?>' style="line-height:16px" required>
             </div>
           </div>
           <div class="imprimeInforme" style="margin-top:20px;">

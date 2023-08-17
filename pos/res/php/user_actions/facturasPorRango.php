@@ -73,6 +73,7 @@
             <td style="text-align: right;"><?=number_format( $factura['impuesto'],2); ?></td>
             <td style="text-align: right;"><?=number_format( $factura['valor_total'],2); ?></td>
             <td style="padding:3px 5px;text-align: center"><?php echo estadoFactura($factura['estado']); ?></td>
+            <!-- <td style="padding:3px 5px;text-align: center"><?php echo $factura['estado']; ?></td> -->
             <td style="padding:3px 5px;text-align: center">
               <button 
                 class          ="btn btn-danger btn-xs" 

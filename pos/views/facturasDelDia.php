@@ -18,7 +18,10 @@
         <input type="hidden" name="rutaweb" id="rutaweb" value="<?php echo BASE_PMS; ?>">
         <input type="hidden" name="ubicacion" id="ubicacion" value="facturasDelDia">
         <input type="hidden" name="pasos" id="pasos">
-        <h3 class="w3ls_head tituloPagina"> <i class="fa fa-tachometer" style="font-size:36px;color:black" ></i> Facturas del Dia</h3>
+        <h3 class="w3ls_head tituloPagina">
+        <i class="fa-solid fa-cash-register fa-2x" style="color:black"></i>
+        <!-- <i class="fa fa-tachometer" style="font-size:36px;color:black" ></i> -->
+        Facturas del Dia</h3>
       </div> 
       <div class="datos_ajax_delete"></div>
       <form id="formCierreDiario" class="form-horizontal" action="javascript:buscaFacturas()" method="POST" enctype="multipart/form-data">

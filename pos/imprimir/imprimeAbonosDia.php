@@ -10,7 +10,7 @@ $pdf->Image('../../img/'.$logo, 10, 10, 22);
 $pdf->SetFont('Arial', 'B', 11);
 $pdf->Cell(260, 5, $nomamb, 0, 1, 'C');
 $pdf->SetFont('Arial', '', 10);
-$pdf->Cell(260, 5, 'NIT: '.NIT_EMPRESA, 0, 1, 'C');
+// $pdf->Cell(260, 5, 'NIT: '.NIT_EMPRESA, 0, 1, 'C');
 $pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell(260, 5, 'ABONOS DEL DIA '.$fecha, 0, 1, 'C');
 $pdf->SetFont('Arial', '', 10);

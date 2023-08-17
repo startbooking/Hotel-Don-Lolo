@@ -15,3 +15,4 @@
   $dia = substr($fecha, 8, 2);
 
   require_once '../imprimir/imprimeDiarioGruposAcumulado.php';
+ 

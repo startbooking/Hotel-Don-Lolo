@@ -6,7 +6,6 @@ $detalles = $pos->getDetalleFacturaAnuladaDiaAmbiente('A', $idamb);
 $detalleAnuladas = $pos->getDetalleFacturaAnuladaDiaAmbiente('X', $idamb);
 $pagos = $pos->getDetalleFormasdePagoAmbiente('A', $idamb);
 $pagosAnulados = $pos->getDetalleFormasdePagoAmbiente('X', $idamb);
-$cajeros = $pos->getCajerosActivos($idamb);
 $comandaAnuladas = $pos->getComandasActivas($idamb, 'X');
 $populares = $pos->getPopularidadProductosAmbiente('A', $idamb);
 $popularAnulados = $pos->getPopularidadProductosAmbiente('X', $idamb);
@@ -15,64 +14,63 @@ $devoluciones = $pos->getDevolucionesDia($idamb, $fecha);
 $pdf = new FPDF();
 $pdf->AddPage('L', 'letter');
 $pdf->Image('../../img/'.$logo, 10, 10, 15);
-$pdf->SetFont('Arial', 'B', 13);
-$pdf->SetFont('Arial', 'B', 13);
-$pdf->Cell(260, 6, $amb, 0, 1, 'C');
-$pdf->Cell(260, 6, 'INFORME DE VENTAS - BALANCE DIARIO', 0, 1, 'C');
+$pdf->SetFont('Arial', 'B', 11);
+$pdf->Cell(260, 5, $amb, 0, 1, 'C');
+$pdf->Cell(260, 5, 'INFORME DE VENTAS - BALANCE DIARIO', 0, 1, 'C');
 $pdf->SetFont('Arial', '', 10);
-$pdf->Cell(260, 6, 'Fecha : '.$fecha, 0, 1, 'C');
+$pdf->Cell(260, 5, 'Fecha : '.$fecha, 0, 1, 'C');
 $pdf->Ln(3);
 
 $pdf->SetFont('Arial', 'B', 11);
-$pdf->Cell(260, 7, 'DETALLE FACTURAS GENERADAS ', 1, 1, 'C');
+$pdf->Cell(260, 5, 'DETALLE FACTURAS GENERADAS ', 1, 1, 'C');
 $pdf->SetFont('Arial', '', 10);
-$pdf->Cell(15, 6, 'Fact.', 1, 0, 'C');
-$pdf->Cell(15, 6, 'Com. ', 1, 0, 'C');
-$pdf->Cell(15, 6, 'Mesa ', 1, 0, 'C');
-$pdf->Cell(15, 6, 'Pax ', 1, 0, 'C');
-$pdf->Cell(25, 6, 'Neto ', 1, 0, 'C');
-$pdf->Cell(20, 6, 'Impuesto ', 1, 0, 'C');
-$pdf->Cell(20, 6, 'Propina ', 1, 0, 'C');
-$pdf->Cell(20, 6, 'Descuento ', 1, 0, 'C');
-$pdf->Cell(25, 6, 'Total Fact ', 1, 0, 'C');
-$pdf->Cell(30, 6, 'Usuario ', 1, 0, 'C');
-$pdf->Cell(60, 6, 'Forma de Pago ', 1, 1, 'C');
+$pdf->Cell(15, 5, 'Fact.', 1, 0, 'C');
+$pdf->Cell(15, 5, 'Com. ', 1, 0, 'C');
+$pdf->Cell(15, 5, 'Mesa ', 1, 0, 'C');
+$pdf->Cell(15, 5, 'Pax ', 1, 0, 'C');
+$pdf->Cell(25, 5, 'Neto ', 1, 0, 'C');
+$pdf->Cell(20, 5, 'Impuesto ', 1, 0, 'C');
+$pdf->Cell(20, 5, 'Propina ', 1, 0, 'C');
+$pdf->Cell(25, 5, 'Room Service ', 1, 0, 'C');
+$pdf->Cell(25, 5, 'Total Fact ', 1, 0, 'C');
+$pdf->Cell(25, 5, 'Usuario ', 1, 0, 'C');
+$pdf->Cell(60, 5, 'Forma de Pago ', 1, 1, 'C');
 
 $factVen = 0;
 $netoVen = 0;
 $imptVen = 0;
 $propVen = 0;
 $totaVen = 0;
-$descVen = 0;
+$servVen = 0;
 $clieVen = 0;
 
 foreach ($detalles as $detalle) {
-    $factVen = $factVen + 1;
-    $netoVen = $netoVen + $detalle['valor_neto'];
-    $imptVen = $imptVen + $detalle['impuesto'];
-    $propVen = $propVen + $detalle['propina'];
-    $descVen = $descVen + $detalle['descuento'];
+    $factVen += 1;
+    $netoVen += $detalle['valor_neto'];
+    $imptVen += $detalle['impuesto'];
+    $propVen += $detalle['propina'];
+    $servVen += $detalle['servicio'];
+    $clieVen += $detalle['pax'];
     $totaVen = $totaVen + $detalle['pagado'] - $detalle['cambio'];
-    $clieVen = $clieVen + $detalle['pax'];
 
-    $pdf->Cell(15, 6, $detalle['factura'], 1, 0, 'R');
-    $pdf->Cell(15, 6, $detalle['comanda'], 1, 0, 'R');
-    $pdf->Cell(15, 6, $detalle['mesa'], 1, 0, 'R');
-    $pdf->Cell(15, 6, $detalle['pax'], 1, 0, 'R');
-    $pdf->Cell(25, 6, number_format($detalle['valor_neto'], 2), 1, 0, 'R');
-    $pdf->Cell(20, 6, number_format($detalle['impuesto'], 2), 1, 0, 'R');
-    $pdf->Cell(20, 6, number_format($detalle['propina'], 2), 1, 0, 'R');
-    $pdf->Cell(20, 6, number_format($detalle['descuento'], 2), 1, 0, 'R');
-    $pdf->Cell(25, 6, number_format($detalle['pagado'] - $detalle['cambio'], 2), 1, 0, 'R');
-    $pdf->Cell(30, 6, $detalle['usuario'], 1, 0, 'L');
-    $pdf->Cell(60, 6, $pos->nombrePago($detalle['forma_pago']), 1, 1, 'L');
+    $pdf->Cell(15, 4, $detalle['factura'], 1, 0, 'R');
+    $pdf->Cell(15, 4, $detalle['comanda'], 1, 0, 'R');
+    $pdf->Cell(15, 4, $detalle['mesa'], 1, 0, 'R');
+    $pdf->Cell(15, 4, $detalle['pax'], 1, 0, 'R');
+    $pdf->Cell(25, 4, number_format($detalle['valor_neto'], 2), 1, 0, 'R');
+    $pdf->Cell(20, 4, number_format($detalle['impuesto'], 2), 1, 0, 'R');
+    $pdf->Cell(20, 4, number_format($detalle['propina'], 2), 1, 0, 'R');
+    $pdf->Cell(25, 4, number_format($detalle['servicio'], 2), 1, 0, 'R');
+    $pdf->Cell(25, 4, number_format($detalle['pagado'] - $detalle['cambio'], 2), 1, 0, 'R');
+    $pdf->Cell(25, 4, $detalle['usuario'], 1, 0, 'L');
+    $pdf->Cell(60, 4, $pos->nombrePago($detalle['forma_pago']), 1, 1, 'L');
 }
 $pdf->Cell(45, 6, 'Total', 1, 0, 'C');
 $pdf->Cell(15, 6, number_format($clieVen, 0), 1, 0, 'R');
 $pdf->Cell(25, 6, number_format($netoVen, 2), 1, 0, 'R');
 $pdf->Cell(20, 6, number_format($imptVen, 2), 1, 0, 'R');
 $pdf->Cell(20, 6, number_format($propVen, 2), 1, 0, 'R');
-$pdf->Cell(20, 6, number_format($descVen, 2), 1, 0, 'R');
+$pdf->Cell(25, 6, number_format($servVen, 2), 1, 0, 'R');
 $pdf->Cell(25, 6, number_format($totaVen, 2), 1, 1, 'R');
 
 $pdf->Ln(5);
@@ -88,24 +86,14 @@ $pdf->Cell(35, 6, 'Total Fact ', 1, 0, 'C');
 $pdf->Cell(30, 6, 'Usuario ', 1, 0, 'C');
 $pdf->Cell(95, 6, 'Motivo Anulacion ', 1, 1, 'C');
 
-$factAnu = 0;
-$netoAnu = 0;
-$imptAnu = 0;
-$propAnu = 0;
 $totaAnu = 0;
-$descAnu = 0;
 $clieAnu = 0;
 
 if (count($detalleAnuladas) == 0) {
     $pdf->SetFont('Arial', 'B', 12);
     $pdf->Cell(230, 5, 'SIN FACTURA ANULADAS', 1, 1, 'C');
 } else {
-    foreach ($detalleAnuladas as $detalle) {
-        $factAnu = $factAnu + 1;
-        $netoAnu = $netoAnu + $detalle['valor_neto'];
-        $imptAnu = $imptAnu + $detalle['impuesto'];
-        $propAnu = $propAnu + $detalle['propina'];
-        $descAnu = $descAnu + $detalle['descuento'];
+    foreach ($detalleAnuladas as $detalle) {        
         $totaAnu = $totaAnu + $detalle['pagado'] - $detalle['cambio'];
         $clieAnu = $clieAnu + $detalle['pax'];
 
@@ -131,7 +119,7 @@ $pdf->Cell(60, 6, 'Forma de pago.', 1, 0, 'C');
 $pdf->Cell(25, 6, 'Cant. ', 1, 0, 'C');
 $pdf->Cell(35, 6, 'SubTotal ', 1, 0, 'C');
 $pdf->Cell(35, 6, 'Propina ', 1, 0, 'C');
-$pdf->Cell(35, 6, 'Descuentos ', 1, 0, 'C');
+$pdf->Cell(35, 6, 'Room Service ', 1, 0, 'C');
 $pdf->Cell(35, 6, 'Impuestos  ', 1, 0, 'C');
 $pdf->Cell(35, 6, 'Total Fact ', 1, 1, 'C');
 
@@ -140,21 +128,21 @@ $neto = 0;
 $impt = 0;
 $prop = 0;
 $tota = 0;
-$desc = 0;
+$serv = 0;
 
 foreach ($pagos as $detalle) {
-    $fact = $fact + $detalle['cant'];
-    $neto = $neto + $detalle['neto'];
-    $impt = $impt + $detalle['impto'];
-    $prop = $prop + $detalle['prop'];
-    $desc = $desc + $detalle['desc'];
+    $fact += $detalle['cant'];
+    $neto += $detalle['neto'];
+    $impt += $detalle['impto'];
+    $prop += $detalle['prop'];
+    $serv += $detalle['servicio'];
     $tota = $tota + $detalle['pagado'] - $detalle['cambio'];
 
     $pdf->Cell(60, 6, $detalle['descripcion'], 1, 0, 'L');
     $pdf->Cell(25, 6, $detalle['cant'], 1, 0, 'R');
     $pdf->Cell(35, 6, number_format($detalle['neto'], 2), 1, 0, 'R');
     $pdf->Cell(35, 6, number_format($detalle['prop'], 2), 1, 0, 'R');
-    $pdf->Cell(35, 6, number_format($detalle['desc'], 2), 1, 0, 'R');
+    $pdf->Cell(35, 6, number_format($detalle['servicio'], 2), 1, 0, 'R');
     $pdf->Cell(35, 6, number_format($detalle['impto'], 2), 1, 0, 'R');
     $pdf->Cell(35, 6, number_format($detalle['pagado'] - $detalle['cambio'], 2), 1, 1, 'R');
 }
@@ -162,7 +150,7 @@ $pdf->Cell(60, 6, 'Total', 1, 0, 'C');
 $pdf->Cell(25, 6, number_format($fact, 2), 1, 0, 'R');
 $pdf->Cell(35, 6, number_format($neto, 2), 1, 0, 'R');
 $pdf->Cell(35, 6, number_format($prop, 2), 1, 0, 'R');
-$pdf->Cell(35, 6, number_format($desc, 2), 1, 0, 'R');
+$pdf->Cell(35, 6, number_format($serv, 2), 1, 0, 'R');
 $pdf->Cell(35, 6, number_format($impt, 2), 1, 0, 'R');
 $pdf->Cell(35, 6, number_format($tota, 2), 1, 1, 'R');
 
@@ -175,30 +163,16 @@ $pdf->Cell(60, 6, 'Forma de pago.', 1, 0, 'C');
 $pdf->Cell(25, 6, 'Cant. ', 1, 0, 'C');
 $pdf->Cell(35, 6, 'SubTotal ', 1, 0, 'C');
 $pdf->Cell(35, 6, 'Propina ', 1, 0, 'C');
-$pdf->Cell(35, 6, 'Descuentos ', 1, 0, 'C');
+$pdf->Cell(35, 6, 'Room Service ', 1, 0, 'C');
 $pdf->Cell(35, 6, 'Impuestos  ', 1, 0, 'C');
 $pdf->Cell(35, 6, 'Total Fact ', 1, 1, 'C');
 
-$fact = 0;
-$neto = 0;
-$impt = 0;
-$prop = 0;
-$tota = 0;
-$desc = 0;
-
 foreach ($pagosAnulados as $detalle) {
-    $fact = $fact + 1;
-    $neto = $neto + $detalle['neto'];
-    $impt = $impt + $detalle['impto'];
-    $prop = $prop + $detalle['prop'];
-    $desc = $desc + $detalle['desc'];
-    $tota = $tota + $detalle['pagado'] - $detalle['cambio'];
-
     $pdf->Cell(60, 6, $detalle['descripcion'], 1, 0, 'L');
     $pdf->Cell(25, 6, $detalle['cant'], 1, 0, 'R');
     $pdf->Cell(35, 6, number_format($detalle['neto'], 2), 1, 0, 'R');
     $pdf->Cell(35, 6, number_format($detalle['prop'], 2), 1, 0, 'R');
-    $pdf->Cell(35, 6, number_format($detalle['desc'], 2), 1, 0, 'R');
+    $pdf->Cell(35, 6, number_format($detalle['servicio'], 2), 1, 0, 'R');
     $pdf->Cell(35, 6, number_format($detalle['impto'], 2), 1, 0, 'R');
     $pdf->Cell(35, 6, number_format($detalle['pagado'] - $detalle['cambio'], 2), 1, 1, 'R');
 }

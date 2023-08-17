@@ -17,3 +17,4 @@
       }
       $estado = $pos->cambiaEstadoCajero($iduser, 2);
   }
+ 

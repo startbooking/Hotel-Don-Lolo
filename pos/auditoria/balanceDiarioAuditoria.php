@@ -10,5 +10,5 @@
   $user   = $_POST['user']; 
   $iduser = $_POST['iduser']; 
 
-  require_once '../imprimir/imprimeBalanceDiarioAuditoria.php';
+  require_once '../imprimir/imprimeBalanceDiarioAuditoria.php'; 
 

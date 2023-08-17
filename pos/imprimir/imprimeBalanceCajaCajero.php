@@ -8,10 +8,10 @@ $pdf->Image('../../img/'.$logo, 10, 10, 22);
 $pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell(195, 5, $nomamb, 0, 1, 'C');
 $pdf->SetFont('Arial', '', 10);
-$pdf->Cell(195, 5, 'NIT: '.NIT_EMPRESA, 0, 1, 'C');
-$pdf->SetFont('Arial', 'B', 10);
+// $pdf->Cell(195, 5, 'NIT: '.NIT_EMPRESA, 0, 1, 'C');
+// $pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell(195, 5, 'BALANCE CAJA '.$user, 0, 1, 'C');
-$pdf->SetFont('Arial', '', 10);
+// $pdf->SetFont('Arial', '', 10);
 $pdf->Cell(195, 4, 'Fecha '.$fecha, 0, 1, 'C');
 $pdf->Ln(5);
 
@@ -154,10 +154,6 @@ $pdf->SetFont('Arial', '', 9);
 
 $pdf->Ln(3);
 
-/*   $file = '../imprimir/informes/'.$file.'.pdf';
-
-  $pdf->Output($file,'F');
-  */
 $pdfFile = $pdf->Output('', 'S');
 $base64String = chunk_split(base64_encode($pdfFile));
 

@@ -11,9 +11,7 @@
   $pdf->SetFont('Arial','B',13);
   $pdf->Cell(260,6,$nomamb,0,1,'C');
   $pdf->SetFont('Arial','',10);
-  $pdf->Cell(260,5,'NIT: '.NIT_EMPRESA,0,1,'C');
-  $pdf->SetFont('Arial','B',13);
-  $pdf->SetFont('Arial','',11);
+  // $pdf->Cell(260,5,'NIT: '.NIT_EMPRESA,0,1,'C');
   $pdf->Cell(260,6,'INFORME DE VENTAS - BALANCE DIARIO USUARIO',0,1,'C');
   $pdf->Cell(260,6,'USUARIO : '.$user.' Fecha : '.$fecha,0,1,'C');
   $pdf->Ln(5);

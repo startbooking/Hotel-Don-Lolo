@@ -9,11 +9,10 @@ $pdf->AddPage('P', 'letter');
 $pdf->Image('../../img/'.$logo, 10, 10, 22);
 $pdf->SetFont('Arial', 'B', 11);
 $pdf->Cell(195, 5, $nomamb, 0, 1, 'C');
+// $pdf->SetFont('Arial', '', 10);
+// $pdf->Cell(195, 5, 'NIT: '.NIT_EMPRESA, 0, 1, 'C');
 $pdf->SetFont('Arial', '', 10);
-$pdf->Cell(195, 5, 'NIT: '.NIT_EMPRESA, 0, 1, 'C');
-$pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell(195, 5, 'VENTAS A EMPLEADOS ', 0, 1, 'C');
-$pdf->SetFont('Arial', '', 10);
 $pdf->Cell(195, 5, 'Fecha'.$fecha, 0, 1, 'C');
 $pdf->Ln(2);
 
@@ -26,12 +25,12 @@ $propina = 0;
 $descuento = 0;
 $canti = 0;
 $pdf->SetFont('Arial', 'B', 10);
-$pdf->Cell(20, 6, 'Factura.', 1, 0, 'C');
-$pdf->Cell(90, 6, 'Cliente ', 1, 0, 'C');
-$pdf->Cell(20, 6, 'Val Total ', 1, 0, 'C');
-$pdf->Cell(20, 6, 'Estado ', 1, 0, 'C');
-$pdf->Cell(25, 6, 'Usuario ', 1, 0, 'C');
-$pdf->Cell(20, 6, 'Hora ', 1, 1, 'C');
+$pdf->Cell(20, 5, 'Factura', 1, 0, 'C');
+$pdf->Cell(90, 5, 'Cliente ', 1, 0, 'C');
+$pdf->Cell(20, 5, 'Val Total ', 1, 0, 'C');
+$pdf->Cell(20, 5, 'Estado ', 1, 0, 'C');
+$pdf->Cell(25, 5, 'Usuario ', 1, 0, 'C');
+$pdf->Cell(20, 5, 'Hora ', 1, 1, 'C');
 $pdf->SetFont('Arial', '', 9);
 
 if (count($ventas) == 0) {
@@ -44,12 +43,12 @@ if (count($ventas) == 0) {
         } else {
             $pdf->SetTextColor(0, 0, 0);
         }
-        $pdf->Cell(20, 5, $comanda['factura'], 0, 0, 'R');
-        $pdf->Cell(90, 5, utf8_decode($comanda['apellido1'].' '.$comanda['apellido2'].' '.$comanda['nombre1'].' '.$comanda['nombre2']), 0, 0, 'L');
-        $pdf->Cell(20, 5, number_format($comanda['pagado'], 2), 0, 0, 'R');
-        $pdf->Cell(20, 5, estadoFacturaInf($comanda['estado']), 0, 0, 'L');
-        $pdf->Cell(25, 5, $comanda['usuario_factura'], 0, 0, 'L');
-        $pdf->Cell(20, 5, substr($comanda['fecha_factura'], 11, 9), 0, 1, 'L');
+        $pdf->Cell(20, 4, $comanda['factura'], 0, 0, 'R');
+        $pdf->Cell(90, 4, utf8_decode($comanda['apellido1'].' '.$comanda['apellido2'].' '.$comanda['nombre1'].' '.$comanda['nombre2']), 0, 0, 'L');
+        $pdf->Cell(20, 4, number_format($comanda['pagado'], 2), 0, 0, 'R');
+        $pdf->Cell(20, 4, estadoFacturaInf($comanda['estado']), 0, 0, 'L');
+        $pdf->Cell(25, 4, $comanda['usuario_factura'], 0, 0, 'L');
+        $pdf->Cell(20, 4, substr($comanda['fecha_factura'], 11, 9), 0, 1, 'L');
         if ($comanda['estado'] == 'A') {
             $pers = $pers + $comanda['pax'];
             $neto = $neto + $comanda['valor_neto'];
@@ -59,16 +58,16 @@ if (count($ventas) == 0) {
             $total = $total + $comanda['pagado'];
         }
     }
-    $pdf->Ln(5);
+    $pdf->Ln(2);
     $pdf->SetFont('Arial', 'B', 9);
-    $pdf->Cell(40, 6, '', 1, 0, 'L');
-    $pdf->Cell(20, 6, 'Facturas ', 1, 0, 'C');
-    $pdf->Cell(30, 6, 'Valor Facturas ', 1, 1, 'C');
+    $pdf->Cell(40, 5, '', 1, 0, 'L');
+    $pdf->Cell(20, 5, 'Facturas ', 1, 0, 'C');
+    $pdf->Cell(30, 5, 'Valor Facturas ', 1, 1, 'C');
     $pdf->SetFont('Arial', 'B', 9);
-    $pdf->Cell(40, 6, 'TOTALES ', 1, 0, 'C');
+    $pdf->Cell(40, 5, 'TOTALES ', 1, 0, 'C');
     $pdf->SetFont('Arial', '', 9);
-    $pdf->Cell(20, 6, $canti, 1, 0, 'R');
-    $pdf->Cell(30, 6, number_format($total, 2), 1, 1, 'R');
+    $pdf->Cell(20, 5, $canti, 1, 0, 'R');
+    $pdf->Cell(30, 5, number_format($total, 2), 1, 1, 'R');
 }
 $pdf->Ln(3);
 

@@ -10,10 +10,6 @@
   $user = $_POST['user'];
   $iduser = $_POST['iduser'];
 
-  /* $anio = substr($fecha, 0, 4);
-  $mes  = substr($fecha, 5, 2);
-  $dia  = substr($fecha, 8, 2); */
-
   $coma = $pos->enviaHistoricoComandas($idamb);
   $deta = $pos->enviaHistoricoDetalleComandas($idamb);
   $fact = $pos->enviaHistoricoFacturas($idamb);

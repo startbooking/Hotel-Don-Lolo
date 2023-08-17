@@ -8,8 +8,8 @@ $pdf->Image('../../img/'.$logo, 10, 10, 22);
 $pdf->SetFont('Arial', 'B', 11);
 $pdf->Cell(190, 6, $nomamb, 0, 1, 'C');
 $pdf->SetFont('Arial', '', 10);
-$pdf->Cell(190, 5, 'NIT: '.NIT_EMPRESA, 0, 1, 'C');
-$pdf->SetFont('Arial', 'B', 10);
+// $pdf->Cell(190, 5, 'NIT: '.NIT_EMPRESA, 0, 1, 'C');
+// $pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell(190, 4, 'BALANCE DIARIO DE CAJA ', 0, 1, 'C');
 $pdf->SetFont('Arial', '', 9);
 $pdf->Cell(190, 4, 'Fecha : '.$fecha, 0, 1, 'C');
@@ -29,7 +29,7 @@ $totvent = 0;
 $totcart = 0;
 $pdf->SetFont('Arial', 'B', 9);
 $pdf->Ln(2);
-$pdf->Cell(190, 5, 'BASE DE CAJA', 1, 1, 'C');
+/* $pdf->Cell(190, 5, 'BASE DE CAJA', 1, 1, 'C');
 $pdf->Cell(110, 5, 'Concepto ', 1, 0, 'C');
 $pdf->Cell(50, 5, 'Cajero. ', 1, 0, 'C');
 $pdf->Cell(30, 5, 'Monto', 1, 1, 'C');
@@ -39,9 +39,9 @@ if (count($bases) == 0) {
 } else {
     foreach ($bases as $caja) {
         $totbase = $totbase + $caja['monto'];
-        $pdf->Cell(110, 5, utf8_decode($caja['concepto']), 0, 0, 'l');
-        $pdf->Cell(50, 5, utf8_decode($caja['proveedor']), 0, 0, 'L');
-        $pdf->Cell(30, 5, number_format($caja['monto'], 2), 0, 1, 'R');
+        $pdf->Cell(110, 4, utf8_decode($caja['concepto']), 0, 0, 'l');
+        $pdf->Cell(50, 4, utf8_decode($caja['proveedor']), 0, 0, 'L');
+        $pdf->Cell(30, 4, number_format($caja['monto'], 2), 0, 1, 'R');
     }
     $pdf->Ln(2);
     $pdf->SetFont('Arial', 'B', 9);
@@ -71,9 +71,9 @@ if (count($cajas) == 0) {
     $pdf->Cell(70, 5, 'Total Compras Por Caja', 1, 0, 'L');
     $pdf->Cell(25, 5, number_format($totcaja, 2), 1, 1, 'C');
     $pdf->SetFont('Arial', '', 9);
-}
+} */
 
-$pdf->Ln(5);
+/* $pdf->Ln(5);
 $pdf->SetFont('Arial', 'B', 9);
 $pdf->Cell(190, 5, 'RECAUDOS DE CARTERA  BASE DE CAJA', 1, 1, 'C');
 $pdf->Cell(50, 5, 'Cliente ', 1, 0, 'C');
@@ -99,9 +99,9 @@ if (count($carteras) == 0) {
     $pdf->Cell(70, 5, 'Total Recuados de Cartera Por Caja', 1, 0, 'L');
     $pdf->Cell(30, 5, number_format($totcart, 2), 1, 1, 'C');
     $pdf->SetFont('Arial', '', 9);
-}
+} */
 
-$pdf->Ln(5);
+/* $pdf->Ln(5);
 $abonoefec = 0;
 $totabono = 0;
 $pdf->SetFont('Arial', 'B', 9);
@@ -124,7 +124,8 @@ if (count($abonos) == 0) {
     $pdf->SetFont('Arial', 'B', 9);
     $pdf->Cell(70, 5, 'Total Abonos del Dia', 1, 0, 'L');
     $pdf->Cell(30, 5, number_format($totabono, 2), 1, 1, 'R');
-}
+} */
+
 $pdf->Ln(5);
 $pdf->SetFont('Arial', 'B', 9);
 $pdf->Cell(120, 5, 'VENTAS DEL DIA BASE DE CAJA', 1, 1, 'C');
@@ -144,17 +145,19 @@ if (count($pagos) == 0) {
         $pdf->Cell(90, 5, $caja['descripcion'], 0, 0, 'L');
         $pdf->Cell(30, 5, number_format($caja['pagado'], 2), 0, 1, 'R');
     }
-    $pdf->Cell(90, 5, 'ABONOS RECIBIDOS ', 0, 0, 'L');
-    $pdf->Cell(30, 5, number_format($totabono, 2), 0, 1, 'R');
+    /* $pdf->Cell(90, 5, 'ABONOS RECIBIDOS ', 0, 0, 'L');
+    $pdf->Cell(30, 5, number_format($totabono, 2), 0, 1, 'R'); */
     $pdf->SetFont('Arial', 'B', 9);
     $pdf->Cell(90, 5, 'Total Ventas del Dia', 0, 0, 'L');
-    $pdf->Cell(30, 5, number_format($totvent + $totabono, 2), 0, 1, 'R');
+    // $pdf->Cell(30, 5, number_format($totvent + $totabono, 2), 0, 1, 'R');
+    $pdf->Cell(30, 5, number_format($totvent, 2), 0, 1, 'R');
 }
 
 $pdf->Ln(5);
 $pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell(70, 6, strtoupper('Saldo Total Efectivo Caja'), 1, 0, 'L');
-$pdf->Cell(30, 6, number_format($totbase - $totcaja + $totefec + $efecart + $abonoefec, 2), 1, 1, 'R');
+// $pdf->Cell(30, 6, number_format($totbase - $totcaja + $totefec + $efecart + $abonoefec, 2), 1, 1, 'R');
+$pdf->Cell(30, 6, number_format($totbase - $totcaja + $totefec + $efecart , 2), 1, 1, 'R');
 
 $pdf->Ln(3);
 

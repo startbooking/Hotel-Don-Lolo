@@ -18,3 +18,4 @@
   include '../imprimir/imprimeVentasPorPeriodo.php';
 
 ?>
+ 

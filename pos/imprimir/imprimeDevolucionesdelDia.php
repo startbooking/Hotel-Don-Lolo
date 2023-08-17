@@ -6,20 +6,20 @@ $pdf = new FPDF();
 $pdf->AddPage('P', 'letter');
 $pdf->Image('../../img/'.$logo, 10, 10, 15);
 
-$pdf->SetFont('Arial', 'B', 12);
-$pdf->Cell(190, 6, $nomamb, 0, 1, 'C');
+$pdf->SetFont('Arial', 'B', 11);
+$pdf->Cell(195, 5, $nomamb, 0, 1, 'C');
+$pdf->SetFont('Arial', '', 10);
+$pdf->Cell(195, 4, 'DEVOLUCION DE PRODUCTOS ', 0, 1, 'C');
+$pdf->Cell(195, 4, 'Fecha '.$fecha, 0, 1, 'C');
+
 $devoluciones = $pos->getDevolucionesDia($idamb);
 
-// print_r($devoluciones);
-
 $monto = 0;
-$impto = 0;
+$impto = 0; 
 $total = 0;
-$pdf->SetFont('Arial', 'B', 10);
-$pdf->Cell(190, 7, 'DEVOLUCION DE PRODUCTOS ', 0, 1, 'C');
 
 if (count($devoluciones) == 0) {
-    $pdf->Cell(190, 5, 'SIN DEVOLUCION DE PRODUCTOS  ', 0, 1, 'C');
+    $pdf->Cell(190, 5, 'SIN DEVOLUCION DE PRODUCTOS  ', 1, 1, 'C');
 } else {
     $pdf->Cell(20, 5, 'Comanda.', 1, 0, 'C');
     $pdf->Cell(20, 5, 'Mesa ', 1, 0, 'C');

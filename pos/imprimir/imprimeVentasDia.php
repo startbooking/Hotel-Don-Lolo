@@ -13,21 +13,21 @@ $pdf->SetFont('Arial', '', 11);
 $pdf->Cell(260, 5, 'VENTAS DEL DIA ', 0, 1, 'C');
 $pdf->Cell(260, 5, 'Fecha '.$fecha, 0, 1, 'C');
 $pdf->Ln(2);
-
+ 
 $pers = 0;
 $neto = 0;
 $impto = 0;
 $total = 0;
 $valprod = 0;
 $propina = 0;
-$descuento = 0;
+$servicio = 0;
 $pdf->SetFont('Arial', 'B', 9);
 $pdf->Cell(20, 6, 'Cuenta.', 1, 0, 'C');
 $pdf->Cell(20, 6, 'Comanda ', 1, 0, 'C');
 $pdf->Cell(10, 6, 'Mesa ', 1, 0, 'C');
 $pdf->Cell(10, 6, 'Pers. ', 1, 0, 'C');
 $pdf->Cell(20, 6, 'Val Neto ', 1, 0, 'C');
-// $pdf->Cell(20, 6, 'Descuento', 1, 0, 'C');
+$pdf->Cell(20, 6, 'Room Serv.', 1, 0, 'C');
 $pdf->Cell(20, 6, 'Propina', 1, 0, 'C');
 $pdf->Cell(20, 6, 'Impuesto', 1, 0, 'C');
 $pdf->Cell(20, 6, 'Val Total ', 1, 0, 'C');
@@ -52,7 +52,7 @@ if (count($ventas) == 0) {
         $pdf->Cell(10, 5, $comanda['mesa'], 0, 0, 'C');
         $pdf->Cell(10, 5, $comanda['pax'], 0, 0, 'C');
         $pdf->Cell(20, 5, number_format($comanda['valor_neto'], 2), 0, 0, 'R');
-        // $pdf->Cell(20, 5, number_format($comanda['descuento'], 2), 0, 0, 'R');
+        $pdf->Cell(20, 5, number_format($comanda['servicio'], 2), 0, 0, 'R');
         $pdf->Cell(20, 5, number_format($comanda['propina'], 2), 0, 0, 'R');
         $pdf->Cell(20, 5, number_format($comanda['impuesto'], 2), 0, 0, 'R');
         $pdf->Cell(20, 5, number_format($comanda['pagado'] - $comanda['cambio'], 2), 0, 0, 'R');
@@ -61,21 +61,21 @@ if (count($ventas) == 0) {
         $pdf->Cell(25, 5, $comanda['usuario_factura'], 0, 0, 'L');
         $pdf->Cell(20, 5, substr($comanda['fecha_factura'], 11, 9), 0, 1, 'L');
         if ($comanda['estado'] == 'A') {
-            $pers = $pers + $comanda['pax'];
-            $neto = $neto + $comanda['valor_neto'];
-            $impto = $impto + $comanda['impuesto'];
-            $propina = $propina + $comanda['propina'];
-            $descuento = $descuento + $comanda['descuento'];
+            $pers += $comanda['pax'];
+            $neto += $comanda['valor_neto'];
+            $impto += $comanda['impuesto'];
+            $propina += $comanda['propina'];
+            $servicio += $comanda['servicio'];
             $total = $total + ($comanda['pagado'] - $comanda['cambio']);
         }
         $pdf->SetTextColor(0, 0, 0);
     }
-    $pdf->Ln(5);
+    $pdf->Ln(2);
     $pdf->SetFont('Arial', 'B', 9);
     $pdf->Cell(40, 6, '', 1, 0, 'L');
     $pdf->Cell(20, 6, 'Pers ', 1, 0, 'C');
     $pdf->Cell(30, 6, 'Valor Neto ', 1, 0, 'C');
-    // $pdf->Cell(30, 6, 'Descuentos ', 1, 0, 'C');
+    $pdf->Cell(30, 6, 'Room Service ', 1, 0, 'C');
     $pdf->Cell(30, 6, 'Propinas ', 1, 0, 'C');
     $pdf->Cell(30, 6, 'Impuesto ', 1, 0, 'C');
     $pdf->Cell(30, 6, 'Total Factura ', 1, 1, 'C');
@@ -84,12 +84,12 @@ if (count($ventas) == 0) {
     $pdf->SetFont('Arial', '', 9);
     $pdf->Cell(20, 6, number_format($pers, 0), 1, 0, 'R');
     $pdf->Cell(30, 6, number_format($neto, 2), 1, 0, 'R');
-    // $pdf->Cell(30, 6, number_format($descuento, 2), 1, 0, 'R');
+    $pdf->Cell(30, 6, number_format($servicio, 2), 1, 0, 'R');
     $pdf->Cell(30, 6, number_format($propina, 2), 1, 0, 'R');
     $pdf->Cell(30, 6, number_format($impto, 2), 1, 0, 'R');
     $pdf->Cell(30, 6, number_format($total, 2), 1, 1, 'R');
 }
-$pdf->Ln(3);
+$pdf->Ln(1);
 
 $pdfFile = $pdf->Output('', 'S');
 $base64String = chunk_split(base64_encode($pdfFile));

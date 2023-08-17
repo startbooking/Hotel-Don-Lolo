@@ -2,7 +2,7 @@
 require_once '../../res/fpdf/fpdf.php';
 
 
-$ventas = $pos->getTotalGruposVendidos($idamb);
+$ventas   = $pos->getTotalGruposVendidos($idamb);
 $cantidad = $pos->getCantidadProductosVendidos($idamb);
 
 if (count($cantidad) != 0) {

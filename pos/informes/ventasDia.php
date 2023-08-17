@@ -11,6 +11,7 @@ $prop = $_POST['prop'];
 $fecha = $_POST['fecha'];
 $logo = $_POST['logo'];
 
-include_once '../imprimir/imprimeVentasDia.php';
+include_once '../imprimir/imprimeVentasDia.php'; 
 
 ?> 
+ 

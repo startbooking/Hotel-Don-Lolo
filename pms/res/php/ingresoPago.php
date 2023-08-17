@@ -321,7 +321,7 @@ if ($perfilFac == 1 && $facturador == 1) {
 
     $respo = '';
 
-    $regis = $hotel->ingresaDatosFe($nroFactura, $prefijo, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cufe, $QRStr, $respofact, $Isvalid, $eFact, $errorMessage, $statusCode, $statusDesc, $statusMess);
+    $regis = $hotel->ingresaDatosFe($nroFactura, $prefijo, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cufe, $QRStr, '', $Isvalid, $eFact, $errorMessage, $statusCode, $statusDesc, $statusMess);
 
     include_once '../../imprimir/imprimeFactura.php';
 
