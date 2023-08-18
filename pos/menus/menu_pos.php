@@ -175,7 +175,7 @@ $rutaINV = BASE_POS.'datos/kardex.php';
               </li>
               <!-- <li>
                 <a class="menuPpal" onclick="abonosDia()"><i class="fa fa-users"></i> Abonos del Dia</a>
-              </li> -->
+              </li> --> 
               <li>
                 <a class="menuPpal" onclick="ventasDiaAuditoria()"><i class="fa fa-money"></i> Ventas del Dia</a>
               </li>

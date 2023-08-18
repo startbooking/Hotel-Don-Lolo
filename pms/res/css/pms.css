@@ -238,9 +238,17 @@ a.info span,
 }
 
 .inner > h3 {
-  font-weight: 700;
-  font-size: 40px;
+  font-weight: 600;
+  font-size: 30px;
   text-align: center;
+}
+
+.inner .col-sm-2 {
+  padding:0px;
+}
+
+.inner p {
+  font-size: 13px;
 }
 
 #dataRegisterRoom .modal-md {
