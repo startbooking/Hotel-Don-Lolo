@@ -190,6 +190,7 @@ if ($perfilFac == 1 && $facturador == 1) {
     $eCust['name'] = $nomFact;
     $eCust['phone'] = $telFact;
     $eCust['email'] = $emaFact;
+    
     if($tipofac == 2){
       $eCust['address'] = $dirFact;
       $eCust['merchant_registration'] = $merFact;

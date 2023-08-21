@@ -108,15 +108,18 @@ if ($perfil == 1) {
     $eCust['dv'] = $dvFact;
     $eCust['name'] = $nomFact;
     $eCust['phone'] = $telFact;
-    $eCust['address'] = $dirFact;
     $eCust['email'] = $emaFact;
-    $eCust['merchant_registration'] = $merFact;
-    $eCust['type_document_identification_id'] = $tdiFact;
-    $eCust['type_organization_id'] = $torFact;
-    $eCust['type_liability_id'] = $tliFact;
-    $eCust['municipality_id'] = $munFact;
-    $eCust['type_regime_id'] = $triFact;
-
+    
+    if($tipofac == 2){
+        $eCust['address'] = $dirFact;
+        $eCust['merchant_registration'] = $merFact;
+        $eCust['type_document_identification_id'] = $tdiFact;
+        $eCust['type_organization_id'] = $torFact;
+        $eCust['type_liability_id'] = $tliFact;
+        $eCust['municipality_id'] = $munFact;
+        $eCust['type_regime_id'] = $triFact;
+    }
+    
     $eNote['customer'] = $eCust;
 
     $eLmon['line_extension_amount'] = $subtotales[0]['cargos'];

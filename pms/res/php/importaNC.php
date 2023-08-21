@@ -21,8 +21,4 @@ foreach ($notas as $nota) {
 
   echo $regis;
 
-}
-
-
-
-  // echo json_encode($notas);
+} 

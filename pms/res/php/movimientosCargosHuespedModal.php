@@ -96,7 +96,7 @@ foreach ($folios as $folio1) {
     $pagos = $pagos + $folio1['pagos_cargos'];
     ?>
                   <tr style="text-align:right;">
-                    <td style="padding:4px" style="text-align:left;"><?php echo $folio1['descripcion_cargo']; ?></td>
+                    <td style="padding:4px;text-align:left;"><?php echo $folio1['descripcion_cargo']; ?></td>
                     <td style="padding:4px"><?php echo number_format($folio1['monto_cargo'], 2); ?></td>
                     <td style="padding:4px"><?php echo number_format($folio1['impuesto'], 2); ?></td>
                     <td style="padding:4px"><?php echo number_format($folio1['monto_cargo'] + $folio1['impuesto'], 2); ?></td>

@@ -962,29 +962,6 @@ function guardarCuentaRecuperada() {
   });
 }
 
-function guardarCuentaOld() {
-  var productos = JSON.parse(localStorage.getItem("productoComanda"));
-  if (productos == null) {
-    swal(
-      {
-        title: "Sin Productos",
-        text: " No permitido Guardar Comanda",
-        type: "warning",
-        showCancelButton: false,
-        confirmButtonColor: "#DD6B55",
-        closeOnConfirm: true,
-      },
-      function () {
-        // ACA
-        // $("#myModalClienteComanda").modal("hide");
-      }
-    );
-    return;
-  }
-
-  $("#myModalClienteComanda").modal("show");
-}
-
 // function guardaClienteComanda() {
   function guardarCuenta() {
   oPos = JSON.parse(localStorage.getItem("oPos"));

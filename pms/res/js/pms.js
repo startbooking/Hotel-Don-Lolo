@@ -553,7 +553,6 @@ $(document).ready(function () {
 
     var factura = "HDL" + numero + ".pdf";
 
-
     $("#verFacturaHistoricoModal").attr(
       "data",
       "imprimir/facturas/FES-" + factura
