@@ -14,4 +14,4 @@ $fecha = $_POST['fecha'];
 include '../imprimir/imprimeBalanceCajaCajero.php';
 
 ?>
-   
+    

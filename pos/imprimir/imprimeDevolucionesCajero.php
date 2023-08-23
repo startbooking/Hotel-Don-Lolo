@@ -18,10 +18,10 @@ $impto = 0;
 $total = 0;
 $pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell(20, 5, 'Comanda.', 1, 0, 'C');
-$pdf->Cell(20, 5, 'Mesa ', 1, 0, 'C');
+$pdf->Cell(10, 5, 'Mesa ', 1, 0, 'C');
 $pdf->Cell(70, 5, 'Producto. ', 1, 0, 'C');
-$pdf->Cell(20, 5, 'Cantidad', 1, 0, 'C');
-$pdf->Cell(65, 5, 'Motivo Devolucion', 1, 1, 'C');
+$pdf->Cell(10, 5, 'Can', 1, 0, 'C');
+$pdf->Cell(85, 5, 'Motivo Devolucion', 1, 1, 'C');
 $pdf->SetFont('Arial', '', 9);
 
 if (count($devoluciones) == 0) {
@@ -29,11 +29,11 @@ if (count($devoluciones) == 0) {
     $pdf->Cell(195, 5, 'SIN DEVOLUCION DE PRODUCTOS ', 1, 1, 'C');
 } else {
     foreach ($devoluciones as $comanda) {
-        $pdf->Cell(20, 4, $comanda['comanda'], 1, 0, 'C');
-        $pdf->Cell(20, 4, $comanda['mesa'], 1, 0, 'C');
-        $pdf->Cell(70, 4, utf8_decode($comanda['nom']), 1, 0, 'L');
-        $pdf->Cell(20, 4, $comanda['cant'], 1, 0, 'C');
-        $pdf->Cell(65, 4, utf8_decode($comanda['motivo_devo']), 1, 1, 'L');
+        $pdf->Cell(20, 4, $comanda['comanda'], 0, 0, 'C');
+        $pdf->Cell(10, 4, $comanda['mesa'], 0, 0, 'C');
+        $pdf->Cell(70, 4, substr(utf8_decode($comanda['nom']),0,37), 0, 0, 'L');
+        $pdf->Cell(10, 4, $comanda['cantidad_devo'], 0, 0, 'C');
+        $pdf->Cell(85, 4, utf8_decode($comanda['motivo_devo']), 0, 1, 'L');
     }
 }
 $pdf->Ln(3);

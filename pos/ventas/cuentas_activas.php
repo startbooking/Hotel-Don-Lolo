@@ -31,7 +31,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-6 btn-success" style="padding:0 5px" id="muestraNumero">
+        <div class="col-md-6 btcuentasActivas(n-success" style="padding:0 5px" id="muestraNumero">
           <h4 id="tituloNumero" style="padding:2px;text-align: center;font-weight: bold;margin:0">Informacion Comanda</h4>
         </div>
       </div>

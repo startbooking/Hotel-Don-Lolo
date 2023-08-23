@@ -1976,10 +1976,6 @@ function resumenComanda() {
   var totalCuenta = 0;
   var totalCta = 0;
 
-  // abonos = $("#abonosComanda").val();
-
-  // console.log(listaComanda)
-
   for (i = 0; i < listaComanda.length; i++) {
     canti += canti;
     impuesto = impuesto + parseFloat(listaComanda[i]["valorimpto"]);
@@ -1989,26 +1985,16 @@ function resumenComanda() {
     totalCta = totalCta + (parseFloat(listaComanda[i]["importe"]) * parseFloat(listaComanda[i]["cant"]))
   }
 
-
-  /* const totalComa = listaComanda.reduce((valorAnterior, valorActual) => {
-    return valorAnterior + valorActual;
-  }, 0);
- */
-
   let miBoton = "comanda" + $("#numeroComanda").val();
   $("#totalComanda").val(totalCta);
-  // $("#totalVta").html(number_format(venta, 2));
-  /* $("#totalDesc").html(number_format(descuento, 2));
-  $("#totalAbonos").html(number_format(abonos, 2)); */
   $("#totalCuenta").html(number_format(totalCta, 2));
-  // $("#valorImpto").html(number_format(impuesto, 2));
   $("#cantProd").val(canti);
 
-  $("#" + miBoton).attr("subtotal", venta);
-  $("#" + miBoton).attr("impto", impuesto);
+  $("#" + miBoton).attr("subtotal", venta.toFixed(2));
+  $("#" + miBoton).attr("impto", impuesto.toFixed(2));
   $("#" + miBoton).attr("descuento", descuento);
   $("#" + miBoton).attr("abonos", abonos);
-  $("#" + miBoton).attr("total", totalCuenta);
+  $("#" + miBoton).attr("total", totalCuenta.toFixed(2));
 }
 
 function resumenDescuento(ambiente, comanda) {
@@ -2471,69 +2457,6 @@ async function btnRecetaProducto(boton) {
   limpia = await limpiaProductosRecetasHMLT();
   await muestraProductosRecetasHML(productos)
 
-
-
-/*   $.ajax({
-    url: "res/php/user_actions/getRecetasProductos.php",
-    type: "POST",
-    dataType: "json",
-    data: {
-      id,
-    },
-    beforeSend: function (objeto) {
-      $("#materiaPrima > tbody").html("");
-    },
-    success: function (recetas) {
-      $("#materiaPrima > tbody").html("");
-      $("#valorReceta > tbody").html("");
-      valorReceta = 0;
-
-      let clase = '';
-
-      recetas.map((receta) => {
-        console.log(receta);
-        let {nombre_producto,
-          cantidad,
-          descripcion_unidad,
-          valor_unitario_promedio,
-          valor_promedio,
-          tipoProducto,
-          id,
-          id_receta,
-          subreceta} = receta;
-
-          if( tipoProducto == 1){
-            clase = "success"
-          }
-
-          $("#materiaPrima > tbody").append(`
-            <tr class="${clase}">
-              <td>${nombre_producto}</td>
-              <td class="derecha">${cantidad}</td>
-              <td>${descripcion_unidad}</td>
-              <td class="derecha">${number_format(valor_unitario_promedio, 2)}</td>
-              <td class="derecha">${number_format(valor_promedio, 2)}</td>
-              <td class="centro">
-                <button 
-                id='${id}' 
-                receta='${id_receta}' 
-                subreceta = '${subreceta}'
-                class='btn btn-danger btn-xs elimina_articulo' onclick='actualizaRece(this.id,this.parentNode.parentNode.rowIndex,this.receta,"${id}");'><i class='glyphicon glyphicon-trash '></i></button>
-              </td>
-            </tr>`);
-      })
-
-      let totalRece = recetas.reduce((valor_promedio) => valor_promedio, 0);
-
-      $("#valorReceta > tbody").append(
-        "<tr><td>Valor Receta</td><td id='vlrTotal'>" +
-          number_format(totalRece, 2) +
-          "</td><td></td></tr>"
-      ); 
-    },
-  });
- */
-
 }
 
 
@@ -2564,17 +2487,8 @@ async function muestraProductosRecetasHML(productos){
           subreceta = '${subreceta}'
           class='btn btn-danger btn-xs elimina_articulo' onclick='actualizaRece(this.id,this.parentNode.parentNode.rowIndex,this.receta,"${id}");'><i class='glyphicon glyphicon-trash '></i></button>
         </td>`;          
-      // console.log(row);
       materiaPrima.appendChild(row);
     }) 
-
-
-
-  // $("#materiaPrima > tbody").html("");
-  // $("#valorReceta > tbody").html("");
-
-
-
 
 }
 
@@ -5184,8 +5098,6 @@ function getVentas(nom, val, idp, imp, ambi) {
   imptoInc = impuesto;
   let nohay = true;
 
-  // console.log(imptoInc);
-
   for (i = 0; i < listaComanda.length; i++) {
     if (listaComanda[i]["codigo"] === idp && listaComanda[i]["activo"] === 0) {
       canti = listaComanda[i]["cant"] + 1;
@@ -5197,14 +5109,10 @@ function getVentas(nom, val, idp, imp, ambi) {
         porImpto = listaComanda[i]["impto"];
       }
 
-      subt = Math.round(
-        (canti * listaComanda[i]["importe"]) / (1 + porImpto / 100),
-        2
-      );
+      subt = ((canti * listaComanda[i]["importe"]) / (1 + porImpto / 100)).toFixed(2);
       impto = canti * listaComanda[i]["importe"] - subt;
       listaComanda[i]["valorimpto"] = impto;
 
-      subt = Math.round(subt,2);
       listaComanda[i]["venta"] = subt;
       listaComanda[i]["cant"] = canti;
       listaComanda[i]["total"] = totve;
@@ -5219,11 +5127,7 @@ function getVentas(nom, val, idp, imp, ambi) {
     
     subt = ((val * 1) / (1 + (imp / 100))).toFixed(2);
     
-    console.log(subt)
-    // subt = Math.round(subt,2);
     impuesto = (val * 1 - subt).toFixed(2);
-    console.log(impuesto)
-
 
     dataProd = {
       producto: nom,
@@ -5252,11 +5156,8 @@ function getRestarVentas(codigo, index) {
     getBorraVentas(codigo, index);
   } else {
     canti = listaComanda[index - 1]["cant"] - 1;
-    subt =
-      (canti * listaComanda[index - 1]["importe"]) /
-      (1 + listaComanda[index - 1]["impto"] / 100);
+    subt = ((canti * listaComanda[index - 1]["importe"]) /(1 + listaComanda[index - 1]["impto"] / 100)).toFixed(2);
     totve = canti * listaComanda[index - 1]["importe"];
-    subt = Math.round(subt,2);
     impto = canti * listaComanda[index - 1]["importe"] - subt;
     listaComanda[index - 1]["cant"] = canti;
     listaComanda[index - 1]["total"] = totve;
@@ -5271,10 +5172,7 @@ function getRestarVentas(codigo, index) {
 function getSumaVentas(codigo, index) {
   canti = listaComanda[index - 1]["cant"] + 1;
   totve = canti * listaComanda[index - 1]["importe"];
-  subt =
-    (canti * listaComanda[index - 1]["importe"]) /
-    (1 + listaComanda[index - 1]["impto"] / 100);
-  subt = Math.round(subt,2);
+  subt = ((canti * listaComanda[index - 1]["importe"]) / (1 + listaComanda[index - 1]["impto"] / 100)).toFixed(2);
   impto = canti * listaComanda[index - 1]["importe"] - subt;
   listaComanda[index - 1]["cant"] = canti;
   listaComanda[index - 1]["total"] = totve;
@@ -5297,7 +5195,6 @@ function buscar() {
   var alto = screen.height;
   var ancho = screen.width;
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  // let { pos } = sesion;
   let { id_ambiente } = oPos[0];
 
   var textoBusqueda = $("input#busqueda").val();
@@ -5493,7 +5390,6 @@ function getCuentasActivas(idamb) {
   var alto = screen.height;
   var ancho = screen.width;
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  // let { pos } = sesion;
   let { fecha_auditoria } = oPos[0];
 
   var parametros = {
@@ -5518,14 +5414,7 @@ function getCuentasActivas(idamb) {
       x.map(function (y) {
         let { comanda, cliente, abonos } = y;
       });
-      /*       
-      listaNuevaComanda.map(function (productos) {
-        impuesto = impuesto + parseFloat(productos.valorimpto);
-        ventaDiv = ventaDiv + parseFloat(productos.venta);
-        cantiDiv = cantiDiv + parseFloat(productos.cant);
-      }); 
-      */
-
+      
       for (i = 0; i < x.length; i++) {
         miBoton = `comanda${x[i]["comanda"]}`;
         boton = `
@@ -5610,14 +5499,19 @@ function getComandas(comanda, numero) {
   let { usuario, tipo } = user;
 
   miBoton = "#" + comanda;
-  subtotal = parseInt($(miBoton).attr("subtotal"));
+  subtotal = parseFloat($(miBoton).attr("subtotal"));
   impuesto = parseFloat($(miBoton).attr("impto"));
   propina = parseFloat($(miBoton).attr("propina"));
-  descuento = parseFloat($(miBoton).attr("descuento"));
-  abonos = parseFloat($(miBoton).attr("abonos"));
+  /* descuento = parseFloat($(miBoton).attr("descuento"));
+  abonos = parseFloat($(miBoton).attr("abonos")); */
+  descuento = 0;
+  abonos = 0;
   total = parseFloat($(miBoton).attr("total"));
   mesa = parseFloat($(miBoton).attr("mesa"));
   pax = parseFloat($(miBoton).attr("pax"));
+
+
+  // console.log({subtotal, impuesto, propina, descuento, abonos, total, mesa, pax})
 
   listaComanda = [];
 
@@ -5652,21 +5546,22 @@ function getComandas(comanda, numero) {
       $("#tituloNumero").addClass("alert-success");
       $("#tituloNumero").html(`Comanda Numero ${numero}`);
       $("#guardaComandaDividida").css("display", "none");
+      // console.log(data);
       for (i = 0; i < data.length; i++) {
         dataProd = {
           producto: data[i]["nom"],
           cant: parseInt(data[i]["cant"]),
-          importe: parseInt(data[i]["importe"]),
-          total: parseInt(data[i]["importe"] * data[i]["cant"]),
+          importe: parseFloat(data[i]["importe"]),
+          total: parseFloat(data[i]["importe"] * data[i]["cant"]),
           codigo: parseInt(data[i]["producto_id"]),
-          descuento: parseInt(data[i]["descuento"]),
-          venta: parseInt(data[i]["venta"]),
-          impto: parseInt(data[i]["impto"]),
+          descuento: parseFloat(data[i]["descuento"]),
+          venta: parseFloat(data[i]["venta"]),
+          impto: parseFloat(data[i]["impto"]),
           id: parseInt(data[i]["id"]),
-          valorimpto: parseInt(data[i]["valorimpto"]),
+          valorimpto: parseFloat(data[i]["valorimpto"]),
           ambiente: parseInt(id_ambiente),
           activo: 1,
-          importeTot: parseInt(data[i]["importe"])*parseInt(data[i]["cant"]),
+          importeTot: parseFloat(data[i]["importe"])*parseInt(data[i]["cant"]),
         };
         listaComanda.push(dataProd);
         localStorage.setItem("productoComanda", JSON.stringify(listaComanda));

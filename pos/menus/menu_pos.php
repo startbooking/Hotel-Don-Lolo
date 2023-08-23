@@ -67,7 +67,7 @@ $rutaINV = BASE_POS.'datos/kardex.php';
             <a class="menuPpal" onclick="verComandasAnuladas()"><i class="fa fa-minus-circle"></i> Comandas Anuladas</a>
           </li>
         </ul>
-      </li>
+      </li> 
       <li class="treeview" id="menuCaje" style="display:none;">
         <a href="#">
           <i class="ion ion-clipboard"></i>

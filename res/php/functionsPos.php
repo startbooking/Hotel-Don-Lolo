@@ -81,27 +81,8 @@ class Pos_Actions
     public function traeProductosVentaTotal($comanda, $ambiente){
       global $database;
 
-      $data = $database->query("SELECT
-      nom,
-      venta,
-      cant,
-      importe,
-      impto,
-      valorimpto,
-      sum(importe * cant) as total,
-      sum(round((importe * cant ) / (1+(impto /100)),0)) as baseimpto,
-      sum(round((importe * cant ) / (1+(impto /100)),0) * round((impto /100),0)) as valimpto 
-    FROM
-      ventas_dia_pos 
-    WHERE
-      ambiente = $ambiente AND 
-      comanda = $comanda
-    GROUP BY
-        impto,
-        comanda 
-    ORDER BY
-        comanda")->fetchAll();
-        return $data;
+      $data = $database->query("SELECT nom, venta, cant, importe, impto, valorimpto, sum(importe * cant) as total, sum(round((importe * cant ) / (1+(impto /100)),2)) as baseimpto, sum(round((importe * cant ) / (1+(impto /100)),2) * round((impto /100),2)) as valimpto FROM ventas_dia_pos WHERE ambiente = $ambiente AND comanda = $comanda GROUP BY impto, comanda  ORDER BY comanda")->fetchAll();
+    return $data;
     }
     public function getTotalProductosVendidosMes($amb, $desdefe, $hastafe)
     {
@@ -964,6 +945,7 @@ class Pos_Actions
                 'comandas.pax',
                 'ventas_dia_pos.nom',
                 'ventas_dia_pos.cant',
+                'ventas_dia_pos.cantidad_devo',
                 'ventas_dia_pos.motivo_devo',
                 'ventas_dia_pos.usuario_devo',
                 'ventas_dia_pos.fecha_devo',

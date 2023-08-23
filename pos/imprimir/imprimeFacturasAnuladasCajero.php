@@ -12,17 +12,17 @@ $pdf->SetFont('Arial', 'B', 13);
 $pdf->Cell(260, 5, $nomamb, 0, 1, 'C');
 $pdf->Ln(1);
 $pdf->SetFont('Arial', '', 10);
-$pdf->Cell(260, 5, 'Usuario '.$user.' Fecha '.$fecha, 0, 1, 'C');
-$pdf->Cell(260, 5, 'DETALLE FACTURAS ANULADAS ', 0, 1, 'C');
+$pdf->Cell(260, 4, 'Usuario '.$user.' Fecha '.$fecha, 0, 1, 'C');
+$pdf->Cell(260, 4, 'DETALLE FACTURAS ANULADAS ', 0, 1, 'C');
 $pdf->SetFont('Arial', 'B', 10);
-$pdf->Cell(20, 6, 'Fact.', 1, 0, 'C');
-$pdf->Cell(20, 6, 'Com. ', 1, 0, 'C');
-$pdf->Cell(20, 6, 'Mesa ', 1, 0, 'C');
-$pdf->Cell(20, 6, 'Pax ', 1, 0, 'C');
-$pdf->Cell(35, 6, 'Total Fact ', 1, 0, 'C');
-$pdf->Cell(30, 6, 'Usuario ', 1, 0, 'C');
-$pdf->Cell(80, 6, 'Motivo Anulacion ', 1, 0, 'C');
-$pdf->Cell(35, 6, 'Hora ', 1, 1, 'C');
+$pdf->Cell(20, 5, 'Fact.', 1, 0, 'C');
+$pdf->Cell(20, 5, 'Com. ', 1, 0, 'C');
+$pdf->Cell(20, 5, 'Mesa ', 1, 0, 'C');
+$pdf->Cell(20, 5, 'Pax ', 1, 0, 'C');
+$pdf->Cell(35, 5, 'Total Fact ', 1, 0, 'C');
+$pdf->Cell(30, 5, 'Usuario ', 1, 0, 'C');
+$pdf->Cell(80, 5, 'Motivo Anulacion ', 1, 0, 'C');
+$pdf->Cell(35, 5, 'Hora ', 1, 1, 'C');
 $pdf->SetFont('Arial', '', 10);
 
 $fact = 0;
@@ -44,17 +44,17 @@ if (count($detalles) == 0) {
         $desc = $desc + $detalle['descuento'];
         $tota = $tota + $detalle['valor_total'];
 
-        $pdf->Cell(20, 6, $detalle['factura'], 1, 0, 'R');
-        $pdf->Cell(20, 6, $detalle['comanda'], 1, 0, 'R');
-        $pdf->Cell(20, 6, $detalle['mesa'], 1, 0, 'R');
-        $pdf->Cell(20, 6, $detalle['pax'], 1, 0, 'R');
-        $pdf->Cell(35, 6, number_format($detalle['valor_total'], 2), 1, 0, 'R');
-        $pdf->Cell(30, 6, $detalle['usuario_anulada'], 1, 0, 'L');
-        $pdf->Cell(80, 6, $detalle['motivo_anulada'], 1, 0, 'L');
-        $pdf->Cell(35, 6, $detalle['fecha_factura_anulada'], 1, 1, 'L');
+        $pdf->Cell(20, 4, $detalle['factura'], 0, 0, 'R');
+        $pdf->Cell(20, 4, $detalle['comanda'], 0, 0, 'R');
+        $pdf->Cell(20, 4, $detalle['mesa'], 0, 0, 'R');
+        $pdf->Cell(20, 4, $detalle['pax'], 0, 0, 'R');
+        $pdf->Cell(35, 4, number_format($detalle['valor_total'], 2), 0, 0, 'R');
+        $pdf->Cell(30, 4, $detalle['usuario_anulada'], 0, 0, 'L');
+        $pdf->Cell(80, 4, $detalle['motivo_anulada'], 0, 0, 'L');
+        $pdf->Cell(35, 4, $detalle['fecha_factura_anulada'], 0, 1, 'L');
     }
-    $pdf->Cell(80, 6, 'Total', 1, 0, 'C');
-    $pdf->Cell(35, 6, number_format($tota, 2), 1, 1, 'R');
+    $pdf->Cell(80, 5, 'Total', 1, 0, 'C');
+    $pdf->Cell(35, 5, number_format($tota, 2), 1, 1, 'R');
 }
 
 $pdf->Ln(5);

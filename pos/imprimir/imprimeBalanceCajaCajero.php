@@ -30,7 +30,7 @@ $efecart = 0;
 $totabono = 0;
 $abonoefec = 0;
 
-$pdf->SetFont('Arial', 'B', 9);
+/* $pdf->SetFont('Arial', 'B', 9);
 $pdf->Cell(160, 5, 'BASE DE CAJA', 1, 1, 'C');
 $pdf->Cell(70, 5, 'Concepto ', 1, 0, 'C');
 $pdf->Cell(70, 5, 'Cajero. ', 1, 0, 'C');
@@ -49,7 +49,9 @@ if (count($bases) == 0) {
     $pdf->Cell(70, 5, 'Total Base Caja', 1, 0, 'L');
     $pdf->Cell(30, 5, number_format($totbase, 2), 1, 1, 'C');
 }
-$pdf->Ln(5);
+$pdf->Ln(5); */
+
+/* 
 $pdf->SetFont('Arial', 'B', 9);
 $pdf->Cell(190, 5, 'COMPRAS BASE DE CAJA', 1, 1, 'C');
 $pdf->Cell(90, 5, 'Concepto ', 1, 0, 'C');
@@ -72,9 +74,9 @@ if (count($cajas) == 0) {
     $pdf->Cell(70, 5, 'Total Compras Por Caja', 1, 0, 'L');
     $pdf->Cell(30, 5, number_format($totcaja, 2), 1, 1, 'C');
     $pdf->Ln(5);
-}
+} */
 
-$pdf->Ln(5);
+/* $pdf->Ln(5);
 $pdf->SetFont('Arial', 'B', 9);
 $pdf->Cell(190, 5, 'RECAUDOS DE CARTERA  BASE DE CAJA', 1, 1, 'C');
 $pdf->Cell(50, 6, 'Cliente ', 1, 0, 'C');
@@ -100,6 +102,9 @@ if (count($carteras) == 0) {
     $pdf->Cell(70, 5, 'Total Recuados de Cartera Por Caja', 1, 0, 'L');
     $pdf->Cell(30, 5, number_format($totcart, 2), 1, 1, 'C');
 }
+ */
+
+/*  
 $pdf->Ln(5);
 $pdf->SetFont('Arial', 'B', 9);
 $pdf->Cell(100, 5, 'ABONOS DEL DIA BASE DE CAJA', 1, 1, 'C');
@@ -121,7 +126,7 @@ if (count($abonos) == 0) {
     $pdf->SetFont('Arial', 'B', 9);
     $pdf->Cell(70, 5, 'Total Abonos del Dia', 1, 0, 'L');
     $pdf->Cell(30, 5, number_format($totabono, 2), 1, 1, 'R');
-}
+} */
 
 $pdf->Ln(5);
 $pdf->SetFont('Arial', 'B', 9);
