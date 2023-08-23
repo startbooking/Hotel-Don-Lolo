@@ -27,8 +27,8 @@
           </h1>
         </div>
         <div class="col-md-2 col-sm-2 col-xs-12 centro">
-            <div class="container-fluid">
-              <img class="img-thumbnail" style="margin-top:0;" src="<?=BASE_WEB?>img/<?=LOGO_EMPRESA?>"> 
+            <div class="container-fluid centro" >
+              <img class="img-thumbnail logoGen" style="margin-top:0;" src="<?=BASE_WEB?>img/<?=LOGO_EMPRESA?>"> 
             </div>
         </div>          
         <div class="col-sm-5 col-sm-5 col-xs-12">          

@@ -18,12 +18,12 @@ $estado = 0;
 $cantidad = 0;
 $cantidad = $inicial - $devuelve;
 
-$baseVta = round($cantidad * $importe,0);
-$montoimpto = round($baseVta * $impto,0);
+$baseVta = round($cantidad * $importe,2);
+$montoimpto = round($baseVta * $impto,2);
 
 if($impuesto==1){
-    $baseVta =  round(($cantidad * $importe) / (1+($impto/100)),0);
-    $montoimpto = round(($cantidad * $importe)- $baseVta,0);
+    $baseVta =  round(($cantidad * $importe) / (1+($impto/100)),2);
+    $montoimpto = round(($cantidad * $importe)- $baseVta,2);
 }
 
 if ($inicial == $devuelve) {
@@ -38,7 +38,7 @@ $imptos = 0;
 $total = 0;
 
 foreach ($saldos as $comandaventa) {
-    $subt = round($comandaventa['venta'], 0);
+    $subt = round($comandaventa['venta'], 2);
     $impt = $comandaventa['valorimpto'];
     $subtotal = $subtotal + $subt;
     $imptos = $imptos + $impt;

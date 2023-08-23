@@ -5,8 +5,8 @@
   </a>
   <nav class="navbar navbar-static-top" role="navigation">
     <ul class="nav navbar-nav ">
-      <li>
-        <label for="" style="font-weight: 600;padding:11px 15px;color:#FFF;font-size:16px">Fecha Proceso <?php echo FECHA_PMS; ?></label>
+      <li class="fechaProceso">
+        <label for="" style="">Fecha Proceso <?php echo FECHA_PMS; ?></label>
       </li>          
     </ul>
     <div class="navbar-custom-menu">

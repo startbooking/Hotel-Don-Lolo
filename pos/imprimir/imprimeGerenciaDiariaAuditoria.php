@@ -58,27 +58,27 @@ $pdf->Cell(25, 6, number_format($ventasAnio[0]['anioOcu'], 0), 1, 1, 'R');
 $pdf->Cell(45, 6, 'Promedio Mesa', 1, 0, 'L');
 $pdf->Cell(25, 6, number_format($ventasDia[0]['ingreso_promedio_mesa'], 2), 1, 0, 'R');
 if ($ventasMes[0]['mesOcu'] == 0) {
-    $pdf->Cell(25, 6, number_format(round(0, 0), 2), 1, 0, 'R');
+    $pdf->Cell(25, 6, number_format(round(0, 2), 2), 1, 0, 'R');
 } else {
-    $pdf->Cell(25, 6, number_format(round($ventasMes[0]['mesVta'] / $ventasMes[0]['mesOcu'], 0), 2), 1, 0, 'R');
+    $pdf->Cell(25, 6, number_format(round($ventasMes[0]['mesVta'] / $ventasMes[0]['mesOcu'], 2), 2), 1, 0, 'R');
 }
 if ($ventasMes[0]['mesCve'] == 0) {
-    $pdf->Cell(25, 6, number_format(round(0, 0), 2), 1, 1, 'R');
+    $pdf->Cell(25, 6, number_format(round(0, 2), 2), 1, 1, 'R');
 } else {
-    $pdf->Cell(25, 6, number_format(round($ventasAnio[0]['anioVta'] / $ventasAnio[0]['anioOcu'], 0), 2), 1, 1, 'R');
+    $pdf->Cell(25, 6, number_format(round($ventasAnio[0]['anioVta'] / $ventasAnio[0]['anioOcu'], 2), 2), 1, 1, 'R');
 }
 
 $pdf->Cell(45, 6, 'Promedio PAX', 1, 0, 'L');
 $pdf->Cell(25, 6, number_format($ventasDia[0]['ingreso_promedio_cliente'], 2), 1, 0, 'R');
 if ($ventasMes[0]['mesCve'] == 0) {
-    $pdf->Cell(25, 6, number_format(round(0, 0), 2), 1, 0, 'R');
+    $pdf->Cell(25, 6, number_format(round(0, 2), 2), 1, 0, 'R');
 } else {
-    $pdf->Cell(25, 6, number_format(round($ventasMes[0]['mesVta'] / $ventasMes[0]['mesCve'], 0), 2), 1, 0, 'R');
+    $pdf->Cell(25, 6, number_format(round($ventasMes[0]['mesVta'] / $ventasMes[0]['mesCve'], 2), 2), 1, 0, 'R');
 }
 if ($ventasAnio[0]['anioCve'] == 0) {
-    $pdf->Cell(25, 6, number_format(round(0, 0), 2), 1, 1, 'R');
+    $pdf->Cell(25, 6, number_format(round(0, 2), 2), 1, 1, 'R');
 } else {
-    $pdf->Cell(25, 6, number_format(round($ventasAnio[0]['anioVta'] / $ventasAnio[0]['anioCve'], 0), 2), 1, 1, 'R');
+    $pdf->Cell(25, 6, number_format(round($ventasAnio[0]['anioVta'] / $ventasAnio[0]['anioCve'], 2), 2), 1, 1, 'R');
 }
 $pdf->Ln(5);
 

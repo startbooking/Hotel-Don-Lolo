@@ -20,7 +20,7 @@
 
 		$porImp = $pos->traePorcentajeImpto($impto);
 
-		$vlrNeto = round($vlrVenta / (1+($porImp/100)),0);
+		$vlrNeto = round($vlrVenta / (1+($porImp/100)),2);
 		$vlrImpt = (($vlrNeto * $porImp)/ 100);
 		$vlrPorc = $vlrNeto / $porcion;
 

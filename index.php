@@ -28,7 +28,7 @@ require_once 'res/php/app_top.php';
 						<label for="" class="">POS</label>
 					</div>
 					<div class="letraBaldosin letraLogo">
-						<label style="font-size:60px;margin-top:30px;" for="">Barahona Software</label>
+						<label style="" for="">Barahona Software</label>
 					</div>
 				</div>
 				<div class="row" style="display:flex;">

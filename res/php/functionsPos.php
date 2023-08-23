@@ -6,9 +6,6 @@ date_default_timezone_set('America/Bogota');
 class Pos_Actions
 {
 
-    
-
-
     public function getSubRecetasProducto($id)
     {
         global $database;

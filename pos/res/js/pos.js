@@ -5184,6 +5184,8 @@ function getVentas(nom, val, idp, imp, ambi) {
   imptoInc = impuesto;
   let nohay = true;
 
+  // console.log(imptoInc);
+
   for (i = 0; i < listaComanda.length; i++) {
     if (listaComanda[i]["codigo"] === idp && listaComanda[i]["activo"] === 0) {
       canti = listaComanda[i]["cant"] + 1;
@@ -5197,13 +5199,12 @@ function getVentas(nom, val, idp, imp, ambi) {
 
       subt = Math.round(
         (canti * listaComanda[i]["importe"]) / (1 + porImpto / 100),
-        0
+        2
       );
       impto = canti * listaComanda[i]["importe"] - subt;
       listaComanda[i]["valorimpto"] = impto;
 
-      subt = Math.round(subt);
-
+      subt = Math.round(subt,2);
       listaComanda[i]["venta"] = subt;
       listaComanda[i]["cant"] = canti;
       listaComanda[i]["total"] = totve;
@@ -5215,9 +5216,14 @@ function getVentas(nom, val, idp, imp, ambi) {
     if (imptoInc == 0) {
       imp = 0;
     }
-    subt = (val * 1) / (1 + (imp / 100));
-    subt = Math.round(subt);
-    impuesto = val * 1 - subt;
+    
+    subt = ((val * 1) / (1 + (imp / 100))).toFixed(2);
+    
+    console.log(subt)
+    // subt = Math.round(subt,2);
+    impuesto = (val * 1 - subt).toFixed(2);
+    console.log(impuesto)
+
 
     dataProd = {
       producto: nom,
@@ -5250,7 +5256,7 @@ function getRestarVentas(codigo, index) {
       (canti * listaComanda[index - 1]["importe"]) /
       (1 + listaComanda[index - 1]["impto"] / 100);
     totve = canti * listaComanda[index - 1]["importe"];
-    subt = Math.round(subt);
+    subt = Math.round(subt,2);
     impto = canti * listaComanda[index - 1]["importe"] - subt;
     listaComanda[index - 1]["cant"] = canti;
     listaComanda[index - 1]["total"] = totve;
@@ -5268,7 +5274,7 @@ function getSumaVentas(codigo, index) {
   subt =
     (canti * listaComanda[index - 1]["importe"]) /
     (1 + listaComanda[index - 1]["impto"] / 100);
-  subt = Math.round(subt);
+  subt = Math.round(subt,2);
   impto = canti * listaComanda[index - 1]["importe"] - subt;
   listaComanda[index - 1]["cant"] = canti;
   listaComanda[index - 1]["total"] = totve;

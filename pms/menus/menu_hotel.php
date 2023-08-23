@@ -4,12 +4,12 @@ if ($_GET['section'] != 'cajeroCerrado') {
   <input type="hidden" name="webPage" id="webPage" value="<?php echo BASE_PMS; ?>">
   <input type="hidden" name="fechaProceso" id="fechaProceso" value="<?php echo FECHA_PMS; ?>">
   <input type="hidden" name="usuarioActivo" id="usuarioActivo" value="">
-  <aside class="main-sidebar" style="margin-top:50px;padding:0">
+  <aside class="main-sidebar" style="">
     <section class="sidebar">
       <ul class="sidebar-menu"> 
         <li style="text-align: center">
           <a href="home" style="font-weight: 700">
-            <img class="img-thumbnail" src="<?php echo BASE_IMG.LOGO; ?>" alt="" style="border-radius: 5px;margin-left: -10px;margin-top: 0px;height:80px;"> 
+            <img class="img-thumbnail logoMenu" src="<?php echo BASE_IMG.LOGO; ?>" alt="" style=""> 
           </a>
         </li>
         <li class="treeview">

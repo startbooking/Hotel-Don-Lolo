@@ -17,8 +17,8 @@ require_once '../res/php/app_topHotel.php';
           $_GET['section'] = 'home';
       }
       include_once 'menus/menu_hotel.php';
-include_once 'menus/menu_titulo.php';
-?>
+      include_once 'menus/menu_titulo.php';
+    ?>
     <div class="content-fluid" id="plantilla"> 
       <?php
 

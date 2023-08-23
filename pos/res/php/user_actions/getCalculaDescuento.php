@@ -36,9 +36,9 @@
   $prodDescs = $pos->getProductosComandaVenta($comanda,$ambiente);
   if($montodes[0]['porcentaje']!=0){
     foreach ($prodDescs as $producto) {
-      $valor    = round(round($producto['venta'] * $porce ,0)/100,0);
+      $valor    = round(round($producto['venta'] * $porce ,2)/100,2);
       $neto     = $producto['venta'] - $valor;
-      $valimpto = round(($neto * $producto['impto']/100),0);
+      $valimpto = round(($neto * $producto['impto']/100),2);
       $descu    = $pos->updateDescuentoProducto($producto['id'],$valor,$porce,$valimpto);
       $monto    = $monto + $valor;
     }

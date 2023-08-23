@@ -162,11 +162,7 @@ function activaModulos() {
     fecha.getDate() + "/" + (fecha.getMonth() + 1) + "/" + fecha.getFullYear();
   let { cia, user, moduloPms } = sesion;
   let { estado, ingreso, tipo, apellidos, nombres, inv, pos, pms, res } = user;
-
-  // console.log({ estado, ingreso, tipo, apellidos, nombres, inv, pos, pms, res });
-
   let { invMod, posMod, pmsMod, resMod } = cia;
-  // console.log({ invMod, posMod, pmsMod, resMod });
 
   let { fecha_auditoria } = moduloPms;
 
@@ -242,7 +238,7 @@ function activaModulos() {
     <div class="container-fluid">
       <div id="par" style="cursor: pointer;margin-top:20px" class="container-fluid">
         <div class="moduloCentrar">
-          <div class="col-sm-4 col-xs-12"> 
+          <div class="col-sm-6 col-xs-12" style="padding:0px;"> 
             <a onclick="ingresoAdmin()" class="small-box-footer">                  
               <div class="small-box bg-red-gradient">                    
                 <div class="inner">                      

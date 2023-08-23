@@ -20,11 +20,11 @@
     $regis    = $pos->getCantidadProductosComanda($codigo,$xusu,$amb);
 
     if ($parinve == 1){
-      $subt = round(($prodvta[0]['venta']) / (1+($porimpto/100)),0);
+      $subt = round(($prodvta[0]['venta']) / (1+($porimpto/100)),2);
       $impt = ($prodvta[0]['venta']) - $subt;
     }else{
       $subt = $prodvta[0]['venta'];
-      $impt = round($prodvta[0]['venta'] * ($porimpto/100),0);
+      $impt = round($prodvta[0]['venta'] * ($porimpto/100),2);
     };
 
     if($regis==1){

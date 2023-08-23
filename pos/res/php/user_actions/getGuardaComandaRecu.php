@@ -14,7 +14,7 @@
   $impt = 0;
 
   foreach ($productos as $comandaventa) {
-      $subt = round($comandaventa['venta'], 0);
+      $subt = round($comandaventa['venta'], 2);
       $impt = $comandaventa['valorimpto'];
       if ($comandaventa['activo'] == 0) {
           $ingresa = $pos->ingresoProductosComanda($amb, $usu, $comandaventa['producto'], $subt, $comandaventa['cant'], $comandaventa['importe'], $comandaventa['codigo'], $comanda, $comandaventa['impto'], $impt);

@@ -172,7 +172,7 @@ blockquote {
 }
 
 .main-header .logo {
-  height: 56px;
+  height: 50px;
 }
 
 .sidebar-menu .treeview-menu > li > a {
@@ -1316,6 +1316,21 @@ ul#produtos li h3 {
   text-align: right;
 }
 
+.centro {
+  text-align: center;
+}
+
+.fechaProceso {
+  font-weight: 600;
+  padding:11px 15px;
+  color:#FFF;
+  font-size:16px
+}
+
+.accesos {
+  padding:10px;font-size:25px
+}
+
 @media (max-width: 767px) {
   .badge {
     width: 100%;
@@ -1504,11 +1519,21 @@ ul#produtos li h3 {
   }
 }
 
-@media (max-width: 360px) {
+@media (max-width: 640px) {
+
+  .main-header .logo {
+    width: 18%;
+    height: 51px;
+  }
+}
+
+
+@media (max-width: 480px) {
   .img-thumbnail {
     margin-top: 15%;
     margin-left: 0%;
-    width: 100%;
+    width: 50%;
+    margin-bottom: 15px;
   }
   .col-xs-12 {
     width: 100%;
@@ -1536,4 +1561,24 @@ ul#produtos li h3 {
   .logo > span {
     display: none;
   }
+
+  .fechaProceso {
+    /* display:none; */
+    font-size: 11px;
+    padding: 7px 0 0 20px;
+    margin-top:3px;
+  }
+  
+  .inner p, .small-box-footer {
+    font-size: 10px;
+  }
+  .accesos {
+    padding:5px;font-size:12px
+  }
+
+  .logopie h6{
+    display:none;
+  }
+
+
 }

@@ -20,7 +20,7 @@
     <div class="container-fluid">
       <input type="hidden" name="rutaweb" id="rutaweb" value="<?php echo BASE_PMS; ?>">
       <input type="hidden" name="ubicacion" id="ubicacion" value="home">
-      <h1 style="font-size:34px;">
+      <h1 class="controlPanel">
       Panel de Control <br>
       <span><?php echo NAME_HOTEL; ?></span>
       </h1>
@@ -197,7 +197,7 @@
   <section class="container-fluid">
     <div class="container-fluid">
       <div class="col-md-6 col-xs-12">          
-        <h2 style="padding:10px;font-size:25px">Accesos Directos <i class="fa fa-external-link" aria-hidden="true"></i>
+        <h2 class="accesos">Accesos Directos <i class="fa fa-external-link" aria-hidden="true"></i>
 
         </h2>
       </div>
