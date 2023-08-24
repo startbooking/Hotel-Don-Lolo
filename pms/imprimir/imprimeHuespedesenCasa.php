@@ -88,16 +88,16 @@ $pdf->Cell(65, 6, 'Ingreso Promedio por Habitacion Ocupada', 1, 0, 'L');
 if ($hab == 0) {
     $pdf->Cell(30, 6, number_format($hab, 2), 1, 0, 'C');
 } else {
-    $pdf->Cell(30, 6, number_format(round($tar / $dispo, 0), 2), 1, 0, 'C');
+    $pdf->Cell(30, 6, number_format(round($tar / $dispo, 2), 2), 1, 0, 'C');
 }
 $pdf->Cell(65, 6, 'Ingreso Promedio por Huesped', 1, 0, 'L');
 if (($hom + $muj) == 0) {
     $pdf->Cell(30, 6, number_format($hom + $muj, 2), 1, 1, 'C');
 } else {
-    $pdf->Cell(30, 6, number_format(round($tar / ($hom + $muj), 0), 2), 1, 1, 'C');
+    $pdf->Cell(30, 6, number_format(round($tar / ($hom + $muj), 2), 2), 1, 1, 'C');
 }
 $pdf->Cell(65, 6, 'Ingreso Promedio por Habitacion Disponibles', 1, 0, 'L');
-$pdf->Cell(30, 6, number_format(round($tar / $dispo, 0), 2), 1, 0, 'C');
+$pdf->Cell(30, 6, number_format(round($tar / $dispo, 2), 2), 1, 0, 'C');
 
 $file = '../../imprimir/auditorias/Huespedes_en_Casa_'.FECHA_PMS.'.pdf';
 $pdf->Output($file, 'F');

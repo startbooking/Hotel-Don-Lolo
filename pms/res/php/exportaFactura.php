@@ -53,6 +53,7 @@
           $idC = $factura['id_perfil_factura'];
           $cliente = $hotel->getSeleccionaCompania($idC);
           $empresa = $cliente[0]['empresa'];
+          // echo print_r($empresa);
           $nit = $cliente[0]['nit'];
           $dv = $cliente[0]['dv'];
         }
@@ -65,7 +66,10 @@
 
         $codCiudad = "'".substr($codigoMun, 2, 3);
         $codDepto = substr($codigoMun, 0, 2);
-        $direccion = str_replace('#','Nro',$cliente[0]['direccion']);
+        // $direccion = preg_replace();
+        // $direccion = preg_replace('/[#]/','Nro ',$cliente[0]['direccion']);
+        // $direccion = $c
+        // preg_replace ( exp_regular, cadena_nueva , cadena[, limite = -1 [, contador ]] );
         $telefono = $cliente[0]['telefono'];
         $totales = $factura['pagos'];
         /* if ($factura['total_pagos'] == 0) {
@@ -89,7 +93,7 @@
 					<td><?php echo $factura['cuenta_puc']; ?></td>
 					<td><?php echo $i; ?></td>
 					<td><?php echo substr($factura['fecha_factura'], 8, 2).'/'.substr($factura['fecha_factura'], 5, 2).'/'.substr($factura['fecha_factura'], 0, 4); ?></td>
-					<td><?php echo $factura['centroCosto']; ?></td>
+					<td><?php echo "'".$factura['centroCosto']; ?></td>
 					<td><?php echo $nit; ?></td>
 					<td><?php echo $dv; ?></td>
 					<td><?php echo $apellido1; ?></td>
@@ -175,7 +179,8 @@
         // $codCiudad = substr($codigoMun, 2, 3);
         $codCiudad = "'".substr($codigoMun, 2, 3);
         $codDepto = substr($codigoMun, 0, 2);
-        $direccion = str_replace('#','Nro',$cliente[0]['direccion']);
+        // $direccion = str_replace('#','Nro',$cliente[0]['direccion']);
+        $direccion = $cliente[0]['direccion'];
         $telefono = $cliente[0]['telefono'];
         if ($factura['total_pagos'] == 0) {
           $totales = $factura['pagos'];
@@ -207,7 +212,7 @@
             <td><?php echo $pucImpto; ?></td>
             <td><?php echo $i; ?></td>
             <td><?php echo substr($factura['fecha_factura'], 8, 2).'/'.substr($factura['fecha_factura'], 5, 2).'/'.substr($factura['fecha_factura'], 0, 4); ?></td>
-            <td><?php echo $factura['centroCosto']; ?></td>
+            <td><?php echo "'".$factura['centroCosto']; ?></td>
             <td><?php echo $nit; ?></td>
             <td><?php echo $dv; ?></td>
             <td><?php echo $apellido1; ?></td>

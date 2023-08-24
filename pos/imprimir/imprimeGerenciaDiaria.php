@@ -147,12 +147,12 @@
   $pdf->Cell(25,6,number_format($anioingtot,2),1,1,'R');
   $pdf->Cell(45,6,'Tarifa Prom. Habitacion',1,0,'L');
   $pdf->Cell(25,6,number_format($ingprohabdis,2),1,0,'R');
-  $pdf->Cell(25,6,number_format(round($mesingtot/ $meshabdis,0),2),1,0,'R');
-  $pdf->Cell(25,6,number_format(round($anioingtot/ $aniohabdis,0),2),1,1,'R');
+  $pdf->Cell(25,6,number_format(round($mesingtot/ $meshabdis,2),2),1,0,'R');
+  $pdf->Cell(25,6,number_format(round($anioingtot/ $aniohabdis,2),2),1,1,'R');
   $pdf->Cell(45,6,'Tarifa Prom. Habi. Ocup.',1,0,'L');
   $pdf->Cell(25,6,number_format($ingprohabocu,2),1,0,'R');
-  $pdf->Cell(25,6,number_format(round($mesingtot/ $meshabocu,0),2),1,0,'R');
-  $pdf->Cell(25,6,number_format(round($anioingtot/ $aniohabocu,0),2),1,1,'R');
+  $pdf->Cell(25,6,number_format(round($mesingtot/ $meshabocu,2),2),1,0,'R');
+  $pdf->Cell(25,6,number_format(round($anioingtot/ $aniohabocu,2),2),1,1,'R');
 
   $pdf->Ln(3);
 

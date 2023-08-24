@@ -7,8 +7,6 @@ $id = $_POST['id'];
 
 $huesped = $hotel->getBuscaIdHuesped($id);
 
-// echo print_r($huesped);
-
 $tipodocs = $hotel->getTipoDocumento();
 $paices = $hotel->getPaices();
 $nombreExp = $hotel->getNombreCiudad($huesped[0]['ciudad_expedicion']);

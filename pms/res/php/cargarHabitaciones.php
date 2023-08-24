@@ -73,7 +73,7 @@ if ($regis >= 1 && $tipo == 2) { ?>
         $imptoTuri = $porcentaje[0]['decreto_turismo'];
 
         if (IVA_INCLUIDO == 1) {
-          $nuevototal = round($totalcargo / ((100 + $porcImpto) / 100), 0);
+          $nuevototal = round($totalcargo / ((100 + $porcImpto) / 100), 2);
           if ($turismo == 2 && $imptoTuri == 1) {
             $impuesto = 0;
           } else {
@@ -84,7 +84,7 @@ if ($regis >= 1 && $tipo == 2) { ?>
           if ($turismo == 2 && $imptoTuri == 1) {
             $impuesto = 0;
           } else {
-            $impuesto = round($totalcargo * ($porcImpto / 100), 0);
+            $impuesto = round($totalcargo * ($porcImpto / 100), 2);
           }
         }
       }
@@ -119,7 +119,7 @@ if ($regis >= 1 && $tipo == 2) { ?>
           $imptoTuri = $paquetes[0]['decreto_turismo'];
 
           if (IVA_INCLUIDO == 1) {
-            $nuevototal = round($totalcargo / ((100 + $porcImpto) / 100), 0);
+            $nuevototal = round($totalcargo / ((100 + $porcImpto) / 100), 2);
             if ($turismo == 2 && $imptoTuri == 1) {
               $impuesto = 0;
             } else {
@@ -130,7 +130,7 @@ if ($regis >= 1 && $tipo == 2) { ?>
             if ($turismo == 2 && $imptoTuri == 1) {
               $impuesto = 0;
             } else {
-              $impuesto = round($totalcargo * ($porcImpto / 100), 0);
+              $impuesto = round($totalcargo * ($porcImpto / 100), 2);
             }
           }
         }

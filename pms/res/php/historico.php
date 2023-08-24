@@ -15,8 +15,6 @@
 		if(is_null($inghabimp)){
 			$inghabimp = 0 ;
 		}
-		// $ingcom   = $hotel->getIngresoDiarioCompania($fecha);
-		
 		$habhu       = $hotel->getCountHuespedesenCasa(CTA_MASTER,$fecha);
 		if(is_null($habhu)){
 			$habhu = 0;
@@ -32,11 +30,11 @@
 		$huespedcasa = $habhu - $habpm ;
 		$habitdis    = $rooms - $pm;
 		
-		$ingpromhab  = round($inghab[0]['cargos'] / $habitdis,0);
+		$ingpromhab  = round($inghab[0]['cargos'] / $habitdis,2);
 		if($huespedcasa==0){
 			$ingpromocu = 0;	
 		}else{
-			$ingpromocu  = round($inghab[0]['cargos'] / $huespedcasa,0);
+			$ingpromocu  = round($inghab[0]['cargos'] / $huespedcasa,2);
 		}
 		
 		$canford     = $hotel->getHabitacionsBloqueadas('FO');
@@ -63,7 +61,7 @@
 		if($huespedes[0]['hombres']+$huespedes[0]['mujeres']==0){
 			$ingpromhues = 0; 
 		}else{
-			$ingpromhues = round($inghab[0]['cargos'] / $huespedes[0]['hombres']+$huespedes[0]['mujeres'],0);
+			$ingpromhues = round($inghab[0]['cargos'] / $huespedes[0]['hombres']+$huespedes[0]['mujeres'],2);
 		}
 
 		$audi = $hotel->insertDiaAuditoria($fecha,$inghab[0]['cargos'],$inghabimp[0]['impto'],$ingpromhab, $ingpromocu, $habitdis, $ingpromhues, $canford, $canfser, $huespedcasa, $salidadia, $llegadasdia, $huespedes[0]['hombres'], $huespedes[0]['mujeres'], $huespedes[0]['ninos'], $cancamas[0]['camas'],$usuario);

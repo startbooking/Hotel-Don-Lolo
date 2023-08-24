@@ -9,7 +9,6 @@ $sale = $reserva[0]['fecha_salida'];
 $huesped = $hotel->getBuscaIdHuesped($reserva[0]['id_huesped']);
 $tipohab = $reserva[0]['tipo_habitacion'];
 $cia = $hotel->getBuscaCia($reserva[0]['id_compania']);
-// $centros = $hotel->getBuscaCentroCia($reserva[0]['idCentroCia']);
 $tipodocs = $hotel->getTipoDocumento();
 $tipos = $hotel->getTipoHabitacion();
 $ciudades = $hotel->getCiudades();

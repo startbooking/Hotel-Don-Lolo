@@ -25,12 +25,12 @@ if ($regis == 0) {
     }
 }
 
-$ingpromhab = round($ingdia / $habitdis, 0);
+$ingpromhab = round($ingdia / $habitdis, 2);
 
 if ($huespedcasa == 0) {
     $ingpromocu = 0;
 } else {
-    $ingpromocu = round($ingdia / $huespedcasa, 0);
+    $ingpromocu = round($ingdia / $huespedcasa, 2);
 }
 
 $canford = $hotel->getHabitacionsBloqueadas('FO');
@@ -152,7 +152,7 @@ if (count($huespedes) == 0) {
         $hom = $huespedes[0]['hombres'];
         $muj = $huespedes[0]['mujeres'];
         $nin = $huespedes[0]['ninos'];
-        $ingpromhues = round($ingdia / ($hom + $muj), 0);
+        $ingpromhues = round($ingdia / ($hom + $muj), 2);
     }
 }
 

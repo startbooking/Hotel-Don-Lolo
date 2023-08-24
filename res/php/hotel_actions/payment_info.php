@@ -42,14 +42,10 @@
 
   $user = new User_Actions();
 
-  $valtax = round(($imptoinc[0]['tax']* $vlrestadia)/100,0);
-
-  // echo $fechalle.'-'.$fechasal.'-'.$adultos.'-'.$ninos.'-'.$noches.'-'.$tarifa.'-'.$tipohabi.'-'.$canthabi.'-'.$idhotel.'-'.$nombres.'-'.$apellidos.'-'.$vlrestadia.'-'.$valtax.'-'.$identi.'-'.$mail.'-'.$phone.'-'.$adress.'-'.$city.'-'.$land.'-'.$comments.'-'.$abeas.'-'.$numbook.'-'.$ip.'-'.$fecha.'-';
+  $valtax = round(($imptoinc[0]['tax']* $vlrestadia)/100,2);
 
   $newbook  = $user->insertBooking($fechalle,$fechasal,$adultos,$ninos,$noches,$tarifa,$tipohabi,$canthabi,$idhotel,$nombres,$apellidos,$vlrestadia,$valtax,$identi,$mail,$phone,$adress,$city,$land,$comments,$abeas,$numbook,$ip,$fecha);
   $idbook   = $numbook;
-
-  // echo $newbook;
 
 ?>
 
@@ -209,7 +205,7 @@
                     <input style="font-size:16px;font-weight:700 !important;" class="form-control" type="text" name="" value="<?=number_format($vlrtotal,2)?>" readonly>
                   </div>
                   <?php 
-                    $vlrtax = round(($vlrtotal * $imptoinc[0]['tax'])/100,0); ?>
+                    $vlrtax = round(($vlrtotal * $imptoinc[0]['tax'])/100,2); ?>
                 </div>
                 <div class="form-group">
                   <label class="control-label col-lg-4"> Impuestos </label>

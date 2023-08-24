@@ -18,7 +18,7 @@
 	$tarifahab     = $_POST['tarifahabUpd'];
 	$valortarifa   = str_replace('.00','',$_POST['valortarifaUpd']);
 	$valortarifa   = str_replace(',','',$valortarifa);
-	$valortarifa   = round($valortarifa,0);
+	$valortarifa   = round($valortarifa,2);
 	$origen        = $_POST['origen'];
 	$destino       = $_POST['destino'];
 	$motivo        = $_POST['motivo'];

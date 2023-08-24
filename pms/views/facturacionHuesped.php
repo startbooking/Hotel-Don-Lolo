@@ -157,7 +157,6 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
               <?php
               }
             ?>
-
           </div> 
         </div> 
         <div class="panel-body">
@@ -168,15 +167,15 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
             <ul class="nav nav-tabs nav-justified">
               <li class="active folios" id="folios1">
                 <a style="cursor:pointer;" data-toggle="tab" onclick="activaFolio(<?php echo $reserva; ?>,1)">Folio 1
-                <?php
-    if ($saldofolio1 != 0) { ?>
-                  <span class="fa-stack fa-xs" title="Reserva con Depositos" style="margin-left:0px;cursor:pointer;">
-                    <i style="font-size:20px;color: #085908" class="fa fa-circle fa-stack-2x"></i>
-                    <i style="font-size:10px;" class="fa fa-usd fa-stack-1x fa-inverse"></i>
-                  </span>
                   <?php
-    }
-?>
+                    if ($saldofolio1 != 0) { ?>
+                      <span class="fa-stack fa-xs" title="Reserva con Depositos" style="margin-left:0px;cursor:pointer;">
+                        <i style="font-size:20px;color: #085908" class="fa fa-circle fa-stack-2x"></i>
+                        <i style="font-size:10px;" class="fa fa-usd fa-stack-1x fa-inverse"></i>
+                      </span>
+                      <?php
+                    }
+                  ?>
                 </a>
               </li>
               <li class="folios" id="folios2">
@@ -208,14 +207,14 @@ if ($saldofolio3 != 0) { ?>
               <li class="folios" id="folios4">
                 <a style="cursor:pointer;" data-toggle="tab" onclick="activaFolio(<?php echo $reserva; ?>,4)">Folio 4
                   <?php
-if ($saldofolio4 != 0) { ?>
+                    if ($saldofolio4 != 0) { ?>
                     <span class="fa-stack fa-xs" title="Reserva con Depositos" style="margin-left:0px;cursor:pointer;">
-                    <i style="font-size:20px;color: #085908" class="fa fa-circle fa-stack-2x"></i>
-                    <i style="font-size:10px;" class="fa fa-usd fa-stack-1x fa-inverse"></i>
-                  </span>
+                      <i style="font-size:20px;color: #085908" class="fa fa-circle fa-stack-2x"></i>
+                      <i style="font-size:10px;" class="fa fa-usd fa-stack-1x fa-inverse"></i>
+                    </span>
                     <?php
-}
-?>
+                    }
+                  ?>
                 </a>
               </li>
             </ul>
