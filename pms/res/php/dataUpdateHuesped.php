@@ -114,11 +114,11 @@ if ($huesped[0]['sexo'] == 2) {  ?>
   <div class="form-group">
     <label for="direccion" class="col-sm-2 control-label">Direccion </label>
     <div class="col-sm-6">
-      <input type="text" class="form-control" name="direccion" id="direccion" required value="<?php echo $huesped[0]['direccion']; ?>">
+      <input type="text" class="form-control" name="direccion" id="direccion" required value="<?php echo $huesped[0]['direccion']; ?>" pattern="[A-Za-z0-9]+">
     </div>
   </div>
   <div class="form-group">
-    <label for="direccion" class="col-sm-2 control-label">Nacionalidad </label>
+    <label for="paices" class="col-sm-2 control-label">Nacionalidad </label>
     <div class="col-sm-4">
       <select name="paices" id="paices" onblur="getCiudadesPais(this.value,'<?php echo $huesped[0]['ciudad']; ?>')">
         <option value="">Seleccione la Nacionalidad</option>

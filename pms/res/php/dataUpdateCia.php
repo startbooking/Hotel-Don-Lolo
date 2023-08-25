@@ -89,7 +89,7 @@ foreach ($codigosCiiu as $codigoCiiu) { ?>
       <div class="form-group">
         <label for="direccion" class="col-sm-2 control-label">Direccion </label>
         <div class="col-sm-4">
-          <input type="text" class="form-control" name="direccion" id="direccion" value="<?php echo $empresa[0]['direccion']; ?>" required>
+          <input type="text" class="form-control" name="direccion" id="direccion" value="<?php echo $empresa[0]['direccion']; ?>" required pattern="[A-Za-z0-9]+">
         </div>
         <label for="ciudad" class="col-sm-2 control-label">Ciudad</label>
         <div class="col-sm-4">

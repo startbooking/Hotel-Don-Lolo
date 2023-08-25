@@ -93,11 +93,11 @@ foreach ($tipodocs as $tipodoc) { ?>
           <div class="form-group">
             <label for="direccion" class="col-sm-2 control-label">Direccion </label>
             <div class="col-sm-8">
-              <input type="text" class="form-control" name="direccion" id="direccion" placeholder="Direccion" >
+              <input type="text" class="form-control" name="direccion" id="direccion" placeholder="Direccion" pattern="[A-Za-z0-9]+">
             </div>
           </div>
           <div class="form-group">
-            <label for="direccion" class="col-sm-2 control-label">Nacionalidad </label>
+            <label for="paices" class="col-sm-2 control-label">Nacionalidad </label>
             <div class="col-sm-4">
               <select name="paices" id="paices" onblur="getCiudadesPais(this.value,'')" required="">
                 <option value="">Seleccione la Nacionalidad</option>
@@ -327,7 +327,7 @@ foreach ($tipohesps as $tipohesp) { ?>
             <div class="form-horizontal">
               <div class="form-group">
                 <input type="hidden" id="idHuespCia" name="idHuespCia">
-                <label for="direccion" class="col-sm-3 control-label">Empresa </label>
+                <label for="companiaSele" class="col-sm-3 control-label">Empresa </label>
                 <div class="col-sm-8">
                   <select name="companiaSele" id="companiaSele" onblur="seleccionaCentro(this.value)">
                     <?php

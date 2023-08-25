@@ -4,7 +4,7 @@ if ($_GET['section'] != 'cajeroCerrado') {
   <input type="hidden" name="webPage" id="webPage" value="<?php echo BASE_PMS; ?>">
   <input type="hidden" name="fechaProceso" id="fechaProceso" value="<?php echo FECHA_PMS; ?>">
   <input type="hidden" name="usuarioActivo" id="usuarioActivo" value="">
-  <aside class="main-sidebar" style="">
+  <aside class="main-sidebar">
     <section class="sidebar">
       <ul class="sidebar-menu"> 
         <li style="text-align: center">
@@ -17,7 +17,8 @@ if ($_GET['section'] != 'cajeroCerrado') {
             <i class="fa fa-dashboard"></i> <span>Datos</span> <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">
-            <li class="active"><a href="huespedesPerfil"><i class="fa fa-id-badge"></i> Huespedes</a></li>
+            <li class="active"><a href="huespedesPerfil">
+              <i class="fa fa-id-badge"></i> Huespedes</a></li>
             <li><a href="companias"><i class="fa fa-industry"></i> Compañias</a></li>
             <!-- <li><a href="agencias"><i class="fa fa-plane "></i> Agencias</a></li> -->
           </ul>

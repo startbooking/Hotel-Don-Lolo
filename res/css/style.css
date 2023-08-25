@@ -1086,6 +1086,8 @@ input[type="number"].form-control {
   border-color: #de615e;
 }
 
+input:invalid { border-color: brown; } input, input:valid { border-color: #ccc; }
+
 #mask {
   position: absolute;
   z-index: 9000;
