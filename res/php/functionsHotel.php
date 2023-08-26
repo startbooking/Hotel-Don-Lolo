@@ -6,6 +6,52 @@ date_default_timezone_set('America/Bogota');
 
 class Hotel_Actions
 {
+ 
+    
+    public function actualizaDireccion($id, $direccion){
+        global $database;
+        $data = $database->update('huespedes',[
+            'direccion' => $direccion
+        ],[
+            'id_huesped' => $id
+        ]);
+        return $data->rowCount();
+
+
+    }
+
+    public function traeHuespedes(){
+        global $database;
+
+        $data = $database->query("SELECT * FROM huespedes")->fetchAll();
+        return $data;
+    }
+    
+    public function actualizaTarifa($id, $uno, $dos, $tre, $cua, $cin, $sei, $adi, $nin){
+        global $database;
+
+        $data =$database->update('valores_tarifas',[
+            'valor_un_pax' => $uno, 
+            'valor_dos_pax' => $dos, 
+            'valor_tre_pax' => $tre, 
+            'valor_cua_pax' => $cua, 
+            'valor_cin_pax' => $cin, 
+            'valor_sei_pax' => $sei, 
+            'valor_adicional' => $adi, 
+            'valor_nino' => $nin
+        ],[
+            'id' => $id,
+        ]);
+        return $data->rowCount();
+
+    }
+
+    public function traeTarifas(){
+        global $database;
+
+        $data = $database->query('SELECT * FROM valores_tarifas ')->fetchAll();
+        return $data;
+    }
     public function traeUsuarioNC($factura){
         global $database;
     

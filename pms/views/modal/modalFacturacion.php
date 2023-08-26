@@ -16,24 +16,24 @@ $cias = $hotel->getCompanias();
           <div id="mensaje"> 
           </div> 
           <div class="modal-body">
-            <input type="hidden" name="txtIdReservaDep" id="txtIdReservaCon" value="">
-            <input type="hidden" name="txtIdHuespedDep" id="txtIdHuespedCon" value="">
+            <input type="hidden" name="reservaActual" id="reservaActual" value="">
+            <input type="hidden" name="txtIdHuespedDep" id="idHuespedSal" value="">
             <input type="hidden" name="txtImptoTurismo" id="txtImptoTurismo" value="">
             <div class="form-group">
-              <label class="control-label col-xs-2">Habit.</label>
+              <label class="control-label col-xs-2">Habitacion</label>
               <div class="col-xs-2">
                 <input class="form-control padInput" type="text" name='txtNumeroHabCon' id='txtNumeroHabCon' readonly> 
               </div>
-            </div>
-            <div class="form-group">
-              <label class="control-label col-xs-2">Apellidos</label>
-              <div class="col-xs-4">
-                <input class="form-control padInput" type="text" name="txtApellidosCon" id='txtApellidosCon' value='0' readonly>
+            <!-- </div>
+            <div class="form-group"> -->
+              <label class="control-label col-xs-2">Huesped</label>
+              <div class="col-xs-6">
+                <input class="form-control padInput" type="text" name="txtHuesped" id='txtHuesped' value='0' readonly>
               </div>
-              <label class="control-label col-xs-2">Nombres</label>
+              <!-- <label class="control-label col-xs-2">Nombres</label>
               <div class="col-lg-4 col-xs-4">
                 <input class="form-control padInput" type="text" name="txtNombresCon" id='txtNombresCon' value='0' readonly>
-              </div>
+              </div> -->
             </div>
             <div class="divs divDeposito">
               <div class="form-group">

@@ -28,7 +28,7 @@
         }
     } else { ?>     
     <?php
-    $activaAud = $hotel->EstadoAuditoriaPMS(1);
+        $activaAud = $hotel->EstadoAuditoriaPMS(1);
         $procesos = $hotel->getProcesoAuditoria();
         foreach ($procesos as $proceso) {
             require_once '../../imprimir/plantillaAuditoria.php';

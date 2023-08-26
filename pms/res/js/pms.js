@@ -1796,31 +1796,22 @@ $(document).ready(function () {
     var hues = button.data("idhuesped");
     var apellido1 = button.data("apellido1");
     var apellido2 = button.data("apellido2");
-    var imptoturi = button.data("impto");
     var nombre1 = button.data("nombre1");
     var nombre2 = button.data("nombre2");
+    var imptoturi = button.data("impto");
+    let nombre =  button.data("nombre");
     var nrohab = button.data("nrohab");
     var folio = $("#folioActivo").val();
     var modal = $(this);
 
     modal
       .find(".modal-title")
-      .text(
-        "Ingreso Consumos: " +
-          apellido1 +
-          " " +
-          apellido2 +
-          " " +
-          nombre1 +
-          " " +
-          nombre2
-      );
+      .text(`Ingreso Consumos : ${nombre}`);
     modal.find(".modal-body #txtIdReservaCon").val(id);
     modal.find(".modal-body #txtIdHuespedCon").val(hues);
     modal.find(".modal-body #txtImptoTurismo").val(imptoturi);
     modal.find(".modal-body #txtNumeroHabCon").val(nrohab);
-    modal.find(".modal-body #txtApellidosCon").val(apellido1 + " " + apellido2);
-    modal.find(".modal-body #txtNombresCon").val(nombre1 + " " + nombre2);
+    modal.find(".modal-body #txtHuesped").val(nombre);
     modal.find(".modal-body #txtFolio").val(folio);
     modal.find(".modal-body #codigoConsumo").val(0);
     modal.find(".modal-body #txtValorConsumo").val(0);
@@ -5630,6 +5621,7 @@ function sumarDias() {
 }
 
 function asignaHuesped(reserva) {
+  // swal(reserva)
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var textcodigo = $("#txtIdReservaCon option:selected").text();
@@ -5709,7 +5701,7 @@ function ingresaConsumos() {
   var idhues = $("#idHuespedSal").val();
   var room = $("#txtNumeroHabCon").val();
   var turismo = $("#txtImptoTurismo").val();
-
+ 
   var parametros = {
     codigo,
     textcodigo,
@@ -6945,7 +6937,7 @@ function validaCierreDiario() {
         if (x == 1) {
           swal("Atencion", "Auditoria Terminada con Exito", "success");
           setTimeout(function () {
-            $(location).attr("href", "home");
+            /// $(location).attr("href", "home");
           }, 5000);
         } else {
           if (x == 0) {

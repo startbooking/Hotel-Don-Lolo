@@ -84,8 +84,6 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
             <label for="" class="huespedPpal">
               <?php echo $reserva['nombre_completo']; ?>
             </label>
-            <!-- <span class="badge" style="background: #20b2aa91;padding: 2px 6px 0px 11px;">
-            </span> -->
             <?php
           $acompanas = $hotel->buscaAcompanantes($reserva['num_reserva']);
         if (count($acompanas) > 0) {
