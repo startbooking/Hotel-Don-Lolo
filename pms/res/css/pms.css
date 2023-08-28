@@ -164,6 +164,18 @@ a.info span,
   margin-top: -120px !important;
 }
 
+.mt-10 {
+  margin-top: 10px;
+}
+
+.mb-0 {
+  margin-bottom: 0px;
+}
+
+.pd-5 {
+  padding: 5px;
+}
+
 .dropdownForecast {
   margin-right: 0px !important;
   margin-top: 0px !important;

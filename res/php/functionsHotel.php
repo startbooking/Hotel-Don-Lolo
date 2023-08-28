@@ -7162,7 +7162,7 @@ public function traeEstadoHabitacionesHotel($tipo, $llega, $sale){
             'id',
         ], [
             'tipo_reserva' => 2,
-            'fecha_salida' => $fecha,
+            'fecha_salida[<=]' => $fecha,
             'estado' => 'CA',
         ]);
 
@@ -8018,7 +8018,7 @@ public function traeEstadoHabitacionesHotel($tipo, $llega, $sale){
         ], [
             'tipo_reserva' => $tipo,
             'estado' => $estado,
-            'fecha_salida' => $fecha,
+            'fecha_salida[<=]' => $fecha,
             'ORDER' => ['reservas_pms.num_habitacion' => 'ASC'],
         ]);
 

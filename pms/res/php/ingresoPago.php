@@ -114,6 +114,9 @@ $totalPago = $paganticipo + $saldos[0]['pagos'];
 
 $saldofactura = $hotel->getSaldoHabitacion($numero);
 
+
+// echo print_r($saldofactura);
+
 if (count($saldofactura) == 0) {
     $totalFolio = 0;
 } else {
@@ -373,6 +376,7 @@ if ($totalFolio != 0) {
     }
 } else {
     /* Verificar Saldo en la cuenta de esa habitacion */
+    array_push($estadofactura, '0');
     $estadoReserva = $hotel->estadoReserva($reserva); 
     $salida = $hotel->updateReservaHuespedSalida($numero, $usuario, $idUsuario, FECHA_PMS);
 

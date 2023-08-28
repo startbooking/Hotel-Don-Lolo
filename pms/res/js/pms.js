@@ -1293,6 +1293,18 @@ $(document).ready(function () {
     var modal = $(this);
     var saldofolio = $("#consumo" + folio).val();
     var abonofolio = $("#abonos" + folio).val();
+    estado = document.querySelector('#estadoCuenta')
+    mensajeSal = document.querySelector('#mensajeSalida')
+    btnSalida = document.querySelector(".btnSalida")
+    estado.classList.remove('apaga');
+    mensajeSal.classList.add('apaga')
+    btnSalida.classList.remove('apaga')
+
+/* 
+    $(".btnSalida").css("display","block");
+    $("#mensajeSalida").css("display","none");
+ */
+
 
     $("#txtIdCiaSal").val(0);
     $("#txtIdCentroCiaSal").val(0);
@@ -5189,28 +5201,37 @@ function salidaHuesped() {
       );
     }
 
-    var reserva = $("#reservaActual").val();
-    var idhues = $("#titular").val();
-    var room = $("#txtNumeroHabSal").val();
-    var codigo = $("#codigoPago").val();
-    var textopago = $("#codigoPago option:selected").text();
+    let reserva = $("#reservaActual").val();
+    let idhues = $("#titular").val();
+    let room = $("#txtNumeroHabSal").val();
+    let codigo = $("#codigoPago").val();
+    let textopago = $("#codigoPago option:selected").text();
     let detalle = $("#txtDetallePag").val();
     let refer = $("#txtReferenciaPag").val();
     let correofac = $("#txtCorreoPag").val();
-    var folio = $("#folioActivo").val();
-    var idcia = $("#txtIdCiaSal").val();
-    var baseIva = $("#totalIva").val();
-    var baseRete = $("#baseRetenciones").val();
-    var baseIca = $("#baseRetenciones").val();
-    var reteiva = $("#totalReteiva").val();
-    var reteica = $("#totalReteica").val();
-    var retefuente = $("#totalRetefuente").val();
-    var porceReteiva = $("#porceReteiva").val();
-    var porceReteica = $("#porceReteica").val();
-    var porceRetefuente = $("#porceRetefuente").val();
+    let folio = $("#folioActivo").val();
+    let idcia = $("#txtIdCiaSal").val();
+    let baseIva = $("#totalIva").val();
+    let baseRete = $("#baseRetenciones").val();
+    let baseIca = $("#baseRetenciones").val();
+    let reteiva = $("#totalReteiva").val();
+    let reteica = $("#totalReteica").val();
+    let retefuente = $("#totalRetefuente").val();
+    let porceReteiva = $("#porceReteiva").val();
+    let porceReteica = $("#porceReteica").val();
+    let porceRetefuente = $("#porceRetefuente").val();
 
-    $(".btnSalida").css("display","none");
-    $("#mensajeSalida").css("display","block");
+    /* $(".btnSalida").css("display","none");
+    $("#mensajeSalida").css("display","block"); */
+    estado = document.querySelector('#estadoCuenta')
+    mensajeSal = document.querySelector('#mensajeSalida')
+    btnSalida = document.querySelector(".btnSalida")
+    estado.classList.add('apaga');
+    mensajeSal.classList.remove('apaga')
+    btnSalida.classList.remove('apaga')
+
+    /* estado = document.querySelector('#estadoCuenta')
+    estado.classList.add('apaga'); */
 
     if (detalle == "") {
       detalle = "";
@@ -5258,40 +5279,51 @@ function salidaHuesped() {
       data: parametros,
       success: function (data) {
         if(facturador==1){
-          var ventana = window.open(
-            "imprimir/facturas/FES-" + data[0],
-            "PRINT",
-            "height=600,width=600"
-          );
+          ruta = "imprimir/facturas/FES-";
         }else{
-          var ventana = window.open(
-            "imprimir/abonos/" + data[0],
-            "PRINT",
-            "height=600,width=600"
-          );
+          ruta = "imprimir/notas/";
         }
+        var ventana = window.open(
+          ruta + data[0],
+          "PRINT",
+          "height=600,width=600"
+        );
 
         if (data[1] == "0") {
-          
-          
-          setTimeout(function () {
-
-            swal(
-              "Atencion",
-              "Salida del Huesped realizada con Exito",
-              "success"
-            );
-            $(location).attr("href", "home");
-          }, 2000);
+          swal(
+            {
+              title: "Salida del Huesped realizada con Exito !",
+              type: "success",
+              confirmButtonText: "Aceptar",
+              closeOnConfirm: true,
+            },
+            function () {
+              $(location).attr("href", "home");
+            }
+          );          
         } else {
           swal(
+            {
+              title: "La Cuenta Actual Presenta Folios con Saldos !",
+              type: "success",
+              confirmButtonText: "Aceptar",
+              closeOnConfirm: true,
+            },
+            function () {
+              $("#myModalSalidaHuesped").modal("hide");
+              activaFolio(reserva, data[1]);
+            }
+          );  
+
+          /* swal(
             "Atencion",
             "La Cuenta Actual Presenta Folios con Saldos",
             "warning",
             5000
           );
+          
           $("#myModalSalidaHuesped").modal("hide");
-          activaFolio(reserva, data[1]);
+          activaFolio(reserva, data[1]); */
         }
       },
     }); 
@@ -5420,8 +5452,8 @@ function activaFolio(reserva, folio) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
   let { usuario, usuario_id, tipo } = user;
-  $(".btnSalida").css("display","block;");
-  $(".mensajeSalida").css("display","none;");
+  /* $(".btnSalida").css("display","block;");
+  $(".mensajeSalida").css("display","none;"); */
 
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
@@ -6906,9 +6938,6 @@ function recibosPorFecha() {
   }
 }
 
-
-
-
 function validaCierreDiario() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
@@ -6935,10 +6964,12 @@ function validaCierreDiario() {
       },
       success: function (x) {
         if (x == 1) {
+
           swal("Atencion", "Auditoria Terminada con Exito", "success");
           setTimeout(function () {
             /// $(location).attr("href", "home");
           }, 5000);
+          
         } else {
           if (x == 0) {
             $(".mensaje").html(

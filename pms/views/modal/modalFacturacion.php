@@ -334,8 +334,7 @@ foreach ($codigos as $codigo) { ?>
           <div class="modal-body">
             <?php
               $retenciones = $hotel->getRetenciones();
-              // print_r($retenciones);
-?>            
+            ?>            
             <input type="hidden" name="txtIdReservaSal" id="txtIdReservaSal" value="">
             <input type="hidden" name="txtIdHuespedSal" id="txtIdHuespedSal" value="">
             <input type="hidden" name="txtImptoTuriSal" id="txtImptoTuriSal" value="">
@@ -369,10 +368,10 @@ foreach ($codigos as $codigo) { ?>
               <div class="col-lg-8 col-xs-8">
                 <select name="txtIdCiaSal" id="txtIdCiaSal"  readonly disabled>
                   <?php
-        foreach ($cias as $key => $value) { ?> 
+                    foreach ($cias as $key => $value) { ?> 
                       <option value="<?php echo $value['id_compania']; ?>"><?php echo $value['empresa']; ?></option>
                       <?php
-        }
+                    }
 ?>
                 </select>
               </div>
@@ -395,15 +394,15 @@ foreach ($codigos as $codigo) { ?>
                 <input style="font-size:12px;height: 25px !important" class="form-control padInput" type="text" name="txtHuespedSal" id='txtHuespedSal' value='0' readonly>
               </div>
             </div>
+            <div id="mensajeSalida" class="centro apaga">
+              <div class="alert alert-warning mt-10 mb-0 pd-5">
+                <i class="ion ion-ios-gear-outline fa-spin fa-3x"></i> 
+                <h3 class="mt-10">Procesando Factura Informacion, NO interrumpir</h3>
+              </div>
+            </div>
             <div id="estadoCuenta"></div>
           </div>
           <div class="modal-footer">
-            <div id="mensajeSalida" style="display:none">
-              <div class="alert alert-danger">
-                <i style="font-size:3em;margin-top:1px;color:#BBB0B0; " class="ion ion-ios-gear-outline fa-spin"></i> 
-                <h3>Procesando Factura Informacion, NO interrumpir</h3>
-              </div>
-            </div>
             <div class="btn-group">              
               <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
               <button type="submit" class="btn btn-primary btnSalida"><i class="fa fa-save"></i> Procesar </button>

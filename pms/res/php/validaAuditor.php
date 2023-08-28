@@ -17,6 +17,9 @@
 
     $llegan = $hotel->getTotalHuespedeseLlegando();
     $salen = $hotel->getSalidasDelDia($fecha);
+
+    // echo $salen;
+
     $registro = count($hotel->registrosHotelerosSinImprimir($fecha));
 
     if ($salen != 0 || $registro != 0) {
