@@ -1,7 +1,7 @@
 <?php
 
   $dbtype = 'mysql';
-  $host   = 'localhost';
+  $host = 'localhost';
   $server = 'localhost';
   $dbname = 'donlolo';
   // $dbname = 'donloloweb';
@@ -9,4 +9,4 @@
   // $dbname = 'donlolo28';
   // $dbname = 'donlolojul03';
   $dbuser = 'root';
-  $dbpass = 'b4r4h0n4';
+  $dbpass = '#eO18z5jkJEK';

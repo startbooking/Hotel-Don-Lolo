@@ -52,9 +52,6 @@ if (count($detalles) == 0) {
 }
 $pdf->Ln(5);
 
-/*   $ofile = '../imprimir/informes/'.$file.'.pdf';
-  $pdf->Output($ofile,'F'); */
-
 $pdfFile = $pdf->Output('', 'S');
 $base64String = chunk_split(base64_encode($pdfFile));
 
