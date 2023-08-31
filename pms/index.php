@@ -17,8 +17,8 @@ require_once '../res/php/app_topHotel.php';
           $_GET['section'] = 'home';
       }
       include_once 'menus/menu_hotel.php';
-      include_once 'menus/menu_titulo.php';
-    ?>
+include_once 'menus/menu_titulo.php';
+?>
     <div class="content-fluid" id="plantilla"> 
       <?php
 
@@ -65,9 +65,9 @@ require_once '../res/php/app_topHotel.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'facturasDelDia') {
       require 'views/facturasDelDia.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'carteraClientes') {
-    require 'views/carteraClientes.php';
+      require 'views/carteraClientes.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'recibosCajaDelDia') {
-    require 'views/recibosCajaDelDia.php';
+      require 'views/recibosCajaDelDia.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'facturasDiaNew') {
       require 'views/facturasDelDiaNew.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'cargosDelDia') {
@@ -91,7 +91,7 @@ require_once '../res/php/app_topHotel.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'historicoFacturas') {
       require 'views/historicoFacturas.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'historicoNC') {
-    require 'views/historicoNC.php';
+      require 'views/historicoNC.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'historicoReservas') {
       require 'views/informes/reservasPorRango.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'historicoCajeros') {
@@ -155,16 +155,16 @@ require_once '../res/php/app_topHotel.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'pagosAnuladosdelDia') {
       require 'views/informes/pagosAnuladosdelDia.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'balanceDiario') {
-      require 'views/informes/balanceDiario.php'; 
+      require 'views/informes/balanceDiario.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'balancecuentasCongeladas') {
       require 'views/informes/cuentasCongeladas.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'informeFacturasdelDia') {
       require 'views/auditoria/facturasDelDiaAuditoria.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'informeFacturasRango') {
       require 'views/informes/facturasPorRango.php';
-    } elseif (isset($_GET['section']) && $_GET['section'] == 'informeRecibosCajaRango') {
-        require 'views/informes/recibosCajaPorRango.php';
-    } elseif (isset($_GET['section']) && $_GET['section'] == 'estadoCartera') {
+  } elseif (isset($_GET['section']) && $_GET['section'] == 'informeRecibosCajaRango') {
+      require 'views/informes/recibosCajaPorRango.php';
+  } elseif (isset($_GET['section']) && $_GET['section'] == 'estadoCartera') {
       require 'views/informes/estadoCartera.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'balanceCajeros') {
       require 'views/balanceCajeros.php';
@@ -219,11 +219,11 @@ include_once '../views/modal/modalUsuario.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'agencias') {
       include_once 'views/modal/modalAgencia.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'grupos') {
-    include_once 'views/modal/modalGrupos.php';
-    include_once 'views/modal/modalCompania.php';
+      include_once 'views/modal/modalGrupos.php';
+      include_once 'views/modal/modalCompania.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'reservasActivas') {
-      include_once 'views/modal/modalReservas.php'; 
-      include_once 'views/modal/modalAcompanantes.php'; 
+      include_once 'views/modal/modalReservas.php';
+      include_once 'views/modal/modalAcompanantes.php';
       include_once 'views/modal/modalHuespedes.php';
       include_once 'views/modal/modalObservaciones.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'preregistros') {
@@ -258,22 +258,22 @@ include_once '../views/modal/modalUsuario.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'facturacionHuesped') {
       include_once 'views/modal/modalFacturacion.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'cuentasCongeladas') {
-      // / include_once 'views/modal/modalFacturacion.php' ;
+      //   include_once 'views/modal/modalFacturacion.php';
       include_once 'views/modal/modalObservaciones.php';
-      include_once 'views/modal/modalRecepcion.php'; 
+      include_once 'views/modal/modalRecepcion.php';
       include_once 'views/modal/modalCongeladas.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'facturacionCongelada') {
       // / include_once 'views/modal/modalFacturacion.php' ;
       include_once 'views/modal/modalCongeladas.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'informeFacturasRango') {
-    // / include_once 'views/modal/modalTipoHabitaciones.php' ;
-    include_once 'views/modal/modalFacturas.php';
+      // / include_once 'views/modal/modalTipoHabitaciones.php' ;
+      include_once 'views/modal/modalFacturas.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'historicoFacturas') {
-    // / include_once 'views/modal/modalTipoHabitaciones.php' ;
-    include_once 'views/modal/modalFacturas.php';
+      // / include_once 'views/modal/modalTipoHabitaciones.php' ;
+      include_once 'views/modal/modalFacturas.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'facturasDelDia') {
-    include_once 'views/modal/modalFacturas.php';
-  } elseif (isset($_GET['section']) && $_GET['section'] == 'historicoNC' ) {
+      include_once 'views/modal/modalFacturas.php';
+  } elseif (isset($_GET['section']) && $_GET['section'] == 'historicoNC') {
       include_once 'views/modal/modalFacturas.php';
   } elseif (isset($_GET['section']) && $_GET['section'] == 'habitaciones') {
       require 'views/modal/modalHabitaciones.php';
@@ -322,7 +322,7 @@ include_once '../views/modal/modalUsuario.php';
           $('.tituloPagina').html(`<i class="fa fa-tachometer" style="font-size:36px;color:black" ></i> Cierre Cajero [${usuario}]`)
         </script>
         <?php
-  } elseif ($_GET['section'] == 'reservasActivas' || $_GET['section'] == 'encasa' || $_GET['section'] == 'facturacionEstadia' || $_GET['section'] == 'salidasDelDia' || $_GET['section'] == 'salidasRealizadas' || $_GET['section'] == 'grupos' || $_GET['section'] == 'mantenimiento' || $_GET['section'] == 'facturasDelDia' || $_GET['section'] == 'carteraClientes') { ?>
+  } elseif ($_GET['section'] == 'reservasActivas' || $_GET['section'] == 'encasa' || $_GET['section'] == 'facturacionEstadia' || $_GET['section'] == 'salidasDelDia' || $_GET['section'] == 'salidasRealizadas' || $_GET['section'] == 'grupos' || $_GET['section'] == 'mantenimiento' || $_GET['section'] == 'facturasDelDia' || $_GET['section'] == 'carteraClientes' || $_GET['section'] == 'cuentasCongeladas') { ?>
         <script>
           if(tipo==1){
             $('#cambiaHuesped').css('display','block')

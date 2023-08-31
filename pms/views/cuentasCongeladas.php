@@ -34,37 +34,37 @@
 
                   // print_r($reservas);
                   foreach ($reservas as $reserva) {
-                    $consumos = $hotel->getConsumosReserva($reserva['num_reserva']);
-                    if (count($consumos) == 0) {
-                      $consumos[0]['cargos'] = 0;
-                      $consumos[0]['imptos'] = 0;
-                      $consumos[0]['pagos'] = 0;
-                    }
-                    ?> 
+                      $consumos = $hotel->getConsumosReserva($reserva['num_reserva']);
+                      if (count($consumos) == 0) {
+                          $consumos[0]['cargos'] = 0;
+                          $consumos[0]['imptos'] = 0;
+                          $consumos[0]['pagos'] = 0;
+                      }
+                      ?> 
                     <tr style='font-size:12px'> 
                       <td>
                         <div style="display: flex">
                           <?php
-                            echo $reserva['num_habitacion'];
-                            if ($reserva['causar_impuesto'] == 2) { ?>
+                              echo $reserva['num_habitacion'];
+                      if ($reserva['causar_impuesto'] == 2) { ?>
                               <span class="fa-stack fa-xs" title="Sin Impuestos" style="margin-left:5px;cursor:pointer;">
                                 <i style="font-size:10px;margin-top: 1px;margin-left: -3px;" class="fa fa-percent fa-stack-1x"></i>
                                 <i style="font-size:20px" class="fa fa-ban text-danger"></i>
                               </span>
                               <?php
-                            }                             
-                            if (!empty($reserva['observaciones'])) { ?>
+                      }
+                      if (!empty($reserva['observaciones'])) { ?>
                               <span class="fa-stack fa-xs" title="Observaciones a la Reserva" style="margin-left:0px;cursor:pointer;" onclick="verObservaciones(<?php echo $reserva['num_reserva']; ?>,'1')">
                                 <i style="font-size:20px;color: #2993dd" class="fa fa-circle fa-stack-2x"></i>
                                 <i style="font-size:10px;margin-top: 1px;margin-left: 1px;" class="fa fa-commenting-o fa-stack-1x fa-inverse"></i>
                               </span>
                               <?php
-                            }                            
-                          ?>
+                      }
+                      ?>
                         </div>
 
                         <?php
-                        ?>
+                      ?>
                       </td>
                       <td><?php echo $reserva['apellido1'].' '.$reserva['apellido2'].' '.$reserva['nombre1'].' '.$reserva['nombre2']; ?></td>
                       <td><?php echo number_format($reserva['valor_diario'], 2); ?></td>
@@ -74,6 +74,7 @@
                       <td style="text-align:right;"><a onclick="cargosHuesped(<?php echo $reserva['num_reserva']; ?>)"><?php echo number_format($consumos[0]['imptos'], 2); ?></a></td>
                       <td style="text-align:right;"><a onclick="cargosHuesped(<?php echo $reserva['num_reserva']; ?>)"><?php echo number_format($consumos[0]['pagos'], 2); ?></a></td>
                       <td style="text-align:right;"><a onclick="cargosHuesped(<?php echo $reserva['num_reserva']; ?>)"><?php echo number_format($consumos[0]['cargos'] + $consumos[0]['imptos'] - $consumos[0]['pagos'], 2); ?></td>
+                      
                       <td style="padding:3px;width: 12%">
                         <nav class="navbar navbar-default" style="margin-bottom: 0px;min-height:0px;">
                           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:0px;">
@@ -89,7 +90,7 @@
                                       <!-- <i class="fa fa-pencil-square" aria-hidden="true"></i> -->
                                       Regresar a Casa</a>
                                   </li>
-                                  <li>
+                                  <!-- <li>
                                     <a 
                                       data-toggle        ="modal" 
                                       data-target        = "#myModalModificaCongelada"
@@ -110,7 +111,7 @@
                                       data-observaciones ="<?php echo $reserva['observaciones']; ?>" 
                                       >
                                       <i class="fa fa-pencil-square" aria-hidden="true"></i>Modificar Estadia</a>
-                                  </li>
+                                  </li> -->
                                   <li>
                                     <a 
                                       data-toggle        ="modal" 

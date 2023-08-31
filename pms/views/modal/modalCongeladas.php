@@ -68,7 +68,7 @@ $retenciones = $hotel->getRetenciones();
                       <option value="<?php echo $value['id_compania']; ?>"><?php echo $value['empresa']; ?></option>
                       <?php
                     }
-                  ?>
+?>
                 </select>
               </div>
             </div>            
@@ -261,3 +261,30 @@ foreach ($codigos as $codigo) { ?>
   </form>
 </div>
 
+
+
+<div class="modal fade" id="myModalSaldoHuesped" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <form id="guardarDatosRooms" class="form-horizontal" action="javascript:ingresaAbonos()" method="POST" enctype="multipart/form-data">
+    <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+      <div class="modal-dialog modal-md" role="document" id="">
+        <div class="modal-content">
+          <div class="modal-header"> 
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span class="glyphicon glyphicon-off"></span>
+            </button> 
+            <h3 class="modal-title" id="exampleModalLabel">Estado Cuenta</h3>
+            <input type="hidden" name="txtIdReservaSaldo" id="txtIdReservaSaldo" value="">
+            <input type="hidden" name="txtIdHuespedSaldo" id="txtIdHuespedSaldo" value="">
+            <input type="hidden" name="txtImptoTuriSaldo" id="txtImptoTuriSaldo" value="">
+          </div> 
+          <div class="modal-body">
+            <div id="saldoHuesped" style="margin :-20px 0 -30px 0;font-size: 12px"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

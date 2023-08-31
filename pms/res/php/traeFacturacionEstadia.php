@@ -95,7 +95,7 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
 
                   <?php
             }
-        }
+        } 
         ?>
           </td>
           <td style="width: 27%"><?php echo $nombrecia; ?></td>

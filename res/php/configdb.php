@@ -7,6 +7,6 @@
   // $dbname = 'donloloweb';
   // $dbname = 'donlolonew';
   // $dbname = 'donlolo28';
-  // $dbname = 'donlolojul03';
+  // $dbname = 'donlolojulio03';
   $dbuser = 'root';
   $dbpass = '#eO18z5jkJEK';
