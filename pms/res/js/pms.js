@@ -3,42 +3,45 @@ $(document).ready(function () {
   let { user } = sesion;
   let { usuario, usuario_id } = user;
 
+  $('.category_list .category_item[category="all"]').addClass("ct_item-active");
+  $(".category_item").click(function () {
+    var catProduct = $(this).attr("category");
 
-  $('.category_list .category_item[category="all"]').addClass('ct_item-active');
-  $('.category_item').click(function(){
-		var catProduct = $(this).attr('category');
+    // AGREGANDO CLASE ACTIVE AL ENLACE SELECCIONADO
+    $(".category_item").removeClass("ct_item-active");
+    $(this).addClass("ct_item-active");
 
-		// AGREGANDO CLASE ACTIVE AL ENLACE SELECCIONADO
-		$('.category_item').removeClass('ct_item-active');
-		$(this).addClass('ct_item-active');
+    // OCULTANDO PRODUCTOS =========================
+    $(".product-item").css("transform", "scale(0)");
+    function hideProduct() {
+      $(".product-item").hide();
+    }
+    setTimeout(hideProduct, 400);
 
-		// OCULTANDO PRODUCTOS =========================
-		$('.product-item').css('transform', 'scale(0)');
-		function hideProduct(){
-			$('.product-item').hide();
-		} setTimeout(hideProduct,400);
+    // MOSTRANDO PRODUCTOS =========================
+    function showProduct() {
+      $('.product-item[category="' + catProduct + '"]').show();
+      $('.product-item[category="' + catProduct + '"]').css(
+        "transform",
+        "scale(1)"
+      );
+    }
+    setTimeout(showProduct, 400);
+    setTimeout(
+      $('.product-item[category="' + catProduct + '"]').css("transform", ""),
+      400
+    );
+  });
 
-		// MOSTRANDO PRODUCTOS =========================
-		function showProduct(){
-			$('.product-item[category="'+catProduct+'"]').show();
-			$('.product-item[category="'+catProduct+'"]').css('transform', 'scale(1)');
-		  } 
-      setTimeout(showProduct,400);
-      setTimeout(
-        $('.product-item[category="'+catProduct+'"]').css('transform', '')
-        ,400);
+  // MOSTRANDO TODOS LOS PRODUCTOS =======================
 
-    });
-
-	// MOSTRANDO TODOS LOS PRODUCTOS =======================
-
-	$('.category_item[category="all"]').click(function(){
-		function showAll(){
-			$('.product-item').show();
-			$('.product-item').css('transform', 'scale(1)');
-		} setTimeout(showAll,400);
-	});
- 
+  $('.category_item[category="all"]').click(function () {
+    function showAll() {
+      $(".product-item").show();
+      $(".product-item").css("transform", "scale(1)");
+    }
+    setTimeout(showAll, 400);
+  });
 
   let cia = document.getElementById("pantallaCompanias");
   if (cia != null) {
@@ -76,13 +79,11 @@ $(document).ready(function () {
     traeFacturasEstadia();
   }
 
-
   $("#myModalAdicionaGrupo").on("show.bs.modal", function (event) {
-    document.querySelector('#formGrupo').reset();
-    document.querySelector('#idUsuario').value = usuario_id; 
-
+    document.querySelector("#formGrupo").reset();
+    document.querySelector("#idUsuario").value = usuario_id;
   });
-  
+
   $("#myModalConfirmaReserva").on("show.bs.modal", function (event) {
     var button = $(event.relatedTarget);
 
@@ -177,14 +178,12 @@ $(document).ready(function () {
     $("#modalReservasIns").css("display", "block");
     $("#observacionesAdi").val("");
     $("#btnMmto").removeAttr("disabled");
-    divRese = document.querySelector('#divReserva');
-    divRese.classList.add('apaga');  
-    FormMmto = document.querySelector('#formAdicionaMantenimiento')
-    dataTableMmto = document.querySelector('#huespedesMmto');
-    FormMmto.reset()
+    divRese = document.querySelector("#divReserva");
+    divRese.classList.add("apaga");
+    FormMmto = document.querySelector("#formAdicionaMantenimiento");
+    dataTableMmto = document.querySelector("#huespedesMmto");
+    FormMmto.reset();
     limpiaHabitacionesMmto();
-  
-  
   });
 
   $("#myModalEntregaObjeto").on("show.bs.modal", function (event) {
@@ -365,7 +364,7 @@ $(document).ready(function () {
     $("#edita").val(0);
     var button = $(event.relatedTarget);
     var tiporeserva = button.data("reserva");
-    $('#creaReser').val(tiporeserva)
+    $("#creaReser").val(tiporeserva);
   });
 
   $("#myModalInformacionMmto").on("show.bs.modal", function (event) {
@@ -375,7 +374,7 @@ $(document).ready(function () {
     var idmmto = button.data("idmmto");
 
     $("#idMmtoUpd").val(idmmto);
-    
+
     /*  
     var numroom = button.data("room");
     $("#numroom").val(numroom); */
@@ -438,15 +437,18 @@ $(document).ready(function () {
     var web = $("#rutaweb").val();
     var button = $(event.relatedTarget);
     var numero = button.data("numero");
+    var facturador = button.data("facturador");
     var modal = $(this);
 
     modal.find(".modal-title").text("Factura Numero : " + numero);
-    var factura = "HDL" + numero + ".pdf";
+    if (facturador == 1) {
+      // var factura = "HDL" + numero + ".pdf";
+      imprime = web + "imprimir/facturas/FES-HDL" + numero + ".pdf";
+    } else {
+      imprime = web + "imprimir/notas/Abono_" + numero + ".pdf";
+    }
 
-    $("#verFacturaModalCon").attr(
-      "data",
-      web + "imprimir/facturas/FES-" + factura
-    );
+    $("#verFacturaModalCon").attr("data", imprime);
     $(".alert").hide();
   });
 
@@ -459,10 +461,7 @@ $(document).ready(function () {
     modal.find(".modal-title").text("Recibo de Caja Nro : " + numero);
     var recibo = "Abono_" + numero + ".pdf";
 
-    $("#verFacturaModal").attr(
-      "data",
-      web + "imprimir/notas/" + recibo
-    );
+    $("#verFacturaModal").attr("data", web + "imprimir/notas/" + recibo);
     $(".alert").hide();
   });
 
@@ -656,7 +655,7 @@ $(document).ready(function () {
       beforeSend: function (objeto) {},
       success: function (datos) {
         $("#historicoFacturas").html(datos);
-      }, 
+      },
     });
     $(".alert").hide();
   });
@@ -749,12 +748,16 @@ $(document).ready(function () {
               data: parametros,
               success: function (data) {
                 swal(
-                  "Atencion",
-                  "Salida del Huesped realizada con Exito",
-                  "success",
-                  5000
+                  {
+                    title: "Salida del Huesped Realizada con Exito !",
+                    type: "success",
+                    confirmButtonText: "Aceptar",
+                    closeOnConfirm: true,
+                  },
+                  function () {
+                    $(location).attr("href", "home");
+                  }
                 );
-                $(location).attr("href", "home");
               },
             });
           }
@@ -814,7 +817,6 @@ $(document).ready(function () {
     var idcentro = button.data("idcentro");
     var turismo = button.data("impto");
 
-
     var modal = $(this);
 
     var parametros = {
@@ -825,19 +827,27 @@ $(document).ready(function () {
     };
 
     if (folio == 0) {
-      swal(
-        "Precaucion",
-        "Seleccione un Folio para Realizar el Pago",
-        "warning"
-      );
+      swal({
+        title: "Seleccione un Folio para Realizar el Pago",
+        type: "warning",
+        confirmButtonText: "Aceptar",
+        closeOnConfirm: true,
+      });
       $("#myModalCongelarCuenta").modal("data-dismiss", "modal");
     } else {
       if (nrofolio2 != 0 || nrofolio3 != 0 || nrofolio4 != 0) {
-        swal(
+        swal({
+          title:
+            "Otros Folios con Saldo, No Permitido Congelar la Presente Cuenta",
+          type: "warning",
+          confirmButtonText: "Aceptar",
+          closeOnConfirm: true,
+        });
+        /* swal(
           "Precuacion",
           "Otros Folios con Saldo, No Permitido Congelar la Presente Cuenta ",
           "warning"
-        );
+        ); */
         $("#myModalCongelarCuenta").modal("data-dismiss", "modal");
       } else {
         var saldo = $("#txtSaldoCta").val();
@@ -865,12 +875,16 @@ $(document).ready(function () {
                 data: parametros,
                 success: function (data) {
                   swal(
-                    "Atencion",
-                    "Salida del Huesped realizada con Exito",
-                    "success",
-                    5000
+                    {
+                      title: "Salida del Huesped Realizada con Exito !",
+                      type: "success",
+                      confirmButtonText: "Aceptar",
+                      closeOnConfirm: true,
+                    },
+                    function () {
+                      $(location).attr("href", "facturacionEstadia");
+                    }
                   );
-                  $(location).attr("href", "facturacionEstadia");
                 },
               });
             }
@@ -893,7 +907,7 @@ $(document).ready(function () {
         modal
           .find(".modal-body #txtApellidosCong")
           .val(`${apellido1} ${apellido2} ${nombre1} ${nombre2}`);
-        modal.find(".modal-body #valorSaldo").val(number_format(saldo,2));
+        modal.find(".modal-body #valorSaldo").val(number_format(saldo, 2));
 
         traeHuespedes(reserva, hues);
 
@@ -914,8 +928,8 @@ $(document).ready(function () {
     // dataTableMmto = document.querySelector('#acompananteReserva');
     let idrese = $("#idreservaAco").val();
     let huespe = $("#idhuespedAco").val();
-    FormAcompa = document.querySelector('#acompananteReserva')
-    FormAcompa.reset()
+    FormAcompa = document.querySelector("#acompananteReserva");
+    FormAcompa.reset();
     $("#idReservaAdiAco").val(idrese);
     $("#mensajeEliAco").html("");
     $(".alert").hide();
@@ -957,8 +971,8 @@ $(document).ready(function () {
     var nombre = button.data("nombre");
     let pagina = $("#ubicacion").val();
     console.log(pagina);
-    let btnSle = document.querySelector('.btnSaleAco');
-    btnSle.setAttribute("href",pagina);
+    let btnSle = document.querySelector(".btnSaleAco");
+    btnSle.setAttribute("href", pagina);
     var modal = $(this);
     var parametros = {
       idres,
@@ -968,7 +982,7 @@ $(document).ready(function () {
     modal.find(".modal-body #idhuespedAco").val(nombre);
     $.ajax({
       type: "POST",
-      data: parametros, 
+      data: parametros,
       url: web + "res/php/dataBuscarAcompanantes.php",
       success: function (datos) {
         $("#acompanantes").html(datos);
@@ -1034,7 +1048,7 @@ $(document).ready(function () {
       url: web + "res/php/getDatosCia.php",
       type: "POST",
       data: parametros,
-      success: function (data) { 
+      success: function (data) {
         $("#datosCia").html(data);
       },
     });
@@ -1072,7 +1086,7 @@ $(document).ready(function () {
     modal.find(".modal-body #txtNinosAnu").val(ninos);
     modal.find(".modal-body #areaComentariosAnu").val(observaciones);
     modal.find(".modal-body #txtTarifaAnu").val(tarifa);
-    modal.find(".modal-body #txtValorTarifaAnu").val(number_format(valor,2));
+    modal.find(".modal-body #txtValorTarifaAnu").val(number_format(valor, 2));
     $(".alert").hide();
   });
 
@@ -1108,7 +1122,7 @@ $(document).ready(function () {
     modal.find(".modal-body #txtNinosAnu").val(ninos);
     modal.find(".modal-body #areaComentariosAnu").val(observaciones);
     modal.find(".modal-body #txtTarifaAnu").val(tarifa);
-    modal.find(".modal-body #txtValorTarifaAnu").val(number_format(valor,2));
+    modal.find(".modal-body #txtValorTarifaAnu").val(number_format(valor, 2));
     $(".alert").hide();
   });
 
@@ -1293,18 +1307,12 @@ $(document).ready(function () {
     var modal = $(this);
     var saldofolio = $("#consumo" + folio).val();
     var abonofolio = $("#abonos" + folio).val();
-    estado = document.querySelector('#estadoCuenta')
-    mensajeSal = document.querySelector('#mensajeSalida')
-    btnSalida = document.querySelector(".btnSalida")
-    estado.classList.remove('apaga');
-    mensajeSal.classList.add('apaga')
-    btnSalida.classList.remove('apaga')
-
-/* 
-    $(".btnSalida").css("display","block");
-    $("#mensajeSalida").css("display","none");
- */
-
+    estado = document.querySelector("#estadoCuenta");
+    mensajeSal = document.querySelector("#mensajeSalida");
+    btnSalida = document.querySelector(".btnSalida");
+    estado.classList.remove("apaga");
+    mensajeSal.classList.add("apaga");
+    btnSalida.classList.remove("apaga");
 
     $("#txtIdCiaSal").val(0);
     $("#txtIdCentroCiaSal").val(0);
@@ -1338,12 +1346,16 @@ $(document).ready(function () {
             data: parametros,
             success: function (data) {
               swal(
-                "Atencion",
-                "Salida del Huesped realizada con Exito",
-                "success",
-                5000
+                {
+                  title: "Salida del Huesped Realizada con Exito !",
+                  type: "success",
+                  confirmButtonText: "Aceptar",
+                  closeOnConfirm: true,
+                },
+                function () {
+                  $(location).attr("href", "home");
+                }
               );
-              $(location).attr("href", "home");
             },
           });
         }
@@ -1482,7 +1494,7 @@ $(document).ready(function () {
   $("#myModalAdicionaReserva").on("show.bs.modal", function (event) {
     $("#edita").val(0);
     $("#editaRes").val(0);
-    document.querySelector('#formReservas').reset();
+    document.querySelector("#formReservas").reset();
   });
 
   $("#myModalModificaReserva").on("show.bs.modal", function (event) {
@@ -1516,7 +1528,7 @@ $(document).ready(function () {
     $("#editaRes").val(1);
     var parametros = {
       id,
-    }; 
+    };
     modal.find(".modal-title").text("Cancela Reserva Actual: " + nombre);
 
     $.ajax({
@@ -1640,7 +1652,7 @@ $(document).ready(function () {
       id,
     };
     var modal = $(this);
- 
+
     modal
       .find(".modal-title")
       .text("Modifica Perfil de la Compañia: " + empresa);
@@ -1728,7 +1740,7 @@ $(document).ready(function () {
         $("#historicoReserva").html(datos);
       },
     });
-    $(".alert").hide(); 
+    $(".alert").hide();
   });
 
   $("#myModalAnulaCargo").on("show.bs.modal", function (event) {
@@ -1766,10 +1778,10 @@ $(document).ready(function () {
     modal.find(".modal-body #txtNumeroHabAnu").val(room);
     modal.find(".modal-body #txtDescripcionAnu").val(descrip);
     modal.find(".modal-body #txtCantidadAnu").val(cant);
-    modal.find(".modal-body #txtValorConsumoAnu").val(number_format(monto,2));
-    modal.find(".modal-body #txtValorImptoAnu").val(number_format(impto,2));
-    modal.find(".modal-body #txtValorTotalAnu").val(number_format(total,2));
-    modal.find(".modal-body #txtPagoConsumoAnu").val(number_format(pagos,2));
+    modal.find(".modal-body #txtValorConsumoAnu").val(number_format(monto, 2));
+    modal.find(".modal-body #txtValorImptoAnu").val(number_format(impto, 2));
+    modal.find(".modal-body #txtValorTotalAnu").val(number_format(total, 2));
+    modal.find(".modal-body #txtPagoConsumoAnu").val(number_format(pagos, 2));
     modal.find(".modal-body #txtReferenciaAnu").val(refer);
     modal.find(".modal-body #txtDetalleCargoAnu").val(info);
     modal.find(".modal-body #txtMotivoAnula").val("");
@@ -1811,14 +1823,12 @@ $(document).ready(function () {
     var nombre1 = button.data("nombre1");
     var nombre2 = button.data("nombre2");
     var imptoturi = button.data("impto");
-    let nombre =  button.data("nombre");
+    let nombre = button.data("nombre");
     var nrohab = button.data("nrohab");
     var folio = $("#folioActivo").val();
     var modal = $(this);
 
-    modal
-      .find(".modal-title")
-      .text(`Ingreso Consumos : ${nombre}`);
+    modal.find(".modal-title").text(`Ingreso Consumos : ${nombre}`);
     modal.find(".modal-body #txtIdReservaCon").val(id);
     modal.find(".modal-body #txtIdHuespedCon").val(hues);
     modal.find(".modal-body #txtImptoTurismo").val(imptoturi);
@@ -1862,7 +1872,7 @@ $(document).ready(function () {
     modal.find(".modal-body #txtMujeres").val(mujeres);
     modal.find(".modal-body #txtNinos").val(ninos);
     modal.find(".modal-body #txtTarifa").val(tarifa);
-    modal.find(".modal-body #txtValorTarifa").val(number_format(valor,2));
+    modal.find(".modal-body #txtValorTarifa").val(number_format(valor, 2));
     $("#txtValorDeposito").val(0);
     $("#formadePago").val("");
     $("#formadePago").focus();
@@ -2047,26 +2057,22 @@ $(document).ready(function () {
       },
     });
   });
-
-  
 });
 
-function estadoFacturaDIAN($estado)
-{
-    switch ($estado) {
-        case '0':
-            return '<span style="font-size:12px" class="label label-warning">No Procesada</span>';
-        case '1':
-            return '<span style="font-size:12px" class="label label-success">Emitida</span>';
-        case 'false':
-            return '<span style="font-size:12px" class="label label-warning">No Procesada</span>';
-        case 'true':
-            return '<span style="font-size:12px" class="label label-success">Emitida</span>';
-    }
+function estadoFacturaDIAN($estado) {
+  switch ($estado) {
+    case "0":
+      return '<span style="font-size:12px" class="label label-warning">No Procesada</span>';
+    case "1":
+      return '<span style="font-size:12px" class="label label-success">Emitida</span>';
+    case "false":
+      return '<span style="font-size:12px" class="label label-warning">No Procesada</span>';
+    case "true":
+      return '<span style="font-size:12px" class="label label-success">Emitida</span>';
+  }
 }
 
-
-function actualizaMmto(){
+function actualizaMmto() {
   idmmto = $("#idMmtoUpd").val();
   hasta = $("#hastaFechaUpd").val();
 
@@ -2084,18 +2090,15 @@ function actualizaMmto(){
           text: "Mantenimiento Actualizado con Exito",
           type: "success",
         },
-        function(){
+        function () {
           $(location).attr("href", "mantenimiento");
         }
       );
     },
   });
-
-
-
 }
 
-function regresaCasa(reserva){
+function regresaCasa(reserva) {
   swal(
     {
       title: "Cuenta Congelada",
@@ -2113,7 +2116,7 @@ function regresaCasa(reserva){
         type: "POST",
         url: "res/php/regresaCasa.php",
         data: {
-          reserva
+          reserva,
         },
         success: function (data) {
           swal(
@@ -2122,7 +2125,7 @@ function regresaCasa(reserva){
               text: "Cuenta Reactivada con Exito",
               type: "success",
             },
-            function(){
+            function () {
               $(location).attr("href", "cuentasCongeladas");
             }
           );
@@ -2130,18 +2133,17 @@ function regresaCasa(reserva){
       });
     }
   );
-
 }
 
-function muestraReserva(ev){
-  console.log(ev)
-  let reserva = ev.getAttribute('reserva');
-  let estado = ev.getAttribute('estado');
+function muestraReserva(ev) {
+  console.log(ev);
+  let reserva = ev.getAttribute("reserva");
+  let estado = ev.getAttribute("estado");
 
-  swal('Atencion','Dio CLick en Reserva'+reserva+estado,'success')
+  swal("Atencion", "Dio CLick en Reserva" + reserva + estado, "success");
 }
 
-function descargarAttach(numero){
+function descargarAttach(numero) {
   $.ajax({
     url: "api/descargarZIP.php",
     type: "POST",
@@ -2169,143 +2171,196 @@ const traeToken = async () => {
   }
 };
 
-const donwloadFile = async (file, identification_number, typeFile, base64 = false) => {  
+const donwloadFile = async (
+  file,
+  identification_number,
+  typeFile,
+  base64 = false
+) => {
   const eToken = await traeToken();
 
   let { token } = eToken[0];
 
   if (identification_number !== null) {
-      let fileSystem = null
-      if (typeFile == 'pdf') {
-          fileSystem = file
-      } else if (typeFile == 'xml') {
-          fileSystem = "ZipAttachm-HDL" + file
+    let fileSystem = null;
+    if (typeFile == "pdf") {
+      fileSystem = file;
+    } else if (typeFile == "xml") {
+      fileSystem = "ZipAttachm-HDL" + file;
+    }
+
+    url = `https://api.nextpyme.plus/api/ubl2.1/download/${identification_number}/${fileSystem}`;
+
+    try {
+      const DataFiles = {
+        url,
+        method: "get",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+          Accept: "application/json",
+        },
+        typeResponse: "blob",
+      };
+
+      // console.log(DataFiles)
+
+      const ResponseAPIFiles = await RequestComponent(DataFiles);
+      console.log("Paso API Files");
+      console.log(ResponseAPIFiles);
+      spinner.removeAttribute("hidden");
+      if (ResponseAPIFiles["size"] <= 300) {
+        // spinner.setAttribute('hidden', '');
+        return Notifications(
+          null,
+          "Error al descargar el archivo",
+          "Precaucion",
+          true,
+          "No es posible mostrar los documentos en este momento, por favor intente más tarde!",
+          false
+        );
       }
-      
-      url = `https://api.nextpyme.plus/api/ubl2.1/download/${identification_number}/${fileSystem}`;
-
-      try {
-          const DataFiles = {
-              url,
-              method: 'get',
-              headers: {
-                  "Content-Type": "application/json",
-                  "Authorization": 'Bearer ' + token,
-                  "Accept": "application/json",
-              },
-              typeResponse: 'blob',
-          }
-
-          // console.log(DataFiles)
-
-          const ResponseAPIFiles = await RequestComponent(DataFiles);
-          console.log('Paso API Files');
-          console.log(ResponseAPIFiles);
-          spinner.removeAttribute('hidden');
-          if (ResponseAPIFiles['size'] <= 300) {
-              // spinner.setAttribute('hidden', '');
-              return Notifications(null, 'Error al descargar el archivo', 'Precaucion', true,
-                  'No es posible mostrar los documentos en este momento, por favor intente más tarde!',
-                  false)
-          }
-          // spinner.setAttribute('hidden', '');
-          Notifications(null, 'Archivo descargado con éxito!', 'success', true,
-              'El archivo se abrirá automaticamente!',
-              false)
-          var blob = new Blob([ResponseAPIFiles], {
-              type: ResponseAPIFiles['type'],
-          });
-          var url = URL.createObjectURL(blob);
-          window.open(url);
-      } catch (error) {
-          return Notifications(null, 'Error al descargar el archivo', 'error', true,
-              'No es posible mostrar los documentos en este momento, por favor intente más tarde!',
-              false)
-      }
+      // spinner.setAttribute('hidden', '');
+      Notifications(
+        null,
+        "Archivo descargado con éxito!",
+        "success",
+        true,
+        "El archivo se abrirá automaticamente!",
+        false
+      );
+      var blob = new Blob([ResponseAPIFiles], {
+        type: ResponseAPIFiles["type"],
+      });
+      var url = URL.createObjectURL(blob);
+      window.open(url);
+    } catch (error) {
+      return Notifications(
+        null,
+        "Error al descargar el archivo",
+        "error",
+        true,
+        "No es posible mostrar los documentos en este momento, por favor intente más tarde!",
+        false
+      );
+    }
   }
-}
-
-const Notifications = (element, title, icon = 'info', isHtml, html, IsReload = null, position = 'center', Isallback = false, callback) => {
-    swal(
-      {
-        title: title,
-        text:html,
-        type: icon,
-        confirmButtonText: "Aceptar",
-        closeOnConfirm: false,
-      },
-      function () {
-        window.location.reload()
-      }
-    );
 };
 
-const RequestComponent = async ({ url, method, bodyRequest, headers, typeResponse, noSession = false }) => {
+const Notifications = (
+  element,
+  title,
+  icon = "info",
+  isHtml,
+  html,
+  IsReload = null,
+  position = "center",
+  Isallback = false,
+  callback
+) => {
+  swal(
+    {
+      title: title,
+      text: html,
+      type: icon,
+      confirmButtonText: "Aceptar",
+      closeOnConfirm: false,
+    },
+    function () {
+      window.location.reload();
+    }
+  );
+};
 
+const RequestComponent = async ({
+  url,
+  method,
+  bodyRequest,
+  headers,
+  typeResponse,
+  noSession = false,
+}) => {
   if (noSession !== true) {
-      const csrf = document.querySelector('input[name="_token"]').value;
-      const session = await fetch(masterUrl + '/session', {
-          headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-              'X-CSRF-TOKEN': csrf
-          },
-          method: 'post'
-      })
-      const { id } = await session.json();
-      if (id == null || id == undefined) {
-          ToastR({ message: 'Â¡Su sesiÃ³n ha vencido. Por favor ingrese nuevamente!', icon: 'error' });
-          setTimeout(function () {
-              window.location.href = '/';
-              return;
-          }, 2000);
-      }
+    const csrf = document.querySelector('input[name="_token"]').value;
+    const session = await fetch(masterUrl + "/session", {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "X-CSRF-TOKEN": csrf,
+      },
+      method: "post",
+    });
+    const { id } = await session.json();
+    if (id == null || id == undefined) {
+      ToastR({
+        message: "Su sesión ha vencido. Por favor ingrese nuevamente!",
+        icon: "error",
+      });
+      setTimeout(function () {
+        window.location.href = "/";
+        return;
+      }, 2000);
+    }
   }
-  if (url == null || method == null || headers == null) ToastR({ message: 'Â¡La informaciÃ³n enviada es invalida! Complete los datos!', icon: 'error' });
+  if (url == null || method == null || headers == null)
+    ToastR({
+      message: "La información enviada es invalida! Complete los datos!",
+      icon: "error",
+    });
   try {
-      spinner.removeAttribute('hidden');
-      FullOptionsRequest = null
-      const optionsRequest = {
-          method: method,
-          credentials: "same-origin",
-          contentType: "application/json; charset=UTF-8",
-          headers: headers,
-      }
-      if (method == 'POST' || method == 'PUT') {
-          FullOptionsRequest = Object.assign(optionsRequest, {
-              body: bodyRequest
-          })
-      } else {
-          FullOptionsRequest = optionsRequest
-      }
-      const RequestComponent = await fetch(url, FullOptionsRequest)
-      ToastR({ message: 'Procesando, por favor espere..!', icon: 'info' })
-      spinner.setAttribute('hidden', '');
-      if (RequestComponent.status == 401) return ToastR({ message: 'Â¡El usuario no se encuentra registrado en la API o el Token es incorrecto..!', icon: 'info' });
-      // ToastR({ message:' 'Â¡Procesando, por favor espere..!', icon: 'info' });        
-      let ResponseComponent = null
-      if (typeResponse == 'json') return ResponseComponent = await RequestComponent.json()
-      if (typeResponse == 'text') return ResponseComponent = await RequestComponent.text()
-      if (typeResponse == 'blob') return ResponseComponent = await RequestComponent.blob()
-      return ResponseComponent.json()
+    spinner.removeAttribute("hidden");
+    FullOptionsRequest = null;
+    const optionsRequest = {
+      method: method,
+      credentials: "same-origin",
+      contentType: "application/json; charset=UTF-8",
+      headers: headers,
+    };
+    if (method == "POST" || method == "PUT") {
+      FullOptionsRequest = Object.assign(optionsRequest, {
+        body: bodyRequest,
+      });
+    } else {
+      FullOptionsRequest = optionsRequest;
+    }
+    const RequestComponent = await fetch(url, FullOptionsRequest);
+    ToastR({ message: "Procesando, por favor espere..!", icon: "info" });
+    spinner.setAttribute("hidden", "");
+    if (RequestComponent.status == 401)
+      return ToastR({
+        message:
+          "El usuario no se encuentra registrado en la API o el Token es incorrecto..!",
+        icon: "info",
+      });
+    // ToastR({ message:' 'Â¡Procesando, por favor espere..!', icon: 'info' });
+    let ResponseComponent = null;
+    if (typeResponse == "json")
+      return (ResponseComponent = await RequestComponent.json());
+    if (typeResponse == "text")
+      return (ResponseComponent = await RequestComponent.text());
+    if (typeResponse == "blob")
+      return (ResponseComponent = await RequestComponent.blob());
+    return ResponseComponent.json();
   } catch (error) {
-      spinner.setAttribute('hidden', '');
-      return ToastR({ message: 'Â¡Se ha producido un error en la peticiÃ³n! Intente nuevamente..!', icon: 'info' });
+    spinner.setAttribute("hidden", "");
+    return ToastR({
+      message:
+        "Se ha producido un error en la peticiÃ³n! Intente nuevamente..!",
+      icon: "info",
+    });
   }
-}
+};
 
-function guardaGrupo(){
-  formulario = document.querySelector('#formGrupo')
+function guardaGrupo() {
+  formulario = document.querySelector("#formGrupo");
   let formGrupo = new FormData(formulario);
 
-  object= {}
-  formGrupo.forEach((value, key) => object[key] = value);
-  
-  numGrupo = guardaDatosGrupo(JSON.stringify(object))
+  object = {};
+  formGrupo.forEach((value, key) => (object[key] = value));
 
-  console.log(numGrupo)
+  numGrupo = guardaDatosGrupo(JSON.stringify(object));
 
-
+  console.log(numGrupo);
 }
 
 const guardaDatosGrupo = async (formGrupo) => {
@@ -2324,13 +2379,12 @@ const guardaDatosGrupo = async (formGrupo) => {
   }
 };
 
-
-function traeReservasMmto(){
-  mmtoHab = document.querySelector('#roomAdi');
-  desde = document.querySelector('#desdeFechaAdi').value;
-  hasta = document.querySelector('#hastaFechaAdi').value;
+function traeReservasMmto() {
+  mmtoHab = document.querySelector("#roomAdi");
+  desde = document.querySelector("#desdeFechaAdi").value;
+  hasta = document.querySelector("#hastaFechaAdi").value;
   let nroHab = mmtoHab.options[mmtoHab.selectedIndex].text;
-  let idHab = mmtoHab.value
+  let idHab = mmtoHab.value;
 
   url = "res/php/reservasHabMmto.php";
   fetch(url, {
@@ -2340,24 +2394,20 @@ function traeReservasMmto(){
     },
     body: `nroHab=${nroHab}&desde=${desde}&hasta=${hasta}`,
   })
-  .then((response) => response.json())
-  .then((data) => muestraHabitacionesMmto(data));
+    .then((response) => response.json())
+    .then((data) => muestraHabitacionesMmto(data));
 }
 
-function muestraHabitacionesMmto(mmtos){
-  if(mmtos.length >= 1){
-    divRese = document.querySelector('#divReserva');
-    divRese.classList.remove('apaga');
-    dataTableMmto = document.querySelector('#huespedesMmto');
+function muestraHabitacionesMmto(mmtos) {
+  if (mmtos.length >= 1) {
+    divRese = document.querySelector("#divReserva");
+    divRese.classList.remove("apaga");
+    dataTableMmto = document.querySelector("#huespedesMmto");
     limpiaHabitacionesMmto();
 
     mmtos.forEach((mmto) => {
-      const {
-        num_reserva,
-        fecha_llegada,
-        fecha_salida,
-        nombre_completo,
-      } = mmto;
+      const { num_reserva, fecha_llegada, fecha_salida, nombre_completo } =
+        mmto;
       const trRese = document.createElement("tr");
       const tdNro = document.createElement("td");
       const tdDes = document.createElement("td");
@@ -2368,7 +2418,6 @@ function muestraHabitacionesMmto(mmtos){
       tdHab.innerHTML = fecha_salida;
       tdNom.innerHTML = nombre_completo;
 
-
       trRese.appendChild(tdNro);
       trRese.appendChild(tdDes);
       trRese.appendChild(tdHab);
@@ -2378,10 +2427,9 @@ function muestraHabitacionesMmto(mmtos){
     });
 
     setTimeout(() => {
-      divRese.classList.add('apaga');
+      divRese.classList.add("apaga");
       limpiaHabitacionesMmto();
     }, 5000);
-
   }
 }
 
@@ -2400,7 +2448,7 @@ function buscaFacturasExporta() {
     headers: {
       "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
     },
-    body: "desde=" + desde+"&hasta="+hasta,
+    body: "desde=" + desde + "&hasta=" + hasta,
   })
     .then((response) => response.text())
     .then((data) => llenaFacturas(data));
@@ -2434,45 +2482,50 @@ function buscaHistoricoNC() {
   desden = document.querySelector("#desdeNumero").value;
   hastan = document.querySelector("#hastaNumero").value;
 
-
   url = "res/php/buscaHistoricoNC.php";
   fetch(url, {
     method: "post",
     headers: {
       "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
     },
-    body: "desdef=" + desdef+"&hastaf="+hastaf+"&desden=" + desden+"&hastan="+hastan,
+    body:
+      "desdef=" +
+      desdef +
+      "&hastaf=" +
+      hastaf +
+      "&desden=" +
+      desden +
+      "&hastan=" +
+      hastan,
   })
     .then((response) => response.json())
     .then((data) => llenaHistoricoNC(data));
 }
 
 function llenaHistoricoNC(datos) {
-
   ncHTML = document.querySelector("#dataNotas tbody");
   resultado = document.querySelector("#muestraResultado");
-  
+
   if (datos.length == 0) {
-    resultado.classList.add("apaga")
-    mensaje = document.querySelector('#mensaje');
+    resultado.classList.add("apaga");
+    mensaje = document.querySelector("#mensaje");
     mensaje.innerHTML = "";
     mensaje.classList.remove("apaga");
-    mensaje.innerHTML =
-      `
+    mensaje.innerHTML = `
       <div class="alert alert-danger centro">
       <h4> <i class="fa-solid fa-circle-exclamation fa-2x"></i> Sin Notas Credito Generadas el Rango de Fecha Seleccionada<h4>  
       </div>
       `;
     setTimeout(() => {
       mensaje.classList.add("apaga");
-      resultado.classList.remove("apaga")
-
+      resultado.classList.remove("apaga");
     }, 3000);
   } else {
-    LimpiaNcHTML()
+    LimpiaNcHTML();
 
-    datos.map(function (dato){
-      let { facturaAnulada, fechaNC, motivoAnulacion, numeroNC, estadoEnvio } = dato
+    datos.map(function (dato) {
+      let { facturaAnulada, fechaNC, motivoAnulacion, numeroNC, estadoEnvio } =
+        dato;
       let rowNC = document.createElement("tr");
 
       rowNC.innerHTML = `<td>${numeroNC}</td>
@@ -2495,13 +2548,13 @@ function llenaHistoricoNC(datos) {
       `;
 
       ncHTML.appendChild(rowNC);
-    })
+    });
   }
 }
 
 function LimpiaNcHTML() {
-  ncHTML.innerHTML = '';
-/*   while (ncHTML.firstChild) {
+  ncHTML.innerHTML = "";
+  /*   while (ncHTML.firstChild) {
     ncHTML.removeChild(ncHTML.firstChild);
   } */
 }
@@ -2610,7 +2663,7 @@ function traeReservasActivas(tipo) {
     type: "POST",
     data: {
       tipo: tipo,
-    },  
+    },
     success: function (data) {
       $("#paginaReservas").html(data);
       $("#example1").DataTable({
@@ -2666,7 +2719,7 @@ function consumoVentaDirecta() {
     room,
     turismo,
     usuario,
-    usuario_id ,
+    usuario_id,
   };
   $.ajax({
     type: "POST",
@@ -3248,7 +3301,7 @@ function traeTotalHuespedes(regis, filas) {
 
   $.ajax({
     url: "res/php/traeHuespedLimit.php",
-    type: "POST", 
+    type: "POST",
     dataType: "json",
     data: {
       regis: regis,
@@ -3336,10 +3389,10 @@ function traeTotalHuespedes(regis, filas) {
         onclick   ="irPagina(${1})"
         > << </button>`;
       for (i = 1; i <= pages; i++) {
-        if(i <=10){
+        if (i <= 10) {
           barra =
-          barra +
-          `<button 
+            barra +
+            `<button 
           class="btn btn-success" 
           data-page ="${i - 1}"
           onclick   ="irPagina(${i - 1})"
@@ -3360,17 +3413,15 @@ function traeTotalHuespedes(regis, filas) {
 }
 
 function mostrarNC(nc) {
-  
   var nota = nc + ".pdf";
   $("#myModalVerFactura").modal("show");
 
-  var titulo = document.querySelector('#myModalVerFactura #exampleModalLabel')
+  var titulo = document.querySelector("#myModalVerFactura #exampleModalLabel");
 
   titulo.innerHTML = `Nota Credito :  ${nc}`;
 
   $("#verFacturaModalCon").attr("data", "imprimir/notas/NotaCredito_" + nota);
 }
-
 
 function verfacturaHistorico(fact) {
   var factura = fact + ".pdf";
@@ -3387,7 +3438,7 @@ function anulaFacturaHistorico() {
   var reserva = $("#reservaHis").val();
   var perfil = $("#perfilHis").val();
 
-  $('.btnAnulaFac').css('display','none')
+  $(".btnAnulaFac").css("display", "none");
 
   $.ajax({
     url: "res/php/anulaFacturaHistorico.php",
@@ -3407,7 +3458,7 @@ function anulaFacturaHistorico() {
           text: "Factura Anulada con Exito",
           type: "success",
         },
-        function(){
+        function () {
           $(location).attr("href", pagina);
         }
       );
@@ -3784,7 +3835,7 @@ function anulaFactura() {
   var reserva = $("#reserva").val();
   var perfil = $("#perfil").val();
 
-  $('.btnAnulaFac').css('display','none')
+  $(".btnAnulaFac").css("display", "none");
 
   $.ajax({
     url: "res/php/anulaFactura.php",
@@ -3837,14 +3888,14 @@ function asignaTipoHabitacion() {
   });
 }
 
-function guardaHuesped() { 
+function guardaHuesped() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
   let { usuario, usuario_id, tipo } = user;
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
-  var nuevaIde = $('#identifica').val();
-  var creaRese = $('#creaReser').val()
+  var nuevaIde = $("#identifica").val();
+  var creaRese = $("#creaReser").val();
   var parametros = $("#formAdicionaHuespedes").serializeArray();
 
   parametros.push({ name: "usuario", value: usuario });
@@ -3856,13 +3907,13 @@ function guardaHuesped() {
     url: "res/php/ingresoHuesped.php",
     success: function (datos) {
       datos = datos.trim();
-      if(creaRese==1){
-        $('#myModalAdicionaPerfil').modal('hide');
-        $('#buscarHuesped').focus();
-        $('#buscarHuesped').val(nuevaIde);
+      if (creaRese == 1) {
+        $("#myModalAdicionaPerfil").modal("hide");
+        $("#buscarHuesped").focus();
+        $("#buscarHuesped").val(nuevaIde);
         seleccionaHuespedReserva(datos);
-        $('#noches').focus();
-      }else{
+        $("#noches").focus();
+      } else {
         $(location).attr("href", pagina);
       }
     },
@@ -3982,7 +4033,7 @@ function congelaHuesped() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
   let { usuario, usuario_id } = user;
-  
+
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var reserva = $("#reservaActual").val();
@@ -4013,7 +4064,7 @@ function congelaHuesped() {
           text: "Cuenta Congelada con Exito",
           type: "success",
         },
-        function(){
+        function () {
           $(location).attr("href", "facturacionEstadia");
         }
       );
@@ -4035,7 +4086,6 @@ function drop(ev) {
   var data = ev.dataTransfer.getData("text");
   ev.target.appendChild(document.getElementById(data));
   console.log(ev);
-
 }
 
 function verAuditoria(info) {
@@ -4080,8 +4130,8 @@ function verfactura(fact, perfil) {
 }
 
 function verRecibo(fact) {
-    var recibo = 'Abono_'+fact + ".pdf";
-    $("#verFactura").attr("data", "imprimir/notas/" + recibo);
+  var recibo = "Abono_" + fact + ".pdf";
+  $("#verFactura").attr("data", "imprimir/notas/" + recibo);
 }
 
 function buscaFacturasFecha() {
@@ -4128,7 +4178,7 @@ function guardaHuespedReserva() {
   });
 }
 
-function traeAcompanantes(idres){
+function traeAcompanantes(idres) {
   idres = parseInt(idres);
   var param = {
     idres,
@@ -4137,12 +4187,12 @@ function traeAcompanantes(idres){
     type: "POST",
     data: param,
     url: "res/php/dataBuscarAcompanantes.php",
-    success: function (datos) {      
+    success: function (datos) {
       $("#acompanantes").html(datos);
     },
-  }); 
+  });
 }
- 
+
 function guardaAcompanante() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
@@ -4188,10 +4238,19 @@ function buscaHuespedAcompanante(id) {
         $("#fechanaceAdiAco").val("");
         $("#paicesAdiAco").val("");
         $("#ciudadAdiAco").val("");
-
-
       } else {
-        let { id_huesped, tipo_identifica, apellido1, apellido2, nombre1, nombre2, sexo, fecha_nacimiento, pais, ciudad } = datos[0];
+        let {
+          id_huesped,
+          tipo_identifica,
+          apellido1,
+          apellido2,
+          nombre1,
+          nombre2,
+          sexo,
+          fecha_nacimiento,
+          pais,
+          ciudad,
+        } = datos[0];
 
         $("#nuevoPax").val(2);
         $("#idHuesAdi").val(id_huesped);
@@ -4509,7 +4568,7 @@ function seleccionaHuespedReserva(id) {
   $.ajax({
     url: web + "/res/php/seleccionaHuesped.php",
     type: "POST",
-    data: parametros, 
+    data: parametros,
     success: function (data) {
       $("#datosHuespedAdi").html(data);
     },
@@ -4570,7 +4629,6 @@ function updateCongelada() {
   });
 }
 
-
 function cierreDiario() {
   var web = $("#rutaweb").val();
   $("#botonCierre").attr("disabled", "disabled");
@@ -4591,7 +4649,7 @@ function cierreDiario() {
           $("#aviso").html("");
           $("#aviso").html(
             '<h4 class="bg-red" style="padding:10px;display:flex"><img style="margin-bottom:0" class="thumbnail" src="../img/loader.gif" alt="" /><span style="font-size:24px;font-weight: 700;font-family: ubuntu;margin:15px">Procesando Informacion, No Interrumpa </span></h4>'
-          ); 
+          );
         },
         success: function (datos) {
           $.each(datos, function (i, item) {
@@ -4611,8 +4669,7 @@ function cierreDiario() {
               confirmButtonText: "Aceptar",
               closeOnConfirm: false,
             },
-            function () {
-            }
+            function () {}
           );
         },
       });
@@ -5068,7 +5125,7 @@ function cargarHabitaciones() {
   var cargar = $("#cargarHabitacion").val();
   var parametros = {
     cargar,
-    cargo, 
+    cargo,
     usuario,
     usuario_id,
   };
@@ -5087,7 +5144,6 @@ function cargarHabitaciones() {
     },
   });
 }
-
 
 function cargarHabitacionCkeckIn(habi) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
@@ -5102,7 +5158,7 @@ function cargarHabitacionCkeckIn(habi) {
   var cargar = habi;
   var parametros = {
     cargar,
-    cargo, 
+    cargo,
     usuario,
     usuario_id,
   };
@@ -5121,7 +5177,6 @@ function cargarHabitacionCkeckIn(habi) {
     },
   });
 }
-
 
 function cambiaEstadoCargarHabitaciones(tipo) {
   if (tipo == 1) {
@@ -5154,10 +5209,10 @@ function salidaHuesped() {
   var pagina = $("#ubicacion").val();
   var saldo = $("#SaldoActual").val();
   var abonos = $("#totalPagos").val();
-  let facturador = document.querySelector('#facturador').value;
+  let facturador = document.querySelector("#facturador").value;
 
   let perfilFac = 1;
-  
+
   var tipofac = $(
     "input[name=habitacionOptionCon]:checked",
     "#guardarPagosRoomSal"
@@ -5223,12 +5278,12 @@ function salidaHuesped() {
 
     /* $(".btnSalida").css("display","none");
     $("#mensajeSalida").css("display","block"); */
-    estado = document.querySelector('#estadoCuenta')
-    mensajeSal = document.querySelector('#mensajeSalida')
-    btnSalida = document.querySelector(".btnSalida")
-    estado.classList.add('apaga');
-    mensajeSal.classList.remove('apaga')
-    btnSalida.classList.remove('apaga')
+    estado = document.querySelector("#estadoCuenta");
+    mensajeSal = document.querySelector("#mensajeSalida");
+    btnSalida = document.querySelector(".btnSalida");
+    estado.classList.add("apaga");
+    mensajeSal.classList.remove("apaga");
+    btnSalida.classList.remove("apaga");
 
     /* estado = document.querySelector('#estadoCuenta')
     estado.classList.add('apaga'); */
@@ -5278,9 +5333,9 @@ function salidaHuesped() {
       dataType: "json",
       data: parametros,
       success: function (data) {
-        if(facturador==1){
+        if (facturador == 1) {
           ruta = "imprimir/facturas/FES-";
-        }else{
+        } else {
           ruta = "imprimir/notas/";
         }
         var ventana = window.open(
@@ -5292,7 +5347,7 @@ function salidaHuesped() {
         if (data[1] == "0") {
           swal(
             {
-              title: "Salida del Huesped realizada con Exito !",
+              title: "Salida del Huesped Realizada con Exito !",
               type: "success",
               confirmButtonText: "Aceptar",
               closeOnConfirm: true,
@@ -5300,7 +5355,7 @@ function salidaHuesped() {
             function () {
               $(location).attr("href", "home");
             }
-          );          
+          );
         } else {
           swal(
             {
@@ -5313,7 +5368,7 @@ function salidaHuesped() {
               $("#myModalSalidaHuesped").modal("hide");
               activaFolio(reserva, data[1]);
             }
-          );  
+          );
 
           /* swal(
             "Atencion",
@@ -5326,7 +5381,7 @@ function salidaHuesped() {
           activaFolio(reserva, data[1]); */
         }
       },
-    }); 
+    });
   }
 }
 
@@ -5574,7 +5629,7 @@ function guardasinReserva() {
 
   // console.log(iden);
 
-  if (iden == '') {
+  if (iden == "") {
     swal("Precaucion", "Seleccione el Huesped a Reservar", "warning");
     return;
   }
@@ -5592,7 +5647,7 @@ function guardasinReserva() {
     beforeSend: function (objeto) {},
     success: function (datos) {
       cargarHabitacionCkeckIn(datos);
-      swal("Atencion", "Huesped Registrado Con Exito", "success",2000);
+      swal("Atencion", "Huesped Registrado Con Exito", "success", 2000);
       setTimeout(function () {
         $(location).attr("href", "home");
       }, 2000);
@@ -5733,7 +5788,7 @@ function ingresaConsumos() {
   var idhues = $("#idHuespedSal").val();
   var room = $("#txtNumeroHabCon").val();
   var turismo = $("#txtImptoTurismo").val();
- 
+
   var parametros = {
     codigo,
     textcodigo,
@@ -5747,7 +5802,7 @@ function ingresaConsumos() {
     room,
     turismo,
     usuario,
-    usuario_id ,
+    usuario_id,
   };
   $.ajax({
     type: "POST",
@@ -5767,12 +5822,12 @@ function ingresaConsumos() {
         $(location).attr("href", pagina);
       } else {
         $("#myModalCargosConsumo").modal("hide");
-        if(congela==1){
-          activaCongelado(numero, 1)
-        }else{
+        if (congela == 1) {
+          activaCongelado(numero, 1);
+        } else {
           movimientosFactura(numero);
         }
-      } 
+      }
     },
   });
 }
@@ -5796,21 +5851,20 @@ function ingresaReserva() {
     success: function (data) {
       if (data == 1) {
         cargarHabitacionCkeckIn(numero);
-        swal({
-          title: "Atencion!",
-          text: "Su Reserva a Sido ingresada con Exito",
-          type: "success",
-          confirmButtonText: "Aceptar",
-        },
-        function(){
-          $(location).attr("href", "llegadasDelDia");
-        }
-        )     
-      
+        swal(
+          {
+            title: "Atencion!",
+            text: "Su Reserva a Sido ingresada con Exito",
+            type: "success",
+            confirmButtonText: "Aceptar",
+          },
+          function () {
+            $(location).attr("href", "llegadasDelDia");
+          }
+        );
       } else {
         swal("Precaucion !", "Su Reserva no se pudo ingresar", "warning");
         $(location).attr("href", "llegadasDelDia");
-      
       }
     },
   });
@@ -5874,7 +5928,7 @@ function cancelaReserva() {
           text: mensaje,
           type: alerta,
         },
-        function(){
+        function () {
           $(location).attr("href", pagina);
         }
       );
@@ -5976,7 +6030,7 @@ function seleccionaHabitacion() {
     llega,
     sale,
     tipo,
-  }; 
+  };
   $.ajax({
     type: "POST",
     url: "res/php/seleccionaTipoHabitacion.php",
@@ -5987,7 +6041,7 @@ function seleccionaHabitacion() {
       $("#nrohabitacion").focus();
     },
   });
-} 
+}
 
 function seleccionaDormitorio() {
   var tipo = $("#tipohabi").val();
@@ -6115,7 +6169,7 @@ function valorHabitacion(tarifa) {
 
 function guardaReserva() {
   iden = $("#identifica").val();
-  if ( iden == "") {
+  if (iden == "") {
     swal("Precaucion", "Seleccione el Huesped a Reservar", "warning");
     return;
   }
@@ -6134,14 +6188,15 @@ function guardaReserva() {
     data: parametros,
     url: "res/php/ingresoReserva.php",
     success: function (datos) {
-      confirmarReserva(datos)
-      swal({      
-          title: 'Atencion',
+      confirmarReserva(datos);
+      swal(
+        {
+          title: "Atencion",
           type: "success",
           confirmButtonText: "Aceptar",
-          text:`Reserva ${datos} Creada con Exito`,
+          text: `Reserva ${datos} Creada con Exito`,
         },
-        function(){
+        function () {
           $(location).attr("href", "home");
         }
       );
@@ -6463,26 +6518,24 @@ function ciudadesExpedicion(pais, city) {
 function imprimirHistoricoRegistro(registro) {
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
-  if(registro == 0){
-    swal({
-      title: "Precaucion!",
-      text: "Registro Hotelero no Impreso",
-      type: "error",
-      confirmButtonText: "Aceptar",
-    },
-    function(){
-    }
-    )
-  }else{
-
-    $('#myModalverRegistroHotelero').modal('show');
+  if (registro == 0) {
+    swal(
+      {
+        title: "Precaucion!",
+        text: "Registro Hotelero no Impreso",
+        type: "error",
+        confirmButtonText: "Aceptar",
+      },
+      function () {}
+    );
+  } else {
+    $("#myModalverRegistroHotelero").modal("show");
     $("#verRegistroHotelero").attr(
       "data",
-      "imprimir/registros/Registro_Hotelero_" + registro.padStart(5, '0')+".pdf"
+      "imprimir/registros/Registro_Hotelero_" +
+        registro.padStart(5, "0") +
+        ".pdf"
     );
-    
-
-
   }
   /* var parametros = {
     registro,
@@ -6524,13 +6577,12 @@ function imprimirPreRegistro(reserva) {
 }
 
 function confirmarReserva(reserva) {
-
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
   let { usuario } = user;
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
-  reserva = $.trim(reserva)
+  reserva = $.trim(reserva);
   var parametros = {
     reserva,
     usuario,
@@ -6541,7 +6593,7 @@ function confirmarReserva(reserva) {
     url: web + "imprimir/confirmaReserva.php",
     success: function (datos) {
       var ventana = window.open(
-        "imprimir/"+$.trim(datos),
+        "imprimir/" + $.trim(datos),
         "PRINT",
         "height=600,width=600"
       );
@@ -6658,7 +6710,7 @@ function guardaMantenimiento() {
 
   $.ajax({
     type: "POST",
-    datatype: "JSON", 
+    datatype: "JSON",
     data: parametros,
     url: "res/php/guardaMantenimiento.php",
     success: function (datos) {
@@ -6669,7 +6721,7 @@ function guardaMantenimiento() {
       );
       $(location).attr("href", pagina);
     },
-  }); 
+  });
 }
 
 function entregaObjeto() {
@@ -6759,26 +6811,25 @@ function cambiaEstadoAseo(habi, ocupada, sucia, cambio) {
   switch (sucia) {
     case "0":
       actual = "bg-suciaOcu";
-    break;
+      break;
     case "1":
       actual = "bg-limpiaVac";
-    break;
+      break;
   }
 
   switch (ocupada) {
-    /* 
-    */
+    /*
+     */
     case "0":
       /* color = "bg-limpiaVac";
       // console.log('Cinco '); */
 
-      break; 
+      break;
     case "1":
       color = "bg-limpiaOcu";
       // console.log('Seis ');
       break;
   }
-
 
   $.ajax({
     url: "res/php/cambiaEstadoAseoHabitacion.php",
@@ -6790,10 +6841,10 @@ function cambiaEstadoAseo(habi, ocupada, sucia, cambio) {
     success: function () {
       $("#" + habi).removeClass(actual);
       $("#" + habi).addClass(color);
-      if(sucia == 1){
-        $("#" + habi+" .fa-broom").removeClass('apaga');
-      }else{
-        $("#" + habi+" .fa-broom").addClass('apaga');
+      if (sucia == 1) {
+        $("#" + habi + " .fa-broom").removeClass("apaga");
+      } else {
+        $("#" + habi + " .fa-broom").addClass("apaga");
       }
     },
   });
@@ -6898,7 +6949,6 @@ function facturasPorFecha() {
   }
 }
 
-
 function recibosPorFecha() {
   var web = $("#rutaweb").val();
   desdeFe = $("#desdeFecha").val();
@@ -6956,7 +7006,7 @@ function validaCierreDiario() {
     $.ajax({
       url: "res/php/validaAuditor.php",
       type: "POST",
-      data: parametros, 
+      data: parametros,
       beforeSend: function (objeto) {
         $(".mensaje").html(
           '<h3 class="alert alert-danger"><i style="font-size:3em;margin-top:1px;color:#BBB0B0; " class="ion ion-ios-gear-outline fa-spin"></i>Procesando Auditoria, NO Interrumpir</h3>'
@@ -6964,12 +7014,20 @@ function validaCierreDiario() {
       },
       success: function (x) {
         if (x == 1) {
-
-          swal("Atencion", "Auditoria Terminada con Exito", "success");
+          swal(
+            {
+              title: "Auditoria Terminada con Exito !",
+              type: "success",
+              confirmButtonText: "Aceptar",
+              closeOnConfirm: true,
+            },
+            function () {
+              $(location).attr("href", "home");
+            }
+          );
+          /* swal("Atencion", "Auditoria Terminada con Exito", "success");
           setTimeout(function () {
-            /// $(location).attr("href", "home");
-          }, 5000);
-          
+          }, 5000); */
         } else {
           if (x == 0) {
             $(".mensaje").html(
@@ -7194,18 +7252,18 @@ function salidaHuespedCongelada() {
       porceReteiva,
       porceReteica,
       porceRetefuente,
-      correofac, 
+      correofac,
     };
     $.ajax({
       type: "POST",
       url: web + "res/php/ingresoPago.php",
       data: parametros,
       success: function (data) {
-         var ventana = window.open(
-            "imprimir/facturas/FES-" + data[0],
-            "PRINT",
-            "height=600,width=600"
-          );                      
+        var ventana = window.open(
+          "imprimir/facturas/FES-" + data[0],
+          "PRINT",
+          "height=600,width=600"
+        );
         if (data[1] == "0") {
           swal({
             title: "Error!",
@@ -7214,7 +7272,6 @@ function salidaHuespedCongelada() {
             confirmButtonText: "Aceptar",
           });
           $(location).attr("href", "home");
-
         } else {
           swal(
             "Atencion",

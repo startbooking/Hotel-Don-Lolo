@@ -12,44 +12,42 @@
   $fecha = FECHA_PMS;
 
   if (!empty($user)) {
-    $usuario = $user[0]['usuario'];
-    $idusuario = $user[0]['usuario_id'];
+      $usuario = $user[0]['usuario'];
+      $idusuario = $user[0]['usuario_id'];
 
-    $llegan = $hotel->getTotalHuespedeseLlegando();
-    $salen = $hotel->getSalidasDelDia($fecha);
+      $llegan = $hotel->getTotalHuespedeseLlegando();
+      $salen = $hotel->getSalidasDelDia($fecha);
 
-    // echo $salen;
+      $registro = count($hotel->registrosHotelerosSinImprimir($fecha));
 
-    $registro = count($hotel->registrosHotelerosSinImprimir($fecha));
-
-    if ($salen != 0 || $registro != 0) {
-        if ($salen != 0) {
-            require_once 'habitacionesSinSalir.php';
-        }
-        if ($registro != 0) {
-            require_once 'registrosSinImprimir.php';
-        }
-    } else { ?>     
+      if ($salen != 0 || $registro != 0) {
+          if ($salen != 0) {
+              require_once 'habitacionesSinSalir.php';
+          }
+          if ($registro != 0) {
+              require_once 'registrosSinImprimir.php';
+          }
+      } else { ?>     
     <?php
-        $activaAud = $hotel->EstadoAuditoriaPMS(1);
-        $procesos = $hotel->getProcesoAuditoria();
-        foreach ($procesos as $proceso) {
-            require_once '../../imprimir/plantillaAuditoria.php';
-            if ($proceso['estado_proceso'] == 0) {
-                if (!is_null($proceso['nombre_proceso'])) {
-                    $proce = '../../auditoria/'.$proceso['nombre_proceso'];
-                    require_once $proce;
-                } ?>
+          $activaAud = $hotel->EstadoAuditoriaPMS(1);
+          $procesos = $hotel->getProcesoAuditoria();
+          foreach ($procesos as $proceso) {
+              require_once '../../imprimir/plantillaAuditoria.php';
+              if ($proceso['estado_proceso'] == 0) {
+                  if (!is_null($proceso['nombre_proceso'])) {
+                      $proce = '../../auditoria/'.$proceso['nombre_proceso'];
+                      require_once $proce;
+                  } ?>
         <?php
-                $ejecutado = $hotel->updateProcesoAuditoria($proceso['id_proceso'], 1);
-            } else { ?>
+                  $ejecutado = $hotel->updateProcesoAuditoria($proceso['id_proceso'], 1);
+              } else { ?>
         <?php
-            }
-            time_sleep_until(microtime(true) + 1);
-        }
-        $limpaEstado = $hotel->limpiaProcesosAuditoria();
-        echo 1;
-    }
+              }
+              time_sleep_until(microtime(true) + 1);
+          }
+          $limpaEstado = $hotel->limpiaProcesosAuditoria();
+          echo 1;
+      }
   } else {
       echo 0;
   }

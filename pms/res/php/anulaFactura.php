@@ -21,34 +21,34 @@ $token = $eToken[0]['token'];
 $password = $eToken[0]['password'];
 $facturador = $eToken[0]['facturador'];
 
+$resFac = $hotel->getResolucion();
+
+$retenciones = $hotel->trarRetenciones(1);
+
+$resolucion = $resFac[0]['resolucion'];
+$prefijo = $resFac[0]['prefijo'];
+$fechaRes = $resFac[0]['fecha'];
+$desde = $resFac[0]['desde'];
+$hasta = $resFac[0]['hasta'];
+
+$dFactura = $hotel->infoFactura($numero);
+
+$tipofac = $dFactura[0]['tipo_factura'];
+$idperfil = $dFactura[0]['id_perfil_factura'];
+$reserva = $dFactura[0]['numero_reserva'];
+$nroFolio = $dFactura[0]['folio_cargo'];
+
+$folios = $hotel->getConsumosReservaAgrupadoCodigoFolio($numero, $reserva, $nroFolio, 1);
+$pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolio($numero, $reserva, $nroFolio, 3);
+$tipoimptos = $hotel->getValorImptoFolio($numero, $reserva, $nroFolio, 2);
+$subtotales = $hotel->getConsumosReservaAgrupadoFolio($numero, $reserva, $nroFolio, 1);
+
+$codigo = $pagosfolio[0]['id_codigo_cargo'];
+
 if ($perfil == 1 && $facturador == 1) {
     $datosFact = $hotel->traeDatosFE($numero);
 
     $uuid = $datosFact[0]['cufe'];
-
-    $resFac = $hotel->getResolucion();
-
-    $retenciones = $hotel->trarRetenciones(1);
-
-    $resolucion = $resFac[0]['resolucion'];
-    $prefijo = $resFac[0]['prefijo'];
-    $fechaRes = $resFac[0]['fecha'];
-    $desde = $resFac[0]['desde'];
-    $hasta = $resFac[0]['hasta'];
-
-    $dFactura = $hotel->infoFactura($numero);
-
-    $tipofac = $dFactura[0]['tipo_factura'];
-    $idperfil = $dFactura[0]['id_perfil_factura'];
-    $reserva = $dFactura[0]['numero_reserva'];
-    $nroFolio = $dFactura[0]['folio_cargo'];
-
-    $folios = $hotel->getConsumosReservaAgrupadoCodigoFolio($numero, $reserva, $nroFolio, 1);
-    $pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolio($numero, $reserva, $nroFolio, 3);
-    $tipoimptos = $hotel->getValorImptoFolio($numero, $reserva, $nroFolio, 2);
-    $subtotales = $hotel->getConsumosReservaAgrupadoFolio($numero, $reserva, $nroFolio, 1);
-
-    $codigo = $pagosfolio[0]['id_codigo_cargo'];
 
     $eNote = [];
     $eBill = [];
@@ -66,7 +66,7 @@ if ($perfil == 1 && $facturador == 1) {
         $telFact = $datosCompania[0]['telefono'];
         $emaFact = $datosCompania[0]['email'];
         $merFact = '0000000-00';
-        $tdiFact = $datosCompania[0]['tipo_documento']; 
+        $tdiFact = $datosCompania[0]['tipo_documento'];
         $torFact = $datosCompania[0]['tipoAdquiriente'];
         $tliFact = $hotel->traeIdResponsabilidadDianVenta($datosCompania[0]['responsabilidadTributaria']);
         $munFact = $datosCompania[0]['ciudad'];
@@ -118,8 +118,7 @@ if ($perfil == 1 && $facturador == 1) {
     $eCust['phone'] = $telFact;
     $eCust['email'] = $emaFact;
 
-
-    if($tipofac == 2){
+    if ($tipofac == 2) {
         $eCust['address'] = $dirFact;
         $eCust['merchant_registration'] = $merFact;
         $eCust['type_document_identification_id'] = $tdiFact;
@@ -205,14 +204,14 @@ if ($perfil == 1 && $facturador == 1) {
     $urlinvoicepdf = $recibeCurl['urlinvoicepdf'];
     $cude = $recibeCurl['cude'];
     $QRStr = $recibeCurl['QRStr'];
-    $timeCrea   = $recibeCurl['ResponseDian']['Envelope']['Header']['Security']['Timestamp']['Created'];
+    $timeCrea = $recibeCurl['ResponseDian']['Envelope']['Header']['Security']['Timestamp']['Created'];
     $respo = '';
-    
+
     $errorMessage = json_encode($recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['ErrorMessage']);
-    $Isvalid      = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['IsValid'];
-    $statusCode   = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['StatusCode'];
-    $statusDesc   = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['StatusDescription'];
-    $statusMess   = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['StatusMessage'];
+    $Isvalid = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['IsValid'];
+    $statusCode = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['StatusCode'];
+    $statusDesc = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['StatusDescription'];
+    $statusMess = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['StatusMessage'];
 
     $message = $recibeCurl['message'];
 
@@ -233,6 +232,8 @@ if ($perfil == 1 && $facturador == 1) {
     include_once '../../api/enviaPDF.php';
 
     $recibePDF = json_decode($respopdf, true);
+} else {
+    include_once '../../imprimir/imprimeNC.php';
 }
 
 $cargos = $hotel->actualizaCargosFacturas($numero, $perfil);
