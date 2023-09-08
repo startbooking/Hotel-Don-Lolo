@@ -75,7 +75,7 @@ if ($perfil == 1 && $facturador == 1) {
         $datosHuesped = $hotel->getbuscaDatosHuesped($idperfil);
         $nitFact = $datosHuesped[0]['identificacion'];
         $dvFact = '';
-        $nomFact = utf8_decode($datosHuesped[0]['nombre1'].' '.$datosHuesped[0]['nombre2'].' '.$datosHuesped[0]['apellido1'].' '.$datosHuesped[0]['apellido2']);
+        $nomFact = utf8_decode($datosHuesped[0]['nombre1'] . ' ' . $datosHuesped[0]['nombre2'] . ' ' . $datosHuesped[0]['apellido1'] . ' ' . $datosHuesped[0]['apellido2']);
         $telFact = $datosHuesped[0]['telefono'];
         $dirFact = utf8_decode($datosHuesped[0]['direccion']);
         $emaFact = $datosHuesped[0]['email'];

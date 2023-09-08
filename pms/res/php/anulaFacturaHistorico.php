@@ -40,7 +40,7 @@ if ($perfil == 1) {
     $pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolioHis($numero, $reserva, $nroFolio, 3);
     $tipoimptos = $hotel->getValorImptoFolioHis($numero, $reserva, $nroFolio, 2);
     $subtotales = $hotel->getConsumosReservaAgrupadoFolioHis($numero, $reserva, $nroFolio, 1);
-    
+
     $codigo = $pagosfolio[0]['id_codigo_cargo'];
 
     $eNote = [];
@@ -59,7 +59,7 @@ if ($perfil == 1) {
         $telFact = $datosCompania[0]['telefono'];
         $emaFact = $datosCompania[0]['email'];
         $merFact = '0000000-00';
-        $tdiFact = $datosCompania[0]['tipo_documento']; 
+        $tdiFact = $datosCompania[0]['tipo_documento'];
         $torFact = $datosCompania[0]['tipoAdquiriente'];
         $tliFact = $hotel->traeIdResponsabilidadDianVenta($datosCompania[0]['responsabilidadTributaria']);
         $munFact = $datosCompania[0]['ciudad'];
@@ -68,7 +68,7 @@ if ($perfil == 1) {
         $datosHuesped = $hotel->getbuscaDatosHuesped($idperfil);
         $nitFact = $datosHuesped[0]['identificacion'];
         $dvFact = '';
-        $nomFact = utf8_decode($datosHuesped[0]['nombre1'].' '.$datosHuesped[0]['nombre2'].' '.$datosHuesped[0]['apellido1'].' '.$datosHuesped[0]['apellido2']);
+        $nomFact = utf8_decode($datosHuesped[0]['nombre1'] . ' ' . $datosHuesped[0]['nombre2'] . ' ' . $datosHuesped[0]['apellido1'] . ' ' . $datosHuesped[0]['apellido2']);
         $telFact = $datosHuesped[0]['telefono'];
         $dirFact = utf8_decode($datosHuesped[0]['direccion']);
         $emaFact = $datosHuesped[0]['email'];
@@ -109,8 +109,8 @@ if ($perfil == 1) {
     $eCust['name'] = $nomFact;
     $eCust['phone'] = $telFact;
     $eCust['email'] = $emaFact;
-    
-    if($tipofac == 2){
+
+    if ($tipofac == 2) {
         $eCust['address'] = $dirFact;
         $eCust['merchant_registration'] = $merFact;
         $eCust['type_document_identification_id'] = $tdiFact;
@@ -119,7 +119,7 @@ if ($perfil == 1) {
         $eCust['municipality_id'] = $munFact;
         $eCust['type_regime_id'] = $triFact;
     }
-    
+
     $eNote['customer'] = $eCust;
 
     $eLmon['line_extension_amount'] = $subtotales[0]['cargos'];
@@ -198,7 +198,7 @@ if ($perfil == 1) {
     $QRStr = $recibeCurl['QRStr'];
     $timeCrea   = $recibeCurl['ResponseDian']['Envelope']['Header']['Security']['Timestamp']['Created'];
     $respo = '';
-    
+
     $errorMessage = json_encode($recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['ErrorMessage']);
     $Isvalid      = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['IsValid'];
     $statusCode   = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['StatusCode'];
@@ -207,7 +207,7 @@ if ($perfil == 1) {
 
     $message = $recibeCurl['message'];
 
-    $regis = $hotel->ingresaDatosFe($numDoc, $prefNC, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cude, $QRStr, $recibeCurl, $Isvalid, $eNote, $errorMessage, $statusCode, $statusDesc, $statusMess);
+    $regis = $hotel->ingresaDatosFe($numDoc, $prefNC, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cude, $QRStr, '', $Isvalid, $eNote, $errorMessage, $statusCode, $statusDesc, $statusMess);
 
     include_once '../../imprimir/imprimeNotaCredito.php';
 
