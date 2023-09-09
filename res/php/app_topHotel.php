@@ -1,6 +1,4 @@
 <?php
-// / session_start();
-
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
@@ -26,7 +24,7 @@ define('CTA_DEPOSITO', $datosHotel[0]['cuenta_depositos']);
 define('CTA_CARGOS_PERD', $datosHotel[0]['cuenta_cargos_perdidos']);
 define('CTA_CARTERA', $datosHotel[0]['cuenta_cartera']);
 define('NAME_HOTEL', $datosHotel[0]['nombre_hotel']);
-define('NIT_HOTEL', $datosHotel[0]['nit_hotel'].'-'.$datosHotel[0]['dv_hotel']);
+define('NIT_HOTEL', $datosHotel[0]['nit_hotel'] . '-' . $datosHotel[0]['dv_hotel']);
 define('MAIL_HOTEL', $datosHotel[0]['email']);
 define('IVA_INCLUIDO', $datosHotel[0]['iva_incluido']);
 define('MMTO', $datosHotel[0]['mantenimiento']);
@@ -39,7 +37,7 @@ define('LAND_HOTEL', $datosHotel[0]['pais']);
 define('CTA_MASTER', $datosHotel[0]['codigo_cta_master']);
 define('DEMO', $datosHotel[0]['hoteldemo']);
 define('NAME_EMPRESA', $empresa[0]['empresa']);
-define('NIT_EMPRESA', $empresa[0]['nit'].'-'.$empresa[0]['dv']);
+define('NIT_EMPRESA', $empresa[0]['nit'] . '-' . $empresa[0]['dv']);
 define('NIT', $empresa[0]['nit']);
 define('ADRESS_EMPRESA', $empresa[0]['direccion']);
 define('TELEFONO_EMPRESA', $empresa[0]['telefonos']);
@@ -67,9 +65,9 @@ define('FACTURADOR', $datosHotel[0]['facturador']);
 
 $notificaciones = [];
 
-if(CTA_DEPOSITO == '0'){
+if (CTA_DEPOSITO == '0') {
     $cta = array('mensaje' => 'Sin Cuenta de Depositos Asignada');
-    array_push($notificaciones,$cta);
+    array_push($notificaciones, $cta);
 };
 
 $pc = gethostname();
@@ -79,22 +77,22 @@ if (!isset($_GET['section'])) {
 } elseif (isset($_GET['section']) && $_GET['section'] == 'home') {
     $companias = $hotel->getCompanias();
 } elseif (isset($_GET['section']) && $_GET['section'] == 'companias') {
-    $companias = $hotel->getCompanias();
+    $companias = $hotel->getPerfilCompanias();
 } elseif (isset($_GET['section']) && $_GET['section'] == 'agencias') {
     $agencias = $hotel->getAgencias();
 } elseif (isset($_GET['section']) && $_GET['section'] == 'reservasActivas') {
     $companias = $hotel->getCompanias();
-// $reservas = $hotel->getReservasActuales(1);
+    // $reservas = $hotel->getReservasActuales(1);
 } elseif (isset($_GET['section']) && $_GET['section'] == 'forecast') {
 } elseif (isset($_GET['section']) && $_GET['section'] == 'preregistros') {
     $reservas = $hotel->getReservasActuales(1);
 } elseif (isset($_GET['section']) && $_GET['section'] == 'encasa') {
     // $reservas = $hotel->getHuespedesenCasa(2,'CA');
 } elseif (isset($_GET['section']) && $_GET['section'] == 'grupos') {
-    $grupos = $hotel->getGrupos(); 
+    $grupos = $hotel->getGrupos();
 } elseif (isset($_GET['section']) && $_GET['section'] == 'llegadasDelDia') {
     $hoy = $hotel->getDatePms();
-// $reservas = $hotel->getReservasDia(FECHA_PMS,1,"ES");
+    // $reservas = $hotel->getReservasDia(FECHA_PMS,1,"ES");
 } elseif (isset($_GET['section']) && $_GET['section'] == 'llegadaSinReserva') {
     $companias = $hotel->getCompanias();
 } elseif (isset($_GET['section']) && $_GET['section'] == 'salidasDelDia') {
@@ -118,10 +116,10 @@ if (!isset($_GET['section'])) {
     $facturas = $hotel->getBuscaFacturasDia(FECHA_PMS);
 } elseif (isset($_GET['section']) && $_GET['section'] == 'recibosCajaDelDia') {
     $recibos = $hotel->getBuscaRecibosDia(FECHA_PMS);
+} elseif (isset($_GET['section']) && $_GET['section'] == 'notasCredito') {
+    $notas = $hotel->getNotasCreditoDia(FECHA_PMS);
 } elseif (isset($_GET['section']) && $_GET['section'] == 'objetosOlvidados') {
     $objetos = $hotel->objetosOlvidados();
 } elseif (isset($_GET['section']) && $_GET['section'] == 'mantenimiento') {
     $mmtos = $hotel->habitacionesMantenimiento();
-} 
-
-?>  
+}

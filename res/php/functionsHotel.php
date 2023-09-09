@@ -6,68 +6,92 @@ date_default_timezone_set('America/Bogota');
 
 class Hotel_Actions
 {
- 
-    
-    public function actualizaDireccion($id, $direccion){
+
+    public function getNotasCreditoDia($dia)
+    {
         global $database;
-        $data = $database->update('huespedes',[
+
+        $data = $database->select('notasCredito', [
+            '[<]usuarios' => ['usuarioNC' => 'usuario_id']
+        ], [
+            'usuarios.usuario',
+            'idNota',
+            'numeroNC',
+            'motivoAnulacion',
+            'facturaAnulada',
+            'fechaNC',
+        ], [
+            'fechaNC' => $dia,
+            'ORDER' => ['numeroNC' => 'ASC']
+
+        ]);
+        return $data;
+    }
+
+
+    public function actualizaDireccion($id, $direccion)
+    {
+        global $database;
+        $data = $database->update('huespedes', [
             'direccion' => $direccion
-        ],[
+        ], [
             'id_huesped' => $id
         ]);
         return $data->rowCount();
-
-
     }
 
-    public function traeHuespedes(){
+    public function traeHuespedes()
+    {
         global $database;
 
         $data = $database->query("SELECT * FROM huespedes")->fetchAll();
         return $data;
     }
-    
-    public function actualizaTarifa($id, $uno, $dos, $tre, $cua, $cin, $sei, $adi, $nin){
+
+    public function actualizaTarifa($id, $uno, $dos, $tre, $cua, $cin, $sei, $adi, $nin)
+    {
         global $database;
 
-        $data =$database->update('valores_tarifas',[
-            'valor_un_pax' => $uno, 
-            'valor_dos_pax' => $dos, 
-            'valor_tre_pax' => $tre, 
-            'valor_cua_pax' => $cua, 
-            'valor_cin_pax' => $cin, 
-            'valor_sei_pax' => $sei, 
-            'valor_adicional' => $adi, 
+        $data = $database->update('valores_tarifas', [
+            'valor_un_pax' => $uno,
+            'valor_dos_pax' => $dos,
+            'valor_tre_pax' => $tre,
+            'valor_cua_pax' => $cua,
+            'valor_cin_pax' => $cin,
+            'valor_sei_pax' => $sei,
+            'valor_adicional' => $adi,
             'valor_nino' => $nin
-        ],[
+        ], [
             'id' => $id,
         ]);
         return $data->rowCount();
-
     }
 
-    public function traeTarifas(){
+    public function traeTarifas()
+    {
         global $database;
 
         $data = $database->query('SELECT * FROM valores_tarifas ')->fetchAll();
         return $data;
     }
-    public function traeUsuarioNC($factura){
+    public function traeUsuarioNC($factura)
+    {
         global $database;
-    
-        $data = $database->select('historico_cargos_pms',[
+
+        $data = $database->select('historico_cargos_pms', [
             'id_usuario_anulacion'
-        ],[
+        ], [
             'factura' => 1,
             'factura_numero' => $factura,
         ]);
         return $data[0]['id_usuario_anulacion'];
     }
 
-    public function ingresaNCImport($factura, $fecha, $motivo, $numero, $usuario){
+    public function ingresaNCImport($factura, $fecha, $motivo, $numero, $usuario)
+    {
         global $database;
 
-        $data = $database->insert('notasCredito',[
+        $data = $database->insert('notasCredito', [
             'numeroNC' => $numero,
             'motivoAnulacion' => $motivo,
             'facturaAnulada' => $factura,
@@ -80,40 +104,43 @@ class Hotel_Actions
     }
 
 
-    public function traeNotas(){
+    public function traeNotas()
+    {
         global $database;
 
-        $data = $database->select('datosFE',[
+        $data = $database->select('datosFE', [
             'datosFE.facturaNumero',
             'datosFE.prefijo',
             'datosFE.id',
             'datosFE.timeCreated',
             'datosFE.jsonEnviado',
-        ],[
+        ], [
             'datosFE.prefijo' => 'NC'
         ]);
         return $data;
     }
-    
-    public function ingresaNCFactura($numero, $motivo, $idusuario, $numDoc, $fecha){
+
+    public function ingresaNCFactura($numero, $motivo, $idusuario, $numDoc, $fecha)
+    {
         global $database;
 
-        $data = $database->insert('notasCredito',[
-        'numeroNC' => $numDoc,
-        'motivoAnulacion' => $motivo,
-        'usuarioNC' => $idusuario,
-        'facturaAnulada' => $numero,
-        'fechaNC' => $fecha,
-        'createdAt' => date('Y-m-d H:m:i'),
+        $data = $database->insert('notasCredito', [
+            'numeroNC' => $numDoc,
+            'motivoAnulacion' => $motivo,
+            'usuarioNC' => $idusuario,
+            'facturaAnulada' => $numero,
+            'fechaNC' => $fecha,
+            'createdAt' => date('Y-m-d H:m:i'),
         ]);
         return $database->id();
     }
- 
- 
-    public function creaGrupo($empresaGrupo, $nombreGrupo, $llegada, $noches, $salida, $hombres, $mujeres, $ninos, $cantHabi, $tarifahab, $valortar, $origen, $destino, $motivo, $fuente, $segmento, $formapago, $observaciones, $usuario, $idusuario){
+
+
+    public function creaGrupo($empresaGrupo, $nombreGrupo, $llegada, $noches, $salida, $hombres, $mujeres, $ninos, $cantHabi, $tarifahab, $valortar, $origen, $destino, $motivo, $fuente, $segmento, $formapago, $observaciones, $usuario, $idusuario)
+    {
         global $database;
 
-        $data = $database->insert('grupos_pms',[
+        $data = $database->insert('grupos_pms', [
             'nombreGrupo' => $nombreGrupo,
             'hombres' => $hombres,
             'mujeres' => $mujeres,
@@ -136,27 +163,29 @@ class Hotel_Actions
         return $database->id();
     }
 
-    public function actualizaMmto($idmmto, $hasta){
+    public function actualizaMmto($idmmto, $hasta)
+    {
         global $database;
 
-        $data = $database->update('mantenimiento_habitaciones',[
+        $data = $database->update('mantenimiento_habitaciones', [
             'hasta_fecha' => $hasta,
-        ],[
+        ], [
             'id_mmto' => $idmmto
         ]);
         return $data->rowCount();
     }
 
-    public function getMmtoHabitaciones($llega, $tipo){
+    public function getMmtoHabitaciones($llega, $tipo)
+    {
         global $database;
 
-        $data = $database->select('mantenimiento_habitaciones',[
+        $data = $database->select('mantenimiento_habitaciones', [
             '[>]habitaciones' => ['id_habitacion' => 'id']
-        ],[
+        ], [
             'habitaciones.numero_hab',
             'mantenimiento_habitaciones.desde_fecha',
             'mantenimiento_habitaciones.hasta_fecha',
-        ],[
+        ], [
             'habitaciones.id_tipohabitacion' => $tipo,
             // 'mantenimiento_habitaciones.hasta_fecha[>=]' => $llega,
             'mantenimiento_habitaciones.estado_mmto' => 1
@@ -164,28 +193,30 @@ class Hotel_Actions
         return $data;
     }
 
-    public function traeHabitacionesMmto(){
+    public function traeHabitacionesMmto()
+    {
         global $database;
 
-        $data = $database->select('mantenimiento_habitaciones',[
+        $data = $database->select('mantenimiento_habitaciones', [
             '[<]habitaciones' => ['id_habitacion' => 'id'],
             '[<]grupos_cajas' => ['id_mantenimiento' => 'id_grupo']
-        ],[
+        ], [
             'habitaciones.numero_hab',
             'grupos_cajas.descripcion_grupo',
             'mantenimiento_habitaciones.desde_fecha',
             'mantenimiento_habitaciones.hasta_fecha',
-        ],[
+        ], [
             'mantenimiento_habitaciones.estado_mmto' => 1,
         ]);
         return $data;
     }
-    public function traeEstadoHabitaciones(){
+    public function traeEstadoHabitaciones()
+    {
         global $database;
 
-        $data = $database->select('habitaciones',[
+        $data = $database->select('habitaciones', [
             '[>]tipo_habitaciones' => ['id_tipohabitacion' => 'id']
-        ],[
+        ], [
             'tipo_habitaciones.descripcion_habitacion',
             'habitaciones.id_tipohabitacion',
             'habitaciones.numero_hab',
@@ -195,26 +226,24 @@ class Hotel_Actions
             'habitaciones.mantenimiento',
             'habitaciones.sucia',
             'habitaciones.ocupada',
-        ],[
+        ], [
             'tipo_habitaciones.tipo_habitacion' => 1,
             'ORDER' => ['habitaciones.numero_hab' => 'ASC']
         ]);
         return $data;
-
     }
 
 
-    public function regresaCasa($reserva){
+    public function regresaCasa($reserva)
+    {
         global $database;
 
-        $data = $database->update('reservas_pms',[
+        $data = $database->update('reservas_pms', [
             'estado'  => 'CA'
-        ],[
+        ], [
             'num_reserva' => $reserva,
         ]);
         return $data->rowCount();
-
-
     }
 
     public function updateCongelada($numero, $orden)
@@ -231,51 +260,54 @@ class Hotel_Actions
     }
 
 
-    public function traeDescripcionContable($codigo){
+    public function traeDescripcionContable($codigo)
+    {
         global $database;
 
-        $data = $database->select('codigos_vta',[
+        $data = $database->select('codigos_vta', [
             'descripcion_contable',
             'cuenta_puc',
-        ],[
+        ], [
             'id_cargo' => $codigo,
         ]);
         return $data;
     }
 
-    public function estadoReserva($room){
+    public function estadoReserva($room)
+    {
         global $database;
-        
-        $data = $database->select('reservas_pms',[
+
+        $data = $database->select('reservas_pms', [
             'estado'
-        ],[
+        ], [
             'num_reserva' => $room,
         ]);
         return $data[0]['estado'];
     }
-    public function getFacturasCompanias($id){
+    public function getFacturasCompanias($id)
+    {
         global $database;
 
-        $data = $database->select('historico_cargos_pms',[
-            '[>]huespedes' => ['id_huesped' => 'id_huesped'] 
-        ],[
+        $data = $database->select('historico_cargos_pms', [
+            '[>]huespedes' => ['id_huesped' => 'id_huesped']
+        ], [
             'huespedes.nombre_completo',
             'historico_cargos_pms.pagos_cargos',
-            'historico_cargos_pms.fecha_factura',            
-            'historico_cargos_pms.factura_numero',            
-        ],[
+            'historico_cargos_pms.fecha_factura',
+            'historico_cargos_pms.factura_numero',
+        ], [
             'historico_cargos_pms.tipo_factura' => 2,
             'historico_cargos_pms.factura' => 1,
             'historico_cargos_pms.factura_anulada' => 0,
             'historico_cargos_pms.cartera' => 0,
-            'historico_cargos_pms.id_perfil_factura' => $id, 
+            'historico_cargos_pms.id_perfil_factura' => $id,
             'historico_cargos_pms.id_codigo_cargo' => 2,
             'ORDER' => ['historico_cargos_pms.factura_numero' => 'ASC']
         ]);
         return $data;
     }
-    
-    
+
+
     public function traeClientesCartera()
     {
         global $database;
@@ -285,43 +317,46 @@ class Hotel_Actions
         return $data;
     }
 
-    public function habitacionesMmto(){
+    public function habitacionesMmto()
+    {
         global $database;
 
-        $data = $database->count('habitaciones',[
+        $data = $database->count('habitaciones', [
             'mantenimiento' => 1,
         ]);
         return $data;
     }
-    
-public function lanzaQuery($sele){
-    global $database;
 
-    $data = $database->query($sele)->fetchAll();
-    return $data;
+    public function lanzaQuery($sele)
+    {
+        global $database;
 
-}
+        $data = $database->query($sele)->fetchAll();
+        return $data;
+    }
 
 
-    public function buscaHabitacionesMmto($query){
+    public function buscaHabitacionesMmto($query)
+    {
         global $database;
 
         $data = $database->query($query)->fetchAll();
         return $data;
     }
-    public function traeNombreUsuario($id){
+    public function traeNombreUsuario($id)
+    {
         global $database;
 
-        $data = $database->select('usuarios',[
+        $data = $database->select('usuarios', [
             'apellidos',
             'nombres',
-        ],[
+        ], [
             'usuario_id' => $id
 
         ]);
-        return $data[0]['apellidos'].' '.$data[0]['nombres'];
+        return $data[0]['apellidos'] . ' ' . $data[0]['nombres'];
     }
-    
+
     public function trarRetenciones($numero)
     {
         global $database;
@@ -539,7 +574,6 @@ public function lanzaQuery($sele){
         ]);
 
         return $data[0]['perfil_venta'];
-        
     }
 
     public function getPrefijoNC()
@@ -661,10 +695,10 @@ public function lanzaQuery($sele){
             'id_ciudad' => $id,
         ]);
 
-        if(count($data)==0){
+        if (count($data) == 0) {
             return 'Sin Datos ';
-        }else{
-            return $data[0]['codigo']; 
+        } else {
+            return $data[0]['codigo'];
         }
     }
 
@@ -746,7 +780,8 @@ public function lanzaQuery($sele){
     {
         global $database;
 
-        $data = $database->query("
+        $data = $database->query(
+            "
         SELECT
             paquetes.codigo_vta, 
             paquetes.valor, 
@@ -823,7 +858,7 @@ public function lanzaQuery($sele){
             'apellido2' => $apellido2,
             'nombre1' => $nombre1,
             'nombre2' => $nombre2,
-            'nombre_completo' => $apellido1.' '.$apellido2.' '.$nombre1.' '.$nombre2,
+            'nombre_completo' => $apellido1 . ' ' . $apellido2 . ' ' . $nombre1 . ' ' . $nombre2,
             'fecha_creacion' => date('Y-m-d H:i:s'),
             'usuario_creador' => $usuario,
             'id_usuario' => $idusuario,
@@ -1029,7 +1064,7 @@ public function lanzaQuery($sele){
 
         $data = $database->select('grupos_pms', [
             '[>]companias' => ['idCompania' => 'id_compania'],
-        ],[
+        ], [
             'companias.empresa',
             'idGrupo',
             'idCompania',
@@ -1099,7 +1134,7 @@ public function lanzaQuery($sele){
         return $data;
     }
 
-    public function getPerfilCompanias($regis, $filas)
+    public function getPerfilCompanias()
     {
         global $database;
 
@@ -1121,8 +1156,7 @@ public function lanzaQuery($sele){
             'estado_credito',
             'activo',
         ], [
-            'LIMIT' => [$regis, $filas],
-            'ORDER' => 'empresa',
+            'ORDER' => ['empresa' => 'ASC'],
         ]);
 
         return $data;
@@ -1277,7 +1311,7 @@ public function lanzaQuery($sele){
         if (count($data) == 0) {
             return '';
         } else {
-            return $data[0]['municipio'].' '.$data[0]['depto'];
+            return $data[0]['municipio'] . ' ' . $data[0]['depto'];
         }
     }
 
@@ -1400,24 +1434,24 @@ public function lanzaQuery($sele){
         return $data;
     }
 
-      public function actualizaMmtoHabitacion($room, $mmto)
-      {
-          global $database;
+    public function actualizaMmtoHabitacion($room, $mmto)
+    {
+        global $database;
 
-          $data = $database->update('habitaciones', [
+        $data = $database->update('habitaciones', [
             'estado' => 1,
             'mantenimiento' => $mmto,
             'sucia' => 1,
-          ], [
+        ], [
             'numero_hab' => $room,
-          ]);
+        ]);
 
-          return $data->rowCount();
-      }
-     
+        return $data->rowCount();
+    }
+
     public function adicionaMantenimiento($room, $desde, $hasta, $motivo, $inventario, $estadoHab, $observa, $presup, $numero, $tipo, $usuario)
     {
-        global $database; 
+        global $database;
 
         $data = $database->insert('mantenimiento_habitaciones', [
             'id_habitacion' => $room,
@@ -2119,7 +2153,7 @@ public function lanzaQuery($sele){
                 'factura_numero' => $factura,
                 'numero_reserva' => $reserva,
                 'factura' => 0,
-                ],
+            ],
         ]);
 
         return $data;
@@ -3579,7 +3613,7 @@ public function lanzaQuery($sele){
             'reservas_pms.num_habitacion',
             'huespedes.nombre_completo',
             'cargos_pms.prefijo_factura',
-            'cargos_pms.factura_numero', 
+            'cargos_pms.factura_numero',
             'cargos_pms.concecutivo_abono',
             'cargos_pms.pagos_cargos',
             'cargos_pms.id_usuario_factura',
@@ -3730,7 +3764,7 @@ public function lanzaQuery($sele){
         if (count($data) == 0) {
             return '';
         } else {
-            return $data[0]['municipio'].' '.$data[0]['depto'];
+            return $data[0]['municipio'] . ' ' . $data[0]['depto'];
         }
     }
 
@@ -3768,7 +3802,7 @@ public function lanzaQuery($sele){
             'ciudad' => $ciudad,
             'usuario_creador' => $usuario,
             'id_usuario' => $idusuario,
-            'nombre_completo' => $apellido1.' '.$apellido2.' '.$nombre1.' '.$nombre2,
+            'nombre_completo' => $apellido1 . ' ' . $apellido2 . ' ' . $nombre1 . ' ' . $nombre2,
             'email' => $correo,
             'fecha_creacion' => date('Y-m-d H:i:s'),
         ]);
@@ -3953,16 +3987,18 @@ public function lanzaQuery($sele){
     }
 
 
-     
 
-public function traeEstadoHabitacionesHotel($tipo, $llega, $sale){
-    global $database;
 
-    $data = $database->query("SELECT num_habitacion, fecha_llegada, fecha_salida, estado FROM reservas_pms WHERE (estado = 'CA'  OR estado = 'ES') AND tipo_habitacion = '$tipo' AND fecha_llegada <= '$llega' and fecha_salida >= '$sale' order BY num_habitacion")->fetchAll();
-    return $data;
-}
+    public function traeEstadoHabitacionesHotel($tipo, $llega, $sale)
+    {
+        global $database;
 
-    public function traeEstadoHabitacionesHotelOld2($tipo, $llega, $sale){
+        $data = $database->query("SELECT num_habitacion, fecha_llegada, fecha_salida, estado FROM reservas_pms WHERE (estado = 'CA'  OR estado = 'ES') AND tipo_habitacion = '$tipo' AND fecha_llegada <= '$llega' and fecha_salida >= '$sale' order BY num_habitacion")->fetchAll();
+        return $data;
+    }
+
+    public function traeEstadoHabitacionesHotelOld2($tipo, $llega, $sale)
+    {
         global $database;
 
         $data = $database->query("SELECT 
@@ -4184,7 +4220,7 @@ public function traeEstadoHabitacionesHotel($tipo, $llega, $sale){
         global $database;
 
         $data = $database->query("SELECT COUNT(id) as rooms FROM habitaciones WHERE id_tipohabitacion <> '$cuenta' AND active_at = 1")->fetchAll();
-        
+
         // echo print_r($data);
 
         return $data[0]['rooms'];
@@ -4336,7 +4372,7 @@ public function traeEstadoHabitacionesHotel($tipo, $llega, $sale){
 
         $data = $database->delete('reservas_pms', [
             'AND' => [
-            'estado' => $tipo,
+                'estado' => $tipo,
             ],
         ]);
 
@@ -4372,8 +4408,8 @@ public function traeEstadoHabitacionesHotel($tipo, $llega, $sale){
 
         $data = $database->delete('reservas_pms', [
             'AND' => [
-            'fecha_llegada' => $fecha,
-            'estado' => $tipo,
+                'fecha_llegada' => $fecha,
+                'estado' => $tipo,
             ],
         ]);
 
@@ -5148,7 +5184,7 @@ public function traeEstadoHabitacionesHotel($tipo, $llega, $sale){
         return $data;
     }
 
-    public function updateCompania($id, $nit, $dv, $tipodoc, $compania, $direccion, $ciudad, $telefono, $celular, $web, $correo, $tarifa, $formapago, $credito, $monto, $diascre, $diacorte, $tipoemp, $codciiu, $tipoAdqui, $tipoRespo, $repoTribu, $reteIva, $reteIca, $reteFte)
+    public function updateCompania($id, $nit, $dv, $tipodoc, $compania, $direccion, $ciudad, $telefono, $celular, $web, $correo, $tarifa, $formapago, $credito, $monto, $diascre, $diacorte, $tipoemp, $codciiu, $tipoAdqui, $tipoRespo, $repoTribu, $reteIva, $reteIca, $reteFte, $baseRete)
     {
         global $database;
 
@@ -5173,6 +5209,7 @@ public function traeEstadoHabitacionesHotel($tipo, $llega, $sale){
             'reteiva' => $reteIva,
             'reteica' => $reteIca,
             'retefuente' => $reteFte,
+            'sinBaseRete' => $baseRete,
             'updated_at' => date('Y-m-d H:i:s'),
             'id_codigo_ciiu' => $codciiu,
             'tipoAdquiriente' => $tipoAdqui,
@@ -5214,6 +5251,7 @@ public function traeEstadoHabitacionesHotel($tipo, $llega, $sale){
             'reteiva',
             'reteica',
             'retefuente',
+            'sinBaseRete',
             'tipo_compania',
             'tipoAdquiriente',
             'tipoResponsabilidad',
@@ -5226,7 +5264,7 @@ public function traeEstadoHabitacionesHotel($tipo, $llega, $sale){
         return $data;
     }
 
-    public function updateHuesped($id, $iden, $tipodoc, $apellido1, $apellido2, $nombre1, $nombre2, $sexo, $direccion, $telefono, $celular, $correo, $fechanace, $tipohues, $tarifa, $pais, $ciudad, $formapago, $paisExp, $ciudadExp, $tipoAdqui, $tipoRespo, $repoTribu, $empresa)
+    public function updateHuesped($id, $iden, $tipodoc, $apellido1, $apellido2, $nombre1, $nombre2, $sexo, $direccion, $telefono, $celular, $correo, $fechanace, $pais, $ciudad, $paisExp, $ciudadExp, $tipoAdqui, $tipoRespo, $repoTribu, $empresa, $profesion)
     {
         global $database;
 
@@ -5244,13 +5282,11 @@ public function traeEstadoHabitacionesHotel($tipo, $llega, $sale){
             'tipo_identifica' => $tipodoc,
             'fecha_nacimiento' => $fechanace,
             'sexo' => $sexo,
-            'id_forma_pago' => $formapago,
             'celular' => $celular,
-            'tipo_huesped' => $tipohues,
-            'id_tarifa' => $tarifa,
+            'profesion' => $profesion,
             'pais' => $pais,
             'ciudad' => $ciudad,
-            'nombre_completo' => $apellido1.' '.$apellido2.' '.$nombre1.' '.$nombre2,
+            'nombre_completo' => $apellido1 . ' ' . $apellido2 . ' ' . $nombre1 . ' ' . $nombre2,
             'tipoAdquiriente' => $tipoAdqui,
             'tipoResponsabilidad' => $tipoRespo,
             'responsabilidadTributaria' => $repoTribu,
@@ -5291,6 +5327,7 @@ public function traeEstadoHabitacionesHotel($tipo, $llega, $sale){
             'estado_credito',
             'pais',
             'ciudad',
+            'profesion',
             'id_forma_pago',
             'tipoAdquiriente',
             'tipoResponsabilidad',
@@ -5517,9 +5554,9 @@ public function traeEstadoHabitacionesHotel($tipo, $llega, $sale){
         $data = $database->sum('cargos_pms', [
             'pagos_cargos',
         ], [
-                'fecha_cargo' => $fecha,
-                'cargo_anulado' => 0,
-                'concecutivo_abono[>]' => 0,
+            'fecha_cargo' => $fecha,
+            'cargo_anulado' => 0,
+            'concecutivo_abono[>]' => 0,
         ]);
 
         return $data;
@@ -5955,7 +5992,7 @@ public function traeEstadoHabitacionesHotel($tipo, $llega, $sale){
         if (count($data) == 0) {
             return '';
         } else {
-            return $data[0]['municipio'].' - '.$data[0]['depto'];
+            return $data[0]['municipio'] . ' - ' . $data[0]['depto'];
         }
     }
 
@@ -6287,8 +6324,7 @@ public function traeEstadoHabitacionesHotel($tipo, $llega, $sale){
 
         $data = $database->select('reservas_pms', [
             'id_huesped',
-        ], [
-        ]);
+        ], []);
 
         return $data;
     }
@@ -6745,7 +6781,7 @@ public function traeEstadoHabitacionesHotel($tipo, $llega, $sale){
         $data = $database->insert('cargos_pms', [
             'fecha_cargo' => $fecha,
             'id_codigo_cargo' => $codigo,
-            'descripcion_cargo' => 'ABONO EN '.$textcodigo,
+            'descripcion_cargo' => 'ABONO EN ' . $textcodigo,
             'usuario' => $usuario,
             'id_usuario' => $idusuario,
             'id_huesped' => $idhues,
@@ -6958,7 +6994,7 @@ public function traeEstadoHabitacionesHotel($tipo, $llega, $sale){
             'fecha_cargo' => $fecha,
             'id_codigo_cargo' => $forma,
             'habitacion_cargo' => $ctadeposito,
-            'descripcion_cargo' => 'DEPOSITO EN '.$textoforma,
+            'descripcion_cargo' => 'DEPOSITO EN ' . $textoforma,
             'usuario' => $usuario,
             'id_usuario' => $idusuario,
             'id_huesped' => $idhues,
@@ -7173,8 +7209,7 @@ public function traeEstadoHabitacionesHotel($tipo, $llega, $sale){
     {
         global $database;
 
-        $data = $database->select('tarifas', [
-        ]);
+        $data = $database->select('tarifas', []);
 
         return $data;
     }
@@ -7190,10 +7225,10 @@ public function traeEstadoHabitacionesHotel($tipo, $llega, $sale){
         ], [
             'valores_tarifas.id' => $tipo,
         ]);
-        if(count($data)==0){
-            return 'Sin Datos '.$tipo;
-        }else{
-            return $data[0]['descripcion_tarifa']; 
+        if (count($data) == 0) {
+            return 'Sin Datos ' . $tipo;
+        } else {
+            return $data[0]['descripcion_tarifa'];
         }
     }
 
@@ -7235,7 +7270,7 @@ public function traeEstadoHabitacionesHotel($tipo, $llega, $sale){
         return $data;
     }
 
-    public function insertaNuevaCompania($nit, $dv, $tipodoc, $compania, $direccion, $ciudad, $telefono, $celular, $web, $correo, $tarifa, $formapago, $credito, $monto, $diascre, $diacorte, $usuario, $tipoemp, $codciiu, $tipoAdqui, $tipoRespo, $repoTribu, $reteIva, $reteIca, $reteFte)
+    public function insertaNuevaCompania($nit, $dv, $tipodoc, $compania, $direccion, $ciudad, $telefono, $celular, $web, $correo, $tarifa, $formapago, $credito, $monto, $diascre, $diacorte, $usuario, $tipoemp, $codciiu, $tipoAdqui, $tipoRespo, $repoTribu, $reteIva, $reteIca, $reteFte, $baseRete)
     {
         global $database;
 
@@ -7265,6 +7300,7 @@ public function traeEstadoHabitacionesHotel($tipo, $llega, $sale){
             'reteiva' => $reteIva,
             'reteica' => $reteIca,
             'retefuente' => $reteFte,
+            'sinBaseRete' => $baseRete,
             'tipoAdquiriente' => $tipoAdqui,
             'tipoResponsabilidad' => $tipoRespo,
             'responsabilidadTributaria' => $repoTribu,
@@ -7313,7 +7349,7 @@ public function traeEstadoHabitacionesHotel($tipo, $llega, $sale){
         return $data;
     }
 
-    public function insertaNuevoHuesped($iden, $tipodoc, $apellido1, $apellido2, $nombre1, $nombre2, $sexo, $direccion, $telefono, $celular, $correo, $fechanace, $tipohues, $tarifa, $pais, $ciudad, $formapago, $paisExp, $ciudadExp, $usuario, $idusuario, $tipoAdqui, $tipoRespo, $repoTribu, $empresa)
+    public function insertaNuevoHuesped($iden, $tipodoc, $apellido1, $apellido2, $nombre1, $nombre2, $sexo, $direccion, $telefono, $celular, $correo, $fechanace, $pais, $ciudad, $paisExp, $ciudadExp, $usuario, $idusuario, $tipoAdqui, $tipoRespo, $repoTribu, $empresa, $profesion)
     {
         global $database;
 
@@ -7336,12 +7372,10 @@ public function traeEstadoHabitacionesHotel($tipo, $llega, $sale){
             'id_usuario' => $idusuario,
             'fecha_creacion' => date('Y-m-d H:i:s'),
             'celular' => $celular,
-            'tipo_huesped' => $tipohues,
-            'id_tarifa' => $tarifa,
             'pais' => $pais,
             'ciudad' => $ciudad,
-            'nombre_completo' => $apellido1.' '.$apellido2.' '.$nombre1.' '.$nombre2,
-            'id_forma_pago' => $formapago,
+            'profesion' => $profesion,
+            'nombre_completo' => $apellido1 . ' ' . $apellido2 . ' ' . $nombre1 . ' ' . $nombre2,
             'tipoAdquiriente' => $tipoAdqui,
             'tipoResponsabilidad' => $tipoRespo,
             'responsabilidadTributaria' => $repoTribu,
@@ -7391,7 +7425,7 @@ public function traeEstadoHabitacionesHotel($tipo, $llega, $sale){
 
         return $data;
     }
- 
+
     public function insertNuevaReserva($iden, $llegada, $salida, $noches, $hombres, $mujeres, $ninos, $orden, $tipohabi, $nrohabitacion, $tarifahab, $valortarifa, $origen, $destino, $motivo, $fuente, $segmento, $idhuesp, $idcia, $idCentro, $numero, $usuario, $estado, $observa, $formapa, $sinrese, $impto, $idusuario, $tipo)
     {
         global $database;

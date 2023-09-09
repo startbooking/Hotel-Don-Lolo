@@ -1,7 +1,5 @@
-
-
 <?php
-  require '../../../res/php/titles.php';
+// require '../../../res/php/titles.php';
 require '../../../res/php/app_topHotel.php';
 $id = $_POST['id'];
 
@@ -24,39 +22,31 @@ $nombreCiu = $hotel->getNombreCiudad($huesped[0]['ciudad']);
     <div class="col-sm-3">
       <select name="tipodoc" required value="<?php echo $huesped[0]['tipo_identifica']; ?>">
         <option value="">Seleccione el Tipo de Documeto</option>
-          <?php foreach ($tipodocs as $tipodoc) { ?>
-            <option value="<?php echo $tipodoc['id_doc']; ?>"
-              <?php
-              if ($huesped[0]['tipo_identifica'] == $tipodoc['id_doc']) { ?>
-                selected
-                <?php
-              }
-              ?>
-              ><?php echo $tipodoc['descripcion_documento']; ?></option>}
-          <?php } ?>
+        <?php foreach ($tipodocs as $tipodoc) { ?>
+          <option value="<?php echo $tipodoc['id_doc']; ?>" <?php
+                                                            if ($huesped[0]['tipo_identifica'] == $tipodoc['id_doc']) { ?> selected <?php
+                                                                                                                                  }
+                                                                                                                                    ?>><?php echo $tipodoc['descripcion_documento']; ?></option>}
+        <?php } ?>
       </select>
     </div>
   </div>
-  <div class="form-group">            
-    <label for="paisExp" class="col-sm-2 control-label">Expedicion </label> 
+  <div class="form-group">
+    <label for="paisExp" class="col-sm-2 control-label">Expedicion </label>
     <div class="col-sm-3">
       <select name="paisExpUpd" id="paisExpUpd" required="" onblur="ciudadesExpedicion(this.value,'<?php echo $huesped[0]['ciudad_expedicion']; ?>')">
         <?php
-          foreach ($paices as $pais) { ?>
-            <option value="<?php echo $pais['id_pais']; ?>"
-              <?php
-                if ($huesped[0]['pais_expedicion'] == $pais['id_pais']) {?>
-                  selected
-                  <?php
-                }
-              ?>          
-            ><?php echo $pais['descripcion']; ?></option>
-            <?php
-          }
-?>
+        foreach ($paices as $pais) { ?>
+          <option value="<?php echo $pais['id_pais']; ?>" <?php
+                                                          if ($huesped[0]['pais_expedicion'] == $pais['id_pais']) { ?> selected <?php
+                                                                                                                              }
+                                                                                                                                ?>><?php echo $pais['descripcion']; ?></option>
+        <?php
+        }
+        ?>
       </select>
     </div>
-    <label for="ciudadExp" class="col-sm-2 control-label">Ciudad </label> 
+    <label for="ciudadExp" class="col-sm-2 control-label">Ciudad </label>
     <div class="col-sm-3">
       <select name="ciudadExpUpd" id="ciudadExpUpd" required="">
         <option value="<?php echo $huesped[0]['ciudad_expedicion']; ?>"><?php echo $nombreExp; ?></option>
@@ -85,27 +75,19 @@ $nombreCiu = $hotel->getNombreCiudad($huesped[0]['ciudad']);
     <div class="col-sm-2" style="padding:0">
       <div class="col-sm-6" style="padding:0;height: 15px">
         <div class="form-check form-check-inline" style="text-align: left">
-            <input style="margin-top:5px" class="form-check-input" type="radio" name="sexOption" id="inlineRadio1" value="1" 
-            <?php
-    if ($huesped[0]['sexo'] == 1) {?>
-              checked
-              <?php
-    }
-?>
-            >
-          <label style="margin-top:-18px;margin-left:25px" class="form-check-label" for="inlineRadio1" >Masc</label>
-        </div>                    
+          <input style="margin-top:5px" class="form-check-input" type="radio" name="sexOption" id="inlineRadio1" value="1" <?php
+                                                                                                                            if ($huesped[0]['sexo'] == 1) { ?> checked <?php
+                                                                                                                                                                      }
+                                                                                                                                                                        ?>>
+          <label style="margin-top:-18px;margin-left:25px" class="form-check-label" for="inlineRadio1">Masc</label>
+        </div>
       </div>
-      <div class="col-sm-6" style="padding:0;height: 15px"> 
+      <div class="col-sm-6" style="padding:0;height: 15px">
         <div class="form-check form-check-inline" style="text-align: left">
-            <input style="margin-top:5px" class="form-check-input" type="radio" name="sexOption" id="inlineRadio2" value="2" 
-            <?php
-if ($huesped[0]['sexo'] == 2) {  ?>
-              checked=""
-              <?php
-}
-?>
-            >
+          <input style="margin-top:5px" class="form-check-input" type="radio" name="sexOption" id="inlineRadio2" value="2" <?php
+                                                                                                                            if ($huesped[0]['sexo'] == 2) {  ?> checked="" <?php
+                                                                                                                                                                          }
+                                                                                                                                                                            ?>>
           <label style="margin-top:-18px;margin-left:25px" class="form-check-label" for="inlineRadio2">Fem</label>
         </div>
       </div>
@@ -114,7 +96,7 @@ if ($huesped[0]['sexo'] == 2) {  ?>
   <div class="form-group">
     <label for="direccion" class="col-sm-2 control-label">Direccion </label>
     <div class="col-sm-6">
-      <input type="text" class="form-control" name="direccion" id="direccion" required value="<?php echo $huesped[0]['direccion']; ?>" pattern="[A-Za-z0-9]+">
+      <input type="text" class="form-control" name="direccion" id="direccion" required value="<?php echo $huesped[0]['direccion']; ?>" pattern="[A-Za-z0-9 ]+">
     </div>
   </div>
   <div class="form-group">
@@ -124,18 +106,14 @@ if ($huesped[0]['sexo'] == 2) {  ?>
         <option value="">Seleccione la Nacionalidad</option>
         <?php
         foreach ($paices as $pais) { ?>
-          <option value="<?php echo $pais['id_pais']; ?>" 
-            <?php
-if ($huesped[0]['pais'] == $pais['id_pais']) {?>
-              selected
-            <?php
-}
-            ?>
-            ><?php echo $pais['descripcion']; ?></option>
-          <?php
+          <option value="<?php echo $pais['id_pais']; ?>" <?php
+                                                          if ($huesped[0]['pais'] == $pais['id_pais']) { ?> selected <?php
+                                                                                                                    }
+                                                                                                                      ?>><?php echo $pais['descripcion']; ?></option>
+        <?php
         }
-?>
-      </select> 
+        ?>
+      </select>
     </div>
     <label class="col-lg-2 col-md-2 control-label" style="padding-top:0">Ciudad</label>
     <div class="col-sm-4">
@@ -152,13 +130,13 @@ if ($huesped[0]['pais'] == $pais['id_pais']) {?>
     </div>
     <label for="celular" class="col-sm-2 control-label">Celular</label>
     <div class="col-sm-4">
-      <input type="text" class="form-control" name="celular" id="celular"  value="<?php echo $huesped[0]['celular']; ?>" minlength="10" maxlength="18" pattern="[0-9]+">
+      <input type="text" class="form-control" name="celular" id="celular" value="<?php echo $huesped[0]['celular']; ?>" minlength="10" maxlength="18" pattern="[0-9]+">
     </div>
   </div>
   <div class="form-group">
     <label for="correo" class="col-sm-2 control-label">Correo </label>
     <div class="col-sm-4">
-      <input type="email" class="form-control" name="correo" id="correo"  value="<?php echo $huesped[0]['email']; ?>" required>
+      <input type="email" class="form-control" name="correo" id="correo" value="<?php echo $huesped[0]['email']; ?>" required>
     </div>
     <label for="fechanace" class="col-sm-2 control-label">Fecha Nacimiento </label>
     <div class="col-sm-4">
@@ -171,19 +149,15 @@ if ($huesped[0]['pais'] == $pais['id_pais']) {?>
       <select name="tipoAdquiriente" id="tipoAdquiriente" required>
         <option value="">Seleccione el Tipo Persona</option>
         <?php
-          $tipoAdquiere = $hotel->getTipoAdquiriente();
-foreach ($tipoAdquiere as $tipoAdqui) { ?>
-            <option value="<?php echo $tipoAdqui['id']; ?>" 
-            <?php
-if ($huesped[0]['tipoAdquiriente'] == $tipoAdqui['id']) {?>
-                selected
-              <?php
-}
-    ?>
-            ><?php echo $tipoAdqui['descripcionAdquiriente']; ?></option>
-            <?php
-}
-?> 
+        $tipoAdquiere = $hotel->getTipoAdquiriente();
+        foreach ($tipoAdquiere as $tipoAdqui) { ?>
+          <option value="<?php echo $tipoAdqui['id']; ?>" <?php
+                                                          if ($huesped[0]['tipoAdquiriente'] == $tipoAdqui['id']) { ?> selected <?php
+                                                                                                                              }
+                                                                                                                                ?>><?php echo $tipoAdqui['descripcionAdquiriente']; ?></option>
+        <?php
+        }
+        ?>
       </select>
     </div>
     <label for="correo" class="col-sm-2 control-label">Tipo Regimen </label>
@@ -191,83 +165,63 @@ if ($huesped[0]['tipoAdquiriente'] == $tipoAdqui['id']) {?>
       <select name="tipoResponsabilidad" id="tipoResponsabilidad" required>
         <option value="">Seleccione Tipo de Responsabilidad</option>
         <?php
-    $tipoRespo = $hotel->getTipoResponsabilidad();
-foreach ($tipoRespo as $tipoRes) { ?>
-              <option value="<?php echo $tipoRes['id']; ?>"
-              <?php
-    if ($huesped[0]['tipoResponsabilidad'] == $tipoRes['id']) {?>
-                  selected
-                <?php
-    }
-    ?>                                      
-            ><?php echo $tipoRes['descripcion']; ?></option>
-            <?php
-}
-?>  
+        $tipoRespo = $hotel->getTipoResponsabilidad();
+        foreach ($tipoRespo as $tipoRes) { ?>
+          <option value="<?php echo $tipoRes['id']; ?>" <?php
+                                                        if ($huesped[0]['tipoResponsabilidad'] == $tipoRes['id']) { ?> selected <?php
+                                                                                                                              }
+                                                                                                                                ?>><?php echo $tipoRes['descripcion']; ?></option>
+        <?php
+        }
+        ?>
       </select>
     </div>
   </div>
   <div class="form-group">
-            <label for="correo" class="col-sm-2 control-label">Tipo Obligacion </label>
-            <div class="col-sm-4">
-            <select name="responsabilidadTribu" id="responsabilidadTribu" required>
-              <option value="">Seleccione Tipo Obligacion</option>
-              <?php
-                $tipoTribus = $hotel->getResponsabilidadTributaria();
-foreach ($tipoTribus as $tipoTribu) { ?>
-                  <option value="<?php echo $tipoTribu['id']; ?>"
-                  <?php
-      if ($huesped[0]['responsabilidadTributaria'] == $tipoTribu['id']) { ?>
-                        selected
-                        <?php
-      }
-    ?>
-
-                  
-                  ><?php echo $tipoTribu['descripcionResponsabilidad']; ?></option>
-                  <?php
-}
-?> 
-              </select>
-            </div>
-            <label for="tipohuesped" class="col-sm-2 control-label">Tipo Huesped </label>
-            <div class="col-sm-4">
-              <select name="tipohuesped" id="tipohuesped" >
-                <option value="">Seleccione el Tipo de Huesped</option>
-                <?php
-    $tipohesps = $hotel->getTipoHuespedes();
-foreach ($tipohesps as $tipohesp) { ?>
-                    <option value="<?php echo $tipohesp['id_tipo_huesped']; ?>"
-                    <?php
-    if ($huesped[0]['tipo_huesped'] == $tipohesp['id_tipo_huesped']) { ?>
-                        selected
-                        <?php
-    }
-    ?>
-                    ><?php echo $tipohesp['descripcion_tipo']; ?></option>
-                    <?php
-}
-?>
-              </select>
-            </div>
-          </div>
+    <label for="correo" class="col-sm-2 control-label">Tipo Obligacion </label>
+    <div class="col-sm-4">
+      <select name="responsabilidadTribu" id="responsabilidadTribu" required>
+        <option value="">Seleccione Tipo Obligacion</option>
+        <?php
+        $tipoTribus = $hotel->getResponsabilidadTributaria();
+        foreach ($tipoTribus as $tipoTribu) { ?>
+          <option value="<?php echo $tipoTribu['id']; ?>" <?php if ($huesped[0]['responsabilidadTributaria'] == $tipoTribu['id']) { ?> selected <?php } ?>><?php echo $tipoTribu['descripcionResponsabilidad']; ?></option>
+        <?php
+        }
+        ?>
+      </select>
+    </div>
+    <label for="profesion" class="col-sm-2 control-label">Profesion </label>
+    <div class="col-sm-4">
+      <select name="profesion" id="profesion">
+        <option value="">Seleccione La Profesion</option>
+        <?php
+        $motivos = $hotel->getMotivoGrupo('PRO');
+        foreach ($motivos as $motivo) { ?>
+          <option value="<?php echo $motivo['id_grupo']; ?>" <?php
+                                                              if ($motivo['id_grupo'] == $huesped[0]['profesion']) {
+                                                              ?> selected <?php
+                                                                        }
+                                                                          ?>><?php echo $motivo['descripcion_grupo']; ?></option>
+        <?php
+        }
+        ?>
+      </select>
+    </div>
+  </div>
 
 
-  <div class="form-group">
+  <!-- <div class="form-group">
     <label for="tarifa" class="col-sm-2 control-label">Tarifa </label>
     <div class="col-sm-4">
       <select name="tarifa" id="tarifa" required="">
-      <?php
+        <?php
         $tarifas = $hotel->getTarifasHuespedes(); ?>
         <?php foreach ($tarifas as $tarifa) { ?>
-          <option value="<?php echo $tarifa['id_tarifa']; ?>"
-            <?php
-            if ($huesped[0]['id_tarifa'] == $tarifa['id_tarifa']) { ?>
-              selected
-              <?php
-            }
-            ?>
-            ><?php echo $tarifa['descripcion_tarifa']; ?></option>
+          <option value="<?php echo $tarifa['id_tarifa']; ?>" <?php
+                                                              if ($huesped[0]['id_tarifa'] == $tarifa['id_tarifa']) { ?> selected <?php
+                                                                                                                                }
+                                                                                                                                  ?>><?php echo $tarifa['descripcion_tarifa']; ?></option>
         <?php } ?>
       </select>
     </div>
@@ -276,22 +230,18 @@ foreach ($tipohesps as $tipohesp) { ?>
       <select name="formapago" id="formapago" required="">
         <option value="">Seleccione La Forma de Pago</option>
         <?php
-          $codigos = $hotel->getCodigosConsumos(3);
-          foreach ($codigos as $codigo) { ?>
-            <option value="<?php echo $codigo['id_cargo']; ?>"
-              <?php
-              if ($huesped[0]['id_forma_pago'] == $codigo['id_cargo']) { ?>
-                selected
-                <?php
-              }
-            ?>
-              ><?php echo $codigo['descripcion_cargo']; ?></option>
-            <?php
-              }
-            ?>
+        $codigos = $hotel->getCodigosConsumos(3);
+        foreach ($codigos as $codigo) { ?>
+          <option value="<?php echo $codigo['id_cargo']; ?>" <?php
+                                                              if ($huesped[0]['id_forma_pago'] == $codigo['id_cargo']) { ?> selected <?php
+                                                                                                                                    }
+                                                                                                                                      ?>><?php echo $codigo['descripcion_cargo']; ?></option>
+        <?php
+        }
+        ?>
       </select>
     </div>
-  </div>
+  </div> -->
   <div class="form-group">
     <label for="empresa" class="col-sm-2 control-label">Empresa </label>
     <div class="col-sm-6">
@@ -299,26 +249,21 @@ foreach ($tipohesps as $tipohesp) { ?>
         <!-- <option value="">Seleccione La Empresa</option> -->
         <option value="">SIN COMPAÑIA</option>
         <?php
-          $companias = $hotel->getCompanias(); 
-          foreach ($companias as $compañia) { ?>
-            <option value="<?=$compañia['id_compania']?>"
-            <?php
-            if ($huesped[0]['id_compania'] == $compañia['id_compania']) { ?>
-              selected
-              <?php
-            }
-            ?>
-            
-            ><?=$compañia['empresa']?></option>
-            <?php
-          }?>
+        $companias = $hotel->getCompanias();
+        foreach ($companias as $compañia) { ?>
+          <option value="<?= $compañia['id_compania'] ?>" <?php
+                                                          if ($huesped[0]['id_compania'] == $compañia['id_compania']) { ?> selected <?php
+                                                                                                                                  }
+                                                                                                                                    ?>><?= $compañia['empresa'] ?></option>
+        <?php
+        } ?>
       </select>
-    </div>  
-  </div>    
-  <div class="container-fluid">    
+    </div>
+  </div>
+  <div class="container-fluid">
     <div class="btn-group" style="margin-top:15px">
-      <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i>  Regresar</button>
+      <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
       <button class="btn btn-success" align="right"><i class="fa fa-save"></i> Procesar</button>
-    </div>        
-  </div>         
+    </div>
+  </div>
 </form>

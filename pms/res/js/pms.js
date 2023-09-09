@@ -43,7 +43,7 @@ $(document).ready(function () {
     setTimeout(showAll, 400);
   });
 
-  let cia = document.getElementById("pantallaCompanias");
+  let cia = document.getElementById("pantallaCompaniasOld");
   if (cia != null) {
     var numRegis = 0;
     var filas = $("#numFiles").val();
@@ -442,7 +442,6 @@ $(document).ready(function () {
 
     modal.find(".modal-title").text("Factura Numero : " + numero);
     if (facturador == 1) {
-      // var factura = "HDL" + numero + ".pdf";
       imprime = web + "imprimir/facturas/FES-HDL" + numero + ".pdf";
     } else {
       imprime = web + "imprimir/notas/Abono_" + numero + ".pdf";
@@ -464,6 +463,20 @@ $(document).ready(function () {
     $("#verFacturaModal").attr("data", web + "imprimir/notas/" + recibo);
     $(".alert").hide();
   });
+
+  $("#myModalVerNotaCredito").on("show.bs.modal", function (event) {
+    var web = $("#rutaweb").val();
+    var button = $(event.relatedTarget);
+    var numero = button.data("numero");
+    var modal = $(this);
+
+    modal.find(".modal-title").text("Nota Credito Nro : " + numero);
+    var recibo = web + "imprimir/notas/" + "NotaCredito_" + numero + ".pdf";
+
+    $("#verNotaCredito").attr("data",recibo);
+    $(".alert").hide();
+  });
+
 
   $("#myModalAdicionaObservaciones").on("show.bs.modal", function (event) {
     var button = $(event.relatedTarget);
@@ -2894,7 +2907,7 @@ function eliminaCentroCia() {
     url: "res/php/eliminaCentroCia.php",
     type: "POST",
     data: {
-      idCentro: idCentro,
+      idCentro,
     },
     success: function () {
       $(location).attr("href", pagina);
@@ -3156,6 +3169,7 @@ function traeTotalCompanias(regis, filas) {
     success: function (data) {
       $("#listaCompanias").html("");
       $("#barraPaginas").html("");
+      console.log(data)
       for (i = 0; i < data.length; i++) {
         lista =
           lista +
