@@ -30,6 +30,7 @@
 			$nuevototal = round($totalcargo/((100+$porcImpto)/100),2);
 			if($turismo==2 && $imptoTuri==1){
 				$impuesto = 0;
+				$nuevototal  = round($nuevototal);
 			}else{
 				$impuesto   = $totalcargo - $nuevototal;
 			}
