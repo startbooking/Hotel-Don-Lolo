@@ -42,7 +42,7 @@
 			}
 		}
 	}
-
+ 
 	$valor1   =  $impuesto + $totalcargo;
 	
 	if($impuesto<>0){
@@ -53,5 +53,3 @@
 	$cargos = $hotel->insertCargosConsumos($codigo, $textcodigo, $valor1, $canti, $refer, $folio, $detalle, $numero, $idhues, $usuario, $idusuario, $fecha, $room, $totalcargo, $impuesto, $baseimpto, $iva);
 
 	echo $cargos;
-
- ?>

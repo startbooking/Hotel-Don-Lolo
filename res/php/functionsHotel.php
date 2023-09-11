@@ -784,6 +784,7 @@ class Hotel_Actions
             "
         SELECT
             paquetes.codigo_vta, 
+            paquetes.codigo_excento, 
             paquetes.valor, 
             paquetes_tarifas.id_tarifa, 
             paquetes_tarifas.id_paquete, 
@@ -5709,11 +5710,12 @@ class Hotel_Actions
 
         $data = $database->select('tipo_habitaciones', [
             'deptoventa_habitacion',
+            'deptoventa_excento',
         ], [
             'id' => $codigo,
         ]);
 
-        return $data[0]['deptoventa_habitacion'];
+        return $data;
     }
 
     public function getCargoTodasHabitaciones($ctamaster)
