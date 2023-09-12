@@ -15,7 +15,7 @@ $hotel = new Hotel_Actions();
 $admin = new Hotel_Admin();
 
 $datosHotel = $admin->getDatosHotel();
-
+ 
 $empresa = $admin->getInfoCia();
 
 define('DEV', '1');
@@ -80,6 +80,8 @@ if (!isset($_GET['section'])) {
     $companias = $hotel->getPerfilCompanias();
 } elseif (isset($_GET['section']) && $_GET['section'] == 'agencias') {
     $agencias = $hotel->getAgencias();
+} elseif (isset($_GET['section']) && $_GET['section'] == 'huespedesPerfil') {
+    $huespedes = $hotel->getPerfilHuespedes();
 } elseif (isset($_GET['section']) && $_GET['section'] == 'reservasActivas') {
     $companias = $hotel->getCompanias();
     // $reservas = $hotel->getReservasActuales(1);

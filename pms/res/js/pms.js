@@ -51,7 +51,7 @@ $(document).ready(function () {
     traeTotalCompanias(numRegis, filas);
   }
 
-  let hue = document.getElementById("pantallaHuespedes");
+  let hue = document.getElementById("pantallaHuespedesOld");
   if (hue != null) {
     var numRegis = 0;
     var filas = $("#numFiles").val();
@@ -2285,13 +2285,7 @@ const Notifications = (
   );
 };
 
-const RequestComponent = async ({
-  url,
-  method,
-  bodyRequest,
-  headers,
-  typeResponse,
-  noSession = false,
+const RequestComponent = async ({url, method, bodyRequest, headers, typeResponse, noSession = false,
 }) => {
   if (noSession !== true) {
     const csrf = document.querySelector('input[name="_token"]').value;
@@ -4407,7 +4401,7 @@ function cierreCajero(user) {
   });
 }
 
-function calculaRetenciones(id) {
+function calculaRetencionesOld(id) {
   $.ajax({
     type: "POST",
     url: "res/php/traeRetencionesCia.php",
@@ -4415,6 +4409,22 @@ function calculaRetenciones(id) {
     success: function (data) {},
   });
 }
+
+const calculaRetenciones = async () => {
+  try {
+    const resultado = await fetch(`res/php/traeToken.php`, {
+      method: "post",
+      headers: {
+        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+    });
+    const datos = await resultado.json();
+    return datos;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 
 function apagaselecomp(tipo) {
   idCiaFac = $("#txtIdCiaSal").val();
@@ -4437,6 +4447,8 @@ function apagaselecomp(tipo) {
     totalRteFte = parseInt($("#baseRetenciones").val());
     totalImpto = parseInt($("#totalIva").val());
     totalBaseImpto = parseInt($("#totalBaseIva").val());
+
+    console.log(totalBaseImpto);
 
     traeRetencionesCia(idCiaFac);
 

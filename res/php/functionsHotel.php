@@ -135,7 +135,7 @@ class Hotel_Actions
         return $database->id();
     }
 
-
+ 
     public function creaGrupo($empresaGrupo, $nombreGrupo, $llegada, $noches, $salida, $hombres, $mujeres, $ninos, $cantHabi, $tarifahab, $valortar, $origen, $destino, $motivo, $fuente, $segmento, $formapago, $observaciones, $usuario, $idusuario)
     {
         global $database;
@@ -556,6 +556,7 @@ class Hotel_Actions
             'reteiva',
             'reteica',
             'retefuente',
+            'sinBaseRete',
         ], [
             'id_compania' => $cia,
         ]);
@@ -7737,7 +7738,7 @@ class Hotel_Actions
         return $data;
     }
 
-    public function getPerfilHuespedes($regis, $filas)
+    public function getPerfilHuespedesOld($regis, $filas)
     {
         global $database;
 
@@ -7762,6 +7763,37 @@ class Hotel_Actions
             'estado_credito',
         ], [
             'LIMIT' => [$regis, $filas],
+            'ORDER' => 'apellido1',
+        ]);
+
+        return $data;
+    }
+
+
+    public function getPerfilHuespedes()
+    {
+        global $database;
+
+        $data = $database->select('huespedes', [
+            'id_huesped',
+            'nombre1',
+            'nombre2',
+            'apellido1',
+            'apellido2',
+            'nombre_completo',
+            'identificacion',
+            'direccion',
+            'telefono',
+            'email',
+            'tipo_identifica',
+            'tipo_huesped',
+            'fecha_nacimiento',
+            'sexo',
+            'celular',
+            'id_compania',
+            'idCentroCia',
+            'estado_credito',
+        ], [
             'ORDER' => 'apellido1',
         ]);
 

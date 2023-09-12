@@ -322,8 +322,6 @@ require_once '../res/php/app_topHotel.php';
     <?php
     } elseif (isset($_GET['section']) && $_GET['section'] == 'cierreCajero') { ?>
         <script>
-            /*           sesion    = JSON.parse(localStorage.getItem('sesion'))
-          let { usuario } = user;  */
             $('.tituloPagina').html(`<i class="fa fa-tachometer" style="font-size:36px;color:black" ></i> Cierre Cajero [${usuario}]`)
         </script>
     <?php
@@ -350,7 +348,27 @@ require_once '../res/php/app_topHotel.php';
             });
         </script>
     <?php
-    } elseif (isset($_GET['section']) && $_GET['section'] == 'cargosAnulados') { ?>
+    } elseif ($_GET['section'] == 'reservasActivas' || $_GET['section'] == 'encasa' || $_GET['section'] == 'facturacionEstadia' || $_GET['section'] == 'salidasDelDia' || $_GET['section'] == 'salidasRealizadas' || $_GET['section'] == 'grupos' || $_GET['section'] == 'mantenimiento' || $_GET['section'] == 'facturasDelDia' || $_GET['section'] == 'carteraClientes' || $_GET['section'] == 'cuentasCongeladas' || $_GET['section'] == 'notasCredito' || $_GET['section'] == 'companias' || $_GET['section'] == 'huespedesPerfil') { ?>
+    <script>
+        $(function() {
+            $('#example1').DataTable({
+                "iDisplayLength": 100,
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": true,
+                "language": {
+                    "next": "Siguiente",
+                    "search": "Buscar:",
+                    "entries": "registros"
+                },
+            });
+        });
+    </script>
+<?php
+} elseif (isset($_GET['section']) && $_GET['section'] == 'cargosAnulados') { ?>
         <script>
             var usuario = $('#usuarioActivo').val();
             $('#verInforme').attr('data', 'imprimir/informes/Informes_cajeros_' + usuario + '.pdf')
