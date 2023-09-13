@@ -546,6 +546,8 @@ $(document).ready(function () {
     var perfil = button.data("perfil");
     var idperfil = button.data("idperfil");
     var prefijo = button.data("prefijo");
+    var web = $("#rutaweb").val();
+    var facturador = button.data("facturador");
 
     var modal = $(this);
 
@@ -563,11 +565,17 @@ $(document).ready(function () {
     modal.find(".modal-body #fechafac").val(fecha);
     modal.find(".modal-body #motivoAnula").val("");
 
-    var factura = "HDL" + numero + ".pdf";
+    modal.find(".modal-title").text("Factura Numero : " + numero);
+    if (facturador == 1) {
+      imprime = web + "imprimir/facturas/FES-HDL" + numero + ".pdf";
+    } else {
+      imprime = web + "imprimir/notas/Abono_" + numero + ".pdf";
+    }
 
+    // var factura = "HDL" + numero + ".pdf";
     $("#verFacturaHistoricoModal").attr(
       "data",
-      "imprimir/facturas/FES-" + factura
+      imprime
     );
     $(".alert").hide();
   });
@@ -619,6 +627,8 @@ $(document).ready(function () {
     var perfil = button.data("perfil");
     var idperfil = button.data("idperfil");
     var prefijo = button.data("prefijo");
+    var facturador = button.data("facturador");
+
     var modal = $(this);
 
     modal.find(".modal-body #factura").val(numero);
@@ -632,8 +642,9 @@ $(document).ready(function () {
     modal.find(".modal-body #fechafac").val(fecha);
     modal.find(".modal-body #motivoAnula").val("");
 
-    if (perfil == 1) {
+    /* if (perfil == 1) {
       modal.find(".modal-title").text(`Anular Factura: ${prefijo} ${numero}`);
+
       var factura = prefijo + numero + ".pdf";
       $("#verFacturaModal").attr(
         "data",
@@ -644,6 +655,20 @@ $(document).ready(function () {
       var factura = "Abono_" + numero + ".pdf";
       $("#verFacturaModal").attr("data", web + "imprimir/notas/" + factura);
     }
+ */
+if (facturador == 1) {
+    modal.find(".modal-title").text(`Anular Factura: ${prefijo} ${numero}`);
+    imprime = web + "imprimir/facturas/FES-"+prefijo + numero + ".pdf";
+  } else {
+    modal.find(".modal-title").text("Anular Recibo de Caja Numero : " + numero);
+    imprime = web + "imprimir/notas/Abono_" + numero + ".pdf";
+  }
+
+    // var factura = "HDL" + numero + ".pdf";
+    $("#verFacturaHistoricoModal").attr(
+      "data",
+      imprime
+    );
 
     $(".alert").hide();
   });
@@ -3862,8 +3887,16 @@ function anulaFactura() {
         "PRINT",
         "height=600,width=600"
       );
-      swal("Atencion", "Documento Anulado Con Exito", "success");
-      $(location).attr("href", pagina);
+      swal({
+          title: "Atencion",
+          text: "Documento Anulado Con Exito",
+          type: "success",
+          confirmButtonText: "Aceptar",
+        },
+        function(){
+          $(location).attr("href", pagina);
+        }
+        );
     },
   });
 }
@@ -4426,7 +4459,7 @@ const calculaRetenciones = async () => {
 };
 
 
-function apagaselecomp(tipo) {
+async function apagaselecomp(tipo) {
   idCiaFac = $("#txtIdCiaSal").val();
   idCenFac = $("#txtIdCentroCiaSal").val();
   var reteFte = 0;
@@ -4447,59 +4480,58 @@ function apagaselecomp(tipo) {
     totalRteFte = parseInt($("#baseRetenciones").val());
     totalImpto = parseInt($("#totalIva").val());
     totalBaseImpto = parseInt($("#totalBaseIva").val());
+    reteCia = await traeRetencionesCia(idCiaFac);
+    retenciones = await traeRetenciones();
 
-    console.log(totalBaseImpto);
-
-    traeRetencionesCia(idCiaFac);
-
+    let { reteiva, reteica, retefuente, sinBaseRete } = reteCia;
+        
+    let rFte = retenciones.filter(
+      (retencion) => retencion.idRetencion == "1" 
+    );
+    let rIva = retenciones.filter(
+      (retencion) => retencion.idRetencion == "2"
+    );
+    let rIca = retenciones.filter(
+      (retencion) => retencion.idRetencion == "3"
+    );
+          
+          if (retefuente == "1") {
+            if(sinBaseRete==1){
+              reteFte = totalRteFte * (rFte[0].porcentajeRetencion / 100);
+            }else{
+              if (rFte[0].baseRetencion <= totalRteFte) {
+                reteFte = totalRteFte * (rFte[0].porcentajeRetencion / 100);
+              }
+            }            
+          }
+          
+          if (reteiva == "1") {
+            if (rIva[0].baseRetencion <= totalRteFte) {
+              reteIva = totalImpto * (rIva[0].porcentajeRetencion / 100);
+            }
+          }
+          if (reteica == "1") {
+            if (rIca[0].baseRetencion <= totalRteFte) {
+              reteIca = totalRteFte * (rIca[0].porcentajeRetencion / 100);
+            }
+          }
+          reteFte = parseInt(reteFte.toFixed(0));
+          reteIva = parseInt(reteIva.toFixed(0));
+          reteIca = parseInt(reteIca.toFixed(0));
+          
+          $("#reteiva").val(number_format(reteIva, 2));
+          $("#reteica").val(number_format(reteIca, 2));
+          $("#retefuente").val(number_format(reteFte, 2));
+          
+          $("#porceReteiva").val(number_format(rIva[0].porcentajeRetencion, 2));
+          $("#porceReteica").val(number_format(rIca[0].porcentajeRetencion, 2));
+          $("#porceRetefuente").val(number_format(rFte[0].porcentajeRetencion, 2));
+          
+          $("#totalReteiva").val(reteIva);
+          $("#totalReteica").val(reteIca);
+          $("#totalRetefuente").val(reteFte);
+          
     setTimeout(function () {
-      retenciones = JSON.parse($("#retenciones").val());
-      reteCia = JSON.parse($("#retencionCia").val());
-
-      let rFte = retenciones.filter(
-        (retencion) => retencion.idRetencion == "1"
-      );
-      let rIva = retenciones.filter(
-        (retencion) => retencion.idRetencion == "2"
-      );
-      let rIca = retenciones.filter(
-        (retencion) => retencion.idRetencion == "3"
-      );
-
-      let { reteiva, reteica, retefuente } = reteCia;
-
-      if (retefuente == "1") {
-        if (rFte[0].baseRetencion <= totalRteFte) {
-          reteFte = totalRteFte * (rFte[0].porcentajeRetencion / 100);
-        }
-      }
-
-      if (reteiva == "1") {
-        if (rFte[0].baseRetencion <= totalRteFte) {
-          reteIva = totalImpto * (rIva[0].porcentajeRetencion / 100);
-        }
-      }
-      if (reteica == "1") {
-        if (rIca[0].baseRetencion <= totalRteFte) {
-          reteIca = totalRteFte * (rIca[0].porcentajeRetencion / 100);
-        }
-      }
-      reteFte = parseInt(reteFte.toFixed(0));
-      reteIva = parseInt(reteIva.toFixed(0));
-      reteIca = parseInt(reteIca.toFixed(0));
-
-      $("#reteiva").val(number_format(reteIva, 2));
-      $("#reteica").val(number_format(reteIca, 2));
-      $("#retefuente").val(number_format(reteFte, 2));
-
-      $("#porceReteiva").val(number_format(rIva[0].porcentajeRetencion, 2));
-      $("#porceReteica").val(number_format(rIca[0].porcentajeRetencion, 2));
-      $("#porceRetefuente").val(number_format(rFte[0].porcentajeRetencion, 2));
-
-      $("#totalReteiva").val(reteIva);
-      $("#totalReteica").val(reteIca);
-      $("#totalRetefuente").val(reteFte);
-
       sumaTotales();
     }, 1000);
   } else {
@@ -4532,19 +4564,37 @@ function sumaTotales() {
   $("#txtValorPago").val(totGen);
 }
 
-function traeRetencionesCia(cia) {
-  parametros = {
-    cia,
-  };
-  $.ajax({
-    type: "POST",
-    url: "res/php/traeRetencionesCia.php",
-    data: parametros,
-    success: function (data) {
-      $("#retencionCia").val(data);
-    },
-  });
-}
+const traeRetencionesCia = async (idcia) => {
+  try {
+    const resultado = await fetch(`res/php/traeRetencionesCia.php`, {
+      method: "post",
+      headers: {
+        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+      body: `idcia=${idcia}`,
+    });
+    const datos = await resultado.json();
+    return datos;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const traeRetenciones = async () => {
+  try {
+    const resultado = await fetch(`res/php/traeRetenciones.php`, {
+      method: "post",
+      headers: {
+        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+    });
+    const datos = await resultado.json();
+    return datos;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 
 function anulaIngreso() {
   sesion = JSON.parse(localStorage.getItem("sesion"));

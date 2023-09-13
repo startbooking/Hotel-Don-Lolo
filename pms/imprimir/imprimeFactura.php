@@ -75,28 +75,28 @@ $pdf->Ln(1);
 
 $pdf->SetFont('Arial', 'B', 8);
 if ($tipofac == 2) {
-    if (!empty($datosCompania)) {
-        $pdf->SetFont('Arial', '', 8);
-        $pdf->Cell(30, 4, 'RAZON SOCIAL', 0, 0, 'L');
-        $pdf->SetFont('Arial', 'B', 8);
-        $pdf->Cell(120, 4, utf8_decode($datosCompania[0]['empresa']), 0, 0, 'L');
-        $pdf->SetFont('Arial', '', 8);
-        $pdf->Cell(10, 4, 'NIT.', 0, 0, 'L');
-        $pdf->SetFont('Arial', 'B', 8);
-        $pdf->Cell(30, 4, number_format($datosCompania[0]['nit'], 0).'-'.$datosCompania[0]['dv'], 0, 1, 'L');
-        $pdf->SetFont('Arial', '', 8);
-        $pdf->Cell(30, 4, 'DIRECCION', 0, 0, 'L');
-        $pdf->SetFont('Arial', 'B', 8);
-        $pdf->Cell(70, 4, substr(utf8_decode($datosCompania[0]['direccion']), 0, 35), 0, 0, 'L');
-        $pdf->SetFont('Arial', '', 8);
-        $pdf->Cell(20, 4, 'CIUDAD', 0, 0, 'L');
-        $pdf->SetFont('Arial', 'B', 8);
-        $pdf->Cell(30, 4, utf8_decode(substr($hotel->getCityName($datosCompania[0]['ciudad']), 0, 12)), 0, 0, 'L');
-        $pdf->SetFont('Arial', '', 8);
-        $pdf->Cell(21, 4, 'TELEFONO', 0, 0, 'L');
-        $pdf->SetFont('Arial', 'B');
-        $pdf->Cell(20, 4, $datosCompania[0]['telefono'], 0, 1, 'L');
-    }
+  if (!empty($datosCompania)) {
+    $pdf->SetFont('Arial', '', 8);
+    $pdf->Cell(30, 4, 'RAZON SOCIAL', 0, 0, 'L');
+    $pdf->SetFont('Arial', 'B', 8);
+    $pdf->Cell(120, 4, utf8_decode($datosCompania[0]['empresa']), 0, 0, 'L');
+    $pdf->SetFont('Arial', '', 8);
+    $pdf->Cell(10, 4, 'NIT.', 0, 0, 'L');
+    $pdf->SetFont('Arial', 'B', 8);
+    $pdf->Cell(30, 4, number_format($datosCompania[0]['nit'], 0).'-'.$datosCompania[0]['dv'], 0, 1, 'L');
+    $pdf->SetFont('Arial', '', 8);
+    $pdf->Cell(30, 4, 'DIRECCION', 0, 0, 'L');
+    $pdf->SetFont('Arial', 'B', 8);
+    $pdf->Cell(70, 4, substr(utf8_decode($datosCompania[0]['direccion']), 0, 35), 0, 0, 'L');
+    $pdf->SetFont('Arial', '', 8);
+    $pdf->Cell(20, 4, 'CIUDAD', 0, 0, 'L');
+    $pdf->SetFont('Arial', 'B', 8);
+    $pdf->Cell(30, 4, utf8_decode(substr($hotel->getCityName($datosCompania[0]['ciudad']), 0, 12)), 0, 0, 'L');
+    $pdf->SetFont('Arial', '', 8);
+    $pdf->Cell(21, 4, 'TELEFONO', 0, 0, 'L');
+    $pdf->SetFont('Arial', 'B');
+    $pdf->Cell(20, 4, $datosCompania[0]['telefono'], 0, 1, 'L');
+  }
 } else {
     $pdf->SetFont('Arial', '', 8);
     $pdf->Cell(30, 4, 'CLIENTE', 0, 0, 'L');
@@ -186,7 +186,6 @@ $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(50, 4, 'TOTAL ', 1, 0, 'C');
 $pdf->Cell(30, 4, number_format($total, 2), 1, 1, 'R');
 $pdf->Ln(1);
-$pdf->SetFont('Arial', '', 8);
 $pdf->setY(155);
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(95, 4, 'RETENCIONES ', 1, 0, 'C');
@@ -210,7 +209,6 @@ $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(50, 4, 'TOTAL RETENCIONES', 1, 0, 'L');
 $pdf->Cell(45, 4, number_format($reteiva + $reteica + $retefuente, 2), 1, 1, 'R');
 $pdf->SetFont('Arial', '', 8);
-// $pdf->Cell(30, 4, number_format($reteica, 2), 1, 1, 'R');
 
 $pagos = 0;
 $pdf->setY(163);
@@ -228,18 +226,13 @@ $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(60, 4, 'TOTAL ', 1, 0, 'C');
 $pdf->Cell(35, 4, number_format($pagos, 2), 1, 1, 'R');
 $pdf->setY(190);
-// $pdf->Ln(3);
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(95, 5, 'IMPUESTOS', 1, 1, 'C');
-// $pdf->Cell(95, 5, 'INFORMACION TRIBUTARIA', 1, 1, 'C');
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(45, 5, 'TIPO IMPUESTO', 1, 0, 'C');
 $pdf->Cell(20, 5, 'BASE', 1, 0, 'C');
 $pdf->Cell(30, 5, 'VALOR', 1, 1, 'C');
-/* $pdf->Cell(45, 5, 'TIPO RETENCION', 1, 0, 'C');
-$pdf->Cell(20, 5, 'BASE', 1, 0, 'C');
-$pdf->Cell(30, 5, 'VALOR', 1, 1, 'C');
- */
+
 foreach ($tipoimptos as $tipoimpto) {
     $pdf->Cell(45, 4, $tipoimpto['descripcion_cargo'], 0, 0, 'L');
     $pdf->Cell(20, 4, number_format($tipoimpto['cargos'], 2), 0, 0, 'R');

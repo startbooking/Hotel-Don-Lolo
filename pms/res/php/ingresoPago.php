@@ -115,8 +115,6 @@ $totalPago = $paganticipo + $saldos[0]['pagos'];
 $saldofactura = $hotel->getSaldoHabitacion($numero);
 
 
-// echo print_r($saldofactura);
-
 if (count($saldofactura) == 0) {
     $totalFolio = 0;
 } else {
@@ -350,9 +348,12 @@ if ($perfilFac == 1 && $facturador == 1) {
 
     include_once '../../api/enviaPDF.php';
 
-    $recibePDF = json_decode($respopdf, true); 
+    $recibePDF = json_decode($respopdf, true);
+
 } else {
-    include_once '../../imprimir/imprimeReciboFactura.php';
+    include_once '../../imprimir/imprimeFactura.php';
+
+    // include_once '../../imprimir/imprimeReciboFactura.php';
 }
 
 if ($totalFolio != 0) {

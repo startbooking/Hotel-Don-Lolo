@@ -28,12 +28,13 @@
 		$imptoTuri = $porcentaje[0]['decreto_turismo'];
 		if(IVA_INCLUIDO==1){	
 			$nuevototal = round($totalcargo/((100+$porcImpto)/100),2);
-			if($turismo==2 && $imptoTuri==1){
+/* 			if($turismo==2 && $imptoTuri==1){
 				$impuesto = 0;
 				$nuevototal  = round($nuevototal);
 			}else{
 				$impuesto   = $totalcargo - $nuevototal;
-			}
+			} */
+			$impuesto   = $totalcargo - $nuevototal;
 			$totalcargo = $nuevototal;
 		}else{
 			if($turismo==2 && $imptoTuri==1){

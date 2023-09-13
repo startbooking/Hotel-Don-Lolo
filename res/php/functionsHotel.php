@@ -7,6 +7,27 @@ date_default_timezone_set('America/Bogota');
 class Hotel_Actions
 {
 
+    
+    public function enviaCargosHistoricoNC($factura)
+    {
+        global $database;
+
+        $data = $database->query("INSERT INTO cargosNC SELECT * FROM historico_cargos_pms WHERE factura_numero = '$factura'")->fetchAll();
+
+        return $data;
+    }
+
+
+
+    public function enviaCargosNC($factura)
+    {
+        global $database;
+
+        $data = $database->query("INSERT INTO cargosNC SELECT * FROM cargos_pms WHERE factura_numero = '$factura'")->fetchAll();
+
+        return $data;
+    }
+
     public function getNotasCreditoDia($dia)
     {
         global $database;
@@ -27,7 +48,6 @@ class Hotel_Actions
         ]);
         return $data;
     }
-
 
     public function actualizaDireccion($id, $direccion)
     {
@@ -357,7 +377,7 @@ class Hotel_Actions
         return $data[0]['apellidos'] . ' ' . $data[0]['nombres'];
     }
 
-    public function trarRetenciones($numero)
+    public function traeRetenciones($numero)
     {
         global $database;
 

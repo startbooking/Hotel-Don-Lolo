@@ -1,8 +1,8 @@
 <?php
 
 require '../../../res/php/app_topHotel.php';
-$cia = $_POST['cia'];
+$idcia = $_POST['idcia'];
 
-$reten = $hotel->traeRetencionesCia($cia);
+$reten = $hotel->traeRetencionesCia($idcia);
 
 echo json_encode($reten);

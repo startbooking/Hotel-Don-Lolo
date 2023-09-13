@@ -2,6 +2,7 @@
 
 $eToken = $hotel->datosTokenCia();
 $facturador = $eToken[0]['facturador'];
+
 ?>
 
 
@@ -61,22 +62,30 @@ $facturador = $eToken[0]['facturador'];
                             <td style="padding:3px 5px"><?php echo $factura['fecha_llegada']; ?></td>
                             <td style="padding:3px 5px"><?php echo $factura['fecha_factura']; ?></td>
                             <td style="padding:3px 5px"><?php echo estadoFactura($factura['factura_anulada']); ?></td>
-                            <td style="padding:3px 5px"><?php echo estadoFacturaDIAN($factura['estadoEnvio']); ?></td>
-                            <td style="padding:3px 5px;width: 20%">
+                            <td style="padding:3px 5px"><?php 
+                                if($facturador==1){
+                                  echo estadoFacturaDIAN($factura['estadoEnvio']); 
+                                }
+                            ?></td>
+                            <td style="padding:3px 5px;width: 20%;text-align:center;">
                               <button class="btn btn-info btn-xs" type="button" data-toggle="modal" data-facturador="<?php echo $facturador; ?>" data-apellidos="<?php echo $factura['apellido1'] . ' ' . $factura['apellido2']; ?>" data-nombres="<?php echo $factura['nombre1'] . ' ' . $factura['nombre2']; ?>" data-fechafac="<?php echo $factura['fecha_factura']; ?>" data-numero="<?php echo $factura['factura_numero']; ?>" data-reserva="<?php echo $factura['num_reserva']; ?>" href="#myModalVerFactura" title="Ver Factura">
                                 <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                               </button>
                               <?php
                               if ($factura['factura_anulada'] == 0) { ?>
-                                <a class="btn btn-danger btn-xs" data-toggle="modal" data-apellidos="<?php echo $factura['apellido1'] . ' ' . $factura['apellido2']; ?>" data-nombres="<?php echo $factura['nombre1'] . ' ' . $factura['nombre2']; ?>" data-llegada="<?php echo $factura['fecha_llegada']; ?>" data-salida="<?php echo $factura['fecha_salida']; ?>" data-fechafac="<?php echo $factura['fecha_factura']; ?>" data-numero="<?php echo $factura['factura_numero']; ?>" data-reserva="<?php echo $factura['num_reserva']; ?>" data-perfil="<?php echo $factura['perfil_factura']; ?>" data-idperfil="<?php echo $factura['id_perfil_factura']; ?>" data-prefijo="<?php echo $factura['prefijo_factura']; ?>" href="#myModalAnulaFactura" type="button" title="Anular Factura">
+                                <a class="btn btn-danger btn-xs" data-toggle="modal" 
+                                data-facturador="<?php echo $facturador; ?>" data-apellidos="<?php echo $factura['apellido1'] . ' ' . $factura['apellido2']; ?>" data-nombres="<?php echo $factura['nombre1'] . ' ' . $factura['nombre2']; ?>" data-llegada="<?php echo $factura['fecha_llegada']; ?>" data-salida="<?php echo $factura['fecha_salida']; ?>" data-fechafac="<?php echo $factura['fecha_factura']; ?>" data-numero="<?php echo $factura['factura_numero']; ?>" data-reserva="<?php echo $factura['num_reserva']; ?>" data-perfil="<?php echo $factura['perfil_factura']; ?>" data-idperfil="<?php echo $factura['id_perfil_factura']; ?>" data-prefijo="<?php echo $factura['prefijo_factura']; ?>" href="#myModalAnulaFactura" type="button" title="Anular Factura">
                                   <i class="fa fa-window-close" aria-hidden="true"></i></a>
                               <?php
                               }
+                              if($facturador == 1){
+                                ?>
+                                <button class="btn btn-default btn-xs" onclick="donwloadFile('<?php echo $factura['factura_numero']; ?>.xml','<?php echo NIT; ?>','xml','false');" type="button" title="Descarga ZIP Attached">
+                                  <i class="fa-solid fa-download"></i>
+                                </button>
+                                <?php
+                              }
                               ?>
-
-                              <button class="btn btn-default btn-xs" onclick="donwloadFile('<?php echo $factura['factura_numero']; ?>.xml','<?php echo NIT; ?>','xml','false');" type="button" title="Descarga ZIP Attached">
-                                <i class="fa-solid fa-download"></i>
-                              </button>
                             </td>
                           </tr>
                         <?php

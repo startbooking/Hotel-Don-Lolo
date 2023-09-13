@@ -14,35 +14,34 @@ $horaDoc = date('H:s:i');
 $fechaDoc = FECHA_PMS;
 $prefNC = $hotel->getPrefijoNC();
 $numDoc = $hotel->getNumeroCredito();
-$regis = $hotel->actualizaNumeroCredito($numDoc + 1);
 $eToken = $hotel->datosTokenCia();
 $token = $eToken[0]['token'];
 $password = $eToken[0]['password'];
 $facturador = $eToken[0]['facturador'];
 
-if ($perfil == 1) {
+$resFac = $hotel->getResolucion();
+$resolucion = $resFac[0]['resolucion'];
+$prefijo = $resFac[0]['prefijo'];
+
+$dFactura = $hotel->infoFacturaHis($numero);
+
+$tipofac = $dFactura[0]['tipo_factura'];
+$idperfil = $dFactura[0]['id_perfil_factura'];
+$reserva = $dFactura[0]['numero_reserva'];
+$nroFolio = $dFactura[0]['folio_cargo'];
+
+$folios = $hotel->getConsumosReservaAgrupadoCodigoFolioHis($numero, $reserva, $nroFolio, 1);
+$pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolioHis($numero, $reserva, $nroFolio, 3);
+$tipoimptos = $hotel->getValorImptoFolioHis($numero, $reserva, $nroFolio, 2);
+$subtotales = $hotel->getConsumosReservaAgrupadoFolioHis($numero, $reserva, $nroFolio, 1);
+
+$codigo = $pagosfolio[0]['id_codigo_cargo'];
+
+if ($perfil == 1 && $facturador == 1) {
     $datosFact = $hotel->traeDatosFE($numero);
 
     $uuid = $datosFact[0]['cufe'];
-
-    $dFactura = $hotel->infoFacturaHis($numero);
-
-    $resFac = $hotel->getResolucion();
-    $resolucion = $resFac[0]['resolucion'];
-    $prefijo = $resFac[0]['prefijo'];
-
-    $tipofac = $dFactura[0]['tipo_factura'];
-    $idperfil = $dFactura[0]['id_perfil_factura'];
-    $reserva = $dFactura[0]['numero_reserva'];
-    $nroFolio = $dFactura[0]['folio_cargo'];
-
-    $folios = $hotel->getConsumosReservaAgrupadoCodigoFolioHis($numero, $reserva, $nroFolio, 1);
-    $pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolioHis($numero, $reserva, $nroFolio, 3);
-    $tipoimptos = $hotel->getValorImptoFolioHis($numero, $reserva, $nroFolio, 2);
-    $subtotales = $hotel->getConsumosReservaAgrupadoFolioHis($numero, $reserva, $nroFolio, 1);
-
-    $codigo = $pagosfolio[0]['id_codigo_cargo'];
-
+    
     $eNote = [];
     $eBill = [];
     $eCust = [];
@@ -226,7 +225,8 @@ if ($perfil == 1) {
     $recibePDF = json_decode($respopdf, true);
 }
 
-
+$regis = $hotel->actualizaNumeroCredito($numDoc + 1);
+$envia = $hotel->enviaCargosHistoricoNC($numero);
 $cargos = $hotel->actualizaCargosFacturasHis($numero, $perfil);
 $anula = $hotel->anulaFacturaHis($numero, $motivo, $usuario, $idusuario, $perfil, $numDoc);
 $regis = $hotel->ingresaNCFactura($numero, $motivo, $idusuario, $numDoc, FECHA_PMS);

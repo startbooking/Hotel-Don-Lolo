@@ -137,12 +137,12 @@ $cias = $hotel->getCompanias();
                   <select name="codigoAjuste" id="codigoAjuste" required>
                     <option value="">Seleccione el Ajuste</option>
                     <?php
-  $codigos = $hotel->getCodigosConsumos(4);
-foreach ($codigos as $codigo) { ?>
-                      <option value="<?php echo $codigo['id_cargo']; ?>"><?php echo $codigo['descripcion_cargo']; ?></option>
-                      <?php
-}
-?>
+                      $codigos = $hotel->getCodigosConsumos(4);
+                      foreach ($codigos as $codigo) { ?>
+                        <option value="<?php echo $codigo['id_cargo']; ?>"><?php echo $codigo['descripcion_cargo']; ?></option>
+                        <?php
+                      }
+                    ?>
                   </select>
                 </div>
               </div>
@@ -332,9 +332,9 @@ foreach ($codigos as $codigo) { ?>
           </div> 
           <div id="mensajeSal"></div> 
           <div class="modal-body">
-            <?php
+            <!-- <?php
               $retenciones = $hotel->getRetenciones();
-            ?>            
+            ?>   -->          
             <input type="hidden" name="txtIdReservaSal" id="txtIdReservaSal" value="">
             <input type="hidden" name="txtIdHuespedSal" id="txtIdHuespedSal" value="">
             <input type="hidden" name="txtImptoTuriSal" id="txtImptoTuriSal" value="">
@@ -345,7 +345,7 @@ foreach ($codigos as $codigo) { ?>
             <input type="hidden" name="credito" id="credito" value="0">            
             <input type="hidden" name="perfilFactura" id="perfilFactura" value="0">
             <input type="hidden" name="retencionCia" id="retencionCia" value=''>
-            <input type="hidden" name="retenciones" id="retenciones" value='<?php echo json_encode($retenciones); ?>'>
+            <!-- <input type="hidden" name="retenciones" id="retenciones" value='<?php echo json_encode($retenciones); ?>'> -->
             <div class="form-group"> 
               <label style="margin-top: 3px;" for="llegada" class="col-sm-2 control-label">Facturar A </label>
               <div class="col-sm-6" style="padding:0;height: 30px">

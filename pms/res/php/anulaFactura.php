@@ -1,6 +1,6 @@
 <?php
 
-require '../../../res/php/titles.php';
+// require '../../../res/php/titles.php';
 require '../../../res/php/app_topHotel.php';
 
 $numero = $_POST['numero'];
@@ -14,22 +14,14 @@ $horaDoc = date('H:s:i');
 $fechaDoc = FECHA_PMS;
 $prefNC = $hotel->getPrefijoNC();
 $numDoc = $hotel->getNumeroCredito();
-$regis = $hotel->actualizaNumeroCredito($numDoc + 1);
-
 $eToken = $hotel->datosTokenCia();
 $token = $eToken[0]['token'];
 $password = $eToken[0]['password'];
 $facturador = $eToken[0]['facturador'];
 
 $resFac = $hotel->getResolucion();
-
-$retenciones = $hotel->trarRetenciones(1);
-
 $resolucion = $resFac[0]['resolucion'];
 $prefijo = $resFac[0]['prefijo'];
-$fechaRes = $resFac[0]['fecha'];
-$desde = $resFac[0]['desde'];
-$hasta = $resFac[0]['hasta'];
 
 $dFactura = $hotel->infoFactura($numero);
 
@@ -236,8 +228,9 @@ if ($perfil == 1 && $facturador == 1) {
     include_once '../../imprimir/imprimeNC.php';
 }
 
+$regis = $hotel->actualizaNumeroCredito($numDoc + 1);
+$envia = $hotel->enviaCargosNC($numero);
 $cargos = $hotel->actualizaCargosFacturas($numero, $perfil);
 $anula = $hotel->anulaFactura($numero, $motivo, $usuario, $idusuario, $perfil, $numDoc);
 $regis = $hotel->ingresaNCFactura($numero, $motivo, $idusuario, $numDoc, FECHA_PMS);
-
-$entra = $hotel->updateEstadoReserva($reserva);
+$entra = $hotel->updateEstadoReserva($reserva); 
