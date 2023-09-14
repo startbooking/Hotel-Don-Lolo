@@ -69,6 +69,8 @@
   	$centros = $admin->getCentrosCosto(); 
 	}elseif(isset($_GET['section']) &&	$_GET['section'] == 'bodegas'){
 		$bodegas = $admin->getBodegas();
+	}elseif(isset($_GET['section']) &&	$_GET['section'] == 'ciudades'){
+		$ciudades = $admin->getCiudades();
 	}elseif(isset($_GET['section']) &&	$_GET['section'] == 'unidades'){  
 		$unidades = $admin->getUnidadesMedida();
 	}elseif(isset($_GET['section']) &&	$_GET['section'] == 'familias'){

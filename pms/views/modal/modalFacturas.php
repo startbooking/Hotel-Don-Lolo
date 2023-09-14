@@ -62,9 +62,9 @@
                 <div class="col-lg-6">
                   <button class="btn btn-primary btn-block btnAnulaFac"><I class="fa fa-save"></I> Anular</button>
                 </div>
-                <div class="col-lg-6">
+                <!-- <div class="col-lg-6">
                   <button type="button" class="btn btn-primary btn-block" onclick="insertaImagen()"><I class="fa fa-save"></I> Anular XXX </button>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>

@@ -4,7 +4,26 @@
 
  class Hotel_Admin
  {
-     public function activaAmbiente($ambiente, $estado)
+
+    public function getCiudades(){
+        global $database;
+
+        $data = $database->select('ciudades',[
+            '[>]paices' => ['id_pais' => 'id_pais']
+        ],[
+            'paices.descripcion',
+            'ciudades.municipio',
+            'ciudades.codigo',
+        ],[
+            'ORDER'=> [
+                'paices.descripcion' => 'ASC',
+                'ciudades.municipio' => 'ASC'
+            ]
+        ]);
+        return $data;
+    }
+
+    public function activaAmbiente($ambiente, $estado)
      {
          global $database;
 

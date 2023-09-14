@@ -33,6 +33,10 @@
 	$formapa       =  $_POST['formapago'];
 	$impto         =  $_POST['imptoOption'];
 	$observa       =  strtoupper($_POST['observaciones']);
+	$placavehiculo =  strtoupper($_POST['placavehiculo']);
+	$equipaje      =  strtoupper($_POST['equipaje']);
+	$transporte    =  $_POST['transporte'];
+
 	if($observa!=''){
 		$observa       =  $observa . ' Usuario: '.$_POST['usuario'].' Fecha Observacion: '.date('Y.m.d H:i:s');
 	} 
@@ -40,7 +44,7 @@
 	$numero       = $hotel->getNumeroReserva(); // Numero Actual de La Reserva
 	$nuevonumero  = $hotel->updateNumeroReserva($numero + 1); // Actualiza 
 
-	$nueva = $hotel->insertNuevaReserva($iden, $llegada, $salida, $noches, $hombres, $mujeres, $ninos, $orden, $tipohabi, $nrohabitacion, $tarifahab, $valortarifa, $origen, $destino, $motivo, $fuente, $segmento, $idhuesp, $idcia, $idcentro, $numero, $usuario, $estado, $observa, $formapa, 1, $impto, $idusuario, $tipo);
+	$nueva = $hotel->insertLlegadaSinReserva($iden, $llegada, $salida, $noches, $hombres, $mujeres, $ninos, $orden, $tipohabi, $nrohabitacion, $tarifahab, $valortarifa, $origen, $destino, $motivo, $fuente, $segmento, $idhuesp, $idcia, $idcentro, $numero, $usuario, $estado, $observa, $formapa, 1, $impto, $idusuario, $tipo, $placavehiculo, $equipaje, $transporte);
 
 	echo $numero;	
 ?>

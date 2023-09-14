@@ -6,7 +6,6 @@
 	$usuario             = $_POST['usuario'];
 	$reserva             = $_POST['reserva']; 
 	$causar              = $_POST['causar']; 
-
 	
 	$regis = $hotel->getRegistroHotelero($reserva);
 	

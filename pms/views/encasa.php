@@ -6,8 +6,6 @@
   <section class="content">
     <div class="panel panel-success">
       <div class="panel-heading">
-
-
         <div class="row">
           <div class="col-lg-6 col-md-6"> 
             <input type="hidden" name="cuentadepositos" id="cuentadepositos" value="<?=CTA_DEPOSITO?>">
@@ -25,6 +23,7 @@
         </div>
       </div>
       <div class="panel-body" id="paginaenCasa">
+        
       </div>
     </div>
   </section>

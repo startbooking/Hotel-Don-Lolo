@@ -335,7 +335,6 @@
               <label class="control-label col-lg-2">Reserva Nro</label>
               <div class="col-lg-2 col-md-2">
                 <input type="text" name="idregis" id="txtIdReservaInf" value="">
-                <!--<input type="hidden" name="idregis" id="txtIdReservaIng" value=""> -->
               </div>
               <label class="control-label col-lg-2">Tipo Hab.</label>
               <div class="col-lg-2 col-md-2">
@@ -388,22 +387,6 @@
                 <input type="text" class="form-control" name="orden" id="orden" value="" readonly>
               </div> 
             </div>
-            <!--
-            <div class="form-group">
-              <label class="control-label col-lg-2">Hombres</label>
-              <div class="col-lg-2 col-md-2">
-                <input class="form-control padInput" type="text" name="txtHombres" id='txtHombres' value='0' readonly="">
-              </div>
-              <label class="control-label col-lg-2">Mujeres</label>
-              <div class="col-lg-2 col-md-2">
-                <input class="form-control padInput" type="text" name="txtMujeres" id='txtMujeres' value='0' readonly="">
-              </div>
-              <label class="control-label col-lg-2">Niños</label>
-              <div class="col-lg-2 col-md-2">
-                <input class="form-control padInput" type="text" name="txtNinos" id='txtNinos' value='0' readonly="">
-              </div>
-            </div>
-            -->
             <div class="form-group">
               <label class="control-label control-label col-lg-2">Hombres</label>
               <div class="col-lg-1 col-md-1" style="padding-right: 5px">

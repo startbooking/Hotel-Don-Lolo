@@ -348,7 +348,7 @@ require_once '../res/php/app_topHotel.php';
             });
         </script>
     <?php
-    } elseif ($_GET['section'] == 'reservasActivas' || $_GET['section'] == 'encasa' || $_GET['section'] == 'facturacionEstadia' || $_GET['section'] == 'salidasDelDia' || $_GET['section'] == 'salidasRealizadas' || $_GET['section'] == 'grupos' || $_GET['section'] == 'mantenimiento' || $_GET['section'] == 'facturasDelDia' || $_GET['section'] == 'carteraClientes' || $_GET['section'] == 'cuentasCongeladas' || $_GET['section'] == 'notasCredito' || $_GET['section'] == 'companias' || $_GET['section'] == 'huespedesPerfil') { ?>
+    } elseif ($_GET['section'] == 'huespedesPerfilOld') { ?>
     <script>
         $(function() {
             $('#example1').DataTable({

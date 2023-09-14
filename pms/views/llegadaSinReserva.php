@@ -154,7 +154,7 @@
                     option
                     <?php 
                   }
-                 ?>
+                ?>
               </select>
             </div>
             <label for="tarifahab" class="col-sm-2 control-label">Destino</label>
@@ -168,7 +168,7 @@
                     option
                     <?php 
                   }
-                 ?>
+                ?>
               </select>
             </div>
           </div>
@@ -184,7 +184,7 @@
                   option
                   <?php 
                 }
-                 ?>
+                ?>
               </select>
             </div>
             <label for="tarifahab" class="col-sm-2 control-label">Fuente de Reserva</label>
@@ -198,7 +198,7 @@
                     option
                     <?php 
                   }
-                 ?>
+                ?>
               </select>
             </div>
           </div>
@@ -214,7 +214,7 @@
                     option
                     <?php 
                   }
-                 ?>
+                ?>
               </select>
             </div>
             <label for="formapago" class="col-sm-2 control-label">Forma de Pago </label>
@@ -225,20 +225,41 @@
                   $codigos = $hotel->getCodigosConsumos(3);
                   foreach ($codigos as $codigo) { ?>
                     <option value="<?=$codigo['id_cargo']?>"><?=$codigo['descripcion_cargo']?></option>
-                     option 
                     <?php  
                   }
-                   ?>
+                ?>
               </select>
             </div>
           </div>              
           <div class="form-group">
+            <label for="archivo" class="col-sm-2 control-label">Placa Vehiculo</label>
+            <div class="col-sm-2">
+              <input class="form-control padInput" type="text" name="placavehiculo" id="placavehiculo">
+            </div>
+            <label for="archivo" class="col-sm-1 control-label">Equipaje</label>
+            <div class="col-sm-3">
+              <input class="form-control padInput" type="text" name="equipaje" id="equipaje" >
+            </div>
+            <label for="archivo" class="col-sm-1 control-label">Transporte</label>
+            <div class="col-sm-3">
+              <select name="transporte" id="transporte" required>
+                <option value="">Seleccione El Transporte</option>
+                <?php
+                $motivos = $hotel->getMotivoGrupo('TTR');
+                foreach ($motivos as $motivo) { ?>
+                  <option value="<?php echo $motivo['id_grupo']; ?>"><?php echo $motivo['descripcion_grupo']; ?></option>
+                <?php
+                }
+                ?>
+              </select>
+            </div>
+          </div>                 
+          <div class="form-group">
             <label for="motivo" class="col-sm-2 control-label">Observaciones</label>
             <div class="col-sm-10">
               <textarea style="height: 5em !important;min-height: 5em" name="observaciones" id="observaciones" class="form-control"></textarea>
-            </div>
-            
-          </div>                 
+            </div>            
+          </div>
         </div>
         <div class="panel-footer">
           <div class="btn-group" style="width: 30%;margin-left:35%">

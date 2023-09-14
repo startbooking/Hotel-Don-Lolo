@@ -1,5 +1,5 @@
 <div class="modal fade" id="myModalRegistraReserva" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <form id="guardarDatosRooms" class="form-horizontal" action="javascript:ingresaReserva()" method="POST" enctype="multipart/form-data">
+  <form id="guardarDatosRooms" class="form-horizontal" action="javascript:ingresaReserva()" mingresaReservaethod="POST" enctype="multipart/form-data">
     <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -33,7 +33,7 @@
             </div>
             <div class="form-group">
               <label class="control-label col-lg-2 col-md-2">Fecha Llegada</label>
-              <div class="col-lg-3 col-md-3">
+              <div class="col-lg-2 col-md-2">
                 <input class="form-control padInput" type="text" name="txtLlegadaIng" id='txtLlegadaIng' value='0' readonly="">
               </div>
               <label class="control-label col-lg-1 col-md-1">Noc</label>
@@ -41,21 +41,21 @@
                 <input class="form-control padInput" style="margin:0;padding:5px" type="text" name="txtNochesIng" id="txtNochesIng" value='0' readonly="">
               </div>
               <label class="control-label col-lg-2 col-md-2">Fecha Salida</label>
-              <div class="col-lg-3 col-md-3">
+              <div class="col-lg-2 col-md-2">
                 <input class="form-control padInput" type="text" name="txtSalidaIng" id='txtSalidaIng' value='1' readonly="">
               </div>
             </div>
             <div class="form-group">
               <label class="control-label col-lg-2 col-md-2">Hombres</label>
-              <div class="col-lg-2 col-md-2">
+              <div class="col-lg-1 col-md-1">
                 <input class="form-control padInput" type="text" name="txtHombresIng" id='txtHombresIng' value='0' readonly="">
               </div>
-              <label class="control-label col-lg-2 col-md-2">Mujeres</label>
-              <div class="col-lg-2 col-md-2">
+              <label class="control-label col-lg-1 col-md-1">Mujeres</label>
+              <div class="col-lg-1 col-md-1">
                 <input class="form-control padInput" type="text" name="txtMujeresIng" id='txtMujeresIng' value='0' readonly="">
               </div>
-              <label class="control-label col-lg-2 col-md-2">Niños</label>
-              <div class="col-lg-2 col-md-2">
+              <label class="control-label col-lg-1 col-md-1">Niños</label>
+              <div class="col-lg-1 col-md-1">
                 <input class="form-control padInput" type="text" name="txtNinosIng" id='txtNinosIng' value='0' readonly="">
               </div>
             </div>
@@ -71,8 +71,31 @@
                 <input class="form-control padInput" type="text" name="txtTarifaIng" id="txtTarifaIng" readonly="">
               </div>
               <label for="archivo" class="col-sm-1 control-label">Valor</label>
-              <div class="col-sm-3">
+              <div class="col-sm-2">
                 <input class="form-control padInput" style="text-align:right;padding:0 3px;" type="text" name="txtValorTarifaIng" id="txtValorTarifaIng" value=0 >
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="archivo" class="col-sm-2 control-label">Placa Vehiculo</label>
+              <div class="col-sm-2">
+                <input class="form-control padInput" type="text" name="placavehiculo" id="placavehiculo">
+              </div>
+              <label for="archivo" class="col-sm-1 control-label">Equipaje</label>
+              <div class="col-sm-3">
+                <input class="form-control padInput" type="text" name="equipaje" id="equipaje" >
+              </div>
+              <label for="archivo" class="col-sm-1 control-label">Transporte</label>
+              <div class="col-sm-3">
+                <select name="transporte" id="transporte" required>
+                  <option value="">Seleccione El Transporte</option>
+                  <?php
+                  $motivos = $hotel->getMotivoGrupo('TTR');
+                  foreach ($motivos as $motivo) { ?>
+                    <option value="<?php echo $motivo['id_grupo']; ?>"><?php echo $motivo['descripcion_grupo']; ?></option>
+                  <?php
+                  }
+                  ?>
+                </select>
               </div>
             </div>
           </div>

@@ -1,14 +1,10 @@
 <?php 
-
-  require '../../../res/php/titles.php';
   require '../../../res/php/app_topHotel.php'; 
-  $numero  = $_POST['numero'];
-  $habita  = $_POST['habita'];
-  $usuario = $_POST['usuario']; 
+  extract($_POST);
 
-  $ingresa = $hotel->updateingresaReserva($numero, $usuario); 
+
+  $ingresa = $hotel->updateingresaReserva($numero, $usuario, strtoupper($placa), strtoupper($equipaje), $transporte); 
   
-  // $estHabi = $hotel->cambiaEstadoHabitacion($habita,'0');
   $estHabi = $hotel->cambiaOcupacionHabitacon($habita,'1');
 
   if($ingresa==1){

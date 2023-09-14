@@ -351,9 +351,9 @@ if ($perfilFac == 1 && $facturador == 1) {
     $recibePDF = json_decode($respopdf, true);
 
 } else {
-    include_once '../../imprimir/imprimeFactura.php';
+    // include_once '../../imprimir/imprimeFactura.php';
 
-    // include_once '../../imprimir/imprimeReciboFactura.php';
+    include_once '../../imprimir/imprimeReciboFactura.php';
 }
 
 if ($totalFolio != 0) {

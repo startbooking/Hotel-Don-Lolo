@@ -51,7 +51,7 @@ $(document).ready(function () {
     traeTotalCompanias(numRegis, filas);
   }
 
-  let hue = document.getElementById("pantallaHuespedesOld");
+  let hue = document.getElementById("pantallaHuespedes");
   if (hue != null) {
     var numRegis = 0;
     var filas = $("#numFiles").val();
@@ -5090,6 +5090,7 @@ function actualizaHuesped() {
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var parametros = $("#formUpdateHuesped").serialize();
+  console.log(parametros);
   $.ajax({
     type: "POST",
     data: parametros,
@@ -5129,7 +5130,7 @@ function imprimirRegistro(reserva, causar) {
     reserva,
     causar,
     usuario,
-  };
+  }; 
   $.ajax({
     type: "POST",
     data: parametros,
@@ -5352,14 +5353,12 @@ function salidaHuesped() {
     let porceReteica = $("#porceReteica").val();
     let porceRetefuente = $("#porceRetefuente").val();
 
-    /* $(".btnSalida").css("display","none");
-    $("#mensajeSalida").css("display","block"); */
     estado = document.querySelector("#estadoCuenta");
     mensajeSal = document.querySelector("#mensajeSalida");
     btnSalida = document.querySelector(".btnSalida");
     estado.classList.add("apaga");
     mensajeSal.classList.remove("apaga");
-    btnSalida.classList.remove("apaga");
+    btnSalida.classList.add("apaga");
 
     /* estado = document.querySelector('#estadoCuenta')
     estado.classList.add('apaga'); */
@@ -5703,8 +5702,6 @@ function guardasinReserva() {
   let { usuario, usuario_id } = user;
   iden = $("#identifica").val();
 
-  // console.log(iden);
-
   if (iden == "") {
     swal("Precaucion", "Seleccione el Huesped a Reservar", "warning");
     return;
@@ -5723,10 +5720,19 @@ function guardasinReserva() {
     beforeSend: function (objeto) {},
     success: function (datos) {
       cargarHabitacionCkeckIn(datos);
-      swal("Atencion", "Huesped Registrado Con Exito", "success", 2000);
-      setTimeout(function () {
-        $(location).attr("href", "home");
-      }, 2000);
+      swal({
+          title: "Huesped Registrado Con Exito",
+          type: "success",
+          confirmButtonText: "Aceptar",
+          closeOnConfirm: true,
+
+        },
+        function(){
+          $(location).attr("href", "home");
+        })
+        // "Atencion", "", "success", 2000);
+      /* setTimeout(function () {
+      }, 2000); */
     },
   });
 }
@@ -5915,10 +5921,17 @@ function ingresaReserva() {
   var pagina = $("#ubicacion").val();
   var numero = $("#txtIdReservaIng").val();
   var habita = $("#txtNumeroHabIng").val();
+  let placa =  $("#placavehiculo").val();
+  let equipaje =  $("#equipaje").val();
+  let transporte =  $("#transporte").val();
+
   var parametros = {
     numero,
     habita,
     usuario,
+    placa,
+    equipaje,
+    transporte,
   };
   $.ajax({
     type: "POST",
@@ -5933,6 +5946,7 @@ function ingresaReserva() {
             text: "Su Reserva a Sido ingresada con Exito",
             type: "success",
             confirmButtonText: "Aceptar",
+            closeOnConfirm: true,
           },
           function () {
             $(location).attr("href", "llegadasDelDia");

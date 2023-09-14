@@ -1359,8 +1359,11 @@ class Hotel_Actions
         ], [
             'id_grupo' => $id,
         ]);
-
-        return $data[0]['descripcion_grupo'];
+        if(count($data)==0){
+            return 'SIN INFORMACION';
+        }else {
+            return $data[0]['descripcion_grupo'];
+        }
     }
 
     public function terminaMantenimiento($id, $costo, $idusuario)
@@ -6274,6 +6277,9 @@ class Hotel_Actions
             'reservas_pms.observaciones',
             'reservas_pms.observaciones_cancela',
             'reservas_pms.fecha_ingreso',
+            'reservas_pms.equipaje',
+            'reservas_pms.placaVehiculo',
+            'reservas_pms.tipoTransporte',
             'reservas_pms.id_usuario_ingreso',
             'huespedes.nombre1',
             'huespedes.nombre2',
@@ -6693,6 +6699,7 @@ class Hotel_Actions
         global $database;
 
         $data = $database->select('huespedes', [
+            'profesion',
             'apellido1',
             'apellido2',
             'nombre1',
@@ -6966,7 +6973,7 @@ class Hotel_Actions
         }
     }
 
-    public function updateIngresaReserva($numero, $usuario)
+    public function updateIngresaReserva($numero, $usuario, $placa, $equipaje, $transporte)
     {
         global $database;
 
@@ -6976,6 +6983,9 @@ class Hotel_Actions
             'usuario_ingreso' => $usuario,
             'hora_llegada' => date('H:i:s'),
             'fecha_ingreso' => date('Y-m-d H:i:s'),
+            'placaVehiculo' => $placa,
+            'equipaje' => $equipaje,
+            'tipoTransporte' => $transporte,
         ], [
             'num_reserva' => $numero,
         ]);
@@ -7447,6 +7457,53 @@ class Hotel_Actions
         ]);
 
         return $data;
+    }
+
+    public function insertLlegadaSinReserva($iden, $llegada, $salida, $noches, $hombres, $mujeres, $ninos, $orden, $tipohabi, $nrohabitacion, $tarifahab, $valortarifa, $origen, $destino, $motivo, $fuente, $segmento, $idhuesp, $idcia, $idCentro, $numero, $usuario, $estado, $observa, $formapa, $sinrese, $impto, $idusuario, $tipo, $placavehiculo, $equipaje, $transporte)
+    {
+        global $database;
+
+        $data = $database->insert('reservas_pms', [
+            'cantidad' => 1,
+            'estado' => $estado,
+            'dias_reservados' => $noches,
+            'fecha_llegada' => $llegada,
+            'fecha_salida' => $salida,
+            'num_habitacion' => $nrohabitacion,
+            'num_reserva' => $numero,
+            'can_hombres' => $hombres,
+            'can_mujeres' => $mujeres,
+            'can_ninos' => $ninos,
+            'orden_reserva' => $orden,
+            'origen_reserva' => $origen,
+            'destino_reserva' => $destino,
+            'id_compania' => $idcia,
+            'idCentroCia' => $idCentro,
+            'id_huesped' => $idhuesp,
+            'segmento_mercado' => $segmento,
+            'tarifa' => $tarifahab,
+            'tipo_habitacion' => $tipohabi,
+            'valor_reserva' => ($valortarifa * $noches),
+            'valor_diario' => $valortarifa,
+            'motivo_viaje' => $motivo,
+            'fecha_reserva' => FECHA_PMS,
+            'hora_llegada' => date('H:i:s'),
+            'fuente_reserva' => $fuente,
+            'usuario' => $usuario,
+            'usuario_ingreso' => $usuario,
+            'id_usuario_ingreso' => $idusuario,
+            'observaciones' => $observa,
+            'sinreserva' => $sinrese,
+            'forma_pago' => $formapa,
+            'causar_impuesto' => $impto,
+            'tipo_reserva' => $tipo,
+            'placaVehiculo' => $placavehiculo,
+            'equipaje' => $equipaje,
+            'tipoTransporte' => $transporte,
+            'reservaCreada' => date('Y-m-d H:i:s'),
+        ]);
+
+        return $database->id();
     }
 
     public function insertNuevaReserva($iden, $llegada, $salida, $noches, $hombres, $mujeres, $ninos, $orden, $tipohabi, $nrohabitacion, $tarifahab, $valortarifa, $origen, $destino, $motivo, $fuente, $segmento, $idhuesp, $idcia, $idCentro, $numero, $usuario, $estado, $observa, $formapa, $sinrese, $impto, $idusuario, $tipo)

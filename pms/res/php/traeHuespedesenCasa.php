@@ -5,6 +5,10 @@ $tipo = $_POST['tipo'];
 
 $hoy = substr(FECHA_PMS, 5, 5);
 
+/* $dia = date('d',FECHA_PMS);
+
+echo $dia;
+ */
 $reservas = $hotel->getHuespedesenCasa(2, 'CA');
 
 ?>
@@ -31,14 +35,14 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
         foreach ($reservas as $reserva) {
             $depositos = $hotel->getDepositosReservas($reserva['num_reserva']);
             if ($reserva['id_compania'] == 0) {
-                $nombrecia = 'SIN COMPAÑIA ASOCIADA';
-                $nitcia = '222.222.222';
+              $nombrecia = 'SIN COMPAÑIA ASOCIADA';
+              $nitcia = '222.222.222';
             } else {
-                $cias = $hotel->getBuscaCia($reserva['id_compania']);
-                if (count($cias) != 0) {
-                    $nombrecia = $cias[0]['empresa'];
-                    $nitcia = $cias[0]['nit'].'-'.$cias[0]['dv'];
-                }
+              $cias = $hotel->getBuscaCia($reserva['id_compania']);
+              if (count($cias) != 0) {
+                  $nombrecia = $cias[0]['empresa'];
+                  $nitcia = $cias[0]['nit'].'-'.$cias[0]['dv'];
+              }
             }
             ?>
             <tr style='font-size:12px'>
@@ -184,7 +188,7 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
                               <i class="fa fa-pencil-square" aria-hidden="true"></i>Modificar Estadia</a>
                           </li>
                           <?php
-                        if ($reserva['fecha_llegada'] == FECHA_PMS) { ?>
+                            if ($reserva['fecha_llegada'] == FECHA_PMS) { ?>
                               <li>
                                 <a 
                                   data-toggle        ="modal" 
@@ -208,11 +212,9 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
                                   <i class="fa fa-sign-out" aria-hidden="true"></i>
                                   Anular Ingreso</a>
                               </li>                 
-                              <?php
-                        }
-            ?>
-                          <?php
-            if ($reserva['num_habitacion'] != CTA_DEPOSITO) { ?>
+                            <?php
+                          }
+                          if ($reserva['num_habitacion'] != CTA_DEPOSITO) { ?>
                             <li>
                               <a 
                                 data-toggle    ="modal" 
@@ -246,8 +248,8 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
                               Cambiar Tarifa</a>
                             </li>    
                             <?php
-            }
-            ?>
+                            }
+                          ?>
                           <li>
                             <a 
                               data-toggle    ="modal" 
@@ -279,7 +281,7 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
                             Asignar Compañia</a>
                           </li>
                           <?php
-              if ($reserva['id_compania'] != 0) { ?>
+                            if ($reserva['id_compania'] != 0) { ?>
                               <li>
                                 <a 
                                   data-toggle    ="modal" 
@@ -294,8 +296,8 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
                                 Datos Compañia</a>
                               </li>
                               <?php
-              }
-                              if ($reserva['fecha_llegada'] == FECHA_PMS && $tipo == 1) { ?>
+                            }
+                            if ($reserva['fecha_llegada'] == FECHA_PMS && $tipo == 1) { ?>
                               <li id="cambiaHuesped">
                                 <a 
                                   data-toggle        ="modal" 
@@ -322,8 +324,8 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
                                 </a>
                               </li>
                             <?php
-                              }
-            ?>
+                            }
+                          ?>
                           <li>
                             <a 
                               data-toggle    ="modal" 
@@ -353,8 +355,8 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
               </td>
             </tr>
             <?php
-        }
-?>
+          }
+        ?>
       </tbody>
     </table>
   </div>

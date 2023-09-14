@@ -17,7 +17,7 @@ require_once '../res/php/app_topAdmin.php';
   </head>
 
   <body class="skin-green sidebar-mini">
-    <script>
+    <!-- <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -25,7 +25,7 @@ require_once '../res/php/app_topAdmin.php';
       ga('create','UA-99252638-1', 'auto');
       ga('send', 'pageview');
       /// activaModulos();
-    </script>   
+    </script>   --> 
     <?php
  include_once 'menus/menu_titulo.php';
 include_once 'menus/menu_config.php';
@@ -47,6 +47,8 @@ if (!isset($_GET['section'])) {
     require 'views/centrosCosto.php';
 } elseif (isset($_GET['section']) && $_GET['section'] == 'bodegas') {
     require 'views/bodegas.php';
+} elseif (isset($_GET['section']) && $_GET['section'] == 'ciudades') {
+    require 'views/ciudades.php';
 } elseif (isset($_GET['section']) && $_GET['section'] == 'unidades') {
     require 'views/unidadesdeMedida.php';
 } elseif (isset($_GET['section']) && $_GET['section'] == 'familias') {
