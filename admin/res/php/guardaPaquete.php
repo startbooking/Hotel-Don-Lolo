@@ -6,9 +6,10 @@
 	$frecuen =  $_POST['frecuencia'];
 	$tipcar  = $_POST['tipoCargo'];
 	$codpaq  = $_POST['codigoPaq'];
+	$codexc  = $_POST['codigoPaqExc'];
 	$valor   = $_POST['valorAdi'];
 
-	$guarda = $admin->insertPaquete($descrip, $frecuen, $tipcar, $codpaq, $valor);
+	$guarda = $admin->insertPaquete($descrip, $frecuen, $tipcar, $codpaq, $codexc, $valor);
 
 	echo $guarda ;
 

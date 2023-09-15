@@ -73,7 +73,7 @@
 		$ciudades = $admin->getCiudades();
 	}elseif(isset($_GET['section']) &&	$_GET['section'] == 'unidades'){  
 		$unidades = $admin->getUnidadesMedida();
-	}elseif(isset($_GET['section']) &&	$_GET['section'] == 'familias'){
+	}elseif(isset($_GET['section']) &&	$_GET['section'] == 'familias'){ 
 		$familias = $admin->getFamiliasInventarios(); 
 	}elseif(isset($_GET['section']) &&	$_GET['section'] == 'gruposInventario'){
 		$grupos  = $admin->getGruposInventarios();

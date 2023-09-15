@@ -4,10 +4,11 @@
 
 	$codigo = strtoupper(addslashes($_POST['codigo']));
 	$descr  = strtoupper(addslashes($_POST['descr']));
-	$tipo   = $_POST['tipoh'];
+	$sector = $_POST['sector'];
 	$codvta = $_POST['codvta'];
+	$codexc = $_POST['codexc'];
 
-	$guardaTipoHabi = $admin->insertTipoHabi($codigo, $descr, $tipo, $codvta) ;
+	$guardaTipoHabi = $admin->insertTipoHabi($codigo, $descr, $sector, $codvta, $codexc) ;
 
 	echo $guardaTipoHabi ;
 

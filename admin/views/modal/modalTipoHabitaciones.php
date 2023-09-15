@@ -22,12 +22,42 @@
             </div>
           </div>
           <div class="form-group">
+            <label for="nombre" class="control-label col-lg-4 col-md-4">Sector Hotel  </label>
+            <div class="col-lg-6 col-md-6">
+              <?php
+                $sectores = $admin->getSectorHabitacion(1);
+              ?>
+              <select name="sectorAdi" id="sectorAdi" required="">
+                <option value="">Seleccione el Sector del Hotle </option>
+                <?php foreach ($sectores as $sector) { ?>
+                <option value="<?php echo $sector['id_sector']; ?>"><?php echo $sector['descripcion_sector']; ?></option>
+                  
+                <?php } ?>
+              </select>
+            </div>
+          </div> 
+          <div class="form-group">
             <label for="nombre" class="control-label col-lg-4 col-md-4">Codigo de Venta  </label>
             <div class="col-lg-6 col-md-6">
               <?php
                 $codigoVtas = $admin->getCodigosVentas(1);
               ?>
               <select name="CodTipoHabiAdi" id="CodTipoHabiAdi" required="">
+                <option value="">Seleccione el Codigo de Ventas </option>
+                <?php foreach ($codigoVtas as $codigo) { ?>
+                <option value="<?php echo $codigo['id_cargo']; ?>"><?php echo $codigo['descripcion_cargo']; ?></option>
+                  
+                <?php } ?>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="nombre" class="control-label col-lg-4 col-md-4">Codigo de Venta  Excento</label>
+            <div class="col-lg-6 col-md-6">
+              <?php
+                $codigoVtas = $admin->getCodigosVentas(1);
+              ?>
+              <select name="CodTipoHabiAdiExce" id="CodTipoHabiAdiExce" required="">
                 <option value="">Seleccione el Codigo de Ventas </option>
                 <?php foreach ($codigoVtas as $codigo) { ?>
                 <option value="<?php echo $codigo['id_cargo']; ?>"><?php echo $codigo['descripcion_cargo']; ?></option>
@@ -132,20 +162,21 @@
               <input type="text" class="form-control" id="nombreMod" name="nombreMod" required>
             </div>
           </div>
-          <!--
           <div class="form-group">
-            <label for="nombre" class="control-label col-lg-4 col-md-4">Tipo  </label>
+            <label for="nombre" class="control-label col-lg-4 col-md-4">Sector Hotel  </label>
             <div class="col-lg-6 col-md-6">
-              <select name="TipoHabiMod" id="TipoHabiMod" required="">
-                <option value="1">Habitacion</option>
-                <option value="2">Dormitorio</option>
-                <option value="3">Motor Home</option>
-                <option value="4">Camping</option>
-                <option value="5">Cuenta Maestra</option>
+              <?php
+                $sectores = $admin->getSectorHabitacion(1);
+              ?>
+              <select name="sectorMod" id="sectorMod" required="">
+                <option value="">Seleccione el Sector del Hotle </option>
+                <?php foreach ($sectores as $sector) { ?>
+                <option value="<?php echo $sector['id_sector']; ?>"><?php echo $sector['descripcion_sector']; ?></option>
+                  
+                <?php } ?>
               </select>
             </div>
-          </div>
-          -->
+          </div>                    
           <div class="form-group">
             <label for="nombre" class="control-label col-lg-4 col-md-4">Codigo de Venta  </label>
             <div class="col-lg-6 col-md-6">
@@ -153,6 +184,21 @@
                 $codigoVtas = $admin->getCodigosVentas(1);
               ?>
               <select name="CodTipoHabiMod" id="CodTipoHabiMod" required="">
+                <option value="">Seleccione el Codigo de Ventas </option>
+                <?php foreach ($codigoVtas as $codigo) { ?>
+                <option value="<?php echo $codigo['id_cargo']; ?>"><?php echo $codigo['descripcion_cargo']; ?></option>
+                  
+                <?php } ?>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="nombre" class="control-label col-lg-4 col-md-4">Codigo de Venta  Excento</label>
+            <div class="col-lg-6 col-md-6">
+              <?php
+                $codigoVtas = $admin->getCodigosVentas(1);
+              ?>
+              <select name="CodTipoHabiModExce" id="CodTipoHabiModExce" required="">
                 <option value="">Seleccione el Codigo de Ventas </option>
                 <?php foreach ($codigoVtas as $codigo) { ?>
                 <option value="<?php echo $codigo['id_cargo']; ?>"><?php echo $codigo['descripcion_cargo']; ?></option>

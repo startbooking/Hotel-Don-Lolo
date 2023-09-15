@@ -6273,7 +6273,7 @@ function guardaReserva() {
   parametros.push({ name: "usuario", value: usuario });
   parametros.push({ name: "idusuario", value: usuario_id });
 
-  $.ajax({
+  $.ajax({ 
     type: "POST",
     data: parametros,
     url: "res/php/ingresoReserva.php",
@@ -6741,8 +6741,6 @@ function adicionaObservacionMmto() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
   let { usuario, usuario_id } = user;
-
-  // usuario = sesion["usuario"][0]["usuario"];
 
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();

@@ -57,6 +57,7 @@
                               data-descri ="<?php echo $tipohab['descripcion_habitacion']; ?>" 
                               data-sector ="<?php echo $tipohab['sector_habitacion']; ?>" 
                               data-venta  ="<?php echo $tipohab['deptoventa_habitacion']; ?>" 
+                              data-excento  ="<?php echo $tipohab['deptoventa_excento']; ?>" 
                               data-activa ="<?php echo $tipohab['active_at']; ?>" 
                               title="Modificar El Tipo de Habitacion Actual" >
                               <i class='fa fa-pencil-square'></i>

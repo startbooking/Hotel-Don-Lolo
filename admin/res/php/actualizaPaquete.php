@@ -7,9 +7,10 @@
 	$frecuen = $_POST['frecuenciaMod'];
 	$tipcar  = $_POST['tipoCargoMod'];
 	$codpaq  = $_POST['codigoPaqMod'];
+	$codexc  = $_POST['codigoPaqModExc'];
 	$valor   = $_POST['valorMod'];
 
-	$guarda = $admin->updatePaquete($id, $descrip, $frecuen, $tipcar, $codpaq, $valor);
+	$guarda = $admin->updatePaquete($id, $descrip, $frecuen, $tipcar, $codpaq, $codexc, $valor);
 
 	echo $guarda ;
 

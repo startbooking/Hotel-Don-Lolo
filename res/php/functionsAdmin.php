@@ -5,6 +5,17 @@
  class Hotel_Admin
  {
 
+    public function insertCiudad($paices, $ciudad, $codigo){
+        global $database;
+
+        $data = $database->insert('ciudades',[
+            'id_pais' => $paices,
+            'codigo' => $codigo,
+            'municipio' => $ciudad,
+        ]);
+        return $database->id();
+    }
+
     public function getCiudades(){
         global $database;
 
@@ -1588,13 +1599,14 @@
          return $data->rowCount();
      }
 
-     public function updatePaquete($id, $descrip, $frecuen, $tipcar, $codpaq, $valor)
+     public function updatePaquete($id, $descrip, $frecuen, $tipcar, $codpaq, $codexc, $valor)
      {
          global $database;
 
          $data = $database->update('paquetes', [
              'descripcion' => $descrip,
              'codigo_vta' => $codpaq,
+             'codigo_excento' => $codexc,
              'tipo_cargo' => $tipcar,
              'frecuencia' => $frecuen,
              'valor' => $valor,
@@ -1605,13 +1617,14 @@
          return $database->id();
      }
 
-     public function insertPaquete($descrip, $frecuen, $tipcar, $codpaq, $valor)
+     public function insertPaquete($descrip, $frecuen, $tipcar, $codpaq, $codexc, $valor)
      {
          global $database;
 
          $data = $database->insert('paquetes', [
              'descripcion' => $descrip,
              'codigo_vta' => $codpaq,
+             'codigo_excento' => $codexc,
              'tipo_cargo' => $tipcar,
              'frecuencia' => $frecuen,
              'valor' => $valor,
@@ -1629,6 +1642,7 @@
              'codigo',
              'descripcion',
              'codigo_vta',
+             'codigo_excento',
              'tipo_cargo',
              'frecuencia',
              'valor',
@@ -1738,7 +1752,7 @@
          return $data[0]['descripcion_habitacion'];
      }
 
-     public function updateTipoHabi($id, $codigo, $descr, $tipoh, $codvta)
+     public function updateTipoHabi($id, $codigo, $descr, $sector, $codvta, $codexe)
      {
          global $database;
 
@@ -1746,6 +1760,8 @@
              'codigo' => $codigo,
              'descripcion_habitacion' => $descr,
              'deptoventa_habitacion' => $codvta,
+             'deptoventa_excento' => $codexe,
+             'sector_habitacion' => $sector,
          ], [
              'id' => $id,
          ]);
@@ -1764,7 +1780,7 @@
          return $data->rowCount();
      }
 
-     public function insertTipoHabi($codigo, $descr, $tipo, $codvta)
+     public function insertTipoHabi($codigo, $descr, $sector, $codvta, $codexc)
      {
          global $database;
 
@@ -1772,6 +1788,8 @@
              'codigo' => $codigo,
              'descripcion_habitacion' => $descr,
              'deptoventa_habitacion' => $codvta,
+             'deptoventa_excento' => $codexc,
+             'sector_habitacion' => $sector,
              'active_at' => 1,
          ]);
 
@@ -1804,6 +1822,7 @@
              'tipo_habitaciones.descripcion_habitacion',
              'tipo_habitaciones.sector_habitacion',
              'tipo_habitaciones.deptoventa_habitacion',
+             'tipo_habitaciones.deptoventa_excento',
              'tipo_habitaciones.active_at',
          ], [
              'ORDER' => 'descripcion_habitacion',
@@ -1822,6 +1841,7 @@
              'descripcion_habitacion',
              'sector_habitacion',
              'deptoventa_habitacion',
+             'deptoventa_excento'
          ], [
              'active_at' => 1,
              'ORDER' => 'descripcion_habitacion',
@@ -2120,7 +2140,7 @@
          return $data->rowCount();
      }
 
-     public function updateCodigoVenta($descripcion, $impto, $grupo, $puc, $contabil, $id)
+     public function updateCodigoVenta($descripcion, $impto, $grupo, $puc, $contabil, $id, $centro)
      {
          global $database;
 
@@ -2129,6 +2149,7 @@
              'id_impto' => $impto,
              'grupo_vta' => $grupo,
              'cuenta_puc' => $puc,
+             'centroCosto' => $centro,
              'descripcion_contable' => $contabil,
          ], [
              'id_cargo' => $id,
@@ -2137,7 +2158,7 @@
          return $database->id();
      }
 
-     public function insertCodigoVenta($descripcion, $impto, $grupo, $puc, $contabil)
+     public function insertCodigoVenta($descripcion, $impto, $grupo, $puc, $contabil, $centro)
      {
          global $database;
 
@@ -2146,6 +2167,7 @@
              'id_impto' => $impto,
              'grupo_vta' => $grupo,
              'cuenta_puc' => $puc,
+            'centroCosto' => $centro,
              'descripcion_contable' => $contabil,
              'tipo_codigo' => 1,
              'restringido' => 0,
@@ -2238,11 +2260,11 @@
          return $data->rowCount();
      }
 
-     public function getCodigosVentas($tipo)
-     {
-         global $database;
+    public function getCodigosVentas($tipo)
+    {
+        global $database;
 
-         $data = $database->select('codigos_vta', [
+        $data = $database->select('codigos_vta', [
              'id_cargo',
              'codigo_depto',
              'agrupacion',
@@ -2252,6 +2274,7 @@
              'cuenta_puc',
              'descripcion_cargo',
              'descripcion_contable',
+             'centroCosto',
              'grupo_vta',
              'maximo_credito',
              'propina',

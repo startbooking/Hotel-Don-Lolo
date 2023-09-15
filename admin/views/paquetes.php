@@ -50,6 +50,7 @@
                                 data-codigo ="<?= $paquete['codigo']?>" 
                                 data-descri ="<?= $paquete['descripcion']?>" 
                                 data-codvta ="<?= $paquete['codigo_vta']?>" 
+                                data-codexc ="<?= $paquete['codigo_excento']?>" 
                                 data-tipoca ="<?= $paquete['tipo_cargo']?>" 
                                 data-frecue ="<?= $paquete['frecuencia']?>" 
                                 data-valor  ="<?= $paquete['valor']?>" 

@@ -1,23 +1,23 @@
 <div class="modal fade" id="myModalAdicionarPaquetes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
   <form id="guardarDatosPaquete" class="form-horizontal" action="javascript:guardaPaquete()">
     <div class="modal-dialog modal-md" role="document">
-      <div class="modal-content">
+      <div class="modal-content" style="font-size:12px;">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><span class="glyphicon glyphicon-off"></span></span></button>
-          <h4 class="modal-title" id="exampleModalLabel">Adicionar Paquete</h4>
+          <h4 class="modal-title" id="exampleModalLabel"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Adicionar Paquete</h4>
         </div>
         <div id="datos_ajax_register"></div>
         <div class="modal-body">
           <div id="mensaje"></div>
-          <div class="form-group">
-            <label for="nombre" class="control-label col-lg-2 col-md-2">Paquete </label>
-            <div class="col-lg-10 col-md-10">
+          <div class="form-group" style="padding:2px 10px;">
+            <label for="nombre" class="col-lg-4 col-md-4">Paquete </label>
+            <div class="col-lg-8 col-md-8">
               <input type="text" class="form-control" id="descripcionAdi" name="descripcionAdi" required>
             </div>
           </div>
-          <div class="form-group">
-            <label for="nombre" class="control-label col-lg-2 col-md-2">Frecuencia </label>
-            <div class="col-lg-10 col-md-10">
+          <div class="form-group" style="padding:2px 10px;">
+            <label for="nombre" class="col-lg-4 col-md-4">Frecuencia </label>
+            <div class="col-lg-8 col-md-8">
               <div class="col-sm-6" style="padding:0;height: 15px">
                 <div class="form-check form-check-inline">
                   <input style="margin-top:5px" class="form-check-input" type="radio" name="frecuencia" id="inlineRadio1" value="1" checked>
@@ -32,9 +32,9 @@
               </div>
             </div>
           </div>
-          <div class="form-group">
-            <label for="nombre" class="control-label col-lg-2 col-md-2">Tipo de Cargo </label>
-            <div class="col-lg-10">
+          <div class="form-group" style="padding:2px 10px;">
+            <label for="nombre" class="col-lg-4 col-md-4">Tipo de Cargo </label>
+            <div class="col-lg-8">
               <div class="col-sm-6" style="padding:0;height: 15px">
                 <div class="form-check form-check-inline">
                   <input style="margin-top:5px" class="form-check-input" type="radio" name="tipoCargo" id="inlineRadio1" value="1" checked>
@@ -49,19 +49,37 @@
               </div>
             </div>
           </div>
-          <div class="form-group">
-            <label for="nombre" class="control-label col-lg-2 col-md-2">Valor </label>
-            <div class="col-lg-3 col-md-3">
+          <div class="form-group" style="padding:2px 10px;">
+            <label for="nombre" class="col-lg-4 col-md-4">Valor </label>
+            <div class="col-lg-4 col-md-4">
               <input type="number" min="1" class="form-control" id="valorAdi" name="valorAdi" required>
             </div>
-            <label for="nombre" class="control-label col-lg-2 col-md-2">Codigo Venta </label>
-            <div class="col-lg-5 col-md-5">
+          </div>
+          <div class="form-group" style="padding:2px 10px;">
+            <label for="nombre" class="col-lg-4 col-md-4">Codigo Venta </label>
+            <div class="col-lg-6 col-md-6">
               <?php
               $codigos = $admin->getCodigosVentas(1);
               ?>
               <select name="codigoPaq" id="codigoPaq" required="">
                 <option value="">Seleccione el Codigo de Ventas</option>}
-                option
+                <?php
+               foreach ($codigos as $codigo) { ?> 
+                  <option value="<?php echo $codigo['id_cargo']; ?>"><?php echo $codigo['descripcion_cargo']; ?></option>
+                  <?php
+               }
+              ?>
+              </select>
+            </div>
+          </div>
+          <div class="form-group" style="padding:2px 10px;">
+            <label for="nombre" class="col-lg-4 col-md-4">Codigo Venta Excluido</label>
+            <div class="col-lg-6 col-md-6">
+              <?php
+              $codigos = $admin->getCodigosVentas(1);
+              ?>
+              <select name="codigoPaqExc" id="codigoPaqExc" required="">
+                <option value="">Seleccione el Codigo de Ventas</option>}
                 <?php
                foreach ($codigos as $codigo) { ?> 
                   <option value="<?php echo $codigo['id_cargo']; ?>"><?php echo $codigo['descripcion_cargo']; ?></option>
@@ -225,12 +243,31 @@
             <div class="col-lg-3 col-md-3">
               <input type="number" class="form-control" id="valorMod" name="valorMod" required>
             </div>
-            <label for="nombre" class="control-label col-lg-2 col-md-2">Codigo Venta </label>
-            <div class="col-lg-5 col-md-5">
+          </div>
+          <div class="form-group">
+            <label for="nombre" class="control-label col-lg-4 col-md-4">Codigo Venta </label>
+            <div class="col-lg-6 col-md-6">
               <?php
               $codigos = $admin->getCodigosVentas(1);
               ?>
               <select name="codigoPaqMod" id="codigoPaqMod" required="">
+                <?php
+                foreach ($codigos as $codigo) { ?> 
+                  <option value="<?php echo $codigo['id_cargo']; ?>"><?php echo $codigo['descripcion_cargo']; ?></option>
+                  <?php
+                }
+              ?>
+              </select>
+            </div>
+          </div>
+          <div class="form-group" style="padding:2px 10px;">
+            <label for="nombre" class="control-label col-lg-4 col-md-4">Codigo Venta Excluido</label>
+            <div class="col-lg-6 col-md-6">
+              <?php
+              $codigos = $admin->getCodigosVentas(1);
+              ?>
+              <select name="codigoPaqModExc" id="codigoPaqModExc" required="">
+                <option value="">Seleccione el Codigo de Ventas</option>
                 <?php
                foreach ($codigos as $codigo) { ?> 
                   <option value="<?php echo $codigo['id_cargo']; ?>"><?php echo $codigo['descripcion_cargo']; ?></option>

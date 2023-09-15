@@ -6,12 +6,12 @@
             <div class="row">
               <div class="col-lg-6">
                 <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_ADM?>">
-                <input type="hidden" name="ubicacion" id="ubicacion" value="bodegas">
+                <input type="hidden" name="ubicacion" id="ubicacion" value="ciudades">
                 <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-cubes"></i> Ciudades </h3>
               </div>
-              <div class="col-lg-6" align="right">
+              <div class="col-lg-6" style="text-align:right;">
                 <a 
-                  data-target  ="#myModalAdicionarCiudad" 
+                  data-target  ="#myModalAdicionaCiudad" 
                   data-toggle  ="modal" 
                   style        ="margin:20px 0" 
                   type         ="button" 
@@ -55,17 +55,17 @@
                               title       ="Modificar la Bodega Actual" >
                               <i class='fa fa-pencil-square'></i>
                             </button>
-                            <button 
+                            <!-- <button 
                               type        ="button" 
                               class       ="btn btn-danger btn-xs" 
                               data-toggle ="modal" 
-                              data-target ="#myModalEliminaBodega" 
+                              data-target ="#myModalEliminaCiudad" 
                               data-id     ="<?php echo $bodega['id_bodega']?>" 
                               data-descri ="<?php echo $bodega['descripcion_bodega']?>" 
                               data-tipo ="<?php echo $bodega['tipo_bodega']?>" 
                               title       ="Elimina la Bodega Actual" >              
                               <i class='fa fa-trash'></i>
-                            </button>
+                            </button> -->
                           </div> 
                         </td>
                       </tr>

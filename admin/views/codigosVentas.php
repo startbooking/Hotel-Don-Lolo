@@ -9,7 +9,7 @@
                 <input type="hidden" name="ubicacion" id="ubicacion" value="codigosVentas">
                 <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-money"></i> Codigos de Ventas </h3>
               </div>
-              <div class="col-lg-6" align="right">
+              <div class="col-lg-6" style="text-align:right;">
                 <a style="margin:20px 0" 
                   data-toggle="modal" 
                   class = 'btn btn-success'
@@ -28,7 +28,7 @@
                     <tr class="warning">
                       <td>Descripcion </td>
                       <td>Impuesto</td>
-                      <td>Agrupacion</td>
+                      <td>Centro de Costo</td>
                       <td>Descripcion Contable</td>
                       <td>PUC</td>
                       <td>Estado</td>
@@ -45,7 +45,7 @@
                         <td><?php echo $codigo['descripcion_contable']; ?></td>
                         <td><?php echo $codigo['cuenta_puc']; ?></td>
                         <td><?php echo estadoPago($codigo['restringido']); ?></td>
-                        <td align="center" style="padding:3px;width: 10%">
+                        <td style="padding:3px;width: 10%,text-align:center;">
                           <div class="btn-group" role="group" aria-label="Basic example">
                             <button type="button" class="btn btn-info btn-xs" 
                               data-toggle ="modal" 
@@ -55,6 +55,7 @@
                               data-descri ="<?php echo $codigo['descripcion_cargo']?>" 
                               data-grupo  ="<?php echo $codigo['grupo_vta']?>" 
                               data-puc    ="<?php echo $codigo['cuenta_puc']?>" 
+                              data-centro    ="<?php echo $codigo['centroCosto']?>" 
                               data-contab ="<?php echo $codigo['descripcion_contable']?>" 
                               title="Modificar El Impuesto Actual" >
                               <i class='fa fa-pencil-square'></i>

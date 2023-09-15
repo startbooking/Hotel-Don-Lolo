@@ -7,9 +7,10 @@
 	$impto       = $_POST['imptosMod'];
 	$grupo       = $_POST['grupoMod'];
 	$puc         = $_POST['pucMod'];
+	$centro      = $_POST['centroMod'];
 	$contabil    = strtoupper(addslashes($_POST['descripcionMod']));
 
-	$updateCodigo = $admin->updateCodigoVenta($descripcion, $impto, $grupo, $puc, $contabil, $id) ;
+	$updateCodigo = $admin->updateCodigoVenta($descripcion, $impto, $grupo, $puc, $contabil, $id, $centro) ;
 
 	echo $updateCodigo ;
 

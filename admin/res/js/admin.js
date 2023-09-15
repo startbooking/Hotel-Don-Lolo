@@ -667,6 +667,25 @@ function actualizaBodega() {
   });
 }
 
+function guardaCiudad() {
+  var pagina = $("#ubicacion").val();
+  var ruta = $("#rutaweb").val();
+  var ciudad = $("#guardaDatosCiudad").serialize();
+  // console.log(ciudad)
+
+  parametros = {
+    ciudad
+  };
+  $.ajax({
+    url: ruta + "res/php/guardaCiudad.php",
+    type: "POST",
+    data: ciudad,
+    success: function (datos) {      
+      $(location).attr("href", ruta + pagina);
+    },
+  });
+}
+
 function guardaBodega() {
   var pagina = $("#ubicacion").val();
   var ruta = $("#rutaweb").val();
@@ -1618,15 +1637,17 @@ function actualizaTipoHabi() {
   var id = $("#idTipoHabiMod").val();
   var codigo = $("#CodigoMod").val();
   var descr = $("#nombreMod").val();
-  var tipoh = $("#TipoHabiMod").val();
+  var sector = $("#sectorMod").val();
   var codvta = $("#CodTipoHabiMod").val();
+  var codexc = $("#CodTipoHabiModExce").val();
 
   var parametros = {
     id,
     codigo,
     descr,
-    tipoh,
+    sector,
     codvta,
+    codexc,
   };
 
   $.ajax({
@@ -1664,14 +1685,17 @@ function guardaTipoHabi() {
   var ruta = $("#rutaweb").val();
   var codigo = $("#CodigoAdi").val();
   var descr = $("#nombreAdi").val();
-  var tipoh = $("#TipoHabiAdi").val();
+  var tipoh = $("#nombreAdi").val();
+  var sector = $("#sectorAdi").val();
   var codvta = $("#CodTipoHabiAdi").val();
+  var codexc = $("#CodTipoHabiAdiExce").val();
 
   var parametros = {
-    codigo: codigo,
-    descr: descr,
-    tipoh: tipoh,
-    codvta: codvta,
+    codigo,
+    descr,
+    sector,
+    codvta,
+    codexc
   };
   $.ajax({
     url: ruta + "res/php/guardaTipoHabi.php",
@@ -3080,6 +3104,7 @@ $(document).ready(function () {
     var codigo = button.data("codigo");
     var descri = button.data("descri");
     var codvta = button.data("codvta");
+    var codexc = button.data("codexc");
     var tipoca = button.data("tipoca");
     var frecue = button.data("frecue");
     var valor = button.data("valor");
@@ -3091,6 +3116,7 @@ $(document).ready(function () {
     modal.find(".modal-body #idPaquMod").val(id);
     modal.find(".modal-body #descripcionMod").val(descri);
     modal.find(".modal-body #codigoPaqMod").val(codvta);
+    modal.find(".modal-body #codigoPaqModExc").val(codexc);
     modal.find(".modal-body #tipoCargoMod").val(tipoca);
     modal.find(".modal-body #frecuenciaMod").val(frecue);
     modal.find(".modal-body #valorMod").val(valor);
@@ -3153,8 +3179,9 @@ $(document).ready(function () {
     var id = button.data("id");
     var descr = button.data("descri");
     var codigo = button.data("codigo");
-    // var tipoh = button.data("tipo");
+    var sector = button.data("sector");
     var codvta = button.data("venta");
+    var codexc = button.data("excento");
     var modal = $(this);
 
     modal.find(".modal-title").text("Modifica Tipo Habitacion : " + descr);
@@ -3162,7 +3189,9 @@ $(document).ready(function () {
     modal.find(".modal-body #CodigoMod").val(codigo);
     modal.find(".modal-body #nombreMod").val(descr);
     modal.find(".modal-body #TipoHabiMod").val(id);
+    modal.find(".modal-body #sectorMod").val(sector);
     modal.find(".modal-body #CodTipoHabiMod").val(codvta);
+    modal.find(".modal-body #CodTipoHabiModExce").val(codexc);
   });
 
   $("#myModalEliminaTipoHabitacion").on("show.bs.modal", function (event) {
@@ -3343,6 +3372,7 @@ $(document).ready(function () {
     var descri = button.data("descri");
     var grupo = button.data("grupo");
     var puc = button.data("puc");
+    var centro = button.data("centro");
     var contab = button.data("contab");
     var modal = $(this);
 
@@ -3352,6 +3382,7 @@ $(document).ready(function () {
     modal.find(".modal-body #imptosMod").val(impto);
     modal.find(".modal-body #grupoMod").val(grupo);
     modal.find(".modal-body #pucMod").val(puc);
+    modal.find(".modal-body #centroMod").val(centro);
     modal.find(".modal-body #descripcionMod").val(contab);
   });
 
