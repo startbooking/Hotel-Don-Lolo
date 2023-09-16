@@ -4897,7 +4897,7 @@ class Hotel_Actions
             return $data;
         }
     }
-
+ 
     public function updateEstadoHabitacion($room)
     {
         global $database;

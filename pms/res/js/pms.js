@@ -4971,14 +4971,14 @@ function cambiaHabitacion() {
   var observa = $("#observaCambio").val();
 
   var parametros = {
-    id: id,
-    tipoact: tipoact,
-    habiact: habiact,
-    tiponue: tiponue,
-    habinue: habinue,
-    motivo: motivo,
-    observa: observa,
-    mmto: mmto,
+    id,
+    tipoact,
+    habiact,
+    tiponue,
+    habinue,
+    motivo,
+    observa,
+    mmto,
   };
 
   $.ajax({

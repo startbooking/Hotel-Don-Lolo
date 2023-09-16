@@ -385,5 +385,5 @@ if ($totalFolio != 0) {
         $habSucia = $hotel->updateEstadoHabitacion($room);
     } 
 }
-
+ 
 echo json_encode($estadofactura);

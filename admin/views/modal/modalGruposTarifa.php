@@ -94,18 +94,21 @@
     <div class="modal-dialog modal-md" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><span class="glyphicon glyphicon-off"></span></span></button>
-          <h4 class="modal-title" id="exampleModalLabel">Tarifas Asociadas</h4>
-          
-          <button style="margin:10px" class="btn btn-primary pull-right" type="button" 
+          <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><span class="glyphicon glyphicon-off"></span></span></button> -->
+          <div class="row-fluid">
+
+            <h4 class="modal-title" id="exampleModalLabel">Tarifas Asociadas</h4>
+            
+            <button style="position: absolute;  right: 20;top: 20px;" class="btn btn-primary pull-right" type="button" 
             data-toggle="modal" 
             data-target="#myModalAdicionarSubTarifa" 
             title="Adicionar Sub Tarifas">
             <i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Adicionar
           </button>
+        </div>
 
         </div>
-        <div class="modal-body">
+        <div class="modal-body" style="max-height:350px;overflow:auto;">
           <div id="datos_ajax_register"></div>
           <input type="hidden" name="idTariLis" id="idTariLis">
           <input type="hidden" name="idDescrLis" id="idDescrLis">

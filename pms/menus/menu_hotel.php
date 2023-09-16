@@ -68,7 +68,8 @@ if ($_GET['section'] != 'cajeroCerrado') {
             <li><a href="facturasDelDia"><i class="fa fa-archive"></i>Facturas Del Dia</a></li>
             <li><a href="recibosCajaDelDia"><i class="fa fa-archive"></i>Recibos de Caja Del Dia</a></li>
             <li><a href="notasCredito"><i class="fa fa-archive"></i>Notas Credito</a></li>
-            <li><a href="exportaFacturas"><i class="fa fa-archive"></i>Exportar Facturas</a></li>
+            <!-- <li><a href="exportaFacturas"><i class="fa fa-archive"></i>Exportar Facturas</a></li> -->
+            <li><a href="exportaDocs"><i class="fa fa-archive"></i>Exportar Documentos</a></li>
             <li>
               <a href="#"><i class="fa fa-balance-scale"></i>Balance Cajero<i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">

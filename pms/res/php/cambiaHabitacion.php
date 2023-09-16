@@ -21,11 +21,14 @@
 	$estHabi = $hotel->cambiaEstadoHabitacion($habinue,'LO');
 	
 	if($mmto==1){
+		
 		$mmtoRoom = $hotel->updateMmtoRoom($habiact, $mmto);
 	}else{
-	  $estHabi = $hotel->cambiaEstadoHabitacion($habiact,'SV');
+	  // $estHabi = $hotel->cambiaEstadoHabitacion($habiact,'SV');
+		$habSucia = $hotel->updateEstadoHabitacion($room);
+
 	}
- 
+  
 ?>
 
 

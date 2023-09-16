@@ -118,11 +118,10 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
                   <div class="form-check form-check-inline">
                     <input style="margin-top:0px" class="form-check-input" type="radio" name="imptoOption" id="inlineRadio1" value="1" disabled=""
                     <?php
-                     if ($datosReserva[0]['causar_impuesto'] == 1) { ?>
+                    if ($datosReserva[0]['causar_impuesto'] == 1) { ?>
                         checked
                       <?php
-                     }
-?>
+                    }?>
                     >
                     <label style="margin-top:-30px;margin-left:25px" class="form-check-label" for="inlineRadio1" >NO</label>
                   </div>                    
@@ -181,27 +180,27 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
               <li class="folios" id="folios2">
                 <a style="cursor:pointer;" data-toggle="tab" onclick="activaFolio(<?php echo $reserva; ?>,2)">Folio 2 
                   <?php
-  if ($saldofolio2 != 0) { ?>
-                    <span class="fa-stack fa-xs" title="Reserva con Depositos" style="margin-left:0px;cursor:pointer;">
-                    <i style="font-size:20px;color: #085908" class="fa fa-circle fa-stack-2x"></i>
-                    <i style="font-size:10px;" class="fa fa-usd fa-stack-1x fa-inverse"></i>
-                  </span>
-                    <?php
-  }
-?>
+                    if ($saldofolio2 != 0) { ?>
+                      <span class="fa-stack fa-xs" title="Reserva con Depositos" style="margin-left:0px;cursor:pointer;">
+                        <i style="font-size:20px;color: #085908" class="fa fa-circle fa-stack-2x"></i>
+                        <i style="font-size:10px;" class="fa fa-usd fa-stack-1x fa-inverse"></i>
+                      </span>
+                      <?php
+                    }
+                  ?>
                 </a>
               </li>
               <li class="folios" id="folios3">
                 <a style="cursor:pointer;" data-toggle="tab" onclick="activaFolio(<?php echo $reserva; ?>,3)">Folio 3
                   <?php
-if ($saldofolio3 != 0) { ?>
-                    <span class="fa-stack fa-xs" title="Reserva con Depositos" style="margin-left:0px;cursor:pointer;">
-                    <i style="font-size:20px;color: #085908" class="fa fa-circle fa-stack-2x"></i>
-                    <i style="font-size:10px;" class="fa fa-usd fa-stack-1x fa-inverse"></i>
-                  </span>
-                    <?php
-}
-?>
+                    if ($saldofolio3 != 0) { ?>
+                      <span class="fa-stack fa-xs" title="Reserva con Depositos" style="margin-left:0px;cursor:pointer;">
+                        <i style="font-size:20px;color: #085908" class="fa fa-circle fa-stack-2x"></i>
+                        <i style="font-size:10px;" class="fa fa-usd fa-stack-1x fa-inverse"></i>
+                      </span>
+                      <?php
+                    }
+                  ?>
                 </a>
               </li>
               <li class="folios" id="folios4">
