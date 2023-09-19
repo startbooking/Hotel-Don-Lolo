@@ -71,13 +71,7 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
                 </span>
                 <?php
               }
-              if ($hoy == substr($reserva['fecha_nacimiento'], 5, 5)) { ?>
-                <span class="fa-stack fa-xs" title="El Huesped esta de Cumpleaños" style="margin-left:0px;cursor:pointer;" >
-                  <i style="font-size:20px;color: yellow" class="fa fa-circle fa-stack-2x"></i>
-                  <i style="font-size:10px;margin-top: 1px;margin-left: 1px;color:black" class="fa fa-birthday-cake fa-stack-1x fa-inverse"></i> 
-                </span>
-              <?php
-              }
+              
         ?>
           </td> 
           <td>

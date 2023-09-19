@@ -87,7 +87,7 @@ require_once '../res/php/app_topHotel.php';
             require 'views/cierreCajero.php';
         } elseif (isset($_GET['section']) && $_GET['section'] == 'cuentasCongeladas') {
             require 'views/cuentasCongeladas.php';
-        } elseif (isset($_GET['section']) && $_GET['s ection'] == 'facturacionCongelada') {
+        } elseif (isset($_GET['section']) && $_GET['section'] == 'facturacionCongelada') {
             require 'views/facturacionCongelada.php';
         } elseif (isset($_GET['section']) && $_GET['section'] == 'exportaFacturas') {
             require 'views/exportaFacturas.php';

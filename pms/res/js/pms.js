@@ -437,15 +437,22 @@ $(document).ready(function () {
     var web = $("#rutaweb").val();
     var button = $(event.relatedTarget);
     var numero = button.data("numero");
+    var tipo = button.data("tipo");
     var facturador = button.data("facturador");
     var modal = $(this);
 
-    modal.find(".modal-title").text("Factura Numero : " + numero);
-    if (facturador == 1) {
-      imprime = web + "imprimir/facturas/FES-HDL" + numero + ".pdf";
-    } else {
-      imprime = web + "imprimir/notas/Abono_" + numero + ".pdf";
+    if(tipo==1){
+      titulo = "Nota Credito Numero : "
+      imprime = web + "imprimir/notas/NotaCredito_" + numero + ".pdf";
+    }else{
+      titulo = "Factura Numero : "
+      if (facturador == 1) {
+        imprime = web + "imprimir/facturas/FES-HDL" + numero + ".pdf";
+      } else {
+        imprime = web + "imprimir/notas/Abono_" + numero + ".pdf";
+      }
     }
+    modal.find(".modal-title").text(titulo + numero);
 
     $("#verFacturaModalCon").attr("data", imprime);
     $(".alert").hide();

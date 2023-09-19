@@ -3689,6 +3689,7 @@ class Hotel_Actions
             'cargos_pms.perfil_factura',
             'cargos_pms.tipo_factura',
             'cargos_pms.id_perfil_factura',
+            'cargos_pms.numero_factura_cargo',
             'cargos_pms.fecha_sistema_cargo',
         ], [
             'cargos_pms.fecha_cargo' => $fecha,

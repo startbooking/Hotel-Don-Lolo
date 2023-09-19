@@ -3,8 +3,10 @@
 require_once '../../../res/fpdf/fpdf.php';
 
 $datosReserva = $hotel->getReservasDatos($reserva);
-
 $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
+
+$horaIng = substr($datosReserva[0]['fecha_ingreso'],12,8);
+
 
 if ($tipofac == 2) {
     $datosCompania = $hotel->getSeleccionaCompania($idperfil);
@@ -49,19 +51,7 @@ $pdf->MultiCell(40, 4, 'RECIBO DE CAJA', 1, 'C');
 $pdf->Cell(40, 4, '', 0, 0, 'C');
 $pdf->Cell(110, 4, utf8_decode(ACTIVIDAD), 0, 0, 'C');
 $pdf->MultiCell(40, 4, 'Nro '.str_pad($nroFactura, 4, '0', STR_PAD_LEFT), 1, 'C');
-// $pdf->SetFont('Arial', '', 7);
-/* $pdf->setY(42);
-$pdf->Cell(40, 4, '', 0, 0, 'C');
-// $pdf->MultiCell(110, 4, utf8_decode($textoResol), 0, 'C');
-$pdf->Cell(150, 4, '', 0, 0, 'C');
-$pdf->setY(46);
-$pdf->setX(160);
-$pdf->SetFont('Arial', 'B', 8);
- */
-/* $pdf->SetFont('Arial', '', 8);
 
-$pdf->Ln(1);
- */
 $pdf->SetFont('Arial', 'B', 8);
 if ($tipofac == 2) {
     if (!empty($datosCompania)) {
@@ -121,17 +111,18 @@ $pdf->Cell(25, 4, $datosHuesped[0]['identificacion'], 0, 0, 'L');
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(25, 4, utf8_decode(strtoupper(substr($datosReserva[0]['orden_reserva'], 0, 18))), 0, 1, 'L');
 $pdf->SetFont('Arial', '', 8);
-$pdf->Cell(38, 4, utf8_decode('ADULTOS / NIÑOS'), 1, 0, 'C');
-$pdf->Cell(38, 4, 'HABITACION', 1, 0, 'C');
-$pdf->Cell(38, 4, 'TARIFA', 1, 0, 'C');
-$pdf->Cell(38, 4, 'HORAL SALIDA', 1, 0, 'C');
-$pdf->Cell(38, 4, 'REGISTRO NRO', 1, 1, 'C');
-$pdf->Cell(38, 4, $datosReserva[0]['can_hombres'] + $datosReserva[0]['can_mujeres'].'/'.$datosReserva[0]['can_ninos'], 1, 0, 'C');
-$pdf->Cell(38, 4, $datosReserva[0]['num_habitacion'], 1, 0, 'C');
-$pdf->Cell(38, 4, number_format($datosReserva[0]['valor_diario'], 2), 1, 0, 'C');
-$pdf->Cell(38, 4, date('H:m:s'), 1, 0, 'C');
-
-$pdf->Cell(38, 4, str_pad($datosReserva[0]['num_registro'], 4, '0', STR_PAD_LEFT), 1, 1, 'C');
+$pdf->Cell(32, 4, utf8_decode('ADULTOS / NIÑOS'), 1, 0, 'C');
+$pdf->Cell(32, 4, 'HABITACION', 1, 0, 'C');
+$pdf->Cell(32, 4, 'TARIFA', 1, 0, 'C');
+$pdf->Cell(31, 4, 'HORAL LLEGADA', 1, 0, 'C');
+$pdf->Cell(31, 4, 'HORAL SALIDA', 1, 0, 'C');
+$pdf->Cell(32, 4, 'REGISTRO NRO', 1, 1, 'C');
+$pdf->Cell(32, 4, $datosReserva[0]['can_hombres'] + $datosReserva[0]['can_mujeres'].'/'.$datosReserva[0]['can_ninos'], 1, 0, 'C');
+$pdf->Cell(32, 4, $datosReserva[0]['num_habitacion'], 1, 0, 'C');
+$pdf->Cell(32, 4, number_format($datosReserva[0]['valor_diario'], 2), 1, 0, 'C');
+$pdf->Cell(31, 4, $horaIng, 1, 0, 'C');
+$pdf->Cell(31, 4, date('H:m:s'), 1, 0, 'C');
+$pdf->Cell(32, 4, str_pad($datosReserva[0]['num_registro'], 4, '0', STR_PAD_LEFT), 1, 1, 'C');
 
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(47, 4, 'FECHA LLEGADA', 1, 0, 'C');

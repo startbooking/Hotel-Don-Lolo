@@ -9,7 +9,8 @@
 	$habinue = $_POST['habinue'];
 	$motivo  = $_POST['motivo'];
 	$observa = $_POST['observa'];
-	$mmto    = $_POST['mmto'];
+	// $mmto    = $_POST['mmto'];
+	$mmto    = 0;
 	$fecha   = date(FECHA_PMS." H:i:s");
 
 	$cambiaRoom = $hotel->cambiaHabitacion($id,$tiponue,$habinue);
@@ -18,16 +19,18 @@
 		$actRoom = $hotel->insertCambioHabitaciones($id,$tipoact, $habiact, $tiponue, $habinue, $mmto, $motivo, $observa, $fecha,1);
 	}
 	
-	$estHabi = $hotel->cambiaEstadoHabitacion($habinue,'LO');
+	// $estHabi = $hotel->cambiaEstadoHabitacion($habinue,'LO');
+	$estHabi = $hotel->cambiaOcupacionHabitacon($habinue,'1');
+	$estHabi = $hotel->cambiaOcupacionHabitacon($habiact,0);
+
 	
-	if($mmto==1){
-		
+	
+	/* if($mmto==1){		
 		$mmtoRoom = $hotel->updateMmtoRoom($habiact, $mmto);
 	}else{
-	  // $estHabi = $hotel->cambiaEstadoHabitacion($habiact,'SV');
-		$habSucia = $hotel->updateEstadoHabitacion($room);
-
-	}
+		// $habSucia = $hotel->updateEstadoHabitacion($room);
+	} */
+	$estHabi = $hotel->cambiaEstadoHabitacion($habiact,1);
   
 ?>
 
