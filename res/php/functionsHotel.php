@@ -4625,7 +4625,7 @@ class Hotel_Actions
         return $data;
     }
 
-    public function updateEstadia($impto, $salida, $noches, $numero, $motivo, $fuente, $segmento, $formapa, $orden)
+    public function updateEstadia($impto, $salida, $noches, $numero, $motivo, $fuente, $segmento, $formapa, $orden, $placa)
     {
         global $database;
 
@@ -4638,6 +4638,7 @@ class Hotel_Actions
             'segmento_mercado' => $segmento,
             'forma_pago' => $formapa,
             'orden_reserva' => $orden,
+            'placaVehiculo' => $placa,
         ], [
             'num_reserva' => $numero,
         ]);
@@ -5088,6 +5089,11 @@ class Hotel_Actions
             'reservas_pms.cargo_habitacion',
             'reservas_pms.causar_impuesto',
             'reservas_pms.forma_pago',
+            'reservas_pms.reservaCreada',
+            'reservas_pms.placaVehiculo',
+            'reservas_pms.equipaje',
+            'reservas_pms.tipoTransporte',
+
         ], [
             'reservas_pms.num_reserva' => $id,
         ]);
@@ -5565,7 +5571,7 @@ class Hotel_Actions
             'fecha_nacimiento',
             'tipo_identifica',
             'fecha_creacion',
-            'usuario_creador',
+            'usuario_creador', 
         ], [
             'id_huesped' => $id,
         ]);
@@ -6278,6 +6284,7 @@ class Hotel_Actions
             'reservas_pms.observaciones',
             'reservas_pms.observaciones_cancela',
             'reservas_pms.fecha_ingreso',
+            'reservas_pms.hora_llegada',
             'reservas_pms.equipaje',
             'reservas_pms.placaVehiculo',
             'reservas_pms.tipoTransporte',

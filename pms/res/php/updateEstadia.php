@@ -13,8 +13,9 @@
 	$segmento =  $_POST['segmento'];
 	$formapa  =  $_POST['formapagoUpd'];
 	$orden    =  $_POST['orden']; 
+	$placa    =  $_POST['placavehiculo']; 
 
-	$update = $hotel->updateEstadia($impto, $salida, $noches, $numero, $motivo, $fuente, $segmento, $formapa, $orden);
+	$update = $hotel->updateEstadia($impto, $salida, $noches, $numero, $motivo, $fuente, $segmento, $formapa, $orden, $placa);
 
 	echo $update;
 

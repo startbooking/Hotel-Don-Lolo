@@ -14,7 +14,7 @@ QRcode::png($QRStr, $filename, $level, $size);
 $datosReserva = $hotel->getReservasDatos($reserva);
 $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
 
-$horaIng = substr($datosReserva[0]['fecha_ingreso'],11,8);
+$horaIng = $datosReserva[0]['hora_llegada'];
 
 if ($tipofac == 2) { 
     $datosCompania = $hotel->getSeleccionaCompania($idperfil);

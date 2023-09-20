@@ -1,5 +1,5 @@
 <?php 
-  require_once '../../../res/php/titles.php';
+  // require_once '../../../res/php/titles.php'; 
   require_once '../../../res/php/app_topHotel.php'; 
 
   $id      = $_POST['id'];
@@ -299,7 +299,7 @@
                   ><?=$motivo['descripcion_grupo']?></option>}
                 <?php 
               }
-             ?>
+            ?>
           </select>
         </div>
       </div>            
@@ -321,7 +321,7 @@
                 ><?=$motivo['descripcion_grupo']?></option>}
                 <?php 
               }
-             ?>
+            ?>
           </select>
         </div>
         <label for="formapago" class="col-sm-2 control-label">Forma de Pago </label>
@@ -330,7 +330,6 @@
             <option value="">Seleccione La Forma de Pago</option>
             <?php 
               $codigos = $hotel->getCodigosConsumos(3);
-              echo print_r($codigos);
               foreach ($codigos as $codigo) { ?>
                 <option value="<?=$codigo['id_cargo']?>"
                   <?php 
@@ -342,7 +341,37 @@
                     ><?=$codigo['descripcion_cargo']?></option>
                 <?php  
               }
-               ?>
+              ?>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="archivo" class="col-sm-2 control-label">Placa Vehiculo</label>
+        <div class="col-sm-2">
+          <input class="form-control padInput" type="text" name="placavehiculo" id="placavehiculo" value="<?=$reserva[0]['placaVehiculo']?>">
+        </div>
+        <label for="archivo" class="col-sm-1 control-label">Equipaje</label>
+        <div class="col-sm-3">
+          <input class="form-control padInput" type="text" name="equipaje" id="equipaje" value="<?=$reserva[0]['equipaje']?>" disabled>
+        </div>
+        <label for="archivo" class="col-sm-1 control-label">Transporte</label>
+        <div class="col-sm-3">
+          <select name="transporte" id="transporte" required disabled>
+            <option value="">Seleccione El Transporte</option>
+            <?php
+            $motivos = $hotel->getMotivoGrupo('TTR');
+            foreach ($motivos as $motivo) { ?>
+              <option value="<?php echo $motivo['id_grupo']; ?>"
+              <?php 
+                  if($reserva[0]['tipoTransporte']==$motivo['id_grupo']){?>
+                    selected
+                    <?php 
+                  }
+                ?>               
+              ><?php echo $motivo['descripcion_grupo']; ?></option>
+            <?php
+            }
+            ?>
           </select>
         </div>
       </div>
@@ -359,7 +388,7 @@
         </div>
         <label for="formapago" class="col-sm-2 control-label">Fecha - Hora </label>
         <div class="col-sm-4">
-          <input type="text" class="form-control" name="createdusr" id="createdusr" value="<?=$reserva[0]['fecha_ingreso']?>" readonly="">
+          <input type="text" class="form-control" name="createdusr" id="createdusr" value="<?=$reserva[0]['reservaCreada']?>" readonly="">
         </div>
       </div>
     </div>

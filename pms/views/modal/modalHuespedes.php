@@ -195,35 +195,6 @@ $hoy = date('Y-m-d');
               </select>
             </div>
           </div>
-
-          <!-- <div class="form-group">
-            <label for="tarifa" class="col-sm-2 control-label">Tarifa </label>
-            <div class="col-sm-4">
-              <select name="tarifa" id="tarifa">
-                <option value="">Seleccione La Tarifa</option>
-                <?php
-                $tarifas = $hotel->getTarifasHuespedes();
-                foreach ($tarifas as $tarifa) { ?>
-                  <option value="<?php echo $tarifa['id_tarifa']; ?>"><?php echo $tarifa['descripcion_tarifa']; ?></option>
-                <?php
-                }
-                ?>
-              </select>
-            </div>
-            <label for="formapago" class="col-sm-2 control-label">Forma de Pago </label>
-            <div class="col-sm-4">
-              <select name="formapago" id="formapago">
-                <option value="">Seleccione La Forma de Pago</option>
-                <?php
-                $codigos = $hotel->getCodigosConsumos(3);
-                foreach ($codigos as $codigo) { ?>
-                  <option value="<?php echo $codigo['id_cargo']; ?>"><?php echo $codigo['descripcion_cargo']; ?></option>
-                <?php
-                }
-                ?>
-              </select>
-            </div>
-          </div> -->
           <div class="form-group">
             <label for="empresa" class="col-sm-2 control-label">Empresa </label>
             <div class="col-sm-6">

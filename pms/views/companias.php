@@ -1,15 +1,3 @@
-<?php
-
-// require_once '../res/php/functionsHotel.php';
-
-/* 
-$filahue = 25;
-$regcias = $hotel->getCantidadCompanias();
-$paginas = ceil($regcias / $filahue); */
-
-// echo print_r(<?php echo $compania[s);
-
-?>
 
 <div class="content-wrapper" id="pantallaCompanias">
   <section class="content">
@@ -34,33 +22,6 @@ $paginas = ceil($regcias / $filahue); */
       <div class="panel-body">
         <div class="datos_ajax_delete"></div>
         <div id="imprimeRegistroHotelero"></div>
-        <!-- <div class="row-fluid" style="padding:0 15px 15px 15px;">
-          <div class="row">
-            <div class="col-lg-6 col-md-6">
-              <div class="input-group">
-                <label for="">Mostrar
-                  <select name="numFiles" id="numFiles" onblur="traeTotalCompanias(0,this.value)">
-                    <option value="10">10</option>
-                    <option value="25" selected="">25</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                  </select>
-                  Entradas
-                </label>
-              </div>
-            </div>
-            <div class="col-lg-6 col-md-6">
-              <div class="input-group">
-                <input name="search" id="search" type="search" class="form-control" style="height: 30px;text-transform: uppercase;" placeholder="Busca Compania">
-                <span class="input-group-btn">
-                  <button style="height: 30px;padding:4px 10px" class="btn btn-primary" type="button" onClick="buscarCompania()">
-                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                  </button>
-                </span>
-              </div>
-            </div>
-          </div>
-        </div> -->
         <div class="row-fluid">
           <div class="table-responsive">
             <table id="example1" class="table table-bordered">
@@ -135,8 +96,6 @@ $paginas = ceil($regcias / $filahue); */
                                     <i class="fa fa-clone" aria-hidden="true"></i>
                                     Documentos</a>
                                 </li>
-
-
                               </ul>
                             </li>
                           </ul>
@@ -153,13 +112,6 @@ $paginas = ceil($regcias / $filahue); */
           </div>
         </div>
       </div>
-      <!-- 
-      <div class="panel-footer">
-          <div class="row">
-          <div class="container-fluid pull-right" id="barraPaginas"></div>
-        </div>   
-      </div>
-      -->
     </div>
   </section>
 </div>

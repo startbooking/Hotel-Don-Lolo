@@ -13,7 +13,7 @@ $tipodocs = $hotel->getTipoDocumento();
 $tipos = $hotel->getTipoHabitacion();
 $ciudades = $hotel->getCiudades();
 $habitaciones = $hotel->getSeleccionaHabitacionesTipo($tipohab);
-$tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
+$tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale); 
 
 ?> 
   <div class="panel panel-success" >
@@ -360,7 +360,7 @@ foreach ($codigos as $codigo) { ?>
         </div>
         <label for="formapago" class="col-sm-2 control-label">Fecha - Hora </label>
         <div class="col-sm-4">
-          <input type="text" class="form-control" name="createdusr" id="createdusr" value="<?php echo $reserva[0]['fecha_ingreso']; ?>" readonly="">
+          <input type="text" class="form-control" name="createdusr" id="createdusr" value="<?php echo $reserva[0]['reservaCreada']; ?>" readonly="">
         </div>
       </div>
     </div>

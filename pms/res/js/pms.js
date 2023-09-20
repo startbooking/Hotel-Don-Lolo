@@ -437,7 +437,7 @@ $(document).ready(function () {
     var web = $("#rutaweb").val();
     var button = $(event.relatedTarget);
     var numero = button.data("numero");
-    var tipo = button.data("tipo");
+    var tipo   = button.data("tipo");
     var facturador = button.data("facturador");
     var modal = $(this);
 
@@ -1725,7 +1725,7 @@ if (facturador == 1) {
     modal.find(".modal-title").text("Asignar Compañia A: " + nombre);
     $("#idHuespCia").val(id);
     $.ajax({
-      url: "res/php/asiganCia.php",
+      url: "res/php/asignaCia.php",
       type: "POST",
       data: {
         idcia,
@@ -3945,7 +3945,7 @@ function guardaHuesped() {
   var nuevaIde = $("#identifica").val();
   var creaRese = $("#creaReser").val();
   var parametros = $("#formAdicionaHuespedes").serializeArray();
-
+ 
   parametros.push({ name: "usuario", value: usuario });
   parametros.push({ name: "idusuario", value: usuario_id });
 
@@ -6294,7 +6294,7 @@ function guardaReserva() {
           text: `Reserva ${datos} Creada con Exito`,
         },
         function () {
-          $(location).attr("href", "home");
+          // $(location).attr("href", "home");
         }
       );
     },

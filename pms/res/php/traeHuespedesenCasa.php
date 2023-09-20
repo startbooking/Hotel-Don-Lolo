@@ -267,6 +267,7 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
                           <li>
                             <a 
                               data-toggle    ="modal" 
+                              data-id        ="<?php echo $reserva['id_huesped']; ?>" 
                               data-idres     ="<?php echo $reserva['num_reserva']; ?>" 
                               data-idcia     ="<?php echo $reserva['id_compania']; ?>" 
                               data-tipohab   ="<?php echo descripcionTipoHabitacion($reserva['tipo_habitacion']); ?>" 

@@ -110,7 +110,14 @@ require_once '../../../res/fpdf/fpdf.php';
   $pdf->Cell(15,5,'Habitacion',1,0,'L');
   $pdf->Cell(10,5,$datosReserva[0]['num_habitacion'],1,0,'C');
   $pdf->Cell(20,5,'Placa Vehiculo',1,0,'L');
-  $pdf->Cell(15,5,substr($datosReserva[0]['placaVehiculo'],0,22),1,0,'L');
+  echo $datosReserva[0]['placaVehiculo'];
+  if($datosReserva[0]['placaVehiculo']!=''){
+    $placa  = substr($datosReserva[0]['placaVehiculo'],0,22);
+  }else{
+    $placa  = '';
+  }
+  $pdf->Cell(15,5,$placa,1,0,'L');
+  
   $pdf->Cell(20,5,'Recepcionista',1,0,'L');
   $pdf->Cell(20,5,$usuario,1,1,'L');
   $pdf->Cell(20,5,'Forma de Pago',1,0,'L');
@@ -122,7 +129,12 @@ require_once '../../../res/fpdf/fpdf.php';
   $pdf->Cell(80,5,'FIRMA',0,1,'C');
   $pdf->SetFont('Arial','',7);
   $pdf->Cell(20,5,'Equipaje',1,0,'L');
-  $pdf->Cell(90,5,SUBSTR($datosReserva[0]['equipaje'],0,58),1,1,'L');
+  if($datosReserva[0]['equipaje']!=''){
+    $equipaje  = substr($datosReserva[0]['equipaje'],0,22);
+  }else{
+    $equipaje  = '';
+  }
+  $pdf->Cell(90,5,SUBSTR($equipaje,0,58),1,1,'L');
   $pdf->SetFont('Arial','',14);
   $pdf->Cell(110,16,'Comentarios',1,0,'L');
   $pdf->MultiCell(80,16,'Acepto el Contrato de Hospedaje',0,'C');
@@ -130,13 +142,14 @@ require_once '../../../res/fpdf/fpdf.php';
   $pdf->Cell(190,10,'PARA USO DEL HOTEL',1,1,'C');
   $pdf->SetFont('Arial','',7);
   $pdf->Cell(20,5,'TARIFA $',1,0,'L');
-  $pdf->Cell(30,5,number_format($datosReserva[0]['valor_diario'],2),1,0,'C');
-  $pdf->Cell(20,5,'LLEGADA',1,0,'L');
-  $pdf->Cell(30,5,$datosReserva[0]['fecha_llegada'],1,0,'C');
-  $pdf->Cell(20,5,'SALIDA',1,0,'L');
-  $pdf->Cell(30,5,$datosReserva[0]['fecha_salida'],1,0,'C');
+  $pdf->Cell(20,5,number_format($datosReserva[0]['valor_diario'],2),1,0,'C');
+  $pdf->Cell(26,5,'IVA 19% INCLUIDO',1,0,'C');
+  $pdf->Cell(22,5,'LLEGADA',1,0,'L');
+  $pdf->Cell(25,5,$datosReserva[0]['fecha_llegada'],1,0,'C');
+  $pdf->Cell(22,5,'SALIDA',1,0,'L');
+  $pdf->Cell(25,5,$datosReserva[0]['fecha_salida'],1,0,'C');
   $pdf->Cell(20,5,utf8_decode('Adultos / Niños'),1,0,'L');
-  $pdf->Cell(20,5,$datosReserva[0]['can_hombres']+$datosReserva[0]['can_mujeres'].' / '.$datosReserva[0]['can_ninos'],1,1,'C');
+  $pdf->Cell(10,5,$datosReserva[0]['can_hombres']+$datosReserva[0]['can_mujeres'].' / '.$datosReserva[0]['can_ninos'],1,1,'C');
   $pdf->SetFont('Arial','',6);
   $pdf->Ln(1);
   $pdf->MultiCell(190,3,utf8_decode($textoContrato),1,'J');

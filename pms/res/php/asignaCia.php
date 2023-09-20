@@ -7,8 +7,6 @@
   $id       = $_POST['id'];
   $cias     = $hotel->getCompanias();
 
-  echo $idcia;
-
 ?>
 
 <div class="form-group">

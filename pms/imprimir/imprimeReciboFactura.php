@@ -5,8 +5,7 @@ require_once '../../../res/fpdf/fpdf.php';
 $datosReserva = $hotel->getReservasDatos($reserva);
 $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
 
-$horaIng = substr($datosReserva[0]['fecha_ingreso'],12,8);
-
+$horaIng = $datosReserva[0]['hora_llegada'];
 
 if ($tipofac == 2) {
     $datosCompania = $hotel->getSeleccionaCompania($idperfil);
