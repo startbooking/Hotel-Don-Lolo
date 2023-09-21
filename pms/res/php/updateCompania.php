@@ -24,6 +24,6 @@ if (isset($_POST['sinBaseRetencion'])) {
     $baseRet = 1;
 }
 
-$updateCompania = $hotel->updateCompania($txtIdCiaUpd, $nit, $dv, $tipodoc, strtoupper($compania), strtoupper($direccion), $ciudad, $telefono, $celular, $web, $correo, $tarifa, $formapago, $creditOption, $montocredito, $diascredito, $diacorte, $tipoEmpresaUpd, $codigoCiiuUpd, $tipotipoAdquirienteAdqui, $tipoResponsabilidad, $responsabilidadTribu, $reteIva, $reteIca, $reteFte, $baseRet);
+$updateCompania = $hotel->updateCompania($txtIdCiaUpd, $nit, $dv, $tipodoc, strtoupper($compania), strtoupper($direccion), $ciudad, $telefono, $celular, $web, $correo, $tarifa, $formapago, $creditOption, $montocredito, $diascredito, $diacorte, $tipoEmpresaUpd, $codigoCiiuUpd, $tipoAdquiriente, $tipoResponsabilidad, $responsabilidadTribu, $reteIva, $reteIca, $reteFte, $baseRet);
 
 echo $updateCompania;

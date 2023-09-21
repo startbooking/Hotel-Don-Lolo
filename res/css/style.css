@@ -61,6 +61,16 @@ h3 {
   position: absolute;
 }
 
+
+
+.mr20{
+  margin-right: 20px;
+}
+.centraTitulo {
+  margin:0 0 20px 0;
+  padding :0px;
+  text-align: center;
+}
 .dropdown > li > a:hover,
 .dropdown-menu > li > a:hover {
   background-color: #e1e3e9;

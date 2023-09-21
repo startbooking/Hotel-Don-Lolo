@@ -6,8 +6,6 @@
   $Huesped = $hotel->getDatosHuespedReserva($id);
   $tipoDoc = $hotel->getTipoDocumentoHuesped($Huesped[0]['tipo_identifica']);
 
-   
-
 ?>
 
 <div class="divHuesped">

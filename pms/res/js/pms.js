@@ -351,7 +351,7 @@ $(document).ready(function () {
       success: function (data) {
         $("#muestraImagenes").html(data);
       },
-    });
+    }); 
   });
 
   $("#myModalSubirDocumento").on("show.bs.modal", function (event) {
@@ -2493,6 +2493,22 @@ function buscaFacturasExporta() {
     .then((data) => llenaFacturas(data));
 }
 
+
+function buscaNotasCreditoExporta() {
+  desde = document.querySelector("#desdeFechaNC").value;
+  hasta = document.querySelector("#hastaFechaNC").value;
+  url = "res/php/exportaNotasCre.php";
+  fetch(url, {
+    method: "post",
+    headers: {
+      "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+    },
+    body: "desde=" + desde + "&hasta=" + hasta,
+  })
+    .then((response) => response.text())
+    .then((data) => llenaNotasCre(data));
+}
+
 function llenaFacturas(datos) {
   facturasHTML = document.querySelector("#dataTable tbody");
   resultado = document.querySelector(".alert");
@@ -2501,6 +2517,22 @@ function llenaFacturas(datos) {
     resultado.classList.remove("apaga");
     resultado.innerHTML =
       '<p style="text-align:center;"> Sin Facturas Generadas para el dia Seleccionado<p>  ';
+    setTimeout(() => {
+      resultado.classList.add("apaga");
+    }, 3000);
+  } else {
+    facturasHTML.innerHTML = datos;
+  }
+}
+
+function llenaNotasCre(datos) {
+  facturasHTML = document.querySelector("#dataTableNC tbody");
+  resultado = document.querySelector(".mensajeNC");
+  if (datos.trim() == "1") {
+    facturasHTML.innerHTML = "";
+    resultado.classList.remove("apaga");
+    resultado.innerHTML =
+      '<p style="text-align:center;"> Sin Notas Credito Generadas para el dia Seleccionado<p>  ';
     setTimeout(() => {
       resultado.classList.add("apaga");
     }, 3000);
@@ -2542,8 +2574,8 @@ function buscaHistoricoNC() {
 }
 
 function llenaHistoricoNC(datos) {
-  ncHTML = document.querySelector("#dataNotas tbody");
-  resultado = document.querySelector("#muestraResultado");
+  ncHTML = document.querySelector("#dataNotasC tbody");
+  resultado = document.querySelector("#muestraResultadoNC");
 
   if (datos.length == 0) {
     resultado.classList.add("apaga");
@@ -3344,8 +3376,8 @@ function traeTotalHuespedes(regis, filas) {
     type: "POST",
     dataType: "json",
     data: {
-      regis: regis,
-      filas: filas,
+      regis,
+      filas,
     },
     success: function (data) {
       $("#listaHuespedes").html("");
@@ -3956,6 +3988,7 @@ function guardaHuesped() {
     success: function (datos) {
       datos = datos.trim();
       if (creaRese == 1) {
+        // Creacion Perfil llegada sin Reserva
         $("#myModalAdicionaPerfil").modal("hide");
         $("#buscarHuesped").focus();
         $("#buscarHuesped").val(nuevaIde);
@@ -4646,7 +4679,7 @@ function seleccionaHuespedReserva(id) {
   var web = $("#webPage").val();
   var pagina = $("#ubicacion").val();
   var parametros = {
-    id: id,
+    id,
   };
   $.ajax({
     url: web + "/res/php/seleccionaHuesped.php",
@@ -5088,7 +5121,7 @@ function updateCompania() {
     data: parametros,
     url: "res/php/updateCompania.php",
     success: function (datos) {
-      $(location).attr("href", pagina);
+      /// $(location).attr("href", pagina);
     },
   });
 }
@@ -5735,11 +5768,8 @@ function guardasinReserva() {
 
         },
         function(){
-          $(location).attr("href", "home");
+          /// $(location).attr("href", "home");
         })
-        // "Atencion", "", "success", 2000);
-      /* setTimeout(function () {
-      }, 2000); */
     },
   });
 }
@@ -6294,7 +6324,7 @@ function guardaReserva() {
           text: `Reserva ${datos} Creada con Exito`,
         },
         function () {
-          // $(location).attr("href", "home");
+          $(location).attr("href", "home");
         }
       );
     },
@@ -6699,10 +6729,15 @@ function confirmarReserva(reserva) {
 }
 
 function imprimirOrdenM(orden) {
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { user } = sesion;
+  let { usuario } = user;
+
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var parametros = {
-    orden: orden,
+    orden,
+    usuario,
   };
   $.ajax({
     type: "POST",

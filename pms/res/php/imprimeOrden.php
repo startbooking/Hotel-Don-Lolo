@@ -1,9 +1,9 @@
 <?php 
-  require '../../../res/php/titles.php';
+  // require '../../../res/php/titles.php';
   require '../../../res/php/app_topHotel.php'; 
   
 	$fecha             = FECHA_PMS;
-	$usuario           = $_SESSION['usuario'];
+	$usuario           = $_POST['usuario'];
 	$orden             = $_POST['orden']; 
 	// $_SESSION['orden'] = $orden;
 

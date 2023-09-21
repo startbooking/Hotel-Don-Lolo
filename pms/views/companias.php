@@ -1,4 +1,3 @@
-
 <div class="content-wrapper" id="pantallaCompanias">
   <section class="content">
     <div class="panel panel-success">
@@ -7,8 +6,6 @@
           <div class="col-lg-6 col-md-6">
             <input type="hidden" name="rutaweb" id="rutaweb" value="<?php echo BASE_PMS; ?>">
             <input type="hidden" name="ubicacion" id="ubicacion" value="companias">
-            <input type="hidden" name="paginas" id="paginas" value="<?php echo $paginas; ?>">
-            <input type="hidden" name="regiscia" id="regiscia" value="<?php echo $regcias; ?>">
             <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-industry"></i> Compañia </h3>
           </div>
           <div class="col-lg-6 col-md-6" style="text-align:right;">

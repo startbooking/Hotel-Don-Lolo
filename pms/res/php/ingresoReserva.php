@@ -4,7 +4,7 @@ require '../../../res/php/app_topHotel.php';
 
 $idcia = $_POST['empresaUpd'];
 $idCentro = 0;
-
+ 
 $iden = $_POST['identifica'];
 $llegada = $_POST['llegada'];
 $salida = $_POST['salida'];

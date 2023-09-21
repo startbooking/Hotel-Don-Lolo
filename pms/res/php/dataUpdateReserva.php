@@ -30,13 +30,13 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
           <select name="tipodoc" id="tipodoc" disabled="" readonly>
             <option value="">Seleccione el Tipo de Documeto</option>
             <?php
-               foreach ($tipodocs as $tipodoc) { ?>
-                  <option value="<?php echo $tipodoc['id_doc']; ?>"  <?php
-                 if ($tipodoc['id_doc'] == $huesped[0]['tipo_identifica']) { ?>
-                    selected
-                    <?php
-                 }
-                   ?>>
+              foreach ($tipodocs as $tipodoc) { ?>
+                <option value="<?php echo $tipodoc['id_doc']; ?>"  <?php
+                if ($tipodoc['id_doc'] == $huesped[0]['tipo_identifica']) { ?>
+                  selected
+                  <?php
+                }
+                ?>>
                 <?php echo $tipodoc['descripcion_documento']; ?></option>
               <?php } ?>
           </select>

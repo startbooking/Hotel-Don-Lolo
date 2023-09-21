@@ -37,8 +37,6 @@
 	$equipaje      =  strtoupper($_POST['equipaje']);
 	$transporte    =  $_POST['transporte'];
 
-	
-
 	if($observa!=''){
 		$observa       =  $observa . ' Usuario: '.$_POST['usuario'].' Fecha Observacion: '.date('Y.m.d H:i:s');
 	} 

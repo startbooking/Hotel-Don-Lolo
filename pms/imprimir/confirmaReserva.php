@@ -50,7 +50,7 @@ if($datosReserva[0]['id_compania']== 0){
   $pdf->SetFont('Arial', '', 9);
   $pdf->Cell(30, 4, 'Fecha de Creacion ', 0, 0, 'L');
   $pdf->SetFont('Arial', 'B', 9);
-  $pdf->Cell(35, 4, $datosReserva[0]['fecha_ingreso'], 0, 1, 'L');
+  $pdf->Cell(35, 4, $datosReserva[0]['reservaCreada'], 0, 1, 'L');
   $pdf->SetFont('Arial', '', 9);
   $pdf->Cell(30, 4, 'Fecha Llegada ', 0, 0, 'L');
   $pdf->SetFont('Arial', 'B', 9);

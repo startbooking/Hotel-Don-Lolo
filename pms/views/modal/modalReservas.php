@@ -32,7 +32,7 @@ $manana = date('Y-m-d', $manana);
                         </a>
                       </span>
                     </div>
-                  </div>
+                  </div> 
                   <div class="col-sm-4" style="padding-right: 0;text-align:right">
                     <a class="btn btn-success" data-toggle="modal" data-reserva='1' href="#myModalAdicionaPerfil">
                       <i class="fa fa-user-plus" aria-hidden="true"></i> Adicionar Huesped

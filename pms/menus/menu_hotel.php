@@ -137,6 +137,13 @@ if ($_GET['section'] != 'cajeroCerrado') {
             </li>
             <li><a href="cargarHabitaciones"><i class="fa glyphicon glyphicon-sort-by-attributes"></i> Cargar Habitaciones</a></li>
             <li><a href="cierreDiario"><i class="glyphicon glyphicon-off"></i>Cierre Diario</a></li>
+            <?php
+            if(TRA==1){
+              ?>
+            <li><a href="tarjetaRegistro"><i class="fa-regular fa-address-card"></i> Tarjeta de Registro Hotelero</a></li>
+            <?php 
+          }
+            ?>
           </ul>
         </li>
         <li class="treeview">

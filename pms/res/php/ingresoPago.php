@@ -114,7 +114,6 @@ $totalPago = $paganticipo + $saldos[0]['pagos'];
 
 $saldofactura = $hotel->getSaldoHabitacion($numero);
 
-
 if (count($saldofactura) == 0) {
     $totalFolio = 0;
 } else {
@@ -147,14 +146,7 @@ if ($tipofac == 2) {
     $dvFact = '';
     $nomFact = $datosHuesped[0]['nombre1'].' '.$datosHuesped[0]['nombre2'].' '.$datosHuesped[0]['apellido1'].' '.$datosHuesped[0]['apellido2'];
     $telFact = $datosHuesped[0]['telefono'];
-    $dirFact = $datosHuesped[0]['direccion'];
     $emaFact = $datosHuesped[0]['email'];
-    $merFact = '0000000-00';
-    $tdiFact = $datosHuesped[0]['tipo_identifica'];
-    $torFact = $datosHuesped[0]['tipoAdquiriente'];
-    $tliFact = $hotel->traeIdResponsabilidadDianVenta($datosHuesped[0]['responsabilidadTributaria']);
-    $munFact = $datosHuesped[0]['ciudad'];
-    $triFact = 2;
 }
 
 if ($perfilFac == 1 && $facturador == 1) {

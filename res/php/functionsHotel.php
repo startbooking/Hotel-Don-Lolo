@@ -7,6 +7,61 @@ date_default_timezone_set('America/Bogota');
 class Hotel_Actions
 {
 
+    public function llegadasDelDiaTRA($fecha,$tipo){
+        global $database;
+        $data = $database->select('reservas_pms',[
+            '[<]huespedes' => ['id_huesped','id_huesped'],
+            // '[<]paices' => ['pais' => 'id_pais'],
+        ],[
+            'huespedes.apellido1',
+            'huespedes.apellido2',
+            'huespedes.nombre1',
+            'huespedes.nombre2',
+            'huespedes.ciudad',
+            'huespedes.identificacion',
+            'reservas_pms.fecha_llegada',
+            'reservas_pms.fecha_salida',
+            'reservas_pms.valor_diario',
+            'reservas_pms.origen_reserva',
+            'reservas_pms.num_reserva',            
+            'reservas_pms.num_habitacion',            
+        ],[
+            'reservas_pms.fecha_llegada' => $fecha,
+            'reservas_pms.estado' => $tipo,
+            'ORDER' => ['huespedes.apellido1' => 'ASC'] 
+        ]);
+        return $data;
+
+    }
+
+
+    public function actualizaHuespedessinNombreCompleto($id, $resultado){
+        global $database;
+
+        $data = $database->update('huespedes',[
+            'nombre_completo' => $resultado,
+        ],[
+            'id_huesped' => $id,
+        ]);
+        return $data->rowCount();
+    }
+
+    public function huespedesSinNombreCompleto(){
+        global $database;
+
+        $data = $database->select('huespedes',[
+            'id_huesped',
+            'apellido1',
+            'apellido2',
+            'nombre1',
+            'nombre2',
+            'nombre_completo',
+        ],[
+            'nombre_completo' => Null,
+            'ORDER' => ['apellido1' => 'ASC']
+        ]);
+        return $data;
+    }
     
     public function enviaCargosHistoricoNC($factura)
     {
@@ -16,8 +71,6 @@ class Hotel_Actions
 
         return $data;
     }
-
-
 
     public function enviaCargosNC($factura)
     {
@@ -1124,6 +1177,13 @@ class Hotel_Actions
             '[<]huespedes' => ['id_huesped'],
         ], [
             'nombre_completo',
+            'apellido1',
+            'apellido1',
+            'apellido2',
+            'nombre1',
+            'nombre2',
+            'identificacion',
+            'ciudad',
         ], [
             'id_reserva' => $reserva,
         ]);
@@ -3102,9 +3162,7 @@ class Hotel_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT sum(ingreso_habitaciones)as aingHab,	sum(ingreso_impto_habitaciones) as aingImp, sum(ingreso_promedio_habitacion_disponible)as aingProHabDis, sum(ingreso_promedio_habitacion_ocupada)as aingProHabOcu, sum(ingresos_compania)as aingCom, sum(ingresos_agencia) as aingAge, sum(ingresos_grupo) as aingGru, sum(ingresos_individual) as aingInd, sum(ingreso_promedio_huesped) as aproHue, sum(habitaciones_disponibles) as ahabDis, sum(habitaciones_fuera_orden) as ahabFor, sum(habitaciones_fuera_servicio) as ahabFse, sum(habitaciones_ocupadas) as ahabOcu, sum(salidas_dia) as asalDia,
-				sum(llegadas_dia) as alleDia, sum(habitaciones_cortesia) as ahabCor, sum(habitaciones_usocasa) as ahabUca, sum(habitaciones_usodia) as ahabUdi, sum(ingreso_potencial) as aingPot, sum(camas_disponibles) as acamDis, sum(hombres) as aHom, sum(mujeres) as aMuj, sum(ninos) as aNin, sum(huespedes_repetitivos) as ahueRep, sum(nuevos_huespedes) as ahueNue,
-				sum(huespedes_nacionales) as ahueNal, sum(huespedes_extranjeros) as ahueInt, sum(reservas_creadashoy) as aresHoy, sum(reservas_noshows) as aresNos, sum(salidas_anticipadas) as asalAnt, sum(reservas_canceladas) as aresCan, sum(llegadas_sinreserva) as alleSin FROM reporte_gerencia WHERE year(fecha_auditoria) = '$anio'")->fetchAll();
+        $data = $database->query("SELECT sum(ingreso_habitaciones)as aingHab,	sum(ingreso_impto_habitaciones) as aingImp, sum(ingreso_promedio_habitacion_disponible)as aingProHabDis, sum(ingreso_promedio_habitacion_ocupada)as aingProHabOcu, sum(ingresos_compania)as aingCom, sum(ingresos_agencia) as aingAge, sum(ingresos_grupo) as aingGru, sum(ingresos_individual) as aingInd, sum(ingreso_promedio_huesped) as aproHue, sum(habitaciones_disponibles) as ahabDis, sum(habitaciones_fuera_orden) as ahabFor, sum (habitaciones_fuera_servicio) as ahabFse, sum(habitaciones_ocupadas) as ahabOcu, sum(salidas_dia) as asalDia, sum(llegadas_dia) as alleDia, sum(habitaciones_cortesia) as ahabCor, sum(habitaciones_usocasa) as ahabUca, sum(habitaciones_usodia) as ahabUdi, sum(ingreso_potencial) as aingPot, sum(camas_disponibles) as acamDis, sum(hombres) as aHom, sum(mujeres) as aMuj, sum(ninos) as aNin, sum(huespedes_repetitivos) as ahueRep, sum(nuevos_huespedes) as ahueNue, sum(huespedes_nacionales) as ahueNal, sum(huespedes_extranjeros) as ahueInt, sum(reservas_creadashoy) as aresHoy, sum(reservas_noshows) as aresNos, sum(salidas_anticipadas) as asalAnt, sum(reservas_canceladas) as aresCan, sum(llegadas_sinreserva) as alleSin FROM reporte_gerencia WHERE year(fecha_auditoria) = '$anio'")->fetchAll();
 
         return $data;
     }
@@ -3113,8 +3171,7 @@ class Hotel_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT sum(ingreso_habitaciones)as mingHab, sum(ingreso_impto_habitaciones) as mingImp, sum(ingreso_promedio_habitacion_disponible)as mingProHabDis, sum(ingreso_promedio_habitacion_ocupada)as mingProHabOcu,
-				sum(ingresos_compania)as mingCom, sum(ingresos_agencia) as mingAge, sum(ingresos_grupo) as mingGru, sum(ingresos_individual) as mingInd, sum(ingreso_promedio_huesped) as mproHue, sum(habitaciones_disponibles) as mhabDis, sum(habitaciones_fuera_orden) as mhabFor, sum(habitaciones_fuera_servicio) as mhabFse, sum(habitaciones_ocupadas) as mhabOcu, sum(salidas_dia) as msalDia, sum(llegadas_dia) as mlleDia, sum(habitaciones_cortesia) as mhabCor, sum(habitaciones_usocasa) as mhabUca, sum(habitaciones_usodia) as mhabUdi, sum(ingreso_potencial) as mingPot, sum(camas_disponibles) as mcamDis, sum(hombres) as mHom, sum(mujeres) as mMuj, sum(ninos) as mNin, sum(huespedes_repetitivos) as mhueRep, sum(nuevos_huespedes) as mhueNue, sum(huespedes_nacionales) as mhueNal, sum(huespedes_extranjeros) as mhueInt, sum(reservas_creadashoy) as mresHoy, sum(reservas_noshows) as mresNos, sum(salidas_anticipadas) as msalAnt, sum(reservas_canceladas) as mresCan, sum(llegadas_sinreserva) as mlleSin FROM reporte_gerencia WHERE month(fecha_auditoria) = '$mes' AND year(fecha_auditoria) = '$anio'")->fetchAll();
+        $data = $database->query("SELECT sum(ingreso_habitaciones)as mingHab, sum(ingreso_impto_habitaciones) as mingImp, sum(ingreso_promedio_habitacion_disponible)as mingProHabDis, sum(ingreso_promedio_habitacion_ocupada)as mingProHabOcu, sum(ingresos_compania)as mingCom, sum(ingresos_agencia) as mingAge, sum(ingresos_grupo) as mingGru, sum(ingresos_individual) as mingInd, sum(ingreso_promedio_huesped) as mproHue, sum(habitaciones_disponibles) as mhabDis, sum(habitaciones_fuera_orden) as mhabFor, sum(habitaciones_fuera_servicio) as mhabFse, sum(habitaciones_ocupadas) as mhabOcu, sum(salidas_dia) as msalDia, sum(llegadas_dia) as mlleDia, sum(habitaciones_cortesia) as mhabCor, sum(habitaciones_usocasa) as mhabUca, sum(habitaciones_usodia) as mhabUdi, sum(ingreso_potencial) as mingPot, sum(camas_disponibles) as mcamDis, sum(hombres) as mHom, sum(mujeres) as mMuj, sum(ninos) as mNin, sum(huespedes_repetitivos) as mhueRep, sum(nuevos_huespedes) as mhueNue, sum(huespedes_nacionales) as mhueNal, sum(huespedes_extranjeros) as mhueInt, sum(reservas_creadashoy) as mresHoy, sum(reservas_noshows) as mresNos, sum(salidas_anticipadas) as msalAnt, sum(reservas_canceladas) as mresCan, sum(llegadas_sinreserva) as mlleSin FROM reporte_gerencia WHERE month(fecha_auditoria) = '$mes' AND year(fecha_auditoria) = '$anio'")->fetchAll();
 
         return $data;
     }
@@ -6289,6 +6346,7 @@ class Hotel_Actions
             'reservas_pms.placaVehiculo',
             'reservas_pms.tipoTransporte',
             'reservas_pms.id_usuario_ingreso',
+            'reservas_pms.reservaCreada',
             'huespedes.nombre1',
             'huespedes.nombre2',
             'huespedes.apellido1',
@@ -7542,7 +7600,6 @@ class Hotel_Actions
             'valor_diario' => $valortarifa,
             'motivo_viaje' => $motivo,
             'fecha_reserva' => FECHA_PMS,
-            // 'hora_llegada' => date('H:i:s'),
             'fuente_reserva' => $fuente,
             'usuario' => $usuario,
             'usuario_ingreso' => $usuario,

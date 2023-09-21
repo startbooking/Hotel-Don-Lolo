@@ -105,6 +105,8 @@ require_once '../res/php/app_topHotel.php';
             require 'views/cargarHabitaciones.php';
         } elseif (isset($_GET['section']) && $_GET['section'] == 'cierreDiario') {
             require 'views/cierreDiario.php';
+        } elseif (isset($_GET['section']) && $_GET['section'] == 'tarjetaRegistro') {
+            require 'views/tarjetaRegistro.php';
         } elseif (isset($_GET['section']) && $_GET['section'] == 'historicoAuditoria') {
             require 'views/historicoAuditoria.php';
         } elseif (isset($_GET['section']) && $_GET['section'] == 'reservasEsperadasHoy') {

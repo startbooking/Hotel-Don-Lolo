@@ -5,15 +5,12 @@
   $salen      = $hotel->getTotalHuespedeseSaliendo();
   $rooms      = $hotel->habitacionesDisponibles(CTA_MASTER);
 
-  echo $rooms;
-
   $rooms     = count($hotel->cantidadHabitaciones(1));
   $dormi     = count($hotel->cantidadHabitaciones(2));
   $motor     = count($hotel->cantidadHabitaciones(3));
   $campi     = count($hotel->cantidadHabitaciones(4));
   $pm        = count($hotel->cantidadHabitaciones(5));
   $cabana    = count($hotel->cantidadHabitaciones(6));
-
 
   /* $canford     = $hotel->getHabitacionsBloqueadas('FO');
   $canfser     = $hotel->getHabitacionsBloqueadas('FS'); */
@@ -33,7 +30,6 @@
 
   $habdisp  = $rooms-$canMmto ;
   $vacantes = $habdisp - $paxs[0]['habi'];
-
 
 ?>
 

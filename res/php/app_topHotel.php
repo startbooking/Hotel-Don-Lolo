@@ -15,7 +15,6 @@ $hotel = new Hotel_Actions();
 $admin = new Hotel_Admin();
 
 $datosHotel = $admin->getDatosHotel();
- 
 $empresa = $admin->getInfoCia();
 
 define('DEV', '1');
@@ -62,6 +61,8 @@ define('TEXTOBANCO', $datosHotel[0]['info_banco']);
 define('TEXTOFACTURA', $datosHotel[0]['info_factura']);
 define('PIEFACTURA', $datosHotel[0]['info_pie']);
 define('FACTURADOR', $datosHotel[0]['facturador']);
+define('TRA', $datosHotel[0]['tra']);
+
 
 $notificaciones = [];
 

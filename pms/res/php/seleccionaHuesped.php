@@ -23,7 +23,6 @@ if (empty($huesped)) {
         <input type="hidden" name="idcia" id="idcia" value="<?php echo $huesped[0]['id_compania']; ?>">
       </div>
     </div>
-    
 
     <div class="form-group">
       <label for="inputEmail3" class="col-sm-2 control-label">Empresa</label>
@@ -39,8 +38,7 @@ if (empty($huesped)) {
                 selected
                 <?php
               }
-              ?>
-              
+              ?>              
               ><?=$compañia['empresa']?></option>
               <?php
             }?>

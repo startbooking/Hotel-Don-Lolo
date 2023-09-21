@@ -2342,7 +2342,8 @@
             'info_banco',
             'info_factura',
             'info_pie',
-            'facturador'
+            'facturador',
+            'tra',
         ], [
             'LIMIT' => 1,
         ]);
