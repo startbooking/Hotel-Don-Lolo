@@ -4,8 +4,8 @@ require '../../../res/php/app_topHotel.php';
 
 $huespedes = $hotel->traeHuespedes();
 
-$search = "#";
-$replace = "Nro ";
+$search = ",";
+$replace = " ";
 
 foreach ($huespedes as $huesped) {
   $id = $huesped['id_huesped'];

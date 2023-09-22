@@ -7,6 +7,131 @@ date_default_timezone_set('America/Bogota');
 class Hotel_Actions
 {
 
+    
+    public function buscaAcompananteTRA($reserva){
+        global $database;
+
+        $data = $database->query("SELECT
+        acompanantes.id_huesped, 
+        huespedes.identificacion, 
+        huespedes.apellido1, 
+        huespedes.apellido2, 
+        huespedes.nombre1, 
+        huespedes.nombre2, 
+        tipo_documento.descripcion_documento
+    FROM
+        acompanantes,
+        huespedes,
+        tipo_documento
+    WHERE
+        acompanantes.id_huesped = huespedes.id_huesped AND
+        huespedes.tipo_identifica = tipo_documento.id_doc AND 
+        acompanantes.id_reserva  = $reserva ORDER BY huespedes.apellido1 ASC")->fetchAll();
+        return $data;
+
+    }
+
+
+    public function traeInfoHotel(){
+        global $database;
+
+        $data = $database->select('parametros_pms',[
+            'parametros_pms.nombre_hotel',
+            'parametros_pms.tra',
+            'parametros_pms.tokenTra',
+            'parametros_pms.urlTraHuesped',
+            'parametros_pms.urlTraAcompana',
+            'parametros_pms.passwordTra',
+            'parametros_pms.rnt',
+            'parametros_pms.envioTra',
+        ]);
+        return $data;
+    }
+
+    public function traeCiudadHuesped($ciudad){
+        global $database;
+
+        $data = $database->select('ciudades',[
+            'municipio'
+        ],[
+            'id_ciudad' => $ciudad
+        ]);
+        return $data;
+    }
+
+    
+    public function HuespedllegadaDelDiaTRAOld($reserva, $fecha,$tipo){
+        global $database;
+        $data = $database->select('reservas_pms',[
+            '[<]huespedes' => ['id_huesped','id_huesped'],
+            '[<]tipo_documento' => ['tipo_documento.id_doc' => 'huespedes.tipo_identifica'],
+        ],[
+            'huespedes.apellido1',
+            'huespedes.apellido2',
+            'huespedes.nombre1',
+            'huespedes.nombre2',
+            'huespedes.ciudad',
+            'huespedes.identificacion',
+            'tipo_documento.descripcion_documento',            
+            'reservas_pms.fecha_llegada',
+            'reservas_pms.fecha_salida',
+            'reservas_pms.valor_diario',
+            'reservas_pms.origen_reserva',
+            'reservas_pms.num_reserva',            
+            'reservas_pms.num_habitacion',            
+            'reservas_pms.motivo_viaje',            
+        ],[
+            'reservas_pms.fecha_llegada' => $fecha,
+            'reservas_pms.num_reserva' => $reserva,
+            'reservas_pms.estado' => $tipo,
+            'ORDER' => ['huespedes.apellido1' => 'ASC'] 
+        ]);
+        return $data;
+
+    }
+
+    public function HuespedllegadaDelDiaTRA($reserva, $fecha, $tipo){
+        global $database;
+        $data = $database->query("SELECT
+        huespedes.identificacion, 
+        huespedes.apellido1, 
+        huespedes.apellido2, 
+        huespedes.nombre1, 
+        huespedes.nombre2, 
+        reservas_pms.fecha_llegada, 
+        reservas_pms.fecha_salida, 
+        reservas_pms.num_habitacion, 
+        reservas_pms.valor_diario, 
+        reservas_pms.origen_reserva, 
+        tipo_habitaciones.descripcion_habitacion, 
+        tipo_documento.descripcion_documento, 
+        ciudades.municipio, 
+        grupos_cajas.descripcion_grupo
+    FROM
+        huespedes,
+        reservas_pms,
+        tipo_documento,
+        tipo_habitaciones,
+        ciudades,
+        grupos_cajas
+    WHERE
+        huespedes.id_huesped = reservas_pms.id_huesped AND
+        reservas_pms.num_reserva = $reserva AND
+        huespedes.tipo_identifica = id_doc AND
+        reservas_pms.tipo_habitacion = tipo_habitaciones.id AND
+        huespedes.ciudad = ciudades.id_ciudad AND
+        reservas_pms.motivo_viaje = grupos_cajas.id_grupo")->fetchAll();
+    return $data;
+
+    }
+
+
+
+	
+	
+
+
+
     public function llegadasDelDiaTRA($fecha,$tipo){
         global $database;
         $data = $database->select('reservas_pms',[
@@ -1178,12 +1303,10 @@ class Hotel_Actions
         ], [
             'nombre_completo',
             'apellido1',
-            'apellido1',
             'apellido2',
             'nombre1',
             'nombre2',
             'identificacion',
-            'ciudad',
         ], [
             'id_reserva' => $reserva,
         ]);

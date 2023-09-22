@@ -2104,6 +2104,217 @@ if (facturador == 1) {
   });
 });
 
+
+async function enviaTRA(reserva, fecha){
+  const huesped = await traeHuespedReserva(reserva, fecha);
+  const acompana = await traeAcompanaReserva(reserva, fecha) ;
+
+  console.log(huesped[0]);
+  // console.log(acompana[0]);
+
+  const regis = acompana.length
+
+  // console.log(regis)
+
+  JSONPpal = await creaJSONPpal(huesped,acompana)
+
+  respo = {
+    padre:1,
+  }
+
+  console.log(JSONPpal);
+  JSONAcompa = await creaJSONAcompana(JSONPpal, acompana, respo) ;
+
+
+  /* 
+  respo = await enviaJSONPpal(JSONPpal);
+  if(regis.lenght>0){
+    JSONAcompa = await creaJSONAcompana(JSONPpal, acompana,respo) ;
+  } 
+  */
+  
+  
+
+
+}
+
+
+
+
+
+/*
+[{"identificacion":"11253989","0":"11253989","apellido1":"ANDRADE","1":"ANDRADE","apellido2":"GUALI","2":"GUALI","nombre1":"MANUEL","3":"MANUEL","nombre2":"","4":"","ciudad":"149","5":"149","fecha_llegada":"2023-09-08","6":"2023-09-08","fecha_salida":"2023-09-09","7":"2023-09-09","num_habitacion":"301","8":"301","valor_diario":208531,"9":208531,"origen_reserva":149,"10":149,"descripcion_habitacion":"ESTANDAR CUADRUPLE","11":"ESTANDAR CUADRUPLE","descripcion_documento":"CEDULAS DE CIUDADANIA","12":"CEDULAS DE CIUDADANIA","municipio":"Bogot\u00e1, D.c.","13":"Bogot\u00e1, D.c."}]
+
+[{"identificacion":"11253989","0":"11253989","apellido1":"ANDRADE","1":"ANDRADE","apellido2":"GUALI","2":"GUALI","nombre1":"MANUEL","3":"MANUEL","nombre2":"","4":"","ciudad":"149","5":"149","fecha_llegada":"2023-09-08","6":"2023-09-08","fecha_salida":"2023-09-09","7":"2023-09-09","num_habitacion":"301","8":"301","valor_diario":208531,"9":208531,"origen_reserva":149,"10":149,"descripcion_habitacion":"ESTANDAR CUADRUPLE","11":"ESTANDAR CUADRUPLE","descripcion_documento":"CEDULAS DE CIUDADANIA","12":"CEDULAS DE CIUDADANIA","municipio":"Bogot\u00e1, D.c.","13":"Bogot\u00e1, D.c.","descripcion_grupo":"DIVERSION","14":"DIVERSION"}]
+
+
+*/
+const creaJSONPpal = async (huesped, acompana) => {
+  let { identificacion, apellido1, apellido2, nombre1, nombre2, fecha_llegada, fecha_salida, num_habitacion, valor_diario, origen_reserva, descripcion_habitacion, descripcion_documento, municipio, descripcion_grupo } =  huesped[0];
+  
+  regis = acompana.length;
+
+  residencia = await traeCiudad(origen_reserva);
+  infoHotel =  await traeInfoHotel();
+
+  let {rnt, nombre_hotel } = infoHotel[0];
+
+  datos = {
+    tipo_identificacion: descripcion_documento,
+    numero_identificacion: identificacion,
+    nombres: `${nombre1} ${nombre2}`,
+    apellidos: `${apellido1} ${apellido2}`,
+    cuidad_procedencia: municipio,
+    numero_habitacion: num_habitacion,
+    motivo: descripcion_grupo,
+    check_in: fecha_llegada,
+    check_out: fecha_salida,
+    tipo_acomodacion: descripcion_habitacion,
+    costo: valor_diario,
+    cuidad_residencia: residencia[0]['municipio'],
+    nombre_establecimiento: nombre_hotel,
+    rnt_establecimiento: rnt, 
+    numero_acompanantes: regis,
+  }
+
+  return datos;
+}
+
+const creaJSONAcompana = async (huesped, acompanas, respo) => {
+  
+  let { cuidad_procedencia, numero_habitacion, check_in, check_out,
+    cuidad_residencia } =  huesped[0];
+
+  let { padre } = respo;
+
+  console.log(padre)
+
+
+    acompanas.map(function (acompana) {
+
+      respuesta = {
+        tipo_identificacion:descripcion_documento,
+        numero_identificacion:identificacion,
+        nombres:`${nombre1} ${nombre2}`,
+        apellidos:`${apellido1} ${apellido2}`,
+        cuidad_residencia,
+        cuidad_procedencia,
+        numero_habitacion,
+        check_in,
+        check_out,
+        padre,
+      }
+    
+    });
+
+
+    console.log(respuesta)
+
+
+  
+  /// regis = acompana.length;
+
+  // console.log(regis);
+  
+/*   residencia = await traeCiudad(origen_reserva);
+  infoHotel =  await traeInfoHotel();
+
+  let {rnt, nombre_hotel } = infoHotel[0];
+ */
+
+/*   datos = {
+    tipo_identificacion: descripcion_documento,
+    numero_identificacion: identificacion,
+    nombres: `${nombre1} ${nombre2}`,
+    apellidos: `${apellido1} ${apellido2}`,
+    cuidad_procedencia: municipio,
+    numero_habitacion: num_habitacion,
+    motivo: descripcion_grupo,
+    check_in: fecha_llegada,
+    check_out: fecha_salida,
+    tipo_acomodacion: descripcion_habitacion,
+    costo: valor_diario,
+    cuidad_residencia: residencia[0]['municipio'],
+    nombre_establecimiento: nombre_hotel,
+    rnt_establecimiento: rnt, 
+    numero_acompanantes: regis,
+  }
+ */
+  // console.log(datos)
+
+
+}
+
+
+const traeCiudad = async (ciudad) => {
+  
+  try {
+    const resultado = await fetch(`res/php/traeCiudad.php`, {
+      method: "post",
+      headers: {
+        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+      body: `ciudad=${ciudad}`,
+    });
+    const datos = await resultado.json();
+    return datos;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const traeInfoHotel = async () => {
+  
+  try {
+    const resultado = await fetch(`res/php/traeInfoHotel.php`, {
+      method: "post",
+      headers: {
+        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+    });
+    const datos = await resultado.json();
+    return datos;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const traeHuespedReserva = async (reserva, fecha) => {
+  
+  try {
+    const resultado = await fetch(`res/php/traeHuespedReserva.php`, {
+      method: "post",
+      headers: {
+        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+      body: `reserva=${reserva}&fecha=${fecha}`,
+    });
+    const datos = await resultado.json();
+    return datos;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const traeAcompanaReserva = async (reserva, fecha) => {
+  
+  try {
+    const resultado = await fetch(`res/php/traeAcompananteTRA.php`, {
+      method: "post",
+      headers: {
+        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+      body: `reserva=${reserva}&fecha=${fecha}`,
+    });
+    const datos = await resultado.json();
+    return datos;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+
 function estadoFacturaDIAN($estado) {
   switch ($estado) {
     case "0":
@@ -2201,7 +2412,7 @@ function descargarAttach(numero) {
   });
 }
 
-const traeToken = async () => {
+const traeToken = async () => { 
   try {
     const resultado = await fetch(`res/php/traeToken.php`, {
       method: "post",
@@ -2399,7 +2610,7 @@ function guardaGrupo() {
 
   numGrupo = guardaDatosGrupo(JSON.stringify(object));
 
-  console.log(numGrupo);
+  // console.log(numGrupo);
 }
 
 const guardaDatosGrupo = async (formGrupo) => {
@@ -2625,9 +2836,6 @@ function llenaHistoricoNC(datos) {
 
 function LimpiaNcHTML() {
   ncHTML.innerHTML = "";
-  /*   while (ncHTML.firstChild) {
-    ncHTML.removeChild(ncHTML.firstChild);
-  } */
 }
 
 function traePerfilVenta(id) {
@@ -4793,7 +5001,7 @@ function cierreDiario() {
       $.ajax({
         url: web + "res/php/habitacionesSinSalir.php",
         type: "POST",
-        data: { fecha: fecha },
+        data: { fecha },
         success: function (data) {
           $("#aviso").html(data);
         },
@@ -4802,7 +5010,7 @@ function cierreDiario() {
       $.ajax({
         url: web + "res/php/registrosSinImprimir.php",
         type: "POST",
-        data: { fecha: fecha },
+        data: { fecha },
         success: function (data) {
           $("#aviso").html(data);
         },

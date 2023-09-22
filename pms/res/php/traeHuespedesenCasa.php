@@ -2,13 +2,8 @@
 require '../../../res/php/app_topHotel.php';
 
 $tipo = $_POST['tipo'];
-
 $hoy = substr(FECHA_PMS, 5, 5);
 
-/* $dia = date('d',FECHA_PMS);
-
-echo $dia;
- */
 $reservas = $hotel->getHuespedesenCasa(2, 'CA');
 
 ?>
@@ -165,6 +160,20 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
                               <i class="fa fa-book" aria-hidden="true"></i>
                             Imprimir Registro Hotelero</a>
                           </li>
+                          <?php 
+                            if(TRA==1){ ?>
+                              <li>
+                            <a 
+                              data-toggle    ="modal" 
+                              data-id        ="<?php echo $reserva['num_reserva']; ?>" 
+                              onclick        ="enviaTRA(<?php echo $reserva['num_reserva']; ?>,'<?php echo FECHA_PMS; ?>')" 
+                              >
+                              <i class="fa-regular fa-paper-plane"></i>
+                            Envio Tarjeta Registro</a>
+                          </li>
+                          <?php
+                            }
+                          ?>
                           <li>
                             <a 
                               data-toggle        ="modal" 
