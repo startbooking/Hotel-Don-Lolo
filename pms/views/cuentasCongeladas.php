@@ -19,7 +19,7 @@
                     <td>Nro Hab.</td>
                     <!-- <td>Tipo Hab.</td> -->
                     <td>Huesped</td>
-                    <td>Tarifa</td>
+                    <td>Compania</td>
                     <td>Llegada</td>
                     <td>Salida</td>
                     <td style="text-align:center;">Consumos</td>
@@ -31,8 +31,6 @@
                 </thead>
                 <tbody>
                   <?php
-
-                  // print_r($reservas);
                   foreach ($reservas as $reserva) {
                       $consumos = $hotel->getConsumosReserva($reserva['num_reserva']);
                       if (count($consumos) == 0) {
@@ -40,34 +38,44 @@
                           $consumos[0]['imptos'] = 0;
                           $consumos[0]['pagos'] = 0;
                       }
+                      if ($reserva['id_compania'] == 0) {
+                        $nombrecia = 'SIN COMPAÑIA ASOCIADA';
+                        $nitcia = '222.222.222';
+                      } else {
+                        $cias = $hotel->getBuscaCia($reserva['id_compania']);
+                        if (count($cias) != 0) {
+                          $nombrecia = $cias[0]['empresa'];
+                          $nitcia = $cias[0]['nit'].'-'.$cias[0]['dv'];
+                        }
+                      }
                       ?> 
                     <tr style='font-size:12px'> 
                       <td>
                         <div style="display: flex">
                           <?php
-                              echo $reserva['num_habitacion'];
-                      if ($reserva['causar_impuesto'] == 2) { ?>
+                            echo $reserva['num_habitacion'];
+                            if ($reserva['causar_impuesto'] == 2) { ?>
                               <span class="fa-stack fa-xs" title="Sin Impuestos" style="margin-left:5px;cursor:pointer;">
                                 <i style="font-size:10px;margin-top: 1px;margin-left: -3px;" class="fa fa-percent fa-stack-1x"></i>
                                 <i style="font-size:20px" class="fa fa-ban text-danger"></i>
                               </span>
                               <?php
-                      }
-                      if (!empty($reserva['observaciones'])) { ?>
+                            }
+                            if (!empty($reserva['observaciones'])) { ?>
                               <span class="fa-stack fa-xs" title="Observaciones a la Reserva" style="margin-left:0px;cursor:pointer;" onclick="verObservaciones(<?php echo $reserva['num_reserva']; ?>,'1')">
                                 <i style="font-size:20px;color: #2993dd" class="fa fa-circle fa-stack-2x"></i>
                                 <i style="font-size:10px;margin-top: 1px;margin-left: 1px;" class="fa fa-commenting-o fa-stack-1x fa-inverse"></i>
                               </span>
                               <?php
-                      }
-                      ?>
+                            }
+                            ?>
                         </div>
 
                         <?php
                       ?>
                       </td>
                       <td><?php echo $reserva['apellido1'].' '.$reserva['apellido2'].' '.$reserva['nombre1'].' '.$reserva['nombre2']; ?></td>
-                      <td><?php echo number_format($reserva['valor_diario'], 2); ?></td>
+                      <td><?php echo $nombrecia; ?></td>                      
                       <td><?php echo $reserva['fecha_llegada']; ?></td> 
                       <td><?php echo $reserva['fecha_salida']; ?></td>
                       <td style="text-align:right;"><a onclick="cargosHuesped(<?php echo $reserva['num_reserva']; ?>)"><?php echo number_format($consumos[0]['cargos'], 2); ?></a></td>

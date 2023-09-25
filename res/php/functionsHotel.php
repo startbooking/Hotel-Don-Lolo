@@ -7,7 +7,30 @@ date_default_timezone_set('America/Bogota');
 class Hotel_Actions
 {
 
-    
+    public function guardaReservaTRA($reserva, $usuario){
+        global $database;
+
+        $data = $database->insert('datosTRA',[
+            'reserva' => $reserva,
+            'id_usuario' => $usuario,
+            'fecha' => date('Y-m-d H:m:i'),
+        ]);
+        return $database->id();
+
+    }
+
+    public function actualizaEstadoTRA($reserva){
+        global $database;
+
+        $data = $database->update('reservas_pms',[
+            'envioTra' => 1,
+        ],[
+            'num_reserva' => $reserva
+        ]);
+        return $data->rowCount();
+    }
+
+
     public function buscaAcompananteTRA($reserva){
         global $database;
 

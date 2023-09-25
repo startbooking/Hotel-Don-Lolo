@@ -1,39 +1,11 @@
 <?php
-
-require '../../../res/fpdf/fpdf.php';
-
-class PDF extends FPDF 
-{
-    public function Header()
-    {
-        $this->Image('../../../img/'.LOGO, 10, 10, 25);
-        $this->SetFont('Arial', 'B', 13);
-        $this->Cell(190, 7, NAME_EMPRESA, 0, 1, 'C');
-        $this->SetFont('Arial', '', 10);
-        $this->Cell(190, 5, 'Nit: '.NIT_EMPRESA, 0, 1, 'C');
-        $this->Cell(190, 5, ADRESS_EMPRESA, 0, 1, 'C');
-        $this->Cell(190, 5, utf8_decode(CIUDAD_EMPRESA.', '.PAIS_EMPRESA), 0, 1, 'C');
-        $this->Cell(190, 5, 'Telefono '.TELEFONO_EMPRESA.' Movil '.CELULAR_EMPRESA, 0, 1, 'C');
-        $this->SetFont('Arial', 'B', 11);
-        // $this->Cell(190, 6, NAME_HOTEL, 0, 1, 'C');
-        $this->Ln(1);
-    }
-
-    public function Footer()
-    {
-        $this->SetY(-15);
-        $this->SetFont('Arial', '', 8);
-        $this->Cell(95, 5, WEB_EMPRESA, 0, 0, 'L');
-        $this->Cell(95, 5, CORREO_EMPRESA, 0, 1, 'R');
-    }
-}
-
-$reserva = $_SESSION['reserva'];
+  require '../../../res/fpdf/fpdf.php';
 
 $pdf = new PDF();
 $pdf->AddPage();
 
 $datosReserva = $hotel->getReservasDatos($reserva);
+
 $datosHuesped = $hotel->getbuscaDatosHuesped($datosReserva[0]['id_huesped']);
 $datosCompania = $hotel->getSeleccionaCompania($datosReserva[0]['id_compania']);
 // $datosAgencia   = $hotel->getSeleccionaAgencia($datosReserva[0]['id_agencia']);
@@ -48,7 +20,7 @@ $pdf->Ln(2);
 $pdf->SetFont('Arial', '', 10);
 $pdf->Cell(20, 5, 'Fecha ', 0, 0, 'L');
 $pdf->SetFont('Arial', 'B', 10);
-$pdf->Cell(20, 5, $fecha[0]['fecha_auditoria'], 0, 1, 'L');
+$pdf->Cell(20, 5, FECHA_PMS, 0, 1, 'L');
 $pdf->SetFont('Arial', '', 10);
 $pdf->Cell(20, 5, 'Habitacion', 0, 0, 'L');
 $pdf->SetFont('Arial', 'B', 10);

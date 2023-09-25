@@ -1323,6 +1323,48 @@ if (facturador == 1) {
     });
   });
 
+  $("#myModalEstadoCuentaFolio").on("show.bs.modal", function (event) {
+    var button = $(event.relatedTarget);
+    var reserva = button.data("reserva");
+    var folio = $("#folioActivo").val();
+    var nombre = button.data("nombre");
+    /* var hues = button.data("idhuesped");
+    var turismo = button.data("impto");
+    var nrohab = button.data("nrohab");
+    var tipohab = button.data("tipohab"); */
+    let file = makeid(12);
+    var modal = $(this);
+    var parametros = {
+      reserva,
+      folio,
+    };
+
+    web = $("#rutaweb").val();
+    modal.find(".modal-title").text("Estado de Cuenta : " + nombre);
+    /* modal.find(".modal-body #txtIdReservaEst").val(reserva);
+    modal.find(".modal-body #txtIdHuespedEst").val(hues);
+    modal.find(".modal-body #txtTipoHabEst").val(tipohab);
+    modal.find(".modal-body #txtNumeroHabEst").val(nrohab);
+    modal.find(".modal-body #txtNombresEst").val(nombre);
+    modal.find(".modal-body #txtImptoTuriEst").val(turismo); */
+
+    $.ajax({
+      url: "res/php/getEstadoCuentaFolio.php",
+      type: "POST",
+      data: parametros,
+      success: function (data) {
+        $("#verEstadoCuenta").attr(
+          "data",
+          web + "imprimir/informes/Estado_Cuenta_Huesped_" + reserva + ".pdf"
+        );
+        /// $("#divConsumos").html(data);
+      },
+    });
+  });
+
+
+
+  
   $("#myModalSalidaHuesped").on("show.bs.modal", function (event) {
     sesion = JSON.parse(localStorage.getItem("sesion"));
     let { user } = sesion;
@@ -2095,7 +2137,7 @@ if (facturador == 1) {
         $("#datosClienteCartera").html("<img src='../img/loader.gif'>");
       },
       success: function (data) {
-        $("#datosClienteCartera").html("");
+        $("#datosClienteCartera").html("");{}
         $("#datosClienteCartera").html(data);
         $(".rowAsigna").hide();
         $(".form-group").css("display", "none");
@@ -2104,54 +2146,172 @@ if (facturador == 1) {
   });
 });
 
-
 async function enviaTRA(reserva, fecha){
   const huesped = await traeHuespedReserva(reserva, fecha);
   const acompana = await traeAcompanaReserva(reserva, fecha) ;
+  /* infoHotel =  await traeInfoHotel();
 
-  console.log(huesped[0]);
-  // console.log(acompana[0]);
+  let {tra, tokenTra, urlTraHuesped, urlTraAcompana, passwordTra, envioTra } = infoHotel[0]; */
 
   const regis = acompana.length
 
-  // console.log(regis)
+  JSONPpal = await creaJSONPpal(huesped,acompana)  
+  respo = await enviaJSONPpal(JSONPpal);
 
-  JSONPpal = await creaJSONPpal(huesped,acompana)
+  // console.log(respo);
 
-  respo = {
-    padre:1,
+  if(acompana.length> 0){
+    JSONAcompa = await creaJSONAcompana(JSONPpal, acompana, respo) ;
+    respoAco =  await enviaJSONAcompana(JSONAcompa);
   }
 
-  console.log(JSONPpal);
-  JSONAcompa = await creaJSONAcompana(JSONPpal, acompana, respo) ;
+  const guarda = await actualizaEstado(reserva);
+  if(guarda ==1 ){
+    guarda2 = await guardaProcesoEnvioTRA(reserva)
+  }
+
 
 
   /* 
-  respo = await enviaJSONPpal(JSONPpal);
   if(regis.lenght>0){
     JSONAcompa = await creaJSONAcompana(JSONPpal, acompana,respo) ;
   } 
   */
   
-  
-
-
 }
 
+const guardaProcesoEnvioTRA = async (reserva) => {
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { user } = sesion;
+  let { usuario_id } = user;
+
+  data = {
+    usuario_id,
+    reserva
+  }
+
+  try {
+      
+    const resultado = await fetch('res/php/guardaReservaTRA.php', {
+      method: "post",
+      headers: {
+        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+      body:JSON.stringify(data),
+    });
+    // const datos = await resultado.json();
+    console.log(datos);
+    return datos;
+  } catch (error) {
+    console.log(error);
+    // return error
+  }
+}
+
+const enviaJSONPpal = async (JSONPpal) => {
+  infoHotel =  await traeInfoHotel();
+  let {tra, tokenTra, urlTraHuesped, urlTraAcompana, passwordTra, envioTra } = infoHotel[0];
+
+  // console.log(infoHotel);
+
+  /* if(tra==0){
+    swal({
+      title: "Precaucion",
+      text: "Modulo de Envio de Tarjeta de Registro de Alojamiento – TRA - No Activado",
+      type: "warning",
+      confirmButtonText: "Aceptar",
+    },
+    function(){
+      // $(location).attr("href",'encasa');
+    });
+    error = {
+      mensaje:"Modulo de Envio de Tarjeta de Registro de Alojamiento – TRA - No Activado",
+    } 
+    return error
+  }
+
+  // console.log(tokenTra)
+
+  if(tokenTra == '' || tokenTra == null || urlTraHuesped == '' || urlTraAcompana == '' || passwordTra == ''){
+    swal({
+      title: "Precaucion",
+      text: "Modulo de Envio de Tarjeta de Registro de Alojamiento – TRA - No Esta Configurado",
+      type: "warning",
+      confirmButtonText: "Aceptar",
+    },
+    function(){
+    });
+    error = {
+      mensaje:"Modulo de Envio de Tarjeta de Registro de Alojamiento – TRA - No Esta Configurado",
+    } 
+    return error
+  } */
+
+  try {
+    
+    const resultado = await fetch(urlTraHuesped, {
+      method: "post",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": true,
+        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+        "Authorization": `token ${tokenTra}`,
+      },
+      body:JSON.stringify(JSONPpal),
+    });
+    // const datos = await resultado.json();
+    console.log(datos);
+    return datos;
+  } catch (error) {
+    console.log(error);
+    // return error
+  }
+};
 
 
+const enviaJSONAcompana = async (JSONAcompana) => {
+  infoHotel =  await traeInfoHotel();
+  let {tra, tokenTra, urlTraHuesped, urlTraAcompana, passwordTra, envioTra } = infoHotel[0];
 
+  /* if(tokenTra == '' || tokenTra == null || urlTraHuesped == '' || urlTraAcompana == '' || passwordTra == ''){
+    swal({
+      title: "Precaucion",
+      text: "Modulo de Envio de Tarjeta de Registro de Alojamiento – TRA - No Esta Configurado",
+      type: "warning",
+      confirmButtonText: "Aceptar",
+    },
+    function(){
+    });
+    error = {
+      mensaje:"Modulo de Envio de Tarjeta de Registro de Alojamiento – TRA - No Esta Configurado",
+    } 
+    return error
+  } */
 
-/*
-[{"identificacion":"11253989","0":"11253989","apellido1":"ANDRADE","1":"ANDRADE","apellido2":"GUALI","2":"GUALI","nombre1":"MANUEL","3":"MANUEL","nombre2":"","4":"","ciudad":"149","5":"149","fecha_llegada":"2023-09-08","6":"2023-09-08","fecha_salida":"2023-09-09","7":"2023-09-09","num_habitacion":"301","8":"301","valor_diario":208531,"9":208531,"origen_reserva":149,"10":149,"descripcion_habitacion":"ESTANDAR CUADRUPLE","11":"ESTANDAR CUADRUPLE","descripcion_documento":"CEDULAS DE CIUDADANIA","12":"CEDULAS DE CIUDADANIA","municipio":"Bogot\u00e1, D.c.","13":"Bogot\u00e1, D.c."}]
+  try {
+    
+    const resultado = await fetch(urlTraAcompana, {
+      method: "post",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": true,
+        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+        "Authorization": `token ${tokenTra}`,
+      },
+      body:JSON.stringify(JSONAcompana),
+    });
+    // const datos = await resultado.json();
+    console.log(datos);
+    return datos;
+  } catch (error) {
+    console.log(error);
+    // return error
+  }
+};
 
-[{"identificacion":"11253989","0":"11253989","apellido1":"ANDRADE","1":"ANDRADE","apellido2":"GUALI","2":"GUALI","nombre1":"MANUEL","3":"MANUEL","nombre2":"","4":"","ciudad":"149","5":"149","fecha_llegada":"2023-09-08","6":"2023-09-08","fecha_salida":"2023-09-09","7":"2023-09-09","num_habitacion":"301","8":"301","valor_diario":208531,"9":208531,"origen_reserva":149,"10":149,"descripcion_habitacion":"ESTANDAR CUADRUPLE","11":"ESTANDAR CUADRUPLE","descripcion_documento":"CEDULAS DE CIUDADANIA","12":"CEDULAS DE CIUDADANIA","municipio":"Bogot\u00e1, D.c.","13":"Bogot\u00e1, D.c.","descripcion_grupo":"DIVERSION","14":"DIVERSION"}]
-
-
-*/
 const creaJSONPpal = async (huesped, acompana) => {
   let { identificacion, apellido1, apellido2, nombre1, nombre2, fecha_llegada, fecha_salida, num_habitacion, valor_diario, origen_reserva, descripcion_habitacion, descripcion_documento, municipio, descripcion_grupo } =  huesped[0];
-  
+
   regis = acompana.length;
 
   residencia = await traeCiudad(origen_reserva);
@@ -2181,70 +2341,35 @@ const creaJSONPpal = async (huesped, acompana) => {
 }
 
 const creaJSONAcompana = async (huesped, acompanas, respo) => {
-  
+
   let { cuidad_procedencia, numero_habitacion, check_in, check_out,
-    cuidad_residencia } =  huesped[0];
+    cuidad_residencia } =  huesped;
 
   let { padre } = respo;
-
-  console.log(padre)
-
+  let responde = [];
 
     acompanas.map(function (acompana) {
+ 
+    let {identificacion, apellido1, apellido2, nombre1, nombre2, descripcion_documento } = acompana
 
-      respuesta = {
-        tipo_identificacion:descripcion_documento,
-        numero_identificacion:identificacion,
-        nombres:`${nombre1} ${nombre2}`,
-        apellidos:`${apellido1} ${apellido2}`,
-        cuidad_residencia,
-        cuidad_procedencia,
-        numero_habitacion,
-        check_in,
-        check_out,
-        padre,
-      }
+    respuesta = {
+      tipo_identificacion:descripcion_documento,
+      numero_identificacion:identificacion,
+      nombres:`${nombre1} ${nombre2}`,
+      apellidos:`${apellido1} ${apellido2}`,
+      cuidad_residencia,
+      cuidad_procedencia,
+      numero_habitacion,
+      check_in,
+      check_out,
+      padre,
+    }
+
+    responde.push(respuesta)
     
-    });
-
-
-    console.log(respuesta)
-
-
-  
-  /// regis = acompana.length;
-
-  // console.log(regis);
-  
-/*   residencia = await traeCiudad(origen_reserva);
-  infoHotel =  await traeInfoHotel();
-
-  let {rnt, nombre_hotel } = infoHotel[0];
- */
-
-/*   datos = {
-    tipo_identificacion: descripcion_documento,
-    numero_identificacion: identificacion,
-    nombres: `${nombre1} ${nombre2}`,
-    apellidos: `${apellido1} ${apellido2}`,
-    cuidad_procedencia: municipio,
-    numero_habitacion: num_habitacion,
-    motivo: descripcion_grupo,
-    check_in: fecha_llegada,
-    check_out: fecha_salida,
-    tipo_acomodacion: descripcion_habitacion,
-    costo: valor_diario,
-    cuidad_residencia: residencia[0]['municipio'],
-    nombre_establecimiento: nombre_hotel,
-    rnt_establecimiento: rnt, 
-    numero_acompanantes: regis,
-  }
- */
-  // console.log(datos)
-
-
+  });
+  return responde;
 }
-
 
 const traeCiudad = async (ciudad) => {
   
@@ -2967,8 +3092,6 @@ function consumoVentaDirecta() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
   let { usuario, usuario_id } = user;
-  /* usuario = sesion["usuario"][0]["usuario"];
-  idusuario = sesion["usuario"][0]["usuario_id"]; */
   let = $("#txtIdReservaDep").val();
 
   var web = $("#rutaweb").val();
@@ -4143,7 +4266,7 @@ function anulaFactura() {
         function(){
           $(location).attr("href", pagina);
         }
-        );
+      );
     },
   });
 }
@@ -5868,7 +5991,6 @@ function activaFolio(reserva, folio) {
     },
   });
 }
-
 function movimientosFactura(reserva) {
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();

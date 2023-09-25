@@ -130,7 +130,7 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
                   <div class="form-check form-check-inline">
                     <input style="margin-top:0px" class="form-check-input" type="radio" name="imptoOption" id="inlineRadio2" value="2" disabled=""
                     <?php
-  if ($datosReserva[0]['causar_impuesto'] == 2) { ?>
+                      if ($datosReserva[0]['causar_impuesto'] == 2) { ?>
                         checked
                       <?php
   }
@@ -236,97 +236,105 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
         <div class="panel-footer" style="background-color:lightgoldenrodyellow">
           <div class="container-fluid" id='saldoReserva'></div>
           <div class="container-fluid" style='padding: 0px'>
-            <div class="col-sm-8 col-sm-offset-2">
+            <div class="container-fluid centro">
               <?php
-              if ($credito == 1 && $dia >= $dias) {
-                  $ancho = 17; ?>
-                <a 
-                  style          ="width: <?php echo $ancho; ?>%" 
-                  type           ="button" 
-                  class          ="btn btn-warning" 
-                  data-toggle    ="modal" 
-                  data-target    ="#myModalCongelarCuenta"
-                  data-id        ="<?php echo $datosReserva[0]['num_reserva']; ?>" 
-                  data-idhues    ="<?php echo $datosReserva[0]['id_huesped']; ?>" 
-                  data-idcia     ="<?php echo $datosReserva[0]['id_compania']; ?>" 
-                  data-idcentro  ="<?php echo $datosReserva[0]['idCentroCia']; ?>" 
-                  data-nrohab    ="<?php echo $datosReserva[0]['num_habitacion']; ?>" 
-                  data-apellido1 ="<?php echo $datosReserva[0]['apellido1']; ?>" 
-                  data-apellido2 ="<?php echo $datosReserva[0]['apellido2']; ?>" 
-                  data-nombre    ="<?php echo $datosReserva[0]['nombre_completo']; ?>" 
-                  data-nombre1   ="<?php echo $datosReserva[0]['nombre1']; ?>" 
-                  data-nombre2   ="<?php echo $datosReserva[0]['nombre2']; ?>" 
-                  data-impto     ="<?php echo $datosReserva[0]['causar_impuesto']; ?>" 
-                  data-llegada   ="<?php echo $datosReserva[0]['fecha_llegada']; ?>" 
-                  data-salida    ="<?php echo $datosReserva[0]['fecha_salida']; ?>" 
-                  ><i class="fa fa-snowflake-o"></i> Congelar Cuenta</a>
-                <?php
-              } else {
-                  $ancho = 23;
-              }
-?>
-                <a style="width: <?php echo $ancho; ?>%"
-                  type           ="button" 
-                  class          ="btn btn-success" 
-                  data-toggle    ="modal" 
-                  data-target    ="#myModalSalidaHuesped"
-                  data-id        ="<?php echo $datosReserva[0]['num_reserva']; ?>" 
-                  data-idhues    ="<?php echo $datosReserva[0]['id_huesped']; ?>" 
-                  data-idcia     ="<?php echo $datosReserva[0]['id_compania']; ?>" 
-                  data-idcentro  ="<?php echo $datosReserva[0]['idCentroCia']; ?>" 
-                  data-nrohab    ="<?php echo $datosReserva[0]['num_habitacion']; ?>" 
-                  data-nombre    ="<?php echo $datosReserva[0]['nombre_completo']; ?>" 
-                  data-apellido1 ="<?php echo $datosReserva[0]['apellido1']; ?>" 
-                  data-apellido2 ="<?php echo $datosReserva[0]['apellido2']; ?>" 
-                  data-nombre1   ="<?php echo $datosReserva[0]['nombre1']; ?>" 
-                  data-nombre2   ="<?php echo $datosReserva[0]['nombre2']; ?>" 
-                  data-nombre    ="<?php echo $datosReserva[0]['nombre_completo']; ?>" 
-                  data-impto     ="<?php echo $datosReserva[0]['causar_impuesto']; ?>" 
-                  data-llegada   ="<?php echo $datosReserva[0]['fecha_llegada']; ?>" 
-                  data-salida    ="<?php echo $datosReserva[0]['fecha_salida']; ?>" 
-                  data-valor     ="<?php echo $datosReserva[0]['valor_diario']; ?>" 
-                  ><i class="fa fa-sign-out"></i> Salida Huesped</a>
-                <a  style="width: <?php echo $ancho; ?>%"
-                  type           ="button" class="btn btn-info" data-toggle="modal" 
-                  data-id        ="<?php echo $datosReserva[0]['num_reserva']; ?>" 
-                  data-nombre    ="<?php echo $datosReserva[0]['nombre_completo']; ?>" 
-                  data-apellido1 ="<?php echo $datosReserva[0]['apellido1']; ?>" 
-                  data-apellido2 ="<?php echo $datosReserva[0]['apellido2']; ?>" 
-                  data-nombre1   ="<?php echo $datosReserva[0]['nombre1']; ?>" 
-                  data-nombre2   ="<?php echo $datosReserva[0]['nombre2']; ?>" 
-                  data-impto     ="<?php echo $datosReserva[0]['causar_impuesto']; ?>" 
-                  data-nrohab    ="<?php echo $datosReserva[0]['num_habitacion']; ?>" 
-                  data-idhuesped ="<?php echo $datosReserva[0]['id_huesped']; ?>" 
-                  href           ="#myModalCargosConsumo"
-                  ><i class      ="fa fa-plus-square"></i> Ingreso Consumos 
-                </a>
-                <a  style="width: <?php echo $ancho; ?>%"
-                  type           ="button" class="btn btn-danger"  data-toggle="modal" 
-                  data-target    = "#myModalAbonosConsumos"
-                  data-id        ="<?php echo $datosReserva[0]['num_reserva']; ?>" 
-                  data-idhuesped ="<?php echo $datosReserva[0]['id_huesped']; ?>" 
-                  data-tipohab   ="<?php echo descripcionTipoHabitacion($datosReserva[0]['tipo_habitacion']); ?>" 
-                  data-nrohab    ="<?php echo $datosReserva[0]['num_habitacion']; ?>" 
-                  data-nombre    ="<?php echo $datosReserva[0]['nombre_completo']; ?>" 
-                  data-apellido1 ="<?php echo $datosReserva[0]['apellido1']; ?>" 
-                  data-apellido2 ="<?php echo $datosReserva[0]['apellido2']; ?>" 
-                  data-nombre1   ="<?php echo $datosReserva[0]['nombre1']; ?>" 
-                  data-nombre2   ="<?php echo $datosReserva[0]['nombre2']; ?>" 
-                  data-impto     ="<?php echo $datosReserva[0]['causar_impuesto']; ?>" 
-                  data-llegada   ="<?php echo $datosReserva[0]['fecha_llegada']; ?>" 
-                  data-salida    ="<?php echo $datosReserva[0]['fecha_salida']; ?>" 
-                  data-noches    ="<?php echo $datosReserva[0]['dias_reservados']; ?>" 
-                  data-hombres   ="<?php echo $datosReserva[0]['can_hombres']; ?>" 
-                  data-mujeres   ="<?php echo $datosReserva[0]['can_mujeres']; ?>" 
-                  data-ninos     ="<?php echo $datosReserva[0]['can_ninos']; ?>" 
-                  data-valor     ="<?php echo $datosReserva[0]['valor_reserva']; ?>" 
-                  ><i class      ="fa fa-money "></i> Abonos a Cuenta
-                </a>
-                <a  style="width: <?php echo $ancho; ?>%"
-                  type="button" class="btn btn-warning"
-                  href="home"
-                  ><i class="fa fa-home"></i> Inicio
-                </a>
+                if ($credito == 1 && $dia >= $dias) {
+                    $ancho = 14; ?>
+                  <a 
+                    style          ="width: <?php echo $ancho; ?>%" 
+                    type           ="button" 
+                    class          ="btn btn-warning" 
+                    data-toggle    ="modal" 
+                    data-target    ="#myModalCongelarCuenta"
+                    data-id        ="<?php echo $datosReserva[0]['num_reserva']; ?>" 
+                    data-idhues    ="<?php echo $datosReserva[0]['id_huesped']; ?>" 
+                    data-idcia     ="<?php echo $datosReserva[0]['id_compania']; ?>" 
+                    data-idcentro  ="<?php echo $datosReserva[0]['idCentroCia']; ?>" 
+                    data-nrohab    ="<?php echo $datosReserva[0]['num_habitacion']; ?>" 
+                    data-apellido1 ="<?php echo $datosReserva[0]['apellido1']; ?>" 
+                    data-apellido2 ="<?php echo $datosReserva[0]['apellido2']; ?>" 
+                    data-nombre    ="<?php echo $datosReserva[0]['nombre_completo']; ?>" 
+                    data-nombre1   ="<?php echo $datosReserva[0]['nombre1']; ?>" 
+                    data-nombre2   ="<?php echo $datosReserva[0]['nombre2']; ?>" 
+                    data-impto     ="<?php echo $datosReserva[0]['causar_impuesto']; ?>" 
+                    data-llegada   ="<?php echo $datosReserva[0]['fecha_llegada']; ?>" 
+                    data-salida    ="<?php echo $datosReserva[0]['fecha_salida']; ?>" 
+                    ><i class="fa fa-snowflake-o"></i> Congelar Cuenta</a>
+                  <?php
+                } else {
+                    $ancho = 18;
+                }
+              ?>
+              <a style="width: <?php echo $ancho; ?>%"
+                type           ="button" 
+                class          ="btn btn-success" 
+                data-toggle    ="modal" 
+                data-target    ="#myModalSalidaHuesped"
+                data-id        ="<?php echo $datosReserva[0]['num_reserva']; ?>" 
+                data-idhues    ="<?php echo $datosReserva[0]['id_huesped']; ?>" 
+                data-idcia     ="<?php echo $datosReserva[0]['id_compania']; ?>" 
+                data-idcentro  ="<?php echo $datosReserva[0]['idCentroCia']; ?>" 
+                data-nrohab    ="<?php echo $datosReserva[0]['num_habitacion']; ?>" 
+                data-nombre    ="<?php echo $datosReserva[0]['nombre_completo']; ?>" 
+                data-apellido1 ="<?php echo $datosReserva[0]['apellido1']; ?>" 
+                data-apellido2 ="<?php echo $datosReserva[0]['apellido2']; ?>" 
+                data-nombre1   ="<?php echo $datosReserva[0]['nombre1']; ?>" 
+                data-nombre2   ="<?php echo $datosReserva[0]['nombre2']; ?>" 
+                data-nombre    ="<?php echo $datosReserva[0]['nombre_completo']; ?>" 
+                data-impto     ="<?php echo $datosReserva[0]['causar_impuesto']; ?>" 
+                data-llegada   ="<?php echo $datosReserva[0]['fecha_llegada']; ?>" 
+                data-salida    ="<?php echo $datosReserva[0]['fecha_salida']; ?>" 
+                data-valor     ="<?php echo $datosReserva[0]['valor_diario']; ?>" 
+                ><i class="fa fa-sign-out"></i> Salida Huesped</a>
+              <a  style="width: <?php echo $ancho; ?>%"
+                type           ="button" class="btn btn-info" data-toggle="modal" 
+                data-id        ="<?php echo $datosReserva[0]['num_reserva']; ?>" 
+                data-nombre    ="<?php echo $datosReserva[0]['nombre_completo']; ?>" 
+                data-apellido1 ="<?php echo $datosReserva[0]['apellido1']; ?>" 
+                data-apellido2 ="<?php echo $datosReserva[0]['apellido2']; ?>" 
+                data-nombre1   ="<?php echo $datosReserva[0]['nombre1']; ?>" 
+                data-nombre2   ="<?php echo $datosReserva[0]['nombre2']; ?>" 
+                data-impto     ="<?php echo $datosReserva[0]['causar_impuesto']; ?>" 
+                data-nrohab    ="<?php echo $datosReserva[0]['num_habitacion']; ?>" 
+                data-idhuesped ="<?php echo $datosReserva[0]['id_huesped']; ?>" 
+                href           ="#myModalCargosConsumo"
+                ><i class      ="fa fa-plus-square"></i> Ingreso Consumos 
+              </a>
+              <a  style="width: <?php echo $ancho; ?>%"
+                type           ="button" class="btn btn-danger"  data-toggle="modal" 
+                data-target    = "#myModalAbonosConsumos"
+                data-id        ="<?php echo $datosReserva[0]['num_reserva']; ?>" 
+                data-idhuesped ="<?php echo $datosReserva[0]['id_huesped']; ?>" 
+                data-tipohab   ="<?php echo descripcionTipoHabitacion($datosReserva[0]['tipo_habitacion']); ?>" 
+                data-nrohab    ="<?php echo $datosReserva[0]['num_habitacion']; ?>" 
+                data-nombre    ="<?php echo $datosReserva[0]['nombre_completo']; ?>" 
+                data-apellido1 ="<?php echo $datosReserva[0]['apellido1']; ?>" 
+                data-apellido2 ="<?php echo $datosReserva[0]['apellido2']; ?>" 
+                data-nombre1   ="<?php echo $datosReserva[0]['nombre1']; ?>" 
+                data-nombre2   ="<?php echo $datosReserva[0]['nombre2']; ?>" 
+                data-impto     ="<?php echo $datosReserva[0]['causar_impuesto']; ?>" 
+                data-llegada   ="<?php echo $datosReserva[0]['fecha_llegada']; ?>" 
+                data-salida    ="<?php echo $datosReserva[0]['fecha_salida']; ?>" 
+                data-noches    ="<?php echo $datosReserva[0]['dias_reservados']; ?>" 
+                data-hombres   ="<?php echo $datosReserva[0]['can_hombres']; ?>" 
+                data-mujeres   ="<?php echo $datosReserva[0]['can_mujeres']; ?>" 
+                data-ninos     ="<?php echo $datosReserva[0]['can_ninos']; ?>" 
+                data-valor     ="<?php echo $datosReserva[0]['valor_reserva']; ?>" 
+                ><i class      ="fa fa-money "></i> Abonos a Cuenta
+              </a>
+              <a  style="width: <?php echo $ancho; ?>%"
+                type           ="button" class="btn btn-default"  data-toggle="modal" 
+                data-target    = "#myModalEstadoCuentaFolio"
+                data-reserva   ="<?php echo $datosReserva[0]['num_reserva']; ?>" 
+                data-nombre    ="<?php echo $datosReserva[0]['nombre_completo']; ?>" 
+                data-idhuesped ="<?php echo $datosReserva[0]['id_huesped']; ?>" 
+                ><i class      ="fa fa-money "></i> Estado de Cuenta
+              </a>
+              <a  style="width: <?php echo $ancho; ?>%"
+                type="button" class="btn btn-warning"
+                href="facturacionEstadia"
+                ><i class="fa fa-home"></i> Inicio
+              </a>
             </div>            
           </div>     
         </div>

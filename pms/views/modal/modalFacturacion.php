@@ -227,12 +227,12 @@ $cias = $hotel->getCompanias();
                   <select name="codigoAbono" id="codigoAbono" required>
                     <option value="">Seleccione Concepto</option>
                     <?php
-  $codigos = $hotel->getCodigosConsumos(3);
-foreach ($codigos as $codigo) { ?>
+                      $codigos = $hotel->getCodigosConsumos(3);
+                      foreach ($codigos as $codigo) { ?>
                         <option value="<?php echo $codigo['id_cargo']; ?>"><?php echo $codigo['descripcion_cargo']; ?></option>
                         <?php
-}
-?>
+                      }
+                    ?>
                   </select>
                 </div>
               </div>
@@ -372,7 +372,7 @@ foreach ($codigos as $codigo) { ?>
                       <option value="<?php echo $value['id_compania']; ?>"><?php echo $value['empresa']; ?></option>
                       <?php
                     }
-?>
+                  ?>
                 </select>
               </div>
             </div>            
@@ -656,13 +656,13 @@ foreach ($codigos as $codigo) { ?>
                 <select name="roomChange" id="roomChange" required="">
                   <option value="">Seleccione la Nueva Habitacion</option>
                   <?php
-  $encasas = $hotel->getHuespedesenCasa(2, 'CA');
-foreach ($encasas as $encasa) { ?>
+                    $encasas = $hotel->getHuespedesenCasa(2, 'CA');
+                    foreach ($encasas as $encasa) { ?>
                       <option value="<?php echo $encasa['num_reserva']; ?>"><?php echo $encasa['num_habitacion'].' '.$encasa['apellido1'].' '.$encasa['apellido2'].' '.$encasa['nombre1'].' '.$encasa['nombre2']; ?></option>
                       <?php
-}
-?>
-                  </select>
+                    }
+                  ?>
+                </select>
               </div>
             </div>
             <div class="form-group">
@@ -745,5 +745,48 @@ foreach ($encasas as $encasa) { ?>
   </form>
 </div>
 
-
- 
+<div class="modal fade" id="myModalEstadoCuentaFolio" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <form id="guardarDatosRooms" class="form-horizontal" action="javascript:imprimeEstadoCuenta()" method="POST" enctype="multipart/form-data">
+    <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header"> 
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span class="glyphicon glyphicon-off"></span>
+            </button> 
+            <h3 class="modal-title" id="exampleModalLabel">Estado de Cuenta</h3>
+          </div>
+          <div id="datos_ajax_register"></div>
+          <div class="modal-body">
+            <!-- 
+            <input type="hidden" name="txtIdReservaEst" id="txtIdReservaEst" value="">
+            <input type="hidden" name="txtIdHuespedEst" id="txtIdHuespedEst" value="">
+            <input type="hidden" name="txtImptoTurismo" id="txtImptoTuriEst" value="">
+              <div class="form-group">
+              <label class="control-label col-xs-2">Tipo Hab</label>
+              <div class="col-lg-4 col-xs-4">
+                <input style="font-size:11px;" class="form-control padInput" type="text" name='txtTipoHabEst' id='txtTipoHabEst' readonly>
+              </div>
+              <label class="control-label col-xs-2">Hab.</label>
+              <div class="col-lg-2 col-xs-2">
+                <input style="font-size:11px;" class="form-control padInput" type="text" name='txtNumeroHabEst' id='txtNumeroHabEst' readonly>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-xs-2">Huesped</label>
+              <div class="col-lg-10 col-xs-10">
+                <input style="font-size:11px;" class="form-control padInput" type="text" name="txtNombresEst" id='txtNombresEst' value='0' readonly>
+              </div>
+            </div> -->
+            <div class="divs" id="divConsumos" >
+              <object id="verEstadoCuenta" width="100%" height="350" data=""></object> 
+            </div>          
+          </div>
+          <div class="modal-footer" style="text-align: center">
+            <button style="width: 25%" type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
+          </div>
+        </div>
+      </div>
+    </div> 
+  </form>
+</div> 
