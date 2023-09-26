@@ -92,7 +92,7 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
               </div>
               <label for="tarifa" class="col-sm-1 control-label">Tarifa</label>
               <div class="col-sm-2">
-                <input type="text" class="form-control" name="tarifa" id="tarifa" readonly="" value="<?php echo number_format($datosReserva[0]['valor_diario'], 2); ?>">
+                <input type="text" class="form-control derecha" name="tarifa" id="tarifa" readonly="" value="<?php echo number_format($datosReserva[0]['valor_diario'], 2); ?>">
               </div>
             </div>
             <div class="form-group">
@@ -132,9 +132,9 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
                     <?php
                       if ($datosReserva[0]['causar_impuesto'] == 2) { ?>
                         checked
-                      <?php
-  }
-?>
+                        <?php
+                      }
+                    ?>
                     >
                     <label style="margin-top:-30px;margin-left:25px" class="form-check-label" for="inlineRadio2">SI</label>
                   </div>
@@ -323,7 +323,7 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
                 ><i class      ="fa fa-money "></i> Abonos a Cuenta
               </a>
               <a  style="width: <?php echo $ancho; ?>%"
-                type           ="button" class="btn btn-default"  data-toggle="modal" 
+                type           ="button" class="btn btn-primary"  data-toggle="modal" 
                 data-target    = "#myModalEstadoCuentaFolio"
                 data-reserva   ="<?php echo $datosReserva[0]['num_reserva']; ?>" 
                 data-nombre    ="<?php echo $datosReserva[0]['nombre_completo']; ?>" 

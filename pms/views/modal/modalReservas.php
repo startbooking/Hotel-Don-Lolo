@@ -251,7 +251,7 @@ $manana = date('Y-m-d', $manana);
               <div class="col-lg-2 col-md-2">
                 <input class="form-control padInput" type="text" name="idregis" id="txtIdReservaInf" value="">
               </div>
-              <label class="control-label col-xs-2">Tipo Hab.</label>
+              <label class="control-label col-xs-1">Tipo Hab.</label>
               <div class="col-lg-3 col-md-3">
                 <input class="form-control padInput" type="text" name="txtTipoHab" id="txtTipoHabInf" readonly>
               </div>
@@ -262,7 +262,7 @@ $manana = date('Y-m-d', $manana);
             </div>
             <div class="form-group">
               <label class="control-label col-xs-2">Huesped</label>
-              <div class="col-lg-8 col-md-8">
+              <div class="col-lg-6 col-md-6">
                 <input class="form-control padInput" type="text" name="txtHuespedInf1" id="txtHuespedInf1" readonly>
               </div>
             </div>
@@ -303,9 +303,9 @@ $manana = date('Y-m-d', $manana);
               <div class="col-sm-4">
                 <input class="form-control padInput" type="text" name="txtTarifaInf" id="txtTarifaInf" value=0 readonly="">
               </div>
-              <label for="archivo" class="col-sm-2 control-label">Valor</label>
-              <div class="col-sm-3">
-                <input class="form-control padInput" type="text" name="txtValorTarifaInf" id="txtValorTarifaInf" value=0 readonly="">
+              <label for="archivo" class="col-sm-1 control-label">Valor</label>
+              <div class="col-sm-2">
+                <input class="form-control padInput derecha" type="text" name="txtValorTarifaInf" id="txtValorTarifaInf" value=0 readonly="">
               </div>
             </div>
             <div class="form-group">

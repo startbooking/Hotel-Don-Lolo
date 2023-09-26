@@ -1,5 +1,5 @@
 <?php
-require '../../../res/php/app_topHotel.php';
+require '../../../res/php/app_topHotel.php'; 
 
 $tipo = $_POST['tipo'];
 $hoy = substr(FECHA_PMS, 5, 5);
@@ -230,10 +230,7 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
                                 data-id        ="<?php echo $reserva['num_reserva']; ?>" 
                                 data-tipohab   ="<?php echo descripcionTipoHabitacion($reserva['tipo_habitacion']); ?>" 
                                 data-nrohab    ="<?php echo $reserva['num_habitacion']; ?>" 
-                                data-apellido1 ="<?php echo $reserva['apellido1']; ?>" 
-                                data-apellido2 ="<?php echo $reserva['apellido2']; ?>" 
-                                data-nombre1   ="<?php echo $reserva['nombre1']; ?>" 
-                                data-nombre2   ="<?php echo $reserva['nombre2']; ?>" 
+                                data-nombre    ="<?php echo $reserva['nombre_completo']; ?>" 
                                 data-llegada   ="<?php echo $reserva['fecha_llegada']; ?>" 
                                 data-salida    ="<?php echo $reserva['fecha_salida']; ?>" 
                                 data-impto     ="<?php echo $reserva['causar_impuesto']; ?>" 
@@ -247,10 +244,8 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
                                 data-id        ="<?php echo $reserva['num_reserva']; ?>" 
                                 data-tipohab   ="<?php echo descripcionTipoHabitacion($reserva['tipo_habitacion']); ?>" 
                                 data-nrohab    ="<?php echo $reserva['num_habitacion']; ?>" 
-                                data-apellido1 ="<?php echo $reserva['apellido1']; ?>" 
-                                data-apellido2 ="<?php echo $reserva['apellido2']; ?>" 
-                                data-nombre1   ="<?php echo $reserva['nombre1']; ?>" 
-                                data-nombre2   ="<?php echo $reserva['nombre2']; ?>" 
+                                data-nombre    ="<?php echo $reserva['nombre_completo']; ?>"  
+                                data-tarifa    ="<?php echo $reserva['tarifa']; ?>" 
                                 data-impto     ="<?php echo $reserva['causar_impuesto']; ?>" 
                                 href           ="#myModalCambiaTarifa">
                                 <i class="fa fa-window-restore" aria-hidden="true"></i>

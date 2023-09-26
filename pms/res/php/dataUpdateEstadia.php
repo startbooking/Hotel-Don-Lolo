@@ -3,6 +3,8 @@
   require_once '../../../res/php/app_topHotel.php'; 
 
   $id      = $_POST['id'];
+
+
   $reserva = $hotel->getBuscaReserva($id);
   $huesped = $hotel->getBuscaIdHuesped($reserva[0]['id_huesped']);
   $tipohab = $reserva[0]['tipo_habitacion'];
@@ -10,7 +12,10 @@
   $dias    = $dias / (60*60*24);
   $fecha   = FECHA_PMS;
   $cia     = $hotel->getBuscaCia($reserva[0]['id_compania']);
-  $centros = $hotel->getBuscaCentroCia($reserva[0]['idCentroCia']);
+  // $centros = $hotel->getBuscaCentroCia($reserva[0]['idCentroCia']);
+
+  // echo print_r($reserva);
+
 ?> 
   <div class="panel panel-success">
     <div class="panel-heading" style="padding:5px">
@@ -192,7 +197,7 @@
             <?php 
               $llega   = $reserva[0]['fecha_llegada'];
               $sale    = $reserva[0]['fecha_salida'];
-              $tarifas = $hotel->getSeleccionaTarifa($tipo,$llega,$sale); 
+              $tarifas = $hotel->getSeleccionaTarifa($tipohab,$llega,$sale); 
             ?>
             <select name="tarifahab" id="tarifahab" required onblur="valorHabitacionUpd(this.value)" readonly disabled>
               <?php 

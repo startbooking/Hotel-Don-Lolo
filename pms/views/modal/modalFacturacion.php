@@ -758,28 +758,8 @@ $cias = $hotel->getCompanias();
           </div>
           <div id="datos_ajax_register"></div>
           <div class="modal-body">
-            <!-- 
-            <input type="hidden" name="txtIdReservaEst" id="txtIdReservaEst" value="">
-            <input type="hidden" name="txtIdHuespedEst" id="txtIdHuespedEst" value="">
-            <input type="hidden" name="txtImptoTurismo" id="txtImptoTuriEst" value="">
-              <div class="form-group">
-              <label class="control-label col-xs-2">Tipo Hab</label>
-              <div class="col-lg-4 col-xs-4">
-                <input style="font-size:11px;" class="form-control padInput" type="text" name='txtTipoHabEst' id='txtTipoHabEst' readonly>
-              </div>
-              <label class="control-label col-xs-2">Hab.</label>
-              <div class="col-lg-2 col-xs-2">
-                <input style="font-size:11px;" class="form-control padInput" type="text" name='txtNumeroHabEst' id='txtNumeroHabEst' readonly>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="control-label col-xs-2">Huesped</label>
-              <div class="col-lg-10 col-xs-10">
-                <input style="font-size:11px;" class="form-control padInput" type="text" name="txtNombresEst" id='txtNombresEst' value='0' readonly>
-              </div>
-            </div> -->
             <div class="divs" id="divConsumos" >
-              <object id="verEstadoCuenta" width="100%" height="350" data=""></object> 
+              <object type="application/pdf" id="verEstadoCuentaFolio" width="100%" height="350" data=""></object> 
             </div>          
           </div>
           <div class="modal-footer" style="text-align: center">

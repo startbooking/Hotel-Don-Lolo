@@ -6184,6 +6184,46 @@ class Hotel_Actions
         return $data;
     }
 
+    public function getCargosReservaFolio($reserva, $folio)
+    {
+        global $database;
+
+        $data = $database->select('cargos_pms', [
+            '[>]codigos_vta' => ['id_codigo_cargo' => 'id_cargo'],
+        ], [
+            'cargos_pms.id_cargo',
+            'cargos_pms.fecha_cargo',
+            'cargos_pms.monto_cargo',
+            'cargos_pms.habitacion_cargo',
+            'cargos_pms.impuesto',
+            'cargos_pms.descripcion_cargo',
+            'cargos_pms.usuario',
+            'cargos_pms.id_huesped',
+            'cargos_pms.cantidad_cargo',
+            'cargos_pms.informacion_cargo',
+            'cargos_pms.valor_cargo',
+            'cargos_pms.valor_unitario_sin_impto',
+            'cargos_pms.folio_cargo',
+            'cargos_pms.pagos_cargos',
+            'cargos_pms.referencia_cargo',
+            'cargos_pms.concecutivo_abono',
+            'cargos_pms.numero_reserva',
+            'cargos_pms.cargo_anulado',
+            'cargos_pms.factura_numero',
+            'cargos_pms.numero_factura_cargo',
+            'codigos_vta.tipo_codigo',
+        ], [
+            'cargos_pms.numero_reserva' => $reserva,
+            'cargos_pms.folio_cargo' => $folio,
+            'cargos_pms.cargo_anulado' => 0,
+            'cargos_pms.tipo_factura' => 0,
+            'ORDER' => 'cargos_pms.id_cargo',
+        ]);
+
+        return $data;
+    }
+
+
     public function insertaNuevaAgencia($nit, $dv, $tipodoc, $agencia, $direccion, $ciudad, $telefono, $celular, $web, $correo, $tarifa, $formapago, $potencial, $comision, $credito, $monto, $diascre, $diacorte, $usuario)
     {
         global $database;
@@ -8183,7 +8223,7 @@ class Hotel_Actions
             'reservas_pms.id_compania',
             'reservas_pms.idCentroCia',
             'reservas_pms.tipo_ocupacion',
-            'reservas_pms.tarifa',
+            'reservas_pms.tarifa', 
             'reservas_pms.valor_reserva',
             'reservas_pms.valor_diario',
             'reservas_pms.estado',

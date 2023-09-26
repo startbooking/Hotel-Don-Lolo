@@ -1215,12 +1215,12 @@ if (facturador == 1) {
   $("#myModalModificaEstadia").on("show.bs.modal", function (event) {
     var button = $(event.relatedTarget);
     var id = button.data("id");
-    var nombrecom = button.data("nombre");
+    var nombre = button.data("nombre");
     var modal = $(this);
     var parametros = {
       id: id,
     };
-    modal.find(".modal-title").text("Modifica Estadia : " + nombrecom);
+    modal.find(".modal-title").text(`Modifica Estadia : ${nombre}`);
     $.ajax({
       type: "POST",
       data: parametros,
@@ -1285,7 +1285,7 @@ if (facturador == 1) {
     modal.find(".modal-body #txtReferenciaMov").val(refer);
     modal.find(".modal-body #txtDetalleCargoMov").val(info);
     $("#txtMotivoAnula").focus();
-  });
+  }); 
 
   $("#myModalEstadoCuenta").on("show.bs.modal", function (event) {
     var button = $(event.relatedTarget);
@@ -1337,10 +1337,11 @@ if (facturador == 1) {
     var parametros = {
       reserva,
       folio,
+      file
     };
 
     web = $("#rutaweb").val();
-    modal.find(".modal-title").text("Estado de Cuenta : " + nombre);
+    modal.find(".modal-title").text(`Estado de Cuenta ${nombre} - Folio Nro ${folio}`);
     /* modal.find(".modal-body #txtIdReservaEst").val(reserva);
     modal.find(".modal-body #txtIdHuespedEst").val(hues);
     modal.find(".modal-body #txtTipoHabEst").val(tipohab);
@@ -1353,15 +1354,20 @@ if (facturador == 1) {
       type: "POST",
       data: parametros,
       success: function (data) {
-        $("#verEstadoCuenta").attr(
+        // console.log(data);
+        /* $('#divConsumosFolio').html(`
+        <object type="application/pdf" id="verInforme" width="100%" height="500" data="data:application/pdf;base64,${$.trim(data)}"></object>
+        `) */
+        $("#verEstadoCuentaFolio").attr(
           "data",
-          web + "imprimir/informes/Estado_Cuenta_Huesped_" + reserva + ".pdf"
-        );
-        /// $("#divConsumos").html(data);
+          `data:application/pdf;base64,${$.trim(data)}`,
+        )
       },
     });
   });
 
+
+{/* <object type="application/pdf" id="verInforme" width="100%" height="500" data="data:application/pdf;base64,${$.trim(data)}"></object> */}
 
 
   
@@ -1504,13 +1510,15 @@ if (facturador == 1) {
   $("#myModalCambiaTarifa").on("show.bs.modal", function (event) {
     var button = $(event.relatedTarget);
     var id = button.data("id");
+
     var apellido1 = button.data("apellido1");
     var apellido2 = button.data("apellido2");
     var nombre1 = button.data("nombre1");
     var nombre2 = button.data("nombre2");
+    var nombre =  button.data("nombre");
     var modal = $(this);
     var parametros = {
-      id,
+      id, 
     };
 
     modal
@@ -1544,10 +1552,7 @@ if (facturador == 1) {
     var id = button.data("id");
     var tipohab = button.data("tipohab");
     var nrohab = button.data("nrohab");
-    var apellido1 = button.data("apellido1");
-    var apellido2 = button.data("apellido2");
-    var nombre1 = button.data("nombre1");
-    var nombre2 = button.data("nombre2");
+    var nombre = button.data("nombre");
     var modal = $(this);
     var parametros = {
       id,
@@ -1555,16 +1560,7 @@ if (facturador == 1) {
 
     modal
       .find(".modal-title")
-      .text(
-        "Informacion Estadia: " +
-          apellido1 +
-          " " +
-          apellido2 +
-          " " +
-          nombre1 +
-          " " +
-          nombre2
-      );
+      .text(`Informacion Estadia: ${nombre}`);
     modal.find(".modal-body #txtIdReservaCam").val(id);
     $.ajax({
       type: "POST",
@@ -1581,7 +1577,16 @@ if (facturador == 1) {
   $("#myModalAdicionaReserva").on("show.bs.modal", function (event) {
     $("#edita").val(0);
     $("#editaRes").val(0);
-    document.querySelector("#formReservas").reset();
+
+    formRes = document.querySelector("#formReservas")
+    console.log(formRes)
+    formRes.reset();
+    console.log(formRes)
+
+
+
+
+
   });
 
   $("#myModalModificaReserva").on("show.bs.modal", function (event) {
@@ -2003,8 +2008,8 @@ if (facturador == 1) {
     modal.find(".modal-body #txtNinosInf").val(ninos);
     modal.find(".modal-body #areaComentariosInf").val(observaciones);
     modal.find(".modal-body #txtTarifaInf").val(tarifa);
-    modal.find(".modal-body #txtValorTarifaInf").val(valor);
-    modal.find(".modal-body #txtValorTarifaInf").val(valor);
+    modal.find(".modal-body #txtValorTarifaInf").val(number_format(valor,2));
+    // modal.find(".modal-body #txtValorTarifaInf").val(valor);
     modal.find(".modal-body #tipoOcupacion").val(tipo);
     modal.find(".modal-body #createdusr").val(usuario);
     modal.find(".modal-body #fechaCrea").val(fechacrea);
@@ -6098,7 +6103,7 @@ function guardasinReserva() {
 
         },
         function(){
-          /// $(location).attr("href", "home");
+          $(location).attr("href", "home");
         })
     },
   });
@@ -6654,7 +6659,7 @@ function guardaReserva() {
           text: `Reserva ${datos} Creada con Exito`,
         },
         function () {
-          $(location).attr("href", "home");
+          $(location).attr("href", "reservasActivas");
         }
       );
     },

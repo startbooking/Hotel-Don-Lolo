@@ -1,6 +1,31 @@
 <?php
   require '../../../res/fpdf/fpdf.php';
-
+  
+  class PDF extends FPDF 
+  {
+      public function Header()
+      {
+          $this->Image('../../../img/'.LOGO, 10, 10, 25);
+          $this->SetFont('Arial', 'B', 13);
+          $this->Cell(190, 7, NAME_EMPRESA, 0, 1, 'C');
+          $this->SetFont('Arial', '', 10);
+          $this->Cell(190, 5, 'Nit: '.NIT_EMPRESA, 0, 1, 'C');
+          $this->Cell(190, 5, ADRESS_EMPRESA, 0, 1, 'C');
+          $this->Cell(190, 5, utf8_decode(CIUDAD_EMPRESA.', '.PAIS_EMPRESA), 0, 1, 'C');
+          $this->Cell(190, 5, 'Telefono '.TELEFONO_EMPRESA.' Movil '.CELULAR_EMPRESA, 0, 1, 'C');
+          $this->SetFont('Arial', 'B', 11);
+          // $this->Cell(190, 6, NAME_HOTEL, 0, 1, 'C');
+          $this->Ln(1);
+      }
+  
+      public function Footer()
+      {
+          $this->SetY(-15);
+          $this->SetFont('Arial', '', 8);
+          $this->Cell(95, 5, WEB_EMPRESA, 0, 0, 'L');
+          $this->Cell(95, 5, CORREO_EMPRESA, 0, 1, 'R');
+      }
+  }
 $pdf = new PDF();
 $pdf->AddPage();
 
@@ -10,8 +35,8 @@ $datosHuesped = $hotel->getbuscaDatosHuesped($datosReserva[0]['id_huesped']);
 $datosCompania = $hotel->getSeleccionaCompania($datosReserva[0]['id_compania']);
 // $datosAgencia   = $hotel->getSeleccionaAgencia($datosReserva[0]['id_agencia']);
 $tipoHabitacion = $hotel->getNombreTipoHabitacion($datosReserva[0]['tipo_habitacion']);
-$folios = $hotel->getCargosReservaModal($reserva);
-$fecha = $hotel->getDatePms();
+$folios = $hotel->getCargosReservaFolio($reserva, $folio);
+// $fecha = $hotel->getDatePms();
 // $datosCentroCia = $hotel->getTraeCentroCia($datosReserva[0]['idCentroCia']);
 
 $pdf->SetFont('Arial', 'B', 10);
@@ -24,7 +49,11 @@ $pdf->Cell(20, 5, FECHA_PMS, 0, 1, 'L');
 $pdf->SetFont('Arial', '', 10);
 $pdf->Cell(20, 5, 'Habitacion', 0, 0, 'L');
 $pdf->SetFont('Arial', 'B', 10);
-$pdf->Cell(10, 5, $datosReserva[0]['num_habitacion'], 0, 0, 'L');
+$pdf->Cell(20, 5, $datosReserva[0]['num_habitacion'], 0, 0, 'L');
+$pdf->SetFont('Arial', '', 10);
+$pdf->Cell(20, 5, 'Folio ', 0, 0, 'L');
+$pdf->SetFont('Arial', 'B', 10);
+$pdf->Cell(20, 5, $folio, 0, 1, 'L');
 $pdf->SetFont('Arial', '', 10);
 $pdf->Cell(20, 5, 'Huesped', 0, 0, 'L');
 $pdf->SetFont('Arial', 'B', 10);
@@ -61,7 +90,6 @@ $pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell(10, 5, $datosReserva[0]['can_ninos'], 0, 1, 'L');
 
 if (!empty($datosReserva[0]['id_compania'])) {
-    // $pdf->Ln(2);
     $pdf->SetFont('Arial', '', 10);
     $pdf->Cell(30, 5, 'Empresa', 0, 0, 'L');
     $pdf->SetFont('Arial', 'B', 10);
@@ -70,13 +98,6 @@ if (!empty($datosReserva[0]['id_compania'])) {
     $pdf->Cell(10, 5, 'Nit', 0, 0, 'L');
     $pdf->SetFont('Arial', 'B', 10);
     $pdf->Cell(10, 5, $datosCompania[0]['nit'].'-'.$datosCompania[0]['dv'], 0, 1, 'L');
-    /* if($datosReserva[0]['idCentroCia']!=0){
-      $pdf->SetFont('Arial','',10);
-      $pdf->Cell(30,5,'Centro de Costo',0,0,'L');
-      $pdf->SetFont('Arial','B',10);
-      $pdf->Cell(130,5,utf8_decode($datosCentroCia[0]['descripcion_centro']),0,0,'L');
-      $pdf->SetFont('Arial','',10);
-    } */
 }
 $pdf->Ln(2);
 $pdf->Cell(70, 6, 'Detalle', 1, 0, 'C');
@@ -118,7 +139,16 @@ $pdf->SetFont('Arial', 'B', 11);
 $pdf->Cell(32, 6, number_format(($consumos + $impto) - $pagos, 2), 0, 1, 'R');
 $pdf->SetFont('Arial', '', 10);
 $pdf->Ln(1);
-$pdf->Cell(190, 5, 'SON :'.numtoletras(($consumos + $impto) - $pagos), 0, 1, 'L');
+$totalCta = ($consumos + $impto) - $pagos;
 
-$file = '../../imprimir/informes/Estado_Cuenta_Huesped_'.$reserva.'.pdf';
-$pdf->Output($file, 'F');
+if($totalCta < 0){
+    $totalCta = $totalCta *-1 ; 
+    $pdf->Cell(190, 5, 'SON : '.numtoletras($totalCta).' A FAVOR DEL CLIENTE' , 0, 1, 'L');
+}else{
+    $pdf->Cell(190, 5, 'SON : '.numtoletras($totalCta), 0, 1, 'L');
+}
+$pdfFile = $pdf->Output('', 'S');
+$base64String = chunk_split(base64_encode($pdfFile));
+
+echo $base64String;
+

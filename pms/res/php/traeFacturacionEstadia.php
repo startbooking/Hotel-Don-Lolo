@@ -81,14 +81,13 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
             <?php
           $acompanas = $hotel->buscaAcompanantes($reserva['num_reserva']);
         if (count($acompanas) > 0) {
-            foreach ($acompanas as $key => $acompana) { ?>
-                  <span class="badge huespedAcom" style="background: #3faa558a;margin-top:2px;margin-left:15px;font-size:12px">
-                    <label for="" class="control-label" style="font-size:11px;text-align: left;padding: 5px 0px 2px 2px;color:#000"><?php echo $acompana['nombre_completo']; ?>
-                    </label>
-                  </span>
-
-                  <?php
-            }
+          foreach ($acompanas as $key => $acompana) { ?>
+            <span class="badge huespedAcom" style="background: #3faa558a;margin-top:2px;margin-left:15px;font-size:12px">
+              <label for="" class="control-label" style="font-size:11px;text-align: left;padding: 5px 0px 2px 2px;color:#000"><?php echo $acompana['nombre_completo']; ?>
+              </label>
+            </span>
+            <?php
+          }
         } 
         ?>
           </td>
@@ -163,7 +162,7 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
                           Datos Huesped</a> 
                       </li>
                       <?php
-                  if ($reserva['id_compania'] != 0) { ?>
+                      if ($reserva['id_compania'] != 0) { ?>
                         <li>
                           <a 
                             data-toggle    ="modal" 
@@ -178,12 +177,13 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
                           Datos Compañia</a>
                         </li>
                         <?php
-                  }
-        ?>
+                      }
+                      ?>
                       <li>
                         <a 
                           data-toggle    ="modal" 
                           data-idres     ="<?php echo $reserva['num_reserva']; ?>" 
+                          data-id        ="<?php echo $reserva['id_compania']; ?>" 
                           data-idcia     ="<?php echo $reserva['id_compania']; ?>" 
                           data-idcentro  ="<?php echo $reserva['idCentroCia']; ?>" 
                           data-tipohab   ="<?php echo descripcionTipoHabitacion($reserva['tipo_habitacion']); ?>" 
@@ -197,54 +197,54 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
                         Asignar Compañia</a>
                       </li>                                  
                       <?php
-          if ($reserva['num_habitacion'] != CTA_DEPOSITO) {?>
-                          <li>
-                            <a 
-                              data-toggle="modal" 
-                              data-id="<?php echo $reserva['num_reserva']; ?>" 
-                              data-apellido1="<?php echo $reserva['apellido1']; ?>" 
-                              data-apellido2="<?php echo $reserva['apellido2']; ?>" 
-                              data-nombre1="<?php echo $reserva['nombre1']; ?>" 
-                              data-nombre2="<?php echo $reserva['nombre2']; ?>" 
-                              data-impto="<?php echo $reserva['causar_impuesto']; ?>" 
-                              data-nrohab="<?php echo $reserva['num_habitacion']; ?>" 
-                              data-idhuesped="<?php echo $reserva['id_huesped']; ?>" 
-                              data-nombre   ="<?php echo $reserva['nombre_completo']; ?>" 
-                              href="#myModalCargosConsumo"
-                              >
-                            <i class="fa fa-shopping-cart" aria-hidden="true"></i> 
-                            Ingreso Consumos</a>
-                          </li>
-                          <li>
-                            <a 
-                              data-toggle  ="modal" 
-                              data-target = "#myModalAbonosConsumos"
-                              data-id="<?php echo $reserva['num_reserva']; ?>" 
-                              data-idhuesped="<?php echo $reserva['id_huesped']; ?>" 
-                              data-tipohab="<?php echo descripcionTipoHabitacion($reserva['tipo_habitacion']); ?>" 
-                              data-nrohab="<?php echo $reserva['num_habitacion']; ?>" 
-                              data-apellido1="<?php echo $reserva['apellido1']; ?>" 
-                              data-apellido2="<?php echo $reserva['apellido2']; ?>" 
-                              data-nombre1="<?php echo $reserva['nombre1']; ?>" 
-                              data-nombre2="<?php echo $reserva['nombre2']; ?>" 
-                              data-impto="<?php echo $reserva['causar_impuesto']; ?>" 
-                              data-llegada="<?php echo $reserva['fecha_llegada']; ?>" 
-                              data-salida="<?php echo $reserva['fecha_salida']; ?>" 
-                              data-noches="<?php echo $reserva['dias_reservados']; ?>" 
-                              data-hombres="<?php echo $reserva['can_hombres']; ?>" 
-                              data-mujeres="<?php echo $reserva['can_mujeres']; ?>" 
-                              data-ninos="<?php echo $reserva['can_ninos']; ?>" 
-                              data-observaciones="<?php echo $reserva['observaciones']; ?>"
-                              data-tarifa        ="<?php echo $hotel->getNombreTarifa($reserva['tarifa']); ?>" 
-                              data-valor="<?php echo $reserva['valor_reserva']; ?>" 
-                              data-nombre   ="<?php echo $reserva['nombre_completo']; ?>" 
-                              >
-                            <i class="fa fa-money" aria-hidden="true"></i>Abono a Estadia</a>
-                          </li>
-                          <?php
-          }
-        ?>                                  
-                      <li>
+                      if ($reserva['num_habitacion'] != CTA_DEPOSITO) {?>
+                        <li>
+                          <a 
+                            data-toggle="modal" 
+                            data-id="<?php echo $reserva['num_reserva']; ?>" 
+                            data-apellido1="<?php echo $reserva['apellido1']; ?>" 
+                            data-apellido2="<?php echo $reserva['apellido2']; ?>" 
+                            data-nombre1="<?php echo $reserva['nombre1']; ?>" 
+                            data-nombre2="<?php echo $reserva['nombre2']; ?>" 
+                            data-impto="<?php echo $reserva['causar_impuesto']; ?>" 
+                            data-nrohab="<?php echo $reserva['num_habitacion']; ?>" 
+                            data-idhuesped="<?php echo $reserva['id_huesped']; ?>" 
+                            data-nombre   ="<?php echo $reserva['nombre_completo']; ?>" 
+                            href="#myModalCargosConsumo"
+                            >
+                          <i class="fa fa-shopping-cart" aria-hidden="true"></i> 
+                          Ingreso Consumos</a>
+                        </li>
+                        <li>
+                          <a 
+                            data-toggle  ="modal" 
+                            data-target = "#myModalAbonosConsumos"
+                            data-id="<?php echo $reserva['num_reserva']; ?>" 
+                            data-idhuesped="<?php echo $reserva['id_huesped']; ?>" 
+                            data-tipohab="<?php echo descripcionTipoHabitacion($reserva['tipo_habitacion']); ?>" 
+                            data-nrohab="<?php echo $reserva['num_habitacion']; ?>" 
+                            data-apellido1="<?php echo $reserva['apellido1']; ?>" 
+                            data-apellido2="<?php echo $reserva['apellido2']; ?>" 
+                            data-nombre1="<?php echo $reserva['nombre1']; ?>" 
+                            data-nombre2="<?php echo $reserva['nombre2']; ?>" 
+                            data-impto="<?php echo $reserva['causar_impuesto']; ?>" 
+                            data-llegada="<?php echo $reserva['fecha_llegada']; ?>" 
+                            data-salida="<?php echo $reserva['fecha_salida']; ?>" 
+                            data-noches="<?php echo $reserva['dias_reservados']; ?>" 
+                            data-hombres="<?php echo $reserva['can_hombres']; ?>" 
+                            data-mujeres="<?php echo $reserva['can_mujeres']; ?>" 
+                            data-ninos="<?php echo $reserva['can_ninos']; ?>" 
+                            data-observaciones="<?php echo $reserva['observaciones']; ?>"
+                            data-tarifa        ="<?php echo $hotel->getNombreTarifa($reserva['tarifa']); ?>" 
+                            data-valor="<?php echo $reserva['valor_reserva']; ?>" 
+                            data-nombre   ="<?php echo $reserva['nombre_completo']; ?>" 
+                            >
+                          <i class="fa fa-money" aria-hidden="true"></i>Abono a Estadia</a>
+                        </li>
+                        <?php
+                        }
+                      ?>                                  
+                      <!-- <li>
                         <a 
                           data-toggle  ="modal" 
                           data-target  = "#myModalEstadoCuenta"
@@ -256,7 +256,7 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
                           >
                           <i class="fa fa-book" aria-hidden="true"></i>
                         Estado de Cuenta</a>
-                      </li> 
+                      </li>  -->
                       <li>
                         <a 
                           data-toggle    ="modal" 

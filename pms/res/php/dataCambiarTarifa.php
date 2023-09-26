@@ -7,6 +7,9 @@
   $huesped = $hotel->getBuscaIdHuesped($reserva[0]['id_huesped']);
   $cia     = $hotel->getBuscaCia($reserva[0]['id_compania']);
   $tipohab =  $reserva[0]['tipo_habitacion'];
+
+
+  // echo print_r($reserva);
   
  ?>
 <div class="">

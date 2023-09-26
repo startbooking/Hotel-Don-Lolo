@@ -1,7 +1,7 @@
 @charset 'UTF-8';
 
 * {
-  font-family: ubuntu;
+  font-family: "ubuntu";
 }
 
 body {
@@ -25,7 +25,7 @@ body,
 input,
 textarea,
 select {
-  font-family: "Source Sans Pro";
+  font-family: "Ubuntu";
   font-weight: 400;
   color: #090909#777;
 }
@@ -35,8 +35,14 @@ h2,
 h3 {
   font-weight: 500;
   color: #120808;
-  font-family: "ubuntu";
 }
+
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: "ubuntu";
+  /* font-family: 'Source Sans Pro', sans-serif; */
+}
+
 
 .small-box h3 {
   font-size: 28px;

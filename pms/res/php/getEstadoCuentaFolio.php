@@ -7,8 +7,10 @@ $reserva = $_POST['reserva'];
 
 extract($_POST);
 
-echo $reserva;
+/* echo $reserva;
 echo $folio;
+echo $file; */
+
 
 include_once '../../imprimir/imprimeEstadoCuentaFolio.php'; 
 
