@@ -339,8 +339,6 @@ function procesaRecReq() {
         localStorage.removeItem("fechaRecReq");
         swal("Atencion", "Requisicion Creada con Exito", "success", 5000);
         $(location).attr("href", "requisiciones");
-        /*
-         */
       },
     });
   }, 1000);
@@ -1807,8 +1805,8 @@ function procesaTraslado(tipo) {
         localStorage.removeItem("tipoMovSale");
         localStorage.removeItem("destinoTras");
         localStorage.removeItem("fechaTras");
-        // $(location).attr("href", "traslados");
         imprimeMovimiento(data, 3);
+        $(location).attr("href", "traslados");
       },
     });
   }, 1000);
@@ -2108,7 +2106,7 @@ function asignaConsecutivo(tipo) {
   $.ajax({
     url: ruta + "res/php/getNumeroMovimiento.php",
     type: "POST",
-    data: { tipo: tipo },
+    data: { tipo },
     success: function (data) {
       $("#numeroMovimiento").val(parseInt(data));
     },
@@ -2144,6 +2142,7 @@ function procesaEntrada(tipo) {
         localStorage.removeItem("fecha");
         localStorage.removeItem("factura");
         localStorage.removeItem("tipoMov");
+        localStorage.removeItem("tipoMovSale");
         swal(
           "Atencion",
           "Movimiento de Entradas Realizado con Exito",

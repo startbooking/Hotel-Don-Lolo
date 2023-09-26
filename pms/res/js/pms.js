@@ -2217,9 +2217,7 @@ const enviaJSONPpal = async (JSONPpal) => {
   infoHotel =  await traeInfoHotel();
   let {tra, tokenTra, urlTraHuesped, urlTraAcompana, passwordTra, envioTra } = infoHotel[0];
 
-  // console.log(infoHotel);
-
-  /* if(tra==0){
+  if(tra==0){
     swal({
       title: "Precaucion",
       text: "Modulo de Envio de Tarjeta de Registro de Alojamiento – TRA - No Activado",
@@ -2227,15 +2225,13 @@ const enviaJSONPpal = async (JSONPpal) => {
       confirmButtonText: "Aceptar",
     },
     function(){
-      // $(location).attr("href",'encasa');
+      $(location).attr("href",'encasa');
     });
     error = {
       mensaje:"Modulo de Envio de Tarjeta de Registro de Alojamiento – TRA - No Activado",
     } 
     return error
   }
-
-  // console.log(tokenTra)
 
   if(tokenTra == '' || tokenTra == null || urlTraHuesped == '' || urlTraAcompana == '' || passwordTra == ''){
     swal({
@@ -2250,7 +2246,7 @@ const enviaJSONPpal = async (JSONPpal) => {
       mensaje:"Modulo de Envio de Tarjeta de Registro de Alojamiento – TRA - No Esta Configurado",
     } 
     return error
-  } */
+  }
 
   try {
     
@@ -2264,7 +2260,6 @@ const enviaJSONPpal = async (JSONPpal) => {
       },
       body:JSON.stringify(JSONPpal),
     });
-    // const datos = await resultado.json();
     console.log(datos);
     return datos;
   } catch (error) {
@@ -2277,21 +2272,6 @@ const enviaJSONPpal = async (JSONPpal) => {
 const enviaJSONAcompana = async (JSONAcompana) => {
   infoHotel =  await traeInfoHotel();
   let {tra, tokenTra, urlTraHuesped, urlTraAcompana, passwordTra, envioTra } = infoHotel[0];
-
-  /* if(tokenTra == '' || tokenTra == null || urlTraHuesped == '' || urlTraAcompana == '' || passwordTra == ''){
-    swal({
-      title: "Precaucion",
-      text: "Modulo de Envio de Tarjeta de Registro de Alojamiento – TRA - No Esta Configurado",
-      type: "warning",
-      confirmButtonText: "Aceptar",
-    },
-    function(){
-    });
-    error = {
-      mensaje:"Modulo de Envio de Tarjeta de Registro de Alojamiento – TRA - No Esta Configurado",
-    } 
-    return error
-  } */
 
   try {
     
@@ -4441,7 +4421,7 @@ function movimientosCongelada(reserva) {
       $("#plantilla").html("");
       $("#plantilla").html(data);
       activaCongelado(reserva, 1);
-      // $(location).attr("href", "facturacionCongelada");
+      $(location).attr("href", "facturacionCongelada");
     },
   });
 }
@@ -5457,7 +5437,7 @@ function updateCompania() {
     data: parametros,
     url: "res/php/updateCompania.php",
     success: function (datos) {
-      /// $(location).attr("href", pagina);
+      $(location).attr("href", pagina);
     },
   });
 }
@@ -6394,8 +6374,6 @@ function cancelaReserva() {
           $(location).attr("href", pagina);
         }
       );
-      // swal(titulo, mensaje, alerta);
-      // $(location).attr("href", pagina);
     },
   });
 }
@@ -6999,18 +6977,6 @@ function imprimirHistoricoRegistro(registro) {
         ".pdf"
     );
   }
-  /* var parametros = {
-    registro,
-  };
-  $.ajax({
-    type: "POST",
-    data: parametros,
-    url: web + "res/php/imprimeHistoricoRegistro.php",
-    success: function (datos) {
-      $("#imprimeRegistroHotelero").html(datos);
-      // $(location).attr("href", pagina);
-    },
-  }); */
 }
 
 function imprimirPreRegistro(reserva) {
@@ -7090,8 +7056,6 @@ function terminaMmto() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
   let { usuario, usuario_id } = user;
-  /* usuario = sesion["usuario"][0]["usuario"];
-  idusuario = sesion["usuario"][0]["usuario_id"]; */
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var costo = $("#costoMmto").val();
@@ -7490,9 +7454,6 @@ function validaCierreDiario() {
               $(location).attr("href", "home");
             }
           );
-          /* swal("Atencion", "Auditoria Terminada con Exito", "success");
-          setTimeout(function () {
-          }, 5000); */
         } else {
           if (x == 0) {
             $(".mensaje").html(
@@ -7578,8 +7539,6 @@ function subirArchivos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
   let { usuario, usuario_id } = user;
-  /*  usuario = sesion["usuario"][0]["usuario"];
-  idusuario = sesion["usuario"][0]["usuario_id"]; */
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var formData = new FormData($("#uploadFiles")[0]);

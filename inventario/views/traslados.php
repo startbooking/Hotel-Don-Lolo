@@ -17,9 +17,7 @@ $entradas = $inven->getMovimientosTraslados(1);
             <a 
               class="btn btn-success" 
               href="movimientoTraslado">
-              <i class="fa fa-plus" aria-hidden="true"></i>
-               Nuevo Traslado
-            </a>
+              <i class="fa fa-plus" aria-hidden="true"></i> Nuevo Traslado</a>
             <button class="btn btn-info" onclick="exportTableToExcel('tablaentradas')"><i class="glyphicon glyphicon-th" aria-hidden="true"></i> Exportar Movimientos</button>
           </div> 
         </div> 

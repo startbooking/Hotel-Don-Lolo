@@ -47,7 +47,6 @@ function imprimeMovimiento(id, tipo) {
       doc = "imprimir/Pedido_" + id + ".pdf";
       break;
   }
-
   var ventana = window.open(doc, "PRINT", "height=600,width=600");
 }
 

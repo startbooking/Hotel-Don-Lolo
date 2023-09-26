@@ -70,6 +70,7 @@
             $upd = $inven->actualizapromedioReceta($producto, $valorpro);
         }
     }
+    
     if ($tipo == 1) {
         include_once '../../views/prints/imprimeEntradas.php';
     } elseif ($tipo == 2) {
