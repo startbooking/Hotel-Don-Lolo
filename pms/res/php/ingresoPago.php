@@ -71,7 +71,6 @@ $fechaVen = $fechaFac;
 $diasCre = 0;
 $paganticipo = 0;
 
-
 if ($perfilFac == 1 && $facturador == 1) {
     $numfactura = $hotel->getNumeroFactura(); // Numero Actual del Abono
     $nuevonumero = $hotel->updateNumeroFactura($numfactura + 1); // Actualiza Consecutivo del Abono

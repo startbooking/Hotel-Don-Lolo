@@ -55,6 +55,14 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   text-align: center;
 }
 
+#modulos {
+  margin-top:5%;
+}
+
+.small-box-footer {
+  cursor: pointer;
+}
+
 .cierre {
   text-align: center;
   font-size: 45px;
@@ -1110,6 +1118,15 @@ input:invalid { border-color: brown; } input, input:valid { border-color: #ccc; 
   background-color: #000;
   display: none;
 }
+
+.apagado {
+  display: none;
+}
+
+.mt20 {
+  margin-top: 20px;
+}
+
 
 #boxes .window {
   position: absolute;

@@ -6,14 +6,6 @@ require_once '../res/php/app_topInventario.php';
 <!DOCTYPE html>
 <html>
   <head>
-    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-99252638-1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'UA-99252638-1');
-    </script> -->    
     <title><?php echo TITLE_INV; ?> | Sistema de Inventarios</title>
     <?php include_once '../res/shared/archivo_head.php'; ?>
     <link rel="stylesheet" type="text/css" href="res/css/inventario.css">

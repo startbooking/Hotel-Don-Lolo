@@ -8,7 +8,7 @@
   $pass3 = sha1(md5($usu.$pass));
   $users = $user->getLogin($usu, $pass3);
   $entrada = [];
-
+ 
   if (!empty($users)) {
       $cia = $user->getInfoCia();
       $pms = $user->getDatePms();

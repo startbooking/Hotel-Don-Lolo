@@ -166,7 +166,14 @@ function activaModulos() {
 
   let { fecha_auditoria } = moduloPms;
 
-  var div = '<div class="container-fluid moduloCentrar">';
+  console.log()
+
+  muestraFecha = document.querySelector('#fechaPms');
+  muestraFecha.innerHTML(`Fecha de Proceso [${fecha_auditoria}]`)
+
+  // <p style="color:#FFF" id="fechaPms"> </p>
+
+  /* var div = '<div class="container-fluid moduloCentrar">';
   if (invMod == "1" && inv == '1') {
     div =
       div +
@@ -256,8 +263,8 @@ function activaModulos() {
       </div>
     </div>
 		`;
-  }
-  $("#modulos").html(div);
+  } */
+  // $("#modulos").html(div);
   $("#nombreUsuario").html(
     `${apellidos}  ${nombres}<span class="caret"></span>`
   );
