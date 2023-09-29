@@ -331,10 +331,7 @@ $cias = $hotel->getCompanias();
             <h3 class="modal-title" id="exampleModalLabel">Salida Huesped</h3>
           </div> 
           <div id="mensajeSal"></div> 
-          <div class="modal-body">
-            <!-- <?php
-              $retenciones = $hotel->getRetenciones();
-            ?>   -->          
+          <div class="modal-body">                    
             <input type="hidden" name="txtIdReservaSal" id="txtIdReservaSal" value="">
             <input type="hidden" name="txtIdHuespedSal" id="txtIdHuespedSal" value="">
             <input type="hidden" name="txtImptoTuriSal" id="txtImptoTuriSal" value="">
@@ -345,7 +342,6 @@ $cias = $hotel->getCompanias();
             <input type="hidden" name="credito" id="credito" value="0">            
             <input type="hidden" name="perfilFactura" id="perfilFactura" value="0">
             <input type="hidden" name="retencionCia" id="retencionCia" value=''>
-            <!-- <input type="hidden" name="retenciones" id="retenciones" value='<?php echo json_encode($retenciones); ?>'> -->
             <div class="form-group"> 
               <label style="margin-top: 3px;" for="llegada" class="col-sm-2 control-label">Facturar A </label>
               <div class="col-sm-6" style="padding:0;height: 30px">
@@ -412,7 +408,7 @@ $cias = $hotel->getCompanias();
       </div>
     </div>
   </form>
-</div> 
+</div>  
 
 <div class="modal fade" id="myModalSaldoHuesped" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <form id="guardarDatosRooms" class="form-horizontal" action="javascript:ingresaAbonos()" method="POST" enctype="multipart/form-data">

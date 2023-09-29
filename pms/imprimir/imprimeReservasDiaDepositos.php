@@ -22,9 +22,10 @@ $pdf->Cell(265, 4, 'Fecha : '.FECHA_PMS, 0, 1, 'C');
 
 $pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell(20, 5, 'Deposito. ', 0, 0, 'C');
+$pdf->Cell(20, 5, 'Reserva. ', 0, 0, 'C');
 $pdf->Cell(30, 5, 'Valor ', 0, 0, 'C');
 $pdf->Cell(10, 5, 'Hab. ', 0, 0, 'C');
-$pdf->Cell(70, 5, 'Forma de Pago ', 0, 0, 'C');
+$pdf->Cell(50, 5, 'Forma de Pago ', 0, 0, 'C');
 $pdf->Cell(20, 5, 'Reserva ', 0, 0, 'C');
 $pdf->Cell(70, 5, 'Huesped', 0, 0, 'C');
 $pdf->Cell(20, 5, 'Fecha', 0, 0, 'C');
@@ -38,9 +39,10 @@ if ($regis == 0) {
     $sal = 0;
     foreach ($depositos as $deposito) {
         $pdf->Cell(20, 4, $deposito['concecutivo_abono'], 0, 0, 'R');
+        $pdf->Cell(20, 4, $deposito['numero_reserva'], 0, 0, 'R');
         $pdf->Cell(30, 4, number_format($deposito['pagos_cargos'], 2), 0, 0, 'R');
         $pdf->Cell(10, 4, $deposito['habitacion_cargo'], 0, 0, 'R');
-        $pdf->Cell(70, 4, $deposito['descripcion_cargo'], 0, 0, 'L');
+        $pdf->Cell(50, 4, $deposito['descripcion_cargo'], 0, 0, 'L');
         $pdf->Cell(20, 4, $deposito['id_reserva'], 0, 0, 'C');
         $pdf->Cell(70, 4, utf8_decode($deposito['apellido1'].' '.$deposito['apellido2'].' '.$deposito['nombre1'].' '.$deposito['nombre2']), 0, 0, 'L');
         $pdf->Cell(20, 4, $deposito['fecha_cargo'], 0, 0, 'R');

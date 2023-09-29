@@ -13,11 +13,11 @@
                 <div class="col-lg-9 col-sm-9">
                   <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_FE?>">                  
                   <input type="hidden" name="ubicacion" id="ubicacion" value="informeFacturasRango">
-                  <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-industry"></i> Facturas</h3>
+                  <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-industry"></i> Documento Soporte</h3>
                 </div>
                 <div class="col-lg-3 col-sm-3">
                   <button class="btn btn-success pull-right" type="submit"><i class="fa fa-print" aria-hidden="true"></i> Buscar</button>
-                  <button class="btn btn-info  pull-right"><i class="glyphicon glyphicon-th" aria-hidden="true"></i> Nueva Factura</button> 
+                  <button class="btn btn-info  pull-right"><i class="glyphicon glyphicon-th" aria-hidden="true"></i> Nuevo Documento</button> 
                 </div>
               </div>  
             </div>
@@ -73,6 +73,7 @@
     </div>
 
 <?php 
-  include_once 'views/modal/modalFacturas.php';  
+  include_once 'views/modal/modalDocSoporte.php';  
 ?> 
 
+<script src="<?php echo BASE_FE; ?>res/js/docsoporte.js"></script>

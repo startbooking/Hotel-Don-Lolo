@@ -16,11 +16,12 @@ $pdf->SetFont('Arial', '', 9);
 $pdf->Cell(195, 5, 'Fecha : '.FECHA_PMS, 0, 1, 'C');
 $pdf->Ln(2);
 
-$pdf->SetFont('Arial', 'B', 10);
+$pdf->SetFont('Arial', 'B', 9);
 $pdf->Cell(10, 6, 'Hab.', 0, 0, 'C');
-$pdf->Cell(60, 6, 'Huesped', 0, 0, 'C');
-$pdf->Cell(50, 6, 'Descripcion ', 0, 0, 'C');
+$pdf->Cell(50, 6, 'Huesped', 0, 0, 'C');
+$pdf->Cell(40, 6, 'Descripcion ', 0, 0, 'C');
 $pdf->Cell(10, 6, 'Nro. Doc', 0, 0, 'C');
+$pdf->Cell(20, 6, 'Reserva', 0, 0, 'C');
 $pdf->Cell(20, 6, 'Pagos', 0, 0, 'C');
 $pdf->Cell(20, 6, 'Usuario', 0, 0, 'C');
 $pdf->Cell(10, 6, 'Hora', 0, 0, 'C');
@@ -44,9 +45,10 @@ foreach ($cargos as $cargo) {
         $estadoFa = 'Anulada';
     }
     $pdf->Cell(10, 4, $cargo['habitacion_cargo'], 0, 0, 'L');
-    $pdf->Cell(60, 4, substr(utf8_decode($cargo['apellido1'].' '.$cargo['apellido2'].' '.$cargo['nombre1'].' '.$cargo['nombre2']), 0, 28), 0, 0, 'L');
-    $pdf->Cell(50, 4, substr(utf8_decode($cargo['descripcion_cargo']), 0, 19), 0, 0, 'L');
+    $pdf->Cell(50, 4, substr(utf8_decode($cargo['apellido1'].' '.$cargo['apellido2'].' '.$cargo['nombre1'].' '.$cargo['nombre2']), 0, 28), 0, 0, 'L');
+    $pdf->Cell(40, 4, substr(utf8_decode($cargo['descripcion_cargo']), 0, 19), 0, 0, 'L');
     $pdf->Cell(10, 4, $numeroDoc, 0, 0, 'R');
+    $pdf->Cell(20, 4, $cargo['numero_reserva'], 0, 0, 'R');
     $pdf->Cell(20, 4, number_format($cargo['pagos_cargos'], 2), 0, 0, 'R');
     $pdf->Cell(20, 4, $cargo['usuario'], 0, 0, 'R');
     $pdf->Cell(10, 4, substr($cargo['fecha_sistema_cargo'], 11, 5), 0, 0, 'R');

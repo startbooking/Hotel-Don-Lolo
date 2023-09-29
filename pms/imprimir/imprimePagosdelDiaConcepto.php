@@ -24,7 +24,8 @@ $monto = 0;
 
 $pdf->Cell(20, 5, 'Numero', 1, 0, 'R');
 $pdf->Cell(20, 5, 'Hab.', 1, 0, 'R');
-$pdf->Cell(70, 5, 'Huesped', 1, 0, 'C');
+$pdf->Cell(20, 5, 'Reserva.', 1, 0, 'R');
+$pdf->Cell(50, 5, 'Huesped', 1, 0, 'C');
 $pdf->Cell(10, 5, 'Cant. ', 1, 0, 'C');
 $pdf->Cell(25, 5, 'Pago', 1, 0, 'C');
 $pdf->Cell(30, 5, 'Usuario', 1, 0, 'C');
@@ -47,7 +48,8 @@ foreach ($codigos as $codigo) {
         }
         $pdf->Cell(20, 4, $numDoc, 0, 0, 'R');
         $pdf->Cell(20, 4, $cargo['habitacion_cargo'], 0, 0, 'R');
-        $pdf->Cell(70, 4, substr(utf8_decode($cargo['apellido1'].' '.$cargo['apellido2'].' '.$cargo['nombre1'].' '.$cargo['nombre2']), 0, 24), 0, 0, 'L');
+        $pdf->Cell(20, 4, $cargo['numero_reserva'], 0, 0, 'R');
+        $pdf->Cell(50, 4, substr(utf8_decode($cargo['apellido1'].' '.$cargo['apellido2'].' '.$cargo['nombre1'].' '.$cargo['nombre2']), 0, 24), 0, 0, 'L');
         $pdf->Cell(10, 4, $cargo['cantidad_cargo'], 0, 0, 'C');
         $pdf->Cell(25, 4, number_format($cargo['pagos_cargos'], 2), 0, 0, 'R');
         $pdf->Cell(30, 4, $cargo['usuario'], 0, 0, 'R');

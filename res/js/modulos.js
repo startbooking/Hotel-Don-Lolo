@@ -7,6 +7,9 @@ $(document).ready(function () {
 
   let { fecha_auditoria } = moduloPms;
 
+/* console.log({ invMod, posMod, pmsMod, resMod, feMod , conMod})
+console.log({ inv, pos, pms, res, fe, con }) */
+
   muestraFecha = document.querySelector('#fechaPms');
   nombreUsuaro = document.querySelector('#nombreUsuario');
 
@@ -22,27 +25,26 @@ $(document).ready(function () {
   moduloCon = document.querySelector("#con");
   modulos  = document.querySelector("#modulos");
 
- 
-  if(invMod==0 && inv == 0 ){
-    moduloInv.classList.add('apagado')
+  if(invMod==1 && inv == 1 ){
+    moduloInv.classList.remove('apagado')
   }
-  if(posMod==0 && pos == 0){
-    moduloPos.classList.add('apagado')
+  if(posMod==1 && pos == 1){
+    moduloPos.classList.remove('apagado')
   }
-  if(pmsMod==0 && pms == 0){
-    moduloPms.classList.add('apagado')
+  if(pmsMod==1 && pms == 1){
+    moduloPms.classList.remove('apagado')
   }
-  if(resMod==0 && res == 0 ){
-    moduloRes.classList.add('apagado')
+  if(resMod==1 && res == 1){
+    moduloRes.classList.remove('apagado')
   }
-  if(feMod==0 && fe == 0){
-    moduloFe.classList.add('apagado')
+  if(feMod==1 && fe == 1){
+    moduloFe.classList.remove('apagado')
   }
-  if(conMod==0 && con == 0){
-    moduloCon.classList.add('apagado')
+  if(conMod==1 && con == 1){
+    moduloCon.classList.remove('apagado')
   }
-  if(tipo==0){
-    moduloPar.classList.add('apagado')
+  if(tipo==1){
+    moduloPar.classList.remove('apagado')
   }
 
   modulos.classList.remove('apagado')

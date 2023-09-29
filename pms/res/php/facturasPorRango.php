@@ -8,12 +8,12 @@
 
   $desdeFe = $_POST['desdeFe']; 
   $hastaFe = $_POST['hastaFe'];
-  $desdeNu = $_POST['desdeNu'];
+  /* $desdeNu = $_POST['desdeNu'];
   $hastaNu = $_POST['hastaNu'];
   $huesped = $_POST['huesped'];
   $empresa = $_POST['empresa'];
   $formaPa = $_POST['formaPa'];
-
+ */
   if($empresa!=''){
     $sele = "SELECT companias.empresa, codigos_vta.descripcion_cargo, huespedes.apellido1, huespedes.apellido2, huespedes.nombre1, huespedes.nombre2, huespedes.nombre_completo, historico_cargos_pms.habitacion_cargo, historico_cargos_pms.tipo_factura, historico_cargos_pms.id_codigo_cargo, historico_cargos_pms.perfil_factura, historico_cargos_pms.id_perfil_factura, historico_cargos_pms.perfil_factura, historico_cargos_pms.factura_numero, historico_cargos_pms.numero_reserva, historico_cargos_pms.factura_anulada, historico_cargos_pms.id_usuario_factura, historico_cargos_pms.prefijo_factura, historico_cargos_pms.total_consumos, historico_cargos_pms.total_impuesto, historico_cargos_pms.total_pagos, historico_cargos_pms.fecha_factura, historico_cargos_pms.fecha_sistema_cargo, historico_cargos_pms.numero_factura_cargo, historico_reservas_pms.fecha_llegada, historico_reservas_pms.num_reserva,  historico_reservas_pms.fecha_salida FROM huespedes, historico_cargos_pms, codigos_vta, companias, historico_reservas_pms WHERE ";
     $filtro = "huespedes.id_huesped = historico_cargos_pms.id_huesped AND codigos_vta.id_cargo = historico_cargos_pms.id_codigo_cargo AND factura=1 and tipo_factura = 2 AND companias.id_compania = historico_cargos_pms.id_perfil_factura AND historico_cargos_pms.numero_reserva = historico_reservas_pms.num_reserva";
@@ -33,7 +33,7 @@
     $filtro = $filtro." AND fecha_factura = '$desdeFe'";
   }
 
-  if($desdeNu!='' && $hastaNu!= ''){
+  /* if($desdeNu!='' && $hastaNu!= ''){
     $filtro = $filtro." AND factura_numero >='$desdeNu' AND factura_numero <= '$hastaNu'";
   }elseif($desdeNu=='' && $hastaNu!= ''){
     $filtro = $filtro." AND factura_numero <= '$hastaNu'";
@@ -51,7 +51,7 @@
 
   if($formaPa!=''){
     $filtro = $filtro." AND id_codigo_cargo = '$formaPa'";
-  }
+  } */
   
   $query    = $sele.$filtro.$sele2;
 
@@ -62,18 +62,11 @@
 
 <div class="table-responsive" style="padding:0"> 
   <div class="row-fluid" style="padding:0">
-    <table id="dataTable" class="table table-bordered">
+    <table id="example1" class="table table-bordered">
       <thead>
-        <tr class="warning">
-          <td>Factura</td>
-          <?php 
-            if($empresa!=''){ ?>
-              <td>Empresa</td> 
-            <?php 
-            }else{ ?>
-            <?php 
-            }
-          ?>
+        <tr class="warning centro" >
+          <td>Factura</td>          
+          <td>Facturado A</td> 
           <td>Huesped</td> 
           <td>Fecha Factura</td>
           <td>Forma de Pago</td>
@@ -90,6 +83,11 @@
         $totalCon = 0;
         $totalImp = 0;
         foreach ($facturas as $factura) { 
+          if ($factura['tipo_factura'] !== 1) {
+            $cias = $hotel->getBuscaCia($factura['id_perfil_factura']);
+            $nombrecia = $cias[0]['empresa'];
+            $nitcia = $cias[0]['nit'] . '-' . $cias[0]['dv'];
+          }
           if($factura['factura_anulada']=='0'){
             $totalFac = $totalFac + $factura['total_pagos'];
             $totalCon = $totalCon + $factura['total_consumos'];
@@ -97,22 +95,20 @@
           }
           ?>
           <tr style='font-size:12px'>
-            <td style="padding:3px 5px"><?php echo $factura['factura_numero']; ?></td>
-            <?php 
-              if($empresa!=''){ ?>
-                <td style="padding:3px 5px;text-align: left;"><?php echo $factura['empresa']; ?></td>
-                <?php 
-              }else{
-                ?>
-                <?php 
-              }
-            ?>
-            <td style="padding:3px 5px;text-align: left;"><?php echo $factura['nombre_completo']; ?></td>
+            <td style="padding:3px 5px"><?php echo $factura['factura_numero']; ?></td>            
+            <td style="padding:3px 5px;text-align: left;"><?php 
+            if($factura['tipo_factura'] == 1){
+              echo $factura['nombre_completo'];
+            }else{
+              echo $nombrecia; 
+            }
+            ?></td>
+            <td style="padding:3px 5px"><?php echo $factura['nombre_completo']; ?></td>
             <td style="padding:3px 5px"><?php echo $factura['fecha_factura']; ?></td>
             <td style="padding:3px 5px"><?php echo $factura['descripcion_cargo']; ?></td>
-            <td style="text-align: right;"> <?=number_format($factura['total_consumos']); ?></td>
-            <td style="text-align: right;"><?=number_format($factura['total_impuesto']); ?></td>
-            <td style="text-align: right;"><?=number_format($factura['total_pagos']); ?></td>
+            <td style="text-align: right;"> <?=number_format($factura['total_consumos'],2); ?></td>
+            <td style="text-align: right;"><?=number_format($factura['total_impuesto'],2); ?></td>
+            <td style="text-align: right;"><?=number_format($factura['total_pagos'],2); ?></td>
             <td style="padding:3px 5px"><?php echo estadoFactura($factura['factura_anulada']); ?></td>
             <td style="padding:3px 5px;width: 10%;text-align:center;">
               <button 
@@ -237,3 +233,24 @@
   </div>
 
 </div>
+
+
+
+<script>
+  $(function() {
+      $('#example1').DataTable({
+          "iDisplayLength": 100,
+          "paging": true,
+          "lengthChange": true,
+          "searching": true,
+          "ordering": true,
+          "info": true,
+          "autoWidth": true,
+          "language": {
+              "next": "Siguiente",
+              "search": "Buscar:",
+              "entries": "registros"
+          },
+      });
+  });
+</script>

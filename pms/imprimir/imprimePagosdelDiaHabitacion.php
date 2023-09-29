@@ -17,8 +17,9 @@
 
   $pdf->SetFont('Arial','B',10);
   $pdf->Cell(10,6,'Hab.',0,0,'C');
-  $pdf->Cell(60,6,'Huesped',0,0,'C'); 
-  $pdf->Cell(50,6,'Descripcion ',0,0,'C');
+  $pdf->Cell(20,6,'Reserva',0,0,'C'); 
+  $pdf->Cell(50,6,'Huesped',0,0,'C'); 
+  $pdf->Cell(40,6,'Descripcion ',0,0,'C');
   $pdf->Cell(10,6,'Cant. ',0,0,'C');
   $pdf->Cell(25,6,'Pago',0,0,'C');
   $pdf->Cell(30,6,'Usuario',0,0,'C');
@@ -29,18 +30,19 @@
 
   $pago  = 0 ;
   foreach ($cargos as $cargo) {
-    $pdf->Cell(10,6,$cargo['habitacion_cargo'],0,0,'L');
-    $pdf->Cell(60,6,substr(utf8_decode($cargo['apellido1'].' '.$cargo['apellido2'].' '.$cargo['nombre1'].' '.$cargo['nombre2']),0,28),0,0,'L');
-    $pdf->Cell(50,6,substr(utf8_decode($cargo['descripcion_cargo']),0,19),0,0,'L');
-    $pdf->Cell(10,6,$cargo['cantidad_cargo'],0,0,'C');
-    $pdf->Cell(25,6,number_format($cargo['pagos_cargos'],2),0,0,'R');
-    $pdf->Cell(30,6,$cargo['usuario'],0,0,'R'); 
-    $pdf->Cell(10,6,substr($cargo['fecha_sistema_cargo'],11,5),0,1,'R'); 
+    $pdf->Cell(10,4,$cargo['habitacion_cargo'],0,0,'L');
+    $pdf->Cell(20,4,$cargo['numero_reserva'],0,0,'L');
+    $pdf->Cell(50,4,substr(utf8_decode($cargo['apellido1'].' '.$cargo['apellido2'].' '.$cargo['nombre1'].' '.$cargo['nombre2']),0,28),0,0,'L');
+    $pdf->Cell(40,4,substr(utf8_decode($cargo['descripcion_cargo']),0,19),0,0,'L');
+    $pdf->Cell(10,4,$cargo['cantidad_cargo'],0,0,'C');
+    $pdf->Cell(25,4,number_format($cargo['pagos_cargos'],2),0,0,'R');
+    $pdf->Cell(30,4,$cargo['usuario'],0,0,'R'); 
+    $pdf->Cell(10,4,substr($cargo['fecha_sistema_cargo'],11,5),0,1,'R'); 
     $pago  = $pago + $cargo['pagos_cargos'];
   }
   $pdf->Ln(2);
   $pdf->SetFont('Arial','B',9);
-  $pdf->Cell(140,6,'Total Pagos del Dia ',0,0,'L');
+  $pdf->Cell(130,6,'Total Pagos del Dia ',0,0,'L');
   $pdf->Cell(25,6,number_format($pago,2),0,1,'R');
   $pdf->Ln(3);
 

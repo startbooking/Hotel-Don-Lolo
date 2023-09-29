@@ -111,21 +111,21 @@ foreach ($folios as $folio1) {
             <div class="form-group">
               <label for="apellidos" class="col-sm-3 control-label">Consumos</label>
               <div class="col-sm-3">
-                <input align="right" type="text" class="form-control" id="consumo" value="<?php echo number_format($consumos, 2); ?>" readonly>
+                <input type="text" class="form-control derecha" id="consumo" value="<?php echo number_format($consumos, 2); ?>" readonly>
               </div>
               <label for="apellidos" class="col-sm-3 control-label">Abonos / Pagos</label>
               <div class="col-sm-3">
-                <input align="right" type="text" class="form-control" id="apellidos" placeholder="" value="<?php echo number_format($pagos, 2); ?>" readonly>
+                <input type="text" class="form-control derecha" id="apellidos" placeholder="" value="<?php echo number_format($pagos, 2); ?>" readonly>
               </div>
             </div>          
             <div class="form-group">
               <label for="apellidos" class="col-sm-3 control-label">Impuesto</label>
               <div class="col-sm-3">
-                <input align="right" type="text" class="form-control" id="imptos" placeholder="" value="<?php echo number_format($impto, 2); ?>" readonly>
+                <input type="text" class="form-control derecha" id="imptos" placeholder="" value="<?php echo number_format($impto, 2); ?>" readonly>
               </div>
               <label for="apellidos" class="col-sm-3 control-label">Total Folio</label>
               <div class="col-sm-3">
-                <input align="right" type="text" class="form-control" id="saldototal" placeholder="" value="<?php echo number_format(($consumos + $impto) - $pagos, 2); ?>" readonly>
+                <input type="text" class="form-control derecha" id="saldototal" placeholder="" value="<?php echo number_format(($consumos + $impto) - $pagos, 2); ?>" readonly>
               </div>
             </div>
           </div>				

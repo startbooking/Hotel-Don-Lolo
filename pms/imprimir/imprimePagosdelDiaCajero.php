@@ -14,7 +14,7 @@
   $pdf->SetFont('Arial','',10);
   $pdf->Cell(195,5,'Fecha : '.FECHA_PMS,0,1,'C');
   // $pdf->Ln(1);
-  $pdf->SetFont('Arial','B',10);
+  $pdf->SetFont('Arial','B',9);
   $usuarios = $hotel->getUsuariosCargos(FECHA_PMS,3,0); 
 
   $pag   = 0;
@@ -25,9 +25,9 @@
     $pdf->Cell(50,5,utf8_decode($usuario['usuario']),0,1,'L');
       
     $cargos = $hotel->getCargosdelDiaporcajero(FECHA_PMS,$usuario['usuario'],3,0);
-    $pdf->Cell(20,5,'',0,0,'R');
     $pdf->Cell(50,5,'Descripcion.',0,0,'C');
     $pdf->Cell(10,5,'Hab.',0,0,'R');
+    $pdf->Cell(20,5,'Reserva.',0,0,'R');
     $pdf->Cell(70,5,'Huesped',0,0,'C');
     $pdf->Cell(10,5,'Cant. ',0,0,'C');
     $pdf->Cell(25,5,'Pagos',0,0,'C');
@@ -36,9 +36,9 @@
     $pago  = 0 ;
 
     foreach ($cargos as $cargo) {
-      $pdf->Cell(20,6,'',0,0,'L');
       $pdf->Cell(50,6,utf8_decode($cargo['descripcion_cargo']),0,0,'');
       $pdf->Cell(10,6,$cargo['habitacion_cargo'],0,0,'R');
+      $pdf->Cell(20,6,$cargo['numero_reserva'],0,0,'R');
       $pdf->Cell(70,6,substr(utf8_decode($cargo['apellido1'].' '.$cargo['apellido2'].' '.$cargo['nombre1'].' '.$cargo['nombre2']),0,22),0,0,'L');
       $pdf->Cell(10,6,$cargo['cantidad_cargo'],0,0,'C');
       $pdf->Cell(25,6,number_format($cargo['pagos_cargos'],2),0,0,'R');

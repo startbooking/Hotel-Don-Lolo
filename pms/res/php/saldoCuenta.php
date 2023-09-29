@@ -5,7 +5,7 @@ require '../../../res/php/app_topHotel.php';
 $turismo = $_POST['turismo'];
 $reserva = $_POST['reserva'];
 $folio = $_POST['folio']; 
-$nrohab = $_POST['nrohab']; 
+$nrohab = $_POST['nrohab'];  
 
 $consumos = $hotel->getConsumosReservaFolio($reserva, $folio);
 $totImptos = $hotel->getIvaReservaFolio($reserva, $folio);
@@ -34,6 +34,10 @@ $porceiva = 0;
 $porceica = 0;
 $porcefuente = 0;
 $totalFolio = ($consumo + $impto) - ($abono - $reteiva - $reteica - $retefuente);
+
+// echo $totalFolio;
+
+
 ?>
 
 <div class="container-fluid" style="padding:15px;background-color:#dff0d8;border-radius: 10px;">
@@ -41,7 +45,7 @@ $totalFolio = ($consumo + $impto) - ($abono - $reteiva - $reteica - $retefuente)
     <label style="font-size:12px;height: 25px !important" for="consumo" class="col-sm-2 control-label">Consumos</label>
     <div class="col-sm-3">
       <input type="hidden" id="totalIva"        name="totalIva"        value='<?php echo $totImpto; ?>'>
-      <input type="hidden" id="totalBaseIva"    name="totalBaseIva"       value='<?php echo $baseImpto; ?>'>
+      <input type="hidden" id="totalBaseIva"    name="totalBaseIva"    value='<?php echo $baseImpto; ?>'>
       <input type="hidden" id="totalConsumo"    name="totalConsumo"    value='<?php echo $consumo; ?>'>
       <input type="hidden" id="totalImpuesto"   name="totalImpuesto"   value='<?php echo $impto; ?>'>
       <input type="hidden" id="totalAbono"      name="totalAbono"      value='<?php echo $abono; ?>'>

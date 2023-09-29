@@ -1,6 +1,12 @@
 <?php
 
+
+
+
 $datosReserva = $hotel->getReservasDatos($reserva);
+
+
+
 
 $dia = substr(FECHA_PMS, 8, 2);
 

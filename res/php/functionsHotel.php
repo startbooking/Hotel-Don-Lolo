@@ -3303,12 +3303,57 @@ class Hotel_Actions
 
         return $data;
     }
-
+    
     public function getDatosAnioAuditoria($anio)
     {
         global $database;
 
-        $data = $database->query("SELECT sum(ingreso_habitaciones)as aingHab,	sum(ingreso_impto_habitaciones) as aingImp, sum(ingreso_promedio_habitacion_disponible)as aingProHabDis, sum(ingreso_promedio_habitacion_ocupada)as aingProHabOcu, sum(ingresos_compania)as aingCom, sum(ingresos_agencia) as aingAge, sum(ingresos_grupo) as aingGru, sum(ingresos_individual) as aingInd, sum(ingreso_promedio_huesped) as aproHue, sum(habitaciones_disponibles) as ahabDis, sum(habitaciones_fuera_orden) as ahabFor, sum (habitaciones_fuera_servicio) as ahabFse, sum(habitaciones_ocupadas) as ahabOcu, sum(salidas_dia) as asalDia, sum(llegadas_dia) as alleDia, sum(habitaciones_cortesia) as ahabCor, sum(habitaciones_usocasa) as ahabUca, sum(habitaciones_usodia) as ahabUdi, sum(ingreso_potencial) as aingPot, sum(camas_disponibles) as acamDis, sum(hombres) as aHom, sum(mujeres) as aMuj, sum(ninos) as aNin, sum(huespedes_repetitivos) as ahueRep, sum(nuevos_huespedes) as ahueNue, sum(huespedes_nacionales) as ahueNal, sum(huespedes_extranjeros) as ahueInt, sum(reservas_creadashoy) as aresHoy, sum(reservas_noshows) as aresNos, sum(salidas_anticipadas) as asalAnt, sum(reservas_canceladas) as aresCan, sum(llegadas_sinreserva) as alleSin FROM reporte_gerencia WHERE year(fecha_auditoria) = '$anio'")->fetchAll();
+        $data = $database->query("SELECT 
+        SUM(ingreso_habitaciones) AS aingHab, 
+        SUM(ingreso_impto_habitaciones) AS aingImp, 
+        SUM(ingreso_promedio_habitacion_disponible)AS aingProHabDis, 
+        SUM(ingreso_promedio_habitacion_ocupada)AS aingProHabOcu, 
+        SUM(ingresos_compania)AS aingCom, 
+        SUM(ingresos_agencia) AS aingAge, 
+        SUM(ingresos_grupo) AS aingGru, 
+        SUM(ingresos_individual) AS aingInd, 
+        SUM(ingreso_promedio_huesped) AS aproHue, 
+        SUM(habitaciones_disponibles) AS ahabDis, 
+        SUM(habitaciones_fuera_orden) AS ahabFor, 
+        SUM(habitaciones_fuera_servicio) AS ahabFse, 
+        SUM(habitaciones_ocupadas) AS ahabOcu, 
+        SUM(salidas_dia) AS asalDia, 
+        SUM(llegadas_dia) AS alleDia, 
+        SUM(habitaciones_cortesia) AS ahabCor, 
+        SUM(habitaciones_usocasa) AS ahabUca, 
+        SUM(habitaciones_usodia) AS ahabUdi, 
+        SUM(ingreso_potencial) AS aingPot, 
+        SUM(camas_disponibles) AS acamDis, 
+        SUM(hombres) AS aHom, 
+        SUM(mujeres) AS aMuj, 
+        SUM(ninos) AS aNin, 
+        SUM(huespedes_repetitivos) AS ahueRep, 
+        SUM(nuevos_huespedes) AS ahueNue, 
+        SUM(huespedes_nacionales) AS ahueNal, 
+        SUM(huespedes_extranjeros) AS ahueInt, 
+        SUM(reservas_creadashoy) AS aresHoy, 
+        SUM(reservas_noshows) AS aresNos,
+        SUM(salidas_anticipadas) AS asalAnt, 
+        SUM(reservas_canceladas) AS aresCan, 
+        SUM(llegadas_sinreserva) AS alleSin 
+        FROM 
+        reporte_gerencia 
+        WHERE YEAR(fecha_auditoria) = '$anio'")->fetchAll();
+
+        return $data;
+    }
+
+
+    public function getDatosAnioAuditoriaOld2($anio)
+    {
+        global $database;
+
+        $data = $database->query("SELECT SUM(ingreso_habitaciones) as aingHab, SUM(ingreso_impto_habitaciones) as aingImp, SUM(ingreso_promedio_habitacion_disponible)as aingProHabDis, SUM(ingreso_promedio_habitacion_ocupada)as aingProHabOcu, SUM(ingresos_compania)as aingCom, SUM(ingresos_agencia) as aingAge, SUM(ingresos_grupo) as aingGru, SUM(ingresos_individual) as aingInd, SUM(ingreso_promedio_huesped) as aproHue, SUM(habitaciones_disponibles) as ahabDis, SUM(habitaciones_fuera_orden) as ahabFor, SUM (habitaciones_fuera_servicio) as ahabFse, SUM(habitaciones_ocupadas) as ahabOcu, SUM(salidas_dia) as asalDia, SUM(llegadas_dia) as alleDia, SUM(habitaciones_cortesia) as ahabCor, SUM(habitaciones_usocasa) as ahabUca, SUM(habitaciones_usodia) as ahabUdi, SUM(ingreso_potencial) as aingPot, SUM(camas_disponibles) as acamDis, SUM(hombres) as aHom, SUM(mujeres) as aMuj, SUM(ninos) as aNin, SUM(huespedes_repetitivos) as ahueRep, SUM(nuevos_huespedes) as ahueNue, SUM(huespedes_nacionales) as ahueNal, SUM(huespedes_extranjeros) as ahueInt, SUM(reservas_creadashoy) as aresHoy, SUM(reservas_noshows) as aresNos, SUM(salidas_anticipadas) as asalAnt, SUM(reservas_canceladas) as aresCan, SUM(llegadas_sinreserva) as alleSin FROM reporte_gerencia WHERE year(fecha_auditoria) = '$anio'")->fetchAll();
 
         return $data;
     }
@@ -3320,7 +3365,7 @@ class Hotel_Actions
         $data = $database->query("SELECT sum(ingreso_habitaciones)as mingHab, sum(ingreso_impto_habitaciones) as mingImp, sum(ingreso_promedio_habitacion_disponible)as mingProHabDis, sum(ingreso_promedio_habitacion_ocupada)as mingProHabOcu, sum(ingresos_compania)as mingCom, sum(ingresos_agencia) as mingAge, sum(ingresos_grupo) as mingGru, sum(ingresos_individual) as mingInd, sum(ingreso_promedio_huesped) as mproHue, sum(habitaciones_disponibles) as mhabDis, sum(habitaciones_fuera_orden) as mhabFor, sum(habitaciones_fuera_servicio) as mhabFse, sum(habitaciones_ocupadas) as mhabOcu, sum(salidas_dia) as msalDia, sum(llegadas_dia) as mlleDia, sum(habitaciones_cortesia) as mhabCor, sum(habitaciones_usocasa) as mhabUca, sum(habitaciones_usodia) as mhabUdi, sum(ingreso_potencial) as mingPot, sum(camas_disponibles) as mcamDis, sum(hombres) as mHom, sum(mujeres) as mMuj, sum(ninos) as mNin, sum(huespedes_repetitivos) as mhueRep, sum(nuevos_huespedes) as mhueNue, sum(huespedes_nacionales) as mhueNal, sum(huespedes_extranjeros) as mhueInt, sum(reservas_creadashoy) as mresHoy, sum(reservas_noshows) as mresNos, sum(salidas_anticipadas) as msalAnt, sum(reservas_canceladas) as mresCan, sum(llegadas_sinreserva) as mlleSin FROM reporte_gerencia WHERE month(fecha_auditoria) = '$mes' AND year(fecha_auditoria) = '$anio'")->fetchAll();
 
         return $data;
-    }
+    } 
 
     public function getDatosAuditoria($fecha)
     {
@@ -3881,6 +3926,7 @@ class Hotel_Actions
             'huespedes.apellido2',
             'huespedes.nombre1',
             'huespedes.nombre2',
+            'huespedes.nombre_completo',
             'cargos_pms.prefijo_factura',
             'cargos_pms.factura_numero',
             'cargos_pms.id_usuario_factura',

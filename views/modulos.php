@@ -41,7 +41,7 @@
         </div>  
       </div>
       <div id="modulos" class="container moduloCentrar mt20 modulos">
-        <div id="inv" class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <div id="inv" class="col-lg-4 col-md-4 col-sm-6 col-xs-12 apagado">
           <a onclick="ingresoInv()" class="small-box-footer">
             <div class="small-box bg-yellow-gradient">	
               <div class="inner">	
@@ -57,7 +57,7 @@
             </div>
           </a>
         </div>
-        <div id="pos" class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <div id="pos" class="col-lg-4 col-md-4 col-sm-6 col-xs-12 apagado">
           <a href="../pos/inicio.php" class="small-box-footer">
             <div class="small-box bg-green-gradient">
               <div class="inner"> 
@@ -73,7 +73,7 @@
             </div>
           </a>
         </div>
-        <div id="pms" class="col-lg-4 col-md-4 col-sm-6 col-xs-12">	
+        <div id="pms" class="col-lg-4 col-md-4 col-sm-6 col-xs-12 apagado">	
           <a onclick="ingresoPms()" >
             <div class="small-box bg-blue-gradient">			
               <div class="inner">				
@@ -89,7 +89,7 @@
             </div>	
           </a>              
         </div>
-        <div id="res" class="col-lg-4 col-md-4 col-sm-6 col-xs-12">	
+        <div id="res" class="col-lg-4 col-md-4 col-sm-6 col-xs-12 apagado">	
           <a>
             <div class="small-box bg-aqua">			
               <div class="inner">				
@@ -105,7 +105,7 @@
             </div>	
           </a>              
         </div>
-        <div id="fe" class="col-lg-4 col-md-4 col-sm-6 col-xs-12">	
+        <div id="fe" class="col-lg-4 col-md-4 col-sm-6 col-xs-12 apagado">	
           <a href="../fe/index.php"> 
             <div class="small-box bg-light-blue-gradient">			
               <div class="inner">				
@@ -121,7 +121,7 @@
             </div>	
           </a>              
         </div>
-        <div id="con" class="col-lg-4 col-md-4 col-sm-6 col-xs-12">	
+        <div id="con" class="col-lg-4 col-md-4 col-sm-6 col-xs-12 apagado">	
           <a>
             <div class="small-box bg-light-blue-gradient">			
               <div class="inner">				
@@ -137,7 +137,7 @@
             </div>	
           </a>              
         </div>
-        <div id="par" class="container">
+        <div id="par" class="container apagado">
           <div class="moduloCentrar">
             <div class="col-lg-4 col-sm-6 col-xs-12"> 
               <a onclick="ingresoAdmin()" class="small-box-footer">                  

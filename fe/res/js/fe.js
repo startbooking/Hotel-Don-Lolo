@@ -7,11 +7,6 @@ $(document).ready(function () {
   nombreUsuaro = document.querySelector('#nombreUsuario');
   nombreUsuaro.innerHTML = `${apellidos}  ${nombres}<span class="caret"></span>`;
 
-  document.querySelector('form')
-  .addEventListener('submit', e => {
-    const data = Object.fromEntries(new FormData(e.target))
-    alert(JSON.stringify(data))
-  })
 
   
 });

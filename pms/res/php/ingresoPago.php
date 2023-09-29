@@ -3,7 +3,6 @@
 require_once '../../../res/php/app_topHotel.php';
 
 $eToken = $hotel->datosTokenCia();
- 
 $token = $eToken[0]['token'];
 $password = $eToken[0]['password'];
 $facturador = $eToken[0]['facturador'];
@@ -72,8 +71,9 @@ $diasCre = 0;
 $paganticipo = 0;
 
 if ($perfilFac == 1 && $facturador == 1) {
-    $numfactura = $hotel->getNumeroFactura(); // Numero Actual del Abono
-    $nuevonumero = $hotel->updateNumeroFactura($numfactura + 1); // Actualiza Consecutivo del Abono
+    $numfactura = $hotel->getNumeroFactura(); // Numero Actual de la Factura
+    /* Cambiar de Ubicacion -> Despues de Validar la Factura por la DIAN*/ 
+    $nuevonumero = $hotel->updateNumeroFactura($numfactura + 1); // Actualiza Consecutivo de la Factura
 } else {
     $perfilFac == 2;
     $numfactura = $hotel->getNumeroAbono(); // Numero Actual del Abono
@@ -85,7 +85,6 @@ if ($tipofac == 1) {
 } else {
     $id = $idcia;
     $dataCompany = $hotel->getSeleccionaCompania($id);
-
     if ($codigo == 2) {
         $diasCre = $dataCompany[0]['dias_credito'];
         $fechaVen = strtotime('+ '.$diasCre.' day', strtotime($fechaFac));
@@ -116,7 +115,8 @@ $saldofactura = $hotel->getSaldoHabitacion($numero);
 if (count($saldofactura) == 0) {
     $totalFolio = 0;
 } else {
-    $totalFolio = ($saldofactura[0]['cargos'] + $saldofactura[0]['imptos']) - $saldofactura[0]['pagos'];
+    // $totalFolio = ($saldofactura[0]['cargos'] + $saldofactura[0]['imptos']) - $saldofactura[0]['pagos'];
+    $totalFolio = ($saldofactura[0]['cargos'] + $saldofactura[0]['imptos']);
 }
 
 $folios = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserva, $nroFolio, 1);
@@ -218,17 +218,17 @@ if ($perfilFac == 1 && $facturador == 1) {
         array_push($tax_totals, $taxTot);
 
         $invo = [
-          'unit_measure_id' => $hotel->traeTipoUnidadDianVenta($folio1['id_codigo_cargo']),
-          'invoiced_quantity' => 1,
-          'line_extension_amount' => $folio1['cargos'],
-          'free_of_charge_indicator' => false,
-          'tax_totals' => $taxfolio,
-          'description' => $folio1['descripcion_cargo'],
-          'notes' => '',
-          'code' => $hotel->traeCodigoDianVenta($folio1['id_codigo_cargo']),
-          'type_item_identification_id' => 1,
-          'price_amount' => $folio1['cargos'] + $folio1['imptos'],
-          'base_quantity' => 1,
+            'unit_measure_id' => $hotel->traeTipoUnidadDianVenta($folio1['id_codigo_cargo']),
+            'invoiced_quantity' => 1,
+            'line_extension_amount' => $folio1['cargos'],
+            'free_of_charge_indicator' => false,
+            'tax_totals' => $taxfolio,
+            'description' => $folio1['descripcion_cargo'],
+            'notes' => '',
+            'code' => $hotel->traeCodigoDianVenta($folio1['id_codigo_cargo']),
+            'type_item_identification_id' => 1,
+            'price_amount' => $folio1['cargos'] + $folio1['imptos'],
+            'base_quantity' => 1,
         ];
 
         array_push($eInvo, $invo);
@@ -343,7 +343,6 @@ if ($perfilFac == 1 && $facturador == 1) {
 
 } else {
     // include_once '../../imprimir/imprimeFactura.php';
-
     include_once '../../imprimir/imprimeReciboFactura.php';
 }
 

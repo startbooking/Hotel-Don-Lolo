@@ -239,7 +239,7 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
             <div class="container-fluid centro">
               <?php
                 if ($credito == 1 && $dia >= $dias) {
-                    $ancho = 14; ?>
+                    $ancho = 12; ?>
                   <a 
                     style          ="width: <?php echo $ancho; ?>%" 
                     type           ="button" 
@@ -262,7 +262,7 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
                     ><i class="fa fa-snowflake-o"></i> Congelar Cuenta</a>
                   <?php
                 } else {
-                    $ancho = 18;
+                    $ancho = 13;
                 }
               ?>
               <a style="width: <?php echo $ancho; ?>%"

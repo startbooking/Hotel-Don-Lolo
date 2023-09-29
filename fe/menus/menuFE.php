@@ -19,11 +19,48 @@
           </li> -->
         </ul>
       </li>
-      <li id="menuVenta">
-        <a class="menuPpal">
-          <i class="fa fa-cutlery" aria-hidden="true"></i>
-          <span>Configuracion</span>
+      <li class="treeview" id="menuDatos">
+        <a href="#">
+          <i class="glyphicon glyphicon-th-list"></i>
+          <span>Gastos</span>
+          <small class="fa fa-angle-left pull-right"></small>
         </a>
+        <ul class="treeview-menu">
+          <li> 
+            <a href="facturas" class="menuPpal" ><i class="fa fa-address-card-o" aria-hidden="true"></i> Documento Soporte de Venta</a>
+          </li>
+          <li>
+            <a class="notasCredito" ><i class="fa fa-pie-chart" aria-hidden="true"></i> Notas Credito</a>
+          </li>
+          <!-- <li>
+            <a class="menuPpal" ><i class="fa fa-coffee" aria-hidden="true"></i> Productos</a>
+          </li> -->
+        </ul>
+      </li>      
+      <li id="menuVenta">        
+        <a href="#">
+          <i class="glyphicon glyphicon-th-list"></i>
+          <span>Configuracion</span>
+          <small class="fa fa-angle-left pull-right"></small>
+        </a>
+        <ul class="treeview-menu">
+          <li>
+            <a class="proveedores" ><i class="fa fa-pie-chart" aria-hidden="true"></i> Empresa</a>
+          </li>
+          <li> 
+          <li>
+            <a class="proveedores" ><i class="fa fa-pie-chart" aria-hidden="true"></i> Proveedores</a>
+          </li>
+          <li> 
+            <a href="facturas" class="termiosPago" ><i class="fa fa-address-card-o" aria-hidden="true"></i> Retenciones</a>
+          </li>
+          <li> 
+            <a href="facturas" class="termiosPago" ><i class="fa fa-address-card-o" aria-hidden="true"></i> Terminos de Pagos</a>
+          </li>
+          <!-- <li>
+            <a class="menuPpal" ><i class="fa fa-coffee" aria-hidden="true"></i> Productos</a>
+          </li> -->
+        </ul>
       </li>
 
 

@@ -1,6 +1,6 @@
     <div class="content-wrapper"> 
       <section class="content" style="height: 780px;">
-        <div class="content" style="margin-bottom: 50px">
+        <div class="content" style="margin-bottom: 50px"> 
           <div class="panel panel-success">
             <div class="panel-heading">
               <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_PMS?>">

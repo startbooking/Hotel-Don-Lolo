@@ -28,5 +28,4 @@ $numero = $numabono;
 $_SESSION['reserva'] = $numero;
 $_SESSION['idperfil'] = $idhues;
 
-// / include '../../paginas/imprimeAbono.php';
 include '../../imprimir/imprimeAbonoEstadia.php';
