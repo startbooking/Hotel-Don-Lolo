@@ -32,10 +32,6 @@
   define("CIIU", $empresa[0]['codigo_ciiu']);
   define("TIPOEMPRESA", $admin->getTypeCia($empresa[0]['tipo_empresa']));
 
-
-
-
-
 /* 	
 	require_once 'functionsInventario.php';
 	require_once 'funciones.php';

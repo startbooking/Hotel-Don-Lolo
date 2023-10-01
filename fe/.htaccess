@@ -6,4 +6,5 @@ RewriteEngine on
 #Rutas Usuarios
 RewriteRule ^home index.php?section=home [QSA] 
 RewriteRule facturas index.php?section=facturas [QSA] 
+RewriteRule proveedores index.php?section=proveedores [QSA] 
 

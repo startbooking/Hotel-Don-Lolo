@@ -36,6 +36,14 @@ $pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserv
 $tipoimptos = $hotel->getValorImptoFolio($nroFactura, $reserva, $nroFolio, 2);
 $fecha = $hotel->getDatePms();
 
+if($datosReserva[0]['fecha_salida']> FECHA_PMS){
+    $fechaSalida = FECHA_PMS;
+}else{
+    $fechaSalida = $datosReserva[0]['fecha_salida'];
+}
+
+
+
 $pdf = new FPDF();
 $pdf->AddPage('P', 'letter');
 $pdf->Rect(10, 50, 190, 210);
@@ -145,7 +153,6 @@ $pdf->Cell(32, 4, number_format($datosReserva[0]['valor_diario'], 2), 1, 0, 'C')
 $pdf->Cell(31, 4, $horaIng, 1, 0, 'C');
 $pdf->Cell(31, 4, date('H:m:s'), 1, 0, 'C');
 $pdf->Cell(32, 4, str_pad($datosReserva[0]['num_registro'], 4, '0', STR_PAD_LEFT), 1, 1, 'C');
-
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(47, 4, 'FECHA LLEGADA', 1, 0, 'C');
 $pdf->Cell(47, 4, 'FECHA SALIDA', 1, 0, 'C');
@@ -154,7 +161,7 @@ $pdf->Cell(48, 4, 'FECHA VENCIMIENTO', 1, 1, 'C');
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(47, 4, $datosReserva[0]['fecha_llegada'], 1, 0, 'C');
 $pdf->Cell(47, 4, FECHA_PMS, 1, 0, 'C');
-$pdf->Cell(48, 4, FECHA_PMS, 1, 0, 'C');
+$pdf->Cell(48, 4, $fechaSalida, 1, 0, 'C');
 $pdf->Cell(48, 4, $fechaVen, 1, 1, 'C');
 $pdf->SetFont('Arial', 'B', 8);
 

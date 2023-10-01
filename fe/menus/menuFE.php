@@ -52,10 +52,10 @@
             <a class="proveedores" ><i class="fa fa-pie-chart" aria-hidden="true"></i> Proveedores</a>
           </li>
           <li> 
-            <a href="facturas" class="termiosPago" ><i class="fa fa-address-card-o" aria-hidden="true"></i> Retenciones</a>
+            <a href="facturas" class="terminosPago" ><i class="fa fa-address-card-o" aria-hidden="true"></i> Retenciones</a>
           </li>
           <li> 
-            <a href="facturas" class="termiosPago" ><i class="fa fa-address-card-o" aria-hidden="true"></i> Terminos de Pagos</a>
+            <a href="facturas" class="terminosPago" ><i class="fa fa-address-card-o" aria-hidden="true"></i> Terminos de Pagos</a>
           </li>
           <!-- <li>
             <a class="menuPpal" ><i class="fa fa-coffee" aria-hidden="true"></i> Productos</a>
