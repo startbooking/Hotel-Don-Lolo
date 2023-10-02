@@ -27,15 +27,15 @@
 <!-- jQuery Mapael -->
 <script src="<?php echo BASE_VIE;?>public/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
 <script src="<?php echo BASE_VIE;?>public/plugins/raphael/raphael.min.js"></script>
-<script src="<?php echo BASE_VIE;?>public/plugins/jquery-mapael/jquery.mapael.min.js"></script>
+<!-- <script src="<?php echo BASE_VIE;?>public/plugins/jquery-mapael/jquery.mapael.min.js"></script>
 <script src="<?php echo BASE_VIE;?>public/plugins/jquery-mapael/maps/usa_states.min.js"></script>
-<!-- ChartJS -->
-<script src="<?php echo BASE_VIE;?>public/plugins/chart.js/Chart.min.js"></script>
+ --><!-- ChartJS -->
+<!-- <script src="<?php echo BASE_VIE;?>public/plugins/chart.js/Chart.min.js"></script> -->
 
 <!-- AdminLTE for demo purposes -->
 <!-- <script src="<?php echo BASE_VIE;?>/public/dist/js/demo.js"></script> -->
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="<?php echo BASE_VIE;?>public/dist/js/pages/dashboard2.js"></script>
+<script src="<?php echo BASE_FE;?>res/js/fe.js"></script>
 </body>
 </html>
 

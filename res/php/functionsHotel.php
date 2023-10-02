@@ -937,7 +937,7 @@ class Hotel_Actions
         return $data[0]['codigo'];
     }
 
-    public function getResolucion()
+    public function getResolucion($tipoDoc)
     {
         global $database;
 
@@ -951,6 +951,7 @@ class Hotel_Actions
             'tipo',
         ], [
             'estado' => 1,
+            'tipoDocumento' => $tipoDoc,
         ]);
 
         return $data;

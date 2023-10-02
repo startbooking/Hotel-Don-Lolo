@@ -90,13 +90,9 @@
                               <li class="dropdown submenu" style="width:100%">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="padding:3px 5px;font-weight: 700;color:#000">Facturacion<span class="caret" style="margin-left:10px;"></span></a>
                                 <ul class="dropdown-menu" style="float:left;margin-left:-180px;top:40px;">                                   
-                                  <li>
-                                    <a 
-                                      onclick="regresaCasa('<?php echo $reserva['num_reserva']; ?>')"
-                                      >
-                                      <i class="fa-solid fa-house"></i>
-                                      <!-- <i class="fa fa-pencil-square" aria-hidden="true"></i> -->
-                                      Regresar a Casa</a>
+                                  <li> 
+                                    <a onclick="regresaCasa('<?php echo $reserva['num_reserva']; ?>')">
+                                      <i class="fa-solid fa-house"></i> Regresar a Casa</a>
                                   </li>
                                   <!-- <li>
                                     <a 
@@ -142,7 +138,7 @@
                                       data-usuario       ="<?php echo $reserva['usuario']; ?>" 
                                       data-fechacrea     ="<?php echo $reserva['fecha_ingreso']; ?>" 
                                       >
-                                      <i class="fa fa-address-card-o" aria-hidden="true"></i>Informacion Estadia</a>
+                                      <i class="fa fa-address-card-o" aria-hidden="true"></i> Informacion Estadia</a>
                                   </li>
                                   <li>
                                     <a data-toggle="modal" 

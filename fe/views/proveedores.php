@@ -55,7 +55,7 @@
                               nombre = "<?php echo $compania['empresa']; ?>"
                               data-id="<?php echo $compania['id_compania']; ?>"  
                               data-nombre="<?php echo $compania['empresa']; ?>"  
-                              title="Modifica Datos del Proveedor" >
+                              title="Modifica Datos del Proveedor">
                               <i class='glyphicon glyphicon-edit'></i>
                             </button>
                             <div class="btn-group">
@@ -74,3 +74,7 @@
         </div>
       </section>
     </div>
+
+
+
+    <script src="<?php echo BASE_FE; ?>res/js/docsoporte.js"></script>

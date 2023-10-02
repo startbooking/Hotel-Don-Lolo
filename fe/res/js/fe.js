@@ -4,10 +4,10 @@ $(document).ready(function () {
   let { user } = sesion;
   let { apellidos, nombres } = user;
 
-  nombreUsuaro = document.querySelector('#nombreUsuario');
+/*   nombreUsuaro = document.querySelector('#nombreUsuario');
   nombreUsuaro.innerHTML = `${apellidos}  ${nombres}<span class="caret"></span>`;
-
-
+ */
+  
   
 });
 
@@ -18,8 +18,6 @@ $(document).ready(function () {
 async function facturasPorFecha() {
 
   formFact = document.querySelector('form');
-
-  console.log(formFact);
 
   var web = $("#rutaweb").val();
   desdeFe = $("#desdeFecha").val();

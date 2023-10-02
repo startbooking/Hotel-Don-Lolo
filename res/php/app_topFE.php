@@ -16,35 +16,29 @@
   $facturacion = $user->traeEstadoFacturacion();
   define("FE", $facturacion[0]['facturacionElectronica']);
 
-  // echo print_r($facturacion);
   define("NAME_EMPRESA", $empresa[0]['empresa']);
   define("NIT_EMPRESA", $empresa[0]['nit'].'-'.$empresa[0]['dv']);
   define("ADRESS_EMPRESA", $empresa[0]['direccion']);
   define("TELEFONO_EMPRESA",$empresa[0]['telefonos']);
   define("CELULAR_EMPRESA", $empresa[0]['celular']);
   define("CODIGO_PAIS_EMPRESA", $empresa[0]['pais']);
-  /* define("PAIS_EMPRESA", $inven->getLandName($empresa[0]['pais']));
-  define("CIUDAD_EMPRESA", $inven->getCityName($empresa[0]['ciudad'])); */
   define("WEB_EMPRESA", $empresa[0]['web']);
   define("CORREO_EMPRESA", $empresa[0]['correo']);
   define("LOGO", $empresa[0]['logo']);
   define("TIPO_DOC", $empresa[0]['tipo_empresa']);
   define("CIIU", $empresa[0]['codigo_ciiu']);
   define("TIPOEMPRESA", $admin->getTypeCia($empresa[0]['tipo_empresa']));
-
-/* 	
-	require_once 'functionsInventario.php';
+	
 	require_once 'funciones.php';
+	require_once 'functionsFE.php';
+	if(isset($_GET['section']) && $_GET['section'] == 'proveedores'){
+		$proveedores = $user->getCompanias(); 
+	}
+/* 	
 	require_once 'funcionesInventario.php';
 
 	$inven   = new Inventario_User();
 	
-	if(!isset($_GET['section'])){
-	}elseif(isset($_GET['section']) && $_GET['section'] == 'home'){
-	}elseif(isset($_GET['section']) && $_GET['section'] == 'productos'){
-  	$productos = $inven->getProductos(); 
-	}elseif(isset($_GET['section']) && $_GET['section'] == 'proveedores'){
-  	$proveedores = $inven->getCompanias(); 
 	}elseif(isset($_GET['section']) &&	$_GET['section'] == 'formasdePago'){
   $pagos = $admin->getCodigosVentas(3); 
 	}elseif(isset($_GET['section']) &&	$_GET['section'] == 'deptos'){

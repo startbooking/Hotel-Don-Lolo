@@ -47,7 +47,7 @@
   <script src="<?php echo BASE_VIE;?>/public/plugins/jquery/jquery.min.js"></script>
 
 </head>
-<body class="hold-transition dark-mode layout-fixed layout-navbar-fixed layout-footer-fixed">
+<body class="hold-transition layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
 
   <!-- Preloader -->
@@ -60,12 +60,12 @@
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
-        <li class="nav-item">
-            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-          <a href="#" class="nav-link">FACTURACION ELECTRONICA </a>
-        </li>
+      <li class="nav-item">
+          <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+      <!-- <li class="nav-item d-none d-sm-inline-block">
+        <a href="#" class="nav-link">FACTURACION ELECTRONICA </a>
+      </li> -->
     </ul>
     
     <!-- Right navbar links --> 
@@ -96,15 +96,14 @@
 
     <!-- Sidebar -->
     <div class="sidebar">
-      <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex"> -->
         <!-- <div class="image">
           <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div> -->
-        <div class="info">
-          <a href="#" class="d-block">USUARIO ACTIVO</a>
-        </div>
-      </div>
+        <!-- <div class="info">
+          <a id="nombreUsuario" href="#" class="d-block">USUARIO ACTIVO</a>
+        </div> -->
+      <!-- </div> -->
 
       <!-- SidebarSearch Form -->
       <!-- <div class="form-inline">

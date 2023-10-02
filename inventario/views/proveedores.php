@@ -16,7 +16,7 @@
                   data-toggle="modal" 
                   style="margin:10px 0" type="button" class="btn btn-success" href="#myModalAdicionarProveedor">
                   <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
-                   Adicionar Proveedor</a>
+                   Adicionar Proveedor </a>
               </div>
             </div>
           </div>

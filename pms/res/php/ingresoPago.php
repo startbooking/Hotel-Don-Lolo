@@ -1,7 +1,5 @@
 <?php
-
 require_once '../../../res/php/app_topHotel.php';
-
 $eToken = $hotel->datosTokenCia();
 $token = $eToken[0]['token'];
 $password = $eToken[0]['password'];
@@ -58,7 +56,7 @@ $horaFact = date('H:s:i');
 
 $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
 
-$resFac = $hotel->getResolucion();
+$resFac = $hotel->getResolucion(1);
 $resolucion = $resFac[0]['resolucion'];
 $prefijo = $resFac[0]['prefijo'];
 $fechaRes = $resFac[0]['fecha'];

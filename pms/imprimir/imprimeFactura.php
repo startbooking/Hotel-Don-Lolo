@@ -42,8 +42,6 @@ if($datosReserva[0]['fecha_salida']> FECHA_PMS){
     $fechaSalida = $datosReserva[0]['fecha_salida'];
 }
 
-
-
 $pdf = new FPDF();
 $pdf->AddPage('P', 'letter');
 $pdf->Rect(10, 50, 190, 210);

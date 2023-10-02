@@ -2444,13 +2444,13 @@ function regresaCasa(reserva) {
   swal(
     {
       title: "Cuenta Congelada",
-      text: "Desea regresar a Casa la Presente Cuenta Congelada",
+      text: "Desea Regresar a Casa la Presente Cuenta Congelada",
       type: "warning",
       showCancelButton: true,
       cancelButtonClass: "btn-warning",
       cancelButtonText: "Cancelar Salida",
       confirmButtonClass: "btn-danger",
-      confirmButtonText: "Si, Regersara a Casa !",
+      confirmButtonText: "Si, Regresa a Casa !",
       closeOnConfirm: false,
     },
     function () {
@@ -4324,6 +4324,8 @@ function traeHuespedes(reserva, huesped) {
 }
 
 function activaCongelado(reserva, folio) {
+
+  // console.log(reserva);
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   if (folio == 1) {
@@ -4387,7 +4389,7 @@ function activaCongelado(reserva, folio) {
 
 function movimientosCongelada(reserva) {
 
-  console.log(reserva)
+  // console.log(reserva)
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var parametros = { reserva };
