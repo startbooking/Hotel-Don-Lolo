@@ -5,7 +5,7 @@
  class Hotel_Admin
  {
 
-    public function insertCiudad($paices, $ciudad, $codigo){
+    public function insertCiudad($paices, $ciudad, $codigo){ 
         global $database;
 
         $data = $database->insert('ciudades',[
@@ -2286,7 +2286,7 @@
          ]);
 
          return $data;
-     }
+    }
 
     public function getDatosHotel()
     {

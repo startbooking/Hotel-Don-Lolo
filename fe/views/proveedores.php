@@ -1,4 +1,4 @@
-    <div class="content-wrapper"> 
+    <div class="content-wrapper" style=""> 
       <section class="content">
         <div class="panel panel-success">
           <div class="panel-heading"> 
@@ -7,15 +7,14 @@
                 <input type="hidden" name="rutaweb" id="rutaweb" value="<?php echo BASE_FE; ?>">                  
                 <input type="hidden" name="ubicacion" id="ubicacion" value="proveedores">
                 <h3 class="w3ls_head tituloPagina">
-                  <i class="fa-solid fa-users-viewfinder fa-2x" style="color:#000;"></i>
-                    Catalogo de Proveedores</h3>
+                <span class="material-symbols-outlined">group</span> Catalogo de Proveedores</h3>
               </div>
-              <div class="col-lg-6 col-xs-12" align="right">
-                <a 
-                  data-toggle="modal" 
-                  style="margin:10px 0" type="button" class="btn btn-success" href="#myModalAdicionarProveedor">
-                  <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
-                   Adicionar Proveedor</a>
+              <div class="col-lg-6 col-xs-12">
+                <button
+                data-toggle="modal" 
+                style="display:inline-flex;" type="button" class="btn btn-success pull-right" href="#myModalAdicionarProveedor"
+                >
+                <span class="material-symbols-outlined">add_box</span> Adicionar Proveedor </button>
               </div>
             </div>
           </div>
@@ -56,7 +55,8 @@
                               data-id="<?php echo $compania['id_compania']; ?>"  
                               data-nombre="<?php echo $compania['empresa']; ?>"  
                               title="Modifica Datos del Proveedor">
-                              <i class='glyphicon glyphicon-edit'></i>
+                              <span class="material-symbols-outlined">edit</span>
+                              <!-- <i class='glyphicon glyphicon-edit'></i> -->
                             </button>
                             <div class="btn-group">
                             </div>
@@ -75,6 +75,4 @@
       </section>
     </div>
 
-
-
-    <script src="<?php echo BASE_FE; ?>res/js/docsoporte.js"></script>
+<?php include_once 'views/modal/modalProveedores.php'; ?> 

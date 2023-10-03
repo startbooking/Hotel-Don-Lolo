@@ -65,11 +65,8 @@
               <div class="imprimeInforme"></div>
             </div>
           </div>
-        </div>
-        
+        </div>        
       </div>
-      <!-- <section class="content centrar">
-      </section>   -->
     </div>
 
 <?php 

@@ -1,0 +1,74 @@
+{
+  "date": "2022-09-01",
+  "time": "12:09:38",
+  "notes": "SIN OBSERVACIONES",
+  "number": 1,
+  "prefix": "DS",
+  "seller": {
+    "dv": "0",
+    "name": "BERCODE S.A.S",
+    "email": "soporte@nextpyme.plus",
+    "phone": "3017882489",
+    "address": "CLL 18A 11 20",
+    "type_regime_id": 1,
+    "municipality_id": 439,
+    "postal_zone_code": "000000",
+    "type_liability_id": 117,
+    "type_organization_id": 1,
+    "identification_number": "901249232",
+    "merchant_registration": "0000-00",
+    "type_document_identification_id": 3
+  },
+  "sendmail": false,
+  "foot_note": null,
+  "payment_form": {
+    "payment_form_id": 2,
+    "duration_measure": "30",
+    "payment_due_date": "2022-10-01",
+    "payment_method_id": 10
+  },
+  "sendmailtome": false,
+  "invoice_lines": [
+    {
+      "code": "PRUEBA",
+      "notes": null,
+      "start_date": "2022-09-01",
+      "description": "ARTICULO DE PRUEBAS",
+      "price_amount": "100.00",
+      "base_quantity": "2.00",
+      "unit_measure_id": 70,
+      "allowance_charges": [
+        {
+          "amount": "0.00",
+          "base_amount": "200.00",
+          "charge_indicator": false,
+          "allowance_charge_reason": "DESCUENTO GENERAL"
+        }
+      ],
+      "invoiced_quantity": "2.00",
+      "line_extension_amount": "200.00",
+      "free_of_charge_indicator": false,
+      "type_item_identification_id": 4,
+      "type_generation_transmition_id": 1
+    }
+  ],
+  "type_document_id": 11,
+  "allowance_charges": [
+    {
+      "amount": "0.00",
+      "base_amount": "200.00",
+      "discount_id": 10,
+      "charge_indicator": false,
+      "allowance_charge_reason": "DESCUENTO GENERAL"
+    }
+  ],
+  "resolution_number": "18760000001",
+  "legal_monetary_totals": {
+    "payable_amount": "200.00",
+    "charge_total_amount": "0.00",
+    "tax_exclusive_amount": "200.00",
+    "tax_inclusive_amount": "200.00",
+    "line_extension_amount": "200.00",
+    "allowance_total_amount": "0.00"
+  }
+}

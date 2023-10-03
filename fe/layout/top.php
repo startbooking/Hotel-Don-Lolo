@@ -43,6 +43,8 @@
   <link rel="stylesheet" href="<?php echo BASE_VIE;?>public/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   <!-- <link rel="stylesheet" href="<?php echo BASE_CSS;?>style.css"> -->
 
+  <link rel="stylesheet" href="<?php echo BASE_FE;?>res/css/fe.css">
+
   <!-- jQuery -->
   <script src="<?php echo BASE_VIE;?>/public/plugins/jquery/jquery.min.js"></script>
 
@@ -87,7 +89,7 @@
 
 
   <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <aside class="main-sidebar sidebar-dark-primary">
     <!-- Brand Logo -->
     <a href="<?php echo BASE_VIE; ?>modulos.php" class="brand-link">
       <img src="<?php echo BASE_IMG; ?>logoBarahona.png" alt="SACTel Cloud" class="brand-image img-circle elevation-3" style="opacity: .8">
@@ -124,10 +126,10 @@
           <li class="nav-item">
             <a href="facturacion" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
-              <p>Facturacion Electronica</p>
+              <p>Factura Electronica</p>
             </a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
@@ -149,7 +151,7 @@
                 </a>
               </li>
             </ul>
-          </li>          
+          </li> -->          
           <li class="nav-item">
             <a href="docSoporte" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
@@ -178,7 +180,46 @@
                 </a>
               </li>
             </ul>
-          </li> 
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+            <span class="material-symbols-outlined">tune</span>
+              <!-- <i class="nav-icon fas fa-edit"></i> -->
+              <p>
+                Configuracion
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="pages/forms/general.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Terminos de Pagos</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="pages/forms/advanced.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Formas de Pago</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="pages/forms/editors.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Impuestos</p>
+                </a>
+              </li>
+              <!-- 
+              <li class="nav-item">
+                <a href="pages/forms/validation.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Validation</p>
+                </a>
+              </li> -->
+            </ul>
+          </li>
+          
+
           <!--
           <li class="nav-item">
             <a href="pages/widgets.html" class="nav-link">

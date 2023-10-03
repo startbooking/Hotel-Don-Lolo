@@ -6,9 +6,41 @@
 
 body {
   background: #f0f0f0;
+  font-family: "ubuntu";
+
 }
 
 
 .control-label {
   text-align: right;
+  margin: 5px 0;
+}
+
+.form-group {
+  margin-bottom: 0.5rem;
+}
+
+.form-control{
+  font-size: 0.9rem;
+}
+
+.derecha {
+  text-align: right;
+}
+
+.btn-xs {
+  padding: 0.175rem 0.45rem;
+  font-size: 0.6rem;
+}
+
+.content-wrapper {
+  padding:20px 10px;
+}
+
+.modal-header {
+  display: initial;
+}
+
+.nav-link {
+  display: flex;
 }

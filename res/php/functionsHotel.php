@@ -944,7 +944,7 @@ class Hotel_Actions
         $data = $database->select('resoluciones', [
             'resolucion',
             'fecha',
-            'prefijo',
+            'prefijo', 
             'desde',
             'hasta',
             'estado',

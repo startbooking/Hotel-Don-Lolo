@@ -1,5 +1,5 @@
-<section class="content">
-  <div class="content-wrapper"> 
+<section class="content" >
+  <div class="content-wrapper" style="padding:20px;"> 
     <h1 style="font-size:34px;font-weight: bold;">
     Panel de Control <br>
       <small class="badge btn btn-success" style="padding:5px;font-weight: bold;">Facturacion Electronica </small>

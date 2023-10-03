@@ -7,4 +7,6 @@ RewriteEngine on
 RewriteRule ^home index.php?section=home [QSA] 
 RewriteRule facturas index.php?section=facturas [QSA] 
 RewriteRule proveedores index.php?section=proveedores [QSA] 
+RewriteRule productos index.php?section=productos [QSA] 
+RewriteRule docSoporte index.php?section=docSoporte [QSA] 
 

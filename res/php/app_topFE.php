@@ -8,8 +8,11 @@
   require_once 'rutas.php'; 
 	require_once 'functionsAdmin.php';
 	require_once 'functionsFE.php';
+	require_once 'functionsHotel.php';
+	
   $admin   = new Hotel_Admin();
-  $user   = new User_Actions();
+  $user    = new User_Actions();
+  $hotel   = new User_Actions();
 
   $empresa = $admin->getInfoCia();
 
@@ -33,6 +36,8 @@
 	require_once 'functionsFE.php';
 	if(isset($_GET['section']) && $_GET['section'] == 'proveedores'){
 		$proveedores = $user->getCompanias(); 
+	}elseif(isset($_GET['section']) &&	$_GET['section'] == 'productos'){
+		$productos = $user->getCodigosVentas(3); 
 	}
 /* 	
 	require_once 'funcionesInventario.php';

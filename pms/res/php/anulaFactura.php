@@ -1,6 +1,4 @@
 <?php
-
-// require '../../../res/php/titles.php';
 require '../../../res/php/app_topHotel.php';
 
 $numero = $_POST['numero'];
@@ -19,7 +17,7 @@ $token = $eToken[0]['token'];
 $password = $eToken[0]['password'];
 $facturador = $eToken[0]['facturador'];
 
-$resFac = $hotel->getResolucion();
+$resFac = $hotel->getResolucion(1);
 $resolucion = $resFac[0]['resolucion'];
 $prefijo = $resFac[0]['prefijo'];
 
