@@ -3,54 +3,84 @@
 		<div class="container outer-section" >        
 			<form class="form-horizontal" role="form" id="datos_presupuesto" method="post">
 				<div id="print-area">
-					<div class="row pad-top font-big">
+					<!-- <div class="row pad-top font-big">
 						<div class="col-lg-4 col-md-4 col-sm-4">
 							<a href="https://obedalvarado.pw/" target="_blank">  <img src="assets/img/logo.png" alt="Logo sistemas web" /></a>
 						</div>
 						<div class="col-lg-4 col-md-4 col-sm-4">
-							<strong>E-mail : </strong> <?php echo $rw['email'];?>
+							<strong>E-mail : </strong>
 							<br />
-							<strong>Teléfono :</strong> <?php echo $rw['telefono'];?> <br />
-							<strong>Sitio web :</strong> <?php echo $rw['web'];?>                    
+							<strong>Teléfono :</strong> <br />
+							<strong>Sitio web :</strong>                    
 						</div>
 						<div class="col-lg-4 col-md-4 col-sm-4">
-							<strong><?php echo $rw['nombre_comercial'];?>  </strong>
+							<strong></strong>
 							<br />
-							Dirección : <?php echo $rw['direccion'];?> 
+							Dirección :  
 						</div>
-					</div>
+					</div> -->
 					<div class="row ">
-						<hr />
-						<div class="col-lg-6 col-md-6 col-sm-6">
-							<h2>Detalles del proveedor :</h2>
-							<select class="proveedor form-control" name="proveedor" id="proveedor" required>
-								<option value="">Selecciona el proveedor</option>
-							</select>
-							<span id="direccion"></span>
-							<h4><strong>E-mail: </strong><span id="email"></span></h4>
-							<h4><strong>Teléfono: </strong><span id="telefono"></span></h4>
-						</div>
-						<div class="col-lg-6 col-md-6 col-sm-6">
-							<h2>Detalles de la orden de compra :</h2>
-							<div class="row">
+						<!-- <hr /> -->
+						<!-- <div class="col-lg-6 col-md-6 col-sm-6"> -->
+              <div class="form-group row">
+                <label for="nombre" class="control-label col-lg-2 col-md-2">Proveedor </label>
+                <div class="col-lg-10 col-md-10">
+                  <!-- <input type="text" class="form-control" id="nombreAdi" name="nombreAdi" required> -->
+                  <select class="proveedor form-control" name="proveedor" id="proveedor" required>
+                    <option value="">Selecciona el Proveedor</option>
+                  </select>
+                </div>
+              <!-- </div>
+              <div class="form-group row"> -->
+                <!-- <label>Condiciones de pago</label> -->
+                <label for="nombre" class="control-label col-lg-4 col-md-4">Condiciones de pago </label>
+                <div class="col-lg-6">
+									<input type="text" name="condiciones" id="condiciones" class="form-control">
+								</div>	
+                
+              </div>
+							<!-- <h4>Detalles del proveedor :</h4> -->
+              <!-- <label for="">Proveedor</label>
+							<span id="direccion"></span> -->
+							<!-- <h4><strong>E-mail: </strong><span id="email"></span></h4>
+							<h4><strong>Teléfono: </strong><span id="telefono"></span></h4> -->
+						<!-- </div>
+						<div class="col-lg-6 col-md-6 col-sm-6"> -->
+              <div class="form-group row">
+                <label for="nombre" class="control-label col-lg-3 col-md-3">Nro Documento </label>
+                <div class="col-lg-3 col-md-3">
+                  <input type="text" class="form-control" id="nombreAdi" name="nombreAdi" required>
+                </div>
+                <label for="nombre" class="control-label col-lg-2 col-md-">Fecha </label>
+                <div class="col-lg-4 col-md-4">
+                  <input type="date" class="form-control" id="nombreAdi" name="nombreAdi" required>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="nombre" class="control-label col-lg-3 col-md-3">Método de envío </label>
+                <!-- <label>Método de envío</label> -->
+                <div class="col-lg-4">
+                  <input type="text" name="envio" id="envio" class="form-control">
+                </div>						
+              </div>
+
+							<!-- <h4>Detalles del Documento Soporte :</h4> -->
+							<!-- <div class="row">
 								<div class="col-lg-6">
-									<h4><strong>Orden #: </strong><?php echo $numero;?></h4>
+									<h5><strong>Documento #: </strong></h5>
 								</div>
 								<div class="col-lg-6">
-									<h4><strong>Fecha: </strong> <?php echo date("d/m/Y");?></h4>
+									<h5><strong>Fecha: </strong> </h5>
 								</div>
-							</div>
+							</div> -->
 							<div class="row">
-								<div class="col-lg-6">
+								<!-- <div class="col-lg-6">
 									<label>Condiciones de pago</label>
 									<input type="text" name="condiciones" id="condiciones" class="form-control">
-								</div>						
-								<div class="col-lg-6">
-									<label>Método de envío</label>
-									<input type="text" name="envio" id="envio" class="form-control">
-								</div>						
-							</div>
-						</div>
+								</div>	 -->					
+                						
+              </div>
+						<!-- </div> -->
 					</div>
 					<div class="row">
 						<hr />
@@ -75,23 +105,23 @@
 						</div>
 					</div>
 				</div>
-				<div class="row"> <hr /></div>
-					<div class="row pad-bottom  pull-right">		
-						<div class="col-lg-12 col-md-12 col-sm-12">
-							<button type="submit" class="btn btn-success ">Guardar orden de compra</button>
-						</div>
+				<!-- <div class="row"> <hr /></div> -->
+        <div class="row pad-bottom  pull-right">		
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <button style="display:flex"type="submit" class="btn btn-success "><span class="material-symbols-outlined">save</span> Guardar Documento</button>
+          </div>
 				</div>
 			</form>
 		</div>
 		<form class="form-horizontal" name="guardar_item" id="guardar_item">
 			<!-- Modal -->
 			<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">Nuevo Ítem</h4>
+				</div>
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							<h4 class="modal-title" id="myModalLabel">Nuevo Ítem</h4>
-						</div>
 						<div class="modal-body">					
 							<div class="row">
 								<div class="col-md-12">

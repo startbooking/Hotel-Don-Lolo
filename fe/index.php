@@ -12,8 +12,10 @@ if (!isset($_GET['section'])) {
   require 'views/proveedores.php';
 }elseif (isset($_GET['section']) && $_GET['section'] == 'productos') {
   require 'views/codigosVentas.php';
-}elseif (isset($_GET['section']) && $_GET['section'] == 'docSopoŕte') {
-  require 'views/docSopoŕte.php';
+}elseif (isset($_GET['section']) && $_GET['section'] == 'docSoporte') {
+  require 'views/docSoporte.php';
+}elseif (isset($_GET['section']) && $_GET['section'] == 'nuevoDocumento') {
+  require 'views/nuevoDocumento.php';
 }
 ?>
 
