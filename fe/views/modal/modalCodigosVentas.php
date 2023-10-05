@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><span class="glyphicon glyphicon-off"></span></span></button>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="material-symbols-outlined">power_settings_new</span></button>
           <h4 class="modal-title" id="exampleModalLabel">
           <span class="material-symbols-outlined">add_chart</span> Nuevo Producto</h4>
         </div>
@@ -36,19 +36,21 @@
             <div class="col-lg-4 col-md-4">
               <input type="text" class="form-control" id="codigoAdi" name="codigoAdi" required >
             </div>
-          </div>
-          
-          <div class="form-group row">
-            
+          </div>          
+          <div class="form-group row">            
             <label for="puc" class="control-label col-lg-2 col-md-2">Precio</label>
             <div class="col-lg-3 col-md-3">
               <input type="number" min="1" class="form-control" id="precioAdi" name="precioAdi" required >
             </div>
           </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
-          <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar </button>
+        <div class="card-footer">
+          <div class="row">
+            <button type="button" class="btn btn-warning" data-dismiss="modal"><span class="material-symbols-outlined">undo</span> Regresar</button>
+            <button type="submit" class="btn btn-primary derechaAbs"><span class="material-symbols-outlined">save</span> Guardar</button>
+          </div>
+          <!-- <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
+          <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar </button> -->
         </div>
       </div>
     </div>

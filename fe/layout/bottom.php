@@ -24,6 +24,13 @@
 <script src="<?php echo BASE_VIE;?>public/dist/js/adminlte.js"></script>
 
 <!-- PAGE PLUGINS -->
+<!-- DataTables  & Plugins -->
+<script src="<?php echo BASE_VIE;?>public/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="<?php echo BASE_VIE;?>public/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<!-- <script src="<?php echo BASE_VIE;?>public/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script> -->
+<!-- <script src="<?php echo BASE_VIE;?>public/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script> -->
+<script src="<?php echo BASE_VIE;?>public/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<!-- <script src="<?php echo BASE_VIE;?>public/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script> -->
 <!-- jQuery Mapael -->
 <script src="<?php echo BASE_VIE;?>public/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
 <script src="<?php echo BASE_VIE;?>public/plugins/raphael/raphael.min.js"></script>

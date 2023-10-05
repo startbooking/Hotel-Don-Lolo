@@ -10,6 +10,8 @@ if (!isset($_GET['section'])) {
   require 'views/home.php';
 }elseif (isset($_GET['section']) && $_GET['section'] == 'proveedores') {
   require 'views/proveedores.php';
+}elseif (isset($_GET['section']) && $_GET['section'] == 'facturas') {
+  require 'views/facturas.php';
 }elseif (isset($_GET['section']) && $_GET['section'] == 'productos') {
   require 'views/codigosVentas.php';
 }elseif (isset($_GET['section']) && $_GET['section'] == 'docSoporte') {
