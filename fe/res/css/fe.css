@@ -64,7 +64,7 @@ form input[type="text"], form input[type="email"], form input[type="password"], 
 
 .derechaAbs {
   position: absolute;
-  right: 10px;  
+  right: 30px;  
 }
 
 hr {
@@ -83,4 +83,72 @@ div.dataTables_wrapper div.dataTables_filter {
 
 .form-group a {
   border-bottom: solid 0px #ddd;
+}
+
+.nav-sidebar .nav-link p {
+  font-weight: 500;
+}
+
+.brand-link p {
+  font-weight: 600;
+}
+
+[class*="sidebar-dark"] .brand-link, [class*="sidebar-dark"] .brand-link .pushmenu {
+  color: rgba(255,255,255);
+}
+
+.fw6 {
+  font-weight: 600;
+}
+
+.nav-link {
+  padding: .5rem;
+}
+
+.nav-item .nav-link {
+  padding-left:10px;
+}
+
+
+.table td, .table th {
+  padding: 0.35rem;
+}
+
+
+.material-symbols-outlined {
+  font-size: 18px;
+}
+
+.page-link {
+  padding: .35rem .75rem;
+  line-height: 1.05;
+  font-size:14px;
+}
+
+.main-footer {
+  padding: 0.5rem;
+  font-size: 14px;
+}
+
+.main-footer strong {
+  font-size: 0.8rem;
+}
+
+div.dataTables_wrapper div.dataTables_info {
+  padding-top: 0.35em;
+  font-size: 14px;
+}
+
+
+.dataTable {
+  font-size:14px;
+}
+
+.dataTable thead tr {
+text-align: center;
+font-weight: 500;
+}
+
+[class*="sidebar-dark-"] {
+  background-color: #222d32;
 }

@@ -948,7 +948,7 @@ class Hotel_Actions
             'desde',
             'hasta',
             'estado',
-            'tipo',
+            'tipo', 
         ], [
             'estado' => 1,
             'tipoDocumento' => $tipoDoc,

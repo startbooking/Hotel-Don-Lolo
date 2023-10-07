@@ -210,6 +210,23 @@ class User_Actions
   }
 
 
+  public function getFormasPago(){
+    global $database;
+
+    $data = $database->select('formas_pago', [
+        'id_pago',
+        'descripcion',
+        'cuenta_puc',
+        'descripcion_contable',
+        'pms',
+    ], [
+        'ORDER' => 'descripcion',
+    ]);
+
+    return $data;
+}
+
+
 
 
 

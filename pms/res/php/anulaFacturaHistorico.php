@@ -200,7 +200,7 @@ if ($perfil == 1 && $facturador == 1) {
 
     $regis = $hotel->ingresaDatosFe($numDoc, $prefNC, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cude, $QRStr, '', $Isvalid, $eNote, $errorMessage, $statusCode, $statusDesc, $statusMess);
 
-    include_once '../../imprimir/imprimeNotaCredito.php';
+    include_once '../../imprimir/imprimeNotaCreditoHis.php';
 
     $ePDF = [];
 
@@ -215,6 +215,8 @@ if ($perfil == 1 && $facturador == 1) {
     include_once '../../api/enviaPDF.php';
 
     $recibePDF = json_decode($respopdf, true);
+} else {
+    include_once '../../imprimir/imprimeNCHis.php';
 }
 
 $regis = $hotel->actualizaNumeroCredito($numDoc + 1);
@@ -224,4 +226,4 @@ $anula = $hotel->anulaFacturaHis($numero, $motivo, $usuario, $idusuario, $perfil
 $regis = $hotel->ingresaNCFactura($numero, $motivo, $idusuario, $numDoc, FECHA_PMS);
 
 
-echo $anula;
+// echo $anula;

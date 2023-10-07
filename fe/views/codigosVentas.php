@@ -96,7 +96,7 @@
     <?php include_once 'views/modal/modalCodigosVentas.php'; ?> 
 
 
-    <script>
+<script>
   $(function () {
 		$('#example1').DataTable({
 			"paging": true,

@@ -32,7 +32,7 @@
                     <input class="form-control" type="date" min="1" name="hastaFecha" id='hastaFecha' value='<?=$ayer ?>' max="<?=$ayer ?>">
                   </div>
                 </div>
-                <!-- <div class="form-group">
+                <div class="form-group">
                   <label class="control-label col-md-2">Desde Numero</label>
                   <div class="col-lg-2 col-md-2">
                     <input class="form-control" type="number" min="1" name="desdeNumero" id='desdeNumero' value=''>
@@ -64,7 +64,7 @@
                       ?>
                     </select>
                   </div>
-                </div> -->
+                </div>
               </div>
             </div>
             <div class="panel-footer">

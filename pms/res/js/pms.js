@@ -3816,6 +3816,11 @@ function anulaFacturaHistorico() {
       perfil,
     },
     success: function (data) {
+      var ventana = window.open(
+        "imprimir/notas/" + data.trim(),
+        "PRINT",
+        "height=600,width=600"
+      );
       swal(
         {
           title: "Atencion",
@@ -3898,7 +3903,7 @@ function buscarCompania() {
 													data-nit     ="${data[i]["nit"]} - ${data[i]["dv"]}" 
 													href         ="#myModalModificaPerfilCia">
                         <i class="fa fa-address-card-o" aria-hidden="true"></i>
-                         Modificar Datos</a> 
+                        Modificar Datos</a> 
                       </li>
                       <li>
                         <a 
@@ -3908,7 +3913,7 @@ function buscarCompania() {
                           data-nit="${data[i]["nit"]} - ${data[i]["dv"]}" 
                           href="#myModalContactosCia">
                           <i class="fa fa-users" aria-hidden="true"></i>
-                         Contactos</a> 
+                        Contactos</a> 
                       </li>
                       <li> 
                         <a data-toggle="modal" 

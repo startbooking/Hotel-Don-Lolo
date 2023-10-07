@@ -10,4 +10,6 @@ RewriteRule proveedores index.php?section=proveedores [QSA]
 RewriteRule productos index.php?section=productos [QSA] 
 RewriteRule docSoporte index.php?section=docSoporte [QSA] 
 RewriteRule nuevoDocumento index.php?section=nuevoDocumento [QSA] 
+RewriteRule formaPagos index.php?section=formaPagos [QSA] 
+RewriteRule impuestos index.php?section=impuestos [QSA] 
 

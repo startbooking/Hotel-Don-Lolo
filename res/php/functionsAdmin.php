@@ -88,8 +88,7 @@
          return $database->id();
      }
 
-     public function getFormasPagoPos()
-     {
+    public function getFormasPagoPos(){
          global $database;
 
          $data = $database->select('formas_pago', [
@@ -343,7 +342,7 @@
          ]);
 
          return $data->rowCount();
-     }
+    }
 
      public function eliminaImpuesto($id)
      {

@@ -110,7 +110,6 @@ require_once '../../../res/fpdf/fpdf.php';
   $pdf->Cell(15,5,'Habitacion',1,0,'L');
   $pdf->Cell(10,5,$datosReserva[0]['num_habitacion'],1,0,'C');
   $pdf->Cell(20,5,'Placa Vehiculo',1,0,'L');
-  echo $datosReserva[0]['placaVehiculo'];
   if($datosReserva[0]['placaVehiculo']!=''){
     $placa  = substr($datosReserva[0]['placaVehiculo'],0,22);
   }else{

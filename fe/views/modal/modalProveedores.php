@@ -29,7 +29,7 @@
                 </div>
                 <div style="padding-left:2px" class="col-lg-1 col-md-1" id="dvnit">
                   <label for="nit">-</label>
-                  <input style="width: 80%;margin-left: 12px;margin-top: -34px;" type="text" class="form-control" id="dv" name="dv" min="" required>
+                  <input style="width: 80%;margin-left: 12px;margin-top: -40px;" type="text" class="form-control" id="dv" name="dv" min="" required>
                 </div>
               </div>
               <div class="form-group row">
@@ -165,9 +165,15 @@
               </div>
             </div>
             <div class="card-footer">
+              <div class="row">
+                <button type="button" class="btn btn-warning" data-dismiss="modal"><span class="material-symbols-outlined">undo</span> Regresar</button>
+                <button type="submit" class="btn btn-primary derechaAbs"><span class="material-symbols-outlined">save</span> Guardar</button>
+              </div>
+            </div>
+            <!-- <div class="card-footer">
               <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
               <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
-            </div>
+            </div> -->
           </form>
         </div>
         <!-- <div class="modal-footer">
@@ -190,12 +196,18 @@
         <div class="modal-body" id='updProveedor'>
           <div id="datos_ajax"></div>
         </div>
-        <div class="modal-footer">
+        <div class="card-footer">
+          <div class="row">
+            <button type="button" class="btn btn-warning" data-dismiss="modal"><span class="material-symbols-outlined">undo</span> Regresar</button>
+            <button type="submit" class="btn btn-primary derechaAbs"><span class="material-symbols-outlined">save</span> Actualizar</button>
+          </div>
+        </div>
+        <!-- <div class="card-footer">
           <div class="btn-group">
             <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
             <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Actualizar</button>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </form>

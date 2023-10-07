@@ -16,9 +16,11 @@
 
   $empresa = $admin->getInfoCia();
 
-  $facturacion = $user->traeEstadoFacturacion();
-  define("FE", $facturacion[0]['facturacionElectronica']);
+/*   $facturacion = $user->traeEstadoFacturacion();
 
+
+  define("FE", $facturacion[0]['facturacionElectronica']);
+ */
   define("NAME_EMPRESA", $empresa[0]['empresa']);
   define("NIT_EMPRESA", $empresa[0]['nit'].'-'.$empresa[0]['dv']);
   define("ADRESS_EMPRESA", $empresa[0]['direccion']);

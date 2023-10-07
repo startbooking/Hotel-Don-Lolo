@@ -16,9 +16,9 @@ require_once '../res/php/app_topFE.php';
   </head>
   <body class="skin-green sidebar-mini sidebar-collapse">
     <?php
-      if(FE==0){
+      /* if(FE==0){
         require 'views/nofe.php';
-      }else{
+      }else{ */
         include_once 'menus/menu_titulo.php';
         include_once 'menus/menuFE.php';
   
@@ -30,8 +30,8 @@ require_once '../res/php/app_topFE.php';
           echo $_GET['section'];
           require 'views/facturas.php';
         }
+        /* 
       }
-          /* 
 } elseif (isset($_GET['section']) && $_GET['section'] == 'proveedores') {
     require 'views/proveedores.php';
 } elseif (isset($_GET['section']) && $_GET['section'] == 'entradas') {

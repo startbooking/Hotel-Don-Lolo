@@ -18,6 +18,10 @@ if (!isset($_GET['section'])) {
   require 'views/docSoporte.php';
 }elseif (isset($_GET['section']) && $_GET['section'] == 'nuevoDocumento') {
   require 'views/nuevoDocumento.php';
+}elseif (isset($_GET['section']) && $_GET['section'] == 'formaPagos') {
+  require 'views/formasPago.php';
+}elseif (isset($_GET['section']) && $_GET['section'] == 'impuestos') {
+  require 'views/impuestos.php';
 }
 ?>
 
