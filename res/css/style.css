@@ -1411,10 +1411,11 @@ ul#produtos li h3 {
     background-color: #00a65a;
   }
 
-  /*   .navbar {
-    display: flex;
+  .navbar {
+    height: 50px;
+    /* display: flex; */
   }
- */
+
   .fontModule p {
     font-size: 12px;
   }

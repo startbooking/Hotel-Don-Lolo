@@ -1,6 +1,28 @@
 <aside id="menuFE"class="main-sidebar">
   <section class="sidebar">
-    <ul class="sidebar-menu">
+    <ul class="sidebar-menu">      
+      <li class="treeview" id="menuDatos">
+        <a href="#">
+          <span class="material-symbols-outlined">collections_bookmark</span>
+          <span>Datos</span>
+          <small class="fa fa-angle-left pull-right"></small>
+        </a>
+        <ul class="treeview-menu">
+          <li> 
+            <a href="proveedores" class="menuPpal" >
+            <span class="material-symbols-outlined">group</span>
+             Proveedores</a>
+          </li>
+          <li>
+            <a class="productos" >
+            <span class="material-symbols-outlined">filter_9_plus</span>
+             Compras / Servicios </a>
+          </li>
+          <!-- <li>
+            <a class="menuPpal" ><i class="fa fa-coffee" aria-hidden="true"></i> Productos</a>
+          </li> -->
+        </ul>
+      </li>
       <li class="treeview" id="menuDatos">
         <a href="#">
           <i class="glyphicon glyphicon-th-list"></i>
@@ -27,10 +49,10 @@
         </a>
         <ul class="treeview-menu">
           <li> 
-            <a href="facturas" class="menuPpal" ><i class="fa fa-address-card-o" aria-hidden="true"></i> Documento Soporte de Venta</a>
+            <a href="docSoporte" class="menuPpal" ><i class="fa fa-address-card-o" aria-hidden="true"></i> Documento Soporte de Venta</a>
           </li>
           <li>
-            <a class="notasCredito" ><i class="fa fa-pie-chart" aria-hidden="true"></i> Notas Credito</a>
+            <a class="NCSoporte" ><i class="fa fa-pie-chart" aria-hidden="true"></i> Notas Credito</a>
           </li>
           <!-- <li>
             <a class="menuPpal" ><i class="fa fa-coffee" aria-hidden="true"></i> Productos</a>

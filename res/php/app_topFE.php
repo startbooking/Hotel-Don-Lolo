@@ -4,6 +4,7 @@
 	ini_set('display_errors', '1');
   setlocale(LC_ALL,"es_CO.utf8","es_CO","esp")  ;
   date_default_timezone_set("America/Bogota");
+	header('Content-Type: text/html');
 
   require_once 'rutas.php'; 
 	require_once 'functionsAdmin.php';

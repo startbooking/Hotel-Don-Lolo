@@ -4,12 +4,12 @@ Options All -Indexes
 RewriteEngine on 
 
 #Rutas Usuarios
-RewriteRule ^home index.php?section=home [QSA] 
-RewriteRule facturas index.php?section=facturas [QSA] 
-RewriteRule proveedores index.php?section=proveedores [QSA] 
-RewriteRule productos index.php?section=productos [QSA] 
-RewriteRule docSoporte index.php?section=docSoporte [QSA] 
-RewriteRule nuevoDocumento index.php?section=nuevoDocumento [QSA] 
-RewriteRule formaPagos index.php?section=formaPagos [QSA] 
-RewriteRule impuestos index.php?section=impuestos [QSA] 
+RewriteRule ^home inicio.php?section=home [QSA] 
+RewriteRule facturas inicio.php?section=facturas [QSA] 
+RewriteRule proveedores inicio.php?section=proveedores [QSA] 
+RewriteRule productos inicio.php?section=productos [QSA] 
+RewriteRule docSoporte inicio.php?section=docSoporte [QSA] 
+RewriteRule nuevoDocumento inicio.php?section=nuevoDocumento [QSA] 
+RewriteRule formaPagos inicio.php?section=formaPagos [QSA] 
+RewriteRule impuestos inicio.php?section=impuestos [QSA] 
 

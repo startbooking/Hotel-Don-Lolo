@@ -165,7 +165,7 @@ include_once 'views/modal/modalCodigosVentas.php';
 ?> 
 
 
-
+<!-- 
 <script>
   $(function () {
     $("#dataDocSoporte2").DataTable({
@@ -184,4 +184,4 @@ include_once 'views/modal/modalCodigosVentas.php';
 			"buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
 		}).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
   });
-</script>
+</script> -->

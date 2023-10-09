@@ -6,30 +6,46 @@ require_once '../res/php/app_topFE.php';
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="es">
   <head>
+    <meta charset="UTF-8">
     <title>SACTel - Facturacion Electronica</title>
-    <?php 
-      include_once '../res/shared/archivo_head.php'; 
-      ?>
+    <?php include_once '../res/shared/archivo_head.php'; ?>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" type="text/css" href="res/css/fe.css">
   </head>
-  <body class="skin-green sidebar-mini sidebar-collapse">
+  <body class="skin-green sidebar-collapse">
+    
     <?php
       /* if(FE==0){
         require 'views/nofe.php';
       }else{ */
         include_once 'menus/menu_titulo.php';
-        include_once 'menus/menuFE.php';
-  
+        include_once 'menus/menuFE.php'; ?>
+        <section class="content">
+          <?php
         if (!isset($_GET['section'])) {
           require 'views/home.php';
-        } elseif (isset($_GET['section']) && $_GET['section'] == 'home') {
+        }elseif (isset($_GET['section']) && $_GET['section'] == 'index') {
           require 'views/home.php';
-        } elseif (isset($_GET['section']) && $_GET['section'] == 'facturas') {        
-          echo $_GET['section'];
+        }elseif (isset($_GET['section']) && $_GET['section'] == 'proveedores') {
+          require 'views/proveedores.php';
+        }elseif (isset($_GET['section']) && $_GET['section'] == 'facturas') {
           require 'views/facturas.php';
+        }elseif (isset($_GET['section']) && $_GET['section'] == 'productos') {
+          require 'views/codigosVentas.php';
+        }elseif (isset($_GET['section']) && $_GET['section'] == 'docSoporte') {
+          require 'views/docSoporte.php';
+        }elseif (isset($_GET['section']) && $_GET['section'] == 'nuevoDocumento') {
+          require 'views/nuevoDocumento.php';
+        }elseif (isset($_GET['section']) && $_GET['section'] == 'formaPagos') {
+          require 'views/formasPago.php';
+        }elseif (isset($_GET['section']) && $_GET['section'] == 'impuestos') {
+          require 'views/impuestos.php';
         }
+        ?>
+      </section>
+      <?php
         /* 
       }
 } elseif (isset($_GET['section']) && $_GET['section'] == 'proveedores') {
@@ -100,8 +116,9 @@ require_once '../res/php/app_topFE.php';
       });
     });
     </script>
-    <script src="<?php echo BASE_INV; ?>res/js/inventario.js"></script> 
-   
+    <!-- <script src="<?php echo BASE_INV; ?>res/js/inventario.js"></script>  -->
+    <!-- <script src="<?php echo BASE_FE; ?>res/js/proveedores.js"></script> -->
+
     <script src="res/js/fe.js"></script>    
   </body>
 </html>

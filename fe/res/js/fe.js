@@ -1,5 +1,12 @@
+/* import {
+  traeProveedores,
+} from "./API.js"; */
+
+
+// console.log(traeProveedores);
+
 $(document).ready(function () {
-  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let sesion = JSON.parse(localStorage.getItem("sesion"));
   
   let { user } = sesion;
   let { apellidos, nombres } = user;
@@ -8,56 +15,45 @@ $(document).ready(function () {
   nombreUsuaro.innerHTML = `${apellidos}  ${nombres}<span class="caret"></span>`;
  */
   
-  
+
+  $("#myModalAdicionarProveedor").on("show.bs.modal", function (event) {
+    
+    /* 
+    $("#error").html("");
+    if (localStorage.getItem("sesion")) {
+      entro = JSON.parse(localStorage.getItem("sesion"));
+      let { user } = entro;
+      let { usuario, usuario_id } = user;
+      $("#idUserPass").val(usuario_id);
+      $("#userPass").val(usuario);
+    }  
+    swal('Abrio Modal')
+    */
+    document.querySelector('form')
+    .addEventListener('submit', e => {
+      const data = Object.fromEntries(new FormData(e.target))
+      alert(JSON.stringify(data))
+    })
+  });
+
+
 });
 
 
 
 // facturasPorFecha 
 
-async function facturasPorFecha() {
+function guardaProveedor(e){
+  console.log(e)
+  let dataProv = document.querySelector('#dataRegistrarProveedor')
 
-  formFact = document.querySelector('form');
+  const data = Object.fromEntries(
+    new FormData(e.target)
+  )
 
-  var web = $("#rutaweb").val();
-  desdeFe = $("#desdeFecha").val();
-  hastaFe = $("#hastaFecha").val();
-  desdeNu = $("#desdeNumero").val();
-  hastaNu = $("#hastaNumero").val();
-  huesped = $("#desdeHuesped").val();
-  empresa = $("#desdeEmpresa").val();
-  formaPa = $("#desdeFormaPago").val();
-  parametros = {
-    desdeFe,
-    hastaFe,
-    desdeNu,
-    hastaNu,
-    huesped,
-    empresa,
-    formaPa,
-  };
+  
 
-  if (
-    desdeFe == "" &&
-    hastaFe == "" &&
-    desdeNu == "" &&
-    hastaNu == "" &&
-    huesped == "" &&
-    empresa == "" &&
-    formaPa == ""
-  ) {
-    swal("Atencion", "Seleccione un Criterio de Busqueda", "warning");
-  } else {
+  console.log(data);
 
 
-
-    /* $.ajax({
-      url: web + "res/php/facturasPorRango.php",
-      type: "POST",
-      data: parametros,
-      success: function (x) {
-        $(".imprimeInforme").html(x);
-      },
-    }); */
-  }
 }

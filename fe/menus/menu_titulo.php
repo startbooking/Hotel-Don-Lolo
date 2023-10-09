@@ -4,6 +4,7 @@
     <span style="font-size:16px;font-weight: 600">Pagina Principal</span>
     <input type="hidden" id="rutaweb" name="rutaweb" value="<?=BASE_FE?>">
   </a>
+  
   <nav class="navbar navbar-static-top" role="navigation">
     <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button" style="border-bottom: none;">
       <span class="sr-only">Toggle navigation</span>
