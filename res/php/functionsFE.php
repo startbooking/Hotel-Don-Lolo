@@ -3,8 +3,43 @@
 require 'init.php';
 date_default_timezone_set('America/Bogota');
 
-class User_Actions
-{
+class User_Actions{
+
+  public function ingresaProveedor($empresa, $apellido1, $apellido2, $nombre1, $nombre2, $nit, $dv, $direccion, $ciudad, $telefono, $celular, $correo, $web, $tipo_emp, $tipo_doc, $ciiu, $tipoAdquiriente, $tipoResponsabilidad, $responsabilidadTribu, $usuario){
+    global $database;
+
+    $data = $database->insert('companias',[      
+      'empresa' => $empresa, 
+      'apellido1' => $apellido1, 
+      'apellido2' => $apellido2, 
+      'nombre1' => $nombre1, 
+      'nombre2' => $nombre2, 
+      'nit' => $nit, 
+      'dv' => $dv, 
+      'direccion' => $direccion, 
+      'ciudad' => $ciudad, 
+      'telefono' => $telefono, 
+      'celular' => $celular, 
+      'email' => $correo, 
+      'web' => $web, 
+      'tipo_empresa' => $tipo_emp, 
+      'tipo_documento' => $tipo_doc, 
+      'id_codigo_ciiu' => $ciiu, 
+      'tipoAdquiriente' => $tipoAdquiriente, 
+      'tipoResponsabilidad' => $tipoResponsabilidad, 
+      'responsabilidadTributaria' => $responsabilidadTribu,
+      'activo' => 1,
+      'created_at' => date('Y-m-d H:m:i'),
+      'tipo_compania' => 1,
+      'usuario' => $usuario,
+    ]);
+    $result = [
+      'id' => $database->id(),
+      'error' => $database->error,
+    ];
+
+    return $result;
+  }
 
   public function traeEstadoFacturacion(){
     global $database;

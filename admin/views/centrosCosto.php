@@ -14,7 +14,7 @@
                   data-toggle="modal" 
                   style="margin:20px 0" type="button" class="btn btn-success" href="#myModalAdicionarCentro">
                   <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
-                   Adicionar Centro</a>
+                  Adicionar Centro</a>
               </div>
             </div>
           </div>

@@ -14,7 +14,7 @@
              Proveedores</a>
           </li>
           <li>
-            <a class="productos" >
+            <a href="productos" class="menuPpal" >
             <span class="material-symbols-outlined">filter_9_plus</span>
              Compras / Servicios </a>
           </li>

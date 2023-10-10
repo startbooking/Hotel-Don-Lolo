@@ -1,3 +1,12 @@
 .btnFlex {
   display:inline-flex;
 }
+
+.material-symbols-outlined {
+  font-size: 18px;
+}
+
+.btn-xs {
+  padding: 3px;
+  line-height: 0.7;
+}

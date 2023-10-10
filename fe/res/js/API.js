@@ -1,4 +1,4 @@
-const ruta = "http://donlolo.lan/apiRest/data/fe";
+const ruta = "http://donlolo.lan/restAPI/data/fe";
 
 export const traeProveedores = async () => {
   try {

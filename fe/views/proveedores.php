@@ -3,16 +3,19 @@
         <div class="panel panel-success">
           <div class="panel-heading"> 
             <div class="row">
-              <div class="col-lg-6 col-xs-12">
+              <div class="col-lg-6 col-sm-6 col-xs-12">
                 <input type="hidden" name="rutaweb" id="rutaweb" value="<?php echo BASE_FE; ?>">                  
                 <input type="hidden" name="ubicacion" id="ubicacion" value="proveedores">
                 <h3 class="w3ls_head tituloPagina">
                 <span class="material-symbols-outlined">group</span> Catalogo de Proveedores</h3>
               </div>
-              <div class="col-lg-6 col-xs-12">
+              <div class="col-lg-6 col-sm-6 col-xs-12">
                 <button
                 data-toggle="modal" 
-                style="display:inline-flex;" type="button" class="btn btn-success pull-right" href="#myModalAdicionarProveedor"
+                style="display:inline-flex;" 
+                type="button" 
+                data-edita = "0";
+                class="btn btn-success pull-right" href="#myModalAdicionarProveedor"
                 >
                 <span class="material-symbols-outlined">add_box</span> Adicionar Proveedor </button>
               </div>
@@ -27,7 +30,7 @@
                     <thead>
                       <tr class="warning">
                         <td>Nit</td>
-                        <td>Empresa</td>
+                        <td>Razon Social</td>
                         <td>Direccion</td>
                         <td>Celular</td>
                         <td>Correo</td>
@@ -41,7 +44,14 @@
                       foreach ($proveedores as $compania) { ?>
                         <tr style='font-size:12px'>
                           <td><?php echo $compania['nit'].'-'.$compania['dv']; ?></td>
-                          <td><?php echo $compania['empresa']; ?></td>
+                          <td><?php 
+                          if($compania['empresa']==''){
+                            echo $compania['apellido1'].' '.$compania['apellido2'].' '.$compania['nombre1'].' '.$compania['nombre2']; 
+
+                          }else{
+                            echo $compania['empresa']; 
+                          }
+                          ?></td>
                           <td><?php echo $compania['direccion']; ?></td>
                           <td><?php echo $compania['celular']; ?></td>
                           <td><?php echo $compania['email']; ?></td>

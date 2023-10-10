@@ -13,7 +13,7 @@ if (!isset($_GET['section'])) {
 }elseif (isset($_GET['section']) && $_GET['section'] == 'facturas') {
   require 'views/facturas.php';
 }elseif (isset($_GET['section']) && $_GET['section'] == 'productos') {
-  require 'views/codigosVentas.php';
+  require 'views/productos.php';
 }elseif (isset($_GET['section']) && $_GET['section'] == 'docSoporte') {
   require 'views/docSoporte.php';
 }elseif (isset($_GET['section']) && $_GET['section'] == 'nuevoDocumento') {

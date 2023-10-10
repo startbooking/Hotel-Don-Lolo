@@ -17,9 +17,6 @@ require_once '../res/php/app_topFE.php';
   <body class="skin-green sidebar-collapse">
     
     <?php
-      /* if(FE==0){
-        require 'views/nofe.php';
-      }else{ */
         include_once 'menus/menu_titulo.php';
         include_once 'menus/menuFE.php'; ?>
         <section class="content">
@@ -33,7 +30,7 @@ require_once '../res/php/app_topFE.php';
         }elseif (isset($_GET['section']) && $_GET['section'] == 'facturas') {
           require 'views/facturas.php';
         }elseif (isset($_GET['section']) && $_GET['section'] == 'productos') {
-          require 'views/codigosVentas.php';
+          require 'views/productos.php';
         }elseif (isset($_GET['section']) && $_GET['section'] == 'docSoporte') {
           require 'views/docSoporte.php';
         }elseif (isset($_GET['section']) && $_GET['section'] == 'nuevoDocumento') {
@@ -45,50 +42,6 @@ require_once '../res/php/app_topFE.php';
         }
         ?>
       </section>
-      <?php
-        /* 
-      }
-} elseif (isset($_GET['section']) && $_GET['section'] == 'proveedores') {
-    require 'views/proveedores.php';
-} elseif (isset($_GET['section']) && $_GET['section'] == 'entradas') {
-    require 'views/entradas.php';
-} elseif (isset($_GET['section']) && $_GET['section'] == 'movimientoEntradas') {
-    require 'views/movimientoEntradas.php';
-} elseif (isset($_GET['section']) && $_GET['section'] == 'salidas') {
-    require 'views/salidas.php';
-} elseif (isset($_GET['section']) && $_GET['section'] == 'movimientoSalidas') {
-    require 'views/movimientoSalidas.php';
-} elseif (isset($_GET['section']) && $_GET['section'] == 'traslados') {
-    require 'views/traslados.php';
-} elseif (isset($_GET['section']) && $_GET['section'] == 'movimientoTraslado') {
-    require 'views/movimientoTraslado.php';
-} elseif (isset($_GET['section']) && $_GET['section'] == 'ajustes') {
-    require 'views/ajustes.php';
-} elseif (isset($_GET['section']) && $_GET['section'] == 'movimientoAjuste') {
-    require 'views/movimientoAjuste.php';
-} elseif (isset($_GET['section']) && $_GET['section'] == 'requisiciones') {
-    require 'views/requisiciones.php';
-} elseif (isset($_GET['section']) && $_GET['section'] == 'recetasRequisicion') {
-    require 'views/recetasRequisicion.php';
-} elseif (isset($_GET['section']) && $_GET['section'] == 'recetasPedidos') {
-    require 'views/recetasPedidos.php';
-} elseif (isset($_GET['section']) && $_GET['section'] == 'productoRequisicion') {
-    require 'views/productoRequisicion.php';
-} elseif (isset($_GET['section']) && $_GET['section'] == 'pedidos') {
-    require 'views/pedidos.php';
-} elseif (isset($_GET['section']) && $_GET['section'] == 'productoPedido') {
-    require 'views/productoPedido.php';
-} elseif (isset($_GET['section']) && $_GET['section'] == 'conteos') {
-    require 'views/conteos.php';
-} elseif (isset($_GET['section']) && $_GET['section'] == 'periodosActivos') {
-    require 'views/periodosActivos.php';
-} elseif (isset($_GET['section']) && $_GET['section'] == 'cierreMes') {
-    require 'views/cierreMes.php';
-} elseif (isset($_GET['section']) && $_GET['section'] == 'kardex') {
-    require 'views/kardex.php';
-} */
-
-?>
     <footer>
       <?php include '../res/shared/archivo_pie.php'; ?>    
     </footer>

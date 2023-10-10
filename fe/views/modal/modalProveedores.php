@@ -3,7 +3,7 @@
   $tiposDoc    = $admin->getTipoDocumento();
   $codigosCiiu = $admin->getCodigosCiiu();
   $ciudades    = $admin->getCiudadesPais(CODIGO_PAIS_EMPRESA);
-
+  $motivos     = $hotel->getMotivoGrupo('TEM');
 ?>
 
 <div class="modal fade" id="myModalAdicionarProveedor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
@@ -16,7 +16,7 @@
         </div>
         <form class="form-horizontal">
           <div class="modal-body">
-            <div id="datos_ajax"></div>
+            <div id="mensaje" class="alert alert-warning oculto centraTitulo"></div>
             <div class="form-group row">
               <label for="empresa" class="control-label col-lg-2 col-md-2">Razon Social</label>
               <div class="col-lg-8 col-md-8">
@@ -72,11 +72,11 @@
               </div>
               <label for="seccion" class="control-label col-lg-2 col-md-2">Telefono</label>
               <div class="col-lg-2 col-md-2">
-                <input type="text" class="form-control" id="telefono" name="telefono" required >
+                <input type="text" class="form-control" id="telefono" name="telefono" minlength='10' pattern="[0-9]+">
               </div>
               <label for="seccion" class="control-label col-lg-1 col-md-1">Celular</label>
               <div class="col-lg-2 col-md-2">
-                <input type="text" class="form-control" id="celular" name="celular" required >
+                <input type="text" class="form-control" id="celular" name="celular" required minlength='10' pattern="[0-9]+">
               </div>
             </div>
             <div class="form-group row">
@@ -95,12 +95,11 @@
                 <select class="form-control" name="tipo_emp" id="tipo_emp" required>
                   <option value="">Seleccione El Tipo de Empresa</option>
                   <?php 
-                  foreach ($tiposCia as $tipoCia) {
-                    ?>
-                    <option value="<?= $tipoCia['id_tipo_cia']?>"><?php echo $tipoCia['descripcion']?></option>
+                    foreach ($motivos as $motivo) { ?>
+                      <option value="<?php echo $motivo['id_grupo']; ?>"><?php echo $motivo['descripcion_grupo']; ?></option>
                     <?php
-                  }
-                  ?>
+                    }
+                  ?>                                  
                 </select>
               </div>
               <label for="costo" class="control-label col-lg-2  col-md-2">Documento</label>

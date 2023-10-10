@@ -778,8 +778,7 @@ $(document).ready(function () {
               url: web + "res/php/salidaSinPago.php",
               data: parametros,
               success: function (data) {
-                swal(
-                  {
+                swal({
                     title: "Salida del Huesped Realizada con Exito !",
                     type: "success",
                     confirmButtonText: "Aceptar",

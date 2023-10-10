@@ -52,11 +52,15 @@
             <label for="nombre" class="control-label col-lg-2 col-md-2">Centro de Costo</label>
             <?php 
               $centros = $admin->getCentrosCosto(); 
+                echo print_r($centros);
+
             ?>
-            <div class="col-lg-4 col-md-4">  
-              <input type="text" class="form-control" id="centroAdi" name="centroAdi" required >                
-            </div>
-            
+            <div class="col-lg-4 col-md-4">
+              <select class="form-control" id="centroAdi" name="centroAdi">
+                <option value="">Seleccione el Centro de Costo</option>
+              </select>  
+              <!-- <input type="text" class="form-control" id="centroAdi" name="centroAdi" required >                 -->
+            </div>            
             <label for="puc" class="control-label col-lg-2 col-md-2">PUC </label>
             <div class="col-lg-4 col-md-4">
               <input type="text" class="form-control" id="pucAdi" name="pucAdi" required >
@@ -64,7 +68,7 @@
           </div>
           <div class="form-group">
             <label for="puc" class="control-label col-lg-2 col-md-2">Descripcion Contabilidad</label>
-            <div class="col-lg-8 col-md-8">
+            <div class="col-lg-4 col-md-4">
               <input type="text" class="form-control" id="descripcionAdi" name="descripcionAdi" required >
             </div>
           </div>

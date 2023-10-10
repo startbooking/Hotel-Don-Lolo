@@ -1363,7 +1363,12 @@ ul#produtos li h3 {
 }
 
 .accesos {
-  padding:10px;font-size:25px
+  padding:10px;
+  font-size:25px;
+}
+
+.oculto {
+  display:none;
 }
 
 @media (max-width: 767px) {
@@ -1563,7 +1568,6 @@ ul#produtos li h3 {
   }
 }
 
-
 @media (max-width: 480px) {
   .img-thumbnail {
     margin-top: 15%;
@@ -1599,7 +1603,6 @@ ul#produtos li h3 {
   }
 
   .fechaProceso {
-    /* display:none; */
     font-size: 11px;
     padding: 7px 0 0 20px;
     margin-top:3px;
@@ -1615,6 +1618,4 @@ ul#produtos li h3 {
   .logopie h6{
     display:none;
   }
-
-
 }
