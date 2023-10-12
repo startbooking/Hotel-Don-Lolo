@@ -652,7 +652,6 @@ $(document).ready(function () {
 
   $("#modalAdicionaSubReceta").on("show.bs.modal", function (event) {
     swal('Entro adicionar Subreceta')
-
   });
 
   $("#modalAdicionaSubReceta").on("show.bs.modal", function () {

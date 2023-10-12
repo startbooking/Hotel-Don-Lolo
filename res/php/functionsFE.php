@@ -5,6 +5,118 @@ date_default_timezone_set('America/Bogota');
 
 class User_Actions{
 
+  public function getDetalleProducto($id){
+    global $database;
+
+    $data = $database->query("SELECT
+      codigos_vta.id_cargo,
+      codigos_vta.descripcion_cargo,
+      codigos_vta.unidad,
+      codigos_vta.id_impto,
+      unidades.descripcion_unidad,
+      unidades.unidadDian,
+      codigos_vta.precio,
+      codigos_vta.identificador_dian,
+      impuestos.descripcion_cargo AS descripcionImpto,
+      codigos_vta.tipo_codigo
+    FROM
+      codigos_vta ,
+      unidades ,
+      codigos_vta AS impuestos
+    WHERE
+      codigos_vta.unidad = unidades.id_unidad AND
+      codigos_vta.id_impto = impuestos.id_cargo AND
+      codigos_vta.tipo_codigo = 4 AND
+      codigos_vta.id_cargo = $id
+    ORDER BY
+      codigos_vta.descripcion_cargo ASC")->fetchAll();
+    return $data;
+  }
+  
+  public function getTipoImpuestos($tipo){
+    global $database;
+    
+    $data = $database->select('codigos_vta',[
+      'id_cargo',
+      'descripcion_cargo',
+      'cuenta_puc',
+      'porcentaje_impto',
+      'precio'
+    ],[
+      'tipo_codigo' => 2,
+      'tipo_impto' => $tipo,
+      'restringido' => 0,
+      'ORDER' => ['descripcion_cargo' => 'ASC']      
+    ]);
+    return $data;
+
+  }
+
+  public function ingresaPago($nombre, $codigo, $tipo, $puc, $centro, $descripcion, $usuario){
+    global $database;
+
+    $data = $database->insert('codigos_vta',[
+      'descripcion_cargo' => $nombre, 
+      'identificador_dian' => $codigo,
+      'cuenta_puc' => $puc, 
+      'centroCosto' => $centro, 
+      'descripcion_contable' => $descripcion, 
+      'usuario' => $usuario,
+      'formaPagoDian' => $tipo,
+      'tipo_codigo' => 5,
+      'createdAt' => date('Y-m-d H:m:i'),
+    ]);
+
+    $result = [
+      'id' => $database->id(),
+      'error' => $database->error,
+    ];
+
+    return $result;
+  }
+
+  public function getFormasPago(){
+    global $database;
+
+    $data = $database->select('codigos_vta', [
+      'id_cargo',
+      'descripcion_cargo',
+      'cuenta_puc',
+      'formaPagoDian',
+      'identificador_dian',
+    ], [
+        'ORDER' => 'descripcion_cargo',
+        'tipo_codigo' => 5,
+    ]);
+
+    return $data;
+  }
+
+  public function ingresaProducto($nombreAdi, $codigoAdi, $ImptosAdi, $unidad, $precioAdi, $pucAdi, $centroAdi, $descripcionAdi, $usuario){
+    global $database;
+
+    $data = $database->insert('codigos_vta',[
+      'descripcion_cargo' => $nombreAdi, 
+      'identificador_dian' => $codigoAdi, 
+      'id_impto' => $ImptosAdi, 
+      'unidad' => $unidad, 
+      'precio' => $precioAdi, 
+      'cuenta_puc' => $pucAdi, 
+      'centroCosto' => $centroAdi, 
+      'descripcion_contable' => $descripcionAdi, 
+      'usuario' => $usuario,
+      'tipo_codigo' => 4,
+      'createdAt' => date('Y-m-d H:m:i'),
+    ]);
+    $result = [
+      'id' => $database->id(),
+      'error' => $database->error,
+    ];
+
+    return $result;
+    
+  }
+  
   public function ingresaProveedor($empresa, $apellido1, $apellido2, $nombre1, $nombre2, $nit, $dv, $direccion, $ciudad, $telefono, $celular, $correo, $web, $tipo_emp, $tipo_doc, $ciiu, $tipoAdquiriente, $tipoResponsabilidad, $responsabilidadTribu, $usuario){
     global $database;
 
@@ -118,7 +230,6 @@ class User_Actions{
       return $data;
   }
 
-
   public function datosTokenCia(){
       global $database;
 
@@ -182,7 +293,6 @@ class User_Actions{
       return $data;
   }
 
-
   public function traeNumeroDocumento($tipo){
     global $database;
     switch ($tipo) {
@@ -226,45 +336,31 @@ class User_Actions{
     return $data; 
   }
 
-  public function getCodigosVentas(){
+  public function getCodigosVentas($tipo){
     global $database;
 
-    $data = $database->select('codigosDS', [
-      'id_cargo',
-      'codigo_depto',
-      'descripcionCargo',
-      'codigoDian',
-      'id_impto',
-      'tipoUnidad',
-      'valor',
-    ], [
-      'ORDER' => 'descripcionCargo',
-    ]);
-
+    $data = $database->query("SELECT
+    codigos_vta.id_cargo,
+    codigos_vta.descripcion_cargo,
+    unidades.descripcion_unidad,
+    unidades.unidadDian,
+    codigos_vta.precio,
+    codigos_vta.identificador_dian,
+    impuestos.descripcion_cargo AS descripcionImpto,
+    codigos_vta.tipo_codigo
+    FROM
+    codigos_vta ,
+    unidades ,
+    codigos_vta AS impuestos
+    WHERE
+    codigos_vta.unidad = unidades.id_unidad AND
+    codigos_vta.id_impto = impuestos.id_cargo AND
+    codigos_vta.tipo_codigo = $tipo
+    ORDER BY
+    codigos_vta.descripcion_cargo ASC")->fetchAll();
     return $data;
   }
-
-
-  public function getFormasPago(){
-    global $database;
-
-    $data = $database->select('formas_pago', [
-        'id_pago',
-        'descripcion',
-        'cuenta_puc',
-        'descripcion_contable',
-        'pms',
-    ], [
-        'ORDER' => 'descripcion',
-    ]);
-
-    return $data;
-}
-
-
-
-
-
+  
 
 }
 

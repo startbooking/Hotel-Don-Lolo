@@ -569,25 +569,25 @@
          ], [
              'id_centrocosto' => $code,
          ]);
-         if (count($data) == 0) {
+         if (count($data) == 0) { 
              return 'Sin Cento de Costo Asociado';
          } else {
              return $data[0]['descripcion_centro'];
          }
      }
 
-     public function getCentrosCosto()
-     {
-         global $database;
+    public function getCentrosCosto(){
+        global $database;
 
-         $data = $database->select('centrocosto', [
-             'id_centrocosto',
-             'id_depto',
-             'descripcion_centro',
+        $data = $database->select('centrocosto', [
+            'id_centrocosto',
+            'id_depto',
+            'descripcion_centro',
              'puc1_costo',
              'puc2_costo',
              'puc1_gasto',
              'puc2_gasto',
+             'centroContable',
          ], [
              'ORDER' => 'descripcion_centro',
          ]);
@@ -2047,7 +2047,7 @@
          ]);
 
          return $data;
-     }
+     } 
 
      public function getTiposCia()
      {

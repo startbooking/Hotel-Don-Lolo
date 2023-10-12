@@ -152,7 +152,7 @@
                   <label class='control-label col-lg-3'> Valor </label>
                   <div class="col-lg-3">
                     <input type="number" class="form-control" id="costo" name="costo" data-inputmask="'alias': 'numeric', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'placeholder': '0'" required="" 
-                     >    
+                    >    
                   </div>
                 </div>
                 <div class="row-fluid">
@@ -220,6 +220,3 @@
     </form>
   </section>
 </div>
-
-
-

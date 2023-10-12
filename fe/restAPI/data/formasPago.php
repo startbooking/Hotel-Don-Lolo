@@ -3,14 +3,14 @@
 require_once '../../../res/php/app_topFE.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    $listaClientes = $user->listaProductos();
+    $listaClientes = $_user->listaClientes();
     header('Content-Type: application/json');
     echo json_encode($listaClientes);
     http_response_code(200);
 } elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $postBody = json_decode(file_get_contents('php://input'), true);
     extract($postBody);
-    $result = $user->ingresaProveedor(strtoupper($empresa), strtoupper($apellido1), strtoupper($apellido2), strtoupper($nombre1), strtoupper($nombre2), $nit, $dv, strtoupper($direccion), $ciudad, $telefono, $celular, $correo, $web, $tipo_emp, $tipo_doc, $ciiu, $tipoAdquiriente, $tipoResponsabilidad, $responsabilidadTribu, $usuario);
+    $result = $user->ingresaPago(strtoupper($nombre), $codigo, $tipo, $puc, $centro, strtoupper($descripcion), $usuario);
     echo json_encode($result);
 } elseif ($_SERVER['REQUEST_METHOD'] == 'PUT') {
     $postBody = json_decode(file_get_contents('php://input'), true);

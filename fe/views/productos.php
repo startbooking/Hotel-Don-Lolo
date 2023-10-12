@@ -14,9 +14,9 @@
                 <button
                   data-toggle="modal"
                   data-edita="0" 
-                  style="display:inline-flex;" 
+                  data-documento="0"
                   type="button" 
-                  class="btn btn-success pull-right" 
+                  class="btn btn-success" 
                   href="#myModalProductos"
                   >
                   <span class="material-symbols-outlined">add_box</span> Adicionar  </button>
@@ -31,14 +31,10 @@
                   <thead>
                     <tr class="warning">
                       <td>Descripcion </td>
+                      <td>Unidad de Medida</td>
                       <td>Codigo </td>
                       <td>Impuesto</td>
                       <td>Valor</td>
-                      <!-- <td>Centro de Costo</td>
-                      <td>Descripcion Contable</td>
-                      <td>PUC</td>
-                      <td>Estado</td>
-                    -->
                       <td>Accion</td>
                     </tr>
                   </thead>
@@ -46,10 +42,11 @@
                     <?php
                     foreach ($productos as $codigo) { ?>
                       <tr style='font-size:12px'>
-                        <td><?php echo $codigo['descripcionCargo']; ?></td>
-                        <td><?php echo $codigo['codigoDian']; ?></td>
-                        <td><?php echo $codigo['id_impto']; ?></td>
-                        <td class="derecha"><?php echo number_format($codigo['valor'],2); ?></td>
+                        <td><?php echo $codigo['descripcion_cargo']; ?></td>
+                        <td><?php echo $codigo['descripcion_unidad']; ?></td>
+                        <td><?php echo $codigo['identificador_dian']; ?></td>
+                        <td><?php echo $codigo['descripcionImpto']; ?></td>
+                        <td class="derecha"><?php echo number_format($codigo['precio'],2); ?></td>
                         <td style="padding:3px;text-align:center;">
                           <div class="btn-group" role="group" aria-label="Basic example">
                             <button type="button" class="btn btn-info btn-xs" 

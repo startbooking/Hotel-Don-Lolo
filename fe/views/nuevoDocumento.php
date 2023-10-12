@@ -1,4 +1,12 @@
-<div class="content-wrapper"> 
+<?php
+	$hoy = date('Y-m-d');
+	$hora = date('H:i:s');
+	$pagos = $user->getFormasPago();
+
+?>
+
+
+<div class="content-wrapper" id="documentoSoporte"> 
 	<h4 class="centro">Documento Soporte</h4>
 	<section class="content">
 		<div class="container outer-section" >        
@@ -12,11 +20,12 @@
 									<div class="form-group row">
 										<label for="nombre" class="control-label col-lg-2 col-md-2">Nro Documento </label>
 										<div class="col-lg-2 col-md-2">
-													<input type="text" class="form-control" id="nombreAdi" name="nombreAdi" required>
+											<input type="text" class="form-control" id="documento" name="documento" required onblur="asignaLocalStorage(this.name, this.value)">
 										</div>
 										<label for="nombre" class="control-label col-lg-2 col-md-2">Tipo Operacion </label>
 										<div class="col-lg-2 col-md-2">
-											<select class="proveedor form-control" name="tipoOperacion" id="tipoOperacion">
+											<select class="proveedor form-control" name="tipoOperacion" id="tipoOperacion" onblur="asignaLocalStorage(this.name, this.value)">
+												<option value="">Tipo de Operacion</option>
 												<option value="1">Individual</option>
 												<option value="2">Acumulada</option>
 											</select>
@@ -24,34 +33,52 @@
 									</div>
 									<hr />
 									<div class="form-group row">
-										<label for="nombre" class="control-label col-lg-2 col-md-2">Proveedor </label>
+										<label for="nombre" class="form-label col-lg-2 col-md-2">Proveedor </label>
 										<div class="col-lg-4 col-md-4">
-											<select class="proveedor form-control" name="proveedor" id="proveedor" required>
+											<select class="proveedor form-control" name="proveedor" id="proveedor" required onblur="asignaLocalStorage(this.name, this.value)">
 												<option value="">Selecciona el Proveedor</option>
+												<?php 
+												echo print_r($proveedores);
+													foreach ($proveedores as $proveedor) { ?>
+														<option value="<?=$proveedor['id_compania'];?>"><?= $proveedor['empresa'];?> </option>
+														<?php 
+													}
+												?>
 											</select>
 										</div>
 										<label for="nombre" class="control-label col-lg-1 col-md-1">Fecha </label>
 										<div class="col-lg-2 col-md-2">
-											<input type="date" class="form-control" id="nombreAdi" name="nombreAdi" required>
-										</div>
-										<label for="nombre" class="control-label col-lg-1 col-md-1">Plazo </label>
+											<input type="date" class="form-control" id="fecha" name="fecha" required>
+										</div>										<label for="nombre" class="control-label col-lg-1 col-md-1">Plazo </label>
 										<div class="col-lg-2 col-md-2">
-											<input type="number" min="0" class="form-control" id="nombreAdi" name="nombreAdi" required>
+											<input type="number" min="0" class="form-control" id="plazo" name="plazo" required onchange="sumaFecha()" onblur="asignaLocalStorage(this.name, this.value)" value="0">
 										</div>
 									</div>
 									<div class="form-group row">	
 										<label for="nombre" class="control-label col-lg-2 col-md-2">Vencimiento </label>
 										<div class="col-lg-2 col-md-2">
-											<input type="date" class="form-control" id="nombreAdi" name="nombreAdi" required>
+											<input type="date" class="form-control" id="vence" name="vence" required value="<?=$hoy?>" onblur="asignaLocalStorage(this.name, this.value)">
 										</div>														
 										<label for="nombre" class="control-label col-lg-2 col-md-2">Forma de pago </label>
 										<div class="col-lg-4">
 											<select 
-												class="formaPago form-control" name="formaPago" id="formaPago" required>
+												class="formaPago form-control" name="formaPago" id="formaPago" required onblur="asignaLocalStorage(this.name, this.value)">
 												<option value="">Selecciona Forma de Pago</option>
+												<?php 
+													foreach ($pagos as $pago) { ?>
+														<option value="<?=$pago['id_cargo'];?>"><?= $pago['descripcion_cargo'];?> </option>
+														<?php 
+													}
+												?>
 											</select>
-										</div>										
-										<button type="button" class="btn btn-info btn-sm derechaAbs" data-toggle="modal" data-target="#myModalAdicionaItem"><span class="glyphicon glyphicon-plus"></span> <span class="material-symbols-outlined">library_add</span> Agregar Item</button>
+										</div>
+										<button 
+											type="button" 
+											class="btn btn-info" 
+											data-edita="0"
+											data-toggle="modal" 
+											data-target="#myModalAdicionaItem">										
+											<span class="material-symbols-outlined">library_add</span> Agregar Item</button>										
 									</div>									
 								</div>
               </div>
@@ -107,7 +134,7 @@
 				<!-- <div class="row"> <hr /></div> -->
         <div class="row pad-bottom  pull-right">		
           <div class="col-lg-12 col-md-12 col-sm-12">
-            <button style="display:flex" type="submit" class="btn btn-success "><span class="material-symbols-outlined">save</span> Guardar Documento</button>
+            <button type="submit" class="btn btn-success "><span class="material-symbols-outlined">save</span> Guardar Documento</button>
           </div>
 				</div>
 			</form>
@@ -158,30 +185,7 @@
 	</section>
 </div>
 
-
 <?php 
 include_once 'views/modal/modalDocSoporte.php'; 
-include_once 'views/modal/modalCodigosVentas.php'; 
+include_once 'views/modal/modalProductos.php'; 
 ?> 
-
-
-<!-- 
-<script>
-  $(function () {
-    $("#dataDocSoporte2").DataTable({
-      "responsive": true, 
-			"lengthChange": false, 
-			"autoWidth": false,
-		});
-		$('#dataDocSoporte').DataTable({
-			"paging": true,
-			"lengthChange": false,
-			"searching": false,
-			"ordering": true,
-			"info": true,
-			"autoWidth": false,
-			"responsive": true,
-			"buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-		}).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-  });
-</script> -->

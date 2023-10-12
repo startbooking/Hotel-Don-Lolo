@@ -35,7 +35,7 @@ require_once '../res/php/app_topFE.php';
           require 'views/docSoporte.php';
         }elseif (isset($_GET['section']) && $_GET['section'] == 'nuevoDocumento') {
           require 'views/nuevoDocumento.php';
-        }elseif (isset($_GET['section']) && $_GET['section'] == 'formaPagos') {
+        }elseif (isset($_GET['section']) && $_GET['section'] == 'formasPago') {
           require 'views/formasPago.php';
         }elseif (isset($_GET['section']) && $_GET['section'] == 'impuestos') {
           require 'views/impuestos.php';

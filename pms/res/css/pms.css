@@ -315,17 +315,12 @@ a.info span,
 
 .category_list{
 	display: flex;
-/* 	flex-direction: column;
-	width: 18%; */
 }
 
 .category_list .category_item{
 	display: block;
 	width: 90%;
-	/* padding: 15px 0; */
-	/* margin-bottom: 20px; */
 	background: #E84C3D;
-
 	text-align: center;
 	text-decoration: none;
 	color: #fff;
@@ -333,6 +328,10 @@ a.info span,
 
 .category_list .ct_item-active{
 	background: #2D3E50;
+}
+
+.category_item:hover {
+  background-color: #680b0b !important;
 }
 
 
@@ -349,9 +348,32 @@ a.info span,
 	text-decoration: none;
 }
 
+.libre {
+  width: 40px;
+  height: 24px;
+  padding:0;
+  border:1px solid #2A1C1C33;
+  margin-bottom: 1px;
+  z-index: 1
+}
 
+.ocupada{
+  width: 40px;
+  position: relative;
+  padding:0;
+  border:1px solid #2A1C1C33;
+  height: 24px;
+  margin-bottom: 1px;
+  z-index: 10
+}
 
-/* */ 
+.mmto {
+  background:rgba(68, 67, 67, 0.6);
+}
+
+.main-sidebar, .left-side {
+  min-height: 87%;
+}
 
 .diagonal {
   

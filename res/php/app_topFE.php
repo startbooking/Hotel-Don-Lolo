@@ -17,7 +17,7 @@
   $admin   = new Hotel_Admin();
   $user    = new User_Actions();
   $hotel   = new Hotel_Actions();
-	$inven   = new Inventario_User();
+	$inven   = new Inventario_User(); 
 
   $empresa = $admin->getInfoCia();
 
@@ -34,10 +34,12 @@
   define("CIIU", $empresa[0]['codigo_ciiu']);
   define("TIPOEMPRESA", $admin->getTypeCia($empresa[0]['tipo_empresa']));
 	
-	if(isset($_GET['section']) && $_GET['section'] == 'proveedores'){
+	if(isset($_GET['section']) && $_GET['section'] == 'proveedores' || isset($_GET['section']) && $_GET['section'] == 'nuevoDocumento'){
 		$proveedores = $user->getCompanias(); 
 	}elseif(isset($_GET['section']) &&	$_GET['section'] == 'productos'){
-		$productos = $admin->getCodigosVentas(4); 
+		$productos = $user->getCodigosVentas(4); 
+	}elseif(isset($_GET['section']) &&	$_GET['section'] == 'formasPago'){
+		$pagos = $user->getFormasPago(); 
 	}
 
  ?> 

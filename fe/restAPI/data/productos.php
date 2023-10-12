@@ -2,15 +2,23 @@
 
 require_once '../../../res/php/app_topFE.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    $listaClientes = $user->listaProductos();
-    header('Content-Type: application/json');
-    echo json_encode($listaClientes);
+// echo $_SERVER['REQUEST_METHOD'];
+
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {    
+
+    if(isset($_GET['item'])){
+        $id = $_GET['item'];
+        $lista = $user->getDetalleProducto($id);
+    }else{
+        $lista = $user->getCodigosVentas(4);
+    }
+    header('Content-Type: application/json');    
+    echo json_encode($lista);
     http_response_code(200);
 } elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $postBody = json_decode(file_get_contents('php://input'), true);
     extract($postBody);
-    $result = $user->ingresaProveedor(strtoupper($empresa), strtoupper($apellido1), strtoupper($apellido2), strtoupper($nombre1), strtoupper($nombre2), $nit, $dv, strtoupper($direccion), $ciudad, $telefono, $celular, $correo, $web, $tipo_emp, $tipo_doc, $ciiu, $tipoAdquiriente, $tipoResponsabilidad, $responsabilidadTribu, $usuario);
+    $result = $user->ingresaProducto(strtoupper($nombreAdi), strtoupper($codigoAdi), $ImptosAdi, $unidad, $precioAdi, $pucAdi, $centroAdi, strtoupper($descripcionAdi), $usuario);
     echo json_encode($result);
 } elseif ($_SERVER['REQUEST_METHOD'] == 'PUT') {
     $postBody = json_decode(file_get_contents('php://input'), true);
@@ -22,6 +30,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $usuario = $postBody['usuario'];
     $idCliente = $postBody['idCliente'];
 
-    $result = $_user->actualizaCliente($nit, $cliente, $direccion, $correo, $telefono, $usuario, $idCliente);
+    $result = $user->actualizaCliente($nit, $cliente, $direccion, $correo, $telefono, $usuario, $idCliente);
     echo json_encode($result);
 }

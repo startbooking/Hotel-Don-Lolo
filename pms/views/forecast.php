@@ -14,9 +14,9 @@
     $dias = 30; 
   }
 
- ?>
+  ?>
 <div class="content-wrapper"> 
-  <section class="content" style="margin-bottom: 100px !important">
+  <section class="content" style="margin-bottom: 10px !important">
     <div class="panel panel-success">
       <div class="panel-heading">
         <div class="row">
@@ -26,7 +26,7 @@
             <h3 class="w3ls_head tituloPagina" style="padding:0;"> <i style="color:black;" class="fa fa-calendar ga-2x" aria-hidden="true"></i> Forecast Hotel</h3>
           </div>
           <div class="col-lg-6" >
-          <div class="wrap">
+            <div class="wrap">
               <div class="store-wrapper">
                 <div class="category_list pull-right">                  
                   <a href="#" class="category_item btn btn-default" category="all">Todo</a>
@@ -50,7 +50,7 @@
         </div>
       </div>
       <div class="panel-body" style="padding:0;">
-        <div class="row-fluid products-list" style="height: 75vh;overflow:auto;">
+        <div class="row-fluid products-list" style="overflow:auto;">
           <?php 
             $anchop = $dias*44; 
            ?>
@@ -84,7 +84,9 @@
           <div class="col-sm-11" style="padding-left:2px">
             <?php 
               foreach ($rooms as $room) { 
-                $numero = $room['numero_hab']; ?>
+                $numero = $room['numero_hab']; 
+                $mmto   = $room['mantenimiento']; 
+                ?>
                 <div class="row product-item" category="<?=$room['tipo_hab'];?>" style="width: <?=$anchop?>px;margin-left:0px;">
                   <?php 
                   for ($i = 0; $i <= $dias; $i++) {
@@ -92,16 +94,21 @@
                     $fechabusca = date ('Y-m-d' , $fecha );
                     $estadias   = $hotel->buscaEstadia($fechabusca,$numero);
                     if(count($estadias)==0){
-                      $izq = 42 * $i
-                      ?>                        
-                      <div style="width: 40px;height: 24px;padding:0;border:1px solid #2A1C1C33;margin-bottom: 1px;z-index: 1" class="col-sm-1 libre">
-                      </div>
+                      $izq = 42 * $i ;                      
+                      if($mmto==1){
+                        ?>                                              
+                          <div class="col-sm-1 libre mmto"></div>
+                        <?php 
+                      }else{
+                        ?>                                              
+                        <div class="col-sm-1 libre"></div>
                       <?php 
+                      }
                     }else{
                       $izq  = 42 * $i;
                       $alto = 1;
                       ?>
-                        <div style="width: 40px;position: relative;padding:0;border:1px solid #2A1C1C33;height: 24px;margin-bottom: 1px;z-index: 10" class="col-sm-1 ocupada">
+                        <div class="col-sm-1 ocupada">
                           <?php 
                           if(count($estadias)>1){
                             $mas   = 1;
@@ -120,7 +127,11 @@
                                 $color = 'btn-info';
                               }
                             }
-                            $ancho = (40 * $estadia['dias_reservados'])-2;
+
+                            $desde = $estadia['fecha_llegada'];
+                            $hasta = $estadia['fecha_salida'];                            
+                            $diasEs = (strtotime($hasta) - strtotime($desde)) /86400 ;
+                            $ancho = (40 * $diasEs)-2;
                             if($estadia['estado']<>"SA" && $estadia['estado']<>"CX" ){
                           ?>
                             <a 
@@ -155,3 +166,12 @@
     </div>
   </section>
 </div>
+
+<script>
+    let ancho=screen.width;
+    let alto=screen.height;
+    forecast = document.querySelector('.products-list');
+    console.log(alto);
+    forecast.style.height = (alto-268)+'px';
+  </script>
+

@@ -123,45 +123,45 @@ if (isset($_GET['section']) && $_GET['section'] == 'productos') {
     </script>
     <?php
   if (isset($_GET['section']) && $_GET['section'] == 'movimientoEntradas') { ?>
-        <script>
-          listaEntradas();
-        </script>
-        <?php
+      <script>
+        listaEntradas();
+      </script>
+    <?php
   } elseif (isset($_GET['section']) && $_GET['section'] == 'movimientoSalidas') { ?>
-        <script>
-          listaSalidas();
-        </script>
-        <?php
+      <script>
+        listaSalidas();
+      </script>
+    <?php
   } elseif (isset($_GET['section']) && $_GET['section'] == 'movimientoTraslado') { ?>
-        <script>
-          listaTraslados();
-        </script>
-        <?php
+      <script>
+        listaTraslados();
+      </script>
+    <?php
   } elseif (isset($_GET['section']) && $_GET['section'] == 'movimientoAjuste') { ?>
-        <script>
-          listaAjustes();
-        </script>
-        <?php
+      <script>
+        listaAjustes();
+      </script>
+    <?php
   } elseif (isset($_GET['section']) && $_GET['section'] == 'productoRequisicion') { ?>
-        <script>
-          listaRequisicion();
-        </script>
-        <?php
+      <script>
+        listaRequisicion();
+      </script>
+    <?php
   } elseif (isset($_GET['section']) && $_GET['section'] == 'productoPedido') { ?>
-        <script>
-          listaPedido();
-        </script>
-        <?php
+      <script>
+        listaPedido();
+      </script>
+    <?php
   } elseif (isset($_GET['section']) && $_GET['section'] == 'recetasRequisicion') { ?>
-        <script>
-          listaRecetasReq();
-        </script>
-        <?php
+      <script>
+        listaRecetasReq();
+      </script>
+    <?php
   } elseif (isset($_GET['section']) && $_GET['section'] == 'recetasPedidos') { ?>
-        <script>
-          listaRecetasPed();
-        </script>
-        <?php
+      <script>
+        listaRecetasPed();
+      </script>
+    <?php
   }
 
 ?>

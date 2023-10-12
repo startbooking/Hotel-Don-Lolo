@@ -5,17 +5,18 @@
           <div class="panel-heading">
             <div class="row">
               <div class="col-lg-6">
-                <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_ADM?>">  
-                <input type="hidden" name="ubicacion" id="ubicacion" value="formasdePago">
+                <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_FE?>">  
+                <input type="hidden" name="ubicacion" id="ubicacion" value="formasPago">
                 <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-money"></i> Formas de Pago </h3>
               </div>
               <div class="col-lg-6" style="text-align:right;">
                 <a style="margin:20px 0" 
                   data-toggle="modal" 
+                  data-edita="0"
                   class = 'btn btn-success'
-                  href="#myModalAdicionarFormaPago">
+                  href="#myModalPagos">
                 <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
-                 Adicionar Formas de Pago</a> 
+                Adicionar Forma de Pago</a> 
               </div>
             </div>
           </div>
@@ -27,7 +28,9 @@
                   <thead>
                     <tr class="warning">
                       <td>Forma de Pago</td>
-                      <td>Estado</td>
+                      <td>PUC</td>
+                      <td>Tipo</td>
+                      <td>Codigo DIAN</td>
                       <td>Accion</td>
                     </tr>
                   </thead>
@@ -36,6 +39,9 @@
                     foreach ($pagos as $pago) { ?>
                       <tr style='font-size:12px'>
                         <td><?php echo $pago['descripcion_cargo']; ?></td>
+                        <td><?php echo $pago['cuenta_puc']; ?></td>
+                        <td><?php echo tipoPagoDian($pago['formaPagoDian']); ?></td>
+                        <td><?php echo $pago['identificador_dian']; ?></td>
                         <td style="padding:3px;width: 12%;text-align:center;">
                           <div class="btn-group" role="group" aria-label="Basic example">
                             <button type="button" class="btn btn-info btn-xs" 
@@ -72,3 +78,6 @@
         </div>
       </section>
     </div>
+
+
+    <?php include_once 'views/modal/modalPagos.php'; ?> 
