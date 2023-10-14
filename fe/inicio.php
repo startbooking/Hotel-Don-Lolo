@@ -1,5 +1,4 @@
 <?php
-// require_once '../res/php/titles.php';
 require_once '../res/php/app_topFE.php';
 
 
@@ -21,7 +20,7 @@ require_once '../res/php/app_topFE.php';
         include_once 'menus/menuFE.php'; ?>
         <section class="content">
           <?php
-        if (!isset($_GET['section'])) {
+        if (!isset($_GET['section']) || $_GET['section'] == 'home' ) {
           require 'views/home.php';
         }elseif (isset($_GET['section']) && $_GET['section'] == 'index') {
           require 'views/home.php';
@@ -49,8 +48,8 @@ require_once '../res/php/app_topFE.php';
   include_once '../res/shared/archivo_script.php';
   include_once '../views/modal/modalUsuario.php';
 ?>
+    <script src="<?php echo BASE_WEB; ?>res/js/inicio.js"></script>
     <script src="<?php echo BASE_RES; ?>dist/jquery.dataTables.min.js"></script>
-
     <script>
       $(function () {
         $('#example1').DataTable({
@@ -69,9 +68,6 @@ require_once '../res/php/app_topFE.php';
       });
     });
     </script>
-    <!-- <script src="<?php echo BASE_INV; ?>res/js/inventario.js"></script>  -->
-    <!-- <script src="<?php echo BASE_FE; ?>res/js/proveedores.js"></script> -->
-
     <script src="res/js/fe.js"></script>    
   </body>
 </html>

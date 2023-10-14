@@ -1,3 +1,44 @@
+document.addEventListener("DOMContentLoaded", async () => {    
+  $("#myModalLogin").on("show.bs.modal", function (event) {
+    $("#error").html("");
+    if (localStorage.getItem("sesion")) {
+      entro = JSON.parse(localStorage.getItem("sesion"));
+      let { user } = entro;
+      let { usuario, usuario_id } = user;
+      swal(
+        "Atencion",
+        `Usuario ${usuario} Ya Activo en el Sistema, Recuperando Informacion`,
+        "warning"
+      );
+      setTimeout(function () {
+        parametros = {
+          idUsr: usuario_id,
+        };
+        $.ajax({
+          url: "res/php/user_action/sesionActiva.php",
+          type: "POST",
+          data: parametros,
+        });
+        $(location).attr("href", "views/modulos.php");
+      }, 2000);
+      $("#myModalLogin").modal("hidden");
+    }
+  });
+
+  $("#myModalCambiarClave").on("show.bs.modal", function (event) {
+    $("#error").html("");
+    if (localStorage.getItem("sesion")) {
+      entro = JSON.parse(localStorage.getItem("sesion"));
+      let { user } = entro;
+      let { usuario, usuario_id } = user;
+      $("#idUserPass").val(usuario_id);
+      $("#userPass").val(usuario);
+    }
+  });
+});
+  
+
+
 sesion = JSON.parse(localStorage.getItem("sesion"));
 if (sesion) {
   var { user } = sesion;
@@ -55,17 +96,7 @@ function activaSesion() {
 }
 
 function ingresoInv() {
-  /* sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario, usuario_id, tipo } = user; */
   parametros = {
-    /* 
-    usuario,
-    usuario_id,
-    fecha: sesion["pms"][0]["fecha_auditoria"],
-    tipoUser: sesion["usuario"][0]["tipo"],
-    cajeroUser: sesion["usuario"][0]["estado_usuario_pms"], 
-    */
   };
   $.ajax({
     type: "POST",
@@ -77,10 +108,6 @@ function ingresoInv() {
 }
 
 function ingresoAdmin() {
-  /* idusr = sesion["usuario"][0]["usuario_id"];
-  user = sesion["usuario"][0]["usuario"];
-  nombres = sesion["usuario"][0]["nombres"];
-  apellidos = sesion["usuario"][0]["apellidos"]; */
   $("#usuarioActivo").val(usuario);
   $("#nombreUsuario").html(
     apellidos + " " + nombres + ' <span class="caret"></span>'
@@ -90,8 +117,6 @@ function ingresoAdmin() {
 
 function ingresoPms() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-
-  // console.log(sesion);
 
   let { user, moduloPms } = sesion;
   let { usuario, usuario_id, tipo, estado_usuario_pms } = user;
@@ -163,108 +188,11 @@ function activaModulos() {
   let { cia, user, moduloPms } = sesion;
   let { estado, ingreso, tipo, apellidos, nombres, inv, pos, pms, res } = user;
   let { invMod, posMod, pmsMod, resMod } = cia;
-
   let { fecha_auditoria } = moduloPms;
-
-  console.log()
 
   muestraFecha = document.querySelector('#fechaPms');
   muestraFecha.innerHTML(`Fecha de Proceso [${fecha_auditoria}]`)
 
-  // <p style="color:#FFF" id="fechaPms"> </p>
-
-  /* var div = '<div class="container-fluid moduloCentrar">';
-  if (invMod == "1" && inv == '1') {
-    div =
-      div +
-      `<div id="inv" style="cursor: pointer;" class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-        <a onclick="ingresoInv()" class="small-box-footer">
-          <div class="small-box bg-yellow-gradient">	
-            <div class="inner">	
-              <h3>Inventarios</h3>
-              <p>Control de Stock</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-archive"></i>
-            </div>
-            <small class="small-box-footer" style="font-size:12px">Ingresar
-              <i class="fa fa-arrow-circle-right"></i>
-            </small>
-          </div>
-        </a>
-      </div>`;
-  }
-  if (posMod == "1" && pos == '1') {
-    div =
-      div +
-      `
-			<div id="pos" class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-				<a href="../pos/inicio.php" class="small-box-footer">
-          <div class="small-box bg-green-gradient">
-            <div class="inner"> 
-              <h3>Puntos de Venta</h3> 
-              <p>Ventas Restaurantes </p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-coffee"></i>
-            </div>
-            <small class="small-box-footer" style="font-size:12px">Ingresar
-              <i class="fa fa-arrow-circle-right"></i>
-            </small>
-          </div>
-        </a>
-      </div>
-      `;
-  }
-  if (pmsMod == "1" && pms == '1') {
-    div =
-      div +
-      `
-			<div id="pms" style="cursor: pointer;" class="col-lg-4 col-md-4 col-sm-6 col-xs-12">	
-				<a onclick="ingresoPms()" >
-					<div class="small-box bg-blue-gradient">			
-						<div class="inner">				
-							<h3>PMS Software </h3> 				
-							<p style="color:#FFF" id="fechaPms">Fecha de Proceso [${fecha_auditoria}] </p>
-						</div>              			
-						<div class="icon">                				
-							<i class="ion ion-ios-home-outline"></i>              			
-						</div>			
-						<span class="small-box-footer">Ingresar 
-							<i class="fa fa-arrow-circle-right"></i>
-						</span>		
-					</div>	
-				</a>              
-			</div>
-		  `;
-  }
-  if (tipo == "1") {
-    div =
-      div +
-      `</div>
-    <div class="container-fluid">
-      <div id="par" style="cursor: pointer;margin-top:20px" class="container-fluid">
-        <div class="moduloCentrar">
-          <div class="col-sm-6 col-xs-12" style="padding:0px;"> 
-            <a onclick="ingresoAdmin()" class="small-box-footer">                  
-              <div class="small-box bg-red-gradient">                    
-                <div class="inner">                      
-                  <h3 style="overflow-x: hidden;">Configuracion General <br></h3> 
-                  <p style="color:#FFF">Parametros del Sistema</p>
-                </div>                    
-                <div class="icon">
-                  <i class="fa fa-cogs"></i>
-                </div>
-                <small class="small-box-footer" style="font-size:12px">Ingresar <i class="fa fa-arrow-circle-right"></i></small>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-		`;
-  } */
-  // $("#modulos").html(div);
   $("#nombreUsuario").html(
     `${apellidos}  ${nombres}<span class="caret"></span>`
   );
@@ -326,7 +254,6 @@ function recuperaClave() {
       correo,
     },
     success: function (x) {
-      // console.log(x);
       $("#mensaje").html(x.mensaje);
       $("#email").val("");
     },
@@ -359,7 +286,6 @@ function cambiaClave() {
         nuevaclave: nuevaclave,
       },
       success: function (x) {
-        // console.log(x);
 
         if (x == 0) {
           $("#claveactual").val("");
@@ -371,9 +297,6 @@ function cambiaClave() {
           $("#claveactual").focus();
         } else {
           if (x == "1") {
-            /* $("#mensaje").html(
-              '<div class="alert alert-success"> <span class="glyphicon glyphicon-info-sign"></span> Contraseña Actualizada con Exito !!</div>'
-            ); */
             $("#confirmaclave").val("");
             $("#nuevaclave").val("");
             $("#claveactual").focus();
@@ -420,12 +343,9 @@ function exportTableToExcel(tableID, filename = "") {
   var tableSelect = document.getElementById(tableID);
   var tableHTML = tableSelect.outerHTML.replace(/ /g, "%20");
 
-  // Specify file name
   filename = filename ? filename + ".xls" : "excel_data.xls";
 
-  // Create download link element
   downloadLink = document.createElement("a");
-
   document.body.appendChild(downloadLink);
 
   if (navigator.msSaveOrOpenBlob) {
@@ -434,13 +354,8 @@ function exportTableToExcel(tableID, filename = "") {
     });
     navigator.msSaveOrOpenBlob(blob, filename);
   } else {
-    // Create a link to the file
     downloadLink.href = "data:" + dataType + ", " + tableHTML;
-
-    // Setting the file name
     downloadLink.download = filename;
-
-    //triggering the function
     downloadLink.click();
   }
 }
@@ -478,44 +393,6 @@ function leeCajeroActivo() {
   archivo.send(null);
 }
 
-document.addEventListener("DOMContentLoaded", async () => {
-  $("#myModalLogin").on("show.bs.modal", function (event) {
-    $("#error").html("");
-    if (localStorage.getItem("sesion")) {
-      entro = JSON.parse(localStorage.getItem("sesion"));
-      let { user } = entro;
-      let { usuario, usuario_id } = user;
-      swal(
-        "Atencion",
-        `Usuario ${usuario} Ya Activo en el Sistema, Recuperando Informacion`,
-        "warning"
-      );
-      setTimeout(function () {
-        parametros = {
-          idUsr: usuario_id,
-        };
-        $.ajax({
-          url: "res/php/user_action/sesionActiva.php",
-          type: "POST",
-          data: parametros,
-        });
-        $(location).attr("href", "views/modulos.php");
-      }, 2000);
-      $("#myModalLogin").modal("hidden");
-    }
-  });
-
-  $("#myModalCambiarClave").on("show.bs.modal", function (event) {
-    $("#error").html("");
-    if (localStorage.getItem("sesion")) {
-      entro = JSON.parse(localStorage.getItem("sesion"));
-      let { user } = entro;
-      let { usuario, usuario_id } = user;
-      $("#idUserPass").val(usuario_id);
-      $("#userPass").val(usuario);
-    }
-  });
-});
 
 function muestraError(error) {
   $("#error").html(`

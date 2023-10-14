@@ -5,17 +5,17 @@
 
 ?>
 
-
 <div class="content-wrapper" id="documentoSoporte"> 
-	<h4 class="centro">Documento Soporte</h4>
+	<h3 class="txtBl centro" style="">
+	<span class="material-symbols-outlined">receipt_long</span> Documento Soporte</h3>
 	<section class="content">
 		<div class="container outer-section" >        
-			<form class="row-fluid" role="form" id="datosDocSoporte" method="post">
+			<form class="row-fluid" role="form" id="datosDocSoporte" method="post" action="javascript:guardaDocumento()">
 				<div id="print-area">
 					<div class="row">
 						<div class="col-lg-12 col-md-12 col-sm-12">
-						<div class="card">
-              <div class="card-header">
+						<div class="panel panel-success">
+              <div class="panel-heading">
 								<div class="container-fluid ">
 									<div class="form-group row">
 										<label for="nombre" class="control-label col-lg-2 col-md-2">Nro Documento </label>
@@ -23,7 +23,7 @@
 											<input type="text" class="form-control" id="documento" name="documento" required onblur="asignaLocalStorage(this.name, this.value)">
 										</div>
 										<label for="nombre" class="control-label col-lg-2 col-md-2">Tipo Operacion </label>
-										<div class="col-lg-2 col-md-2">
+										<div class="col-lg-3 col-md-3">
 											<select class="proveedor form-control" name="tipoOperacion" id="tipoOperacion" onblur="asignaLocalStorage(this.name, this.value)">
 												<option value="">Tipo de Operacion</option>
 												<option value="1">Individual</option>
@@ -38,7 +38,6 @@
 											<select class="proveedor form-control" name="proveedor" id="proveedor" required onblur="asignaLocalStorage(this.name, this.value)">
 												<option value="">Selecciona el Proveedor</option>
 												<?php 
-												echo print_r($proveedores);
 													foreach ($proveedores as $proveedor) { ?>
 														<option value="<?=$proveedor['id_compania'];?>"><?= $proveedor['empresa'];?> </option>
 														<?php 
@@ -48,8 +47,9 @@
 										</div>
 										<label for="nombre" class="control-label col-lg-1 col-md-1">Fecha </label>
 										<div class="col-lg-2 col-md-2">
-											<input type="date" class="form-control" id="fecha" name="fecha" required>
-										</div>										<label for="nombre" class="control-label col-lg-1 col-md-1">Plazo </label>
+											<input type="date" class="form-control" id="fecha" name="fecha" required onblur="asignaLocalStorage(this.name, this.value)">
+										</div>										
+										<label for="nombre" class="control-label col-lg-1 col-md-1">Plazo </label>
 										<div class="col-lg-2 col-md-2">
 											<input type="number" min="0" class="form-control" id="plazo" name="plazo" required onchange="sumaFecha()" onblur="asignaLocalStorage(this.name, this.value)" value="0">
 										</div>
@@ -80,108 +80,59 @@
 											data-target="#myModalAdicionaItem">										
 											<span class="material-symbols-outlined">library_add</span> Agregar Item</button>										
 									</div>									
+									<div class="form-group row">	
+										<label for="nombre" class="control-label col-lg-2 col-md-2">Comentarios </label>
+										<div class="col-lg-6 col-md-6">
+											<input type="text" class="form-control" id="comentarios" name="comentarios" required value="" onblur="asignaLocalStorage(this.name, this.value)">
+										</div>																								
+									</div>
 								</div>
               </div>
-              <div class="card-body">
-                <table id="dataDocSoporte" class="table table-bordered table-hover">
+              <div class="panel-body">
+                <table id="dataDocSoporte" class="table table-bordered">
                   <thead>
                   <tr>
-										<th class='text-center'>Item</th>
-										<th>Descripción / Item</th>
-										<th class='text-center'>Unidad</th>
-										<th class='text-right'>Costo unitario</th>
-										<th class='text-center'>Cantidad</th>
-										<th class='text-right'>Total</th>
-										<th class='text-right'>Accion</th>                    
+										<th class='centro'>Descripción / Item</th>
+										<th class='centro'>Unidad</th>
+										<th class='centro'>Costo unitario</th>
+										<th class='centro'>Cantidad</th>
+										<th class='centro'>Total</th>
+										<th class='centro'>Accion</th>                    
                   </tr>
                   </thead>
-                  <tbody>
-                  
-                  </tbody>
-                  <!-- <tfoot>
-                  <tr>
-                    <th>Rendering engine</th>
-                    <th>Browser</th>
-                    <th>Platform(s)</th>
-                    <th>Engine version</th>
-                    <th>CSS grade</th>
-                  </tr>
-                  </tfoot> -->
+                  <tbody></tbody>
                 </table>
               </div>
-              <!-- /.card-body -->
-            </div>
-							<!-- <div class="table-responsive">
-								<table class="table table-hover">
-									<thead>
-										<tr style="background-color:#c0392b;color:white;">
-										<th class='text-center'>Item</th>
-										<th class='text-center'>Cantidad</th>
-										<th class='text-center'>Unidad</th>
-										<th>Descripción</th>
-										<th class='text-right'>Costo unitario</th>
-										<th class='text-right'>Total</th>
-										<th class='text-right'></th>
-									</tr>
-									</thead>
-									<tbody class='items'>
-									</tbody>
-								</table>
-							</div> -->
+							<div class="panel-footer">
+								<div class="row">
+									<div class="col-lg-6"></div>
+									<div class="col-lg-6">
+										<table id="" class="table table-bordered">
+											<tfoot>
+												<tr>
+													<!-- <th></th>
+													<th></th>
+													<th></th> -->
+													<th>Total Compra / Servicio</th>
+													<th><input type="text" min="1" class="form-control derecha" id="totalDocumento" name="totalDocumento" disabled></th>
+													<th></th>
+												</tr>
+											</tfoot>
+										</table>
+									</div>
+								</div>
+								<div class="row">
+									<div class="container-fluid derecha">
+										<button type="buttom" onclick="cancelaDocumento()" class="btn btn-warning "><span class="material-symbols-outlined">undo</span> Cancelar </button>
+										<button type="submit" class="btn btn-success "><span class="material-symbols-outlined">save</span> Guardar Documento</button>
+									</div>
+								</div>								
+							</div>							
 						</div>
 					</div>
-				</div>
-				<!-- <div class="row"> <hr /></div> -->
-        <div class="row pad-bottom  pull-right">		
-          <div class="col-lg-12 col-md-12 col-sm-12">
-            <button type="submit" class="btn btn-success "><span class="material-symbols-outlined">save</span> Guardar Documento</button>
-          </div>
 				</div>
 			</form>
 		</div>
-		<!-- Modal -->
-		<form class="form-horizontal" name="guardar_item" id="example1_wrapper">
-			<!-- <div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="myModalLabel">Nuevo Ítem</h4>
-				</div>
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-body">					
-							<div class="row">
-								<div class="col-md-12">
-									<label>Descripción del producto</label>
-									<select name="" id="">
-										<option value=""></option>
-									</select>
-									<input type="hidden" class="form-control" id="action" name="action"  value="ajax">
-								</div>						
-							</div>
-							<div class="row">
-								<div class="col-md-4">
-									<label>Cantidad</label>
-									<input type="text" class="form-control" id="cantidad" name="cantidad" required>
-								</div>
-								<div class="col-md-4">
-									<label>Unidad</label>
-									<input type="text" class="form-control" id="unidad" name="unidad" required>
-								</div>
-								
-								<div class="col-md-4">
-									<label>Costo unitario</label>
-									<input type="text" class="form-control" id="precio" name="precio" required>
-								</div>						
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-							<button type="submit" class="btn btn-info" >Guardar</button>						
-						</div>
-					</div>
-				</div>
-			</div> -->
-		</form>
 	</section>
 </div>
 

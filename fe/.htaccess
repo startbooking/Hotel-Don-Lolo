@@ -4,7 +4,7 @@ Options All -Indexes
 RewriteEngine on 
 
 #Rutas Usuarios
-RewriteRule ^home inicio.php?section=home [QSA] 
+RewriteRule home inicio.php?section=home [QSA] 
 RewriteRule facturas inicio.php?section=facturas [QSA] 
 RewriteRule proveedores inicio.php?section=proveedores [QSA] 
 RewriteRule productos inicio.php?section=productos [QSA] 

@@ -9,7 +9,7 @@ require_once '../res/php/app_topHotel.php';
     <title><?php echo TITLE_ADM; ?> | Administracion Hotelera</title>
     <?php include_once '../res/shared/archivo_head.php'; ?>
     <link rel="stylesheet" type="text/css" href="res/css/pms.css">
-    <script src="<?php echo BASE_WEB; ?>res/js/inicio.js"></script>
+    <!-- <script src="<?php echo BASE_WEB; ?>res/js/inicio.js"></script> -->
 </head>
 
 <body class="skin-green sidebar-mini">
@@ -209,6 +209,7 @@ require_once '../res/php/app_topHotel.php';
     include_once '../res/shared/archivo_script.php';
     include_once '../views/modal/modalUsuario.php';
     ?>
+    <script src="<?php echo BASE_WEB; ?>res/js/inicio.js"></script>
     <?php
     if (isset($_GET['section']) && $_GET['section'] == 'huespedesPerfil') {
         include_once 'views/modal/modalHuespedes.php';
@@ -353,26 +354,26 @@ require_once '../res/php/app_topHotel.php';
         </script>
     <?php
     } elseif ($_GET['section'] == 'huespedesPerfilOld') { ?>
-    <script>
-        $(function() {
-            $('#example1').DataTable({
-                "iDisplayLength": 100,
-                "paging": true,
-                "lengthChange": true,
-                "searching": true,
-                "ordering": true,
-                "info": true,
-                "autoWidth": true,
-                "language": {
-                    "next": "Siguiente",
-                    "search": "Buscar:",
-                    "entries": "registros"
-                },
+        <script>
+            $(function() {
+                $('#example1').DataTable({
+                    "iDisplayLength": 100,
+                    "paging": true,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": true,
+                    "language": {
+                        "next": "Siguiente",
+                        "search": "Buscar:",
+                        "entries": "registros"
+                    },
+                });
             });
-        });
-    </script>
-<?php
-} elseif (isset($_GET['section']) && $_GET['section'] == 'cargosAnulados') { ?>
+        </script>
+    <?php
+    } elseif (isset($_GET['section']) && $_GET['section'] == 'cargosAnulados') { ?>
         <script>
             var usuario = $('#usuarioActivo').val();
             $('#verInforme').attr('data', 'imprimir/informes/Informes_cajeros_' + usuario + '.pdf')
@@ -402,8 +403,7 @@ require_once '../res/php/app_topHotel.php';
             activaCongelado(nrores, 1)
         </script>
     <?php
-
-    } elseif (isset($_GET['section']) && $_GET['section'] == 'reservasEsperadasHoy') { ?>
+    }elseif(isset($_GET['section']) && $_GET['section'] == 'reservasEsperadasHoy') { ?>
         <script>
             $('#verInforme').attr('data', 'imprimir/informes/Informes_reservas.pdf')
         </script>

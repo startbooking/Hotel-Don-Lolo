@@ -1,5 +1,26 @@
-$(document).ready(function () {
-  sesion = JSON.parse(localStorage.getItem("sesion"));
+// $(document).ready(function () {
+document.addEventListener("DOMContentLoaded", async () => {    
+
+  let sesion = JSON.parse(localStorage.getItem("sesion"));
+ 
+  if(sesion == null){
+    swal({
+      title: 'Precaucion',
+      text: 'Usuario NO identificado en el Sistema',
+      confirmButtonText: "Aceptar",
+      type: "warning",
+      closeOnConfirm: true,
+    },function(){
+      window.location.href = "/";
+      return 
+
+    })
+    /* alert('Usuario NO identificado en el Sistema');
+    
+    window.location.href = "/";
+    return  */
+  }
+  
   let { user } = sesion;
   let { usuario, usuario_id } = user;
 
@@ -5356,21 +5377,26 @@ function seleccionaTarifasUpd() {
     },
   });
 }
-
-function seleccionaHabitacionUpd(tipo, anterior, numero) {
+ 
+function seleccionaHabitacionUpd(tipo, anterior, numero, llega, sale) {
   var parametros = {
     tipo,
     anterior,
     numero,
+    llega, 
+    sale, 
   };
   $.ajax({
     type: "POST",
-    url: "res/php/seleccionaHabitacionUpd.php",
+    url: "res/php/seleccionaTipoHabitacion.php",
     data: parametros,
     beforeSend: function (objeto) {},
     success: function (data) {
       $("#nrohabitacionUpd option").remove();
       $("#nrohabitacionUpd").append(data);
+      $("#nrohabitacionUpd").focus();
+/*       $("#nrohabitacionUpd option").remove();
+      $("#nrohabitacionUpd").append(data); */
     },
   });
 }

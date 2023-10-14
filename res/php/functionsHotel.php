@@ -4300,10 +4300,20 @@ class Hotel_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT num_habitacion, fecha_llegada, fecha_salida, estado FROM reservas_pms WHERE (estado = 'CA' OR estado = 'ES') AND tipo_habitacion = '$tipo' AND fecha_llegada >= '$llega' AND fecha_llegada < '$sale' ORDER BY num_habitacion")->fetchAll();
+        $data = $database->query("SELECT num_habitacion, fecha_llegada, fecha_salida, estado FROM reservas_pms WHERE (estado = 'CA' OR estado = 'ES') AND tipo_habitacion = '$tipo' AND fecha_llegada >= '$llega' AND fecha_salida < '$sale' ORDER BY num_habitacion")->fetchAll();
 
         return $data;
     }
+
+    public function getSaleMananaTipoHab($tipo, $llega, $sale, $estado)
+    {
+        global $database;
+
+        $data = $database->query("SELECT num_habitacion, fecha_llegada, fecha_salida, estado FROM reservas_pms WHERE (estado = 'CA' OR estado = 'ES') AND tipo_habitacion = '$tipo' AND fecha_salida = '$llega' ORDER BY num_habitacion")->fetchAll();
+
+        return $data;
+    }
+
 
     public function getEnCasaporTipoHabOld($tipo, $llega, $sale, $estado)
     {

@@ -51,7 +51,6 @@ $codigos = $admin->getCodigosVentas(1);
                     <td><?php echo number_format($ambiente['conc_comanda']); ?></td>
                     <td align="left"><?php echo $admin->getCentroCosto($ambiente['id_centrocosto']); ?></td>
                     <td><?php echo estadoAmbiente($ambiente['active_at']); ?></td>
-
                     <td align="center">
                       <div class="btn-toolbar" role="toolbar" aria-label="...">
                         <div class="btn-group" role="group" aria-label="...">
@@ -109,7 +108,7 @@ $codigos = $admin->getCodigosVentas(1);
                   </tr>
                   <?php
                 }
-?>
+              ?>
               </tbody>
             </table>
           </div>

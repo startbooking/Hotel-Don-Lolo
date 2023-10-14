@@ -1,3 +1,22 @@
+document.addEventListener("DOMContentLoaded", async () => {
+  rutaAPI = '/fe/restAPI/data';
+  let sesion = JSON.parse(localStorage.getItem("sesion"));
+  
+  if(sesion == null){
+    swal({
+      title: 'Precaucion',
+      text: 'Usuario NO identificado en el Sistema',
+      confirmButtonText: "Aceptar",
+      type: "warning",
+      closeOnConfirm: true,
+    },function(){
+      window.location.href = "/";
+      return 
+
+    })
+  } 
+})
+
 /* CONFIGURACION GENERAL */
 
 /* Actualizacion Datos Empresa*/

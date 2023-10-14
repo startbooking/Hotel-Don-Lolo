@@ -3,13 +3,28 @@ let { usuarioAct } = sesion;
 let { usuario, usuario_id, apellidos, nombres } = usuarioAct;
  */
 
-$("#modalConsultaKardex").on("show.bs.modal", function (event) {
-  var button = $(event.relatedTarget); // Botón que activó el modal
-  var id = button.data("id"); // Extraer la información de atributos de datos
-  var nombre = button.data("nombre"); // Extraer la información de atributos de datos
-  var modal = $(this);
-  $(".modal-title").html("<h4>Modificar Proveedor : " + nombre + "</h4>");
+document.addEventListener("DOMContentLoaded", async () => {    
+
+  let sesion = JSON.parse(localStorage.getItem("sesion"));
+ 
+  if(sesion == null){
+    alert('Usuario NO identificado en el Sistema');    
+    window.location.href = "/";
+    return 
+  }
+
+  let { user } = sesion;
+  let { usuario, usuario_id } = user;
+  $("#modalConsultaKardex").on("show.bs.modal", function (event) {
+    var button = $(event.relatedTarget); // Botón que activó el modal
+    var id = button.data("id"); // Extraer la información de atributos de datos
+    var nombre = button.data("nombre"); // Extraer la información de atributos de datos
+    var modal = $(this);
+    $(".modal-title").html("<h4>Modificar Proveedor : " + nombre + "</h4>");
+  });
 });
+
+
  
 function muestraKardex(bodega) {
   $.ajax({

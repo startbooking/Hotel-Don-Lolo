@@ -1,14 +1,27 @@
-$(document).ready(function () {
-  sesion = JSON.parse(localStorage.getItem("sesion"));
-  
+// $(document).ready(function () {
+document.addEventListener("DOMContentLoaded", async () => {
+
+  // sesion = JSON.parse(localStorage.getItem("sesion"));
+  let sesion = JSON.parse(localStorage.getItem("sesion"));
+
+  if(sesion == null){
+    swal({
+      title: 'Precaucion',
+      text: 'Usuario NO identificado en el Sistema',
+      type: "warning",
+      confirmButtonText: "Aceptar",
+      closeOnConfirm: true,  
+    }, function(){
+      window.location.href = "/";
+      return 
+    })
+  }
   let { cia, user, moduloPms } = sesion;
   let { estado, ingreso, tipo, apellidos, nombres, inv, pos, pms, res, fe, con } = user;
+
   let { invMod, posMod, pmsMod, resMod, feMod , conMod} = cia;
 
   let { fecha_auditoria } = moduloPms;
-
-/* console.log({ invMod, posMod, pmsMod, resMod, feMod , conMod})
-console.log({ inv, pos, pms, res, fe, con }) */
 
   muestraFecha = document.querySelector('#fechaPms');
   nombreUsuaro = document.querySelector('#nombreUsuario');

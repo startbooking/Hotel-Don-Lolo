@@ -1,6 +1,12 @@
 <aside id="menuFE"class="main-sidebar">
   <section class="sidebar">
     <ul class="sidebar-menu">      
+      <li>
+        <a class="menuPpal" href="home">
+          <span class="material-symbols-outlined">apartment</span>
+          <span>Inicio</span>
+        </a>
+      </li>
       <li class="treeview" id="menuDatos">
         <a href="#">
           <span class="material-symbols-outlined">collections_bookmark</span>
@@ -11,16 +17,13 @@
           <li> 
             <a href="proveedores" class="menuPpal" >
             <span class="material-symbols-outlined">group</span>
-             Proveedores</a>
+            Proveedores</a>
           </li>
           <li>
             <a href="productos" class="menuPpal" >
             <span class="material-symbols-outlined">filter_9_plus</span>
-             Compras / Servicios </a>
+            Compras / Servicios </a>
           </li>
-          <!-- <li>
-            <a class="menuPpal" ><i class="fa fa-coffee" aria-hidden="true"></i> Productos</a>
-          </li> -->
         </ul>
       </li>
       <li class="treeview" id="menuDatos">
@@ -131,9 +134,9 @@
       </li> -->
       <li>
         <a class="menuPpal" onclick="cierraSesion()">
-        <i class="fa fa-power-off" aria-hidden="true"></i>
-        <span>Salir</span>
-      </a>
+          <i class="fa fa-power-off" aria-hidden="true"></i>
+          <span>Salir</span>
+        </a>
       </li>
     </ul>
   </section>

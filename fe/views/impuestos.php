@@ -6,7 +6,7 @@
               <div class="col-lg-6">
                 <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_ADM?>">  
                 <input type="hidden" name="ubicacion" id="ubicacion" value="impuestos">
-                <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-bank"></i> Impuestos / Retenciones </h3>
+                <h3 class="tituloPagina"><i class="fa fa-bank"> </i> Impuestos / Retenciones </h3>
               </div>
               <div class="col-lg-6" style="text-align:right;">
                 <a style="margin:20px 0" 

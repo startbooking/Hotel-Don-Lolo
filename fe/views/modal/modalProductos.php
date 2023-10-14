@@ -12,7 +12,7 @@
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="material-symbols-outlined">power_settings_new</span></button>
           <h4 class="modal-title" id="exampleModalLabel">
-          <span class="material-symbols-outlined">add_chart</span> Nuevo Producto</h4>
+          <span class="material-symbols-outlined">add_chart</span> Compras / Servicios</h4>
         </div>
         <div class="modal-body">
           <div id="mensaje" class="alert alert-warning oculto centraTitulo"></div>

@@ -1,3 +1,28 @@
+document.addEventListener("DOMContentLoaded", async () => {    
+
+  let sesion = JSON.parse(localStorage.getItem("sesion"));
+ 
+  if(sesion == null){
+    swal({
+      title: 'Precaucion',
+      text: 'Usuario NO identificado en el Sistema',
+      confirmButtonText: "Aceptar",
+      type: "warning",
+      closeOnConfirm: true,
+    },function(){
+      window.location.href = "/";
+      return 
+    })
+    /* alert('Usuario NO identificado en el Sistema');    
+    window.location.href = "/";
+    return 
+  }else{ */
+  }
+  let { user } = sesion;
+  let { usuario, usuario_id } = user;
+});
+
+
 function botonEliminaProductoDivi(
   numero,
   codigo,
@@ -2458,8 +2483,6 @@ async function btnRecetaProducto(boton) {
 
 }
 
-
-
 async function muestraProductosRecetasHML(productos){
   
   productos.map((producto) => {
@@ -2495,7 +2518,6 @@ async function limpiaProductosRecetasHMLT(){
   while (materiaPrima.firstChild) {
     materiaPrima.removeChild(materiaPrima.firstChild);
   }
-
 }
 
 async function traeProductosRecetas(id){
@@ -5124,8 +5146,7 @@ function getVentas(nom, val, idp, imp, ambi) {
       imp = 0;
     }
     
-    subt = ((val * 1) / (1 + (imp / 100))).toFixed(2);
-    
+    subt = ((val * 1) / (1 + (imp / 100))).toFixed(2);  
     impuesto = (val * 1 - subt).toFixed(2);
 
     dataProd = {
@@ -5448,6 +5469,7 @@ function getProductosComanda(comanda, mesa) {
   let { id_ambiente, nombre, impuesto, propina, prefijo, fecha_auditoria } =
     oPos[0];
   let { usuario, tipo } = user;
+
   listaComanda = [];
 
   var parametros = {
@@ -5545,7 +5567,6 @@ function getComandas(comanda, numero) {
       $("#tituloNumero").addClass("alert-success");
       $("#tituloNumero").html(`Comanda Numero ${numero}`);
       $("#guardaComandaDividida").css("display", "none");
-      // console.log(data);
       for (i = 0; i < data.length; i++) {
         dataProd = {
           producto: data[i]["nom"],

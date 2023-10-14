@@ -152,21 +152,20 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
       <div class="form-group">
         <label for="tipohabi" class="col-sm-2 control-label">Tipo Habitacion</label>
         <div class="col-sm-4">
-          <select name="tipohabiUpd" id="tipohabiUpd" required onblur="seleccionaHabitacionUpd(this.value,'<?php echo $reserva[0]['tipo_habitacion']; ?>','<?php echo $reserva[0]['num_habitacion']; ?>')">
+          <select name="tipohabiUpd" id="tipohabiUpd" required onblur="seleccionaHabitacionUpd(this.value,'<?php echo $reserva[0]['tipo_habitacion']; ?>','<?php echo $reserva[0]['num_habitacion']; ?>','<?php echo $reserva[0]['fecha_llegada']; ?>','<?php echo $reserva[0]['fecha_salida'];?>')">
             <?php
- foreach ($tipos as $tipo) {
-     ?>
+              foreach ($tipos as $tipo) { 
+                ?>
                 <option value="<?php echo $tipo['id']; ?>"
-                  <?php
-       if ($reserva[0]['tipo_habitacion'] == $tipo['id']) {?>
+                <?php
+                  if ($reserva[0]['tipo_habitacion'] == $tipo['id']) {?>
                     selected
                     <?php
-       }
-     ?>
-                  ><?php echo $tipo['descripcion_habitacion']; ?></option>
+                  }
+                ?>><?php echo $tipo['descripcion_habitacion']; ?></option>
                 <?php
- }
-?>
+              }
+            ?>
           </select>
         </div>
         <label for="nrohabitacion" class="col-sm-2 control-label">Nro Habitacion</label>
@@ -181,7 +180,7 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
                   <?php
       if ($habitacion['num_habitacion'] == $reserva[0]['num_habitacion']) {?>
                     selected
-                    <?php
+                    <?php 
       }
       ?>
                   ><?php echo $habitacion['num_habitacion']; ?></option>

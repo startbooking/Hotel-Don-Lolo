@@ -895,7 +895,6 @@ function removeOrder(orderId = null) {
 	});
 
 	function pone_tipo_movimiento(page){
-
 		var parametros = {"action":"ajax","page":page};
 		$("#loader").fadeIn('slow');
 		$.ajax({

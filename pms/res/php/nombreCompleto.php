@@ -1,7 +1,5 @@
 <?php 
 
-echo 'Entro ';
-
 require '../../../res/php/app_topHotel.php'; 
 
 $huespedes = $hotel->huespedesSinNombreCompleto();

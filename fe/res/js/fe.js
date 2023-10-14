@@ -1,18 +1,47 @@
-rutaAPI = '/fe/restAPI/data';
-let sesion = JSON.parse(localStorage.getItem("sesion"));
-let { user } = sesion;
-let { usuario } = user;
-let edita ;
-let docSopo ;
-
+var edita ;
+var docSopo ;
+var compras = [];
+var docu;
+var tipo;
+var prov;
+var fech;
+var plaz;
+var venc;
+var form;
+var come;
+/* let usuario
+let usuario_id
+ */
 (function () {
   document.addEventListener("DOMContentLoaded", async () => {
+    rutaAPI = '/fe/restAPI/data';
+    let sesion = JSON.parse(localStorage.getItem("sesion"));
     
+    if(sesion == null){
+      swal({
+        title: 'Precaucion',
+        text: 'Usuario NO identificado en el Sistema',
+        confirmButtonText: "Aceptar",
+        type: "warning",
+        closeOnConfirm: true,
+      },function(){
+        window.location.href = "/";
+        return 
+
+      })
+    } 
+    let { user } = sesion;
+    let { usuario, usuario_id, nombres, apellidos } = user;
+    
+
+    menuUsu = document.querySelector('#nombreUsuario')
+
+    menuUsu.innerHTML = ` ${apellidos} ${nombres} <span class="caret"></span>`
+  
     let ds = document.querySelector('#documentoSoporte');
 
     if(ds != null){
-      nuevoDocumento()
-      
+      nuevoDocumento()      
     }
     
     $("#myModalAdicionarProveedor").on("show.bs.modal", async (event) => {
@@ -47,10 +76,37 @@ let docSopo ;
       document.querySelector('#dataRegistraItem')
       .addEventListener('submit', guardaItemDoc);
     });
-    
 
   });
 })();   
+
+async function cancelaDocumento(){
+  
+  swal({
+    title: "Atencion !",
+    text: "Esta Seguro de Cancelar el Documento ?",
+    type: "warning",
+    showCancelButton: true,
+    cancelButtonClass: "#DD6B55",
+    cancelButtonText: "No",
+    confirmButtonClass: "btn-info",
+    confirmButtonText: "Si",
+    closeOnConfirm: false,
+  },
+  function () {   
+    localStorage.removeItem("documento");  
+    localStorage.removeItem("tipoOperacion");
+    localStorage.removeItem("proveedor");
+    localStorage.removeItem("fecha");
+    localStorage.removeItem("plazo");
+    localStorage.removeItem("vence");
+    localStorage.removeItem("formaPago");  
+    localStorage.removeItem("comentarios");  
+    localStorage.removeItem("documentoSoporte");   
+    window.location.href = "docSoporte";
+  })
+
+}
 
 async function guardaItemDoc(e){
   e.preventDefault();
@@ -59,27 +115,66 @@ async function guardaItemDoc(e){
     new FormData(e.target)
   )
 
-  let dataObj = { }
+  let txtComp = $("#itemcompra option:selected").text();
+  let txtUnid = $("#unidad option:selected").text();
+  let txtIMpt = $("#imptos option:selected").text();
 
-  let datos = {...dataObj, usuario,};
-  respuesta = await ingresaItemDocumento(datos);
-  let { id, error } = respuesta;
+  let datos = {...data, txtComp, txtUnid, txtIMpt};
 
-  if (id != "0") {
-    swal({
-      title: "Atencion!",
-      text: "Compra / Servicio Adicionada Con Exito",
-      type: "success",
-      confirmButtonText: "Aceptar",
-      closeOnConfirm: true,
-    },
-    function () {
-      // $(location).attr("href", "proveedores");
-      window.location.href = "proveedores";
-    })
-  } else {
-    mostrarAlerta(error, "mensaje");
+  compras.push(datos);
+
+  itemCompra = document.querySelector('#dataRegistraItem');
+  localStorage.setItem("documentoSoporte", JSON.stringify(compras));
+
+  $('#myModalAdicionaItem').modal('hide');
+
+  productosCompra = document.querySelector('#dataDocSoporte  tbody')
+  limpia = await limpiaProductosDocumentoHMLT();
+  const mostrar = await muestraProductosDocumentoHTML(compras)
+
+}
+
+async function limpiaProductosDocumentoHMLT(){
+  while (productosCompra.firstChild) {
+    productosCompra.removeChild(productosCompra.firstChild);
   }
+}
+
+async function muestraProductosDocumentoHTML(compras){ 
+  let totDocu = 0;
+  compras.map((compra) => {
+    let { itemcompra, txtComp, txtUnid, precio,cantidad, total } = compra;
+    totDocu = totDocu + parseFloat(total);
+    const row = document.createElement("tr");
+    let aviso = '';
+
+    row.innerHTML += `
+        <td>${txtComp}</td>        
+        <td>${txtUnid}</td>
+        <td class="derecha">${number_format(precio,2)}</td>
+        <td class="derecha">${number_format(cantidad,0)}</td>
+        <td class="derecha">${number_format(total,2)}</td>        
+        <td class="centro">
+          <button 
+          data-id='${itemcompra}' 
+          class='btn btn-danger btn-xs elimina_articulo' onclick='eliminaProductoDoc("${itemcompra}");'><i class='glyphicon glyphicon-trash '></i></button>
+        </td>`;          
+        productosCompra.appendChild(row);
+  }) 
+  document.querySelector('#totalDocumento').value = number_format(totDocu,2)
+}
+
+async function muestraProductosDocumento(datos) {
+  dataCompra = document.querySelector('#dataDocSoporte tbody');
+  combo = document.querySelector('#itemcompra');
+  let option = "<option value=''>Seleccione el Codigo";
+  datos.forEach((dato) => {
+    const { id_cargo, descripcion_cargo } = dato;
+    option += `
+    <option value="${id_cargo}">${descripcion_cargo}</option>
+    `;
+  });
+  combo.innerHTML = option;
 }
 
 async function guardaProveedor(e){
@@ -123,7 +218,6 @@ async function guardaProveedor(e){
       closeOnConfirm: true,
     },
     function () {
-      // $(location).attr("href", "proveedores");
       window.location.href = "proveedores";
     })
   } else {
@@ -143,6 +237,8 @@ async function guardaProducto(e){
   respuesta = await ingresaProducto(datos);
   let { id, error } = respuesta;
 
+  console.log(docSopo);
+
   if (id != "0") {
     swal({
       title: "Atencion!",
@@ -155,7 +251,7 @@ async function guardaProducto(e){
       if(docSopo==0){
         window.location.href = "productos";
       }else{
-        $('#myModalProductos').modal('hide');
+        $('#myModalAdicionaItem').modal('hide');
         const datos = await obtenerProductos();
         const com = await muestraProductosCombo(datos);
       }
@@ -197,7 +293,7 @@ async function guardaFormaPago(e){
       closeOnConfirm: true,
     },
     function () {
-      // window.location.href = "formasPago";
+      window.location.href = "formasPago";
     })
   } else {
     mostrarAlerta(error, "mensaje");
@@ -206,7 +302,7 @@ async function guardaFormaPago(e){
 
 const ingresaProducto = async (producto) => {
   try {
-    const response = await fetch(`${rutaAPI}/productos.php`, {
+    const response = await fetch(`${rutaAPI}/productos`, {
       method: "POST",
       body: JSON.stringify(producto), // data puede ser string o un objeto
       headers: {
@@ -238,7 +334,7 @@ const ingresaPago = async (pagos) => {
 
 const ingresaProveedor = async (proveedor) => {
   try {
-    const response = await fetch(`${rutaAPI}/proveedor`, {
+    const response = await fetch(`${rutaAPI}/proveedores`, {
       method: "POST",
       body: JSON.stringify(proveedor), // data puede ser string o un objeto
       headers: {
@@ -333,39 +429,18 @@ function sumaFecha(){
 
 }
 
-function nuevoDocumentoOld (){
-  documento = JSON.parse(localStorage.getItem("documentoSoporte"));
-  if(documento == null){
-    const documento = {}
-  }
-  localStorage.setItem("documentoSoporte", JSON.stringify(documento));
-}
-
 function asignaLocalStorage(code, valor) { 
   localStorage.setItem(code, valor);
 }
 
-
-function nuevoDocumento() {
-
-  fecha = new Date;
+async function nuevoDocumento() {
+  let fecha = new Date;
   anio = fecha.getFullYear();
   mes = (fecha.getMonth() + 1).toString().padStart(2,'0') ;
   dia = fecha.getDate().toString().padStart(2,'0');
   hoy =  anio+ "-" + mes + "-" + dia;
 
-  console.log(hoy);
-
-  let docu = localStorage.getItem("documento");
-  let tipo = localStorage.getItem("tipoOperacion");
-  let prov = localStorage.getItem("proveedor");
-  let fech = localStorage.getItem("fecha");
-  let plaz = localStorage.getItem("plazo");
-  let venc = localStorage.getItem("vence");
-  let form = localStorage.getItem("formaPago");
-
-
-  console.log({docu, tipo, prov, fech, plaz, venc, form}) ;
+  await traeStorage()
 
   document.querySelector('#documento').value = docu ? docu : ''  ;
   document.querySelector('#tipoOperacion').value =  tipo ? tipo : '';
@@ -373,24 +448,81 @@ function nuevoDocumento() {
   document.querySelector('#fecha').value = fech ? fech : hoy;
   document.querySelector('#plazo').value = plaz ? plaz : 0 ;
   document.querySelector('#vence').value = venc ? venc : hoy; 
+  document.querySelector('#comentarios').value = come ? come : '' ;
   document.querySelector('#formaPago').value = form ? form : '' ;
 
-
-  /*   var alma = localStorage.getItem("almacen");
-    var tipo = localStorage.getItem("tipoMov");
-    var prov = localStorage.getItem("proveedor");
-    var fech = localStorage.getItem("fecha");
-    var fact = localStorage.getItem("factura"); */
+  let documentoSoporte = JSON.parse(localStorage.getItem("documentoSoporte"));
   
-    let documentoSoporte = localStorage.getItem("documentoSoporte");
-  
-    console.log(documentoSoporte);
-    if (documentoSoporte == null) {
-      compras = [];
-    } else {
-    compras = JSON.parse(documentoSoporte);
+  if (documentoSoporte == null) {
+    compras = [];
+  } else {
+    compras = documentoSoporte;
+    productosCompra = document.querySelector('#dataDocSoporte  tbody')
+    limpia = await limpiaProductosDocumentoHMLT();
+    const mostrar = await muestraProductosDocumentoHTML(compras)
   }
 
-  console.log(compras)
+}
+
+async function guardaDocumento(){
+
+  await traeStorage()
+
+  let documentoSoporte = JSON.parse(localStorage.getItem("documentoSoporte"));
+
+  if(documentoSoporte == null || documentoSoporte.length == 0 ){
+    swal({
+      title: 'Precaucion',
+      text: 'Sin Compras / Servicios Asignados a este documento',
+      confirmButtonText: "Aceptar",
+      type: "warning",
+      closeOnConfirm: true,
+    },function(){
+
+    })
+  }
+
+  datosDoc  =  {...documentoSoporte, docu, tipo, prov, fech, plaz, venc, form, usuario_id }
+  
+  console.log(datosDoc);
+
+
+  
+
 
 }
+
+async function eliminaProductoDoc(item){
+  swal({
+    title: "Atencion !",
+    text: "Esta Seguro de Cancelar la Compra Actual ?",
+    type: "warning",
+    showCancelButton: true,
+    cancelButtonClass: "#DD6B55",
+    cancelButtonText: "No",
+    confirmButtonClass: "btn-info",
+    confirmButtonText: "Si",
+    closeOnConfirm: true,
+  },
+  async function () {   
+    compras = compras.filter (compra => compra.itemcompra !== item);
+    limpia = await limpiaProductosDocumentoHMLT();
+    const mostrar = await muestraProductosDocumentoHTML(compras)
+    localStorage.setItem("documentoSoporte", JSON.stringify(compras));
+  })
+
+  console.log(compras);
+  // eliminarProductoDoc(item)
+}
+
+async function traeStorage(){
+  docu = localStorage.getItem("documento");
+  tipo = localStorage.getItem("tipoOperacion");
+  prov = localStorage.getItem("proveedor");
+  fech = localStorage.getItem("fecha");
+  plaz = localStorage.getItem("plazo");
+  venc = localStorage.getItem("vence");
+  form = localStorage.getItem("formaPago");
+  come = localStorage.getItem("comentarios");
+}
+
