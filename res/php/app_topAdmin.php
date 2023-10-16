@@ -53,6 +53,7 @@
 	define("INV", $empresa[0]['invMod']);
 	define("PMS", $empresa[0]['pmsMod']);
 	define("RES", $empresa[0]['resMod']);
+	define("FE", $empresa[0]['feMod']);
 
 	if(!isset($_GET['section'])){
 	}elseif(isset($_GET['section']) && $_GET['section'] == 'home'){
@@ -115,6 +116,8 @@
 	}elseif(isset($_GET['section']) && $_GET['section'] == 'periodos'){ 
 		$ambientes = $admin->getAmbientes(); 
 		$periodos  = $admin->getPeriodos(); 
+	}elseif(isset($_GET['section']) && $_GET['section'] == 'resolucionHotel'){ 
+  	// $equipos = $admin->getResoluciones(1); 	
 	}
 
 

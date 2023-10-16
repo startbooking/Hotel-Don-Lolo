@@ -5,9 +5,9 @@ require '../../../../res/php/app_topPos.php';
 require '../../../../res/fpdf/fpdf.php';
 
 clearstatcache();
-$nComa = $_SESSION['NUMERO_COMANDA'];
-$amb = $_SESSION['AMBIENTE_ID'];
-$nomamb = $_SESSION['NOMBRE_AMBIENTE'];
+$nComa     = $_SESSION['NUMERO_COMANDA'];
+$amb       = $_SESSION['AMBIENTE_ID'];
+$nomamb    = $_SESSION['NOMBRE_AMBIENTE'];
 $productos = $_POST['productos'];
 
 $numerocomanda = $nComa;

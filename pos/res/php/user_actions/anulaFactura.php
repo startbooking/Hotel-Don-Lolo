@@ -9,7 +9,7 @@ $fecha = $_POST['fecha'];
 $pref = $_POST['prefijo'];
 $usu = $_POST['user'];
 $idamb = $_POST['idamb'];
-$inv = $_POST['inv'];
+$inv = $_POST['invMod'];
 
 $anu = $pos->anulaFactura($factura, $motivo, $usu, $idamb, $fecha);
 

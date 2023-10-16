@@ -121,6 +121,7 @@
              'tarMod',
              'pmsMod',
              'resMod',
+             'feMod',
              'direccion',
              'pais',
              'ciudad',

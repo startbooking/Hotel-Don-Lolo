@@ -484,7 +484,7 @@ function anulaFactura() {
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
   let { cia, pos, user } = sesion;
-  let { inv } = cia;
+  let { invMod } = cia;
   let { usuario, usuario_id } = user;
   let { id_ambiente, fecha_auditoria, prefijo } = oPos[0];
 
@@ -500,7 +500,7 @@ function anulaFactura() {
     factura,
     salida,
     motivo,
-    inv,
+    invMod,
   };
   $.ajax({
     url: "res/php/user_actions/anulaFactura.php",

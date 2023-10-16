@@ -102,6 +102,7 @@
                 <ul class="treeview-menu">
                   <li><a href="infoHotel"><i class="glyphicon glyphicon-info-sign"></i> Informacion Hotel</a></li>
                   <li><a href="consecutivos"><i class="glyphicon glyphicon-sort"></i> Consecutivos Hotel</a></li>
+                  <li><a href="resolucionHotel"><i class="glyphicon glyphicon-sort"></i> Resolucion de Facturacion</a></li>
                 </ul>
               </li>
               <li>
@@ -224,39 +225,7 @@
           </li>
           <?php
         } 
-      ?>
-      <!--<li class="treeview">
-        <a href="#">
-          <i class="fa fa-share"></i> <span>Informes</span>
-          <i class="fa fa-angle-left pull-right"></i>
-        </a>
-        <ul class="treeview-menu">
-          <li>
-            <a href="#"><i class="fa fa-circle-o"></i>Parametros Generales<i class="fa fa-angle-left pull-right"></i></a>
-            <ul class="treeview-menu">
-              <li><a href="#"><i class="fa fa-circle-o"></i>Usuarios</a></li>
-              <li><a href="#"><i class="fa fa-circle-o"></i>Impuestos</a></li>
-              <li><a href="#"><i class="fa fa-circle-o"></i>Bodegas</a></li>
-              <li><a href="#"><i class="fa fa-circle-o"></i>Departamentos - Areas</a></li>
-              <li><a href="#"><i class="fa fa-circle-o"></i>Centros de Costo</a></li>
-            </ul>
-          </li>
-          <li><a href="#"><i class="fa fa-circle-o"></i>Inventarios<i class="fa fa-angle-left pull-right"></i></a>
-            <ul class="treeview-menu">
-              <li><a href="#"><i class="fa fa-circle-o"></i>Unidades de Medida</a></li>
-              <li><a href="#"><i class="fa fa-circle-o"></i>Grupos de Almacenamiento</a></li>
-              <li><a href="#"><i class="fa fa-circle-o"></i>Coversiones de Medidas</a></li>
-            </ul>
-          </li>
-          <li><a href="#"><i class="fa fa-circle-o"></i>Recetas Estandar<i class="fa fa-angle-left pull-right"></i></a>
-            <ul class="treeview-menu">
-              <li><a href="#"><i class="fa fa-circle-o"></i>Tipos de Recetas</a></li>
-            </ul> 
-          </li>               
-        </ul>
-      </li>  
-      <li><a href="ayuda.html"><i class="fa fa-book"></i> <span>Ayuda</span></a></li>
-      -->
+      ?>      
     </ul>
   </section>
 </aside>

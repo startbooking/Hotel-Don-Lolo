@@ -34,4 +34,5 @@ RewriteRule ^descuentos index.php?section=descuentos [QSA]
 RewriteRule ^periodos index.php?section=periodos [QSA] 
 RewriteRule ^infoHotel index.php?section=infoHotel [QSA] 
 RewriteRule ^consecutivos index.php?section=consecutivos [QSA] 
+RewriteRule ^resolucionHotel index.php?section=resolucionHotel [QSA] 
   
