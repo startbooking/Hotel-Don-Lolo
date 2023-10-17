@@ -173,7 +173,7 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
           <div id="habitacionesUpd">
           <?php
 ?>
-            <select name="nrohabitacionUpd" id="nrohabitacionUpd" required onblur='seleccionaTarifasUpd()'>
+            <select name="nrohabitacionUpd" id="nrohabitacionUpd" required>
               <?php
   foreach ($habitaciones as $habitacion) { ?>
                 <option value="<?php echo $habitacion['num_habitacion']; ?>"

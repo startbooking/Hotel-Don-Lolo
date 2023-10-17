@@ -7,6 +7,53 @@ date_default_timezone_set('America/Bogota');
 class Hotel_Actions
 {
 
+    public function getHabitacionesLlegada($tipo, $llega){
+        global $database;
+
+        $data = $database->query("select num_habitacion, fecha_llegada, fecha_salida, estado  
+        from reservas_pms 
+        where 
+        tipo_habitacion = '$tipo' 
+        and estado != 'SA' 
+        and estado != 'CX'
+        and fecha_llegada <= '$llega'
+        and fecha_salida > '$llega'
+    ORDER BY num_habitacion")->fetchAll();
+        return $data;
+    }
+
+    public function getHabitacionesSalen($tipo,$sale){
+        global $database;
+
+        $data = $database->query("
+            SELECT num_habitacion, fecha_llegada, fecha_salida, estado  
+            FROM reservas_pms 
+            WHERE  
+            tipo_habitacion = '$tipo' 
+            and estado != 'SA' 
+            and estado != 'CX'
+            and fecha_llegada < '$sale'
+            and fecha_salida > '$sale'
+        ORDER BY num_habitacion")->fetchAll();
+        return $data;
+    }
+
+    public function getHabitacionesDentro($llega, $sale, $tipo){
+        global $database;
+
+        $data = $database->query("select num_habitacion, fecha_llegada, fecha_salida, estado  
+        from reservas_pms 
+        where 
+        tipo_habitacion = '$tipo' 
+        and estado != 'SA' 
+        and estado != 'CX'
+        and fecha_llegada >= '$llega'
+        and fecha_salida <= '$sale'
+    ORDER BY num_habitacion; ")->fetchAll();
+        return $data;
+    }
+
+
     public function guardaReservaTRA($reserva, $usuario){
         global $database;
 
@@ -4300,7 +4347,7 @@ class Hotel_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT num_habitacion, fecha_llegada, fecha_salida, estado FROM reservas_pms WHERE (estado = 'CA' OR estado = 'ES') AND tipo_habitacion = '$tipo' AND fecha_llegada >= '$llega' AND fecha_salida < '$sale' ORDER BY num_habitacion")->fetchAll();
+        $data = $database->query("SELECT num_habitacion, fecha_llegada, fecha_salida, estado FROM reservas_pms WHERE estado = 'CA' AND tipo_habitacion = '$tipo' AND fecha_llegada <= '$llega' AND fecha_salida > '$sale' ORDER BY num_habitacion")->fetchAll();
 
         return $data;
     }

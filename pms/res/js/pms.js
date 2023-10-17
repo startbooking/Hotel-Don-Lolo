@@ -2,7 +2,7 @@
 document.addEventListener("DOMContentLoaded", async () => {    
 
   let sesion = JSON.parse(localStorage.getItem("sesion"));
- 
+
   if(sesion == null){
     swal({
       title: 'Precaucion',
@@ -15,10 +15,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       return 
 
     })
-    /* alert('Usuario NO identificado en el Sistema');
-    
-    window.location.href = "/";
-    return  */
   }
   
   let { user } = sesion;
@@ -48,8 +44,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       );
     }
     setTimeout(showProduct, 400);
+    prd = `.product-item[category="${catProduct}"]`;
+  console.log(prd);
+
     setTimeout(
-      $('.product-item[category="' + catProduct + '"]').css("transform", ""),
+      $(prd).css("transform", ""),
       400
     );
   });
@@ -1016,7 +1015,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     var idres = button.data("id");
     var nombre = button.data("nombre");
     let pagina = $("#ubicacion").val();
-    console.log(pagina);
+    // console.log(pagina);
     let btnSle = document.querySelector(".btnSaleAco");
     btnSle.setAttribute("href", pagina);
     var modal = $(this);
@@ -1575,9 +1574,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     $("#editaRes").val(0);
 
     formRes = document.querySelector("#formReservas")
-    console.log(formRes)
+    // console.log(formRes)
     formRes.reset();
-    console.log(formRes)
+    // console.log(formRes)
 
 
 
@@ -2201,10 +2200,10 @@ const guardaProcesoEnvioTRA = async (reserva) => {
       body:JSON.stringify(data),
     });
     // const datos = await resultado.json();
-    console.log(datos);
+    // console.log(datos);
     return datos;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     // return error
   }
 }
@@ -2256,11 +2255,11 @@ const enviaJSONPpal = async (JSONPpal) => {
       },
       body:JSON.stringify(JSONPpal),
     });
-    console.log(datos);
+    // console.log(datos);
     return datos;
   } catch (error) {
-    console.log(error);
-    // return error
+    // console.log(error);
+    return error
   }
 };
 
@@ -2282,11 +2281,11 @@ const enviaJSONAcompana = async (JSONAcompana) => {
       body:JSON.stringify(JSONAcompana),
     });
     // const datos = await resultado.json();
-    console.log(datos);
+    // console.log(datos);
     return datos;
   } catch (error) {
-    console.log(error);
-    // return error
+    // console.log(error);
+    return error
   }
 };
 
@@ -2365,7 +2364,8 @@ const traeCiudad = async (ciudad) => {
     const datos = await resultado.json();
     return datos;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
+    return error
   }
 };
 
@@ -2381,7 +2381,9 @@ const traeInfoHotel = async () => {
     const datos = await resultado.json();
     return datos;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
+    return error
+
   }
 };
 
@@ -2398,7 +2400,9 @@ const traeHuespedReserva = async (reserva, fecha) => {
     const datos = await resultado.json();
     return datos;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
+    return error
+
   }
 };
 
@@ -2415,7 +2419,9 @@ const traeAcompanaReserva = async (reserva, fecha) => {
     const datos = await resultado.json();
     return datos;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
+    return error
+
   }
 };
 
@@ -2498,7 +2504,7 @@ function regresaCasa(reserva) {
 }
 
 function muestraReserva(ev) {
-  console.log(ev);
+  // console.log(ev);
   let reserva = ev.getAttribute("reserva");
   let estado = ev.getAttribute("estado");
 
@@ -2529,7 +2535,9 @@ const traeToken = async () => {
     const datos = await resultado.json();
     return datos;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
+    return error
+
   }
 };
 
@@ -2568,8 +2576,8 @@ const donwloadFile = async (
       // console.log(DataFiles)
 
       const ResponseAPIFiles = await RequestComponent(DataFiles);
-      console.log("Paso API Files");
-      console.log(ResponseAPIFiles);
+      /* console.log("Paso API Files");
+      console.log(ResponseAPIFiles); */
       spinner.removeAttribute("hidden");
       if (ResponseAPIFiles["size"] <= 300) {
         // spinner.setAttribute('hidden', '');
@@ -2731,7 +2739,8 @@ const guardaDatosGrupo = async (formGrupo) => {
     const datos = await resultado.json();
     return datos;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
+    return error
   }
 };
 
@@ -3539,7 +3548,7 @@ function traeTotalCompanias(regis, filas) {
     success: function (data) {
       $("#listaCompanias").html("");
       $("#barraPaginas").html("");
-      console.log(data)
+      // console.log(data)
       for (i = 0; i < data.length; i++) {
         lista =
           lista +
@@ -3672,7 +3681,7 @@ function buscaTarifa(id) {
 
 function irPagina(id) {
   var filas = $("#numFiles").val();
-  console.log(filas);
+  // console.log(filas);
   newregis = filas * id;
   traeTotalHuespedes(newregis, filas);
 }
@@ -4480,14 +4489,14 @@ function allowDrop(ev) {
 
 function drag(ev) {
   ev.dataTransfer.setData("text", ev.target.id);
-  console.log(ev);
+  // console.log(ev);
 }
 
 function drop(ev) {
   ev.preventDefault();
   var data = ev.dataTransfer.getData("text");
   ev.target.appendChild(document.getElementById(data));
-  console.log(ev);
+  // console.log(ev);
 }
 
 function verAuditoria(info) {
@@ -4815,7 +4824,8 @@ const calculaRetenciones = async () => {
     const datos = await resultado.json();
     return datos;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
+    return error
   }
 };
 
@@ -4944,7 +4954,8 @@ const traeRetencionesCia = async (idcia) => {
     const datos = await resultado.json();
     return datos;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
+    return error
   }
 };
 
@@ -4959,7 +4970,9 @@ const traeRetenciones = async () => {
     const datos = await resultado.json();
     return datos;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
+    return error
+
   }
 };
 
@@ -5464,7 +5477,7 @@ function actualizaHuesped() {
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var parametros = $("#formUpdateHuesped").serialize();
-  console.log(parametros);
+  // console.log(parametros);
   $.ajax({
     type: "POST",
     data: parametros,
@@ -6741,7 +6754,7 @@ function calcularDigitoVerificacion() {
 
   // Se valida el nit
   if (isNaN(myNit)) {
-    console.log("El nit/cédula '" + myNit + "' no es válido(a).");
+    // console.log("El nit/cédula '" + myNit + "' no es válido(a).");
     return "";
   }
 
