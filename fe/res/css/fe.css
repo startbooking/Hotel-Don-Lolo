@@ -52,3 +52,18 @@ hr {
 .modal-header h4 span {
   font-size: 1em;
 }
+
+
+.sweet-alert p {
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+/* @media (min-width: 768px) {
+  .sidebar-collapse .main-sidebar, .sidebar-collapse .left-side {
+    -webkit-transform: translate(-260px, 0);
+    -ms-transform: translate(-260px, 0);
+    -o-transform: translate(-260px, 0);
+    transform: translate(-260px, 0);
+  }
+} */

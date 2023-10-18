@@ -40,6 +40,9 @@
 		$productos = $user->getCodigosVentas(4); 
 	}elseif(isset($_GET['section']) &&	$_GET['section'] == 'formasPago'){
 		$pagos = $user->getFormasPago(); 
-	}
+	}elseif(isset($_GET['section']) &&	$_GET['section'] == 'docSoporte'){
+		$documentos = $user->getDocumentoSoporte(); 
+    // echo print_r($documentos);
+  }
 
  ?> 

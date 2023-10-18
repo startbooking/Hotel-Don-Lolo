@@ -2,10 +2,6 @@
 
 require_once '../../../res/php/app_topFE.php';
 
-// echo $_SERVER['REQUEST_METHOD'];
-
-echo print_r($_GET);
-
 extract($_GET);
 
 

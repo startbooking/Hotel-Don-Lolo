@@ -27,7 +27,7 @@
             <div class="datos_ajax_delete"></div>
             <div class="container-fluid">
               <div class="table-responsive"> 
-                <table id="example1" class="table table-bordered">
+                <table id="example1" class="table table-bordered" style="width:100%;">
                   <thead>
                     <tr class="warning">
                       <td>Descripcion </td>

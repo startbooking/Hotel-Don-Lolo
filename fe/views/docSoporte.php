@@ -5,8 +5,8 @@
   $inicial = date('Y-m-01', $dia);
 ?>
     <div class="content-wrapper"> 
-      <div class="container-fluid">
-      <div class="panel panel-success">
+      <section class="content">
+        <div class="panel panel-success">
           <div class="panel-heading"> 
             <div class="row">
               <div class="col-lg-6 col-xs-12">
@@ -31,44 +31,75 @@
                   <table id="example1" class="table table-bordered table-condensed" style="width:100%;">
                     <thead>
                       <tr class="warning">
-                        <td>Numero</td>
+                        <td>ID</td>
+                        <td>Documento</td>
                         <td>Proveedor</td>
+                        <td>Nit</td>
                         <td>Fecha</td>
                         <td>Vencimiento</td>
                         <td>Total</td>
-                        <td>Pagado</td>
+                        <td>Forma de Pago</td>
+                        <td>Operacion</td>
+                        <td>Estado</td>
                         <td>Estado DIAN</td>
-                        <td>Accion</td>
+                        <td style="width:145px;">Accion</td>
                       </tr>
                     </thead>
                     <tbody>
                       <?php
-                      /* foreach ($proveedores as $compania) { ?>
+                      // echo print_r($documentos);
+                      foreach ($documentos as $documento) { ?>
                         <tr style='font-size:12px'>
-                          <td><?php echo $compania['nit'].'-'.$compania['dv']; ?></td>
-                          <td><?php echo $compania['empresa']; ?></td>
-                          <td><?php echo $compania['direccion']; ?></td>
-                          <td><?php echo $compania['celular']; ?></td>
-                          <td><?php echo $compania['email']; ?></td>
-                          <td><?php echo estadoCompania($compania['activo']); ?></td>
-                          <td><?php echo tipoCompania($compania['tipo_compania']); ?></td>
+                          <td><?php echo $documento['idDocumento']; ?></td>
+                          <td><?php echo $documento['documentoSoporte']; ?></td>
+                          <td><?php echo $documento['empresa']; ?></td>
+                          <td><?php echo $documento['nit'].'-'.$documento['dv']; ?></td>
+                          <td><?php echo $documento['fechaDocumento']; ?></td>
+                          <td><?php echo $documento['fechaVencimiento']; ?></td>
+                          <td class="derecha"><?php echo number_format($documento['total'],2); ?></td>
+                          <td><?php echo $documento['descripcion_cargo']; ?></td>
+                          <td><?php echo operacionDocumento($documento['tipoOperacion']); ?></td>
+                          <td class="centro"><?php echo estadoDocumento($documento['estado']); ?></td>
+                          <td class="centro"><?php echo estadoDocumentoDIAN($documento['estadoDian']); ?></td>
                           <td style="text-align:center;">
                             <button type="button" class="btn btn-info btn-xs" 
-                              onclick="botonModificaProveedor('<?php echo $compania['id_compania']; ?>','<?php echo $compania['empresa']; ?>')"
-                              idprov = "<?php echo $compania['id_compania']; ?>"
-                              nombre = "<?php echo $compania['empresa']; ?>"
-                              data-id="<?php echo $compania['id_compania']; ?>"  
-                              data-nombre="<?php echo $compania['empresa']; ?>"  
-                              title="Modifica Datos del Proveedor">
-                              <span class="material-symbols-outlined">edit</span>
-                              <!-- <i class='glyphicon glyphicon-edit'></i> -->
+                              data-id="<?php echo $compania['idDocumento']; ?>"  
+                              title="Imprime Documento">
+                              <span class="material-symbols-outlined">print</span>
                             </button>
+                            <?php
+                            if($documento['estado']==1){
+                              ?>
+                              <button type="button" class="btn btn-success btn-xs" 
+                                data-id="<?php echo $compania['idDocumento']; ?>"  
+                                title="Imprimir Nota Credito">
+                                <span class="material-symbols-outlined">print_lock</span>
+                              </button>
+                              <?php
+                            }else{ ?>
+                              <button type="button" class="btn btn-danger btn-xs" 
+                                data-id="<?php echo $compania['idDocumento']; ?>"  
+                                title="Anula Documento Soporte">
+                                <span class="material-symbols-outlined">block</span>
+                              </button>
+                              <?php
+                            }
+                            if($documento['estadoDian']==0 && $documento['estado']==0){
+                              ?>
+                              <button type="button" class="btn btn-warning btn-xs" 
+                                data-id="<?php echo $compania['idDocumento']; ?>"  
+                                title="Envia Documento Soporte">
+                                <span class="material-symbols-outlined" style="color:darkred;">cloud_upload</span>
+                              </button>
+                              <?php
+                            }                           
+                            ?>
                             <div class="btn-group">
                             </div>
                           </td>
                         </tr>
                         <?php
-                      } */
+                      }
                 ?>
                     </tbody> 
                   </table>

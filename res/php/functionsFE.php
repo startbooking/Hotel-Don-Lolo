@@ -5,6 +5,110 @@ date_default_timezone_set('America/Bogota');
 
 class User_Actions{
 
+  public function getDocumentoSoporte(){
+    global $database;
+
+    $data = $database->query("SELECT
+    companias.empresa,
+    companias.nit,
+    companias.dv,
+    productosDSCabeza.idDocumento,
+    productosDSCabeza.documentoSoporte,
+    productosDSCabeza.numeroDocumento,
+    productosDSCabeza.tipoOperacion,
+    productosDSCabeza.idProveedor,
+    productosDSCabeza.fechaDocumento,
+    productosDSCabeza.vencimiento,
+    productosDSCabeza.fechaVencimiento,
+    productosDSCabeza.idFormaPago,
+    productosDSCabeza.observaciones,
+    productosDSCabeza.estadoDian,
+    productosDSCabeza.estado,
+    Sum(productosDSDetalle.valorTotal) AS total,
+    codigos_vta.descripcion_cargo
+    FROM
+    companias ,
+    codigos_vta ,
+    productosDSCabeza ,
+    productosDSDetalle
+    WHERE
+    productosDSCabeza.idProveedor = companias.id_compania AND
+    productosDSCabeza.idFormaPago = codigos_vta.id_cargo AND
+    productosDSCabeza.idDocumento = productosDSDetalle.idDocumento
+    GROUP BY
+    productosDSDetalle.idDocumento
+    ORDER BY
+    productosDSCabeza.idDocumento
+    
+    ")->fetchAll();
+    return $data;
+  }
+  
+  
+  public function getDocumentoSoporteOld(){
+    global $database;
+
+    $data = $database->select('productosDSCabeza',[
+      '[>]companias' => ['idProveedor' => 'id_compania'],
+      '[>]codigos_vta' => ['idFormaPago' => 'id_cargo'],
+    ],[
+      'companias.empresa',
+      'companias.nit',
+      'companias.dv',
+      'productosDSCabeza.documentoSoporte',
+      'productosDSCabeza.numeroDocumento',
+      'productosDSCabeza.tipoOperacion',
+      'productosDSCabeza.idProveedor',
+      'productosDSCabeza.fechaDocumento',
+      'productosDSCabeza.vencimiento',
+      'productosDSCabeza.fechaVencimiento',
+      'productosDSCabeza.idFormaPago',
+      'productosDSCabeza.observaciones',
+      'productosDSCabeza.estadoDian',
+      'productosDSCabeza.estado',
+    ]);
+    return $data;
+  }
+
+  public function ingresaDetalleDocumento($itemcompra, $unidad, $precio, $cantidad, $total, $imptos, $retencion, $idDoc){
+    global $database;
+
+    $data = $database->insert('productosDSDetalle',[
+      'idCargo' => $itemcompra, 
+      'idUnidad' => $unidad, 
+      'valorUnitario' => $precio, 
+      'cantidad' => $cantidad, 
+      'valorTotal' => $total, 
+      'idImpuesto' => $imptos, 
+      'idRetencion' => $retencion, 
+      'idDocumento' => $idDoc,
+    ]);
+    
+  }
+
+  public function ingresaEncabezadoDocumento($docu ,$tipo ,$prov ,$fech ,$plaz ,$venc ,$form ,$usuario_id ,$come){
+    global $database;
+
+    $data = $database->insert('productosDSCabeza',[      
+      'numeroDocumento' => $docu,
+      'tipoOperacion' => $tipo,
+      'idProveedor' => $prov,
+      'fechaDocumento' => $fech,
+      'vencimiento' => $plaz,
+      'fechaVencimiento' => $venc,
+      'idFormaPago' => $form,
+      'idUsuario' => $usuario_id,
+      'observaciones' => $come,
+      'createdAt' => date('Y-m-d H:i:s'),
+    ]);
+    $result = [
+      'id' => $database->id(),
+      'error' => $database->error,
+    ];
+
+    return $result;
+  }
+
   public function getDetalleProducto($id){
     global $database;
 
@@ -64,7 +168,8 @@ class User_Actions{
       'usuario' => $usuario,
       'formaPagoDian' => $tipo,
       'tipo_codigo' => 5,
-      'createdAt' => date('Y-m-d H:m:i'),
+      'createdAt' => date('Y-m-d H:i:s'),
+
     ]);
 
     $result = [
@@ -106,7 +211,7 @@ class User_Actions{
       'descripcion_contable' => $descripcionAdi, 
       'usuario' => $usuario,
       'tipo_codigo' => 4,
-      'createdAt' => date('Y-m-d H:m:i'),
+      'createdAt' => date('Y-m-d H:i:s'),
     ]);
     $result = [
       'id' => $database->id(),
@@ -141,7 +246,7 @@ class User_Actions{
       'tipoResponsabilidad' => $tipoResponsabilidad, 
       'responsabilidadTributaria' => $responsabilidadTribu,
       'activo' => 1,
-      'created_at' => date('Y-m-d H:m:i'),
+      'created_at' => date('Y-m-d H:i:s'),
       'tipo_compania' => 1,
       'usuario' => $usuario,
     ]);
@@ -361,7 +466,6 @@ class User_Actions{
     return $data;
   }
   
-
 }
 
 

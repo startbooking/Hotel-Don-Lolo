@@ -3,12 +3,11 @@
 require_once '../../../res/php/app_topFE.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {    
-
     if(isset($_GET['item'])){
-        $id = $_GET['item'];
-        $lista = $user->getDetalleProducto($id);
+      $id = $_GET['item'];
+      $lista = $user->getDocumento($id);
     }else{
-        $lista = $user->getCodigosVentas(4);
+      $lista = $user->getDocumentos();
     }
     header('Content-Type: application/json');    
     echo json_encode($lista);
@@ -16,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 } elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $postBody = json_decode(file_get_contents('php://input'), true);
     extract($postBody);
-    $result = $user->ingresaProducto(strtoupper($nombreAdi), strtoupper($codigoAdi), $ImptosAdi, $unidad, $precioAdi, $pucAdi, $centroAdi, strtoupper($descripcionAdi), $usuario);
+    $result = $user->ingresaDetalleDocumento($itemcompra, $unidad, $precio, $cantidad, $total, $imptos, $retencion, $idDoc);
     echo json_encode($result);
 } elseif ($_SERVER['REQUEST_METHOD'] == 'PUT') {
     $postBody = json_decode(file_get_contents('php://input'), true);

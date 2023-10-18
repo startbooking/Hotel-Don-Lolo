@@ -1,5 +1,5 @@
-var edita ;
-var docSopo ;
+var edita;
+var docSopo;
 var compras = [];
 var docu;
 var tipo;
@@ -9,79 +9,95 @@ var plaz;
 var venc;
 var form;
 var come;
-/* let usuario
-let usuario_id
- */
+
 (function () {
   document.addEventListener("DOMContentLoaded", async () => {
     rutaAPI = '/fe/restAPI/data';
     let sesion = JSON.parse(localStorage.getItem("sesion"));
-    
-    if(sesion == null){
+
+    if (sesion == null) {
       swal({
         title: 'Precaucion',
         text: 'Usuario NO identificado en el Sistema',
         confirmButtonText: "Aceptar",
         type: "warning",
         closeOnConfirm: true,
-      },function(){
+      }, function () {
         window.location.href = "/";
-        return 
+        return
 
       })
-    } 
+    }
     let { user } = sesion;
     let { usuario, usuario_id, nombres, apellidos } = user;
-    
 
     menuUsu = document.querySelector('#nombreUsuario')
-
     menuUsu.innerHTML = ` ${apellidos} ${nombres} <span class="caret"></span>`
-  
+
     let ds = document.querySelector('#documentoSoporte');
 
-    if(ds != null){
-      nuevoDocumento()      
+    if (ds != null) {
+      nuevoDocumento()
     }
-    
+
+    formularioDocumento = document.querySelector('#datosDocSoporte');
+    if (formularioDocumento != null) {
+      formularioDocumento.addEventListener('submit', btnSubmitDocumento);
+    }
+
     $("#myModalAdicionarProveedor").on("show.bs.modal", async (event) => {
       var button = event.relatedTarget; // Botón que activó el modal
       edita = JSON.parse(button.dataset.edita);
-      document.querySelector('#dataRegistrarProveedor').reset();    
+      document.querySelector('#dataRegistrarProveedor').reset();
       document.querySelector('#dataRegistrarProveedor')
-      .addEventListener('submit', guardaProveedor);
+        .addEventListener('submit', guardaProveedor);
     });
 
     $("#myModalProductos").on("show.bs.modal", async (event) => {
       var button = event.relatedTarget; // Botón que activó el modal
       edita = JSON.parse(button.dataset.edita);
       docSopo = JSON.parse(button.dataset.documento);
-      document.querySelector('#guardarProductos').reset();    
+      document.querySelector('#guardarProductos').reset();
       document.querySelector('#guardarProductos')
-      .addEventListener('submit', guardaProducto);
+        .addEventListener('submit', guardaProducto);
     });
 
     $("#myModalPagos").on("show.bs.modal", async (event) => {
       var button = event.relatedTarget; // Botón que activó el modal
       edita = JSON.parse(button.dataset.edita);
-      document.querySelector('#guardarPagos').reset();    
+      document.querySelector('#guardarPagos').reset();
       document.querySelector('#guardarPagos')
-      .addEventListener('submit', guardaFormaPago);
+        .addEventListener('submit', guardaFormaPago);
     });
 
     $("#myModalAdicionaItem").on("show.bs.modal", async (event) => {
       var button = event.relatedTarget; // Botón que activó el modal
       edita = JSON.parse(button.dataset.edita);
-      document.querySelector('#dataRegistraItem').reset();    
+      document.querySelector('#dataRegistraItem').reset();
       document.querySelector('#dataRegistraItem')
-      .addEventListener('submit', guardaItemDoc);
+        .addEventListener('submit', guardaItemDoc);
     });
-
   });
-})();   
+})();
 
-async function cancelaDocumento(){
-  
+async function btnSubmitDocumento(e) {
+  e.preventDefault();
+  if (e.submitter.classList.contains('guarda')) {
+    await guardaDocumento();
+  } else if (e.submitter.classList.contains('cancela')) {
+    await cancelaDocumento();
+  } else if (e.submitter.classList.contains('elimina_articulo')) {
+
+    var button = e.submitter; // Botón que activó el modal
+    let idArt = JSON.parse(button.dataset.id);
+    // console.log();
+    await eliminaProductoDoc(idArt)
+
+    // await cancelaDocumento();
+  }
+}
+
+async function cancelaDocumento() {
   swal({
     title: "Atencion !",
     text: "Esta Seguro de Cancelar el Documento ?",
@@ -93,22 +109,13 @@ async function cancelaDocumento(){
     confirmButtonText: "Si",
     closeOnConfirm: false,
   },
-  function () {   
-    localStorage.removeItem("documento");  
-    localStorage.removeItem("tipoOperacion");
-    localStorage.removeItem("proveedor");
-    localStorage.removeItem("fecha");
-    localStorage.removeItem("plazo");
-    localStorage.removeItem("vence");
-    localStorage.removeItem("formaPago");  
-    localStorage.removeItem("comentarios");  
-    localStorage.removeItem("documentoSoporte");   
-    window.location.href = "docSoporte";
-  })
-
+    function () {
+      borraStore();
+      window.location.href = "docSoporte";
+    })
 }
 
-async function guardaItemDoc(e){
+async function guardaItemDoc(e) {
   e.preventDefault();
 
   const data = Object.fromEntries(
@@ -119,7 +126,7 @@ async function guardaItemDoc(e){
   let txtUnid = $("#unidad option:selected").text();
   let txtIMpt = $("#imptos option:selected").text();
 
-  let datos = {...data, txtComp, txtUnid, txtIMpt};
+  let datos = { ...data, txtComp, txtUnid, txtIMpt };
 
   compras.push(datos);
 
@@ -134,16 +141,16 @@ async function guardaItemDoc(e){
 
 }
 
-async function limpiaProductosDocumentoHMLT(){
+async function limpiaProductosDocumentoHMLT() {
   while (productosCompra.firstChild) {
     productosCompra.removeChild(productosCompra.firstChild);
   }
 }
 
-async function muestraProductosDocumentoHTML(compras){ 
+async function muestraProductosDocumentoHTML(compras) {
   let totDocu = 0;
   compras.map((compra) => {
-    let { itemcompra, txtComp, txtUnid, precio,cantidad, total } = compra;
+    let { itemcompra, txtComp, txtUnid, precio, cantidad, total } = compra;
     totDocu = totDocu + parseFloat(total);
     const row = document.createElement("tr");
     let aviso = '';
@@ -151,17 +158,18 @@ async function muestraProductosDocumentoHTML(compras){
     row.innerHTML += `
         <td>${txtComp}</td>        
         <td>${txtUnid}</td>
-        <td class="derecha">${number_format(precio,2)}</td>
-        <td class="derecha">${number_format(cantidad,0)}</td>
-        <td class="derecha">${number_format(total,2)}</td>        
+        <td class="derecha">${number_format(precio, 2)}</td>
+        <td class="derecha">${number_format(cantidad, 0)}</td>
+        <td class="derecha">${number_format(total, 2)}</td>        
         <td class="centro">
           <button 
+          type="submit"
           data-id='${itemcompra}' 
-          class='btn btn-danger btn-xs elimina_articulo' onclick='eliminaProductoDoc("${itemcompra}");'><i class='glyphicon glyphicon-trash '></i></button>
-        </td>`;          
-        productosCompra.appendChild(row);
-  }) 
-  document.querySelector('#totalDocumento').value = number_format(totDocu,2)
+          class='btn btn-danger btn-xs elimina_articulo' ><i class='glyphicon glyphicon-trash '></i></button>
+        </td>`;
+    productosCompra.appendChild(row);
+  })
+  document.querySelector('#totalDocumento').value = number_format(totDocu, 2)
 }
 
 async function muestraProductosDocumento(datos) {
@@ -177,35 +185,35 @@ async function muestraProductosDocumento(datos) {
   combo.innerHTML = option;
 }
 
-async function guardaProveedor(e){
+async function guardaProveedor(e) {
   e.preventDefault();
 
   const data = Object.fromEntries(
     new FormData(e.target)
   )
 
-  let dataObj = { }
+  let dataObj = {}
 
   let { empresa, apellido1, nombre1, apellido2, nombre2 } = data;
 
-  if(empresa == '' && (apellido1 == '' || nombre1 == '')){
+  if (empresa == '' && (apellido1 == '' || nombre1 == '')) {
     swal({
-      title:'Precaucion',
-      text:'Sin Datos Definidos para el proveedor',
+      title: 'Precaucion',
+      text: 'Sin Datos Definidos para el proveedor',
       type: "error",
       confirmButtonText: "Aceptar",
     })
-    return; 
+    return;
   }
 
-  if(empresa==''){
+  if (empresa == '') {
     empresa = `${apellido1} ${apellido2} ${nombre1} ${nombre2}`
-    dataObj = {...data, empresa,};
-  }else{
-    dataObj = {...data, empresa,};    
+    dataObj = { ...data, empresa, };
+  } else {
+    dataObj = { ...data, empresa, };
   }
 
-  let datos = {...dataObj, usuario,};
+  let datos = { ...dataObj, usuario, };
   respuesta = await ingresaProveedor(datos);
   let { id, error } = respuesta;
 
@@ -217,15 +225,15 @@ async function guardaProveedor(e){
       confirmButtonText: "Aceptar",
       closeOnConfirm: true,
     },
-    function () {
-      window.location.href = "proveedores";
-    })
+      function () {
+        window.location.href = "proveedores";
+      })
   } else {
     mostrarAlerta(error, "mensaje");
   }
 }
 
-async function guardaProducto(e){
+async function guardaProducto(e) {
   e.preventDefault();
 
 
@@ -233,11 +241,9 @@ async function guardaProducto(e){
     new FormData(e.target)
   )
 
-  let datos = {...data, usuario,};
+  let datos = { ...data, usuario, };
   respuesta = await ingresaProducto(datos);
   let { id, error } = respuesta;
-
-  console.log(docSopo);
 
   if (id != "0") {
     swal({
@@ -247,15 +253,15 @@ async function guardaProducto(e){
       confirmButtonText: "Aceptar",
       closeOnConfirm: true,
     },
-    async function () {
-      if(docSopo==0){
-        window.location.href = "productos";
-      }else{
-        $('#myModalAdicionaItem').modal('hide');
-        const datos = await obtenerProductos();
-        const com = await muestraProductosCombo(datos);
-      }
-    })
+      async function () {
+        if (docSopo == 0) {
+          window.location.href = "productos";
+        } else {
+          $('#myModalAdicionaItem').modal('hide');
+          const datos = await obtenerProductos();
+          const com = await muestraProductosCombo(datos);
+        }
+      })
   } else {
     mostrarAlerta(error, "mensaje");
   }
@@ -273,14 +279,14 @@ async function muestraProductosCombo(datos) {
   combo.innerHTML = option;
 }
 
-async function guardaFormaPago(e){
+async function guardaFormaPago(e) {
   e.preventDefault();
 
   const data = Object.fromEntries(
     new FormData(e.target)
   )
 
-  let datos = {...data, usuario,};
+  let datos = { ...data, usuario, };
   respuesta = await ingresaPago(datos);
   let { id, error } = respuesta;
 
@@ -292,9 +298,9 @@ async function guardaFormaPago(e){
       confirmButtonText: "Aceptar",
       closeOnConfirm: true,
     },
-    function () {
-      window.location.href = "formasPago";
-    })
+      function () {
+        window.location.href = "formasPago";
+      })
   } else {
     mostrarAlerta(error, "mensaje");
   }
@@ -358,7 +364,7 @@ const obtenerProductos = async () => {
   }
 };
 
-async function infoProducto(item){
+async function infoProducto(item) {
   const datos = await traeDetalleProducto(item);
   muestraDetalleProducto(datos)
 }
@@ -383,10 +389,10 @@ async function muestraDetalleProducto(datos) {
   document.querySelector('#imptos').value = id_impto;
 }
 
-function calculaTotal(){
-  unit  = document.querySelector('#precio').value
-  cant  = document.querySelector('#cantidad').value
-  document.querySelector('#total').value = unit * cant 
+function calculaTotal() {
+  unit = document.querySelector('#precio').value
+  cant = document.querySelector('#cantidad').value
+  document.querySelector('#total').value = unit * cant
 
 }
 
@@ -405,14 +411,14 @@ function mostrarAlerta(mensaje, campo) {
   }
 }
 
-function validaCampos(obj) {
+async function validaCampos(obj) {
   return !Object.values(obj).every((element) => element !== "");
 }
 
-function sumaFecha(){
+function sumaFecha() {
   let fecha = document.querySelector("#fecha").value;
   let plazo = parseInt(document.querySelector("#plazo").value);
-  
+
   var date = fecha.split("-");
   hoy = new Date(date[0], date[1], date[2]);
 
@@ -420,39 +426,39 @@ function sumaFecha(){
   dateResul = hoy.getDate() + plazo;
   calculado.setDate(dateResul);
   anio = calculado.getFullYear();
-  mes = (calculado.getMonth() + 1).toString().padStart(2,'0') ;
-  dia = calculado.getDate().toString().padStart(2,'0');
+  mes = (calculado.getMonth() + 1).toString().padStart(2, '0');
+  dia = calculado.getDate().toString().padStart(2, '0');
 
-  vence =  anio+ "-" + mes + "-" + dia;
+  vence = anio + "-" + mes + "-" + dia;
 
   document.querySelector("#vence").value = vence
 
 }
 
-function asignaLocalStorage(code, valor) { 
+function asignaLocalStorage(code, valor) {
   localStorage.setItem(code, valor);
 }
 
 async function nuevoDocumento() {
   let fecha = new Date;
   anio = fecha.getFullYear();
-  mes = (fecha.getMonth() + 1).toString().padStart(2,'0') ;
-  dia = fecha.getDate().toString().padStart(2,'0');
-  hoy =  anio+ "-" + mes + "-" + dia;
+  mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
+  dia = fecha.getDate().toString().padStart(2, '0');
+  hoy = anio + "-" + mes + "-" + dia;
 
   await traeStorage()
 
-  document.querySelector('#documento').value = docu ? docu : ''  ;
-  document.querySelector('#tipoOperacion').value =  tipo ? tipo : '';
-  document.querySelector('#proveedor').value = prov ?  prov : '';
+  document.querySelector('#documento').value = docu ? docu : '';
+  document.querySelector('#tipoOperacion').value = tipo ? tipo : '';
+  document.querySelector('#proveedor').value = prov ? prov : '';
   document.querySelector('#fecha').value = fech ? fech : hoy;
-  document.querySelector('#plazo').value = plaz ? plaz : 0 ;
-  document.querySelector('#vence').value = venc ? venc : hoy; 
-  document.querySelector('#comentarios').value = come ? come : '' ;
-  document.querySelector('#formaPago').value = form ? form : '' ;
+  document.querySelector('#plazo').value = plaz ? plaz : 0;
+  document.querySelector('#vence').value = venc ? venc : hoy;
+  document.querySelector('#comentarios').value = come ? come : '';
+  document.querySelector('#formaPago').value = form ? form : '';
 
   let documentoSoporte = JSON.parse(localStorage.getItem("documentoSoporte"));
-  
+
   if (documentoSoporte == null) {
     compras = [];
   } else {
@@ -461,41 +467,68 @@ async function nuevoDocumento() {
     limpia = await limpiaProductosDocumentoHMLT();
     const mostrar = await muestraProductosDocumentoHTML(compras)
   }
-
 }
 
-async function guardaDocumento(){
+async function guardaDocumento() {
 
   await traeStorage()
 
+  infoDoc = { docu, tipo, prov, fech, plaz, venc, form, usuario_id };
+
+  const regis = await validaCampos(infoDoc);
+
+  if (regis) {
+    mostrarAlerta('Datos del Proveedor Incompletos', "mensaje");
+    return;
+  }
+
   let documentoSoporte = JSON.parse(localStorage.getItem("documentoSoporte"));
 
-  if(documentoSoporte == null || documentoSoporte.length == 0 ){
+  if (documentoSoporte == null || documentoSoporte.length == 0) {
     swal({
       title: 'Precaucion',
-      text: 'Sin Compras / Servicios Asignados a este documento',
+      text: 'Sin Compras / Servicios Asignados a este Documento',
       confirmButtonText: "Aceptar",
       type: "warning",
       closeOnConfirm: true,
-    },function(){
-
+    }, function () {
     })
   }
 
-  datosDoc  =  {...documentoSoporte, docu, tipo, prov, fech, plaz, venc, form, usuario_id }
-  
-  console.log(datosDoc);
+  datosDoc = { ...documentoSoporte, docu, tipo, prov, fech, plaz, venc, form, usuario_id, come }
 
+  /* Traer el Nnumero del Documento Soporte*/
 
-  
+  let encabezado = { ...infoDoc, come, };
+  respuesta = await ingresaEncabezadoDocumento(encabezado);
+  let { id, error } = respuesta
+  if (id == 0) {
+    mostrarAlerta(error, "mensaje");
+    return 0
+  }
 
+  compras = { ...documentoSoporte }
 
+  documentoSoporte.map((documento) => {
+    const regis = ingresaDetalleDocumento(documento, id);
+  })
+
+  swal({
+    title: 'Atencion',
+    text: 'Documento Soporte Almacenado con Exito',
+    type: "success",
+    confirmButtonText: "Aceptar",
+  },
+    function () {
+      borraStorage();
+      window.location.href = "docSoporte";
+    })
 }
 
-async function eliminaProductoDoc(item){
+async function eliminaProductoDoc(item) {
   swal({
     title: "Atencion !",
-    text: "Esta Seguro de Cancelar la Compra Actual ?",
+    text: "Esta Seguro de Eliminar la Compra / Servicio Actual ?",
     type: "warning",
     showCancelButton: true,
     cancelButtonClass: "#DD6B55",
@@ -504,18 +537,21 @@ async function eliminaProductoDoc(item){
     confirmButtonText: "Si",
     closeOnConfirm: true,
   },
-  async function () {   
-    compras = compras.filter (compra => compra.itemcompra !== item);
-    limpia = await limpiaProductosDocumentoHMLT();
-    const mostrar = await muestraProductosDocumentoHTML(compras)
-    localStorage.setItem("documentoSoporte", JSON.stringify(compras));
-  })
+    async function () {
+      console.log(compras)
+      console.log(item)
+      compras = compras.filter(compra => Number(compra.itemcompra) !== item);
+      console.log(compras)
+      limpia = await limpiaProductosDocumentoHMLT();
+      const mostrar = await muestraProductosDocumentoHTML(compras)
+      localStorage.setItem("documentoSoporte", JSON.stringify(compras));
+    })
 
-  console.log(compras);
+  // console.log(compras);
   // eliminarProductoDoc(item)
 }
 
-async function traeStorage(){
+async function traeStorage() {
   docu = localStorage.getItem("documento");
   tipo = localStorage.getItem("tipoOperacion");
   prov = localStorage.getItem("proveedor");
@@ -526,3 +562,47 @@ async function traeStorage(){
   come = localStorage.getItem("comentarios");
 }
 
+async function borraStorage() {
+  localStorage.removeItem("documento");
+  localStorage.removeItem("tipoOperacion");
+  localStorage.removeItem("proveedor");
+  localStorage.removeItem("fecha");
+  localStorage.removeItem("plazo");
+  localStorage.removeItem("vence");
+  localStorage.removeItem("formaPago");
+  localStorage.removeItem("comentarios");
+  localStorage.removeItem("documentoSoporte");
+}
+
+const ingresaEncabezadoDocumento = async (encabezado) => {
+  try {
+    const response = await fetch(`${rutaAPI}/documentos`, {
+      method: "POST",
+      body: JSON.stringify(encabezado), // data puede ser string o un objeto
+      headers: {
+        "Content-Type": "application/json", // Y le decimos que los datos se enviaran como JSON
+      },
+    });
+    const datos = await response.json();
+    return datos;
+  } catch (error) {
+    return error;
+  }
+};
+
+const ingresaDetalleDocumento = async (compra, idDoc) => {
+  dataObj = { ...compra, idDoc }
+  try {
+    const response = await fetch(`${rutaAPI}/detalleDocumento`, {
+      method: "POST",
+      body: JSON.stringify(dataObj), // data puede ser string o un objeto
+      headers: {
+        "Content-Type": "application/json", // Y le decimos que los datos se enviaran como JSON
+      },
+    });
+    const datos = await response.json();
+    return datos;
+  } catch (error) {
+    return error;
+  }
+};

@@ -12,17 +12,14 @@ function tipoPagoDian($tipo){
 
 }
 
-
-function nombreMes($mes)
-{
+function nombreMes($mes){
     date_default_timezone_set('America/Bogota');
     $nombreMes = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 
     return $nombreMes[$mes - 1];
 } 
 
-function crearThumbJPEG($rutaImagen, $rutaDestino, $anchoThumb = 200, $altoThumb = 150, $calidad = 50)
-{
+function crearThumbJPEG($rutaImagen, $rutaDestino, $anchoThumb = 200, $altoThumb = 150, $calidad = 50){
     $original = imagecreatefromjpeg($rutaImagen);
     if ($original !== false) {
         $thumb = imagecreatetruecolor($anchoThumb, $altoThumb);
@@ -41,8 +38,7 @@ function crearThumbJPEG($rutaImagen, $rutaDestino, $anchoThumb = 200, $altoThumb
     return false;
 }
 
-function sucia($estado)
-{
+function sucia($estado){
     switch ($estado) {
         case 0:
             return 'Limpia';
@@ -53,8 +49,7 @@ function sucia($estado)
     }
 }
 
-function estadoReceta($estado)
-{
+function estadoReceta($estado){
     switch ($estado) {
         case 0:
             return '<span style="font-size:12px;display:block;height:20px;padding:3px" class="label label-danger">en Proceso</span>';
@@ -65,13 +60,11 @@ function estadoReceta($estado)
     }
 }
 
-function generateRandomString($length = 10)
-{
+function generateRandomString($length = 10){
     return substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, $length);
 }
 
-function edad($fecha_nacimiento)
-{
+function edad($fecha_nacimiento){
     $tiempo = strtotime($fecha_nacimiento);
     $ahora = time();
     $edad = ($ahora - $tiempo) / (60 * 60 * 24 * 365.25);
@@ -80,8 +73,7 @@ function edad($fecha_nacimiento)
     return substr($edad1, 3, 3);
 }
 
-function estado($estado)
-{
+function estado($estado){
     switch ($estado) {
         case 0:
             return '<span style="font-size:12px;display:block;height:20px;padding:3px" class="label label-danger">Bloqueado</span>';
@@ -92,8 +84,7 @@ function estado($estado)
     }
 }
 
-function estadoProducto($estado)
-{
+function estadoProducto($estado){
     switch ($estado) {
         case 0:
             return '<span style="font-size:12px;display:block;height:20px;padding:3px" class="label label-danger">In-Activa</span>';
@@ -104,8 +95,7 @@ function estadoProducto($estado)
     }
 }
 
-function estadoFacturaImp($estado)
-{
+function estadoFacturaImp($estado){
     switch ($estado) {
         case 0:
             return 'Activa';
@@ -116,8 +106,7 @@ function estadoFacturaImp($estado)
     }
 }
 
-function estadoFactura($estado)
-{
+function estadoFactura($estado){
     switch ($estado) {
         case 0:
             return '<span style="font-size:12px" class="label label-info">Activa</span>';
@@ -132,8 +121,41 @@ function estadoFactura($estado)
     }
 }
 
-function estadoFacturaDIAN($estado)
-{
+function estadoDocumento($estado){
+    switch ($estado) {
+        case 0:
+            return '<span style="font-size:12px" class="label label-info">Activo</span>';
+        case 1:
+            return '<span style="font-size:12px" class="label label-danger">Anulado</span>';        
+    }
+}
+
+
+function operacionDocumento($estado){
+    switch ($estado) {
+        case 1:
+            return '<span style="font-size:12px" class="label label-info">Indivdual</span>';
+        case 2:
+            return '<span style="font-size:12px" class="label label-danger">Acumulada</span>';        
+    }
+}
+
+
+
+function estadoDocumentoDIAN($estado){
+    switch ($estado) {
+        case '0':
+            return '<span style="font-size:12px" class="label label-warning">No Procesada</span>';
+        case '1':
+            return '<span style="font-size:12px" class="label label-success">Emitida</span>';
+        case 'false':
+            return '<span style="font-size:12px" class="label label-warning">No Procesada</span>';
+        case 'true':
+            return '<span style="font-size:12px" class="label label-success">Emitida</span>';
+    }
+}
+
+function estadoFacturaDIAN($estado){
     switch ($estado) {
         case '0':
             return '<span style="font-size:12px" class="label label-warning">No Procesada</span>';
