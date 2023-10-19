@@ -1,8 +1,4 @@
-<?php
-require_once '../res/php/app_topFE.php';
-
-
-?>
+<?php require_once '../res/php/app_topFE.php'; ?>
 
 <!DOCTYPE html>
 <html lang="es">

@@ -9,10 +9,13 @@ var plaz;
 var venc;
 var form;
 var come;
+var rutaAPI;
+var rutaIMP;
 
 (function () {
   document.addEventListener("DOMContentLoaded", async () => {
     rutaAPI = '/fe/restAPI/data';
+    rutaIMP = '/fe/imprimir';
     let sesion = JSON.parse(localStorage.getItem("sesion"));
 
     if (sesion == null) {
@@ -34,7 +37,8 @@ var come;
     menuUsu = document.querySelector('#nombreUsuario')
     menuUsu.innerHTML = ` ${apellidos} ${nombres} <span class="caret"></span>`
 
-    let ds = document.querySelector('#documentoSoporte');
+    let ds = document.querySelector('#nuevoDS');
+    let paginaDS = document.querySelector('#paginaDS');
 
     if (ds != null) {
       nuevoDocumento()
@@ -43,6 +47,10 @@ var come;
     formularioDocumento = document.querySelector('#datosDocSoporte');
     if (formularioDocumento != null) {
       formularioDocumento.addEventListener('submit', btnSubmitDocumento);
+    }
+
+    if (paginaDS != null) {
+      paginaDS.addEventListener('submit', btnSubmitDS);
     }
 
     $("#myModalAdicionarProveedor").on("show.bs.modal", async (event) => {
@@ -80,6 +88,100 @@ var come;
   });
 })();
 
+async function btnSubmitDS(e) {
+  e.preventDefault();
+  var button = e.submitter;
+  let id = JSON.parse(button.dataset.id);
+  let estado = JSON.parse(button.dataset.estado);
+  let dian = JSON.parse(button.dataset.dian);
+  let proveedor = JSON.parse(button.dataset.proveedor);
+
+  if (e.submitter.classList.contains('imprimeDS')) {
+    // alert(`Imprime DS ${id}`)
+    await imprimeDS(id, dian, proveedor)
+  } else if (e.submitter.classList.contains('imprimeNC')) {
+    alert(`Imprime NC ${id}`)
+  } else if (e.submitter.classList.contains('enviaDS')) {
+    // alert(`Envia ${id}`)
+    await enviaDS(id, dian, proveedor)
+  } else if (e.submitter.classList.contains('anulaDS')) {
+    alert(`Anula ${id}`)
+  }
+}
+
+async function enviaDS(id,dian,proveedor){
+  const infoDoc = await infoDS(id, proveedor);
+
+}
+
+const infoDS = async(id, proveedor) => {
+  console.log({id,proveedor})
+  try {
+    data = {id, proveedor}
+
+    const response = await fetch(`${rutaAPI}/infoDS.php`, {
+      method: "POST",
+      body: JSON.stringify(data), // data puede ser string o un objeto
+      headers: {
+        "Content-Type": "application/json", // Y le decimos que los datos se enviaran como JSON
+      },
+    });
+    const datos = await response.text();
+    return datos;
+  } catch (error) {
+    return error;
+  }
+}
+
+
+const generaJsonDS = async() => {
+  try {
+    data = {id, usuario, proveedor}
+    const response = await fetch(`${rutaAPI}/generaJSON.php`, {
+      method: "POST",
+      body: JSON.stringify(data), // data puede ser string o un objeto
+      headers: {
+        "Content-Type": "application/json", // Y le decimos que los datos se enviaran como JSON
+      },
+    });
+    const datos = await response.text();
+    return datos;
+  } catch (error) {
+    return error;
+  }
+}
+
+async function imprimeDS(id,dian,proveedor){
+  if(dian==1){
+
+  }else{
+    const impresion = await generaDS(id, proveedor);
+    $('#myModalImpresion').modal('show');
+    document.querySelector("#tituloDocumento").innerHTML = `<span class="material-symbols-outlined">picture_as_pdf</span> Documento Soporte SIN PROCESAR`
+    $("#verImpresion").attr(
+      "data",
+      `data:application/pdf;base64,${$.trim(impresion)}`
+    );
+  }
+}
+
+const generaDS = async (id, proveedor) => {
+  try {
+    data = {id, usuario, proveedor}
+    const response = await fetch(`${rutaIMP}/imprimeDS.php`, {
+      method: "POST",
+      body: JSON.stringify(data), // data puede ser string o un objeto
+      headers: {
+        "Content-Type": "application/json", // Y le decimos que los datos se enviaran como JSON
+      },
+    });
+    const datos = await response.text();
+    return datos;
+  } catch (error) {
+    return error;
+  }
+};
+
 async function btnSubmitDocumento(e) {
   e.preventDefault();
   if (e.submitter.classList.contains('guarda')) {
@@ -87,13 +189,13 @@ async function btnSubmitDocumento(e) {
   } else if (e.submitter.classList.contains('cancela')) {
     await cancelaDocumento();
   } else if (e.submitter.classList.contains('elimina_articulo')) {
-
-    var button = e.submitter; // Botón que activó el modal
+    var button = e.submitter;
     let idArt = JSON.parse(button.dataset.id);
-    // console.log();
     await eliminaProductoDoc(idArt)
-
-    // await cancelaDocumento();
+  } else if (e.submitter.classList.contains('imprimeDS')) {
+  } else if (e.submitter.classList.contains('imprimeNC')) {
+  } else if (e.submitter.classList.contains('enviaDS')) {
+  } else if (e.submitter.classList.contains('anulaDS')) {
   }
 }
 
@@ -110,7 +212,7 @@ async function cancelaDocumento() {
     closeOnConfirm: false,
   },
     function () {
-      borraStore();
+      borraStorage();
       window.location.href = "docSoporte";
     })
 }
@@ -393,7 +495,6 @@ function calculaTotal() {
   unit = document.querySelector('#precio').value
   cant = document.querySelector('#cantidad').value
   document.querySelector('#total').value = unit * cant
-
 }
 
 function mostrarAlerta(mensaje, campo) {
@@ -412,7 +513,7 @@ function mostrarAlerta(mensaje, campo) {
 }
 
 async function validaCampos(obj) {
-  return !Object.values(obj).every((element) => element !== "");
+  return !Object.values(obj).every((element) => element !== null);
 }
 
 function sumaFecha() {
@@ -429,7 +530,7 @@ function sumaFecha() {
   mes = (calculado.getMonth() + 1).toString().padStart(2, '0');
   dia = calculado.getDate().toString().padStart(2, '0');
 
-  vence = anio + "-" + mes + "-" + dia;
+  let vence = anio + "-" + mes + "-" + dia;
 
   document.querySelector("#vence").value = vence
 
@@ -493,11 +594,10 @@ async function guardaDocumento() {
       closeOnConfirm: true,
     }, function () {
     })
+    return 
   }
 
   datosDoc = { ...documentoSoporte, docu, tipo, prov, fech, plaz, venc, form, usuario_id, come }
-
-  /* Traer el Nnumero del Documento Soporte*/
 
   let encabezado = { ...infoDoc, come, };
   respuesta = await ingresaEncabezadoDocumento(encabezado);

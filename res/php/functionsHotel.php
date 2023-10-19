@@ -779,9 +779,18 @@ class Hotel_Actions
         $data = $database->select('parametros_pms', [
             'token',
             'password',
-            'facturador',
+            'facturador',            
         ]);
 
+        return $data;
+    }
+
+    public function traeCodigoDianID(){
+        global $database;
+
+        $data = $database->select('tipo_documentos',[
+            
+        ]);
         return $data;
     }
 

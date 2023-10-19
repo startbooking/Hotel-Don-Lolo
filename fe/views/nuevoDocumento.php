@@ -5,11 +5,11 @@
 
 ?>
 
-<div class="content-wrapper" id="documentoSoporte"> 
+<div class="content-wrapper" id="nuevoDS"> 
 	<h3 class="txtBl centro" style="">
 	<span class="material-symbols-outlined">receipt_long</span> Documento Soporte</h3>
 	<section class="content">
-		<div class="container outer-section" >        
+		<div class="container-fluid" >        
 			<form class="row-fluid" role="form" id="datosDocSoporte" method="post">
 				<div id="print-area">
 					<div class="row">

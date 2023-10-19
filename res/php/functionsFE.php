@@ -5,6 +5,155 @@ date_default_timezone_set('America/Bogota');
 
 class User_Actions{
 
+  public function getProductosDS($id){
+    global $database;
+
+    $data = $database->query("SELECT
+    codigos_vta.descripcion_cargo,
+    unidades.descripcion_unidad,
+    productosDSDetalle.valorUnitario,
+    productosDSDetalle.cantidad,
+    productosDSDetalle.valorTotal,
+    productosDSDetalle.idDocumento
+    FROM
+    codigos_vta ,
+    productosDSDetalle ,
+    unidades
+    WHERE
+    productosDSDetalle.idCargo = codigos_vta.id_cargo AND
+    productosDSDetalle.idUnidad = unidades.id_unidad AND
+    productosDSDetalle.idDocumento = '$id'
+    ORDER BY 
+    codigos_vta.descripcion_cargo")->fetchAll();
+    return $data;
+  }
+
+
+  public function getInfoDocu($id){
+  
+    global $database;
+
+    $data = $database->query("
+    SELECT
+    companias.empresa,
+    companias.nit,
+    companias.dv,
+    companias.tipo_documento,
+    companias.tipoAdquiriente,
+    productosDSCabeza.idDocumento,
+    productosDSCabeza.documentoSoporte,
+    productosDSCabeza.numeroDocumento,
+    productosDSCabeza.tipoOperacion,
+    productosDSCabeza.idProveedor,
+    productosDSCabeza.fechaDocumento,
+    productosDSCabeza.vencimiento,
+    productosDSCabeza.fechaVencimiento,
+    productosDSCabeza.idFormaPago,
+    productosDSCabeza.observaciones,
+    productosDSCabeza.estadoDian,
+    productosDSCabeza.estado,
+    SUM(productosDSDetalle.valorTotal) AS total,
+  codigos_vta.descripcion_cargo
+    FROM
+    companias ,
+    codigos_vta ,
+    productosDSCabeza,
+    productosDSDetalle
+    WHERE
+    productosDSCabeza.idProveedor = companias.id_compania AND
+    productosDSCabeza.idFormaPago = codigos_vta.id_cargo AND
+    productosDSCabeza.idDocumento = productosDSDetalle.idDocumento and
+    productosDSCabeza.idDocumento = '$id'
+  GROUP BY 
+  productosDSDetalle.idDocumento   
+    ")->fetchAll();
+    return $data;
+    
+
+  } 
+
+  public function getInfoDS($id){
+    global $database;
+
+    $data = $database->query("SELECT
+    companias.empresa,
+    companias.nit,
+    companias.dv,
+    productosDSCabeza.idDocumento,
+    productosDSCabeza.documentoSoporte,
+    productosDSCabeza.numeroDocumento,
+    productosDSCabeza.tipoOperacion,
+    productosDSCabeza.idProveedor,
+    productosDSCabeza.fechaDocumento,
+    productosDSCabeza.vencimiento,
+    productosDSCabeza.fechaVencimiento,
+    productosDSCabeza.idFormaPago,
+    productosDSCabeza.observaciones,
+    productosDSCabeza.estadoDian,
+    productosDSCabeza.estado,
+    SUM(productosDSDetalle.valorTotal) AS total,
+  codigos_vta.descripcion_cargo
+    FROM
+    companias ,
+    codigos_vta ,
+    productosDSCabeza,
+    productosDSDetalle
+    WHERE
+    productosDSCabeza.idProveedor = companias.id_compania AND
+    productosDSCabeza.idFormaPago = codigos_vta.id_cargo AND
+    productosDSCabeza.idDocumento = productosDSDetalle.idDocumento and
+    productosDSCabeza.idDocumento = '$id'
+  GROUP BY 
+  productosDSDetalle.idDocumento ")->fetchAll();
+    return $data;
+  }
+
+  public function getInfoDSOld($id){
+    global $database;
+
+    $data = $database->query("SELECT
+    companias.empresa,
+    companias.nit,
+    companias.dv,
+    companias.tipo_documento,
+    companias.email,
+    companias.direccion,
+    companias.celular,
+    companias.telefono,
+    companias.ciudad,
+    companias.tipoAdquiriente,
+    companias.tipoResponsabilidad,
+    companias.responsabilidadTributaria,
+    productosDSCabeza.idDocumento,
+    productosDSCabeza.documentoSoporte,
+    productosDSCabeza.numeroDocumento,
+    productosDSCabeza.tipoOperacion,
+    productosDSCabeza.idProveedor,
+    productosDSCabeza.fechaDocumento,
+    productosDSCabeza.vencimiento,
+    productosDSCabeza.fechaVencimiento,
+    productosDSCabeza.idFormaPago,
+    productosDSCabeza.observaciones,
+    productosDSCabeza.estadoDian,
+    productosDSCabeza.estado,
+    Sum(productosDSDetalle.valorTotal) AS total,
+    codigos_vta.descripcion_cargo,
+    FROM
+    companias ,
+    codigos_vta ,
+    productosDSCabeza ,
+    productosDSDetalle
+    WHERE
+    productosDSCabeza.idProveedor = companias.id_compania AND
+    productosDSCabeza.idFormaPago = codigos_vta.id_cargo AND
+    productosDSCabeza.idDocumento = productosDSDetalle.idDocumento AND
+    productosDSCabeza.idDocumento = '$id'
+    GROUP BY
+    productosDSDetalle.idDocumento")->fetchAll();
+    return $data;
+  }
+
+
   public function getDocumentoSoporte(){
     global $database;
 
@@ -43,7 +192,6 @@ class User_Actions{
     ")->fetchAll();
     return $data;
   }
-  
   
   public function getDocumentoSoporteOld(){
     global $database;
@@ -335,22 +483,38 @@ class User_Actions{
       return $data;
   }
 
-  public function datosTokenCia(){
+  public function datosTokenFE(){
       global $database;
 
-      $data = $database->select('parametros_pms', [
+      $data = $database->select('parametrosFE', [
           'token',
           'password',
           'facturador',
           'documentoSoporte',
           'nominaElectronica',
           'radian',
+          'prefijoFE',
+          'prefijoDS',
+          'prefijoNE',
+          'prefijoFENC',
+          'prefijoFEND',
+          'prefijoDSNC',
+          'prefijoDSND',
+          'prefijoNENC',
+          'prefijoNEND',
+          'consecutivoFE',
+          'consecutivoDS',
+          'consecutivoNE',
+          'consecutivoNCFE',
+          'consecutivoNDFE',
+          'consecutivoNCDS',
+          'consecutivoNDDS',
       ]);
 
       return $data;
   }
 
-  public function traeProveedor($idProv){
+  public function traeProveedor($id){
   global $database;
 
     $data = $database->select('companias', [

@@ -18,8 +18,11 @@
   $user    = new User_Actions();
   $hotel   = new Hotel_Actions();
 	$inven   = new Inventario_User(); 
+  // $userFE  = new UserFE_Actions();
 
   $empresa = $admin->getInfoCia();
+  $datosHotel = $admin->getDatosHotel();
+
 
   define("NAME_EMPRESA", $empresa[0]['empresa']);
   define("NIT_EMPRESA", $empresa[0]['nit'].'-'.$empresa[0]['dv']);
@@ -33,6 +36,15 @@
   define("TIPO_DOC", $empresa[0]['tipo_empresa']);
   define("CIIU", $empresa[0]['codigo_ciiu']);
   define("TIPOEMPRESA", $admin->getTypeCia($empresa[0]['tipo_empresa']));
+  define('PAIS_EMPRESA', $hotel->getLandName($empresa[0]['pais']));
+  define('CIUDAD_EMPRESA', $hotel->getCityName($empresa[0]['ciudad']));
+  define('TIPOEMPRESA', $hotel->getTypeCia($empresa[0]['tipo_empresa']));
+  define('MAIL_HOTEL', $datosHotel[0]['email']);
+  define('ACTIVIDAD', $datosHotel[0]['actividad']);
+
+
+  // define('REGIMEN', TIPOEMPRESA);
+
 	
 	if(isset($_GET['section']) && $_GET['section'] == 'proveedores' || isset($_GET['section']) && $_GET['section'] == 'nuevoDocumento'){
 		$proveedores = $user->getCompanias(); 

@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 } elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $postBody = json_decode(file_get_contents('php://input'), true);
     extract($postBody);
-    $result = $user->ingresaEncabezadoDocumento($docu ,$tipo ,$prov ,$fech ,$plaz ,$venc ,$form ,$usuario_id ,strtoupper($come));
+    $result = $user->ingresaEncabezadoDocumento(strtoupper($docu), $tipo, $prov, $fech, $plaz, $venc, $form, $usuario_id, strtoupper($come));
     echo json_encode($result);
 } elseif ($_SERVER['REQUEST_METHOD'] == 'PUT') {
     $postBody = json_decode(file_get_contents('php://input'), true);

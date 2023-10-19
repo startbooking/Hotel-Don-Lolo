@@ -109,49 +109,46 @@ function estadoFacturaImp($estado){
 function estadoFactura($estado){
     switch ($estado) {
         case 0:
-            return '<span style="font-size:12px" class="label label-info">Activa</span>';
+            return '<span class="badge label-info">Activa</span>';
         case 1:
-            return '<span style="font-size:12px" class="label label-danger">Anulada</span>';
+            return '<span class="badge label-danger">Anulada</span>';
         case 'A':
-            return '<span style="font-size:12px" class="label label-info">Activa</span>';
+            return '<span class="badge label-info">Activa</span>';
         case 'X':
-            return '<span style="font-size:12px" class="label label-danger">Anulada</span>'; 
+            return '<span class="badge label-danger">Anulada</span>'; 
         case 2:
-            return '<span style="font-size:12px" class="label label-default">Sin Definir</span>';
+            return '<span class="badge label-default">Sin Definir</span>';
     }
 }
 
 function estadoDocumento($estado){
     switch ($estado) {
         case 0:
-            return '<span style="font-size:12px" class="label label-info">Activo</span>';
+            return '<span class="badge label-info">Activo</span>';
         case 1:
-            return '<span style="font-size:12px" class="label label-danger">Anulado</span>';        
+            return '<span class="badge label-danger">Anulado</span>';        
     }
 }
-
 
 function operacionDocumento($estado){
     switch ($estado) {
         case 1:
-            return '<span style="font-size:12px" class="label label-info">Indivdual</span>';
+            return '<span class="badge label-info">Individual</span>';
         case 2:
-            return '<span style="font-size:12px" class="label label-danger">Acumulada</span>';        
+            return '<span class="badge label-success">Acumulada</span>';        
     }
 }
-
-
 
 function estadoDocumentoDIAN($estado){
     switch ($estado) {
         case '0':
-            return '<span style="font-size:12px" class="label label-warning">No Procesada</span>';
+            return '<span class="badge label-warning">No Procesada</span>';
         case '1':
-            return '<span style="font-size:12px" class="label label-success">Emitida</span>';
+            return '<span class="badge label-success">Emitida</span>';
         case 'false':
-            return '<span style="font-size:12px" class="label label-warning">No Procesada</span>';
+            return '<span class="badge label-warning">No Procesada</span>';
         case 'true':
-            return '<span style="font-size:12px" class="label label-success">Emitida</span>';
+            return '<span class="badge label-success">Emitida</span>';
     }
 }
 
@@ -168,22 +165,20 @@ function estadoFacturaDIAN($estado){
     }
 }
 
-function tipoCompania($estado)
-{
-    switch ($estado) {
-        case 0:
-            return '<span style="font-size:12px" class="label label-default">Sin Definir</span>';
-        case 1:
-            return '<span style="font-size:12px" class="label label-warning">Proveedor</span>';
-        case 2:
-            return '<span style="font-size:12px" class="label label-success">Tercero</span>';
-        case 3:
-            return '<span style="font-size:12px" class="label label-success">Ambos</span>';
-    }
+function tipoCompania($estado){
+  switch ($estado) {
+    case 0:
+      return '<span style="font-size:12px" class="label label-default">Sin Definir</span>';
+    case 1:
+      return '<span style="font-size:12px" class="label label-warning">Proveedor</span>';
+    case 2:
+      return '<span style="font-size:12px" class="label label-success">Tercero</span>';
+    case 3:
+      return '<span style="font-size:12px" class="label label-success">Ambos</span>';
+  }
 }
 
-function estadoCompania($estado)
-{
+function estadoCompania($estado){
     switch ($estado) {
         case 0:
             return '<span style="font-size:12px" class="label label-default">Sin Definir</span>';
@@ -194,8 +189,7 @@ function estadoCompania($estado)
     }
 }
 
-function tipoUsuario($user)
-{
+function tipoUsuario($user){
     if ($user == '1') {
         return '<span style="font-size:12px" class="label label-success">Administrador</span>';
     }
@@ -213,8 +207,7 @@ function tipoUsuario($user)
     }
 }
 
-function estadoUsuario($user)
-{
+function estadoUsuario($user){
     if ($user == '0') {
         return '<span style="font-size:12px" class="label label-warning">InActivo</span>';
     }
@@ -229,16 +222,14 @@ function estadoUsuario($user)
     }
 }
 
-function ciudad_destino2($code)
-{
+function ciudad_destino2($code){
     $user = new User_Actions();
     $ciudad = $user->getCityName($code);
 
     return $ciudad;
 }
 
-function ciudad_hotel($code)
-{
+function ciudad_hotel($code){
     $user = new User_Actions();
     $codecity = $user->getCityHotel($code);
     $ciudad = $user->getCityName($codecity);
@@ -246,15 +237,13 @@ function ciudad_hotel($code)
     return $ciudad;
 }
 
-function clean_string($string)
-{
+function clean_string($string){
     $bad = ['content-type', 'bcc:', 'to:', 'cc:', 'href'];
 
     return str_replace($bad, '', $string);
 }
 
-function getRealIP2()
-{
+function getRealIP2(){
     if ($_SERVER['HTTP_X_FORWARDED_FOR'] != '') {
         $client_ip = (!empty($_SERVER['REMOTE_ADDR'])) ?
         $_SERVER['REMOTE_ADDR'] : ((!empty($_ENV['REMOTE_ADDR'])) ?
@@ -296,8 +285,7 @@ function getRealIP2()
     return $client_ip;
 }
 
-function consultar($campo, $tabla, $where)
-{
+function consultar($campo, $tabla, $where){
     $sql = mysqli_query("SELECT * FROM $tabla WHERE $where");
     if ($row = mysqli_fetch_array($sql)) {
         return $row[$campo];
@@ -306,8 +294,7 @@ function consultar($campo, $tabla, $where)
     }
 }
 
-function abonos_saldo($cuenta)
-{
+function abonos_saldo($cuenta){
     $sql = mysql_query("SELECT SUM(valor) as valores FROM abono WHERE cuenta='$cuenta'");
     if ($row = mysql_fetch_array($sql)) {
         return $row['valores'];
@@ -316,8 +303,7 @@ function abonos_saldo($cuenta)
     }
 }
 
-function encrypt($string, $key)
-{
+function encrypt($string, $key){
     $result = '';
     $key = $key.'2015';
     for ($i = 0; $i < strlen($string); ++$i) {
@@ -331,8 +317,7 @@ function encrypt($string, $key)
 }
 // ####CONTRASEÑA DE-ENCRIPTAR
 
-function decrypt($string, $key)
-{
+function decrypt($string, $key){
     $result = '';
     $key = $key.'2015';
     $string = base64_decode($string);
@@ -346,21 +331,18 @@ function decrypt($string, $key)
     return $result;
 }
 
-function diaSemana($ano, $mes, $dia)
-{
+function diaSemana($ano, $mes, $dia){
     $dias = ['DOMINGO', 'LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES', 'SABADO'];
     $dia = date('w', mktime(0, 0, 0, $mes, $dia, $ano));
 
     return $dias[$dia];
 }
 
-function cadenas()
-{
+function cadenas(){
     return 'YABCDFGJAH';
 }
 
-function fecha($fecha)
-{
+function fecha($fecha){
     $meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
     $a = substr($fecha, 0, 4);
     $m = substr($fecha, 5, 2);
@@ -369,8 +351,7 @@ function fecha($fecha)
     return $d.' de '.$meses[$m - 1].' de '.$a;
 }
 
-function fechaReserva($fecha)
-{
+function fechaReserva($fecha){
     $meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
     $a = substr($fecha, 0, 4);
     $m = substr($fecha, 5, 2);
@@ -380,8 +361,7 @@ function fechaReserva($fecha)
     return ucfirst(strtolower($dia)).' '.$d.' de '.$meses[$m - 1].' de '.$a;
 }
 
-function estado_c($estado)
-{
+function estado_c($estado){
     if ($estado == 's') {
         return '<span class="label label-success">Activo</span>';
     } elseif ($estado == 'n') {
@@ -389,8 +369,7 @@ function estado_c($estado)
     }
 }
 
-function estado_n($estado)
-{
+function estado_n($estado){
     if ($estado == 1) {
         return '<span class="label label-success">Activo</span>';
     } elseif ($estado == 0) {
@@ -398,8 +377,7 @@ function estado_n($estado)
     }
 }
 
-function estado_usuario($estado)
-{
+function estado_usuario($estado){
     if ($estado == 'N') {
         return '<span class="label label-important">Eliminado</span>';
     } elseif ($estado == 'A') {
@@ -409,8 +387,7 @@ function estado_usuario($estado)
     }
 }
 
-function estado_cliente($estado)
-{
+function estado_cliente($estado){
     if ($estado == 'N') {
         return 'Eliminado';
     } elseif ($estado == '1') {
@@ -420,8 +397,7 @@ function estado_cliente($estado)
     }
 }
 
-function tipo_bod($estado)
-{
+function tipo_bod($estado){
     if ($estado == 1) {
         return '<span class="label label-success">Principal</span>';
     } elseif ($estado == 2) {
@@ -437,8 +413,7 @@ function tipo_bod($estado)
     }
 }
 
-function mensajes($mensaje, $tipo)
-{
+function mensajes($mensaje, $tipo){
     if ($tipo == 'verde') {
         $tipo = 'alert alert-success';
     } elseif ($tipo == 'rojo') {
@@ -453,13 +428,11 @@ function mensajes($mensaje, $tipo)
           </div>';
 }
 
-function formato($valor)
-{
+function formato($valor){
     return number_format($valor, 2, ',', '.');
 }
 
-function mysql_escape_mimic($inp)
-{
+function mysql_escape_mimic($inp){
     if (is_array($inp)) {
         return array_map(__METHOD__, $inp);
     }
@@ -471,8 +444,7 @@ function mysql_escape_mimic($inp)
     return $inp;
 }
 
-function limpiar($tags)
-{
+function limpiar($tags){
     $tags = strip_tags($tags);
     $tags = stripslashes($tags);
     $tags = mysql_escape_mimic($tags);
@@ -481,8 +453,7 @@ function limpiar($tags)
     return $tags;
 }
 
-function tipo_mov($tipo)
-{
+function tipo_mov($tipo){
     if ($tipo == '1') {
         return '<span class="label label-success">ENTRADA</span>';
     } else {
@@ -490,8 +461,7 @@ function tipo_mov($tipo)
     }
 }
 
-function frecuencia_pqte($tipo)
-{
+function frecuencia_pqte($tipo){
     if ($tipo == 'D') {
         return '<span class="label label-success" style="font-size:12px">Diaria</span>';
     } else {
@@ -499,8 +469,7 @@ function frecuencia_pqte($tipo)
     }
 }
 
-function tipo_cargo_pqte($tipo)
-{
+function tipo_cargo_pqte($tipo){
     if ($tipo == 'P') {
         return '<span class="label label-success" style="font-size:12px">Por Persona</span>';
     } else {
@@ -508,28 +477,23 @@ function tipo_cargo_pqte($tipo)
     }
 }
 
-function estado_fac($estado)
-{
+function estado_fac($estado){
     if ($estado == 'C') {
-        // return '<button class="btn btn-primary" type="button"><span class="badge">Anulada</span> </button>';
         return '<span class="label" style="font-size:1em;background-color:#BF0F0F;pading:5px">Anulada</span>';
     } else {
         return '<span class="label" style="font-size:1em;background-color:#174D90">Activa</span>';
     }
 }
 
-function estado_pms($estado)
-{
+function estado_pms($estado){
     if ($estado == 1) {
-        // return '<button class="btn btn-primary" type="button"><span class="badge">Anulada</span> </button>';
         return '<span class="label label-danger" style="font-size:1em;">Cuenta PMS</span>';
     } else {
         return '<span class="label label-success" style="font-size:1em;">Factura</span>';
     }
 }
 
-function validatePassword2()
-{
+function validatePassword2(){
     // NO son iguales las password
     if (inputPassword1.val() != inputPassword2.val()) {
         reqPassword2.addClass('error');
@@ -546,8 +510,7 @@ function validatePassword2()
     }
 }
 
-function tipo_usuario($estado)
-{
+function tipo_usuario($estado){
     if ($estado == 'A') {
         return '<span class="label label-success">Administrador</span>';
     } elseif ($estado == 'U') {
@@ -559,8 +522,7 @@ function tipo_usuario($estado)
     }
 }
 
-function cambia_est($estado)
-{
+function cambia_est($estado){
     if ($estado == 'S') {
         return 'Activar';
     } elseif ($estado == 'N') {
@@ -568,8 +530,7 @@ function cambia_est($estado)
     }
 }
 
-function derechos($estado)
-{
+function derechos($estado){
     if ($estado == 0) {
         return '<span class="label label-primary">No</span>';
     } elseif ($estado == 1) {
@@ -577,8 +538,7 @@ function derechos($estado)
     }
 }
 
-function tipo_prd($estado)
-{
+function tipo_prd($estado){
     if ($estado == 0) {
         return '<span class="label label-warning" style="font-size:12px;display:block;height:20px;padding:3px">Servicio</span>';
     } elseif ($estado == 1) {
@@ -588,8 +548,7 @@ function tipo_prd($estado)
     }
 }
 
-function tipo_imp($estado)
-{
+function tipo_imp($estado){
     if ($estado == 1) {
         return '<span class="label label-success">Impuesto</span>';
     } elseif ($estado == 2) {
@@ -597,8 +556,7 @@ function tipo_imp($estado)
     }
 }
 
-function numtoletras2($xcifra)
-{
+function numtoletras2($xcifra){
     $xarray = [0 => 'Cero', 1 => 'UN', 'DOS', 'TRES', 'CUATRO', 'CINCO', 'SEIS', 'SIETE', 'OCHO', 'NUEVE', 'DIEZ', 'ONCE', 'DOCE', 'TRECE', 'CATORCE', 'QUINCE', 'DIECISEIS', 'DIECISIETE', 'DIECIOCHO', 'DIECINUEVE', 'VEINTI', 30 => 'TREINTA', 40 => 'CUARENTA', 50 => 'CINCUENTA', 60 => 'SESENTA', 70 => 'SETENTA', 80 => 'OCHENTA', 90 => 'NOVENTA', 100 => 'CIENTO', 200 => 'DOSCIENTOS', 300 => 'TRESCIENTOS', 400 => 'CUATROCIENTOS', 500 => 'QUINIENTOS', 600 => 'SEISCIENTOS', 700 => 'SETECIENTOS', 800 => 'OCHOCIENTOS', 900 => 'NOVECIENTOS'];
     $xcifra = trim($xcifra);
     $xlength = strlen($xcifra);
@@ -739,8 +697,7 @@ function numtoletras2($xcifra)
     return trim($xcadena);
 }
 
-function subfijo2($xx)
-{
+function subfijo2($xx){
     $xx = trim($xx);
     $xstrlen = strlen($xx);
     if ($xstrlen == 1 || $xstrlen == 2 || $xstrlen == 3) {
@@ -755,8 +712,7 @@ function subfijo2($xx)
 }
 
 /* Funcion Para CArgar los Productos a un list */
-function cargarproducto()
-{
+function cargarproducto(){
     // Conexion a la base de datos
     // Consulta SQL a ejecutar para obtener los idiomas
 
