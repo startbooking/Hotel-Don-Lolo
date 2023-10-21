@@ -110,7 +110,7 @@
                   foreach ($tiposDoc as $tipoDoc) { ?>
                     <option value="<?= $tipoDoc['id_doc']?>"
                       <?php 
-                      if($tipoDoc['id_doc']==8) {
+                      if($tipoDoc['id_doc']==6) {
                       ?>
                       selected
                         <?php

@@ -10,7 +10,9 @@ class User_Actions{
 
     $data = $database->query("SELECT
     codigos_vta.descripcion_cargo,
+    codigos_vta.identificador_dian,
     unidades.descripcion_unidad,
+    unidades.unidadDian,
     productosDSDetalle.valorUnitario,
     productosDSDetalle.cantidad,
     productosDSDetalle.valorTotal,
@@ -38,8 +40,14 @@ class User_Actions{
     companias.empresa,
     companias.nit,
     companias.dv,
+    companias.tipoAdquiriente,
+    companias.celular,
+    companias.direccion,
+    companias.email,
     companias.tipo_documento,
     companias.tipoAdquiriente,
+    companias.ciudad,
+    companias.responsabilidadTributaria
     productosDSCabeza.idDocumento,
     productosDSCabeza.documentoSoporte,
     productosDSCabeza.numeroDocumento,
@@ -79,6 +87,14 @@ class User_Actions{
     companias.empresa,
     companias.nit,
     companias.dv,
+    companias.tipoAdquiriente,
+    companias.celular,
+    companias.direccion,
+    companias.email,
+    companias.tipo_documento,
+    companias.tipoAdquiriente,
+    companias.ciudad,
+    companias.responsabilidadTributaria,
     productosDSCabeza.idDocumento,
     productosDSCabeza.documentoSoporte,
     productosDSCabeza.numeroDocumento,
@@ -92,7 +108,9 @@ class User_Actions{
     productosDSCabeza.estadoDian,
     productosDSCabeza.estado,
     SUM(productosDSDetalle.valorTotal) AS total,
-  codigos_vta.descripcion_cargo
+    codigos_vta.descripcion_cargo,
+    codigos_vta.formaPagoDian,
+    codigos_vta.identificador_dian
     FROM
     companias ,
     codigos_vta ,
@@ -345,7 +363,7 @@ class User_Actions{
     return $data;
   }
 
-  public function ingresaProducto($nombreAdi, $codigoAdi, $ImptosAdi, $unidad, $precioAdi, $pucAdi, $centroAdi, $descripcionAdi, $usuario){
+  public function ingresaProducto($nombreAdi, $codigoAdi, $ImptosAdi, $unidad, $precioAdi, $pucAdi, $centroAdi, $descripcionAdi, $usuario, $codigoDian){
     global $database;
 
     $data = $database->insert('codigos_vta',[
@@ -359,6 +377,7 @@ class User_Actions{
       'descripcion_contable' => $descripcionAdi, 
       'usuario' => $usuario,
       'tipo_codigo' => 4,
+      'unidadDian' => $codigoDian,
       'createdAt' => date('Y-m-d H:i:s'),
     ]);
     $result = [
@@ -509,6 +528,7 @@ class User_Actions{
           'consecutivoNDFE',
           'consecutivoNCDS',
           'consecutivoNDDS',
+          'rutaFE',
       ]);
 
       return $data;

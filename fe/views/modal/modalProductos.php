@@ -82,6 +82,10 @@
             <div class="col-lg-4 col-md-4">
               <input type="text" class="form-control" id="descripcionAdi" name="descripcionAdi" required >
             </div>
+            <label for="puc" class="control-label col-lg-2 col-md-2">Codigo Dian</label>
+            <div class="col-lg-2 col-md-2">
+              <input type="text" min="1" class="form-control" id="codigoDian" name="codigoDian" required >
+            </div>
           </div>
         </div>
         <div class="modal-footer">
@@ -89,8 +93,6 @@
             <button type="button" class="btn btn-warning" data-dismiss="modal"><span class="material-symbols-outlined">undo</span> Regresar</button>
             <button type="submit" class="btn btn-primary derechaAbs"><span class="material-symbols-outlined">save</span> Guardar</button>
           </div>
-          <!-- <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
-          <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar </button> -->
         </div>
       </div>
     </div>

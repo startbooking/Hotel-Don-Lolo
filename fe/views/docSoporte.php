@@ -13,13 +13,15 @@
                 <input type="hidden" name="rutaweb" id="rutaweb" value="<?php echo BASE_FE; ?>">                  
                 <input type="hidden" name="ubicacion" id="ubicacion" value="docSoporte">
                 <h3 class="w3ls_head tituloPagina">
-                <span class="material-symbols-outlined">newspaper</span> Documento Soporte</h3>
+                <!-- <span class="material-symbols-outlined">newspaper</span>  -->
+                <i class="fa-solid fa-square-poll-vertical"></i>
+                Documento Soporte</h3>
               </div>
               <div class="col-lg-6 col-xs-12">
                 <a
-                  style="display:inline-flex;" type="button" class="btn btn-success pull-right" href="nuevoDocumento"
+                  type="button" class="btn btn-success pull-right" href="nuevoDocumento"
                 >
-                <span class="material-symbols-outlined">add_box</span> Nuevo Documento </a>
+                <i class="fa-regular fa-square-plus"></i> Nuevo Documento </a>
               </div>
             </div>
           </div>
@@ -82,7 +84,7 @@
                                     data-dian="<?php echo $documento['estadoDian']; ?>"
                                     data-proveedor="<?php echo $documento['idProveedor']; ?>"
                                     title="Imprimir Nota Credito">
-                                    <i class="fa-solid fa-ban"></i>
+                                    <i class="fa-solid fa-print"></i>
                                     <!-- <span class="material-symbols-outlined">print_lock</span> -->
                                   </button>
                                   <?php

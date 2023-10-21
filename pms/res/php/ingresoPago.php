@@ -224,7 +224,7 @@ if ($perfilFac == 1 && $facturador == 1) {
             'description' => $folio1['descripcion_cargo'],
             'notes' => '',
             'code' => $hotel->traeCodigoDianVenta($folio1['id_codigo_cargo']),
-            'type_item_identification_id' => 1,
+            'type_item_identification_id' => 4,
             'price_amount' => $folio1['cargos'] + $folio1['imptos'],
             'base_quantity' => 1,
         ];
@@ -258,7 +258,7 @@ if ($perfilFac == 1 && $facturador == 1) {
         'taxable_amount' => $baseRete,
         'percent' => $porcefuente,
     ];
-    $rica = [
+    $rica = [ 
         'tax_id' => '7',
         'tax_amount' => $reteica,
         'taxable_amount' => $baseIca,

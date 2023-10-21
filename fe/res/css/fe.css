@@ -81,6 +81,9 @@ hr {
   /* font-size: 16px; */
 }
 
+.label-warning {
+  background-color: #f0ad4e;
+}
 
 .btn-xs {
   font-size: 15px;

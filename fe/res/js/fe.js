@@ -110,12 +110,227 @@ async function btnSubmitDS(e) {
 }
 
 async function enviaDS(id,dian,proveedor){
-  const infoDoc = await infoDS(id, proveedor);
+  const infoDS = await infoAPI();
+  let { token, rutaFE, documentoSoporte, prefijoDS, consecutivoDS } = infoDS[0]; 
+  // console.log({token, rutaFE, documentoSoporte, prefijoDS, consecutivoDS });
+
+  if(documentoSoporte==0){
+    swal({
+      title:'Precaucion',
+      text:'Modulo Documento Soporte NO Instalado',
+      type: "error",
+      confirmButtonText: "Aceptar",
+    },
+    function(){
+      
+    })
+    return ;
+  }
+
+  const dataDS = await traeDataDS(id, proveedor);
+  const recibeDS = await enviaDatosDS(dataDS, token, rutaFE )
+  
+  let {status, statusText } = recibeDS;
+  if(status< 200 || status > 299){
+    swal({
+      title:'Precaucion',
+      text:`${statusText}`,
+      type: "error",
+      confirmButtonText: "Aceptar",
+    })
+    return 
+  }
+  const recibe = await recibeDS.json();
+    
+  let recibe2 = {
+    "message": "AttachedDocument #DS1 generada con éxito",
+    "send_email_success": false,
+    "send_email_date_time": false,
+    "ResponseDian": {
+        "Envelope": {
+            "Header": {
+                "Action": {
+                    "_attributes": {
+                        "mustUnderstand": "1"
+                    },
+                    "_value": "http://wcf.dian.colombia/IWcfDianCustomerServices/SendBillSyncResponse"
+                },
+                "Security": {
+                    "_attributes": {
+                        "mustUnderstand": "1"
+                    },
+                    "Timestamp": {
+                        "_attributes": {
+                            "Id": "_0"
+                        },
+                        "Created": "2022-07-05T15:16:38.656Z",
+                        "Expires": "2022-07-05T15:21:38.656Z"
+                    }
+                }
+            },
+            "Body": {
+                "SendBillSyncResponse": {
+                    "SendBillSyncResult": {
+                        "ErrorMessage": {
+                            "string": "Regla: DSDS01, Rechazo: Tipo de documento no disponible para validación en el ambiente de producción en operación"
+                        },
+                        "IsValid": "false",
+                        "StatusCode": "99",
+                        "StatusDescription": "Validación contiene errores en campos mandatorios.",
+                        "StatusMessage": "Documento con errores en campos mandatorios.",
+                        "XmlBase64Bytes": "....",
+                        "XmlBytes": {
+                            "_attributes": {
+                                "nil": "true"
+                            }
+                        },
+                        "XmlDocumentKey": "288298ffe83832fdb9d434af5d6ad21dd9bced3541d1ab8da90a3b72eb212eb98de88d3893719b7b47c1c5e0751b3877",
+                        "XmlFileName": "dse09012492320002200000001"
+                    }
+                }
+            }
+        }
+    },
+    "invoicexml": "......",
+    "unsignedinvoicexml": "...",
+    "reqfe": "...",
+    "rptafe": "...",
+    "attacheddocument": "",
+    "urlinvoicexml": "DSS-DS1.xml",
+    "urlinvoicepdf": "DSS-DS1.pdf",
+    "urlinvoiceattached": ".xml",
+    "cude": "288298ffe83832fdb9d434af5d6ad21dd9bced3541d1ab8da90a3b72eb212eb98de88d3893719b7b47c1c5e0751b3877",
+    "QRStr": "NumFac: 1\nFecFac: 2020-10-06\nNitFac: 901249232\nDocAdq: 900166483\nValFac: 0.00\nValIva: 0.00\nValOtroIm: 0.00\nValTotal: 1000000.00\nCUFE: \nhttps://catalogo-vpfe.dian.gov.co/document/searchqr?documentkey="
+  };
+
+  let { statusCode, StatusDescription, StatusMessage, ErrorMessage, IsValid } = recibe2['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']; 
+  
+  if(IsValid=='false'){
+    swal({
+      title:'Precaucion',
+      text:`${ErrorMessage.string}`,
+      type: "error",
+      confirmButtonText: "Aceptar",
+    },
+    function(){
+      
+    })
+    // return ;
+  }
+  
+  let { message, send_email_success, send_email_date_time, urlinvoicexml, urlinvoicepdf, cude, QRStr } = recibe2;
+  let { Created } = recibe2['ResponseDian']['Envelope']['Header']['Security']['Timestamp'];
+
+  datosFE = { 
+    prefijoDS,
+    consecutivoDS,
+    status,
+    statusText,
+    statusCode,
+    StatusDescription,
+    StatusMessage,
+    ErrorMessage,
+    IsValid,
+    message,
+    send_email_success,
+    send_email_date_time,
+    urlinvoicexml,
+    urlinvoicepdf,
+    cude,
+    QRStr,
+    Created
+  }
+
+  // console.log(datos);
+
+  const regis = await guardaDatosDS(datosFE)
+
 
 }
 
-const infoDS = async(id, proveedor) => {
-  console.log({id,proveedor})
+const guardaDatosDS = async(datosFE) => {
+
+  console.log(datosFE)
+  try {
+    const response = await fetch(`${rutaAPI}/datosDS`, {
+      method: "POST",
+      body:JSON.stringify(datosFE),
+      headers: {
+        'Content-Type': 'application/json',        
+        'Accept': 'application/json',  
+      },
+    });
+    const datos = await response;
+    console.log(datos)
+  
+    return datos;
+  } catch (error) {
+    return error;
+  }
+}
+
+
+const enviaDatosDS = async(dataDS, token, rutaFE) => {
+  try {
+    const response = await fetch(`${rutaFE}plan/infoplanuser`, {
+      method: "GET",
+      headers: {
+        'Content-Type': 'application/json',        
+        'Accept': 'application/json',  
+        'Authorization': `Bearer ${token}`
+      },
+    });
+    const datos = await response;
+  
+    return datos;
+  } catch (error) {
+    return error;
+  }
+}
+
+const enviaDatosDSACt = async(dataDS, token, rutaFE) => {
+  try {
+    const response = await fetch(`${rutaFE}support-document`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',        
+        'Accept': 'application/json',  
+        'Authorization': `Bearer ${token}`
+      },
+    });
+    // const datos = await response.json();
+    const datos = await console.log(datos);
+
+    console.log(response)
+    console.log(response.status)
+    console.log(response.statusText)
+
+    // const datos = await console.log(datos);
+    console.log(datos);
+    
+    return datos;
+  } catch (error) {
+    console.log(error)
+    return error;
+  }
+}
+
+const infoAPI = async() => {
+  try {
+    const response = await fetch(`${rutaAPI}/infoAPI.php`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json", // Y le decimos que los datos se enviaran como JSON
+      },
+    }); 
+    const datos = await response.json ();
+    return datos;
+  } catch (error) {
+    return error;
+  }
+}
+
+const traeDataDS = async(id, proveedor) => {
   try {
     data = {id, proveedor}
 
@@ -132,7 +347,6 @@ const infoDS = async(id, proveedor) => {
     return error;
   }
 }
-
 
 const generaJsonDS = async() => {
   try {
