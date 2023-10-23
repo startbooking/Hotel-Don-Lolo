@@ -90,29 +90,29 @@ var rutaIMP;
 
 async function btnSubmitDS(e) {
   e.preventDefault();
+  var prefijo = document.querySelector('#prefijo').value ;
   var button = e.submitter;
-  let id = JSON.parse(button.dataset.id);
+  let idDoc = JSON.parse(button.dataset.id);
   let estado = JSON.parse(button.dataset.estado);
   let dian = JSON.parse(button.dataset.dian);
   let proveedor = JSON.parse(button.dataset.proveedor);
+  let numDocu = JSON.parse(button.dataset.documento);
 
   if (e.submitter.classList.contains('imprimeDS')) {
-    // alert(`Imprime DS ${id}`)
-    await imprimeDS(id, dian, proveedor)
+    // alert(`Imprime DS ${idDoc}`)
+    await imprimeDS(idDoc, dian, proveedor,numDocu, prefijo)
   } else if (e.submitter.classList.contains('imprimeNC')) {
-    alert(`Imprime NC ${id}`)
+    alert(`Imprime NC ${idDoc}`)
   } else if (e.submitter.classList.contains('enviaDS')) {
-    // alert(`Envia ${id}`)
-    await enviaDS(id, dian, proveedor)
+    await enviaDS(idDoc, dian, proveedor)
   } else if (e.submitter.classList.contains('anulaDS')) {
-    alert(`Anula ${id}`)
+    alert(`Anula ${idDoc}`)
   }
 }
 
-async function enviaDS(id,dian,proveedor){
+async function enviaDS(idDoc,dian,proveedor){
   const infoDS = await infoAPI();
   let { token, rutaFE, documentoSoporte, prefijoDS, consecutivoDS } = infoDS[0]; 
-  // console.log({token, rutaFE, documentoSoporte, prefijoDS, consecutivoDS });
 
   if(documentoSoporte==0){
     swal({
@@ -127,7 +127,28 @@ async function enviaDS(id,dian,proveedor){
     return ;
   }
 
-  const dataDS = await traeDataDS(id, proveedor);
+  $('#myModalImpresion').modal('show');
+  $("#verImpresion").attr(
+    "data",
+    `data:application/pdf;base64,''`
+  );
+
+  document.querySelector("#tituloDocumento").innerHTML = `<i class="fa-regular fa-newspaper"></i> Procesando Documento Soporte`;
+  document.querySelector('.btnImprime').classList.add('oculto')
+  document.querySelector("#mensajeImprime").innerHTML = `
+  <div class="col-lg-8">
+    <h1 style="margin-top:50px;margin-left: 50px">
+      <p style="font-weight: 800;font-size: 35px;margin-bottom:10px">Procesando Informacion</p>
+      <small style="font-weight: 600">NO Interrumpa </small>
+    </h1>
+  </div>
+  <div class="col-lg-4">
+    <small>
+      <i style="font-size:10em;margin-top:50px;color:#BBB0B0; " class="ion ion-ios-gear-outline fa-spin"></i>
+    </small>
+  </div>`
+
+  const dataDS = await traeDataDS(idDoc, proveedor);
   const recibeDS = await enviaDatosDS(dataDS, token, rutaFE )
   
   let {status, statusText } = recibeDS;
@@ -200,12 +221,12 @@ async function enviaDS(id,dian,proveedor){
     "urlinvoicepdf": "DSS-DS1.pdf",
     "urlinvoiceattached": ".xml",
     "cude": "288298ffe83832fdb9d434af5d6ad21dd9bced3541d1ab8da90a3b72eb212eb98de88d3893719b7b47c1c5e0751b3877",
-    "QRStr": "NumFac: 1\nFecFac: 2020-10-06\nNitFac: 901249232\nDocAdq: 900166483\nValFac: 0.00\nValIva: 0.00\nValOtroIm: 0.00\nValTotal: 1000000.00\nCUFE: \nhttps://catalogo-vpfe.dian.gov.co/document/searchqr?documentkey="
+    "QRStr": "NumFac: 1\nFecFac: 2020-10-06\nNitFac: 901249232\nDocAdq: 900166483\nValFac: 0.00\nValIva: 0.00\nValOtroIm: 0.00\nValTotal: 1000000.00\nCUFE: b3d063d98c773df5c42f14bc2ce20a24ef6c62fd81ccbd7f3672b9d116933125a05a5fe4046632ed310f473e24b8cf6a\nhttps://catalogo-vpfe.dian.gov.co/document/searchqr?documentkey=b3d063d98c773df5c42f14bc2ce20a24ef6c62fd81ccbd7f3672b9d116933125a05a5fe4046632ed310f473e24b8cf6a\n"
   };
 
-  let { statusCode, StatusDescription, StatusMessage, ErrorMessage, IsValid } = recibe2['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']; 
-  
-  if(IsValid=='false'){
+  let { StatusCode, StatusDescription, StatusMessage, ErrorMessage, IsValid } = recibe2['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']; 
+
+  if(IsValid !=='false'){
     swal({
       title:'Precaucion',
       text:`${ErrorMessage.string}`,
@@ -215,18 +236,21 @@ async function enviaDS(id,dian,proveedor){
     function(){
       
     })
-    // return ;
+    return ;
   }
   
   let { message, send_email_success, send_email_date_time, urlinvoicexml, urlinvoicepdf, cude, QRStr } = recibe2;
   let { Created } = recibe2['ResponseDian']['Envelope']['Header']['Security']['Timestamp'];
 
+  ErrorMessage = JSON.stringify(ErrorMessage);
+
   datosFE = { 
+    dataDS,
     prefijoDS,
     consecutivoDS,
     status,
     statusText,
-    statusCode,
+    StatusCode,
     StatusDescription,
     StatusMessage,
     ErrorMessage,
@@ -241,16 +265,126 @@ async function enviaDS(id,dian,proveedor){
     Created
   }
 
-  // console.log(datos);
+  const regID = await guardaDatosDS(datosFE)
 
-  const regis = await guardaDatosDS(datosFE)
+  let {id, error } = regID;
 
+  if(id == 0){
+    swal({
+      title:'Precaucion',
+      text:`${error}`,
+      type: "error",
+      confirmButtonText: "Aceptar",
+    },
+    function(){
+      
+    })
+    return 
+  }
+  
+  const increm = await incrementaConsec(consecutivoDS+1) ;
+  const actualizaEstado = await actualizaEstadoDS(idDoc, consecutivoDS) ;
+  const imprime = await generaDocumentoDS(idDoc, consecutivoDS, QRStr, recibe2);
+  // const muestraDoc  = await muestraPDFDoc(imprime)
+  
+  if(actualizaEstado !==1){
+    swal({
+      title:'Atencion',
+      text:`Documento Soporte NO Procesado, Intente Mas Tarde`,
+      type: "success",
+      confirmButtonText: "Aceptar",
+    },
+    function(){
+       window.location.href = "docSoporte";
+    })
+  }
+  swal({
+    title:'Atencion',
+    text:`Documento Soporte Nro ${consecutivoDS} Procesado Con Exito`,
+    type: "success",
+    confirmButtonText: "Aceptar",
+  },
+  function(){
+    window.location.href = "docSoporte";
+  })
+}
 
+async function muestraPDFDoc(imprime) {
+  document.querySelector("#tituloDocumento").innerHTML = `<i class="fa-regular fa-newspaper"></i> Imprime Documento Soporte`;
+  document.querySelector("#mensajeImprime").innerHTML = ``
+  document.querySelector('.btnImprime').classList.remove('oculto')  
+  $("#verImpresion").attr(
+    "data",
+    `data:application/pdf;base64,${imprime}`
+  );
+}
+
+const generaDocumentoDS = async(idDoc, consecutivoDS, QRStr, recibe2) => {
+  data = {
+    idDoc,
+    consecutivoDS,
+    QRStr,
+    usuario,
+    recibe2,
+  }
+  try {
+    const response = await fetch(`${rutaIMP}/generaDS.php`, {
+      method: "POST",
+      body:JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',        
+        'Accept': 'application/json',  
+      },
+    });
+    const datos = response.text();  
+    return datos;
+  } catch (error) {
+    return error;
+  }
+}
+
+const actualizaEstadoDS = async(idDoc, conse) => {
+  data = {
+    idDoc,
+    conse,
+  }
+  try {
+    const response = await fetch(`${rutaAPI}/documentos`, {
+      method: "PUT",
+      body:JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',        
+        'Accept': 'application/json',  
+      },
+    });
+    const datos = response.json();  
+    return datos;
+  } catch (error) {
+    return error;
+  }
+}
+
+const incrementaConsec = async(numDS) => {
+  data = {
+    numDS
+  }
+  try {
+    const response = await fetch(`${rutaAPI}/datosDS`, {
+      method: "PUT",
+      body:JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',        
+        'Accept': 'application/json',  
+      },
+    });
+    const datos = response.json();  
+    return datos;
+  } catch (error) {
+    return error;
+  }
 }
 
 const guardaDatosDS = async(datosFE) => {
-
-  console.log(datosFE)
   try {
     const response = await fetch(`${rutaAPI}/datosDS`, {
       method: "POST",
@@ -260,15 +394,12 @@ const guardaDatosDS = async(datosFE) => {
         'Accept': 'application/json',  
       },
     });
-    const datos = await response;
-    console.log(datos)
-  
+    const datos = response.json();  
     return datos;
   } catch (error) {
     return error;
   }
 }
-
 
 const enviaDatosDS = async(dataDS, token, rutaFE) => {
   try {
@@ -365,17 +496,37 @@ const generaJsonDS = async() => {
   }
 }
 
-async function imprimeDS(id,dian,proveedor){
+// imprimeDS(idDoc, dian, proveedor,numDocu, prefijo)
+
+async function imprimeDS(id, dian, proveedor, numDocu, prefijo){
   if(dian==1){
+    // console.log(numDocu);
+    // numer = numDocu.toString().padStart(5,'0');
+    // console.log(numer)
+  // $("#verFactura").attr("data", "imprimir/facturas/FES-HDL" + factura);
+    archivo = `documentoSoporte_${prefijo}-${numDocu.toString().padStart(5,'0')}.pdf`
+    $('#myModalImpresion').modal('show');
+    document.querySelector("#tituloDocumento").innerHTML = `<span class="material-symbols-outlined">picture_as_pdf</span> Documento Soporte `
+    $("#verImpresion").attr(
+      "data",`impresos/${archivo}`
+    );
 
   }else{
+    /* 
+    swal({
+      title:'Precaucion',
+      text:'Documento NO Generado',
+      type: "error",
+      confirmButtonText: "Aceptar",
+    })
+    */
     const impresion = await generaDS(id, proveedor);
     $('#myModalImpresion').modal('show');
     document.querySelector("#tituloDocumento").innerHTML = `<span class="material-symbols-outlined">picture_as_pdf</span> Documento Soporte SIN PROCESAR`
     $("#verImpresion").attr(
       "data",
       `data:application/pdf;base64,${$.trim(impresion)}`
-    );
+    ); 
   }
 }
 
@@ -404,7 +555,7 @@ async function btnSubmitDocumento(e) {
     await cancelaDocumento();
   } else if (e.submitter.classList.contains('elimina_articulo')) {
     var button = e.submitter;
-    let idArt = JSON.parse(button.dataset.id);
+    let idArt = button.dataset.id;
     await eliminaProductoDoc(idArt)
   } else if (e.submitter.classList.contains('imprimeDS')) {
   } else if (e.submitter.classList.contains('imprimeNC')) {

@@ -10,32 +10,26 @@ $size = 100; // Tamaño en píxeles
 $level = 'L'; // Nivel de corrección (L, M, Q, H)
 
 // Generar el código QR
-// QRcode::png($QRStr, $filename, $level, $size);
 
-/* if ($tipofac == 2) {
-    $datosCompania = $hotel->getSeleccionaCompania($idperfil);
-} else {
-    $datosHuesped = $hotel->getbuscaDatosHuesped($idperfil);
-} */
+$cude = $recibe2['cude'];
+$timeCrea = $recibe2['ResponseDian']['Envelope']['Header']['Security']['Timestamp']['Created'];
 
-// $folios = $hotel->getConsumosReservaAgrupadoCodigoFolio($numero, $reserva, $nroFolio, 1);
+$eToken     = $user->datosTokenFE();
+$prefDS     = $eToken[0]['prefijoDS'];
+$productos  = $user->getProductosDS($idDoc);
+$infoDoc    = $user->getInfoDS($idDoc);
 
-// echo 'PAso ';
+$filename = '../../img/ds/QR_'.$prefDS.'-'.$consecutivoDS.'.png';
 
-
-// $datosCompania = $user->traeProveedor($proveedor);
-$productos = $user->getProductosDS($id);
-$infoDoc   = $user->getInfoDS($id);
-
-// echo print_r($infoDoc);
+QRcode::png($QRStr, $filename, $level, $size);
 
 $pdf = new FPDF();
 
 $pdf->AddPage('P', 'letter');
-$pdf->Rect(10, 43, 195, 105);
+$pdf->Rect(10, 46, 195, 105);
 $pdf->Image('../../img/'.LOGO, 10, 5, 35);
 
-// $pdf->Image($filename, 173, 5, 25);
+$pdf->Image($filename, 173, 5, 25);
 $pdf->SetFont('Arial', 'B', 11);
 $pdf->Cell(190, 4, utf8_decode(NAME_EMPRESA), 0, 1, 'C');
 $pdf->SetFont('Arial', '', 8);
@@ -50,7 +44,7 @@ $pdf->Cell(110, 4, utf8_decode(TIPOEMPRESA), 0, 1, 'C');
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(40, 4, '', 0, 0, 'C');
 $pdf->Cell(110, 4, utf8_decode(MAIL_HOTEL), 0, 1, 'C');
-$pdf->setY(27);
+$pdf->setY(30);
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(150, 4, '', 0, 0, 'C');
 $pdf->MultiCell(45, 4, 'DOCUMENTO SOPORTE ELECTRONICO', 1, 'C');
@@ -62,13 +56,13 @@ $pdf->SetFont('Arial', 'B', 8);
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(40, 4, '', 0, 0, 'C');
 $pdf->Cell(110, 4, utf8_decode(ACTIVIDAD), 0, 1, 'C');
-$pdf->setY(35);
+$pdf->setY(38);
 $pdf->Cell(150, 4, '', 0, 0, 'C');
 // $pdf->MultiCell(45, 4, 'Fecha / Hora '.date('Y-m-d H:m:s'), 1, 'C');
 $pdf->SetFont('Arial', 'B', 8);
-$pdf->MultiCell(45, 4, 'Nro ', 1, 'C');
+$pdf->MultiCell(45, 4, 'Nro '.$prefDS.'-'.str_pad($consecutivoDS, 4, '0', STR_PAD_LEFT), 1, 'C');
 $pdf->SetFont('Arial', '', 8);
-$pdf->setY(42);
+$pdf->setY(45);
 $pdf->Cell(40, 4, '', 0, 0, 'C');
 $pdf->Ln(1);
 
@@ -127,10 +121,15 @@ $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(60, 4, 'TOTAL DOCUMENTO SOPORTE', 1, 0, 'l');
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(35, 4, number_format($total, 2), 1, 1, 'R');
-$pdf->SetFont('Arial', '', 7);
+$pdf->SetFont('Arial', '', 8);
 
 $pdf->MultiCell(195, 4, 'SON :'.numtoletras($total), 1, 'L');
-$pdf->SetFont('Arial', '', 7);
+$pdf->SetFont('Arial', '', 8);
+// $pdf->SetFont('Arial', '', 6);
+$pdf->MultiCell(190, 4, utf8_decode('Documento Soporte Nro : ').$prefDS.' '.$consecutivoDS.' '.utf8_decode(' Fecha Validación Dian ').$timeCrea.' CUFE '.$cude, 1, 'L');
+$pdf->SetFont('Arial', '', 8);
+$pdf->MultiCell(190, 5, utf8_decode('Observaciones ').utf8_decode(strtoupper($infoDoc[0]['observaciones'])), 1, 'L');
+
 $pdf->SetFont('Arial', '', 8);
 
 $pdf->SetY(133);
@@ -138,11 +137,12 @@ $pdf->Cell(95, 5, 'ELABORADO POR ', 0, 0, 'C');
 $pdf->Cell(95, 5, 'RECIBO ', 0, 1, 'C');
 $pdf->Cell(95, 5, $usuario, 0, 0, 'C');
 $pdf->Cell(95, 5, 'C.C - NIT.', 0, 1, 'C');
-// $arcPdf = 'NotaCredito_'.$numDoc.'.pdf';
 
-// $file = '../imprimir/documentos/'.$arcPdf;
+$arcPdf = 'documentoSoporte_'.$prefDS.'-'.str_pad($consecutivoDS, 5, '0', STR_PAD_LEFT).'.pdf';
 
-// $pdf->Output($file, 'F');
+$file = '../impresos/'.$arcPdf;
+
+$pdf->Output($file, 'F');
 
 $pdfFile = $pdf->Output('', 'S');
 $base64NC = chunk_split(base64_encode($pdfFile));

@@ -19,14 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     echo json_encode($result);
 } elseif ($_SERVER['REQUEST_METHOD'] == 'PUT') {
     $postBody = json_decode(file_get_contents('php://input'), true);
-    $nit = $postBody['nit'];
-    $cliente = strtoupper($postBody['nombres']);
-    $direccion = strtoupper($postBody['direccion']);
-    $correo = $postBody['correo'];
-    $telefono = $postBody['telefono'];
-    $usuario = $postBody['usuario'];
-    $idCliente = $postBody['idCliente'];
-
-    $result = $user->actualizaCliente($nit, $cliente, $direccion, $correo, $telefono, $usuario, $idCliente);
+    extract($postBody);
+    $result = $user->actualizaEstadoDS($idDoc,$conse);
     echo json_encode($result);
+
 }

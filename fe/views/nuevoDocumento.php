@@ -7,7 +7,7 @@
 
 <div class="content-wrapper" id="nuevoDS"> 
 	<h3 class="txtBl centro" style="">
-	<span class="material-symbols-outlined">receipt_long</span> Documento Soporte</h3>
+	<i class="fa-regular fa-newspaper"></i> Documento Soporte</h3>
 	<section class="content">
 		<div class="container-fluid" >        
 			<form class="row-fluid" role="form" id="datosDocSoporte" method="post">
@@ -79,7 +79,8 @@
 											data-edita="0"
 											data-toggle="modal" 
 											data-target="#myModalAdicionaItem">										
-											<span class="material-symbols-outlined">library_add</span> Agregar Item</button>										
+											<!-- <span class="material-symbols-outlined">library_add</span> -->
+											<i class="fa-solid fa-file-circle-plus"></i> Agregar Item</button>										
 									</div>									
 									<div class="form-group row">	
 										<label for="nombre" class="control-label col-lg-2 col-md-2">Comentarios </label>

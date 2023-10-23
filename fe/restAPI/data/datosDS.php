@@ -15,21 +15,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 } elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $postBody = json_decode(file_get_contents('php://input'), true);
     extract($postBody);
-
-    echo print_r($postBody);
-
-    $result = $user->ingresaDS();
+    $result = $user->ingresaDS($dataDS, $prefijoDS, $consecutivoDS, $status, $StatusCode,$statusText, $StatusDescription, $StatusMessage, $ErrorMessage, $IsValid, $message, $send_email_success, $send_email_date_time, $urlinvoicexml, $urlinvoicepdf, $cude, $QRStr, $Created);
     echo json_encode($result);
 } elseif ($_SERVER['REQUEST_METHOD'] == 'PUT') {
     $postBody = json_decode(file_get_contents('php://input'), true);
-    $nit = $postBody['nit'];
-    $cliente = strtoupper($postBody['nombres']);
-    $direccion = strtoupper($postBody['direccion']);
-    $correo = $postBody['correo'];
-    $telefono = $postBody['telefono'];
-    $usuario = $postBody['usuario'];
-    $idCliente = $postBody['idCliente'];
-
-    $result = $user->actualizaCliente($nit, $cliente, $direccion, $correo, $telefono, $usuario, $idCliente);
+    extract($postBody);
+    
+    $result = $user->incrementaDS($numDS);
     echo json_encode($result);
 }

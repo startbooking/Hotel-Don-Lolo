@@ -114,4 +114,57 @@ $unidades = $inven->getUnidadesMedida();
   </form>
 </div>
 
+<div class="modal fade" id="myModalAnulaDS" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <form id="guardarDatosRooms" class="form-horizontal" method="POST" enctype="multipart/form-data">
+    <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class='glyphicon glyphicon-off' style="color:#530505"></span></button>
+            <h3 class="modal-title" id="exampleModalLabel"> <i class="fa-solid fa-sheet-plastic"></i> Anular Documento Soporte</h3>
+          </div>
+          <div id="mensaje">
+          </div>
+          <div class="modal-body">
+            <input type="hidden" name="txtFacturaNro" id="txtFacturaNro" value="">
+            <div class="form-group">
+              <label for="noches" class="col-sm-3 control-label">Documento Nro</label>
+              <div class="col-sm-2">
+                <input type="number" class="form-control" name="documento" id="documento" readonly="">
+              </div>
+              <label for="llegada" class="col-sm-2 control-label">Fecha</label>
+              <div class="col-sm-4" style="padding-right: 20px">
+                <input type="date" class="form-control" name="fechadoc" id="fechadoc" readonly="">
+              </div>
+            </div>                      
+            <div class="form-group">
+              <label class="control-label col-lg-3" for="verDocumentoModal">Documento Soporte</label>
+              <div class="col-sm-9">
+                <object id="verDocumentoModal" width="100%" height="250" data=""></object>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-lg-3" for="motivoAnula">Motivo Anulacion</label>
+              <div class="col-sm-8">
+                <input class="form-control" type="text" name="motivoAnula" id="motivoAnula" value="" required="">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div class="row">
+              <div class="col-lg-6 col-lg-offset-3">
+                <div class="col-lg-6">
+                  <button type="button" class="btn btn-warning btn-block" data-dismiss="modal"><I class="fa fa-reply"></I> Regresar</button>
+                </div>
+                <div class="col-lg-6">
+                  <button type="submit" class="btn btn-primary btn-block btnAnulaDoc"><I class="fa fa-save"></I> Anular</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
 

@@ -58,7 +58,6 @@ $ePaym['duration_measure'] = $infoDoc[0]['vencimiento'];
 $ePaym['payment_due_date'] = $infoDoc[0]['fechaVencimiento'];
 $ePaym['payment_method_id'] = $infoDoc[0]['identificador_dian'];
 
-$eLega[''];
 $eLega['line_extension_amount'] = $infoDoc[0]['total'];
 $eLega['payable_amount'] = $infoDoc[0]['total'];
 $eLega['tax_exclusive_amount'] = $infoDoc[0]['total'];

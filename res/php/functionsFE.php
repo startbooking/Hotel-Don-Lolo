@@ -5,6 +5,56 @@ date_default_timezone_set('America/Bogota');
 
 class User_Actions{
 
+  public function actualizaEstadoDS($idDoc, $conse){
+    global $database;
+
+    $data = $database->update('productosDSCabeza',[
+      'estadoDian' => 1,
+      'documentoSoporte' => $conse,
+    ],[
+      'idDocumento' => $idDoc,
+    ]);
+    return $data->rowCount();
+  }
+
+  public function incrementaDS($numDoc){
+    global $database;
+
+    $data = $database->update('parametrosFE',[
+      'consecutivoDS' => $numDoc,
+    ]);
+    return $data->rowCount();
+  }
+
+  public function ingresaDS($dataDS, $prefijoDS, $consecutivoDS, $status, $StatusCode, $statusText, $StatusDescription, $StatusMessage, $ErrorMessage, $IsValid, $message, $send_email_success, $send_email_date_time, $urlinvoicexml, $urlinvoicepdf, $cude, $QRStr, $Created){
+    global $database;
+
+    $data = $database->insert('datosDS',[
+      'DSNumero' => $consecutivoDS,
+      'prefijo' => $prefijoDS,
+      'timeCreated' => $Created,
+      'message' => $message,
+      'send_email_success' => $send_email_success,
+      'send_email_date_time' => $send_email_date_time,
+      'urlinvoicexml' => $urlinvoicexml,
+      'urlinvoicepdf' => $urlinvoicepdf,
+      'cude' => $cude,
+      'QRStr' => $QRStr,
+      'estadoEnvio' => $IsValid,
+      'jsonEnviado' => $dataDS,
+      'errorMessage' => $ErrorMessage,
+      'statusCode' => $StatusCode,
+      'statusDesc' => $StatusDescription,
+      'statusMess' => $StatusMessage,
+    ]);
+    $result = [
+      'id' => $database->id(),
+      'error' => $database->error,
+    ];
+
+    return $result;    
+  }
+
   public function getProductosDS($id){
     global $database;
 
@@ -30,9 +80,7 @@ class User_Actions{
     return $data;
   }
 
-
   public function getInfoDocu($id){
-  
     global $database;
 
     $data = $database->query("
@@ -61,7 +109,7 @@ class User_Actions{
     productosDSCabeza.estadoDian,
     productosDSCabeza.estado,
     SUM(productosDSDetalle.valorTotal) AS total,
-  codigos_vta.descripcion_cargo
+    codigos_vta.descripcion_cargo
     FROM
     companias ,
     codigos_vta ,
@@ -72,12 +120,10 @@ class User_Actions{
     productosDSCabeza.idFormaPago = codigos_vta.id_cargo AND
     productosDSCabeza.idDocumento = productosDSDetalle.idDocumento and
     productosDSCabeza.idDocumento = '$id'
-  GROUP BY 
-  productosDSDetalle.idDocumento   
+    GROUP BY 
+    productosDSDetalle.idDocumento   
     ")->fetchAll();
     return $data;
-    
-
   } 
 
   public function getInfoDS($id){
@@ -121,8 +167,8 @@ class User_Actions{
     productosDSCabeza.idFormaPago = codigos_vta.id_cargo AND
     productosDSCabeza.idDocumento = productosDSDetalle.idDocumento and
     productosDSCabeza.idDocumento = '$id'
-  GROUP BY 
-  productosDSDetalle.idDocumento ")->fetchAll();
+    GROUP BY 
+    productosDSDetalle.idDocumento ")->fetchAll();
     return $data;
   }
 
@@ -170,7 +216,6 @@ class User_Actions{
     productosDSDetalle.idDocumento")->fetchAll();
     return $data;
   }
-
 
   public function getDocumentoSoporte(){
     global $database;
@@ -503,83 +548,82 @@ class User_Actions{
   }
 
   public function datosTokenFE(){
-      global $database;
+    global $database;
 
-      $data = $database->select('parametrosFE', [
-          'token',
-          'password',
-          'facturador',
-          'documentoSoporte',
-          'nominaElectronica',
-          'radian',
-          'prefijoFE',
-          'prefijoDS',
-          'prefijoNE',
-          'prefijoFENC',
-          'prefijoFEND',
-          'prefijoDSNC',
-          'prefijoDSND',
-          'prefijoNENC',
-          'prefijoNEND',
-          'consecutivoFE',
-          'consecutivoDS',
-          'consecutivoNE',
-          'consecutivoNCFE',
-          'consecutivoNDFE',
-          'consecutivoNCDS',
-          'consecutivoNDDS',
-          'rutaFE',
-      ]);
-
-      return $data;
-  }
-
-  public function traeProveedor($id){
-  global $database;
-
-    $data = $database->select('companias', [
-        'empresa',
-        'direccion',
-        'nit',
-        'dv',
-        'tipo_documento',
-        'telefono',
-        'celular',
-        'email',
-        'web',
-        'ciudad',
-        'credito',
-        'monto_credito',
-        'tipo_empresa',
-        'id_codigo_ciiu',
-        'tipoAdquiriente',
-        'tipoResponsabilidad',
-        'responsabilidadTributaria',
-    ], [
-        'id_compania' => $id,
+    $data = $database->select('parametrosFE', [
+      'token',
+      'password',
+      'facturador',
+      'documentoSoporte',
+      'nominaElectronica',
+      'radian',
+      'prefijoFE',
+      'prefijoDS',
+      'prefijoNE',
+      'prefijoFENC',
+      'prefijoFEND',
+      'prefijoDSNC',
+      'prefijoDSND',
+      'prefijoNENC',
+      'prefijoNEND',
+      'consecutivoFE',
+      'consecutivoDS',
+      'consecutivoNE',
+      'consecutivoNCFE',
+      'consecutivoNDFE',
+      'consecutivoNCDS',
+      'consecutivoNDDS',
+      'rutaFE',
     ]);
 
     return $data;
   }
 
-  public function getResolucion($tipoDoc)
-  {
-      global $database;
+  public function traeProveedor($id){
+    global $database;
 
-      $data = $database->select('resoluciones', [
-          'resolucion',
-          'fecha',
-          'prefijo', 
-          'desde',
-          'hasta',
-          'estado',
-          'tipo',
-      ], [
-          'estado' => 1,
-          'tipoDocumento' => $tipoDoc,
-      ]);
+    $data = $database->select('companias', [
+      'empresa',
+      'direccion',
+      'nit',
+      'dv',
+      'tipo_documento',
+      'telefono',
+      'celular',
+      'email',
+      'web',
+      'ciudad',
+      'credito',
+      'monto_credito',
+      'tipo_empresa',
+      'id_codigo_ciiu',
+      'tipoAdquiriente',
+      'tipoResponsabilidad',
+      'responsabilidadTributaria',
+    ], [
+      'id_compania' => $id,
+    ]);
 
-      return $data;
+    return $data;
+  }
+
+  public function getResolucion($tipoDoc){
+    global $database;
+
+    $data = $database->select('resoluciones', [
+      'resolucion',
+      'fecha',
+      'prefijo', 
+      'desde',
+      'hasta',
+      'estado',
+      'tipo',
+    ], [
+      'estado' => 1,
+      'tipoDocumento' => $tipoDoc,
+    ]);
+
+    return $data;
   }
 
   public function traeNumeroDocumento($tipo){
