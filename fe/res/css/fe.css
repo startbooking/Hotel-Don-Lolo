@@ -56,18 +56,10 @@ hr {
   line-height: 25px;
 }
 
-/* 
-.sweet-alert .sa-icon, .sweet-alert .sa-icon .sa-success .sa-placeholder{
-  width: 70px;
-  height: 70px;
-  margin: 10px auto;
+#mensajeAnula tc {
+  margin-top: 10px;
 }
 
-.sweet-alert .sa-icon.sa-error .sa-line {
-  width: 37px;
-  top:33px;
-}
- */
 .icon span {
   font-size: 90px;
 } 

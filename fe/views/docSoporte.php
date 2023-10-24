@@ -74,7 +74,6 @@
                               data-proveedor="<?php echo $documento['idProveedor']; ?>"
                               title="Imprime Documento">
                                 <i class="fa-solid fa-print"></i>
-                              <!-- <span class="material-symbols-outlined">print</span> -->
                             </button>
                             <?php
                             if($documento['estado']==1){
@@ -88,7 +87,6 @@
                                 data-proveedor="<?php echo $documento['idProveedor']; ?>"
                                 title="Imprimir Nota Credito">
                                 <i class="fa-solid fa-print"></i>
-                                <!-- <span class="material-symbols-outlined">print_lock</span> -->
                               </button>
                               <?php
                             }else{ ?>
@@ -100,6 +98,7 @@
                                 data-dian="<?php echo $documento['estadoDian']; ?>"
                                 data-documento="<?php echo $documento['documentoSoporte']; ?>"
                                 data-proveedor="<?php echo $documento['idProveedor']; ?>"
+                                data-fecha="<?php echo $documento['fechaDocumento']; ?>"
                                 data-toggle="modal" 
                                 data-target="#myModalAnulaDS"
                                 title="Anula Documento Soporte">
@@ -118,7 +117,6 @@
                                 data-proveedor="<?php echo $documento['idProveedor']; ?>"
                                 title="Envia Documento Soporte">
                                 <i class="fa-solid fa-cloud-arrow-up"></i>
-                                <!-- <span class="material-symbols-outlined" style="color:darkred;">cloud_upload</span> -->
                               </button>
                               <?php
                             }                           

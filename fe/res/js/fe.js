@@ -59,6 +59,7 @@ var rutaIMP;
       document.querySelector('#dataRegistrarProveedor').reset();
       document.querySelector('#dataRegistrarProveedor')
         .addEventListener('submit', guardaProveedor);
+
     });
 
     $("#myModalProductos").on("show.bs.modal", async (event) => {
@@ -80,11 +81,36 @@ var rutaIMP;
 
     $("#myModalAdicionaItem").on("show.bs.modal", async (event) => {
       var button = event.relatedTarget; // Botón que activó el modal
-      edita = JSON.parse(button.dataset.edita);
+      id = JSON.parse(button.dataset.edita);
       document.querySelector('#dataRegistraItem').reset();
       document.querySelector('#dataRegistraItem')
         .addEventListener('submit', guardaItemDoc);
     });
+
+    $("#myModalAnulaDS").on("show.bs.modal", async (event) => {
+      var button  = event.relatedTarget; // Botón que activó el modal
+      let id      = JSON.parse(button.dataset.id);
+      let numDocu = JSON.parse(button.dataset.documento);
+      let fechaSo = button.dataset.fecha;
+
+      prefijoDS = document.querySelector('#prefijo').value;
+      archivo = `documentoSoporte_${prefijoDS}-${numDocu.toString().padStart(5,'0')}.pdf`;
+      document.querySelector('#anulaDocumento').reset();
+
+      document.querySelector('#docuSop').value = numDocu
+      document.querySelector('#fechaDoc').value = fechaSo
+      document.querySelector('#txtIdDS').value = id
+
+
+      $("#verDocumentoModal").attr(
+        "data",`impresos/${archivo}`
+      ); 
+
+      document.querySelector('#anulaDocumento')
+        .addEventListener('submit', anulaDS);
+    });
+
+    
   });
 })();
 
@@ -99,16 +125,75 @@ async function btnSubmitDS(e) {
   let numDocu = JSON.parse(button.dataset.documento);
 
   if (e.submitter.classList.contains('imprimeDS')) {
-    // alert(`Imprime DS ${idDoc}`)
     await imprimeDS(idDoc, dian, proveedor,numDocu, prefijo)
   } else if (e.submitter.classList.contains('imprimeNC')) {
     alert(`Imprime NC ${idDoc}`)
   } else if (e.submitter.classList.contains('enviaDS')) {
     await enviaDS(idDoc, dian, proveedor)
-  } else if (e.submitter.classList.contains('anulaDS')) {
+  } else if (e.submitter.classList.contains('btnAnulaDoc')) {
     alert(`Anula ${idDoc}`)
   }
 }
+
+async function anulaDS(e){
+  e.preventDefault();
+  let id = document.querySelector('#txtIdDS').value
+  let numDocu = document.querySelector('#docuSop').value
+  let motivo = document.querySelector('#motivoAnula').value;
+
+  // console.log({id, numDocu, motivo});
+  
+  if (motivo == '') {
+    mostrarAlerta('Sin Motivo de Anulacion del Documento', "mensajeAnula");
+    return;
+  } 
+
+  const regis = await anulaDocumentoSoporte(id, numDocu, motivo);
+
+  if(regis==0){
+    titulo = 'Precuacion';
+    texto = 'NO Se Pudo Anular Documento Soporte Actual';
+    tipo = 'error'
+    mensajeAlerta(titulo, texto, tipo);
+    // window.location.href = "docSoporte";      
+
+    return 
+  }
+
+  const infoJSON = await creaJSONAnula(id, numDocu)
+
+}
+
+const creaJSONAnula = async(id, numDocu) => {
+  data = {id, numDocu}
+  try {
+    const response = await fetch(`${rutaAPI}/infoNCDS.php`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json", // Y le decimos que los datos se enviaran como JSON
+      },
+      body:JSON.stringify(data),
+    }); 
+    const datos = await response.json ();
+    return datos;
+  } catch (error) {
+    return error;
+  }
+}
+
+
+async function mensajeAlerta(titulo, texto, tipo){
+  swal({
+    title:titulo,
+    text:texto,
+    type:tipo,
+    confirmButtonText: "Aceptar",
+  },
+  function(){
+    // window.location.href = "docSoporte";      
+  })
+}
+
 
 async function enviaDS(idDoc,dian,proveedor){
   const infoDS = await infoAPI();
@@ -285,7 +370,6 @@ async function enviaDS(idDoc,dian,proveedor){
   const increm = await incrementaConsec(consecutivoDS+1) ;
   const actualizaEstado = await actualizaEstadoDS(idDoc, consecutivoDS) ;
   const imprime = await generaDocumentoDS(idDoc, consecutivoDS, QRStr, recibe2);
-  // const muestraDoc  = await muestraPDFDoc(imprime)
   
   if(actualizaEstado !==1){
     swal({
@@ -295,7 +379,7 @@ async function enviaDS(idDoc,dian,proveedor){
       confirmButtonText: "Aceptar",
     },
     function(){
-       window.location.href = "docSoporte";
+      window.location.href = "docSoporte";
     })
   }
   swal({
@@ -317,6 +401,29 @@ async function muestraPDFDoc(imprime) {
     "data",
     `data:application/pdf;base64,${imprime}`
   );
+}
+
+const anulaDocumentoSoporte = async(id, numDocu, motivo) => {
+  data = {
+    id,
+    numDocu,
+    motivo,
+    usuario_id,
+  }
+  try {
+    const response = await fetch(`${rutaAPI}/anulaDS.php`, {
+      method: "PUT",
+      body:JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',        
+        'Accept': 'application/json',  
+      },
+    });
+    const datos = response.text();  
+    return datos;
+  } catch (error) {
+    return error;
+  }
 }
 
 const generaDocumentoDS = async(idDoc, consecutivoDS, QRStr, recibe2) => {
@@ -496,14 +603,8 @@ const generaJsonDS = async() => {
   }
 }
 
-// imprimeDS(idDoc, dian, proveedor,numDocu, prefijo)
-
 async function imprimeDS(id, dian, proveedor, numDocu, prefijo){
   if(dian==1){
-    // console.log(numDocu);
-    // numer = numDocu.toString().padStart(5,'0');
-    // console.log(numer)
-  // $("#verFactura").attr("data", "imprimir/facturas/FES-HDL" + factura);
     archivo = `documentoSoporte_${prefijo}-${numDocu.toString().padStart(5,'0')}.pdf`
     $('#myModalImpresion').modal('show');
     document.querySelector("#tituloDocumento").innerHTML = `<span class="material-symbols-outlined">picture_as_pdf</span> Documento Soporte `
@@ -512,14 +613,6 @@ async function imprimeDS(id, dian, proveedor, numDocu, prefijo){
     );
 
   }else{
-    /* 
-    swal({
-      title:'Precaucion',
-      text:'Documento NO Generado',
-      type: "error",
-      confirmButtonText: "Aceptar",
-    })
-    */
     const impresion = await generaDS(id, proveedor);
     $('#myModalImpresion').modal('show');
     document.querySelector("#tituloDocumento").innerHTML = `<span class="material-symbols-outlined">picture_as_pdf</span> Documento Soporte SIN PROCESAR`
@@ -548,6 +641,7 @@ const generaDS = async (id, proveedor) => {
 };
 
 async function btnSubmitDocumento(e) {
+  alert('Paso submit')
   e.preventDefault();
   if (e.submitter.classList.contains('guarda')) {
     await guardaDocumento();
@@ -560,7 +654,7 @@ async function btnSubmitDocumento(e) {
   } else if (e.submitter.classList.contains('imprimeDS')) {
   } else if (e.submitter.classList.contains('imprimeNC')) {
   } else if (e.submitter.classList.contains('enviaDS')) {
-  } else if (e.submitter.classList.contains('anulaDS')) {
+  // } else if (e.submitter.classList.contains('anulaDS')) {
   }
 }
 

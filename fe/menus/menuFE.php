@@ -3,25 +3,29 @@
     <ul class="sidebar-menu">      
       <li>
         <a class="menuPpal" href="home">
-          <span class="material-symbols-outlined">apartment</span>
+          <i class="fa-solid fa-house-laptop"></i>
+          <!-- <span class="material-symbols-outlined">apartment</span> -->
           <span>Inicio</span>
         </a>
       </li>
       <li class="treeview" id="menuDatos">
         <a href="#">
-          <span class="material-symbols-outlined">collections_bookmark</span>
+          <i class="fa-solid fa-table"></i>
+          <!-- <span class="material-symbols-outlined">collections_bookmark</span> -->
           <span>Datos</span>
           <small class="fa fa-angle-left pull-right"></small>
         </a>
         <ul class="treeview-menu">
           <li> 
             <a href="proveedores" class="menuPpal" >
-            <span class="material-symbols-outlined">group</span>
+            <i class="fa-solid fa-user-tag"></i>
+            <!-- <span class="material-symbols-outlined">group</span> -->
             Proveedores</a>
           </li>
           <li>
-            <a href="productos" class="menuPpal" >
-            <span class="material-symbols-outlined">filter_9_plus</span>
+            <a href="productos" class="menuPpal">
+            <i class="fa-solid fa-file-shield"></i>
+            <!-- <span class="material-symbols-outlined">filter_9_plus</span> -->
             Compras / Servicios </a>
           </li>
         </ul>

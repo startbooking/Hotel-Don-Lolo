@@ -37,7 +37,6 @@ $pdf->Cell(190, 4, 'NIT: '.NIT_EMPRESA, 0, 1, 'C');
 $pdf->Cell(190, 4, utf8_decode(ADRESS_EMPRESA), 0, 1, 'C');
 $pdf->Cell(40, 4, '', 0, 0, 'C');
 $pdf->Cell(110, 4, utf8_decode(CIUDAD_EMPRESA).' '.PAIS_EMPRESA, 0, 1, 'C');
-// $pdf->Cell(40, 4, '', 0, 1, 'C');
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(40, 4, '', 0, 0, 'C');
 $pdf->Cell(110, 4, utf8_decode(TIPOEMPRESA), 0, 1, 'C');
@@ -52,7 +51,7 @@ $pdf->Cell(40, 4, '', 0, 0, 'C');
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(110, 4, 'Telefono '.TELEFONO_EMPRESA.' Movil '.CELULAR_EMPRESA, 0, 1, 'C');
 $pdf->SetFont('Arial', 'B', 8);
-// $pdf->MultiCell(40, 4, 'Nro '.$prefNCDS.'-'.str_pad($numDoc, 4, '0', STR_PAD_LEFT), 1, 'C');
+
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(40, 4, '', 0, 0, 'C');
 $pdf->Cell(110, 4, utf8_decode(ACTIVIDAD), 0, 1, 'C');
@@ -125,18 +124,18 @@ $pdf->SetFont('Arial', '', 8);
 
 $pdf->MultiCell(195, 4, 'SON :'.numtoletras($total), 1, 'L');
 $pdf->SetFont('Arial', '', 8);
-// $pdf->SetFont('Arial', '', 6);
-$pdf->MultiCell(190, 4, utf8_decode('Documento Soporte Nro : ').$prefDS.' '.$consecutivoDS.' '.utf8_decode(' Fecha Validación Dian ').$timeCrea.' CUFE '.$cude, 1, 'L');
+
+$pdf->MultiCell(195, 4, utf8_decode('Documento Soporte Nro : ').$prefDS.' '.$consecutivoDS.' '.utf8_decode(' Fecha Validación Dian ').$timeCrea.' CUFE '.$cude, 1, 'L');
 $pdf->SetFont('Arial', '', 8);
-$pdf->MultiCell(190, 5, utf8_decode('Observaciones ').utf8_decode(strtoupper($infoDoc[0]['observaciones'])), 1, 'L');
+$pdf->MultiCell(195, 5, utf8_decode('Observaciones ').utf8_decode(strtoupper($infoDoc[0]['observaciones'])), 1, 'L');
 
 $pdf->SetFont('Arial', '', 8);
 
-$pdf->SetY(133);
-$pdf->Cell(95, 5, 'ELABORADO POR ', 0, 0, 'C');
-$pdf->Cell(95, 5, 'RECIBO ', 0, 1, 'C');
-$pdf->Cell(95, 5, $usuario, 0, 0, 'C');
-$pdf->Cell(95, 5, 'C.C - NIT.', 0, 1, 'C');
+$pdf->SetY(143);
+$pdf->Cell(95, 4, 'ELABORADO POR ', 0, 0, 'C');
+$pdf->Cell(95, 4, 'RECIBO ', 0, 1, 'C');
+$pdf->Cell(95, 4, $usuario, 0, 0, 'C');
+$pdf->Cell(95, 4, 'C.C - NIT.', 0, 1, 'C');
 
 $arcPdf = 'documentoSoporte_'.$prefDS.'-'.str_pad($consecutivoDS, 5, '0', STR_PAD_LEFT).'.pdf';
 

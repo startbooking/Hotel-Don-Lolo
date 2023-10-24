@@ -5,6 +5,31 @@ date_default_timezone_set('America/Bogota');
 
 class User_Actions{
 
+  public function anulaDS($id, $numDocu, $motivo, $usuario_id){
+    global $database;
+
+    $data = $database->update('productosDSCabeza',[
+      'estado' => 1,
+      'idUsuarioAnula' => $usuario_id,
+      'motivoAnulacion' => $motivo,
+    ],[
+      'documentoSoporte' => $numDocu
+    ]);
+    return $data->rowCount();
+  }
+
+  public function getInfoDSAnular($numDocu){
+    global $database;
+
+    $data = $database->select('datosDS',[
+      'DSNumero',
+      'cude',
+    ],[
+      'DSNumero' => $numDocu,
+    ]);
+    return $data;
+  }
+
   public function actualizaEstadoDS($idDoc, $conse){
     global $database;
 
@@ -169,51 +194,6 @@ class User_Actions{
     productosDSCabeza.idDocumento = '$id'
     GROUP BY 
     productosDSDetalle.idDocumento ")->fetchAll();
-    return $data;
-  }
-
-  public function getInfoDSOld($id){
-    global $database;
-
-    $data = $database->query("SELECT
-    companias.empresa,
-    companias.nit,
-    companias.dv,
-    companias.tipo_documento,
-    companias.email,
-    companias.direccion,
-    companias.celular,
-    companias.telefono,
-    companias.ciudad,
-    companias.tipoAdquiriente,
-    companias.tipoResponsabilidad,
-    companias.responsabilidadTributaria,
-    productosDSCabeza.idDocumento,
-    productosDSCabeza.documentoSoporte,
-    productosDSCabeza.numeroDocumento,
-    productosDSCabeza.tipoOperacion,
-    productosDSCabeza.idProveedor,
-    productosDSCabeza.fechaDocumento,
-    productosDSCabeza.vencimiento,
-    productosDSCabeza.fechaVencimiento,
-    productosDSCabeza.idFormaPago,
-    productosDSCabeza.observaciones,
-    productosDSCabeza.estadoDian,
-    productosDSCabeza.estado,
-    Sum(productosDSDetalle.valorTotal) AS total,
-    codigos_vta.descripcion_cargo,
-    FROM
-    companias ,
-    codigos_vta ,
-    productosDSCabeza ,
-    productosDSDetalle
-    WHERE
-    productosDSCabeza.idProveedor = companias.id_compania AND
-    productosDSCabeza.idFormaPago = codigos_vta.id_cargo AND
-    productosDSCabeza.idDocumento = productosDSDetalle.idDocumento AND
-    productosDSCabeza.idDocumento = '$id'
-    GROUP BY
-    productosDSDetalle.idDocumento")->fetchAll();
     return $data;
   }
 
