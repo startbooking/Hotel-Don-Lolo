@@ -30,13 +30,16 @@ $eDocu['type_document_id'] = 13;
 $eDocu['time'] = $horaDoc; 
 $eDocu['sendmail'] = false; 
 $eDocu['sendmailtome'] = false; 
-$eDocu['resolution_number'] =  $resolucion;
+// $eDocu['resolution_number'] =  $resolucion;
 $eDocu['prefix'] =  $eToken[0]['prefijoDSNC'];
 $eDocu['date'] = $infoDoc[0]['fechaDocumento']; 
 $eDocu['notes'] = $infoDoc[0]['observaciones']; 
 
+$eDocu['discrepancyresponsecode'] = $infoDoc[0]['idMotivoRechazo'];
+$eDocu['discrepancyresponsedescription'] =  $infoDoc[0]['motivoAnulacion'];
+
 $eSell = [];
-$ePaym = [];
+// $ePaym = [];
 $eInvo = [];
 $eLega = [];
 $eHold = [];
@@ -48,18 +51,13 @@ $eSell['name'] = $infoDoc[0]['empresa'];
 $eSell['phone'] = $infoDoc[0]['celular'];
 $eSell['address'] = $infoDoc[0]['direccion'];
 $eSell['email'] = $infoDoc[0]['email'];
-$eSell['merchant_registration'] = '000000';
-$eSell['postal_zone_code'] = '0000-00';
+$eSell['merchant_registration'] = '0000-00';
+$eSell['postal_zone_code'] = '000000';
 $eSell['type_document_identification_id'] = $infoDoc[0]['tipo_documento'];
 $eSell['type_organization_id'] = $infoDoc[0]['tipoAdquiriente'];
 $eSell['municipality_id'] = $infoDoc[0]['ciudad'];
 $eSell['type_liability_id'] = $hotel->traeIdResponsabilidadDianVenta($infoDoc[0]['responsabilidadTributaria']);
 $eSell['type_regime_id'] = 2;
-
-$ePaym['payment_form_id'] = $infoDoc[0]['formaPagoDian'];
-$ePaym['duration_measure'] = $infoDoc[0]['vencimiento'];
-$ePaym['payment_due_date'] = $infoDoc[0]['fechaVencimiento'];
-$ePaym['payment_method_id'] = $infoDoc[0]['identificador_dian'];
 
 $eLega['line_extension_amount'] = $infoDoc[0]['total'];
 $eLega['payable_amount'] = $infoDoc[0]['total'];
@@ -69,14 +67,20 @@ $eLega['tax_inclusive_amount'] = $infoDoc[0]['total'];
 $eLega['allowance_total_amount'] = "0.00";
 
 $eBill['uuid'] = $infoDSAnu[0]['cude'];
-$eBill['number'] = $infoDoc[0]['numeroDocumento'];
+$eBill['number'] = strval($infoDoc[0]['documentoSoporte']);
 $eBill['issue_date'] = $infoDoc[0]['fechaDocumento'];
 
+/*
+Marca Y Modelo
+"brandname"=> null, 
+"modelname"=> null,
 
+*/
 foreach($infoProds as $info){
     $invo = [
         'code' => $info['identificador_dian'],
-        'notes' => null,
+        "brandname"=> null, 
+        "modelname"=> null,
         'start_date' => $infoDoc[0]['fechaDocumento'],
         'description' => $info['descripcion_cargo'],
         'price_amount' => $info['valorUnitario'],
@@ -87,7 +91,6 @@ foreach($infoProds as $info){
         'line_extension_amount' => $info['valorTotal'],
         'free_of_charge_indicator' => false,
         'type_item_identification_id' => 4,
-        "type_generation_transmition_id" => $infoDoc[0]['tipoOperacion'],  
     ];
 
     array_push($eInvo, $invo); 
@@ -95,8 +98,8 @@ foreach($infoProds as $info){
 }
 
 $eDocu['seller'] = $eSell;
-$eDocu['payment_form'] = $ePaym;
-$eDocu['invoice_lines'] = $eInvo;
+// $eDocu['payment_form'] = $ePaym;
+$eDocu['credit_note_lines'] = $eInvo;
 $eDocu['legal_monetary_totals'] = $eLega;
 $eDocu['with_holding_tax_total'] = $eHold;
 $eDocu['billing_reference'] = $eBill;

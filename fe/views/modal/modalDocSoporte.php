@@ -1,8 +1,9 @@
 <?php 
 $productos   = $user->getCodigosVentas(4);
 $retenciones = $user->getTipoImpuestos(2);
-$imptos   = $user->getTipoImpuestos(1);
-$unidades = $inven->getUnidadesMedida();
+$imptos      = $user->getTipoImpuestos(1);
+$unidades    = $inven->getUnidadesMedida();
+$rechazos    = $user->motivoRechazoNC();
   
 ?>
 
@@ -54,7 +55,7 @@ $unidades = $inven->getUnidadesMedida();
               <input type="number" min="1" class="form-control" id="cantidad" name="cantidad" required value="0" min="1" onblur="calculaTotal()">
             </div>
             <label class="control-label col-lg-2 col-md-2">Valor Unitario</label>
-            <div class="col-md-2">
+            <div class="col-md-2">rechazo
               <input type="number" min="1" class="form-control" id="total" name="total" required value="0" min="1">
             </div>
           </div>
@@ -115,7 +116,7 @@ $unidades = $inven->getUnidadesMedida();
 </div>
 
 <div class="modal fade" id="myModalAnulaDS" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <form id="anulaDocumento" class="form-horizontal">
+  <form id="anulaDocumento" class="form-horizontal">rechazo
     <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -146,6 +147,20 @@ $unidades = $inven->getUnidadesMedida();
               <label class="control-label col-lg-3" for="motivoAnula">Motivo Anulacion</label>
               <div class="col-sm-8">
                 <input class="form-control" type="text" name="motivoAnula" id="motivoAnula" value="">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-lg-3" for="motivoAnula">Tipo Rechazo</label>
+              <div class="col-sm-8">
+                <select  class="form-control" name="rechazo" id="rechazo">
+                  <option value="">Seleccione el Motivo del Rechazo</option>
+                  <?php
+                  foreach ($rechazos as $unidad) { ?>
+                    <option value="<?php echo $unidad['id']; ?>"><?php echo $unidad['descripcionRechazo']; ?></option>
+                    <?php
+                  }
+                ?> 
+                </select>
               </div>
             </div>
           </div>

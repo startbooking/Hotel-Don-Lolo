@@ -8,7 +8,11 @@
             <h3 id="tituloDocumento" class="modal-title" id="exampleModalLabel">Factura</h3>
           </div>
           <div class="modal-body">
-            <div id="mensajeImprime">         </div>
+            <div id="mensajeImprime"></div>
+            <!-- <div id="mensajeImprime"></div> -->
+            <div id="mensajeError" class="alert alert-warning centraTitulo oculto">
+              
+            </div>
             <input type="hidden" name="reserva" id="reserva" value="">
             <input type="hidden" name="txtDocumentoNro" id="txtDocumentoNro">
             <div class="form-group">

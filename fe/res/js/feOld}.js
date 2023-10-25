@@ -153,7 +153,7 @@ async function anulaDS(e){
   
   let { string } = envioJSON['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['ErrorMessage']
   
-  if(IsValid!=="false"){
+  if(IsValid=="false"){
     const tabla = document.createElement("table");
     const tbody = document.createElement("tbody");
     for (i = 0; i < string.length; i++) {
@@ -165,76 +165,43 @@ async function anulaDS(e){
     tabla.append(tbody);
 
     await  muestraErrorEnvio(tabla, 'mensajeError')
-    
+    /* if(regis==0){
+      titulo = 'Precuacion';
+      texto = 'NO Se Pudo Anular Documento Soporte Actual';
+      tipo = 'error'
+      mensajeAlerta(titulo, texto, tipo);
+      // window.location.href = "docSoporte";      
+      return 
+    } */
     return 
 
   }
 
   const guarda = await guardaAnulaDocumentoSoporte(infoJSON, envioJSON)
 
-  const regis = await anulaDocumentoSoporte(id, numDocu, motivo, rechazo, guarda);
+  const regis = await anulaDocumentoSoporte(id, numDocu, motivo, rechazo);
+  
+  /* 
 
-  if(regis !==0 ){
-    swal({
-      title:"Atencion",
-      text:'Documento Soporte Eliminado con Exito',
-      type:'success',
-    },function(){
-      window.location.href = "docSoporte";      
-    })
-  }
- 
+  
+  
 }
 
+async function  muestraErrorEnvio(cuerpo){
+  const imprim = document.querySelector('#mensajeImprime')
+  const alerta = document.querySelector("#mensajeError");
 
-const guardaAnulaDocumentoSoporte = async(infoJSON, envioJSON) => {
+  imprim.classList.add('oculto');
 
-  let { IsValid, StatusCode, StatusDescription, StatusMessage } = envioJSON['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult'];
-  let { string } = envioJSON['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['ErrorMessage'];
-  let { message, send_email_success, send_email_date_time, urlinvoicexml, urlinvoicepdf, cuds, uuid_dian, QRStr } = envioJSON;
-  let { Created } = envioJSON['ResponseDian']['Envelope']['Header']['Security']['Timestamp'];
+  if ((alerta.classList.contains = "oculto")) {
+    alerta.classList.remove("oculto");
+    alerta.innerHTML = `<h3>  Precaucion <br> Documento NO Procesado, Revise la Informacion Ingresada</h3>`;
+    alerta.appendChild(cuerpo); 
 
-  let { number, prefix } = infoJSON ;
-
-  dataNC = {
-    infoJSON,
-    IsValid, 
-    StatusCode, 
-    StatusDescription, 
-    StatusMessage, 
-    string, 
-    message, 
-    send_email_success, 
-    send_email_date_time, 
-    urlinvoicexml, 
-    urlinvoicepdf, 
-    cuds, 
-    uuid_dian, 
-    QRStr, 
-    Created, 
-    number, 
-    prefix, 
-  }
-
-  const guarda = await guardaDocumentoNC(dataNC)
-
-  return guarda;
-
-}
-
-const guardaDocumentoNC = async(dataNC) => {
-  try {
-    const response = await fetch(`${rutaAPI}/anulaDS`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json", // Y le decimos que los datos se enviaran como JSON
-      },
-      body:JSON.stringify(dataNC),
-    }); 
-    const datos = await response.json ();
-    return datos;
-  } catch (error) {
-    return error;
+    // alerta.innerHTML = cuerpo.innerHTML;
+    /* setTimeout(() => {
+      alerta.classList.add("oculto");
+    }, 3000); */
   }
 }
 
@@ -242,8 +209,6 @@ const enviaJSONActivoNT = async(infoJSON) => {
   limpiaVentanaImprimir();
   const infoDS = await infoAPI();
   let { token, rutaFE, documentoSoporte, prefijoDSNC, consecutivoNCDS } = infoDS[0]; 
-
-
 
   /* const SendInvoice = await fetch('https://api.nextpyme.plus/api/ubl2.1/sd-credit-note', {
     method: 'post',
@@ -636,17 +601,16 @@ async function muestraPDFDoc(imprime) {
   );
 }
 
-const anulaDocumentoSoporte = async(id, numDocu, motivo, rechazo, idNC) => {
+const anulaDocumentoSoporte = async(id, numDocu, motivo, rechazo) => {
   data = {
     id,
     numDocu,
     motivo,
     rechazo,
     usuario_id,
-    idNC,
   }
   try {
-    const response = await fetch(`${rutaAPI}/anulaDS`, {
+    const response = await fetch(`${rutaAPI}/anulaDS.php`, {
       method: "PUT",
       body:JSON.stringify(data),
       headers: {
@@ -1400,19 +1364,3 @@ const ingresaDetalleDocumento = async (compra, idDoc) => {
     return error;
   }
 };
-
-
-async function  muestraErrorEnvio(cuerpo){
-  const imprim = document.querySelector('#mensajeImprime')
-  const alerta = document.querySelector("#mensajeError");
-  const btnSale = document.querySelector("#btnImprime");
-
-  imprim.classList.add('oculto');
-  btnSaleclassList.remove('oculto');
-
-  if ((alerta.classList.contains = "oculto")) {
-    alerta.classList.remove("oculto");
-    alerta.innerHTML = `<h3>  Precaucion <br> Documento NO Procesado, Revise la Informacion Ingresada</h3>`;
-    alerta.appendChild(cuerpo); 
-  }
-}

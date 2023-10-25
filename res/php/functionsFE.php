@@ -5,13 +5,64 @@ date_default_timezone_set('America/Bogota');
 
 class User_Actions{
 
-  public function anulaDS($id, $numDocu, $motivo, $usuario_id){
+  public function ingresaDSNC($infoJSON, $IsValid, $StatusCode, $StatusDescription, $StatusMessage, $string, $message, $send_email_success, $send_email_date_time, $urlinvoicexml, $urlinvoicepdf, $cuds, $uuid_dian, $QRStr, $Created, $number, $prefix){
+    global $database;
+
+    $data = $database->insert('datosDS',[
+      'message' => $message, 
+      'send_email_success' => $send_email_success, 
+      'send_email_date_time' => $send_email_date_time, 
+      /* 'responseDian' => , 
+      'invoicexml' => , 
+      'zipinvoicexml' => , 
+      'unsignedinvoicexml' => , 
+      'reqfe' => , 
+      'attacheddocument' => ,  
+      'urlinvoiceattached' => , 
+      'recibeCurl' => , 
+      'pdfEnviado' => , 
+      */     
+      'rptafe' => $uuid_dian, 
+      'urlinvoicexml' => $urlinvoicexml, 
+      'urlinvoicepdf' => $urlinvoicepdf, 
+      'cude' => $cuds, 
+      'QRStr' => $QRStr, 
+      'estadoEnvio' => $IsValid, 
+      'jsonEnviado' => json_encode($infoJSON), 
+      'errorMessage' => $string, 
+      'statusCode' => $StatusCode, 
+      'statusDesc' => $StatusDescription, 
+      'statusMess' => $StatusMessage, 
+      'timeCreated' => $Created, 
+      'DSNumero' => $number, 
+      'prefijo' => $prefix
+
+    ]);
+    return $database->id();
+
+  }
+
+
+  public function motivoRechazoNC(){
+    global $database;
+
+    $data = $database->select('motivoRechazoNC',[
+      'id',
+      'descripcionRechazo',
+      'code',
+    ]);
+    return $data;
+  }
+
+  public function anulaDS($id, $numDocu, $motivo, $rechazo, $usuario_id, $idNC){
     global $database;
 
     $data = $database->update('productosDSCabeza',[
       'estado' => 1,
       'idUsuarioAnula' => $usuario_id,
       'motivoAnulacion' => $motivo,
+      'idMotivoRechazo' => $rechazo,
+      'idDatosDS' => $idNC,
     ],[
       'documentoSoporte' => $numDocu
     ]);
@@ -177,6 +228,8 @@ class User_Actions{
     productosDSCabeza.idFormaPago,
     productosDSCabeza.observaciones,
     productosDSCabeza.estadoDian,
+    productosDSCabeza.motivoAnulacion,
+    productosDSCabeza.idMotivoRechazo,
     productosDSCabeza.estado,
     SUM(productosDSDetalle.valorTotal) AS total,
     codigos_vta.descripcion_cargo,
