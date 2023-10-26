@@ -104,24 +104,6 @@ if (count($anticipos) != 0) {
     $paganticipo = $anticipos[0]['pagos'];
 }
 
-$updFac = $hotel->updateFactura($idUsuario, $saldos[0]['cargos'], $saldos[0]['imptos'], $saldos[0]['pagos'], $saldos[0]['base'], $paganticipo, $fechaVen, $numfactura, $usuario, $fecha);
-
-$totalPago = $paganticipo + $saldos[0]['pagos'];
-
-$saldofactura = $hotel->getSaldoHabitacion($numero);
-
-if (count($saldofactura) == 0) {
-    $totalFolio = 0;
-} else {
-    // $totalFolio = ($saldofactura[0]['cargos'] + $saldofactura[0]['imptos']) - $saldofactura[0]['pagos'];
-    $totalFolio = ($saldofactura[0]['cargos'] + $saldofactura[0]['imptos']);
-}
-
-$folios = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserva, $nroFolio, 1);
-$pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserva, $nroFolio, 3);
-$tipoimptos = $hotel->getValorImptoFolio($nroFactura, $reserva, $nroFolio, 2);
-$subtotales = $hotel->getConsumosReservaAgrupadoFolio($nroFactura, $reserva, $nroFolio, 1);
-
 if ($tipofac == 2) {
     $datosCompania = $hotel->getSeleccionaCompania($idperfil);
     $diasCre = $datosCompania[0]['dias_credito'];
@@ -145,6 +127,26 @@ if ($tipofac == 2) {
     $telFact = $datosHuesped[0]['telefono'];
     $emaFact = $datosHuesped[0]['email'];
 }
+
+$updFac = $hotel->updateFactura($idUsuario, $saldos[0]['cargos'], $saldos[0]['imptos'], $saldos[0]['pagos'], $saldos[0]['base'], $paganticipo, $fechaVen, $numfactura, $usuario, $fecha, $diasCre);
+
+$totalPago = $paganticipo + $saldos[0]['pagos'];
+
+$saldofactura = $hotel->getSaldoHabitacion($numero);
+
+if (count($saldofactura) == 0) {
+    $totalFolio = 0;
+} else {
+    // $totalFolio = ($saldofactura[0]['cargos'] + $saldofactura[0]['imptos']) - $saldofactura[0]['pagos'];
+    $totalFolio = ($saldofactura[0]['cargos'] + $saldofactura[0]['imptos']);
+}
+
+$folios = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserva, $nroFolio, 1);
+$pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserva, $nroFolio, 3);
+$tipoimptos = $hotel->getValorImptoFolio($nroFactura, $reserva, $nroFolio, 2);
+$subtotales = $hotel->getConsumosReservaAgrupadoFolio($nroFactura, $reserva, $nroFolio, 1);
+
+
 
 if ($perfilFac == 1 && $facturador == 1) {
     $eFact = [];

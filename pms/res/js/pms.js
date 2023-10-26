@@ -1328,10 +1328,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     var reserva = button.data("reserva");
     var folio = $("#folioActivo").val();
     var nombre = button.data("nombre");
-    /* var hues = button.data("idhuesped");
-    var turismo = button.data("impto");
-    var nrohab = button.data("nrohab");
-    var tipohab = button.data("tipohab"); */
     let file = makeid(12);
     var modal = $(this);
     var parametros = {
@@ -1342,22 +1338,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     web = $("#rutaweb").val();
     modal.find(".modal-title").text(`Estado de Cuenta ${nombre} - Folio Nro ${folio}`);
-    /* modal.find(".modal-body #txtIdReservaEst").val(reserva);
-    modal.find(".modal-body #txtIdHuespedEst").val(hues);
-    modal.find(".modal-body #txtTipoHabEst").val(tipohab);
-    modal.find(".modal-body #txtNumeroHabEst").val(nrohab);
-    modal.find(".modal-body #txtNombresEst").val(nombre);
-    modal.find(".modal-body #txtImptoTuriEst").val(turismo); */
-
     $.ajax({
       url: "res/php/getEstadoCuentaFolio.php",
       type: "POST",
       data: parametros,
       success: function (data) {
-        // console.log(data);
-        /* $('#divConsumosFolio').html(`
-        <object type="application/pdf" id="verInforme" width="100%" height="500" data="data:application/pdf;base64,${$.trim(data)}"></object>
-        `) */
         $("#verEstadoCuentaFolio").attr(
           "data",
           `data:application/pdf;base64,${$.trim(data)}`,
@@ -2967,11 +2952,13 @@ function traePerfilVenta(id) {
 }
 
 function traeFacturasEstadia() {
+  vigencia = document.querySelector('#vigencia').value
   $.ajax({
     url: "res/php/traeFacturacionEstadia.php",
     type: "POST",
     data: {
       tipo: "1",
+      vigencia,
     },
     success: function (data) {
       $("#paginaFacturacion").html(data);

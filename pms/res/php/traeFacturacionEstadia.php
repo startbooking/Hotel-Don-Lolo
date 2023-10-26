@@ -1,9 +1,8 @@
 <?php
 require '../../../res/php/app_topHotel.php';
 
-$tipo = $_POST['tipo'];
+extract($_POST);
 $hoy = substr(FECHA_PMS, 5, 5);
-
 $reservas = $hotel->getHuespedesenCasa(2, 'CA');
 
 ?>
@@ -108,21 +107,25 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
                   <li class="dropdown submenu" style="margin :0;width:100%;">
                     <a href="#" class="dropdown-toggle aSub" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="padding:3px 5px;font-weight: 700;color:#000">Ficha Facturacion<span class="caret caretSub" ></span></a>
                     <ul class="dropdown-menu" style="float:left;margin-left:-180px;top:40px;">  
-                      <li>
-                        <a 
-                          data-toggle="modal" 
-                          data-id        ="<?php echo $reserva['num_reserva']; ?>" 
-                          data-apellido1 ="<?php echo $reserva['apellido1']; ?>" 
-                          data-apellido2 ="<?php echo $reserva['apellido2']; ?>" 
-                          data-nombre1   ="<?php echo $reserva['nombre1']; ?>" 
-                          data-nombre2   ="<?php echo $reserva['nombre2']; ?>" 
-                          data-nombre   ="<?php echo $reserva['nombre_completo']; ?>" 
-                          data-impto     ="<?php echo $reserva['causar_impuesto']; ?>" 
-                          onclick        ="movimientosFactura(<?php echo $reserva['num_reserva']; ?>)" 
-                          href           ="">
-                        <i class="fa fa-address-card-o" aria-hidden="true"></i>
-                          Facturacion</a>  
-                      </li>
+                      <?php
+                      if($vigencia==0){?>
+                        <li>
+                          <a 
+                            data-toggle="modal" 
+                            data-id        ="<?php echo $reserva['num_reserva']; ?>" 
+                            data-apellido1 ="<?php echo $reserva['apellido1']; ?>" 
+                            data-apellido2 ="<?php echo $reserva['apellido2']; ?>" 
+                            data-nombre1   ="<?php echo $reserva['nombre1']; ?>" 
+                            data-nombre2   ="<?php echo $reserva['nombre2']; ?>" 
+                            data-nombre   ="<?php echo $reserva['nombre_completo']; ?>" 
+                            data-impto     ="<?php echo $reserva['causar_impuesto']; ?>" 
+                            onclick        ="movimientosFactura(<?php echo $reserva['num_reserva']; ?>)" 
+                            href           ="">
+                          <i class="fa fa-address-card-o" aria-hidden="true"></i>
+                            Facturacion</a>  
+                        </li>
+                        <?php
+                      }?>
                       <li>
                         <a 
                           data-toggle        ="modal" 

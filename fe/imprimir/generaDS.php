@@ -11,8 +11,8 @@ $level = 'L'; // Nivel de corrección (L, M, Q, H)
 
 // Generar el código QR
 
-$cude = $recibe2['cude'];
-$timeCrea = $recibe2['ResponseDian']['Envelope']['Header']['Security']['Timestamp']['Created'];
+$cude = $recibe['cude'];
+$timeCrea = $recibe['ResponseDian']['Envelope']['Header']['Security']['Timestamp']['Created'];
 
 $eToken     = $user->datosTokenFE();
 $prefDS     = $eToken[0]['prefijoDS'];

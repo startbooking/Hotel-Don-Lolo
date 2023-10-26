@@ -186,7 +186,6 @@ async function anulaDS(e){
  
 }
 
-
 const guardaAnulaDocumentoSoporte = async(infoJSON, envioJSON) => {
 
   let { IsValid, StatusCode, StatusDescription, StatusMessage } = envioJSON['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult'];
@@ -242,10 +241,9 @@ const enviaJSONActivoNT = async(infoJSON) => {
   limpiaVentanaImprimir();
   const infoDS = await infoAPI();
   let { token, rutaFE, documentoSoporte, prefijoDSNC, consecutivoNCDS } = infoDS[0]; 
-
-
-
-  /* const SendInvoice = await fetch('https://api.nextpyme.plus/api/ubl2.1/sd-credit-note', {
+  /* 
+  */
+  const SendInvoice = await fetch('https://api.nextpyme.plus/api/ubl2.1/sd-credit-note', {
     method: 'post',
     credentials: "same-origin",
     body: JSON.stringify(infoJSON),
@@ -255,9 +253,9 @@ const enviaJSONActivoNT = async(infoJSON) => {
         'Authorization': `Bearer ${token}`      
     }
   });
-  const enviado = await SendInvoice.json() */
+  const enviado = await SendInvoice.json() 
   // console.log(enviado)
-  enviado = {
+  /* enviado = {
     "message": "AttachedDocument #NDSN1 generada con éxito",
     "send_email_success": false,
     "send_email_date_time": false,
@@ -324,7 +322,8 @@ const enviaJSONActivoNT = async(infoJSON) => {
     "cuds": "31637f2b034b9648f1e9796cd97a8d7826533d4bccd79c73f0791b26ac0ac2940d37d23e4ab5e70ee18411b442518748",
     "uuid_dian": "31637f2b034b9648f1e9796cd97a8d7826533d4bccd79c73f0791b26ac0ac2940d37d23e4ab5e70ee18411b442518748",
     "QRStr": "NumFac: 1\nFecFac: 2022-09-01\nNitFac: 892002427\nDocAdq: 901249232\nValFac: 200.00\nValIva: 0.00\nValOtroIm: 0.00\nValTotal: 200.00\nCUFE: 31637f2b034b9648f1e9796cd97a8d7826533d4bccd79c73f0791b26ac0ac2940d37d23e4ab5e70ee18411b442518748\nhttps://catalogo-vpfe.dian.gov.co/document/searchqr?documentkey=31637f2b034b9648f1e9796cd97a8d7826533d4bccd79c73f0791b26ac0ac2940d37d23e4ab5e70ee18411b442518748",
-    "certificate_days_left": 220}
+    "certificate_days_left": 220
+  } */
 
   return enviado;
 
@@ -467,9 +466,10 @@ async function enviaDS(idDoc,dian,proveedor){
   </div>`
 
   const dataDS = await traeDataDS(idDoc, proveedor);
-  const recibeDS = await enviaDatosDS(dataDS, token, rutaFE )
+  const recibeDS = await enviaDatosDSAct(dataDS, token, rutaFE )
+  const recibe = await recibeDS.json();
   
-  let {status, statusText } = recibeDS;
+  /* let {status, statusText } = recibeDS;
   if(status< 200 || status > 299){
     swal({
       title:'Precaucion',
@@ -478,10 +478,9 @@ async function enviaDS(idDoc,dian,proveedor){
       confirmButtonText: "Aceptar",
     })
     return 
-  }
-  const recibe = await recibeDS.json();
+  } */
     
-  let recibe2 = {
+  /* let recibe2 = {
     "message": "AttachedDocument #DS1 generada con éxito",
     "send_email_success": false,
     "send_email_date_time": false,
@@ -541,11 +540,25 @@ async function enviaDS(idDoc,dian,proveedor){
     "cude": "288298ffe83832fdb9d434af5d6ad21dd9bced3541d1ab8da90a3b72eb212eb98de88d3893719b7b47c1c5e0751b3877",
     "QRStr": "NumFac: 1\nFecFac: 2020-10-06\nNitFac: 901249232\nDocAdq: 900166483\nValFac: 0.00\nValIva: 0.00\nValOtroIm: 0.00\nValTotal: 1000000.00\nCUFE: b3d063d98c773df5c42f14bc2ce20a24ef6c62fd81ccbd7f3672b9d116933125a05a5fe4046632ed310f473e24b8cf6a\nhttps://catalogo-vpfe.dian.gov.co/document/searchqr?documentkey=b3d063d98c773df5c42f14bc2ce20a24ef6c62fd81ccbd7f3672b9d116933125a05a5fe4046632ed310f473e24b8cf6a\n"
   };
-
-  let { StatusCode, StatusDescription, StatusMessage, ErrorMessage, IsValid } = recibe2['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']; 
+ */
+  let { StatusCode, StatusDescription, StatusMessage, ErrorMessage, IsValid } = recibe['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']; 
 
   if(IsValid !=='false'){
-    swal({
+    const tabla = document.createElement("table");
+    const tbody = document.createElement("tbody");
+    for (i = 0; i < string.length; i++) {
+      const row = document.createElement("tr");
+      row.innerHTML += `<td>${string[i]}</td>`;
+      tbody.appendChild(row); 
+    }
+
+    tabla.append(tbody);
+
+    await  muestraErrorEnvio(tabla, 'mensajeError')
+    
+    return 
+
+    /* swal({
       title:'Precaucion',
       text:`${ErrorMessage.string}`,
       type: "error",
@@ -554,11 +567,11 @@ async function enviaDS(idDoc,dian,proveedor){
     function(){
       
     })
-    return ;
+    return ; */
   }
   
-  let { message, send_email_success, send_email_date_time, urlinvoicexml, urlinvoicepdf, cude, QRStr } = recibe2;
-  let { Created } = recibe2['ResponseDian']['Envelope']['Header']['Security']['Timestamp'];
+  let { message, send_email_success, send_email_date_time, urlinvoicexml, urlinvoicepdf, cude, QRStr } = recibe;
+  let { Created } = recibe['ResponseDian']['Envelope']['Header']['Security']['Timestamp'];
 
   ErrorMessage = JSON.stringify(ErrorMessage);
 
@@ -566,7 +579,6 @@ async function enviaDS(idDoc,dian,proveedor){
     dataDS,
     prefijoDS,
     consecutivoDS,
-    status,
     statusText,
     StatusCode,
     StatusDescription,
@@ -602,7 +614,7 @@ async function enviaDS(idDoc,dian,proveedor){
   
   const increm = await incrementaConsec(consecutivoDS+1) ;
   const actualizaEstado = await actualizaEstadoDS(idDoc, consecutivoDS) ;
-  const imprime = await generaDocumentoDS(idDoc, consecutivoDS, QRStr, recibe2);
+  const imprime = await generaDocumentoDS(idDoc, consecutivoDS, QRStr, recibe);
   
   if(actualizaEstado !==1){
     swal({
@@ -661,13 +673,13 @@ const anulaDocumentoSoporte = async(id, numDocu, motivo, rechazo, idNC) => {
   }
 }
 
-const generaDocumentoDS = async(idDoc, consecutivoDS, QRStr, recibe2) => {
+const generaDocumentoDS = async(idDoc, consecutivoDS, QRStr, recibe) => {
   data = {
     idDoc,
     consecutivoDS,
     QRStr,
     usuario,
-    recibe2,
+    recibe,
   }
   try {
     const response = await fetch(`${rutaIMP}/generaDS.php`, {
@@ -761,10 +773,11 @@ const enviaDatosDS = async(dataDS, token, rutaFE) => {
   }
 }
 
-const enviaDatosDSACt = async(dataDS, token, rutaFE) => {
+const enviaDatosDSAct = async(dataDS, token, rutaFE) => {
   try {
     const response = await fetch(`${rutaFE}support-document`, {
       method: "POST",
+      body:JSON.stringify(dataDS),
       headers: {
         'Content-Type': 'application/json',        
         'Accept': 'application/json',  
@@ -772,14 +785,6 @@ const enviaDatosDSACt = async(dataDS, token, rutaFE) => {
       },
     });
     const datos = await response.json();
-    // const datos = await console.log(datos);
-
-    console.log(response)
-    console.log(response.status)
-    console.log(response.statusText)
-
-    // const datos = await console.log(datos);
-    console.log(datos);
     
     return datos;
   } catch (error) {
@@ -1031,8 +1036,6 @@ async function guardaProveedor(e) {
 
 async function guardaProducto(e) {
   e.preventDefault();
-
-
   const data = Object.fromEntries(
     new FormData(e.target)
   )

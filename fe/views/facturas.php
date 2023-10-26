@@ -20,13 +20,18 @@
                 <input type="hidden" name="rutaweb" id="rutaweb" value="<?php echo BASE_FE; ?>">                  
                 <input type="hidden" name="ubicacion" id="ubicacion" value="docSoporte">
                 <h3 class="w3ls_head tituloPagina">
-                <span class="material-symbols-outlined">group</span> Facturas</h3>
+                <!-- <span class="material-symbols-outlined">group</span> -->
+                <i class="fa-solid fa-laptop-file"></i> 
+                Facturas</h3>
               </div>
               <div class="col-lg-6 col-xs-12">
                 <a
-                  style="display:inline-flex;" type="button" class="btn btn-success pull-right" href="nuevoDocumento"
+                  type="button" 
+                  class="btn btn-success pull-right" 
+                  href="nuevaFactura"
                 >
-                <span class="material-symbols-outlined">add_box</span> Nueva Factura </a>
+                <i class="fa-regular fa-square-plus"></i>
+                 Nueva Factura </a>
               </div>
             </div>
           </div>

@@ -15,6 +15,7 @@
 
 <link href="<?php echo BASE_CSS; ?>AdminLTE.css" rel="stylesheet" type="text/css">
 <link href="<?php echo BASE_CSS; ?>_all-skins.css" rel="stylesheet" type="text/css">  
+<link href="<?php echo BASE_CSS; ?>select2.min.css" rel="stylesheet" type="text/css">  
 <link rel="stylesheet" type="text/css" href="<?php echo BASE_CSS; ?>sweetalert.css">
 <link rel="stylesheet" type="text/css" href="<?php echo BASE_CSS; ?>style.css">  
 <link rel="stylesheet" type="text/css" href="<?php echo BASE_CSS; ?>fuentes.css"> 

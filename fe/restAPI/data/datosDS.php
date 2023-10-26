@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 } elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $postBody = json_decode(file_get_contents('php://input'), true);
     extract($postBody);
-    $result = $user->ingresaDS($dataDS, $prefijoDS, $consecutivoDS, $status, $StatusCode,$statusText, $StatusDescription, $StatusMessage, $ErrorMessage, $IsValid, $message, $send_email_success, $send_email_date_time, $urlinvoicexml, $urlinvoicepdf, $cude, $QRStr, $Created);
+    $result = $user->ingresaDS($dataDS, $prefijoDS, $consecutivoDS, $StatusCode,$statusText, $StatusDescription, $StatusMessage, $ErrorMessage, $IsValid, $message, $send_email_success, $send_email_date_time, $urlinvoicexml, $urlinvoicepdf, $cude, $QRStr, $Created);
     echo json_encode($result);
 } elseif ($_SERVER['REQUEST_METHOD'] == 'PUT') {
     $postBody = json_decode(file_get_contents('php://input'), true);

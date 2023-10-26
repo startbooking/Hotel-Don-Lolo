@@ -4,8 +4,31 @@ require_once 'init.php';
 
 date_default_timezone_set('America/Bogota');
 
-class Hotel_Actions
-{
+class Hotel_Actions{
+
+  public function asignaDiasCredito($id, $dias){
+    global $database;
+
+    $data = $database->update('historico_cargos_pms',[
+        'diasCredito' => $dias
+    ],[
+        'id_cargo' => $id
+    ]);
+    return $data->rowCount();
+  } 
+
+  public function traeFacturasFecha(){
+    global $database;
+
+    $data = $database->select('historico_cargos_pms',[
+        'id_cargo',
+        'fecha_vencimiento',
+        'fecha_factura',
+    ],[
+        'factura' => 1
+    ]);
+    return $data;
+  }
 
     public function getHabitacionesLlegada($tipo, $llega){
         global $database;
@@ -1005,6 +1028,7 @@ class Hotel_Actions
             'hasta',
             'estado',
             'tipo', 
+            'vigencia',
         ], [
             'estado' => 1,
             'tipoDocumento' => $tipoDoc,
@@ -3121,7 +3145,7 @@ class Hotel_Actions
         return $data;
     }
 
-    public function updateFactura($id, $cargos, $impto, $pagos, $base, $anticipo, $fechaVen, $nro, $usuario, $fecha)
+    public function updateFactura($id, $cargos, $impto, $pagos, $base, $anticipo, $fechaVen, $nro, $usuario, $fecha, $diasCre)
     {
         global $database;
 
@@ -3135,6 +3159,8 @@ class Hotel_Actions
             'total_anticipos' => $anticipo,
             'base_impuestos' => $base,
             'total_pagos' => $pagos,
+            'diasCredito' => $diasCre,
+
         ], [
             'factura_numero' => $nro,
             'factura' => 1,

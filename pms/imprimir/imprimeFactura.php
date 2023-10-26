@@ -20,7 +20,7 @@ if ($tipofac == 2) {
     $datosCompania = $hotel->getSeleccionaCompania($idperfil);
     $diasCre = $datosCompania[0]['dias_credito'];
 }
-
+ 
 $textoResol = 'RESOLUCION DIAN No.'.$resolucion.' de '.$fechaRes.' Autorizacion Pref '.$prefijo.' desde el No. '.$desde.' AL '.$hasta;
 
 $fechaFac = FECHA_PMS;

@@ -19,7 +19,8 @@
           </div>
           <div class="col-lg-6 col-xs-12">
             <a
-              type="button" class="btn btn-success pull-right" href="nuevoDocumento"
+              type="button" class="btn btn-success pull-right" 
+              href="nuevoDocumento"
             >
             <i class="fa-regular fa-square-plus"></i> Nuevo Documento </a>
           </div>
