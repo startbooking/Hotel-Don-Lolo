@@ -13,7 +13,8 @@
 <link rel="stylesheet" type="text/css" href="<?php echo BASE_RES; ?>dist/dataTables.bootstrap.css"> 
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"> 
 
-<link href="<?php echo BASE_CSS; ?>AdminLTE.css" rel="stylesheet" type="text/css">
+<link href="<?php echo BASE_CSS; ?>AdminLTE.min.css" rel="stylesheet" type="text/css">
+<!-- <link href="<?php echo BASE_CSS; ?>AdminLTEV210.css" rel="stylesheet" type="text/css"> -->
 <link href="<?php echo BASE_CSS; ?>_all-skins.css" rel="stylesheet" type="text/css">  
 <link href="<?php echo BASE_CSS; ?>select2.min.css" rel="stylesheet" type="text/css">  
 <link rel="stylesheet" type="text/css" href="<?php echo BASE_CSS; ?>sweetalert.css">

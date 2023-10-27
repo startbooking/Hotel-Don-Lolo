@@ -48,6 +48,7 @@
 	}elseif(isset($_GET['section']) &&	$_GET['section'] == 'docSoporte'){
 		$documentos = $user->getDocumentoSoporte(); 
     $eToken     = $user->datosTokenFE();
+    echo print_r($eToken);
     $prefDS     = $eToken[0]['prefijoDS'];
   }
 

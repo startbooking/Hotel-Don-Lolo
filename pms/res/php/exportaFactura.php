@@ -142,8 +142,24 @@
                             echo $factura['monto'];
                         }
                     ?></td>
-                    <td><?php echo $vacio; ?></td>
-                    <td><?php echo $vacio; ?></td>
+                    <td>
+                    <?php                     
+                        if($factura['cuenta_puc']=='130505' && $anulada=='N'){
+                            echo $factura['factura_numero'];
+                        }else{
+                            echo $vacio; 
+                        }
+                    ?>
+                        </td>
+                    <td>
+                    <?php                     
+                        if($factura['cuenta_puc']=='130505' && $anulada=='N'){
+                            echo $factura['diasCredito'];
+                        }else{
+                            echo $vacio; 
+                        }
+                    ?>                                    
+                    </td>
                     <td><?php echo $vacio; ?></td>
                     <td style="text-align:right;">
                       <?php 

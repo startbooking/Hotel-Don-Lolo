@@ -3,6 +3,9 @@
   $dia = strtotime('-1 day', strtotime($fecha));
   $ayer = date('Y-m-d', $dia);
   $inicial = date('Y-m-01', $dia);
+  
+  // $resolucion = 
+  
 ?>
 <div class="content-wrapper"> 
   <section class="content">

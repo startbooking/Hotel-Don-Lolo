@@ -35,10 +35,13 @@ document.addEventListener("DOMContentLoaded", async () => {
       $("#userPass").val(usuario);
     }
   });
+  
+  // getBrowserInfo();
+  /* navega = obtenerIdNavegador()
+  
+  console.log(navega);   */
 });
   
-
-
 sesion = JSON.parse(localStorage.getItem("sesion"));
 if (sesion) {
   var { user } = sesion;
@@ -392,7 +395,6 @@ function leeCajeroActivo() {
   };
   archivo.send(null);
 }
-
 
 function muestraError(error) {
   $("#error").html(`

@@ -81,7 +81,7 @@ if ($_GET['section'] != 'cajeroCerrado') {
                 <li><a href="cierreCajero"><i class="glyphicon glyphicon-download-alt"></i>Cierre Cajero</a></li>
               </ul>
             </li>
-            <li><a href="informeFacturasRango"><i class="glyphicon glyphicon-paste"></i>Historico Facturas</a></li>
+            <li><a href="historicoFacturas"><i class="glyphicon glyphicon-paste"></i>Historico Facturas</a></li>
             <li><a href="cuentasCongeladas"><i class="fa fa-snowflake-o"></i>Cuentas Congeladas</a></li>
           </ul>
         </li>

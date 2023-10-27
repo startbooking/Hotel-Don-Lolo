@@ -93,8 +93,8 @@ require_once '../res/php/app_topHotel.php';
             require 'views/exportaFacturas.php';
         } elseif (isset($_GET['section']) && $_GET['section'] == 'exportaDocs') {
             require 'views/exportaDocs.php';
-        } elseif (isset($_GET['section']) && $_GET['section'] == 'historicoFacturas') {
-            require 'views/historicoFacturas.php';
+        /* } elseif (isset($_GET['section']) && $_GET['section'] == 'historicoFacturas') {
+            require 'views/historicoFacturas.php'; */
         } elseif (isset($_GET['section']) && $_GET['section'] == 'historicoNC') {
             require 'views/historicoNC.php';
         } elseif (isset($_GET['section']) && $_GET['section'] == 'historicoReservas') {
@@ -167,7 +167,7 @@ require_once '../res/php/app_topHotel.php';
             require 'views/informes/cuentasCongeladas.php';
         } elseif (isset($_GET['section']) && $_GET['section'] == 'informeFacturasdelDia') {
             require 'views/auditoria/facturasDelDiaAuditoria.php';
-        } elseif (isset($_GET['section']) && $_GET['section'] == 'informeFacturasRango') {
+        } elseif (isset($_GET['section']) && $_GET['section'] == 'historicoFacturas') {
             require 'views/informes/facturasPorRango.php';
         } elseif (isset($_GET['section']) && $_GET['section'] == 'informeRecibosCajaRango') {
             require 'views/informes/recibosCajaPorRango.php';

@@ -1,7 +1,7 @@
 <header class="main-header" >
     <a class="logo">
       <img class="img_thumbnail" src="<?php echo BASE_WEB; ?>img/logoBarahona.png">
-      <span style="font-size:18px;font-family:ubuntu;font-weight: 600;margin-left:0px">Barahona Software</span>
+      <span>SACTel Cloud</span>
     </a>
     <?php
     if (IP_ACCESS == 1) {

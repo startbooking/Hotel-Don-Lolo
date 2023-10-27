@@ -183,9 +183,14 @@ blockquote {
 
 .imgLogo,
 .logo img {
-  width: 42px;
+  width: 45px;
   border-radius: 50%;
-  margin: 4px 4px;
+  margin: -2px 4px 4px 4px;
+}
+
+.logo span {
+  font-family: ubuntu;
+  font-weight: 600;
 }
 
 .sidebar-mini.sidebar-collapse .main-header .logo > .logo-mini {
