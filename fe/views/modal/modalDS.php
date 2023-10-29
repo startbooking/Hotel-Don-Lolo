@@ -40,7 +40,8 @@
                   <button type="button" class="btn btn-warning btn-block" data-dismiss="modal"><I class="fa fa-reply"></I> Regresar</button>
                 </div>
                 <div class="col-lg-6">
-                  <button type="submit" class="btn btn-primary btn-block btnAnulaDoc"><I class="fa fa-save"></I> Anular</button>
+                  <button type="submit" class="btn btn-primary btn-block btnAnulaDoc">
+                  <I class="fa fa-save"></I> Anular</button>
                 </div>
               </div>
             </div>
@@ -114,7 +115,8 @@
                   <button type="button" class="btn btn-warning btn-block" data-dismiss="modal"><I class="fa fa-reply"></I> Regresar</button>
                 </div>
                 <div class="col-md-6">
-                  <button class="btn btn-primary btn-block btnAnulaHis"><I class="fa fa-save"></I> Anular</button>
+                  <button class="btn btn-primary btn-block btnAnulaHis">
+                  <I class="fa fa-save"></I> Anular</button>
                 </div>
               </div>
             </div>

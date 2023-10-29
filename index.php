@@ -11,7 +11,7 @@ require_once 'res/php/app_top.php';
 	<?php
     include_once 'res/shared/archivo_head.php';
 ?>
-	<link href="res/css/estilocms.css" rel="stylesheet" type="text/css" media="all" />
+	<!-- <link href="res/css/estilocms.css" rel="stylesheet" type="text/css" media="all" /> -->
 	<link href="res/css/miestilo.css" rel="stylesheet" type="text/css" media="all" />
 	<link rel="stylesheet" href="res/css/flexslider.css" type="text/css" media="screen" property="" />
 </head>
@@ -28,7 +28,7 @@ require_once 'res/php/app_top.php';
 						<label for="" class="">POS</label>
 					</div>
 					<div class="letraBaldosin letraLogo">
-						<label for="">Barahona Software</label>
+						<label for="">SACTel Cloud </label>
 					</div>
 				</div>
 				<div class="row" style="display:flex;">
@@ -67,8 +67,8 @@ require_once 'res/php/app_top.php';
 						</div>
 					</div>
 					<div class="modal-footer" style="text-align: center">
-						<button style="width: 25%" type="button" class="btn btn-warning" data-dismiss="modal"><span class="glyphicon glyphicon-log-out"></span> Cancelar</button>
-						<button style="width: 25%" type="submit" class="btn btn-success" name="btn-login" id="btn-login"> <span class="glyphicon glyphicon-log-in"></span> Ingresar</button>
+						<button type="button" class="btn btn-warning" data-dismiss="modal"><span class="glyphicon glyphicon-log-out"></span> Cancelar</button>
+						<button type="submit" class="btn btn-success" name="btn-login" id="btn-login"> <span class="glyphicon glyphicon-log-in"></span> Ingresar</button>
 					</div>
 				</form>
 			</div>

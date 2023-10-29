@@ -1,5 +1,8 @@
-    <div class="content-wrapper" style="margin-bottom: 50px"> 
-      <section class="content">
+<?php
+  $impuestos = $admin->getCodigosVentas(6);     
+?>    
+    <div class="content-wrapper"> 
+      <section class="container-fluid">
         <div class="panel panel-success">
           <div class="panel-heading">
             <div class="row">
@@ -8,10 +11,10 @@
                 <input type="hidden" name="ubicacion" id="ubicacion" value="impuestos">
                 <h3 class="tituloPagina"><i class="fa fa-bank"> </i> Impuestos / Retenciones </h3>
               </div>
-              <div class="col-lg-6" style="text-align:right;">
-                <a style="margin:20px 0" 
+              <div class="col-lg-6">                
+                <a 
                   data-toggle="modal" 
-                  class = 'btn btn-success'
+                  class = 'btn btn-success pull-right'
                   href="#myModalAdicionarImpto">
                 <i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Adicionar Impuesto</a> 
               </div>
@@ -34,9 +37,9 @@
                   foreach ($impuestos as $impuesto) { ?>
                     <tr style='font-size:12px'>
                       <td><?php echo $impuesto['descripcion_cargo']; ?></td>
-                      <td align="right"><?php echo number_format($impuesto['porcentaje_impto'],2); ?></td>
+                      <td class="derecha"><?php echo number_format($impuesto['porcentaje_impto'],2); ?></td>
                       <td><?php echo tipoImpuesto($impuesto['tipo_impto']); ?></td>
-                      <td align="center" style="padding:3px;width: 12%">
+                      <td class="centro" style="padding:3px;width: 12%">
                         <div class="btn-group" role="group" aria-label="Basic example">
                           <button 
                             type        ="button" 

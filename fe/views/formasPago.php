@@ -1,19 +1,21 @@
 
     <div class="content-wrapper"> 
-      <section class="content">
+      <section class="container-fluid">
         <div class="panel panel-success"> 
           <div class="panel-heading">
             <div class="row">
               <div class="col-lg-6">
                 <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_FE?>">  
                 <input type="hidden" name="ubicacion" id="ubicacion" value="formasPago">
-                <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-money"></i> Formas de Pago </h3>
+                <h3 class="w3ls_head tituloPagina">
+                <i class="fa-solid fa-hand-holding-dollar"></i>
+                Formas de Pago </h3>
               </div>
-              <div class="col-lg-6" style="text-align:right;">
-                <a style="margin:20px 0" 
+              <div class="col-lg-6">
+                <a  
                   data-toggle="modal" 
                   data-edita="0"
-                  class = 'btn btn-success'
+                  class = 'btn btn-success pull-right'
                   href="#myModalPagos">
                 <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
                 Adicionar Forma de Pago</a> 
@@ -41,7 +43,7 @@
                         <td><?php echo $pago['descripcion_cargo']; ?></td>
                         <td><?php echo $pago['cuenta_puc']; ?></td>
                         <td><?php echo tipoPagoDian($pago['formaPagoDian']); ?></td>
-                        <td><?php echo $pago['identificador_dian']; ?></td>
+                        <td class="derecha"><?php echo $pago['identificador_dian']; ?></td>
                         <td style="padding:3px;width: 12%;text-align:center;">
                           <div class="btn-group" role="group" aria-label="Basic example">
                             <button type="button" class="btn btn-info btn-xs" 
@@ -50,7 +52,6 @@
                               data-id     ="<?php echo $pago['id_cargo']?>" 
                               data-descri ="<?php echo $pago['descripcion_cargo']?>" 
                               data-puc    ="<?php echo $pago['cuenta_puc']?>" 
-                              data-contab ="<?php echo $pago['descripcion_contable']?>" 
                               title="Modificar El Impuesto Actual" >
                               <i class='fa fa-pencil-square'></i>
                             </button>
@@ -60,7 +61,6 @@
                               data-id     ="<?php echo $pago['id_cargo']?>" 
                               data-descri ="<?php echo $pago['descripcion_cargo']?>" 
                               data-puc    ="<?php echo $pago['cuenta_puc']?>" 
-                              data-contab ="<?php echo $pago['descripcion_contable']?>" 
                               title="Elimina Forma de Pago Actual" >
                               <i class='fa fa-trash'></i>
                             </button>                                                        

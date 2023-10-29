@@ -122,8 +122,14 @@
 								</div>
 								<div class="row">
 									<div class="container-fluid derecha">
-										<button type="submit" class="btn btn-warning cancela"><span class="material-symbols-outlined">undo</span> Cancelar </button>
-										<button type="submit" class="btn btn-success guarda"><span class="material-symbols-outlined">save</span> Guardar Documento</button>
+										<button type="submit" class="btn btn-warning cancela">
+										<!-- <span class="material-symbols-outlined">undo</span> -->
+										<i class="fa-solid fa-arrow-rotate-left"></i>
+										Cancelar </button>
+										<button type="submit" class="btn btn-success guarda">
+										<!-- <span class="material-symbols-outlined">save</span> -->
+										<i class="fa-regular fa-floppy-disk"></i>
+										Guardar Documento</button>
 									</div>
 								</div>								
 							</div>							

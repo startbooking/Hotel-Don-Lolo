@@ -1,7 +1,7 @@
 <?php 
 	session_start();
- 	error_reporting(E_ALL); 
-	ini_set('display_errors', '1');
+ 	// error_reporting(E_ALL); 
+	// ini_set('display_errors', '1');
 
 	setlocale(LC_ALL,"es_CO.utf8","es_CO","esp")  ;
   date_default_timezone_set("America/Bogota");
@@ -46,10 +46,7 @@
 	}elseif(isset($_GET['section']) &&	$_GET['section'] == 'formasPago'){
 		$pagos = $user->getFormasPago(); 
 	}elseif(isset($_GET['section']) &&	$_GET['section'] == 'docSoporte'){
-		$documentos = $user->getDocumentoSoporte(); 
-    $eToken     = $user->datosTokenFE();
-    echo print_r($eToken);
-    $prefDS     = $eToken[0]['prefijoDS'];
+		$documentos = $user->getDocumentoSoporte();    
   }
 
  ?> 

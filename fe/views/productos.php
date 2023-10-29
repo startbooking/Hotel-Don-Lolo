@@ -1,6 +1,6 @@
 
     <div class="content-wrapper"> 
-      <section class="content">
+      <section class="container-fluid">
         <div class="panel panel-success">
           <div class="panel-heading">
             <div class="row">
@@ -8,7 +8,7 @@
                 <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_FE?>">  
                 <input type="hidden" name="ubicacion" id="ubicacion" value="productos">
                 <h3 class="w3ls_head tituloPagina">
-                <span class="material-symbols-outlined">inventory_2</span> Compras / Servicios  </h3>
+                <i class="fas fa-tags"></i> Compras / Servicios  </h3>
               </div>
               <div class="col-lg-6" style="text-align:right;">
                 <button
@@ -19,7 +19,8 @@
                   class="btn btn-success" 
                   href="#myModalProductos"
                   >
-                  <span class="material-symbols-outlined">add_box</span> Adicionar  </button>
+                  <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>                  
+                  Adicionar  </button>
               </div>
             </div>
           </div>
@@ -54,17 +55,20 @@
                               data-target ="#myModalModificaCodigoVentas" 
                               data-id     ="<?php echo $codigo['id_cargo']?>" 
                               title="Modificar El Producto Actual" >
-                              <!-- <i class='fa fa-pencil-square'></i> -->
-                              <span class="material-symbols-outlined">edit</span>
+                              <i class='fa fa-pencil-square'></i> 
+                              <!-- 
+                              <i class="fa-solid fa-pen"></i>
+                              -->
+                              <!-- <span class="material-symbols-outlined">edit</span> -->
                             </button>
                             <button type="button" class="btn btn-warning btn-xs" 
                               data-toggle ="modal" 
                               data-target ="#myModalEliminaCodigoVentas" 
                               data-id     ="<?php echo $codigo['id_cargo']?>" 
-                              data-impto  ="<?php echo $codigo['id_impto']?>" 
                               title="Elimina El Producto Actual" >
                               <!-- <i class='fa fa-trash'></i> -->
-                              <span class="material-symbols-outlined">delete</span>
+                              <i class="fa-regular fa-trash-can"></i>
+                              <!-- <span class="material-symbols-outlined">delete</span> -->
                             </button> 
                             <!-- 
                           -->

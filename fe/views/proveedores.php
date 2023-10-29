@@ -7,17 +7,18 @@
                 <input type="hidden" name="rutaweb" id="rutaweb" value="<?php echo BASE_FE; ?>">                  
                 <input type="hidden" name="ubicacion" id="ubicacion" value="proveedores">
                 <h3 class="w3ls_head tituloPagina">
-                <span class="material-symbols-outlined">group</span> Catalogo de Proveedores</h3>
+                <i class="fa-solid fa-people-group"></i>
+                Catalogo de Proveedores</h3>
               </div>
               <div class="col-lg-6 col-sm-6 col-xs-12">
                 <button
                 data-toggle="modal" 
-                style="display:inline-flex;" 
                 type="button" 
                 data-edita = "0";
                 class="btn btn-success pull-right" href="#myModalAdicionarProveedor"
                 >
-                <span class="material-symbols-outlined">add_box</span> Adicionar Proveedor </button>
+                <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>                
+                Adicionar Proveedor </button>
               </div>
             </div>
           </div>
@@ -65,8 +66,7 @@
                               data-id="<?php echo $compania['id_compania']; ?>"  
                               data-nombre="<?php echo $compania['empresa']; ?>"  
                               title="Modifica Datos del Proveedor">
-                              <span class="material-symbols-outlined">edit</span>
-                              <!-- <i class='glyphicon glyphicon-edit'></i> -->
+                              <i class='glyphicon glyphicon-edit'></i>
                             </button>
                             <div class="btn-group">
                             </div>
@@ -86,7 +86,3 @@
     </div>
 
 <?php include_once 'views/modal/modalProveedores.php'; ?> 
-<?php
-// echo __DIR__;
-?>
-<!-- <script src=".res/js/proveedores.js" type="module"></script> -->

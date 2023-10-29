@@ -3,9 +3,9 @@
 function tipoPagoDian($tipo){
     switch ($tipo) {
         case 1:
-            return '<span style="font-size:12px;display:block;height:20px;padding:3px" class="label label-info">Contado</span>';
+            return '<span class="badge label-info">Contado</span>';
         case 2:
-            return '<span style="font-size:12px;display:block;height:20px;padding:3px" class="label label-warning">Credito</span>';
+            return '<span class="badge label-warning">Credito</span>';
         case '':
             return 'Sin Definir';
     }

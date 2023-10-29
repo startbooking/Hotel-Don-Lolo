@@ -12,7 +12,10 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="glyphicon glyphicon-off"></span></button>
-          <h4 class="modal-title" id="exampleModalLabel"><span class="material-symbols-outlined">person_add</span> Adiciona Proveedor</h4>
+          <h4 class="modal-title" id="exampleModalLabel">
+          <i class="fa-solid fa-user-plus"></i>
+          <!-- <span class="material-symbols-outlined">person_add</span> -->
+          Adiciona Proveedor</h4>
         </div>
         <form class="form-horizontal">
           <div class="modal-body">
@@ -183,22 +186,16 @@
           </div>
           <div class="modal-footer">
             <div class="row">
-              <button type="button" class="btn btn-warning btnFlex" data-dismiss="modal"><span class="material-symbols-outlined">undo</span> Regresar</button>
-              <button type="submit" class="btn btn-primary btnFlex"><span class="material-symbols-outlined">save</span> Guardar</button>
+              <button type="button" class="btn btn-warning btnFlex" data-dismiss="modal">
+              <i class="fa-solid fa-rotate-left"></i>
+              <!-- <span class="material-symbols-outlined">undo</span> -->
+              Regresar</button>
+              <button type="submit" class="btn btn-primary btnFlex">
+              <i class="fa fa-save"></i>
+              Guardar</button>
             </div>
-          </div>
-          <!-- 
-            <div class="card-body">
-            </div>
-              <div class="card-footer">
-              <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
-              <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
-            </div> -->
+          </div>          
         </form>
-        <!-- <div class="modal-footer">
-          <div class="btn-group">
-          </div>
-        </div> -->
       </div>
     </div>
   </form>
@@ -217,8 +214,14 @@
         </div>
         <div class="card-footer">
           <div class="row">
-            <button type="button" class="btn btn-warning" data-dismiss="modal"><span class="material-symbols-outlined">undo</span> Regresar</button>
-            <button type="submit" class="btn btn-primary derechaAbs"><span class="material-symbols-outlined">save</span> Actualizar</button>
+            <button type="button" class="btn btn-warning" data-dismiss="modal">
+            <i class="fa-solid fa-rotate-left"></i>
+            <!-- <span class="material-symbols-outlined">undo</span> -->
+            Regresar</button>
+            <button type="submit" class="btn btn-primary derechaAbs">
+            <!-- <span class="material-symbols-outlined">save</span>  -->
+            <i class="fa fa-save"></i>
+            Actualizar</button>
           </div>
         </div>
         <!-- <div class="card-footer">

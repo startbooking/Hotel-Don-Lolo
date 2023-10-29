@@ -12,10 +12,16 @@ $rechazos    = $user->motivoRechazoNC();
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="glyphicon glyphicon-off"></span></button>        
+          
+          <!-- 
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span class="material-symbols-outlined">power_settings_new</span>  
+            <i class="fas fa-tags"></i>
           </button>
-          <h4 class="modal-title" id="exampleModalLabel"><span class="material-symbols-outlined">library_add</span> Compras / Servicios </h4>
+        -->
+          <h4 class="modal-title" id="exampleModalLabel">
+          <i class="fas fa-tags"></i>Compras / Servicios </h4>
         </div>
         <div class="modal-body">
           <div id="mensaje" class="alert alert-warning oculto centraTitulo"></div>
@@ -92,22 +98,14 @@ $rechazos    = $user->motivoRechazoNC();
             data-toggle="modal" 
             class="linkItem control-label col-lg-6 col-md-6">Adicionar Nuevo Compra / Servicio </a>            
           </div>
-          <!-- <div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Nuevo Ítem</h4>
-          </div>
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-body">					
-              </div>                
-            </div>
-          </div> -->
         </div>
         <div class="modal-footer">
           <div class="row">
-            <button type="button" class="btn btn-warning" data-dismiss="modal"><span class="material-symbols-outlined">undo</span> Regresar</button>
-            <button type="submit" class="btn btn-primary derechaAbs"><span class="material-symbols-outlined">save</span> Guardar</button>
+            <button type="button" class="btn btn-warning" data-dismiss="modal">
+            <i class="fa-solid fa-rotate-left"></i>
+            Regresar</button>
+            <button type="submit" class="btn btn-primary derechaAbs">
+            <i class="fa fa-save"></i> Guardar</button>
           </div>
         </div>
       </div>
@@ -171,7 +169,8 @@ $rechazos    = $user->motivoRechazoNC();
                   <button type="button" class="btn btn-warning btn-block" data-dismiss="modal"><I class="fa fa-reply"></I> Regresar</button>
                 </div>
                 <div class="col-lg-6">
-                  <button type="submit" class="btn btn-primary btn-block btnAnulaDoc"><I class="fa fa-save"></I> Anular</button>
+                  <button type="submit" class="btn btn-primary btn-block btnAnulaDoc">
+                  <i class="fa fa-save"></i> Anular</button>
                 </div>
               </div>
             </div>

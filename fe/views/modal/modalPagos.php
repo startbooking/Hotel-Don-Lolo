@@ -65,7 +65,10 @@
         <div class="modal-footer">
           <div class="row">
             <button type="button" class="btn btn-warning" data-dismiss="modal"><span class="material-symbols-outlined">undo</span> Regresar</button>
-            <button type="submit" class="btn btn-primary derechaAbs"><span class="material-symbols-outlined">save</span> Guardar</button>
+            <button type="submit" class="btn btn-primary derechaAbs">
+            <i class="fa fa-save">
+            <!-- <span class="material-symbols-outlined">save</span> -->
+            Guardar</button>
           </div>
           <!-- <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
           <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar </button> -->

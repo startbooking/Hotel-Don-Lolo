@@ -17,12 +17,12 @@
             <li>
               <a class="altoMenu" 
                 data-toggle    = 'modal'
-                href="#myModalSoporteTecnico" style="padding:10px 15px">Soporte Tecnico
+                href="#myModalSoporteTecnico" >Soporte Tecnico
               </a> 
             </li>
             <li id="menuClave">
             </li>
-            <li><a class="altoMenu" onclick="cierraSesion()" style="padding:10px 15px">Cerrar Sesion</a></li>
+            <li><a class="altoMenu" onclick="cierraSesion()" >Cerrar Sesion</a></li>
           </ul>
         </li>
       </ul>   

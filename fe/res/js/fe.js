@@ -66,6 +66,7 @@ var rutaIMP;
       var button = event.relatedTarget; // Botón que activó el modal
       edita = JSON.parse(button.dataset.edita);
       docSopo = JSON.parse(button.dataset.documento);
+      alert(docSopo);
       document.querySelector('#guardarProductos').reset();
       document.querySelector('#guardarProductos')
         .addEventListener('submit', guardaProducto);
@@ -881,7 +882,6 @@ const generaDS = async (id, proveedor) => {
 };
 
 async function btnSubmitDocumento(e) {
-  alert('Paso submit')
   e.preventDefault();
   if (e.submitter.classList.contains('guarda')) {
     await guardaDocumento();

@@ -56,7 +56,7 @@
         </a>
         <ul class="treeview-menu">
           <li> 
-            <a href="docSoporte" class="menuPpal" ><i class="fa fa-address-card-o" aria-hidden="true"></i> Documento Soporte de Venta</a>
+            <a href="docSoporte" class="menuPpal" ><i class="fa fa-address-card-o" aria-hidden="true"></i> Documento Soporte</a>
           </li>
           <li>
             <a class="NCSoporte" ><i class="fa fa-pie-chart" aria-hidden="true"></i> Notas Credito</a>

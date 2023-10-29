@@ -10,9 +10,12 @@
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="material-symbols-outlined">power_settings_new</span></button>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="glyphicon glyphicon-off"></span></button>        
+          </button>
           <h4 class="modal-title" id="exampleModalLabel">
-          <span class="material-symbols-outlined">add_chart</span> Compras / Servicios</h4>
+          <!-- <span class="material-symbols-outlined">add_chart</span> -->
+          <i class="fas fa-tags"></i>
+          Compras / Servicios</h4>
         </div>
         <div class="modal-body">
           <div id="mensaje" class="alert alert-warning oculto centraTitulo"></div>
@@ -90,8 +93,14 @@
         </div>
         <div class="modal-footer">
           <div class="row">
-            <button type="button" class="btn btn-warning" data-dismiss="modal"><span class="material-symbols-outlined">undo</span> Regresar</button>
-            <button type="submit" class="btn btn-primary derechaAbs"><span class="material-symbols-outlined">save</span> Guardar</button>
+            <button type="button" class="btn btn-warning" data-dismiss="modal">
+            <!-- <span class="material-symbols-outlined">undo</span> -->
+            <i class="fa-solid fa-rotate-left"></i>
+            
+            Regresar</button>
+            <button type="submit" class="btn btn-primary derechaAbs">
+            <i class="fa fa-save"></i>
+            Guardar</button>
           </div>
         </div>
       </div>

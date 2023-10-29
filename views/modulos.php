@@ -1,5 +1,4 @@
 <?php 
-  // require '../res/php/titles.php';
   require '../res/php/app_top.php';
 
 ?>
@@ -112,8 +111,8 @@
                 <h3>Facturacion Electronica </h3> 				
                 <p style="color:#FFF" >Facturacion Electronica</p>
               </div>              			
-              <div class="icon">                				
-                <i class="ion ion-ios-home-outline"></i>              			
+              <div class="icon">
+                <i class="fa-solid fa-laptop-file"></i>
               </div>			
               <span class="small-box-footer">Ingresar 
                 <i class="fa fa-arrow-circle-right"></i>
@@ -137,27 +136,23 @@
             </div>	
           </a>              
         </div>
-        <div id="par" class="container apagado">
-          <div class="moduloCentrar">
-            <div class="col-lg-4 col-sm-6 col-xs-12"> 
-              <a onclick="ingresoAdmin()" class="small-box-footer">                  
-                <div class="small-box bg-red-gradient">                    
-                  <div class="inner">                      
-                    <h3 style="overflow-x: hidden;">Configuracion General <br></h3> 
-                    <p style="color:#FFF">Parametros del Sistema</p>
-                  </div>                    
-                  <div class="icon">
-                    <i class="fa fa-cogs"></i>
-                  </div>
-                  <small class="small-box-footer" style="font-size:12px">Ingresar <i class="fa fa-arrow-circle-right"></i></small>
-                </div>
-              </a>
-            </div>
-          </div>
-          <!-- <div class="container-fluid">
-          </div> -->
-        </div>
       </div>  
+      <div class="container moduloCentrar mt20 modulos">
+        <div id="par" class="col-lg-4 col-md-4 col-sm-6 col-xs-12 apagado">
+          <a onclick="ingresoAdmin()" class="small-box-footer">                  
+            <div class="small-box bg-red-gradient">                    
+              <div class="inner">                      
+                <h3 style="overflow-x: hidden;">Configuracion General <br></h3> 
+                <p style="color:#FFF">Parametros del Sistema</p>
+              </div>                    
+              <div class="icon">
+                <i class="fa fa-cogs"></i>
+              </div>
+              <small class="small-box-footer" style="font-size:12px">Ingresar <i class="fa fa-arrow-circle-right"></i></small>
+            </div>
+          </a>
+        </div>        
+      </div>
     </section>
   </body>
   <?php  

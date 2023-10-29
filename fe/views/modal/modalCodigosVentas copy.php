@@ -47,11 +47,10 @@
           </div>
           <div class="card-footer">
             <div class="row">
-              <button type="button" class="btn btn-warning" data-dismiss="modal"><span class="material-symbols-outlined">undo</span> Regresar</button>
-              <button type="submit" class="btn btn-primary derechaAbs"><span class="material-symbols-outlined">save</span> Guardar</button>
-            </div>
-            <!-- <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
-            <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar </button> -->
+              <button type="button" class="btn btn-warning" data-dismiss="modal"><span class="material-symbols-outlined">undo</span> 
+              Regresar</button>
+              <i class="fa-regular fa-floppy-disk"></i> Guardar</button>
+            </div>            
           </div>
         </div>
       </div>

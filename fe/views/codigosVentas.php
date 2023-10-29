@@ -15,7 +15,8 @@
                   data-toggle="modal" 
                   style="display:inline-flex;" type="button" class="btn btn-success pull-right" href="#myModalAdicionarCodigoVentas"
                   >
-                  <span class="material-symbols-outlined">add_box</span> Adicionar Producto </button>
+                  <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
+                  Adicionar Producto </button>
                 <!-- <a style="margin:20px 0" 
                   data-toggle="modal" 
                   class = 'btn btn-success'

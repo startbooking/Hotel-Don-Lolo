@@ -372,7 +372,7 @@ a.info span,
 }
 
 .main-sidebar, .left-side {
-  min-height: 87%;
+  /* min-height: 87%; */
 }
 
 .diagonal {
@@ -682,7 +682,7 @@ input[type="month"].form-control {
   line-height: 17px;
 }
 .main-sidebar{
-  margin-top:50px;padding:0
+  /* margin-top:50px;padding:0 */
 }
 
 .logoMenu {

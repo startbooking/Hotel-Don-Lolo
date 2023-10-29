@@ -36,10 +36,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
   
-  // getBrowserInfo();
-  /* navega = obtenerIdNavegador()
-  
-  console.log(navega);   */
 });
   
 sesion = JSON.parse(localStorage.getItem("sesion"));
