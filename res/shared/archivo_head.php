@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 <link rel="stylesheet" type="text/css" href="<?php echo BASE_RES; ?>dist/jquery.dataTables.css">
 <link rel="stylesheet" type="text/css" href="<?php echo BASE_RES; ?>dist/dataTables.bootstrap.css"> 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"> 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" > 
 
 <link href="<?php echo BASE_CSS; ?>AdminLTE.min.css" rel="stylesheet" type="text/css">
 <!-- <link href="<?php echo BASE_CSS; ?>AdminLTEV210.css" rel="stylesheet" type="text/css"> -->

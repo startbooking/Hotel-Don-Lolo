@@ -8205,38 +8205,6 @@ class Hotel_Actions{
         return $data;
     }
 
-    public function getPerfilHuespedesOld($regis, $filas)
-    {
-        global $database;
-
-        $data = $database->select('huespedes', [
-            'id_huesped',
-            'nombre1',
-            'nombre2',
-            'apellido1',
-            'apellido2',
-            'nombre_completo',
-            'identificacion',
-            'direccion',
-            'telefono',
-            'email',
-            'tipo_identifica',
-            'tipo_huesped',
-            'fecha_nacimiento',
-            'sexo',
-            'celular',
-            'id_compania',
-            'idCentroCia',
-            'estado_credito',
-        ], [
-            'LIMIT' => [$regis, $filas],
-            'ORDER' => 'apellido1',
-        ]);
-
-        return $data;
-    }
-
-
     public function getPerfilHuespedes()
     {
         global $database;

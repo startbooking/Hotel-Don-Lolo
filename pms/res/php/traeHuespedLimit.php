@@ -7,5 +7,6 @@
   $huespedes = $hotel->getPerfilHuespedes($regis,$filas);
 
   echo json_encode($huespedes);
-
+ 
 ?>
+ 

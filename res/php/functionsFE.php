@@ -125,7 +125,7 @@ class User_Actions{
     ]);
     $result = [
       'id' => $database->id(),
-      'error' => $database->error,
+      'error' => $database->errorInfo,
     ];
 
     return $result;    
@@ -347,7 +347,7 @@ class User_Actions{
     ]);
     $result = [
       'id' => $database->id(),
-      'error' => $database->error,
+      'error' => $database->errorInfo,
     ];
 
     return $result;
@@ -418,7 +418,7 @@ class User_Actions{
 
     $result = [
       'id' => $database->id(),
-      'error' => $database->error,
+      'error' => $database->errorInfo,
     ];
 
     return $result;
@@ -460,7 +460,7 @@ class User_Actions{
     ]);
     $result = [
       'id' => $database->id(),
-      'error' => $database->error,
+      'error' => $database->errorInfo,
     ];
 
     return $result;
@@ -497,7 +497,7 @@ class User_Actions{
     ]);
     $result = [
       'id' => $database->id(),
-      'error' => $database->error,
+      'error' => $database->errorInfo,
     ];
 
     return $result;
