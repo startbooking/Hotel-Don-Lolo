@@ -5,7 +5,7 @@
 }
 
 form input[type="text"]:focus, form input[type="email"]:focus, form input[type="password"]:focus, form select:focus, form textarea:focus {
-  background: rgb(255, 255, 255);
+  /* background: rgb(255, 255, 255); */
 }
 
 hr {
@@ -83,6 +83,10 @@ hr {
 .pd5 {
   padding:5px;
 }
+
+.pr0 {
+padding-right: 0px;}
+
 .box-header {
   padding: 5px;
 }
@@ -96,8 +100,12 @@ margin-top: 10px;
 }
 
 .prdTable {
-  overflow-y: auto; border: 1px solid rgb(51, 122, 183); height: 311px;
+  overflow-y: auto; border: 1px solid rgb(51, 122, 183); height: 350px;
 } 
+
+.btnProducto {
+  max-height: 150px;min-height: 150px;cursor: pointer;background-color:#a1db75
+}
 
 .form-horizontal {
   padding: 5px 10px;

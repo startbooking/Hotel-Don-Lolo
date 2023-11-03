@@ -409,7 +409,7 @@
                     <h4 class="modal-title">Set Discount</h4>
                   </div>
                   <div class="modal-body">
-                                            <div class="row">
+                      <div class="row">
                         <div class="col-md-6">
                           <div class="box-body">
                             <div class="form-group">
@@ -443,7 +443,7 @@
             </div>
             <!-- /.modal -->
             <!-- **********************MODALS END***************** -->
-            <div class="box-body">   
+            <div class="box-body">
               <div class="row">
                 <div class="col-md-6">
                   <div class="input-group">
@@ -451,18 +451,6 @@
                     <select class="form-control select2" id="customer_id" name="customer_id" style="width: 100%;" tabindex="-1" aria-hidden="true">
                       <option value="1" selected="">Ventas Mostrador</option>
                     </select>
-                    <!-- <span class="select2 select2-container select2-container--default" dir="ltr" style="width: 100%;">
-                      <span class="selection">
-                        <span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-customer_id-container">
-                          <span class="select2-selection__rendered" id="select2-customer_id-container" title="Walk-in customer">
-                            <span class="select2-selection__clear">×</span>
-                            Ventas Mostrador
-                          </span>
-                          <span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span>
-                        </span>
-                      </span>
-                      <span class="dropdown-wrapper" aria-hidden="true"></span>
-                    </span> -->
                     <span class="input-group-addon pointer" data-toggle="modal" data-target="#customer-modal" title="New Customer?"><i class="fa fa-user-plus text-primary fa-lg"></i></span>
                   </div>
                   <span class="customer_points text-success" style="display: none;"></span>
@@ -470,110 +458,107 @@
                 <div class="col-md-6">
                   <div class="input-group">
                     <span class="input-group-addon" title="Select Items"><i class="fa fa-barcode"></i></span>
-                     <span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span><input type="text" class="form-control ui-autocomplete-input" placeholder="Item name/Barcode/Itemcode [Ctrl+Shift+S]" id="item_search" autocomplete="off">
+                    <span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
+                    <input type="text" class="form-control" placeholder="Item name/Barcode/Itemcode [Ctrl+Shift+S]" id="item_search" autocomplete="off">
                   </div>
                 </div>                
-            </div><!-- row end -->
-            <div class="row mt10">
-              <div class="col-md-12">
-                <div class="form-group" style="margin:0px;" >
-                  <div class="col-sm-12 pd0 prdTable" style="overflow-y: auto; border: 1px solid rgb(51, 122, 183); height: 311px;">
-                    <table class="table table-condensed table-bordered table-striped table-responsive items_table" style="">
-                      <thead class="bg-primary">
-                        <tr>
-                          <th width="30%">Nombre del árticulo</th>
-                          <th width="25%">Cantidad</th>
-                          <th width="15%">Precio</th>
-                          <th width="10%">Descuento</th>
-                          <th width="10%" class="block">Impuesto</th>
-                          <th width="15%">SubTotal</th>
-                          <th width="5%"><i class="fa fa-close"></i></th>
-                        </tr>
-                      </thead>
-                      <tbody id="pos-form-tbody" style="font-size: 16px;font-weight: bold;overflow: scroll;">
-                      </tbody>        
-                      <tfoot>
-                      </tfoot>              
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-12 ">
-                <div class="col-md-6">
-                  <!-- <div class="checkbox icheck">
-                    <div class="icheckbox_square-blue checked" style="position: relative;" aria-checked="false" aria-disabled="false">
-                      <input type="checkbox" checked="" class="form-control" id="send_sms" name="send_sms" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;">
-                      <ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-                    </div>                             
-                    <label for="sales_discount" class=" control-label">
-                      <label for="send_sms">Enviar SMS al cliente</label>
-                      <i class="hover-q " data-container="body" data-toggle="popover" data-placement="top" data-content="If checkbox is Disabled! You need to enable it from SMS -> SMS API <br><b>Note:<i>Walk-in Customer will not receive SMS!</i></b>" data-html="true" data-trigger="hover" data-original-title="Do you wants to send SMS ?" title="">
-                        <i class="fa fa-info-circle text-maroon text-black hover-q"></i>
-                      </i>
-                    </label>
-                  </div> -->
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="other_charges" class="col-sm-7 control-label">Otros cargos<label class="text-danger">*</label></label>
-                    <div class="col-sm-5">
-                      <input type="text" class="form-control text-right" id="other_charges" name="other_charges" placeholder="0.00" value="">
-                      <span id="other_charges_msg" style="display:none" class="text-danger"></span>
+              </div><!-- row end -->
+              <div class="row mt10">
+                <div class="col-md-12">
+                  <div class="form-group" style="margin:0px;" >
+                    <div class="col-sm-12 pd0 prdTable">
+                      <table class="table table-condensed table-bordered table-striped table-responsive items_table" style="">
+                        <thead class="bg-primary">
+                          <tr>
+                            <th width="30%">Nombre del árticulo</th>
+                            <th width="25%">Cantidad</th>
+                            <th width="15%">Precio</th>
+                            <th width="10%">Descuento</th>
+                            <th width="10%" class="block">Impuesto</th>
+                            <th width="15%">SubTotal</th>
+                            <th width="5%"><i class="fa fa-close"></i></th>
+                          </tr>
+                        </thead>
+                        <tbody id="pos-form-tbody" style="font-size: 16px;font-weight: bold;overflow: scroll;">
+                        </tbody>        
+                        <tfoot>
+                        </tfoot>              
+                      </table>
                     </div>
                   </div>
                 </div>
-              </div> 
-            </div>         
-          </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12 ">
+                  <div class="col-md-6">
+                    <!-- <div class="checkbox icheck">
+                      <div class="icheckbox_square-blue checked" style="position: relative;" aria-checked="false" aria-disabled="false">
+                        <input type="checkbox" checked="" class="form-control" id="send_sms" name="send_sms" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;">
+                        <ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+                      </div>                             
+                      <label for="sales_discount" class=" control-label">
+                        <label for="send_sms">Enviar SMS al cliente</label>
+                        <i class="hover-q " data-container="body" data-toggle="popover" data-placement="top" data-content="If checkbox is Disabled! You need to enable it from SMS -> SMS API <b>Note:<i>Walk-in Customer will not receive SMS!</i></b>" data-html="true" data-trigger="hover" data-original-title="Do you wants to send SMS ?" title="">
+                          <i class="fa fa-info-circle text-maroon text-black hover-q"></i>
+                        </i>
+                      </label>
+                    </div> -->
+                  </div>
+                  <div class="col-md-6 pr0">
+                    <div class="form-group">
+                      <label for="other_charges" class="col-sm-6 control-label">Otros cargos</label>
+                      <div class="col-sm-6">
+                        <input type="text" class="form-control text-right" id="other_charges" name="other_charges" placeholder="0.00" value="">
+                        <span id="other_charges_msg" style="display:none" class="text-danger"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div> 
+              </div>         
+            </div>
             <!-- /.box-body -->
 
-            <div class="box-footer bg-gray">
+            <div class="box-footer bg-info">
               <div class="row">
-                <div class="col-md-3 text-right">
-                        <label> Cantidad:</label><br>
-                        <span class="text-bold tot_qty">0</span>
+                <div class="col-xs-3 text-right">
+                  <label> Cantidad:</label>
+                  <span class="text-bold tot_qty">0</span>
                 </div>
-                <div class="col-md-3 text-right">
-                        <label>Cantidad total:</label><br>
-                         <span style="font-size: 19px;" class="tot_amt text-bold">0.00</span>                  </div>
-                <div class="col-md-3 text-right">
-                        <label>Descuento total:<a class="fa fa-pencil-square-o cursor-pointer" data-toggle="modal" data-target="#discount-modal"></a></label><br>
-                         <span style="font-size: 19px;" class="tot_disc text-bold">0.00</span>                  </div>
-                <div class="col-md-3 text-right">
-                        <label>Gran total:</label><br>
-                         <span style="font-size: 19px;" class="tot_grand text-bold">0.00</span>                  </div>
+                <div class="col-xs-3 text-right">
+                  <label>Cantidad total:</label>
+                  <span style="font-size: 19px;" class="tot_amt text-bold">0.00</span>
+                </div>
+                <div class="col-xs-3 text-right">
+                  <label>Descuento total:<a class="fa fa-pencil-square-o cursor-pointer" data-toggle="modal" data-target="#discount-modal"></a></label>
+                  <span style="font-size: 19px;" class="tot_disc text-bold">0.00</span>                  
+                </div>
+                <div class="col-xs-3 text-right">
+                  <label>Gran total:</label>
+                  <span style="font-size: 19px;" class="tot_grand text-bold">0.00</span>                  
+                </div>
               </div>
              
-              <div class="row">
-              
-                
+              <div class="row">                             
                 <div class="col-md-12 text-right">
-
                   <div class="col-sm-3">
                     <button type="button" id="hold_invoice" name="" class="btn bg-maroon btn-block btn-flat btn-lg" title="Hold Invoice [Ctrl+Shift+H]">
-                    <i class="fa fa-hand-paper-o" aria-hidden="true"></i>
-                     Hold
-                  </button>
+                      <i class="fa fa-hand-paper-o" aria-hidden="true"></i>
+                       Hold
+                    </button>
                   </div>
                   <div class="col-sm-3">
                     <button type="button" id="" name="" class="btn btn-primary btn-block btn-flat btn-lg show_payments_modal" title="Multiple Payments [Ctrl+Shift+M]">
-                          <i class="fa fa-credit-card" aria-hidden="true"></i>
-                           Multiple
-                        </button>
+                      <i class="fa fa-credit-card" aria-hidden="true"></i>Multiple
+                    </button>
                   </div>
                   <div class="col-sm-3">
                     <button type="button" id="show_cash_modal" name="" class="btn btn-success btn-block btn-flat btn-lg shift_c" title="By Cash &amp; Save [Ctrl+Shift+C]">
-                          <i class="fa fa-money" aria-hidden="true"></i>
-                           Cash                          </button>
+                      <i class="fa fa-money" aria-hidden="true"></i>Cash
+                    </button>
                   </div>
-
                   <div class="col-sm-3">
                     <button type="button" id="pay_all" name="" class="btn bg-purple btn-block btn-flat btn-lg shift_a" title="By Cash &amp; Save [Ctrl+Shift+A]">
-                          <i class="fa fa-money" aria-hidden="true"></i>
-                           Pay All
-                        </button>
+                      <i class="fa fa-money" aria-hidden="true"></i>Pay All</button>
                   </div>
                   
 
@@ -588,421 +573,384 @@
       <!--/.col (left) -->
       <!-- right column -->
       <div class="col-md-5" style="padding: 0 0 0 5px;">
-        <!-- Horizontal Form -->
         <div class="box box-info">
-          <!-- form start -->            
-            <div class="box-body">                
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="input-group input-group-md">
-                    <select class="form-control select2" id="category_id" name="category_id" style="width: 100%;" tabindex="-1" aria-hidden="true">
-                      <option value="">Categorias</option>
-                      <!-- <option value="6">Jeans</option>
-                      <option value="10">Casual Shirts</option>
-                      <option value="11">Formal Shirts</option>
-                      <option value="12">T-Shirts</option>
-                      <option value="13">Jackets</option>
-                      <option value="14">Men Wears</option>
-                      <option value="15">Books</option>
-                      <option value="16">Computers</option>
-                      <option value="17">Shoes</option>
-                      <option value="18">Health Care</option>
-                      <option value="19">Watches</option>
-                      <option value="20">Mobiles</option>
-                      <option value="21">Accessories</option>
-                      <option value="22">cctv</option>  -->                   
-                    </select>
-                    <!-- <span class="select2 select2-container select2-container--default" dir="ltr" style="width: 100%;">
-                      <span class="selection">
-                        <span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-category_id-container">
-                          <span class="select2-selection__rendered" id="select2-category_id-container" title="All Categories">All Categories</span>
-                          <span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span>
-                        </span>
-                      </span> -->
-                      <span class="dropdown-wrapper" aria-hidden="true"></span>
-                    </span>
-                    <span class="input-group-btn">
-                      <button type="button" class="btn text-blue btn-flat reset_categories" title="" data-toggle="tooltip" data-placement="top" data-original-title="Reset Brand">
-                        <i class="fa fa-undo"></i>
-                      </button>
-                    </span>
-                  </div>
-                </div>  
-                <!-- <div class="col-md-6">
-                  <div class="input-group input-group-md">
-                    <select class="form-control select2" id="brand_id" name="brand_id" style="width: 100%;" tabindex="-1" aria-hidden="true">
-                      <option value="">All Brands</option>
-                      <option value="18">Lee</option>
-                      <option value="19">Adidas</option>
-                      <option value="20">Armany</option>
-                      <option value="21">Samsung</option>
-                      <option value="22">Apple</option>
-                      <option value="23">Nokia</option>
-                      <option value="24">D&amp;G</option>
-                      <option value="25">Cipla</option>
-                      <option value="26">Acanya</option>
-                      <option value="27">Accupril</option>
-                      <option value="28">Aayur</option>
-                      <option value="29">Patanjali</option>
-                      <option value="30">lifebuoy</option>
-                      <option value="31">Mysore Sandal Soap</option>
-                      <option value="32">Fastrack</option>
-                      <option value="33">Rado Watches</option>
-                      <option value="34">Rolex</option>
-                      <option value="35">Colgate</option>
-                      <option value="36">Vistaprint</option>
-                      <option value="37">Cosmex Publishers</option>
-                      <option value="38">Raymond</option>
-                      <option value="39">Signature</option>
-                      <option value="40">Redmi</option>
-                      <option value="41">Lenovo</option>
-                      <option value="42">tvt</option>                    
-                    </select>
-                    <span class="select2 select2-container select2-container--default" dir="ltr" style="width: 100%;">
-                      <span class="selection">
-                        <span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-brand_id-container">
-                          <span class="select2-selection__rendered" id="select2-brand_id-container" title="All Brands">All Brands</span>
-                          <span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span>
-                        </span>
-                      </span>
-                      <span class="dropdown-wrapper" aria-hidden="true"></span>
-                    </span>
-                    <span class="input-group-btn">
-                      <button type="button" class="btn text-blue btn-flat reset_brands" title="" data-toggle="tooltip" data-placement="top" data-original-title="Reset Brand">
-                        <i class="fa fa-undo"></i>
-                      </button>
-                    </span>
-                  </div>
-                </div>  -->              
-              </div>
-              <br>
-              <div class="row">  
-                <div class="col-md-12">
-                  <div class="input-group input-group-md">                   
-                    <input type="text" class="form-control" data-toggle="tooltip" title="" placeholder="Item Name" id="item_name" name="item_name" data-original-title="Enter Item Name">
-                    <span class="input-group-btn">
-                      <button type="button" class="btn text-blue btn-flat reset_item_name" title="" data-toggle="tooltip" data-placement="top" data-original-title="Reset Item Name">
-                        <i class="fa fa-undo"></i>
-                      </button>
-                    </span>
-                  </div>
-                </div>               
-              </div><!-- row end -->
-
-           
+          <div class="box-body">                
             <div class="row">
-              <div class="col-md-12">
-                <!-- <div class="form-group"> -->
-                 <!--  <div class="col-sm-12"> -->
-                    <!-- <style type="text/css">
-                      
-                    </style> -->
-          <section class="content" style="height: 500px;">
-          <div class="row search_div" style="overflow-y: scroll;min-height: 100px;height: 500px;">
-            <div class="col-md-3 col-xs-6 " id="item_parent_0" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="Lee Shirts">
-	              <div class="box box-default item_box" id="div_1" onclick="addrow(1)" data-item-id="1" data-item-name="Lee Shirts" data-item-available-qty="5.00" data-item-sales-price="600.00" data-item-cost="550.00" data-item-tax-id="5" data-item-tax-type="Exclusive" data-item-tax-value="10.00" data-item-tax-name="Tax 10%" data-item-tax-amt="60.00" data-purchase_price="550.00" data-discount_type="Percentage" data-discount="0.00" style="max-height: 150px;min-height: 150px;cursor: pointer;background-color:#a1db75">
-	           	    <span class="label label-danger push-right" style="font-weight: bold;font-family: sans-serif;" data-toggle="tooltip" title="" data-original-title="5.00 Quantity in Stock">Can: 5.00</span>
-	                <div class="box-body box-profile">
-  	            	<center>
-  	            	  <img class=" img-responsive item_image" style="border: 1px solid gray;" src="https://pos.creatantech.com/uploads/items/1559021522_thumb.jpg" alt="Item picture">
-  	              </center>
-  	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_0">Lee Shirts<br>
-  	              <span class="" style="font-family: sans-serif;font-size:150%; "> 600.00
-  	              </span>
-  	              </lable>
-  	            </div>
-	              </div>
-	            </div>
-	        <div class="col-md-3 col-xs-6 " id="item_parent_1" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="Signature Jeans">
+              <div class="col-md-6">
+                <div class="input-group input-group-md">
+                  <select class="form-control select2" id="category_id" name="category_id" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                    <option value="">Categorias</option>
+                    <!-- <option value="6">Jeans</option>
+                    <option value="10">Casual Shirts</option>
+                    <option value="11">Formal Shirts</option>
+                    <option value="12">T-Shirts</option>
+                    <option value="13">Jackets</option>
+                    <option value="14">Men Wears</option>
+                    <option value="15">Books</option>
+                    <option value="16">Computers</option>
+                    <option value="17">Shoes</option>
+                    <option value="18">Health Care</option>
+                    <option value="19">Watches</option>
+                    <option value="20">Mobiles</option>
+                    <option value="21">Accessories</option>
+                    <option value="22">cctv</option>  -->                   
+                  </select>
+                  <span class="dropdown-wrapper" aria-hidden="true"></span>
+                </span>
+                <span class="input-group-btn">
+                  <button type="button" class="btn text-blue btn-flat reset_categories" title="" data-toggle="tooltip" data-placement="top" data-original-title="Reset Brand">
+                    <i class="fa fa-undo"></i>
+                  </button>
+                </span>
+              </div>
+            </div>  
+          </div>
+              
+          <div class="row">  
+            <div class="col-md-12">
+              <div class="input-group input-group-md">                   
+                <input type="text" class="form-control" data-toggle="tooltip" title="" placeholder="Item Name" id="item_name" name="item_name" data-original-title="Enter Item Name">
+                <span class="input-group-btn">
+                  <button type="button" class="btn text-blue btn-flat reset_item_name" title="" data-toggle="tooltip" data-placement="top" data-original-title="Reset Item Name">
+                    <i class="fa fa-undo"></i>
+                  </button>
+                </span>
+              </div>
+            </div>               
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <section class="content" style="height: 500px;">
+                <div class="row search_div" style="overflow-y: scroll;min-height: 100px;height: 500px;">
+                  <div class="col-md-3 col-xs-4 " id="item_parent_0" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="Lee Shirts">
+                    <div class="panel">
+                      <div class="panel-title">
+                      </div>
+                      <div class="panel-body">
+                        <center>
+                          <img class=" img-responsive item_image" style="border: 1px solid gray;" src="https://pos.creatantech.com/uploads/items/1559021522_thumb.jpg" alt="Item picture">
+                        </center>
+                      </div>
+                      <div class="panel-footer">
+                        <label class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_0">Lee Shirts
+                          <span class="" style="font-family: sans-serif;font-size:150%; "> 600.00</span>
+                        </label>
+                      </div>
+                    </div>
+                    <!-- <div class="row" id="div_1" onclick="addrow(1)" data-item-id="1" data-item-name="Lee Shirts" data-item-available-qty="5.00" data-item-sales-price="600.00" data-item-cost="550.00" data-item-tax-id="5" data-item-tax-type="Exclusive" data-item-tax-value="10.00" data-item-tax-name="Tax 10%" data-item-tax-amt="60.00" data-purchase_price="550.00" data-discount_type="Percentage" data-discount="0.00">
+      	              <div class="box-body box-profile">
+      	              </div>
+    	              </div>
+      	              -->
+  	              </div>
+	        <div class="col-md-3 col-xs-4 " id="item_parent_1" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="Signature Jeans">
 	          <div class="box box-default item_box" id="div_2" onclick="addrow(2)" data-item-id="2" data-item-name="Signature Jeans" data-item-available-qty="9.00" data-item-sales-price="1100.00" data-item-cost="1100.00" data-item-tax-id="5" data-item-tax-type="Exclusive" data-item-tax-value="10.00" data-item-tax-name="Tax 10%" data-item-tax-amt="110.00" data-purchase_price="1100.00" data-discount_type="Percentage" data-discount="0.00" style="max-height: 150px;min-height: 150px;cursor: pointer;background-color:#a1db75">
 	           	<span class="label label-danger push-right" style="font-weight: bold;font-family: sans-serif;" data-toggle="tooltip" title="" data-original-title="9.00 Quantity in Stock">Qty: 9.00</span>
 	            <div class="box-body box-profile">
 	            	<center>
 	            	<img class=" img-responsive item_image" style="border: 1px solid gray;" src="https://pos.creatantech.com/uploads/items/1559021569_thumb.jpg" alt="Item picture">
 	              </center>
-	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_1">Signature Jeans<br>
+	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_1">Signature Jeans
 	              <span class="" style="font-family: sans-serif;font-size:150%; "> 1,100.00
 	              </span>
 	            </lable></div>
 	          </div>
-	        </div><div class="col-md-3 col-xs-6 " id="item_parent_2" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="Lee Jacket">
+	        </div>
+	        <div class="col-md-3 col-xs-4 " id="item_parent_2" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="Lee Jacket">
 	          <div class="box box-default item_box" id="div_3" onclick="addrow(3)" data-item-id="3" data-item-name="Lee Jacket" data-item-available-qty="6.00" data-item-sales-price="1100.00" data-item-cost="1000.00" data-item-tax-id="5" data-item-tax-type="Inclusive" data-item-tax-value="10.00" data-item-tax-name="Tax 10%" data-item-tax-amt="100.00" data-purchase_price="1000.00" data-discount_type="Percentage" data-discount="0.00" style="max-height: 150px;min-height: 150px;cursor: pointer;background-color:#a1db75">
 	           	<span class="label label-danger push-right" style="font-weight: bold;font-family: sans-serif;" data-toggle="tooltip" title="" data-original-title="6.00 Quantity in Stock">Qty: 6.00</span>
 	            <div class="box-body box-profile">
 	            	<center>
 	            	<img class=" img-responsive item_image" style="border: 1px solid gray;" src="https://pos.creatantech.com/uploads/items/1559021603_thumb.jpg" alt="Item picture">
 	              </center>
-	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_2">Lee Jacket<br>
+	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_2">Lee Jacket
 	              <span class="" style="font-family: sans-serif;font-size:150%; "> 1,100.00
 	              </span>
 	            </lable></div>
 	          </div>
-	        </div><div class="col-md-3 col-xs-6 " id="item_parent_3" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="Suits">
+	        </div>
+	        <div class="col-md-3 col-xs-4 " id="item_parent_3" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="Suits">
 	          <div class="box box-default item_box" id="div_4" onclick="addrow(4)" data-item-id="4" data-item-name="Suits" data-item-available-qty="5.00" data-item-sales-price="1100.00" data-item-cost="1100.00" data-item-tax-id="5" data-item-tax-type="Exclusive" data-item-tax-value="10.00" data-item-tax-name="Tax 10%" data-item-tax-amt="110.00" data-purchase_price="1100.00" data-discount_type="Percentage" data-discount="0.00" style="max-height: 150px;min-height: 150px;cursor: pointer;background-color:#a1db75">
 	           	<span class="label label-danger push-right" style="font-weight: bold;font-family: sans-serif;" data-toggle="tooltip" title="" data-original-title="5.00 Quantity in Stock">Qty: 5.00</span>
 	            <div class="box-body box-profile">
 	            	<center>
 	            	<img class=" img-responsive item_image" style="border: 1px solid gray;" src="https://pos.creatantech.com/uploads/items/1559021815_thumb.jpg" alt="Item picture">
 	              </center>
-	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_3">Suits<br>
+	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_3">Suits
 	              <span class="" style="font-family: sans-serif;font-size:150%; "> 1,100.00
 	              </span>
 	            </lable></div>
 	          </div>
-	        </div><div class="col-md-3 col-xs-6 " id="item_parent_4" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="Rd Shoes">
+	        </div>
+	        <div class="col-md-3 col-xs-4 " id="item_parent_4" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="Rd Shoes">
 	          <div class="box box-default item_box" id="div_5" onclick="addrow(5)" data-item-id="5" data-item-name="Rd Shoes" data-item-available-qty="6.00" data-item-sales-price="1100.00" data-item-cost="1000.00" data-item-tax-id="6" data-item-tax-type="Inclusive" data-item-tax-value="18.00" data-item-tax-name="Tax 18%" data-item-tax-amt="93.22" data-purchase_price="1000.00" data-discount_type="Percentage" data-discount="0.00" style="max-height: 150px;min-height: 150px;cursor: pointer;background-color:#a1db75">
 	           	<span class="label label-danger push-right" style="font-weight: bold;font-family: sans-serif;" data-toggle="tooltip" title="" data-original-title="6.00 Quantity in Stock">Qty: 6.00</span>
 	            <div class="box-body box-profile">
 	            	<center>
 	            	<img class=" img-responsive item_image" style="border: 1px solid gray;" src="https://pos.creatantech.com/uploads/items/1559022339_thumb.jpg" alt="Item picture">
 	              </center>
-	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_4">Rd Shoes<br>
+	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_4">Rd Shoes
 	              <span class="" style="font-family: sans-serif;font-size:150%; "> 1,100.00
 	              </span>
 	            </lable></div>
 	          </div>
-	        </div><div class="col-md-3 col-xs-6 " id="item_parent_5" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="VP Shoes">
+	        </div>
+	        <div class="col-md-3 col-xs-4 " id="item_parent_5" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="VP Shoes">
 	          <div class="box box-default item_box" id="div_6" onclick="addrow(6)" data-item-id="6" data-item-name="VP Shoes" data-item-available-qty="5.00" data-item-sales-price="1100.00" data-item-cost="1000.00" data-item-tax-id="5" data-item-tax-type="Inclusive" data-item-tax-value="10.00" data-item-tax-name="Tax 10%" data-item-tax-amt="100.00" data-purchase_price="1000.00" data-discount_type="Percentage" data-discount="0.00" style="max-height: 150px;min-height: 150px;cursor: pointer;background-color:#a1db75">
 	           	<span class="label label-danger push-right" style="font-weight: bold;font-family: sans-serif;" data-toggle="tooltip" title="" data-original-title="5.00 Quantity in Stock">Qty: 5.00</span>
 	            <div class="box-body box-profile">
 	            	<center>
 	            	<img class=" img-responsive item_image" style="border: 1px solid gray;" src="https://pos.creatantech.com/uploads/items/1559022396_thumb.jpg" alt="Item picture">
 	              </center>
-	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_5">VP Shoes<br>
+	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_5">VP Shoes
 	              <span class="" style="font-family: sans-serif;font-size:150%; "> 1,100.00
 	              </span>
 	            </lable></div>
 	          </div>
-	        </div><div class="col-md-3 col-xs-6 " id="item_parent_6" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="WM Shoes">
+	        </div>
+	        <div class="col-md-3 col-xs-4 " id="item_parent_6" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="WM Shoes">
 	        <div class="box box-default item_box" id="div_7" onclick="addrow(7)" data-item-id="7" data-item-name="WM Shoes" data-item-available-qty="7.00" data-item-sales-price="1100.00" data-item-cost="1000.00" data-item-tax-id="6" data-item-tax-type="Inclusive" data-item-tax-value="18.00" data-item-tax-name="Tax 18%" data-item-tax-amt="93.22" data-purchase_price="1000.00" data-discount_type="Percentage" data-discount="0.00" style="max-height: 150px;min-height: 150px;cursor: pointer;background-color:#a1db75">
 	           	<span class="label label-danger push-right" style="font-weight: bold;font-family: sans-serif;" data-toggle="tooltip" title="" data-original-title="7.00 Quantity in Stock">Qty: 7.00</span>
 	            <div class="box-body box-profile">
 	            	<center>
 	            	<img class=" img-responsive item_image" style="border: 1px solid gray;" src="https://pos.creatantech.com/uploads/items/1559022495_thumb.jpg" alt="Item picture">
 	              </center>
-	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_6">WM Shoes<br>
+	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_6">WM Shoes
 	              <span class="" style="font-family: sans-serif;font-size:150%; "> 1,100.00
 	              </span>
 	            </lable></div>
 	          </div>
-	        </div><div class="col-md-3 col-xs-6 " id="item_parent_7" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="How to Analyze People">
+	        </div>
+	        <div class="col-md-3 col-xs-4 " id="item_parent_7" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="How to Analyze People">
 	          <div class="box box-default item_box" id="div_8" onclick="addrow(8)" data-item-id="8" data-item-name="How to Analyze People" data-item-available-qty="9.00" data-item-sales-price="550.00" data-item-cost="500.00" data-item-tax-id="6" data-item-tax-type="Inclusive" data-item-tax-value="18.00" data-item-tax-name="Tax 18%" data-item-tax-amt="46.61" data-purchase_price="500.00" data-discount_type="Percentage" data-discount="0.00" style="max-height: 150px;min-height: 150px;cursor: pointer;background-color:#a1db75">
 	           	<span class="label label-danger push-right" style="font-weight: bold;font-family: sans-serif;" data-toggle="tooltip" title="" data-original-title="9.00 Quantity in Stock">Qty: 9.00</span>
 	            <div class="box-body box-profile">
 	            	<center>
 	            	<img class=" img-responsive item_image" style="border: 1px solid gray;" src="https://pos.creatantech.com/uploads/items/1559022700_thumb.jpg" alt="Item picture">
 	              </center>
-	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_7">How to Analyze People<br>
+	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_7">How to Analyze People
 	              <span class="" style="font-family: sans-serif;font-size:150%; "> 550.00
 	              </span>
 	            </lable></div>
 	          </div>
-	        </div><div class="col-md-3 col-xs-6 " id="item_parent_8" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="I Do What I Do">
+	        </div>
+	        <div class="col-md-3 col-xs-4 " id="item_parent_8" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="I Do What I Do">
 	          <div class="box box-default item_box" id="div_9" onclick="addrow(9)" data-item-id="9" data-item-name="I Do What I Do" data-item-available-qty="15.00" data-item-sales-price="660.00" data-item-cost="600.00" data-item-tax-id="6" data-item-tax-type="Inclusive" data-item-tax-value="18.00" data-item-tax-name="Tax 18%" data-item-tax-amt="55.93" data-purchase_price="600.00" data-discount_type="Percentage" data-discount="0.00" style="max-height: 150px;min-height: 150px;cursor: pointer;background-color:#a1db75">
 	           	<span class="label label-danger push-right" style="font-weight: bold;font-family: sans-serif;" data-toggle="tooltip" title="" data-original-title="15.00 Quantity in Stock">Qty: 15.00</span>
 	            <div class="box-body box-profile">
 	            	<center>
 	            	<img class=" img-responsive item_image" style="border: 1px solid gray;" src="https://pos.creatantech.com/uploads/items/1559022768_thumb.jpg" alt="Item picture">
 	              </center>
-	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_8">I Do What I Do<br>
+	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_8">I Do What I Do
 	              <span class="" style="font-family: sans-serif;font-size:150%; "> 660.00
 	              </span>
 	            </lable></div>
 	          </div>
-	        </div><div class="col-md-3 col-xs-6 " id="item_parent_9" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="Apple PC">
+	        </div>
+	        <div class="col-md-3 col-xs-4 " id="item_parent_9" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="Apple PC">
 	          <div class="box box-default item_box" id="div_10" onclick="addrow(10)" data-item-id="10" data-item-name="Apple PC" data-item-available-qty="13.00" data-item-sales-price="11000.00" data-item-cost="10000.00" data-item-tax-id="6" data-item-tax-type="Inclusive" data-item-tax-value="18.00" data-item-tax-name="Tax 18%" data-item-tax-amt="932.20" data-purchase_price="10000.00" data-discount_type="Percentage" data-discount="0.00" style="max-height: 150px;min-height: 150px;cursor: pointer;background-color:#a1db75">
 	           	<span class="label label-danger push-right" style="font-weight: bold;font-family: sans-serif;" data-toggle="tooltip" title="" data-original-title="13.00 Quantity in Stock">Qty: 13.00</span>
 	            <div class="box-body box-profile">
 	            	<center>
 	            	<img class=" img-responsive item_image" style="border: 1px solid gray;" src="https://pos.creatantech.com/uploads/items/1559022862_thumb.jpg" alt="Item picture">
 	              </center>
-	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_9">Apple PC<br>
+	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_9">Apple PC
 	              <span class="" style="font-family: sans-serif;font-size:150%; "> 11,000.00
 	              </span>
 	            </lable></div>
 	          </div>
-	        </div><div class="col-md-3 col-xs-6 " id="item_parent_10" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="Apple Laptop">
+	        </div>
+	        <div class="col-md-3 col-xs-4 " id="item_parent_10" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="Apple Laptop">
 	          <div class="box box-default item_box" id="div_11" onclick="addrow(11)" data-item-id="11" data-item-name="Apple Laptop" data-item-available-qty="16.00" data-item-sales-price="1100.00" data-item-cost="1000.00" data-item-tax-id="5" data-item-tax-type="Inclusive" data-item-tax-value="10.00" data-item-tax-name="Tax 10%" data-item-tax-amt="100.00" data-purchase_price="1000.00" data-discount_type="Percentage" data-discount="0.00" style="max-height: 150px;min-height: 150px;cursor: pointer;background-color:#a1db75">
 	           	<span class="label label-danger push-right" style="font-weight: bold;font-family: sans-serif;" data-toggle="tooltip" title="" data-original-title="16.00 Quantity in Stock">Qty: 16.00</span>
 	            <div class="box-body box-profile">
 	            	<center>
 	            	<img class=" img-responsive item_image" style="border: 1px solid gray;" src="https://pos.creatantech.com/uploads/items/1559022944_thumb.jpg" alt="Item picture">
 	              </center>
-	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_10">Apple Laptop<br>
+	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_10">Apple Laptop
 	              <span class="" style="font-family: sans-serif;font-size:150%; "> 1,100.00
 	              </span>
 	            </lable></div>
 	          </div>
-	        </div><div class="col-md-3 col-xs-6 " id="item_parent_11" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="Povery shoe">
+	        </div>
+	        <div class="col-md-3 col-xs-4 " id="item_parent_11" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="Povery shoe">
 	          <div class="box box-default item_box" id="div_12" onclick="addrow(12)" data-item-id="12" data-item-name="Povery shoe" data-item-available-qty="21.00" data-item-sales-price="550.00" data-item-cost="500.00" data-item-tax-id="6" data-item-tax-type="Inclusive" data-item-tax-value="18.00" data-item-tax-name="Tax 18%" data-item-tax-amt="46.61" data-purchase_price="500.00" data-discount_type="Percentage" data-discount="0.00" style="max-height: 150px;min-height: 150px;cursor: pointer;background-color:#a1db75">
 	           	<span class="label label-danger push-right" style="font-weight: bold;font-family: sans-serif;" data-toggle="tooltip" title="" data-original-title="21.00 Quantity in Stock">Qty: 21.00</span>
 	            <div class="box-body box-profile">
 	            	<center>
 	            	<img class=" img-responsive item_image" style="border: 1px solid gray;" src="https://pos.creatantech.com/uploads/items/1559026084_thumb.jpg" alt="Item picture">
 	              </center>
-	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_11">Povery shoe<br>
+	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_11">Povery shoe
 	              <span class="" style="font-family: sans-serif;font-size:150%; "> 550.00
 	              </span>
 	            </lable></div>
 	          </div>
-	        </div><div class="col-md-3 col-xs-6 " id="item_parent_12" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="Ramayana">
+	        </div>
+	        <div class="col-md-3 col-xs-4 " id="item_parent_12" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="Ramayana">
 	          <div class="box box-default item_box" id="div_13" onclick="addrow(13)" data-item-id="13" data-item-name="Ramayana" data-item-available-qty="28.00" data-item-sales-price="357.50" data-item-cost="325.00" data-item-tax-id="5" data-item-tax-type="Inclusive" data-item-tax-value="10.00" data-item-tax-name="Tax 10%" data-item-tax-amt="32.50" data-purchase_price="325.00" data-discount_type="Percentage" data-discount="0.00" style="max-height: 150px;min-height: 150px;cursor: pointer;background-color:#a1db75">
 	           	<span class="label label-danger push-right" style="font-weight: bold;font-family: sans-serif;" data-toggle="tooltip" title="" data-original-title="28.00 Quantity in Stock">Qty: 28.00</span>
 	            <div class="box-body box-profile">
 	            	<center>
 	            	<img class=" img-responsive item_image" style="border: 1px solid gray;" src="https://pos.creatantech.com/uploads/items/1559547347_thumb.jpg" alt="Item picture">
 	              </center>
-	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_12">Ramayana<br>
+	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_12">Ramayana
 	              <span class="" style="font-family: sans-serif;font-size:150%; "> 357.50
 	              </span>
 	            </lable></div>
 	          </div>
-	        </div><div class="col-md-3 col-xs-6 " id="item_parent_13" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="Armany jacket">
+	        </div>
+	        <div class="col-md-3 col-xs-4 " id="item_parent_13" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="Armany jacket">
 	          <div class="box box-default item_box" id="div_14" onclick="addrow(14)" data-item-id="14" data-item-name="Armany jacket" data-item-available-qty="24.00" data-item-sales-price="2750.00" data-item-cost="2500.00" data-item-tax-id="4" data-item-tax-type="Inclusive" data-item-tax-value="5.00" data-item-tax-name="Vat 5%" data-item-tax-amt="261.90" data-purchase_price="2500.00" data-discount_type="Percentage" data-discount="0.00" style="max-height: 150px;min-height: 150px;cursor: pointer;background-color:#a1db75">
 	           	<span class="label label-danger push-right" style="font-weight: bold;font-family: sans-serif;" data-toggle="tooltip" title="" data-original-title="24.00 Quantity in Stock">Qty: 24.00</span>
 	            <div class="box-body box-profile">
 	            	<center>
 	            	<img class=" img-responsive item_image" style="border: 1px solid gray;" src="https://pos.creatantech.com/uploads/items/1566110017_thumb.jpg" alt="Item picture">
 	              </center>
-	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_13">Armany jacket<br>
+	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_13">Armany jacket
 	              <span class="" style="font-family: sans-serif;font-size:150%; "> 2,750.00
 	              </span>
 	            </lable></div>
 	          </div>
-	        </div><div class="col-md-3 col-xs-6 " id="item_parent_14" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="Colgate">
+	        </div>
+	        <div class="col-md-3 col-xs-4 " id="item_parent_14" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="Colgate">
 	          <div class="box box-default item_box" id="div_15" onclick="addrow(15)" data-item-id="15" data-item-name="Colgate" data-item-available-qty="28.00" data-item-sales-price="85.80" data-item-cost="78.00" data-item-tax-id="4" data-item-tax-type="Inclusive" data-item-tax-value="5.00" data-item-tax-name="Vat 5%" data-item-tax-amt="8.17" data-purchase_price="78.00" data-discount_type="Percentage" data-discount="0.00" style="max-height: 150px;min-height: 150px;cursor: pointer;background-color:#a1db75">
 	           	<span class="label label-danger push-right" style="font-weight: bold;font-family: sans-serif;" data-toggle="tooltip" title="" data-original-title="28.00 Quantity in Stock">Qty: 28.00</span>
 	            <div class="box-body box-profile">
 	            	<center>
 	            	<img class=" img-responsive item_image" style="border: 1px solid gray;" src="https://pos.creatantech.com/uploads/items/1566111586_thumb.jpg" alt="Item picture">
 	              </center>
-	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_14">Colgate<br>
+	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_14">Colgate
 	              <span class="" style="font-family: sans-serif;font-size:150%; "> 85.80
 	              </span>
 	            </lable></div>
 	          </div>
-	        </div><div class="col-md-3 col-xs-6 " id="item_parent_15" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="Rolex">
+	        </div>
+	        <div class="col-md-3 col-xs-4 " id="item_parent_15" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="Rolex">
 	          <div class="box box-default item_box" id="div_16" onclick="addrow(16)" data-item-id="16" data-item-name="Rolex" data-item-available-qty="34.00" data-item-sales-price="16500.00" data-item-cost="15000.00" data-item-tax-id="6" data-item-tax-type="Inclusive" data-item-tax-value="18.00" data-item-tax-name="Tax 18%" data-item-tax-amt="1398.31" data-purchase_price="15000.00" data-discount_type="Percentage" data-discount="0.00" style="max-height: 150px;min-height: 150px;cursor: pointer;background-color:#a1db75">
 	           	<span class="label label-danger push-right" style="font-weight: bold;font-family: sans-serif;" data-toggle="tooltip" title="" data-original-title="34.00 Quantity in Stock">Qty: 34.00</span>
 	            <div class="box-body box-profile">
 	            	<center>
 	            	<img class=" img-responsive item_image" style="border: 1px solid gray;" src="https://pos.creatantech.com/uploads/items/1566111847_thumb.jpg" alt="Item picture">
 	              </center>
-	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_15">Rolex<br>
+	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_15">Rolex
 	              <span class="" style="font-family: sans-serif;font-size:150%; "> 16,500.00
 	              </span>
 	            </lable></div>
 	          </div>
-	        </div><div class="col-md-3 col-xs-6 " id="item_parent_16" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="Rado Watch">
+	        </div>
+	        <div class="col-md-3 col-xs-4 " id="item_parent_16" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="Rado Watch">
 	          <div class="box box-default item_box" id="div_17" onclick="addrow(17)" data-item-id="17" data-item-name="Rado Watch" data-item-available-qty="53.00" data-item-sales-price="20768.00" data-item-cost="16000.00" data-item-tax-id="6" data-item-tax-type="Inclusive" data-item-tax-value="18.00" data-item-tax-name="Tax 18%" data-item-tax-amt="1760.00" data-purchase_price="16000.00" data-discount_type="Percentage" data-discount="0.00" style="max-height: 150px;min-height: 150px;cursor: pointer;background-color:#a1db75">
 	           	<span class="label label-danger push-right" style="font-weight: bold;font-family: sans-serif;" data-toggle="tooltip" title="" data-original-title="53.00 Quantity in Stock">Qty: 53.00</span>
 	            <div class="box-body box-profile">
 	            	<center>
 	            	<img class=" img-responsive item_image" style="border: 1px solid gray;" src="https://pos.creatantech.com/uploads/items/1566111944_thumb.jpg" alt="Item picture">
 	              </center>
-	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_16">Rado Watch<br>
+	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_16">Rado Watch
 	              <span class="" style="font-family: sans-serif;font-size:150%; "> 20,768.00
 	              </span>
 	            </lable></div>
 	          </div>
-	        </div><div class="col-md-3 col-xs-6 " id="item_parent_17" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="Mysore Sandal Soap">
+	        </div>
+	        <div class="col-md-3 col-xs-4 " id="item_parent_17" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="Mysore Sandal Soap">
 	          <div class="box box-default item_box" id="div_18" onclick="addrow(18)" data-item-id="18" data-item-name="Mysore Sandal Soap" data-item-available-qty="34.00" data-item-sales-price="132.00" data-item-cost="120.00" data-item-tax-id="4" data-item-tax-type="Inclusive" data-item-tax-value="5.00" data-item-tax-name="Vat 5%" data-item-tax-amt="12.57" data-purchase_price="120.00" data-discount_type="Percentage" data-discount="0.00" style="max-height: 150px;min-height: 150px;cursor: pointer;background-color:#a1db75">
 	           	<span class="label label-danger push-right" style="font-weight: bold;font-family: sans-serif;" data-toggle="tooltip" title="" data-original-title="34.00 Quantity in Stock">Qty: 34.00</span>
 	            <div class="box-body box-profile">
 	            	<center>
 	            	<img class=" img-responsive item_image" style="border: 1px solid gray;" src="https://pos.creatantech.com/theme/images/no_image.png" alt="Item picture">
 	              </center>
-	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_17">Mysore Sandal Soap<br>
+	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_17">Mysore Sandal Soap
 	              <span class="" style="font-family: sans-serif;font-size:150%; "> 132.00
 	              </span>
 	            </lable></div>
 	          </div>
-	        </div><div class="col-md-3 col-xs-6 " id="item_parent_18" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="Lifebuoy">
+	        </div>
+	        <div class="col-md-3 col-xs-4 " id="item_parent_18" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="Lifebuoy">
 	          <div class="box box-default item_box" id="div_19" onclick="addrow(19)" data-item-id="19" data-item-name="Lifebuoy" data-item-available-qty="45.00" data-item-sales-price="55.00" data-item-cost="50.00" data-item-tax-id="4" data-item-tax-type="Inclusive" data-item-tax-value="5.00" data-item-tax-name="Vat 5%" data-item-tax-amt="5.24" data-purchase_price="50.00" data-discount_type="Percentage" data-discount="0.00" style="max-height: 150px;min-height: 150px;cursor: pointer;background-color:#a1db75">
 	           	<span class="label label-danger push-right" style="font-weight: bold;font-family: sans-serif;" data-toggle="tooltip" title="" data-original-title="45.00 Quantity in Stock">Qty: 45.00</span>
 	            <div class="box-body box-profile">
 	            	<center>
 	            	<img class=" img-responsive item_image" style="border: 1px solid gray;" src="https://pos.creatantech.com/uploads/items/1566112161_thumb.jpg" alt="Item picture">
 	              </center>
-	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_18">Lifebuoy<br>
+	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_18">Lifebuoy
 	              <span class="" style="font-family: sans-serif;font-size:150%; "> 55.00
 	              </span>
 	            </lable></div>
 	          </div>
-	        </div><div class="col-md-3 col-xs-6 " id="item_parent_19" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="Redmi Pro 7 Mobile">
+	        </div>
+	        <div class="col-md-3 col-xs-4 " id="item_parent_19" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="Redmi Pro 7 Mobile">
 	          <div class="box box-default item_box" id="div_20" onclick="addrow(20)" data-item-id="20" data-item-name="Redmi Pro 7 Mobile" data-item-available-qty="20.00" data-item-sales-price="11000.00" data-item-cost="10000.00" data-item-tax-id="12" data-item-tax-type="Inclusive" data-item-tax-value="18.00" data-item-tax-name="GST 18%" data-item-tax-amt="932.20" data-purchase_price="10000.00" data-discount_type="Percentage" data-discount="0.00" style="max-height: 150px;min-height: 150px;cursor: pointer;background-color:#a1db75">
 	           	<span class="label label-danger push-right" style="font-weight: bold;font-family: sans-serif;" data-toggle="tooltip" title="" data-original-title="20.00 Quantity in Stock">Qty: 20.00</span>
 	            <div class="box-body box-profile">
 	            	<center>
 	            	<img class=" img-responsive item_image" style="border: 1px solid gray;" src="https://pos.creatantech.com/uploads/items/1572508347_thumb.jpeg" alt="Item picture">
 	              </center>
-	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_19">Redmi Pro 7 Mobile<br>
+	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_19">Redmi Pro 7 Mobile
 	              <span class="" style="font-family: sans-serif;font-size:150%; "> 11,000.00
 	              </span>
 	            </lable></div>
 	          </div>
-	        </div><div class="col-md-3 col-xs-6 " id="item_parent_20" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="iPhone 11">
+	        </div>
+	        <div class="col-md-3 col-xs-4 " id="item_parent_20" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="iPhone 11">
 	          <div class="box box-default item_box" id="div_21" onclick="addrow(21)" data-item-id="21" data-item-name="iPhone 11" data-item-available-qty="9.00" data-item-sales-price="115500.00" data-item-cost="105000.00" data-item-tax-id="12" data-item-tax-type="Inclusive" data-item-tax-value="18.00" data-item-tax-name="GST 18%" data-item-tax-amt="9788.14" data-purchase_price="105000.00" data-discount_type="Percentage" data-discount="0.00" style="max-height: 150px;min-height: 150px;cursor: pointer;background-color:#a1db75">
 	           	<span class="label label-danger push-right" style="font-weight: bold;font-family: sans-serif;" data-toggle="tooltip" title="" data-original-title="9.00 Quantity in Stock">Qty: 9.00</span>
 	            <div class="box-body box-profile">
 	            	<center>
 	            	<img class=" img-responsive item_image" style="border: 1px solid gray;" src="https://pos.creatantech.com/uploads/items/1572508454_thumb.jpg" alt="Item picture">
 	              </center>
-	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_20">iPhone 11<br>
+	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_20">iPhone 11
 	              <span class="" style="font-family: sans-serif;font-size:150%; "> 115,500.00
 	              </span>
 	            </lable></div>
 	          </div>
-	        </div><div class="col-md-3 col-xs-6 " id="item_parent_21" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="Apple Earpods">
+	        </div>
+	        <div class="col-md-3 col-xs-4 " id="item_parent_21" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="Apple Earpods">
 	          <div class="box box-default item_box" id="div_22" onclick="addrow(22)" data-item-id="22" data-item-name="Apple Earpods" data-item-available-qty="18.00" data-item-sales-price="13200.00" data-item-cost="12000.00" data-item-tax-id="12" data-item-tax-type="Inclusive" data-item-tax-value="18.00" data-item-tax-name="GST 18%" data-item-tax-amt="1118.64" data-purchase_price="12000.00" data-discount_type="Percentage" data-discount="0.00" style="max-height: 150px;min-height: 150px;cursor: pointer;background-color:#a1db75">
 	           	<span class="label label-danger push-right" style="font-weight: bold;font-family: sans-serif;" data-toggle="tooltip" title="" data-original-title="18.00 Quantity in Stock">Qty: 18.00</span>
 	            <div class="box-body box-profile">
 	            	<center>
 	            	<img class=" img-responsive item_image" style="border: 1px solid gray;" src="https://pos.creatantech.com/uploads/items/1572508505_thumb.jpg" alt="Item picture">
 	              </center>
-	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_21">Apple Earpods<br>
+	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_21">Apple Earpods
 	              <span class="" style="font-family: sans-serif;font-size:150%; "> 13,200.00
 	              </span>
 	            </lable></div>
 	          </div>
-	        </div><div class="col-md-3 col-xs-6 " id="item_parent_22" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="sdfadfawdfsdf">
+	        </div>
+	        <div class="col-md-3 col-xs-4 " id="item_parent_22" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="sdfadfawdfsdf">
 	          <div class="box box-default item_box" id="div_23" onclick="addrow(23)" data-item-id="23" data-item-name="sdfadfawdfsdf" data-item-available-qty="7.00" data-item-sales-price="119.00" data-item-cost="118.00" data-item-tax-id="12" data-item-tax-type="Exclusive" data-item-tax-value="18.00" data-item-tax-name="GST 18%" data-item-tax-amt="21.42" data-purchase_price="118.00" data-discount_type="Percentage" data-discount="0.00" style="max-height: 150px;min-height: 150px;cursor: pointer;background-color:#a1db75">
 	           	<span class="label label-danger push-right" style="font-weight: bold;font-family: sans-serif;" data-toggle="tooltip" title="" data-original-title="7.00 Quantity in Stock">Qty: 7.00</span>
 	            <div class="box-body box-profile">
 	            	<center>
 	            	<img class=" img-responsive item_image" style="border: 1px solid gray;" src="https://pos.creatantech.com/theme/images/no_image.png" alt="Item picture">
 	              </center>
-	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_22">sdfadfawdfsdf<br>
+	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_22">sdfadfawdfsdf
 	              <span class="" style="font-family: sans-serif;font-size:150%; "> 119.00
 	              </span>
 	            </lable></div>
 	          </div>
-	        </div><div class="col-md-3 col-xs-6 " id="item_parent_23" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="καμερα">
+	        </div>
+	        <div class="col-md-3 col-xs-4 " id="item_parent_23" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="καμερα">
 	          <div class="box box-default item_box" id="div_24" onclick="addrow(24)" data-item-id="24" data-item-name="καμερα" data-item-available-qty="8.00" data-item-sales-price="10.00" data-item-cost="11.80" data-item-tax-id="12" data-item-tax-type="Exclusive" data-item-tax-value="18.00" data-item-tax-name="GST 18%" data-item-tax-amt="1.80" data-purchase_price="11.80" data-discount_type="Percentage" data-discount="0.00" style="max-height: 150px;min-height: 150px;cursor: pointer;background-color:#a1db75">
 	           	<span class="label label-danger push-right" style="font-weight: bold;font-family: sans-serif;" data-toggle="tooltip" title="" data-original-title="8.00 Quantity in Stock">Qty: 8.00</span>
 	            <div class="box-body box-profile">
 	            	<center>
 	            	<img class=" img-responsive item_image" style="border: 1px solid gray;" src="https://pos.creatantech.com/theme/images/no_image.png" alt="Item picture">
 	              </center>
-	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_23">καμερα<br>
+	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_23">καμερα
 	              <span class="" style="font-family: sans-serif;font-size:150%; "> 10.00
 	              </span>
 	            </lable></div>
 	          </div>
 	        </div><input type="hidden" class="last_id" id="24"></div>
-                          </section>
-                          <div class="ajax-load text-center" style="display: none;">
-                              <button type="button" class="btn btn-default btn-lrg ajax" title="Ajax Request">
-                              <i class="fa fa-spin fa-refresh"></i>&nbsp; Loading More Data
-                            </button>
-                            </div>
-                       
-                  <!-- </div> -->
-                <!-- </div> -->
-              </div>
-            </div>
-         
-            </div>
+        </section>
+        <!-- <div class="ajax-load text-center" style="display: none;">
+          <button type="button" class="btn btn-default btn-lrg ajax" title="Ajax Request">
+            <i class="fa fa-spin fa-refresh"></i>&nbsp; Loading More Data
+          </button>
+        </div> -->
+      </div>
+    </div>
+  </div>
             <!-- /.box-body -->
 
             
