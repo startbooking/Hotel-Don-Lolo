@@ -250,472 +250,467 @@
       <!-- /.modal-dialog -->
    </div>
 </div>
-    <!-- **********************MODALS END***************** -->
-    <!-- Main content -->
-    <section class="container-fluid pd0">
-      <div class="row">   
-        <!-- left column -->
-        <div class="col-md-7"> 
-          <!-- general form elements -->
-          <div class="box box-primary">
-            <!-- form start -->
-            <form class="form-horizontal" id="pos-form">
-              <div class="box-header with-border" style="padding-bottom: 0px;">
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="col-md-4">
-                      <h3 class="box-title"><i class="fa fa-shopping-cart"></i> Factura de Ventas</h3>
-                    </div>                                                  
+  <!-- **********************MODALS END***************** -->
+  <!-- Main content -->
+  <section class="container-fluid pd5" style="padding: 0 5px 0 0;">
+    <div class="row mr0">   
+      <!-- left column -->
+      <div class="col-md-7" > 
+        <!-- general form elements -->
+        <div class="box box-primary">
+          <!-- form start -->
+          <form class="form-horizontal" id="pos-form">
+            <div class="box-header with-border" style="padding-bottom: 0px;">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="col-md-4">
+                    <h3 class="box-title"><i class="fa fa-shopping-cart"></i> Factura de Ventas</h3>
+                  </div>                                                  
+                </div>
+              </div>            
+            </div>
+            <!-- 
+            <input type="hidden" name="csrf_test_name" value="fb042f964c4050226497c097563df028">
+            <input type="hidden" value="0" id="hidden_rowcount" name="hidden_rowcount">
+            <input type="hidden" value="" id="hidden_invoice_id" name="hidden_invoice_id">
+            <input type="hidden" id="base_url" value="https://pos.creatantech.com/">
+            <input type="hidden" value="" id="temp_customer_id" name="temp_customer_id"> -->              
+            <!-- **********************MODALS***************** -->
+            <div class="modal fade" id="multiple-payments-modal" tabindex="-1">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header header-custom">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title text-center">Pagos</h4>
                   </div>
-                </div>            
-              </div>
-              <!-- 
-              <input type="hidden" name="csrf_test_name" value="fb042f964c4050226497c097563df028">
-              <input type="hidden" value="0" id="hidden_rowcount" name="hidden_rowcount">
-              <input type="hidden" value="" id="hidden_invoice_id" name="hidden_invoice_id">
-              <input type="hidden" id="base_url" value="https://pos.creatantech.com/">
-              <input type="hidden" value="" id="temp_customer_id" name="temp_customer_id"> -->              
-              <!-- **********************MODALS***************** -->
-              <div class="modal fade" id="multiple-payments-modal" tabindex="-1">
-                <div class="modal-dialog modal-lg">
-                  <div class="modal-content">
-                    <div class="modal-header header-custom">
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span></button>
-                      <h4 class="modal-title text-center">Pagos</h4>
-                    </div>
-                    <div class="modal-body">          
-                      <div class="row">
-                        <div class="col-md-8"><div>
-                          <input type="hidden" data-var="inside_else" name="payment_row_count" id="payment_row_count" value="1">
-                          <div class="col-md-12  payments_div">
-                            <div class="box box-solid bg-gray">
-                              <div class="box-body">
-                                <div class="row">        
-                                  <div class="col-md-6">
-                                    <div class="">
-                                      <label for="amount_1">Cantidad</label>
-                                      <input type="text" class="form-control text-right payment" id="amount_1" name="amount_1" placeholder="" onkeyup="calculate_payments()">
-                                      <span id="amount_1_msg" style="display:none" class="text-danger"></span>
-                                    </div>
+                  <div class="modal-body">          
+                    <div class="row">
+                      <div class="col-md-8"><div>
+                        <input type="hidden" data-var="inside_else" name="payment_row_count" id="payment_row_count" value="1">
+                        <div class="col-md-12  payments_div">
+                          <div class="box box-solid bg-gray">
+                            <div class="box-body">
+                              <div class="row">        
+                                <div class="col-md-6">
+                                  <div class="">
+                                    <label for="amount_1">Cantidad</label>
+                                    <input type="text" class="form-control text-right payment" id="amount_1" name="amount_1" placeholder="" onkeyup="calculate_payments()">
+                                    <span id="amount_1_msg" style="display:none" class="text-danger"></span>
                                   </div>
-                                  <div class="col-md-6">
-                                    <div class="">
-                                      <label for="payment_type_1">Formas de Pago</label>
-                                      <select class="form-control" id="payment_type_1" name="payment_type_1">
-                                        <option value="Cash">Cash</option>
-                                        <option value="Card">Card</option>
-                                        <option value="Paytm">Paytm</option>
-                                        <option value="Finance">Finance</option>
-                                      </select>
-                                      <span id="payment_type_1_msg" style="display:none" class="text-danger"></span>
-                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                  <div class="">
+                                    <label for="payment_type_1">Formas de Pago</label>
+                                    <select class="form-control" id="payment_type_1" name="payment_type_1">
+                                      <option value="Cash">Cash</option>
+                                      <option value="Card">Card</option>
+                                      <option value="Paytm">Paytm</option>
+                                      <option value="Finance">Finance</option>
+                                    </select>
+                                    <span id="payment_type_1_msg" style="display:none" class="text-danger"></span>
                                   </div>
-                                  <div class="clearfix"></div>
-                                </div>  
-                                <div class="row">
-                                  <div class="col-md-12">
-                                    <div class="">
-                                      <label for="payment_note_1">Notas</label>
-                                      <textarea type="text" class="form-control" id="payment_note_1" name="payment_note_1" placeholder=""></textarea>
-                                      <span id="payment_note_1_msg" style="display:none" class="text-danger"></span>
-                                    </div>
-                                  </div>                
+                                </div>
+                                <div class="clearfix"></div>
+                              </div>  
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <div class="">
+                                    <label for="payment_note_1">Notas</label>
+                                    <textarea type="text" class="form-control" id="payment_note_1" name="payment_note_1" placeholder=""></textarea>
+                                    <span id="payment_note_1_msg" style="display:none" class="text-danger"></span>
+                                  </div>
+                                </div>                
                                 <div class="clearfix"></div>
                               </div>   
                             </div>
-                          </div>
                         </div>
                       </div>
-                      <div class="row">
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
                         <div class="col-md-12">
                           <div class="col-md-12">
-                            <div class="col-md-12">
-                              <button type="button" class="btn btn-primary btn-block" id="add_payment_row">Agregar Forma de Pago</button>
+                            <button type="button" class="btn btn-primary btn-block" id="add_payment_row">Agregar Forma de Pago</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="col-md-12">
+                      <div class="box box-solid bg-blue">
+                        <div class="box-body">
+                          <div class="row ">
+                            <div class="col-md-12 border-custom-bottom">
+                              <span class="col-md-6 text-right text-bold ">Items:</span>
+                              <span class="col-md-6 text-right text-bold  custom-font-size sales_div_tot_qty">0.00</span>
+                            </div>
+                          </div>
+                          <div class="row ">
+                            <div class="col-md-12 border-custom-bottom">
+                              <span class="col-md-6 text-right text-bold ">Total:</span>
+                              <span class="col-md-6 text-right text-bold  custom-font-size sales_div_tot_amt">0.00</span>
+                            </div>
+                          </div>
+                          <div class="row ">
+                            <div class="col-md-12 border-custom-bottom">
+                              <span class="col-md-6 text-right text-bold ">Descuentos(-):</span>
+                              <span class="col-md-6 text-right text-bold  custom-font-size sales_div_tot_discount">0.00</span>
+                            </div>
+                          </div>
+                          <div class="row bg-red">
+                            <div class="col-md-12 border-custom-bottom">
+                              <span class="col-md-6 text-right text-bold ">Total a Pagar:</span>
+                              <span class="col-md-6 text-right text-bold  custom-font-size sales_div_tot_payble">0.00</span>
+                            </div>
+                          </div>
+                          <div class="row ">
+                            <div class="col-md-12 border-custom-bottom">
+                              <span class="col-md-6 text-right text-bold ">Total Paying:</span>
+                              <span class="col-md-6 text-right text-bold  custom-font-size sales_div_tot_paid">0.00</span>
+                            </div>
+                          </div>
+                          <div class="row ">
+                            <div class="col-md-12 border-custom-bottom">
+                              <span class="col-md-6 text-right text-bold ">Balance:</span>
+                              <span class="col-md-6 text-right text-bold  custom-font-size sales_div_tot_balance">0.00</span>
+                            </div>
+                          </div>
+                          <div class="row ">
+                            <div class="col-md-12 bg-orange">
+                              <span class="col-md-6 text-right text-bold ">Vueltas</span>
+                              <span class="col-md-6 text-right text-bold  custom-font-size sales_div_change_return">0.00</span>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-4">
-                      <div class="col-md-12">
-                        <div class="box box-solid bg-blue">
+                  </div>
+                </div>        
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn bg-maroon btn-lg make_sale btn-lg" onclick="save()"><i class="fa  fa-save "></i> Guardar</button>
+                <button type="button" class="btn btn-success btn-lg make_sale btn-lg" onclick="save(true)"><i class="fa  fa-print "></i> Guardar &amp; Imprimir</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+            </div>
+            </div>              
+            <!-- **********************MODALS END***************** -->
+            <!-- **********************MODALS***************** -->
+            <div class="modal fade" id="discount-modal">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Set Discount</h4>
+                  </div>
+                  <div class="modal-body">
+                                            <div class="row">
+                        <div class="col-md-6">
                           <div class="box-body">
-                            <div class="row ">
-                              <div class="col-md-12 border-custom-bottom">
-                                <span class="col-md-6 text-right text-bold ">Items:</span>
-                                <span class="col-md-6 text-right text-bold  custom-font-size sales_div_tot_qty">0.00</span>
-                              </div>
+                            <div class="form-group">
+                              <label for="discount_input">Discount</label>
+                              <input type="text" class="form-control" id="discount_input" name="discount_input" placeholder="" value="">
                             </div>
-                            <div class="row ">
-                              <div class="col-md-12 border-custom-bottom">
-                                <span class="col-md-6 text-right text-bold ">Total:</span>
-                                <span class="col-md-6 text-right text-bold  custom-font-size sales_div_tot_amt">0.00</span>
-                              </div>
-                            </div>
-                            <div class="row ">
-                              <div class="col-md-12 border-custom-bottom">
-                                <span class="col-md-6 text-right text-bold ">Descuentos(-):</span>
-                                <span class="col-md-6 text-right text-bold  custom-font-size sales_div_tot_discount">0.00</span>
-                              </div>
-                            </div>
-                            <div class="row bg-red">
-                              <div class="col-md-12 border-custom-bottom">
-                                <span class="col-md-6 text-right text-bold ">Total a Pagar:</span>
-                                <span class="col-md-6 text-right text-bold  custom-font-size sales_div_tot_payble">0.00</span>
-                              </div>
-                            </div>
-                            <div class="row ">
-                              <div class="col-md-12 border-custom-bottom">
-                                <span class="col-md-6 text-right text-bold ">Total Paying:</span>
-                                <span class="col-md-6 text-right text-bold  custom-font-size sales_div_tot_paid">0.00</span>
-                              </div>
-                            </div>
-                            <div class="row ">
-                              <div class="col-md-12 border-custom-bottom">
-                                <span class="col-md-6 text-right text-bold ">Balance:</span>
-                                <span class="col-md-6 text-right text-bold  custom-font-size sales_div_tot_balance">0.00</span>
-                              </div>
-                            </div>
-                            <div class="row ">
-                              <div class="col-md-12 bg-orange">
-                                <span class="col-md-6 text-right text-bold ">Vueltas</span>
-                                <span class="col-md-6 text-right text-bold  custom-font-size sales_div_change_return">0.00</span>
-                              </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="box-body">
+                            <div class="form-group">
+                              <label for="discount_type">Discount Type</label>
+                              <select class="form-control" id="discount_type" name="discount_type">
+                                <option value="in_percentage">Per%</option>
+                                <option value="in_fixed">Fixed</option>
+                              </select>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </div>        
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Cerrar</button>
-                  <button type="button" class="btn bg-maroon btn-lg make_sale btn-lg" onclick="save()"><i class="fa  fa-save "></i> Guardar</button>
-                  <button type="button" class="btn btn-success btn-lg make_sale btn-lg" onclick="save(true)"><i class="fa  fa-print "></i> Guardar &amp; Imprimir</button>
-                </div>
-              </div>
-              <!-- /.modal-content -->
-              </div>
-              </div>              
-              <!-- **********************MODALS END***************** -->
-              <!-- **********************MODALS***************** -->
-              <div class="modal fade" id="discount-modal">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span></button>
-                      <h4 class="modal-title">Set Discount</h4>
-                    </div>
-                    <div class="modal-body">
-                                              <div class="row">
-                          <div class="col-md-6">
-                            <div class="box-body">
-                              <div class="form-group">
-                                <label for="discount_input">Discount</label>
-                                <input type="text" class="form-control" id="discount_input" name="discount_input" placeholder="" value="">
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-md-6">
-                            <div class="box-body">
-                              <div class="form-group">
-                                <label for="discount_type">Discount Type</label>
-                                <select class="form-control" id="discount_type" name="discount_type">
-                                  <option value="in_percentage">Per%</option>
-                                  <option value="in_fixed">Fixed</option>
-                                </select>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                     
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary discount_update">Update</button>
-                    </div>
+                   
                   </div>
-                  <!-- /.modal-content -->
-                </div>
-                <!-- /.modal-dialog -->
-              </div>
-              <!-- /.modal -->
-              <!-- **********************MODALS END***************** -->
-              <div class="box-body">   
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="input-group">
-                      <span class="input-group-addon" title="Customer">
-                        <i class="fa fa-user"></i>
-                      </span>
-                      <select class="form-control select2 select2-hidden-accessible" id="customer_id" name="customer_id" style="width: 100%;" tabindex="-1" aria-hidden="true">
-                        <option value="1" selected="">Ventas Mostrador</option>
-                      </select>
-                      <span class="select2 select2-container select2-container--default" dir="ltr" style="width: 100%;">
-                        <span class="selection">
-                          <span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-customer_id-container">
-                            <span class="select2-selection__rendered" id="select2-customer_id-container" title="Walk-in customer">
-                              <span class="select2-selection__clear">×</span>
-                              Ventas Mostrador</span>
-                              <span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span>
-                              </span>
-                            </span>
-                            <span class="dropdown-wrapper" aria-hidden="true"></span></span>
-                      <span class="input-group-addon pointer" data-toggle="modal" data-target="#customer-modal" title="New Customer?"><i class="fa fa-user-plus text-primary fa-lg"></i></span>
-                    </div>
-                      <span class="customer_points text-success" style="display: none;"></span>
-                    
-                    
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary discount_update">Update</button>
                   </div>
-                  <div class="col-md-6">
-                    <div class="input-group">
-                      <span class="input-group-addon" title="Select Items"><i class="fa fa-barcode"></i></span>
-                       <span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span><input type="text" class="form-control ui-autocomplete-input" placeholder="Item name/Barcode/Itemcode [Ctrl+Shift+S]" id="item_search" autocomplete="off">
-                    </div>
-                  </div>                
-              </div><!-- row end -->
-              <br>
+                </div>
+                <!-- /.modal-content -->
+              </div>
+              <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+            <!-- **********************MODALS END***************** -->
+            <div class="box-body">   
               <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <div class="col-sm-12 pd0" style="overflow-y: auto; border: 1px solid rgb(51, 122, 183); height: 311px;">
-                      <table class="table table-condensed table-bordered table-striped table-responsive items_table" style="">
-                        <thead class="bg-primary">
-                          <tr><th width="30%">Nombre del árticulo</th>
-                          <!-- <th width="10%">Valores</th> -->
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <span class="input-group-addon" title="Customer"><i class="fa fa-user"></i></span>
+                    <select class="form-control select2" id="customer_id" name="customer_id" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                      <option value="1" selected="">Ventas Mostrador</option>
+                    </select>
+                    <!-- <span class="select2 select2-container select2-container--default" dir="ltr" style="width: 100%;">
+                      <span class="selection">
+                        <span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-customer_id-container">
+                          <span class="select2-selection__rendered" id="select2-customer_id-container" title="Walk-in customer">
+                            <span class="select2-selection__clear">×</span>
+                            Ventas Mostrador
+                          </span>
+                          <span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span>
+                        </span>
+                      </span>
+                      <span class="dropdown-wrapper" aria-hidden="true"></span>
+                    </span> -->
+                    <span class="input-group-addon pointer" data-toggle="modal" data-target="#customer-modal" title="New Customer?"><i class="fa fa-user-plus text-primary fa-lg"></i></span>
+                  </div>
+                  <span class="customer_points text-success" style="display: none;"></span>
+                </div>
+                <div class="col-md-6">
+                  <div class="input-group">
+                    <span class="input-group-addon" title="Select Items"><i class="fa fa-barcode"></i></span>
+                     <span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span><input type="text" class="form-control ui-autocomplete-input" placeholder="Item name/Barcode/Itemcode [Ctrl+Shift+S]" id="item_search" autocomplete="off">
+                  </div>
+                </div>                
+            </div><!-- row end -->
+            <div class="row mt10">
+              <div class="col-md-12">
+                <div class="form-group" style="margin:0px;" >
+                  <div class="col-sm-12 pd0 prdTable" style="overflow-y: auto; border: 1px solid rgb(51, 122, 183); height: 311px;">
+                    <table class="table table-condensed table-bordered table-striped table-responsive items_table" style="">
+                      <thead class="bg-primary">
+                        <tr>
+                          <th width="30%">Nombre del árticulo</th>
                           <th width="25%">Cantidad</th>
                           <th width="15%">Precio</th>
                           <th width="10%">Descuento</th>
                           <th width="10%" class="block">Impuesto</th>
                           <th width="15%">SubTotal</th>
                           <th width="5%"><i class="fa fa-close"></i></th>
-                        </tr></thead>
-                        <tbody id="pos-form-tbody" style="font-size: 16px;font-weight: bold;overflow: scroll;">
-                          <!-- body code -->
-                        </tbody>        
-                        <tfoot>
-                          <!-- footer code -->
-                        </tfoot>              
-                      </table>
-                    </div>
+                        </tr>
+                      </thead>
+                      <tbody id="pos-form-tbody" style="font-size: 16px;font-weight: bold;overflow: scroll;">
+                      </tbody>        
+                      <tfoot>
+                      </tfoot>              
+                    </table>
                   </div>
                 </div>
               </div>
-
-
-
-              <!-- SMS Sender while saving -->
-                                    <div class="row">
-                    <div class="col-xs-12 ">
-                      <div class="col-md-6">
-                           <div class="checkbox icheck">
-                              <div class="icheckbox_square-blue checked" style="position: relative;" aria-checked="false" aria-disabled="false"><input type="checkbox" checked="" class="form-control" id="send_sms" name="send_sms" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> <label for="sales_discount" class=" control-label"><label for="send_sms">Enviar SMS al cliente</label>
-                                <i class="hover-q " data-container="body" data-toggle="popover" data-placement="top" data-content="If checkbox is Disabled! You need to enable it from SMS -> SMS API <br><b>Note:<i>Walk-in Customer will not receive SMS!</i></b>" data-html="true" data-trigger="hover" data-original-title="Do you wants to send SMS ?" title="">
-                                  <i class="fa fa-info-circle text-maroon text-black hover-q"></i>
-                                </i>
-                              </label>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-group">
-                              <label for="other_charges" class="col-sm-7 control-label">Otros cargos<label class="text-danger">*</label></label>
-
-                          <div class="col-sm-5">
-                            <input type="text" class="form-control text-right" id="other_charges" name="other_charges" placeholder="0.00" value="">
-                  <span id="other_charges_msg" style="display:none" class="text-danger"></span>
-                          </div>
-                          </div>
-                        </div>
-                    </div> 
+            </div>
+            <div class="row">
+              <div class="col-xs-12 ">
+                <div class="col-md-6">
+                  <!-- <div class="checkbox icheck">
+                    <div class="icheckbox_square-blue checked" style="position: relative;" aria-checked="false" aria-disabled="false">
+                      <input type="checkbox" checked="" class="form-control" id="send_sms" name="send_sms" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;">
+                      <ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+                    </div>                             
+                    <label for="sales_discount" class=" control-label">
+                      <label for="send_sms">Enviar SMS al cliente</label>
+                      <i class="hover-q " data-container="body" data-toggle="popover" data-placement="top" data-content="If checkbox is Disabled! You need to enable it from SMS -> SMS API <br><b>Note:<i>Walk-in Customer will not receive SMS!</i></b>" data-html="true" data-trigger="hover" data-original-title="Do you wants to send SMS ?" title="">
+                        <i class="fa fa-info-circle text-maroon text-black hover-q"></i>
+                      </i>
+                    </label>
+                  </div> -->
                 </div>
-           
-              </div>
-              <!-- /.box-body -->
-
-              <div class="box-footer bg-gray">
-                <div class="row">
-                  <div class="col-md-3 text-right">
-                          <label> Cantidad:</label><br>
-                          <span class="text-bold tot_qty">0</span>
-                  </div>
-                  <div class="col-md-3 text-right">
-                          <label>Cantidad total:</label><br>
-                           <span style="font-size: 19px;" class="tot_amt text-bold">0.00</span>                  </div>
-                  <div class="col-md-3 text-right">
-                          <label>Descuento total:<a class="fa fa-pencil-square-o cursor-pointer" data-toggle="modal" data-target="#discount-modal"></a></label><br>
-                           <span style="font-size: 19px;" class="tot_disc text-bold">0.00</span>                  </div>
-                  <div class="col-md-3 text-right">
-                          <label>Gran total:</label><br>
-                           <span style="font-size: 19px;" class="tot_grand text-bold">0.00</span>                  </div>
-                </div>
-               
-                <div class="row">
-                
-                  
-                  <div class="col-md-12 text-right">
-
-                    <div class="col-sm-3">
-                      <button type="button" id="hold_invoice" name="" class="btn bg-maroon btn-block btn-flat btn-lg" title="Hold Invoice [Ctrl+Shift+H]">
-                      <i class="fa fa-hand-paper-o" aria-hidden="true"></i>
-                       Hold
-                    </button>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="other_charges" class="col-sm-7 control-label">Otros cargos<label class="text-danger">*</label></label>
+                    <div class="col-sm-5">
+                      <input type="text" class="form-control text-right" id="other_charges" name="other_charges" placeholder="0.00" value="">
+                      <span id="other_charges_msg" style="display:none" class="text-danger"></span>
                     </div>
-                    <div class="col-sm-3">
-                      <button type="button" id="" name="" class="btn btn-primary btn-block btn-flat btn-lg show_payments_modal" title="Multiple Payments [Ctrl+Shift+M]">
-                            <i class="fa fa-credit-card" aria-hidden="true"></i>
-                             Multiple
-                          </button>
-                    </div>
-                    <div class="col-sm-3">
-                      <button type="button" id="show_cash_modal" name="" class="btn btn-success btn-block btn-flat btn-lg shift_c" title="By Cash &amp; Save [Ctrl+Shift+C]">
-                            <i class="fa fa-money" aria-hidden="true"></i>
-                             Cash                          </button>
-                    </div>
-
-                    <div class="col-sm-3">
-                      <button type="button" id="pay_all" name="" class="btn bg-purple btn-block btn-flat btn-lg shift_a" title="By Cash &amp; Save [Ctrl+Shift+A]">
-                            <i class="fa fa-money" aria-hidden="true"></i>
-                             Pay All
-                          </button>
-                    </div>
-                    
-
-                          
                   </div>
                 </div>
-              </div>
-            </form>
+              </div> 
+            </div>         
           </div>
-          <!-- /.box -->
-        </div>
-        <!--/.col (left) -->
-        <!-- right column -->
-        <div class="col-md-5">
-          <!-- Horizontal Form -->
-          <div class="box box-info">
-            <!-- form start -->            
-              <div class="box-body">                
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="input-group input-group-md">
-                      <select class="form-control select2" id="category_id" name="category_id" style="width: 100%;" tabindex="-1" aria-hidden="true">
-                        <option value="">Categorias</option>
-                        <!-- <option value="6">Jeans</option>
-                        <option value="10">Casual Shirts</option>
-                        <option value="11">Formal Shirts</option>
-                        <option value="12">T-Shirts</option>
-                        <option value="13">Jackets</option>
-                        <option value="14">Men Wears</option>
-                        <option value="15">Books</option>
-                        <option value="16">Computers</option>
-                        <option value="17">Shoes</option>
-                        <option value="18">Health Care</option>
-                        <option value="19">Watches</option>
-                        <option value="20">Mobiles</option>
-                        <option value="21">Accessories</option>
-                        <option value="22">cctv</option>  -->                   
-                      </select>
-                      <!-- <span class="select2 select2-container select2-container--default" dir="ltr" style="width: 100%;">
-                        <span class="selection">
-                          <span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-category_id-container">
-                            <span class="select2-selection__rendered" id="select2-category_id-container" title="All Categories">All Categories</span>
-                            <span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span>
-                          </span>
-                        </span> -->
-                        <span class="dropdown-wrapper" aria-hidden="true"></span>
-                      </span>
-                      <span class="input-group-btn">
-                        <button type="button" class="btn text-blue btn-flat reset_categories" title="" data-toggle="tooltip" data-placement="top" data-original-title="Reset Brand">
-                          <i class="fa fa-undo"></i>
-                        </button>
-                      </span>
-                    </div>
-                  </div>  
-                  <!-- <div class="col-md-6">
-                    <div class="input-group input-group-md">
-                      <select class="form-control select2" id="brand_id" name="brand_id" style="width: 100%;" tabindex="-1" aria-hidden="true">
-                        <option value="">All Brands</option>
-                        <option value="18">Lee</option>
-                        <option value="19">Adidas</option>
-                        <option value="20">Armany</option>
-                        <option value="21">Samsung</option>
-                        <option value="22">Apple</option>
-                        <option value="23">Nokia</option>
-                        <option value="24">D&amp;G</option>
-                        <option value="25">Cipla</option>
-                        <option value="26">Acanya</option>
-                        <option value="27">Accupril</option>
-                        <option value="28">Aayur</option>
-                        <option value="29">Patanjali</option>
-                        <option value="30">lifebuoy</option>
-                        <option value="31">Mysore Sandal Soap</option>
-                        <option value="32">Fastrack</option>
-                        <option value="33">Rado Watches</option>
-                        <option value="34">Rolex</option>
-                        <option value="35">Colgate</option>
-                        <option value="36">Vistaprint</option>
-                        <option value="37">Cosmex Publishers</option>
-                        <option value="38">Raymond</option>
-                        <option value="39">Signature</option>
-                        <option value="40">Redmi</option>
-                        <option value="41">Lenovo</option>
-                        <option value="42">tvt</option>                    
-                      </select>
-                      <span class="select2 select2-container select2-container--default" dir="ltr" style="width: 100%;">
-                        <span class="selection">
-                          <span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-brand_id-container">
-                            <span class="select2-selection__rendered" id="select2-brand_id-container" title="All Brands">All Brands</span>
-                            <span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span>
-                          </span>
-                        </span>
-                        <span class="dropdown-wrapper" aria-hidden="true"></span>
-                      </span>
-                      <span class="input-group-btn">
-                        <button type="button" class="btn text-blue btn-flat reset_brands" title="" data-toggle="tooltip" data-placement="top" data-original-title="Reset Brand">
-                          <i class="fa fa-undo"></i>
-                        </button>
-                      </span>
-                    </div>
-                  </div>  -->              
-                </div>
-                <br>
-                <div class="row">  
-                  <div class="col-md-12">
-                    <div class="input-group input-group-md">                   
-                      <input type="text" class="form-control" data-toggle="tooltip" title="" placeholder="Item Name" id="item_name" name="item_name" data-original-title="Enter Item Name">
-                      <span class="input-group-btn">
-                        <button type="button" class="btn text-blue btn-flat reset_item_name" title="" data-toggle="tooltip" data-placement="top" data-original-title="Reset Item Name">
-                          <i class="fa fa-undo"></i>
-                        </button>
-                      </span>
-                    </div>
-                  </div>               
-                </div><!-- row end -->
+            <!-- /.box-body -->
 
+            <div class="box-footer bg-gray">
+              <div class="row">
+                <div class="col-md-3 text-right">
+                        <label> Cantidad:</label><br>
+                        <span class="text-bold tot_qty">0</span>
+                </div>
+                <div class="col-md-3 text-right">
+                        <label>Cantidad total:</label><br>
+                         <span style="font-size: 19px;" class="tot_amt text-bold">0.00</span>                  </div>
+                <div class="col-md-3 text-right">
+                        <label>Descuento total:<a class="fa fa-pencil-square-o cursor-pointer" data-toggle="modal" data-target="#discount-modal"></a></label><br>
+                         <span style="font-size: 19px;" class="tot_disc text-bold">0.00</span>                  </div>
+                <div class="col-md-3 text-right">
+                        <label>Gran total:</label><br>
+                         <span style="font-size: 19px;" class="tot_grand text-bold">0.00</span>                  </div>
+              </div>
              
               <div class="row">
-                <div class="col-md-12">
-                  <!-- <div class="form-group"> -->
-                   <!--  <div class="col-sm-12"> -->
-                      <!-- <style type="text/css">
+              
+                
+                <div class="col-md-12 text-right">
+
+                  <div class="col-sm-3">
+                    <button type="button" id="hold_invoice" name="" class="btn bg-maroon btn-block btn-flat btn-lg" title="Hold Invoice [Ctrl+Shift+H]">
+                    <i class="fa fa-hand-paper-o" aria-hidden="true"></i>
+                     Hold
+                  </button>
+                  </div>
+                  <div class="col-sm-3">
+                    <button type="button" id="" name="" class="btn btn-primary btn-block btn-flat btn-lg show_payments_modal" title="Multiple Payments [Ctrl+Shift+M]">
+                          <i class="fa fa-credit-card" aria-hidden="true"></i>
+                           Multiple
+                        </button>
+                  </div>
+                  <div class="col-sm-3">
+                    <button type="button" id="show_cash_modal" name="" class="btn btn-success btn-block btn-flat btn-lg shift_c" title="By Cash &amp; Save [Ctrl+Shift+C]">
+                          <i class="fa fa-money" aria-hidden="true"></i>
+                           Cash                          </button>
+                  </div>
+
+                  <div class="col-sm-3">
+                    <button type="button" id="pay_all" name="" class="btn bg-purple btn-block btn-flat btn-lg shift_a" title="By Cash &amp; Save [Ctrl+Shift+A]">
+                          <i class="fa fa-money" aria-hidden="true"></i>
+                           Pay All
+                        </button>
+                  </div>
+                  
+
                         
-                      </style> -->
-            <section class="content" style="height: 500px;">
-            <div class="row search_div" style="overflow-y: scroll;min-height: 100px;height: 500px;">
-              <div class="col-md-3 col-xs-6 " id="item_parent_0" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="Lee Shirts">
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <!-- /.box -->
+      </div>
+      <!--/.col (left) -->
+      <!-- right column -->
+      <div class="col-md-5" style="padding: 0 0 0 5px;">
+        <!-- Horizontal Form -->
+        <div class="box box-info">
+          <!-- form start -->            
+            <div class="box-body">                
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="input-group input-group-md">
+                    <select class="form-control select2" id="category_id" name="category_id" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                      <option value="">Categorias</option>
+                      <!-- <option value="6">Jeans</option>
+                      <option value="10">Casual Shirts</option>
+                      <option value="11">Formal Shirts</option>
+                      <option value="12">T-Shirts</option>
+                      <option value="13">Jackets</option>
+                      <option value="14">Men Wears</option>
+                      <option value="15">Books</option>
+                      <option value="16">Computers</option>
+                      <option value="17">Shoes</option>
+                      <option value="18">Health Care</option>
+                      <option value="19">Watches</option>
+                      <option value="20">Mobiles</option>
+                      <option value="21">Accessories</option>
+                      <option value="22">cctv</option>  -->                   
+                    </select>
+                    <!-- <span class="select2 select2-container select2-container--default" dir="ltr" style="width: 100%;">
+                      <span class="selection">
+                        <span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-category_id-container">
+                          <span class="select2-selection__rendered" id="select2-category_id-container" title="All Categories">All Categories</span>
+                          <span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span>
+                        </span>
+                      </span> -->
+                      <span class="dropdown-wrapper" aria-hidden="true"></span>
+                    </span>
+                    <span class="input-group-btn">
+                      <button type="button" class="btn text-blue btn-flat reset_categories" title="" data-toggle="tooltip" data-placement="top" data-original-title="Reset Brand">
+                        <i class="fa fa-undo"></i>
+                      </button>
+                    </span>
+                  </div>
+                </div>  
+                <!-- <div class="col-md-6">
+                  <div class="input-group input-group-md">
+                    <select class="form-control select2" id="brand_id" name="brand_id" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                      <option value="">All Brands</option>
+                      <option value="18">Lee</option>
+                      <option value="19">Adidas</option>
+                      <option value="20">Armany</option>
+                      <option value="21">Samsung</option>
+                      <option value="22">Apple</option>
+                      <option value="23">Nokia</option>
+                      <option value="24">D&amp;G</option>
+                      <option value="25">Cipla</option>
+                      <option value="26">Acanya</option>
+                      <option value="27">Accupril</option>
+                      <option value="28">Aayur</option>
+                      <option value="29">Patanjali</option>
+                      <option value="30">lifebuoy</option>
+                      <option value="31">Mysore Sandal Soap</option>
+                      <option value="32">Fastrack</option>
+                      <option value="33">Rado Watches</option>
+                      <option value="34">Rolex</option>
+                      <option value="35">Colgate</option>
+                      <option value="36">Vistaprint</option>
+                      <option value="37">Cosmex Publishers</option>
+                      <option value="38">Raymond</option>
+                      <option value="39">Signature</option>
+                      <option value="40">Redmi</option>
+                      <option value="41">Lenovo</option>
+                      <option value="42">tvt</option>                    
+                    </select>
+                    <span class="select2 select2-container select2-container--default" dir="ltr" style="width: 100%;">
+                      <span class="selection">
+                        <span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-brand_id-container">
+                          <span class="select2-selection__rendered" id="select2-brand_id-container" title="All Brands">All Brands</span>
+                          <span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span>
+                        </span>
+                      </span>
+                      <span class="dropdown-wrapper" aria-hidden="true"></span>
+                    </span>
+                    <span class="input-group-btn">
+                      <button type="button" class="btn text-blue btn-flat reset_brands" title="" data-toggle="tooltip" data-placement="top" data-original-title="Reset Brand">
+                        <i class="fa fa-undo"></i>
+                      </button>
+                    </span>
+                  </div>
+                </div>  -->              
+              </div>
+              <br>
+              <div class="row">  
+                <div class="col-md-12">
+                  <div class="input-group input-group-md">                   
+                    <input type="text" class="form-control" data-toggle="tooltip" title="" placeholder="Item Name" id="item_name" name="item_name" data-original-title="Enter Item Name">
+                    <span class="input-group-btn">
+                      <button type="button" class="btn text-blue btn-flat reset_item_name" title="" data-toggle="tooltip" data-placement="top" data-original-title="Reset Item Name">
+                        <i class="fa fa-undo"></i>
+                      </button>
+                    </span>
+                  </div>
+                </div>               
+              </div><!-- row end -->
+
+           
+            <div class="row">
+              <div class="col-md-12">
+                <!-- <div class="form-group"> -->
+                 <!--  <div class="col-sm-12"> -->
+                    <!-- <style type="text/css">
+                      
+                    </style> -->
+          <section class="content" style="height: 500px;">
+          <div class="row search_div" style="overflow-y: scroll;min-height: 100px;height: 500px;">
+            <div class="col-md-3 col-xs-6 " id="item_parent_0" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="Lee Shirts">
 	              <div class="box box-default item_box" id="div_1" onclick="addrow(1)" data-item-id="1" data-item-name="Lee Shirts" data-item-available-qty="5.00" data-item-sales-price="600.00" data-item-cost="550.00" data-item-tax-id="5" data-item-tax-type="Exclusive" data-item-tax-value="10.00" data-item-tax-name="Tax 10%" data-item-tax-amt="60.00" data-purchase_price="550.00" data-discount_type="Percentage" data-discount="0.00" style="max-height: 150px;min-height: 150px;cursor: pointer;background-color:#a1db75">
 	           	    <span class="label label-danger push-right" style="font-weight: bold;font-family: sans-serif;" data-toggle="tooltip" title="" data-original-title="5.00 Quantity in Stock">Can: 5.00</span>
 	                <div class="box-body box-profile">
-    	            	<center>
-    	            	  <img class=" img-responsive item_image" style="border: 1px solid gray;" src="https://pos.creatantech.com/uploads/items/1559021522_thumb.jpg" alt="Item picture">
-    	              </center>
-    	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_0">Lee Shirts<br>
-    	              <span class="" style="font-family: sans-serif;font-size:150%; "> 600.00
-    	              </span>
-    	              </lable>
-    	            </div>
+  	            	<center>
+  	            	  <img class=" img-responsive item_image" style="border: 1px solid gray;" src="https://pos.creatantech.com/uploads/items/1559021522_thumb.jpg" alt="Item picture">
+  	              </center>
+  	              <lable class="text-center search_item" style="font-weight: bold;font-family: sans-serif;" id="item_0">Lee Shirts<br>
+  	              <span class="" style="font-family: sans-serif;font-size:150%; "> 600.00
+  	              </span>
+  	              </lable>
+  	            </div>
 	              </div>
 	            </div>
 	        <div class="col-md-3 col-xs-6 " id="item_parent_1" disabled="disabled" data-toggle="tooltip" title="" style="padding-left:5px;padding-right:5px;" data-original-title="Signature Jeans">
@@ -995,31 +990,31 @@
 	            </lable></div>
 	          </div>
 	        </div><input type="hidden" class="last_id" id="24"></div>
-                            </section>
-                            <div class="ajax-load text-center" style="display: none;">
-                                <button type="button" class="btn btn-default btn-lrg ajax" title="Ajax Request">
-                                <i class="fa fa-spin fa-refresh"></i>&nbsp; Loading More Data
-                              </button>
-                              </div>
-                         
-                    <!-- </div> -->
+                          </section>
+                          <div class="ajax-load text-center" style="display: none;">
+                              <button type="button" class="btn btn-default btn-lrg ajax" title="Ajax Request">
+                              <i class="fa fa-spin fa-refresh"></i>&nbsp; Loading More Data
+                            </button>
+                            </div>
+                       
                   <!-- </div> -->
-                </div>
+                <!-- </div> -->
               </div>
-           
-              </div>
-              <!-- /.box-body -->
+            </div>
+         
+            </div>
+            <!-- /.box-body -->
 
-              
-           
-          </div>
-          <!-- /.box -->
-          
-          <!-- /.box -->
+            
+         
         </div>
-        <!--/.col (right) -->
+        <!-- /.box -->
+        
+        <!-- /.box -->
       </div>
-      <!-- /.row -->
-    </section>
-    <!-- /.content -->
-  </div>
+      <!--/.col (right) -->
+    </div>
+    <!-- /.row -->
+  </section>
+  <!-- /.content -->
+</div>

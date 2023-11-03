@@ -64,8 +64,8 @@ hr {
   font-size: 90px;
 } 
 
-.small-box h3 {
-  /* font-size: 50px; */
+.box {
+  margin-bottom: 10px;
 }
 
 .small-box:hover {
@@ -78,6 +78,29 @@ hr {
 
 .pd0 {
   padding:0px;
+}
+
+.pd5 {
+  padding:5px;
+}
+.box-header {
+  padding: 5px;
+}
+
+.mr0 {
+  margin: 0;
+}
+
+.mt10 {
+margin-top: 10px;
+}
+
+.prdTable {
+  overflow-y: auto; border: 1px solid rgb(51, 122, 183); height: 311px;
+} 
+
+.form-horizontal {
+  padding: 5px 10px;
 }
 
 .badge {

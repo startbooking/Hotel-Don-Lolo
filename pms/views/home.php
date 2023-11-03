@@ -44,13 +44,13 @@
                 <div class="inner col-sm-2 col-xs-4">
                   <h3 style="margin:0;text-align:center;">
                     <?php
-                        if ($llegan[0]['nin'] == '') {
-                            echo 0;
-                        } else {
-                            echo $llegan[0]['nin'];
-                        }
-  ?>
-                    </h3>
+                      if ($llegan[0]['nin'] == '') {
+                          echo 0;
+                      } else {
+                          echo $llegan[0]['nin'];
+                      }
+                    ?>
+                  </h3>
                   <p>Niños</p>
                 </div>
               </div>
@@ -197,13 +197,11 @@
   <section class="container-fluid">
     <div class="container-fluid">
       <div class="col-md-6 col-xs-12">          
-        <h2 class="accesos">Accesos Directos <i class="fa fa-external-link" aria-hidden="true"></i>
-
-        </h2>
+        <h2 class="accesos">Accesos Directos <i class="fa fa-external-link" aria-hidden="true"></i></h2>
       </div>
     </div>
     <div class="container-fluid">
-      <div class="col-md-3 col-sm-6 col-xs-6">
+      <div class="col-md-3 col-sm-6 col-xs-12">
         <div class="info-box">
           <a 
             data-toggle="modal" 
@@ -216,7 +214,7 @@
           </a>
         </div>
       </div>
-      <div class="col-md-3 col-sm-6 col-xs-6">
+      <div class="col-md-3 col-sm-6 col-xs-12">
         <div class="info-box">
           <a 
             data-toggle="modal" 
@@ -229,7 +227,7 @@
         </div>
       </div>
       <div class="clearfix visible-sm-block"></div>
-      <div class="col-md-3 col-sm-6 col-xs-6">
+      <div class="col-md-3 col-sm-6 col-xs-12">
         <div class="info-box">
           <a href="ingresoConsumos">
             <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
@@ -239,7 +237,7 @@
           </a>
         </div>
       </div>
-      <div class="col-md-3 col-sm-6 col-xs-6">        
+      <div class="col-md-3 col-sm-6 col-xs-12">        
         <div class="info-box">
           <a href="forecast">
             <span class="info-box-icon bg-yellow"><i class="fa fa-area-chart"></i></span>
