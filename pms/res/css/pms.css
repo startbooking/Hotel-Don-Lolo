@@ -145,6 +145,9 @@ a.info span,
 #reservasEsperadas .alert{
   margin-bottom: 5px;
 }
+
+.reserva {
+  margin-left:20px;z-index:20;display: block;border: 1px solid #000A;position:absolute;border-radius: 0;font-size:10px;color:#000;overflow: hidden;font-weight: 600}
 .tituloPagina {
   font-weight: 500;
   font-family: "ubuntu";
@@ -349,30 +352,30 @@ a.info span,
 }
 
 .libre {
-  width: 40px;
-  height: 24px;
-  padding:0;
-  border:1px solid #2A1C1C33;
-  margin-bottom: 1px;
   z-index: 1
 }
 
-.ocupada{
+
+.libre, .mmto, .ocupada {
   width: 40px;
-  position: relative;
+  height: 24px;
   padding:0;
   border:1px solid #2A1C1C33;
-  height: 24px;
   margin-bottom: 1px;
+  position: relative;
+}
+
+.mmto {
+  background: #2A1C1C33;
+}
+
+
+.ocupada{
   z-index: 10
 }
 
 .mmto {
   background:rgba(68, 67, 67, 0.6);
-}
-
-.main-sidebar, .left-side {
-  /* min-height: 87%; */
 }
 
 .diagonal {

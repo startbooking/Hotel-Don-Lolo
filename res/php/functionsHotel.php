@@ -6,6 +6,25 @@ date_default_timezone_set('America/Bogota');
 
 class Hotel_Actions{
 
+    public function buscaMmto($fechabusca,$numero){
+    global $database;
+    
+    $data = $database->select('mantenimiento_habitaciones',[
+      '[<]habitaciones' => ['id_habitacion'=> 'id']
+    ],[
+        'desde_fecha',
+        'hasta_fecha',
+        'observaciones'
+        
+    ],[
+     'desde_fecha' => $fechabusca, 
+     'estado_mmto' => 1,
+     'habitaciones.numero_hab' => $numero,
+    ]);
+    return $data;
+    }
+
+
   public function asignaDiasCredito($id, $dias){
     global $database;
 

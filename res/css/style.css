@@ -1180,6 +1180,11 @@ margin-top: 50px;
   list-style-type: none;
 }
 
+.small-box p {
+  font-size: 14px;
+  font-weight: 600;
+}
+
 ul#produtos li h3 {
   margin: 6px 0 6px 0;
   color: #594a40;
@@ -1358,7 +1363,7 @@ ul#produtos li h3 {
 .navbar-nav li ul {
   /* background-color: #00a65a; */
   color: #fff;
-  width: 100%;
+  /* width: 100%; */
 }
 
 .navbar-nav li ul li a{
