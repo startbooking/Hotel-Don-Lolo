@@ -10,9 +10,7 @@ $dia = substr(FECHA_PMS, 8, 2);
 
 $datosHuesped = $hotel->getbuscaDatosHuesped($datosReserva[0]['id_huesped']);
 $datosCompania = $hotel->getSeleccionaCompania($datosReserva[0]['id_compania']);
-// $datosAgencia   = $hotel->getSeleccionaAgencia($datosReserva[0]['id_agencia']);
 $tipoHabitacion = $hotel->getNombreTipoHabitacion($datosReserva[0]['tipo_habitacion']);
-// $centros        = $hotel->getBuscaCentroCia($datosReserva[0]['idCentroCia']);
 
 if (count($datosCompania) == 0) {
     $credito = 0;

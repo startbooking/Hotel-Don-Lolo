@@ -16,7 +16,6 @@
     $datosCompania  = $hotel->getSeleccionaCompania($idperfil);
   }
 
-  $datosAgencia   = $hotel->getSeleccionaAgencia($datosReserva[0]['id_agencia']);
   $tipoHabitacion = $hotel->getNombreTipoHabitacion($datosReserva[0]['tipo_habitacion']);
 
   $folios     = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura,$reserva,$nroFolio,1);
@@ -29,18 +28,7 @@
   $pdf->Rect(10, 50, 190, 199);
   $pdf->Image('../../img/logo.png',10,10,30);
   $pdf->SetFont('Arial','B',13);
-  /*
   
-  $pdf->Cell(190,7,utf8_decode(NAME_EMPRESA),0,1,'C');
-  $pdf->SetFont('Arial','',10);
-  $pdf->Cell(190,5,'NIT: '.NIT_EMPRESA,0,1,'C');
-  $pdf->Cell(190,5,TIPOEMPRESA,0,1,'C');
-  $pdf->Cell(190,5,utf8_decode(ADRESS_EMPRESA),0,1,'C');
-  $pdf->Cell(190,5,CIUDAD_EMPRESA.' '.PAIS_EMPRESA,0,1,'C');
-  $pdf->Cell(40,5,'',0,0,'C');
-  $pdf->Cell(110,5,'Telefono '.TELEFONO_EMPRESA.' Movil '.CELULAR_EMPRESA,0,0,'C');
-  $pdf->SetFont('Arial','B',10);
-   */
   $pdf->Cell(40,5,'TIQUETE DE VENTA ',1,1,'C');
   $pdf->Cell(40,5,'',0,0,'C');
   $pdf->Cell(110,5,NAME_HOTEL,0,0,'C');

@@ -33,11 +33,8 @@ $datosReserva = $hotel->getReservasDatos($reserva);
 
 $datosHuesped = $hotel->getbuscaDatosHuesped($datosReserva[0]['id_huesped']);
 $datosCompania = $hotel->getSeleccionaCompania($datosReserva[0]['id_compania']);
-// $datosAgencia   = $hotel->getSeleccionaAgencia($datosReserva[0]['id_agencia']);
 $tipoHabitacion = $hotel->getNombreTipoHabitacion($datosReserva[0]['tipo_habitacion']);
 $folios = $hotel->getCargosReservaFolio($reserva, $folio);
-// $fecha = $hotel->getDatePms();
-// $datosCentroCia = $hotel->getTraeCentroCia($datosReserva[0]['idCentroCia']);
 
 $pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell(190, 5, strtoupper('Estado de Cuenta Huesped '), 0, 1, 'C');

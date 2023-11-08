@@ -9,7 +9,6 @@
   $datosReserva   = $hotel->getReservasDatos($reserva);
   $datosHuesped   = $hotel->getbuscaDatosHuesped($datosReserva[0]['id_huesped']);
   $datosCompania  = $hotel->getSeleccionaCompania($datosReserva[0]['id_compania']);
-  $datosAgencia   = $hotel->getSeleccionaAgencia($datosReserva[0]['id_agencia']);
   $tipoHabitacion = $hotel->getNombreTipoHabitacion($datosReserva[0]['tipo_habitacion']);
   $saldofolio1    = $hotel->saldoFolio($reserva,1);
   $saldofolio2    = $hotel->saldoFolio($reserva,2);
