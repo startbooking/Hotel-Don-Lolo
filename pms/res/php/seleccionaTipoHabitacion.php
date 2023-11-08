@@ -10,8 +10,8 @@ $llegadas = $hotel->getHabitacionesLlegada($tipo, $llega);
 echo 'Fecha Llegada <br>';
 echo print_r($llegadas); 
 
-$sales = $hotel->getHabitacionesSalen($tipo,$sale);
-echo 'Fecha SAlen  <br>';
+$sales = $hotel->getHabitacionesSalen($tipo,$llega, $sale);
+echo 'Fecha Salen  <br>'; 
 echo print_r($sales); 
 
 $rangos = $hotel->getHabitacionesDentro($llega,$sale,$tipo);

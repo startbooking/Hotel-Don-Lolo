@@ -82,7 +82,14 @@
         $totalCon = 0;
         $totalImp = 0;
         foreach ($facturas as $factura) { 
-          if ($factura['tipo_factura'] !== 1) {
+        
+          /* 
+          echo $factura['tipo_factura'].'<br>';
+          echo $factura['id_perfil_factura'].'<br>'; 
+          echo $factura['nombre_completo'].'<br>'; 
+           */
+          
+          if ($factura['tipo_factura'] == 2) {          
             $cias = $hotel->getBuscaCia($factura['id_perfil_factura']);
             $nombrecia = $cias[0]['empresa'];
             $nitcia = $cias[0]['nit'] . '-' . $cias[0]['dv'];

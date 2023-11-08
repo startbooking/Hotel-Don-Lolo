@@ -3668,7 +3668,6 @@ function buscaTarifa(id) {
 
 function irPagina(id) {
   var filas = $("#numFiles").val();
-  // console.log(filas);
   newregis = filas * id;
   traeTotalHuespedes(newregis, filas);
 }

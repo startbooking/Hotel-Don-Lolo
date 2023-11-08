@@ -64,7 +64,7 @@ $manana = date('Y-m-d', $manana);
                 <div class="form-group">
                   <label for="llegada" class="col-sm-2 control-label">Llegada</label>
                   <div class="col-sm-3" style="padding-right: 20px">
-                    <input type="date" class="form-control" name="llegada" id="llegada" required="" value="<?php echo FECHA_PMS; ?>" min="<?php echo FECHA_PMS; ?>">
+                    <input type="date" class="form-control" name="llegada" id="llegada" required="" value="<?php echo FECHA_PMS; ?>" min="<?php echo FECHA_PMS; ?>" onblur="sumarDias()">
                   </div>
                   <label for="noches" class="col-sm-1 control-label">Noches</label>
                   <div class="col-sm-2">

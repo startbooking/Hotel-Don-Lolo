@@ -49,22 +49,26 @@ class Hotel_Actions{
     return $data;
   }
 
+
+
     public function getHabitacionesLlegada($tipo, $llega){
         global $database;
 
-        $data = $database->query("select num_habitacion, fecha_llegada, fecha_salida, estado  
-        from reservas_pms 
-        where 
-        tipo_habitacion = '$tipo' 
-        and estado != 'SA' 
-        and estado != 'CX'
-        and fecha_llegada <= '$llega'
-        and fecha_salida > '$llega'
-    ORDER BY num_habitacion")->fetchAll();
+        $data = $database->query("SELECT num_habitacion, fecha_llegada, fecha_salida, estado  
+            FROM reservas_pms 
+            WHERE 
+            tipo_habitacion = '$tipo' 
+            and estado != 'SA' 
+            and estado != 'CX'
+            and estado != 'CO'
+            and fecha_llegada <= '$llega'
+            and fecha_salida > '$llega'
+        ORDER BY 
+            num_habitacion")->fetchAll();
         return $data;
     }
 
-    public function getHabitacionesSalen($tipo,$sale){
+    public function getHabitacionesSalen($tipo,$llega, $sale){
         global $database;
 
         $data = $database->query("
@@ -74,8 +78,9 @@ class Hotel_Actions{
             tipo_habitacion = '$tipo' 
             and estado != 'SA' 
             and estado != 'CX'
+            and estado != 'CO'
             and fecha_llegada < '$sale'
-            and fecha_salida > '$sale'
+            and fecha_salida > '$llega'
         ORDER BY num_habitacion")->fetchAll();
         return $data;
     }
@@ -497,12 +502,13 @@ class Hotel_Actions{
             'mantenimiento_habitaciones.hasta_fecha',
         ], [
             'habitaciones.id_tipohabitacion' => $tipo,
-            // 'mantenimiento_habitaciones.hasta_fecha[>=]' => $llega,
+            'mantenimiento_habitaciones.desde_fecha[<=]' => $llega,
+            'mantenimiento_habitaciones.hasta_fecha[>]' => $llega,
             'mantenimiento_habitaciones.estado_mmto' => 1
         ]);
         return $data;
     }
-
+    
     public function traeHabitacionesMmto()
     {
         global $database;
