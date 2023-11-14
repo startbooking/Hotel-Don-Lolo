@@ -80,11 +80,11 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
               <div class="form-check form-check-inline">
                 <input style="margin-top:5px" class="form-check-input" type="radio" name="imptoOption" id="inlineRadio1" value="1" 
                 <?php
-            if ($reserva[0]['causar_impuesto'] == 1) { ?>
+                  if ($reserva[0]['causar_impuesto'] == 1) { ?>
                     checked
-                  <?php
-            }
-?>
+                    <?php
+                  }
+                  ?>
                 >
                 <label style="margin-top:-25px;margin-left:25px" class="form-check-label" for="inlineRadio1" >NO</label>
               </div>                    
@@ -122,7 +122,7 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
 ?>
             > 
         </div>
-        <label for="noches" class="col-sm-1 control-label">Noches</label>
+        <label for="noches" class="col-sm-1 control-label">Noches X</label>
         <div class="col-sm-1"  style="padding:0 5px">
           <input type="number" class="form-control" name="nochesUpd" id="nochesUpd" required="" value='<?php echo $reserva[0]['dias_reservados']; ?>' min='1' onchange="sumarDias()" onblur="sumarDias()">
         </div>

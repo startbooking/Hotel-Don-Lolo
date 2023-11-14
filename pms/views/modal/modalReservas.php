@@ -64,15 +64,15 @@ $manana = date('Y-m-d', $manana);
                 <div class="form-group">
                   <label for="llegada" class="col-sm-2 control-label">Llegada</label>
                   <div class="col-sm-3" style="padding-right: 20px">
-                    <input type="date" class="form-control" name="llegada" id="llegada" required="" value="<?php echo FECHA_PMS; ?>" min="<?php echo FECHA_PMS; ?>" onblur="sumarDias()">
+                    <input type="date" class="form-control" name="llegada" id="llegada" required="" value="<?php echo FECHA_PMS; ?>" min="<?php echo FECHA_PMS; ?>" onblur="sumaFecha()">
                   </div>
                   <label for="noches" class="col-sm-1 control-label">Noches</label>
                   <div class="col-sm-2">
-                    <input type="number" class="form-control" name="noches" id="noches" required="" value='1' min='1' onchange="sumarDias()">
+                    <input type="number" class="form-control" name="noches" id="noches" required="" value='1' min='1' onchange="sumaFecha()">
                   </div>
                   <label for="salida" class="col-sm-1 control-label">Salida</label>
                   <div class="col-sm-3" style="padding-right: 20px">
-                    <input type="date" onfocus="sumarDias()" onblur="restaFechas()" class="form-control" name="salida" id="salida" required="" value="<?php echo $manana; ?>" min="<?php echo $manana; ?>">
+                    <input type="date" onfocus="sumaFecha()" onblur="restaFechas()" class="form-control" name="salida" id="salida" required="" value="<?php echo $manana; ?>" min="<?php echo $manana; ?>">
                   </div>
                 </div>
                 <div class="form-group">
@@ -355,7 +355,7 @@ $manana = date('Y-m-d', $manana);
             <div id="mensaje" style="margin-bottom:-30px"></div>
           </div>
         </div>
-      </div>
+      </div> 
     </div>
   </form>
 </div>

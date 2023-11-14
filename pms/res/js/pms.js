@@ -6095,7 +6095,7 @@ function guardasinReserva() {
   });
 }
 
-function restaFechas() {
+function restaFechasOld() {
   var web = $("#webPage").val();
   var pagina = $("#ubicacion").val();
   var edita = $("#edita").val();
@@ -6121,10 +6121,100 @@ function restaFechas() {
   });
 }
 
+function restaFechas() {
+  let llega;
+  let sale; 
+  let noches; 
+  let edita = document.querySelector("#editaRes").value;
+  if (edita == 1) {
+    llega = document.querySelector("#llegadaUpd").value;
+    sale  = document.querySelector("#salidaUpd").value;
+  } else {
+    llega = document.querySelector("#llegada").value;
+    sale  = document.querySelector("#salida").value;
+  }
+
+  let llegada = new Date(llega).getTime();
+  let salida  = new Date(sale).getTime();
+  
+  /* console.log({salida, llegada});
+  console.log(salida-llegada); */
+  
+  noches = (salida - llegada)/(1000*60*60*24);
+  
+  console.log(noches);
+  
+  if (edita == 1) {
+    document.querySelector("#nochesUpd").value = noches
+    // $("#nochesUpd").val(data);
+  } else {
+    document.querySelector("#noches").value = noches  
+    // $("#noches").val(data);
+  }
+  
+  /* var web = $("#webPage").val();
+  var pagina = $("#ubicacion").val();
+  var edita = $("#edita").val();
+  if (edita == 1) {
+    var fecha = $("#llegadaUpd").val();
+    var sale = $("#salidaUpd").val();
+  } else {
+    var fecha = $("#llegada").val();
+    var sale = $("#salida").val();
+  }
+  var parametros = { fecha: fecha, sale: sale };
+  $.ajax({
+    type: "POST",
+    url: web + "res/php/restaFechas.php",
+    data: parametros,
+    success: function (data) {
+      if (edita == 1) {
+        $("#nochesUpd").val(data);
+      } else {
+        $("#noches").val(data);
+      }
+    },
+  }); */
+}
+
+
+function sumaFecha() { 
+  let fecha
+  let dias
+  let edita = document.querySelector("#editaRes").value;
+    
+  if (edita == 1) {
+    fecha = document.querySelector("#llegadaUpd").value;
+    dias = parseInt(document.querySelector("#nochesUpd").value);
+  } else {
+    fecha = document.querySelector("#llegada").value;
+    dias = parseInt(document.querySelector("#noches").value);
+  }
+  var date = fecha.split("-");
+  hoy = new Date(date[0], date[1], date[2]);
+
+  calculado = new Date();
+  dateResul = hoy.getDate() + dias;
+  calculado.setDate(dateResul);
+  anio = calculado.getFullYear();
+  mes = (calculado.getMonth() + 1).toString().padStart(2, '0');
+  dia = calculado.getDate().toString().padStart(2, '0');
+
+  let vence = anio + "-" + mes + "-" + dia;
+
+  if (edita == 1) {
+    document.querySelector("#salidaUpd").value = vence
+  } else {
+    document.querySelector("#salida").value = vence
+  }
+
+}
+
 function sumarDias() {
   var web = $("#webPage").val();
   var pagina = $("#ubicacion").val();
   var edita = $("#editaRes").val();
+  
   if (edita == 1) {
     var fecha = $("#llegadaUpd").val();
     var dias = $("#nochesUpd").val();
@@ -6133,11 +6223,13 @@ function sumarDias() {
     var dias = $("#noches").val();
   }
   var parametros = { fecha, dias };
+  
   $.ajax({
     type: "POST",
     url: web + "res/php/sumaFecha.php",
     data: parametros,
     success: function (data) {
+    console.log(data);
       if (edita == 1) {
         $("#salidaUpd").val(data);
       } else {
