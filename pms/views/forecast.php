@@ -20,12 +20,12 @@
     <div class="panel panel-success">
       <div class="panel-heading">
         <div class="row">
-          <div class="col-lg-6">
+          <div class="col-lg-6 col-xs-12">
             <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_PMS?>">
             <input type="hidden" name="ubicacion" id="ubicacion" value="forecast">
             <h3 class="w3ls_head tituloPagina" style="padding:0;"> <i style="color:black;" class="fa fa-calendar ga-2x" aria-hidden="true"></i> Forecast Hotel</h3>
           </div>
-          <div class="col-lg-6" >
+          <div class="col-lg-6 col-xs-12" >
             <div class="wrap">
               <div class="store-wrapper">
                 <div class="category_list pull-right">                  

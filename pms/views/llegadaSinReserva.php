@@ -13,6 +13,7 @@
       <div class="panel-heading">
         <div class="row">
           <div class="col-lg-6">
+            <input type="hidden" name="editaRes" id="editaRes" value="0">
             <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_PMS?>">
             <input type="hidden" name="ubicacion" id="ubicacion" value="llegadaSinReserva">
             <h3 class="w3ls_head tituloPagina"> <i style="color:black;font-size:36px" class="fa fa-briefcase" aria-hidden="true"></i> Huespedes Sin Reserva</h3>
@@ -49,7 +50,7 @@
                 data-reserva='1'
                 href="#myModalAdicionaPerfil">
                 <i class="fa fa-user-plus" aria-hidden="true"></i>
-                 Adicionar Huesped
+                Adicionar Huesped
               </a>
             </div>
           </div>
@@ -80,7 +81,7 @@
             </div>
             <label for="noches" class="col-sm-1 control-label">Noches</label>
             <div class="col-sm-2">
-              <input type="number" class="form-control" name="noches" id="noches" required="" value='1' min='1' onchange="sumarDias()">
+              <input type="number" class="form-control" name="noches" id="noches" required="" value='1' min='1' onchange="sumaFecha()">
             </div>
             <label for="salida" class="col-sm-1 control-label">Salida</label>
             <div class="col-sm-3">

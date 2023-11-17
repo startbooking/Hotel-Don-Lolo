@@ -6137,46 +6137,15 @@ function restaFechas() {
   let llegada = new Date(llega).getTime();
   let salida  = new Date(sale).getTime();
   
-  /* console.log({salida, llegada});
-  console.log(salida-llegada); */
-  
   noches = (salida - llegada)/(1000*60*60*24);
-  
-  console.log(noches);
   
   if (edita == 1) {
     document.querySelector("#nochesUpd").value = noches
-    // $("#nochesUpd").val(data);
   } else {
     document.querySelector("#noches").value = noches  
-    // $("#noches").val(data);
   }
   
-  /* var web = $("#webPage").val();
-  var pagina = $("#ubicacion").val();
-  var edita = $("#edita").val();
-  if (edita == 1) {
-    var fecha = $("#llegadaUpd").val();
-    var sale = $("#salidaUpd").val();
-  } else {
-    var fecha = $("#llegada").val();
-    var sale = $("#salida").val();
-  }
-  var parametros = { fecha: fecha, sale: sale };
-  $.ajax({
-    type: "POST",
-    url: web + "res/php/restaFechas.php",
-    data: parametros,
-    success: function (data) {
-      if (edita == 1) {
-        $("#nochesUpd").val(data);
-      } else {
-        $("#noches").val(data);
-      }
-    },
-  }); */
 }
-
 
 function sumaFecha() { 
   let fecha
@@ -6656,6 +6625,13 @@ function valorHabitacion(tarifa) {
   var hom = $("#hombres").val();
   var muj = $("#mujeres").val();
   var nin = $("#ninos").val();
+  
+  // console.log(tipo);
+  if(tipo==''){
+    swal("Precaucion", "Tipo de Habitacion no Asignado", "warning");
+    return;    
+  }
+  
   if (tipo == "CMA") {
     var parametros = {
       tarifa: tarifa,

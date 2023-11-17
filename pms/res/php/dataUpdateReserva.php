@@ -108,7 +108,7 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
       <div class="form-group">
         <label for="llegada" class="col-sm-2 control-label">Llegada</label>
         <div class="col-sm-3">
-          <input type="date" class="form-control" name="llegadaUpd" id="llegadaUpd" required="" value="<?php echo $reserva[0]['fecha_llegada']; ?>" min='<?php
+          <input type="date" class="form-control" name="llegadaUpd" id="llegadaUpd" required="" onblur="sumaFecha()" value="<?php echo $reserva[0]['fecha_llegada']; ?>" min='<?php
             if ($reserva[0]['tipo_reserva'] == 2) {
                 echo $reserva[0]['fecha_llegada'];
             } else {
@@ -122,13 +122,13 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
 ?>
             > 
         </div>
-        <label for="noches" class="col-sm-1 control-label">Noches X</label>
+        <label for="noches" class="col-sm-1 control-label">Noches</label>
         <div class="col-sm-1"  style="padding:0 5px">
-          <input type="number" class="form-control" name="nochesUpd" id="nochesUpd" required="" value='<?php echo $reserva[0]['dias_reservados']; ?>' min='1' onchange="sumarDias()" onblur="sumarDias()">
+          <input type="number" class="form-control" name="nochesUpd" id="nochesUpd" required="" value='<?php echo $reserva[0]['dias_reservados']; ?>' min='1' onchange="sumaFecha()">
         </div>
         <label for="salida" class="col-sm-2 control-label">Salida</label>
         <div class="col-sm-3">
-          <input type="date" onfocus="sumarDias()" onblur="restaFechas()" class="form-control" name="salidaUpd" id="salidaUpd" required="" value="<?php echo $reserva[0]['fecha_salida']; ?>">
+          <input type="date" onfocus="sumaFecha()" onblur="restaFechas()" class="form-control" name="salidaUpd" id="salidaUpd" required="" value="<?php echo $reserva[0]['fecha_salida']; ?>">
         </div> 
       </div>
       <div class="form-group">

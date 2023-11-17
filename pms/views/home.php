@@ -201,7 +201,7 @@
       </div>
     </div>
     <div class="container-fluid">
-      <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="col-lg-3 col-sm-6 col-xs-12">
         <div class="info-box">
           <a 
             data-toggle="modal" 
@@ -214,7 +214,7 @@
           </a>
         </div>
       </div>
-      <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="col-lg-3 col-sm-6 col-xs-12">
         <div class="info-box">
           <a 
             data-toggle="modal" 
@@ -227,7 +227,7 @@
         </div>
       </div>
       <div class="clearfix visible-sm-block"></div>
-      <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="col-lg-3 col-sm-6 col-xs-12">
         <div class="info-box">
           <a href="ingresoConsumos">
             <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
@@ -237,7 +237,7 @@
           </a>
         </div>
       </div>
-      <div class="col-md-3 col-sm-6 col-xs-12">        
+      <div class="col-lg-3 col-sm-6 col-xs-12">        
         <div class="info-box">
           <a href="forecast">
             <span class="info-box-icon bg-yellow"><i class="fa fa-area-chart"></i></span>
@@ -251,8 +251,4 @@
   </section>
 </div>
 
-<?php
-    include_once 'views/modal/modalHome.php';
-  // include_once 'views/modal/modalReservas.php';
-  // include_once 'views/modal/modalHuespedes.php';
-  ?>
+<?php include_once 'views/modal/modalHome.php'; ?>
