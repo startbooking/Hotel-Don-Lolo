@@ -148,7 +148,7 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
         <div class="col-sm-3">
           <input type="text" class="form-control" name="orden" id="orden" value="<?php echo $reserva[0]['orden_reserva']; ?>">
         </div> 
-      </div>
+      </div> 
       <div class="form-group">
         <label for="tipohabi" class="col-sm-2 control-label">Tipo Habitacion</label>
         <div class="col-sm-4">
@@ -171,9 +171,7 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
         <label for="nrohabitacion" class="col-sm-2 control-label">Nro Habitacion</label>
         <div class="col-sm-4">
           <div id="habitacionesUpd">
-          <?php
-?>
-            <select name="nrohabitacionUpd" id="nrohabitacionUpd" required>
+            <select name="nrohabitacionUpd" id="nrohabitacionUpd" required onfocus="seleccionaHabitacionUpd('<?php echo $reserva[0]['tipo_habitacion']; ?>','<?php echo $reserva[0]['tipo_habitacion']; ?>','<?php echo $reserva[0]['num_habitacion']; ?>','<?php echo $reserva[0]['fecha_llegada']; ?>','<?php echo $reserva[0]['fecha_salida'];?>')">
               <?php
   foreach ($habitaciones as $habitacion) { ?>
                 <option value="<?php echo $habitacion['num_habitacion']; ?>"

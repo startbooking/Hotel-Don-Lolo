@@ -1576,7 +1576,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     var modal = $(this);
     $("#editaRes").val(1);
     var parametros = {
-      id,
+      id, 
     };
     modal.find(".modal-title").text("Modifica Reserva Actual: " + nombre);
 
@@ -5378,6 +5378,7 @@ function seleccionaTarifasUpd() {
 }
  
 function seleccionaHabitacionUpd(tipo, anterior, numero, llega, sale) {
+  console.log({tipo, anterior, numero, llega, sale})
   var parametros = {
     tipo,
     anterior,
