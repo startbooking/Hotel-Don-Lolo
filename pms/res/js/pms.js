@@ -5394,7 +5394,7 @@ function seleccionaHabitacionUpd(tipo, anterior, numero, llega, sale) {
     success: function (data) {
       $("#nrohabitacionUpd option").remove();
       $("#nrohabitacionUpd").append(data);
-      $("#nrohabitacionUpd").focus();
+      // $("#nrohabitacionUpd").focus();
 /*       $("#nrohabitacionUpd option").remove();
       $("#nrohabitacionUpd").append(data); */
     },
