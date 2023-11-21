@@ -1370,6 +1370,9 @@ ul#produtos li h3 {
 padding: 10px 15px;
 }
 
+.main-sidebar {
+position: relative;}
+
 .main-sidebar,
 .left-side {
   padding-top: 60px;

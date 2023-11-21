@@ -179,7 +179,7 @@ function reabrirUsuario() {
     },
   });
 }
-
+ 
 function bloqueaUsuario() {
   var pagina = $("#ubicacion").val();
   var ruta = $("#rutaweb").val();

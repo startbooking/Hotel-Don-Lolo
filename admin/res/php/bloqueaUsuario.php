@@ -6,10 +6,10 @@
 	$id     = $_POST['id'];
 	$estado =  $_POST['estado'];
 
-	if($estado==='A'){
-		$estadoen = 'C';
+	if($estado==='1'){
+		$estadoen = '0';
 	}else if($estado==='C'){
-		$estadoen = 'A';
+		$estadoen = '1';
 	}
 
 	$bloquea = $user->bloqueaUsuario($estadoen, $id) ;

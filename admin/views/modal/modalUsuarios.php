@@ -209,7 +209,7 @@
     </div>
   </form>
 </div>
-
+ 
 <div class="modal fade" id="myModalBloquearUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
   <form id="formAdicionaUsuario" class="form-horizontal" action="javascript:bloqueaUsuario()">
     <div class="modal-dialog modal-md" role="document">
