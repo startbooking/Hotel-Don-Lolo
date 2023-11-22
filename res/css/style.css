@@ -21,28 +21,20 @@ body.is-loading * {
   animation: none !important;
 }
 
-body,
-input,
-textarea,
-select {
+body, input, textarea, select {
   font-family: "Ubuntu";
   font-weight: 400;
   color: #090909#777;
 }
 
-h1,
-h2,
-h3 {
+h1, h2, h3 {
   font-weight: 500;
   color: #120808;
 }
 
-
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   font-family: "ubuntu";
-  /* font-family: 'Source Sans Pro', sans-serif; */
 }
-
 
 .small-box h3 {
   font-size: 28px;
@@ -50,8 +42,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   text-align: center;
 }
 
-.small-box p,
-.modal-footer {
+.small-box p, .modal-footer {
   text-align: center;
 }
 
@@ -78,13 +69,14 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .mr20{
   margin-right: 20px;
 }
+
 .centraTitulo {
   margin:0 0 20px 0;
   padding :0px;
   text-align: center;
 }
-.dropdown > li > a:hover,
-.dropdown-menu > li > a:hover {
+
+.dropdown > li > a:hover, .dropdown-menu > li > a:hover {
   background-color: #e1e3e9;
   font-weight: bold;
 }
@@ -93,12 +85,7 @@ h6 {
   font-size: 14px;
 }
 
-h1 a,
-h2 a,
-h3 a,
-h4 a,
-h5 a,
-h6 a {
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
   text-decoration: none;
   border: 0;
 }
@@ -135,14 +122,12 @@ a:hover strong {
   color: #3b3b7e;
 }
 
-strong,
-b {
+strong, b {
   font-weight: 600;
   color: #090202;
 }
 
-em,
-i {
+em, i {
   font-style: italic;
 }
 
@@ -181,11 +166,9 @@ blockquote {
   padding: 0px;
 }
 
-.imgLogo,
-.logo img {
+.imgLogo, .logo img {
   width: 40px;
   border-radius: 50%;
-  /* margin: 4px 4px; */
 }
 
 .logo span {
@@ -208,9 +191,6 @@ blockquote {
 
 br.clear {
   clear: both;
-}
-
-.nav .navbar-nav {
 }
 
 .centrar {
@@ -317,7 +297,6 @@ br.clear {
   width: 100%;
 }
 
-
 .form-horizontal .control-label {
   padding-top: 0px;
 }
@@ -352,18 +331,15 @@ li > a:hover {
 
 /* Sections/Article */
 
-section,
-article {
+section, article {
   margin-bottom: 3em;
 }
 
-section > :last-child,
-article > :last-child {
+section > :last-child, article > :last-child {
   margin-bottom: 0;
 }
 
-section:last-child,
-article:last-child {
+section:last-child, article:last-child {
   margin-bottom: 0;
 }
 
@@ -421,18 +397,12 @@ a.image:hover {
 .badge {
   color: #fff;
   font-weight: 500;
-  /* width: 100%; */
   padding: 5px;
   font-size: 12px;
-  /* 
-	*/
 }
 
 .logo {
   height: 56px;
-}
-
-ul {
 }
 
 ul.default {
@@ -471,9 +441,6 @@ ul.actions {
   clear: both;
 }
 
-ul.divided {
-}
-
 ul.divided li {
   border-top: solid 2px #e5e5e5;
 }
@@ -482,9 +449,6 @@ ul.divided li:first-child {
   border-top: 0;
   margin-top: 0;
   padding-top: 0;
-}
-
-ul.icons {
 }
 
 ul.icons > li {
@@ -515,9 +479,6 @@ ul.icons > li:first-child:before {
   top: 0;
 }
 
-ol {
-}
-
 ol.default {
   list-style: decimal;
   margin-left: 1em;
@@ -534,9 +495,6 @@ ol.default li:first-child {
 
 /* Form */
 
-form {
-}
-
 form label {
   font-weight: 600;
   text-transform: uppercase;
@@ -545,12 +503,7 @@ form label {
   margin: 0 0 1em 0;
 }
 
-form input[type="text"],
-form input[type="email"],
-form input[type="password"],
-form select,
-form textarea {
-  /* -webkit-appearance: none; */
+form input[type="text"], form input[type="email"], form input[type="password"], form select, form textarea {
   display: block;
   border: 0;
   background: #e8e8e8;
@@ -566,11 +519,7 @@ form textarea {
   transition: background-color 0.25s ease-in-out;
 }
 
-form input[type="text"]:focus,
-form input[type="email"]:focus,
-form input[type="password"]:focus,
-form select:focus,
-form textarea:focus {
+form input[type="text"]:focus, form input[type="email"]:focus, form input[type="password"]:focus, form select:focus, form textarea:focus {
   background: #f0f0f0;
 }
 
@@ -645,15 +594,9 @@ table.default tfoot {
   border-top: solid 2px #e5e5e5;
 }
 
-table.default tbody {
-}
-
 /* Button */
 
-input[type="button"],
-input[type="submit"],
-input[type="reset"],
-.button {
+input[type="button"], input[type="submit"], input[type="reset"], .button {
   position: relative;
   display: inline-block;
   background: #d3f7f9;
@@ -680,48 +623,27 @@ input[type="reset"],
   top: 0.05em;
 }
 
-input[type="button"]:hover,
-input[type="submit"]:hover,
-input[type="reset"]:hover,
-.button:hover {
+input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover, .button:hover {
   background: #fd887a;
 }
 
-input[type="button"]:active,
-input[type="submit"]:active,
-input[type="reset"]:active,
-.button:active {
+input[type="button"]:active, input[type="submit"]:active, input[type="reset"]:active, .button:active {
   background: #ed786a;
 }
 
-input[type="button"].alt,
-input[type="submit"].alt,
-input[type="reset"].alt,
-.button.alt {
+input[type="button"].alt, input[type="submit"].alt, input[type="reset"].alt, .button.alt {
   background: #878787;
 }
 
-input[type="button"].alt:hover,
-input[type="submit"].alt:hover,
-input[type="reset"].alt:hover,
-.button.alt:hover {
+input[type="button"].alt:hover, input[type="submit"].alt:hover, input[type="reset"].alt:hover, .button.alt:hover {
   background: #979797;
 }
 
-input[type="button"].alt:active,
-input[type="submit"].alt:active,
-input[type="reset"].alt:active,
-.button.alt:active {
+input[type="button"].alt:active, input[type="submit"].alt:active, input[type="reset"].alt:active, .button.alt:active {
   background: #878787;
 }
 
 /* Box */
-
-.box {
-}
-
-.box.excerpt {
-}
 
 .box.excerpt .date {
   background: #878787;
@@ -847,7 +769,6 @@ input[type="reset"].alt:active,
   font-family: "ubuntu";
   color: brown;
   text-transform: none;
-  /* padding: 10px; */
   margin: 0px;
 }
 
@@ -1228,7 +1149,7 @@ ul#produtos li h3 {
 }
 
 .img-thumbnail {
-  margin-top: 15%;
+  /* margin-top: 15%; */
   /* width: 30%; */
 }
 
@@ -1361,21 +1282,11 @@ ul#produtos li h3 {
 }
 
 .navbar-nav li ul {
-  /* background-color: #00a65a; */
   color: #fff;
-  /* width: 100%; */
 }
 
 .navbar-nav li ul li a{
 padding: 10px 15px;
-}
-
-.main-sidebar {
-position: relative;}
-
-.main-sidebar,
-.left-side {
-  padding-top: 60px;
 }
 
 .nombreUsuario {

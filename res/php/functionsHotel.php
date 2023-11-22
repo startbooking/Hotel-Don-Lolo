@@ -6495,6 +6495,7 @@ class Hotel_Actions{
             'tlogo',
             'codigo_ciiu',
             'tipo_empresa',
+            'impto_incl'
         ]);
 
         return $data;

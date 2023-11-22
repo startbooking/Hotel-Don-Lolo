@@ -13,8 +13,10 @@
 	$celu     = $_POST['movilUpd'];
 	$rnt      = $_POST['RNTUpd'];
 	$impto    = $_POST['imptoOption'];
-	$cms      = $_POST['cmsOption'];
-	$access   = $_POST['accessOption'];
+	// $cms      = $_POST['cmsOption'];
+	// $access   = $_POST['accessOption'];
+	$cms      = 0;
+	$access   = 0;
 	$ciiu     = $_POST['ciiu'];
 	$tipoEmp  = $_POST['tipo_emp'];
 	$logoAnt  = $_POST['imgLogo'];

@@ -8,7 +8,7 @@
                 <input type="hidden" name="ubicacion" id="ubicacion" value="usuarios">
                 <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-user-circle-o"></i> Usuarios </h3>
               </div>
-              <div class="col-lg-6" align="right">
+              <div class="col-lg-6" style="text-align:right;">
                 <a 
                   data-toggle="modal" 
                   style="margin:20px 0" type="button" class="btn btn-success" href="#myModalAdicionarUsuario">
@@ -42,8 +42,8 @@
                       <td><?php echo $usuario['nombres']; ?></td>
                       <td><?php echo $usuario['celular']; ?></td>
                       <td style="width: 20%"><?php echo $usuario['correo']; ?></td>
-                      <td align="left" style="width: 10%"><?php echo tipoUsuario($usuario['tipo']); ?></td>
-                      <td align="left"><?php echo estadoUsuario($usuario['estado']); ?></td>
+                      <td style="width: 10%;text-align:left;"><?php echo tipoUsuario($usuario['tipo']); ?></td>
+                      <td style="text-align:left;"><?php echo estadoUsuario($usuario['estado']); ?></td>
                       <td style="padding:3px;width: 11%">
                         <div class="btn-toolbar" role="toolbar" aria-label="...">
                           <div class="btn-group" role="group" aria-label="...">

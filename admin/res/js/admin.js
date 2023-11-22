@@ -185,6 +185,7 @@ function bloqueaUsuario() {
   var ruta = $("#rutaweb").val();
   var id = $("#idUserBloq").val();
   var estado = $("#estadoBloq").val();
+  
   parametros = {
     id,
     estado,
@@ -2620,6 +2621,7 @@ $(document).ready(function () {
     var apellidos = button.data("apellidos");
     var nombres = button.data("nombres");
     var estado = button.data("estado");
+    
     var modal = $(this);
 
     modal

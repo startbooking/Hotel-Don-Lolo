@@ -14,7 +14,7 @@
 	require 'funcionesHotel.php';
 
 	$admin  = new Hotel_Admin();
-	$hotel  = new Hotel_Actions();
+	$hotel  = new Hotel_Actions(); 
 
 	$datosHotel = $admin->getDatosHotel(); 
 	$empresa    = $admin->getInfoCia();

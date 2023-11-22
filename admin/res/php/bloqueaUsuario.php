@@ -5,10 +5,12 @@
 
 	$id     = $_POST['id'];
 	$estado =  $_POST['estado'];
+	
+	$estadoen = 0;
 
 	if($estado==='1'){
-		$estadoen = '0';
-	}else if($estado==='C'){
+		$estadoen = '3';
+	}else if($estado==='0'){
 		$estadoen = '1';
 	}
 

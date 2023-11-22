@@ -3,7 +3,7 @@
   $codigosCiiu = $admin->getCodigosCiiu();
 ?>
 
-<div class="content-wrapper" style="margin-bottom: 50px"> 
+<div class="content-wrapper" style="margin-bottom: 0px"> 
   <form id="updateCompany" class="form-horizontal" action="javascript:updateConfigCia()" method="POST" enctype="multipart/form-data">
     <section class="content">
       <div class="panel panel-success">
@@ -14,7 +14,7 @@
               <input type="hidden" name="ubicacion" id="ubicacion" value="home">
               <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-cogs"></i> Configuracion General Empresa </h3>
             </div>
-            <div class="col-lg-6" align="right">
+            <div class="col-lg-6" style="text-align:right;">
               <button type="submit" name="edit_settings" class="btn btn-success btnPpal"><i class="fa fa-save"></i> Actualizar </button>
             </div>
           </div>
@@ -121,7 +121,7 @@
               </div>
               <div class="form-group" >
                 <label for="inputEmail3" class="col-sm-2 control-label">Iva incluido</label>
-                <div class="col-sm-2 ondisplay">
+                <div class="col-sm-4 ondisplay">
                   <div class="wrap">
                     <div class="col-sm-6" style="padding:0;height: 15px">
                       <div class="form-check form-check-inline">
@@ -151,7 +151,7 @@
                     </div>
                   </div>
                 </div>
-                <label for="inputEmail3" class="col-sm-2 control-label">Acceso por Equipo [IP]</label>
+                <!-- <label for="inputEmail3" class="col-sm-2 control-label">Acceso por Equipo [IP]</label>
                 <div class="col-sm-2 ondisplay">
                   <div class="wrap">
                     <div class="col-sm-6" style="padding:0;height: 15px">
@@ -212,9 +212,9 @@
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div class="form-group" >
+                </div> -->
+              <!-- </div>
+              <div class="form-group" > -->
                 <label class="control-label col-lg-2" for="">RNT</label>
                 <div class="col-lg-2 col-md-2" >
                   <input class="form-control" type="text" name="RNTUpd" id="RNTUpd" value="<?=$cia['rnt']?>" required>
@@ -242,7 +242,7 @@
             }
           ?>              
         </div>
-        <div class="panel-footer"> </div>
+        <!-- <div class="panel-footer"> </div> -->
       </div>
     </section>
   </form>

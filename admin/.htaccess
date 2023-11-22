@@ -4,7 +4,7 @@ Options All -Indexes
 RewriteEngine on 
 
 #Rutas Usuarios
-RewriteRule ^dataCompany$ index.php?section=dataCompany [QSA] 
+RewriteRule ^dataCompany index.php?section=dataCompany [QSA] 
 RewriteRule ^home index.php?section=home [QSA] 
 RewriteRule ^usuarios index.php?section=usuarios [QSA] 
 RewriteRule ^impuestos index.php?section=impuestos [QSA] 

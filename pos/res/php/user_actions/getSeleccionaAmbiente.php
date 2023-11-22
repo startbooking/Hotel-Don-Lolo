@@ -9,4 +9,4 @@ $ambienteSeleccionado = $pos->getAmbienteSeleccionado($codigo);
 echo json_encode($ambienteSeleccionado);
 
 ?>
- 
+  

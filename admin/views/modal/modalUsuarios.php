@@ -70,6 +70,8 @@
                 <label style="text-align: left;padding:0" class="control-label col-lg-3 col-md-3">POS <input type="checkbox" name="idPos" id="idPos"></label>
                 <label style="text-align: left;padding:0" class="control-label col-lg-3 col-md-3">PMS <input type="checkbox" name="idPMS" id="idPMS"></label>
                 <label style="text-align: left;padding:0" class="control-label col-lg-3 col-md-3">Inventarios <input type="checkbox" name="idInv" id="idInv"></label>
+                <label style="text-align: left;padding:0" class="control-label col-lg-3 col-md-3">Factura Elect. <input type="checkbox" name="idFE" id="idFE"></label>
+                <!-- <label style="text-align: left;padding:0" class="control-label col-lg-3 col-md-3">Recetas Est. <input type="checkbox" name="idRes" id="idRes"></label> -->
               </div>
             </div>
           </div>

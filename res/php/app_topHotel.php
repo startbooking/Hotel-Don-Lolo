@@ -17,6 +17,9 @@ $admin = new Hotel_Admin();
 $datosHotel = $admin->getDatosHotel();
 $empresa = $admin->getInfoCia();
 
+
+
+
 define('DEV', '1');
 define('FECHA_PMS', $datosHotel[0]['fecha_auditoria']);
 define('CTA_DEPOSITO', $datosHotel[0]['cuenta_depositos']);
@@ -25,7 +28,7 @@ define('CTA_CARTERA', $datosHotel[0]['cuenta_cartera']);
 define('NAME_HOTEL', $datosHotel[0]['nombre_hotel']);
 define('NIT_HOTEL', $datosHotel[0]['nit_hotel'] . '-' . $datosHotel[0]['dv_hotel']);
 define('MAIL_HOTEL', $datosHotel[0]['email']);
-define('IVA_INCLUIDO', $datosHotel[0]['iva_incluido']);
+// define('IVA_INCLUIDO', $datosHotel[0]['iva_incluido']);
 define('MMTO', $datosHotel[0]['mantenimiento']);
 define('ADRESS_HOTEL', $datosHotel[0]['direccion']);
 define('PHONE_HOTEL', $datosHotel[0]['telefono']);
@@ -35,6 +38,9 @@ define('CITY_HOTEL', $datosHotel[0]['ciudad']);
 define('LAND_HOTEL', $datosHotel[0]['pais']);
 define('CTA_MASTER', $datosHotel[0]['codigo_cta_master']);
 define('DEMO', $datosHotel[0]['hoteldemo']);
+
+
+define('IVA_INCLUIDO', $empresa[0]['impto_incl']);
 define('NAME_EMPRESA', $empresa[0]['empresa']);
 define('NIT_EMPRESA', $empresa[0]['nit'] . '-' . $empresa[0]['dv']);
 define('NIT', $empresa[0]['nit']);

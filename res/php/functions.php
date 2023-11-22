@@ -548,6 +548,7 @@ class User_Actions
             'codigo_ciiu',
             'ip_acceso',
             'tipo_empresa',
+            'impto_incl',
             'cms',
         ]);
 

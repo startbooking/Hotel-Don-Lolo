@@ -4,7 +4,7 @@ require '../../../../res/php/app_topPos.php';
 
 $comanda = $_POST['comanda'];
 $motivo = strtoupper($_POST['motivo']);
-$user = $_POST['user'];
+$user = $_POST['usuario'];
 $idamb = $_POST['idambi'];
 $idprod = $_POST['idprod'];
 $importe = $_POST['importe'];

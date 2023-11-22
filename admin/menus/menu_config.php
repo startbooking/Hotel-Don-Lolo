@@ -1,5 +1,5 @@
 <input type="hidden" name="usuarioActivo" id="usuarioActivo" value="">
-<aside class="main-sidebar" style="padding-top:5px;">
+<aside class="main-sidebar">
   <section class="sidebar">
     <ul class="sidebar-menu">
       <li class="treeview">

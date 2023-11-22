@@ -1,6 +1,11 @@
 document.addEventListener("DOMContentLoaded", async () => {    
 
   let sesion = JSON.parse(localStorage.getItem("sesion"));
+  
+  // console.log(sesion);
+  
+  // let {cia:{ impto_incl }} = sesion; 
+  // console.log(impto_incl)
  
   if(sesion == null){
     swal({
@@ -18,8 +23,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     return 
   }else{ */
   }
-  let { user } = sesion;
-  let { usuario, usuario_id } = user;
+  // let {  } = sesion;
+  let { user: { usuario, usuario_id }, cia:{ impto_incl } } = sesion;
+  // let {} = sesion; 
+
+// console.log({ usuario, usuario_id, impto_incl })
+
 });
 
 
@@ -312,9 +321,9 @@ function carteradelDia() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
   let { usuario, usuario_id } = user;
-  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } =
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo } =
     oPos[0];
   file = makeid(12);
   parametros = {
@@ -322,7 +331,7 @@ function carteradelDia() {
     amb: nombre,
     user: usuario,
     iduser: usuario_id,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
     logo,
@@ -373,15 +382,15 @@ function estadoCartera() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
   $("#pantalla").css("margin-left", "0");
-  let { pos, user } = sesion;
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
   let { usuario, usuario_id } = user;
-  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria } = oPos[0];
+  let { id_ambiente, nombre, propina, fecha_auditoria } = oPos[0];
   parametros = {
     id: id_ambiente,
     amb: nombre,
     user: usuario,
     iduser: usuario_id,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
   };
@@ -414,9 +423,9 @@ function balanceCajaCajero() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
   let { usuario, usuario_id } = user;
-  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } =
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo } =
     oPos[0];
   file = makeid(12);
   parametros = {
@@ -424,7 +433,7 @@ function balanceCajaCajero() {
     amb: nombre,
     user: usuario,
     iduser: usuario_id,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
     logo,
@@ -445,16 +454,16 @@ function balanceCaja() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
   let { usuario, usuario_id } = user;
-  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } =
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo } =
     oPos[0];
   parametros = {
     id: id_ambiente,
     amb: nombre,
     user: usuario,
     iduser: usuario_id, 
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
     logo,
@@ -474,16 +483,16 @@ function abonosDia() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
   let { usuario, usuario_id } = user;
-  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } =
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo } =
     oPos[0];
   parametros = {
     id: id_ambiente,
     amb: nombre,
     user: usuario,
     iduser: usuario_id,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
     logo,
@@ -503,9 +512,9 @@ function balanceHistorico() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
   let { usuario, usuario_id } = user;
-  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } =
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo } =
     oPos[0];
   file = makeid(12);
   parametros = {
@@ -513,7 +522,7 @@ function balanceHistorico() {
     amb: nombre,
     user: usuario,
     iduser: usuario_id,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
     logo,
@@ -575,16 +584,16 @@ function ventasCreditoDia() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
   let { usuario, usuario_id } = user;
-  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } =
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo } =
     oPos[0];
   parametros = {
     id: id_ambiente,
     amb: nombre,
     user: usuario,
     iduser: usuario_id,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
     logo,
@@ -603,7 +612,7 @@ function ventasCreditoDia() {
 $(document).ready(function () {
 
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
+  let { user: { usuario, usuario_id, tipo }} = sesion;
   let { usuario_id, usuario, tipo, pos, estado, ingreso, estado_usuario_pms } = user;
 
   $("#myModalAnulaFactura").on("show.bs.modal", function (event) {
@@ -633,14 +642,14 @@ $(document).ready(function () {
 
   $("#modalAdicionaCliente").on("show.bs.modal", function (event) {
     sesion = JSON.parse(localStorage.getItem("sesion"));
-    let { user } = sesion;
+    let { user: { usuario, usuario_id, tipo }} = sesion;
     let { usuario_id } = user;
     $("#idusr").val(usuario_id);
   });
 
   $("#dataDeleteCliente").on("show.bs.modal", function (event) {
     sesion = JSON.parse(localStorage.getItem("sesion"));
-    let { user } = sesion;
+    let { user: { usuario, usuario_id, tipo }} = sesion;
     let { usuario_id } = user;
 
     var button = $(event.relatedTarget);
@@ -652,7 +661,7 @@ $(document).ready(function () {
 
   $("#modalConsultaKardex").on("show.bs.modal", function (event) {
     sesion = JSON.parse(localStorage.getItem("sesion"));
-    let { user } = sesion;
+    let { user: { usuario, usuario_id, tipo }} = sesion;
     let { usuario_id } = user;
     var button = $(event.relatedTarget);
     var producto = button.data("id");
@@ -866,14 +875,14 @@ function guardaCartera() {
   let formaPago = $("#formapago").val();
   let facturas = $("#facturasSele").val();
   let cliente = $("#proveedor option:selected").text();
-  let { pos, user } = sesion;
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
   let { id_ambiente, nombre, logo } = oPos[0];
   let { usuario, usuario_id } = user;
 
   ambi = id_ambiente;
   nomambi = nombre;
-  user = usuario;
-  iduser = usuario_id;
+  user: { usuario, usuario_id, tipo }= usuario;
+  iduser: { usuario, usuario_id, tipo }= usuario_id;
 
   parametros = {
     facturas,
@@ -951,14 +960,14 @@ function guardaCompras() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
   let { id_ambiente, nombre, logo } = oPos[0];
   let { usuario, usuario_id } = user;
 
   ambi = id_ambiente;
   nomambi = nombre;
-  user = usuario;
-  iduser = usuario_id;
+  user: { usuario, usuario_id, tipo }= usuario;
+  iduser: { usuario, usuario_id, tipo }= usuario_id;
 
   parametros = {
     base,
@@ -1000,14 +1009,14 @@ function guardaBase() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
   let { id_ambiente, nombre, logo } = oPos[0];
   let { usuario, usuario_id, apellidos, nombres } = user;
 
   ambi = id_ambiente;
   nomambi = nombre;
-  user = usuario;
-  iduser = usuario_id;
+  user: { usuario, usuario_id, tipo }= usuario;
+  iduser: { usuario, usuario_id, tipo }= usuario_id;
 
   parametros = {
     base,
@@ -1102,7 +1111,7 @@ function historicoVentasClientes() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
   let { id_ambiente, prefijo, logo } = oPos[0];
   let { usuario, usuario_id } = user;
 
@@ -1148,22 +1157,22 @@ function historicoClientes() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
-  let { id_ambiente, nombre, logo, impuesto, propina, fecha_auditoria } =
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
+  let { id_ambiente, nombre, logo, propina, fecha_auditoria } =
     oPos[0];
   let { usuario, usuario_id } = user;
 
   idambi = id_ambiente;
   amb = nombre;
-  user = usuario;
-  iduser = usuario_id;
+  user: { usuario, usuario_id, tipo }= usuario;
+  iduser: { usuario, usuario_id, tipo }= usuario_id;
 
   parametros = {
     idamb,
     amb,
     user,
     iduser,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
     logo,
@@ -1181,8 +1190,8 @@ function historicoClientes() {
 function ventasPorCliente() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  let { pos, user } = sesion;
-  let { id_ambiente, nombre, logo, impuesto, propina, fecha_auditoria } =
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
+  let { id_ambiente, nombre, logo, propina, fecha_auditoria } =
     oPos[0];
   let { usuario, usuario_id } = user;
 
@@ -1192,7 +1201,7 @@ function ventasPorCliente() {
     amb: nombre,
     user: usuario,
     iduser: usuario_id,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
     logo,
@@ -1215,10 +1224,10 @@ function getComandasPlano(comanda, nromesa, nomBtn) {
   var ancho = screen.width;
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  let { pos, user } = sesion;
-  let { id_ambiente, nombre, logo, impuesto, prefijo, fecha_auditoria } =
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
+  let { id_ambiente, nombre, logo, prefijo, fecha_auditoria } =
     oPos[0];
-  let { usuario, tipo } = user;
+  
 
   $(".btn-menu").css("display", "block");
   miBoton = "#" + nomBtn;
@@ -1267,16 +1276,16 @@ function mesasActivasPlano() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
-  let { id_ambiente, nombre, impuesto, propina, prefijo, fecha_auditoria } =
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
+  let { id_ambiente, nombre, propina, prefijo, fecha_auditoria } =
     oPos[0];
-  let { usuario } = user;
+  
 
   parametros = {
     idamb: id_ambiente,
     amb: nombre,
     user: usuario,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     pref: prefijo,
     fecha: fecha_auditoria,
@@ -1316,19 +1325,19 @@ function abreCuenta(mesa) {
   var ancho = screen.width;
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  let { pos, user } = sesion;
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
 
-  let { id_ambiente, nombre, impuesto, propina, prefijo, fecha_auditoria } =
+  let { id_ambiente, nombre, propina, prefijo, fecha_auditoria } =
     oPos[0];
 
-  let { usuario } = user;
+  
   $("#btnGuardar").attr("disabled", "enabled");
 
   parametros = {
     id: id_ambiente,
     amb: nombre,
     user: usuario,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
     prefijo,
@@ -1407,7 +1416,7 @@ function historicoGrupos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
   let { id_ambiente, nombre, logo, prefijo } = oPos[0];
   let { usuario, usuario_id } = user;
 
@@ -1450,7 +1459,7 @@ function historicoFormasPago() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
   let { id_ambiente, nombre, logo, prefijo } = oPos[0];
   let { usuario, usuario_id } = user;
 
@@ -1493,7 +1502,7 @@ function historicoProductos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
   const { nombre, id_ambiente, logo, prefijo, id_bodega } = oPos[0];
   const { usuario, usuario_id } = user;
 
@@ -1574,7 +1583,7 @@ function historicoBalanceCaja() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
   let { id_ambiente, nombre, logo, prefijo } = oPos[0];
   let { usuario, usuario_id } = user;
 
@@ -1617,7 +1626,7 @@ function historicoPeriodos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
 
   const { nombre, id_ambiente, logo, prefijo, id_bodega } = oPos[0];
   const { usuario, usuario_id } = user;
@@ -1654,8 +1663,8 @@ function devolucionesDia() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
-  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } =
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo } =
     oPos[0];
   let { usuario, usuario_id } = user;
 
@@ -1664,7 +1673,7 @@ function devolucionesDia() {
     amb: nombre,
     user: usuario,
     iduser: usuario_id,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
     logo: logo,
@@ -1778,17 +1787,17 @@ function devolucionProductos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
-  let { id_ambiente, nombre, propina, logo, impuesto, fecha_auditoria } =
+  let { pos, user:{ usuario, usuario_id } } = sesion;
+  let { id_ambiente, nombre, propina, logo, fecha_auditoria } =
     oPos[0];
-  let { usuario, usuario_id } = user;
+  // let { usuario, usuario_id } = user;
 
   parametros = {
     user: usuario,
     id: id_ambiente,
     amb: nombre,
     iduser: usuario_id,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
     logo,
@@ -1845,11 +1854,11 @@ function devolverProducto() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
-  let { fecha_auditoria, impuesto } = oPos[0];
-  let { usuario } = user;
+  let { pos, user:{ usuario } } = sesion;
+  let { fecha_auditoria } = oPos[0];
+  // 
 
-  user = usuario;
+  // user: { usuario, usuario_id, tipo }= usuario;
   fecha = fecha_auditoria;
 
   parametros = {
@@ -1862,8 +1871,8 @@ function devolverProducto() {
     impto,
     motivo,
     fecha,
-    user,
-    impuesto
+    usuario,
+    impto_incl
   };
 
   $.ajax({
@@ -1884,7 +1893,7 @@ function verComandasAnuladas() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
   let { id_ambiente, nombre, prefijo } = oPos[0];
   let { tipo, usuario } = user;
 
@@ -1948,7 +1957,7 @@ function facturasDia() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
   let { id_ambiente, nombre, prefijo } = oPos[0];
   let { tipo, usuario } = user;
 
@@ -2188,8 +2197,8 @@ function actualizaRece(cod, codigo, regis, regis2) {
 
 function guardarReceta() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario } = user;
+  let { user: { usuario, usuario_id, tipo }} = sesion;
+  
   let parametros = $("#guardarDatosReceta").serializeArray();
   parametros.push({ name: "usuario", value: usuario });
 
@@ -2233,16 +2242,15 @@ function btnEliminaReceta(id) {
 
 function recetas() {
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  let { pos, user } = sesion;
-  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria } = oPos[0];
-  let { usuario_id, usuario } = user;
+  let { pos, user:{ usuario_id, usuario } } = sesion;
+  let { id_ambiente, nombre, propina, fecha_auditoria } = oPos[0];
 
   parametros = {
     id: id_ambiente,
     amb: nombre,
     user: usuario,
     iduser: usuario_id,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
   };
@@ -2287,7 +2295,7 @@ function btnEliminaProductoReceta(id) {
     var id = button.data("id");
     var producto = button.data("producto");
     sesion = JSON.parse(localStorage.getItem("sesion"));
-    let { user } = sesion;
+    let { user: { usuario, usuario_id, tipo }} = sesion;
     let { usuario_id } = user;
 
     idusr = usuario_id;
@@ -2340,7 +2348,7 @@ function guardarMateriaPrima() {
   var valTotal = $("#valorTot").val();
 
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
+  let { user: { usuario, usuario_id, tipo }} = sesion;
   let { usuario_id, usuario } = user;
 
   idusr = usuario_id;
@@ -2459,7 +2467,7 @@ function adicionaMateriaPrima() {
 async function btnRecetaProducto(boton) {
   $("#dataRecetaProducto").modal("show");
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
+  let { user: { usuario, usuario_id, tipo }} = sesion;
   let receta = boton.dataset.receta;
   let subreceta = boton.dataset.subreceta;
   let id = boton.dataset.id;
@@ -2553,7 +2561,7 @@ function actualizaCliente() {
 function updateCliente(id) {
   $("#dataUpdateCliente").on("show.bs.modal", function (event) {
     sesion = JSON.parse(localStorage.getItem("sesion"));
-    let { user } = sesion;
+    let { user: { usuario, usuario_id, tipo }} = sesion;
     let { usuario_id } = user;
     $("#idusrupd").val(usuario_id);
 
@@ -2639,14 +2647,13 @@ function btnEliminaProducto(id) {
 
 function generarFacturas() {
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  // let { pos } = sesion;
-  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } =
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo } =
     oPos[0];
 
   parametros = {
     id: id_ambiente,
     amb: nombre,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
     logo,
@@ -2722,8 +2729,8 @@ function facturasPorFecha() {
 function historicoListadoFacturas() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  let { pos, user } = sesion;
-  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } =
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo } =
     oPos[0];
   let { usuario, usuario_id } = user;
 
@@ -2732,7 +2739,7 @@ function historicoListadoFacturas() {
     amb: nombre,
     user: usuario,
     iduser: usuario_id,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
     logo,
@@ -2752,17 +2759,17 @@ function ventasHistoricoGrupos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
-  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } =
+  let { pos, user:{ usuario, usuario_id } } = sesion;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo } =
     oPos[0];
-  let { usuario, usuario_id } = user;
+  // 
 
   parametros = {
     id: id_ambiente,
     amb: nombre,
     user: usuario,
     iduser: usuario_id,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
     logo,
@@ -2782,17 +2789,16 @@ function ventasHistoricoProductos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
-  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } =
+  let { pos, user:{ usuario, usuario_id } } = sesion;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo } =
     oPos[0];
-  let { usuario, usuario_id } = user;
 
   parametros = {
     id: id_ambiente,
     amb: nombre,
     user: usuario,
     iduser: usuario_id,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
     logo,
@@ -2812,17 +2818,16 @@ function ventasHistoricoPeriodos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
-  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } =
+  let { pos, user:{ usuario, usuario_id } } = sesion;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo } =
     oPos[0];
-  let { usuario, usuario_id } = user;
 
   parametros = {
     id: id_ambiente,
     amb: nombre,
     user: usuario,
     iduser: usuario_id,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
     logo,
@@ -2883,13 +2888,12 @@ function getRestarVentasRecu(codigo) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
-  let { id_ambiente, impuesto, propina } = oPos[0];
-  let { usuario } = user;
+  let { pos, user:{ usuario } } = sesion;
+  let { id_ambiente, propina } = oPos[0];
 
   idamb = id_ambiente;
-  impto = impuesto;
-  user = usuario;
+  impto = impto_incl;
+  user: { usuario, usuario_id, tipo }= usuario;
   prop = propina;
   var parametros = {
     codigo,
@@ -2917,13 +2921,12 @@ function getBorraVentasRecu(codigo) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
-  let { id_ambiente, impuesto, propina } = oPos[0];
-  let { usuario } = user;
+  let { pos, user:{ usuario } } = sesion;
+  let { id_ambiente, propina } = oPos[0];
 
   idamb = id_ambiente;
-  impto = impuesto;
-  user = usuario;
+  impto = impto_incl;
+  user: { usuario, usuario_id, tipo }= usuario;
   prop = propina;
 
   var parametros = {
@@ -2951,13 +2954,12 @@ function getVentasRecu(codigo) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
-  let { id_ambiente, impuesto, propina } = oPos[0];
-  let { usuario } = user;
+  let { pos, user:{ usuario } } = sesion;
+  let { id_ambiente, propina } = oPos[0];
 
   idamb = id_ambiente;
-  impto = impuesto;
-  user = usuario;
+  impto = impto_incl;
+  user: { usuario, usuario_id, tipo }= usuario;
   prop = propina;
 
   var parametros = {
@@ -3023,16 +3025,15 @@ function getSeccionesRecu() {
 function productos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  let { pos, user } = sesion;
-  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria } = oPos[0];
-  let { usuario, usuario_id } = user;
-
+  let { pos, user: { usuario, usuario_id } } = sesion;
+  let { id_ambiente, nombre, propina, fecha_auditoria } = oPos[0];
+  
   parametros = {
     id: id_ambiente,
     amb: nombre,
     user: usuario,
     iduser: usuario_id,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
   };
@@ -3064,16 +3065,16 @@ function productos() {
 function clientes() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  let { pos, user } = sesion;
-  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria } = oPos[0];
-  let { usuario, usuario_id } = user;
+  let { pos, user: { usuario, usuario_id } } = sesion;
+  let { id_ambiente, nombre, propina, fecha_auditoria } = oPos[0];
+  
 
   parametros = {
     id: id_ambiente,
     amb: nombre,
     user: usuario,
     iduser: usuario_id,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
   };
@@ -3175,17 +3176,15 @@ function traeAmbientes(id) {
 function ventasGrupos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  let { pos, user } = sesion;
-  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } =
-    oPos[0];
-  let { usuario, usuario_id } = user;
+  let { pos, user: { usuario, usuario_id } } = sesion;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo } = oPos[0];
 
   parametros = {
     id: id_ambiente,
     amb: nombre,
     user: usuario,
     iduser: usuario_id,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
     logo,
@@ -3205,17 +3204,16 @@ function ventasPorPeriodo() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
-  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } =
+  let { pos, user: { usuario, usuario_id } } = sesion;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo } =
     oPos[0];
-  let { usuario, usuario_id } = user;
 
   parametros = {
     id: id_ambiente,
     amb: nombre,
     user: usuario,
     iduser: usuario_id,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
     logo,
@@ -3233,28 +3231,26 @@ function ventasPorPeriodo() {
 
 function buscaReportesCajero() {
   var fecha = $("#buscarFecha").val();
-  var user = $("#usuario").val();
+  var user: { usuario, usuario_id, tipo }= $("#usuario").val();
 
   $("#verFactura").attr("data", "");
 
-  var repo = "cierre_Cajero_" + user + "_" + fecha + ".pdf";
+  var repo = "cierre_Cajero_" + user: { usuario, usuario_id, tipo }+ "_" + fecha + ".pdf";
   $("#verFactura").attr("data", "imprimir/cierres/" + repo);
 }
 
 function historicoCajeros() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  let { pos, user } = sesion;
-  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } =
-    oPos[0];
-  let { usuario, usuario_id } = user;
+  let { pos, user: { usuario, usuario_id } } = sesion;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo } = oPos[0];
 
   parametros = {
     id: id_ambiente,
     amb: nombre,
     user: usuario,
     iduser: usuario_id,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
   };
@@ -3299,17 +3295,15 @@ function buscaFacturasFecha() {
 function historicoFacturas() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  let { pos, user } = sesion;
-  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } =
-    oPos[0];
-  let { usuario, usuario_id } = user;
+  let { pos, user: { usuario, usuario_id } } = sesion;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo } = oPos[0];
 
   parametros = {
     id: id_ambiente,
     amb: nombre,
     user: usuario,
     iduser: usuario_id,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
   };
@@ -3327,10 +3321,8 @@ function historicoFacturas() {
 function ventasUsuario() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  let { pos, user } = sesion;
-  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } =
-    oPos[0];
-  let { usuario, usuario_id } = user;
+  let { pos, user: { usuario, usuario_id } } = sesion;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo } = oPos[0];
   file = makeid(12);
 
   parametros = {
@@ -3338,7 +3330,7 @@ function ventasUsuario() {
     amb: nombre,
     user: usuario,
     iduser: usuario_id,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
     logo,
@@ -3363,17 +3355,15 @@ function ventasFormaPago() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
-  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } =
-    oPos[0];
-  let { usuario, usuario_id } = user;
+  let { pos, user: { usuario, usuario_id } } = sesion;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo } = oPos[0];
 
   parametros = {
     id: id_ambiente,
     amb: nombre,
     user: usuario,
     iduser: usuario_id,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
     logo,
@@ -3393,10 +3383,8 @@ function ventasHistoricoFormaPago() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
-  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } =
-    oPos[0];
-  let { usuario, usuario_id } = user;
+  let { pos, user: { usuario, usuario_id } } = sesion;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo } = oPos[0];
   file = makeid(12);
 
   parametros = {
@@ -3404,7 +3392,7 @@ function ventasHistoricoFormaPago() {
     amb: nombre,
     user: usuario,
     iduser: usuario_id,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
     logo,
@@ -3426,17 +3414,15 @@ function ventasProducto() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
-  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } =
-    oPos[0];
-  let { usuario, usuario_id } = user;
+  let { pos, user: { usuario, usuario_id } } = sesion;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo } = oPos[0];
 
   parametros = {
     id: id_ambiente,
     amb: nombre,
     user: usuario,
     iduser: usuario_id, 
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
     logo,
@@ -3456,17 +3442,15 @@ function ventasDiaAuditoria() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
-  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } =
-    oPos[0];
-  let { usuario, usuario_id } = user;
+  let { pos, user: { usuario, usuario_id } } = sesion;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo } = oPos[0];
 
   parametros = {
     id: id_ambiente,
     amb: nombre,
     user: usuario,
     iduser: usuario_id,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
     logo,
@@ -3486,17 +3470,17 @@ function kardexInventario() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
-  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, id_bodega } =
+  let { pos, user: { usuario, usuario_id } } = sesion;
+  let { id_ambiente, nombre, propina, fecha_auditoria, id_bodega } =
     oPos[0];
-  let { usuario, usuario_id } = user;
+  
 
   parametros = {
     id: id_ambiente,
     amb: nombre,
     user: usuario,
     iduser: usuario_id,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
     bodega: id_bodega,
@@ -3531,16 +3515,16 @@ function huespedesenCasa() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
-  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria } = oPos[0];
-  let { usuario, usuario_id } = user;
+  let { pos, user: { usuario, usuario_id } } = sesion;
+  let { id_ambiente, nombre, propina, fecha_auditoria } = oPos[0];
+  
 
   parametros = {
     id: id_ambiente,
     amb: nombre,
     user: usuario,
     iduser: usuario_id,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
   };
@@ -3573,24 +3557,16 @@ function cierreDiarioAuditoria() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
-  let {
-    id_ambiente,
-    nombre,
-    impuesto,
-    propina,
-    fecha_auditoria,
-    logo,
-    prefijo,
-  } = oPos[0];
-  let { usuario, usuario_id } = user;
+  let { pos, user: { usuario, usuario_id } } = sesion;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo, prefijo } = oPos[0];
+  
 
   parametros = {
     id: id_ambiente,
     amb: nombre,
     user: usuario,
     iduser: usuario_id,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
     logo,
@@ -3611,10 +3587,8 @@ function cuentasAnuladasAuditoria() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
-  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, id_bodega } =
-    oPos[0];
-  let { usuario, usuario_id, tipo } = user;
+  let { pos, user: { usuario, usuario_id, tipo } } = sesion;
+  let { id_ambiente, nombre, propina, fecha_auditoria, id_bodega } = oPos[0];
   let file = makeid(12);
 
   parametros = {
@@ -3623,7 +3597,7 @@ function cuentasAnuladasAuditoria() {
     user: usuario,
     iduser: usuario_id,
     nivel: tipo,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
     logo,
@@ -3644,7 +3618,7 @@ function cuentasActivasAuditoria() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
   let {
     id_ambiente,
     nombre,
@@ -3654,15 +3628,14 @@ function cuentasActivasAuditoria() {
     id_bodega,
     logo,
   } = oPos[0];
-  let { usuario, usuario_id, tipo } = user;
-
+  
   parametros = {
     id: id_ambiente,
     amb: nombre,
     user: usuario,
     iduser: usuario_id,
     nivel: tipo,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
     logo,
@@ -3682,8 +3655,8 @@ function cuentasAnuladasAuditoria() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
-  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } =
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo } =
     oPos[0];
   let { usuario, usuario_id } = user;
 
@@ -3692,7 +3665,7 @@ function cuentasAnuladasAuditoria() {
     amb: nombre,
     user: usuario,
     iduser: usuario_id,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
     logo,
@@ -3712,7 +3685,7 @@ function historicoAuditorias() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
   let {
     id_ambiente,
     nombre,
@@ -3722,14 +3695,13 @@ function historicoAuditorias() {
     id_bodega,
     logo,
   } = oPos[0];
-  let { usuario, usuario_id, tipo } = user;
-
+  
   parametros = {
     idamb: id_ambiente,
     amb: nombre,
     user: usuario,
     iduser: usuario_id,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
   };
@@ -3748,7 +3720,7 @@ function cierreDiarioCajero() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
   let {
     id_ambiente,
     nombre,
@@ -3758,14 +3730,13 @@ function cierreDiarioCajero() {
     id_bodega,
     logo,
   } = oPos[0];
-  let { usuario, usuario_id, tipo } = user;
-
+  
   parametros = {
     id: id_ambiente,
     amb: nombre,
     user: usuario,
     iduser: usuario_id,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
   };
@@ -3784,17 +3755,15 @@ function facturasAnuladasCajero() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
-  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } =
-    oPos[0];
-  let { usuario, usuario_id, tipo } = user;
-
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo } = oPos[0];
+  
   parametros = {
     id: id_ambiente,
     amb: nombre,
     user: usuario,
     iduser: usuario_id,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
     logo,
@@ -3814,17 +3783,16 @@ function abonosCajero() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
-  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } =
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo } =
     oPos[0];
-  let { usuario, usuario_id, tipo } = user;
-
+  
   parametros = {
     id: id_ambiente,
     amb: nombre,
     user: usuario,
     iduser: usuario_id,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
     logo,
@@ -3844,17 +3812,16 @@ function facturasCajero() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
-  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } =
+  let { pos, user: { usuario, usuario_id, tipo } } = sesion;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo } =
     oPos[0];
-  let { usuario, usuario_id, tipo } = user;
-
+  // 
   parametros = {
     id: id_ambiente,
     amb: nombre,
     user: usuario,
     iduser: usuario_id,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
     logo,
@@ -3874,17 +3841,16 @@ function devolucionesCajero() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
-  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } =
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo } =
     oPos[0];
-  let { usuario, usuario_id, tipo } = user;
-
+  
   parametros = {
     id: id_ambiente,
     amb: nombre,
     user: usuario,
     iduser: usuario_id,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
     logo,
@@ -3904,18 +3870,17 @@ function balanceDiarioGeneral() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
-  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } =
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo } =
     oPos[0];
-  let { usuario, usuario_id, tipo } = user;
-  let file = makeid(12);
+    let file = makeid(12);
 
   parametros = {
     idamb: id_ambiente,
     amb: nombre,
     user: usuario,
     iduser: usuario_id,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
     logo,
@@ -3940,17 +3905,16 @@ function balanceDiarioCajero() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
-  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } =
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo } =
     oPos[0];
-  let { usuario, usuario_id, tipo } = user;
-
+  
   parametros = {
     id: id_ambiente,
     amb: nombre,
     user: usuario,
     iduser: usuario_id,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
     logo,
@@ -3970,18 +3934,17 @@ function cuentasAnuladasCajero() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
-  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } =
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo } =
     oPos[0];
-  let { usuario, usuario_id, tipo } = user;
-  let file = makeid(12);
+    let file = makeid(12);
 
   parametros = {
     id: id_ambiente,
     amb: nombre,
     user: usuario,
     iduser: usuario_id,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
     logo,
@@ -4000,10 +3963,8 @@ function cuentasActivasCajero() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
-  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } =
-    oPos[0];
-  let { usuario, usuario_id, tipo } = user;
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion; 
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo } = oPos[0];
   let file = makeid(12);
 
   parametros = {
@@ -4011,7 +3972,7 @@ function cuentasActivasCajero() {
     amb: nombre,
     user: usuario,
     iduser: usuario_id,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha: fecha_auditoria,
     logo,
@@ -4058,17 +4019,15 @@ function ventasDia() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
-  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } =
-    oPos[0];
-  let { usuario, usuario_id, tipo } = user;
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo } = oPos[0];
   let file = makeid(12);
 
   parametros = {
     id: id_ambiente,
     amb: nombre,
     user: usuario,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
   };
   $.ajax({
@@ -4087,7 +4046,7 @@ function cuentasActivas() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
   let {
     id_ambiente,
     nombre,
@@ -4097,14 +4056,14 @@ function cuentasActivas() {
     prefijo,
     logo,
   } = oPos[0];
-  let { usuario, tipo } = user;
+  
 
   parametros = {
     id_ambiente,
     nombre,
     usuario,
     tipo,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     fecha_auditoria,
     prefijo,
@@ -4131,16 +4090,15 @@ function muestraTouch() {
   let propina = 0;
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  let { pos, user } = sesion;
-  let { usuario } = user;
-  let { id_ambiente, nombre, impuesto, prefijo, fecha_auditoria } = oPos[0];
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
+  let { id_ambiente, nombre, prefijo, fecha_auditoria } = oPos[0];
   $("#btnGuardar").attr("disabled", "enabled");
 
   parametros = {
     id: id_ambiente,
     amb: nombre,
     user: usuario, 
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     prefijo,
     fecha: fecha_auditoria,
@@ -4175,9 +4133,7 @@ function muestraTouch() {
 function calcular_total() {
   var coma = $("#numeroComanda").val();
   miBoton = "#comanda" + coma;
-
   propina = parseFloat($("#propinaPag").val().replaceAll(",", ""));
-
   subtotal = parseFloat($(miBoton).attr("subtotal"));
   impuesto = parseFloat($(miBoton).attr("impto"));
   roomser = parseFloat(document.querySelector("#servicio").value);
@@ -4203,7 +4159,7 @@ function calcular_totalDir() {
 function activaMenus() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  let { pos, user } = sesion;
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
   let { apellidos, nombres } = user;
   let { fecha_auditoria } = oPos[0];
   $("#nombreUsuario").html(
@@ -4228,13 +4184,11 @@ function seleccionaAmbiente() {
 function ingresoPos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
 
-  let { cia, user } = sesion;
-  let { inv, pos } = cia;
-  let { usuario_id, apellidos, nombres, estado_usuario_pos, tipo } = user;
+  let { cia: { invMod, posMmod }, user: {  usuario_id, apellidos, nombres, estado_usuario_pos, tipo }} = sesion;
 
   $("#idUsuario").val(usuario_id);
 
-  if (inv == 1 && tipo <= 2) {
+  if (invMod == 1 && tipo <= 2) {
     $("#menuInve").css("display", "block");
   }
   if (tipo <= 1) { 
@@ -4279,21 +4233,16 @@ function activaPos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
+  let { pos, user: { usuario, usuario_id, tipo, nombres, apellidos } } = sesion;
   let { fecha_auditoria } = oPos[0];
-  let { nombres, apellidos } = user;
   $("#fechaAuditoria").val(fecha_auditoria);
-  
-  /*
-  $("#nombreUsuario").html(
-    `${apellidos} ${nombres} <span class="caret"></span>`
-  ); */
+
 }
 
 function cierreCajero(cajero) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  let { usuario_id, usuario } = user;
+  let { user: { usuario, usuario_id, tipo, nombres, apellidos } } = sesion;  
   let { fecha_auditoria, id_ambiente, nombre, logo } = oPos[0];
 
   var web = $("#rutaweb").val();
@@ -4329,7 +4278,7 @@ function buscaFechaAuditoria() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
   let { id_ambiente, prefijo } = oPos[0];
 
   var fecha = $("#buscarFecha").val();
@@ -4800,17 +4749,17 @@ function getFactura(comanda, factura, pms) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
-  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } =
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo } =
     oPos[0];
-  let { usuario, tipo } = user;
+  
 
   parametros = {
     idamb: id_ambiente,
     amb: nombre,
     user: usuario,
     nivel: tipo,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     comanda,
     factura,
@@ -4888,7 +4837,7 @@ function getAmbientes() {
 function getSeleccionaAmbiente(codigo) {
   var parametros = {
     codigo,
-  };
+  }; 
   $.ajax({
     url: "res/php/user_actions/getSeleccionaAmbiente.php",
     type: "POST",
@@ -4904,6 +4853,7 @@ function getSeleccionaAmbiente(codigo) {
       menu.classList.remove('apaga')
       menusup.classList.remove('apaga')
       localStorage.setItem("oPos", JSON.stringify(data));
+      
       muestraPos(codigo);
     },
   });
@@ -4911,7 +4861,6 @@ function getSeleccionaAmbiente(codigo) {
 
 function getSecciones() {
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  // let { pos } = sesion;
   let { id_ambiente } = oPos[0];
   var alto = screen.height;
   var ancho = screen.width;
@@ -4988,8 +4937,8 @@ function productosActivos() {
   numero = $("#numeroComanda").val();
   recuperar = $("#recuperarComanda").val();
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario, tipo } = user;
+  let { user: { usuario, usuario_id, tipo }} = sesion;
+  
 
   $(".comanda > tbody").html("");
   listaComanda.map((productos) => {
@@ -5114,7 +5063,11 @@ function getVentas(nom, val, idp, imp, ambi) {
   descuento = 0;
   abonos = $("#abonosComanda").val();
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  let { impuesto } = oPos[0];
+  
+  console.log(sesion);
+  let { impuesto } = sesion['cia'];
+  
+  console.log(impuesto);
 
   imptoInc = impuesto;
   let nohay = true;
@@ -5158,7 +5111,7 @@ function getVentas(nom, val, idp, imp, ambi) {
       descuento: 0,
       venta: subt,
       impto: imp,
-      valorimpto: impuesto,
+      valorimpto: impto_incl,
       ambiente: ambi,
       activo: 0,
       importeTot: val * 1,
@@ -5465,10 +5418,10 @@ function getCuentasActivas(idamb) {
 function getProductosComanda(comanda, mesa) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  let { pos, user } = sesion;
-  let { id_ambiente, nombre, impuesto, propina, prefijo, fecha_auditoria } =
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
+  let { id_ambiente, nombre, propina, prefijo, fecha_auditoria } =
     oPos[0];
-  let { usuario, tipo } = user;
+  
 
   listaComanda = [];
 
@@ -5478,7 +5431,7 @@ function getProductosComanda(comanda, mesa) {
     nivel: tipo,
     nomamb: nombre,
     idamb: id_ambiente,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     pref: prefijo,
     fecha: fecha_auditoria,
@@ -5514,10 +5467,10 @@ function getProductosComanda(comanda, mesa) {
 function getComandas(comanda, numero) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  let { pos, user } = sesion;
-  let { id_ambiente, nombre, impuesto, propina, prefijo, fecha_auditoria } =
+  let { pos, user: { usuario, usuario_id, tipo }} = sesion;
+  let { id_ambiente, nombre, propina, prefijo, fecha_auditoria } =
     oPos[0];
-  let { usuario, tipo } = user;
+  
 
   miBoton = "#" + comanda;
   subtotal = parseFloat($(miBoton).attr("subtotal"));
@@ -5542,7 +5495,7 @@ function getComandas(comanda, numero) {
     nivel: tipo,
     nomamb: nombre,
     idamb: id_ambiente,
-    impto: impuesto,
+    impto: impto_incl,
     prop: propina,
     pref: prefijo,
     fecha: fecha_auditoria,
