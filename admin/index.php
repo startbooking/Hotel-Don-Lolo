@@ -1,12 +1,12 @@
 <?php
-require_once '../res/php/titles.php';
+// require_once '../res/php/titles.php';
 require_once '../res/php/app_topAdmin.php';
 ?>
 <!DOCTYPE html>
 <html> 
   <head>
+  <?php include_once '../res/shared/archivo_head.php'; ?>
     <title>SACTel PMS | Parametros Generales</title>
-    <?php include_once '../res/shared/archivo_head.php'; ?>
     <link rel="stylesheet" type="text/css" href="<?php echo BASE_RES; ?>dist/jquery.dataTables.css">
     <link rel="stylesheet" type="text/css" href="res/css/admin.css">
     <?php

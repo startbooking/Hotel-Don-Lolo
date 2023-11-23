@@ -14,10 +14,7 @@ var rutaIMP;
 
 (function () {
   document.addEventListener("DOMContentLoaded", async () => {
-    rutaAPI = '/fe/restAPI/data';
-    rutaIMP = '/fe/imprimir';
     let sesion = JSON.parse(localStorage.getItem("sesion"));
-
     if (sesion == null) {
       swal({
         title: 'Precaucion',
@@ -31,8 +28,10 @@ var rutaIMP;
 
       })
     }
-    let { user } = sesion;
-    let { usuario, usuario_id, nombres, apellidos } = user;
+    rutaAPI = '/fe/restAPI/data';
+    rutaIMP = '/fe/imprimir';
+    // let {  } = sesion;
+    let { user: { usuario, usuario_id, nombres, apellidos } } = user;
 
     menuUsu = document.querySelector('#nombreUsuario')
     menuUsu.innerHTML = ` ${apellidos} ${nombres} <span class="caret"></span>`
@@ -242,8 +241,6 @@ const enviaJSONActivoNT = async(infoJSON) => {
   limpiaVentanaImprimir();
   const infoDS = await infoAPI();
   let { token, rutaFE, documentoSoporte, prefijoDSNC, consecutivoNCDS } = infoDS[0]; 
-  /* 
-  */
   const SendInvoice = await fetch('https://api.nextpyme.plus/api/ubl2.1/sd-credit-note', {
     method: 'post',
     credentials: "same-origin",
@@ -1403,7 +1400,6 @@ const ingresaDetalleDocumento = async (compra, idDoc) => {
     return error;
   }
 };
-
 
 async function  muestraErrorEnvio(cuerpo){
   const imprim = document.querySelector('#mensajeImprime')

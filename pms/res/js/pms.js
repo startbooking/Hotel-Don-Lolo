@@ -2165,6 +2165,23 @@ async function enviaTRA(reserva, fecha){
   
 }
 
+async function restaEdad(fecha){
+    // let llega;
+    let edad; 
+    let dia = new Date();
+    
+    
+    let fechaIni = new Date(fecha).getTime();
+    let hoy  = new Date(dia).getTime();
+    
+    edad = (hoy - fechaIni)/(1000*60*60*24);
+    
+    console.log(edad);
+  
+  }
+
+
+
 const guardaProcesoEnvioTRA = async (reserva) => {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
@@ -4295,7 +4312,7 @@ function asignaTipoHabitacion() {
   });
 }
 
-function guardaHuesped() {
+async function guardaHuesped() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
   let { usuario, usuario_id, tipo } = user;
@@ -4304,9 +4321,16 @@ function guardaHuesped() {
   var nuevaIde = $("#identifica").val();
   var creaRese = $("#creaReser").val();
   var parametros = $("#formAdicionaHuespedes").serializeArray();
+  
+  let { fechanace } = parametros;
+  
+  const edad = await restaEdad(fechanace) 
+  
+  console.log(parametros)
  
   parametros.push({ name: "usuario", value: usuario });
   parametros.push({ name: "idusuario", value: usuario_id });
+  parametros.push({ name: "edad", value: edad });
 
   $.ajax({
     type: "POST",
@@ -4322,7 +4346,7 @@ function guardaHuesped() {
         seleccionaHuespedReserva(datos);
         $("#noches").focus();
       } else {
-        $(location).attr("href", pagina);
+        // $(location).attr("href", pagina);
       }
     },
   });

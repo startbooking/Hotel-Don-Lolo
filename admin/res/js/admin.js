@@ -14,7 +14,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       return 
 
     })
-  } 
+  }
+  
+  let {user:{ usuario_id, nombres, apellidos, usuario } } = sesion
+  
+  // console.log(usuario_id);
+  
 })
 
 /* CONFIGURACION GENERAL */
@@ -298,40 +303,89 @@ function actualizaUsuario() {
 }
 
 function adicionaUsuario() {
-  var pagina = $("#ubicacion").val();
-  var ruta = $("#rutaweb").val();
-  var usuario = $("#formAdicionaUsuario").serializeArray();
+  let pagina = $("#ubicacion").val();
+  let ruta = $("#rutaweb").val();
+  let usuarioNew = $("#formAdicionaUsuario").serializeArray();
+  Pos = 0;
+  PMS = 0;
+  Inv = 0;
+  Fe = 0;
   if ($("#idPos").is(":checked")) {
     Pos = 1;
-  } else {
-    Pos = 0;
   }
   if ($("#idPMS").is(":checked")) {
     PMS = 1;
-  } else {
-    PMS = 0;
   }
   if ($("#idInv").is(":checked")) {
     Inv = 1;
-  } else {
-    Inv = 0;
   }
-  usuario.push({ name: "Pos", value: Pos });
-  usuario.push({ name: "PMS", value: PMS });
-  usuario.push({ name: "Inv", value: Inv });
+  if ($("#idFE").is(":checked")) {
+    Fe = 1;
+  }
 
-  var parametros = usuario;
+  usuarioNew.push({ name: "Pos", value: Pos });
+  usuarioNew.push({ name: "PMS", value: PMS });
+  usuarioNew.push({ name: "Inv", value: Inv });
+  usuarioNew.push({ name: "Fe", value: Fe });
+  usuarioNew.push({ name: "idUsr", value: usuario_id });
+  // var parametros = usuarioNew;
   $.ajax({
     url: ruta + "res/php/guardaUsuario.php",
     type: "POST",
-    data: parametros,
-    success: function (objeto) {
-      $("#mensaje").html(
-        '<div class="alert alert-info"><h4>Usuario Ingresado con Exito</h4></div>'
-      );
-      $(location).attr("href", "usuarios.php");
+    data: usuarioNew,
+    success: function (resp) {
+      resp = JSON.parse(resp)
+      mensajeCrea(resp,'Usuario', 'usuarios')
     },
   });
+}
+
+function mensajeCrea(resp,texto, pagina) {
+  let { id, error } = resp ;
+  if (id != "0") {
+    swal({
+      title: "Atencion!",
+      text: `${texto} Creado Con Exito`,
+      type: "success",
+      confirmButtonText: "Aceptar",
+      closeOnConfirm: true,
+    },
+      function () {
+        window.location.href = pagina;
+      })
+  } else {
+    mostrarAlerta(error, "alerta");
+  }
+}
+
+
+function mostrarAlerta(mensaje, campo) {
+  const alerta = document.querySelector("#" + campo);
+  if ((alerta.classList.contains = "oculto")) {
+    alerta.classList.remove("oculto");
+    alerta.innerHTML = `
+        <h3 class="font-bold tc centro pd0 m0">¡ Error !<br>        
+        <span class="block sm:inline">${mensaje}</span>
+        </h3>
+    `;
+    setTimeout(() => {
+      alerta.classList.add("oculto");
+    }, 3000);
+  }
+}
+
+function muestraErrorHTML(error){
+  mensaje = document.querySelector('#mensaje')
+  mensaje.classList.remove('oculto');
+  mensaje.innerHTML = '';
+  mensaje.innerHTML = `
+  <div class="alert alert-warning">
+  |<h3>Precaucion !! <small>${error}</small>  </h3>
+  </div>`;
+  setTimeout(function(){
+    mensaje.innerHTML= '';
+    mensaje.classList.add('apagado');   
+  },3000)
 }
 
 /* Equipos Control de Acceo al Sistema por IP */

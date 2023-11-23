@@ -7799,7 +7799,7 @@ class Hotel_Actions{
         return $data;
     }
 
-    public function insertaNuevoHuesped($iden, $tipodoc, $apellido1, $apellido2, $nombre1, $nombre2, $sexo, $direccion, $telefono, $celular, $correo, $fechanace, $pais, $ciudad, $paisExp, $ciudadExp, $usuario, $idusuario, $tipoAdqui, $tipoRespo, $repoTribu, $empresa, $profesion)
+    public function insertaNuevoHuesped($iden, $tipodoc, $apellido1, $apellido2, $nombre1, $nombre2, $sexo, $direccion, $telefono, $celular, $correo, $fechanace, $pais, $ciudad, $paisExp, $ciudadExp, $usuario, $idusuario, $tipoAdqui, $tipoRespo, $repoTribu, $empresa, $profesion, $edad)
     {
         global $database;
 
@@ -7820,7 +7820,6 @@ class Hotel_Actions{
             'sexo' => $sexo,
             'usuario_creador' => $usuario,
             'id_usuario' => $idusuario,
-            'fecha_creacion' => date('Y-m-d H:i:s'),
             'celular' => $celular,
             'pais' => $pais,
             'ciudad' => $ciudad,

@@ -13,16 +13,13 @@
 	$celu     = $_POST['movilUpd'];
 	$rnt      = $_POST['RNTUpd'];
 	$impto    = $_POST['imptoOption'];
-	// $cms      = $_POST['cmsOption'];
+	/* // $cms      = $_POST['cmsOption'];
 	// $access   = $_POST['accessOption'];
 	$cms      = 0;
-	$access   = 0;
+	$access   = 0; */
 	$ciiu     = $_POST['ciiu'];
 	$tipoEmp  = $_POST['tipo_emp'];
-	$logoAnt  = $_POST['imgLogo'];
-
-
-	
+	$logoAnt  = $_POST['imgLogo'];	
 	$name     = $_FILES['logoUpd']['name']; 
 	$name_img = $_FILES['logoUpd']; 
 
@@ -39,9 +36,9 @@
 
   }
 
-	$upd = $admin->updateCia($empresa, $nit, $dv, $direcc, $ciudad, $web, $email, $tele, $celu, $rnt, $impto, $logo, $ciiu, $tipoEmp, $cms, $access);
+	$upd = $admin->updateCia($empresa, $nit, $dv, $direcc, $ciudad, $web, $email, $tele, $celu, $rnt, $impto, $logo, $ciiu, $tipoEmp);
 
-	echo $upd;
+	echo json_encode($upd);
 
 
  ?>

@@ -211,7 +211,7 @@
          return $database->id();
      }
 
-     public function updateCia($empresa, $nit, $dv, $direcc, $ciudad, $web, $email, $tele, $celu, $rnt, $impto, $logo, $ciiu, $tipoEmp, $cms, $access)
+     public function updateCia($empresa, $nit, $dv, $direcc, $ciudad, $web, $email, $tele, $celu, $rnt, $impto, $logo, $ciiu, $tipoEmp)
      {
          global $database;
 
@@ -229,13 +229,16 @@
              'rnt' => $rnt,
              'impto_incl' => $impto,
              'codigo_ciiu' => $ciiu,
-             'cms' => $cms,
-             'ip_acceso' => $access,
              'tipo_empresa' => $tipoEmp,
              'updated_at' => date('Y-m-d H:i:s'),
          ]);
-
-         return $data->rowCount();
+ 
+         $result = [
+            'id' => $data->rowCount(),
+            'error' => $database->errorInfo,
+          ];
+      
+          return $result; 
      }
 
      public function getAccesoDirecciones()
@@ -278,7 +281,7 @@
          return $data->rowCount();
      }
 
-     public function insertUserNew($usuario, $claveIn, $apellidos, $nombres, $identificacion, $correo, $telefono, $celular, $tipo, $fecha, $idPos, $idPMS, $idInv)
+     public function insertUserNew($usuario, $claveIn, $apellidos, $nombres, $identificacion, $correo, $telefono, $celular, $tipo, $idPos, $idPMS, $idInv, $idFe, $idUsr)
      {
          global $database;
 
@@ -296,14 +299,20 @@
              'inv' => $idInv,
              'pos' => $idPos,
              'pms' => $idPMS,
-             'created_at' => $fecha,
+             'fe' => $idFe,
+             'idUsuarioCrea' => $idUsr,
          ]);
-
-         return $database->id();
+            
+        //  return $database->id();
+         $result = [
+            'id' => $database->id(),
+            'error' => $database->error,
+          ];
+      
+          return $result; 
      }
 
-     public function getUsuariosSistema()
-     {
+     public function getUsuariosSistema() {
          global $database;
 
          $data = $database->select('usuarios', [

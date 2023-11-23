@@ -1,19 +1,19 @@
 <div class="modal fade" id="myModalAdicionarUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
   <form id="formAdicionaUsuario" class="form-horizontal" action="javascript:adicionaUsuario()">
-    <div class="modal-dialog modal-md" role="document">
+    <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="glyphicon glyphicon-off"></span></button>
           <h4 class="modal-title" id="exampleModalLabel"><i style="font-size:24px" class="fa fa-user-circle-o" aria-hidden="true"></i> Adicionar Usuario</h4>
         </div>
         <div class="modal-body">
-          <div id="mensaje"></div>
+          <div class="alert alert-warning oculto" id="alerta"></div>
           <input type="hidden" class="form-control" id="id" name="id">
           <div class="container-fluid">
             <div class="form-group">
               <label for="codigo" class="control-label col-lg-2 col-md-2">Usuario</label>
               <div class="col-lg-4 col-md-4">
-                <input type="text" class="form-control" id="usuario" name="usuario" required="" onblur="usuarioRepetido(this.value)" placeholder="Usuario">
+                <input type="text" class="form-control" id="usuario" name="usuario" required="" placeholder="Usuario">
               </div>
               <label for="codigo" class="control-label col-lg-2 col-md-2">Contraseña</label>
               <div class="col-lg-4 col-md-4">
@@ -87,7 +87,7 @@
  
 <div class="modal fade" id="myModalAsignaClave" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
   <form id="formAdicionaUsuario" class="form-horizontal" action="javascript:asignaClave()">
-    <div class="modal-dialog modal-md" role="document">
+    <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="glyphicon glyphicon-off"></span></button>
@@ -128,7 +128,7 @@
 
 <div class="modal fade" id="myModalActualizaUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
   <form id="formModificaUsuario" class="form-horizontal" action="javascript:actualizaUsuario()">
-    <div class="modal-dialog modal-md" role="document">
+    <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="glyphicon glyphicon-off"></span></button>
@@ -214,14 +214,14 @@
  
 <div class="modal fade" id="myModalBloquearUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
   <form id="formAdicionaUsuario" class="form-horizontal" action="javascript:bloqueaUsuario()">
-    <div class="modal-dialog modal-md" role="document">
+    <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="glyphicon glyphicon-off"></span></button>
           <h3 class="modal-title" id="exampleModalLabel">Bloquear Usuario</h3>
         </div>
         <div class="modal-body">
-          <div id="mensaje"></div>
+          <div id="mensajeBlo"></div>
           <input type="hidden" class="form-control" id="idUserBloq" name="idUserBloq">
           <input type="hidden" class="form-control" id="estadoBloq" name="estadoBloq">
           <div class="container-fluid">
@@ -254,14 +254,14 @@
 
 <div class="modal fade" id="myModalReabrirUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
   <form id="formAdicionaUsuario" class="form-horizontal" action="javascript:reabrirUsuario()">
-    <div class="modal-dialog modal-md" role="document">
+    <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="glyphicon glyphicon-off"></span></button>
           <h3 class="modal-title" id="exampleModalLabel">Reabrir Cajero</h3>
         </div>
         <div class="modal-body">
-          <div id="mensaje"></div>
+          <div id="mensajeRe"></div>
           <input type="hidden" class="form-control" id="idUserRea" name="idUserRea">
           <input type="hidden" class="form-control" id="estadoRea" name="estadoRea">
           <div class="container-fluid">
