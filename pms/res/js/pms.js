@@ -4322,7 +4322,14 @@ async function guardaHuesped() {
   var creaRese = $("#creaReser").val();
   var parametros = $("#formAdicionaHuespedes").serializeArray();
   
-  let { fechanace } = parametros;
+  let fechanace = parametros['fechanace'];
+  
+  let formHuesped = document.querySelector('#formAdicionaHuespedes')
+  
+  let dataHuesp = new FormData('formHuesped')   
+  console.log(fechanace);
+  console.log(dataHuesp);
+  
   
   const edad = await restaEdad(fechanace) 
   
@@ -4331,6 +4338,9 @@ async function guardaHuesped() {
   parametros.push({ name: "usuario", value: usuario });
   parametros.push({ name: "idusuario", value: usuario_id });
   parametros.push({ name: "edad", value: edad });
+
+  console.log(parametros)
+
 
   $.ajax({
     type: "POST",

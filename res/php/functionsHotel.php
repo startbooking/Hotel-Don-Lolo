@@ -7816,6 +7816,7 @@ class Hotel_Actions{
             'pais_expedicion' => $paisExp,
             'ciudad_expedicion' => $ciudadExp,
             'fecha_nacimiento' => $fechanace,
+            'edad' => $edad, 
             'estado_credito' => 1,
             'sexo' => $sexo,
             'usuario_creador' => $usuario,

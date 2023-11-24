@@ -13,4 +13,4 @@ $final = '';
 
 $log = $hotel->ingresoLog($regis, $usuario, $pc, $ip, $accion, $inicial, $final, 'HU');
 
-echo $regis;
+echo json_encode($regis);
