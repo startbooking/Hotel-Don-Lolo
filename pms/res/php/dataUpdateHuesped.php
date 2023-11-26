@@ -23,7 +23,8 @@ $nombreCiu = $hotel->getNombreCiudad($huesped[0]['ciudad']);
       <select name="tipodoc" required value="<?php echo $huesped[0]['tipo_identifica']; ?>">
         <option value="">Seleccione el Tipo de Documeto</option>
         <?php foreach ($tipodocs as $tipodoc) { ?>
-          <option value="<?php echo $tipodoc['id_doc']; ?>" <?php
+          <option value="<?php echo $tipodoc['id_doc']; ?>" 
+          <?php
                                                             if ($huesped[0]['tipo_identifica'] == $tipodoc['id_doc']) { ?> selected <?php
                                                                                                                                   }
                                                                                                                                     ?>><?php echo $tipodoc['descripcion_documento']; ?></option>}

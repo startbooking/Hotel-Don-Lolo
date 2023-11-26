@@ -1,34 +1,31 @@
 
 
 <?php 
-  require '../../../res/php/titles.php';
   require '../../../res/php/app_topHotel.php'; 
-
-	$idreserva      = $_POST['idReservaAdiAco'];
-	$nuevo          = $_POST['nuevoPax'];
-	$idhues         = $_POST['idHuesAdi'];
-	$apellido1      = strtoupper($_POST['apellido1AdiAco']);
-	$apellido2      = strtoupper($_POST['apellido2AdiAco']);
-	$nombre1        = strtoupper($_POST['nombre1AdiAco']);
-	$nombre2        = strtoupper($_POST['nombre2AdiAco']);
-	$identificacion = $_POST['identificaAdiAco'];
-	$tipoiden       = $_POST['tipodocAdiAco'];
-	$sexo           = $_POST['sexOptionAdiAco'];
-	$fechanace      = $_POST['fechanaceAdiAco'];
-	$nacion         = $_POST['paicesAdiAco']; 
-	$ciudad         = $_POST['ciudadAdiAco']; 
-	$correo         = $_POST['correoAco']; 
-	$usuario        = $_POST['usuario']; 
-	$idusuario      = $_POST['idusuario']; 
 	
-	if($nuevo==1){
-		$creaHues = $hotel->creaHuespedAdicional($apellido1, $apellido2, $nombre1, $nombre2, $identificacion, $tipoiden, $sexo, $fechanace, $nacion, $ciudad, $usuario, $idusuario, $correo);
-		$idhues = $creaHues;
+	extract($_POST);	
+	
+	if($nuevoPax==1){
+		
+		$regis = $hotel->insertaNuevoHuesped($identificaAdiAco, $tipodoc, strtoupper($apellido1), strtoupper($apellido2), strtoupper($nombre1), strtoupper($nombre2), $sexOption, strtoupper($direccion), $telefono, $celular, strtolower($correo), $fechanace, $paices, $ciudadHue, $paisExp, $ciudadExp, $usuario, $usuario_id, $tipoAdquiriente, $tipoResponsabilidad, $responsabilidadTribu, $empresaAdi, $profesion, $edad);
+				
+		$accion = 'ADICIONA HUESPED';
+		$inicial = 'Huesped ' . $identifica . ' ' . $apellido1 . ' ' . $apellido2 . ' ' . $nombre1 . ' ' . $nombre2;
+		$final = '';
+		
+		$log = $hotel->ingresoLog($regis, $usuario, $pc, $ip, $accion, $inicial, $final, 'HU');
+		
 	}
  
-	$adicional = $hotel->adicionaHuespedAdicional($idreserva,$idhues);
+	if($regis['id']!= 0){
+		$idhues = $regis['id'];
+		$regAdi = $hotel->adicionaHuespedAdicional($idReservaAdiAco,$idhues);
+		$regis['adicional'] = $regAdi;
+	}else{
+		$regis['adicional'] = 0;	
+	}
 	
-	echo $adicional;
+	echo json_encode($regis);
 	
 ?>
  

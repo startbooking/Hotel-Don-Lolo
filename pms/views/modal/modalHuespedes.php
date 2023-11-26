@@ -15,12 +15,13 @@ $hoy = date('Y-m-d');
         <input type="hidden" name="paginaviene" id="paginaviene" value="">
         <div class="container-fluid"></div>
       </div>
-      <form class="form-horizontal" id="formAdicionaHuespedes" action="javascript:guardaHuesped()" method="POST">
+      <form class="form-horizontal" id="formAdicionaHuespedes" action="javascript:guardaHuesped(this)" method="POST">
         <div class="modal-body">
+          <div class="alert alert-warning oculto centro" id="alerta"></div>
           <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">Documento</label>
             <div class="col-sm-3">
-              <input type="text" class="form-control" name="identifica" id="identifica" placeholder="Identificacion" onblur="buscaHuespedActivo(this.value)" required="">
+              <input type="text" class="form-control" name="identifica" id="identifica" placeholder="Identificacion" required="">
             </div>
             <label for="inputEmail3" class="col-sm-2 control-label">Tipo </label>
             <div class="col-sm-3">

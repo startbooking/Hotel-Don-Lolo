@@ -1,6 +1,6 @@
 <?php
 error_reporting(E_ALL);
-ini_set('display_errors', '1');
+// ini_set('display_errors', '1');
 
 setlocale(LC_ALL, 'es_CO.utf8', 'es_CO', 'esp');
 date_default_timezone_set('America/Bogota');
@@ -16,9 +16,6 @@ $admin = new Hotel_Admin();
 
 $datosHotel = $admin->getDatosHotel();
 $empresa = $admin->getInfoCia();
-
-
-
 
 define('DEV', '1');
 define('FECHA_PMS', $datosHotel[0]['fecha_auditoria']);

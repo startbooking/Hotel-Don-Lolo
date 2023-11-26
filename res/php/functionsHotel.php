@@ -6,6 +6,18 @@ date_default_timezone_set('America/Bogota');
 
 class Hotel_Actions{
 
+    public function asignaEdad($id, $edad){
+        global $database;
+        
+        $data = $database->update('huespedes',[
+            'edad' => $edad,
+        ],[
+            'id_huesped' => $id,
+        ]);
+        return $data->rowCount();
+    
+    }
+    
     public function buscaMmto($fechabusca,$numero){
     global $database;
     
@@ -5663,7 +5675,7 @@ class Hotel_Actions{
         return $data;
     }
 
-    public function updateHuesped($id, $iden, $tipodoc, $apellido1, $apellido2, $nombre1, $nombre2, $sexo, $direccion, $telefono, $celular, $correo, $fechanace, $pais, $ciudad, $paisExp, $ciudadExp, $tipoAdqui, $tipoRespo, $repoTribu, $empresa, $profesion)
+    public function updateHuesped($id, $iden, $tipodoc, $apellido1, $apellido2, $nombre1, $nombre2, $sexo, $direccion, $telefono, $celular, $correo, $fechanace, $pais, $ciudad, $paisExp, $ciudadExp, $tipoAdqui, $tipoRespo, $repoTribu, $empresa, $profesion, $edad)
     {
         global $database;
 
@@ -5680,6 +5692,7 @@ class Hotel_Actions{
             'ciudad_expedicion' => $ciudadExp,
             'tipo_identifica' => $tipodoc,
             'fecha_nacimiento' => $fechanace,
+            'edad' => $edad,
             'sexo' => $sexo,
             'celular' => $celular,
             'profesion' => $profesion,
@@ -7832,7 +7845,15 @@ class Hotel_Actions{
             'id_compania' => $empresa,
         ]);
 
-        return $database->id();
+        // return $database->id();
+        $result = [
+            'id' => $database->id(),
+            'error' => $database->error,
+        ];
+        
+        return $result;
+        
+        
     }
 
     public function getTipoDocumento()
@@ -8249,6 +8270,7 @@ class Hotel_Actions{
             'tipo_identifica',
             'tipo_huesped',
             'fecha_nacimiento',
+            'edad',
             'sexo',
             'celular',
             'id_compania',

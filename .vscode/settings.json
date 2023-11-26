@@ -14,5 +14,6 @@
       "username": "root",
       "password": "b4r4h0n4"
     }
-  ]
+  ],
+  "editor.inlineSuggest.showToolbar": "onHover"
 }
