@@ -382,6 +382,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   $("#myModalAdicionaPerfil").on("show.bs.modal", function (event) {
     $("#edita").val(0);
+    $("#acompana").val(0);
     var button = $(event.relatedTarget);
     var tiporeserva = button.data("reserva");
     $("#creaReser").val(tiporeserva);
@@ -1011,11 +1012,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   $("#myModalAcompanantesReserva").on("show.bs.modal", function (event) {
     var web = $("#rutaweb").val();
+    $('#acompana').val(1);
     var button = $(event.relatedTarget);
     var idres = button.data("id");
     var nombre = button.data("nombre");
     let pagina = $("#ubicacion").val();
-    // console.log(pagina);
     let btnSle = document.querySelector(".btnSaleAco");
     btnSle.setAttribute("href", pagina);
     var modal = $(this);
@@ -1186,6 +1187,26 @@ document.addEventListener("DOMContentLoaded", async () => {
       success: function (datos) {
         $("#huespedesEncontrados").html("");
         $("#huespedesEncontrados").html(datos);
+      },
+    });
+    $(".alert").hide();
+  });
+
+  $("#myModalBuscaAcompanaHuesped").on("show.bs.modal", function (event) {
+    var button = $(event.relatedTarget);
+    var modal = $(this);
+    var buscar = $("#buscarAcoHuesped").val();
+    var parametros = {
+      buscar,
+    };
+    modal.find(".modal-title").text("Buscar Huesped Por : " + buscar);
+    $.ajax({
+      type: "POST",
+      data: parametros,
+      url: "res/php/dataBuscarHuespedAco.php",
+      success: function (datos) {
+        $("#huespedesAcompaEncontrados").html("");
+        $("#huespedesAcompaEncontrados").html(datos);
       },
     });
     $(".alert").hide();
@@ -4355,14 +4376,12 @@ function mensajeCrea(resp, texto, pagina, creaRese) {
     },
       function () {
         if (creaRese == 1) {
-          // Creacion Perfil llegada sin Reserva
           $("#myModalAdicionaPerfil").modal("hide");
           $("#buscarHuesped").focus();
           $("#buscarHuesped").val(nuevaIde);
           seleccionaHuespedReserva(datos);
           $("#noches").focus();
         } else {
-          // $(location).attr("href", pagina);
           window.location.href = pagina;
         }
       })
@@ -4665,28 +4684,10 @@ function traeAcompanantes(idres) {
 
 async function guardaAcompanante(e) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  /* let { user } = sesion;
-  let { usuario, usuario_id } = user; */
   var web = $("#rutaweb").val();
   var ubicacion = $("#ubicacion").val();
-  /* 
-  var idreser = $("#idReservaAdiAco").val();
-  var parametros = $("#acompananteReserva").serializeArray();
-
-  parametros.push({ name: "usuario", value: usuario });
-  parametros.push({ name: "idusuario", value: usuario_id });
   
-  $.ajax({
-    type: "POST",
-    data: parametros,
-    url: web + "res/php/guardaAcompanante.php",
-    success: function (datos) {
-      $("#myModalAdicionaAcompanante").modal("hide");
-      traeAcompanantes(idreser);
-    },
-  }); */
-
-  let formHuesped = document.querySelector('#acompananteReserva')
+  let formHuesped = document.querySelector('#perfilAcompananteReserva')
   let dataHuesp = new FormData(formHuesped)
 
   let idreser = dataHuesp.get('idReservaAdiAco');
@@ -4698,8 +4699,6 @@ async function guardaAcompanante(e) {
   dataHuesp.append("usuario_id", usuario_id);
   dataHuesp.append("edad", parseInt(edad));
   
-  console.log(dataHuesp);
-
   $.ajax({
     type: "POST",
     data: dataHuesp,
@@ -4710,41 +4709,16 @@ async function guardaAcompanante(e) {
     processData: false,
     success: function (resp){
       console.log(resp)
-      let { id, adicional, error } = resp;
+      let { id, adicional, error } = resp;      
       if (id != "0") {
-        $("#myModalAdicionaAcompanante").modal("hide");
-        traeAcompanantes(idreser);
-        /* swal({
-          title: "Atencion!",
-          text: `${texto} Creado Con Exito`,
-          type: "success",
-          confirmButtonText: "Aceptar",
-          closeOnConfirm: true,
-        },
-        function () {
-          if (creaRese == 1) {
-            // Creacion Perfil llegada sin Reserva
-            $("#myModalAdicionaPerfil").modal("hide");
-            $("#buscarHuesped").focus();
-            $("#buscarHuesped").val(nuevaIde);
-            seleccionaHuespedReserva(datos);
-            $("#noches").focus();
-          } else {
-            // $(location).attr("href", pagina);
-            window.location.href = pagina;
-          }
-        }) */
+        $("#myModalAdicionaPerfilAcompanante").modal("hide");
+        $("#myModalAcompanantesReserva").modal("hide");        
+        traeAcompanantes(idreser);        
       } else {
         mostrarAlerta(error, "alerta");
       }      
-      // mensajeCrea(resp, 'Huesped', '', 0)
-      /* 
-      console.log(resp)
-      mensajeCrea(resp,'Huesped', 'huespedesPerfil', creaRese) */
     },
   });
-
-
 }
 
 function buscaHuespedAcompanante(id) {
@@ -4758,7 +4732,20 @@ function buscaHuespedAcompanante(id) {
     dataType: "json",
     data: parametros,
     success: function (datos) {
-      if (datos.length == 0) {
+    console.log(datos);
+    let {id_huesped} = datos;
+    swal({
+      title: "Atencion!",
+      text: `Identificacion ${id_huesped} Ya existe, NO permitido Duplicar`,
+      type: "danger",
+      confirmButtonText: "Aceptar",
+      closeOnConfirm: true,
+    },    
+      function () {        
+      }
+    );
+      
+/*       if (datos.length == 0) {
         $("#nuevoPax").val(1);
         $("#idHuesAdi").val("");
         $("#tipodocAdiAco").val("");
@@ -4795,23 +4782,24 @@ function buscaHuespedAcompanante(id) {
         $("#fechanaceAdiAco").val(fecha_nacimiento);
         $("#paicesAdiAco").val(parseInt(pais));
         $("#ciudadAdiAco").val(parseInt(ciudad));
-      }
+      } */
+      
     },
   });
 }
 
 function eliminaAcompanante(id) {
   var web = $("#rutaweb").val();
-  var parametros = { id: id };
+  var parametros = { id };
   $("#mensajeEli").css("display", "none");
+  let idreser = $('#idreservaAco').val();
   $.ajax({
     type: "POST",
     data: parametros,
     url: web + "res/php/eliminaAcompanante.php",
     success: function (datos) {
       $("#mensajeEli").html(datos);
-      $("#myModalAcompanantesReserva").modal("hide");
-      $(location).attr("href", "reservasActivas");
+      traeAcompanantes(idreser);        
     },
   });
 }
@@ -5075,7 +5063,6 @@ const traeRetencionesCia = async (idcia) => {
     const datos = await resultado.json();
     return datos;
   } catch (error) {
-    // console.log(error);
     return error
   }
 };
@@ -5091,7 +5078,6 @@ const traeRetenciones = async () => {
     const datos = await resultado.json();
     return datos;
   } catch (error) {
-    // console.log(error);
     return error
 
   }
@@ -5155,14 +5141,36 @@ function seleccionaHuespedReserva(id) {
   $("#myModalBuscaHuesped").modal("hide");
 }
 
-function seleccionaCambioHuespedReserva(id) {
+
+function seleccionaHuespedAco(id) {
+  let numRese = document.querySelector('#idreservaAco').value
+  let web = $("#webPage").val();
+  let parametros = {
+    numRese, 
+    id,
+  };
+ 
+ $("#myModalBuscaAcompanaHuesped").modal("hide");
+ $("#myModalAdicionaAcompanante").modal("hide");
+ 
+ $.ajax({
+   url: web + "/res/php/adicionaAcompanante.php",
+   type: "POST",
+   data: parametros,
+   success: function (data) {
+     traeAcompanantes(numRese);
+   },
+ }); 
+}
+
+function seleccionaCambioHuespedReserva(hues) {
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var rese = $("#nroreserva").val();
 
   var parametros = {
-    hues: id,
-    rese: rese,
+    hues,
+    rese,
   };
   $.ajax({
     url: web + "/res/php/seleccionaHuespedRes.php",
@@ -7143,34 +7151,46 @@ function subirArchivosCia() {
 }
 
 function ciudadesExpedicion(pais, city) {
-  var web = $("#rutaweb").val();
-  var pagina = $("#ubicacion").val();
-  var edita = $("#edita").val();
+  
+  let web = $("#rutaweb").val();
+  let pagina = $("#ubicacion").val();
+  let edita = $("#edita").val();
+  let acompana = $("#acompana").val();
+  
   if (edita == 1) {
     $("#ciudadExpUpd option").remove();
   } else {
-    $("#ciudadExp option").remove();
+    if(acompana=="1"){
+      $("#ciudadExpAco option").remove();
+    }else{
+      $("#ciudadExp option").remove();
+    }
   }
 
-  var parametros = { pais: pais };
+  let parametros = { pais };
+  
   $("#loader").fadeIn("slow");
   $.ajax({
     type: "POST",
     url: web + "res/php/getCiudadesPais.php",
     data: parametros,
-    success: function (data) {
-      if (data == 0) {
+    success: function (resp) {
+      if (resp == 0) {
         swal(
           "Precaucion",
           "No existen Ciudades Creados para este Pais",
           "warning"
         );
       } else {
-        if (edita == 1) {
-          $("#ciudadExpUpd").append(data);
+        if (edita == "1") {
+          $("#ciudadExpUpd").append(resp);
           $("#ciudadExpUpd").val(city);
-        } else {
-          $("#ciudadExp").append(data);
+        } else {     
+          if(acompana=="1"){
+            $("#ciudadExpAco").append(resp);
+          }else{
+            $("#ciudadExp").append(resp.trim());
+          }      
         }
       }
     },
