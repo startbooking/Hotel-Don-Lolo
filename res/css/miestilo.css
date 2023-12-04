@@ -8,6 +8,19 @@
 	padding:0 15px;
 }
 
+.logo img {
+  position: absolute;
+  margin: auto;
+  left: 10px;
+  top: 5px;
+}
+
+
+.logo span {
+  position: absolute;
+	left: 60px;
+}
+
 .link-effect-8 h1 a{
 	-moz-transition:ease-out 0.3s 0.1s;
 	-o-transition:ease-out 0.3s 0.1s;-webkit-transition:ease-out 0.3s;

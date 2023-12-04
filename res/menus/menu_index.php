@@ -1,76 +1,44 @@
 <header class="main-header" >
-    <a class="logo">
-      <img class="img_thumbnail" src="<?php echo BASE_WEB; ?>img/logoBarahona.png">
-      <span>SACTel Cloud</span>
-    </a>
-    <?php
-    if (IP_ACCESS == 1) {
-        if ($busca == 0) { ?>
-          <nav class="navbar navbar-static-top" role="navigation">
-            <div class="navbar-custom-menu">
-              <ul class="nav navbar-nav">
-                <li> 
-                  <a style="font-family: 'Source Sans Pro'"> 
-                     Equipo no Registrado 
-                     <?php
-                        $log = $user->ingresoLog(1, 'REMOTO', $pc, $ip, 'INTENTO DE ACCESO POR IP NO REGISTRADA', '', '', 'US');
-              ?>
-                    <i class="fa fa-power-off" aria-hidden="true"></i>
-                   </a>
-  
-                </li>
-              </ul>
-            </div>
-          </nav>
-          <?php
-          return;
-        }
-    }
-    ?>
-    <nav class="navbar navbar-static-top" role="navigation">
-      <div class="navbar-custom-menu">
-        <ul class="nav navbar-nav">
-          <li>
-            <a href="#" data-toggle="modal" data-target="#myModalLogin" > <i class="fa fa-sign-in" aria-hidden="true"></i> Ingresar</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  </header>
+  <a class="logo">
+    <img class="img_thumbnail" src="<?php echo BASE_WEB; ?>img/logoBarahona.png">
+    <span>SACTel Cloud</span>
+  </a>
+  <?php
+  if (IP_ACCESS == 1) {
+      if ($busca == 0) { ?>
+        <nav class="navbar navbar-static-top" role="navigation">
+          <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+              <li> 
+                <a style="font-family: 'Source Sans Pro'"> 
+                   Equipo no Registrado 
+                   <?php
+                      $log = $user->ingresoLog(1, 'REMOTO', $pc, $ip, 'INTENTO DE ACCESO POR IP NO REGISTRADA', '', '', 'US');
+            ?>
+                  <i class="fa fa-power-off" aria-hidden="true"></i>
+                 </a>
 
-  <!-- <header class="main-header" >
-  
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <?php
+        return;
+      }
+  }
+  ?>
   <nav class="navbar navbar-static-top" role="navigation">
     <div class="navbar-custom-menu">
       <ul class="nav navbar-nav">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="nombreUsuario"></a>
-          <ul class="dropdown-menu">
-            <li>
-              <a class="altoMenu"
-                data-toggle    = 'modal'
-                href="#myModalSoporteTecnico" >Soporte Tecnico
-              </a>
-            </li>
-            <li>
-              <a class="altoMenu"
-                data-toggle    = 'modal'
-                href="#myModalCambiarClave" >Cambiar Contraseña
-              </a>
-            </li>
-            <li><a class="altoMenu" onclick="cierraSesion()">Cerrar Sesion</a></li>
-          </ul>
+        <li>
+          <a href="#" data-toggle="modal" data-target="#myModalLogin" > <i class="fa fa-sign-in" aria-hidden="true"></i> Ingresar</a>
         </li>
       </ul>
     </div>
   </nav>
-</header> -->
+</header>
 
-
-
-
-
-
+  
 
 
 

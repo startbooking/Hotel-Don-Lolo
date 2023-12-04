@@ -1,11 +1,11 @@
 <?php
-  require '../../../../res/php/titles.php';
+  // require '../../../../res/php/titles.php';
   require '../../../../res/php/app_topPos.php'; 
 
   $codigo  = $_POST['codigo'];
   $idamb   = $_POST['idamb'];
   $parinve = $_POST['impto'];
-  $xusu    = $_POST['user'];
+  $xusu    = $_POST['usuario'];
   $prop    = $_POST['prop'];
   $user    = $xusu;
 
@@ -82,112 +82,3 @@
         endforeach  
       ?>
       </tbody>
-
-  <!--
-
-<div class="col-md-9" style="padding:0">
-  <div class="row-fluid" style="height: 370px;background-color:#FCF7AB;margin-top:15px">
-    <table class="table table-hover comanda">
-      <thead>
-        <tr class="danger">
-          <td align="center" style="font-weight: bold" width="50%">Productos</td>
-          <td align="center" style="font-weight: bold" width="5%">Cant.</td>
-          <td align="center" style="font-weight: bold" width="20%">Valor</td>
-          <td align="center" style="font-weight: bold" width="25%">Accion</td>
-        </tr>
-      </thead>
-    </table>
-  </div>
-  <div class="row-fluid" id="valores" style='background-color: #B9E3E4B3;margin-top:0px'>
-    <table class="table table-responsive estadoComanda" style="margin-bottom: 0px;font-size:14px">
-      <tr align="right">
-        <td style="padding:2px">Total Productos</td>
-        <td style="padding:2px" id="cantProd"><?php echo $na; ?></td>
-        <td style="padding:2px" align="right">Valor Cuenta</td>
-        <td style="padding:2px" align="right">
-            <?php echo '$ '.number_format($subt,2,",","."); ?>
-        </td>
-      </tr>
-      <tr align="right">
-        <td style="padding:2px">Descuento</td>
-        <td style="padding:2px" align="right"><?=number_format($des,2)?></td>
-        <td style="padding:2px" align="right">Impuesto</td>
-        <td style="padding:2px" align="right"><?=number_format($imp,2)?> </td>
-      </tr>
-    </table>
-    <table class="table table-responsive estadoComanda">
-      <tr>
-        <td style="padding:2px"></td>
-        <td style="padding:2px"></td>
-        <td style="padding:2px" align="right">Total Presente Cuenta</td>
-        <td style="padding:2px" align="right">
-          <?php 
-            echo '$ '.number_format($subt+$imp-$des,2,",",".");
-          ?>
-        </td>
-      </tr>
-    </table>
-  </div>
-  <div class="row-fluid" id="valores" style='margin-top:10px;background-color: #B9E3E4B3'>
-  </div>
-</div>
--->
-<!--
-<div class="col-md-3 menuComanda" style="padding: 0 0px 0 15px;margin-top:15px">
-  <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-    <div class="btn-group-vertical mr-2" role="group" aria-label="First group" style="display: block">
-      <button 
-        type        ="button" 
-        class       ="btn btn-primary" 
-        style       ="height: 64px;font-weight: 600;font-size:14px" 
-        title       ="Guardar Presente Cuenta"
-        onclick     ="guardarCuenta()"
-        >
-        <i class    ="fa fa-save"></i> Guardar
-      </button> 
-      <button 
-        type        ="button" 
-        class       ="btn btn-danger" 
-        data-toggle ="modal" 
-        data-target ="#myImprimirCuenta"
-        style       ="height: 64px;font-weight: 600;font-size:14px" 
-        title       ="Imprimir Presente Cuenta"
-        onclick="descuentoComanda()"
-        >
-        <i class="fa fa-print"></i> Descuento 
-      </button>
-      <button 
-        type           ="button" 
-        class          ="btn btn-secondary btn-success"
-        title          ="Pagar Presente Cuenta" 
-        data-toggle    ="modal" 
-        data-nombre    ="<?php echo $user;?>" 
-        data-subtotal  ="<?php echo $sub?>" 
-        data-descuento ="<?php echo $des?>" 
-        data-productos ="<?php echo $na?>" 
-        data-sugerida  ="<?php echo $pro?>" 
-        data-impuesto  ="<?php echo $imp?>" 
-        data-total     ="<?php echo $neto?>" 
-        data-target    ="#myModalPagar"
-        style          ="height: 64px;font-weight: 600;font-size:14px" 
-        onclick        ="botonPagar()">
-        <i class="fa fa-money"></i> Pagar
-      </button>
-      <button 
-        onclick  ="getBorraCuenta(this.name,<?=$idamb?>)" 
-        type     ="button" 
-        class    ="btn btn-secondary btn-warning" 
-        name     ="<?php echo $user;?>" 
-        style    ="height: 64px;font-weight: 600;font-size:14px;margin-top:180px" 
-        title    ="Anula Ingreso Presente Cuenta">
-        <i class ="fa fa-trash-o"></i> Cancelar
-      </button>
-
-    </div>
-  </div>
-</div>
--->
-<?php 
-/// include_once('../consulta_venta.php')
-
-?>

@@ -15,6 +15,9 @@ $ctadeposito = CTA_DEPOSITO;
 $fecha = FECHA_PMS;
 $folio = 1;
 
+
+extract($_POST);
+
 $directorio = '../../uploads/';
 
 $dir = opendir($directorio);

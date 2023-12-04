@@ -11,7 +11,7 @@ $fecha = $hotel->getDatePms();
 
 $pdf = new FPDF();
 $pdf->AddPage('P', 'letter');
-$pdf->Rect(10, 52, 190, 80);
+$pdf->Rect(10, 52, 190, 75);
 $pdf->Image('../../../img/'.LOGO, xPOS, yPOS, tPOS); 
 $pdf->SetFont('Arial', 'B', 13);
 $pdf->Cell(190, 5, utf8_decode(NAME_EMPRESA), 0, 1, 'C');
@@ -66,12 +66,13 @@ $pdf->SetFont('Arial', '', 10);
 $pdf->Cell(100, 5, utf8_decode($deposito[0]['descripcion_cargo']), 0, 0, 'L');
 $pdf->Cell(90, 5, number_format($deposito[0]['pagos_cargos'], 2), 0, 1, 'R');
 
-$pdf->Sety(100);
+$pdf->Sety(90);
+$pdf->Cell(190, 5, utf8_decode($deposito[0]['informacion_cargo']), 1,1, 'J');
 $pdf->Cell(190, 5, 'SON :'.numtoletras($deposito[0]['pagos_cargos']), 1, 1, 'L');
 $pdf->Cell(100, 5, 'Firma', 0, 0, 'C');
 $pdf->Cell(92, 5, 'Firma', 0, 1, 'C');
 $pdf->Ln(12);
-$pdf->Rect(10, 105, 100, 22);
+$pdf->Rect(10, 100, 100, 22);
 
 $pdf->Cell(50, 5, 'Nombre', 0, 0, 'C');
 $pdf->Cell(50, 5, 'Identificacion', 0, 0, 'C');

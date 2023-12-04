@@ -3255,13 +3255,13 @@ class Hotel_Actions{
             'id_usuario',
             'id_huesped',
             'cantidad_cargo',
+            'informacion_cargo',
             'folio_cargo',
             'pagos_cargos',
             'concecutivo_abono',
-            'informacion_cargo',
             'numero_reserva',
             'id_reserva',
-            'fecha_sistema_cargo',
+            'fecha_sistema_cargo', 
         ], [
             'concecutivo_abono' => $id,
         ]);

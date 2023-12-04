@@ -3,6 +3,7 @@
 	
   $regis      = $_POST['regis'];
   $filas      = $_POST['filas']; 
+  
 
   $huespedes = $hotel->getPerfilHuespedes($regis,$filas);
 

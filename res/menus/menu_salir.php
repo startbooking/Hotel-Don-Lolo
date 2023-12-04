@@ -8,7 +8,7 @@
       <ul class="nav navbar-nav">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="nombreUsuario"></a>
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu" style="width:100%">
             <li>
               <a class="altoMenu"
                 data-toggle    = 'modal'

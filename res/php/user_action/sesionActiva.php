@@ -2,7 +2,7 @@
     
     require '../../../res/php/app_top.php'; 
 
-    $idusr = $_POST['idUsr'];
+    $idusr = $_POST['usuario_id'];
     
     $users    = $user->getSesionLogin($idusr);
     $cia      = $user->getInfoCia();

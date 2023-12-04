@@ -1580,14 +1580,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     $("#editaRes").val(0);
 
     formRes = document.querySelector("#formReservas")
-    // console.log(formRes)
     formRes.reset();
-    // console.log(formRes)
-
-
-
-
-
   });
 
   $("#myModalModificaReserva").on("show.bs.modal", function (event) {
@@ -4712,7 +4705,7 @@ async function guardaAcompanante(e) {
       let { id, adicional, error } = resp;      
       if (id != "0") {
         $("#myModalAdicionaPerfilAcompanante").modal("hide");
-        $("#myModalAcompanantesReserva").modal("hide");        
+        $("#myModalAdicionaAcompanante").modal("hide");        
         traeAcompanantes(idreser);        
       } else {
         mostrarAlerta(error, "alerta");
@@ -4732,58 +4725,22 @@ function buscaHuespedAcompanante(id) {
     dataType: "json",
     data: parametros,
     success: function (datos) {
-    console.log(datos);
-    let {id_huesped} = datos;
-    swal({
-      title: "Atencion!",
-      text: `Identificacion ${id_huesped} Ya existe, NO permitido Duplicar`,
-      type: "danger",
-      confirmButtonText: "Aceptar",
-      closeOnConfirm: true,
-    },    
-      function () {        
-      }
-    );
-      
-/*       if (datos.length == 0) {
-        $("#nuevoPax").val(1);
-        $("#idHuesAdi").val("");
-        $("#tipodocAdiAco").val("");
-        $("#apellido1AdiAco").val("");
-        $("#apellido2AdiAco").val("");
-        $("#nombre1AdiAco").val("");
-        $("#nombre2AdiAco").val("");
-        $("#sexOptionAdiAco").val("");
-        $("#fechanaceAdiAco").val("");
-        $("#paicesAdiAco").val("");
-        $("#ciudadAdiAco").val("");
-      } else {
-        let {
-          id_huesped,
-          tipo_identifica,
-          apellido1,
-          apellido2,
-          nombre1,
-          nombre2,
-          sexo,
-          fecha_nacimiento,
-          pais,
-          ciudad,
-        } = datos[0];
-
-        $("#nuevoPax").val(2);
-        $("#idHuesAdi").val(id_huesped);
-        $("#tipodocAdiAco").val(tipo_identifica);
-        $("#apellido1AdiAco").val(apellido1);
-        $("#apellido2AdiAco").val(apellido2);
-        $("#nombre1AdiAco").val(nombre1);
-        $("#nombre2AdiAco").val(nombre2);
-        $("#sexOptionAdiAco").val(parseInt(sexo));
-        $("#fechanaceAdiAco").val(fecha_nacimiento);
-        $("#paicesAdiAco").val(parseInt(pais));
-        $("#ciudadAdiAco").val(parseInt(ciudad));
-      } */
-      
+    if(datos.length !== 0){
+      let { identificacion } = datos[0];    
+      swal(
+        {
+          title: "Atencion!",
+          text: `Identificacion ${identificacion} Ya existe, NO permitido Duplicar`,
+          type: "error",
+          confirmButtonText: "Aceptar",
+          closeOnConfirm: true,
+        },    
+        function () { 
+          document.querySelector('#identificaAdiAco').value = ''
+          document.querySelector('#identificaAdiAco').focus
+        }
+      );
+    }
     },
   });
 }
@@ -5521,7 +5478,6 @@ function seleccionaTarifasUpd() {
 }
 
 function seleccionaHabitacionUpd(tipo, anterior, numero, llega, sale) {
-  console.log({ tipo, anterior, numero, llega, sale })
   var parametros = {
     tipo,
     anterior,
@@ -5537,9 +5493,6 @@ function seleccionaHabitacionUpd(tipo, anterior, numero, llega, sale) {
     success: function (data) {
       $("#nrohabitacionUpd option").remove();
       $("#nrohabitacionUpd").append(data);
-      // $("#nrohabitacionUpd").focus();
-      /*       $("#nrohabitacionUpd option").remove();
-            $("#nrohabitacionUpd").append(data); */
     },
   });
 }
@@ -7119,7 +7072,7 @@ function ingresaDeposito() {
         "height=600,width=600"
       );
       $("#myModalDepositoReserva").modal("hide");
-      $(location).attr("href", pagina);
+      // $(location).attr("href", pagina);
     },
   });
 }

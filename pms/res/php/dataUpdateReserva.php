@@ -44,9 +44,42 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
       </div>
       <div class="form-group">
         <label for="inputEmail3" class="col-sm-2 control-label">Huesped </label>
-        <div class="col-sm-8">
+        <div class="col-sm-6">
           <input type="hidden" name="idhuesped" id="idhuesped" value="<?php echo $reserva[0]['id_huesped']; ?>">
           <input type="text" class="form-control" name="huesped" id="huesped" value="<?php echo $huesped[0]['nombre_completo']; ?>" readonly="">
+        </div>
+        <div class="form-group">
+          <label for="inputEmail3" class="col-sm-1 control-label">Decreto 297</label>
+          <div class="col-sm-3">
+            <div class="wrap">
+              <div class="col-sm-6" style="padding:0;height: 15px">
+                <div class="form-check form-check-inline">
+                  <input style="margin-top:5px" class="form-check-input" type="radio" name="imptoOption" id="inlineRadio1" value="1" 
+                  <?php
+                    if ($reserva[0]['causar_impuesto'] == 1) { ?>
+                      checked
+                      <?php
+                    }
+                    ?>
+                  >
+                  <label style="margin-top:-20px;margin-left:25px" class="form-check-label" for="inlineRadio1" >NO</label>
+                </div>                    
+              </div>
+              <div class="col-sm-6" style="padding:0;height: 15px"> 
+                <div class="form-check form-check-inline">
+                  <input style="margin-top:5px" class="form-check-input" type="radio" name="imptoOption" id="inlineRadio2" value="2"
+                  <?php
+                    if ($reserva[0]['causar_impuesto'] == 2) { ?>
+                      checked
+                    <?php
+                    }
+                  ?>
+                  >
+                  <label style="margin-top:-20px;margin-left:25px" class="form-check-label" for="inlineRadio2">SI</label>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="form-group">
@@ -68,43 +101,12 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
                 <?php
               }?>
           </select>
-        </div>         
+        </div>
+        
       </div>
     </div>    
     <div class="panel-body" style="padding:5px">
-      <div class="form-group">
-        <label for="inputEmail3" class="col-sm-2 control-label">Decreto 297</label>
-        <div class="col-sm-2">
-          <div class="wrap">
-            <div class="col-sm-6" style="padding:0;height: 15px">
-              <div class="form-check form-check-inline">
-                <input style="margin-top:5px" class="form-check-input" type="radio" name="imptoOption" id="inlineRadio1" value="1" 
-                <?php
-                  if ($reserva[0]['causar_impuesto'] == 1) { ?>
-                    checked
-                    <?php
-                  }
-                  ?>
-                >
-                <label style="margin-top:-25px;margin-left:25px" class="form-check-label" for="inlineRadio1" >NO</label>
-              </div>                    
-            </div>
-            <div class="col-sm-6" style="padding:0;height: 15px"> 
-              <div class="form-check form-check-inline">
-                <input style="margin-top:5px" class="form-check-input" type="radio" name="imptoOption" id="inlineRadio2" value="2"
-                <?php
-  if ($reserva[0]['causar_impuesto'] == 2) { ?>
-                    checked
-                  <?php
-  }
-?>
-                >
-                <label style="margin-top:-25px;margin-left:25px" class="form-check-label" for="inlineRadio2">SI</label>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      
       <div class="form-group">
         <label for="llegada" class="col-sm-2 control-label">Llegada</label>
         <div class="col-sm-3">
@@ -171,7 +173,7 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
         <label for="nrohabitacion" class="col-sm-2 control-label">Nro Habitacion</label>
         <div class="col-sm-4">
           <div id="habitacionesUpd">
-            <select name="nrohabitacionUpd" id="nrohabitacionUpd" required onfocus="seleccionaHabitacionUpd('<?php echo $reserva[0]['tipo_habitacion']; ?>','<?php echo $reserva[0]['tipo_habitacion']; ?>','<?php echo $reserva[0]['num_habitacion']; ?>','<?php echo $reserva[0]['fecha_llegada']; ?>','<?php echo $reserva[0]['fecha_salida'];?>')">
+            <select name="nrohabitacionUpd" id="nrohabitacionUpd" required>
               <?php 
   foreach ($habitaciones as $habitacion) { ?>
                 <option value="<?php echo $habitacion['num_habitacion']; ?>"

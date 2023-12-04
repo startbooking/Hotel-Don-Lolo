@@ -92,7 +92,7 @@
             <label for="inputEmail3" class="col-sm-2 control-label">Documento</label>
             <div class="col-sm-3">
               <input type="hidden" name="idReservaAdiAco" id="idReservaAdiAco">
-              <input type="hidden" name="nuevoPax" id="nuevoPax">
+              <input type="hidden" name="nuevoPax" id="nuevoPax" value="1">
               <input type="hidden" name="idHuesAdi" id="idHuesAdi">
               <input type="text" class="form-control" name="identificaAdiAco" id="identificaAdiAco" placeholder="Identificacion" onblur="buscaHuespedAcompanante(this.value)" >
             </div>

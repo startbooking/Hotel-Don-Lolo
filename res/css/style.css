@@ -1068,6 +1068,23 @@ margin-top: 50px;
   margin :0px;
 }
 
+
+
+
+.logo img {
+  position: absolute;
+  margin: auto;
+  left: 5px;
+  top: 5px;
+}
+
+
+.logo span {
+  position: absolute;
+	left: 60px;
+}
+
+
 #boxes .window {
   position: absolute;
   width: 440px;
@@ -1400,6 +1417,7 @@ padding: 10px 15px;
 
   .dropdown-menu {
     font-size: 12px;
+    width: 100%;
   }
   .navbar-custom-menu > .navbar-nav > li > .dropdown-menu {
     background-color: #00a65a;

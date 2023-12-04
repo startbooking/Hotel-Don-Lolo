@@ -1,10 +1,12 @@
 document.addEventListener("DOMContentLoaded", async () => {    
+  entro = JSON.parse(localStorage.getItem("sesion"));
+  
+  if(entro != null){
+    let { user: { usuario, usuario_id } } = entro;
+  }
   $("#myModalLogin").on("show.bs.modal", function (event) {
     $("#error").html("");
     if (localStorage.getItem("sesion")) {
-      entro = JSON.parse(localStorage.getItem("sesion"));
-      let { user } = entro;
-      let { usuario, usuario_id } = user;
       swal(
         "Atencion",
         `Usuario ${usuario} Ya Activo en el Sistema, Recuperando Informacion`,
@@ -12,7 +14,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       );
       setTimeout(function () {
         parametros = {
-          idUsr: usuario_id,
+          usuario_id ,
         };
         $.ajax({
           url: "res/php/user_action/sesionActiva.php",
@@ -28,9 +30,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   $("#myModalCambiarClave").on("show.bs.modal", function (event) {
     $("#error").html("");
     if (localStorage.getItem("sesion")) {
-      entro = JSON.parse(localStorage.getItem("sesion"));
-      let { user } = entro;
-      let { usuario, usuario_id } = user;
       $("#idUserPass").val(usuario_id);
       $("#userPass").val(usuario);
     }
@@ -40,10 +39,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   
 sesion = JSON.parse(localStorage.getItem("sesion"));
 if (sesion) {
-  var { user } = sesion;
-  var { usuario_id, usuario, nombres, apellidos, tipo, estado_usuario_pms } =
-    user;
-  // console.log(usuario);
+  var { user: {usuario_id, usuario, nombres, apellidos, tipo, estado_usuario_pms} } = sesion;
 }
 
 function solicitudSoporte() {
@@ -117,9 +113,9 @@ function ingresoAdmin() {
 function ingresoPms() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
 
-  let { user, moduloPms } = sesion;
-  let { usuario, usuario_id, tipo, estado_usuario_pms } = user;
-  let { fecha_auditoria } = moduloPms;
+  let { user: { usuario, usuario_id, tipo, estado_usuario_pms }, moduloPms:{ fecha_auditoria } } = sesion;
+  // let { usuario, usuario_id, tipo, estado_usuario_pms } = user;
+  // let { fecha_auditoria } = moduloPms;
 
   parametros = {
     usuario,
@@ -184,10 +180,10 @@ function activaModulos() {
   fecha = new Date();
   fechaAct =
     fecha.getDate() + "/" + (fecha.getMonth() + 1) + "/" + fecha.getFullYear();
-  let { cia, user, moduloPms } = sesion;
-  let { estado, ingreso, tipo, apellidos, nombres, inv, pos, pms, res } = user;
+  let { cia: { invMod, posMod, pmsMod, resMod }, user: { estado, ingreso, tipo, apellidos, nombres, inv, pos, pms, res }, moduloPms: { fecha_auditoria } } = sesion;
+  /* let { estado, ingreso, tipo, apellidos, nombres, inv, pos, pms, res } = user;
   let { invMod, posMod, pmsMod, resMod } = cia;
-  let { fecha_auditoria } = moduloPms;
+  let { fecha_auditoria } = moduloPms; */
 
   muestraFecha = document.querySelector('#fechaPms');
   muestraFecha.innerHTML(`Fecha de Proceso [${fecha_auditoria}]`)
@@ -225,6 +221,7 @@ function valida_ingreso() {
     dataType: "json",
     data: "login=" + user + "&password=" + pass,
     success: function (data) {
+    // console.log(data);
       let { entro, user } = data;
       if (entro == "0") {
         muestraError("Usuario o Contraseña Incorrecto");
