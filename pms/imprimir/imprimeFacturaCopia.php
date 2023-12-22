@@ -1,16 +1,19 @@
 <?php
 
 require '../../../res/fpdf/fpdf.php';
-require '../../../res/phpqrcode/qrlib.php'; 
 
 $filename = '../../../img/pms/QR_'.$prefijo.'-'.$nroFactura.'.png';
+
+/* require '../../../res/phpqrcode/qrlib.php'; 
+
 
 $size = 100; // Tamaño en píxeles
 $level = 'L'; // Nivel de corrección (L, M, Q, H)
 
 // Generar el código QR
 QRcode::png($QRStr, $filename, $level, $size);
-
+ */
+ 
 $datosReserva = $hotel->getReservasDatos($reserva);
 $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
 
@@ -20,7 +23,7 @@ if ($tipofac == 2) {
     $datosCompania = $hotel->getSeleccionaCompania($idperfil);
     $diasCre = $datosCompania[0]['dias_credito'];
 }
- 
+
 $textoResol = 'RESOLUCION DIAN No.'.$resolucion.' de '.$fechaRes.' Autorizacion Pref '.$prefijo.' desde el No. '.$desde.' AL '.$hasta;
 
 $fechaFac = FECHA_PMS;
@@ -45,6 +48,7 @@ if($datosReserva[0]['fecha_salida']> FECHA_PMS){
 $pdf = new FPDF();
 $pdf->AddPage('P', 'letter');
 $pdf->Rect(10, 50, 190, 210);
+
 $pdf->Image('../../../img/'.LOGO, 10, 5, 40);
 $pdf->Image($filename, 163, 5, 35);
 
@@ -82,6 +86,7 @@ $pdf->SetFont('Arial', '', 8);
 $pdf->Ln(1);
 
 $pdf->SetFont('Arial', 'B', 8);
+
 if ($tipofac == 2) {
   if (!empty($datosCompania)) {
     $pdf->SetFont('Arial', '', 8);
@@ -158,8 +163,8 @@ $pdf->Cell(48, 4, 'FECHA EXPEDICION', 1, 0, 'C');
 $pdf->Cell(48, 4, 'FECHA VENCIMIENTO', 1, 1, 'C');
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(47, 4, $datosReserva[0]['fecha_llegada'], 1, 0, 'C');
-$pdf->Cell(48, 4, $fechaSalida, 1, 0, 'C');
 $pdf->Cell(47, 4, FECHA_PMS, 1, 0, 'C');
+$pdf->Cell(48, 4, $fechaSalida, 1, 0, 'C');
 $pdf->Cell(48, 4, $fechaVen, 1, 1, 'C');
 $pdf->SetFont('Arial', 'B', 8);
 
@@ -276,14 +281,16 @@ $pdf->SetFont('Arial', '', 6);
 
 $pdf->MultiCell(190, 4, utf8_decode(PIEFACTURA), 0, 'C');
 
-$file = '../../imprimir/facturas/FES-'.$prefijo.$nroFactura.'.pdf';
+$file = 'FES-'.$prefijo.$nroFactura.'.pdf';
 
 $pdf->Output($file, 'F');
 
-$pdfFile = $pdf->Output('', 'S');
+// echo $file;
+
+/* $pdfFile = $pdf->Output('', 'S');
 $base64Factura = chunk_split(base64_encode($pdfFile));
 
-array_push($estadofactura, $prefijo.$nroFactura.'.pdf');
+array_push($estadofactura, $prefijo.$nroFactura.'.pdf'); */
 // array_push($estadofactura, $base64String);
 
 ?>

@@ -2839,7 +2839,7 @@ function buscaNotasCreditoExporta() {
   hasta = document.querySelector("#hastaFechaNC").value;
   url = "res/php/exportaNotasCre.php";
   fetch(url, {
-    method: "post",
+    method: "post", 
     headers: {
       "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
     },

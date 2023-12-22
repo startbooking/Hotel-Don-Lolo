@@ -26,7 +26,7 @@ $refer = strtoupper($_POST['refer']);
 $correofac = strtolower($_POST['correofac']);
 $perfilFac = $_POST['perfilFac'];
 $baseRete = $_POST['baseRete'];
-$baseIva = $_POST['baseIva'];
+$baseIva = $_POST['baseIva']; 
 $baseIca = $_POST['baseIca'];
 $reteiva = $_POST['reteiva'];
 $reteica = $_POST['reteica'];
@@ -314,11 +314,11 @@ if ($perfilFac == 1 && $facturador == 1) {
 
     $respo = '';
 
-    $regis = $hotel->ingresaDatosFe($nroFactura, $prefijo, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cufe, $QRStr, '', $Isvalid, $eFact, $errorMessage, $statusCode, $statusDesc, $statusMess);
+    $regis = $hotel->ingresaDatosFe($nroFactura, $prefijo, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cufe, $QRStr, '', $Isvalid, '', $errorMessage, $statusCode, $statusDesc, $statusMess);
 
     include_once '../../imprimir/imprimeFactura.php';
 
-    $ePDF = [];
+    $ePDF = []; 
 
     $miFactura = strval($nroFactura);
 

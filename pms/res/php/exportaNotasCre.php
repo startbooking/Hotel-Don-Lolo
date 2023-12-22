@@ -130,7 +130,7 @@
                         if ($anulada == 1) {
                             echo 0;
                         } else {
-                            echo $factura['monto'];
+                            echo round($factura['monto'],0);
                         }
                       ?>
                     </td>
@@ -151,7 +151,7 @@
                         if($anulada=='S'){
                             echo 0;
                         }else{
-                            echo $totales; 
+                            echo round($totales,0); 
                         }
                       ?>
                     </td>
@@ -243,12 +243,12 @@
                 <td><?php echo $sexo; ?></td>
                 <td><?php echo ''; ?></td>
                 <td><?php echo $factura['descripcion_cargo']; ?></td>
-                <td style="text-align:right;"><?php echo $factura['impuesto']; ?></td>
+                <td style="text-align:right;"><?php echo round($factura['impuesto'],0); ?></td>
                 <td style="text-align:right;"><?php echo 0; ?></td>
                 <td><?php echo $vacio; ?></td>
                 <td><?php echo $vacio; ?></td>
                 <td><?php echo $vacio; ?></td>
-                <td style="text-align:right;"><?php echo $factura['impuesto']; ?></td>
+                <td style="text-align:right;"><?php echo round($factura['impuesto'],0); ?></td>
               </tr>
               <?php
             }
@@ -337,11 +337,11 @@
                 <td><?php echo ''; ?></td>
                 <td><?php echo $desReteFte; ?></td>
                 <td style="text-align:right;"><?php echo 0; ?></td>
-                <td style="text-align:right;"><?php echo $factura['retefuente']; ?></td>
+                <td style="text-align:right;"><?php echo round($factura['retefuente'],0); ?></td>
                 <td><?php echo $vacio; ?></td>
                 <td><?php echo $vacio; ?></td>
                 <td><?php echo $vacio; ?></td>
-                <td style="text-align:right;"><?php echo $factura['retefuente']; ?></td>
+                <td style="text-align:right;"><?php echo round($factura['retefuente'],0); ?></td>
             </tr>
             <?php
         }
@@ -429,11 +429,11 @@
                 <td><?php echo ''; ?></td>
                 <td><?php echo $desReteFte; ?></td>
                 <td style="text-align:right;"><?php echo 0; ?></td>
-                <td style="text-align:right;"><?php echo $factura['reteiva']; ?></td>
+                <td style="text-align:right;"><?php echo round($factura['reteiva'],0); ?></td>
                 <td><?php echo $vacio; ?></td>
                 <td><?php echo $vacio; ?></td>
                 <td><?php echo $vacio; ?></td>
-                <td style="text-align:right;"><?php echo $factura['reteiva']; ?></td>
+                <td style="text-align:right;"><?php echo round($factura['reteiva'],0); ?></td>
             </tr>
             <?php
         }
@@ -521,11 +521,11 @@
                 <td><?php echo ''; ?></td>
                 <td><?php echo $desReteFte; ?></td>
                 <td style="text-align:right;"><?php echo 0; ?></td>
-                <td style="text-align:right;"><?php echo $factura['reteica']; ?></td>
+                <td style="text-align:right;"><?php echo round($factura['reteica'],0); ?></td>
                 <td><?php echo $vacio; ?></td>
                 <td><?php echo $vacio; ?></td>
                 <td><?php echo $vacio; ?></td>
-                <td style="text-align:right;"><?php echo $factura['reteica']; ?></td>
+                <td style="text-align:right;"><?php echo round($factura['reteica'],0); ?></td>
             </tr>
             <?php
         }

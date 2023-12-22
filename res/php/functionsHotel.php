@@ -6,6 +6,38 @@ date_default_timezone_set('America/Bogota');
 
 class Hotel_Actions{
 
+    public function traeDatosFactura($nroFactura){
+      global $database;
+      
+      $data = $database->select('cargos_pms',[
+        'tipo_factura',
+        'numero_reserva',
+        'folio_cargo',
+        'id_huesped',  
+        'id_perfil_factura',
+      ],[
+        'factura_numero' => $nroFactura
+      ]);
+      return $data; 
+    }
+
+
+    public function traeInfoFE($numFact){
+        global $database;
+        
+        echo $numFact;
+        
+        $data = $database->select('datosFE',[
+          'QRStr',
+          'cufe',
+          'timeCreated',
+        ],[
+          'facturaNumero' => $numFact,
+          'estadoEnvio' => 'true'      
+        ]);
+        return $data;
+    }
+
     public function asignaEdad($id, $edad){
         global $database;
         
@@ -3242,7 +3274,7 @@ class Hotel_Actions{
 
         return $data;
     }
-
+ 
     public function getInformacionAbono($id)
     {
         global $database;
