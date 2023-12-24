@@ -19,6 +19,8 @@ $pdf->Cell(195, 4, 'Fecha : '.FECHA_PMS, 0, 1, 'C');
 $pdf->SetFont('Arial', '', 8);
 $codigos = $hotel->cargosDelDia(FECHA_PMS, 3, 0);
 
+echo print_r($codigos);
+
 $pag = 0;
 $monto = 0;
 
