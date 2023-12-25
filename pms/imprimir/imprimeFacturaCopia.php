@@ -4,18 +4,13 @@ require '../../../res/fpdf/fpdf.php';
 
 $filename = '../../../img/pms/QR_'.$prefijo.'-'.$nroFactura.'.png';
 
-/* require '../../../res/phpqrcode/qrlib.php'; 
+// echo $idhuesped;
 
 
-$size = 100; // Tamaño en píxeles
-$level = 'L'; // Nivel de corrección (L, M, Q, H)
-
-// Generar el código QR
-QRcode::png($QRStr, $filename, $level, $size);
- */
- 
 $datosReserva = $hotel->getReservasDatos($reserva);
 $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
+
+// echo print_r($datosHuesped);
 
 $horaIng = $datosReserva[0]['hora_llegada'];
 
@@ -282,6 +277,8 @@ $pdf->SetFont('Arial', '', 6);
 $pdf->MultiCell(190, 4, utf8_decode(PIEFACTURA), 0, 'C');
 
 $file = 'FES-'.$prefijo.$nroFactura.'.pdf';
+
+// echo $file;
 
 $pdf->Output($file, 'F');
 

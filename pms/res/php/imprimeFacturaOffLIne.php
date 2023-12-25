@@ -2,7 +2,7 @@
     require '../../../res/php/app_topHotel.php'; 
     
     
-    $nroFactura = '15477';
+    $nroFactura = '15537';
     
     $diasCre = 0;
     
@@ -17,10 +17,15 @@
     
     // echo print_r($infoFE);
     
+    
     $cufe = $infoFE[0]['cufe'];
     $timeCrea = $infoFE[0]['timeCreated'];
     
     $dataFac = $hotel->traeDatosFactura($nroFactura);
+    
+    
+    // echo $nroFactura;
+    // echo print_r($dataFac);
     
     $reserva  = $dataFac[0]['numero_reserva'];
     $tipofac  = $dataFac[0]['tipo_factura'];
@@ -29,6 +34,9 @@
     $idcia    = $dataFac[0]['id_perfil_factura'];
     
     $idhuesped = $idhues;
+    
+    // echo $idhuesped;
+    
         
     if ($tipofac == 1) {
         $id = $idhues;
