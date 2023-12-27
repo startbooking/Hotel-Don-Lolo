@@ -18,8 +18,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   
   let {user:{ usuario_id, nombres, apellidos, usuario } } = sesion
   
-  // console.log(usuario_id);
-  
 })
 
 /* CONFIGURACION GENERAL */
@@ -1352,6 +1350,53 @@ function updateHotel() {
     },
   });
 }
+
+async function updatePieFact(){
+ 
+  myButton = document.querySelector('#btnInfoPie')
+  
+  myButton.disabled = true;
+  myButton.style.opacity = 0.7;
+  myButton.textContent = 'Actualizando Informacion ...';
+  
+  idHotel= document.querySelector('#idHotel').value;
+  
+  form = document.querySelector('#updatePieFact')
+  
+  formData = new FormData(form);
+  
+  formData.append("idHotel", idHotel);
+  
+  console.log(formData);
+
+  actu = await actualizaInfoFactura(formData)
+  
+  console.log(actu)
+ 
+  
+}
+
+
+const actualizaInfoFactura = async (datos) => {
+/*   sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { user } = sesion;
+  let { usuario_id } = user;
+ */ 
+
+  try {
+
+    const resultado = await fetch('res/php/guardaReservaTRA.php', {
+      method: "post",
+      headers: {
+        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+      body: JSON.stringify(datos),
+    });
+    return data;
+  } catch (error) {
+  }
+}
+
 
 function eliminarValorSubTarifa() {
   var pagina = $("#ubicacion").val();

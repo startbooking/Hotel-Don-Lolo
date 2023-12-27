@@ -4,6 +4,20 @@
 
  class Hotel_Admin
  {
+ 
+    public function getInfoTextosFacturaHotel(){
+        global $database;
+        
+        $data = $database->select('parametros_pms',[
+            'actividad',
+            'info_banco',
+            'info_factura',
+            'info_pie'
+            
+        ]);
+        return $data;
+    }
+ 
 
     public function insertCiudad($paices, $ciudad, $codigo){ 
         global $database;
@@ -12,7 +26,7 @@
             'id_pais' => $paices,
             'codigo' => $codigo,
             'municipio' => $ciudad,
-        ]);
+        ]); 
         return $database->id();
     }
 

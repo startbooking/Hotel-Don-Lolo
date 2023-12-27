@@ -2148,16 +2148,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 async function enviaTRA(reserva, fecha) {
   const huesped = await traeHuespedReserva(reserva, fecha);
   const acompana = await traeAcompanaReserva(reserva, fecha);
-  /* infoHotel =  await traeInfoHotel();
-
-  let {tra, tokenTra, urlTraHuesped, urlTraAcompana, passwordTra, envioTra } = infoHotel[0]; */
-
   const regis = acompana.length
 
   JSONPpal = await creaJSONPpal(huesped, acompana)
   respo = await enviaJSONPpal(JSONPpal);
-
-  // console.log(respo);
 
   if (acompana.length > 0) {
     JSONAcompa = await creaJSONAcompana(JSONPpal, acompana, respo);
@@ -2169,13 +2163,9 @@ async function enviaTRA(reserva, fecha) {
     guarda2 = await guardaProcesoEnvioTRA(reserva)
   }
 
-
-
-  /* 
   if(regis.lenght>0){
     JSONAcompa = await creaJSONAcompana(JSONPpal, acompana,respo) ;
   } 
-  */
 
 }
 
@@ -2213,12 +2203,8 @@ const guardaProcesoEnvioTRA = async (reserva) => {
       },
       body: JSON.stringify(data),
     });
-    // const datos = await resultado.json();
-    // console.log(datos);
     return datos;
   } catch (error) {
-    // console.log(error);
-    // return error
   }
 }
 
