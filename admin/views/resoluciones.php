@@ -7,62 +7,65 @@
               <div class="col-lg-6">
                 <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_ADM?>">
                 <input type="hidden" name="ubicacion" id="ubicacion" value="bodegas">
-                <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-cubes"></i> Bodegas Almacenamiento</h3>
+                <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-cubes"></i> Resoluciones de Facturacion</h3>
               </div>
               <div class="col-lg-6" style="text-align:right">
                 <a 
-                  data-target  ="#myModalAdicionarBodega" 
-                  data-bodegas ="<?php echo count($bodegas)?>" 
+                  data-target  ="#myModalAdicionarResolucion" 
                   data-toggle  ="modal" 
                   style        ="margin:20px 0" 
                   type         ="button" 
                   class        ="btn btn-success" 
                   >
                   <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
-                   Adicionar Bodega</a>
+                   Adicionar Resolucion</a>
               </div>
             </div>
           </div>
           <div class="panel-body">
             <div class="datos_ajax_delete"></div>
-            <div class="col-lg-6 col-lg-offset-3">              
+            <div class="col-lg-8 col-lg-offset-2">              
               <div class="container-fluid"> 
                 <table id="example1" class="table table-bordered">
                   <thead>
                     <tr class="warning">
-                      <td>Bodega</td>
-                      <td>Tipo Bodega</td>
+                      <td>Resolucion</td>
+                      <td>Desde Num</td>
+                      <td>Hasta Num</td>
+                      <td>Prefijo</td>
+                      <td>Fecha</td>
+                      <td>Estado</td>
                       <td>Accion</td>
                     </tr>
                   </thead>
                   <tbody>
                     <?php
-                    foreach ($bodegas as $bodega) { ?>
+                    foreach ($resoluciones as $resolucion) { ?>
                       <tr style='font-size:12px'>
-                        <td al><?php echo $bodega['descripcion_bodega']; ?></td>
-                        <td align="left"><?php echo tipoBodega($bodega['tipo_bodega']); ?></td>
-                        <td align="center" style="padding:3px;width: 17%">
+                        <td><?php echo $resolucion['resolucion']; ?></td>
+                        <td style="text-align:left"><?php echo $resolucion['desde']; ?></td>
+                        <td style="text-align:left"><?php echo $resolucion['hasta']; ?></td>
+                        <td style="text-align:left"><?php echo $resolucion['prefijo']; ?></td>
+                        <td style="text-align:left"><?php echo $resolucion['fecha']; ?></td>
+                        <td style="text-align:left"><?php echo estadoResolucion($resolucion['estado']); ?></td>
+                        <td style="text-align:center;padding:3px;width: 17%">
                           <div class="btn-group" role="group" aria-label="Basic example">
                             <button 
                               type        ="button" 
                               class       ="btn btn-info btn-xs" 
                               data-toggle ="modal" 
-                              data-target ="#myModalModificaBodega" 
-                              data-id     ="<?php echo $bodega['id_bodega']?>" 
-                              data-descri ="<?php echo $bodega['descripcion_bodega']?>" 
-                              data-tipo ="<?php echo $bodega['tipo_bodega']?>" 
-                              title       ="Modificar la Bodega Actual" >
+                              data-target ="#myModalModificaResolucion" 
+                              data-id     ="<?php echo $bodega['id']?>" 
+                              title       ="Modificar la Resolucion Actual" >
                               <i class='fa fa-pencil-square'></i>
                             </button>
                             <button 
                               type        ="button" 
                               class       ="btn btn-danger btn-xs" 
                               data-toggle ="modal" 
-                              data-target ="#myModalEliminaBodega" 
-                              data-id     ="<?php echo $bodega['id_bodega']?>" 
-                              data-descri ="<?php echo $bodega['descripcion_bodega']?>" 
-                              data-tipo ="<?php echo $bodega['tipo_bodega']?>" 
-                              title       ="Elimina la Bodega Actual" >              
+                              data-target ="#myModalEliminaResolucion" 
+                              data-id     ="<?php echo $bodega['id']?>" 
+                              title       ="Elimina la Resolucion Actual" >              
                               <i class='fa fa-trash'></i>
                             </button>
                           </div> 

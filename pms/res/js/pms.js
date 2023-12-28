@@ -2203,6 +2203,7 @@ const guardaProcesoEnvioTRA = async (reserva) => {
       },
       body: JSON.stringify(data),
     });
+    
     return datos;
   } catch (error) {
   }
@@ -7557,6 +7558,70 @@ function facturasPorFecha() {
       },
     });
   }
+}
+
+async function generaInforme(data){
+
+  try {
+
+    const resultado = await fetch('imprimir/imprimePropinas.php', {
+      method: "post",
+      headers: {
+        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+      body: JSON.stringify(data),
+    });
+    const datos = await resultado.text();
+    // console.log(datos)
+    return datos.trim();
+    
+    
+    // return datos.trim();
+  } catch (error) {
+  
+  }
+
+}
+
+async function propinasPorFecha() {
+  var web = $("#rutaweb").val();
+  desdeFe = document.querySelector("#desdeFecha").value;
+  hastaFe = document.querySelector("#hastaFecha").value;
+  
+  data = {
+    desdeFe,
+    hastaFe,
+  };
+
+  if (desdeFe == "" && hastaFe == "" ) {
+    swal("Atencion", "Seleccione un Criterio de Busqueda", "warning");
+  } else {
+    
+    const informe = await generaInforme(data);
+    
+    console.log(informe)
+    
+    creaHTMLReportes(informe, 'Informe Propinas' )
+    
+    
+  
+    /* $.ajax({
+      url: web + "res/php/facturasPorRango.php",
+      type: "POST",
+      data: parametros,
+      success: function (x) {
+        $(".imprimeInforme").html(x);
+      },
+    }); */
+  }
+}
+
+function creaHTMLReportes(data, titulo) {
+  $("#imprimeInforme").html("");
+  $("#imprimeInforme").html(`
+  <section class="content">
+    <object type="application/pdf" id="verInforme" width="100%" height="500" data="data:application/pdf;base64,${$.trim(data)}"></object> 
+  </section>`);
 }
 
 function recibosPorFecha() {

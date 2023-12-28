@@ -5,6 +5,46 @@
  class Hotel_Admin
  {
  
+    public function getResoluciones($id){
+        global $database;
+        
+        $data = $database->select('resoluciones',[
+            'id',
+            'idDocumento',
+            'resolucion',
+            'fecha',
+            'prefijo',
+            'desde',
+            'hasta',
+            'estado',
+            'tipo',
+            'ambiente',
+            'id_ambiente',
+            'claveTecnica',
+            'tipoDocumento',
+            'modulo',
+            'vigencia',
+        ],[
+            'modulo' => $id,
+        ]);
+        return $data;
+    
+    }
+ 
+    public function actualizaInfoFactura($idHotel, $tituloFac, $infoBanco, $infoFact, $infoPie){
+        global $database;
+        
+        $data = $database->update('parametros_pms',[
+            'actividad' => $tituloFac,
+            'info_banco' => $infoBanco, 
+            'info_factura' => $infoFact, 
+            'info_pie' => $infoPie,
+        ],[
+          'id' => $idHotel,
+        ]);
+        return  $data->rowCount();
+    }
+    
     public function getInfoTextosFacturaHotel(){
         global $database;
         

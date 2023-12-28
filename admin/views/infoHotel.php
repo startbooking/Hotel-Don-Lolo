@@ -185,7 +185,7 @@ $infoTextos= $admin->getInfoTextosFacturaHotel()
                           <div class="form-group" >
                             <label class="control-label col-md-2 col-xs-12" for="">Pie Factura</label>
                             <div class="col-lg-10 col-md-10 col-xs-12">
-                              <textarea name="infoPie" id="infoPie" cols="30" rows="3"><?php echo $cia['info_factura']; ?></textarea>                              
+                              <textarea name="infoPie" id="infoPie" cols="30" rows="3"><?php echo $cia['info_pie']; ?></textarea>                              
                             </div>
                           </div>
                           <?php

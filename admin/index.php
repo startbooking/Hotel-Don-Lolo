@@ -83,6 +83,8 @@ if (!isset($_GET['section'])) {
     require_once 'views/descuentos.php';
 } elseif (isset($_GET['section']) && $_GET['section'] == 'periodos') {
     require_once 'views/periodos.php';
+} elseif (isset($_GET['section']) && $_GET['section'] == 'resolucionHotel') {
+    require_once 'views/resoluciones.php';
 }
 ?>
     <footer>

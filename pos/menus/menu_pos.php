@@ -89,7 +89,7 @@ $rutaINV = BASE_POS.'datos/kardex.php';
           </li>
           <li>
             <a class="menuInfoCaje" onclick="facturasCajero()"><i class="fa fa-users"></i> Facturas Cajero</a>
-          </li>
+          </li> 
           <!-- <li>
             <a class="menuPpal" onclick="abonosCajero()"><i class="fa fa-users"></i> Abonos Cajero</a>
           </li> -->

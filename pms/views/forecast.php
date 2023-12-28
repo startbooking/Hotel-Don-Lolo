@@ -53,8 +53,11 @@
         <div class="row-fluid products-list" style="overflow:auto;">
           <?php 
             $anchop = $dias*44; 
+            /* echo $anchop; 
+            echo 'Aca estaaaaaaaaaaaaaaaaaaa ' */
+            
           ?>
-          <div class="col-sm-11 col-sm-offset-1" style="width: <?=$anchop?>px;padding:2px;height: 26px;">
+          <div class="col-sm-11 col-sm-offset-1" style="width: 1400px;padding:2px;height: 26px;">
             <?php 
               for ($i = 0; $i <= $dias; $i++) {
                 $fecha      = strtotime ( '+'.$i.'day',strtotime($fechaini)); ?>
@@ -86,7 +89,7 @@
               foreach ($rooms as $room) { 
                 $numero = $room['numero_hab']; 
                 ?>
-                <div class="row product-item" category="<?=$room['tipo_hab'];?>" style="width: <?=$anchop?>px;margin-left:0px;">
+                <div class="row product-item" category="<?=$room['tipo_hab'];?>" style="width: 1400px;margin-left:0px;">
                   <?php 
                   for ($i = 0; $i <= $dias; $i++) {
                     $fecha      = strtotime ( '+'.$i.'day' , strtotime ( $fechaini ) ) ;

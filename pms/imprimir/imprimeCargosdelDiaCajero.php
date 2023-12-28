@@ -30,7 +30,8 @@
     $pdf->Cell(50,5,utf8_decode($usuario['usuario']),0,1,'L');
       
     $cargos = $hotel->getCargosdelDiaporcajero(FECHA_PMS,$usuario['usuario'],1,0);
-    $pdf->Cell(10,5,'',0,0,'R');
+    
+    $pdf->Cell(10,5,'',0,0,'R');  
     $pdf->Cell(50,5,'Descripcion.',0,0,'C');
     $pdf->Cell(10,5,'Hab.',0,0,'R');
     $pdf->Cell(70,5,'Huesped',0,0,'C');
@@ -38,13 +39,12 @@
     $pdf->Cell(25,5,'Monto',0,0,'C');
     $pdf->Cell(25,5,'Impuesto',0,0,'C');
     $pdf->Cell(25,5,'Total',0,0,'C');
-    $pdf->Cell(1056,'Hora',0,1,'C');
+    $pdf->Cell(15,5,'Hora',0,1,'C');
     $pdf->SetFont('Arial','',9);
     $monto  = 0 ;
     $impto  = 0 ;
     $total  = 0 ;
-
-    foreach ($cargos as $cargo) {
+    foreach ($cargos as $cargo) {    
       $pdf->Cell(10,6,'',0,0,'L');
       $pdf->Cell(50,6,utf8_decode($cargo['descripcion_cargo']),0,0,'');
       $pdf->Cell(10,6,$cargo['habitacion_cargo'],0,0,'R');
@@ -78,6 +78,7 @@
   $pdf->Cell(25,6,number_format($imp,2),0,0,'R');
   $pdf->Cell(25,6,number_format($tot,2),0,1,'R');
   $pdf->Ln(3);
+
 
   $fileOut = '../imprimir/informes/'.$file.'.pdf'; 
   $pdf->Output($fileOut,'F');

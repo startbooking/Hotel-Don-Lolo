@@ -117,7 +117,7 @@
 		$ambientes = $admin->getAmbientes(); 
 		$periodos  = $admin->getPeriodos(); 
 	}elseif(isset($_GET['section']) && $_GET['section'] == 'resolucionHotel'){ 
-  	// $equipos = $admin->getResoluciones(1); 	
+  	$resoluciones = $admin->getResoluciones(1); 	
 	}
 
 

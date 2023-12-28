@@ -6,6 +6,100 @@ date_default_timezone_set('America/Bogota');
 
 class Hotel_Actions{
 
+    public function getCargosPorGrupoVentaHist($desdeFe, $hastaFe, $usuario, $tipo, $estado,$grupo){
+        global $database;
+        
+        $data = $database->select('historico_cargos_pms', [
+            '[>]huespedes' => ['id_huesped' => 'id_huesped'],
+            '[>]codigos_vta' => ['id_codigo_cargo' => 'id_cargo'],
+        ], [
+            'huespedes.nombre_completo',
+            'historico_cargos_pms.fecha_cargo',
+            'historico_cargos_pms.monto_cargo',
+            'historico_cargos_pms.base_impuesto',
+            'historico_cargos_pms.impuesto',
+            'historico_cargos_pms.codigo_impto',
+            'historico_cargos_pms.id_codigo_cargo',
+            'historico_cargos_pms.habitacion_cargo',
+            'historico_cargos_pms.descripcion_cargo',
+            'historico_cargos_pms.usuario',
+            'historico_cargos_pms.id_huesped',
+            'historico_cargos_pms.cantidad_cargo',
+            'historico_cargos_pms.informacion_cargo',
+            'historico_cargos_pms.numero_factura_cargo',
+            'historico_cargos_pms.valor_cargo',
+            'historico_cargos_pms.folio_cargo',
+            'historico_cargos_pms.pagos_cargos',
+            'historico_cargos_pms.referencia_cargo',
+            'historico_cargos_pms.concecutivo_abono',
+            'historico_cargos_pms.cargo_anulado',
+            'historico_cargos_pms.motivo_anulacion',
+            'historico_cargos_pms.fecha_anulacion',
+            'historico_cargos_pms.usuario_anulacion',
+            'historico_cargos_pms.numero_reserva',
+            'historico_cargos_pms.habitacion_cargo',
+            'historico_cargos_pms.fecha_sistema_cargo',
+            'historico_cargos_pms.factura_numero',
+            'historico_cargos_pms.id_reserva',
+        ], [
+            'historico_cargos_pms.usuario' => $usuario,
+            'historico_cargos_pms.fecha_cargo[>=]' => $desdeFe,
+            'historico_cargos_pms.fecha_cargo[<=]' => $hastaFe,
+            'historico_cargos_pms.cargo_anulado' => $estado,
+            'historico_cargos_pms.concecutivo_abono' => 0,
+            'codigos_vta.tipo_codigo' => $tipo, 
+            'codigos_vta.grupo_vta' => $grupo,            
+            'ORDER' => ['historico_cargos_pms.usuario' => 'ASC']
+        ]);
+
+        return $data;
+    }
+    
+    
+    public function traeUsuariosPosVentas($desdeFe, $hastaFe, $grupo){
+        global $database;
+        
+        $data = $database->query("SELECT usuarios.usuario,
+        usuarios.nombres,
+        usuarios.apellidos 
+    FROM
+        usuarios,
+        historico_cargos_pms,
+        codigos_vta
+    WHERE
+        usuarios.usuario = historico_cargos_pms.usuario 
+        AND codigos_vta.id_cargo = historico_cargos_pms.id_codigo_cargo
+        AND historico_cargos_pms.fecha_cargo >= '$desdeFe' 
+        AND historico_cargos_pms.fecha_cargo <= '$hastaFe' 
+        AND codigos_vta.grupo_vta = $grupo
+        AND usuarios.estado = 1 
+        AND usuarios.pos = 1 
+    GROUP BY
+        usuarios.usuario 
+    ORDER BY
+        usuarios.usuario")->fetchAll();
+        return $data;
+    
+    }
+
+    
+    public function traeUsuariosPos(){
+        global $database;
+        
+        $data = $database->select('usuarios',[
+        'usuario_id',
+        'usuario',
+        'apellidos',
+        'nombres',  
+        ],[
+            'pos' => 1,
+            'estado' => 1,
+            'ORDER' => ['usuario' => 'ASC']
+        ]);
+        return $data;
+    
+    }
+
     public function traeDatosFactura($nroFactura){
       global $database;
       
@@ -5205,9 +5299,9 @@ class Hotel_Actions{
     public function getCargosdelDiaporcajero($fecha, $usuario, $tipo, $estado)
     {
         global $database;
-
+        
         $data = $database->select('cargos_pms', [
-            '[>]huespedes' => 'id_huesped',
+            '[>]huespedes' => ['id_huesped' => 'id_huesped'],
             '[>]codigos_vta' => ['id_codigo_cargo' => 'id_cargo'],
         ], [
             'huespedes.nombre1',
@@ -5246,9 +5340,7 @@ class Hotel_Actions{
             'cargos_pms.cargo_anulado' => $estado,
             'codigos_vta.tipo_codigo' => $tipo,
             'cargos_pms.concecutivo_abono' => 0,
-            'ORDER' => [
-                'habitacion_cargo' => 'ASC',
-            ],
+            'ORDER' => ['cargos_pms.habitacion_cargo' => 'ASC']
         ]);
 
         return $data;

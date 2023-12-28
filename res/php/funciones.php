@@ -1,5 +1,18 @@
 <?php
 
+function estadoResolucion($tipo){
+    switch ($tipo) {
+        case 0:
+            return '<span class="badge label-warning">Vencida</span>';
+        case 1:
+            return '<span class="badge label-info">Activa</span>';
+        case '2':
+            return '<span class="badge label-danger">Sin Definir</span>';
+    }
+
+}
+
+
 function tipoPagoDian($tipo){
     switch ($tipo) {
         case 1:

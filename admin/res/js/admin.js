@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     },function(){
       window.location.href = "/";
       return 
-
     })
   }
   
@@ -350,7 +349,7 @@ function mensajeCrea(resp,texto, pagina) {
     },
       function () {
         window.location.href = pagina;
-      })
+    })
   } else {
     mostrarAlerta(error, "alerta");
   }
@@ -1353,45 +1352,58 @@ function updateHotel() {
 
 async function updatePieFact(){
  
-  myButton = document.querySelector('#btnInfoPie')
-  
+  myButton = document.querySelector('#btnInfoPie')  
   myButton.disabled = true;
   myButton.style.opacity = 0.7;
-  myButton.textContent = 'Actualizando Informacion ...';
+  // myButton.textContent = 'Actualizando Informacion ...';
   
   idHotel= document.querySelector('#idHotel').value;
-  
   form = document.querySelector('#updatePieFact')
-  
   formData = new FormData(form);
   
-  formData.append("idHotel", idHotel);
+  tituloFac  = formData.get('tituloFac');
+  infoBanco = formData.get('infoBanco');
+  infoFact = formData.get('infoFact');
+  infoPie = formData.get('infoPie');
   
-  console.log(formData);
+  let datos = {
+    tituloFac,
+    infoBanco,
+    infoFact,
+    infoPie,
+    idHotel,
+  }
+  
+  actu = await actualizaInfoFactura(datos)
+  actu = actu.trim();
 
-  actu = await actualizaInfoFactura(formData)
   
-  console.log(actu)
- 
-  
+  if(actu === '1'){
+    swal({
+      title: 'Atencion',
+      text: 'Informacion Actualizada con Exito',
+      confirmButtonText: "Aceptar",
+      type: "warning",
+      closeOnConfirm: true,
+    }, function(){
+      window.location.href = "infoHotel";      
+    })
+  }
+    
 }
 
 
 const actualizaInfoFactura = async (datos) => {
-/*   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario_id } = user;
- */ 
-
+  
   try {
-
-    const resultado = await fetch('res/php/guardaReservaTRA.php', {
+    const resultado = await fetch('res/php/actualizaInfoFactura.php', {
       method: "post",
       headers: {
-        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+        "Content-Type": "text/html; charset=utf-8",
       },
       body: JSON.stringify(datos),
     });
+    const data = await resultado.text();
     return data;
   } catch (error) {
   }

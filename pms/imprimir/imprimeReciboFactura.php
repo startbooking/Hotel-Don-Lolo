@@ -174,60 +174,21 @@ foreach ($pagosfolio as $pagofolio) {
     $pdf->Cell(15, 4, '', 0, 0, 'C');
     $pagos = $pagos + $pagofolio['pagos'];
     $pdf->Cell(145, 5, 'Forma de Pago : '.$pagofolio['descripcion_cargo'], 0, 0, 'L');
-    // $pdf->Cell(30, 5, '', 0, 0, 'C');
     $pdf->Cell(30, 5, '('.number_format($pagofolio['pagos'], 2).')', 0, 1, 'R');
 }
 
 $pdf->Cell(110, 4, '', 0, 0, 'L');
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(50, 4, 'TOTALES ', 1, 0, 'C');
-// $pdf->Cell(30, 4, number_format($pagos, 2), 1, 1, 'R');
 $pdf->Cell(30, 4, number_format($total, 2), 1, 1, 'R');
-// $pdf->Ln(1);
 $pdf->SetFont('Arial', '', 8);
-// $pdf->setY(155);
-/* $pdf->SetFont('Arial', 'B', 8);
-$pdf->Cell(100, 4, '', 0, 0, 'C');
- */ /* $pdf->Cell(90, 4, 'FORMAS DE PAGO ', 1, 1, 'C');
-$pdf->Cell(100, 4, '', 0, 0, 'C');
-$pdf->Cell(60, 4, 'DETALLE', 1, 0, 'C');
-$pdf->Cell(30, 4, 'VALOR', 1, 1, 'R');
-$pagos = 0; */
-// $pdf->SetFont('Arial', '', 8);
 
-/* $pdf->Cell(100, 5, '', 0, 0, 'L');
-$pdf->SetFont('Arial', 'B', 8);
-$pdf->Cell(60, 5, 'TOTAL ', 1, 0, 'C');
-$pdf->Cell(30, 5, number_format($pagos, 2), 1, 1, 'R');
-$pdf->setY(190); */
-// $pdf->Ln(3);
-/* $pdf->SetFont('Arial', 'B', 8);
-$pdf->Cell(95, 5, 'IMPUESTOS', 1, 0, 'C');
-$pdf->Cell(95, 5, 'INFORMACION TRIBUTARIA', 1, 1, 'C');
-$pdf->SetFont('Arial', '', 8);
-$pdf->Cell(45, 5, 'TIPO IMPUESTO', 1, 0, 'C');
-$pdf->Cell(20, 5, 'BASE', 1, 0, 'C');
-$pdf->Cell(30, 5, 'VALOR', 1, 0, 'C');
-$pdf->Cell(45, 5, 'TIPO RETENCION', 1, 0, 'C');
-$pdf->Cell(20, 5, 'BASE', 1, 0, 'C');
-$pdf->Cell(30, 5, 'VALOR', 1, 1, 'C');
-foreach ($tipoimptos as $tipoimpto) {
-    $pdf->Cell(45, 4, $tipoimpto['descripcion_cargo'], 0, 0, 'L');
-    $pdf->Cell(20, 4, number_format($tipoimpto['cargos'], 2), 0, 0, 'R');
-    $pdf->Cell(30, 4, number_format($tipoimpto['imptos'], 2), 0, 1, 'R');
-} */
 $pdf->Ln(1);
 $pdf->SetFont('Arial', '', 8);
 $pdf->MultiCell(190, 4, 'SON :'.numtoletras($total), 1, 'L');
 $pdf->Ln(1);
 
-// $pdf->SetFont('Arial', '', 5);
-// $pdf->MultiCell(190, 3, utf8_decode('Representación impresa de la factura electrónica,Firma Electrónica y Cufe : ').'CUFE'.utf8_decode('Fecha Validación Dian = ').' FIRMA = '.$firma, 1, 'L');
-// $pdf->setY(226);
-// $pdf->SetFont('Arial', '', 7);
-// $pdf->MultiCell(95, 4, utf8_decode(TEXTOBANCO).', '.utf8_decode(TEXTOFACTURA), 1, 'C');
 $y = $pdf->GetY();
-// $pdf->SetY(226);
 $pdf->SetY(113);
 
 $pdf->SetX(105);
@@ -241,11 +202,6 @@ $pdf->SetY(131);
 $pdf->Cell(40, 5, 'IMPRESO POR :', 0, 0, 'C');
 $pdf->Cell(55, 5, $usuario, 0, 1, 'L');
 
-/* $pdf->SetY(250);
-
-$pdf->Ln(1);
-$pdf->SetFont('Arial', '', 6);
- */
 $file = '../../imprimir/notas/Abono_'.$nroFactura.'.pdf';
 
 $pdf->Output($file, 'F');

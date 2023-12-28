@@ -133,6 +133,8 @@ if ($_GET['section'] != 'cajeroCerrado') {
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeReservasDiaDepositos','Depositos a Reserva del Dia')"><i class="glyphicon glyphicon-download-alt"></i>Abonos - Depositos del Dia </a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeBalanceCongeladas','Depositos a Reserva del Dia')"><i class="fa fa-snowflake-o"></i>Cuentas Congeladas </a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimePagosdelDiaConcepto','Flujo de Caja del Dia')"><i class="glyphicon glyphicon-save-file"></i>Flujo de Caja</a></li>
+                <!-- <li><a href="javascript:imprimeInformeAuditoria('imprimePropinasCajeros','Porpinas Cajeros')"><i class="glyphicon glyphicon-save-file"></i>Flujo de Caja</a></li> -->
+                
               </ul>
             </li>
             <li><a href="cargarHabitaciones"><i class="fa glyphicon glyphicon-sort-by-attributes"></i> Cargar Habitaciones</a></li>
@@ -214,6 +216,7 @@ if ($_GET['section'] != 'cajeroCerrado') {
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeBalanceCongeladas','Cuentas Congeladas')"><i class="fa fa-snowflake-o"></i>Cuentas Congeladas</a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeReservasDiaDepositos','Depositos a Reserva del Dia ')"><i class="glyphicon glyphicon-download-alt"></i>Abonos - Depositos del Dia </a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeEstadoCartera','Estado Cartera ')"><i class="fa fa-snowflake-o"></i>Estado Cartera</a></li>
+                <li><a href="propinas"><i class="glyphicon glyphicon-save-file"></i>Informe Propinas</a></li>
               </ul>
             </li>
             <li>
