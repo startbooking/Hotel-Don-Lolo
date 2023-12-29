@@ -27,7 +27,7 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
       </thead>
       <tbody>
         <?php
-        foreach ($reservas as $reserva) {
+          foreach ($reservas as $reserva) {
             $depositos = $hotel->getDepositosReservas($reserva['num_reserva']);
             if ($reserva['id_compania'] == 0) {
               $nombrecia = 'SIN COMPAÑIA ASOCIADA';

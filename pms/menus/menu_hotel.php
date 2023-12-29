@@ -17,20 +17,23 @@ if ($_GET['section'] != 'cajeroCerrado') {
             <i class="fa fa-dashboard"></i> <span>Datos</span> <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">
-            <li class="active"><a href="huespedesPerfil">
-                <i class="fa fa-id-badge"></i> Huespedes</a></li>
+            <li><a href="huespedesPerfil">
+              <i class="fa fa-id-badge"></i> Huespedes</a></li>
             <li><a href="companias"><i class="fa fa-industry"></i> Compañias</a></li>
             <!-- <li><a href="agencias"><i class="fa fa-plane "></i> Agencias</a></li> -->
           </ul>
         </li>
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-calendar-plus-o"></i>
+            <!-- <i class="fa fa-calendar-plus-o"></i> -->
+            <i class="fa-regular fa-calendar"></i>
             <span>Reservas</span>
             <span class="fa fa-angle-left pull-right"></span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="reservasActivas"><i class="fa fa-calendar"></i> Reservas</a></li>
+            <li><a href="reservasActivas">
+            <i class="fa-regular fa-calendar-days"></i>
+            Reservas</a></li>
             <li><a href="forecast"><i class="fa fa-area-chart"></i> Forecast</a></li>
             <?php
             if (DEV == 1) { ?>

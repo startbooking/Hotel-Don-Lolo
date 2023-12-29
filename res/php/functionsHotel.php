@@ -1647,7 +1647,7 @@ class Hotel_Actions{
     {
         global $database;
 
-        $data = $database->query("SELECT id_huesped, nombre1, nombre2, apellido1, apellido2, nombre_completo, identificacion, direccion, telefono, email, tipo_identifica, tipo_huesped, fecha_nacimiento, sexo, celular, id_compania, idCentroCia, estado_credito  FROM huespedes WHERE nombre_completo LIKE '%$codigo%' OR identificacion LIKE '%$codigo%' ORDER BY apellido1 ASC LIMIT $regis, $filas")->fetchAll();
+        $data = $database->query("SELECT id_huesped, nombre1, nombre2, apellido1, apellido2, nombre_completo, identificacion, direccion, telefono, email, tipo_identifica, tipo_huesped, fecha_nacimiento, sexo, celular, id_compania, idCentroCia, estado_credito, edad  FROM huespedes WHERE nombre_completo LIKE '%$codigo%' OR identificacion LIKE '%$codigo%' ORDER BY apellido1 ASC LIMIT $regis, $filas")->fetchAll();
 
         return $data;
     }
@@ -8376,8 +8376,7 @@ class Hotel_Actions{
         return $data;
     }
 
-    public function getPerfilHuespedes()
-    {
+    public function getPerfilHuespedes(){
         global $database;
 
         $data = $database->select('huespedes', [
@@ -8401,6 +8400,7 @@ class Hotel_Actions{
             'idCentroCia',
             'estado_credito',
         ], [
+            'LIMIT' => [$regis, $filas],
             'ORDER' => 'apellido1',
         ]);
 

@@ -324,6 +324,10 @@ br.clear {
   cursor: pointer;
 }
 
+.b500 {
+  font-weight: 500;
+}
+
 li > a:hover {
   background-color: #d2d2d2ab !important;
   font-weight: bold;

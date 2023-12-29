@@ -71,12 +71,23 @@ document.addEventListener("DOMContentLoaded", async () => {
     traeTotalCompanias(numRegis, filas);
   }
 
+
+
   let hue = document.getElementById("pantallaHuespedes");
   if (hue != null) {
-    var numRegis = 0;
+    /* var numRegis = 0;
     var filas = $("#numFiles").val();
     var pages = $("#paginas").val();
-    traeTotalHuespedes(numRegis, filas);
+    traeTotalHuespedes(); */
+    
+    /* $("#example1").DataTable({
+      "processing": true,
+      "serverSide": true,
+      "sAjaxSource": "res/php/serversideHuespedes.php",
+      "columnDefs":[{
+          "data":null
+      }]   
+    });  */
   }
 
   let reserva = document.getElementById("pantallaReservas");
@@ -3066,7 +3077,6 @@ function traeReservasActivas(tipo) {
       $("#example1").DataTable({
         iDisplayLength: 25,
         paging: true,
-        // lengthChange: true,
         searching: true,
         ordering: true,
         info: true,
@@ -3703,121 +3713,13 @@ function irPagina(id) {
   traeTotalHuespedes(newregis, filas);
 }
 
-function traeTotalHuespedes(regis, filas) {
-  var huesp = $("#regishue").val();
-  var pages = Math.ceil(huesp / filas);
-  lista = "";
-  barra = "";
-
+function traeTotalHuespedes() {
   $.ajax({
-    url: "res/php/traeHuespedLimit.php",
+    url: "res/php/traeHuesped.php",
     type: "POST",
-    dataType: "json",
-    data: {
-      regis,
-      filas,
-    },
     success: function (data) {
       $("#listaHuespedes").html("");
-      $("#barraPaginas").html("");
-      for (i = 0; i < data.length; i++) {
-        lista =
-          lista +
-          `<tr style='font-size:12px'>
-          <td width="22px">${data[i]["identificacion"]}</td>
-          <td>${data[i]["apellido1"]}</td>
-          <td>${data[i]["apellido2"]}</td>
-          <td>${data[i]["nombre1"]}</td>
-          <td>${data[i]["nombre2"]}</td>
-          <td>${data[i]["celular"]}</td>
-          <td>${data[i]["email"]}</td>
-          <td>${data[i]["edad"]}</td>
-          <td style="padding:3px;width: 13%">
-            <nav class="navbar navbar-default" style="margin-bottom: 0px;min-height:0px;">
-              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:1px">
-                <ul class="nav navbar-nav">
-                  <li class="dropdown">
-                    <a 
-                    	href="#" 
-                    	class="dropdown-toggle" 
-                    	data-toggle="dropdown" 
-                    	role="button" 
-                    	aria-haspopup="true" 
-                    	aria-expanded="false" 
-                    	style="padding:3px 8px;font-weight:bold;color:#000">Ficha Huesped<span class="caret" style="margin-left:10px;"></span></a>
-                    <ul class="dropdown-menu submenu" style="left: -180px">  
-                      <li>
-                        <a 
-													data-toggle ="modal" 
-													data-id     ="${data[i]["id_huesped"]}" 
-													data-nombre ="${data[i]["nombre_completo"]}" 
-													href        ="#myModalModificaPerfilHuesped">
-                        <i class="fa fa-address-card-o" aria-hidden="true"></i>
-                        Modificar Perfil</a> 
-                      </li>
-                      <li>
-                        <a  
-													data-toggle ="modal" 
-													data-id     ="${data[i]["id_huesped"]}" 
-													data-nombre ="${data[i]["nombre_completo"]}" 
-													href        ="#myModalReservasEsperadas">
-                        <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
-                        Reservas</a>
-                      </li>
-                      <li> 
-                        <a 
-													data-toggle ="modal" 
-													data-id     ="${data[i]["id_huesped"]}" 
-													data-nombre ="${data[i]["nombre_completo"]}" 
-													href        ="#myModalHistoricoReservas">
-                          <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
-                        Historico Reservas</a> 
-                      </li>
-                      
-                      <li>
-                        <a 
-													data-toggle ="modal" 
-													data-id     ="${data[i]["id_huesped"]}" 
-													data-nombre ="${data[i]["nombre_completo"]}" 
-													href        ="#myModalDocumentos">
-                        <i class="fa fa-clone" aria-hidden="true"></i>
-                        Documentos</a>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-            </nav>                                                  
-          </td>
-        </tr>`;
-      }
-      barra =
-        barra +
-        `<button 
-        class="btn btn-success" 
-        data-page ="${1}"
-        onclick   ="irPagina(${1})"
-        > << </button>`;
-      for (i = 1; i <= pages; i++) {
-        if (i <= 10) {
-          barra =
-            barra +
-            `<button 
-          class="btn btn-success" 
-          data-page ="${i - 1}"
-          onclick   ="irPagina(${i - 1})"
-          > ${i} </button>`;
-        }
-      }
-      barra =
-        barra +
-        `<button 
-        class="btn btn-success" 
-        data-page ="${i - 1}"
-        onclick   ="irPagina(${i - 1})"
-        > >> </button>`;
-      $("#listaHuespedes").append(lista);
-      $("#barraPaginas").append(barra);
+      $("#listaHuespedes").append(data);
     },
   });
 }
@@ -4069,13 +3971,10 @@ function buscarHuesped() {
           lista +
           `<tr style='font-size:12px'>
           <td width="22px">${data[i]["identificacion"]}</td>
-          <td>${data[i]["apellido1"]}</td>
-          <td>${data[i]["apellido2"]}</td>
-          <td>${data[i]["nombre1"]}</td>
-          <td>${data[i]["nombre2"]}</td>
+          <td>${data[i]["apellido1"]} ${data[i]["apellido2"]} ${data[i]["nombre1"]} ${data[i]["nombre2"]}</td>          
           <td>${data[i]["celular"]}</td>
           <td>${data[i]["email"]}</td>
-          <td>${calcularEdad(data[i]["fecha_nacimiento"])}</td>
+          <td>${data[i]["edad"]}</td>
           <td style="padding:3px;width: 13%">
             <nav class="navbar navbar-default" style="margin-bottom: 0px;min-height:0px;">
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:1px">

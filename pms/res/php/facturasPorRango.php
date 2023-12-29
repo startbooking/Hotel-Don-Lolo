@@ -63,7 +63,7 @@
   <div class="row-fluid" style="padding:0">
     <table id="example1" class="table table-bordered">
       <thead>
-        <tr class="warning centro" >
+        <tr class="warning centro b500" >
           <td>Factura</td>          
           <td>Facturado A</td> 
           <td>Huesped</td> 
@@ -81,14 +81,7 @@
         $totalFac = 0 ;
         $totalCon = 0;
         $totalImp = 0;
-        foreach ($facturas as $factura) { 
-        
-          /* 
-          echo $factura['tipo_factura'].'<br>';
-          echo $factura['id_perfil_factura'].'<br>'; 
-          echo $factura['nombre_completo'].'<br>'; 
-           */
-          
+        foreach ($facturas as $factura) {                   
           if ($factura['tipo_factura'] == 2) {          
             $cias = $hotel->getBuscaCia($factura['id_perfil_factura']);
             $nombrecia = $cias[0]['empresa'];
@@ -100,7 +93,7 @@
             $totalImp = $totalImp + $factura['total_impuesto'];
           }
           ?>
-          <tr style='font-size:12px'>
+          <tr style='font-size:11px'>
             <td style="padding:3px 5px"><?php echo $factura['factura_numero']; ?></td>            
             <td style="padding:3px 5px;text-align: left;"><?php 
             if($factura['tipo_factura'] == 1){
@@ -115,7 +108,7 @@
             <td style="text-align: right;"> <?=number_format($factura['total_consumos'],2); ?></td>
             <td style="text-align: right;"><?=number_format($factura['total_impuesto'],2); ?></td>
             <td style="text-align: right;"><?=number_format($factura['total_pagos'],2); ?></td>
-            <td style="padding:3px 5px"><?php echo estadoFactura($factura['factura_anulada']); ?></td>
+            <td style="padding:3px 5px;text-align:center;"><?php echo estadoFactura($factura['factura_anulada']); ?></td>
             <td style="padding:3px 5px;width: 10%;text-align:center;">
               <button 
                 class="btn btn-info btn-xs" 
@@ -129,7 +122,8 @@
                 data-numero="<?php echo $factura['factura_numero']; ?>" 
                 data-reserva="<?php echo $factura['num_reserva']; ?>" 
                 href="#myModalVerFactura" title="Ver Factura">
-                <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                <!-- <i class="fa fa-file-pdf-o" aria-hidden="true"></i> -->
+                <i class="fa-regular fa-file"></i>
               </button>
               <?php
               if ($factura['factura_anulada'] == 0) { ?>

@@ -32,7 +32,7 @@ require_once '../res/php/app_topHotel.php';
         } elseif (isset($_GET['section']) && $_GET['section'] == 'home') {
             require 'views/home.php';
         } elseif (isset($_GET['section']) && $_GET['section'] == 'huespedesPerfil') {
-            require 'views/huespedes.php';
+            require 'views/huespedes.php'; 
         } elseif (isset($_GET['section']) && $_GET['section'] == 'companias') {
             require 'views/companias.php';
         } elseif (isset($_GET['section']) && $_GET['section'] == 'agencias') {
@@ -211,12 +211,7 @@ require_once '../res/php/app_topHotel.php';
     ?>
     <script src="<?php echo BASE_WEB; ?>res/js/inicio.js"></script>
     <?php
-    if (isset($_GET['section']) && $_GET['section'] == 'huespedesPerfil') {
-        include_once 'views/modal/modalHuespedes.php';
-        include_once 'views/modal/modalFacturas.php';
-        include_once 'views/modal/modalDocumentos.php';
-        include_once 'views/modal/modalAcompanantes.php';
-    } elseif (isset($_GET['section']) && $_GET['section'] == 'home') {
+    if (isset($_GET['section']) && $_GET['section'] == 'home') {
         include_once 'views/modal/modalHuespedes.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'companias') {
         include_once 'views/modal/modalCompania.php';
@@ -338,7 +333,7 @@ require_once '../res/php/app_topHotel.php';
             $(function() {
                 $('#example1').DataTable({
                 
-                    "iDisplayLength": 25,
+                    "iDisplayLength": 50,
                     "language": {
                         "decimal": "",
                         "emptyTable": "No hay registros",
@@ -359,26 +354,6 @@ require_once '../res/php/app_topHotel.php';
                             "previous": "Anterior"
                         },
                     }
-                });
-            });
-        </script>
-    <?php
-    } elseif ($_GET['section'] == 'huespedesPerfilOld') { ?>
-        <script>
-            $(function() {
-                $('#example1').DataTable({
-                    "iDisplayLength": 100,
-                    "paging": true,
-                    "lengthChange": true,
-                    "searching": true,
-                    "ordering": true,
-                    "info": true,
-                    "autoWidth": true,
-                    "language": {
-                        "next": "Siguiente",
-                        "search": "Buscar:",
-                        "entries": "registros"
-                    },
                 });
             });
         </script>

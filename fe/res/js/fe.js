@@ -30,7 +30,6 @@ var rutaIMP;
     }
     rutaAPI = '/fe/restAPI/data';
     rutaIMP = '/fe/imprimir';
-    // let {  } = sesion;
     let { user: { usuario, usuario_id, nombres, apellidos } } = user;
 
     menuUsu = document.querySelector('#nombreUsuario')

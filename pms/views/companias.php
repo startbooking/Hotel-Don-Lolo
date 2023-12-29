@@ -72,17 +72,6 @@
                                     <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
                                     Historico Reservas</a>
                                 </li>
-                                <!-- 
-                          <li>
-                            <a data-toggle="modal" 
-                              data-id="<?php echo $compania["id_compania"] ?>" 
-                              data-empresa="<?php echo $compania["empresa"] ?>" 
-                              data-nit="<?php echo $compania["nit"] ?> - <?php echo $compania['dv'] ?>" 
-                              href="#myModalEstadoCreditoCia">
-                            <i class="fa fa-money" aria-hidden="true"></i>
-                             Estado Credito</a>
-                          </li>
-                        -->
                                 <li>
                                   <a data-toggle="modal" data-id="<?php echo $compania['id_compania'] ?>" data-empresa="<?php echo $compania['empresa'] ?>" data-nit="<?php echo $compania['nit'] ?>- <?php echo $compania['dv'] ?>" href="#myModalHistoricoFacturasCia">
                                     <i class="fa fa-money" aria-hidden="true"></i>
