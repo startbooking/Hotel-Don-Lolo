@@ -334,7 +334,7 @@ require_once '../res/php/app_topHotel.php';
                 $('#example1').DataTable({
                 
                     "iDisplayLength": 50,
-                    "language": {
+                    "language": { 
                         "decimal": "",
                         "emptyTable": "No hay registros",
                         "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",

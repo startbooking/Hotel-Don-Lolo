@@ -42,19 +42,20 @@
               <tr>
                 <td>Identificacion</td>
                 <td>Huesped</td>
+                <td>Huesped</td>
+                <td>Huesped</td>
+                <td>Huesped</td>
                 <td>Celular</td>
                 <td>Correo</td>
                 <td>Edad</td>
                 <td>Accion</td>                
               </tr>
             </thead>
+            <tfoot></tfoot>
           </table>
         </div>
       </div>
-      <div class="panel-footer">
-        <div class="row">
-        </div>
-      </div>
+      <div class="panel-footer"></div>
     </div>
   </section>
 </div>
@@ -68,15 +69,42 @@
   
 ?>
 <script>
-    window.onload = function() {
-      // alert('Page is loaded');
-      $("#tablaHuespedes").DataTable({
-         "processing": true,
-         "serverSide": true,
-         "sAjaxSource": "res/php/datasetHuespedes.php",
-         "columnDefs":[{
-             "data":null
-         }]   
-      }); 
-    };
+  window.onload = function() {
+    new DataTable('#tablaHuespedes', {
+      lengthMenu: [50, 100, 200, 500],
+      ajax: 'res/php/datasetHuespedes.php',
+      processing: true,
+      serverSide: true,
+      iDisplayLength: 50,
+      language: {
+        sProcessing: "Procesando...",
+        sLengthMenu: "Mostrar _MENU_ registros",
+        sZeroRecords: "No se encontraron resultados",
+        sEmptyTable: "Ningún dato disponible en esta tabla",
+        sInfo: "Mostrando del _START_ al _END_ de un total de _TOTAL_ registros",
+        sInfoEmpty: "Mostrando del 0 al 0 de un total de 0 registros",
+        sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
+        sInfoPostFix: "",
+        sSearch: "Buscar:",
+        sUrl: "",
+        sInfoThousands: ",",
+        sLoadingRecords: "Cargando...",
+        oPaginate: {
+          sFirst: "Primero",
+          sLast: "Último",
+          sNext: "Siguiente",
+          sPrevious: "Anterior",
+        },
+        oAria: {
+          sSortAscending:
+            ": Activar para ordenar la columna de manera ascendente",
+          sSortDescending:
+            ": Activar para ordenar la columna de manera descendente",
+        },
+      },
+      columnDefs: [
+        /* "defaultContent": ´<button class="btn btn-sm btn-primary"><i class="fa-solid fa-pencil"></i></button><button class="btn btn-sm btn-danger"><i class="fa-solid fa-trash-can"></i></button>´ */
+      ],
+    });      
+  };
 </script>

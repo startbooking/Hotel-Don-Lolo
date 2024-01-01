@@ -7,12 +7,12 @@ $host = 'localhost';
 // $dbname = 'donlolo28';
 // $dbname = 'donlolojul03';
 // $dbname = 'donloloerr';
-// $dbname = 'donloloOct13';
+$dbname = 'donloloOct13';
 // $dbname = 'donlolosep16';
 // $dbpass = '#eO18z5jkJEK';
 
 $server = 'localhost';
-$dbname = 'donloloweb';
+// $dbname = 'donloloweb';
 $dbuser = 'root';
 $dbpass = 'b4r4h0n4';
 /* 
