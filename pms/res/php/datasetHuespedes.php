@@ -38,7 +38,66 @@ $columns = array(
     array( 'db' => 'celular',        'dt' => 5 ),
     array( 'db' => 'email',          'dt' => 6 ),
     array( 'db' => 'edad',           'dt' => 7 ),
-    array( 'dom' => '<div><buttom class="btn btn-default"></buttom></div>',    'dt' => 8 ),
+    array( 'db' => 'id_huesped',     'dt' => 8,
+        'formatter' => function( $d, $row ) { 
+        return `
+        <nav class="navbar navbar-default" style="margin-bottom: 0px;min-height:0px;">
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:1px">
+            <ul class="nav navbar-nav">
+              <li class="dropdown">
+                <a 
+                  href="#" 
+                  class="dropdown-toggle" 
+                  data-toggle="dropdown" 
+                  role="button" 
+                  aria-haspopup="true" 
+                  aria-expanded="false" 
+                  style="padding:3px 8px;font-weight:bold;color:#000">Ficha Huesped<span class="caret" style="margin-left:10px;"></span></a>
+                    <ul class="dropdown-menu submenu" style="left: -180px">  
+                  <li>
+                    <a 
+                      data-toggle ="modal" 
+                      data-id     ="$row["id_huesped"]}" 
+                      data-nombre ="$row["nombre_completo"]}" 
+                      href        ="#myModalModificaPerfilHuesped">
+                      <i class="fa fa-address-card-o" aria-hidden="true"></i>
+                      Modificar Perfil</a> 
+                  </li>
+                  <li>
+                    <a  
+                      data-toggle ="modal" 
+                      data-id     ="$row["id_huesped"]}" 
+                      data-nombre ="$row["nombre_completo"]}" 
+                      href        ="#myModalReservasEsperadas">
+                    <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+                    Reservas</a>
+                  </li>
+                  <li> 
+                    <a 
+                    data-toggle ="modal" 
+                    data-id     ="$row["id_huesped"]}" 
+                    data-nombre ="$row["nombre_completo"]}" 
+                    href        ="#myModalHistoricoReservas">
+                    <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                    Historico Reservas</a> 
+                  </li>
+                  <li>
+                    <a 
+                      data-toggle ="modal" 
+                      data-id     ="$row["id_huesped"]}" 
+                      data-nombre ="$row["nombre_completo"]}" 
+                      href        ="#myModalDocumentos">
+                    <i class="fa fa-clone" aria-hidden="true"></i>
+                    Documentos</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </nav>  
+        `; 
+        } 
+    ),
 );
  
 // echo print_r($columns);
@@ -68,6 +127,77 @@ $columns = array(
 
 ],
  */
+
+
+/* 
+lista = lista +
+`<tr style='font-size:12px'>
+<td width="22px">$row["identificacion"]}</td>
+<td>$row["apellido1"]}</td>
+<td>$row["apellido2"]}</td>
+<td>$row["nombre1"]}</td>
+<td>$row["nombre2"]}</td>
+<td>$row["celular"]}</td>
+<td>$row["email"]}</td>
+<td>$row["edad"]}</td>
+<td style="padding:3px;width: 13%">
+<nav class="navbar navbar-default" style="margin-bottom: 0px;min-height:0px;">
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:1px">
+        <ul class="nav navbar-nav">
+           <li class="dropdown">
+           <a 
+               href="#" 
+               class="dropdown-toggle" 
+               data-toggle="dropdown" 
+               role="button" 
+               aria-haspopup="true" 
+               aria-expanded="false" 
+               style="padding:3px 8px;font-weight:bold;color:#000">Ficha Huesped<span class="caret" style="margin-left:10px;"></span></a>
+           <ul class="dropdown-menu submenu" style="left: -180px">  
+             <li>
+               <a 
+                                           data-toggle ="modal" 
+                                           data-id     ="$row["id_huesped"]}" 
+                                           data-nombre ="$row["nombre_completo"]}" 
+                                           href        ="#myModalModificaPerfilHuesped">
+               <i class="fa fa-address-card-o" aria-hidden="true"></i>
+               Modificar Perfil</a> 
+             </li>
+             <li>
+               <a  
+                                           data-toggle ="modal" 
+                                           data-id     ="$row["id_huesped"]}" 
+                                           data-nombre ="$row["nombre_completo"]}" 
+                                           href        ="#myModalReservasEsperadas">
+               <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+               Reservas</a>
+             </li>
+             <li> 
+               <a 
+                                           data-toggle ="modal" 
+                                           data-id     ="$row["id_huesped"]}" 
+                                           data-nombre ="$row["nombre_completo"]}" 
+                                           href        ="#myModalHistoricoReservas">
+                 <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+               Historico Reservas</a> 
+             </li>
+             
+             <li>
+               <a 
+                                           data-toggle ="modal" 
+                                           data-id     ="$row["id_huesped"]}" 
+                                           data-nombre ="$row["nombre_completo"]}" 
+                                           href        ="#myModalDocumentos">
+               <i class="fa fa-clone" aria-hidden="true"></i>
+               Documentos</a>
+             </li>
+           </ul>
+         </li>
+       </ul>
+     </div>
+</nav>                                                  
+ </td>
+</tr>`; */
 
 
 

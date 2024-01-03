@@ -102,9 +102,67 @@
             ": Activar para ordenar la columna de manera descendente",
         },
       },
-      columnDefs: [
-        /* "defaultContent": ´<button class="btn btn-sm btn-primary"><i class="fa-solid fa-pencil"></i></button><button class="btn btn-sm btn-danger"><i class="fa-solid fa-trash-can"></i></button>´ */
-      ],
+      columnDefs: [{
+        targets: "_all",
+        orderable: false
+      }],
     });      
   };
 </script>
+
+
+
+<nav class="navbar navbar-default" style="margin-bottom: 0px;min-height:0px;">
+  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:1px">
+    <ul class="nav navbar-nav">
+      <li class="dropdown">
+        <a 
+          href="#" 
+          class="dropdown-toggle" 
+          data-toggle="dropdown" 
+          role="button" 
+          aria-haspopup="true" 
+          aria-expanded="false" 
+          style="padding:3px 8px;font-weight:bold;color:#000">Ficha Huesped<span class="caret" style="margin-left:10px;"></span></a>
+            <ul class="dropdown-menu submenu" style="left: -180px">  
+          <li>
+            <a 
+              data-toggle ="modal" 
+              data-id     ="${data[i]["id_huesped"]}" 
+              data-nombre ="${data[i]["nombre_completo"]}" 
+              href        ="#myModalModificaPerfilHuesped">
+              <i class="fa fa-address-card-o" aria-hidden="true"></i>
+              Modificar Perfil</a> 
+          </li>
+          <li>
+            <a  
+              data-toggle ="modal" 
+              data-id     ="${data[i]["id_huesped"]}" 
+              data-nombre ="${data[i]["nombre_completo"]}" 
+              href        ="#myModalReservasEsperadas">
+            <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+            Reservas</a>
+          </li>
+          <li> 
+            <a 
+            data-toggle ="modal" 
+            data-id     ="${data[i]["id_huesped"]}" 
+            data-nombre ="${data[i]["nombre_completo"]}" 
+            href        ="#myModalHistoricoReservas">
+            <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+            Historico Reservas</a> 
+          </li>
+          <li>
+            <a 
+              data-toggle ="modal" 
+              data-id     ="${data[i]["id_huesped"]}" 
+              data-nombre ="${data[i]["nombre_completo"]}" 
+              href        ="#myModalDocumentos">
+            <i class="fa fa-clone" aria-hidden="true"></i>
+            Documentos</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>  

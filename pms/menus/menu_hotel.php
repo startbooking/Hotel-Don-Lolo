@@ -65,7 +65,10 @@ if ($_GET['section'] != 'cajeroCerrado') {
             <span class="fa fa-angle-left pull-right"></span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="facturacionEstadia"><i class="fa fa-money"></i> Facturacion Huespedes</a></li>
+            <li><a href="facturacionEstadia">
+            <!-- <i class="fa fa-money"></i>  -->
+            <i class="fa-solid fa-money-check-dollar"></i>
+            Facturacion Huespedes</a></li>
             <li><a href="ingresoConsumos"><i class="glyphicon glyphicon-download-alt"></i> Ingreso Consumos</a></li>
             <!-- <li><a href="ventasDirectas"><i class="fa fa-archive"></i>Ventas Directas</a></li>  -->
             <li><a href="facturasDelDia"><i class="fa fa-archive"></i>Facturas Del Dia</a></li>
@@ -85,7 +88,10 @@ if ($_GET['section'] != 'cajeroCerrado') {
               </ul>
             </li>
             <li><a href="historicoFacturas"><i class="glyphicon glyphicon-paste"></i>Historico Facturas</a></li>
-            <li><a href="cuentasCongeladas"><i class="fa fa-snowflake-o"></i>Cuentas Congeladas</a></li>
+            <li><a href="cuentasCongeladas">
+            <!-- <i class="fa fa-snowflake-o"></i> -->
+            <i class="fa-solid fa-snowflake"></i>
+            Cuentas Congeladas</a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -108,7 +114,9 @@ if ($_GET['section'] != 'cajeroCerrado') {
             <span class="fa fa-angle-left pull-right"></span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="estadoHotel"><i class="fa fa-circle-o"></i> Estado Hotel</a></li>
+            <li><a href="estadoHotel">
+            <!-- <i class="fa fa-circle-o"></i> -->
+            <i class="fa-solid fa-shop"></i>Estado Hotel</a></li>
             <li><a href="estadoHabitaciones"><i class="fa fa-language"></i> Estado Habitaciones</a></li>
             <li><a href="objetosOlvidados"><i class="fa fa-puzzle-piece"></i> Objetos Olvidos </a></li>
             <li><a href="mantenimiento"><i class="fa fa-wrench" aria-hidden="true"></i> Mantenimiento Habitaciones </a></li>

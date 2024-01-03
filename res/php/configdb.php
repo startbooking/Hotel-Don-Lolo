@@ -6,11 +6,11 @@ $host = 'localhost';
 // $dbname = 'donlolonew';
 // $dbname = 'donlolo28';
 // $dbname = 'donlolojul03';
-// $dbname = 'donloloerr';
-$dbname = 'donloloOct13';
+// $dbname = 'donloloOct13';
 // $dbname = 'donlolosep16';
 // $dbpass = '#eO18z5jkJEK';
 
+$dbname = 'donloloerr';
 $server = 'localhost';
 // $dbname = 'donloloweb';
 $dbuser = 'root';
