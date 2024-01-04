@@ -7,6 +7,10 @@
   padding: 10px;
 }
 
+table tbody{
+  font-size:12px;
+}
+
 .badgePms {
   padding: 4px 8px;
   width: 100%;

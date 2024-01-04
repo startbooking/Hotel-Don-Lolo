@@ -219,6 +219,12 @@ require_once '../res/php/app_topHotel.php';
         include_once 'views/modal/modalCentrosCia.php';
         include_once 'views/modal/modalAcompanantes.php';
         include_once 'views/modal/modalDocumentosCia.php';
+        
+    } elseif (isset($_GET['section']) && $_GET['section'] == 'huespedesPerfil') {        
+      include_once 'views/modal/modalHuespedes.php';
+      include_once 'views/modal/modalFacturas.php';
+      include_once 'views/modal/modalDocumentos.php';
+      include_once 'views/modal/modalAcompanantes.php';  
     } elseif (isset($_GET['section']) && $_GET['section'] == 'agencias') {
         include_once 'views/modal/modalAgencia.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'grupos') {
@@ -357,6 +363,49 @@ require_once '../res/php/app_topHotel.php';
                 });
             });
         </script>
+    <?php
+    } elseif (isset($_GET['section']) && $_GET['section'] == 'huespedesPerfil') { ?>
+        <script>
+            new DataTable('#tablaHuespedes', {
+              lengthMenu: [50, 100, 200, 500],
+              ajax: 'res/php/datasetHuespedes.php',
+              processing: true,
+              serverSide: true,
+              iDisplayLength: 50,
+              language: {
+                sProcessing: "Procesando...",
+                sLengthMenu: "Mostrar _MENU_ registros",
+                sZeroRecords: "No se encontraron resultados",
+                sEmptyTable: "Ningún dato disponible en esta tabla",
+                sInfo: "Mostrando del _START_ al _END_ de un total de _TOTAL_ registros",
+                sInfoEmpty: "Mostrando del 0 al 0 de un total de 0 registros",
+                sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
+                sInfoPostFix: "",
+                sSearch: "Buscar:",
+                sUrl: "",
+                sInfoThousands: ",",
+                sLoadingRecords: "Cargando...",
+                oPaginate: {
+                  sFirst: "Primero",
+                  sLast: "Último",
+                  sNext: "Siguiente",
+                  sPrevious: "Anterior",
+                },
+                oAria: {
+                  sSortAscending:
+                    ": Activar para ordenar la columna de manera ascendente",
+                  sSortDescending:
+                    ": Activar para ordenar la columna de manera descendente",
+                },
+              },
+              columnDefs: [{
+                targets: "_all",
+                orderable: true
+              }],
+            });      
+        </script>
+
+
     <?php
     } elseif (isset($_GET['section']) && $_GET['section'] == 'cargosAnulados') { ?>
         <script>

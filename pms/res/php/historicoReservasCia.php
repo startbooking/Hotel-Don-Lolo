@@ -31,23 +31,23 @@
 	        foreach ($reservas as $reserva) { ?>
 	          <tr style='font-size:12px'>
 	            <td><?php echo $reserva['num_reserva']?></td>
-	            <td align="left"><?php echo $reserva['nombre_completo']; ?></td>
-	            <td align="left"><?php echo $reserva['descripcion_habitacion']; ?></td>
+	            <td style="text-align:left;"><?php echo $reserva['nombre_completo']; ?></td>
+	            <td style="text-align:left;"><?php echo $reserva['descripcion_habitacion']; ?></td>
 	            <td><?php echo $reserva['num_habitacion']; ?></td>
 	            <td><?php echo $reserva['fecha_llegada']; ?></td>
               <?php 
               if($reserva['salida_checkout']!=Null){ ?>
                 <td><?php echo $reserva['salida_checkout']; ?></td>
-                <td align="center"><?php echo $dateDifference = abs(strtotime($reserva['fecha_llegada']) - strtotime($reserva['salida_checkout']))/(60 * 60 * 24); ?></td>
+                <td style="text-align:center;"><?php echo $dateDifference = abs(strtotime($reserva['fecha_llegada']) - strtotime($reserva['salida_checkout']))/(60 * 60 * 24); ?></td>
                 <?php 
               }else{ ?>
                 <td><?php echo $reserva['fecha_salida']; ?></td>
-                <td align="center"><?php echo $reserva['dias_reservados']; ?></td>
+                <td style="text-align:center;"><?php echo $reserva['dias_reservados']; ?></td>
                 <?php 
               }
 	            ?>
 	            <td><?php echo estadoReserva($reserva['estado']); ?></td>
-							<td align="left" style="width: 18%">
+							<td style="text-align:left;" style="width: 18%">
 								<div class="btn-group" role="group" aria-label="Basic example">
                   <button 
                   	style="height: 22px;padding:2px 10px;font-size:12px" 
@@ -57,7 +57,7 @@
                     data-target  ="#myModalVerInformacionEstadia"  
                     data-reserva ="<?php echo $reserva['num_reserva']?>" 
                     title="Ver Reserva" >
-                    <i class='fa fa-file-text-o'></i>
+                    <i class='fa fa-file-text'></i>
                   </button>
                   <?php 
                   if($reserva['estado']=='SA'){?> 
@@ -69,7 +69,7 @@
 	                    data-target ="#myModalverFacturaReserva" 
 	                    data-reserva ="<?php echo $reserva['num_reserva']?>" 
 	                    title="Ver Factura" >
-	                    <i class='fa fa-files-o'></i>
+	                    <i class="fa-regular fa-file-lines"></i>	                    
 	                  </button>
 	                  <?php 
                   }
@@ -100,8 +100,7 @@
                     data-tipo="<?php echo $reserva['tipo_reserva']?>" 
                     data-tarifa="<?php echo descripcionTarifa($reserva['tarifa'])?>" 
                     data-valor="<?php echo $reserva['valor_diario']?>" 
-                    data-observaciones="<?php echo $reserva['observaciones']?>" 
-                    >
+                    data-observaciones="<?php echo $reserva['observaciones']?>">
                     <i class="fa fa-users" aria-hidden="true"></i>
                   </button>
                 </div> 	            	
@@ -131,12 +130,12 @@
 	        foreach ($reservas as $reserva) { ?>
 	          <tr style='font-size:12px'>
 	            <td><?php echo $reserva['num_reserva']?></td>
-	            <td align="left"><?php echo $reserva['nombre_completo']; ?></td>
+	            <td style="text-align:left;"><?php echo $reserva['nombre_completo']; ?></td>
 	            <td><?php echo $reserva['descripcion_habitacion']; ?></td>
 	            <td><?php echo $reserva['num_habitacion']; ?></td>
 	            <td><?php echo $reserva['fecha_llegada']; ?></td>
 	            <td><?php echo $reserva['fecha_salida']; ?></td>
-	            <td align="center"><?php echo $reserva['dias_reservados']; ?></td>
+	            <td style="text-align:center;"><?php echo $reserva['dias_reservados']; ?></td>
 	            <td><?php echo estadoReserva($reserva['estado']); ?></td>
 	          </tr>
 	          <?php 

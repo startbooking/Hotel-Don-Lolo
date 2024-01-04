@@ -248,7 +248,10 @@ $hoy = date('Y-m-d');
       <div class="row-fluid imprime_productos_mov">
         <div class="modal-header">
           <h4 class="modal-title" id="myModalLabel">Historico de Reservas</h4>
-          <button style="float: right;margin-top: -25px" class="btn btn-info" onclick="exportTableToExcel('tablaReservas')"><i class="glyphicon glyphicon-th" aria-hidden="true"></i> Exportar</button>
+          <button style="float: right;margin-top: -25px" class="btn btn-info" onclick="exportTableToExcel('tablaReservas')">
+          <!-- <i class="glyphicon glyphicon-th" aria-hidden="true"></i>  -->
+          <i class="fa-solid fa-file-export"></i>
+          Exportar</button>
           <input type="hidden" name="txtIdHuespedHis" id="txtIdHuespedHis">
         </div>
         <div id="datos_ajax_register"></div>

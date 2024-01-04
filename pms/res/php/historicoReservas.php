@@ -60,7 +60,8 @@
                     data-target  ="#myModalVerInformacionEstadia"  
                     data-reserva ="<?php echo $reserva['num_reserva']?>" 
                     title="Ver Reserva" >
-                    <i class='fa fa-file-text-o'></i>
+                    <i class='fa fa-file-text'></i>
+                    
                   </button>
                   <?php  
                   if($reserva['estado']=='SA'){?> 
@@ -72,7 +73,7 @@
 	                    data-target ="#myModalverFacturaReserva" 
 	                    data-reserva ="<?php echo $reserva['num_reserva']?>" 
 	                    title="Ver Facturas Estadia Actual" >
-	                    <i class='fa fa-files-o'></i>
+	                    <i class="fa-regular fa-file-lines"></i>
 	                  </button>
 	                  <?php 
                   }

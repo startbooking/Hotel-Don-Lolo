@@ -18,8 +18,10 @@ if ($_GET['section'] != 'cajeroCerrado') {
           </a>
           <ul class="treeview-menu">
             <li><a href="huespedesPerfil">
-              <i class="fa fa-id-badge"></i> Huespedes</a></li>
-            <li><a href="companias"><i class="fa fa-industry"></i> Compañias</a></li>
+              <i class="fa-solid fa-users-rectangle"></i>
+              Huespedes</a></li>
+            <li><a href="companias">
+            <i class="fa-solid fa-city"></i>Compañias</a></li>
             <!-- <li><a href="agencias"><i class="fa fa-plane "></i> Agencias</a></li> -->
           </ul>
         </li>
@@ -34,7 +36,9 @@ if ($_GET['section'] != 'cajeroCerrado') {
             <li><a href="reservasActivas">
             <i class="fa-regular fa-calendar-days"></i>
             Reservas</a></li>
-            <li><a href="forecast"><i class="fa fa-area-chart"></i> Forecast</a></li>
+            <li><a href="forecast">
+            <i class="fa-solid fa-chart-bar"></i>
+            Forecast</a></li>
             <?php
             if (DEV == 1) { ?>
               <li><a href="grupos"><i class="fa-solid fa-users-between-lines"></i> Grupos</a></li>
@@ -50,11 +54,15 @@ if ($_GET['section'] != 'cajeroCerrado') {
             <span class="fa fa-angle-left pull-right"></span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="encasa"><i class="fa fa-home"></i> Huespedes en Casa</a></li>
+            <li><a href="encasa">
+            <i class="fa-solid fa-house-user"></i>
+            Huespedes en Casa</a></li>
             <li><a href="llegadasDelDia"><i class="fa fa-sign-in" aria-hidden="true"></i> Llegadas del Dia</a></li>
             <li><a href="llegadaSinReserva"><i class="fa fa-briefcase" aria-hidden="true"></i> Llegadas Sin Reservas</a></li>
             <li></li>
-            <li><a href="salidasDelDia"><i class="fa fa-clock-o" aria-hidden="true"></i> Salidas Pendientes</a></li>
+            <li><a href="salidasDelDia">
+            <i class="fa-solid fa-house-circle-exclamation"></i>
+            Salidas Pendientes</a></li>
             <li><a href="salidasRealizadas"><i class="fa fa-sign-out"></i> Salidas Realizadas</a></li>
           </ul>
         </li>

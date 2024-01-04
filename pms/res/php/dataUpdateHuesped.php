@@ -25,9 +25,9 @@ $nombreCiu = $hotel->getNombreCiudad($huesped[0]['ciudad']);
         <?php foreach ($tipodocs as $tipodoc) { ?>
           <option value="<?php echo $tipodoc['id_doc']; ?>" 
           <?php
-                                                            if ($huesped[0]['tipo_identifica'] == $tipodoc['id_doc']) { ?> selected <?php
-                                                                                                                                  }
-                                                                                                                                    ?>><?php echo $tipodoc['descripcion_documento']; ?></option>}
+            if ($huesped[0]['tipo_identifica'] == $tipodoc['id_doc']) { ?> selected <?php }
+          ?>>
+          <?php echo $tipodoc['descripcion_documento']; ?></option>
         <?php } ?>
       </select>
     </div>
@@ -38,10 +38,10 @@ $nombreCiu = $hotel->getNombreCiudad($huesped[0]['ciudad']);
       <select name="paisExpUpd" id="paisExpUpd" required="" onblur="ciudadesExpedicion(this.value,'<?php echo $huesped[0]['ciudad_expedicion']; ?>')">
         <?php
         foreach ($paices as $pais) { ?>
-          <option value="<?php echo $pais['id_pais']; ?>" <?php
-                                                          if ($huesped[0]['pais_expedicion'] == $pais['id_pais']) { ?> selected <?php
-                                                                                                                              }
-                                                                                                                                ?>><?php echo $pais['descripcion']; ?></option>
+          <option value="<?php echo $pais['id_pais']; ?>" 
+          <?php
+            if ($huesped[0]['pais_expedicion'] == $pais['id_pais']) { ?> selected <?php }
+            ?>><?php echo $pais['descripcion']; ?></option>
         <?php
         }
         ?>
@@ -97,7 +97,7 @@ $nombreCiu = $hotel->getNombreCiudad($huesped[0]['ciudad']);
   <div class="form-group">
     <label for="direccion" class="col-sm-2 control-label">Direccion </label>
     <div class="col-sm-6">
-      <input type="text" class="form-control" name="direccion" id="direccion" required value="<?php echo $huesped[0]['direccion']; ?>" pattern="[A-Za-z0-9 -]+">
+      <input type="text" class="form-control" name="direccion" id="direccion" required value="<?php echo $huesped[0]['direccion']; ?>" pattern="[A-Z a-z 0-9]+">
     </div>
   </div>
   <div class="form-group">
@@ -108,9 +108,8 @@ $nombreCiu = $hotel->getNombreCiudad($huesped[0]['ciudad']);
         <?php
         foreach ($paices as $pais) { ?>
           <option value="<?php echo $pais['id_pais']; ?>" <?php
-                                                          if ($huesped[0]['pais'] == $pais['id_pais']) { ?> selected <?php
-                                                                                                                    }
-                                                                                                                      ?>><?php echo $pais['descripcion']; ?></option>
+            if ($huesped[0]['pais'] == $pais['id_pais']) { ?> selected <?php  }
+            ?>><?php echo $pais['descripcion']; ?></option>
         <?php
         }
         ?>

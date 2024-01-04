@@ -1,6 +1,8 @@
 // $(document).ready(function () {
 document.addEventListener("DOMContentLoaded", async () => {
 
+  console.log(window)
+
   let sesion = JSON.parse(localStorage.getItem("sesion"));
 
   if (sesion == null) {
@@ -71,11 +73,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     traeTotalCompanias(numRegis, filas);
   }
 
-
-
+  /* 
   let hue = document.getElementById("pantallaHuespedes");
   if (hue != null) {
-    /* var numRegis = 0;
+    var numRegis = 0;
     var filas = $("#numFiles").val();
     var pages = $("#paginas").val();
     traeTotalHuespedes(); */
@@ -87,8 +88,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       "columnDefs":[{
           "data":null
       }]   
-    });  */
+    });  
   }
+  */
 
   let reserva = document.getElementById("pantallaReservas");
   if (reserva != null) {
@@ -517,7 +519,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     $(".alert").hide();
   });
 
-
   $("#myModalAdicionaObservaciones").on("show.bs.modal", function (event) {
     var button = $(event.relatedTarget);
     var id = button.data("id");
@@ -729,9 +730,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   $("#myModalModificaPerfilHuesped").on("show.bs.modal", function (event) {
-    var button = $(event.relatedTarget);
-    var id = button.data("id");
-    var nombre = button.data("nombre");
+    let button = $(event.relatedTarget);
+    let id = button.data("id");
+    let nombre = button.data("nombre");
+    
     $("#edita").val(1);
 
     var parametros = {
@@ -747,6 +749,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       data: parametros,
       url: "res/php/dataUpdateHuesped.php",
       success: function (datos) {
+        $("#datosHuesped").html('');
         $("#datosHuesped").html(datos);
       },
     });

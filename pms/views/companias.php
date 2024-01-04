@@ -54,27 +54,28 @@
                               <ul class="dropdown-menu submenu" style="float:left;margin-left:none;top:40px;left: -195px">
                                 <li>
                                   <a data-toggle="modal" data-id="<?php echo $compania['id_compania']; ?>" data-empresa="<?php echo $compania['empresa']; ?>" data-nit="<?php echo $compania['nit'] ?>- <?php echo $compania['dv']; ?>" href="#myModalModificaPerfilCia">
-                                    <i class="fa fa-address-card-o" aria-hidden="true"></i>
+                                    <i class="fa-solid fa-arrow-right-to-city"></i>
                                     Modificar Datos</a>
                                 </li>
                                 <li>
                                   <a data-toggle="modal" data-id="<?php echo $compania['id_compania']; ?>" data-empresa="<?php echo $compania['empresa'] ?>" data-nit="<?php echo $compania['nit'] ?> - <?php echo $compania['dv'] ?>" href="#myModalHuespedesCia">
-                                    <i class="fa fa-address-book-o" aria-hidden="true"></i>
+                                    <i class="fa-solid fa-users"></i>
                                     Huespedes</a>
                                 </li>
                                 <li>
                                   <a data-toggle="modal" data-id="<?php echo $compania['id_compania'] ?>" data-empresa="<?php echo $compania['empresa'] ?>" data-nit="<?php echo $compania['nit'] ?> - <?php echo $compania['dv'] ?>" href="#myModalReservasEsperadasCia">
-                                    <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+                                    <i class="fa-solid fa-calendar-days"></i>
                                     Reservas Actuales</a>
                                 </li>
                                 <li>
                                   <a data-toggle="modal" data-id="<?php echo $compania['id_compania'] ?>" data-empresa="<?php echo $compania['empresa'] ?>" data-nit="<?php echo $compania['nit'] ?> - <?php echo $compania['dv'] ?>" href="#myModalHistoricoReservasCia">
-                                    <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                                  <i class="fa-solid fa-calendar-check"></i>
                                     Historico Reservas</a>
                                 </li>
                                 <li>
                                   <a data-toggle="modal" data-id="<?php echo $compania['id_compania'] ?>" data-empresa="<?php echo $compania['empresa'] ?>" data-nit="<?php echo $compania['nit'] ?>- <?php echo $compania['dv'] ?>" href="#myModalHistoricoFacturasCia">
-                                    <i class="fa fa-money" aria-hidden="true"></i>
+                                    <!-- <i class="fa fa-money" aria-hidden="true"></i> -->
+                                    <i class="fa-solid fa-file-lines"></i>
                                     Historico Facturas</a>
                                 </li>
                                 <li>
