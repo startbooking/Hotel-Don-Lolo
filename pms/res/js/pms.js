@@ -113,9 +113,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   $("#myModalAdicionaCompania").on("show.bs.modal", function (event) {
     document.querySelector("#formCompania").reset();
-    // document.querySelector("#idUsuario").value = usuario_id;
   });
-
 
   $("#myModalAdicionaGrupo").on("show.bs.modal", function (event) {
     document.querySelector("#formGrupo").reset();
