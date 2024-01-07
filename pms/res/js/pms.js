@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }, function () {
       window.location.href = "/";
       return
-
     })
   }
 
@@ -74,22 +73,21 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   /* 
-  let hue = document.getElementById("pantallaHuespedes");
-  if (hue != null) {
-    var numRegis = 0;
-    var filas = $("#numFiles").val();
-    var pages = $("#paginas").val();
-    traeTotalHuespedes(); */
-    
-    /* $("#example1").DataTable({
-      "processing": true,
-      "serverSide": true,
-      "sAjaxSource": "res/php/serversideHuespedes.php",
-      "columnDefs":[{
-          "data":null
-      }]   
-    });  
-  }
+    let hue = document.getElementById("pantallaHuespedes");
+    if (hue != null) {
+      var numRegis = 0;
+      var filas = $("#numFiles").val();
+      var pages = $("#paginas").val();
+      traeTotalHuespedes(); 
+      $("#example1").DataTable({
+        "processing": true,
+        "serverSide": true,
+        "sAjaxSource": "res/php/serversideHuespedes.php",
+        "columnDefs":[{
+            "data":null
+        }]   
+      });  
+    }
   */
 
   let reserva = document.getElementById("pantallaReservas");
@@ -111,6 +109,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (fact != null) {
     traeFacturasEstadia();
   }
+
+
+  $("#myModalAdicionaCompania").on("show.bs.modal", function (event) {
+    document.querySelector("#formCompania").reset();
+    // document.querySelector("#idUsuario").value = usuario_id;
+  });
+
 
   $("#myModalAdicionaGrupo").on("show.bs.modal", function (event) {
     document.querySelector("#formGrupo").reset();

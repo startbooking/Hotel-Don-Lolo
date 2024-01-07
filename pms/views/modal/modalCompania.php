@@ -10,7 +10,7 @@
           <div class="form-group">
             <label for="nit" class="col-sm-2 control-label">Nit</label>
             <div class="col-sm-2">
-              <input type="text" class="form-control" name="nit" id="nit" placeholder="Nit" onblur="buscaCompaniaActiva(this.value)" required="" minlength="9" maxlength="12" pattern="[0-9]+">
+              <input type="text" class="form-control" name="nit" id="nit" placeholder="Nit" onblur="buscaCompaniaActiva(this.value)" required="" minlength="8" maxlength="12" pattern="[0-9]+">
             </div>
             <label for="dv" class="col-sm-1 control-label">Digito</label>
             <div class="col-sm-1">
