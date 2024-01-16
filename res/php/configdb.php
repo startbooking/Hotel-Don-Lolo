@@ -9,9 +9,9 @@ $host = 'localhost';
 // $dbname = 'donloloOct13';
 // $dbname = 'donlolosep16';
 // $dbpass = '#eO18z5jkJEK';
-// $dbname = 'donloloweb';
 
-$dbname = 'donloloerr';
+$dbname = 'donloloweb';
+// $dbname = 'donloloerr';
 $server = 'localhost';
 $dbuser = 'root';
 $dbpass = 'b4r4h0n4';
