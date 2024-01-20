@@ -88,7 +88,7 @@ if (!isset($_GET['section'])) {
     $huespedes = $hotel->getPerfilHuespedes();
 } elseif (isset($_GET['section']) && $_GET['section'] == 'reservasActivas') {
     $companias = $hotel->getCompanias();
-    // $reservas = $hotel->getReservasActuales(1);
+    $reservas = $hotel->getReservasActuales(1);
 } elseif (isset($_GET['section']) && $_GET['section'] == 'forecast') {
 } elseif (isset($_GET['section']) && $_GET['section'] == 'preregistros') {
     $reservas = $hotel->getReservasActuales(1);

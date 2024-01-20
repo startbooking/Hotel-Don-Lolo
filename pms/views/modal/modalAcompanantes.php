@@ -1,9 +1,9 @@
 <div class="modal fade bs-example-modal-lg" id="myModalAcompanantesReserva" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog modal-md" role="document"> 
+  <div class="modal-dialog modal-lg" role="document"> 
     <div class="modal-content">  
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class='glyphicon glyphicon-off' style="color:#530505"></span></button>
-        <h4 class="modal-title" id="myModalLabel">Acompañantes en la Reserva X</h4>
+        <h4 class="modal-title" id="myModalLabel">Acompañantes en la Reserva </h4>
       </div>
       <div class="modal-body">
         <input type="hidden" id="idreservaAco" name="idreservaAco">
@@ -29,7 +29,7 @@
 
 
 <div class="modal fade" id="myModalAdicionaAcompanante" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog modal-md" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class='glyphicon glyphicon-off' style="color:#530505"></span>
@@ -41,29 +41,27 @@
         <div class="container-fluid"></div>
       </div>
       <form id="acompananteReserva" class="form-horizontal" style="padding :0px;" action="javascript:guardaAcompanante()">        
-        <div class="modal-body">
-          <div class="form-group">
-            <label for="inputEmail3" class="col-sm-2 control-label">Huesped</label>
-            <div class="form-group has-success has-feedback col-sm-6">
-              <div class="input-group" style="padding-left:15px;">
-                <input type="text" class="form-control" id="buscarAcoHuesped" aria-describedby="inputGroupSuccess4Status" style="background:#FFF">
-                <span class="input-group-addon" style="padding:1px;border:none">
-                  <a data-toggle="modal" href="#myModalBuscaAcompanaHuesped">
-                    <i style="padding:5px 10px" class="fa fa-search" aria-hidden="true"></i>
-                  </a>
+        <div class="modal-body" >
+          <div class="row">
+            <div class="col-lg-8">
+              <span class="col-lg-2">Huesped</span>              
+              <div class="input-group">
+                <input type="text" class="form-control" id="buscarAcoHuesped" placeholder="Buscar Huesped ...">
+                <span class="input-group-btn">
+                  <button data-toggle="modal" href="#myModalBuscaAcompanaHuesped" style="padding:3px" class="btn btn-default" type="button"><i style="padding:3px 8px" class="fa fa-search" aria-hidden="true"></i></button>
                 </span>
               </div>
             </div> 
-            <div class="col-sm-4" style="padding-right: 0;text-align:right">
+            <div class="col-lg-4 derecha">                        
               <a class="btn btn-success" data-toggle="modal" data-reserva='1' href="#myModalAdicionaPerfilAcompanante">
-                <i class="fa fa-user-plus" aria-hidden="true"></i> Adicionar Huesped
+              <i class="fa fa-user-plus" aria-hidden="true"></i> Adicionar Huesped
               </a>
-            </div>
-          </div>
+            </div>          
+          </div> 
         </div>  
         <div class="modal-footer">
           <div class="btn-group">
-            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
+            <button type="button" class="btn btn-warning" id="bntSaleAcompana" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
             <button class="btn btn-success" style="text-align:right;"><i class="fa fa-save"></i> Actualizar</button>
           </div>
         </div>
@@ -173,7 +171,7 @@
           <div class="form-group">
             <label for="paices" class="col-sm-2 control-label">Nacionalidad </label>
             <div class="col-sm-4">
-              <select name="paices" id="paices" onblur="getCiudadesPais(this.value,'')" required="">
+              <select name="paices" id="paices" onblur="getCiudadesPaisAco(this.value)" required="">
                 <option value="">Seleccione la Nacionalidad</option>
                 <?php
                 foreach ($paices as $pais) { ?>
@@ -186,7 +184,7 @@
             <div id="ciudadesPais">
               <label class="col-lg-2 col-md-2 control-label" style="padding-top:0">Ciudad</label>
               <div class="col-sm-4">
-                <select name="ciudadHue" id='ciudadHue'>
+                <select name="ciudadHueAco" id='ciudadHueAco'>
                   <option value="Selecione la Ciudad del Huesped"></option>
                 </select>
               </div>
@@ -286,7 +284,7 @@
         </div>
         <div class="modal-footer">
           <div class="btn-group">
-            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
+            <button type="button" id="btnSaveAco" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
             <button class="btn btn-success" style="text-align:right;"><i class="fa fa-save"></i> Procesar</button>
           </div>
         </div>
@@ -321,7 +319,7 @@
 <div class="modal fade" id="myModalBuscaAcompanaHuesped" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <form id="guardarDatosRooms" class="form-horizontal" action="" method="POST" enctype="multipart/form-data">
     <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-      <div class="modal-dialog modal-md" role="document">
+      <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -329,13 +327,13 @@
             </button>
             <h3 class="modal-title" id="exampleModalLabel">Huesped Encontrados</h3>
           </div>
-          <div id="datos_ajax_register"></div>
-          <div class="modal-body" id="huespedesAcompaEncontrados">
+          <div id="datos_ajax_register"></div> 
+          <div class="modal-body" id="huespedesAcompaEncontrados" style="max-height: 445px;overflow: auto;">
           </div>
           <div class="modal-footer">
             <div class="row">
               <div class="col-lg-4 col-lg-offset-4">
-                <button type="button" class="btn btn-warning btn-block" data-dismiss="modal"><i class="fa fa-reply" aria-hidden="true"></i> Regresar</button>
+                <button type="button" class="btn btn-warning btn-block" id="btnBuscaAco" data-dismiss="modal"><i class="fa fa-reply" aria-hidden="true"></i> Regresar</button>
               </div>
             </div>
           </div>

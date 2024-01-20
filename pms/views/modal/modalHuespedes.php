@@ -23,7 +23,7 @@ $hoy = date('Y-m-d');
           <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">Documento</label>
             <div class="col-sm-3">
-              <input type="text" class="form-control" name="identifica" id="identifica" placeholder="Identificacion" required="">
+              <input type="text" class="form-control" name="identifica" id="identifica" placeholder="Identificacion" onblur="buscaIdentificacion(this.value)" >
             </div>
             <label for="inputEmail3" class="col-sm-2 control-label">Tipo </label>
             <div class="col-sm-3">

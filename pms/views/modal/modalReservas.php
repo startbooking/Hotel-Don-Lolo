@@ -770,31 +770,27 @@ $manana = date('Y-m-d', $manana);
             <h3 class="modal-title" id="exampleModalLabel">Reasigna Huesped a la Reserva</h3>
           </div>
           <div class="modal-body">
-            <div class="panel-heading">
-              <div class="form-group">
+            <div class="row">
+              <div class="col-lg-9">
                 <input type="hidden" name="tipoocupacion" value="1">
                 <input type="hidden" name="estadoocupacion" value="ES">
                 <input type="hidden" name="nroreserva" id="nroreserva" value="">
-                <label for="inputEmail3" class="col-sm-2 control-label">Huesped</label>
-                <div class="form-group has-success has-feedback col-sm-8">
-                  <div class="input-group" style="padding-left:15px;">
-                    <input type="text" class="form-control" id="buscarHuespedRes" aria-describedby="inputGroupSuccess4Status" style="background:#FFF;border:1px solid black">
-                    <span class="input-group-addon" style="padding:1px;border:none">
-                      <a data-toggle="modal" href="#myModalBuscaHuespedRes">
-                        <i style="padding:5px 10px" class="fa fa-search" aria-hidden="true"></i>
-                      </a>
-                    </span>
-                  </div>
+
+                <span class="col-lg-2">Huesped</span>              
+                <div class="input-group">
+                  <input type="text" class="form-control" id="buscarHuespedRes" placeholder="Buscar Huesped ...">
+                  <span class="input-group-btn">
+                    <button data-toggle="modal" href="#myModalBuscaHuespedRes" style="padding:3px" class="btn btn-default" type="button"><i style="padding:3px 8px" class="fa fa-search" aria-hidden="true"></i></button>
+                  </span>
                 </div>
-                <div class="col-sm-2" style="padding-right: 0">
-                  <a class="btn btn-info" data-toggle="modal" href="#myModalAdicionaPerfil">
-                    <i class="fa fa-user-plus" aria-hidden="true"></i>
-                    Adicionar
-                  </a>
-                </div>
-              </div>
-              <div id="datosHuespedAdi"></div>
-            </div>
+              </div> 
+              <div class="col-lg-3 derecha">                        
+                <a class="btn btn-success" data-toggle="modal" data-reserva='1' href="#myModalAdicionaPerfil">
+                <i class="fa fa-user-plus" aria-hidden="true"></i> Adicionar Huesped
+                </a>
+              </div>          
+            </div>            
+            <div id="datosHuespedAdi"></div> 
             <div id="depositoHuesped" style="margin :-20px 0 -30px 0;font-size: 12px"></div>
           </div>
           <div class="modal-footer">

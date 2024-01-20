@@ -9,12 +9,12 @@ $hoy = substr(FECHA_PMS, 5, 5);
 $reservas = $hotel->getReservasActuales($tipo);
  
 ?>
-  <div class='table-responsive'>
+  <div class='table-responsive'>    
     <table id="example1" class="table modalTable table-condensed">
       <thead>
         <tr class="warning">
           <td>Nro</td>
-          <td style="width:7%;"></td>
+          <!-- <td style="width:7%;"></td> -->
           <td>Hab.</td>
           <td style="text-align:center;">Huesped</td>
           <td style="text-align:left;">Compañia</td>
@@ -24,33 +24,30 @@ $reservas = $hotel->getReservasActuales($tipo);
           <td>Noc</td>
           <td>Hom</td>
           <td>Muj</td>
-          <!-- <td>Estado</td> -->
-          <td style="width: 9%" align="center">Accion</td>
+          <td style="width: 9%;text-align:center;">Accion</td>
         </tr>
       </thead>
       <tbody id="paginaReservas"> 
         <?php
-      foreach ($reservas as $reserva) {
-          $depositos = $hotel->getDepositosReservas($reserva['num_reserva']);
-          if ($reserva['id_compania'] == 0) {
+          foreach ($reservas as $reserva) {
+            $depositos = $hotel->getDepositosReservas($reserva['num_reserva']);
+            if ($reserva['id_compania'] == 0) {
               $nombrecia = 'SIN COMPAÑIA ASOCIADA';
               $nitcia = '';
-          } else { 
+            } else { 
               $cias = $hotel->getBuscaCia($reserva['id_compania']);
               $nombrecia = $cias[0]['empresa'];
               $nitcia = $cias[0]['nit'].'-'.$cias[0]['dv'];
-          }
+            }
           ?>
           <tr style='font-size:12px'>
             <td>
-              <span><?php echo $reserva['num_reserva']; ?></span>  
-            </td>
-            <td style="width:7%;">
               <div style="display: flex;">
+                <span><?php echo $reserva['num_reserva']; ?></span>  
                 <?php
                   if ($reserva['causar_impuesto'] == 2) { ?>
                     <span class="fa-stack fa-xs" title="Sin Impuestos" style="margin-left:5px;cursor:pointer;">
-                      <i style="font-size:10px;margin-top: 1px;margin-left: -3px;" class="fa fa-percent fa-stack-1x"></i>
+                      <i style="font-size:10px;margin-top: 1px;margin-left: -1px;" class="fa fa-percent fa-stack-1x"></i>
                       <i style="font-size:20px" class="fa fa-ban text-danger"></i>
                     </span>
                     <?php
@@ -58,34 +55,38 @@ $reservas = $hotel->getReservasActuales($tipo);
                   if (count($depositos) != 0) { ?>
                     <span class="fa-stack fa-xs" title="Reserva con Depositos" style="margin-left:0px;cursor:pointer;" onclick="verDepositos('<?php echo $reserva['num_reserva']; ?>')">
                       <i style="font-size:20px;color: #085908" class="fa fa-circle fa-stack-2x"></i>
-                      <i style="font-size:10px;margin-top: 1px;margin-left: 1px;" class="fa fa-usd fa-stack-1x fa-inverse"></i>
+                      <i style="font-size:10px;margin-top: 1px;margin-left: 0px;" class="fa fa-usd fa-stack-1x fa-inverse"></i>
                     </span>
                     <?php
                   }
                   if (!empty($reserva['observaciones'])) { ?>
                     <span class="fa-stack fa-xs" title="Observaciones a la Reserva" style="margin-left:0px;cursor:pointer;" onclick="verObservaciones('<?php echo $reserva['num_reserva']; ?>','1')">
                       <i style="font-size:20px;color: #2993dd" class="fa fa-circle fa-stack-2x"></i>
-                      <i style="font-size:10px;margin-top: 1px;margin-left: 1px;" class="fa fa-commenting-o fa-stack-1x fa-inverse"></i>
+                      <i style="font-size:10px;margin-top: 1px;margin-left: 1px;" class="fa fa-commenting fa-stack-1x fa-inverse"></i>
                     </span>
                     <?php
                   }
                   if (!empty($reserva['observaciones_cancela'])) { ?>
                     <span class="fa-stack fa-xs" title="Observaciones a Cancelacion de la Reserva" style="margin-left:0px;cursor:pointer;" onclick="verObservaciones('<?php echo $reserva['num_reserva']; ?>','2')">
                       <i style="font-size:20px;color: red" class="fa fa-circle fa-stack-2x"></i>
-                      <i style="font-size:10px;margin-top: 1px;margin-left: 1px;" class="fa fa-commenting-o fa-stack-1x fa-inverse"></i>
+                      <i style="font-size:10px;margin-top: 1px;margin-left: 1px;" class="fa fa-commenting fa-stack-1x fa-inverse"></i>
                     </span>
                     <?php
                   }
                   if ($hoy == substr($reserva['fecha_nacimiento'], 5, 5)) { ?>
                     <span class="fa-stack fa-xs" title="El Huesped esta de Cumpleaños" style="margin-left:0px;cursor:pointer;" >
                       <i style="font-size:20px;color: yellow" class="fa fa-circle fa-stack-2x"></i>                
-                      <i style="font-size:10px;margin-top: 1px;margin-left: 1px;color:black" class="fa fa-birthday-cake fa-stack-1x fa-inverse"></i> 
+                      <i style="font-size:10px;margin-top: 1px;margin-left: 0px;color:black" class="fa fa-birthday-cake fa-stack-1x fa-inverse"></i> 
                     </span>
                   <?php
                   }
-          ?>
+                ?>
               </div>
             </td>
+            <!--             
+              <td style="width:7%;">
+              </td>
+            -->            
             <td style="text-align:right"><?php echo $reserva['num_habitacion']; ?></td>
             <td>
               <span class="badge" style="background: #20b2aa91;padding: 2px 6px 0px 11px;">
@@ -119,7 +120,7 @@ $reservas = $hotel->getReservasActuales($tipo);
             <!-- <td><?php echo estadoReserva($reserva['estado']); ?></td> -->
             <td style="padding:3px;width: 15%">
               <?php
-            if ($reserva['estado'] == 'ES') { ?>
+                if ($reserva['estado'] == 'ES') { ?>
                   <nav class="navbar navbar-default" style="margin-bottom: 0px;min-height:0px;">
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:0px">
                       <ul class="nav navbar-nav" style="margin :0;width: 100%">
@@ -318,7 +319,7 @@ $reservas = $hotel->getReservasActuales($tipo);
                               Asignar Compañia</a>
                             </li>
                             <?php
-                        if ($reserva['id_compania'] != 0) { ?>
+                            if ($reserva['id_compania'] != 0) { ?>
                               <li>
                                 <a 
                                   data-toggle    ="modal" 
@@ -333,8 +334,8 @@ $reservas = $hotel->getReservasActuales($tipo);
                                 Datos Compañia</a>
                               </li>
                               <?php
-                        }
-                ?>
+                            }
+                            ?>
                             <li>
                               <a 
                                 data-toggle    ="modal" 
@@ -355,21 +356,20 @@ $reservas = $hotel->getReservasActuales($tipo);
                                 href           ="#myModalAdicionaObservaciones">
                                 <i class="fa fa-commenting-o" aria-hidden="true"></i>
                               Adicionar Observaciones</a>
-                            </li>
-                            
+                            </li>                            
                           </ul>
                         </li>
                       </ul>
                     </div>
                   </nav>
                 <?php
-            }
-          ?>
+                }
+              ?>
             </td>
           </tr>
           <?php
-      }
-?>
+        }
+        ?>
       </tbody>
     </table>
   </div>

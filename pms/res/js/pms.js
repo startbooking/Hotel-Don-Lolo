@@ -1,8 +1,6 @@
 // $(document).ready(function () {
 document.addEventListener("DOMContentLoaded", async () => {
 
-  console.log(window)
-
   let sesion = JSON.parse(localStorage.getItem("sesion"));
 
   if (sesion == null) {
@@ -90,10 +88,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   */
 
-  let reserva = document.getElementById("pantallaReservas");
+  /* let reserva = document.getElementById("pantallaReservas");
   if (reserva != null) {
     traeReservasActivas(1);
-  }
+  } */
 
   let casa = document.getElementById("pantallaenCasa");
   if (casa != null) {
@@ -399,6 +397,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   $("#myModalAdicionaPerfil").on("show.bs.modal", function (event) {
     $("#edita").val(0);
     $("#acompana").val(0);
+    formu = document.querySelector('#formAdicionaHuespedes');
+    formu.reset();
     var button = $(event.relatedTarget);
     var tiporeserva = button.data("reserva");
     $("#creaReser").val(tiporeserva);
@@ -1213,9 +1213,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     var button = $(event.relatedTarget);
     var modal = $(this);
     var buscar = $("#buscarAcoHuesped").val();
+    
     var parametros = {
       buscar,
     };
+    if(buscar === undefined){
+      buscar = 'TODOS';
+    }
     modal.find(".modal-title").text("Buscar Huesped Por : " + buscar);
     $.ajax({
       type: "POST",
@@ -3076,7 +3080,7 @@ function traeReservasActivas(tipo) {
     url: "res/php/traeReservasActivas.php",
     type: "POST",
     data: {
-      tipo: tipo,
+      tipo,
     },
     success: function (data) {
       $("#paginaReservas").html(data);
@@ -4263,6 +4267,7 @@ function mensajeCrea(resp, texto, pagina, creaRese) {
         if (creaRese == 1) {
           $("#myModalAdicionaPerfil").modal("hide");
           $("#buscarHuesped").focus();
+          var nuevaIde = $("#identifica").val();
           $("#buscarHuesped").val(nuevaIde);
           seleccionaHuespedReserva(datos);
           $("#noches").focus();
@@ -4593,11 +4598,12 @@ async function guardaAcompanante(e) {
     contentType: false,
     processData: false,
     success: function (resp){
-      console.log(resp)
       let { id, adicional, error } = resp;      
       if (id != "0") {
-        $("#myModalAdicionaPerfilAcompanante").modal("hide");
-        $("#myModalAdicionaAcompanante").modal("hide");        
+        btnSaveAco = document.querySelector('#btnSaveAco')
+        btnSaleAco = document.querySelector('#bntSaleAcompana')
+        btnSaveAco.click()
+        btnSaleAco.click()
         traeAcompanantes(idreser);        
       } else {
         mostrarAlerta(error, "alerta");
@@ -4636,6 +4642,40 @@ function buscaHuespedAcompanante(id) {
     },
   });
 }
+
+function buscaIdentificacion(id) {
+  var web = $("#rutaweb").val();
+  var parametros = {
+    id,
+  };
+  $.ajax({
+    url: web + "res/php/buscaIdenAcompana.php",
+    type: "POST",
+    dataType: "json",
+    data: parametros,
+    success: function (datos) {
+    if(datos.length !== 0){
+      let { identificacion } = datos[0];    
+      swal(
+        {
+          title: "Atencion!",
+          text: `Identificacion ${identificacion} Ya existe, NO permitido Duplicar`,
+          type: "error",
+          confirmButtonText: "Aceptar",
+          closeOnConfirm: true,
+        },    
+        function () { 
+          document.querySelector('#identifica').value = ''
+          document.querySelector('#identifica').focus
+        }
+      );
+    }
+    },
+  });
+}
+
+
+
 
 function eliminaAcompanante(id) {
   var web = $("#rutaweb").val();
@@ -4998,17 +5038,20 @@ function seleccionaHuespedAco(id) {
     numRese, 
     id,
   };
- 
- $("#myModalBuscaAcompanaHuesped").modal("hide");
- $("#myModalAdicionaAcompanante").modal("hide");
- 
- $.ajax({
-   url: web + "/res/php/adicionaAcompanante.php",
-   type: "POST",
-   data: parametros,
-   success: function (data) {
-     traeAcompanantes(numRese);
-   },
+  
+  btnCloseAco = document.querySelector('#btnBuscaAco');
+  btnSaleAco = document.querySelector('#bntSaleAcompana');
+  btnCloseAco.click();
+  btnSaleAco.click();
+  
+  
+  $.ajax({
+    url: web + "/res/php/adicionaAcompanante.php",
+    type: "POST",
+    data: parametros,
+    success: function (data) {
+      traeAcompanantes(numRese);
+    },
  }); 
 }
 
@@ -6004,14 +6047,14 @@ function movimientosFactura(reserva) {
 function getCiudadesPais(pais, city) {
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
-  var edita = $("#edita").val();
+  var edita = $("#editaPer").val();
   if (edita == 1) {
     $("#ciudadUpd option").remove();
   } else {
     $("#ciudadHue option").remove();
   }
 
-  var parametros = { pais: pais };
+  var parametros = { pais };
   $("#loader").fadeIn("slow");
   $.ajax({
     type: "POST",
@@ -6023,12 +6066,13 @@ function getCiudadesPais(pais, city) {
           "Precaucion",
           "No existen Ciudades Creados para este Pais",
           "warning"
-        );
-      } else {
-        if (edita == 1) {
-          $("#ciudadUpd").append(data);
-          $("#ciudadUpd").val(city);
+          );
         } else {
+          if (edita == 1) {
+            $("#ciudadUpd").append(data);
+            $("#ciudadUpd").val(city);
+          } else {
+          console.log(data)
           $("#ciudadHue").append(data);
         }
       }
@@ -6055,6 +6099,30 @@ function getCiudadesPaisUpd(pais) {
       } else {
         $("#ciudadUpd option").remove();
         $("#ciudadUpd").append(data);
+      }
+    },
+  });
+}
+
+function getCiudadesPaisAco(pais) {
+  var web = $("#rutaweb").val();
+  var pagina = $("#ubicacion").val();
+  var parametros = { pais: pais };
+  $("#loader").fadeIn("slow");
+  $.ajax({
+    type: "POST",
+    url: web + "res/php/getCiudadesPais.php",
+    data: parametros,
+    success: function (data) {
+      if (data == 0) {
+        swal(
+          "Precaucion",
+          "No existen Ciudades Creados para este Pais",
+          "warning"
+        );
+      } else {
+        $("#ciudadHueAco option").remove();
+        $("#ciudadHueAco").append(data);
       }
     },
   });

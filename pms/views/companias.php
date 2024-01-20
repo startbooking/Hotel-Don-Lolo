@@ -37,13 +37,13 @@
                 <?php
                 foreach ($companias as $compania) { ?>
                   <tr style='font-size:12px'>
-                    <td style="width:10%;"><?php echo $compania["nit"]; ?> - <?php echo $compania['dv']; ?></td>
-                    <td style="width:20%;"><?php echo $compania["empresa"]; ?> </td>
-                    <td style="width:20%;"><?php echo $compania["direccion"]; ?> </td>
+                    <td style="width:10%"><?php echo $compania["nit"]; ?> - <?php echo $compania['dv']; ?></td>
+                    <td style="width:20%"><?php echo $compania["empresa"]; ?> </td>
+                    <td style="width:20%"><?php echo $compania["direccion"]; ?> </td>
                     <td><?php echo $compania["celular"]; ?> </td>
-                    <td style="width:10%;"><?php echo $compania["email"]; ?> </td>
+                    <td style="width:10%;overflow:auto;"><?php echo $compania["email"]; ?> </td>
                     <td><?php echo $compania["descripcion_tarifa"]; ?> </td>
-                    <td style="padding:3px;width: 15%">
+                    <td style="padding:3px;width: 14%">
                       <nav class="navbar navbar-default" style="margin-bottom: 0px;min-height:0px;">
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:1px">
                           <ul class="nav navbar-nav" style="width:100%">

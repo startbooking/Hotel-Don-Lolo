@@ -6,7 +6,7 @@
   	    <h6 style="margin-top:15px" ><strong>Todos lo Derechos Reservados <i class="fa fa-copyright" aria-hidden="true"></i> Bogota - Colombia 2016 - 2023 </strong>	</h6>
       </div>
       <div class="col-xs-2 logopie" >
-  	    <h6 align="center" style="margin:0px">
+  	    <h6  style="margin:0px;text-align:center;">
           <img src="<?php echo BASE_IMG; ?>logopeq10.png" class="img-thumbnail" alt="" style="vertical-align:middle;margin-top: 0px;"> 
         </h6>
       </div>

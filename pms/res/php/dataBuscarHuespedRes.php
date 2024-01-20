@@ -31,8 +31,8 @@
 		            <td style="padding: 3px 5px;"><?php echo $huesped['identificacion']?></td>
 		            <td style="padding: 3px 5px;"><?php echo $huesped['apellido1'].' '.$huesped['apellido2'] .' '.$huesped['nombre1'].' '.$huesped['nombre2']; ?></td>
 		            <td style="padding: 3px 5px;"><?php echo $huesped['email']; ?></td>
-		            <td style="padding: 3px 5px;" align="center">
-		            	<button onclick="seleccionaCambioHuespedReserva(<?=$huesped['id_huesped']?>)" type="button" class="btn btn-info btn-xs"><i class="fa fa-check-square-o" aria-hidden="true"></i>
+		            <td style="padding: 3px 5px;text-align:center;">
+		            	<button onclick="seleccionaCambioHuespedReserva(<?=$huesped['id_huesped']?>)" type="button" class="btn btn-info btn-xs"><i class="fa fa-check-square" aria-hidden="true"></i>
 		            	</button>
 		            </td>
 		          </tr>

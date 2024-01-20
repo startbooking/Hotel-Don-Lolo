@@ -1348,7 +1348,7 @@ class Hotel_Actions{
             'ORDER BY' => ['habitaciones.numero_hab' => 'ASC'],
         ]);
 
-        return $data;
+        return $data; 
     }
 
     public function getbuscaIden($iden)

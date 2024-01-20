@@ -13,7 +13,7 @@
       <ul class="nav navbar-nav">      
         <li class="dropdown" id="datosLink">
           <a id="nombreUsuario" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
-          <ul class="dropdown-menu" style="margin-top:0px !important;margin:0 !important">
+          <ul class="dropdown-menu" style="margin:0 !important;width: 100%;">
             <li>
               <a class="altoMenu" 
                 data-toggle    = 'modal'
