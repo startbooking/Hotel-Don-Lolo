@@ -7967,9 +7967,9 @@ class Hotel_Actions{
             'tipoResponsabilidad' => $tipoRespo,
             'responsabilidadTributaria' => $repoTribu,
             'id_compania' => $empresa,
+            'fecha_creacion' => date('Y-m-d H:i:s'),            
         ]);
 
-        // return $database->id();
         $result = [
             'id' => $database->id(),
             'error' => $database->error,

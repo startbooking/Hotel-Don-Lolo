@@ -121,7 +121,7 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
               disabled="true"
               <?php
             }
-?>
+            ?>
             > 
         </div>
         <label for="noches" class="col-sm-1 control-label">Noches</label>

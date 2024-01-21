@@ -1624,7 +1624,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         $("#modalReservasUpd").html(datos);
       },
     });
-    $(".alert").hide();
+    $(".alert").hide(); 
   });
 
   $("#myModalCancelaReserva").on("show.bs.modal", function (event) {
@@ -4269,7 +4269,7 @@ function mensajeCrea(resp, texto, pagina, creaRese) {
           $("#buscarHuesped").focus();
           var nuevaIde = $("#identifica").val();
           $("#buscarHuesped").val(nuevaIde);
-          seleccionaHuespedReserva(datos);
+          seleccionaCambioHuespedReserva(id)
           $("#noches").focus();
         } else {
           window.location.href = pagina;
@@ -4326,8 +4326,6 @@ function traeHuespedes(reserva, huesped) {
 }
 
 function activaCongelado(reserva, folio) {
-
-  // console.log(reserva);
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   if (folio == 1) {
@@ -5029,7 +5027,6 @@ function seleccionaHuespedReserva(id) {
 
   $("#myModalBuscaHuesped").modal("hide");
 }
-
 
 function seleccionaHuespedAco(id) {
   let numRese = document.querySelector('#idreservaAco').value
@@ -6224,23 +6221,64 @@ function sumaFecha() {
   let edita = document.querySelector("#editaRes").value;
 
   if (edita == 1) {
-    fecha = document.querySelector("#llegadaUpd").value;
+    fecha = new Date(document.querySelector("#llegadaUpd").value +" 12:00:00" );
     dias = parseInt(document.querySelector("#nochesUpd").value);
   } else {
-    fecha = document.querySelector("#llegada").value;
+    fecha = new Date(document.querySelector("#llegada").value+" 12:00:00");
     dias = parseInt(document.querySelector("#noches").value);
   }
-  var date = fecha.split("-");
+  
+  /* console.log('Fecha Inicial Reserva');
+  console.log(fecha); */
+  
+  /* suma  = `${dias}d`
+  console.log(suma); */
+  
+  // vence = fecha.setDate(fecha + suma);
+  // console.log(fecha.setDate(fecha.getDate() + dias));
+  
+  fecfin = new Date(fecha.setDate(fecha.getDate() + dias));
+  
+  console.log(fecfin);
+    let yyyy = fecfin.getFullYear();
+    let mm = fecfin.getMonth()+1;
+    let dd = fecfin.getDate();
+    vence = yyyy+"-"+mm.toString().padStart(2, '0') + "-"+dd.toString().padStart(2, '0')
+  
+  
+    /* mes = (calculado.getMonth() + 1).toString().padStart(2, '0');
+    dia = calculado.getDate().toString().padStart(2, '0'); */
+  
+  
+  
+  /* anio = fecfin.getFullYear();
+  mes = (fecfin.getMonth() + 1);
+  dia = fecfin.getDate();
+   */
+  // console.log(anio);
+  
+  /* 
+   */
+  
+  /* var date = fecha.split("-");
   hoy = new Date(date[0], date[1], date[2]);
 
+
+
+  console.log(hoy)
+  
   calculado = new Date();
   dateResul = hoy.getDate() + dias;
+  console.log(dateResul);
+  
   calculado.setDate(dateResul);
-  anio = calculado.getFullYear();
-  mes = (calculado.getMonth() + 1).toString().padStart(2, '0');
-  dia = calculado.getDate().toString().padStart(2, '0');
+  
+  
+  console.log(mes)
 
-  let vence = anio + "-" + mes + "-" + dia;
+  let vence = anio + "-" + mes + "-" + dia; 
+  */
+  // console.log(vence)
 
   if (edita == 1) {
     document.querySelector("#salidaUpd").value = vence
