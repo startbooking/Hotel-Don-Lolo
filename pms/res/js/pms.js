@@ -1599,7 +1599,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   $("#myModalAdicionaReserva").on("show.bs.modal", function (event) {
     $("#edita").val(0);
     $("#editaRes").val(0);
-
+    $("#creaReser").val(1);
+    
     formRes = document.querySelector("#formReservas")
     formRes.reset();
   });
@@ -5025,7 +5026,8 @@ function seleccionaHuespedReserva(id) {
     },
   });
 
-  $("#myModalBuscaHuesped").modal("hide");
+  btnBusca = document.querySelector('#btnBuscaHues')
+  btnBusca.click()
 }
 
 function seleccionaHuespedAco(id) {
@@ -6227,59 +6229,14 @@ function sumaFecha() {
     fecha = new Date(document.querySelector("#llegada").value+" 12:00:00");
     dias = parseInt(document.querySelector("#noches").value);
   }
-  
-  /* console.log('Fecha Inicial Reserva');
-  console.log(fecha); */
-  
-  /* suma  = `${dias}d`
-  console.log(suma); */
-  
-  // vence = fecha.setDate(fecha + suma);
-  // console.log(fecha.setDate(fecha.getDate() + dias));
-  
+    
   fecfin = new Date(fecha.setDate(fecha.getDate() + dias));
   
-  console.log(fecfin);
-    let yyyy = fecfin.getFullYear();
-    let mm = fecfin.getMonth()+1;
-    let dd = fecfin.getDate();
-    vence = yyyy+"-"+mm.toString().padStart(2, '0') + "-"+dd.toString().padStart(2, '0')
+  let yyyy = fecfin.getFullYear();
+  let mm = fecfin.getMonth()+1;
+  let dd = fecfin.getDate();
+  vence = yyyy+"-"+mm.toString().padStart(2, '0') + "-"+dd.toString().padStart(2, '0')
   
-  
-    /* mes = (calculado.getMonth() + 1).toString().padStart(2, '0');
-    dia = calculado.getDate().toString().padStart(2, '0'); */
-  
-  
-  
-  /* anio = fecfin.getFullYear();
-  mes = (fecfin.getMonth() + 1);
-  dia = fecfin.getDate();
-   */
-  // console.log(anio);
-  
-  /* 
-   */
-  
-  /* var date = fecha.split("-");
-  hoy = new Date(date[0], date[1], date[2]);
-
-
-
-  console.log(hoy)
-  
-  calculado = new Date();
-  dateResul = hoy.getDate() + dias;
-  console.log(dateResul);
-  
-  calculado.setDate(dateResul);
-  
-  
-  console.log(mes)
-
-  let vence = anio + "-" + mes + "-" + dia; 
-  */
-  // console.log(vence)
-
   if (edita == 1) {
     document.querySelector("#salidaUpd").value = vence
   } else {
