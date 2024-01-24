@@ -4982,7 +4982,7 @@ class Hotel_Actions{
     {
         global $database;
 
-        $data = $database->query("SELECT huespedes.apellido1, huespedes.apellido2, huespedes.nombre1, huespedes.nombre2, huespedes.email, huespedes.identificacion, huespedes.id_huesped  FROM huespedes WHERE identificacion LIKE '%$buscar%' OR  nombre_completo LIKE '%$buscar%' order by huespedes.apellido1")->fetchAll();
+        $data = $database->query("SELECT huespedes.apellido1, huespedes.apellido2, huespedes.nombre1, huespedes.nombre2, huespedes.email, huespedes.identificacion, huespedes.id_huesped FROM huespedes WHERE identificacion LIKE '%$buscar%' OR nombre_completo LIKE '%$buscar%' order by huespedes.apellido1")->fetchAll();
 
         return $data;
     }

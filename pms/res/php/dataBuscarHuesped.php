@@ -12,7 +12,7 @@ if (count($huespedes) == 0) { ?>
 		<h4 class="bg-red" style="padding:10px;text-align:center;"><span style="font-size:24px;font-weight: 700;font-family: 'ubuntu';">Sin Huespedes Encontrados</span></h4>
 	<?php
 } else {
-    ?>
+    ?> 
 	  <div class='table-responsive'>
 	    <table id="example1" class="table table-bordered">
 	      <thead>

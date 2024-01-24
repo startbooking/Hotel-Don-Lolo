@@ -397,6 +397,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   $("#myModalAdicionaPerfil").on("show.bs.modal", function (event) {
     $("#edita").val(0);
     $("#acompana").val(0);
+    // $("#acompana").val(0);
     formu = document.querySelector('#formAdicionaHuespedes');
     formu.reset();
     var button = $(event.relatedTarget);
@@ -4224,10 +4225,12 @@ function asignaTipoHabitacion() {
 async function guardaHuesped(e) {
   e.preventDefault;
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  var web = $("#rutaweb").val();
-  var pagina = $("#ubicacion").val();
-  var nuevaIde = $("#identifica").val();
-  var creaRese = $("#creaReser").val();
+  let web = $("#rutaweb").val();
+  let pagina = $("#ubicacion").val();
+  let nuevaIde = $("#identifica").val();
+  let creaRese = parseInt($("#creaReser").val());
+  
+  console.log(creaRese)
 
   let formHuesped = document.querySelector('#formAdicionaHuespedes')
   let dataHuesp = new FormData(formHuesped)
@@ -4249,6 +4252,7 @@ async function guardaHuesped(e) {
     contentType: false,
     processData: false,
     success: function (resp) {
+      console.log(resp)
       mensajeCrea(resp, 'Huesped', 'huespedesPerfil', creaRese)
     },
   });
@@ -4265,6 +4269,7 @@ function mensajeCrea(resp, texto, pagina, creaRese) {
       closeOnConfirm: true,
     },
       function () {
+        console.log(creaRese)
         if (creaRese == 1) {
           $("#myModalAdicionaPerfil").modal("hide");
           $("#buscarHuesped").focus();
@@ -4273,7 +4278,7 @@ function mensajeCrea(resp, texto, pagina, creaRese) {
           seleccionaCambioHuespedReserva(id)
           $("#noches").focus();
         } else {
-          window.location.href = pagina;
+          // window.location.href = pagina;
         }
       })
   } else {
@@ -6071,7 +6076,7 @@ function getCiudadesPais(pais, city) {
             $("#ciudadUpd").append(data);
             $("#ciudadUpd").val(city);
           } else {
-          console.log(data)
+          // console.log(data)
           $("#ciudadHue").append(data);
         }
       }
@@ -6264,7 +6269,7 @@ function sumarDias() {
     url: web + "res/php/sumaFecha.php",
     data: parametros,
     success: function (data) {
-      console.log(data);
+      // console.log(data);
       if (edita == 1) {
         $("#salidaUpd").val(data);
       } else {
