@@ -217,7 +217,7 @@ $hoy = date('Y-m-d');
         </div>
         <div class="modal-footer">
           <div class="btn-group">
-            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
+            <button type="button" id="btnRegresaPerfil" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
             <button class="btn btn-success" style="text-align:right;"><i class="fa fa-save"></i> Procesar</button>
           </div>
         </div>

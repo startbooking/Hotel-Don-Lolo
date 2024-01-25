@@ -4230,8 +4230,6 @@ async function guardaHuesped(e) {
   let nuevaIde = $("#identifica").val();
   let creaRese = parseInt($("#creaReser").val());
   
-  console.log(creaRese)
-
   let formHuesped = document.querySelector('#formAdicionaHuespedes')
   let dataHuesp = new FormData(formHuesped)
 
@@ -4252,7 +4250,6 @@ async function guardaHuesped(e) {
     contentType: false,
     processData: false,
     success: function (resp) {
-      console.log(resp)
       mensajeCrea(resp, 'Huesped', 'huespedesPerfil', creaRese)
     },
   });
@@ -4269,16 +4266,16 @@ function mensajeCrea(resp, texto, pagina, creaRese) {
       closeOnConfirm: true,
     },
       function () {
-        console.log(creaRese)
         if (creaRese == 1) {
-          $("#myModalAdicionaPerfil").modal("hide");
           $("#buscarHuesped").focus();
+          btnRegresa = document.querySelector('#btnRegresaPerfil')
+          btnRegresa.click()
           var nuevaIde = $("#identifica").val();
           $("#buscarHuesped").val(nuevaIde);
-          seleccionaCambioHuespedReserva(id)
+          seleccionaHuespedReserva(id)
           $("#noches").focus();
         } else {
-          // window.location.href = pagina;
+          window.location.href = pagina;
         }
       })
   } else {
@@ -5585,7 +5582,7 @@ function anulaConsumos() {
   $.ajax({
     type: "POST",
     data: parametros,
-    url: "res/php/anulaConsumos.php",
+    url: "res/php/anulaConsumos.php", 
     success: function (data) {
       $("#mensajeCargo").html(
         '<h3 style="font-weight:600;color:brown">Cargo Anulado Con Exito</h3>'
@@ -6466,8 +6463,6 @@ function cancelaReserva() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
   let { usuario, usuario_id } = user;
-  /* usuario = sesion["usuario"][0]["usuario"];
-  idusuario = sesion["usuario"][0]["usuario_id"]; */
   var pagina = $("#ubicacion").val();
   var motivo = $("#motivoCancela").val();
   var numero = $("#txtIdReservaCan").val();
@@ -6499,7 +6494,6 @@ function cancelaReserva() {
         mensaje = "Reserva Cancelada con Exito ";
         alerta = "warning";
       }
-      /* */
       swal(
         {
           title: titulo,

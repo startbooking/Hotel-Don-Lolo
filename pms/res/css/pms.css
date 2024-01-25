@@ -64,6 +64,13 @@ table tbody{
   color:#000;
 }
 
+.place_order {
+  cursor: not-allowed;
+  /* background-color: rgb(229, 229, 229) !important; */
+}
+.place_order input, .place_order select  {
+  pointer-events:none;
+}
 
 .w3ls_head {
   font-weight: bold;

@@ -379,7 +379,7 @@ $manana = date('Y-m-d', $manana);
           </div>
         </div>
       </div>
-    </div>
+    </div> 
   </form>
 </div>
 

@@ -3416,6 +3416,7 @@ class Hotel_Actions{
         global $database;
 
         $data = $database->select('cargos_pms', [
+            'id_cargo',
             'descripcion_cargo',
             'pagos_cargos',
             'informacion_cargo',
@@ -6154,7 +6155,7 @@ class Hotel_Actions{
             'motivo_anulacion' => $motivo,
         ], [
             'id_cargo' => $id,
-        ]);
+        ]); 
 
         return $data->rowCount();
     }
