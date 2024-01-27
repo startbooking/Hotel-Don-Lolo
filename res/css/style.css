@@ -185,8 +185,12 @@ blockquote {
   height: 51px;
 }
 
-.sidebar-menu .treeview-menu > li > a {
-  padding: 5px 5px 10px 15px;
+.sidebar-menu .treeview-menu > li > a, .sidebar-menu .treeview > li > a {
+  padding: 5px 5px 5px 15px;
+}
+
+.sidebar-menu .treeview-menu > li > a > i, .sidebar-menu .treeview > li > a > i, .sidebar-menu .treeview > a > i,  .dropdown-menu > li > a > i {
+  padding: 0px 5px 0 0;
 }
 
 br.clear {

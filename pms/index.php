@@ -232,8 +232,9 @@ require_once '../res/php/app_topHotel.php';
         include_once 'views/modal/modalCompania.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'reservasActivas') {
         include_once 'views/modal/modalReservas.php';
-        include_once 'views/modal/modalAcompanantes.php';
+        include_once 'views/modal/modalAcompanantes.php'; 
         include_once 'views/modal/modalHuespedes.php';
+        include_once 'views/modal/modalCompania.php';
         include_once 'views/modal/modalObservaciones.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'preregistros') {
         include_once 'views/modal/modalReservas.php';

@@ -113,6 +113,29 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.querySelector("#formCompania").reset();
   });
 
+  $("#myModalVerObservaciones").on("show.bs.modal", function (event) {
+    alert('Entro a Observaciones');
+    var button = $(event.relatedTarget);
+    
+    let reserva = button.data("reserva");
+    let estado = button.data("estado");
+    
+    var parametros = {
+      reserva,
+      estado,
+    };
+    
+    $.ajax({
+      type: "POST",
+      url: "res/php/observacionesReservaModal.php",
+      data: parametros,
+      success: function (data) {
+        $("#observacionesReserva").html(data);
+      },
+    });
+  });
+
+  
   $("#myModalAdicionaGrupo").on("show.bs.modal", function (event) {
     document.querySelector("#formGrupo").reset();
     document.querySelector("#idUsuario").value = usuario_id;
@@ -753,6 +776,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       data: parametros,
       url: "res/php/dataUpdateHuesped.php",
       success: function (datos) {
+      // console.log(datos)
         $("#datosHuesped").html('');
         $("#datosHuesped").html(datos);
       },
@@ -1967,6 +1991,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     var tarifa = button.data("tarifa");
     var valor = button.data("valor");
     var modal = $(this);
+    
+    formu = document.querySelector('#formDepositoReserva');
+    formu.reset();
 
     modal.find(".modal-title").text("Deposito a Reserva: " + nombre);
     modal.find(".modal-body #txtIdReservaDep").val(id);
@@ -2205,8 +2232,6 @@ async function restaEdad(fecha) {
 
 }
 
-
-
 const guardaProcesoEnvioTRA = async (reserva) => {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
@@ -2279,10 +2304,8 @@ const enviaJSONPpal = async (JSONPpal) => {
       },
       body: JSON.stringify(JSONPpal),
     });
-    // console.log(datos);
     return datos;
   } catch (error) {
-    // console.log(error);
     return error
   }
 };
@@ -2304,11 +2327,8 @@ const enviaJSONAcompana = async (JSONAcompana) => {
       },
       body: JSON.stringify(JSONAcompana),
     });
-    // const datos = await resultado.json();
-    // console.log(datos);
     return datos;
   } catch (error) {
-    // console.log(error);
     return error
   }
 };
@@ -2748,7 +2768,6 @@ function guardaGrupo() {
 
   numGrupo = guardaDatosGrupo(JSON.stringify(object));
 
-  // console.log(numGrupo);
 }
 
 const guardaDatosGrupo = async (formGrupo) => {
@@ -4920,22 +4939,13 @@ async function apagaselecomp(tipo) {
 }
 
 function sumaTotales() {
-
-
   toCon = parseFloat($("#totalConsumo").val());
   toImp = parseFloat($("#totalImpuesto").val());
   toAbo = parseFloat($("#totalAbono").val());
   toRiv = parseFloat($("#totalReteiva").val());
   toRic = parseFloat($("#totalReteica").val());
   toFue = parseFloat($("#totalRetefuente").val());
-
-  // console.log(toCon, toImp, toAbo, toRiv, toRic, toFue)
-
-
   totGen = toCon + toImp - toAbo - toRiv - toRic - toFue;
-
-
-
   $("#total").val(number_format(totGen, 2));
   $("#SaldoFolioActual").val(totGen);
   $("#txtValorPago").val(totGen);
@@ -4972,7 +4982,6 @@ const traeRetenciones = async () => {
 
   }
 };
-
 
 function anulaIngreso() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
@@ -6479,20 +6488,22 @@ function cancelaReserva() {
     url: "res/php/cancelaReserva.php",
     data: parametros,
     success: function (data) {
-      if (data == -1) {
-        titulo = "Atencion !! ";
-        mensaje = "Anule Primero el Deposito ";
-        alerta = "warning";
-      }
-      if (data == 0) {
+      data = JSON.parse(data)    
+      let { anula, cancela } = data
+     
+      if (cancela == 0) {
         titulo = "Precaucion !! ";
         mensaje = "Su Reserva no se pudo cancelar ";
         alerta = "warning";
       }
-      if (data == 1) {
+      if (cancela == 1) {
         titulo = "Atencion";
         mensaje = "Reserva Cancelada con Exito ";
         alerta = "warning";
+      
+      }
+      if(anula == 1){
+        mensaje = mensaje + ' y su Deposito Anulado'
       }
       swal(
         {
@@ -7025,7 +7036,9 @@ function ingresaDeposito() {
         "PRINT",
         "height=600,width=600"
       );
-      $("#myModalDepositoReserva").modal("hide");
+      document.querySelector('#btnDeposito').click()
+      /* $("#myModalDepositoReserva").hide();
+      $(".modal-backdrop").remove(); */
       // $(location).attr("href", pagina);
     },
   });
@@ -7539,11 +7552,7 @@ async function generaInforme(data){
       body: JSON.stringify(data),
     });
     const datos = await resultado.text();
-    // console.log(datos)
     return datos.trim();
-    
-    
-    // return datos.trim();
   } catch (error) {
   
   }
@@ -7801,23 +7810,24 @@ function guardarFoto() {
   }
 }
 
-function verObservaciones(reserva, estado) {
+/*function verObservaciones(reserva, estado) {
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var parametros = {
-    reserva: reserva,
-    estado: estado,
+    reserva,
+    estado,
   };
+  
   $.ajax({
     type: "POST",
     url: web + "res/php/observacionesReservaModal.php",
     data: parametros,
     success: function (data) {
-      $("#myModalVerObservaciones").modal("show");
-      $("#observacionesHuesped").html(data);
+      $("#myModalVerObservaciones").show();
+      $("#observacionesReserva").html(data);
     },
   });
-}
+} */
 
 function salidaHuespedCongelada() {
   sesion = JSON.parse(localStorage.getItem("sesion"));

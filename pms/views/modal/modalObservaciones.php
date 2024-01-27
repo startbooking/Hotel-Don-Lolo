@@ -10,7 +10,7 @@
             <h3 class="modal-title" id="exampleModalLabel">Observaciones a la Reserva</h3>
           </div>
           <div class="modal-body">
-            <div id="observacionesHuesped" style="margin :-20px 0 -30px 0;font-size: 12px"></div>
+            <div id="observacionesReserva" style="margin :-20px 0 -30px 0;font-size: 12px"></div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
@@ -20,7 +20,6 @@
     </div>
   </form>
 </div>
-
 
 <div class="modal fade" id="myModalAdicionaObservaciones" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <form id="guardarDatosRooms" class="form-horizontal" action="javascript:adicionaObservacion()" method="POST" enctype="multipart/form-data">
@@ -69,7 +68,7 @@
                 <div class="container-fluid" style="padding:0 10px">
                   <h5 style="margin:10px;font-weight: 600;font-size: 14px;font-family: 'Ubuntu'">Observaciones</h5>
                   <div class="col-md-12" style="padding:0px;">
-                    <textarea style="text-transform: uppercase;" id="adicionaObs" name="adicionaObs" value=""></textarea>
+                    <textarea style="text-transform: uppercase;" id="adicionaObs" name="adicionaObs" value="" required></textarea>
                   </div>
                 </div>          
               </div>

@@ -524,7 +524,7 @@ $manana = date('Y-m-d', $manana);
                 <input class="form-control padInput" type="text" name='txtNombre2' id='txtNombre2' readonly>
               </div>
             </div>
-            <div class="form-horizontal" id="datosHuesped" style="padding:0"></div>
+            <div class="form-horizontal" id="datosHuespedInfo" style="padding:0"></div>
           </div>
           <div class="modal-footer">
             <div class="row">
@@ -649,7 +649,7 @@ $manana = date('Y-m-d', $manana);
             <div class="btn-group" style="float: right">
               <div>
 
-                <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
+                <button type="button" id="btnDeposito" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
                 <button class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i> Procesar</button>
               </div>
             </div>
@@ -701,7 +701,7 @@ $manana = date('Y-m-d', $manana);
       </div>
       <div class="modal-body">
         <div id="mensaje"></div>
-        <div id="datosCia"></div>
+        <div id="datosCiaInfo"></div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply" aria-hidden="true"></i> Regresar</button>

@@ -1,28 +1,28 @@
 <?php 
 
   require '../../../res/php/app_topHotel.php'; 
+  $regis = [];
 
-/*   $numero    = $_POST['numero'];
-  $motivo    = $_POST['motivo'];
-  $usuario   = $_POST['usuario'];
-  $observa   = $_POST['observa'].' Usuario: '.$usuario.' Fecha Observacion: '.date('Y.m.d H:i:s');
- */
   extract($_POST);
   
   $depositos = $hotel->getDepositosReservas($numero);
-
-  echo json_encode($depositos);
   
-
+  $anula = 0;
   
+  $cancela = $hotel->updateCancelaReserva($numero, $usuario, $motivo, strtoupper($observa)); 
   
-  if(count($depositos)>0){
-    // $anula = $hotel->
-    $anula = $hotel->updateAnulaConsumo($codigo,$textcodigo,$fecha,$usuario,$idusuario);
-
+  if($cancela==1){
+    if(count($depositos)>0){
+      $anula = $hotel->updateAnulaConsumo($depositos[0]['id_cargo'],strtoupper($observa),FECHA_PMS,$usuario,$idusuario);
+    }
   }
-  $cancela = $hotel->updateCancelaReserva($numero, $usuario, $motivo, $observa); 
-  echo $cancela;
+  
+  $regis = [
+    'anula' => $anula,
+    'cancela' => $cancela,
+  ];
+
+  echo json_encode($regis);
 
 
 

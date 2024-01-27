@@ -80,7 +80,13 @@
                           <?php
                         }
                         if (!empty($reserva['observaciones'])) { ?>
-                          <span class="fa-stack fa-xs" title="Observaciones a la Reserva" style="margin-left:0px;cursor:pointer;" onclick="verObservaciones('<?php echo $reserva['num_reserva']; ?>','1')">
+                          <span class="fa-stack fa-xs" 
+                            title="Observaciones a la Reserva" 
+                            style="margin-left:0px;cursor:pointer;" 
+                            data-toggle  ="modal"
+                            data-target  = "#myModalVerObservaciones"
+                            data-reserva ="<?php echo $reserva['num_reserva']; ?>" 
+                            data-estado  ="1" >
                             <i style="font-size:20px;color: #2993dd" class="fa fa-circle fa-stack-2x"></i>
                             <i style="font-size:10px;margin-top: 1px;margin-left: 1px;" class="fa fa-commenting fa-stack-1x fa-inverse"></i>
                           </span>
@@ -296,10 +302,10 @@
                                       data-nombre1   ="<?php echo $reserva['nombre1']; ?>" 
                                       data-nombre2   ="<?php echo $reserva['nombre2']; ?>"  
                                       data-nombre   ="<?php echo $reserva['nombre_completo']; ?>"  
-                                      href           ="#myModalInformacionHuesped">
-                                      <i class="fa fa-user-md" aria-hidden="true"></i>Perfil Huesped
+                                      href           ="#myModalModificaPerfilHuesped">
+                                      <i class="fa fa-user-md"></i>Perfil Huesped
                                     </a> 
-                                  </li> 
+                                  </li>  
                                   <li>
                                     <a 
                                       data-toggle        ="modal" 
@@ -320,7 +326,8 @@
                                       data-valor         ="<?php echo $reserva['valor_reserva']; ?>" 
                                       data-observaciones ="<?php echo $reserva['observaciones']; ?>" 
                                       >
-                                      <i class="fa fa-money" aria-hidden="true"></i>Deposito a Reserva
+                                      <i class="fa-solid fa-money-bill"></i>
+                                      Deposito a Reserva
                                     </a>
                                   </li>
                                   <li>
@@ -343,13 +350,15 @@
                                     <li>
                                       <a 
                                         data-toggle    ="modal" 
-                                        data-id        ="<?php echo $reserva['num_reserva']; ?>" 
+                                        
+                                        data-id        ="<?php echo $reserva['id_compania']; ?>" 
+                                        data-idres     ="<?php echo $reserva['num_reserva']; ?>" 
                                         data-idhue     ="<?php echo $reserva['id_huesped']; ?>" 
                                         data-idcia     ="<?php echo $reserva['id_compania']; ?>" 
                                         data-idcentro  ="<?php echo $reserva['idCentroCia']; ?>" 
                                         data-nombre    ="<?php echo $reserva['nombre_completo']; ?>"
-                                        data-nombrecia ="<?php echo $nombrecia; ?>" 
-                                        href           ="#myModalInformacionCompania">
+                                        data-empresa   ="<?php echo $nombrecia; ?>" 
+                                        href           ="#myModalModificaPerfilCia">
                                         <i class="fa fa-book" aria-hidden="true"></i>
                                       Datos Compañia</a>
                                     </li>
@@ -374,7 +383,7 @@
                                       data-nitcia    ="<?php echo $nitcia; ?>" 
                                       data-observa   ="<?php echo $reserva['observaciones']; ?>" 
                                       href           ="#myModalAdicionaObservaciones">
-                                      <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                                      <i class="fa-regular fa-comments"></i>
                                     Adicionar Observaciones</a>
                                   </li>                            
                                 </ul>

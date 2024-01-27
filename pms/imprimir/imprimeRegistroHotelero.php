@@ -73,7 +73,7 @@ require_once '../../../res/fpdf/fpdf.php';
   if($regisCia==0){
     $pdf->Cell(80,5,'',1,0,'L');
   }else{    
-    $pdf->Cell(80,5,$datosCompania[0]['empresa'],1,0,'L');
+    $pdf->Cell(80,5,substr($datosCompania[0]['empresa'],0,52),1,0,'L');
   }
   $pdf->Cell(10,5,'Nit',1,0,'L');
   if($regisCia==0){

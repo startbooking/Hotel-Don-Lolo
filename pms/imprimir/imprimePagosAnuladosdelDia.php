@@ -23,12 +23,9 @@ $pdf->Cell(40, 6, 'Descripcion ', 0, 0, 'C');
 $pdf->Cell(25, 6, 'Pago', 0, 0, 'C');
 $pdf->Cell(60, 6, 'Motivo Anulacion', 0, 0, 'C');
 $pdf->Cell(20, 6, 'Usuario', 0, 0, 'C');
-// $pdf->Cell(1, 6, 'FAC', 0, 0, 'C');
 $pdf->Cell(10, 6, 'Hora', 0, 1, 'C');
 $pdf->SetFont('Arial', '', 9);
 $cargos = $hotel->getCargosAnuladosporFecha(FECHA_PMS, 3, 1);
-
-// echo print_r($cargos);
 
 $pago = 0;
 foreach ($cargos as $cargo) {
@@ -43,8 +40,7 @@ foreach ($cargos as $cargo) {
     $pdf->Cell(40, 4, substr(utf8_decode($cargo['descripcion_cargo']), 0, 19), 0, 0, 'L');
     $pdf->Cell(25, 4, number_format($cargo['pagos_cargos'], 2), 0, 0, 'R');
     $pdf->Cell(60, 4, substr(utf8_decode($cargo['motivo_anulacion']), 0, 24), 0, 0, 'L');
-    $pdf->Cell(20, 4, $cargo['usuario'], 0, 0, 'L');
-    // $pdf->Cell(10, 4, $cargo['factura_numero'], 0, 0, 'R');
+    $pdf->Cell(20, 4, $cargo['usuario_anulacion'], 0, 0, 'L');
     $pdf->Cell(10, 4, substr($cargo['fecha_sistema_cargo'], 11, 5), 0, 1, 'R');
     $pago = $pago + $cargo['pagos_cargos'];
 }
