@@ -41,6 +41,8 @@ require_once '../res/php/app_topHotel.php';
             require 'views/reservasActivas.php';
         } elseif (isset($_GET['section']) && $_GET['section'] == 'forecast') {
             require 'views/forecast.php';
+        } elseif (isset($_GET['section']) && $_GET['section'] == 'Oldforecast') {
+            require 'views/forecastOld.php';
         } elseif (isset($_GET['section']) && $_GET['section'] == 'grupos') {
             require 'views/grupos.php';
         } elseif (isset($_GET['section']) && $_GET['section'] == 'preregistros') {
@@ -230,7 +232,7 @@ require_once '../res/php/app_topHotel.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'grupos') {
         include_once 'views/modal/modalGrupos.php';
         include_once 'views/modal/modalCompania.php';
-    } elseif (isset($_GET['section']) && $_GET['section'] == 'reservasActivas') {
+    } elseif (isset($_GET['section']) && $_GET['section'] == 'reservasActivas' || isset($_GET['section']) && $_GET['section'] == 'forecast' || isset($_GET['section']) && $_GET['section'] == 'Oldforecast')  {
         include_once 'views/modal/modalReservas.php';
         include_once 'views/modal/modalAcompanantes.php'; 
         include_once 'views/modal/modalHuespedes.php';
@@ -245,11 +247,14 @@ require_once '../res/php/app_topHotel.php';
         include_once 'views/modal/modalRecepcion.php';
         include_once 'views/modal/modalAcompanantes.php';
         include_once 'views/modal/modalObservaciones.php';
+        include_once 'views/modal/modalHuespedes.php';
+        include_once 'views/modal/modalCompania.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'llegadasDelDia') {
         include_once 'views/modal/modalLlegadasDelDia.php';
         include_once 'views/modal/modalReservas.php';
         include_once 'views/modal/modalAcompanantes.php';
         include_once 'views/modal/modalObservaciones.php';
+        include_once 'views/modal/modalHuespedes.php';        
     } elseif (isset($_GET['section']) && $_GET['section'] == 'llegadaSinReserva') {
         include_once 'views/modal/modalNuevaReserva.php';
         include_once 'views/modal/modalHuespedes.php';
@@ -332,7 +337,7 @@ require_once '../res/php/app_topHotel.php';
             $('.tituloPagina').html(`<i class="fa fa-tachometer" style="font-size:36px;color:black" ></i> Cierre Cajero [${usuario}]`)
         </script>
     <?php
-    } elseif ($_GET['section'] == 'reservasActivas' || $_GET['section'] == 'encasa' || $_GET['section'] == 'facturacionEstadia' || $_GET['section'] == 'salidasDelDia' || $_GET['section'] == 'salidasRealizadas' || $_GET['section'] == 'grupos' || $_GET['section'] == 'mantenimiento' || $_GET['section'] == 'facturasDelDia' || $_GET['section'] == 'carteraClientes' || $_GET['section'] == 'cuentasCongeladas' || $_GET['section'] == 'notasCredito' || $_GET['section'] == 'companias') { ?>
+    } elseif ($_GET['section'] == 'reservasActivas' || $_GET['section'] == 'encasa' || $_GET['section'] == 'llegadasDelDia' || $_GET['section'] == 'facturacionEstadia' || $_GET['section'] == 'salidasDelDia' || $_GET['section'] == 'salidasRealizadas' || $_GET['section'] == 'grupos' || $_GET['section'] == 'mantenimiento' || $_GET['section'] == 'facturasDelDia' || $_GET['section'] == 'carteraClientes' || $_GET['section'] == 'cuentasCongeladas' || $_GET['section'] == 'notasCredito' || $_GET['section'] == 'companias') { ?>
         <script>
             if (tipo == 1) {
                 $('#cambiaHuesped').css('display', 'block')

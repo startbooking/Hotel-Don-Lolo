@@ -137,7 +137,7 @@
                 <input class="form-control padInput" type="text" name='txtNombre2' id='txtNombre2' readonly >    
               </div>
             </div>
-            <div id="datosHuesped"></div>
+            <div id="datosHuespedInfo"></div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>            
@@ -446,7 +446,7 @@
     <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-          <div class="panel panel-success">
+          <div class="panel panel-default">
             <div class="panel-heading">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span class="glyphicon glyphicon-off"></span>
@@ -458,7 +458,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> 
     </div>
   </form>
 </div>
@@ -621,7 +621,7 @@
       </div>
       <div class="modal-body">
         <div id="mensaje"></div>
-        <div id="datosCia"></div>        
+        <div id="datosCiaInfo"></div>        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>

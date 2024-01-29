@@ -346,16 +346,28 @@ $manana = date('Y-m-d', $manana);
     <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span class="glyphicon glyphicon-off"></span>
-            </button>
-            <h3 class="modal-title" id="exampleModalLabel">Modificar Reserva</h3>
-            <div id="mensaje"></div>
+              </button> 
+              <h3 class="modal-title" id="exampleModalLabel">Modificar Reserva</h3>
+            </div>
+            <div class="panel-body">
+              <div id="modalReservasUpd"></div>
+            </div>
           </div>
-          <div class="modal-body" id="modalReservasUpd" style="padding:10px">
-            <div id="mensaje" style="margin-bottom:-30px"></div>
-          </div>
+        
+            <!-- <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span class="glyphicon glyphicon-off"></span>
+              </button>
+              <h3 class="modal-title" id="exampleModalLabel">Modificar Reserva</h3>
+              <div id="mensaje"></div>
+            </div>
+            <div class="modal-body" id="modalReservasUpd" style="padding:10px">
+              <div id="mensaje" style="margin-bottom:-30px"></div>
+            </div> -->
         </div>
       </div> 
     </div>
@@ -817,7 +829,7 @@ $manana = date('Y-m-d', $manana);
             <h3 class="modal-title" id="exampleModalLabel">Huesped Encontrados</h3>
           </div>
           <div id="datos_ajax_register"></div>
-          <div class="modal-body" id="huespedesEncontradosRes"></div>
+          <div class="modal-body" id="huespedesEncontradosRes" style="max-height: 450px;overflow: auto;"></div>
           <div class="modal-footer">
             <div class="row">
               <div class="col-lg-4 col-lg-offset-4">

@@ -11,9 +11,7 @@ $hoy = date('Y-m-d');
         </button>
         <h4 class="modal-title" id="myModalLabel"> <i class="fa fa-user-plus"></i> Adiciona Perfil del Huesped</h4>
         <input type="hidden" name="creaReser"   id="creaReser" value="0">
-        <input type="hidden" name="editaPer"    id="editaPer" value="0">
         <input type="hidden" name="acompanaRes"    id="acompanaRes" value="0">
-        <input type="hidden" name="edita"    id="edita" value="0">
         <input type="hidden" name="paginaviene" id="paginaviene" value="">
         <div class="container-fluid"></div>
       </div>

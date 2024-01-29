@@ -93,15 +93,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     traeReservasActivas(1);
   } */
 
-  let casa = document.getElementById("pantallaenCasa");
+  /* let casa = document.getElementById("pantallaenCasa");
   if (casa != null) {
     traeHuespedesenCasa();
-  }
+  } */
 
-  let llga = document.getElementById("pantallaLlegadas");
+  /* let llga = document.getElementById("pantallaLlegadas");
   if (llga != null) {
     traeLlegadasDia();
-  }
+  } */
 
   let fact = document.getElementById("pantallaFacturacion");
   if (fact != null) {
@@ -114,12 +114,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   $("#myModalVerObservaciones").on("show.bs.modal", function (event) {
-    alert('Entro a Observaciones');
     var button = $(event.relatedTarget);
-    
     let reserva = button.data("reserva");
-    let estado = button.data("estado");
-    
+    let estado = button.data("estado");    
     var parametros = {
       reserva,
       estado,
@@ -550,10 +547,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     var button = $(event.relatedTarget);
     var id = button.data("id");
     var room = button.data("nrohab");
-    var apellido1 = button.data("apellido1");
-    var apellido2 = button.data("apellido2");
-    var nombre1 = button.data("nombre1");
-    var nombre2 = button.data("nombre2");
+    var nombre = button.data("nombre");
     var noches = button.data("noches");
     var llegada = button.data("llegada");
     var salida = button.data("salida");
@@ -562,22 +556,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     modal
       .find(".modal-title")
-      .text(
-        "Adiciona Observaciones: " +
-        apellido1 +
-        " " +
-        apellido2 +
-        " " +
-        nombre1 +
-        " " +
-        nombre2
-      );
-
+      .text(` Adiciona Observaciones: ${nombre}`);
     $("#reservaObs").val(id);
     $("#habitacionObs").val(room);
-    $("#huespedObs").val(
-      apellido1 + " " + apellido2 + " " + nombre1 + " " + nombre2
-    );
+    $("#huespedObs").val(nombre);
     $("#llegadaObs").val(llegada);
     $("#nochesObs").val(noches);
     $("#salidaObs").val(salida);
@@ -665,11 +647,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   $("#myModalReasignarHuesped").on("show.bs.modal", function (event) {
     var button = $(event.relatedTarget);
-    var apellidos = button.data("apellidos");
-    var nombres = button.data("nombres");
-    var llega = button.data("llegada");
-    var sale = button.data("salida");
-    var numero = button.data("numero");
     var reserva = button.data("reserva");
     var modal = $(this);
 
@@ -776,7 +753,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       data: parametros,
       url: "res/php/dataUpdateHuesped.php",
       success: function (datos) {
-      // console.log(datos)
         $("#datosHuesped").html('');
         $("#datosHuesped").html(datos);
       },
@@ -1036,7 +1012,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       var nombre = button.data("nombre");
       var modal = $(this);
       var parametros = {
-        idres: idres,
+        idres,
       };
       modal.find(".modal-title").text("Acompañantes : " + nombre);
       modal.find(".modal-body #idreservaAco").val(idres);
@@ -1276,7 +1252,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         $("#huespedesEncontradosRes").html(datos);
       },
     });
-    $(".alert").hide();
+    $(".alert").hide(); 
   });
 
   $("#myModalModificaEstadia").on("show.bs.modal", function (event) {
@@ -1285,7 +1261,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     var nombre = button.data("nombre");
     var modal = $(this);
     var parametros = {
-      id: id,
+      id,
     };
     modal.find(".modal-title").text(`Modifica Estadia : ${nombre}`);
     $.ajax({
@@ -1557,11 +1533,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   $("#myModalCambiaTarifa").on("show.bs.modal", function (event) {
     var button = $(event.relatedTarget);
     var id = button.data("id");
-
-    var apellido1 = button.data("apellido1");
-    var apellido2 = button.data("apellido2");
-    var nombre1 = button.data("nombre1");
-    var nombre2 = button.data("nombre2");
     var nombre = button.data("nombre");
     var modal = $(this);
     var parametros = {
@@ -1570,16 +1541,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     modal
       .find(".modal-title")
-      .text(
-        "Informacion Estadia: " +
-        apellido1 +
-        " " +
-        apellido2 +
-        " " +
-        nombre1 +
-        " " +
-        nombre2
-      );
+      .text(`Informacion Estadia: ${nombre}`);
     modal.find(".modal-body #txtIdReservaTar").val(id);
     $.ajax({
       type: "POST",
@@ -1597,8 +1559,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   $("#myModalCambiaHabitacion").on("show.bs.modal", function (event) {
     var button = $(event.relatedTarget);
     var id = button.data("id");
-    var tipohab = button.data("tipohab");
-    var nrohab = button.data("nrohab");
     var nombre = button.data("nombre");
     var modal = $(this);
     var parametros = {
@@ -1633,7 +1593,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   $("#myModalModificaReserva").on("show.bs.modal", function (event) {
     var button = $(event.relatedTarget);
     var id = button.data("id");
-    var nombre = button.data("nombrecomp");
+    var nombre = button.data("nombre");
     var modal = $(this);
     $("#editaRes").val(1);
     var parametros = {
@@ -2136,10 +2096,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     var hues = button.data("idhuesped");
     var tipohab = button.data("tipohab");
     var nrohab = button.data("nrohab");
-    var apellido1 = button.data("apellido1");
-    var apellido2 = button.data("apellido2");
-    var nombre1 = button.data("nombre1");
-    var nombre2 = button.data("nombre2");
     var nombre = button.data("nombre");
     var llegada = button.data("llegada");
     var salida = button.data("salida");
@@ -2548,9 +2504,14 @@ function regresaCasa(reserva) {
 }
 
 function muestraReserva(ev) {
-  // console.log(ev);
+
+  console.log(ev);
   let reserva = ev.getAttribute("reserva");
   let estado = ev.getAttribute("estado");
+  
+  console.log(reserva);
+  console.log(estado);
+  
 
   swal("Atencion", "Dio CLick en Reserva" + reserva + estado, "success");
 }
@@ -5082,7 +5043,18 @@ function seleccionaCambioHuespedReserva(hues) {
       $("#datosHuespedAdi").html(data);
       $("#myModalBuscaHuespedRes").modal("hide");
       $("#myModalReasignarHuesped").modal("hide");
-      $(location).attr("href", pagina);
+      swal(
+        {
+          title: "Atencion !",
+          text: "No Olvice Reimprir el Registro Hotelero",
+          type: "success",
+          confirmButtonText: "Aceptar",
+          closeOnConfirm: false,
+        },
+        function () {
+          $(location).attr("href", pagina);
+        }
+      );
     },
   });
 }
@@ -7076,6 +7048,8 @@ function ciudadesExpedicion(pais, city) {
   let pagina = $("#ubicacion").val();
   let edita = $("#edita").val();
   let acompana = $("#acompana").val();
+  
+  console.log(edita);
   
   if (edita == 1) {
     $("#ciudadExpUpd option").remove();

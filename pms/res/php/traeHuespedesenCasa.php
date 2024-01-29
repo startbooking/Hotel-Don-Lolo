@@ -1,7 +1,7 @@
 <?php
 require '../../../res/php/app_topHotel.php'; 
 
-$tipo = $_POST['tipo'];
+$tipo = $_POST['tipo']; 
 $hoy = substr(FECHA_PMS, 5, 5);
 
 $reservas = $hotel->getHuespedesenCasa(2, 'CA');

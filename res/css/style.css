@@ -240,6 +240,12 @@ br.clear {
   z-index: 3000;
 }
 
+.submenu >li > a {
+  color: #000B !important;
+  text-align: left !important;
+  
+}
+
 .modalGallery h3 {
   color: #fff;
   font-size: 30px;
@@ -1076,16 +1082,12 @@ margin-top: 50px;
   margin :0px;
 }
 
-
-
-
 .logo img {
   position: absolute;
   margin: auto;
   left: 5px;
   top: 5px;
 }
-
 
 .logo span {
   position: absolute;

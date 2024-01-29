@@ -6038,7 +6038,7 @@ class Hotel_Actions{
     {
         global $database;
 
-        $data = $database->query("SELECT huespedes.apellido1, huespedes.apellido2, huespedes.nombre1, huespedes.nombre2, reservas_pms.dias_reservados, reservas_pms.tarifa, reservas_pms.estado, reservas_pms.valor_diario, reservas_pms.num_reserva, reservas_pms.num_habitacion, reservas_pms.can_hombres, reservas_pms.can_mujeres, reservas_pms.can_ninos, reservas_pms.fecha_llegada, reservas_pms.fecha_salida FROM huespedes, reservas_pms WHERE (huespedes.id_huesped = reservas_pms.id_huesped AND reservas_pms.num_habitacion = '$room' AND reservas_pms.fecha_llegada = '$fecha' AND reservas_pms.estado = 'CA') OR (huespedes.id_huesped = reservas_pms.id_huesped AND reservas_pms.num_habitacion = '$room' AND reservas_pms.fecha_llegada = '$fecha' AND reservas_pms.estado = 'ES') 
+        $data = $database->query("SELECT huespedes.apellido1, huespedes.apellido2, huespedes.nombre1, huespedes.nombre_completo, huespedes.nombre2, reservas_pms.dias_reservados, reservas_pms.tarifa, reservas_pms.estado, reservas_pms.valor_diario, reservas_pms.num_reserva, reservas_pms.num_habitacion, reservas_pms.can_hombres, reservas_pms.can_mujeres, reservas_pms.can_ninos, reservas_pms.fecha_llegada, reservas_pms.fecha_salida FROM huespedes, reservas_pms WHERE (huespedes.id_huesped = reservas_pms.id_huesped AND reservas_pms.num_habitacion = '$room' AND reservas_pms.fecha_llegada = '$fecha' AND reservas_pms.estado = 'CA') OR (huespedes.id_huesped = reservas_pms.id_huesped AND reservas_pms.num_habitacion = '$room' AND reservas_pms.fecha_llegada = '$fecha' AND reservas_pms.estado = 'ES') 
 				")->fetchAll();
 
         return $data;

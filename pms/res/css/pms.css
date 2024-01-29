@@ -121,6 +121,24 @@ form select {
   padding: 0.4em;
 }
 
+.menuForecast {
+  padding: 0 !important;
+  font-weight: bold;
+  color: #000 !important;
+  z-index: 30;
+  font-size: 10px;
+  /* 
+  margin-left: 20px;
+  border: 1px solid #000; */
+  width: 22px !important;
+  height: 22px;
+  }
+
+.menuForecast:hover {
+  /* background-color: #444; */
+}
+
+
 input[type="date"].form-control {
   line-height: 15px;
 }
@@ -154,7 +172,21 @@ a.info span,
 }
 
 .reserva {
-  margin-left:20px;z-index:20;display: block;border: 1px solid #000A;position:absolute;border-radius: 0;font-size:10px;color:#000;overflow: hidden;font-weight: 600}
+  padding:2px 5px;
+  margin-bottom: 1px;
+  margin-left:20px;
+  z-index:20;
+  display: block;
+  border: 1px solid #000A;
+  position:absolute;
+  border-radius: 0;
+  font-size:10px;
+  color:#000;
+  /* overflow: hidden; */
+  font-weight: 600;
+  min-height: 20px;
+}
+  
 .tituloPagina {
   font-weight: 500;
   font-family: "ubuntu";
@@ -173,6 +205,8 @@ a.info span,
   margin-right: 150px !important;
   margin-top: -120px !important;
 }
+
+
 
 .mt-10 {
   margin-top: 10px;
@@ -352,10 +386,6 @@ a.info span,
 .products-list .product-item a{
 	display: block;
 	width: 100%;
-	padding: 8px 0;
-	color: #fff;
-	text-align: center;
-	text-decoration: none;
 }
 
 .libre {

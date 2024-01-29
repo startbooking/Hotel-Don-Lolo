@@ -41,6 +41,9 @@ if ($_GET['section'] != 'cajeroCerrado') {
             Forecast</a></li>
             <?php
             if (DEV == 1) { ?>
+            <li><a href="Oldforecast">
+            <i class="fa-solid fa-chart-bar"></i>
+              Forecast Proj</a></li>
               <li><a href="grupos"><i class="fa-solid fa-users-between-lines"></i> Grupos</a></li>
             <?php
             }

@@ -12,9 +12,6 @@
   $dias    = $dias / (60*60*24);
   $fecha   = FECHA_PMS;
   $cia     = $hotel->getBuscaCia($reserva[0]['id_compania']);
-  // $centros = $hotel->getBuscaCentroCia($reserva[0]['idCentroCia']);
-
-  // echo print_r($reserva);
 
 ?> 
   <div class="panel panel-success">
@@ -26,7 +23,7 @@
           <input type="hidden" name="tipoocupacion" id="tipoocupacion" value="<?=$reserva[0]['tipo_ocupacion']?>">
           <input type="text" class="form-control" name="identifica" id="identifica" value="<?=$huesped[0]['identificacion']?>" readonly="">
         </div>
-        <label for="inputEmail3" class="col-sm-2 control-label">Tipo</label>
+        <label for="inputEmail3" class="col-sm-1 control-label">Tipo</label>
         <div class="col-sm-3">
           <select name="tipodoc" id="tipodoc" disabled="" readonly>
             <option value="">Seleccione el Tipo de Documeto</option>
@@ -50,12 +47,44 @@
       </div>
       <div class="form-group">
         <label for="inputEmail3" class="col-sm-2 control-label">Huesped</label>
-        <div class="col-sm-8">
+        <div class="col-sm-6">
           <input type="hidden" name="idhuesped" id="idhuesped" value="<?=$reserva[0]['id_huesped']?>">
           <input type="text" class="form-control" name="huesped" id="huesped" value="<?=$huesped[0]['nombre_completo']?>" readonly="">
           <input type="hidden" name="idcia" id="idcia" value="<?=$reserva[0]['id_compania']?>">
           <input type="hidden" name="idCentro" id="idCentro" value="<?=$huesped[0]['idCentroCia']?>">
         </div>
+        <label for="inputEmail3" class="col-sm-2 control-label">Decreto 297</label>
+        <div class="col-sm-2">
+          <div class="wrap">
+            <div class="col-sm-6" style="padding:0;height: 15px">
+              <div class="form-check form-check-inline">
+                <input style="margin-top:5px" class="form-check-input" type="radio" name="imptoOption" id="inlineRadio1" value="1" 
+                <?php  
+                  if($reserva[0]['causar_impuesto']==1){ ?>
+                    checked
+                  <?php 
+                  }
+                ?>
+                >
+                <label style="margin-top:-20px;margin-left:25px" class="form-check-label" for="inlineRadio1" >NO</label>
+              </div>                    
+            </div>
+            <div class="col-sm-6" style="padding:0;height: 15px"> 
+              <div class="form-check form-check-inline">
+                <input style="margin-top:5px" class="form-check-input" type="radio" name="imptoOption" id="inlineRadio2" value="2"
+                <?php  
+                  if($reserva[0]['causar_impuesto']==2){ ?>
+                    checked
+                  <?php 
+                  }
+                ?>
+                >
+                <label style="margin-top:-20px;margin-left:25px" class="form-check-label" for="inlineRadio2">SI</label>
+              </div>
+            </div>
+          </div>
+        </div>        
+        
       </div>
       <div class="form-group">
         <label for="inputEmail3" class="col-sm-2 control-label">Empresa</label>
@@ -81,37 +110,7 @@
     </div>
     <div class="panel-body" style="padding:5px">
       <div class="form-group">
-        <label for="inputEmail3" class="col-sm-2 control-label">Decreto 297</label>
-        <div class="col-sm-2">
-          <div class="wrap">
-            <div class="col-sm-6" style="padding:0;height: 15px">
-              <div class="form-check form-check-inline">
-                <input style="margin-top:5px" class="form-check-input" type="radio" name="imptoOption" id="inlineRadio1" value="1" 
-                <?php  
-                  if($reserva[0]['causar_impuesto']==1){ ?>
-                    checked
-                  <?php 
-                  }
-                ?>
-                >
-                <label style="margin-top:-25px;margin-left:25px" class="form-check-label" for="inlineRadio1" >NO</label>
-              </div>                    
-            </div>
-            <div class="col-sm-6" style="padding:0;height: 15px"> 
-              <div class="form-check form-check-inline">
-                <input style="margin-top:5px" class="form-check-input" type="radio" name="imptoOption" id="inlineRadio2" value="2"
-                <?php  
-                  if($reserva[0]['causar_impuesto']==2){ ?>
-                    checked
-                  <?php 
-                  }
-                ?>
-                >
-                <label style="margin-top:-25px;margin-left:25px" class="form-check-label" for="inlineRadio2">SI</label>
-              </div>
-            </div>
-          </div>
-        </div>
+        
       </div>
       <div class="form-group">
         <label for="llegada" class="col-sm-2 control-label">Llegada</label>

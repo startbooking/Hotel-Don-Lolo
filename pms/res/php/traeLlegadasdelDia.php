@@ -26,7 +26,7 @@ $reservas = $hotel->getReservasDia(FECHA_PMS, 1, 'ES');
     </thead>
     <tbody>
       <?php
-    foreach ($reservas as $reserva) {
+      foreach ($reservas as $reserva) {
         $depositos = $hotel->getDepositosReservas($reserva['num_reserva']);
         if ($reserva['id_compania'] == 0) {
             $nombrecia = 'SIN COMPAÑIA ASOCIADA';
@@ -70,11 +70,10 @@ $reservas = $hotel->getReservasDia(FECHA_PMS, 1, 'ES');
                   </span>
                   <?php
                 }
-        ?>
+              ?>
             </div>
-            </td>
-          <td style="padding:2px">
-            <?php echo $reserva['num_habitacion']; ?></td>
+          </td>
+          <td style="padding:2px"><?php echo $reserva['num_habitacion']; ?></td>
           <td style="padding:2px">
             <span class="badge" style="background: #20b2aa91;padding: 2px 6px 0px 11px;">
               <label for="" class="control-label" style="text-align: left;color:#000">
@@ -104,7 +103,7 @@ $reservas = $hotel->getReservasDia(FECHA_PMS, 1, 'ES');
           <td style="padding:2px;text-align:center;"><?php echo $reserva['can_mujeres']; ?></td>
           <td style="padding:2px;text-align:center;"><?php echo $reserva['can_ninos']; ?></td>
           <!-- <td style="padding:2px">
-            <?php echo estadoReserva($reserva['estado']); ?></td> -->
+          <?php echo estadoReserva($reserva['estado']); ?></td> -->
           <td style="padding:2px;width: 13%">
             <nav class="navbar navbar-default" style="margin-bottom: 0px;min-height:0px;">
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:0px;">
@@ -261,8 +260,8 @@ $reservas = $hotel->getReservasDia(FECHA_PMS, 1, 'ES');
           </td>
         </tr>
         <?php
-    }
-?>
+      }
+      ?>
     </tbody>
   </table>
 </div>
