@@ -64,11 +64,11 @@ table tbody{
   color:#000;
 }
 
-.place_order {
+.place_order, .restringe {
   cursor: not-allowed;
   /* background-color: rgb(229, 229, 229) !important; */
 }
-.place_order input, .place_order select  {
+.place_order input, .place_order select, .restringe  input, .restringe select,   {
   pointer-events:none;
 }
 
@@ -355,7 +355,6 @@ a.info span,
   width: 102%;
   margin-top: 25px;
 }
-
 
 .category_list{
 	display: flex;

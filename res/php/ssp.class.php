@@ -31,13 +31,10 @@ class SSP {
 	 *  @param  array $data    Data from the SQL get
 	 *  @return array          Formatted data in a row based format
 	 */
-	static function data_output ( $columns, $data )
-	{
+	static function data_output ( $columns, $data ){
 		$out = array();
-
 		for ( $i=0, $ien=count($data) ; $i<$ien ; $i++ ) {
 			$row = array();
-
 			for ( $j=0, $jen=count($columns) ; $j<$jen ; $j++ ) {
 				$column = $columns[$j];
 
@@ -81,8 +78,7 @@ class SSP {
 	 *     * Optional: `'charset' => 'utf8'` - you might need this depending on your PHP / MySQL config
 	 *  @return resource PDO connection
 	 */
-	static function db ( $conn )
-	{
+	static function db ( $conn ){
 		if ( is_array( $conn ) ) {
 			return self::sql_connect( $conn );
 		}

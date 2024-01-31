@@ -452,7 +452,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     var reserva = button.data("reserva");
     var modal = $(this);
     var parametros = {
-      reserva: reserva,
+      reserva,
     };
 
     $.ajax({

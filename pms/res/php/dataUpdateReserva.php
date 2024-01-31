@@ -105,8 +105,7 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
         
       </div>
     </div>    
-    <div class="panel-body" style="padding:5px">
-      
+    <div class="panel-body" style="padding:5px">      
       <div class="form-group">
         <label for="llegada" class="col-sm-2 control-label">Llegada</label>
         <div class="col-sm-3">
@@ -175,18 +174,18 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
           <div id="habitacionesUpd">
             <select name="nrohabitacionUpd" id="nrohabitacionUpd" required>
               <?php 
-  foreach ($habitaciones as $habitacion) { ?>
+                foreach ($habitaciones as $habitacion) { ?>
                 <option value="<?php echo $habitacion['num_habitacion']; ?>"
                   <?php
-      if ($habitacion['num_habitacion'] == $reserva[0]['num_habitacion']) {?>
+                    if ($habitacion['num_habitacion'] == $reserva[0]['num_habitacion']) {?>
                     selected
                     <?php 
-      }
-      ?>
+                    }
+                  ?>
                   ><?php echo $habitacion['num_habitacion']; ?></option>
                 <?php
-  }
-?>
+                }
+              ?>
             </select> 
           </div>
         </div>
@@ -195,22 +194,20 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
         <label for="tarifahab" class="col-sm-2 control-label">Tipo Tarifa</label>
         <div class="col-sm-4">
           <div>
-            <?php
-?>
             <select name="tarifahabUpd" id="tarifahabUpd" required onblur="valorHabitacionUpd(this.value)">
               <?php
-  foreach ($tarifas as $tarifa) { ?>
+                foreach ($tarifas as $tarifa) { ?>
                 <option value="<?php echo $tarifa['id']; ?>"
                   <?php
-      if ($reserva[0]['tarifa'] == $tarifa['id']) {?>
+                    if ($reserva[0]['tarifa'] == $tarifa['id']) {?>
                     selected
                     <?php
-      }
-      ?>
+                    }
+                  ?>
                   ><?php echo $tarifa['descripcion_tarifa']; ?></option>
                 <?php
-  }
-?>
+                }
+              ?>
             </select>
           </div>
         </div>
@@ -225,21 +222,20 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
         <label for="tarifahab" class="col-sm-2 control-label">Procedencia</label>
         <div class="col-sm-4">
           <select name="origen" id="origen">
-            <option value="">Seleccione la Ciudad de Procedencia</option>}
-            option
+            <option value="">Seleccione la Ciudad de Procedencia</option>
             <?php
-foreach ($ciudades as $ciudad) { ?>
+              foreach ($ciudades as $ciudad) { ?>
                 <option value="<?php echo $ciudad['id_ciudad']; ?>"
                   <?php
-    if ($reserva[0]['origen_reserva'] == $ciudad['id_ciudad']) {?>
+                  if ($reserva[0]['origen_reserva'] == $ciudad['id_ciudad']) {?>
                     selected
                     <?php
-    }
-    ?>
-                  ><?php echo $ciudad['municipio'].' '.$ciudad['depto']; ?></option>}
+                  }
+                  ?>
+                  ><?php echo $ciudad['municipio'].' '.$ciudad['depto']; ?></option>
                 <?php
-}
-?>
+                }
+              ?>
           </select>
         </div>
         <label for="tarifahab" class="col-sm-2 control-label">Destino</label>
@@ -247,18 +243,18 @@ foreach ($ciudades as $ciudad) { ?>
           <select name="destino" id="destino">
             <option value="">Seleccione la Ciudad de Destino</option>}
             <?php
- foreach ($ciudades as $ciudad) { ?>
+              foreach ($ciudades as $ciudad) { ?>
                 <option value="<?php echo $ciudad['id_ciudad']; ?>"
                   <?php
-     if ($reserva[0]['destino_reserva'] == $ciudad['id_ciudad']) {?>
+                    if ($reserva[0]['destino_reserva'] == $ciudad['id_ciudad']) {?>
                     selected
                     <?php
-     }
-     ?>
+                    }
+                  ?>
                   ><?php echo $ciudad['municipio'].' '.$ciudad['depto']; ?></option>}
                 <?php
- }
-?>
+              }
+            ?>
           </select>
         </div>
       </div>            
@@ -269,18 +265,18 @@ foreach ($ciudades as $ciudad) { ?>
             <option value="">Seleccione el Motivo</option>
             <?php
             $motivos = $hotel->getMotivoGrupo('MVI');
-foreach ($motivos as $motivo) { ?>
+            foreach ($motivos as $motivo) { ?>
               <option value="<?php echo $motivo['id_grupo']; ?>"
+                <?php
+                  if ($reserva[0]['motivo_viaje'] == $motivo['id_grupo']) {?>
+                    selected
+                    <?php
+                  }
+                ?>>
+                <?php echo $motivo['descripcion_grupo']; ?></option>}
               <?php
-    if ($reserva[0]['motivo_viaje'] == $motivo['id_grupo']) {?>
-                  selected
-                  <?php
-    }
-    ?>
-                ><?php echo $motivo['descripcion_grupo']; ?></option>}
-              <?php
-}
-?>
+            }
+          ?>
           </select>
         </div>
         <label for="tarifahab" class="col-sm-2 control-label">Fuente de Reserva</label>
@@ -288,19 +284,19 @@ foreach ($motivos as $motivo) { ?>
           <select name="fuente" id="fuente">
             <option value="">Seleccione Fuente</option>
             <?php
-  $motivos = $hotel->getMotivoGrupo('FRE');
-foreach ($motivos as $motivo) { ?>
+              $motivos = $hotel->getMotivoGrupo('FRE');
+              foreach ($motivos as $motivo) { ?>
                 <option value="<?php echo $motivo['id_grupo']; ?>"
                 <?php
-    if ($reserva[0]['fuente_reserva'] == $motivo['id_grupo']) {?>
+                  if ($reserva[0]['fuente_reserva'] == $motivo['id_grupo']) {?>
                     selected
                     <?php
-    }
-    ?>
+                  }
+                ?>
                   ><?php echo $motivo['descripcion_grupo']; ?></option>}
                 <?php
-}
-?>
+              }
+            ?>
           </select>
         </div>
       </div>            
@@ -310,19 +306,19 @@ foreach ($motivos as $motivo) { ?>
           <select name="segmento" id="segmento">
             <option value="">Seleccione el Segmento</option>
             <?php
- $motivos = $hotel->getMotivoGrupo('SME');
-foreach ($motivos as $motivo) { ?>
+              $motivos = $hotel->getMotivoGrupo('SME');
+              foreach ($motivos as $motivo) { ?>
                 <option value="<?php echo $motivo['id_grupo']; ?>"
                   <?php
-    if ($reserva[0]['segmento_mercado'] == $motivo['id_grupo']) {?>
+                  if ($reserva[0]['segmento_mercado'] == $motivo['id_grupo']) {?>
                     selected
                     <?php
-    }
-    ?>                  
+                  }
+                ?>                  
                 ><?php echo $motivo['descripcion_grupo']; ?></option>}
                 <?php
-}
-?>
+              }
+            ?>
           </select>
         </div>
         <label for="formapago" class="col-sm-2 control-label">Forma de Pago </label>
@@ -330,19 +326,19 @@ foreach ($motivos as $motivo) { ?>
           <select name="formapagoUpd" id="formapagoUpd">
             <option value="">Seleccione La Forma de Pago</option>
             <?php
- $codigos = $hotel->getCodigosConsumos(3);
-foreach ($codigos as $codigo) { ?>
-                <option value="<?php echo $codigo['id_cargo']; ?>"
-                  <?php
-      if ($reserva[0]['forma_pago'] == $codigo['id_cargo']) {?>
+              $codigos = $hotel->getCodigosConsumos(3);
+                foreach ($codigos as $codigo) { ?>
+                  <option value="<?php echo $codigo['id_cargo']; ?>"
+                    <?php
+                    if ($reserva[0]['forma_pago'] == $codigo['id_cargo']) {?>
                       selected
                       <?php
-      }
-    ?>  
-                    ><?php echo $codigo['descripcion_cargo']; ?></option>
-                <?php
-}
-?>
+                    }
+                  ?>  
+                  ><?php echo $codigo['descripcion_cargo']; ?></option>
+                  <?php
+                }
+              ?>
           </select>
         </div>
       </div>
@@ -366,7 +362,8 @@ foreach ($codigos as $codigo) { ?>
     <div class="panel-footer">
       <div class="btn-group" style="width: 30%;margin-left:35%">
         <button style="width: 50%" type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply" aria-hidden="true"></i> Regresar</button>
-        <button style="width: 50%" class="btn btn-success" align="right"><i class="fa fa-save" aria-hidden="true"></i> Actualizar</button>
+        <button style="width: 50%;text-align:right" class="btn btn-success" ><i class="fa fa-save" aria-hidden="true"></i> Actualizar</button>
       </div>           
     </div>
   </div>
+}

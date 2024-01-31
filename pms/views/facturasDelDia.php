@@ -94,7 +94,7 @@ $facturador = $eToken[0]['facturador'];
                                 data-numero="<?php echo $factura['factura_numero']; ?>" 
                                 data-reserva="<?php echo $factura['num_reserva']; ?>" 
                                 href="#myModalVerFactura" title="Ver Factura">
-                                <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                                <i class="fa fa-file-pdf" aria-hidden="true"></i>
                               </button>
                               <?php
                               if ($factura['factura_anulada'] == 0) { ?>
@@ -103,7 +103,7 @@ $facturador = $eToken[0]['facturador'];
                                   <i class="fa fa-window-close" aria-hidden="true"></i></a>
                                 <?php
                                   if($facturador == 1){
-                                    ?>
+                                      ?>
                                     <button class="btn btn-default btn-xs" onclick="donwloadFile('<?php echo $factura['factura_numero']; ?>.xml','<?php echo NIT; ?>','xml','false');" type="button" title="Descarga ZIP Attached">
                                       <i class="fa-solid fa-download"></i>
                                     </button>

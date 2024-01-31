@@ -35,7 +35,7 @@
                 <td>Celular</td>
                 <td>Correo</td>
                 <td>Edad</td>
-                <td>Accion</td>                
+                <td style="width:15%;">Accion</td>                
               </tr>
             </thead>
             <tfoot></tfoot>

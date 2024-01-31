@@ -2,7 +2,7 @@
 
 $dbtype = 'mysql';
 $host = 'localhost';
-// $dbname = 'donlolo';
+$dbname = 'u609569776_donlolodb';
 // $dbname = 'donlolonew';
 // $dbname = 'donlolo28';
 // $dbname = 'donlolojul03';
@@ -10,7 +10,7 @@ $host = 'localhost';
 // $dbname = 'donlolosep16';
 // $dbpass = '#eO18z5jkJEK';
 
-$dbname = 'donloloweb';
+// $dbname = 'donloloweb';
 // $dbname = 'donloloerr';
 $server = 'localhost';
 $dbuser = 'root';
