@@ -982,7 +982,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           success: function (data) {
             $("#estadoCuenta").html(data);
           },
-        });
+        }); 
       }
     }
   });
@@ -5046,7 +5046,7 @@ function seleccionaCambioHuespedReserva(hues) {
       swal(
         {
           title: "Atencion !",
-          text: "No Olvice Reimprir el Registro Hotelero",
+          text: "No Olvide Reimprir el Registro Hotelero",
           type: "success",
           confirmButtonText: "Aceptar",
           closeOnConfirm: false,
@@ -7046,15 +7046,16 @@ function ciudadesExpedicion(pais, city) {
   
   let web = $("#rutaweb").val();
   let pagina = $("#ubicacion").val();
-  let edita = $("#edita").val();
-  let acompana = $("#acompana").val();
+  let edita = parseInt($("#edita").val());
+  let acompana = parseInt($("#acompana").val());
   
   console.log(edita);
+  console.log(acompana);
   
   if (edita == 1) {
     $("#ciudadExpUpd option").remove();
   } else {
-    if(acompana=="1"){
+    if(acompana==1){
       $("#ciudadExpAco option").remove();
     }else{
       $("#ciudadExp option").remove();
@@ -7710,12 +7711,12 @@ function adicionaObservacion() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
   let { usuario } = user;
-  // usuario = sesion["usuario"][0]["usuario"];
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var rese = $("#reservaObs").val();
   var obse = $("#adicionaObs").val();
-  var ante = $("#observaAnt").val();
+  var ante = $("#observaAnt").val()+'/n';
+  
   parametros = {
     rese,
     obse,

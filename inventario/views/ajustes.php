@@ -16,8 +16,7 @@
             <a 
               class="btn btn-success" 
               href="movimientoAjustes">
-              <i class="fa fa-plus" aria-hidden="true"></i>
-               Nuevo Ajuste
+              <i class="fa fa-plus" aria-hidden="true"></i> Nuevo Ajuste 
             </a>
             <button class="btn btn-info" onclick="exportTableToExcel('tablaentradas')"><i class="glyphicon glyphicon-th" aria-hidden="true"></i> Exportar Movimientos</button>
           </div> 
@@ -46,7 +45,7 @@
                   <td><?php echo $entrada['fecha_movimiento']; ?></td>
                   <td><?php echo $entrada['descripcion_bodega']; ?></td>
                   <td><?php echo $entrada['descripcion_tipo']; ?></td>                  
-                  <td align="right"><?php echo number_format($entrada['total'],2); ?></td>
+                  <td style="text-align:right;"><?php echo number_format($entrada['total'],2); ?></td>
                   <td>
                   <span
                     <?php 
@@ -121,7 +120,7 @@
                 <td><?php echo $entrada['fecha_movimiento']; ?></td>
                 <td><?php echo $entrada['descripcion_bodega']; ?></td>
                 <td><?php echo $entrada['descripcion_tipo']; ?></td>                  
-                <td align="right"><?php echo number_format($entrada['total'],2); ?></td>
+                <td style="text-align:right;"><?php echo number_format($entrada['total'],2); ?></td>
                 <td><?php echo estadoMovimiento($entrada['estado']); ?></td>
               </tr>
               <?php 

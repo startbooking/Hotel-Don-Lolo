@@ -987,7 +987,6 @@ $manana = date('Y-m-d', $manana);
               <select name="paices" id="paices" onchange="getCiudadesPais(this.value)">
                 <option value="">Seleccione la Nacionalidad</option>
                 <?php
-                $paices = $hotel->getPaices();
                 foreach ($paices as $pais) { ?>
                   <option value="<?php echo $pais['id_pais']; ?>"><?php echo $pais['descripcion']; ?></option>
                 <?php

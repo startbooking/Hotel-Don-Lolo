@@ -15,7 +15,8 @@
 	$inven   = new Inventario_User();
 	
 	$empresa = $admin->getInfoCia();
-
+	
+	define('DEV', '1');
 	define("NAME_EMPRESA", $empresa[0]['empresa']);
 	define("NIT_EMPRESA", $empresa[0]['nit'].'-'.$empresa[0]['dv']);
 	define("ADRESS_EMPRESA", $empresa[0]['direccion']);

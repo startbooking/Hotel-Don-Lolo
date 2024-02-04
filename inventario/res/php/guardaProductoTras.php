@@ -26,7 +26,6 @@
         $fechaing = date('Y-m-d h:m:s');
 
         $insertMovi = $inven->insertaMovimientoTraslado(3, 2, $movSal, $numeroTra, $fecha, $fechaing, $destino, $prod, $cantidad, $unidadalm, $unit, $total, $almacen, 1, $usuario);
-
         $insertMoviEnt = $inven->insertaMovimientoTraslado(3, 1, $movEnt, $numeroTra, $fecha, $fechaing, $almacen, $prod, $cantidad, $unidadalm, $unit, $total, $destino, 1, $usuario);
     }
 

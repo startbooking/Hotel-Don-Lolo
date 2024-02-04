@@ -1,5 +1,5 @@
 <?php 
-  $hoy    = substr(FECHA_PMS,5,5);
+  $hoy    = substr(FECHA_PMS,5,5);  
 ?>
 
 <div class="content-wrapper" id="pantallaenCasa"> 
@@ -21,7 +21,7 @@
             </a>
             <button class="btn btn-info" onclick="exportTableToExcel('tablaReservas')"><i class="glyphicon glyphicon-th" aria-hidden="true"></i> Exportar</button> 
           </div>
-        </div>
+        </div> 
       </div>
       <div class="panel-body" id="paginaenCasa">
         <div class="table-responsive">
@@ -134,7 +134,7 @@
                           <ul class="nav navbar-nav" style="margin :0;width: 100%">
                             <li class="dropdown submenu" style="width: 100%">
                               <a 
-                                href          ="#" 
+                                href          ="#"  
                                 class         ="dropdown-toggle" 
                                 data-toggle   ="dropdown" 
                                 role          ="button" 

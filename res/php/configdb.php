@@ -2,7 +2,7 @@
 
 $dbtype = 'mysql';
 $host = 'localhost';
-$dbname = 'u609569776_donlolodb';
+// $dbname = 'udonlolodb';
 // $dbname = 'donlolonew';
 // $dbname = 'donlolo28';
 // $dbname = 'donlolojul03';
@@ -15,9 +15,9 @@ $dbname = 'u609569776_donlolodb';
 $server = 'localhost';
 $dbuser = 'root';
 $dbpass = 'b4r4h0n4';
+$dbname = 'u609569776_donlolodb';
 /* 
 $server = 'srv1013.hstgr.io';
-$dbname = 'u609569776_donlolodb';
 $dbuser = 'u609569776_donlolousr';
 $dbpass = '[eP2:zbL*P';
 */

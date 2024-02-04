@@ -583,8 +583,6 @@ function procesaPed() {
       success: function (data) {
         data = $.trim(data);
         imprimeMovimiento(data, 6);
-        /*
-         */
         localStorage.removeItem("pedidoProductosLista");
         localStorage.removeItem("almacenPed");
         localStorage.removeItem("proveedorPed");
@@ -931,9 +929,6 @@ function procesaReq() {
         localStorage.removeItem("centroCostoReq");
         localStorage.removeItem("almacenReq");
         localStorage.removeItem("fechaReq");
-        /*	  		
-				var ventana = window.open('views/prints/imprimeRequisicion.php', 'PRINT', 'height=600,width=600');
-	  		 */
         swal("Atencion", "Requisicion Creada con Exito", "success", 5000);
         $(location).attr("href", "requisiciones");
       },
@@ -1757,6 +1752,25 @@ function asignaConsecutivoTraslado(tipo) {
   });
 }
 
+function reImprimeMovimiento(numero, tipo){
+  var ruta = $("#rutaweb").val();
+  
+  parametros = {
+    numero,
+    tipo
+  }
+
+  $.ajax({
+    url: ruta + "res/php/reimprimeMovimiento.php",
+    type: "POST",
+    data: parametros,
+    success: function (data) {
+    console.log(data)
+      imprimeMovimiento(data.trim(), 3);
+    },
+  });
+}
+
 function procesaTraslado(tipo) {
   var pagina = $("#ubicacion").val();
   var ruta = $("#rutaweb").val();
@@ -1765,7 +1779,6 @@ function procesaTraslado(tipo) {
   var movSale = localStorage.getItem("tipoMovSale");
   var desti = localStorage.getItem("destinoTras");
   var fecha = localStorage.getItem("fechaTras");
-  // var usua = sesion["usuario"][0]["usuario"];
 
   asignaConsecutivoTraslado(3);
 
@@ -1785,7 +1798,7 @@ function procesaTraslado(tipo) {
       numeroTra,
       numeroEnt,
       numeroSal,
-      movimiento,
+      movimiento, 
     };
     $.ajax({
       url: ruta + "res/php/guardaProductoTras.php",

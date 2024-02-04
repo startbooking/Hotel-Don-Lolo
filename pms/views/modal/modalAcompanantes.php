@@ -68,7 +68,7 @@
       </form>
     </div>
   </div>
-</div>
+</div> 
 
 <div class="modal fade" id="myModalAdicionaPerfilAcompanante" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-lg" role="document">
@@ -301,7 +301,7 @@
         <h4 class="modal-title" id="myModalLabel">Acompañantes en la Reserva</h4>
       </div>
       <div class="modal-body">
-        <input type="hidden" id="idreservaAco" name="idreservaAco">
+        <input type="hidden" id="idreservaAcoHis" name="idreservaAcoHis">
         <div id="mensajeEliAco"></div>
         <div id="acompanantesHist"></div>
         <div class="container">

@@ -65,7 +65,7 @@ $entradas = $inven->getMovimientosTraslados(1);
                       }
                   ?>
                     ><?php echo estadoMovimiento($entrada['estado']); ?></span></td>
-                  <td align="center">
+                  <td style="text-align:center;">
                     <div class="btn-group">
                       <button 
                         type             = "button" 
@@ -88,13 +88,22 @@ $entradas = $inven->getMovimientosTraslados(1);
                         class="btn btn-xs btn-info" 
                         type="button">
                         <i class="fa fa-print" aria-hidden="true"></i>
-                      </button>  
+                      </button> 
                       <?php
-                      if ($entrada['estado'] == 1) { ?>
+                      if (DEV == 1) { ?>
+                        <button 
+                          onclick="reImprimeMovimiento('<?php echo $entrada['numero']; ?>',3)" 
+                          title="Imprime Movimiento" 
+                          class="btn btn-xs btn-success" 
+                          type="button">
+                          <i class="fa fa-print" aria-hidden="true"></i>
+                        </button> 
+                        <?php }
+                        if ($entrada['estado'] == 1) { ?>
                           <button onclick="anulaMovimiento(<?php echo $entrada['numero']; ?>,<?php echo $entrada['tipo']; ?>,<?php echo $entrada['id_bodega']; ?>)" title="Anula Movimiento" class="btn btn-xs btn-danger" type="button"><i class="fa fa-times" aria-hidden="true"></i></button>  
                           <?php
                       }
-                  ?>
+                    ?>
                     </div>
                   </td>
                 </tr>

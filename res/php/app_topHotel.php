@@ -89,17 +89,19 @@ if (!isset($_GET['section'])) {
 } elseif (isset($_GET['section']) && $_GET['section'] == 'reservasActivas') {
     $companias = $hotel->getCompanias();
     $reservas = $hotel->getReservasActuales(1);
+    $paices = $hotel->getPaices();
 } elseif (isset($_GET['section']) && $_GET['section'] == 'forecast') {
 } elseif (isset($_GET['section']) && $_GET['section'] == 'preregistros') {
     $reservas = $hotel->getReservasActuales(1);
 } elseif (isset($_GET['section']) && $_GET['section'] == 'encasa') {
     $reservas = $hotel->getHuespedesenCasa(2, 'CA');
+    $paices = $hotel->getPaices();
 } elseif (isset($_GET['section']) && $_GET['section'] == 'grupos') {
     $grupos = $hotel->getGrupos();
 } elseif (isset($_GET['section']) && $_GET['section'] == 'llegadasDelDia') {
     $hoy = $hotel->getDatePms();    
     $reservas = $hotel->getReservasDia(FECHA_PMS, 1, 'ES');
-    // $reservas = $hotel->getReservasDia(FECHA_PMS,1,"ES");
+    $paices = $hotel->getPaices();
 } elseif (isset($_GET['section']) && $_GET['section'] == 'llegadaSinReserva') {
     $companias = $hotel->getCompanias();
 } elseif (isset($_GET['section']) && $_GET['section'] == 'salidasDelDia') {

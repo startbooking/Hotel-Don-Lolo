@@ -74,9 +74,13 @@
                           <?php
                         }
                         if (count($depositos) != 0) { ?>
-                          <span class="fa-stack fa-xs" title="Reserva con Depositos" style="margin-left:0px;cursor:pointer;" onclick="verDepositos('<?php echo $reserva['num_reserva']; ?>')">
-                            <i style="font-size:20px;color: #085908" class="fa fa-circle fa-stack-2x"></i>
-                            <i style="font-size:10px;margin-top: 1px;margin-left: 0px;" class="fa fa-usd fa-stack-1x fa-inverse"></i>
+                          <span 
+                            class="fa-stack fa-xs" 
+                              title="Reserva con Depositos" 
+                              style="margin-left:0px;cursor:pointer;" 
+                              onclick="verDepositos('<?php echo $reserva['num_reserva']; ?>')">
+                              <i style="font-size:20px;color: #085908" class="fa fa-circle fa-stack-2x"></i>                            
+                              <i style="font-size:10px;margin-top: 1px;margin-left: 0px;" class="fa fa-usd fa-stack-1x fa-inverse"></i>
                           </span>
                           <?php
                         } 
@@ -163,7 +167,7 @@
                                 <ul class="dropdown-menu submenu" style="float:left;margin-left:-180px;top:40px;">  
                                   <li>
                                     <a 
-                                      data-toggle        ="modal"
+                                      data-toggle        ="modal" 
                                       data-target        = "#myModalAcompanantesReserva"
                                       data-id            ="<?php echo $reserva['num_reserva']; ?>" 
                                       data-nombre        ="<?php echo $reserva['nombre_completo']; ?>"                                        

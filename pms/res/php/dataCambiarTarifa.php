@@ -12,7 +12,7 @@
 <div class="">
   <div class="form-group">
     <label for="inputEmail3" class="col-sm-2 control-label">Documento</label>
-    <div class="col-sm-4"> 
+    <div class="col-sm-3"> 
       <input type="hidden" name="numeroReservaAct" id="numeroReservaAct" value="<?=$id?>">
       <input type="hidden" name="tipoocupacionAct" id="tipoocupacionAct" value="<?=$reserva[0]['tipo_ocupacion']?>">
       <input type="text" class="form-control" name="identifica" id="identifica" value="<?=$huesped[0]['identificacion']?>" readonly="">
@@ -36,8 +36,13 @@
     </div>
   </div>
   <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label">Huesped</label>
+    <div class="col-sm-6">
+      <input type="hidden" name="idhuesped" id="idhuesped" value="<?=$reserva[0]['id_huesped']?>">
+      <input type="text" class="form-control" name="apellidos" id="apellidos" value="<?=$huesped[0]['nombre_completo']?>" readonly disabled>
+    </div>
     <label for="inputEmail3" class="col-sm-2 control-label">Decreto 297</label>
-    <div class="col-sm-3">
+    <div class="col-sm-2">
       <div class="wrap">
         <div class="col-sm-6" style="padding:0;height: 15px">
           <div class="form-check form-check-inline">
@@ -49,7 +54,7 @@
               }
             ?>
             >
-            <label style="margin-top:-25px;margin-left:25px" class="form-check-label" for="inlineRadio1" >NO</label>
+            <label style="margin-top:-20px;margin-left:25px" class="form-check-label" for="inlineRadio1" >NO</label>
           </div>                    
         </div>
         <div class="col-sm-6" style="padding:0;height: 15px"> 
@@ -62,24 +67,11 @@
               }
             ?>
             >
-            <label style="margin-top:-25px;margin-left:25px" class="form-check-label" for="inlineRadio2">SI</label>
+            <label style="margin-top:-20px;margin-left:25px" class="form-check-label" for="inlineRadio2">SI</label>
           </div>
         </div>
       </div>
     </div>
-  <!-- </div>
-  <div class="form-group"> -->
-    <label for="inputEmail3" class="col-sm-1 control-label">Huesped</label>
-    <div class="col-sm-6">
-      <input type="hidden" name="idhuesped" id="idhuesped" value="<?=$reserva[0]['id_huesped']?>">
-      <input type="text" class="form-control" name="apellidos" id="apellidos" value="<?=$huesped[0]['nombre_completo']?>" readonly disabled>
-    </div>
-    <!--
-    <label for="inputEmail3" class="col-sm-2 control-label">Nombres</label>
-    <div class="col-sm-4">
-      <input type="text" class="form-control" name="nombres" id="nombres" value="<?=$huesped[0]['nombre1'].' '.$huesped[0]['nombre2']?>" readonly disabled>
-    </div>
-  -->
   </div>
   <?php 
   if(!empty($reserva[0]['id_compania'])){ ?>
