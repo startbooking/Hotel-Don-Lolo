@@ -4146,10 +4146,10 @@ function seleccionaAmbiente() {
   });
 }
 
-function ingresoPos() {
-  sesion = JSON.parse(localStorage.getItem("sesion"));
+sesion = JSON.parse(localStorage.getItem("sesion"));
+let { cia: { invMod, posMmod }, user: {  usuario_id, apellidos, nombres, estado_usuario_pos, tipo }} = sesion;
 
-  let { cia: { invMod, posMmod }, user: {  usuario_id, apellidos, nombres, estado_usuario_pos, tipo }} = sesion;
+function ingresoPos() {
 
   $("#idUsuario").val(usuario_id);
 
@@ -4195,10 +4195,10 @@ function ingresoPos() {
 }
 
 function activaPos() {
-  sesion = JSON.parse(localStorage.getItem("sesion"));
+  // sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user: { usuario, usuario_id, tipo, nombres, apellidos } } = sesion;
+  // let { pos, user: { usuario, usuario_id, tipo, nombres, apellidos } } = sesion;
   let { fecha_auditoria } = oPos[0];
   $("#fechaAuditoria").val(fecha_auditoria);
 

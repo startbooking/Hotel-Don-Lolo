@@ -98,17 +98,17 @@ $facturador = $eToken[0]['facturador'];
                               </button>
                               <?php
                               if ($factura['factura_anulada'] == 0) { ?>
-                                <a class="btn btn-danger btn-xs" data-toggle="modal" 
+                                <a class="btn btn-danger btn-xs btnAdiciona" data-toggle="modal" 
                                 data-facturador="<?php echo $facturador; ?>" data-apellidos="<?php echo $factura['apellido1'] . ' ' . $factura['apellido2']; ?>" data-nombres="<?php echo $factura['nombre1'] . ' ' . $factura['nombre2']; ?>" data-llegada="<?php echo $factura['fecha_llegada']; ?>" data-salida="<?php echo $factura['fecha_salida']; ?>" data-fechafac="<?php echo $factura['fecha_factura']; ?>" data-numero="<?php echo $factura['factura_numero']; ?>" data-reserva="<?php echo $factura['num_reserva']; ?>" data-perfil="<?php echo $factura['perfil_factura']; ?>" data-idperfil="<?php echo $factura['id_perfil_factura']; ?>" data-prefijo="<?php echo $factura['prefijo_factura']; ?>" href="#myModalAnulaFactura" type="button" title="Anular Factura">
                                   <i class="fa fa-window-close" aria-hidden="true"></i></a>
                                 <?php
-                                  if($facturador == 1){
-                                      ?>
-                                    <button class="btn btn-default btn-xs" onclick="donwloadFile('<?php echo $factura['factura_numero']; ?>.xml','<?php echo NIT; ?>','xml','false');" type="button" title="Descarga ZIP Attached">
-                                      <i class="fa-solid fa-download"></i>
-                                    </button>
-                                    <?php
-                                  }
+                                if($facturador == 1){
+                                    ?>
+                                  <button class="btn btn-default btn-xs" onclick="donwloadFile('<?php echo $factura['factura_numero']; ?>.xml','<?php echo NIT; ?>','xml','false');" type="button" title="Descarga ZIP Attached">
+                                    <i class="fa-solid fa-download"></i>
+                                  </button>
+                                  <?php
+                                }
                               }else{ ?>
                                 <button 
                                   class="btn btn-success btn-xs" 

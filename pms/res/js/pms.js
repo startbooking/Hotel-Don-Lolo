@@ -1,8 +1,17 @@
 // $(document).ready(function () {
 document.addEventListener("DOMContentLoaded", async () => {
 
-  let sesion = JSON.parse(localStorage.getItem("sesion"));
+  /* function getNameURLWeb(){
+    var sPath = window.location.pathname;
+    var sPage = sPath.substring(sPath.lastIndexOf('/') + 1);
+    return sPage;
+  } 
+  var xx_nombre_pagina =  getNameURLWeb();
 
+  alert(xx_nombre_pagina);  */
+  
+  let sesion = JSON.parse(localStorage.getItem("sesion"));
+  
   if (sesion == null) {
     swal({
       title: 'Precaucion',
@@ -18,7 +27,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   let { user } = sesion;
   let { usuario, usuario_id, nombres, apellidos, tipo } = user;
-
+  
   $('.category_list .category_item[category="all"]').addClass("ct_item-active");
   $(".category_item").click(function () {
     var catProduct = $(this).attr("category");
@@ -4981,6 +4990,35 @@ function anulaIngreso() {
       }
     },
   });
+}
+
+function accesoUsuarios(){
+  menuFicha  = document.querySelectorAll("#menuFicha")
+  btnAdiciona =  document.querySelectorAll('.btnAdiciona')
+  // console.log(btnAdiciona);
+  
+  /* 
+  console.log(menuFicha)
+  console.log(menuFicha.length)
+  console.log(menuFicha);  
+  console.log(tipo) 
+  */
+  if(tipo <= 4 ){
+    menuFicha.forEach((element, index) => {
+      if(index < menuFicha.length) {
+        element.classList.add('apaga');
+      }
+    });
+    btnAdiciona.forEach((element, index) => {
+      if(index < btnAdiciona.length) {
+        element.classList.add('apaga');
+      }
+    });
+    /* if(btnAdiciona.lenght > 1){
+      btnAdiciona.classList.add('apaga')
+    }else{
+    } */
+  }
 }
 
 function seleccionaHuespedReserva(id) {

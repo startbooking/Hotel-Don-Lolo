@@ -16,4 +16,3 @@
 <script src="<?= BASE_JS ?>sactel.js" type="text/javascript"></script>
 <script src="<?= BASE_RES ?>dist/app.min.js"></script>
 <!-- <script src="<?= BASE_RES ?>dist/jquery.dataTables.min.js"></script> -->
-//

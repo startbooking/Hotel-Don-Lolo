@@ -120,7 +120,7 @@
                       <td style="padding:2px">
                       <?php echo estadoReserva($reserva['estado']); ?></td> -->
                       <td style="padding:2px;width: 13%">
-                        <nav class="navbar navbar-default" style="margin-bottom: 0px;min-height:0px;">
+                        <nav class="navbar navbar-default" id="menuFicha" style="margin-bottom: 0px;min-height:0px;">
                           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:0px;">
                             <ul class="nav navbar-nav" style="margin :0">
                               <li class="dropdown dropdownMenu pull-right">

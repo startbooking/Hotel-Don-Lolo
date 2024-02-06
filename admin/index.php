@@ -113,7 +113,9 @@ include_once '../views/modal/modalUsuario.php';
           },
         });
       });
-      
+    sesion = JSON.parse(localStorage.getItem("sesion"));
+    const { user: {usuario, nombres, apellidos, tipo} } = sesion;
+
       $('#usuarioActivo').val(usuario)
       $('#nombreUsuario').html(`${apellidos} ${nombres} <span class="caret"></span>`)
     </script>

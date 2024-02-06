@@ -14,13 +14,12 @@
                 <div class="row">
                   <?php
                     $regis = count($recibos);
-              if ($regis == 0) { ?>
+                    if ($regis == 0) { ?>
                     <div class="col-xs-12" id="muestraResultado" style="font-size:12px;text-align:center;">
-
                       <h4 class="bg-red-gradient" style="padding:10px;text-align: center;font-weight: 600;">Sin Recibos de Caja Creados En el Dia <span style="font-size:16px;font-weight: 600;font-family: 'ubuntu'"></span></h4>
                       </div>         
                       <?php
-              } else { ?> 
+                    } else { ?> 
                       <div class="col-xs-12" id="muestraResultado" style="font-size:12px">
                         <div class="table-responsive"> 
                           <table id="example1" class="table table-bordered">
@@ -36,27 +35,26 @@
                             </thead>
                             <tbody>
                               <?php
-
-                        foreach ($recibos as $recibo) {
-                            // $numFactura = $factura['prefijo_factura'].$factura['factura_numero']; ?>
-                                <tr style='font-size:12px'>
-                                  <td style="padding:3px 5px;text-align:right;"><?php echo $recibo['concecutivo_abono']; ?></td>
-                                  <td style="padding:3px 5px;text-align:right;"><?php echo $recibo['num_habitacion']; ?></td>
-                                  <td style="padding:3px 5px"><?php echo $recibo['nombre_completo']; ?></td>
-                                  <td style="padding:3px 5px;text-align:right;"><?php echo $recibo['fecha_cargo']; ?></td>
-                                  <td style="padding:3px 5px;text-align:right;"><?php echo number_format($recibo['pagos_cargos'],2); ?></td>
-                                  <td style="padding:3px 5px;text-align:center;">
-                                    <button 
-                                      class="btn btn-info btn-xs" 
-                                      onclick="verRecibo('<?php echo $recibo['concecutivo_abono']; ?>')" 
-                                      type="button">
-                                      <i class="fa fa-file-pdf-o" aria-hidden="true" title="Ver Recibo"></i>
-                                    </button>
-                                  </td>
-                                </tr>
-                                <?php
-                        }
-                  ?>
+                                foreach ($recibos as $recibo) {
+                                // $numFactura = $factura['prefijo_factura'].$factura['factura_numero']; ?>
+                                  <tr style='font-size:12px'>
+                                    <td style="padding:3px 5px;text-align:right;"><?php echo $recibo['concecutivo_abono']; ?></td>
+                                    <td style="padding:3px 5px;text-align:right;"><?php echo $recibo['num_habitacion']; ?></td>
+                                    <td style="padding:3px 5px"><?php echo $recibo['nombre_completo']; ?></td>
+                                    <td style="padding:3px 5px;text-align:right;"><?php echo $recibo['fecha_cargo']; ?></td>
+                                    <td style="padding:3px 5px;text-align:right;"><?php echo number_format($recibo['pagos_cargos'],2); ?></td>
+                                    <td style="padding:3px 5px;text-align:center;">
+                                      <button 
+                                        class="btn btn-info btn-xs" 
+                                        onclick="verRecibo('<?php echo $recibo['concecutivo_abono']; ?>')" 
+                                        type="button">
+                                        <i class="fa fa-file-pdf" aria-hidden="true" title="Ver Recibo"></i>
+                                      </button>
+                                    </td>
+                                  </tr>
+                                  <?php
+                                }
+                              ?>
                             </tbody>
                           </table>
                         </div>

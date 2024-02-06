@@ -3946,7 +3946,7 @@ class Hotel_Actions{
             'cargos_pms.cantidad_cargo',
             'cargos_pms.informacion_cargo',
             'cargos_pms.valor_cargo',
-            'cargos_pms.folio_cargo',
+            'cargos_pms.folio_cargo', 
             'cargos_pms.pagos_cargos',
             'cargos_pms.referencia_cargo',
             'cargos_pms.concecutivo_abono',

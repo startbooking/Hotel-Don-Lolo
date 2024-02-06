@@ -1347,6 +1347,14 @@ padding: 10px 15px;
   display:none;
 }
 
+.dropdown-menu {
+  width: 100%;
+}
+
+.sweet-alert h2{
+  font-size: 20px;
+}
+
 @media (max-width: 1080px) {
   .letraLogo {
     font-size: 50px;

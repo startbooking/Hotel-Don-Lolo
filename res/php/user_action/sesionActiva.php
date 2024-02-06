@@ -3,7 +3,9 @@
     require '../../../res/php/app_top.php'; 
 
     $idusr = $_POST['usuario_id'];
+    $tipo =  $_POST['tipo'];
     
+   /*  
     $users    = $user->getSesionLogin($idusr);
     $cia      = $user->getInfoCia();
     $fechaPms = $user->getDatePms();
@@ -31,7 +33,7 @@
     $_SESSION['PMS'] =  $cia[0]['pms'];  
     $_SESSION['RES'] =  $cia[0]['res'];    
 
-    echo $_SESSION["nombres"];
+    echo $_SESSION["nombres"]; */
 
 
  ?>

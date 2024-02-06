@@ -1,5 +1,5 @@
 <?php
-$rutaINV = BASE_POS.'datos/kardex.php';
+  $rutaINV = BASE_POS.'datos/kardex.php';
 ?>
 
 <aside id="menuPos" class="main-sidebar apaga" style="margin-top: 54px;">
@@ -13,7 +13,7 @@ $rutaINV = BASE_POS.'datos/kardex.php';
         </a>
         <ul class="treeview-menu">
           <li> 
-            <a class="menuPpal" onclick="clientes()"><i class="fa fa-address-card-o" aria-hidden="true"></i> Clientes</a>
+            <a class="menuPpal" onclick="clientes()"><i class="fa fa-address-card" aria-hidden="true"></i> Clientes</a>
           </li>
           <li>
             <a class="menuPpal" onclick="recetas()"><i class="fa fa-pie-chart" aria-hidden="true"></i> Recetas</a>
@@ -52,7 +52,7 @@ $rutaINV = BASE_POS.'datos/kardex.php';
       </li> -->
       <li class="treeview" id="menuMovi" style="display:none;">
         <a href="#">
-          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+          <i class="fa fa-pencil-square" aria-hidden="true"></i>
           <span>Movimientos del Dia</span>
           <small class="fa fa-angle-left pull-right"></small>
         </a>
@@ -146,7 +146,7 @@ $rutaINV = BASE_POS.'datos/kardex.php';
           </li>
           <li>
             <a class="menuPpal" onclick="cuentasActivasAuditoria()">
-              <i class="fa fa-check-square-o" aria-hidden="true"></i>
+              <i class="fa fa-check-square" aria-hidden="true"></i>
             Comandas Activas</a>
           </li>
           <li>
@@ -177,10 +177,12 @@ $rutaINV = BASE_POS.'datos/kardex.php';
                 <a class="menuPpal" onclick="abonosDia()"><i class="fa fa-users"></i> Abonos del Dia</a>
               </li> --> 
               <li>
-                <a class="menuPpal" onclick="ventasDiaAuditoria()"><i class="fa fa-money"></i> Ventas del Dia</a>
+                <a class="menuPpal" onclick="ventasDiaAuditoria()">
+                <i class="fa-solid fa-money-bill"></i> Ventas del Dia</a>
               </li>
               <li>
-                <a class="menuPpal" onclick="ventasCreditoDia()"><i class="fa fa-money"></i> Ventas Empleados</a>
+                <a class="menuPpal" onclick="ventasCreditoDia()">
+                <i class="fa-solid fa-money-bill"></i> Ventas Empleados</a>
               </li>
               <li>
                 <a class="menuPpal" onclick="cuentasActivasAuditoria()"><i class="fa fa-calendar"></i> Comandas Activas</a>
@@ -217,7 +219,7 @@ $rutaINV = BASE_POS.'datos/kardex.php';
               </li>
               <li>
                 <a class="menuPpal" onclick="ventasHistoricoProductos()">
-                  <i class="fa fa-files-o"></i>Historico Productos</a>
+                <i class="fa-regular fa-file"></i>Historico Productos</a>
               </li>
               <li>
                 <a class="menuPpal" onclick="ventasHistoricoGrupos()">
@@ -228,10 +230,10 @@ $rutaINV = BASE_POS.'datos/kardex.php';
               </li>
               <li>
                 <a class="menuPpal" onclick="ventasHistoricoPeriodos()">
-                  <i class="fa fa-files-o"></i>Historico Periodos de Servicio </a>
+                <i class="fa-regular fa-file"></i>Historico Periodos de Servicio </a>
               </li>
-              <li><a class="menuPpal" onclick="historicoCajeros()"><i class="fa fa-files-o"></i>Historico Cajeros</a></li>
-              <li><a class="menuPpal" onclick="historicoListadoFacturas()"><i class="fa fa-files-o"></i>Historico Facturas</a></li>
+              <li><a class="menuPpal" onclick="historicoCajeros()"><i class="fa-regular fa-file"></i>Historico Cajeros</a></li>
+              <li><a class="menuPpal" onclick="historicoListadoFacturas()"><i class="fa-regular fa-file"></i>Historico Facturas</a></li>
               <li><a class="menuPpal" onclick="historicoAuditorias()"><i class="fa fa-calendar"></i> Historico Auditorias</a></li>
             </ul>
           </li>

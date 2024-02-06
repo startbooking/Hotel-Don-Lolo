@@ -9,7 +9,7 @@
             <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-industry"></i> Compañia </h3>
           </div>
           <div class="col-lg-6 col-md-6" style="text-align:right;">
-            <a class="btn btn-success" data-toggle="modal" href="#myModalAdicionaCompania">
+            <a class="btn btn-success btnAdiciona" data-toggle="modal" href="#myModalAdicionaCompania">
               <i class="fa fa-plus" aria-hidden="true"></i>
               Adicionar Compania
             </a>
@@ -43,8 +43,8 @@
                     <td><?php echo $compania["celular"]; ?> </td>
                     <td style="width:10%;overflow:auto;"><?php echo $compania["email"]; ?> </td>
                     <td><?php echo $compania["descripcion_tarifa"]; ?> </td>
-                    <td style="padding:3px;width: 14%">
-                      <nav class="navbar navbar-default" style="margin-bottom: 0px;min-height:0px;">
+                    <td style="padding:3px;width: 15%">
+                      <nav class="navbar navbar-default" id="menuFicha"style="margin-bottom: 0px;min-height:0px;">
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:1px">
                           <ul class="nav navbar-nav" style="width:100%">
                             <li class="dropdown">

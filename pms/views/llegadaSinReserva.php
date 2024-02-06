@@ -33,7 +33,7 @@
                 <input type="text" class="form-control" id="buscarHuesped" aria-describedby="inputGroupSuccess4Status">
                 <span class="input-group-addon" style="padding:1px;border:none">
                   <a 
-                    class="btn btn-info"  
+                    class="btn btn-info btnAdiciona"  
                     data-toggle="modal" 
                     style="padding: 3px 10px"
                     href="#myModalBuscaHuesped">

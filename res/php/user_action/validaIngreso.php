@@ -27,4 +27,4 @@
   } else {
       $entrada = ['entro' => '0'];
   }
-  echo json_encode($entrada);
+  echo json_encode($entrada); 

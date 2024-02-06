@@ -15,7 +15,7 @@
           </li>
           <li>
             <a href="usuarios">
-              <i class="fa fa-group"></i> <span>Usuarios</span>
+            <i class="fa-solid fa-users"></i> <span>Usuarios</span>
               <small class="label pull-right bg-red"></small>
             </a>
           </li>
@@ -107,7 +107,7 @@
               </li>
               <li>
                 <a href="formasdePago">
-                  <i class="glyphicon glyphicon-object-align-bottom"></i> <span>Formas de Pago</span>
+                <i class="fa-solid fa-money-bills"></i> <span>Formas de Pago</span>
                   <small class="label pull-right bg-red"></small>
                 </a>
               </li>
@@ -174,7 +174,7 @@
               </li>
           <li>
             <a href="formasPagoPos">
-              <i class="fa fa-money"></i><span>Formas de Pago</span>
+            <i class="fa-solid fa-money-bills"></i><span>Formas de Pago</span>
               <small class="label pull-right bg-red"></small></a>
           </li>
               <li>
@@ -190,7 +190,7 @@
               </li>
               <li>
                 <a href="periodos">
-                  <i class="fa fa-clock-o" aria-hidden="true"></i>
+                <i class="fa-solid fa-copy"></i>
                  Periodos de Servicio</a>
               </li>
               <!--

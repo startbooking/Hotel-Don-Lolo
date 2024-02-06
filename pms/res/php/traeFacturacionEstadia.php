@@ -12,7 +12,7 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
     <thead>
       <tr class="warning" style="font-weight: bold">
         <td>Nro Hab.</td>
-        <td></td>
+        <!-- <td></td> -->
         <td>Huesped</td>
         <td>Compañia</td>
         <td>Tarifa</td>
@@ -27,12 +27,12 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
       <?php
     foreach ($reservas as $reserva) {
         if ($reserva['id_compania'] == 0) {
-            $nombrecia = 'SIN COMPAÑIA ASOCIADA';
-            $nitcia = '';
+          $nombrecia = 'SIN COMPAÑIA ASOCIADA';
+          $nitcia = '';
         } else {
-            $cias = $hotel->getBuscaCia($reserva['id_compania']);
-            $nombrecia = $cias[0]['empresa'];
-            $nitcia = $cias[0]['nit'].'-'.$cias[0]['dv'];
+          $cias = $hotel->getBuscaCia($reserva['id_compania']);
+          $nombrecia = $cias[0]['empresa'];
+          $nitcia = $cias[0]['nit'].'-'.$cias[0]['dv'];
         }
 
         $depositos = $hotel->getDepositosReservas($reserva['num_reserva']);
@@ -44,10 +44,10 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
         }
         ?>
         <tr style='font-size:12px'> 
-          <td style="width:8%">
+          <td style="width:8%;display: inline-flex;" >
             <?php echo $reserva['num_habitacion']; ?>
-          </td>
-          <td style="width: 10%">
+          <!-- </td>
+          <td style="width: 10%"> -->
             <?php
               if ($reserva['causar_impuesto'] == 2) { ?>
                 <span class="fa-stack fa-xs" title="Sin Impuestos" style="margin-left:5px;cursor:pointer;">
@@ -59,14 +59,14 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
               if (count($depositos) != 0) { ?>
                 <span class="fa-stack fa-xs" title="Reserva con Depositos" style="margin-left:0px;cursor:pointer;" onclick="verDepositos('<?php echo $reserva['num_reserva']; ?>')"> 
                   <i style="font-size:20px;color: #085908" class="fa fa-circle fa-stack-2x"></i>
-                  <i style="font-size:10px;margin-top: 1px;margin-left: 1px;" class="fa fa-usd fa-stack-1x fa-inverse"></i>
+                  <i style="font-size:10px;margin-top: 1px;margin-left: 5px;" class="fa fa-usd fa-stack-1x fa-inverse"></i>
                 </span>
                 <?php
               }
               if (!empty($reserva['observaciones'])) { ?>
                 <span class="fa-stack fa-xs" title="Observaciones a la Reserva" style="margin-left:0px;cursor:pointer;" onclick="verObservaciones('<?php echo $reserva['num_reserva']; ?>','1')">
                   <i style="font-size:20px;color: #2993dd" class="fa fa-circle fa-stack-2x"></i>
-                  <i style="font-size:10px;margin-top: 1px;margin-left: 1px;" class="fa fa-commenting-o fa-stack-1x fa-inverse"></i>
+                  <i style="font-size:10px;margin-top: 1px;margin-left: 5px;" class="fa fa-commenting fa-stack-1x fa-inverse"></i>
                 </span>
                 <?php
               }
@@ -90,7 +90,7 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
         } 
         ?>
           </td>
-          <td style="width: 27%"><?php echo $nombrecia; ?></td>
+          <td style="width: 20%"><?php echo $nombrecia; ?></td>
           <td style="width: 7%;text-align:right;"><?php echo number_format($reserva['valor_diario'], 2); ?></td>
           <td style="width: 7%"><?php echo $reserva['fecha_llegada']; ?></td> 
           <td style="width: 7%"><?php echo $reserva['fecha_salida']; ?></td>
@@ -100,13 +100,13 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
           <td style="width: 7%;text-align:right;cursor: pointer;">
             <a onclick="cargosHuesped(<?php echo $reserva['num_reserva']; ?>)"><?php echo number_format($consumos[0]['cargos'] + $consumos[0]['imptos'] - $consumos[0]['pagos'], 2); ?></a>
           </td>
-          <td style="padding:3px;width: 30%">
-            <nav class="navbar navbar-default" style="margin-bottom: 0px;min-height:0px;">
+          <td style="padding:3px;width: 13%">
+            <nav class="navbar navbar-default " style="margin-bottom: 0px;min-height:0px;">
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:0px;">
                 <ul class="nav navbar-nav" style="margin :0;width:100%;">
-                  <li class="dropdown submenu" style="margin :0;width:100%;">
+                  <li class="dropdown" style="margin :0;width:100%;">
                     <a href="#" class="dropdown-toggle aSub" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="padding:3px 5px;font-weight: 700;color:#000">Ficha Facturacion<span class="caret caretSub" ></span></a>
-                    <ul class="dropdown-menu" style="float:left;margin-left:-180px;top:40px;">  
+                    <ul class="dropdown-menu submenu" style="float:left;margin-left:-180px;top:40px;">  
                       <?php
                       if($vigencia==0){?>
                         <li>

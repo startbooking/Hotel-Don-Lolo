@@ -15,7 +15,7 @@
             </h3>
           </div>
           <div class="col-md-6">
-            <a class="btn btn-success pull-right" data-toggle="modal" data-reserva='0' href="#myModalAdicionaPerfil">
+            <a class="btn btn-success pull-right btnAdiciona" data-toggle="modal" data-reserva='0' href="#myModalAdicionaPerfil">
               <i class="fa fa-plus" aria-hidden="true"></i> Adicionar Huesped
             </a>
           </div>
@@ -35,7 +35,7 @@
                 <td>Celular</td>
                 <td>Correo</td>
                 <td>Edad</td>
-                <td style="width:15%;">Accion</td>                
+                <td style="width:13%;">Accion</td>                
               </tr>
             </thead>
             <tfoot></tfoot>

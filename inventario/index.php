@@ -113,9 +113,8 @@ if (isset($_GET['section']) && $_GET['section'] == 'productos') {
 }
 ?>
     <script>
-     /*  sesion    = JSON.parse(localStorage.getItem('sesion'))
-      let { usuarioAct } = sesion
-      let {usuario_id, usuario, nombres, apellidos} = usuarioAct */
+      sesion = JSON.parse(localStorage.getItem('sesion'))
+      var { user: {usuario_id, usuario, nombres, apellidos, tipo, estado_usuario_pms} } = sesion;
       $('#usuarioActivo').val(usuario)
       $('#nombreUsuario').html(`${apellidos} ${nombres} <span class="caret"></span>`)
       $('#cambiaPass').data('status','enviar') 

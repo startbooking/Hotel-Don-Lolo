@@ -21,44 +21,43 @@ require_once '../res/php/app_topHotel.php';
     include_once 'menus/menu_titulo.php';
     ?>
     <div class="content-fluid" id="plantilla">
-        <?php
-
+      <?php
         if (!isset($_GET['section'])) {
-            require 'views/home.php';
-        } elseif (isset($_GET['section']) && $_GET['section'] == 'index') {
-            require 'views/home.php';
-        } elseif (isset($_GET['section']) && $_GET['section'] == 'cajeroCerrado') {
-            require 'views/cajeroCerrado.php';
-        } elseif (isset($_GET['section']) && $_GET['section'] == 'home') {
-            require 'views/home.php';
-        } elseif (isset($_GET['section']) && $_GET['section'] == 'huespedesPerfil') {
-            require 'views/huespedes.php'; 
-        } elseif (isset($_GET['section']) && $_GET['section'] == 'companias') {
-            require 'views/companias.php';
-        } elseif (isset($_GET['section']) && $_GET['section'] == 'agencias') {
-            require 'views/agencias.php';
-        } elseif (isset($_GET['section']) && $_GET['section'] == 'reservasActivas') {
-            require 'views/reservasActivas.php';
-        } elseif (isset($_GET['section']) && $_GET['section'] == 'forecast') {
-            require 'views/forecast.php';
-        } elseif (isset($_GET['section']) && $_GET['section'] == 'Oldforecast') {
-            require 'views/forecastOld.php';
-        } elseif (isset($_GET['section']) && $_GET['section'] == 'grupos') {
-            require 'views/grupos.php';
-        } elseif (isset($_GET['section']) && $_GET['section'] == 'preregistros') {
-            require 'views/preregistros.php';
-        } elseif (isset($_GET['section']) && $_GET['section'] == 'encasa') {
-            require 'views/encasa.php';
-        } elseif (isset($_GET['section']) && $_GET['section'] == 'llegadasDelDia') {
-            require 'views/llegadasDelDia.php';
-        } elseif (isset($_GET['section']) && $_GET['section'] == 'llegadaSinReserva') {
-            require 'views/llegadaSinReserva.php';
-        } elseif (isset($_GET['section']) && $_GET['section'] == 'salidasDelDia') {
-            require 'views/salidasDelDia.php';
-        } elseif (isset($_GET['section']) && $_GET['section'] == 'salidasRealizadas') {
-            require 'views/salidasRealizadas.php';
-        } elseif (isset($_GET['section']) && $_GET['section'] == 'ventasDirectas') {
-            require 'views/ventasDirectas.php';
+          require 'views/home.php';
+        }elseif (isset($_GET['section']) && $_GET['section'] == 'index') {
+          require 'views/home.php';
+        }elseif (isset($_GET['section']) && $_GET['section'] == 'cajeroCerrado') {
+          require 'views/cajeroCerrado.php';
+        }elseif (isset($_GET['section']) && $_GET['section'] == 'home') {
+          require 'views/home.php';
+        }elseif (isset($_GET['section']) && $_GET['section'] == 'huespedesPerfil') {
+          require 'views/huespedes.php'; 
+        }elseif (isset($_GET['section']) && $_GET['section'] == 'companias') {
+          require 'views/companias.php';
+        }elseif (isset($_GET['section']) && $_GET['section'] == 'agencias') {
+          require 'views/agencias.php';
+        }elseif (isset($_GET['section']) && $_GET['section'] == 'reservasActivas') {
+          require 'views/reservasActivas.php';
+        }elseif (isset($_GET['section']) && $_GET['section'] == 'forecast') {
+          require 'views/forecast.php';
+        }elseif (isset($_GET['section']) && $_GET['section'] == 'Oldforecast') {
+          require 'views/forecastOld.php';
+        }elseif (isset($_GET['section']) && $_GET['section'] == 'grupos') {
+          require 'views/grupos.php';
+        }elseif (isset($_GET['section']) && $_GET['section'] == 'preregistros') {
+          require 'views/preregistros.php';
+        }elseif (isset($_GET['section']) && $_GET['section'] == 'encasa') {
+          require 'views/encasa.php';
+        }elseif (isset($_GET['section']) && $_GET['section'] == 'llegadasDelDia') {
+          require 'views/llegadasDelDia.php';
+        }elseif (isset($_GET['section']) && $_GET['section'] == 'llegadaSinReserva') {
+          require 'views/llegadaSinReserva.php';
+        }elseif (isset($_GET['section']) && $_GET['section'] == 'salidasDelDia') {
+          require 'views/salidasDelDia.php';
+        }elseif (isset($_GET['section']) && $_GET['section'] == 'salidasRealizadas') {
+          require 'views/salidasRealizadas.php';
+        }elseif (isset($_GET['section']) && $_GET['section'] == 'ventasDirectas') {
+          require 'views/ventasDirectas.php';
         } elseif (isset($_GET['section']) && $_GET['section'] == 'facturacionEstadia') {
             require 'views/facturacionEstadia.php';
         } elseif (isset($_GET['section']) && $_GET['section'] == 'facturacionHuesped') {
@@ -309,6 +308,9 @@ require_once '../res/php/app_topHotel.php';
 
     <script>
         sesion = JSON.parse(localStorage.getItem('sesion'))
+        var { user: {usuario_id, usuario, nombres, apellidos, tipo, estado_usuario_pms} } = sesion;
+        
+        // console.log(sesion)
         $('#usuarioActivo').val(usuario)
         $('#nombreUsuario').html(`${apellidos} ${nombres} <span class="caret"></span>`)
         if (tipo <= 2) {
@@ -324,6 +326,7 @@ require_once '../res/php/app_topHotel.php';
             href="#myModalCambiarClave" style="padding:10px 15px">Cambiar Contraseña
           </a>
         `)
+        accesoUsuarios()        
     </script>
     <?php
     if (isset($_GET['section']) && $_GET['section'] == 'facturacionHuesped') { ?>
@@ -341,6 +344,9 @@ require_once '../res/php/app_topHotel.php';
         <script>
             if (tipo == 1) {
                 $('#cambiaHuesped').css('display', 'block')
+            }
+            if(tipo >= 3){
+                $('.menuFicha').css('display', 'block')
             }
             $(function() {
                 $('#example1').DataTable({
@@ -408,7 +414,8 @@ require_once '../res/php/app_topHotel.php';
                 targets: "_all",
                 orderable: true
               }],
-            });      
+            });
+            accesoUsuarios()
         </script>
 
 

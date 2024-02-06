@@ -2,7 +2,7 @@
   $hoy    = substr(FECHA_PMS,5,5);
 ?>
 
-<div class="content-wrapper" id="pantallaReservas"> 
+<div class="content-wrapper" id="pantallaReservas" > 
   <section class="content">
     <div class="panel panel-success">
       <div class="panel-heading"> 
@@ -18,7 +18,7 @@
           </div> 
           <div class="col-lg-6 col-md-6" style="text-align:right;">
             <a 
-              class="btn btn-success"  
+              class="btn btn-success btnAdiciona"  
               data-toggle="modal" 
               href="#myModalAdicionaReserva">
               <i class="fa fa-plus" aria-hidden="true"></i>
@@ -36,7 +36,7 @@
               <tr class="warning">
                 <td>Nro</td>
                 <!-- <td style="width:7%;"></td> -->
-                <td>Hab.</td>
+                <td style="padding:10px;">Hab.</td>
                 <td style="text-align:center;">Huesped</td>
                 <td style="text-align:left;">Compañia</td>
                 <td>Tarifa</td>
@@ -45,7 +45,7 @@
                 <td>Noc</td>
                 <td>Hom</td>
                 <td>Muj</td>
-                <td style="width: 9%;text-align:center;">Accion</td>
+                <td style="width: 24%;text-align:center;">Accion</td>
               </tr>
             </thead>
             <tbody id="paginaReservas"> 
@@ -62,8 +62,7 @@
                   }
                 ?>
                 <tr style='font-size:12px'>
-                  <td>
-                    <div style="display: flex;">
+                  <td style="display: inline-flex;">
                       <span><?php echo $reserva['num_reserva']; ?></span>  
                       <?php
                         if ($reserva['causar_impuesto'] == 2) { ?>
@@ -112,13 +111,14 @@
                         <?php
                         }
                       ?>
-                    </div>
+                    <!-- <div>
+                    </div> -->
                   </td>
                   <!--             
                     <td style="width:7%;">
                     </td>
                   -->            
-                  <td style="text-align:right"><?php echo $reserva['num_habitacion']; ?></td>
+                  <td style="text-align:left"><?php echo $reserva['num_habitacion']; ?></td>
                   <td>
                     <span class="badge" style="background: #20b2aa91;padding: 2px 6px 0px 11px;">
                       <label for="" class="control-label" style="text-align: left;color:#000">
@@ -148,10 +148,10 @@
                   <td style="text-align:center;"><?php echo $reserva['can_mujeres']; ?></td>
                   <!-- <td align="center"><?php echo $reserva['can_ninos']; ?></td> -->              
                   <!-- <td><?php echo estadoReserva($reserva['estado']); ?></td> -->
-                  <td style="padding:3px;width: 15%">
+                  <td style="padding:3px;width: 27%">
                     <?php
                       if ($reserva['estado'] == 'ES') { ?>
-                        <nav class="navbar navbar-default" style="margin-bottom: 0px;min-height:0px;">
+                        <nav class="navbar navbar-default" id="menuFicha" style="margin-bottom: 0px;min-height:0px;">
                           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:0px">
                             <ul class="nav navbar-nav" style="margin :0;width: 100%">
                               <li class="dropdown" style="width: 100%">

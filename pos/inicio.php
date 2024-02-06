@@ -10,8 +10,8 @@
     <?php include_once '../res/shared/archivo_head.php'; ?>
     <link rel="stylesheet" type="text/css" href="<?php echo BASE_POS; ?>res/css/estilo.css">
     <?php
-        include_once '../res/shared/archivo_script.php';
-  ?>
+      include_once '../res/shared/archivo_script.php';
+    ?>
     <script src="<?php echo BASE_POS; ?>res/js/pos.js"></script>
     <script src="<?php echo BASE_WEB; ?>res/js/inicio.js"></script>
     <script src="<?php echo BASE_POS; ?>res/js/facturas.js"></script>

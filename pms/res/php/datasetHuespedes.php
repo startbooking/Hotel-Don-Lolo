@@ -41,7 +41,7 @@ $columns = array(
   array( 'db' => 'id_huesped',     'dt' => 8,
     'formatter' => function( $d, $row ) { 
       return '
-      <nav class="navbar navbar-default" style="margin-bottom: 0px;min-height:0px;">
+      <nav class="navbar navbar-default" id="menuFicha" style="margin-bottom: 0px;min-height:0px;">
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:1px">
           <ul class="nav navbar-nav">
             <li class="dropdown">

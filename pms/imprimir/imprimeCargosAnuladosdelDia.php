@@ -42,7 +42,7 @@
     $pdf->Cell(25,4,number_format($cargo['monto_cargo']+$cargo['impuesto'],2),0,0,'R');
     /* $pdf->Cell(30,6,$cargo['referencia_cargo'],0,0,'L');  */
     $pdf->Cell(40,4,substr(utf8_decode($cargo['motivo_anulacion']),0,19),0,0,'L'); 
-    $pdf->Cell(20,4,$cargo['usuario'],0,0,'L'); 
+    $pdf->Cell(20,4,$cargo['usuario_anulacion'],0,0,'L'); 
     $pdf->Cell(10,4,substr($cargo['fecha_sistema_cargo'],11,5),0,1,'R'); 
     $monto  = $monto + $cargo['monto_cargo'];
     $impto  = $impto + $cargo['impuesto'];

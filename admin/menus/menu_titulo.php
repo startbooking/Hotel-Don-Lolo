@@ -8,20 +8,20 @@
       <ul class="nav navbar-nav"> 
         <li class="dropdown">
           <a href="#" id="nombreUsuario" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
-          <ul class="dropdown-menu" style="background-color: #00a65a;color:#FFF">
+          <ul class="dropdown-menu">
             <li>
               <a class="altoMenu" 
                 data-toggle    = 'modal'
-                href="#myModalSoporteTecnico" style="padding:10px 15px;color:#FFF">Soporte Tecnico
+                href="#myModalSoporteTecnico" style="padding:10px 15px;">Soporte Tecnico
               </a> 
             </li>
             <li>
               <a class="altoMenu" 
                 data-toggle    = 'modal'
-                href="#myModalCambiarClave" style="padding:10px 15px;color:#FFF">Cambiar Contraseña
+                href="#myModalCambiarClave" style="padding:10px 15px;">Cambiar Contraseña
               </a>
             </li>
-            <li><a class="altoMenu" onclick="cierraSesion()" style="padding:10px 15px;color:#FFF">Cerrar Sesion</a></li>
+            <li><a class="altoMenu" onclick="cierraSesion()" style="padding:10px 15px;">Cerrar Sesion</a></li>
           </ul>
         </li>
       </ul>   

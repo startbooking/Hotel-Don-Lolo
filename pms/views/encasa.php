@@ -15,7 +15,7 @@
             <h3 class="w3ls_head tituloPagina fa-2x"> <i style="color:black;" class="fa fa-home"></i> Huespedes En Casa </h3>
           </div>
           <div class="col-lg-6 col-md-6" style="text-align:right;">
-            <a type="button" class="btn btn-success" href="llegadasDelDia"> 
+            <a type="button" class="btn btn-success btnAdiciona" href="llegadasDelDia"> 
               <i class="fa fa-briefcase" aria-hidden="true"></i>
               Llegadas Del Dia
             </a>
@@ -129,11 +129,11 @@
                     <!-- <td style="padding:2px;text-align:center;"><?php echo $reserva['can_ninos']; ?></td> -->
                     <td style="padding:2px;text-align:right;"><?php echo number_format($reserva['valor_diario'], 2); ?></td>
                     <td style="padding:2px;width: 13%">
-                      <nav class="navbar navbar-default" style="margin-bottom: 0px;min-height:0px;">
+                      <nav class="navbar navbar-default" id="menuFicha" style="margin-bottom: 0px;min-height:0px;">
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:0px;">
                           <ul class="nav navbar-nav" style="margin :0;width: 100%">
-                            <li class="dropdown submenu" style="width: 100%">
-                              <a 
+                            <li class="dropdown " style="width: 100%">
+                              <a menuFicha
                                 href          ="#"  
                                 class         ="dropdown-toggle" 
                                 data-toggle   ="dropdown" 
@@ -143,7 +143,7 @@
                                 style         ="padding:3px 5px;font-weight: bold;color:#000">Ficha Estadia
                                   <span class="caret" style="margin-left:5px;"></span>
                               </a>
-                              <ul class="dropdown-menu" style="float:left;margin-left:-180px;top:40px;">  
+                              <ul class="dropdown-menu submenu" style="float:left;margin-left:-180px;top:40px;">  
                                 <li>
                                   <a 
                                     data-toggle        ="modal"

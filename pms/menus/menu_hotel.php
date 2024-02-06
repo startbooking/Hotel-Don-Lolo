@@ -60,7 +60,7 @@ if ($_GET['section'] != 'cajeroCerrado') {
             <li><a href="encasa">
             <i class="fa-solid fa-house-user"></i>
             Huespedes en Casa</a></li>
-            <li><a href="llegadasDelDia"><i class="fa fa-sign-in" aria-hidden="true"></i> Llegadas del Dia</a></li>
+            <li><a href="llegadasDelDia fichaMenu" style="display:none;"><i class="fa fa-sign-in" aria-hidden="true"></i> Llegadas del Dia</a></li>
             <li><a href="llegadaSinReserva"><i class="fa fa-briefcase" aria-hidden="true"></i> Llegadas Sin Reservas</a></li>
             <li></li>
             <li><a href="salidasDelDia">
@@ -117,7 +117,6 @@ if ($_GET['section'] != 'cajeroCerrado') {
             </li>
           </ul>
         </li>
-
         <li class="treeview">
           <a href="#">
             <i class="fa fa-th"></i>
@@ -143,9 +142,7 @@ if ($_GET['section'] != 'cajeroCerrado') {
             <li>
               <a href="#"><i class="fa fa-clone"></i>Informes de Cierre<i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
-                <li>
-                  <a href="javascript:imprimeInformeAuditoria('imprimeHuespedesPorHabitacion','Huespedes en Casa Por Habitacion')"><i class="fa fa-bed" aria-hidden="true"></i> Huespedes Por Habitacion</a>
-                </li>
+                <li><a href="javascript:imprimeInformeAuditoria('imprimeHuespedesPorHabitacion','Huespedes en Casa Por Habitacion')"><i class="fa fa-bed" aria-hidden="true"></i> Huespedes Por Habitacion</a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeCargosdelDia','Cargos del Dia')"><i class="glyphicon glyphicon-paste"></i>Cargos del Dia</a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeCargosAnuladosdelDia','Cargos Anulados del Dia')"><i class="glyphicon glyphicon-copy"></i>Cargos Anulados en el Dia </a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeFacturasdelDiaAuditoria','Facturas del Dia')"><i class="glyphicon glyphicon-paste"></i>Facturas del Dia</a></li>
@@ -155,19 +152,17 @@ if ($_GET['section'] != 'cajeroCerrado') {
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeReservasDiaDepositos','Depositos a Reserva del Dia')"><i class="glyphicon glyphicon-download-alt"></i>Abonos - Depositos del Dia </a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeBalanceCongeladas','Depositos a Reserva del Dia')"><i class="fa fa-snowflake-o"></i>Cuentas Congeladas </a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimePagosdelDiaConcepto','Flujo de Caja del Dia')"><i class="glyphicon glyphicon-save-file"></i>Flujo de Caja</a></li>
-                <!-- <li><a href="javascript:imprimeInformeAuditoria('imprimePropinasCajeros','Porpinas Cajeros')"><i class="glyphicon glyphicon-save-file"></i>Flujo de Caja</a></li> -->
-                
+                <!-- <li><a href="javascript:imprimeInformeAuditoria('imprimePropinasCajeros','Porpinas Cajeros')"><i class="glyphicon glyphicon-save-file"></i>Flujo de Caja</a></li> -->                
               </ul>
             </li>
             <li><a href="cargarHabitaciones"><i class="fa glyphicon glyphicon-sort-by-attributes"></i> Cargar Habitaciones</a></li>
             <li><a href="cierreDiario"><i class="glyphicon glyphicon-off"></i>Cierre Diario</a></li>
-            <?php
-            if(TRA==1){
+              <?php
+                if(TRA==1){ ?>
+                  <li><a href="tarjetaRegistro"><i class="fa-regular fa-address-card"></i> Tarjeta de Registro Hotelero</a></li>
+                  <?php 
+                }
               ?>
-            <li><a href="tarjetaRegistro"><i class="fa-regular fa-address-card"></i> Tarjeta de Registro Hotelero</a></li>
-            <?php 
-          }
-            ?>
           </ul>
         </li>
         <li class="treeview">

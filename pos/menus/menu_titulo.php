@@ -1,6 +1,5 @@
 
 <header class="main-header">
-
   <a href="<?=$_SESSION['BASE_URL']?>index.php" class="logo" style="height: 51px">
     <img class="img_thumbnail" src="<?=BASE_WEB?>img/logoBarahona.png" style="margin-top:-3px;">
     <span style="font-size:16px;font-weight: 600">Menu Principal</span>

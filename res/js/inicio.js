@@ -1,13 +1,33 @@
 document.addEventListener("DOMContentLoaded", async () => {    
-  entro = JSON.parse(localStorage.getItem("sesion"));
+  sesion = JSON.parse(localStorage.getItem("sesion"));
   
-  if(entro != null){
-    let { user: { usuario, usuario_id } } = entro;
+  if (sesion) {
+    const { user: {usuario_id, usuario, nombres, apellidos, tipo, estado_usuario_pms} } = sesion;
   }
   $("#myModalLogin").on("show.bs.modal", function (event) {
     $("#error").html("");
-    if (localStorage.getItem("sesion")) {
-      swal(
+    if (sesion) {
+      swal({
+        title: `Usuario ${usuario} Ya Activo en el Sistema, Recuperando Informacion`,
+        type: "warning",
+        confirmButtonText: "Aceptar",
+        closeOnConfirm: true,
+
+      },
+      function () {
+        parametros = {
+          usuario_id ,
+          tipo,
+        };
+        $.ajax({
+          url: "res/php/user_action/sesionActiva.php",
+          type: "POST",
+          data: parametros,
+        });
+        $(location).attr("href", "views/modulos.php");
+        // $(location).attr("href", "home");
+      })
+      /* swal(
         "Atencion",
         `Usuario ${usuario} Ya Activo en el Sistema, Recuperando Informacion`,
         "warning"
@@ -22,7 +42,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           data: parametros,
         });
         $(location).attr("href", "views/modulos.php");
-      }, 2000);
+      }, 2000); */
       $("#myModalLogin").modal("hidden");
     }
   });
@@ -37,10 +57,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   
 });
   
-sesion = JSON.parse(localStorage.getItem("sesion"));
+/* sesion = JSON.parse(localStorage.getItem("sesion"));
 if (sesion) {
   var { user: {usuario_id, usuario, nombres, apellidos, tipo, estado_usuario_pms} } = sesion;
-}
+} */
 
 function solicitudSoporte() {
   nombres = $("#nombres").val();
@@ -103,9 +123,10 @@ function ingresoInv() {
 }
 
 function ingresoAdmin() {
+  console.log(sesion)
+  const { user: {usuario_id, usuario, nombres, apellidos, tipo, estado_usuario_pms} } = sesion;
   $("#usuarioActivo").val(usuario);
-  $("#nombreUsuario").html(
-    apellidos + " " + nombres + ' <span class="caret"></span>'
+  $("#nombreUsuario").html(` ${apellidos} ${nombres} <span class="caret"></span>`
   );
   $(location).attr("href", "../admin/index.php");
 }
