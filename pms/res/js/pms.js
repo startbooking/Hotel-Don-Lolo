@@ -1,15 +1,5 @@
-// $(document).ready(function () {
 document.addEventListener("DOMContentLoaded", async () => {
 
-  /* function getNameURLWeb(){
-    var sPath = window.location.pathname;
-    var sPage = sPath.substring(sPath.lastIndexOf('/') + 1);
-    return sPage;
-  } 
-  var xx_nombre_pagina =  getNameURLWeb();
-
-  alert(xx_nombre_pagina);  */
-  
   let sesion = JSON.parse(localStorage.getItem("sesion"));
   
   if (sesion == null) {
@@ -4995,15 +4985,15 @@ function anulaIngreso() {
 function accesoUsuarios(){
   menuFicha  = document.querySelectorAll("#menuFicha")
   btnAdiciona =  document.querySelectorAll('.btnAdiciona')
-  // console.log(btnAdiciona);
   
-  /* 
-  console.log(menuFicha)
-  console.log(menuFicha.length)
-  console.log(menuFicha);  
-  console.log(tipo) 
-  */
-  if(tipo <= 4 ){
+  if (tipo >= 2) {
+    document.querySelector('#menuAuditoria').classList.add('apaga')    
+    document.querySelector('#menuCartera').classList.add('apaga')    
+  }
+
+  if(tipo >= 4 ){
+    $document.querySelector('menuAmaLlaves').classList.add('apaga')    
+    $document.querySelector('menuFacturacion').classList.add('apaga')    
     menuFicha.forEach((element, index) => {
       if(index < menuFicha.length) {
         element.classList.add('apaga');
@@ -5013,12 +5003,9 @@ function accesoUsuarios(){
       if(index < btnAdiciona.length) {
         element.classList.add('apaga');
       }
-    });
-    /* if(btnAdiciona.lenght > 1){
-      btnAdiciona.classList.add('apaga')
-    }else{
-    } */
+    }); 
   }
+  
 }
 
 function seleccionaHuespedReserva(id) {
@@ -5360,12 +5347,12 @@ function valorHabitacionAct(tarifa) {
   } else {
     $("#mensaje").html("");
     var parametros = {
-      tarifa: tarifa,
-      tipo: tipo,
-      hom: hom,
-      muj: muj,
-      nin: nin,
-      habi: habi,
+      tarifa,
+      tipo,
+      hom,
+      muj,
+      nin,
+      habi,
     };
     $.ajax({
       url: "res/php/valorTarifa.php",
@@ -5419,7 +5406,7 @@ function seleccionaTarifasUpd() {
   var tipo = $("#tipohabiUpd").val();
   var llega = $("#llegada").val();
   var sale = $("#salida").val();
-  var parametros = { tipo: tipo, llega: llega, sale: sale };
+  var parametros = { tipo, llega, sale };
   $.ajax({
     type: "POST",
     url: "res/php/seleccionaTarifasUpd.php",
@@ -6051,7 +6038,7 @@ function activaFolio(reserva, folio) {
 function movimientosFactura(reserva) {
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
-  var parametros = { reserva: reserva };
+  var parametros = { reserva };
   $.ajax({
     type: "POST",
     url: web + "views/facturacionHuesped.php",

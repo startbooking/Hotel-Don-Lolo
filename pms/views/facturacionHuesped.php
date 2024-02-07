@@ -10,7 +10,7 @@ if (count($datosReserva) == 0) {?>
     <meta charset="utf-8" />
     <meta http-equiv="refresh" content="0;URL=../../index.php" />
     <?php
-}
+} 
 
 $dia = substr(FECHA_PMS, 8, 2);
 

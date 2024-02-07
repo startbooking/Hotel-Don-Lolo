@@ -69,7 +69,7 @@ if ($_GET['section'] != 'cajeroCerrado') {
             <li><a href="salidasRealizadas"><i class="fa fa-sign-out"></i> Salidas Realizadas</a></li>
           </ul>
         </li>
-        <li class="treeview">
+        <li class="treeview" id="menuFacturacion">
           <a href="#">
             <i class="glyphicon glyphicon-edit"></i>
             <span>Facturacion</span>
@@ -105,7 +105,7 @@ if ($_GET['section'] != 'cajeroCerrado') {
             Cuentas Congeladas</a></li>
           </ul>
         </li>
-        <li class="treeview">
+        <li class="treeview menuCartera">
           <a href="#">
             <i class="glyphicon glyphicon-edit"></i>
             <span>Cartera</span>
@@ -113,11 +113,16 @@ if ($_GET['section'] != 'cajeroCerrado') {
           </a>
           <ul class="treeview-menu">
             <li><a href="carteraClientes"><i class="fa-solid fa-money-bill-1-wave"></i></i> Cartera Compañias</a></li>
-            <li><a href="recaudosCartera"><i class='glyphicon glyphicon-briefcase'></i> Recaudos Cartera</a>
+            <?php
+            if (DEV == 1) { ?>
+              <li><a href="recaudosCartera"><i class='glyphicon glyphicon-briefcase'></i> Recaudos Cartera</a>
+              <?php 
+            }
+            ?>
             </li>
           </ul>
         </li>
-        <li class="treeview">
+        <li class="treeview menuAmaLlaves">
           <a href="#">
             <i class="fa fa-th"></i>
             <span>Ama de Llaves</span>
@@ -132,7 +137,7 @@ if ($_GET['section'] != 'cajeroCerrado') {
             <li><a href="mantenimiento"><i class="fa fa-wrench" aria-hidden="true"></i> Mantenimiento Habitaciones </a></li>
           </ul>
         </li>
-        <li class="treeview" id="menuAuditoria" style="display:none">
+        <li class="treeview" id="menuAuditoria">
           <a href="#">
             <i class="fa fa-laptop"></i>
             <span>Auditoria</span>

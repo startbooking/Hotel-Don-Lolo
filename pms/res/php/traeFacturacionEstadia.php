@@ -64,7 +64,10 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
                 <?php
               }
               if (!empty($reserva['observaciones'])) { ?>
-                <span class="fa-stack fa-xs" title="Observaciones a la Reserva" style="margin-left:0px;cursor:pointer;" onclick="verObservaciones('<?php echo $reserva['num_reserva']; ?>','1')">
+                <span class="fa-stack fa-xs" 
+                title="Observaciones a la Reserva" 
+                style="margin-left:0px;cursor:pointer;" 
+                onclick="verObservaciones('<?php echo $reserva['num_reserva']; ?>','1')">
                   <i style="font-size:20px;color: #2993dd" class="fa fa-circle fa-stack-2x"></i>
                   <i style="font-size:10px;margin-top: 1px;margin-left: 5px;" class="fa fa-commenting fa-stack-1x fa-inverse"></i>
                 </span>
@@ -121,7 +124,7 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
                             data-impto     ="<?php echo $reserva['causar_impuesto']; ?>" 
                             onclick        ="movimientosFactura(<?php echo $reserva['num_reserva']; ?>)" 
                             href           ="">
-                          <i class="fa fa-address-card-o" aria-hidden="true"></i>
+                          <i class="fa fa-address-card" aria-hidden="true"></i>
                             Facturacion</a>  
                         </li>
                         <?php
@@ -148,7 +151,7 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
                           data-usuario       ="<?php echo $reserva['usuario']; ?>" 
                           data-fechacrea     ="<?php echo $reserva['fecha_ingreso']; ?>" 
                           >
-                          <i class="fa fa-address-card-o" aria-hidden="true"></i>Informacion Estadia</a>
+                          <i class="fa fa-address-card" aria-hidden="true"></i>Informacion Estadia</a>
                       </li>
                       <li>
                         <a 
@@ -242,24 +245,11 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
                             data-valor="<?php echo $reserva['valor_reserva']; ?>" 
                             data-nombre   ="<?php echo $reserva['nombre_completo']; ?>" 
                             >
-                          <i class="fa fa-money" aria-hidden="true"></i>Abono a Estadia</a>
+                          <i class="fa-solid fa-money-bills"></i>Abono a Estadia</a>
                         </li>
                         <?php
                         }
                       ?>                                  
-                      <!-- <li>
-                        <a 
-                          data-toggle  ="modal" 
-                          data-target  = "#myModalEstadoCuenta"
-                          data-id      ="<?php echo $reserva['num_reserva']; ?>" 
-                          data-nombre  ="<?php echo $reserva['nombre_completo']; ?>" 
-                          data-impto   ="<?php echo $reserva['causar_impuesto']; ?>" 
-                          data-nrohab  ="<?php echo $reserva['num_habitacion']; ?>" 
-                          data-tipohab ="<?php echo descripcionTipoHabitacion($reserva['tipo_habitacion']); ?>" 
-                          >
-                          <i class="fa fa-book" aria-hidden="true"></i>
-                        Estado de Cuenta</a>
-                      </li>  -->
                       <li>
                         <a 
                           data-toggle    ="modal" 
@@ -279,8 +269,7 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
                           data-nitcia    ="<?php echo $nitcia; ?>" 
                           data-observa   ="<?php echo $reserva['observaciones']; ?>" 
                           href           ="#myModalAdicionaObservaciones">
-                          <i class="fa fa-commenting-o" aria-hidden="true"></i>
-                        Adicionar Observaciones</a>
+                          <i class="fa fa-commenting" aria-hidden="true"></i>Adicionar Observaciones</a>
                       </li>
                     </ul>
                   </li>

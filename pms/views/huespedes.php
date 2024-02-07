@@ -17,7 +17,7 @@
           <div class="col-md-6">
             <a class="btn btn-success pull-right btnAdiciona" data-toggle="modal" data-reserva='0' href="#myModalAdicionaPerfil">
               <i class="fa fa-plus" aria-hidden="true"></i> Adicionar Huesped
-            </a>
+            </a> 
           </div>
         </div>
       </div>

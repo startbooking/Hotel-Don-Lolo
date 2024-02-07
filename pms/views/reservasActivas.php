@@ -148,7 +148,7 @@
                   <td style="text-align:center;"><?php echo $reserva['can_mujeres']; ?></td>
                   <!-- <td align="center"><?php echo $reserva['can_ninos']; ?></td> -->              
                   <!-- <td><?php echo estadoReserva($reserva['estado']); ?></td> -->
-                  <td style="padding:3px;width: 27%">
+                  <td style="padding:3px;width: 13%">
                     <?php
                       if ($reserva['estado'] == 'ES') { ?>
                         <nav class="navbar navbar-default" id="menuFicha" style="margin-bottom: 0px;min-height:0px;">

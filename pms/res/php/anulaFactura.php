@@ -225,3 +225,4 @@ $cargos = $hotel->actualizaCargosFacturas($numero, $perfil);
 $anula = $hotel->anulaFactura($numero, $motivo, $usuario, $idusuario, $perfil, $numDoc);
 $regis = $hotel->ingresaNCFactura($numero, $motivo, $idusuario, $numDoc, FECHA_PMS);
 $entra = $hotel->updateEstadoReserva($reserva); 
+ 
