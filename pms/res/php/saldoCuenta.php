@@ -35,9 +35,6 @@ $porceica = 0;
 $porcefuente = 0;
 $totalFolio = ($consumo + $impto) - ($abono - $reteiva - $reteica - $retefuente);
 
-// echo $totalFolio;
-
-
 ?>
 
 <div class="container-fluid" style="padding:15px;background-color:#dff0d8;border-radius: 10px;">
@@ -56,7 +53,6 @@ $totalFolio = ($consumo + $impto) - ($abono - $reteiva - $reteica - $retefuente)
       <input type="hidden" id="porceReteica"    name="porceReteica"    value='<?php echo $reteica; ?>'>
       <input type="hidden" id="porceRetefuente" name="porceRetefuente" value='<?php echo $retefuente; ?>'>
       <input type="hidden" id="baseRetenciones" name="baseRetenciones" value='<?php echo $consumo; ?>'>
-
       <input type="hidden" id="SaldoFolioActual" name="SaldoFolioActual" value="<?php echo $totalFolio; ?>">
       <input style="font-size:12px;height: 25px !important;text-align: right;" type="text" class="form-control" id="consumo" value="<?php echo number_format($consumo, 2); ?>" readonly>
     </div>

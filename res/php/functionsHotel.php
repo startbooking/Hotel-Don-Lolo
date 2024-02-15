@@ -1003,7 +1003,7 @@ class Hotel_Actions{
             'baseRetencion',
             'tipoRetencion',
             'codigoPuc',
-            'descripcionRetencion',
+            'descripcionRetencion', 
         ], [
             'estado' => 1,
         ]);

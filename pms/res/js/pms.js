@@ -737,7 +737,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     let id = button.data("id");
     let nombre = button.data("nombre");
     
-    $("#edita").val(1);
+    $("#editaPer").val(1);
 
     var parametros = {
       id,
@@ -1496,7 +1496,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           .find(".modal-body #txtHuespedSal")
           .val(`${apellido1} ${apellido2} ${nombre1} ${nombre2}`);
 
-        traeHuespedes(reserva, hues);
+        traeHuespedes(reserva, hues); 
 
         $.ajax({
           type: "POST",
@@ -6068,6 +6068,9 @@ function getCiudadesPais(pais, city) {
     url: web + "res/php/getCiudadesPais.php",
     data: parametros,
     success: function (data) {
+    console.log(data);
+    console.log(edita);
+    console.log(city);
       if (data == 0) {
         swal(
           "Precaucion",
@@ -6079,7 +6082,6 @@ function getCiudadesPais(pais, city) {
             $("#ciudadUpd").append(data);
             $("#ciudadUpd").val(city);
           } else {
-          // console.log(data)
           $("#ciudadHue").append(data);
         }
       }

@@ -1,12 +1,16 @@
+sesion = JSON.parse(localStorage.getItem("sesion"));
+
+if (sesion) {
+  let { user: {usuario_id, usuario, nombres, apellidos, tipo, estado_usuario_pms} } = sesion;
+}
 document.addEventListener("DOMContentLoaded", async () => {    
-  sesion = JSON.parse(localStorage.getItem("sesion"));
-  
-  if (sesion) {
-    const { user: {usuario_id, usuario, nombres, apellidos, tipo, estado_usuario_pms} } = sesion;
-  }
   $("#myModalLogin").on("show.bs.modal", function (event) {
+    /* sesion = JSON.parse(localStorage.getItem("sesion"));
+    if (sesion) {
+    } */
     $("#error").html("");
     if (sesion) {
+      let { user: {usuario_id, usuario, nombres, apellidos, tipo, estado_usuario_pms} } = sesion;
       swal({
         title: `Usuario ${usuario} Ya Activo en el Sistema, Recuperando Informacion`,
         type: "warning",
@@ -25,24 +29,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           data: parametros,
         });
         $(location).attr("href", "views/modulos.php");
-        // $(location).attr("href", "home");
       })
-      /* swal(
-        "Atencion",
-        `Usuario ${usuario} Ya Activo en el Sistema, Recuperando Informacion`,
-        "warning"
-      );
-      setTimeout(function () {
-        parametros = {
-          usuario_id ,
-        };
-        $.ajax({
-          url: "res/php/user_action/sesionActiva.php",
-          type: "POST",
-          data: parametros,
-        });
-        $(location).attr("href", "views/modulos.php");
-      }, 2000); */
       $("#myModalLogin").modal("hidden");
     }
   });

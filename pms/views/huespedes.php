@@ -4,7 +4,7 @@
       <div class="panel-heading">
         <div class="row">
           <div class="col-md-6">
-            <input type="hidden" name="edita" id="edita" value="0">
+            <input type="hidden" name="editaPer" id="editaPer" value="0">
             <input type="hidden" name="rutaweb" id="rutaweb" value="<?= BASE_PMS ?>">
             <input type="hidden" name="ubicacion" id="ubicacion" value="huespedesPerfil">
             <input type="hidden" name="paginas" id="paginas" value="<?=$paginas?>">

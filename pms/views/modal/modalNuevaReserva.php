@@ -16,7 +16,7 @@
           <div class="modal-footer">
             <div class="row">
               <div class="col-lg-4 col-lg-offset-4" >
-                  <button type="button" class="btn btn-warning btn-block" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
+                  <button type="button" id="btnBuscaHues" class="btn btn-warning btn-block" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
               </div>
             </div>
           </div>
