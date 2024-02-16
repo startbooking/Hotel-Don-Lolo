@@ -2328,9 +2328,7 @@ const creaJSONAcompana = async (huesped, acompanas, respo) => {
   let responde = [];
 
   acompanas.map(function (acompana) {
-
     let { identificacion, apellido1, apellido2, nombre1, nombre2, descripcion_documento } = acompana
-
     respuesta = {
       tipo_identificacion: descripcion_documento,
       numero_identificacion: identificacion,
@@ -2927,7 +2925,6 @@ function llenaHistoricoNC(datos) {
       let { facturaAnulada, fechaNC, motivoAnulacion, numeroNC, estadoEnvio } =
         dato;
       let rowNC = document.createElement("tr");
-
       rowNC.innerHTML = `<td>${numeroNC}</td>
               <td>${fechaNC}</td>
               <td>${facturaAnulada}</td>
@@ -2946,7 +2943,6 @@ function llenaHistoricoNC(datos) {
                 </div>
               </td>
       `;
-
       ncHTML.appendChild(rowNC);
     });
   }
@@ -4811,6 +4807,8 @@ const calculaRetenciones = async () => {
 async function apagaselecomp(tipo) {
   idCiaFac = $("#txtIdCiaSal").val();
   idCenFac = $("#txtIdCentroCiaSal").val();
+  nroReserva = $("#txtIdReservaSal").val();
+  nroFolio = $("#folioActivo").val();
   var reteFte = 0;
   var reteIva = 0;
   var reteIca = 0;
@@ -4826,11 +4824,36 @@ async function apagaselecomp(tipo) {
     $("#seleccionaCiaCon").attr("disabled", true);
     $("#seleccionaCiaCon").attr("disabled", true);
     $(".retencion").removeClass("apaga");
+    
+    valorRetencion = await valorRetencionesFolio(nroReserva, nroFolio);
     totalRteFte = parseInt($("#baseRetenciones").val());
     totalImpto = parseInt($("#totalIva").val());
     totalBaseImpto = parseInt($("#totalBaseIva").val());
     reteCia = await traeRetencionesCia(idCiaFac);
     retenciones = await traeRetenciones();
+    
+    console.log(retenciones)
+  
+    /* baseretencion = retenciones.reduce(
+      (monto, montobase) => montobase,0
+    ); */
+
+    // console.log(montobase)
+    let valbase = 0;
+    let valrete = 0;
+    
+    
+    valorRetencion.map((valor) => {
+      let { base, retencion} = valor;
+      console.log({ base, retencion})
+      valbase = valbase+base;
+      valrete = valrete+retencion;
+    });
+    
+    console.log(valbase)
+    console.log(valrete)
+    
+  
 
     let { reteiva, reteica, retefuente, sinBaseRete } = reteCia;
 
@@ -4846,11 +4869,12 @@ async function apagaselecomp(tipo) {
 
     if (retefuente == "1") {
       if (sinBaseRete == 1) {
-        reteFte = totalRteFte * (rFte[0].porcentajeRetencion / 100);
+        // reteFte = totalRteFte * (rFte[0].porcentajeRetencion / 100);
       } else {
-        if (rFte[0].baseRetencion <= totalRteFte) {
+        
+        /* if (rFte[0].baseRetencion <= totalRteFte) {
           reteFte = totalRteFte * (rFte[0].porcentajeRetencion / 100);
-        }
+        } */
       }
     }
 
@@ -4897,6 +4921,28 @@ async function apagaselecomp(tipo) {
     sumaTotales();
   }
 }
+
+async function valorRetencionesFolio(nroReserva, nroFolio){
+  data = {
+    nroReserva, 
+    nroFolio
+  }
+  try {
+    const resultado = await fetch(`res/php/traeRetencionesValor.php`, {
+      method: "post",
+      headers: {
+        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+      body: JSON.stringify(data),
+    });
+    const datos = await resultado.json();
+    return datos;
+  } catch (error) {
+    return error
+  }
+  
+}
+
 
 function sumaTotales() {
   toCon = parseFloat($("#totalConsumo").val());

@@ -14,11 +14,7 @@ $adi = 0;
 $nin = 0;
 $inc= 19;
 
-// echo print_r($tarifas);
-
 foreach ($tarifas as $tarifa) {
-
-  // echo $tarifa['id'];
   $id = $tarifa['id'];
   $uno = round($tarifa['valor_un_pax']*(1.19),0);
   $dos = round($tarifa['valor_dos_pax']*(1.19),0);
@@ -29,7 +25,7 @@ foreach ($tarifas as $tarifa) {
   $adi = round($tarifa['valor_adicional']*(1.19),0);
   $nin = round($tarifa['valor_nino']*(1.19),0);
   
-  echo $id.'-'.$uno.'-'.$dos.'-'.$tre.'-'.$cua.'-'.$cin.'-'.$sei.'-'.$adi.'-'.$nin.'<br>' ;
+  // echo $id.'-'.$uno.'-'.$dos.'-'.$tre.'-'.$cua.'-'.$cin.'-'.$sei.'-'.$adi.'-'.$nin.'<br>' ;
 
 
   $regis = $hotel->actualizaTarifa($id, $uno, $dos, $tre, $cua, $cin, $sei, $adi, $nin);

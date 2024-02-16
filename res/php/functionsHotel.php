@@ -830,6 +830,35 @@ class Hotel_Actions{
         return $data;
     }
 
+    public function traeValorRetenciones($nroReserva, $nroFolio){
+        global $database;
+        
+        $data = $database->query("SELECT
+        SUM(a.monto_cargo) AS monto,
+        SUM(a.base_impuesto) AS base,
+        SUM(a.impuesto) as impto,
+        a.valor_cargo, 
+        b.descripcionRetencion, 
+        b.porcentajeRetencion,
+        b.baseRetencion, 
+        ((sum(a.monto_cargo) * porcentajeRetencion)/100) AS retencion
+    FROM
+        cargos_pms a,
+        retenciones b,  
+        codigos_vta c
+    WHERE
+        a.id_codigo_cargo = c.id_cargo and
+        c.idRetencion = b.idRetencion AND
+        numero_reserva = $nroReserva 
+        AND folio_cargo = $nroFolio 
+        AND cargo_anulado = 0
+    GROUP BY
+    c.idRetencion
+    ORDER BY
+    c.idRetencion")->fetchAll();
+        return $data;
+    }
+
     public function traeDatosPerfilFactura($numero)
     {
         global $database;
