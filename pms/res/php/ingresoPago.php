@@ -35,6 +35,10 @@ $porceiva = $_POST['porceReteiva'];
 $porceica = $_POST['porceReteica'];
 $porcefuente = $_POST['porceRetefuente'];
 
+// $valor
+$valorRet = $hotel->traeValorRetenciones($numero, $folio);
+
+
 if ($reteiva == 0) {
     $baseIva = 0;
 }
@@ -154,6 +158,8 @@ if ($perfilFac == 1 && $facturador == 1) {
     $ePago = [];
     $eLmon = [];
     $eTaxe = [];
+    $eRete = [];
+    $reten = [];
     $eInvo = [];
     $ehold = [];
 
@@ -245,7 +251,6 @@ if ($perfilFac == 1 && $facturador == 1) {
         array_push($eTaxe, $tax);
     }
 
-    $eRete = [];
 
     $riva = [
         'tax_id' => '5',
@@ -254,12 +259,24 @@ if ($perfilFac == 1 && $facturador == 1) {
         'percent' => $porceiva,
     ];
 
-    $rret = [
+    /* $rret = [
         'tax_id' => '6',
         'tax_amount' => $retefuente,
-        'taxable_amount' => $baseRete,
+        'taxable_eTaxeamount' => $baseRete,
         'percent' => $porcefuente,
-    ];
+    ]; */
+    
+    foreach ($valorRet as $rete) {
+        $ret = [
+            'tax_id' => '6',
+            'tax_amount' => $rete['retencion'],
+            'taxable_eTaxeamount' => $rete['base'],
+            'percent' => $rete['porcentajeRetencion'],
+        ];
+
+        array_push($reten, $ret);
+    }
+       
     $rica = [ 
         'tax_id' => '7',
         'tax_amount' => $reteica,
@@ -271,7 +288,7 @@ if ($perfilFac == 1 && $facturador == 1) {
         array_push($eRete, $riva);
     }
     if ($retefuente > 0) {
-        array_push($eRete, $rret);
+        array_push($eRete, $reten);
     }
     if ($reteica > 0) {
         array_push($eRete, $rica);
@@ -286,9 +303,13 @@ if ($perfilFac == 1 && $facturador == 1) {
 
     $eFact = json_encode($eFact);
 
-    include_once '../../api/enviaFactura.php';
+    if(DEV==0){
+        include_once '../../api/enviaFactura.php';        
+        $recibeCurl = json_decode($respofact, true);
+    }else{
+        echo print_r($eFact);
+    }
     
-    $recibeCurl = json_decode($respofact, true);
 
     $errorMessage = json_encode($recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['ErrorMessage']);
     $Isvalid      = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['IsValid'];
@@ -308,7 +329,7 @@ if ($perfilFac == 1 && $facturador == 1) {
     $attacheddocument = '';
     $urlinvoicexml = $recibeCurl['urlinvoicexml'];
     $urlinvoicepdf = $recibeCurl['urlinvoicepdf'];
-    $cufe = $recibeCurl['cufe'];
+    $cufe  = $recibeCurl['cufe'];
     $QRStr = $recibeCurl['QRStr'];
     $timeCrea   = $recibeCurl['ResponseDian']['Envelope']['Header']['Security']['Timestamp']['Created'];
 

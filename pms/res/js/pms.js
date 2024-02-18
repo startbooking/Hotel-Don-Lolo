@@ -4832,7 +4832,7 @@ async function apagaselecomp(tipo) {
     reteCia = await traeRetencionesCia(idCiaFac);
     retenciones = await traeRetenciones();
     
-    console.log(retenciones)
+    // console.log(retenciones)
   
     /* baseretencion = retenciones.reduce(
       (monto, montobase) => montobase,0
@@ -4844,14 +4844,15 @@ async function apagaselecomp(tipo) {
     
     
     valorRetencion.map((valor) => {
+      console.log(valorRetencion);
       let { base, retencion} = valor;
       console.log({ base, retencion})
       valbase = valbase+base;
       valrete = valrete+retencion;
     });
     
-    console.log(valbase)
-    console.log(valrete)
+    /* console.log(valbase)
+    console.log(valrete) */
     
   
 
@@ -4867,16 +4868,26 @@ async function apagaselecomp(tipo) {
       (retencion) => retencion.idRetencion == "3"
     );
 
+    console.log(valrete);
+
     if (retefuente == "1") {
       if (sinBaseRete == 1) {
+        // reteFte = 0;
+        reteFte = valrete ;
+        
         // reteFte = totalRteFte * (rFte[0].porcentajeRetencion / 100);
       } else {
-        
-        /* if (rFte[0].baseRetencion <= totalRteFte) {
-          reteFte = totalRteFte * (rFte[0].porcentajeRetencion / 100);
-        } */
+      
+        if (rFte[0].baseRetencion <= totalRteFte) {
+          // reteFte = totalRteFte * (rFte[0].porcentajeRetencion / 100);
+          reteFte = valrete ;
+        }
+        /* 
+        */
       }
     }
+
+  console.log(reteFte);
 
     if (reteiva == "1") {
       if (rIva[0].baseRetencion <= totalRteFte) {
@@ -5898,7 +5909,7 @@ function salidaHuesped() {
               closeOnConfirm: true,
             },
             function () {
-              $(location).attr("href", "facturacionEstadia");
+              // $(location).attr("href", "facturacionEstadia");
             }
           );
         } else {
