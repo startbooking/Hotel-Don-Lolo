@@ -69,39 +69,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     traeTotalCompanias(numRegis, filas);
   }
 
-  /* 
-    let hue = document.getElementById("pantallaHuespedes");
-    if (hue != null) {
-      var numRegis = 0;
-      var filas = $("#numFiles").val();
-      var pages = $("#paginas").val();
-      traeTotalHuespedes(); 
-      $("#example1").DataTable({
-        "processing": true,
-        "serverSide": true,
-        "sAjaxSource": "res/php/serversideHuespedes.php",
-        "columnDefs":[{
-            "data":null
-        }]   
-      });  
-    }
-  */
-
-  /* let reserva = document.getElementById("pantallaReservas");
-  if (reserva != null) {
-    traeReservasActivas(1);
-  } */
-
-  /* let casa = document.getElementById("pantallaenCasa");
-  if (casa != null) {
-    traeHuespedesenCasa();
-  } */
-
-  /* let llga = document.getElementById("pantallaLlegadas");
-  if (llga != null) {
-    traeLlegadasDia();
-  } */
-
   let fact = document.getElementById("pantallaFacturacion");
   if (fact != null) {
     traeFacturasEstadia();
@@ -1394,6 +1361,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   $("#myModalSalidaHuesped").on("show.bs.modal", function (event) {
+  
     sesion = JSON.parse(localStorage.getItem("sesion"));
     let { user } = sesion;
     let { usuario, usuario_id } = user;
@@ -1406,6 +1374,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     var abonos = $("#totalPagos").val();
 
     var saldo = consumo - abonos;
+
+    formulario = document.querySelector('#guardarPagosRoomSal');
+    formulario.reset();
 
     var button = $(event.relatedTarget);
     var id = button.data("id");
@@ -1494,7 +1465,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         modal.find(".modal-body #txtNumeroHabSal").val(nrohab);
         modal
           .find(".modal-body #txtHuespedSal")
-          .val(`${apellido1} ${apellido2} ${nombre1} ${nombre2}`);
+          .val(`${nombre}`);
 
         traeHuespedes(reserva, hues); 
 
@@ -5779,7 +5750,7 @@ function salidaHuesped() {
   ).val();
 
   if (tipofac == 0 || tipofac == undefined) {
-    swal("Precaucion", "Seleccione a quien va a Facturar ", "warning");
+    swal("Precaucion", "Seleccione el Huesped o La Compañia a Facturar ", "warning");
     return;
   }
 
@@ -5887,7 +5858,10 @@ function salidaHuesped() {
       url: web + "res/php/ingresoPago.php",
       dataType: "json",
       data: parametros,
-      success: function (data) {
+      success: function (data) {        
+        console.log(JSON.parse(data.trim()));
+        // data = JSON.parse(data)
+      
         if (facturador == 1) {
           ruta = "imprimir/facturas/FES-";
         } else {
