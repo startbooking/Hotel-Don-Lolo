@@ -25,6 +25,8 @@ $pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserv
 $tipoimptos = $hotel->getValorImptoFolio($nroFactura, $reserva, $nroFolio, 2);
 $fecha = $hotel->getDatePms();
 
+$retenciones = $hotel->traeValorRetenciones($reserva, $nroFolio);
+
 if($datosReserva[0]['fecha_salida']> FECHA_PMS){
     $fechaSalida = FECHA_PMS;
 }else{
@@ -175,6 +177,12 @@ foreach ($pagosfolio as $pagofolio) {
     $pagos = $pagos + $pagofolio['pagos'];
     $pdf->Cell(145, 5, 'Forma de Pago : '.$pagofolio['descripcion_cargo'], 0, 0, 'L');
     $pdf->Cell(30, 5, '('.number_format($pagofolio['pagos'], 2).')', 0, 1, 'R');
+}
+
+foreach ($retenciones as $retencion) {
+    $pdf->Cell(60, 5, $retencion['descripcionRetencion'], 0, 0, 'L');
+    $pdf->Cell(30, 5, number_format($retencion['base'], 2), 0, 1, 'R');
+    $pdf->Cell(30, 5, number_format($retencion['retencion'], 2), 0, 1, 'R');
 }
 
 $pdf->Cell(110, 4, '', 0, 0, 'L');

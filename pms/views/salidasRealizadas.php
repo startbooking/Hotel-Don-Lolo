@@ -9,7 +9,7 @@
             <input type="hidden" name="ubicacion" id="ubicacion" value="salidasRealizadas">
             <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px" class="fa fa-sign-out"></i> Salidas Realizadas </h3>
           </div>
-          <div class="col-lg-6" align="right">
+          <div class="col-lg-6" style="text-align:right;">
           </div>
         </div>
       </div>
@@ -30,7 +30,7 @@
                 <td>Hombres</td>
                 <td>Mujeres</td>
                 <!-- <td>Niños</td> -->
-                <td align="center">Accion</td>
+                <td style="text-align:center;">Accion</td>
               </tr>
             </thead>
             <tbody>
@@ -71,9 +71,9 @@
                   <td><?php echo $nombrecia; ?></td>
                   <td><?php echo $reserva['fecha_llegada']; ?></td>
                   <td><?php echo $reserva['fecha_salida']; ?></td>
-                  <td align="center"><?php echo $reserva['dias_reservados']; ?></td>
-                  <td align="center"><?php echo $reserva['can_hombres']; ?></td>
-                  <td align="center"><?php echo $reserva['can_mujeres']; ?></td>
+                  <td style="text-align:center;"><?php echo $reserva['dias_reservados']; ?></td>
+                  <td style="text-align:center;"><?php echo $reserva['can_hombres']; ?></td>
+                  <td style="text-align:center;"><?php echo $reserva['can_mujeres']; ?></td>
                   <!-- <td align="center"><?php echo $reserva['can_ninos']; ?></td> -->
                   <td style="padding:3px;width: 12%">
                     <nav class="navbar navbar-default" style="margin-bottom: 0px;min-height:0px;">
@@ -81,7 +81,7 @@
                         <ul class="nav navbar-nav" style="margin :0">
                           <li class="dropdown dropdownMenu pull-right">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="padding:3px 5px">Ficha Estadia<span class="caret" style="margin-left:10px;"></span></a>
-                            <ul class="dropdown-menu submenu" style="float:left;margin-left:none;top:120px;">
+                            <ul class="dropdown-menu submenu" style="float:left;margin-left:none;">
                               <li>
                                 <a 
                                   data-toggle        ="modal" 

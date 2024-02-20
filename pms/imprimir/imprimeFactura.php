@@ -36,6 +36,8 @@ $pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserv
 $tipoimptos = $hotel->getValorImptoFolio($nroFactura, $reserva, $nroFolio, 2);
 $fecha = $hotel->getDatePms();
 
+$retenciones = $hotel->traeValorRetenciones($reserva, $nroFolio);
+
 if($datosReserva[0]['fecha_salida']> FECHA_PMS){
     $fechaSalida = FECHA_PMS;
 }else{
@@ -205,6 +207,7 @@ $pdf->Cell(60, 4, 'DETALLE', 1, 0, 'C');
 $pdf->Cell(35, 4, 'VALOR', 1, 1, 'R');
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(35, 4, 'RETEFUENTE', 1, 0, 'L');
+
 $pdf->Cell(30, 4, number_format($baseRete, 2), 1, 0, 'R');
 $pdf->Cell(30, 4, number_format($retefuente, 2), 1, 1, 'R');
 $pdf->Cell(35, 4, 'RETEIVA', 1, 0, 'L');

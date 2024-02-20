@@ -4803,32 +4803,17 @@ async function apagaselecomp(tipo) {
     reteCia = await traeRetencionesCia(idCiaFac);
     retenciones = await traeRetenciones();
     
-    // console.log(retenciones)
-  
-    /* baseretencion = retenciones.reduce(
-      (monto, montobase) => montobase,0
-    ); */
-
-    // console.log(montobase)
     let valbase = 0;
     let valrete = 0;
     
     
     valorRetencion.map((valor) => {
-      console.log(valorRetencion);
       let { base, retencion} = valor;
-      console.log({ base, retencion})
       valbase = valbase+base;
       valrete = valrete+retencion;
     });
     
-    /* console.log(valbase)
-    console.log(valrete) */
-    
-  
-
     let { reteiva, reteica, retefuente, sinBaseRete } = reteCia;
-
     let rFte = retenciones.filter(
       (retencion) => retencion.idRetencion == "1"
     );
@@ -4839,26 +4824,15 @@ async function apagaselecomp(tipo) {
       (retencion) => retencion.idRetencion == "3"
     );
 
-    console.log(valrete);
-
     if (retefuente == "1") {
       if (sinBaseRete == 1) {
-        // reteFte = 0;
         reteFte = valrete ;
-        
-        // reteFte = totalRteFte * (rFte[0].porcentajeRetencion / 100);
-      } else {
-      
-        if (rFte[0].baseRetencion <= totalRteFte) {
-          // reteFte = totalRteFte * (rFte[0].porcentajeRetencion / 100);
+      } else {      
+        if (rFte[0].baseRetencion <= valbase) {
           reteFte = valrete ;
         }
-        /* 
-        */
       }
     }
-
-  console.log(reteFte);
 
     if (reteiva == "1") {
       if (rIva[0].baseRetencion <= totalRteFte) {
@@ -4924,7 +4898,6 @@ async function valorRetencionesFolio(nroReserva, nroFolio){
   }
   
 }
-
 
 function sumaTotales() {
   toCon = parseFloat($("#totalConsumo").val());
@@ -5858,48 +5831,58 @@ function salidaHuesped() {
       url: web + "res/php/ingresoPago.php",
       dataType: "json",
       data: parametros,
-      success: function (data) {        
-        console.log(JSON.parse(data.trim()));
-        // data = JSON.parse(data)
-      
-        if (facturador == 1) {
-          ruta = "imprimir/facturas/FES-";
-        } else {
-          ruta = "imprimir/notas/";
-        }
-        var ventana = window.open(
-          ruta + data[0],
-          "PRINT",
-          "height=600,width=600"
-        );
-
-        if (data[1] == "0") {
-          swal(
-            {
-              title: "Atencion !",
-              text: "Salida del Huesped Realizada con Exito !",
-              type: "success",
-              confirmButtonText: "Aceptar",
-              closeOnConfirm: true,
-            },
-            function () {
-              // $(location).attr("href", "facturacionEstadia");
-            }
+      success: function (data) {      
+        // data = JSON.parse($.trim(data));
+        console.log(data);
+        let {error, mensaje, folio } = data; 
+        if(error=="1"){
+          mensajeStr = JSON.stringify(mensaje)
+          mensajeError =  document.querySelector('#mensajeSalida');
+          mensajeError.innerHTML= ''
+          mensajeError.innerHTML= `
+          <h3 class="alert alert-warning">
+          <i class="fa-solid fa-circle-exclamation fa-2x" style="color:red;"></i>
+          Precaucion, Factura no Procesada <br><span style="font-size:20px;"> ${mensajeStr} </span></h3>`
+        }else{
+          if (facturador == 1) {
+            ruta = "imprimir/facturas/FES-";
+          } else {
+            ruta = "imprimir/notas/";
+          }
+          var ventana = window.open(
+            ruta + data[0],
+            "PRINT",
+            "height=600,width=600"
           );
-        } else {
-          swal(
-            {
-              title: "Precaucion !",
-              text: "La Cuenta Actual Presenta Folios con Saldos !",
-              type: "success",
-              confirmButtonText: "Aceptar",
-              closeOnConfirm: true,
-            },
-            function () {
-              $("#myModalSalidaHuesped").modal("hide");
-              activaFolio(reserva, data[1]);
-            }
-          );
+  
+          if (folio == "0") {
+            swal(
+              {
+                title: "Atencion !",
+                text: "Salida del Huesped Realizada con Exito !",
+                type: "success",
+                confirmButtonText: "Aceptar",
+                closeOnConfirm: true,
+              },
+              function () {
+                // $(location).attr("href", "facturacionEstadia");
+              }
+            );
+          } else {
+            swal(
+              {
+                title: "Precaucion !",
+                text: "La Cuenta Actual Presenta Folios con Saldos !",
+                type: "success",
+                confirmButtonText: "Aceptar",
+                closeOnConfirm: true,
+              },
+              function () {
+                $("#myModalSalidaHuesped").modal("hide");
+                activaFolio(reserva, folio);
+              }
+            );
+          }
         }
       },
     });
