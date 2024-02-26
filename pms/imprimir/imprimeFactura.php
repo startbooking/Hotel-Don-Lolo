@@ -29,13 +29,10 @@ $fechaVen = strtotime('+ '.$diasCre.' day', strtotime($fechaFac));
 $fechaVen = date('Y-m-d', $fechaVen);
 
 $tipoHabitacion = $hotel->getNombreTipoHabitacion($datosReserva[0]['tipo_habitacion']);
-
 $folios = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserva, $nroFolio, 1);
-
 $pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserva, $nroFolio, 3);
 $tipoimptos = $hotel->getValorImptoFolio($nroFactura, $reserva, $nroFolio, 2);
 $fecha = $hotel->getDatePms();
-
 $retenciones = $hotel->traeValorRetenciones($reserva, $nroFolio);
 
 if($datosReserva[0]['fecha_salida']> FECHA_PMS){
@@ -205,11 +202,19 @@ $pdf->Cell(30, 4, 'BASE', 1, 0, 'R');
 $pdf->Cell(30, 4, 'VALOR', 1, 0, 'R');
 $pdf->Cell(60, 4, 'DETALLE', 1, 0, 'C');
 $pdf->Cell(35, 4, 'VALOR', 1, 1, 'R');
-$pdf->SetFont('Arial', '', 8);
-$pdf->Cell(35, 4, 'RETEFUENTE', 1, 0, 'L');
-
+$pdf->SetFont('Arial', '', 9);
+/* $pdf->Cell(35, 4, 'RETEFUENTE', 1, 0, 'L');
 $pdf->Cell(30, 4, number_format($baseRete, 2), 1, 0, 'R');
-$pdf->Cell(30, 4, number_format($retefuente, 2), 1, 1, 'R');
+$pdf->Cell(30, 4, number_format($retefuente, 2), 1, 1, 'R'); */
+$totRetencion = 0 ;
+foreach ($retenciones as $retencion) {
+    $pdf->Cell(35, 4, $retencion['descripcionRetencion'], 0, 0, 'L');
+    $pdf->Cell(30, 4, number_format($retencion['base'], 2), 0, 0, 'R');
+    $pdf->Cell(30, 4, number_format($retencion['retencion'], 2), 0, 1, 'R');
+    $totRetencion = $totRetencion + round($retencion['retencion']);
+}
+
+
 $pdf->Cell(35, 4, 'RETEIVA', 1, 0, 'L');
 $pdf->Cell(30, 4, number_format($baseIva, 2), 1, 0, 'R');
 $pdf->Cell(30, 4, number_format($reteiva, 2), 1, 1, 'R');
@@ -218,7 +223,7 @@ $pdf->Cell(30, 4, number_format($baseIca, 2), 1, 0, 'R');
 $pdf->Cell(30, 4, number_format($reteica, 2), 1, 1, 'R');
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(50, 4, 'TOTAL RETENCIONES', 1, 0, 'L');
-$pdf->Cell(45, 4, number_format($reteiva + $reteica + $retefuente, 2), 1, 1, 'R');
+$pdf->Cell(45, 4, number_format($reteiva + $reteica + $totRetencion, 2), 1, 1, 'R');
 $pdf->SetFont('Arial', '', 8);
 
 $pagos = 0;
@@ -282,11 +287,12 @@ $pdf->MultiCell(190, 4, utf8_decode(PIEFACTURA), 0, 'C');
 $file = '../../imprimir/facturas/FES-'.$prefijo.$nroFactura.'.pdf';
 
 $pdf->Output($file, 'F');
+$oFile = 'FES-'.$prefijo.$nroFactura.'.pdf';
 
 $pdfFile = $pdf->Output('', 'S');
 $base64Factura = chunk_split(base64_encode($pdfFile));
 
-array_push($estadofactura, $prefijo.$nroFactura.'.pdf');
+// array_push($estadofactura, $prefijo.$nroFactura.'.pdf');
 // array_push($estadofactura, $base64String);
 
 ?>

@@ -2442,7 +2442,7 @@ function regresaCasa(reserva) {
       type: "warning",
       showCancelButton: true,
       cancelButtonClass: "btn-warning",
-      cancelButtonText: "Cancelar Salida",
+      cancelButtonText: "Cancelar Ingreso",
       confirmButtonClass: "btn-danger",
       confirmButtonText: "Si, Regresa a Casa !",
       closeOnConfirm: false,
@@ -5832,9 +5832,8 @@ function salidaHuesped() {
       dataType: "json",
       data: parametros,
       success: function (data) {      
-        // data = JSON.parse($.trim(data));
-        console.log(data);
-        let {error, mensaje, folio } = data; 
+        data = JSON.parse($.trim(data));
+        let {error, mensaje, folio, archivo } = data; 
         if(error=="1"){
           mensajeStr = JSON.stringify(mensaje)
           mensajeError =  document.querySelector('#mensajeSalida');
@@ -5850,7 +5849,7 @@ function salidaHuesped() {
             ruta = "imprimir/notas/";
           }
           var ventana = window.open(
-            ruta + data[0],
+            ruta + archivo,
             "PRINT",
             "height=600,width=600"
           );
@@ -5865,7 +5864,7 @@ function salidaHuesped() {
                 closeOnConfirm: true,
               },
               function () {
-                // $(location).attr("href", "facturacionEstadia");
+                $(location).attr("href", "facturacionEstadia");
               }
             );
           } else {

@@ -18,13 +18,10 @@ $fechaVen = strtotime('+ '.$diasCre.' day', strtotime($fechaFac));
 $fechaVen = date('Y-m-j', $fechaVen);
 
 $tipoHabitacion = $hotel->getNombreTipoHabitacion($datosReserva[0]['tipo_habitacion']);
-
 $folios = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserva, $nroFolio, 1);
-
 $pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserva, $nroFolio, 3);
 $tipoimptos = $hotel->getValorImptoFolio($nroFactura, $reserva, $nroFolio, 2);
 $fecha = $hotel->getDatePms();
-
 $retenciones = $hotel->traeValorRetenciones($reserva, $nroFolio);
 
 if($datosReserva[0]['fecha_salida']> FECHA_PMS){
@@ -33,12 +30,9 @@ if($datosReserva[0]['fecha_salida']> FECHA_PMS){
     $fechaSalida = $datosReserva[0]['fecha_salida'];
 }
 
-
-
 $pdf = new FPDF();
 $pdf->AddPage('P', 'letter');
-$pdf->Rect(10, 42, 190, 95);
-// $pdf->Rect(10, 43, 190, 210);
+$pdf->Rect(10, 42, 190, 105);
 $pdf->Image('../../../img/'.LOGO, 10, 5, 35);
 $pdf->SetFont('Arial', 'B', 11);
 $pdf->Cell(190, 4, utf8_decode(NAME_EMPRESA), 0, 1, 'C');
@@ -143,16 +137,16 @@ $pdf->Cell(47, 4, $datosReserva[0]['fecha_llegada'], 1, 0, 'C');
 $pdf->Cell(47, 4, $fechaSalida, 1, 0, 'C');
 $pdf->Cell(48, 4, FECHA_PMS, 1, 0, 'C');
 $pdf->Cell(48, 4, $fechaVen, 1, 1, 'C');
-$pdf->SetFont('Arial', 'B', 8);
+$pdf->SetFont('Arial', 'B', 9);
 
-$pdf->Ln(4);
-$pdf->Cell(15, 8, 'CANT', 1, 0, 'C');
-$pdf->Cell(65, 8, 'CONCEPTO', 1, 0, 'C');
-$pdf->Cell(30, 8, 'VALOR', 1, 0, 'C');
-$pdf->Cell(20, 8, '% IMPTO', 1, 0, 'C');
-$pdf->Cell(30, 8, 'IMPTO', 1, 0, 'C');
-$pdf->Cell(30, 8, 'TOTAL', 1, 1, 'C');
-$pdf->SetFont('Arial', '', 8);
+// $pdf->Ln(4);
+$pdf->Cell(15, 5, 'CANT', 1, 0, 'C');
+$pdf->Cell(65, 5, 'CONCEPTO', 1, 0, 'C');
+$pdf->Cell(30, 5, 'VALOR', 1, 0, 'C');
+$pdf->Cell(20, 5, '% IMPTO', 1, 0, 'C');
+$pdf->Cell(30, 5, 'IMPTO', 1, 0, 'C');
+$pdf->Cell(30, 5, 'TOTAL', 1, 1, 'C');
+$pdf->SetFont('Arial', '', 9);
 
 $consumos = 0;
 $impto = 0;
@@ -172,32 +166,53 @@ foreach ($folios as $folio1) {
 }
 $pdf->Ln(2);
 
+$totrete = $reteiva+$reteica;
+
+// echo print_r($retenciones);
+
+foreach ($retenciones as $rete) {
+    // echo 'Subtotal Retencion '.$totrete.'<br>';
+    $pdf->Cell(35, 4, $rete['descripcionRetencion'], 0, 0, 'L');
+    $pdf->Cell(30, 4, number_format($rete['base'], 2), 0, 0, 'R');
+    $pdf->Cell(30, 4, number_format($rete['retencion'], 2), 0, 1, 'R');    
+    $totrete = $totrete + $rete['retencion'];
+    /*     
+    echo '<br> Retencion '.$rete['retencion'].'<br>';    
+    echo 'Subtotal Retencion 2'.$totrete.'<br>';
+
+ */    
+}
+/* echo 'Total Folio '.$total.'<br>' ;
+echo 'Total Retenciones 1 '.$totrete.'<br>';
+ */
+
 foreach ($pagosfolio as $pagofolio) {
     $pdf->Cell(15, 4, '', 0, 0, 'C');
     $pagos = $pagos + $pagofolio['pagos'];
-    $pdf->Cell(145, 5, 'Forma de Pago : '.$pagofolio['descripcion_cargo'], 0, 0, 'L');
-    $pdf->Cell(30, 5, '('.number_format($pagofolio['pagos'], 2).')', 0, 1, 'R');
+    $pdf->Cell(145, 4, 'Forma de Pago : '.$pagofolio['descripcion_cargo'], 0, 0, 'L');
+    $pdf->Cell(30, 4, '('.number_format($pagofolio['pagos'], 2).')', 0, 1, 'R');
 }
 
-foreach ($retenciones as $retencion) {
-    $pdf->Cell(60, 5, $retencion['descripcionRetencion'], 0, 0, 'L');
-    $pdf->Cell(30, 5, number_format($retencion['base'], 2), 0, 1, 'R');
-    $pdf->Cell(30, 5, number_format($retencion['retencion'], 2), 0, 1, 'R');
-}
 
+
+/* echo 'Total Consumos '.$total.'<br>' ;
+echo 'Total Retenciones '.$totrete.'<br>';
+echo 'Total Factura '.($total)-($totrete).'<br>';
+echo 'Total Consumos '.$total.' '.$totrete.'<br>' ;
+ */
 $pdf->Cell(110, 4, '', 0, 0, 'L');
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(50, 4, 'TOTALES ', 1, 0, 'C');
-$pdf->Cell(30, 4, number_format($total, 2), 1, 1, 'R');
+$pdf->Cell(30, 4, number_format($total-$totrete, 2), 1, 1, 'R');
 $pdf->SetFont('Arial', '', 8);
 
 $pdf->Ln(1);
 $pdf->SetFont('Arial', '', 8);
-$pdf->MultiCell(190, 4, 'SON :'.numtoletras($total), 1, 'L');
+$pdf->MultiCell(190, 4, 'SON :'.numtoletras($total-$totrete), 1, 'L');
 $pdf->Ln(1);
 
 $y = $pdf->GetY();
-$pdf->SetY(113);
+$pdf->SetY(123);
 
 $pdf->SetX(105);
 $pdf->SetFont('Arial', '', 8);
@@ -206,15 +221,25 @@ $pdf->MultiCell(95, 6, '
                         Nombre                                             Identificacion
 
                         Firma                                              Fecha', 1, 'L');
-$pdf->SetY(131);
+$pdf->SetY(135);
 $pdf->Cell(40, 5, 'IMPRESO POR :', 0, 0, 'C');
 $pdf->Cell(55, 5, $usuario, 0, 1, 'L');
 
+// echo $file.'<br>';2848007
+
 $file = '../../imprimir/notas/Abono_'.$nroFactura.'.pdf';
+$oFile = 'Abono_'.$nroFactura.'.pdf';
+
+// echo $file.'<br>';
 
 $pdf->Output($file, 'F');
 
-array_push($estadofactura, 'Abono_'.$nroFactura.'.pdf');
+// echo $file.'<br>';
+
+
+// array_push($estadofactura, 'Abono_'.$nroFactura.'.pdf');
+
+// echo print_r($estadofactura);
 
 ?>
 
