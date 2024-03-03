@@ -12,11 +12,11 @@ $host = 'localhost';
 
 // $dbname = 'donloloweb';
 // $dbname = 'donloloerr';
-$dbname = 'donloloFeb23';
+// $dbname = 'donloloFeb23';
 $server = 'localhost';
 $dbuser = 'root';
-$dbpass = 'b4r4h0n4';
-// $dbname = 'u609569776_donlolodb';
+$dbpass = 'B4r4h0n@';
+$dbname = 'u609569776_donlolodb';
 /* 
 $server = 'srv1013.hstgr.io';
 $dbuser = 'u609569776_donlolousr';

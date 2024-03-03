@@ -41,9 +41,10 @@ $valorRet = $hotel->traeValorRetenciones($numero, $folio);
 $mes = substr(FECHA_PMS,5,2);
 
 $arcCurl = 'recibeCurl'.$mes.'.json';
+$envCurl = 'enviaFact'.$mes.'.json';
 
 if ($reteiva == 0) {
-    $baseIva = 0;
+  $baseIva = 0;
 }
 
 if ($retefuente == 0) {
@@ -138,9 +139,7 @@ if ($tipofac == 2) {
 $updFac = $hotel->updateFactura($idUsuario, $saldos[0]['cargos'], $saldos[0]['imptos'], $saldos[0]['pagos'], $saldos[0]['base'], $paganticipo, $fechaVen, $numfactura, $usuario, $fecha, $diasCre);
 
 $totalPago = $paganticipo + $saldos[0]['pagos'];
-
 $saldofactura = $hotel->getSaldoHabitacion($numero);
-
 
 if (count($saldofactura) == 0) {
     $totalFolio = 0;
@@ -152,6 +151,10 @@ $folios = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserva, $
 $pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserva, $nroFolio, 3);
 $tipoimptos = $hotel->getValorImptoFolio($nroFactura, $reserva, $nroFolio, 2);
 $subtotales = $hotel->getConsumosReservaAgrupadoFolio($nroFactura, $reserva, $nroFolio, 1);
+$sinImpuesto = $hotel->getConsumosReservasinImpuestos($nroFactura, $reserva, $nroFolio, 1);
+
+$totalSinImpto = $sinImpuesto[0]['cargos'];
+
 
 if ($perfilFac == 1 && $facturador == 1) {
     $eFact = [];
@@ -208,7 +211,7 @@ if ($perfilFac == 1 && $facturador == 1) {
     $ePago['duration_measure'] = $diasCre;
 
     $eLmon['line_extension_amount'] = $subtotales[0]['cargos'];
-    $eLmon['tax_exclusive_amount'] = $subtotales[0]['cargos'];
+    $eLmon['tax_exclusive_amount'] = $subtotales[0]['cargos']-$totalSinImpto;
     $eLmon['tax_inclusive_amount'] = $subtotales[0]['cargos'] + $subtotales[0]['imptos'];
     $eLmon['payable_amount'] = $subtotales[0]['cargos'] + $subtotales[0]['imptos'];
 
@@ -216,42 +219,59 @@ if ($perfilFac == 1 && $facturador == 1) {
     foreach ($folios as $folio1) {
         $taxfolio = [];
         $taxTot = [];
-        $taxTot = [
-            'tax_id' => $hotel->traeCodigoDianVenta($folio1['codigo_impto']),
-            'tax_amount' => $folio1['imptos'],
-            'percent' => number_format($folio1['porcentaje_impto'], 0),
-            'taxable_amount' => $folio1['cargos'],
-        ];
+        if($folio1['porcentaje_impto']!=0){
+            $taxTot = [
+                'tax_id' => $hotel->traeCodigoDianVenta($folio1['codigo_impto']),
+                'tax_amount' => $folio1['imptos'],
+                'percent' => number_format($folio1['porcentaje_impto'], 0),
+                'taxable_amount' => $folio1['cargos'],
+            ];            
+            array_push($taxfolio, $taxTot);
+            array_push($tax_totals, $taxTot);
+        }
 
-        array_push($taxfolio, $taxTot);
-        array_push($tax_totals, $taxTot);
-
-        $invo = [
-            'unit_measure_id' => $hotel->traeTipoUnidadDianVenta($folio1['id_codigo_cargo']),
-            'invoiced_quantity' => 1,
-            'line_extension_amount' => $folio1['cargos'],
-            'free_of_charge_indicator' => false,
-            'tax_totals' => $taxfolio,
-            'description' => $folio1['descripcion_cargo'],
-            'notes' => '',
-            'code' => $hotel->traeCodigoDianVenta($folio1['id_codigo_cargo']),
-            'type_item_identification_id' => 4,
-            'price_amount' => $folio1['cargos'] + $folio1['imptos'],
-            'base_quantity' => 1,
-        ];
+        if($folio1['porcentaje_impto']!=0){
+            $invo = [
+                'unit_measure_id' => $hotel->traeTipoUnidadDianVenta($folio1['id_codigo_cargo']),
+                'invoiced_quantity' => 1,
+                'line_extension_amount' => $folio1['cargos'],
+                'free_of_charge_indicator' => false,
+                'tax_totals' => $taxfolio,
+                'description' => $folio1['descripcion_cargo'],
+                'notes' => '',
+                'code' => $hotel->traeCodigoDianVenta($folio1['id_codigo_cargo']),
+                'type_item_identification_id' => 4,
+                'price_amount' => $folio1['cargos'] + $folio1['imptos'],
+                'base_quantity' => 1,
+            ];
+        }else{
+            $invo = [
+                'unit_measure_id' => $hotel->traeTipoUnidadDianVenta($folio1['id_codigo_cargo']),
+                'invoiced_quantity' => 1,
+                'line_extension_amount' => $folio1['cargos'],
+                'free_of_charge_indicator' => false,
+                'description' => $folio1['descripcion_cargo'],
+                'notes' => '',
+                'code' => $hotel->traeCodigoDianVenta($folio1['id_codigo_cargo']),
+                'type_item_identification_id' => 4,
+                'price_amount' => $folio1['cargos'] + $folio1['imptos'],
+                'base_quantity' => 1,
+            ];
+        }
 
         array_push($eInvo, $invo);
     }
 
     foreach ($tipoimptos as $impto) {
-        $tax = [
-            'tax_id' => $hotel->traeCodigoDianVenta($impto['id_cargo']),
-            'tax_amount' => $impto['imptos'],
-            'taxable_amount' => $impto['cargos'],
-            'percent' => number_format($impto['porcentaje_impto'], 0),
-        ];
-
-        array_push($eTaxe, $tax);
+        if($impto['porcentaje_impto']!=0){
+            $tax = [
+                'tax_id' => $hotel->traeCodigoDianVenta($impto['id_cargo']),
+                'tax_amount' => $impto['imptos'],
+                'taxable_amount' => $impto['cargos'],
+                'percent' => number_format($impto['porcentaje_impto'], 0),
+            ];    
+            array_push($eTaxe, $tax);
+        }
     }
     
     foreach ($valorRet as $rete) {
@@ -304,7 +324,9 @@ if ($perfilFac == 1 && $facturador == 1) {
     include_once '../../api/enviaFactura.php';        
     $recibeCurl = json_decode($respofact, true);
     
+    file_put_contents($envCurl, $eFact,  FILE_APPEND | LOCK_EX);
     file_put_contents($arcCurl, $respofact,  FILE_APPEND | LOCK_EX);
+    
         
     $errores = $recibeCurl['errors'];
     $errorMessage = json_encode($recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['ErrorMessage']);

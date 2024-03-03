@@ -3415,9 +3415,11 @@ function ventasProducto() {
 function ventasDiaAuditoria() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
+  console.log(oPos[0]);
 
   let { pos, user: { usuario, usuario_id } } = sesion;
   let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } = oPos[0];
+  
 
   parametros = {
     id: id_ambiente,

@@ -6715,6 +6715,16 @@ class Hotel_Actions{
 
         return $data;
     }
+    
+    public function getConsumosReservasinImpuestos($fact, $numero, $folio, $tipo)
+    {
+        global $database;
+
+        $data = $database->query("SELECT cargos_pms.descripcion_cargo, count(cargos_pms.id_codigo_cargo) AS cant, cargos_pms.habitacion_cargo, Sum(cargos_pms.monto_cargo) AS cargos, Sum(cargos_pms.impuesto) as imptos, Sum(cargos_pms.pagos_cargos) AS pagos, cargos_pms.factura_numero, codigos_vta.porcentaje_impto FROM cargos_pms, codigos_vta WHERE cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND cargos_pms.factura_numero = '$fact' AND cargos_pms.numero_reserva = '$numero' AND cargos_pms.cargo_anulado = 0 AND cargos_pms.folio_cargo = '$folio' AND codigos_vta.id_impto = 81 AND codigos_vta.tipo_codigo = '$tipo' GROUP BY cargos_pms.numero_reserva, cargos_pms.folio_cargo ORDER BY cargos_pms.numero_reserva, cargos_pms.folio_cargo")->fetchAll();
+
+        return $data;
+    }
+    
 
     public function getConsumosReservaAgrupadoFolioHis($fact, $numero, $folio, $tipo)
     {
