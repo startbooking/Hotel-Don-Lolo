@@ -28,10 +28,10 @@
           <table id="example1" class="table modalTable table-bordered">
             <thead>
               <tr class="warning" style="font-weight: bold">
-                <td>Hab.</td>
+                <td style="width:30px;">Hab.</td>
                 <!-- <td></td> -->
-                <td style="text-align:center;">Huesped</td>
-                <td style="text-align:center;">Compañia</td>
+                <td style="text-align:left;width:90px;">Huesped</td>
+                <td style="text-align:left;width:200px;">Compañia</td>
                 <td>Llegada</td>
                 <td>Salida</td>
                 <td>Noc</td>
@@ -101,10 +101,10 @@
                     </td>
                     <!-- <td style="padding:2px;width:7%;">
                     </td> -->
-                    <td style="padding:2px;width:50px;">
+                    <td style="padding:2px;">
                       <span class="badge" style="background: #20b2aa91;padding: 2px 6px 0px 11px;">
                         <label for="" class="control-label" style="text-align: left;color:#000">
-                          <?php echo $reserva['nombre_completo']; ?>
+                          <?php echo substr($reserva['nombre_completo'],0,35); ?>
                         </label>
                       </span>
                       <?php
@@ -112,7 +112,7 @@
                       if (count($acompanas) > 0) {
                         foreach ($acompanas as $key => $acompana) { ?>
                           <span class="badge" style="background: #3faa558a;margin-top:2px;margin-left:15px;font-size:12px">
-                            <label for="" class="control-label" style="font-size:11px;text-align: left;padding: 5px 0px 2px 2px;color:#000"><?php echo $acompana['nombre_completo']; ?>
+                            <label for="" class="control-label" style="font-size:11px;text-align: left;padding: 5px 0px 2px 2px;color:#000"><?php echo substr($acompana['nombre_completo'],0,35); ?>
                             </label>
                           </span>
                           <?php
@@ -120,7 +120,7 @@
                       } 
                     ?>
                     </td>
-                    <td style="padding:2px"><?php echo $nombrecia; ?></td>
+                    <td style="padding:2px"><?php echo substr($nombrecia,0,30); ?></td>
                     <td style="padding:2px"><?php echo $reserva['fecha_llegada']; ?></td>
                     <td style="padding:2px"><?php echo $reserva['fecha_salida']; ?></td>
                     <td style="padding:2px;text-align:center;"><?php echo $reserva['dias_reservados']; ?></td>
@@ -133,7 +133,7 @@
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:0px;">
                           <ul class="nav navbar-nav" style="margin :0;width: 100%">
                             <li class="dropdown " style="width: 100%">
-                              <a menuFicha
+                              <a id="menuFicha"
                                 href          ="#"  
                                 class         ="dropdown-toggle" 
                                 data-toggle   ="dropdown" 

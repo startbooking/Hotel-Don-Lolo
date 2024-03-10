@@ -15,7 +15,7 @@ $host = 'localhost';
 // $dbname = 'donloloFeb23';
 $server = 'localhost';
 $dbuser = 'root';
-$dbpass = 'B4r4h0n@';
+$dbpass = 'b4r4h0n4';
 $dbname = 'u609569776_donlolodb';
 /* 
 $server = 'srv1013.hstgr.io';
