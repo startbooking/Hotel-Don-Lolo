@@ -207,8 +207,8 @@ require_once '../res/php/app_topHotel.php';
         ?>
     </footer>
     <?php
-    include_once '../res/shared/archivo_script.php';
-    include_once '../views/modal/modalUsuario.php';
+        include_once '../res/shared/archivo_script.php';
+        include_once '../views/modal/modalUsuario.php';
     ?>
     <script src="<?php echo BASE_WEB; ?>res/js/inicio.js"></script>
     <?php

@@ -151,8 +151,7 @@
                 <?php 
                   $ciudades = $hotel->getCiudades();
                   foreach ($ciudades as $ciudad) { ?>
-                    <option value="<?=$ciudad['id_ciudad']?>"><?=$ciudad['municipio'].' '.$ciudad['depto']?></option>}
-                    option
+                    <option value="<?=$ciudad['id_ciudad']?>"><?=$ciudad['municipio'].' '.$ciudad['depto']?></option>
                     <?php 
                   }
                 ?>

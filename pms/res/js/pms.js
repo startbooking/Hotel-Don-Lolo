@@ -5656,9 +5656,6 @@ function cargarHabitacionCkeckIn(habi) {
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   cargo = 1;
-  /*   $("input:radio:checked").each(function () {
-    });
- */
   var cargar = habi;
   var parametros = {
     cargar,
@@ -6150,7 +6147,7 @@ function getCiudadesPaisAco(pais) {
   });
 }
 
-function guardasinReserva() {
+async function guardasinReserva() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
   let { usuario, usuario_id } = user;
@@ -6166,14 +6163,18 @@ function guardasinReserva() {
 
   parametros.push({ name: "usuario", value: usuario });
   parametros.push({ name: "idusuario", value: usuario_id });
+  console.log(parametros)
 
   $.ajax({
     type: "POST",
     data: parametros,
     url: "res/php/ingresoSinReserva.php",
     beforeSend: function (objeto) { },
-    success: function (datos) {
-      cargarHabitacionCkeckIn(datos);
+    success: async function (datos) {
+    console.log(data);
+      dh = await validaDatosHuesped(data);
+      dc = await validaDatosEmpresa(data);
+      ch = await cargarHabitacionCkeckIn(datos);
       swal({
         title: "Huesped Registrado Con Exito",
         type: "success",
@@ -6182,11 +6183,48 @@ function guardasinReserva() {
 
       },
         function () {
-          $(location).attr("href", "home");
+          // $(location).attr("href", "home");
         })
     },
   });
 }
+
+async function validaDatosHuesped(data){
+  console.log(data)
+  try {  
+    const resultado = await fetch('res/php/validaDatosHuesped.php', {
+      method: "post",
+      headers: {
+        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+      body: JSON.stringify(data),
+    });
+    const datos = await resultado.text();
+    return datos.trim();
+  } catch (error) {
+  
+  }
+  
+}
+
+async function validaDatosEmpresa(data){
+  console.log(data)
+  try {  
+    const resultado = await fetch('res/php/validaDatosHuesped.php', {
+      method: "post",
+      headers: {
+        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+      body: JSON.stringify(data),
+    });
+    const datos = await resultado.text();
+    return datos.trim();
+  } catch (error) {
+  
+  }
+  
+}
+
 
 function restaFechasOld() {
   var web = $("#webPage").val();
@@ -7086,7 +7124,7 @@ function ciudadesExpedicion(pais, city) {
   
   let web = $("#rutaweb").val();
   let pagina = $("#ubicacion").val();
-  let edita = parseInt($("#edita").val());
+  let edita = parseInt($("#editaPer").val());
   let acompana = parseInt($("#acompana").val());
   
   console.log(edita);

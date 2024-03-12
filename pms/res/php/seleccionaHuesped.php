@@ -43,7 +43,6 @@ if (empty($huesped)) {
               <?php
             }?>
         </select>
-
       </div> 
     </div>
     <?php

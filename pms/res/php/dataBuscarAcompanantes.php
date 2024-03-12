@@ -9,7 +9,9 @@
 	$huespedes = $hotel->getBuscarAcompanantesReserva($idres);
 
 	if(count($huespedes)==0){ ?>
-		<h4 align="center" class="bg-red" style="padding:10px"><span style="font-size:24px;font-weight: 700;font-family: 'ubuntu';">Sin Acompañantes</span></h4>
+		<div class="alert alert-warning" >
+			<h4 style="text-align:center;" ><span style="font-size:24px;font-weight: 700;font-family: 'ubuntu';color:#0009;">Sin Acompañantes</span></h4>
+		</div>
 	<?php 
 	}else{
 		?>
