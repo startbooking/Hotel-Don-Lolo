@@ -14,8 +14,8 @@ if (empty($huesped)) {
     echo '0';
 } else { ?>
     <div class="form-group">
-      <label for="apellidos" class="col-sm-2 control-label">Huesped </label>
-      <div class="col-sm-6">
+      <label for="apellidos" class="col-sm-3 control-label">Huesped </label>
+      <div class="col-sm-9">
         <input type="text" class="form-control" id="apellido1" placeholder="" value="<?php echo $huesped[0]['apellido1'].' '.$huesped[0]['apellido2'].' '.$huesped[0]['nombre1'].' '.$huesped[0]['nombre2']; ?>" readonly>
         <input type="hidden" name="sexo" id="sexo" value="<?php echo $huesped[0]['sexo']; ?>">
         <input type="hidden" name="idhuesped" id="idhuesped" value="<?php echo $huesped[0]['id_huesped']; ?>">
@@ -25,8 +25,8 @@ if (empty($huesped)) {
     </div>
 
     <div class="form-group">
-      <label for="inputEmail3" class="col-sm-2 control-label">Empresa</label>
-      <div class="col-lg-6 col-md-6">
+      <label for="inputEmail3" class="col-sm-3 control-label">Empresa</label>
+      <div class="col-lg-9 col-md-9">
         <select class="form-control" name="empresaUpd" id="empresaUpd" >
           <option value="0">SIN COMPAÑIA</option>
           <?php

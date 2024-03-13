@@ -61,6 +61,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     setTimeout(showAll, 400);
   });
 
+  let sinres = document.getElementById("formReservas");
+  if (sinres != null) {
+    sinres.reset();
+  } 
+
   let cia = document.getElementById("pantallaCompaniasOld");
   if (cia != null) {
     var numRegis = 0;
@@ -5036,7 +5041,7 @@ function seleccionaHuespedAco(id) {
     id,
   };
   
-  btnCloseAco = document.querySelector('#btnBuscaAco');
+  btnCloseAco = document.querySelector('#bt0nBuscaAco');
   btnSaleAco = document.querySelector('#bntSaleAcompana');
   btnCloseAco.click();
   btnSaleAco.click();
@@ -6160,21 +6165,42 @@ async function guardasinReserva() {
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var parametros = $("#formReservas").serializeArray();
+  let reserva = document.querySelector('#formReservas'); 
+  const formData = new FormData(document.querySelector("#formReservas"));  
+  
+  let idhuesped  = formData.get('idhuesped');
+  let idcia  = formData.get('empresaUpd');
+  
+  formData.set("usuario",usuario)
+  formData.set("usuario_id",usuario_id)
 
-  parametros.push({ name: "usuario", value: usuario });
-  parametros.push({ name: "idusuario", value: usuario_id });
-  console.log(parametros)
-
-  $.ajax({
+  let dh = await validaDatosHuesped(idhuesped);
+  let dc = await validaDatosEmpresa(idcia);
+  
+  console.log(dh);
+  console.log(dc);
+  
+  console.log(dh.length);
+  console.log(dc.length);
+  
+  /* console.log(dh);
+  console.log(dc); */
+  // console.log(clothing.length);console.log(clothing.length);
+  
+  
+  
+  /* 
+  ch = await cargarHabitacionCkeckIn(datos); */
+  
+  
+  /* $.ajax({
     type: "POST",
     data: parametros,
     url: "res/php/ingresoSinReserva.php",
     beforeSend: function (objeto) { },
     success: async function (datos) {
-    console.log(data);
-      dh = await validaDatosHuesped(data);
-      dc = await validaDatosEmpresa(data);
-      ch = await cargarHabitacionCkeckIn(datos);
+    console.log(datos);
+      
       swal({
         title: "Huesped Registrado Con Exito",
         type: "success",
@@ -6186,11 +6212,11 @@ async function guardasinReserva() {
           // $(location).attr("href", "home");
         })
     },
-  });
+  }); */
 }
 
-async function validaDatosHuesped(data){
-  console.log(data)
+async function validaDatosHuesped(id){
+  data = {id}
   try {  
     const resultado = await fetch('res/php/validaDatosHuesped.php', {
       method: "post",
@@ -6199,26 +6225,27 @@ async function validaDatosHuesped(data){
       },
       body: JSON.stringify(data),
     });
-    const datos = await resultado.text();
-    return datos.trim();
+    const datos = await resultado.json();
+    return datos;
   } catch (error) {
   
   }
   
 }
 
-async function validaDatosEmpresa(data){
-  console.log(data)
+async function validaDatosEmpresa(id){
+  data = {id}
+  // console.log(data)
   try {  
-    const resultado = await fetch('res/php/validaDatosHuesped.php', {
+    const resultado = await fetch('res/php/validaDatosEmpresa.php', {
       method: "post",
       headers: {
         "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
       },
       body: JSON.stringify(data),
     });
-    const datos = await resultado.text();
-    return datos.trim();
+    const datos = await resultado.json();
+    return datos;
   } catch (error) {
   
   }

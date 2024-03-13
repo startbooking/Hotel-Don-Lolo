@@ -7,7 +7,7 @@
 ?>
 
 <div class="content-wrapper"> 
-  <section class="content" style="width: 90%">
+  <section class="content" style="padding-bottom:50px;">
     <div id="crearReserva"></div>
     <div class="panel panel-success" id='pantallaNuevaReserva'>
       <div class="panel-heading">
@@ -54,7 +54,7 @@
               </a>
             </div>
           </div>
-          <div class="divHuesped" id="datosHuespedAdi"></div>
+          <div class="form-group divHuesped col-lg-8" id="datosHuespedAdi"></div>
           <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">Decreto 297 </label>
             <div class="col-sm-2 ondisplay">
