@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   let sinres = document.getElementById("formReservas");
   if (sinres != null) {
-    sinres.reset();
+    // sinres.reset();
   } 
 
   let cia = document.getElementById("pantallaCompaniasOld");
@@ -6083,9 +6083,9 @@ function getCiudadesPais(pais, city) {
     url: web + "res/php/getCiudadesPais.php",
     data: parametros,
     success: function (data) {
-    console.log(data);
+    /* console.log(data);
     console.log(edita);
-    console.log(city);
+    console.log(city); */
       if (data == 0) {
         swal(
           "Precaucion",
@@ -6164,9 +6164,8 @@ async function guardasinReserva() {
   }
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
-  var parametros = $("#formReservas").serializeArray();
   let reserva = document.querySelector('#formReservas'); 
-  const formData = new FormData(document.querySelector("#formReservas"));  
+  let formData = new FormData(reserva);  
   
   let idhuesped  = formData.get('idhuesped');
   let idcia  = formData.get('empresaUpd');
@@ -6174,24 +6173,27 @@ async function guardasinReserva() {
   formData.set("usuario",usuario)
   formData.set("usuario_id",usuario_id)
 
-  let dh = await validaDatosHuesped(idhuesped);
-  let dc = await validaDatosEmpresa(idcia);
+  let hErrors = await validaDatosHuesped(idhuesped);
+  let cErrors = await validaDatosEmpresa(idcia);
   
-  console.log(dh);
-  console.log(dc);
+  mensajeErr = [];
+  if(hErrors.length > 0){
+    hErrors.map(function (error) {
+      let { mensaje } = error
+      mensajeErr += mensaje+"\n";
+    }); 
+  }
   
-  console.log(dh.length);
-  console.log(dc.length);
+  if(cErrors.length > 0){
+    cErrors.map(function (error) {
+      let { mensaje } = error
+      mensajeErr += mensaje+"\n";
+    }); 
+  }  
+    
+  let iR = await ingresoSinReserva(formData); 
   
-  /* console.log(dh);
-  console.log(dc); */
-  // console.log(clothing.length);console.log(clothing.length);
-  
-  
-  
-  /* 
-  ch = await cargarHabitacionCkeckIn(datos); */
-  
+  /* ch = await cargarHabitacionCkeckIn(datos); */
   
   /* $.ajax({
     type: "POST",
@@ -6214,6 +6216,24 @@ async function guardasinReserva() {
     },
   }); */
 }
+async function ingresoSinReserva(data){
+dataRes = {data}
+console.log(dataRes);
+  try {  
+    const resultado = await fetch('res/php/ingresoSinReserva.php', {
+      method: "post",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",                
+      },
+      body: JSON.stringify(reserva),
+    });
+    const datos = await resultado.json();
+    return datos;
+  } catch (error) {
+  
+  }
+  
+}
 
 async function validaDatosHuesped(id){
   data = {id}
@@ -6221,7 +6241,7 @@ async function validaDatosHuesped(id){
     const resultado = await fetch('res/php/validaDatosHuesped.php', {
       method: "post",
       headers: {
-        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+        "Content-type": "application/json; charset=UTF-8",
       },
       body: JSON.stringify(data),
     });
@@ -6238,9 +6258,9 @@ async function validaDatosEmpresa(id){
   // console.log(data)
   try {  
     const resultado = await fetch('res/php/validaDatosEmpresa.php', {
-      method: "post",
+      method: "POST",
       headers: {
-        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+        "Content-type": "application/json; charset=UTF-8",
       },
       body: JSON.stringify(data),
     });

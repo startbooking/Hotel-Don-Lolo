@@ -34,7 +34,7 @@ if (empty($huesped)) {
             foreach ($companias as $compañia) { ?>
               <option value="<?=$compañia['id_compania']?>"
               <?php
-              if ($huesped[0]['id_compania'] == $compañia['id_compania']) { ?>
+              if ($compañia['id_compania'] == $huesped[0]['id_compania'] ) { ?>
                 selected
                 <?php
               }

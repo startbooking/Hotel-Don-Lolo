@@ -1,7 +1,31 @@
 <?php 
 
-  require '../../../res/php/titles.php';
-  require '../../../res/php/app_topHotel.php'; 
+//   require '../../../res/php/titles.php';
+  require '../../../res/php/app_topHotel.php';  
+//    header("Content-type: application/json; charset=utf-8");
+  $postBody = file_get_contents('php://input');
+//   $postBody = json_decode(file_get_contents('php://input'), true);
+  
+/* echo print_r($_POST);
+echo print_r($_post);
+echo print_r($_REQUEST); */
+
+//   $_POST = file_get_contents("php://input");
+  $tipoocupacion = $postBody['tipoocupacion'];
+  echo '?paso ';
+  echo 'RESP DATA:  ' . $tipoocupacion.'<br>';
+  echo $postBody.'<br>';
+  
+	// $idcia         =  $_REQUEST['empresaUpd'];
+
+	// echo $idcia.' id Cia';
+  
+  
+  extract($postBody); 
+  
+  echo $idcia;
+
+
 
 	$idcia         =  $_POST['empresaUpd'];
 	$idcentro      =  0;
@@ -38,7 +62,7 @@
 	$transporte    =  $_POST['transporte'];
 
 	if($observa!=''){
-		$observa       =  $observa . ' Usuario: '.$_POST['usuario'].' Fecha Observacion: '.date('Y.m.d H:i:s');
+		$observa       =  $observa . '<br> Usuario: '.$_POST['usuario'].' Fecha Observacion: '.date('Y.m.d H:i:s').'<br>';
 	} 
 
 	$numero       = $hotel->getNumeroReserva(); // Numero Actual de La Reserva

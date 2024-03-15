@@ -9,37 +9,35 @@
   if($id != 0){
     $infoCia =  $hotel->getBuscaIdEmpresa($id);
     
-    // echo print_r($infoCia);
-    
     if($infoCia[0]['empresa']==""){
-      $resp = ['mensaje' => 'Empresa sin Nombre Asignado'];
+      array_push($resp, ['mensaje' => 'Empresa sin Nombre Asignado']);
     }
     if($infoCia[0]['nit']==""){
-      $resp = ['mensaje' => 'Empresa sin NIT JSON.parse(Asignado'];
+      array_push($resp, ['mensaje' => 'Empresa sin NIT  Asignado']);
     }
     if($infoCia[0]['dv']==""){
-      $resp = ['mensaje' => 'Empresa Sin DV Asignado '];
+      array_push($resp, ['mensaje' => 'Empresa Sin DV Asignado']);
     }
     if($infoCia[0]['direccion']==""){
-      $resp = ['mensaje' => 'Empresa Sin Direccion Asignada '];
+      array_push($resp, ['mensaje' => 'Empresa Sin Direccion Asignada']);
     }
     if($infoCia[0]['telefono']==""){
-      $resp = ['mensaje' => 'Empresa Sin Telefono Asignado '];
+      array_push($resp, ['mensaje' => 'Empresa Sin Telefono Asignado']);
     } 
     if($infoCia[0]['email']==""){
-      $resp = ['mensaje' => 'Empresa Sin Correo Electronico Asignado'];
+      array_push($resp, ['mensaje' => 'Empresa Sin Correo Electronico Asignado']);
     }
     if($infoCia[0]['tipo_documento']==""){
-      $resp = ['mensaje' => 'Empre.lengthsa Sin Tipo de Documento Asignado'];
+      array_push($resp, ['mensaje' => 'Empresa Sin Tipo de Documento Asignado']);
     }
     if($infoCia[0]['tipoAdquiriente']==""){
-      $resp = ['mensaje' => 'Empresa Sin Tipo de Adquiriente Asignado '];
+      array_push($resp, ['mensaje' => 'Empresa sin Tipo de Adquiriente Asignado']);
     }
     if($infoCia[0]['responsabilidadTributaria']==""){
-      $resp = ['mensaje' => 'Empresa Sin Responsabiliad tributaria Asignada '];
+      array_push($resp, ['mensaje' => 'Empresa sin Responsabiliad Tributaria Asignada']);
     }
     if($infoCia[0]['ciudad']==""){
-      $resp = ['mensaje' => 'Empresa Sin Ciudad Asignada '];
+      array_push($resp, ['mensaje' => 'Empresa sin NIT  Ciudad Asignada']);
     } 
   }
     

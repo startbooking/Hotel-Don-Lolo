@@ -1,5 +1,5 @@
 <?php 
-  $resp = [];
+  $resp = []; 
 
   $postBody = json_decode(file_get_contents('php://input'), true);
   extract($postBody);
@@ -9,19 +9,19 @@
   $infoHuesped =  $hotel->getBuscaIdHuesped($id);
   
   if($infoHuesped[0]['nombre1']==""){
-    $resp = ['mensaje' => 'Huesped Sin Primer Nombre Asignado'];
+    array_push($resp, ['mensaje' => 'Huesped Sin Primer Nombre Asignado']);
   }
   if($infoHuesped[0]['apellido1']==""){
-    $resp = ['mensaje' => 'Huesped Sin Primer Apellido Asignado'];
+    array_push($resp, ['mensaje' => 'Huesped Sin Primer Apellido Asignado']);
   }
   if($infoHuesped[0]['celular']==""){
-    $resp = ['mensaje' => 'Huesped Sin Telefono Asignado '];
+    array_push($resp, ['mensaje' => 'Huesped Sin Numero Telefonico Asignado']);  
   }
   if($infoHuesped[0]['identificacion']==""){
-    $resp = ['mensaje' => 'Huesped Sin Identificacion Asignada '];
+    array_push($resp, ['mensaje' => 'Huesped Sin Identificacion Asignada ']);
   }
   if($infoHuesped[0]['email']==""){
-    $resp = ['mensaje' => 'Huesped Sin Correo Electronico Asignado '];
+    array_push($resp, ['mensaje' => 'Huesped Sin Correo Electronico Asignado']);  
   }  
   
   echo json_encode($resp);  

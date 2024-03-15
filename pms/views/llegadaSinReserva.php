@@ -264,10 +264,10 @@
         <div class="panel-footer">
           <div class="btn-group" style="width: 30%;margin-left:35%">
             <a style="width: 50%" type="button" class="btn btn-warning" href="index"><i class="fa fa-reply"></i> Cancelar</a>
-            <button style="width: 50%" class="btn btn-success" align="right"><i class="fa fa-save"></i> Registrar</button>
+            <button style="width: 50%;" class="btn btn-success" ><i class="fa fa-save"></i> Registrar</button>
           </div>     
         </div>
       </form>
     </div>
   </section>
-</div>
+</div>align="right"
