@@ -2,16 +2,18 @@
 
 //   require '../../../res/php/titles.php';
   require '../../../res/php/app_topHotel.php';  
-//    header("Content-type: application/json; charset=utf-8");
+//    header("Content-Type: multipart/form-data;");
   $postBody = file_get_contents('php://input');
 //   $postBody = json_decode(file_get_contents('php://input'), true);
   
-/* echo print_r($_POST);
-echo print_r($_post);
-echo print_r($_REQUEST); */
+echo print_r($_POST);
+echo print_r($postBody);
+/* 
+echo print_r($_REQUEST); 
+*/
 
 //   $_POST = file_get_contents("php://input");
-  $tipoocupacion = $postBody['tipoocupacion'];
+//   $tipoocupacion = $postBody['tipoocupacion'];
   echo '?paso ';
   echo 'RESP DATA:  ' . $tipoocupacion.'<br>';
   echo $postBody.'<br>';

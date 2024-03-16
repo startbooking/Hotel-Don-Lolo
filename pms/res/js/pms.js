@@ -6166,6 +6166,13 @@ async function guardasinReserva() {
   var pagina = $("#ubicacion").val();
   let reserva = document.querySelector('#formReservas'); 
   let formData = new FormData(reserva);  
+  /* var formData0 = new FormData(reserva[0]);
+  var formData1 = new FormData(reserva[1]); */
+  
+  console.log(formData);
+  /* console.log(formData0);
+  console.log(formData1); */
+  
   
   let idhuesped  = formData.get('idhuesped');
   let idcia  = formData.get('empresaUpd');
@@ -6176,7 +6183,7 @@ async function guardasinReserva() {
   let hErrors = await validaDatosHuesped(idhuesped);
   let cErrors = await validaDatosEmpresa(idcia);
   
-  mensajeErr = [];
+  mensajeErr = ['Huesped Registrado Con Exito \n'];
   if(hErrors.length > 0){
     hErrors.map(function (error) {
       let { mensaje } = error
@@ -6190,8 +6197,21 @@ async function guardasinReserva() {
       mensajeErr += mensaje+"\n";
     }); 
   }  
-    
+  
   let iR = await ingresoSinReserva(formData); 
+  
+  console.log(iR)
+  swal({
+    title: "",
+    type: "success",
+    confirmButtonText: "Aceptar",
+    closeOnConfirm: true,
+
+  },
+    function () {
+      // $(location).attr("href", "home");
+    }
+  )
   
   /* ch = await cargarHabitacionCkeckIn(datos); */
   
@@ -6203,29 +6223,20 @@ async function guardasinReserva() {
     success: async function (datos) {
     console.log(datos);
       
-      swal({
-        title: "Huesped Registrado Con Exito",
-        type: "success",
-        confirmButtonText: "Aceptar",
-        closeOnConfirm: true,
-
-      },
-        function () {
-          // $(location).attr("href", "home");
-        })
     },
   }); */
 }
 async function ingresoSinReserva(data){
 dataRes = {data}
 console.log(dataRes);
+console.log(data);
   try {  
     const resultado = await fetch('res/php/ingresoSinReserva.php', {
       method: "post",
       headers: {
-        "Content-type": "application/json; charset=UTF-8",                
+        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",        
       },
-      body: JSON.stringify(reserva),
+      body: data,
     });
     const datos = await resultado.json();
     return datos;
@@ -6555,7 +6566,7 @@ function imprimeDeposito(web, numero, pagina) {
   $.ajax({
     url: web + "paginas/imprimeDeposito.php",
     type: "POST",
-    data: { numero: numero },
+    data: { numero },
   }).done(function (data) {
     var ventana = window.open(
       "imprimir/notas/" + data,
