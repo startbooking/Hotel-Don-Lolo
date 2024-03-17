@@ -22,7 +22,7 @@
         </div> 
         <div id="mensaje"></div>
       </div>
-      <form class="form-horizontal" id="formReservas" action="javascript:guardasinReserva()" method="POST">
+      <form class="form-horizontal" id="formReservas" action="javascript:guardasinReserva()" method="POST" enctype="multipart/form-data" >
         <div class="panel-body">
           <div class="form-group">
             <input type="hidden" name="tipoocupacion" value="2">

@@ -60,7 +60,7 @@ if ($_GET['section'] != 'cajeroCerrado') {
             <li><a href="encasa">
             <i class="fa-solid fa-house-user"></i>
             Huespedes en Casa</a></li>
-            <li><a href="llegadasDelDia fichaMenu" style="display:none;"><i class="fa fa-sign-in" aria-hidden="true"></i> Llegadas del Dia</a></li>
+            <li><a href="llegadasDelDia fichaMenu"><i class="fa fa-sign-in" aria-hidden="true"></i> Llegadas del Dia</a></li>
             <li><a href="llegadaSinReserva"><i class="fa fa-briefcase" aria-hidden="true"></i> Llegadas Sin Reservas</a></li>
             <li></li>
             <li><a href="salidasDelDia">

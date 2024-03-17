@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   let sinres = document.getElementById("formReservas");
   if (sinres != null) {
-    // sinres.reset();
+    sinres.reset();
   } 
 
   let cia = document.getElementById("pantallaCompaniasOld");
@@ -175,9 +175,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       url: "res/php/traeCentros.php",
       type: "POST",
       data: {
-        id: id,
-        empresa: empresa,
-        nit: nit,
+        id,
+        empresa,
+        nit,
       },
       success: function (datos) {
         $("#idCiaAdi").val(id);
@@ -337,7 +337,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     $.ajax({
       url: "res/php/muestraImagenesCia.php",
       type: "POST",
-      data: { id: id },
+      data: { id },
       success: function (data) {
         $("#muestraImagenesCia").html(data);
       },
@@ -372,7 +372,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     $.ajax({
       url: "res/php/muestraImagenes.php",
       type: "POST",
-      data: { id: id },
+      data: { id },
       success: function (data) {
         $("#muestraImagenes").html(data);
       },
@@ -403,10 +403,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     var idmmto = button.data("idmmto");
 
     $("#idMmtoUpd").val(idmmto);
-
-    /*  
-    var numroom = button.data("room");
-    $("#numroom").val(numroom); */
 
     $.ajax({
       url: web + "res/php/detalleMmtoInfo.php",
@@ -2626,8 +2622,8 @@ const RequestComponent = async ({ url, method, bodyRequest, headers, typeRespons
     const csrf = document.querySelector('input[name="_token"]').value;
     const session = await fetch(masterUrl + "/session", {
       headers: {
-        Accept: "application/json",
         "Content-Type": "application/json",
+        Accept: "application/json",
         "X-CSRF-TOKEN": csrf,
       },
       method: "post",
@@ -3206,8 +3202,8 @@ function listadoCumpleanios() {
     url: "res/php/listadoCumpleanios.php",
     type: "POST",
     data: {
-      file: file,
-      tipo: tipo,
+      file,
+      tipo,
     },
   })
     .done(function () {
@@ -3227,7 +3223,7 @@ function listadoPerfilCompanias() {
   $.ajax({
     url: "res/php/listadoCompanias.php",
     type: "POST",
-    data: { file: file },
+    data: { file },
   })
     .done(function (data) {
       $("#muestraHuespedes").html(
@@ -3245,7 +3241,7 @@ function listadoPerfilHuespedes() {
   $.ajax({
     url: "res/php/listadoHuespedes.php",
     type: "POST",
-    data: { file: file },
+    data: { file },
   })
     .done(function (data) {
       $("#muestraHuespedes").html(
@@ -3262,7 +3258,7 @@ function seleccionaCentro(idCia) {
   $.ajax({
     url: "res/php/centrosCia.php",
     type: "POST",
-    data: { idCia: idCia },
+    data: { idCia },
     success: function (data) {
       $("#centroCia option").remove();
       $("#centroCia").append(data);
@@ -3288,16 +3284,16 @@ function eliminaCentroCia() {
 function actualizaCentroCia() {
   var pagina = $("#ubicacion").val();
   var nombre = $("#nombreMod").val();
-  var respon = $("#respoMod").val();
+  var responsable = $("#respoMod").val();
   var idCentro = $("#idCentroMod").val();
 
   $.ajax({
     url: "res/php/actualizaCentroCia.php",
     type: "POST",
     data: {
-      nombre: nombre,
-      responsable: respon,
-      idCentro: idCentro,
+      nombre,
+      responsable,
+      idCentro,
     },
     success: function () {
       $(location).attr("href", pagina);
@@ -3307,16 +3303,16 @@ function actualizaCentroCia() {
 
 function guardaCentroCia() {
   var pagina = $("#ubicacion").val();
-  var nombreAdi = $("#nombreAdi").val();
-  var respoAdi = $("#respoAdi").val();
-  var idCiaAdi = $("#idCiaAdi").val();
+  var nombre = $("#nombreAdi").val();
+  var responsable = $("#respoAdi").val();
+  var idCia = $("#idCiaAdi").val();
   $.ajax({
     url: "res/php/adicionaCentroCia.php",
     type: "POST",
     data: {
-      nombre: nombreAdi,
-      responsable: respoAdi,
-      idCia: idCiaAdi,
+      nombre,
+      responsable,
+      idCia,
     },
     success: function () {
       $(location).attr("href", pagina);
@@ -3355,8 +3351,8 @@ function traeFactura(factura, modulo) {
     type: "POST",
     dataType: "json",
     data: {
-      factura: factura,
-      modulo: modulo,
+      factura,
+      modulo,
     },
     success: function (data) {
       return data;
@@ -3370,10 +3366,10 @@ function generarXML(factura, test, modulo, ambiente) {
     type: "POST",
     dataType: "json",
     data: {
-      factura: factura,
-      test: test,
-      modulo: modulo,
-      ambiente: ambiente,
+      factura,
+      test,
+      modulo,
+      ambiente,
     },
     success: function (data) {
       $("#verCargosFactura").html(data);
@@ -3507,7 +3503,7 @@ function buscaCia(id) {
     url: "res/php/buscaCia.php",
     type: "POST",
     datatype: "json",
-    data: { id: id },
+    data: { id },
     success: function (data) {
       $("#txtNitCia").val(`${data["nit"]}`);
       $("#txtIdHuespedCia").val(data[0]["id_compania"]);
@@ -3662,7 +3658,7 @@ function buscaTarifa(id) {
   $.ajax({
     url: "res/php/nombreTarifa.php",
     type: "POST",
-    data: { id: id },
+    data: { id },
     success: function (data) {
       var nombreTarifaCia = data["descripcion_tarifa"];
       return nombreTarifaCia;
@@ -3763,13 +3759,14 @@ function tomarFoto() {
 }
 
 function buscarCompania() {
-  var textoBusqueda = $("input#search").val();
+  var valorBusqueda = $("input#search").val();
   var huesp = $("#regiscia").val();
   var filas = $("#numFiles").val();
   lista = "";
   barra = "";
+  regos = 0;
 
-  if (textoBusqueda == "") {
+  if (valorBusqueda == "") {
     return;
   }
 
@@ -3778,9 +3775,9 @@ function buscarCompania() {
     type: "POST",
     dataType: "json",
     data: {
-      regis: 0,
-      filas: filas,
-      valorBusqueda: textoBusqueda,
+      regis,
+      filas,
+      valorBusqueda,
     },
     beforeSend: function (data) { },
     success: function (data) {
@@ -3905,13 +3902,14 @@ function buscarCompania() {
 }
 
 function buscarHuesped() {
-  var textoBusqueda = $("input#search").val();
+  var valorBusqueda = $("input#search").val();
   var huesp = $("#regishue").val();
   var filas = $("#numFiles").val();
   lista = "";
   barra = "";
+  regis = 0;
 
-  if (textoBusqueda == "") {
+  if (valorBusqueda == "") {
     return;
   }
 
@@ -3920,9 +3918,9 @@ function buscarHuesped() {
     type: "POST",
     dataType: "json",
     data: {
-      regis: 0,
-      filas: filas,
-      valorBusqueda: textoBusqueda,
+      regis,
+      filas,
+      valorBusqueda,
     },
     beforeSend: function (data) { },
     success: function (data) {
@@ -5199,7 +5197,7 @@ function correProceso(procesor, correr, fecha, titulo, reporte) {
     $.ajax({
       url: "auditoria/" + procesor,
       type: "POST",
-      data: { fecha: fecha },
+      data: { fecha },
       beforeSend: function (objeto) {
         $("#aviso").html("");
         $("#aviso").html(
@@ -5608,7 +5606,7 @@ function anulaConsumos() {
 function modificaReserva(reserva) {
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
-  var parametros = { reserva: reserva };
+  var parametros = { reserva };
   $.ajax({
     type: "POST",
     data: parametros,
@@ -5654,16 +5652,16 @@ function cargarHabitaciones() {
   });
 }
 
-function cargarHabitacionCkeckIn(habi) {
+async function cargarHabitacionCkeckIn(reserva) {
+console.log(reserva);
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario, usuario_id } = user;
+  let { user: { usuario, usuario_id } } = sesion;
+  console.log({ usuario, usuario_id });
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   cargo = 1;
-  var cargar = habi;
   var parametros = {
-    cargar,
+    reserva,
     cargo,
     usuario,
     usuario_id,
@@ -6083,9 +6081,6 @@ function getCiudadesPais(pais, city) {
     url: web + "res/php/getCiudadesPais.php",
     data: parametros,
     success: function (data) {
-    /* console.log(data);
-    console.log(edita);
-    console.log(city); */
       if (data == 0) {
         swal(
           "Precaucion",
@@ -6166,14 +6161,7 @@ async function guardasinReserva() {
   var pagina = $("#ubicacion").val();
   let reserva = document.querySelector('#formReservas'); 
   let formData = new FormData(reserva);  
-  /* var formData0 = new FormData(reserva[0]);
-  var formData1 = new FormData(reserva[1]); */
-  
-  console.log(formData);
-  /* console.log(formData0);
-  console.log(formData1); */
-  
-  
+    
   let idhuesped  = formData.get('idhuesped');
   let idcia  = formData.get('empresaUpd');
   
@@ -6183,7 +6171,7 @@ async function guardasinReserva() {
   let hErrors = await validaDatosHuesped(idhuesped);
   let cErrors = await validaDatosEmpresa(idcia);
   
-  mensajeErr = ['Huesped Registrado Con Exito \n'];
+  mensajeErr = 'Huesped Registrado Con Exito \n';
   if(hErrors.length > 0){
     hErrors.map(function (error) {
       let { mensaje } = error
@@ -6198,11 +6186,12 @@ async function guardasinReserva() {
     }); 
   }  
   
-  let iR = await ingresoSinReserva(formData); 
+  let nroRes = await ingresoSinReserva(formData); 
+  let cargo = await cargarHabitacionCkeckIn(nroRes.trim());
+
   
-  console.log(iR)
   swal({
-    title: "",
+    title: mensajeErr,
     type: "success",
     confirmButtonText: "Aceptar",
     closeOnConfirm: true,
@@ -6212,42 +6201,23 @@ async function guardasinReserva() {
       // $(location).attr("href", "home");
     }
   )
-  
-  /* ch = await cargarHabitacionCkeckIn(datos); */
-  
-  /* $.ajax({
-    type: "POST",
-    data: parametros,
-    url: "res/php/ingresoSinReserva.php",
-    beforeSend: function (objeto) { },
-    success: async function (datos) {
-    console.log(datos);
-      
-    },
-  }); */
 }
 async function ingresoSinReserva(data){
-dataRes = {data}
-console.log(dataRes);
-console.log(data);
   try {  
     const resultado = await fetch('res/php/ingresoSinReserva.php', {
-      method: "post",
-      headers: {
-        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",        
-      },
+      method: "POST",            
       body: data,
     });
-    const datos = await resultado.json();
+    const datos = await resultado.text();
     return datos;
   } catch (error) {
-  
+    
   }
   
 }
 
 async function validaDatosHuesped(id){
-  data = {id}
+  data = { id }
   try {  
     const resultado = await fetch('res/php/validaDatosHuesped.php', {
       method: "post",
@@ -6265,8 +6235,7 @@ async function validaDatosHuesped(id){
 }
 
 async function validaDatosEmpresa(id){
-  data = {id}
-  // console.log(data)
+  data = { id }
   try {  
     const resultado = await fetch('res/php/validaDatosEmpresa.php', {
       method: "POST",
@@ -6383,7 +6352,6 @@ function sumarDias() {
     url: web + "res/php/sumaFecha.php",
     data: parametros,
     success: function (data) {
-      // console.log(data);
       if (edita == 1) {
         $("#salidaUpd").val(data);
       } else {
@@ -6394,7 +6362,6 @@ function sumarDias() {
 }
 
 function asignaHuesped(reserva) {
-  // swal(reserva)
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var textcodigo = $("#txtIdReservaCon option:selected").text();
@@ -7520,16 +7487,10 @@ function cambiaEstadoAseo(habi, ocupada, sucia, cambio) {
   }
 
   switch (ocupada) {
-    /*
-     */
     case "0":
-      /* color = "bg-limpiaVac";
-      // console.log('Cinco '); */
-
       break;
     case "1":
       color = "bg-limpiaOcu";
-      // console.log('Seis ');
       break;
   }
 
