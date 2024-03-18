@@ -19,13 +19,11 @@ $rooms = $hotel->getHabitaciones(5);
                   <span class="fa-stack fa-lg" style="color:#FFF">
                     <i class="fa fa-square-o fa-stack-2x"></i>
                     <i class="fa-solid fa-bed iconoEstado"></i>
-                    <!-- <i class="fa fa-bed fa-stack-1x"></i> -->
                   </span>  
                   Limpias</li>
                 <li class="bg-limpiaOcu">
                   <span class="fa-stack fa-lg" style="color:#FFF">
                     <i class="fa fa-square-o fa-stack-2x"></i>
-                    <!-- <i class="fa fa-suitcase fa-stack-1x"></i> -->
                     <i class="fa-solid fa-suitcase iconoEstado"></i>
                   </span>  
                   Ocupada</li>
@@ -33,7 +31,6 @@ $rooms = $hotel->getHabitaciones(5);
                   <li class="bg-maroon">
                     <span class="fa-stack fa-lg" style="color:#FFF">
                       <i class="fa fa-square-o fa-stack-2x"></i>
-                      <!-- <i class="fa fa-cog fa-stack-1x"></i> -->
                       <i class="fa-solid fa-gears iconoEstado"></i>
                     </span>  
                     Bloqueada
@@ -42,19 +39,14 @@ $rooms = $hotel->getHabitaciones(5);
                   <li class="bg-suciaOcu">
                   <span class="fa-stack fa-lg" style="color:#FFF">
                     <i class="fa fa-square-o fa-stack-2x"></i>
-                    <!-- <i class="fa fa-trash fa-stack-1x"></i> -->
                     <i class="fa-solid fa-broom iconoEstado"></i>
                   </span>  
                   Sucias</li>
-                  <!-- 
-                  <i class="fa fa-bed" aria-hidden="true"></i>
-                <li class="bg-maroon">Fuera de Orden</li>
-                <li class="bg-red">Fuera de Servicio</li> -->
               </ul>
             </div>
           </div>
         </div>
-        <div class="panel-body moduloCentrar" style="color:#FFF">
+        <div class="panel-body estadoHabitacion moduloCentrar" style="color:#FFF">
           <?php
           foreach ($rooms as $room) {
             switch ($room['sucia']) {
@@ -74,12 +66,9 @@ $rooms = $hotel->getHabitaciones(5);
               case '1':
                 $color = 'bg-limpiaOcu';
                 break;              
-            }
-
-            
+            }           
             ?>
-
-            <div class="col-sm-2 col-xs-12 small-box btnRoomStatus <?php echo $color; ?>" style="" id="<?php echo $room['numero_hab']; ?>">
+            <div class="col-sm-2 col-xs-12 small-box btnRoomStatus <?php echo $color; ?>" id="<?php echo $room['numero_hab']; ?>">
               <div class="inner">
                 <h5 class="habLimpia">
                   <?php 
@@ -103,7 +92,7 @@ $rooms = $hotel->getHabitaciones(5);
                     <ul class="nav navbar-nav" style="width:100%">
                       <li class="dropdown submenu" style="width:100%">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="padding:1px 5px;font-size:11px;color: #000;">Estado<span class="caret" style="right: 5px;position: absolute;top: 10px;"></span></a>
-                        <ul class="dropdown-menu" style="left:20px;top:50px;">  
+                        <ul class="dropdown-menu" style="left:20px;top:5px;">  
                           <li>
                             <a data-toggle="modal" 
                               data-numero="<?php echo $room['numero_hab']; ?>" 

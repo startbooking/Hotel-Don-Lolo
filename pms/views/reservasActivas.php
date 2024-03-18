@@ -63,75 +63,61 @@
                 ?>
                 <tr style='font-size:12px'>
                   <td style="display: inline-flex;">
-                      <span><?php echo $reserva['num_reserva']; ?></span>  
-                      <?php
-                        if ($reserva['causar_impuesto'] == 2) { ?>
-                          <span class="fa-stack fa-xs" title="Sin Impuestos" style="margin-left:5px;cursor:pointer;">
-                            <i style="font-size:10px;margin-top: 1px;margin-left: -1px;" class="fa fa-percent fa-stack-1x"></i>
-                            <i style="font-size:20px" class="fa fa-ban text-danger"></i>
-                          </span>
-                          <?php
-                        }
-                        if (count($depositos) != 0) { ?>
-                          <span 
-                            class="fa-stack fa-xs" 
-                              title="Reserva con Depositos" 
-                              style="margin-left:0px;cursor:pointer;" 
-                              onclick="verDepositos('<?php echo $reserva['num_reserva']; ?>')">
-                              <i style="font-size:20px;color: #085908" class="fa fa-circle fa-stack-2x"></i>                            
-                              <i style="font-size:10px;margin-top: 1px;margin-left: 0px;" class="fa fa-usd fa-stack-1x fa-inverse"></i>
-                          </span>
-                          <?php
-                        } 
-                        if (!empty($reserva['observaciones'])) { ?>
-                          <span class="fa-stack fa-xs" 
-                            title="Observaciones a la Reserva" 
-                            style="margin-left:0px;cursor:pointer;" 
-                            data-toggle  ="modal"
-                            data-target  = "#myModalVerObservaciones"
-                            data-reserva ="<?php echo $reserva['num_reserva']; ?>" 
-                            data-estado  ="1" >
-                            <i style="font-size:20px;color: #2993dd" class="fa fa-circle fa-stack-2x"></i>
-                            <i style="font-size:10px;margin-top: 1px;margin-left: 1px;" class="fa fa-commenting fa-stack-1x fa-inverse"></i>
-                          </span>
-                          <?php
-                        }
-                        if (!empty($reserva['observaciones_cancela'])) { ?>
-                          <span class="fa-stack fa-xs" title="Observaciones a Cancelacion de la Reserva" style="margin-left:0px;cursor:pointer;" onclick="verObservaciones('<?php echo $reserva['num_reserva']; ?>','2')">
-                            <i style="font-size:20px;color: red" class="fa fa-circle fa-stack-2x"></i>
-                            <i style="font-size:10px;margin-top: 1px;margin-left: 1px;" class="fa fa-commenting fa-stack-1x fa-inverse"></i>
-                          </span>
-                          <?php
-                        }
-                        if ($hoy == substr($reserva['fecha_nacimiento'], 5, 5)) { ?>
-                          <span class="fa-stack fa-xs" title="El Huesped esta de Cumpleaños" style="margin-left:0px;cursor:pointer;" >
-                            <i style="font-size:20px;color: yellow" class="fa fa-circle fa-stack-2x"></i>                
-                            <i style="font-size:10px;margin-top: 1px;margin-left: 0px;color:black" class="fa fa-birthday-cake fa-stack-1x fa-inverse"></i> 
-                          </span>
+                    <span><?php echo $reserva['num_reserva']; ?></span>  
+                    <?php
+                      if ($reserva['causar_impuesto'] == 2) { ?>
+                        <span class="btn btn-default faReservas" title="Sin Impuestos" style="padding:2px;">
+                          <i style="font-size:10px;margin-top: 1px;margin-left: -1px;" class="fa fa-percent fa-stack-1x"></i>
+                          <i style="font-size:12px" class="fa fa-ban text-danger"></i>
+                        </span>
                         <?php
-                        }
-                      ?>
-                    <!-- <div>
-                    </div> -->
+                      }
+                      if (count($depositos) != 0) { ?>
+                        <span 
+                          class="btn btn-success faReservas" 
+                            title="Reserva con Depositos" 
+                            onclick="verDepositos('<?php echo $reserva['num_reserva']; ?>')">                          
+                            <i class="fa fa-usd fa-stack-1x fa-inverse "></i>
+                        </span>
+                        <?php
+                      } 
+                      if (!empty($reserva['observaciones'])) { ?>
+                        <span class="btn btn-info faReservas" 
+                          title="Observaciones a la Reserva" 
+                          data-toggle  ="modal"
+                          data-target  = "#myModalVerObservaciones"
+                          data-reserva ="<?php echo $reserva['num_reserva']; ?>" 
+                          data-estado  ="1" >
+                          <i class="fa fa-commenting fa-stack-1x fa-inverse"></i>
+                        </span>
+                        <?php
+                      }
+                      if (!empty($reserva['observaciones_cancela'])) { ?>
+                        <span class="btn btn-danger faReservas" title="Observaciones a Cancelacion de la Reserva" style="margin-left:0px;cursor:pointer;" onclick="verObservaciones('<?php echo $reserva['num_reserva']; ?>','2')">
+                          <i class="fa fa-commenting fa-stack-1x fa-inverse"></i>
+                        </span>
+                        <?php
+                      }
+                      if ($hoy == substr($reserva['fecha_nacimiento'], 5, 5)) { ?>
+                        <span class="btn btn-warning faReservas" title="El Huesped esta de Cumpleaños" style="margin-left:0px;cursor:pointer;" >
+                          <i class="fa fa-birthday-cake fa-stack-1x fa-inverse"></i> 
+                        </span>
+                      <?php
+                      }
+                    ?>
                   </td>
-                  <!--             
-                    <td style="width:7%;">
-                    </td>
-                  -->            
                   <td style="text-align:left"><?php echo $reserva['num_habitacion']; ?></td>
                   <td>
-                    <span class="badge" style="background: #20b2aa91;padding: 2px 6px 0px 11px;">
-                      <label for="" class="control-label" style="text-align: left;color:#000">
-                        <?php echo $reserva['nombre_completo']; ?>
-                      </label>
-                    </span>
+                    <span class="btn btn-primary" style="padding:1px 4px; font-size:12px;font-weight: bold;">
+                      <?php echo $reserva['nombre_completo']; ?></span>
                     <?php
                     $acompanas = $hotel->buscaAcompanantes($reserva['num_reserva']);
                       if (count($acompanas) > 0) {
                         foreach ($acompanas as $key => $acompana) { ?>
-                          <span class="badge" style="background: #3faa558a;margin-top:2px;margin-left:15px;font-size:12px">
-                            <label for="" class="control-label" style="font-size:11px;text-align: left;padding: 5px 0px 2px 2px;color:#000"><?php echo substr($acompana['nombre_completo'],0,35); ?>
-                            </label>
+                          <span class="btn btn-info" style="padding:1px 4px; margin-left:15px;margin-top:3px;font-size:10px;font-weight: bold;">
+                            <?php echo substr($acompana['nombre_completo'],0,35); ?>
+                            <!-- <label for="" class="control-label" style="font-size:11px;text-align: left;padding: 5px 0px 2px 2px;color:#000">
+                            </label> -->
                           </span>
               
                           <?php

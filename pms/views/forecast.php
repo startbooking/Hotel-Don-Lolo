@@ -29,12 +29,12 @@
             <div class="wrap">
               <div class="store-wrapper">
                 <div class="category_list pull-right">                  
-                  <a href="#" class="category_item btn btn-default" category="all">Todo</a>
+                  <a href="#" class="btn btn-primary category_item " category="all">Todo</a>
                   <?php
                     foreach($tipohabis as $tipohabi){
                       ?>
                       <a href="#" 
-                        class="category_item btn btn-default" 
+                        class="category_item btn btn-danger" 
                         category="<?= $tipohabi['codigo'];?>"
                         title="<?=$tipohabi['descripcion_habitacion']?>"
                         >
@@ -51,12 +51,7 @@
       </div>
       <div class="panel-body" style="padding:0;">
         <div class="row-fluid products-list" style="overflow:auto;">
-          <?php 
-            $anchop = $dias*44; 
-            /* echo $anchop; 
-            echo 'Aca estaaaaaaaaaaaaaaaaaaa ' */
-            
-          ?>
+          <?php $anchop = $dias*44; ?>
           <div class="col-sm-11 col-sm-offset-1" style="width: 1400px;padding:2px;height: 26px;">
             <?php 
               for ($i = 0; $i <= $dias; $i++) {
@@ -110,27 +105,18 @@
                       $alto = 1;
                       ?>                                              
                       <div class="col-sm-1 mmto">
-                          <?php                           
-                            ?>
-                              <a 
-                                type="button" 
-                                style="padding:2px 12px;margin-bottom: 1px;height: <?=$altoh?>px;width:<?=$ancho?>px;margin-top:<?=$alto?>px;margin-left:20px;z-index:20;display: block;border: 1px solid #000A;position:absolute;border-radius: 0;font-size:10px;color:#000;overflow: hidden;font-weight: 600" 
-                                class="info btn btn-default reserva" 
-                                title="" 
-                                draggable="true" 
-                                onclick="muestraReserva(this)"> 
-                                <div>
-                                  <span style="position: fixed;left: 500px; top: 52px;">Habitacion en Mantenimiento<br>Observaciones <?=$mmtoHab[0]['observaciones']?><br>Desde <?=$mmtoHab[0]['desde_fecha'] ?><br>Hasta Fecha <?=$mmtoHab[0]['hasta_fecha']?></span>
-                                </div>
-                                  Habitacion en Mantenimiento
-                              </a>
-                              <?php 
-                              $alto = $alto + 10;
-                            /* if($estadia['estado']<>"SA" && $estadia['estado']<>"CX" ){ ?>
-                            } */
-                          // }
-                          ?>
-                        </div>
+                          <a 
+                            type="button"
+                            class="btnForecast btn-default"
+                            style="height:<?=$altoh?>px;width:<?=$ancho?>px;margin-top:<?=$alto?>px;" 
+                            class="info btn btn-default reserva" 
+                            title="Habitacion en Mantenimiento Observaciones <?=$mmtoHab[0]['observaciones']?> Desde <?=$mmtoHab[0]['desde_fecha'] ?> Hasta Fecha <?=$mmtoHab[0]['hasta_fecha']?>" 
+                            draggable="true" > Habitacion en Mantenimiento
+                          </a>
+                          <?php 
+                          $alto = $alto + 10;
+                        ?>
+                      </div>
                       <?php
                     }else                                       
                     if(count($estadias)==0){                      
@@ -168,14 +154,13 @@
                             if($estadia['estado']<>"SA" && $estadia['estado']<>"CX" ){ ?>
                               <a 
                                 type="button" 
-                                style="padding:2px 12px;margin-bottom: 1px;height: <?=$altoh?>px;width:<?=$ancho?>px;margin-top:<?=$alto?>px;margin-left:20px;z-index:20;display: block;border: 1px solid #000A;position:absolute;border-radius: 0;font-size:10px;color:#000;overflow: hidden;font-weight: 600" 
-                                class="info btn <?=$color?> reserva" 
-                                title="" 
+                                style="height: <?=$altoh?>px;width:<?=$ancho?>px;margin-top:<?=$alto?>px;" 
+                                class="info btn <?=$color?> btnForecast" 
+                                title="Huesped <?=$estadia['apellido1'].' '.$estadia['apellido2'].' '.$estadia['nombre1'].' '.$estadia['nombre2']?> Habitacion <?=$estadia['num_habitacion']?> Adultos <?=$estadia['can_hombres']+$estadia['can_mujeres']?> Niños <?=$estadia['can_ninos']?> Fecha Llegada <?=$estadia['fecha_llegada'] ?> Fecha Salida <?=$estadia['fecha_salida']?> Tarifa $ <?=number_format($estadia['valor_diario'],2)?>" 
                                 draggable="true" 
-                                onclick="muestraReserva(this)"
                                 reserva="<?=$estadia['num_reserva']?>"
                                 estado="<?=$estadia['estado']?>"> 
-                                <span style="position: fixed;left: 500px; top: 52px;">Huesped <?=$estadia['apellido1'].' '.$estadia['apellido2'].' '.$estadia['nombre1'].' '.$estadia['nombre2']?><br>Habitacion <?=$estadia['num_habitacion']?><br>Adultos <?=$estadia['can_hombres']+$estadia['can_mujeres']?> Niños <?=$estadia['can_ninos']?> <br>Fecha Llegada <?=$estadia['fecha_llegada'] ?><br>Fecha Salida <?=$estadia['fecha_salida']?><br>Tarifa <?=number_format($estadia['valor_diario'],2)?></span>
+                                <!-- <span style="position: fixed;left: 500px; top: 52px;"></span> -->
                                 <?=$estadia['apellido1']?>
                               </a>
                               <?php 
@@ -193,7 +178,7 @@
               }
             ?>
           </div>
-        </div>
+        </div><br>
       </div>
     </div>
   </section>
@@ -203,7 +188,6 @@
     let ancho=screen.width;
     let alto=screen.height;
     forecast = document.querySelector('.products-list');
-    console.log(alto);
     forecast.style.height = (alto-268)+'px';
   </script>
 

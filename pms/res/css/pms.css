@@ -66,10 +66,16 @@ table tbody{
 
 .place_order, .restringe {
   cursor: not-allowed;
-  /* background-color: rgb(229, 229, 229) !important; */
 }
-.place_order input, .place_order select, .restringe  input, .restringe select,   {
+.place_order input, 
+.place_order select, 
+.restringe  input, 
+.restringe select   {
   pointer-events:none;
+}
+
+.estadoHabitacion .small-box:hover{
+	transform: none;
 }
 
 .w3ls_head {
@@ -363,18 +369,18 @@ a.info span,
 .category_list .category_item{
 	display: block;
 	width: 90%;
-	background: #E84C3D;
+	/* background: #E84C3D; */
 	text-align: center;
 	text-decoration: none;
-	color: #fff;
+	/* color: #fff; */
 }
 
 .category_list .ct_item-active{
-	background: #2D3E50;
+	/* background: #2D3E50; */
 }
 
 .category_item:hover {
-  background-color: #680b0b !important;
+  /* background-color: #680b0b !important; */
 }
 
 
@@ -401,23 +407,11 @@ a.info span,
   position: relative;
 }
 
-.mmto {
-  background: #2A1C1C33;
-}
-
-
-
-
 .ocupada{
-  z-index: 10
-}
-
-.mmto {
-  background:rgba(68, 67, 67, 0.6);
+  z-index: 10;
 }
 
 .diagonal {
-  
   border: 1px solid #555;
   -webkit-transform: skew(2-3deg);
   -moz-transform: skew(-30deg);
@@ -509,7 +503,7 @@ a.info {
 
 a.info:hover {
   z-index: 60;
-  background-color: #ff0;
+  /* background-color: #ff0; */
   position: absolute;
 }
 
@@ -525,6 +519,37 @@ a.info:hover span {
   color: #000;
   text-align: center;
   z-index: 100;
+}
+
+.btnForecast {
+  padding:2px 12px;
+  margin-bottom: 1px;
+  z-index:20;
+  display: block;
+  /* border: 1px solid #000A; */
+  position:absolute;
+  /* border-radius: 0; */
+  font-size:10px;
+  color:#000;
+  overflow: hidden;
+  font-weight: 600;
+  margin-left: 20px;
+  text-align: center;
+}
+
+.faReservas {
+  font-size:10px;
+  /* margin-top: 1px;
+  margin-left: 0px; */
+  position: relative;
+  padding:3px 8px;
+  cursor:pointer;
+}
+
+.faReservas i {
+  top: 0px;
+  right: 0;
+
 }
 
 .title {
@@ -617,8 +642,9 @@ a.info:hover span {
 .escoba {
   font-size: 5rem;
   position: absolute;
-  text-align: center;
-  margin: auto;
+  /* text-align: center;
+  margin: auto; */
+  margin-left:15px;
   color: #FFFFFF75;
 }
 
@@ -633,7 +659,8 @@ a.info:hover span {
 
 .escoba:hover {
   font-size: 6rem;
-  transition:0.3s;
+  transition:0.5s;
+  margin-left:10px;
 }
 
 .bg-limpiaVac {
@@ -680,7 +707,7 @@ a.info:hover span {
   padding: 2px;
   margin: 2px;
   color: #fff;
-  width: 11%;
+  width: 10%;
 }
 .btnRoomStatus h3 {
   font-size: 20px;

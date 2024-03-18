@@ -5039,10 +5039,10 @@ function seleccionaHuespedAco(id) {
     id,
   };
   
-  btnCloseAco = document.querySelector('#bt0nBuscaAco');
   btnSaleAco = document.querySelector('#bntSaleAcompana');
-  btnCloseAco.click();
+  btnCloseAco = document.querySelector('#btnBuscaAco');
   btnSaleAco.click();
+  btnCloseAco.click();
   
   
   $.ajax({
@@ -5652,16 +5652,14 @@ function cargarHabitaciones() {
   });
 }
 
-async function cargarHabitacionCkeckIn(reserva) {
-console.log(reserva);
+async function cargarHabitacionCkeckIn(cargar) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user: { usuario, usuario_id } } = sesion;
-  console.log({ usuario, usuario_id });
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
-  cargo = 1;
+  cargo = 1;  
   var parametros = {
-    reserva,
+    cargar,
     cargo,
     usuario,
     usuario_id,
@@ -5671,6 +5669,7 @@ console.log(reserva);
     data: parametros,
     url: "res/php/cargarHabitaciones.php",
     success: function (datos) {
+    console.log(datos)
       if (datos == 1) {
         $("#aviso").html(
           '<div class="alert alert-info" style="margin-bottom: 30px"><h4 align="center" style="color:brown;font-weight: 700">Habitaciones Cargadas con Exito</h4></div>'
@@ -6149,8 +6148,7 @@ function getCiudadesPaisAco(pais) {
 
 async function guardasinReserva() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario, usuario_id } = user;
+  let { user: { usuario, usuario_id } } = sesion;
   iden = $("#identifica").val();
 
   if (iden == "") {
@@ -6161,7 +6159,7 @@ async function guardasinReserva() {
   var pagina = $("#ubicacion").val();
   let reserva = document.querySelector('#formReservas'); 
   let formData = new FormData(reserva);  
-    
+
   let idhuesped  = formData.get('idhuesped');
   let idcia  = formData.get('empresaUpd');
   
@@ -6170,6 +6168,8 @@ async function guardasinReserva() {
 
   let hErrors = await validaDatosHuesped(idhuesped);
   let cErrors = await validaDatosEmpresa(idcia);
+  let nroRes = await ingresoSinReserva(formData); 
+  let cargo = await cargarHabitacionCkeckIn(nroRes.trim());
   
   mensajeErr = 'Huesped Registrado Con Exito \n';
   if(hErrors.length > 0){
@@ -6185,11 +6185,6 @@ async function guardasinReserva() {
       mensajeErr += mensaje+"\n";
     }); 
   }  
-  
-  let nroRes = await ingresoSinReserva(formData); 
-  let cargo = await cargarHabitacionCkeckIn(nroRes.trim());
-
-  
   swal({
     title: mensajeErr,
     type: "success",
@@ -6198,7 +6193,7 @@ async function guardasinReserva() {
 
   },
     function () {
-      // $(location).attr("href", "home");
+      $(location).attr("href", "home");
     }
   )
 }

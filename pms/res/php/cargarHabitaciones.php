@@ -1,14 +1,14 @@
 <?php
 
-require '../../../res/php/titles.php';
 require '../../../res/php/app_topHotel.php';
 
 $reserva = $_POST['cargar'];
 $tipo = $_POST['cargo'];
-$folio = 1;
-$canti = 1;
 $usuario = $_POST['usuario'];
 $idusuario = $_POST['usuario_id'];
+
+$folio = 1;
+$canti = 1;
 $fecha = FECHA_PMS;
 $refer = FECHA_PMS;
 $detalle = 'Cargo Noche del ' . FECHA_PMS;
