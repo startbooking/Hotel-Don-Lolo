@@ -12,7 +12,6 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
     <thead>
       <tr class="warning" style="font-weight: bold">
         <td>Nro Hab.</td>
-        <!-- <td></td> -->
         <td>Huesped</td>
         <td>Compañia</td>
         <td>Tarifa</td>
@@ -45,55 +44,61 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
         ?>
         <tr style='font-size:12px'> 
           <td style="width:8%;display: inline-flex;" >
-            <?php echo $reserva['num_habitacion']; ?>
-          <!-- </td>
-          <td style="width: 10%"> -->
+            <span class="btn btn-default" style="padding:0 2px;font-size:12px;">
+              <?php echo $reserva['num_habitacion']; ?>
+            </span>  
             <?php
               if ($reserva['causar_impuesto'] == 2) { ?>
-                <span class="fa-stack fa-xs" title="Sin Impuestos" style="margin-left:5px;cursor:pointer;">
-                  <i style="font-size:10px;margin-top: 1px;margin-left: -3px;" class="fa fa-percent fa-stack-1x"></i>
-                  <i style="font-size:20px" class="fa fa-ban text-danger"></i>
+                <span class="btn btn-default faReservas" title="Sin Impuestos" style="padding:2px;">
+                  <i style="font-size:10px;margin-top: 1px;margin-left: -1px;" class="fa fa-percent fa-stack-1x"></i>
+                  <i style="font-size:12px" class="fa fa-ban text-danger"></i>
                 </span>
                 <?php
               }
               if (count($depositos) != 0) { ?>
-                <span class="fa-stack fa-xs" title="Reserva con Depositos" style="margin-left:0px;cursor:pointer;" onclick="verDepositos('<?php echo $reserva['num_reserva']; ?>')"> 
-                  <i style="font-size:20px;color: #085908" class="fa fa-circle fa-stack-2x"></i>
-                  <i style="font-size:10px;margin-top: 1px;margin-left: 5px;" class="fa fa-usd fa-stack-1x fa-inverse"></i>
+                <span 
+                  class="btn btn-success faReservas" 
+                    title="Reserva con Depositos" 
+                    onclick="verDepositos('<?php echo $reserva['num_reserva']; ?>')">                          
+                    <i class="fa fa-usd fa-stack-1x fa-inverse "></i>
                 </span>
                 <?php
-              }
+              } 
               if (!empty($reserva['observaciones'])) { ?>
-                <span class="fa-stack fa-xs" 
-                title="Observaciones a la Reserva" 
-                style="margin-left:0px;cursor:pointer;" 
-                onclick="verObservaciones('<?php echo $reserva['num_reserva']; ?>','1')">
-                  <i style="font-size:20px;color: #2993dd" class="fa fa-circle fa-stack-2x"></i>
-                  <i style="font-size:10px;margin-top: 1px;margin-left: 5px;" class="fa fa-commenting fa-stack-1x fa-inverse"></i>
+                <span class="btn btn-info faReservas" 
+                  title="Observaciones a la Reserva" 
+                  data-toggle  ="modal"
+                  data-target  = "#myModalVerObservaciones"
+                  data-reserva ="<?php echo $reserva['num_reserva']; ?>" 
+                  data-estado  ="1" >
+                  <i class="fa fa-commenting fa-stack-1x fa-inverse"></i>
                 </span>
                 <?php
+              }                        
+              if ($hoy == substr($reserva['fecha_nacimiento'], 5, 5)) { ?>
+                <span class="btn btn-warning faReservas" title="El Huesped esta de Cumpleaños" style="margin-left:0px;cursor:pointer;" >
+                  <i class="fa fa-birthday-cake fa-stack-1x fa-inverse"></i> 
+                </span>
+              <?php
               }
-              
-        ?>
+            ?>
           </td> 
           <td>
-            <label for="" class="huespedPpal">
-              <?php echo $reserva['nombre_completo']; ?>
-            </label>
+            <span class="btn btn-primary" style="padding:1px 4px; font-size:12px;font-weight: bold;">
+            <?php echo substr($reserva['nombre_completo'],0,35); ?></span>
             <?php
-          $acompanas = $hotel->buscaAcompanantes($reserva['num_reserva']);
-        if (count($acompanas) > 0) {
-          foreach ($acompanas as $key => $acompana) { ?>
-            <span class="badge huespedAcom" style="background: #3faa558a;margin-top:2px;margin-left:15px;font-size:12px">
-              <label for="" class="control-label" style="font-size:11px;text-align: left;padding: 5px 0px 2px 2px;color:#000"><?php echo $acompana['nombre_completo']; ?>
-              </label>
-            </span>
-            <?php
-          }
-        } 
-        ?>
+            $acompanas = $hotel->buscaAcompanantes($reserva['num_reserva']);
+              if (count($acompanas) > 0) {
+                foreach ($acompanas as $key => $acompana) { ?>
+                  <span class="btn btn-info" style="padding:1px 4px; margin-left:15px;margin-top:3px;font-size:10px;font-weight: bold;">
+                    <?php echo substr($acompana['nombre_completo'],0,35); ?>                            
+                  </span>              
+                  <?php
+                }
+              }
+            ?>
           </td>
-          <td style="width: 20%"><?php echo $nombrecia; ?></td>
+          <td style="width: 20%"><?php echo substr($nombrecia,0,35); ?></td>
           <td style="width: 7%;text-align:right;"><?php echo number_format($reserva['valor_diario'], 2); ?></td>
           <td style="width: 7%"><?php echo $reserva['fecha_llegada']; ?></td> 
           <td style="width: 7%"><?php echo $reserva['fecha_salida']; ?></td>
@@ -154,7 +159,7 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
                           <i class="fa fa-address-card" aria-hidden="true"></i>Informacion Estadia</a>
                       </li>
                       <li>
-                        <a 
+                        <!-- <a 
                           data-toggle    ="modal" 
                           data-id        ="<?php echo $reserva['id_huesped']; ?>" 
                           data-apellido1 ="<?php echo $reserva['apellido1']; ?>" 
@@ -165,7 +170,14 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
                           data-impto     ="<?php echo $reserva['causar_impuesto']; ?>" 
                           href           ="#myModalInformacionHuesped">
                           <i class       ="fa fa-user" aria-hidden="true"></i>
-                          Datos Huesped</a> 
+                          Datos Huesped</a>  -->
+                          <a 
+                            data-toggle    ="modal" 
+                            data-id        ="<?php echo $reserva['id_huesped']; ?>" 
+                            data-nombre    ="<?php echo $reserva['nombre_completo']; ?>" 
+                            href           ="#myModalModificaPerfilHuesped">
+                            <i class="fa fa-user-md" aria-hidden="true"></i>
+                            Perfil Huesped</a>
                       </li>
                       <?php
                       if ($reserva['id_compania'] != 0) { ?>
@@ -189,7 +201,7 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
                         <a 
                           data-toggle    ="modal" 
                           data-idres     ="<?php echo $reserva['num_reserva']; ?>" 
-                          data-id        ="<?php echo $reserva['id_compania']; ?>" 
+                          data-id        ="<?php echo $reserva['id_huesped']; ?>" 
                           data-idcia     ="<?php echo $reserva['id_compania']; ?>" 
                           data-idcentro  ="<?php echo $reserva['idCentroCia']; ?>" 
                           data-tipohab   ="<?php echo descripcionTipoHabitacion($reserva['tipo_habitacion']); ?>" 

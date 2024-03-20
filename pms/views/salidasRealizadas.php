@@ -49,38 +49,35 @@
                   <td><?php echo $reserva['num_reserva']?></td>
                   <td><?php echo $reserva['num_habitacion']; ?></td>
                   <td style="width:50px;"> 
-                    <span class="badge" style="background: #20b2aa91;padding: 2px 6px 0px 11px;">
-                      <label for="" class="control-label" style="text-align: left;color:#000">
-                        <?php echo $reserva["nombre_completo"];?>
-                      </label>
+                    <span class="btn btn-primary" style="padding:1px 4px; font-size:12px;font-weight: bold;">
+                      <?php echo substr($reserva['nombre_completo'],0,35); ?>
                     </span>
-                    <?php 
-                      $acompanas = $hotel->buscaAcompanantes($reserva["num_reserva"]);
-                      if(count($acompanas)>0){
+                    <?php
+                      $acompanas = $hotel->buscaAcompanantes($reserva['num_reserva']);
+                      if (count($acompanas) > 0) {
                         foreach ($acompanas as $key => $acompana) { ?>
-                          <span class="badge" style="background: #3faa558a;margin-top:2px;margin-left:15px;font-size:12px">
-                            <label for="" class="control-label" style="font-size:11px;text-align: left;padding: 5px 0px 2px 2px;color:#000"><?php echo $acompana["nombre_completo"];?>
-                            </label>
-                          </span>
-
-                          <?php 
+                          <span class="btn btn-info" style="padding:1px 4px; margin-left:15px;margin-top:3px;font-size:10px;font-weight: bold;">
+                            <?php echo substr($acompana['nombre_completo'],0,35); ?>                            
+                          </span>              
+                          <?php
                         }
                       }
                     ?>
                   </td>
-                  <td><?php echo $nombrecia; ?></td>
+                  <td><?php echo substr($nombrecia,0,35); ?></td>
                   <td><?php echo $reserva['fecha_llegada']; ?></td>
                   <td><?php echo $reserva['fecha_salida']; ?></td>
                   <td style="text-align:center;"><?php echo $reserva['dias_reservados']; ?></td>
                   <td style="text-align:center;"><?php echo $reserva['can_hombres']; ?></td>
                   <td style="text-align:center;"><?php echo $reserva['can_mujeres']; ?></td>
-                  <!-- <td align="center"><?php echo $reserva['can_ninos']; ?></td> -->
                   <td style="padding:3px;width: 12%">
                     <nav class="navbar navbar-default" style="margin-bottom: 0px;min-height:0px;">
                       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:0px;">
                         <ul class="nav navbar-nav" style="margin :0">
                           <li class="dropdown dropdownMenu pull-right">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="padding:3px 5px">Ficha Estadia<span class="caret" style="margin-left:10px;"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" 
+                            style ="padding:3px 5px;font-weight: bold;color:#000">                            
+                            Ficha Estadia<span class="caret" style="margin-left:10px;"></span></a>
                             <ul class="dropdown-menu submenu" style="float:left;margin-left:none;">
                               <li>
                                 <a 
@@ -100,8 +97,7 @@
                                   data-tarifa        ="<?php echo $hotel->getNombreTarifa($reserva['tarifa'])?>" 
                                   data-valor         ="<?php echo $reserva['valor_reserva']?>" 
                                   data-observaciones ="<?php echo $reserva['observaciones']?>"                                        >
-                                <i class="fa fa-sign-in" aria-hidden="true"></i>
-                                 Reactivar Estadia</a> 
+                                <i class="fa fa-sign-in" aria-hidden="true"></i> Reactivar Estadia</a> 
                               </li>
                               <li>  
                                 <a 

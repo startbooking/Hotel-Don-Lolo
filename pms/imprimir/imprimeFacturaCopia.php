@@ -1,11 +1,26 @@
 <?php
 
 require '../../../res/fpdf/fpdf.php';
+require '../../../res/phpqrcode/qrlib.php'; 
 
+// echo $nroFactura;
+
+
+// $filename = 'QR_'.$prefijo.'-'.$nroFactura.'.png';
 $filename = '../../../img/pms/QR_'.$prefijo.'-'.$nroFactura.'.png';
 
-// echo $idhuesped;
+// echo $filename;
+$size = 100; // Tamaño en píxeles
+$level = 'L'; // Nivel de corrección (L, M, Q, H)
 
+
+// echo 'crea codigo';
+// Generar el código QR
+
+
+QRcode::png($QRStr, $filename, $level, $size);
+
+// echo $filename;
 
 $datosReserva = $hotel->getReservasDatos($reserva);
 $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
@@ -40,12 +55,14 @@ if($datosReserva[0]['fecha_salida']> FECHA_PMS){
     $fechaSalida = $datosReserva[0]['fecha_salida'];
 }
 
+
 $pdf = new FPDF();
 $pdf->AddPage('P', 'letter');
 $pdf->Rect(10, 50, 190, 210);
 
 $pdf->Image('../../../img/'.LOGO, 10, 5, 40);
-$pdf->Image($filename, 163, 5, 35);
+$pdf->Image($filename, 163, 5, 33);
+
 
 $pdf->SetFont('Arial', 'B', 11);
 $pdf->Cell(190, 4, utf8_decode(NAME_EMPRESA), 0, 1, 'C');
@@ -81,6 +98,8 @@ $pdf->SetFont('Arial', '', 8);
 $pdf->Ln(1);
 
 $pdf->SetFont('Arial', 'B', 8);
+
+echo 'Paso 1';
 
 if ($tipofac == 2) {
   if (!empty($datosCompania)) {
@@ -127,6 +146,7 @@ if ($tipofac == 2) {
     $pdf->SetFont('Arial', 'B', 8);
     $pdf->Cell(15, 4, $datosHuesped[0]['telefono'], 0, 1, 'L');
 }
+
 
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(30, 4, 'Huesped ', 0, 0, 'L');
@@ -189,6 +209,9 @@ foreach ($folios as $folio1) {
     $pagos = $pagos + $folio1['pagos'];
 }
 
+echo 'Paso 2';
+
+
 $pdf->Cell(110, 4, '', 0, 0, 'L');
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(50, 4, 'TOTAL ', 1, 0, 'C');
@@ -241,6 +264,9 @@ $pdf->Cell(45, 5, 'TIPO IMPUESTO', 1, 0, 'C');
 $pdf->Cell(20, 5, 'BASE', 1, 0, 'C');
 $pdf->Cell(30, 5, 'VALOR', 1, 1, 'C');
 
+echo 'Paso 3';
+
+
 foreach ($tipoimptos as $tipoimpto) {
     $pdf->Cell(45, 4, $tipoimpto['descripcion_cargo'], 0, 0, 'L');
     $pdf->Cell(20, 4, number_format($tipoimpto['cargos'], 2), 0, 0, 'R');
@@ -278,7 +304,7 @@ $pdf->MultiCell(190, 4, utf8_decode(PIEFACTURA), 0, 'C');
 
 $file = 'FES-'.$prefijo.$nroFactura.'.pdf';
 
-// echo $file;
+echo $file;
 
 $pdf->Output($file, 'F');
 

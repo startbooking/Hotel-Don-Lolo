@@ -37,8 +37,8 @@
                 <td>Nro</td>
                 <!-- <td style="width:7%;"></td> -->
                 <td style="padding:10px;">Hab.</td>
-                <td style="text-align:center;">Huesped</td>
-                <td style="text-align:left;">Compañia</td>
+                <td style="text-align:center;width:80px;">Huesped</td>
+                <td style="text-align:left;width:180px;">Compañia</td>
                 <td>Tarifa</td>
                 <td>Llegada</td>
                 <td>Salida</td>
@@ -63,7 +63,10 @@
                 ?>
                 <tr style='font-size:12px'>
                   <td style="display: inline-flex;">
-                    <span><?php echo $reserva['num_reserva']; ?></span>  
+                    <span class="btn btn-default" style="padding:0 2px;font-size:12px;">
+                      <?php echo $reserva['num_reserva']; ?>
+                    </span>
+                    <!-- <span><?php echo $reserva['num_reserva']; ?></span>   -->
                     <?php
                       if ($reserva['causar_impuesto'] == 2) { ?>
                         <span class="btn btn-default faReservas" title="Sin Impuestos" style="padding:2px;">
@@ -106,34 +109,31 @@
                       }
                     ?>
                   </td>
-                  <td style="text-align:left"><?php echo $reserva['num_habitacion']; ?></td>
+                  <td style="text-align:left"><span class="btn btn-default" style="padding:0 2px;font-size:12px;">
+              <?php echo $reserva['num_habitacion']; ?>
+            </span></td>
                   <td>
                     <span class="btn btn-primary" style="padding:1px 4px; font-size:12px;font-weight: bold;">
-                      <?php echo $reserva['nombre_completo']; ?></span>
+                      <?php echo substr($reserva['nombre_completo'],0,35); ?></span>
                     <?php
                     $acompanas = $hotel->buscaAcompanantes($reserva['num_reserva']);
                       if (count($acompanas) > 0) {
                         foreach ($acompanas as $key => $acompana) { ?>
                           <span class="btn btn-info" style="padding:1px 4px; margin-left:15px;margin-top:3px;font-size:10px;font-weight: bold;">
-                            <?php echo substr($acompana['nombre_completo'],0,35); ?>
-                            <!-- <label for="" class="control-label" style="font-size:11px;text-align: left;padding: 5px 0px 2px 2px;color:#000">
-                            </label> -->
-                          </span>
-              
+                            <?php echo substr($acompana['nombre_completo'],0,35); ?>                            
+                          </span>              
                           <?php
                         }
                       }
                     ?>
                   </td>
-                  <td style="width:20%;"><?php echo $nombrecia; ?></td> 
+                  <td><?php echo substr($nombrecia,0,35); ?></td> 
                   <td style="text-align:right;"><?php echo number_format($reserva['valor_diario'], 2); ?></td> 
                   <td><?php echo $reserva['fecha_llegada']; ?></td>
                   <td><?php echo $reserva['fecha_salida']; ?></td>
                   <td style="text-align:center;"><?php echo $reserva['dias_reservados']; ?></td>
                   <td style="text-align:center;"><?php echo $reserva['can_hombres']; ?></td>
                   <td style="text-align:center;"><?php echo $reserva['can_mujeres']; ?></td>
-                  <!-- <td align="center"><?php echo $reserva['can_ninos']; ?></td> -->              
-                  <!-- <td><?php echo estadoReserva($reserva['estado']); ?></td> -->
                   <td style="padding:3px;width: 13%">
                     <?php
                       if ($reserva['estado'] == 'ES') { ?>
@@ -148,7 +148,8 @@
                                   role          ="button" 
                                   aria-haspopup ="true" 
                                   aria-expanded ="false" 
-                                  style         ="padding:3px 5px;font-weight: bold;color:#000">Ficha Reservas<span class="caret" style="margin-left:10px;"></span>
+                                  style         ="padding:3px 5px;font-weight: bold;color:#000">
+                                  Ficha Reservas<span class="caret" style="margin-left:10px;"></span>
                                 </a>
                                 <ul class="dropdown-menu submenu" style="float:left;margin-left:-180px;top:40px;">  
                                   <li>

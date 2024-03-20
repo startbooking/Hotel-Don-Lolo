@@ -264,6 +264,7 @@ require_once '../res/php/app_topHotel.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'salidasRealizadas') {
         include_once 'views/modal/modalSalidasRealizadas.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'facturacionEstadia') {
+        include_once 'views/modal/modalHuespedes.php';
         include_once 'views/modal/modalFacturacion.php';
         include_once 'views/modal/modalReservas.php';
         include_once 'views/modal/modalObservaciones.php';

@@ -46,7 +46,7 @@
                     }
                     ?>
                     <tr style='font-size:12px'>
-                      <td style="padding:2px">
+                      <!-- <td style="padding:2px">
                         <div style="display: flex">
                           <span><?php echo $reserva['num_reserva']; ?></span>
                           <?php
@@ -86,28 +86,69 @@
                             }
                           ?>
                         </div>
-                      </td>
-                      <td style="padding:2px"><?php echo $reserva['num_habitacion']; ?></td>
-                      <td style="padding:2px">
-                        <span class="badge" style="background: #20b2aa91;padding: 2px 6px 0px 11px;">
-                          <label for="" class="control-label" style="text-align: left;color:#000">
-                            <?php echo $reserva['nombre_completo']; ?>
-                          </label>
-                        </span>
+                      </td> -->
+                      <td style="display: inline-flex;padding:0 2px">
+                        <span><?php echo $reserva['num_reserva']; ?></span>  
                         <?php
-                        $acompanas = $hotel->buscaAcompanantes($reserva['num_reserva']);
-                        if (count($acompanas) > 0) {
-                          foreach ($acompanas as $key => $acompana) { ?>
-                            <span class="badge" style="background: #3faa558a;margin-top:2px;margin-left:15px;font-size:12px">
-                              <label for="" class="control-label" style="font-size:11px;text-align: left;padding: 5px 0px 2px 2px;color:#000"><?php echo $acompana['nombre_completo']; ?>
-                              </label>
+                          if ($reserva['causar_impuesto'] == 2) { ?>
+                            <span class="btn btn-default faReservas" title="Sin Impuestos" style="padding:2px;">
+                              <i style="font-size:10px;margin-top: 1px;margin-left: -1px;" class="fa fa-percent fa-stack-1x"></i>
+                              <i style="font-size:12px" class="fa fa-ban text-danger"></i>
                             </span>
                             <?php
                           }
-                        }
+                          if (count($depositos) != 0) { ?>
+                            <span 
+                              class="btn btn-success faReservas" 
+                                title="Reserva con Depositos" 
+                                onclick="verDepositos('<?php echo $reserva['num_reserva']; ?>')">                          
+                                <i class="fa fa-usd fa-stack-1x fa-inverse "></i>
+                            </span>
+                            <?php
+                          } 
+                          if (!empty($reserva['observaciones'])) { ?>
+                            <span class="btn btn-info faReservas" 
+                              title="Observaciones a la Reserva" 
+                              data-toggle  ="modal"
+                              data-target  = "#myModalVerObservaciones"
+                              data-reserva ="<?php echo $reserva['num_reserva']; ?>" 
+                              data-estado  ="1" >
+                              <i class="fa fa-commenting fa-stack-1x fa-inverse"></i>
+                            </span>
+                            <?php
+                          }
+                          if (!empty($reserva['observaciones_cancela'])) { ?>
+                            <span class="btn btn-danger faReservas" title="Observaciones a Cancelacion de la Reserva" style="margin-left:0px;cursor:pointer;" onclick="verObservaciones('<?php echo $reserva['num_reserva']; ?>','2')">
+                              <i class="fa fa-commenting fa-stack-1x fa-inverse"></i>
+                            </span>
+                            <?php
+                          }
+                          if ($hoy == substr($reserva['fecha_nacimiento'], 5, 5)) { ?>
+                            <span class="btn btn-warning faReservas" title="El Huesped esta de Cumpleaños" style="margin-left:0px;cursor:pointer;" >
+                              <i class="fa fa-birthday-cake fa-stack-1x fa-inverse"></i> 
+                            </span>
+                          <?php
+                          }
                         ?>
                       </td>
-                      <td style="padding:2px;"><?php echo $nombrecia; ?></td>
+                      <td style="padding:2px"><?php echo $reserva['num_habitacion']; ?></td>
+                      <td style="padding:2px">                        
+                        <span class="btn btn-primary" style="padding:1px 4px; font-size:12px;font-weight: bold;">
+                          <?php echo substr($reserva['nombre_completo'],0,35); ?>
+                        </span>
+                        <?php
+                          $acompanas = $hotel->buscaAcompanantes($reserva['num_reserva']);
+                          if (count($acompanas) > 0) {
+                            foreach ($acompanas as $key => $acompana) { ?>
+                              <span class="btn btn-info" style="padding:1px 4px; margin-left:15px;margin-top:3px;font-size:10px;font-weight: bold;">
+                                <?php echo substr($acompana['nombre_completo'],0,35); ?>                            
+                              </span>              
+                              <?php
+                            }
+                          }
+                        ?>
+                      </td>
+                      <td style="padding:2px;"><?php echo substr($nombrecia,0,35); ?></td>
                       <td style="padding:2px">
                         <?php echo $reserva['fecha_llegada']; ?></td>
                       <td style="padding:2px">
@@ -115,16 +156,20 @@
                       <td style="padding:2px;text-align:center;"><?php echo $reserva['dias_reservados']; ?></td>
                       <td style="padding:2px;text-align:center;"><?php echo $reserva['can_hombres']; ?></td>
                       <td style="padding:2px;text-align:center;"><?php echo $reserva['can_mujeres']; ?></td>
-                      <!-- 
-                      <td style="padding:2px;text-align:center;"><?php echo $reserva['can_ninos']; ?></td>
-                      <td style="padding:2px">
                       <?php echo estadoReserva($reserva['estado']); ?></td> -->
                       <td style="padding:2px;width: 13%">
                         <nav class="navbar navbar-default" id="menuFicha" style="margin-bottom: 0px;min-height:0px;">
                           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:0px;">
                             <ul class="nav navbar-nav" style="margin :0">
                               <li class="dropdown dropdownMenu pull-right">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ficha Estadia<span class="caret" style="margin-left:10px"></span></a>
+                                <a href="#" 
+                                  class="dropdown-toggle" 
+                                  data-toggle="dropdown" 
+                                  role="button" 
+                                  aria-haspopup="true" 
+                                  style         ="padding:3px 5px;font-weight: bold;color:#000">Ficha Estadia
+                                  <span class="caret" style="margin-left:10px"></span>
+                                </a>
                                 <ul class="dropdown-menu submenu" style="float:left;margin-left:none;top:40px;">  
                                   <li>
                                     <a 
@@ -132,7 +177,7 @@
                                       data-target        = "#myModalRegistraReserva"
                                       data-id            ="<?php echo $reserva['num_reserva']; ?>" 
                                       data-tipohab       ="<?php echo $hotel->getNombreTipoHabitacion2($reserva['tipo_habitacion']); ?>" 
-                                      data-nrohab        ="<?php echo $reserva['num_habitacion']; ?>" 
+                                      data-nrohab        ="<style="<?php echo $reserva['num_habitacion']; ?>" 
                                       data-nombre        ="<?php echo $reserva['nombre_completo']; ?>" 
                                       data-impto         ="<?php echo $reserva['causar_impuesto']; ?>" 
                                       data-llegada       ="<?php echo $reserva['fecha_llegada']; ?>" 

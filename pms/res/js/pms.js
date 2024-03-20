@@ -388,7 +388,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   $("#myModalAdicionaPerfil").on("show.bs.modal", function (event) {
     $("#edita").val(0);
     $("#acompana").val(0);
-    // $("#acompana").val(0);
     formu = document.querySelector('#formAdicionaHuespedes');
     formu.reset();
     var button = $(event.relatedTarget);
@@ -1328,7 +1327,6 @@ document.addEventListener("DOMContentLoaded", async () => {
           "data",
           web + "imprimir/informes/Estado_Cuenta_Huesped_" + reserva + ".pdf"
         );
-        /// $("#divConsumos").html(data);
       },
     });
   });
@@ -1742,6 +1740,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     var modal = $(this);
     modal.find(".modal-title").text("Asignar Compañia A: " + nombre);
+    
+    $("#idHuespCia").val(id);
     $("#idHuespCia").val(id);
     $.ajax({
       url: "res/php/asignaCia.php",
@@ -5246,8 +5246,8 @@ function moverConsumos() {
   var folio = $("#txtFolioMov").val();
   var numero = $("#reservaActual").val();
   var parametros = {
-    id: id,
-    folio: folio,
+    id,
+    folio,
   };
   $.ajax({
     url: "res/php/moverCargo.php",
@@ -5532,6 +5532,10 @@ async function actualizaHuesped() {
 }
 
 function actualizaCiaHuesped() {
+  /* var button = $(event.relatedTarget);
+  let reserva = button.data("id");
+  let estado = button.data("estado");    */ 
+
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var idhues = $("#idHuespCia").val();
@@ -5545,7 +5549,7 @@ function actualizaCiaHuesped() {
     type: "POST",
     data: parametros,
     success: function (datos) {
-      $(location).attr("href", pagina);
+      // $(location).attr("href", pagina);
     },
   });
 }

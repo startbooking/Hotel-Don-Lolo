@@ -103,7 +103,7 @@ class Hotel_Actions{
     public function traeDatosFactura($nroFactura){
       global $database;
       
-      $data = $database->select('historico_cargos_pms',[
+      $data = $database->select('cargos_pms',[
         'tipo_factura',
         'numero_reserva',
         'folio_cargo',

@@ -2,11 +2,14 @@
     require '../../../res/php/app_topHotel.php'; 
     
     
-    $nroFactura = '15537';
+    $nroFactura = '16338';
     
     $diasCre = 0;
     
     $resFac = $hotel->getResolucion(1);
+    
+    // echo print_r($resFac);
+    
     $resolucion = $resFac[0]['resolucion'];
     $prefijo = $resFac[0]['prefijo'];
     $fechaRes = $resFac[0]['fecha'];
@@ -115,6 +118,8 @@
     /* $regis = $hotel->ingresaDatosFe($nroFactura, $prefijo, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cufe, $QRStr, '', $Isvalid, $eFact, $errorMessage, $statusCode, $statusDesc, $statusMess); */
     
     // echo 'Antes de Factura ' ;
+    
+    
     
     include_once '../../imprimir/imprimeFacturaCopia.php';
 
