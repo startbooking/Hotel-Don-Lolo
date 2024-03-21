@@ -207,13 +207,6 @@ a.info span,
   font-size: 36px;
 }
 
-/* .dropdown-menu {
-  margin-right: 150px !important;
-  margin-top: -120px !important;
-}
- */
-
-
 .mt-10 {
   margin-top: 10px;
 }
@@ -226,6 +219,9 @@ a.info span,
   padding: 5px;
 }
 
+.pd-10 {
+  padding: 10px;
+}
 .dropdownForecast {
   margin-right: 0px !important;
   margin-top: 0px !important;

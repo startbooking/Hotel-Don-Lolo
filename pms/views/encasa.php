@@ -158,15 +158,15 @@
                                 <?php 
                                   if(TRA==1){ ?>
                                     <li>
-                                  <a 
-                                    data-toggle    ="modal" 
-                                    data-id        ="<?php echo $reserva['num_reserva']; ?>" 
-                                    onclick        ="enviaTRA(<?php echo $reserva['num_reserva']; ?>,'<?php echo FECHA_PMS; ?>')" 
-                                    >
-                                    <i class="fa-regular fa-paper-plane"></i>
-                                  Envio Tarjeta Registro</a>
-                                </li>
-                                <?php
+                                      <a 
+                                        data-toggle    ="modal" 
+                                        data-id        ="<?php echo $reserva['num_reserva']; ?>" 
+                                        onclick        ="enviaTRA(<?php echo $reserva['num_reserva']; ?>,'<?php echo FECHA_PMS; ?>')" 
+                                        >
+                                        <i class="fa-regular fa-paper-plane"></i>
+                                      Envio Tarjeta Registro</a>
+                                    </li>
+                                    <?php
                                   }
                                 ?>
                                 <li>

@@ -20,7 +20,7 @@
                 <div class="form-group"> 
                   <label class="control-label col-lg-3 col-xs-3">Habitacion</label>
                   <div class="col-lg-6 col-md-6">
-                    <select name="txtIdReservaCon" id="txtIdReservaCon" onchange="asignaHuesped(this.value)">
+                    <select name="txtIdReservaCon" id="txtIdReservaCon" onchange="asignaHuesped(this.value)" required>
                       <option value="">Seleccione la Habitacion</option>
                       <?php 
                         foreach ($reservas as $reserva) { ?> 

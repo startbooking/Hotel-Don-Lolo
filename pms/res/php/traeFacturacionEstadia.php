@@ -159,18 +159,6 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
                           <i class="fa fa-address-card" aria-hidden="true"></i>Informacion Estadia</a>
                       </li>
                       <li>
-                        <!-- <a 
-                          data-toggle    ="modal" 
-                          data-id        ="<?php echo $reserva['id_huesped']; ?>" 
-                          data-apellido1 ="<?php echo $reserva['apellido1']; ?>" 
-                          data-apellido2 ="<?php echo $reserva['apellido2']; ?>" 
-                          data-nombre1   ="<?php echo $reserva['nombre1']; ?>" 
-                          data-nombre2   ="<?php echo $reserva['nombre2']; ?>" 
-                          data-nombre   ="<?php echo $reserva['nombre_completo']; ?>" 
-                          data-impto     ="<?php echo $reserva['causar_impuesto']; ?>" 
-                          href           ="#myModalInformacionHuesped">
-                          <i class       ="fa fa-user" aria-hidden="true"></i>
-                          Datos Huesped</a>  -->
                           <a 
                             data-toggle    ="modal" 
                             data-id        ="<?php echo $reserva['id_huesped']; ?>" 
@@ -179,42 +167,30 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
                             <i class="fa fa-user-md" aria-hidden="true"></i>
                             Perfil Huesped</a>
                       </li>
-                      <?php
-                      if ($reserva['id_compania'] != 0) { ?>
-                        <li>
-                          <a 
-                            data-toggle    ="modal" 
-                            data-idres     ="<?php echo $reserva['num_reserva']; ?>" 
-                            data-idhue     ="<?php echo $reserva['id_huesped']; ?>" 
-                            data-idcia     ="<?php echo $reserva['id_compania']; ?>" 
-                            data-idcentro  ="<?php echo $reserva['idCentroCia']; ?>" 
-                            data-nombre ="<?php echo $reserva['nombre_completo']; ?>" 
-                            data-impto     ="<?php echo $reserva['causar_impuesto']; ?>" 
-                            href           ="#myModalInformacionCompania">
-                            <i class="fa fa-industry" aria-hidden="true"></i>
-                          Datos Compañia</a>
-                        </li>
-                        <?php
-                      }
-                      ?>
                       <li>
                         <a 
                           data-toggle    ="modal" 
-                          data-idres     ="<?php echo $reserva['num_reserva']; ?>" 
                           data-id        ="<?php echo $reserva['id_huesped']; ?>" 
+                          data-idres     ="<?php echo $reserva['num_reserva']; ?>" 
                           data-idcia     ="<?php echo $reserva['id_compania']; ?>" 
-                          data-idcentro  ="<?php echo $reserva['idCentroCia']; ?>" 
-                          data-tipohab   ="<?php echo descripcionTipoHabitacion($reserva['tipo_habitacion']); ?>" 
-                          data-nrohab    ="<?php echo $reserva['num_habitacion']; ?>" 
                           data-nombre    ="<?php echo $reserva['nombre_completo']; ?>" 
-                          data-impto     ="<?php echo $reserva['causar_impuesto']; ?>" 
-                          data-nombrecia ="<?php echo $nombrecia; ?>" 
-                          data-nitcia    ="<?php echo $nitcia; ?>" 
                           href           ="#myModalAsignarCompania">
                           <i class="fa fa-window-restore" aria-hidden="true"></i>
                         Asignar Compañia</a>
                       </li>                                  
                       <?php
+                      if ($reserva['id_compania'] != 0) { ?>
+                        <li>                          
+                          <a 
+                            data-toggle    ="modal"                                         
+                            data-id        ="<?php echo $reserva['id_compania']; ?>" 
+                            data-empresa   ="<?php echo $nombrecia; ?>" 
+                            href           ="#myModalModificaPerfilCia">
+                            <i class="fa fa-book" aria-hidden="true"></i>
+                          Datos Compañia</a>
+                        </li>
+                        <?php
+                      }
                       if ($reserva['num_habitacion'] != CTA_DEPOSITO) {?>
                         <li>
                           <a 

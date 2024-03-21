@@ -66,7 +66,6 @@
                     <span class="btn btn-default" style="padding:0 2px;font-size:12px;">
                       <?php echo $reserva['num_reserva']; ?>
                     </span>
-                    <!-- <span><?php echo $reserva['num_reserva']; ?></span>   -->
                     <?php
                       if ($reserva['causar_impuesto'] == 2) { ?>
                         <span class="btn btn-default faReservas" title="Sin Impuestos" style="padding:2px;">
@@ -109,9 +108,11 @@
                       }
                     ?>
                   </td>
-                  <td style="text-align:left"><span class="btn btn-default" style="padding:0 2px;font-size:12px;">
-              <?php echo $reserva['num_habitacion']; ?>
-            </span></td>
+                  <td style="text-align:left">
+                    <span class="btn btn-default" style="padding:0 2px;font-size:12px;">
+                      <?php echo $reserva['num_habitacion']; ?>
+                    </span>
+                  </td>
                   <td>
                     <span class="btn btn-primary" style="padding:1px 4px; font-size:12px;font-weight: bold;">
                       <?php echo substr($reserva['nombre_completo'],0,35); ?></span>

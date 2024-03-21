@@ -5910,7 +5910,7 @@ class Hotel_Actions{
     public function updateCiaHuesped($idcia, $idhues, $idCentro)
     {
         global $database;
-
+ 
         $data = $database->update('huespedes', [
             'id_compania' => $idcia,
             'idCentroCia' => $idCentro,
@@ -8524,7 +8524,7 @@ class Hotel_Actions{
 
     public function getHuespedesenCasa($tipo, $estado)
     {
-        global $database;
+        global $database; 
 
         $data = $database->select('reservas_pms', [
             '[>]huespedes' => 'id_huesped',

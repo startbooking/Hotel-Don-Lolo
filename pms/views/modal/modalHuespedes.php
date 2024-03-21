@@ -289,7 +289,7 @@ $hoy = date('Y-m-d');
   </div>
 </div>
 
-<div class="modal fade bs-example-modal-lg" id="myModalAsignarCompania" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade bs-example-modal-lg" id="myModalAsignarCompaniaHuesped" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-md" role="document">
     <div class="modal-content">
       <div class="row-fluid imprime_productos_mov">
@@ -305,7 +305,7 @@ $hoy = date('Y-m-d');
                 <input type="hidden" id="idHuespCia" name="idHuespCia">
                 <label for="companiaSele" class="col-sm-3 control-label">Empresa </label>
                 <div class="col-sm-8">
-                  <select name="companiaSele" id="companiaSele" onblur="seleccionaCentro(this.value)">
+                  <select name="companiaSeleHues" id="companicompaniaSeleHuesaSele" onblur="seleccionaCentro(this.value)">
                     <?php
                     if (count($companias) != 0) {
                       foreach ($companias as $key => $value) { ?>

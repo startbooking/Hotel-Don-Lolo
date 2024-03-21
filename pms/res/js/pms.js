@@ -1740,9 +1740,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     var modal = $(this);
     modal.find(".modal-title").text("Asignar Compañia A: " + nombre);
-    
-    $("#idHuespCia").val(id);
-    $("#idHuespCia").val(id);
+      $("#idHuespCia").val(id);
     $.ajax({
       url: "res/php/asignaCia.php",
       type: "POST",
@@ -2515,7 +2513,7 @@ const traeToken = async () => {
   }
 };
 
-const donwloadFile = async (
+const donwloadFile2 = async (
   file,
   identification_number,
   typeFile,
@@ -2590,6 +2588,50 @@ const donwloadFile = async (
     }
   }
 };
+
+async function descargaArchivo(numero, nit, prefijo){
+  url = `https://api.nextpyme.plus/api/ubl2.1/download/`;    
+  const eToken = await traeToken();
+  let { token } = eToken[0];
+  xmlUrl = `${url}${nit}/FES-${prefijo}${numero}.xml`;
+  arcXml = `FES-${prefijo}${numero}.xml`;
+  
+  let  arcRes = await  descargaXML(xmlUrl, token)
+  
+  let element = document.createElement('a');
+  element.setAttribute('href', 'data:text/xml;charset=utf-8,' + encodeURIComponent(arcRes));
+  element.setAttribute('download', arcXml);
+
+  element.style.display = 'none';
+  document.body.appendChild(element);
+  console.log(element);
+
+  element.click();
+
+  document.body.removeChild(element); 
+  
+
+}
+
+const descargaXML = async (xmlUrl, token) => {
+  
+  try {
+    const resultado = await fetch(xmlUrl, {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json", // Y le decimos que los datos se enviaran como JSON
+        "Accept": "application/json",
+        "Authorization": "Bearer "+token,
+      },
+    });
+    const datos = await resultado.text();
+    return datos;  
+  }
+  catch (error){
+    // console.log(error)
+  }    
+};
+
 
 const Notifications = (
   element,
@@ -4719,7 +4761,6 @@ function actualizaCiaRecepcion() {
   var pagina = $("#ubicacion").val();
   var idreserva = $("#idReservaCia").val();
   var idcia = $("#companiaSele").val();
-  /// var idcentro = $("#centroCia").val();
 
   var parametros = {
     idreserva,
@@ -5000,7 +5041,7 @@ function accesoUsuarios(){
     $document.querySelector('menuFacturacion').classList.add('apaga')    
     menuFicha.forEach((element, index) => {
       if(index < menuFicha.length) {
-        element.classList.add('apaga');
+        element.classList.add('accesoUsuariosapaga');
       }
     });
     btnAdiciona.forEach((element, index) => {
@@ -5532,10 +5573,6 @@ async function actualizaHuesped() {
 }
 
 function actualizaCiaHuesped() {
-  /* var button = $(event.relatedTarget);
-  let reserva = button.data("id");
-  let estado = button.data("estado");    */ 
-
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var idhues = $("#idHuespCia").val();
@@ -5549,7 +5586,7 @@ function actualizaCiaHuesped() {
     type: "POST",
     data: parametros,
     success: function (datos) {
-      // $(location).attr("href", pagina);
+      $(location).attr("href", pagina);
     },
   });
 }
@@ -6419,8 +6456,8 @@ function ingresaAbonos() {
 
 function ingresaConsumos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario, usuario_id } = user;
+  let { user : { usuario, usuario_id } } = sesion;
+  // let { usuario, usuario_id } = user;
   /* usuario = sesion["usuario"][0]["usuario"];
   idusuario = sesion["usuario"][0]["usuario_id"]; */
   var congela = $("#cuentaCongelada").val();
@@ -6465,7 +6502,7 @@ function ingresaConsumos() {
         );
       } else {
         $("#mensaje").html(
-          '<div class="alert alert-warning"><h3>Ingreso Realizado con Exito</h3></div>'
+          '<div class="alert alert-warning centro m0"><h3 class="mt-10">Ingreso Realizado con Exito</h3></div>'
         );
       }
       if (ingreso == 1) {

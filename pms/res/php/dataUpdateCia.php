@@ -99,7 +99,7 @@ $empresa = $hotel->getBuscaIdEmpresa($id);
       </div>
       <label for="correo" class="col-sm-2 control-label">Correo </label>
       <div class="col-sm-4">
-        <input type="email" class="form-control" name="correo" id="correo" value="<?php echo $empresa[0]['email']; ?>">
+        <input type="email" class="form-control" name="correo" id="correo" value="<?php echo $empresa[0]['email']; ?>" required>
       </div>
     </div>
     <div class="form-group">
@@ -120,11 +120,13 @@ $empresa = $hotel->getBuscaIdEmpresa($id);
           <?php
           $codigos = $hotel->getCodigosConsumos(3);
           foreach ($codigos as $codigo) { ?>
-            <option value="<?php echo $codigo['id_cargo']; ?>" <?php
-                                                                if ($empresa[0]['id_forma_pago'] == $codigo['id_cargo']) { ?> selected <?php
-                                                                                                                                      }
-                                                                                                                                        ?>><?php echo $codigo['descripcion_cargo']; ?></option>
-          <?php
+            <option value="<?php echo $codigo['id_cargo']; ?>" 
+            <?php
+              if ($empresa[0]['id_forma_pago'] == $codigo['id_cargo']) { ?> selected 
+              <?php }
+              ?>>
+            <?php echo $codigo['descripcion_cargo']; ?></option>
+            <?php
           }
           ?>
         </select>
@@ -133,15 +135,16 @@ $empresa = $hotel->getBuscaIdEmpresa($id);
     <div class="form-group">
       <label for="fechanace" class="col-sm-2 control-label">Tipo Empresa </label>
       <div class="col-sm-4">
-        <select name="tipoAdquiriente" id="tipoAdquiriente">
+        <select name="tipoAdquiriente" id="tipoAdquiriente" required>
           <option value="">Seleccione el Tipo Empresa</option>
           <?php
           $tipoAdquiere = $hotel->getTipoAdquiriente();
           foreach ($tipoAdquiere as $tipoAdqui) { ?>
-            <option value="<?php echo $tipoAdqui['id']; ?>" <?php
-                                                            if ($empresa[0]['tipoAdquiriente'] == $tipoAdqui['id']) { ?> selected <?php
-                                                                                                                                }
-                                                                                                                                  ?>><?php echo $tipoAdqui['descripcionAdquiriente']; ?></option>
+            <option value="<?php echo $tipoAdqui['id']; ?>" 
+              <?php
+                if ($empresa[0]['tipoAdquiriente'] == $tipoAdqui['id']) { ?> selected <?php } 
+              ?>>
+              <?php echo $tipoAdqui['descripcionAdquiriente']; ?></option>
           <?php
           }
           ?>
@@ -149,15 +152,15 @@ $empresa = $hotel->getBuscaIdEmpresa($id);
       </div>
       <label for="correo" class="col-sm-2 control-label">Tipo Regimen </label>
       <div class="col-sm-4">
-        <select name="tipoResponsabilidad" id="tipoResponsabilidad">
+        <select name="tipoResponsabilidad" id="tipoResponsabilidad" required>
           <option value="">Seleccione Tipo de Regimen</option>
           <?php
           $tipoRespo = $hotel->getTipoResponsabilidad();
           foreach ($tipoRespo as $tipoRes) { ?>
-            <option value="<?php echo $tipoRes['id']; ?>" <?php
-                                                          if ($empresa[0]['tipoResponsabilidad'] == $tipoRes['id']) { ?> selected <?php
-                                                                                                                                }
-                                                                                                                                  ?>><?php echo $tipoRes['descripcion']; ?></option>
+            <option value="<?php echo $tipoRes['id']; ?>" 
+            <?php
+              if ($empresa[0]['tipoResponsabilidad'] == $tipoRes['id']) { ?> selected <?php } ?>>
+              <?php echo $tipoRes['descripcion']; ?></option>
           <?php
           }
           ?>

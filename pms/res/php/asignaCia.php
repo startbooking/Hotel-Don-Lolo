@@ -16,7 +16,7 @@
     <select name="companiaSele" id="companiaSele">
       <option value="">Seleccione la Compañia</option>
       <?php foreach ($cias as $key => $value) { ?> 
-        <option value="<?=$value['id_compania']?>"<?php if($value['id_compania']==$idcia){ ?> selected <?php } ?>><?php echo $value['empresa']?></option>
+        <option value="<?=$value['id_compania']?>"<?php if($value['id_compania']==$idcia){ ?> selected <?php } ?>><?php echo substr($value['empresa'],0,70)?></option>
       <?php }?>
     </select>
   </div>

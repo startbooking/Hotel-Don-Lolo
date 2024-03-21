@@ -268,6 +268,7 @@ require_once '../res/php/app_topHotel.php';
         include_once 'views/modal/modalFacturacion.php';
         include_once 'views/modal/modalReservas.php';
         include_once 'views/modal/modalObservaciones.php';
+        include_once 'views/modal/modalCompania.php';        
     } elseif (isset($_GET['section']) && $_GET['section'] == 'ventasDirectas') {
         include_once 'views/modal/modalVentasDirectas.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'facturacionHuesped') {
@@ -346,8 +347,7 @@ require_once '../res/php/app_topHotel.php';
                 $('.menuFicha').css('display', 'block')
             }
             $(function() {
-                $('#example1').DataTable({
-                
+                $('#example1').DataTable({                
                     "iDisplayLength": 50,
                     "language": { 
                         "decimal": "",
@@ -414,8 +414,6 @@ require_once '../res/php/app_topHotel.php';
             });
             accesoUsuarios()
         </script>
-
-
     <?php
     } elseif (isset($_GET['section']) && $_GET['section'] == 'cargosAnulados') { ?>
         <script>

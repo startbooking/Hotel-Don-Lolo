@@ -29,7 +29,7 @@
                   <td>Direccion</td>
                   <td>Celular</td>
                   <td>Correo</td>
-                  <td>Tarifa</td>
+                  <!-- <td>Tarifa</td> -->
                   <td>Accion</td>
                 </tr>
               </thead>
@@ -37,13 +37,13 @@
                 <?php
                 foreach ($companias as $compania) { ?>
                   <tr style='font-size:12px'>
-                    <td style="width:10%"><?php echo $compania["nit"]; ?> - <?php echo $compania['dv']; ?></td>
-                    <td style="width:20%"><?php echo $compania["empresa"]; ?> </td>
-                    <td style="width:20%"><?php echo $compania["direccion"]; ?> </td>
+                    <td style="width: 10%"><?php echo $compania["nit"]; ?> - <?php echo $compania['dv']; ?></td>
+                    <td><?php echo substr($compania["empresa"],0,35); ?> </td>
+                    <td><?php echo substr($compania["direccion"],0,30); ?> </td>
                     <td><?php echo $compania["celular"]; ?> </td>
-                    <td style="width:10%;overflow:auto;"><?php echo $compania["email"]; ?> </td>
-                    <td><?php echo $compania["descripcion_tarifa"]; ?> </td>
-                    <td style="padding:3px;width: 15%">
+                    <td><?php echo substr($compania["email"],0,35); ?> </td>
+                    <!-- <td><?php echo $compania["descripcion_tarifa"]; ?> </td> -->
+                    <td style="padding:0px;width: 13%">
                       <nav class="navbar navbar-default" id="menuFicha"style="margin-bottom: 0px;min-height:0px;">
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:1px">
                           <ul class="nav navbar-nav" style="width:100%">
