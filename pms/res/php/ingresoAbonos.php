@@ -14,7 +14,7 @@ $room = $_POST['room'];
 $folio = 1;
 $canti = 1;
 $usuario = $_POST['usuario'];
-$idusuario = $_POST['idusuario'];
+$idusuario = $_POST['usuario_id'];
 
 $fecha = FECHA_PMS;
 

@@ -6175,16 +6175,19 @@ class Hotel_Actions{
 
     public function updateAnulaConsumo($id, $motivo, $fecha, $usuario, $idusuario)
     {
+    
+        echo $id, $motivo, $fecha, $usuario, $idusuario;
         global $database;
 
         $data = $database->update('cargos_pms', [
-            'cargo_anulado' => 1,
+            'cargo_anulado' => 1,            
             'fecha_anulacion' => $fecha,
             'usuario_anulacion' => $usuario,
             'id_usuario_anulacion' => $idusuario,
             'motivo_anulacion' => $motivo,
-            'fecha_sistema_anula' => date('Y-m-d H:i:s'),
-            
+            'fecha_sistema_anula' => date('Y-m-d H:i:s'), 
+            /* 
+            */            
         ], [
             'id_cargo' => $id,
         ]); 

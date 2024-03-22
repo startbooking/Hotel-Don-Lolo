@@ -5617,8 +5617,8 @@ function anulaConsumos() {
   var web = $("#rutaweb").val();
 
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario, usuario_id } = user;
+  let { user: { usuario, usuario_id }  } = sesion;
+  // let { } = user;
 
   var id = $("#txtIdConsumoAnu").val();
   var motivo = $("#txtMotivoAnula").val();
@@ -5627,7 +5627,7 @@ function anulaConsumos() {
     id,
     motivo,
     usuario,
-    idusuario: usuario_id,
+    usuario_id,
   };
 
   $.ajax({
@@ -6288,33 +6288,6 @@ async function validaDatosEmpresa(id){
   
 }
 
-
-function restaFechasOld() {
-  var web = $("#webPage").val();
-  var pagina = $("#ubicacion").val();
-  var edita = $("#edita").val();
-  if (edita == 1) {
-    var fecha = $("#llegadaUpd").val();
-    var sale = $("#salidaUpd").val();
-  } else {
-    var fecha = $("#llegada").val();
-    var sale = $("#salida").val();
-  }
-  var parametros = { fecha: fecha, sale: sale };
-  $.ajax({
-    type: "POST",
-    url: web + "res/php/restaFechas.php",
-    data: parametros,
-    success: function (data) {
-      if (edita == 1) {
-        $("#nochesUpd").val(data);
-      } else {
-        $("#noches").val(data);
-      }
-    },
-  });
-}
-
 function restaFechas() {
   let llega;
   let sale;
@@ -6414,8 +6387,8 @@ function asignaHuesped(reserva) {
 
 function ingresaAbonos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario, usuario_id } = user;
+  let { user: { usuario, usuario_id } } = sesion;
+  // let  = user;
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var codigo = $("#codigoAbono").val();
@@ -6436,7 +6409,7 @@ function ingresaAbonos() {
     room,
     idhues,
     usuario,
-    idusuario: usuario_id,
+    usuario_id,
   };
   $.ajax({
     type: "POST",
@@ -6521,8 +6494,8 @@ function ingresaConsumos() {
 
 function ingresaReserva() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario } = user;
+  let { user: { usuario } } = sesion;
+  // let  = user;
   var pagina = $("#ubicacion").val();
   var numero = $("#txtIdReservaIng").val();
   var habita = $("#txtNumeroHabIng").val();
@@ -6581,8 +6554,8 @@ function imprimeDeposito(web, numero, pagina) {
 
 function cancelaReserva() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario, usuario_id } = user;
+  let { user: { usuario, usuario_id } } = sesion;
+  // let  = user;
   var pagina = $("#ubicacion").val();
   var motivo = $("#motivoCancela").val();
   var numero = $("#txtIdReservaCan").val();
@@ -6591,7 +6564,7 @@ function cancelaReserva() {
     motivo,
     observa,
     numero,
-    idusuario: usuario_id,
+    usuario_id,
     usuario,
   };
   $.ajax({

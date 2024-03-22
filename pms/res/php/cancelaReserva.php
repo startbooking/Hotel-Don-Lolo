@@ -13,7 +13,7 @@
   
   if($cancela==1){
     if(count($depositos)>0){
-      $anula = $hotel->updateAnulaConsumo($depositos[0]['id_cargo'],strtoupper($observa),FECHA_PMS,$usuario,$idusuario);
+      $anula = $hotel->updateAnulaConsumo($depositos[0]['id_cargo'],strtoupper($observa),FECHA_PMS,$usuario,$usuario_id);
     }
   }
   
