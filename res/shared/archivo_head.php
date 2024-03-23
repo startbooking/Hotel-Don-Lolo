@@ -16,6 +16,8 @@
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css">
 
+<link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" type="text/css" />
+
 <link href="<?php echo BASE_CSS; ?>AdminLTE.min.css" rel="stylesheet" type="text/css">
 <!-- <link href="<?php echo BASE_CSS; ?>AdminLTEV210.css" rel="stylesheet" type="text/css"> -->
 <link href="<?php echo BASE_CSS; ?>_all-skins.css" rel="stylesheet" type="text/css">  

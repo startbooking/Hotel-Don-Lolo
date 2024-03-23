@@ -71,16 +71,16 @@ $facturador = $eToken[0]['facturador'];
                           <td style="padding:3px 5px"><?php echo $factura['fecha_factura']; ?></td>
                           <td style="padding:3px 5px"><?php echo estadoFactura($factura['factura_anulada']); ?></td>
                           <?php 
-                              if($facturador==1){ ?>
-                                <td style="padding:3px 5px"> 
+                            if($facturador==1){ ?>
+                              <td style="padding:3px 5px"> 
                                 <?php
                                   echo estadoFacturaDIAN($factura['estadoEnvio']); 
                                 ?>
                               </td>
                               <?php
-                              }
+                            }
                           ?>
-                          <td style="padding:3px 5px;width: 10%;text-align:center;">
+                          <td style="padding:3px 5px;width: 12%;text-align:center;">
                             <button 
                               class="btn btn-info btn-xs" 
                               type="button" 
@@ -114,21 +114,14 @@ $facturador = $eToken[0]['facturador'];
                                 href="#myModalAnulaFactura" 
                                 type="button" 
                                 title="Anular Factura">
-                                <i class="fa fa-window-close" aria-hidden="true"></i></a>
+                                <i class="fa fa-window-close" aria-hidden="true"></i>
+                              </a>                                
                               <?php
-                              if($facturador == 1){
-                                  ?>
-                                <button 
-                                  class="btn btn-default btn-xs" 
-                                  onclick="descargaArchivo('<?php echo $factura['factura_numero']; ?>','<?php echo NIT; ?>','<?php echo $factura['prefijo_factura'];?>');" 
-                                  type="button" 
-                                  title="Descarga ZIP Attached">
-                                  <i class="fa-solid fa-download"></i>
-                                </button>
-                                <?php
-                              }
                             }else{ ?>
                               <button 
+                                class="btn btn-success btn-xs" 
+                                type="button" 
+                                data-toggle="modal<button 
                                 class="btn btn-success btn-xs" 
                                 type="button" 
                                 data-toggle="modal"
@@ -141,12 +134,18 @@ $facturador = $eToken[0]['facturador'];
                                 data-reserva="<?php echo $factura['num_reserva']; ?>" 
                                 href="#myModalVerFactura" 
                                 title="Ver Nota Credito">
-                              <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                            </button>
-                            <?php
-                            }
-                            
+                                <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                              </button>"                                
+                              <?php
+                            }                            
                             ?>
+                            <button 
+                              class="btn btn-primary btn-xs" 
+                              onclick="event.preventDefault();DonwloadFile('<?php echo $factura['prefijo_factura'].$factura['factura_numero']; ?>','<?php echo NIT; ?>','zip');" 
+                              type="button" 
+                              title="Descarga ZIP Attached">
+                              <i class="fa-solid fa-file-zipper"></i>
+                            </button>
                           </td>
                         </tr>
                       <?php

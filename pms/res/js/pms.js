@@ -2513,79 +2513,28 @@ const traeToken = async () => {
   }
 };
 
-const donwloadFile2 = async (
-  file,
-  identification_number,
-  typeFile,
-  base64 = false
-) => {
+const DonwloadFile = async (file, nit, typeFile, base64 = false ) => {
   const eToken = await traeToken();
 
   let { token } = eToken[0];
 
-  if (identification_number !== null) {
+  if (nit !== null) {
     let fileSystem = null;
     if (typeFile == "pdf") {
       fileSystem = file;
-    } else if (typeFile == "xml") {
-      fileSystem = "ZipAttachm-HDL" + file;
+    } else if (typeFile == "zip") {
+      fileSystem = "ZipAttachm-" + file+".xml";
     }
 
-    url = `https://api.nextpyme.plus/api/ubl2.1/download/${identification_number}/${fileSystem}`;
-
-    try {
-      const DataFiles = {
-        url,
-        method: "get",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
-          Accept: "application/json",
-        },
-        typeResponse: "blob",
-      };
-
-      // console.log(DataFiles)
-
-      const ResponseAPIFiles = await RequestComponent(DataFiles);
-      /* console.log("Paso API Files");
-      console.log(ResponseAPIFiles); */
-      spinner.removeAttribute("hidden");
-      if (ResponseAPIFiles["size"] <= 300) {
-        // spinner.setAttribute('hidden', '');
-        return Notifications(
-          null,
-          "Error al descargar el archivo",
-          "Precaucion",
-          true,
-          "No es posible mostrar los documentos en este momento, por favor intente más tarde!",
-          false
-        );
-      }
-      // spinner.setAttribute('hidden', '');
-      Notifications(
-        null,
-        "Archivo descargado con éxito!",
-        "success",
-        true,
-        "El archivo se abrirá automaticamente!",
-        false
-      );
-      var blob = new Blob([ResponseAPIFiles], {
-        type: ResponseAPIFiles["type"],
-      });
-      var url = URL.createObjectURL(blob);
-      window.open(url);
-    } catch (error) {
-      return Notifications(
-        null,
-        "Error al descargar el archivo",
-        "error",
-        true,
-        "No es posible mostrar los documentos en este momento, por favor intente más tarde!",
-        false
-      );
-    }
+    url = `https://api.nextpyme.plus/api/ubl2.1/download/${nit}/${fileSystem}`;
+    
+    const ResponseFile = await descargaXML(url, token, 'blob' );
+  
+    let blob = new Blob([ResponseFile], {
+      type: ResponseFile["type"],
+    });
+    let urlFile = URL.createObjectURL(blob);
+    window.open(urlFile); 
   }
 };
 
@@ -2596,7 +2545,7 @@ async function descargaArchivo(numero, nit, prefijo){
   xmlUrl = `${url}${nit}/FES-${prefijo}${numero}.xml`;
   arcXml = `FES-${prefijo}${numero}.xml`;
   
-  let  arcRes = await  descargaXML(xmlUrl, token)
+  let  arcRes = await  descargaXML(xmlUrl, token, '')
   
   let element = document.createElement('a');
   element.setAttribute('href', 'data:text/xml;charset=utf-8,' + encodeURIComponent(arcRes));
@@ -2604,7 +2553,6 @@ async function descargaArchivo(numero, nit, prefijo){
 
   element.style.display = 'none';
   document.body.appendChild(element);
-  console.log(element);
 
   element.click();
 
@@ -2613,8 +2561,8 @@ async function descargaArchivo(numero, nit, prefijo){
 
 }
 
-const descargaXML = async (xmlUrl, token) => {
-  
+const descargaXML = async (xmlUrl, token, tipo) => {
+  let datos;
   try {
     const resultado = await fetch(xmlUrl, {
       method: "get",
@@ -2624,14 +2572,18 @@ const descargaXML = async (xmlUrl, token) => {
         "Authorization": "Bearer "+token,
       },
     });
-    const datos = await resultado.text();
+    if(tipo=='blob'){
+      datos = await resultado.blob();
+    }else{
+      datos = await resultado.text();
+    }
+    // console.log(datos)
     return datos;  
   }
   catch (error){
     // console.log(error)
   }    
 };
-
 
 const Notifications = (
   element,
@@ -2658,37 +2610,28 @@ const Notifications = (
   );
 };
 
-const RequestComponent = async ({ url, method, bodyRequest, headers, typeResponse, noSession = false,
-}) => {
-  if (noSession !== true) {
-    const csrf = document.querySelector('input[name="_token"]').value;
-    const session = await fetch(masterUrl + "/session", {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        "X-CSRF-TOKEN": csrf,
-      },
-      method: "post",
-    });
-    const { id } = await session.json();
-    if (id == null || id == undefined) {
-      ToastR({
-        message: "Su sesión ha vencido. Por favor ingrese nuevamente!",
-        icon: "error",
-      });
-      setTimeout(function () {
-        window.location.href = "/";
-        return;
-      }, 2000);
-    }
-  }
-  if (url == null || method == null || headers == null)
-    ToastR({
-      message: "La información enviada es invalida! Complete los datos!",
-      icon: "error",
-    });
+const RequestComponent = async ({ url, token,}) => {
+
   try {
-    spinner.removeAttribute("hidden");
+    const resultado = await fetch(url, {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json", // Y le decimos que los datos se enviaran como JSON
+        "Accept": "application/json",
+        "Authorization": "Bearer "+token,
+      },
+    });
+    const datos = await resultado.blob();
+    return datos;  
+  }
+  catch (error){
+    // console.log(error)
+  }  
+
+// const RequestComponent = await fetch(url, FullOptionsRequest);
+
+    
+  /* try {
     FullOptionsRequest = null;
     const optionsRequest = {
       method: method,
@@ -2696,6 +2639,7 @@ const RequestComponent = async ({ url, method, bodyRequest, headers, typeRespons
       contentType: "application/json; charset=UTF-8",
       headers: headers,
     };
+    
     if (method == "POST" || method == "PUT") {
       FullOptionsRequest = Object.assign(optionsRequest, {
         body: bodyRequest,
@@ -2703,9 +2647,17 @@ const RequestComponent = async ({ url, method, bodyRequest, headers, typeRespons
     } else {
       FullOptionsRequest = optionsRequest;
     }
+      
+    console.log(FullOptionsRequest);    
+        
     const RequestComponent = await fetch(url, FullOptionsRequest);
-    ToastR({ message: "Procesando, por favor espere..!", icon: "info" });
-    spinner.setAttribute("hidden", "");
+    
+    // toastr["info"]("Procesando Informacion, por favor espere..!")
+
+    // toastr({ message: "Procesando, por favor espere..!", icon: "info" });
+    
+    
+    // spinner.setAttribute("hidden", "");
     if (RequestComponent.status == 401)
       return ToastR({
         message:
@@ -2714,6 +2666,7 @@ const RequestComponent = async ({ url, method, bodyRequest, headers, typeRespons
       });
     // ToastR({ message:' 'Â¡Procesando, por favor espere..!', icon: 'info' });
     let ResponseComponent = null;
+    // console.log(typeResponse);
     if (typeResponse == "json")
       return (ResponseComponent = await RequestComponent.json());
     if (typeResponse == "text")
@@ -2722,13 +2675,13 @@ const RequestComponent = async ({ url, method, bodyRequest, headers, typeRespons
       return (ResponseComponent = await RequestComponent.blob());
     return ResponseComponent.json();
   } catch (error) {
-    spinner.setAttribute("hidden", "");
+    // spinner.setAttribute("hidden", "");
     return ToastR({
       message:
         "Se ha producido un error en la peticiÃ³n! Intente nuevamente..!",
       icon: "info",
     });
-  }
+  } */
 };
 
 function guardaGrupo() {
