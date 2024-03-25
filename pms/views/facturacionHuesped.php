@@ -41,8 +41,8 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
 
 ?>
 
-  <div class="container-fluid" style="padding-top:10px 15px;;margin-bottom: 50px">
-    <form class="form-horizontal" id="formHuespedes" action="" method="POST">
+  <div class="container-fluid" style="padding:0px;margin-bottom: 50px">
+    <form class="form-horizontal pd-10" id="formHuespedes" action="" method="POST">
       <h3 style="text-align: center;margin-bottom: 25px" class="w3ls_head tituloPagina">Estado Cuenta Huesped</h3>
       <div class="panel panel-success panelFolio">
         <div class="panel-heading">
@@ -145,7 +145,7 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
             if ($datosReserva[0]['id_compania'] != 0) { ?>
               <div class="form-group">
                 <label for="inputEmail3" class="col-sm-1 control-label">Empresa</label>
-                <div class="col-sm-4">
+                <div class="col-sm-5">
                   <input type="text" class="form-control" name="empresa" id="empresa" value="<?php echo $datosCompania[0]['empresa']; ?>" disabled="">
                 </div>
                 <label for="inputEmail3" class="col-sm-1 control-label">Nit</label>
@@ -160,7 +160,7 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
         </div> 
         <div class="panel-body">
           <div id="imprimeRegistroHotelero"></div>
-          <div class="container-fluid">
+          <div class="container-fluid pd0">
             <h2>Folios Consumos</h2>
             <div id="mensajeCargo"></div>
             <ul class="nav nav-tabs nav-justified">
@@ -290,10 +290,6 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
                 type           ="button" class="btn btn-info" data-toggle="modal" 
                 data-id        ="<?php echo $datosReserva[0]['num_reserva']; ?>" 
                 data-nombre    ="<?php echo $datosReserva[0]['nombre_completo']; ?>" 
-                data-apellido1 ="<?php echo $datosReserva[0]['apellido1']; ?>" 
-                data-apellido2 ="<?php echo $datosReserva[0]['apellido2']; ?>" 
-                data-nombre1   ="<?php echo $datosReserva[0]['nombre1']; ?>" 
-                data-nombre2   ="<?php echo $datosReserva[0]['nombre2']; ?>" 
                 data-impto     ="<?php echo $datosReserva[0]['causar_impuesto']; ?>" 
                 data-nrohab    ="<?php echo $datosReserva[0]['num_habitacion']; ?>" 
                 data-idhuesped ="<?php echo $datosReserva[0]['id_huesped']; ?>" 
@@ -305,21 +301,9 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
                 data-target    = "#myModalAbonosConsumos"
                 data-id        ="<?php echo $datosReserva[0]['num_reserva']; ?>" 
                 data-idhuesped ="<?php echo $datosReserva[0]['id_huesped']; ?>" 
-                data-tipohab   ="<?php echo descripcionTipoHabitacion($datosReserva[0]['tipo_habitacion']); ?>" 
                 data-nrohab    ="<?php echo $datosReserva[0]['num_habitacion']; ?>" 
                 data-nombre    ="<?php echo $datosReserva[0]['nombre_completo']; ?>" 
-                data-apellido1 ="<?php echo $datosReserva[0]['apellido1']; ?>" 
-                data-apellido2 ="<?php echo $datosReserva[0]['apellido2']; ?>" 
-                data-nombre1   ="<?php echo $datosReserva[0]['nombre1']; ?>" 
-                data-nombre2   ="<?php echo $datosReserva[0]['nombre2']; ?>" 
                 data-impto     ="<?php echo $datosReserva[0]['causar_impuesto']; ?>" 
-                data-llegada   ="<?php echo $datosReserva[0]['fecha_llegada']; ?>" 
-                data-salida    ="<?php echo $datosReserva[0]['fecha_salida']; ?>" 
-                data-noches    ="<?php echo $datosReserva[0]['dias_reservados']; ?>" 
-                data-hombres   ="<?php echo $datosReserva[0]['can_hombres']; ?>" 
-                data-mujeres   ="<?php echo $datosReserva[0]['can_mujeres']; ?>" 
-                data-ninos     ="<?php echo $datosReserva[0]['can_ninos']; ?>" 
-                data-valor     ="<?php echo $datosReserva[0]['valor_reserva']; ?>" 
                 ><i class      ="fa fa-money "></i> Abonos a Cuenta
               </a>
               <a  style="width: <?php echo $ancho; ?>%"

@@ -24,16 +24,10 @@ $cias = $hotel->getCompanias();
               <div class="col-xs-2">
                 <input class="form-control padInput" type="text" name='txtNumeroHabCon' id='txtNumeroHabCon' readonly> 
               </div>
-            <!-- </div>
-            <div class="form-group"> -->
               <label class="control-label col-xs-2">Huesped</label>
               <div class="col-xs-6">
                 <input class="form-control padInput" type="text" name="txtHuesped" id='txtHuesped' value='0' readonly>
               </div>
-              <!-- <label class="control-label col-xs-2">Nombres</label>
-              <div class="col-lg-4 col-xs-4">
-                <input class="form-control padInput" type="text" name="txtNombresCon" id='txtNombresCon' value='0' readonly>
-              </div> -->
             </div>
             <div class="divs divDeposito">
               <div class="form-group">
@@ -58,7 +52,7 @@ $cias = $hotel->getCompanias();
                 </div>
                 <label for="txtValorConsumo" class="col-sm-2 control-label">Valor Cargo</label>
                 <div class="col-sm-5">
-                  <input class="form-control padInput" type="number" name="txtValorConsumo" id="txtValorConsumo" value="">
+                  <input class="form-control padInput" type="number" name="txtValorConsumo" id="txtValorConsumo" value="" required>
                 </div>
               </div>
               <div class="form-group">
@@ -193,11 +187,11 @@ $cias = $hotel->getCompanias();
 </div>
  
 <div class="modal fade" id="myModalAbonosConsumos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <form id="guardarDatosRooms" class="form-horizontal" action="javascript:ingresaAbonos()" method="POST" enctype="multipart/form-data">
+  <form id="abonosReserva" class="form-horizontal" action="javascript:ingresaAbonos()" method="POST" enctype="multipart/form-data">
     <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
       <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
-          <div class="modal-header"> 
+          <div class="modal-header"> #ae0505
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span class="glyphicon glyphicon-off"></span>
             </button> 
@@ -205,9 +199,9 @@ $cias = $hotel->getCompanias();
           </div>
           <div id="datos_ajax_register"></div>
           <div class="modal-body">
-            <input type="hidden" name="txtIdReservaDep" id="txtIdReservaAbo" value="">
-            <input type="hidden" name="txtIdHuespedDep" id="txtIdHuespedAbo" value="">
-            <input type="hidden" name="txtImptoTurismo" id="txtImptoTuriAbo" value="">
+            <input type="hidden" name="txtIdReservaAbo" id="txtIdReservaAbo" value="">
+            <input type="hidden" name="idHuespedAbo" id="idHuespedAbo" value="">
+            <input type="hidden" name="txtImptoTuriAbo" id="txtImptoTuriAbo" value="">
             <div class="form-group">
               <label class="control-label col-xs-2">Hab.</label>
               <div class="col-lg-2 col-xs-2">
@@ -239,7 +233,7 @@ $cias = $hotel->getCompanias();
               <div class="form-group">
                 <label for="txtValorAbono" class="col-sm-3 control-label">Monto Abono</label>
                 <div class="col-sm-5">
-                  <input class="form-control padInput" type="number" name="txtValorAbono" id="txtValorAbono" value="" min="1">
+                  <input class="form-control padInput" type="number" name="txtValorAbono" id="txtValorAbono" value=0 min="1">
                 </div>
               </div>
               <div class="form-group">
@@ -392,7 +386,7 @@ $cias = $hotel->getCompanias();
             </div>
             <div id="mensajeSalida" class="centro apaga">
               <div class="alert alert-warning mt-10 mb-0 pd-5">
-                <i class="ion ion-ios-gear-outline fa-spin fa-3x"></i> 
+                <i class="ion ion-ios-gear-outline fa-spin fa-3x" style="color:#ae0505"></i> 
                 <h3 class="mt-10">Procesando Factura Informacion, NO interrumpir</h3>
               </div>
             </div>

@@ -1856,22 +1856,25 @@ document.addEventListener("DOMContentLoaded", async () => {
     var id = button.data("id");
     var hues = button.data("idhuesped");
     var nombre = button.data("nombre");
-    var apellido1 = button.data("apellido1");
+/*     var apellido1 = button.data("apellido1");
     var apellido2 = button.data("apellido2");
     var nombre1 = button.data("nombre1");
     var nombre2 = button.data("nombre2");
-    var turismo = button.data("impto");
+ */    
+    // var turismo = button.data("impto");
     var nrohab = button.data("nrohab");
     var impturis = button.data("impto");
     var modal = $(this);
 
+    document.querySelector('#abonosReserva').reset();
+
     modal.find(".modal-title").text("Abonos a Cuenta: " + nombre);
     modal.find(".modal-body #txtIdReservaAbo").val(id);
-    modal.find(".modal-body #txtIdHuespedAbo").val(hues);
+    modal.find(".modal-body #idHuespedAbo").val(hues);
     modal.find(".modal-body #txtImptoTuriAbo").val(impturis);
     modal.find(".modal-body #txtNumeroHabAbo").val(nrohab);
     modal.find(".modal-body #txtNombreCompleto").val(nombre);
-    modal.find(".modal-body #txtNombresAbo").val(nombre1 + " " + nombre2);
+    // modal.find(".modal-body #txtNombresAbo").val(nombre1 + " " + nombre2);
     $("#codigoAbono").focus();
     $(".alert").hide();
   });
@@ -1880,10 +1883,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     var button = $(event.relatedTarget);
     var id = button.data("id");
     var hues = button.data("idhuesped");
-    var apellido1 = button.data("apellido1");
-    var apellido2 = button.data("apellido2");
-    var nombre1 = button.data("nombre1");
-    var nombre2 = button.data("nombre2");
     var imptoturi = button.data("impto");
     let nombre = button.data("nombre");
     var nrohab = button.data("nrohab");
@@ -6001,9 +6000,10 @@ function saldoTotal(reserva) {
 
 function activaFolio(reserva, folio) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario, usuario_id, tipo } = user;
-  /* $(".btnSalida").css("display","block;");
+  let { user: { usuario, usuario_id, tipo } } = sesion;
+  /* 
+  let  = user;
+  $(".btnSalida").css("display","block;");
   $(".mensajeSalida").css("display","none;"); */
 
   var web = $("#rutaweb").val();
@@ -6341,7 +6341,6 @@ function asignaHuesped(reserva) {
 function ingresaAbonos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user: { usuario, usuario_id } } = sesion;
-  // let  = user;
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var codigo = $("#codigoAbono").val();
@@ -6350,8 +6349,22 @@ function ingresaAbonos() {
   var refer = $("#txtReferenciaAbo").val();
   var detalle = $("#txtDetalleAbo").val();
   var numero = $("#txtIdReservaAbo").val();
-  var idhues = $("#txtIdHuespedAbo").val();
+  var idhues = $("#idHuespedAbo").val();
   var room = $("#txtNumeroHabAbo").val();
+  
+  if(valor==0){
+    swal({
+      title: 'Atencion',
+      text: 'Cargo Sin Valor, No es posible Registrarlo',
+      type: 'warning',
+      confirmButtonText: "Aceptar",
+      closeOnConfirm: false,
+    }); 
+    return ;
+  }
+
+  
+  
   var parametros = {
     codigo,
     textcodigo,
@@ -6375,7 +6388,7 @@ function ingresaAbonos() {
         "height=600,width=600"
       );
       $("#myModalAbonosConsumos").modal("hide");
-      movimientosFactura(numero);
+      // movimientosFactura(numero);
     },
   });
 }
@@ -6401,6 +6414,17 @@ function ingresaConsumos() {
   var idhues = $("#idHuespedSal").val();
   var room = $("#txtNumeroHabCon").val();
   var turismo = $("#txtImptoTurismo").val();
+  
+  if(valor==0){
+    swal({
+      title: 'Atencion',
+      text: 'Cargo Sin Valor, No es posible Registrarlo',
+      type: 'warning',
+      confirmButtonText: "Aceptar",
+      closeOnConfirm: false,
+    }); 
+    return ;
+  }
 
   var parametros = {
     codigo,

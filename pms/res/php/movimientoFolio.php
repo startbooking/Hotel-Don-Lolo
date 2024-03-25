@@ -16,6 +16,7 @@
  	  <tr>
   		<th>Detalle</th>
   		<th>Consumos</th>
+  		<th>% Impto</th>
   		<th>Impuestos</th>
       <th>Total Cargo</th>
   		<th>Abonos</th>
@@ -37,12 +38,13 @@
           <tr style="text-align:right;">
      			  <td style="text-align:left;"><?=$folio1['descripcion_cargo']?></td>
     	 		  <td><?=number_format($folio1['monto_cargo'],2)?></td>
+    	 		  <td><?=number_format($folio1['porcentaje_impto'],2)?></td>
     	 		  <td><?=number_format($folio1['impuesto'],2)?></td>
             <td><?=number_format($folio1['monto_cargo']+$folio1['impuesto'],2)?></td>
     	 		  <td><?=number_format($folio1['pagos_cargos'],2)?></td>
     	 		  <td><?=date($folio1['fecha_cargo'])?></td>
     	 		  <td><?=$folio1['usuario']?></td>
-    	 		  <td style="text-align:left;">
+    	 		  <td style="text-align:right;">
               <div class="btn-group" role="group" aria-label="Basic example">
               <?php 
                 if($folio1['factura_numero']==0){

@@ -6511,6 +6511,7 @@ class Hotel_Actions{
             'cargos_pms.factura_numero',
             'cargos_pms.numero_factura_cargo',
             'codigos_vta.tipo_codigo',
+            'codigos_vta.porcentaje_impto',
         ], [
             'cargos_pms.numero_reserva' => $reserva,
             'cargos_pms.cargo_anulado' => 0,
@@ -6784,6 +6785,7 @@ class Hotel_Actions{
             'cargos_pms.numero_factura_cargo',
             'cargos_pms.fecha_sistema_cargo',
             'codigos_vta.tipo_codigo',
+            'codigos_vta.porcentaje_impto',
         ], [
             'cargos_pms.numero_reserva' => $reserva,
             'cargos_pms.folio_cargo' => $folio,

@@ -11,7 +11,7 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
   <table id="example1" class="table modalTable table-hover">
     <thead>
       <tr class="warning" style="font-weight: bold">
-        <td>Nro Hab.</td>
+        <td>Hab.</td>
         <td>Huesped</td>
         <td>Compañia</td>
         <td>Tarifa</td>
