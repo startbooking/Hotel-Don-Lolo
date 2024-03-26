@@ -230,8 +230,7 @@ if ($perfilFac == 1 && $facturador == 1) {
             ];            
             array_push($taxfolio, $taxTot);
             array_push($tax_totals, $taxTot);
-        }
-        diasCre
+        }        
         if($folio1['porcentaje_impto']!=0){
             $invo = [
                 'unit_measure_id' => $hotel->traeTipoUnidadDianVenta($folio1['id_codigo_cargo']),
@@ -319,21 +318,21 @@ if ($perfilFac == 1 && $facturador == 1) {
     $eFact['with_holding_tax_total'] = $eRete;
     $eFact['tax_totals'] = $eTaxe;
     $eFact['invoice_lines'] = $eInvo;
-    $eFact['operation_mode'] = $oMode;
-    
-    // echo json_encode($eFact);
-    
+    $eFact['operation_mode'] = $oMode;       
     $eFact = json_encode($eFact);
+        
+    include_once '../../api/enviaFactura.php';            
     
+    // include_once '../../api/prueba.php';            
+    $recibeCurl = json_decode(trim($respofact), true);
     
-    // include_once '../../api/enviaFactura.php';        
-    $recibeCurl = json_decode($respofact, true);
-    
-    file_put_contents($envCurl, $eFact,  FILE_APPEND | LOCK_EX);
-    file_put_contents($arcCurl, $respofact,  FILE_APPEND | LOCK_EX);
-    
+    file_put_contents($envCurl, $eFact.',',  FILE_APPEND | LOCK_EX);
+    file_put_contents($arcCurl, $respofact.',',  FILE_APPEND | LOCK_EX);
         
     $errores = $recibeCurl['errors'];
+    
+    $noAutorizado = $recibeCurl['message'];
+    
     $errorMessage = json_encode($recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['ErrorMessage']);
     $Isvalid  = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['IsValid'];
     
@@ -363,6 +362,17 @@ if ($perfilFac == 1 && $facturador == 1) {
         array_push($estadofactura, json_encode($error));
         echo json_encode($estadofactura);        
         return; 
+    }
+    
+    if($noAutorizado=='Unauthenticated.'){
+      $error = [
+        'error' => '1',
+        'folio' => '0',
+        'mensaje' => 'Usuario NO Autorizado en Facturacion Electronica', 
+      ];
+      array_push($estadofactura, json_encode($error));
+      echo json_encode($estadofactura);        
+      return; 
     }
     
     $statusCode   = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['StatusCode'];

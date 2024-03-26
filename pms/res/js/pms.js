@@ -2537,6 +2537,162 @@ const DonwloadFile = async (file, nit, typeFile, base64 = false ) => {
   }
 };
 
+const ValidaFactura = async (fecha, number, email ) => {
+  const eToken = await traeToken();
+  let { token } = eToken[0];
+
+  url = `https://api.nextpyme.plus/api/google_api/get_messages_by_receptor`;
+  
+  let data = { 
+      "after": fecha,
+      "before": null,
+      "to_email": email,
+      "query_subject": number
+  }
+        
+  const ResponseInfo = await infoFactura(url, data, token);
+  
+};
+
+const infoFactura = async (url, data, token) => {
+  let datos;
+  try {
+    const resultado = await fetch(url, {
+      method: "POST",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json", // Y le decimos que los datos se enviaran como JSON
+        'Accept': 'application/json', 
+        "Authorization": "Bearer "+token,
+      },
+      body: data
+    });
+    datos = await resultado.json();
+    console.log(datos)
+    return datos;  
+  }
+  catch (error){
+    console.log(error)
+  }    
+};
+
+const ValidaDIAN = async (cufe) => {
+  let datos;
+  let data = {
+    "sendmail": false
+  }
+  let eToken = await traeToken();
+  let { token } = eToken[0]  
+  url = `https://api.nextpyme.plus/api/ubl2.1/status/document/${cufe}`;
+  try {
+    const resultado = await fetch(url, {
+      method: "POST",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json", // Y le decimos que los datos se enviaran como JSON
+        'Accept': 'application/json', 
+        "Authorization": "Bearer "+token,
+      },
+      body: data
+    });
+    datos = await resultado.json();
+    console.log(datos)
+    return datos;  
+  }
+  catch (error){
+    console.log(error)
+  }    
+};
+
+
+
+
+const traeRetenciones02 = async () => {
+  try {
+    const resultado = await fetch(`res/php/traeRetenciones.php`, {
+      method: "post",
+      headers: {
+        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+    });
+    const datos = await resultado.json();
+    return datos;
+  } catch (error) {
+    return error
+
+  }
+};
+
+
+/*  
+
+const ValidateEmail = async (documentNumber, email) => {
+
+        const urlfe = 'https://api.nextpyme.plus/api/ubl2.1'
+        let query_subject = null;
+        const number = (documentNumber.split('-')[1]).slice(0, -4)
+        const {
+            value: formValues
+        } = await Swal.fire({
+            title: 'Estado del envio! <i class="fas fa-mail-bulk text-success"></i> ',
+            html: `Se validará el envio del correo electrónico del siguiente <strong>documento</strong> <br> <input id="swal-input1" class="swal2-input" value="${email}"> <br> <input id="swal-input2" disabled class="swal2-input" value="${number}">`,
+            focusConfirm: false,
+            showLoaderOnConfirm: true,
+            preConfirm: async () => {
+                try {
+                    const dataValidateMail = {
+                        url: `${urlfe.slice(0,-7)}/google_api/get_messages_by_receptor`,
+                        method: 'POST',
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": 'Bearer ' + atob(token),
+                            "Accept": "application/json",
+                        },
+                        typeResponse: 'json',
+                        bodyRequest: JSON.stringify({
+                            'to_email': email,
+                            'query_subject': number
+                        }),
+                    }
+                    const ResponseValidateMail = await RequestComponent(dataValidateMail)
+                    // console.log(ResponseValidateMail)
+                    if (ResponseValidateMail['resultSizeEstimate'] == 1) {
+                        return Swal.fire({
+                            title: `<strong>Mensaje No. ${ResponseValidateMail['Response']['id']}</strong>`,
+                            icon: 'success',
+                            html: `Correo electrónico enviado a <strong>${ResponseValidateMail['Response']['payload']['headers'][15]['value']}</strong> 
+                        el día <strong>${ResponseValidateMail['Response']['payload']['headers'][12]['value']}</strong> con el asunto <strong>${ResponseValidateMail['Response']['payload']['headers'][13]['value']}</strong>, 
+                        nombre del archivo ajunto <strong>${ResponseValidateMail['Response']['payload']['parts'][1]['filename']}</strong>`,
+                            showCloseButton: true,
+                            showCancelButton: false,
+                            focusConfirm: false,
+                            confirmButtonAriaLabel: 'Ok!',
+                            cancelButtonAriaLabel: 'Thumbs down'
+                        })
+                    }
+                    return Swal.fire({
+                        title: `<strong>Mensaje No. ${ResponseValidateMail['Response']['id']}</strong>`,
+                        icon: 'success',
+                        html: `Correo electrónico enviado en ${ResponseValidateMail['resultSizeEstimate']} ocasiones al correo ${email}, para mayor detalle comuniquese con su proveedor de software!`,
+                        showCloseButton: true,
+                        showCancelButton: false,
+                        focusConfirm: false,
+                        confirmButtonAriaLabel: 'Ok!',
+                        cancelButtonAriaLabel: 'Thumbs down'
+                    })
+                } catch (error) {
+                    return Notifications(null, 'Error al consultar el estado del correo', 'error',
+                        true,
+                        error,
+                        false)
+                }
+            }
+        })
+    }
+
+*/
+
+
 async function descargaArchivo(numero, nit, prefijo){
   url = `https://api.nextpyme.plus/api/ubl2.1/download/`;    
   const eToken = await traeToken();
@@ -2627,60 +2783,7 @@ const RequestComponent = async ({ url, token,}) => {
     // console.log(error)
   }  
 
-// const RequestComponent = await fetch(url, FullOptionsRequest);
 
-    
-  /* try {
-    FullOptionsRequest = null;
-    const optionsRequest = {
-      method: method,
-      credentials: "same-origin",
-      contentType: "application/json; charset=UTF-8",
-      headers: headers,
-    };
-    
-    if (method == "POST" || method == "PUT") {
-      FullOptionsRequest = Object.assign(optionsRequest, {
-        body: bodyRequest,
-      });
-    } else {
-      FullOptionsRequest = optionsRequest;
-    }
-      
-    console.log(FullOptionsRequest);    
-        
-    const RequestComponent = await fetch(url, FullOptionsRequest);
-    
-    // toastr["info"]("Procesando Informacion, por favor espere..!")
-
-    // toastr({ message: "Procesando, por favor espere..!", icon: "info" });
-    
-    
-    // spinner.setAttribute("hidden", "");
-    if (RequestComponent.status == 401)
-      return ToastR({
-        message:
-          "El usuario no se encuentra registrado en la API o el Token es incorrecto..!",
-        icon: "info",
-      });
-    // ToastR({ message:' 'Â¡Procesando, por favor espere..!', icon: 'info' });
-    let ResponseComponent = null;
-    // console.log(typeResponse);
-    if (typeResponse == "json")
-      return (ResponseComponent = await RequestComponent.json());
-    if (typeResponse == "text")
-      return (ResponseComponent = await RequestComponent.text());
-    if (typeResponse == "blob")
-      return (ResponseComponent = await RequestComponent.blob());
-    return ResponseComponent.json();
-  } catch (error) {
-    // spinner.setAttribute("hidden", "");
-    return ToastR({
-      message:
-        "Se ha producido un error en la peticiÃ³n! Intente nuevamente..!",
-      icon: "info",
-    });
-  } */
 };
 
 function guardaGrupo() {
@@ -4586,7 +4689,6 @@ function buscaHuespedAcompanante(id) {
     },
   });
 }
-
 function buscaIdentificacion(id) {
   var web = $("#rutaweb").val();
   var parametros = {
@@ -4617,9 +4719,6 @@ function buscaIdentificacion(id) {
     },
   });
 }
-
-
-
 
 function eliminaAcompanante(id) {
   var web = $("#rutaweb").val();
@@ -4763,13 +4862,13 @@ const calculaRetenciones = async () => {
       },
     });
     const datos = await resultado.json();
+    console.log(datos);
     return datos;
   } catch (error) {
     // console.log(error);
     return error
   }
 };
-
 
 async function apagaselecomp(tipo) {
   idCiaFac = $("#txtIdCiaSal").val();
@@ -5790,7 +5889,6 @@ function salidaHuesped() {
     }
 
     var idcentro = 0;
-
     var parametros = {
       codigo,
       textopago,
@@ -5831,7 +5929,7 @@ function salidaHuesped() {
           mensajeError =  document.querySelector('#mensajeSalida');
           mensajeError.innerHTML= ''
           mensajeError.innerHTML= `
-          <h3 class="alert alert-warning">
+          <h3 class="alert alert-warning" style="color:black !important">
           <i class="fa-solid fa-circle-exclamation fa-2x" style="color:red;"></i>
           Precaucion, Factura no Procesada <br><span style="font-size:20px;"> ${mensajeStr} </span></h3>`
         }else{
@@ -6001,14 +6099,9 @@ function saldoTotal(reserva) {
 function activaFolio(reserva, folio) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user: { usuario, usuario_id, tipo } } = sesion;
-  /* 
-  let  = user;
-  $(".btnSalida").css("display","block;");
-  $(".mensajeSalida").css("display","none;"); */
-
-  var web = $("#rutaweb").val();
-  var pagina = $("#ubicacion").val();
-  var nrohabi = $("#nrohabitacion").val();
+  let web = $("#rutaweb").val();
+  let pagina = $("#ubicacion").val();
+  let nrohabi = $("#nrohabitacion").val();
 
   $(".folios").hide().removeClass("active").slideDown("fast");
   $(".folio").hide().removeClass("in active").slideDown("fast");

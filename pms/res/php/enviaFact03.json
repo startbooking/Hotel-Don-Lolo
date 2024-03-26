@@ -1,1 +1,173 @@
-{"number":16342,"type_document_id":1,"date":"2024-03-19","time":"12:38:26","resolution_number":"18764060092735","prefix":"HDL","notes":"","disable_confirmation_text":true,"establishment_name":"HOTEL DON LOLO LTDA","establishment_address":"CRA 39 NRO 20 32 BARRIO CAMOA","establishment_phone":"3138153620","estaemaFactblishment_municipality":"687","establishment_email":"RESERVAS@DONLOLOHOTEL.COM","sendmail":false,"sendmailtome":false,"send_customer_credentials":false,"head_note":"","foot_note":"","customer":{"identification_number":" 1130627434","dv":"","name":"DERLY  KATHERINE  ORDO\u00f1EZ   ORDO\u00d1EZ ","phone":"3212012387","email":"dkordonez@fenavi.org"},"payment_form":{"payment_form_id":"1","payment_method_id":"1","payment_due_date":"2024-03-19","duration_measure":0},"legal_monetary_totals":{"line_extension_amount":360516.62,"tax_exclusive_amount":360516.62,"tax_inclusive_amount":427487,"payable_amount":427487},"with_holding_tax_total":[{"tax_id":"6","tax_echoamount":6735.72865,"taxable_eTaxeamount":192449.39,"percent":3.5},{"tax_id":"6","tax_echoamount":6722.6892,"taxable_eTaxeamount":168067.23,"percent":4}],"tax_totals":[{"tax_id":"4","tax_amount":1111.11,"taxable_amount":13888.89,"percent":"8"},{"tax_id":"1","tax_amount":65859.27,"taxable_amount":346627.73,"percent":"19"}],"invoice_lines":[{"unit_measure_id":"70","invoiced_quantity":1,"line_extension_amount":175199.16,"free_of_charge_indicator":false,"tax_totals":[{"tax_id":"1","tax_amount":33287.84,"percent":"19","taxable_amount":175199.16}],"description":"ALOJAMIENTO","notes":"","code":"ALOJA","type_item_identification_id":4,"price_amount":208487,"base_quantity":1},{"unit_measure_id":"70","invoiced_quantity":1,"line_extension_amount":42016.81,"free_of_charge_indicator":false,"tax_totals":[{"tax_id":"1","tax_amount":7983.19,"percent":"19","taxable_amount":42016.81}],"description":"DECORACION","notes":"","code":"DECOR","type_item_identification_id":4,"price_amount":50000,"base_quantity":1},{"unit_measure_id":"70","invoiced_quantity":1,"line_extension_amount":3361.34,"free_of_charge_indicator":false,"tax_totals":[{"tax_id":"1","tax_amount":638.66,"percent":"19","taxable_amount":3361.34}],"description":"SEGURO HOTELERO","notes":"","code":"SEGHOT","type_item_identification_id":4,"price_amount":4000,"base_quantity":1},{"unit_measure_id":"70","invoiced_quantity":1,"line_extension_amount":126050.42,"free_of_charge_indicator":false,"tax_totals":[{"tax_id":"1","tax_amount":23949.58,"percent":"19","taxable_amount":126050.42}],"description":"ALQUILER SALON","notes":"","code":"ALQPOR","type_item_identification_id":4,"price_amount":150000,"base_quantity":1},{"unit_measure_id":"70","invoiced_quantity":1,"line_extension_amount":13888.89,"free_of_charge_indicator":false,"tax_totals":[{"tax_id":"4","tax_amount":1111.11,"percent":"8","taxable_amount":13888.89}],"description":"ESTACION DE CAFE","notes":"","code":"ESTCAF","type_item_identification_id":4,"price_amount":15000,"base_quantity":1}],"operation_mode":{"company":"NEXTPYME COLOMBIA S.A.S - Nit .: 901249232 - 0","software":"Facturaci\u00f3n Electr\u00f3nica - SACTel PMS "}}{"number":16343,"type_document_id":1,"date":"2024-03-19","time":"12:49:53","resolution_number":"18764060092735","prefix":"HDL","notes":"","disable_confirmation_text":true,"establishment_name":"HOTEL DON LOLO LTDA","establishment_address":"CRA 39 NRO 20 32 BARRIO CAMOA","establishment_phone":"3138153620","estaemaFactblishment_municipality":"687","establishment_email":"RESERVAS@DONLOLOHOTEL.COM","sendmail":false,"sendmailtome":false,"send_customer_credentials":false,"head_note":"","foot_note":"","customer":{"identification_number":" 1130627434","dv":"","name":"DERLY  KATHERINE  ORDO\u00f1EZ   ORDO\u00d1EZ ","phone":"3212012387","email":"dkordonez@fenavi.org"},"payment_form":{"payment_form_id":"1","payment_method_id":"1","payment_due_date":"2024-03-19","duration_measure":0},"legal_monetary_totals":{"line_extension_amount":360516.62,"tax_exclusive_amount":360516.62,"tax_inclusive_amount":427487,"payable_amount":427487},"with_holding_tax_total":[{"tax_id":"6","tax_echoamount":6735.72865,"taxable_eTaxeamount":192449.39,"percent":3.5},{"tax_id":"6","tax_echoamount":6722.6892,"taxable_eTaxeamount":168067.23,"percent":4}],"tax_totals":[{"tax_id":"4","tax_amount":1111.11,"taxable_amount":13888.89,"percent":"8"},{"tax_id":"1","tax_amount":65859.27,"taxable_amount":346627.73,"percent":"19"}],"invoice_lines":[{"unit_measure_id":"70","invoiced_quantity":1,"line_extension_amount":175199.16,"free_of_charge_indicator":false,"tax_totals":[{"tax_id":"1","tax_amount":33287.84,"percent":"19","taxable_amount":175199.16}],"description":"ALOJAMIENTO","notes":"","code":"ALOJA","type_item_identification_id":4,"price_amount":208487,"base_quantity":1},{"unit_measure_id":"70","invoiced_quantity":1,"line_extension_amount":42016.81,"free_of_charge_indicator":false,"tax_totals":[{"tax_id":"1","tax_amount":7983.19,"percent":"19","taxable_amount":42016.81}],"description":"DECORACION","notes":"","code":"DECOR","type_item_identification_id":4,"price_amount":50000,"base_quantity":1},{"unit_measure_id":"70","invoiced_quantity":1,"line_extension_amount":3361.34,"free_of_charge_indicator":false,"tax_totals":[{"tax_id":"1","tax_amount":638.66,"percent":"19","taxable_amount":3361.34}],"description":"SEGURO HOTELERO","notes":"","code":"SEGHOT","type_item_identification_id":4,"price_amount":4000,"base_quantity":1},{"unit_measure_id":"70","invoiced_quantity":1,"line_extension_amount":126050.42,"free_of_charge_indicator":false,"tax_totals":[{"tax_id":"1","tax_amount":23949.58,"percent":"19","taxable_amount":126050.42}],"description":"ALQUILER SALON","notes":"","code":"ALQPOR","type_item_identification_id":4,"price_amount":150000,"base_quantity":1},{"unit_measure_id":"70","invoiced_quantity":1,"line_extension_amount":13888.89,"free_of_charge_indicator":false,"tax_totals":[{"tax_id":"4","tax_amount":1111.11,"percent":"8","taxable_amount":13888.89}],"description":"ESTACION DE CAFE","notes":"","code":"ESTCAF","type_item_identification_id":4,"price_amount":15000,"base_quantity":1}],"operation_mode":{"company":"NEXTPYME COLOMBIA S.A.S - Nit .: 901249232 - 0","software":"Facturaci\u00f3n Electr\u00f3nica - SACTel PMS "}}{"number":16344,"type_document_id":1,"date":"2024-03-19","time":"13:16:19","resolution_number":"18764060092735","prefix":"HDL","notes":"","disable_confirmation_text":true,"establishment_name":"HOTEL DON LOLO LTDA","establishment_address":"CRA 39 NRO 20 32 BARRIO CAMOA","establishment_phone":"3138153620","estaemaFactblishment_municipality":"687","establishment_email":"RESERVAS@DONLOLOHOTEL.COM","sendmail":false,"sendmailtome":false,"send_customer_credentials":false,"head_note":"","foot_note":"","customer":{"identification_number":" 1130627434","dv":"","name":"DERLY  KATHERINE  ORDO\u00f1EZ   ORDO\u00d1EZ ","phone":"3212012387","email":"dkordonez@fenavi.org"},"payment_form":{"payment_form_id":"1","payment_method_id":"1","payment_due_date":"2024-03-19","duration_measure":0},"legal_monetary_totals":{"line_extension_amount":360516.62,"tax_exclusive_amount":360516.62,"tax_inclusive_amount":427487,"payable_amount":427487},"with_holding_tax_total":[{"tax_id":"6","tax_echoamount":6735.72865,"taxable_eTaxeamount":192449.39,"percent":3.5},{"tax_id":"6","tax_echoamount":6722.6892,"taxable_eTaxeamount":168067.23,"percent":4}],"tax_totals":[{"tax_id":"4","tax_amount":1111.11,"taxable_amount":13888.89,"percent":"8"},{"tax_id":"1","tax_amount":65859.27,"taxable_amount":346627.73,"percent":"19"}],"invoice_lines":[{"unit_measure_id":"70","invoiced_quantity":1,"line_extension_amount":175199.16,"free_of_charge_indicator":false,"tax_totals":[{"tax_id":"1","tax_amount":33287.84,"percent":"19","taxable_amount":175199.16}],"description":"ALOJAMIENTO","notes":"","code":"ALOJA","type_item_identification_id":4,"price_amount":208487,"base_quantity":1},{"unit_measure_id":"70","invoiced_quantity":1,"line_extension_amount":42016.81,"free_of_charge_indicator":false,"tax_totals":[{"tax_id":"1","tax_amount":7983.19,"percent":"19","taxable_amount":42016.81}],"description":"DECORACION","notes":"","code":"DECOR","type_item_identification_id":4,"price_amount":50000,"base_quantity":1},{"unit_measure_id":"70","invoiced_quantity":1,"line_extension_amount":3361.34,"free_of_charge_indicator":false,"tax_totals":[{"tax_id":"1","tax_amount":638.66,"percent":"19","taxable_amount":3361.34}],"description":"SEGURO HOTELERO","notes":"","code":"SEGHOT","type_item_identification_id":4,"price_amount":4000,"base_quantity":1},{"unit_measure_id":"70","invoiced_quantity":1,"line_extension_amount":126050.42,"free_of_charge_indicator":false,"tax_totals":[{"tax_id":"1","tax_amount":23949.58,"percent":"19","taxable_amount":126050.42}],"description":"ALQUILER SALON","notes":"","code":"ALQPOR","type_item_identification_id":4,"price_amount":150000,"base_quantity":1},{"unit_measure_id":"70","invoiced_quantity":1,"line_extension_amount":13888.89,"free_of_charge_indicator":false,"tax_totals":[{"tax_id":"4","tax_amount":1111.11,"percent":"8","taxable_amount":13888.89}],"description":"ESTACION DE CAFE","notes":"","code":"ESTCAF","type_item_identification_id":4,"price_amount":15000,"base_quantity":1}],"operation_mode":{"company":"NEXTPYME COLOMBIA S.A.S - Nit .: 901249232 - 0","software":"Facturaci\u00f3n Electr\u00f3nica - SACTel PMS "}}{"number":16345,"type_document_id":1,"date":"2024-03-19","time":"13:37:31","resolution_number":"18764060092735","prefix":"HDL","notes":"","disable_confirmation_text":true,"establishment_name":"HOTEL DON LOLO LTDA","establishment_address":"CRA 39 NRO 20 32 BARRIO CAMOA","establishment_phone":"3138153620","estaemaFactblishment_municipality":"687","establishment_email":"RESERVAS@DONLOLOHOTEL.COM","sendmail":false,"sendmailtome":false,"send_customer_credentials":false,"head_note":"","foot_note":"","customer":{"identification_number":" 1130627434","dv":"","name":"DERLY  KATHERINE  ORDO\u00f1EZ   ORDO\u00d1EZ ","phone":"3212012387","email":"dkordonez@fenavi.org"},"payment_form":{"payment_form_id":"1","payment_method_id":"1","payment_due_date":"2024-03-19","duration_measure":0},"legal_monetary_totals":{"line_extension_amount":360516.62,"tax_exclusive_amount":360516.62,"tax_inclusive_amount":427487,"payable_amount":427487},"with_holding_tax_total":[{"tax_id":"6","tax_echoamount":6735.72865,"taxable_eTaxeamount":192449.39,"percent":3.5},{"tax_id":"6","tax_echoamount":6722.6892,"taxable_eTaxeamount":168067.23,"percent":4}],"tax_totals":[{"tax_id":"4","tax_amount":1111.11,"taxable_amount":13888.89,"percent":"8"},{"tax_id":"1","tax_amount":65859.27,"taxable_amount":346627.73,"percent":"19"}],"invoice_lines":[{"unit_measure_id":"70","invoiced_quantity":1,"line_extension_amount":175199.16,"free_of_charge_indicator":false,"tax_totals":[{"tax_id":"1","tax_amount":33287.84,"percent":"19","taxable_amount":175199.16}],"description":"ALOJAMIENTO","notes":"","code":"ALOJA","type_item_identification_id":4,"price_amount":208487,"base_quantity":1},{"unit_measure_id":"70","invoiced_quantity":1,"line_extension_amount":42016.81,"free_of_charge_indicator":false,"tax_totals":[{"tax_id":"1","tax_amount":7983.19,"percent":"19","taxable_amount":42016.81}],"description":"DECORACION","notes":"","code":"DECOR","type_item_identification_id":4,"price_amount":50000,"base_quantity":1},{"unit_measure_id":"70","invoiced_quantity":1,"line_extension_amount":3361.34,"free_of_charge_indicator":false,"tax_totals":[{"tax_id":"1","tax_amount":638.66,"percent":"19","taxable_amount":3361.34}],"description":"SEGURO HOTELERO","notes":"","code":"SEGHOT","type_item_identification_id":4,"price_amount":4000,"base_quantity":1},{"unit_measure_id":"70","invoiced_quantity":1,"line_extension_amount":126050.42,"free_of_charge_indicator":false,"tax_totals":[{"tax_id":"1","tax_amount":23949.58,"percent":"19","taxable_amount":126050.42}],"description":"ALQUILER SALON","notes":"","code":"ALQPOR","type_item_identification_id":4,"price_amount":150000,"base_quantity":1},{"unit_measure_id":"70","invoiced_quantity":1,"line_extension_amount":13888.89,"free_of_charge_indicator":false,"tax_totals":[{"tax_id":"4","tax_amount":1111.11,"percent":"8","taxable_amount":13888.89}],"description":"ESTACION DE CAFE","notes":"","code":"ESTCAF","type_item_identification_id":4,"price_amount":15000,"base_quantity":1}],"operation_mode":{"company":"NEXTPYME COLOMBIA S.A.S - Nit .: 901249232 - 0","software":"Facturaci\u00f3n Electr\u00f3nica - SACTel PMS "}}{"number":16342,"type_document_id":1,"date":"2024-03-19","time":"13:29:44","resolution_number":"18764060092735","prefix":"HDL","notes":"","disable_confirmation_text":true,"establishment_name":"HOTEL DON LOLO LTDA","establishment_address":"CRA 39 NRO 20 32 BARRIO CAMOA","establishment_phone":"3138153620","estaemaFactblishment_municipality":"687","establishment_email":"RESERVAS@DONLOLOHOTEL.COM","sendmail":false,"sendmailtome":false,"send_customer_credentials":false,"head_note":"","foot_note":"","customer":{"identification_number":" 1130627434","dv":"","name":"DERLY  KATHERINE  ORDO\u00f1EZ   ORDO\u00d1EZ ","phone":"3212012387","email":"dkordonez@fenavi.org"},"payment_form":{"payment_form_id":"1","payment_method_id":"1","payment_due_date":"2024-03-19","duration_measure":0},"legal_monetary_totals":{"line_extension_amount":360516.62,"tax_exclusive_amount":360516.62,"tax_inclusive_amount":427487,"payable_amount":427487},"with_holding_tax_total":[{"tax_id":"6","tax_echoamount":6735.72865,"taxable_eTaxeamount":192449.39,"percent":3.5},{"tax_id":"6","tax_echoamount":6722.6892,"taxable_eTaxeamount":168067.23,"percent":4}],"tax_totals":[{"tax_id":"4","tax_amount":1111.11,"taxable_amount":13888.89,"percent":"8"},{"tax_id":"1","tax_amount":65859.27,"taxable_amount":346627.73,"percent":"19"}],"invoice_lines":[{"unit_measure_id":"70","invoiced_quantity":1,"line_extension_amount":175199.16,"free_of_charge_indicator":false,"tax_totals":[{"tax_id":"1","tax_amount":33287.84,"percent":"19","taxable_amount":175199.16}],"description":"ALOJAMIENTO","notes":"","code":"ALOJA","type_item_identification_id":4,"price_amount":208487,"base_quantity":1},{"unit_measure_id":"70","invoiced_quantity":1,"line_extension_amount":42016.81,"free_of_charge_indicator":false,"tax_totals":[{"tax_id":"1","tax_amount":7983.19,"percent":"19","taxable_amount":42016.81}],"description":"DECORACION","notes":"","code":"DECOR","type_item_identification_id":4,"price_amount":50000,"base_quantity":1},{"unit_measure_id":"70","invoiced_quantity":1,"line_extension_amount":3361.34,"free_of_charge_indicator":false,"tax_totals":[{"tax_id":"1","tax_amount":638.66,"percent":"19","taxable_amount":3361.34}],"description":"SEGURO HOTELERO","notes":"","code":"SEGHOT","type_item_identification_id":4,"price_amount":4000,"base_quantity":1},{"unit_measure_id":"70","invoiced_quantity":1,"line_extension_amount":126050.42,"free_of_charge_indicator":false,"tax_totals":[{"tax_id":"1","tax_amount":23949.58,"percent":"19","taxable_amount":126050.42}],"description":"ALQUILER SALON","notes":"","code":"ALQPOR","type_item_identification_id":4,"price_amount":150000,"base_quantity":1},{"unit_measure_id":"70","invoiced_quantity":1,"line_extension_amount":13888.89,"free_of_charge_indicator":false,"tax_totals":[{"tax_id":"4","tax_amount":1111.11,"percent":"8","taxable_amount":13888.89}],"description":"ESTACION DE CAFE","notes":"","code":"ESTCAF","type_item_identification_id":4,"price_amount":15000,"base_quantity":1}],"operation_mode":{"company":"NEXTPYME COLOMBIA S.A.S - Nit .: 901249232 - 0","software":"Facturaci\u00f3n Electr\u00f3nica - SACTel PMS "}}
+{
+  "number": 16342,
+  "type_document_id": 1,
+  "date": "2024-03-19",
+  "time": "12:38:26",
+  "resolution_number": "18764060092735",
+  "prefix": "HDL",
+  "notes": "",
+  "disable_confirmation_text": true,
+  "establishment_name": "HOTEL DON LOLO LTDA",
+  "establishment_address": "CRA 39 NRO 20 32 BARRIO CAMOA",
+  "establishment_phone": "3138153620",
+  "estaemaFactblishment_municipality": "687",
+  "establishment_email": "RESERVAS@DONLOLOHOTEL.COM",
+  "sendmail": false,
+  "sendmailtome": false,
+  "send_customer_credentials": false,
+  "head_note": "",
+  "foot_note": "",
+  "customer": {
+    "identification_number": " 1130627434",
+    "dv": "",
+    "name": "DERLY  KATHERINE  ORDOñEZ   ORDOÑEZ ",
+    "phone": "3212012387",
+    "email": "dkordonez@fenavi.org"
+  },
+  "payment_form": {
+    "payment_form_id": "1",
+    "payment_method_id": "1",
+    "payment_due_date": "2024-03-19",
+    "duration_measure": 0
+  },
+  "legal_monetary_totals": {
+    "line_extension_amount": 360516.62,
+    "tax_exclusive_amount": 360516.62,
+    "tax_inclusive_amount": 427487,
+    "payable_amount": 427487
+  },
+  "with_holding_tax_total": [
+    {
+      "tax_id": "6",
+      "tax_echoamount": 6735.72865,
+      "taxable_eTaxeamount": 192449.39,
+      "percent": 3.5
+    },
+    {
+      "tax_id": "6",
+      "tax_echoamount": 6722.6892,
+      "taxable_eTaxeamount": 168067.23,
+      "percent": 4
+    }
+  ],
+  "tax_totals": [
+    {
+      "tax_id": "4",
+      "tax_amount": 1111.11,
+      "taxable_amount": 13888.89,
+      "percent": "8"
+    },
+    {
+      "tax_id": "1",
+      "tax_amount": 65859.27,
+      "taxable_amount": 346627.73,
+      "percent": "19"
+    }
+  ],
+  "invoice_lines": [
+    {
+      "unit_measure_id": "70",
+      "invoiced_quantity": 1,
+      "line_extension_amount": 175199.16,
+      "free_of_charge_indicator": false,
+      "tax_totals": [
+        {
+          "tax_id": "1",
+          "tax_amount": 33287.84,
+          "percent": "19",
+          "taxable_amount": 175199.16
+        }
+      ],
+      "description": "ALOJAMIENTO",
+      "notes": "",
+      "code": "ALOJA",
+      "type_item_identification_id": 4,
+      "price_amount": 208487,
+      "base_quantity": 1
+    },
+    {
+      "unit_measure_id": "70",
+      "invoiced_quantity": 1,
+      "line_extension_amount": 42016.81,
+      "free_of_charge_indicator": false,
+      "tax_totals": [
+        {
+          "tax_id": "1",
+          "tax_amount": 7983.19,
+          "percent": "19",
+          "taxable_amount": 42016.81
+        }
+      ],
+      "description": "DECORACION",
+      "notes": "",
+      "code": "DECOR",
+      "type_item_identification_id": 4,
+      "price_amount": 50000,
+      "base_quantity": 1
+    },
+    {
+      "unit_measure_id": "70",
+      "invoiced_quantity": 1,
+      "line_extension_amount": 3361.34,
+      "free_of_charge_indicator": false,
+      "tax_totals": [
+        {
+          "tax_id": "1",
+          "tax_amount": 638.66,
+          "percent": "19",
+          "taxable_amount": 3361.34
+        }
+      ],
+      "description": "SEGURO HOTELERO",
+      "notes": "",
+      "code": "SEGHOT",
+      "type_item_identification_id": 4,
+      "price_amount": 4000,
+      "base_quantity": 1
+    },
+    {
+      "unit_measure_id": "70",
+      "invoiced_quantity": 1,
+      "line_extension_amount": 126050.42,
+      "free_of_charge_indicator": false,
+      "tax_totals": [
+        {
+          "tax_id": "1",
+          "tax_amount": 23949.58,
+          "percent": "19",
+          "taxable_amount": 126050.42
+        }
+      ],
+      "description": "ALQUILER SALON",
+      "notes": "",
+      "code": "ALQPOR",
+      "type_item_identification_id": 4,
+      "price_amount": 150000,
+      "base_quantity": 1
+    },
+    {
+      "unit_measure_id": "70",
+      "invoiced_quantity": 1,
+      "line_extension_amount": 13888.89,
+      "free_of_charge_indicator": false,
+      "tax_totals": [
+        {
+          "tax_id": "4",
+          "tax_amount": 1111.11,
+          "percent": "8",
+          "taxable_amount": 13888.89
+        }
+      ],
+      "description": "ESTACION DE CAFE",
+      "notes": "",
+      "code": "ESTCAF",
+      "type_item_identification_id": 4,
+      "price_amount": 15000,
+      "base_quantity": 1
+    }
+  ],
+  "operation_mode": {
+    "company": "NEXTPYME COLOMBIA S.A.S - Nit .: 901249232 - 0",
+    "software": "Facturación Electrónica - SACTel PMS "
+  }
+}

@@ -1,5 +1,4 @@
 <?php
-
 $curl = curl_init();
 
 curl_setopt_array($curl, [
@@ -15,9 +14,10 @@ curl_setopt_array($curl, [
   CURLOPT_HTTPHEADER => [
     'Content-Type: application/json',
     'Accept: application/json',
-    'Authorization: Bearer '.$token,
+    'Authorization: Bearer a'.$token,
   ],
 ]);
 
 $respofact = curl_exec($curl);
+
 curl_close($curl);

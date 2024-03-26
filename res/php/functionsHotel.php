@@ -3242,7 +3242,7 @@ class Hotel_Actions{
             'id_usuario_anulacion' => $idusuario,
             'fecha_anulacion' => FECHA_PMS,
             'numero_factura_cargo' => $numDoc,
-            'fecha_sistema_anula' => date('Y-m-d H:i:s'),
+            // 'fecha_sistema_anula' => date('Y-m-d H:i:s'),
         ], [
             'factura_numero' => $nro,
             'perfil_factura' => $perfil,
@@ -4196,6 +4196,7 @@ class Hotel_Actions{
             '[>]reservas_pms' => ['numero_reserva' => 'num_reserva'],
         ], [
             'datosFE.estadoEnvio',
+            'datosFE.cufe',
             'reservas_pms.fecha_llegada',
             'reservas_pms.fecha_salida',
             'reservas_pms.num_reserva',
@@ -4204,6 +4205,7 @@ class Hotel_Actions{
             'huespedes.nombre1',
             'huespedes.nombre2',
             'huespedes.nombre_completo',
+            'huespedes.email',            
             'cargos_pms.prefijo_factura',
             'cargos_pms.factura_numero',
             'cargos_pms.id_usuario_factura',
@@ -4217,6 +4219,7 @@ class Hotel_Actions{
             'cargos_pms.id_perfil_factura',
             'cargos_pms.numero_factura_cargo',
             'cargos_pms.fecha_sistema_cargo',
+            'cargos_pms.correo',
         ], [
             'cargos_pms.fecha_cargo' => $fecha,
             'cargos_pms.factura' => 1,
@@ -6176,7 +6179,7 @@ class Hotel_Actions{
     public function updateAnulaConsumo($id, $motivo, $fecha, $usuario, $idusuario)
     {
     
-        echo $id, $motivo, $fecha, $usuario, $idusuario;
+        // echo $id, $motivo, $fecha, $usuario, $idusuario;
         global $database;
 
         $data = $database->update('cargos_pms', [
@@ -6185,8 +6188,8 @@ class Hotel_Actions{
             'usuario_anulacion' => $usuario,
             'id_usuario_anulacion' => $idusuario,
             'motivo_anulacion' => $motivo,
-            'fecha_sistema_anula' => date('Y-m-d H:i:s'), 
             /* 
+            'fecha_sistema_anula' => date('Y-m-d H:i:s'), 
             */            
         ], [
             'id_cargo' => $id,
@@ -6421,7 +6424,6 @@ class Hotel_Actions{
         return $data;
     }
 
-    /* public function insertFacturaHuesped($codigo, ) */
     public function insertFacturaHuesped($codigo, $textcodigo, $valor, $refer, $numero, $room, $idhues, $folio, $canti, $usuario, $idUsuario, $fecha, $numfactura, $tipofac, $id, $idcentro, $prefijo, $perfilFac, $detallePag, $baseRete, $baseIva, $baseIca, $reteiva, $reteica, $retefuente, $correofac)
     {
         global $database;
@@ -8222,6 +8224,7 @@ class Hotel_Actions{
             'empresa',
             'nit',
             'dv',
+            'email',
         ], [
             'id_compania' => $id,
         ]);
