@@ -1,0 +1,173 @@
+{
+  "number": 16342,
+  "type_document_id": 1,
+  "date": "2024-03-19",
+  "time": "13:26:50",
+  "resolution_number": "18764060092735",
+  "prefix": "HDL",
+  "notes": "",
+  "disable_confirmation_text": true,
+  "establishment_name": "HOTEL DON LOLO LTDA",
+  "establishment_address": "CRA 39 NRO 20 32 BARRIO CAMOA",
+  "establishment_phone": "3138153620",
+  "establishment_municipality": "687",
+  "establishment_email": "RESERVAS@DONLOLOHOTEL.COM",
+  "sendmail": false,
+  "sendmailtome": false,
+  "send_customer_credentials": false,
+  "head_note": "",
+  "foot_note": "",
+  "customer": {
+    "identification_number": 900223726,
+    "dv": 0,
+    "name": "ALAP LTDA",
+    "phone": null,
+    "email": "correo1@gmail.com"
+  },
+  "payment_form": {
+    "payment_form_id": "1",
+    "payment_method_id": "1",
+    "payment_due_date": "2024-03-19",
+    "duration_measure": 0
+  },
+  "legal_monetary_totals": {
+    "line_extension_amount": 425331.43,
+    "tax_exclusive_amount": 425331.43,
+    "tax_inclusive_amount": 497487,
+    "payable_amount": 497487
+  },
+  "with_holding_tax_total": [
+    {
+      "tax_id": "6",
+      "tax_amount": 9004.247,
+      "taxable_eTaxeamount": 257264.2,
+      "percent": 3.5
+    },
+    {
+      "tax_id": "6",
+      "tax_echoamount": 6722.6892,
+      "taxable_eTaxeamount": 168067.23,
+      "percent": 4
+    }
+  ],
+  "tax_totals": [
+    {
+      "tax_id": "4",
+      "tax_amount": 6296.3,
+      "taxable_amount": 78703.7,
+      "percent": "8"
+    },
+    {
+      "tax_id": "1",
+      "tax_amount": 65859.27,
+      "taxable_amount": 346627.73,
+      "percent": "19"
+    }
+  ],
+  "invoice_lines": [
+    {
+      "unit_measure_id": "70",
+      "invoiced_quantity": 1,
+      "line_extension_amount": 175199.16,
+      "free_of_charge_indicator": false,
+      "tax_totals": [
+        {
+          "tax_id": "1",
+          "tax_amount": 33287.84,
+          "percent": "19",
+          "taxable_amount": 175199.16
+        }
+      ],
+      "description": "ALOJAMIENTO",
+      "notes": "",
+      "code": "ALOJA",
+      "type_item_identification_id": 4,
+      "price_amount": 208487,
+      "base_quantity": 1
+    },
+    {
+      "unit_measure_id": "70",
+      "invoiced_quantity": 1,
+      "line_extension_amount": 42016.81,
+      "free_of_charge_indicator": false,
+      "tax_totals": [
+        {
+          "tax_id": "1",
+          "tax_amount": 7983.19,
+          "percent": "19",
+          "taxable_amount": 42016.81
+        }
+      ],
+      "description": "DECORACION",
+      "notes": "",
+      "code": "DECOR",
+      "type_item_identification_id": 4,
+      "price_amount": 50000,
+      "base_quantity": 1
+    },
+    {
+      "unit_measure_id": "70",
+      "invoiced_quantity": 1,
+      "line_extension_amount": 78703.7,
+      "free_of_charge_indicator": false,
+      "tax_totals": [
+        {
+          "tax_id": "4",
+          "tax_amount": 6296.3,
+          "percent": "8",
+          "taxable_amount": 78703.7
+        }
+      ],
+      "description": "BEBIDAS",
+      "notes": "",
+      "code": "BEBID",
+      "type_item_identification_id": 4,
+      "price_amount": 85000,
+      "base_quantity": 1
+    },
+    {
+      "unit_measure_id": "70",
+      "invoiced_quantity": 1,
+      "line_extension_amount": 3361.34,
+      "free_of_charge_indicator": false,
+      "tax_totals": [
+        {
+          "tax_id": "1",
+          "tax_amount": 638.66,
+          "percent": "19",
+          "taxable_amount": 3361.34
+        }
+      ],
+      "description": "SEGURO HOTELERO",
+      "notes": "",
+      "code": "SEGHOT",
+      "type_item_identification_id": 4,
+      "price_amount": 4000,
+      "base_quantity": 1
+    },
+    {
+      "unit_measure_id": "70",
+      "invoiced_quantity": 1,
+      "line_extension_amount": 126050.42,
+      "free_of_charge_indicator": false,
+      "tax_totals": [
+        {
+          "tax_id": "1",
+          "tax_amount": 23949.58,
+          "percent": "19",
+          "taxable_amount": 126050.42
+        }
+      ],
+      "description": "ALQUILER SALON",
+      "notes": "",
+      "code": "ALQPOR",
+      "type_item_identification_id": 4,
+      "price_amount": 150000,
+      "base_quantity": 1
+    }
+  ],
+  "operation_mode": {
+    "company": "NEXTPYME COLOMBIA S.A.S - Nit .: 901249232 - 0",
+    "software": "Facturación Electrónica - SACTel PMS "
+  }
+},{"number":16343,"type_document_id":1,"date":"2024-03-19","time":"14:04:13","resolution_number":"18764060092735","prefix":"HDL","notes":"","disable_confirmation_text":true,"establishment_name":"HOTEL DON LOLO LTDA","establishment_address":"CRA 39 NRO 20 32 BARRIO CAMOA","establishment_phone":"3138153620","establishment_municipality":"687","establishment_email":"RESERVAS@DONLOLOHOTEL.COM","sendmail":false,"sendmailtome":false,"send_customer_credentials":false,"head_note":"","foot_note":"","customer":{"identification_number":900223726,"dv":0,"name":"ALAP LTDA","phone":null,"email":"correo1@gmail.com"},"payment_form":{"payment_form_id":"2","payment_method_id":"2","payment_due_date":"2024-03-19","duration_measure":0},"legal_monetary_totals":{"line_extension_amount":425331.43,"tax_exclusive_amount":425331.43,"tax_inclusive_amount":497487,"payable_amount":497487},"with_holding_tax_total":[{"tax_id":"6","tax_amount":9004.247,"taxable_amount":257264.2,"percent":3.5},{"tax_id":"6","tax_amount":6722.6892,"taxable_amount":168067.23,"percent":4}],"tax_totals":[{"tax_id":"4","tax_amount":6296.3,"taxable_amount":78703.7,"percent":"8"},{"tax_id":"1","tax_amount":65859.27,"taxable_amount":346627.73,"percent":"19"}],"invoice_lines":[{"unit_measure_id":"70","invoiced_quantity":1,"line_extension_amount":175199.16,"free_of_charge_indicator":false,"tax_totals":[{"tax_id":"1","tax_amount":33287.84,"percent":"19","taxable_amount":175199.16}],"description":"ALOJAMIENTO","notes":"","code":"ALOJA","type_item_identification_id":4,"price_amount":208487,"base_quantity":1},{"unit_measure_id":"70","invoiced_quantity":1,"line_extension_amount":42016.81,"free_of_charge_indicator":false,"tax_totals":[{"tax_id":"1","tax_amount":7983.19,"percent":"19","taxable_amount":42016.81}],"description":"DECORACION","notes":"","code":"DECOR","type_item_identification_id":4,"price_amount":50000,"base_quantity":1},{"unit_measure_id":"70","invoiced_quantity":1,"line_extension_amount":78703.7,"free_of_charge_indicator":false,"tax_totals":[{"tax_id":"4","tax_amount":6296.3,"percent":"8","taxable_amount":78703.7}],"description":"BEBIDAS","notes":"","code":"BEBID","type_item_identification_id":4,"price_amount":85000,"base_quantity":1},{"unit_measure_id":"70","invoiced_quantity":1,"line_extension_amount":3361.34,"free_of_charge_indicator":false,"tax_totals":[{"tax_id":"1","tax_amount":638.66,"percent":"19","taxable_amount":3361.34}],"description":"SEGURO HOTELERO","notes":"","code":"SEGHOT","type_item_identification_id":4,"price_amount":4000,"base_quantity":1},{"unit_measure_id":"70","invoiced_quantity":1,"line_extension_amount":126050.42,"free_of_charge_indicator":false,"tax_totals":[{"tax_id":"1","tax_amount":23949.58,"percent":"19","taxable_amount":126050.42}],"description":"ALQUILER SALON","notes":"","code":"ALQPOR","type_item_identification_id":4,"price_amount":150000,"base_quantity":1}],"operation_mode":{"company":"NEXTPYME COLOMBIA S.A.S - Nit .: 901249232 - 0","software":"Facturaci\u00f3n Electr\u00f3nica - SACTel PMS "}},

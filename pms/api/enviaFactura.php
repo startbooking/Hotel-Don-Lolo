@@ -14,7 +14,7 @@ curl_setopt_array($curl, [
   CURLOPT_HTTPHEADER => [
     'Content-Type: application/json',
     'Accept: application/json',
-    'Authorization: Bearer a'.$token,
+    'Authorization: Bearer '.$token,
   ],
 ]);
 
