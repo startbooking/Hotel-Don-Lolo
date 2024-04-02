@@ -5976,6 +5976,7 @@ function salidaHuesped() {
       },
     });
   }
+  
 }
 
 function imprimeFactura() {

@@ -1,7 +1,6 @@
 <?php
 
 include 'configdb.php';
-
 require 'Medoo.php';
 use Medoo\Medoo;
 
