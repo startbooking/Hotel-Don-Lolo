@@ -123,7 +123,7 @@ function clickgaleria(){
   });  
 }
 
-$('.imagesss').click(function(e){
+$('.images').click(function(e){
   var img = e.target.srcset;
 
   var modalGallery = '<div class="modalGallery" id="modalGallery"><img src="'+ img +'" class="img-thumbnail"><div class="modal_boton"><i style="font-size:16px" class="fa fa-times" aria-hidden="true"></i></div></div>';
@@ -160,4 +160,10 @@ function number_format(amount, decimals) {
         amount_parts[0] = amount_parts[0].replace(regexp, '$1' + ',' + '$2');
 
     return amount_parts.join('.');
+}
+
+function creaUUID(){
+  return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
+    (+c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> +c / 4).toString(16)
+  );
 }
