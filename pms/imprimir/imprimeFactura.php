@@ -9,7 +9,8 @@ $size = 100; // Tamaño en píxeles
 $level = 'L'; // Nivel de corrección (L, M, Q, H)
 
 // Generar el código QR
-QRcode::png($QRStr, $filename, $level, $size);
+
+echo print_r($datosCompania);
 
 $datosReserva = $hotel->getReservasDatos($reserva);
 $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
@@ -18,7 +19,7 @@ $horaIng = $datosReserva[0]['hora_llegada'];
 
 if ($tipofac == 2) { 
     $datosCompania = $hotel->getSeleccionaCompania($idperfil);
-    $diasCre = $datosCompania[0]['dias_credito'];
+    $diasCre = $datosCompania[0]['dias_credito'];    
 }
  
 $textoResol = 'RESOLUCION DIAN No.'.$resolucion.' de '.$fechaRes.' Autorizacion Pref '.$prefijo.' desde el No. '.$desde.' AL '.$hasta;

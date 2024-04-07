@@ -3,7 +3,7 @@
 	
     $huespedes = $hotel->getPerfilHuespedes();
 
-  echo json_encode($huespedes);
+  // echo json_encode($huespedes);
   
   
   foreach ($huespedes as $huesped) { ?>

@@ -320,7 +320,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class='glyphicon glyphicon-off' style="color:#530505"></span></button>
-        <h3 class="modal-title" id="myModalLabel">Huespedes Compañia</h4>
+        <h3 class="modal-title" id="myModalLabel">Huespedes Compañia</h3>
       </div>
       <div class="modal-body">
         <div id="huespedesCia" style="position: relative;	text-align: center;top: 5px;width: 100%;max-height: 450px; overflow: auto;"></div>

@@ -1,5 +1,4 @@
 <?php 
-  $hoy    = substr(FECHA_PMS,5,5);
   $resolucion = $hotel->getResolucion(1);
   $numFact = $hotel->getNumeroFactura();
   $desde = $resolucion[0]['desde'];
@@ -42,6 +41,7 @@
           </div>
           <div class="panel-body" id="paginaFacturacion">
             <div id="imprimeRegistroHotelero"></div>
+            
           </div>
         </div>
       </section>

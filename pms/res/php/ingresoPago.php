@@ -1,48 +1,24 @@
 <?php
 
 require_once '../../../res/php/app_topHotel.php';
+
+$postBody = json_decode(file_get_contents('php://input'), true);
+extract($postBody);
+  
 $eToken = $hotel->datosTokenCia();
 $token = $eToken[0]['token'];
 $password = $eToken[0]['password'];
 $facturador = $eToken[0]['facturador'];
 
 $estadofactura = []; 
-
-$codigo = $_POST['codigo'];
-$textcodigo = $_POST['textopago'];
-$valor = $_POST['valor']; 
-$numero = $_POST['reserva'];
-$room = $_POST['room'];
-$idhues = $_POST['idhues'];
+$refer = strtoupper($refer);
+$detalle = strtoupper($detalle);
 $canti = 1;
-$folio = $_POST['folio'];
-$fecha = FECHA_PMS;
-$idcia = $_POST['idcia'];
-$idcentro = $_POST['idcentro'];
-$tipofac = $_POST['tipofac'];
-$usuario = $_POST['usuario'];
-$idUsuario = $_POST['usuario_id'];
-$detallePag = strtoupper($_POST['detalle']);
-$refer = strtoupper($_POST['refer']);
-$correofac = strtolower($_POST['correofac']);
-$perfilFac = $_POST['perfilFac'];
-$baseRete = $_POST['baseRete'];
-$baseIva = $_POST['baseIva']; 
-$baseIca = $_POST['baseIca'];
-$reteiva = $_POST['reteiva'];
-$reteica = $_POST['reteica'];
-$retefuente = $_POST['retefuente'];
-$porceiva = $_POST['porceReteiva'];
-$porceica = $_POST['porceReteica'];
-$porcefuente = $_POST['porceRetefuente'];
 
-$valorRet = $hotel->traeValorRetenciones($numero, $folio);
+$fecha = FECHA_PMS;
 
 $fechaAct = strtotime(FECHA_PMS.'T20:55:20');
   
-$mes = date("m", $fechaAct);
-$anio = date("Y", $fechaAct);
-
 $arcCurl = 'recibeCurl'.$mes.$anio.'.json';
 $envCurl = 'enviaFact'.$mes.$anio.'.json';
 
@@ -58,8 +34,6 @@ if ($reteica == 0) {
     $baseIca = 0;
 }
 
-$reserva = $numero;
-$nroFolio = $folio;
 $idhuesped = $idhues;
 
 $horaFact = date('H:s:i');
@@ -71,8 +45,8 @@ $fechaRes = $resFac[0]['fecha'];
 $desde = $resFac[0]['desde'];
 $hasta = $resFac[0]['hasta'];
 
-$fechaFac = FECHA_PMS;
-$fechaVen = $fechaFac;
+$fechaFac = $fecha;
+$fechaVen = $fecha;
 $diasCre = 0;
 $paganticipo = 0;
 $totalSinImpto = 0;
@@ -88,23 +62,23 @@ if ($perfilFac == 1 && $facturador == 1) {
 }
 
 if ($tipofac == 1) {
-    $id = $idhues;
-} else {
-    $id = $idcia;
-    $dataCompany = $hotel->getSeleccionaCompania($id);
-    if ($codigo == 2) {
-        $diasCre = $dataCompany[0]['dias_credito'];
-        $fechaVen = strtotime('+ '.$diasCre.' day',strtotime($fechaFac));
-        $fechaVen = date('Y-m-d', $fechaVen);
-    }
+  $id = $idhues;
+}else {
+  $id = $idcia;
+  $dataCompany = $hotel->getSeleccionaCompania($id);
+  if ($codigo == 2) {
+    $diasCre = $dataCompany[0]['dias_credito'];
+    $fechaVen = strtotime('+ '.$diasCre.' day',strtotime($fechaFac));
+    $fechaVen = date('Y-m-d', $fechaVen);
+  }
 }
 
 $nroFactura = $numfactura;
 $idperfil = $id;
 
-$inserta = $hotel->insertFacturaHuesped($codigo, $textcodigo, $valor, $refer, $numero, $room, $idhues, $folio, $canti, $usuario, $idUsuario, $fecha, $numfactura, $tipofac, $id, $idcentro, $prefijo, $perfilFac, $detallePag, $baseRete, $baseIva, $baseIca, $reteiva, $reteica, $retefuente, $correofac);
+$inserta = $hotel->insertFacturaHuesped($codigo, $textpago, $valor, $refer, $reserva, $room, $idhues, $folioAct, $canti, $usuario, $idUsuario, $fecha, $numfactura, $tipofac, $id, $idcentro, $prefijo, $perfilFac, strtoupper($detalle), $baseRete, $baseIva, $baseIca, $reteiva, $reteica, $retefuente, $correofac);
 
-$factu = $hotel->updateCargosReservaFolio($numero, $numfactura, $folio, $fecha, $usuario, $idUsuario, $tipofac, $id, $perfilFac);
+$factu = $hotel->updateCargosReservaFolio($reserva, $numfactura, $folioAct, $fecha, $usuario, $idUsuario, $tipofac, $id, $perfilFac);
 
 $saldos = $hotel->getValorFactura($numfactura);
 $anticipos = $hotel->valorAnticipos($numfactura);
@@ -145,7 +119,7 @@ if ($tipofac == 2) {
 $updFac = $hotel->updateFactura($idUsuario, $saldos[0]['cargos'], $saldos[0]['imptos'], $saldos[0]['pagos'], $saldos[0]['base'], $paganticipo, $fechaVen, $numfactura, $usuario, $fecha, $diasCre);
 
 $totalPago = $paganticipo + $saldos[0]['pagos'];
-$saldofactura = $hotel->getSaldoHabitacion($numero);
+$saldofactura = $hotel->getSaldoHabitacion($reserva);
 
 if (count($saldofactura) == 0) {
     $totalFolio = 0;
@@ -153,11 +127,11 @@ if (count($saldofactura) == 0) {
     $totalFolio = ($saldofactura[0]['cargos'] + $saldofactura[0]['imptos']);
 }
 
-$folios = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserva, $nroFolio, 1);
-$pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserva, $nroFolio, 3);
-$tipoimptos = $hotel->getValorImptoFolio($nroFactura, $reserva, $nroFolio, 2);
-$subtotales = $hotel->getConsumosReservaAgrupadoFolio($nroFactura, $reserva, $nroFolio, 1);
-$sinImpuesto = $hotel->getConsumosReservasinImpuestos($nroFactura, $reserva, $nroFolio, 1);
+$folios = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserva, $folioAct, 1);
+$pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserva, $folioAct, 3);
+$tipoimptos = $hotel->getValorImptoFolio($nroFactura, $reserva, $folioAct, 2);
+$subtotales = $hotel->getConsumosReservaAgrupadoFolio($nroFactura, $reserva, $folioAct, 1);
+$sinImpuesto = $hotel->getConsumosReservasinImpuestos($nroFactura, $reserva, $folioAct, 1);
 
 if(count($sinImpuesto) != 0){
   $totalSinImpto = $sinImpuesto[0]['cargos'];
@@ -181,7 +155,7 @@ if ($perfilFac == 1 && $facturador == 1) {
     $eFact['time'] = $horaFact;
     $eFact['resolution_number'] = $resolucion;
     $eFact['prefix'] = $prefijo;
-    $eFact['notes'] = $detallePag;
+    $eFact['notes'] = strtoupper($detalle);
     $eFact['disable_confirmation_text'] = true;
     $eFact['establishment_name'] = NAME_EMPRESA;
     $eFact['establishment_address'] = ADRESS_EMPRESA;
@@ -292,14 +266,14 @@ if ($perfilFac == 1 && $facturador == 1) {
         'tax_id' => '5',
         'tax_amount' => $reteiva,
         'taxable_amount' => $baseIva,
-        'percent' => $porceiva,
+        'percent' => $porceReteiva,
     ];
     
     $rica = [ 
         'tax_id' => '7',
         'tax_amount' => $reteica,
         'taxable_amount' => $baseIca,
-        'percent' => $porceica,
+        'percent' => $porceReteica,
     ];
 
     if ($reteiva > 0) {
@@ -323,15 +297,16 @@ if ($perfilFac == 1 && $facturador == 1) {
     $eFact['operation_mode'] = $oMode;       
     $eFact = json_encode($eFact);
         
-    include_once '../../api/enviaFactura.php';            
+    // include_once '../../api/enviaFactura.php';            
     
-    // include_once '../../api/prueba.php';            
+    include_once '../../api/prueba.php';            
     $recibeCurl = json_decode(trim($respofact), true);
     
     file_put_contents($envCurl, $eFact.',',  FILE_APPEND | LOCK_EX);
     file_put_contents($arcCurl, $respofact.',',  FILE_APPEND | LOCK_EX);
-        
+    
     $errores = $recibeCurl['errors'];
+    $success = $recibeCurl['success'];
     
     $noAutorizado = $recibeCurl['message'];
     
@@ -344,16 +319,18 @@ if ($perfilFac == 1 && $facturador == 1) {
     
     if(isset($errores)){
         if(count($errores) > 0){
-            $error = [
-                'error' => '1',
-                'folio' => '0',
-                'mensaje' => $errores, 
-                'factura' => $numfactura,
-                'errorDian' => '0'                                
-            ];
-            array_push($estadofactura, json_encode($error));
-            echo json_encode($estadofactura);        
-            return; 
+          $error = [
+            'error' => '1',
+            'folio' => '0',
+            'mensaje' => $errores, 
+            'factura' => $numfactura,
+            'errorDian' => '0',
+            'perfil' => $perfilFac,
+            'archivo' => '',                
+          ];
+          array_push($estadofactura, $error);
+          echo json_encode($estadofactura);        
+          return; 
         }
     }
         
@@ -363,28 +340,44 @@ if ($perfilFac == 1 && $facturador == 1) {
           'folio' => '0',
           'mensaje' => 'Usuario NO Autorizado en Facturacion Electronica', 
           'factura' => $numfactura,
-          'errorDian' => '0'
+          'errorDian' => '0',
+          'perfil' => $perfilFac,
+          'archivo' => '',          
         ];
-        array_push($estadofactura, json_encode($error));
+        array_push($estadofactura, $error);
         echo json_encode($estadofactura);        
         return; 
-      }
-  
-        
+    }
+
     if($Isvalid=="false"){
         $error = [
             'error' => '1',
             'folio' => '0',
             'mensaje' => $errorMessage, 
             'factura' => $numfactura,
-            'errorDian' => '1'
-            
+            'errorDian' => '1',
+            'perfil' => $perfilFac,   
+            'archivo' => '',
         ]; 
-        array_push($estadofactura, json_encode($error));
+        array_push($estadofactura, $error);
         echo json_encode($estadofactura);        
         return; 
     }
     
+    if(isset($success) ){
+        $error = [
+            'error' => '1',
+            'folio' => '0',
+            'mensaje' => $recibeCurl['message'], 
+            'factura' => $numfactura,
+            'errorDian' => '0',
+            'perfil' => $perfilFac,
+            'archivo' => '',
+        ];
+        array_push($estadofactura, $error);
+        echo json_encode($estadofactura);        
+        return; 
+    }
     
     $statusCode   = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['StatusCode'];
     $statusDesc   = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['StatusDescription'];
@@ -431,8 +424,8 @@ if ($perfilFac == 1 && $facturador == 1) {
 
     $ePDF = json_encode($ePDF);
 
-    include_once '../../api/enviaPDF.php';
-
+    // include_once '../../api/enviaPDF.php';
+    
     $recibePDF = json_decode($respopdf, true);
 
 } else {
@@ -442,10 +435,10 @@ if ($perfilFac == 1 && $facturador == 1) {
 
 if ($totalFolio != 0) {
     $saldohabi = ($saldofactura[0]['cargos'] + $saldofactura[0]['imptos']) - $saldofactura[0]['pagos'];
-    $saldofolio1 = $hotel->saldoFolio($numero, 1);
-    $saldofolio2 = $hotel->saldoFolio($numero, 2);
-    $saldofolio3 = $hotel->saldoFolio($numero, 3);   
-    $saldofolio4 = $hotel->saldoFolio($numero, 4);
+    $saldofolio2 = $hotel->saldoFolio($reserva, 2);
+    $saldofolio1 = $hotel->saldoFolio($reserva, 1);
+    $saldofolio3 = $hotel->saldoFolio($reserva, 3);   
+    $saldofolio4 = $hotel->saldoFolio($reserva, 4);
 
     if ($saldofolio1 != 0) {
         $error = [
@@ -453,8 +446,11 @@ if ($totalFolio != 0) {
             'folio' => '1',
             'mensaje' => '', 
             'archivo' => $oFile,
+            'factura' => $numfactura,
+            'errorDian' => '0',
+            'perfil' => $perfilFac,            
         ];
-        array_push($estadofactura, json_encode($error));
+        array_push($estadofactura, $error);
     }
     
     if ($saldofolio2 != 0) {
@@ -463,8 +459,10 @@ if ($totalFolio != 0) {
             'folio' => '2',
             'mensaje' => '', 
             'archivo' => $oFile,            
+            'errorDian' => '0',
+            'perfil' => $perfilFac,            
         ];
-        array_push($estadofactura, json_encode($error));
+        array_push($estadofactura, $error);
     }
 
     if ($saldofolio3 != 0) {
@@ -473,8 +471,10 @@ if ($totalFolio != 0) {
             'folio' => '3',
             'mensaje' => '', 
             'archivo' => $oFile,
+            'errorDian' => '0',
+            'perfil' => $perfilFac,            
         ];
-        array_push($estadofactura, json_encode($error)); 
+        array_push($estadofactura, $error); 
     }
 
     if ($saldofolio4 != 0) {
@@ -483,8 +483,10 @@ if ($totalFolio != 0) {
             'folio' => '4',
             'mensaje' => '', 
             'archivo' => $oFile,        
+            'errorDian' => '0',
+            'perfil' => $perfilFac,            
         ];
-        array_push($estadofactura, json_encode($error));
+        array_push($estadofactura, $error);
     }    
 } else {
     $error = [
@@ -492,16 +494,18 @@ if ($totalFolio != 0) {
         'folio' => '0',
         'mensaje' => '', 
         'archivo' => $oFile,
+        'errorDian' => '0',
+        'perfil' => $perfilFac,            
     ];
     
-    array_push($estadofactura, json_encode($error));
+    array_push($estadofactura, $error);
     
     $estadoReserva = $hotel->estadoReserva($reserva); 
-    $salida = $hotel->updateReservaHuespedSalida($numero, $usuario, $idUsuario, FECHA_PMS);
+    $salida = $hotel->updateReservaHuespedSalida($reserva, $usuario, $idUsuario, FECHA_PMS);
 
     if($estadoReserva== 'CA'){
         $habSucia = $hotel->updateEstadoHabitacion($room);
     } 
-    }
+}
  
 echo json_encode($estadofactura);

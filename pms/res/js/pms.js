@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   let fact = document.getElementById("pantallaFacturacion");
-  if (fact != null) {
+    if (fact != null) {
     traeFacturasEstadia();
   }
 
@@ -1382,10 +1382,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     var hues = button.data("idhues");
     var idcia = button.data("idcia");
     var idcentro = button.data("idcentro");
-    var apellido1 = button.data("apellido1");
-    var apellido2 = button.data("apellido2");
-    var nombre1 = button.data("nombre1");
-    var nombre2 = button.data("nombre2");
     var nombre = button.data("nombre");
     var turismo = button.data("impto");
     var nrohab = button.data("nrohab");
@@ -1408,7 +1404,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       reserva,
       nrohab,
       usuario,
-      idusuario: usuario_id,
+      usuario_id,
     };
 
     if (abonos == 0 && consumo == 0) {
@@ -4197,6 +4193,7 @@ function buscaFechaAuditoria() {
   });
 }
 
+
 function anulaFactura() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
@@ -4239,6 +4236,7 @@ function anulaFactura() {
     },
   });
 }
+
 
 function verDepositos(reserva) {
   var web = $("#rutaweb").val();
@@ -5226,7 +5224,7 @@ function cierreDiario() {
         url: web + "/res/php/procesosAuditoriaNocturna.php",
         type: "POST",
         dataType: "json",
-        beforeSend: function (objeto) {
+        beforeSend: function (objeto) {registrosImpresos
           $("#aviso").html("");
           $("#aviso").html(
             '<h4 class="bg-red" style="padding:10px;display:flex"><img style="margin-bottom:0" class="thumbnail" src="../img/loader.gif" alt="" /><span style="font-size:24px;font-weight: 700;font-family: ubuntu;margin:15px">Procesando Informacion, No Interrumpa </span></h4>'
@@ -5285,7 +5283,7 @@ function correProceso(procesor, correr, fecha, titulo, reporte) {
       titulo +
       "</span> Ya Ejecutado</h4></div>"
     );
-  } else {
+  } else {registrosImpresos
     $.ajax({
       url: "auditoria/" + procesor,
       type: "POST",
@@ -5669,7 +5667,6 @@ function anulaConsumos() {
 
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user: { usuario, usuario_id }  } = sesion;
-  // let { } = user;
 
   var id = $("#txtIdConsumoAnu").val();
   var motivo = $("#txtMotivoAnula").val();
@@ -5799,7 +5796,7 @@ function cargosHuesped(reserva) {
   });
 }
 
-function salidaHuesped() {
+async function salidaHuesped() {
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var saldo = $("#SaldoActual").val();
@@ -5859,7 +5856,7 @@ function salidaHuesped() {
     let detalle = $("#txtDetallePag").val();
     let refer = $("#txtReferenciaPag").val();
     let correofac = $("#txtCorreoPag").val();
-    let folio = $("#folioActivo").val();
+    let folioAct = $("#folioActivo").val();
     let idcia = $("#txtIdCiaSal").val();
     let baseIva = $("#totalIva").val();
     let baseRete = $("#baseRetenciones").val();
@@ -5894,7 +5891,7 @@ function salidaHuesped() {
       textopago,
       valor: pago,
       room,
-      folio,
+      folioAct,
       idhues,
       reserva,
       tipofac,
@@ -5916,14 +5913,65 @@ function salidaHuesped() {
       porceRetefuente,
       correofac,
     };
-    $.ajax({
+    
+    let facturado = await enviaPago(parametros);
+    let { error, mensaje, factura, perfil, errorDian, archivo, folio } = facturado[0];
+    console.log(facturado);
+    
+    if(error == "1"){   
+      if(errorDian==1){
+        mensaje = JSON.parse(mensaje)
+      }
+      let muestra = await muestraError(mensaje);
+      let anulaFact = await anulaFacturaEnvio(factura, perfil);      
+    }else {
+      if (facturador == 1) {
+        ruta = "imprimir/facturas/";
+      } else {
+        ruta = "imprimir/notas/";
+      }
+      var ventana = window.open(
+        ruta + archivo,
+        "PRINT",
+        "height=600,width=600"
+      );
+
+      if (folio == "0") {
+        swal({
+            title: "Atencion !",
+            text: "Salida del Huesped Realizada con Exito !",
+            type: "success",
+            confirmButtonText: "Aceptar",
+            closeOnConfirm: true,
+          },
+          function () {
+            $(location).attr("href", "facturacionEstadia");
+          }
+        );
+      }else {
+        swal({
+            title: "Precaucion !",
+            text: "La Cuenta Actual Presenta Folios con Saldos !",
+            type: "success",
+            confirmButtonText: "Aceptar",
+            closeOnConfirm: true,
+          },
+          function () {
+            $("#myModalSalidaHuesped").modal("hide");
+            activaFolio(reserva, folio);
+          }
+        );
+      }
+    }
+    
+    /* $.ajax({
       type: "POST",
       url: web + "res/php/ingresoPago.php",
       dataType: "json",
       data: parametros,
       success: function (data) {      
         data = JSON.parse($.trim(data));
-        let {error, mensaje, folio, archivo } = data; 
+        let {error, mensaje, folio, archivo } = data;  
         if(error=="1"){
           mensajeStr = JSON.stringify(mensaje)
           mensajeError =  document.querySelector('#mensajeSalida');
@@ -5932,6 +5980,9 @@ function salidaHuesped() {
           <h3 class="alert alert-warning" style="color:black !important">
           <i class="fa-solid fa-circle-exclamation fa-2x" style="color:red;"></i>
           Precaucion, Factura no Procesada <br><span style="font-size:20px;"> ${mensajeStr} </span></h3>`
+          
+          let anulaFact = await anulaFacturaEnvio(data)
+          
         }else{
           if (facturador == 1) {
             ruta = "imprimir/facturas/FES-";
@@ -5954,7 +6005,7 @@ function salidaHuesped() {
                 closeOnConfirm: true,
               },
               function () {
-                $(location).attr("href", "facturacionEstadia");
+                $(location).attr(ingresoPago"href", "facturacionEstadia");
               }
             );
           } else {
@@ -5974,10 +6025,73 @@ function salidaHuesped() {
           }
         }
       },
-    });
+    }); */
   }
   
 }
+
+async function muestraError(cErrors){
+  mensajeErr= '' ;
+  mensajeError =  document.querySelector('#mensajeSalida');
+  mensajeError.innerHTML= ''
+  mensajeError.innerHTML= `<div class="alert alert-warning" style="margin-bottom:0px">
+  <h3 style="color:black !important;margin-top:0px;">
+  <i class="fa-solid fa-circle-exclamation fa-2x" style="color:red;"></i>
+  ATENCION, Factura no Procesada </h3>
+  
+  <h4 style="color: brown;font-weight: 500;font-size: 16px;text-align:center;">MOTIVO DEL RECHAZO</h4>
+  <h4 style="color: brown;font-weight: 400;font-size: 14px;text-align:justify;">${JSON.stringify(cErrors)}</h4>
+  </div>`
+  return 0
+}
+
+const enviaPago = async (data) => {
+  var web = $("#rutaweb").val();  
+  try {    
+    const resultado = await fetch(`${web}res/php/ingresoPago.php`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+      body: JSON.stringify(data)
+    });
+    const datos = await resultado.json();
+    return datos;
+  } catch (error) {
+    // console.log(error);
+    return error
+  }
+};
+
+const anulaFacturaEnvio = async (factura, perfil) => {
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { user:{ usuario, usuario_id, tipo } } = sesion;
+    
+  data = {
+    factura, perfil, usuario, usuario_id
+  }
+  console.log(data)
+  
+  var web = $("#rutaweb").val();
+  
+  try {    
+    const resultado = await fetch(`${web}res/php/anulaFacturaEnvio.php`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+      body: JSON.stringify(data)
+    });
+    const datos = await resultado.json();
+    console.log(datos);
+    return datos;
+  } catch (error) {
+    // console.log(error);
+    return error
+  }
+};
+
+
 
 function imprimeFactura() {
   $.ajax({

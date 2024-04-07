@@ -356,7 +356,7 @@ $cias = $hotel->getCompanias();
             <div class="form-group" id="selecomp">
               <label class="control-label col-xs-2">Compañia</label>
               <div class="col-lg-8 col-xs-8">
-                <select name="txtIdCiaSal" id="txtIdCiaSal"  readonly disabled>
+                <select name="txtIdCiaSal" id="txtIdCiaSal" readonly disabled>
                   <?php
                     foreach ($cias as $key => $value) { ?> 
                       <option value="<?php echo $value['id_compania']; ?>"><?php echo $value['empresa']; ?></option>

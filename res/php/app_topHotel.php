@@ -36,7 +36,6 @@ define('LAND_HOTEL', $datosHotel[0]['pais']);
 define('CTA_MASTER', $datosHotel[0]['codigo_cta_master']);
 define('DEMO', $datosHotel[0]['hoteldemo']);
 
-
 define('IVA_INCLUIDO', $empresa[0]['impto_incl']);
 define('NAME_EMPRESA', $empresa[0]['empresa']);
 define('NIT_EMPRESA', $empresa[0]['nit'] . '-' . $empresa[0]['dv']);
@@ -76,6 +75,11 @@ if (CTA_DEPOSITO == '0') {
 
 $pc = gethostname();
 $ip = $_SERVER['REMOTE_ADDR'];
+
+$oFecha = strtotime(FECHA_PMS);
+$hoy = date('d',$oFecha);
+$mes = date("m", $oFecha);
+$anio = date("Y", $oFecha);
 
 if (!isset($_GET['section'])) {
 } elseif (isset($_GET['section']) && $_GET['section'] == 'home') {

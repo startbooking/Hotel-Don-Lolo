@@ -7505,7 +7505,50 @@ class Hotel_Actions{
         $data = $database->query("SELECT cargos_pms.habitacion_cargo, Sum(cargos_pms.monto_cargo) as cargos, Sum(cargos_pms.impuesto) as imptos, Sum(cargos_pms.pagos_cargos) as pagos FROM cargos_pms WHERE cargos_pms.numero_reserva = '$reserva' and cargos_pms.cargo_anulado = 0 GROUP BY cargos_pms.numero_reserva")->fetchAll();
 
         return $data;
-    }
+    } 
+
+  public function getConsumoReservaNew($estado){
+  
+    global $database;
+    
+    $data = $database->query("SELECT reservas_pms.num_reserva, reservas_pms.fecha_llegada, reservas_pms.fecha_salida, reservas_pms.num_habitacion, reservas_pms.id_compania, huespedes.nombre_completo, reservas_pms.valor_diario, SUM(cargos_pms.valor_cargo) AS cargos, SUM(cargos_pms.pagos_cargos) AS pagos FROM huespedes LEFT JOIN reservas_pms ON huespedes.id_huesped = reservas_pms.id_huesped LEFT JOIN cargos_pms ON reservas_pms.num_reserva = cargos_pms.numero_reserva WHERE reservas_pms.estado = '$estado' AND cargos_pms.cargo_anulado = 0 AND cargos_pms.factura = 0 AND cargos_pms.factura_numero = 0 GROUP BY reservas_pms.num_reserva ORDER BY reservas_pms.num_habitacion, reservas_pms.num_reserva")->fetchAll();
+	return $data;
+  }
+
+  public function traeBalanceHabitaciones(){
+    global $database;
+    $data = $database->query("SELECT
+	reservas_pms.num_reserva, 
+	reservas_pms.num_habitacion,
+	reservas_pms.id_compania,
+	reservas_pms.fecha_llegada,
+	reservas_pms.fecha_salida,
+	reservas_pms.valor_diario,
+	COALESCE ( SUM( cargos_pms.valor_cargo ), 0 ) AS cargos, 
+	COALESCE ( SUM( cargos_pms.pagos_cargos ), 0 ) AS pagos, 
+	COALESCE ( SUM( cargos_pms.impuesto ), 0 ) AS imptos, 
+	huespedes.nombre_completo
+FROM
+	reservas_pms
+	LEFT JOIN
+	cargos_pms
+	ON 
+		cargos_pms.numero_reserva = reservas_pms.num_reserva AND
+		cargos_pms.cargo_anulado = 0 AND
+		cargos_pms.factura = 0 AND
+		cargos_pms.factura_numero = 0
+	INNER JOIN
+	huespedes
+	ON 
+		reservas_pms.id_huesped = huespedes.id_huesped
+WHERE
+	reservas_pms.estado = 'CA'
+GROUP BY
+	reservas_pms.num_reserva
+ORDER BY
+	reservas_pms.num_reserva ASC")->fetchAll();
+    return $data;
+  }
 
     public function getConsumosReserva($numero)
     {
@@ -8253,6 +8296,10 @@ class Hotel_Actions{
             'monto_credito',
             'dia_corte_credito',
             'dias_credito',
+            'reteiva',
+            'reteica',
+            'retefuente',
+            'sinBaseRete',
             'tipoAdquiriente',
             'tipoResponsabilidad',
             'responsabilidadTributaria',

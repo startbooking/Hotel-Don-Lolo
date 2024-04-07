@@ -6,7 +6,7 @@
 	$reserva   = $_POST['reserva'];
 	$room      = $_POST['nrohab'];
 	$usuario   = $_POST['usuario'];
-	$idusuario = $_POST['idusuario'];
+	$idusuario = $_POST['usuario_id'];
 	$fecha     = FECHA_PMS;	
 	
 	$salida   = $hotel->updateReservaHuespedSalida($reserva,$usuario,$idusuario,$fecha);		

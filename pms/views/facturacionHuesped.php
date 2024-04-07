@@ -14,16 +14,27 @@ if (count($datosReserva) == 0) {?>
 
 $dia = substr(FECHA_PMS, 8, 2);
 
-$datosCompania = $hotel->getSeleccionaCompania($datosReserva[0]['id_compania']);
+$oFecha = strtotime(FECHA_PMS);
+$mDia = date('d',$oFecha);
 
+$datosCompania = $hotel->getSeleccionaCompania($datosReserva[0]['id_compania']);
 $tipoHabitacion = $hotel->getNombreTipoHabitacion($datosReserva[0]['tipo_habitacion']);
 
-if (count($datosCompania) == 0) {
-    $credito = 0;
-    $dias = 0;
-} else {
-    $credito = $datosCompania[0]['credito'];
-    $dias = $datosCompania[0]['dia_corte_credito'];
+echo print_r($datosCompania);
+
+$credito = 0;
+$dias = 0;
+$reteiva = 0;
+$reteica = 0;
+$retefuen = 0;
+$sinbase = 0;
+if (count($datosCompania) !== 0) {
+  $credito  = $datosCompania[0]['credito'];
+  $dias     = $datosCompania[0]['dia_corte_credito'];    
+  $reteiva  =  $datosCompania[0]['reteiva']; 
+  $reteica  =  $datosCompania[0]['reteica']; 
+  $retefuen = $datosCompania[0]['retefuente'];
+  $sinbase  =  $datosCompania[0]['sinBaseRete']; 
 }
 
 $saldofolio1 = $hotel->saldoFolio($reserva, 1);
@@ -276,11 +287,6 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
                 data-idcentro  ="<?php echo $datosReserva[0]['idCentroCia']; ?>" 
                 data-nrohab    ="<?php echo $datosReserva[0]['num_habitacion']; ?>" 
                 data-nombre    ="<?php echo $datosReserva[0]['nombre_completo']; ?>" 
-                data-apellido1 ="<?php echo $datosReserva[0]['apellido1']; ?>" 
-                data-apellido2 ="<?php echo $datosReserva[0]['apellido2']; ?>" 
-                data-nombre1   ="<?php echo $datosReserva[0]['nombre1']; ?>" 
-                data-nombre2   ="<?php echo $datosReserva[0]['nombre2']; ?>" 
-                data-nombre    ="<?php echo $datosReserva[0]['nombre_completo']; ?>" 
                 data-impto     ="<?php echo $datosReserva[0]['causar_impuesto']; ?>" 
                 data-llegada   ="<?php echo $datosReserva[0]['fecha_llegada']; ?>" 
                 data-salida    ="<?php echo $datosReserva[0]['fecha_salida']; ?>" 
@@ -326,3 +332,4 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
     </form>
   </div>
 
+Donlolo2024#$

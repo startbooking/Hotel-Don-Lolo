@@ -922,10 +922,6 @@ $manana = date('Y-m-d', $manana);
           <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">Documento</label>
             <div class="col-sm-4">
-              <!-- 
-              <input type="hidden" name="idReservaAdiAco" id="idReservaAdiAco">
-              <input type="hidden" name="nuevoPax" id="nuevoPax">
-              <input type="hidden" name="idHuesAdi" id="idHuesAdi"> -->
               <input type="text" class="form-control" name="identificaHuesRes" id="identificaHuesRes" placeholder="Identificacion" required>
             </div>
             <label for="inputEmail3" class="col-sm-1 control-label">Tipo</label>
@@ -935,7 +931,7 @@ $manana = date('Y-m-d', $manana);
                 <?php
                 $tipodocs = $hotel->getTipoDocumento(); ?>
                 <?php foreach ($tipodocs as $tipodoc) { ?>
-                  <option value="<?php echo $tipodoc['id_doc']; ?>"><?php echo $tipodoc['descripcion_documento']; ?></option>}
+                  <option value="<?php echo $tipodoc['id_doc']; ?>"><?php echo $tipodoc['descripcion_documento']; ?></option>
                 <?php } ?>
               </select>
             </div>
@@ -1002,7 +998,8 @@ $manana = date('Y-m-d', $manana);
                   <?php
                   $ciudades = $hotel->getCiudades();
                   foreach ($ciudades as $ciudad) { ?>
-                    <option value="<?php echo $ciudad['id_ciudad']; ?>"><?php echo $ciudad['municipio'] . ' ' . $ciudad['depto']; ?></option>
+                    <option value="<?php echo $ciudad['id_ciudad']; ?>">
+                    <?php echo $ciudad['municipio'] . ' ' . $ciudad['depto']; ?></option>
                   <?php
                   }
                   ?>

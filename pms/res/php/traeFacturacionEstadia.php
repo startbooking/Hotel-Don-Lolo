@@ -1,10 +1,7 @@
 <?php
-require '../../../res/php/app_topHotel.php';
-
-extract($_POST);
-$hoy = substr(FECHA_PMS, 5, 5);
-$reservas = $hotel->getHuespedesenCasa(2, 'CA');
-
+  require '../../../res/php/app_topHotel.php';
+  extract($_POST);
+  $reservas = $hotel->traeBalanceHabitaciones();  
 ?>
 
 <div class="table-responsive">
@@ -17,6 +14,7 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
         <td>Tarifa</td>
         <td>Llegada</td>
         <td>Salida</td>
+        <td style="text-align:center;">Consumos</td>
         <td style="text-align:center;">Abonos</td>
         <td style="text-align:center;">Saldo</td>
         <td style="text-align:center;">Accion</td>
@@ -24,7 +22,7 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
     </thead> 
     <tbody>
       <?php
-    foreach ($reservas as $reserva) {
+      foreach ($reservas as $reserva) {
         if ($reserva['id_compania'] == 0) {
           $nombrecia = 'SIN COMPAÑIA ASOCIADA';
           $nitcia = '';
@@ -33,7 +31,6 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
           $nombrecia = $cias[0]['empresa'];
           $nitcia = $cias[0]['nit'].'-'.$cias[0]['dv'];
         }
-
         $depositos = $hotel->getDepositosReservas($reserva['num_reserva']);
         $consumos = $hotel->getConsumosReserva($reserva['num_reserva']);
         if (count($consumos) == 0) {
@@ -103,10 +100,12 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
           <td style="width: 7%"><?php echo $reserva['fecha_llegada']; ?></td> 
           <td style="width: 7%"><?php echo $reserva['fecha_salida']; ?></td>
           <td style="width: 7%;text-align:right;cursor: pointer;">
-            <a onclick="cargosHuesped(<?php echo $reserva['num_reserva']; ?>)"><?php echo number_format($consumos[0]['pagos'], 2); ?></a>
+            <a onclick="cargosHuesped(<?php echo $reserva['num_reserva']; ?>)"><?php echo number_format($reserva['cargos'], 2); ?></a>
           </td>
           <td style="width: 7%;text-align:right;cursor: pointer;">
-            <a onclick="cargosHuesped(<?php echo $reserva['num_reserva']; ?>)"><?php echo number_format($consumos[0]['cargos'] + $consumos[0]['imptos'] - $consumos[0]['pagos'], 2); ?></a>
+            <a onclick="cargosHuesped(<?php echo $reserva['num_reserva']; ?>)"><?php echo number_format($reserva['pagos'], 2); ?></a>
+          </td><td style="width: 7%;text-align:right;cursor: pointer;">
+            <a onclick="cargosHuesped(<?php echo $reserva['num_reserva']; ?>)"><?php echo number_format($reserva['cargos']-$reserva['pagos'], 2); ?></a>
           </td>
           <td style="padding:3px;width: 13%">
             <nav class="navbar navbar-default " style="margin-bottom: 0px;min-height:0px;">
@@ -121,10 +120,6 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
                           <a 
                             data-toggle="modal" 
                             data-id        ="<?php echo $reserva['num_reserva']; ?>" 
-                            data-apellido1 ="<?php echo $reserva['apellido1']; ?>" 
-                            data-apellido2 ="<?php echo $reserva['apellido2']; ?>" 
-                            data-nombre1   ="<?php echo $reserva['nombre1']; ?>" 
-                            data-nombre2   ="<?php echo $reserva['nombre2']; ?>" 
                             data-nombre   ="<?php echo $reserva['nombre_completo']; ?>" 
                             data-impto     ="<?php echo $reserva['causar_impuesto']; ?>" 
                             onclick        ="movimientosFactura(<?php echo $reserva['num_reserva']; ?>)" 
@@ -267,8 +262,8 @@ $reservas = $hotel->getHuespedesenCasa(2, 'CA');
           </td>
         </tr>
         <?php
-    }
-?>
+      }
+      ?>
     </tbody>
   </table>
 </div>
