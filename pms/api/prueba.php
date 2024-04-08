@@ -1,5 +1,5 @@
 <?php 
-$respofact01 = '{
+$respofactErrorEnvio = '{
   "message": "AttachedDocument #HDL16342 generada con éxito",
   "send_email_success": false,
   "send_email_date_time": false,
@@ -65,7 +65,7 @@ $respofact01 = '{
   "resolution_days_left": 237
 }';
 
-$respofact01 = '{
+$respofactOKPruebas = '{
     "cufe": "fb6c6f813e218d3bf3fc5f68af21943275aab487de0c45670efc68a4eab1c0a46e6b7e88ec7a926a6bc72993c56b85a0",
     "QRStr": "NumFac: 990000001\nFecFac: 2023-04-04\nNitFac: 1063165462\nDocAdq: 901249232\nValFac: 840336.134\nValIva: 159663.865\nValOtroIm: 0.00\nValTotal: 950000.00\nCUFE: fb6c6f813e218d3bf3fc5f68af21943275aab487de0c45670efc68a4eab1c0a46e6b7e88ec7a926a6bc72993c56b85a0\nhttps://catalogo-vpfe-hab.dian.gov.co/document/searchqr?documentkey=fb6c6f813e218d3bf3fc5f68af21943275aab487de0c45670efc68a4eab1c0a46e6b7e88ec7a926a6bc72993c56b85a0",
     "reqfe": "PD94bWwgdmVyc2lvbj0iMS4wIj8...",
@@ -205,7 +205,7 @@ $respofact03 = '{
     "message": "Unauthenticated."
 }';
 
-$respofact= '{
+$respofactErrorCampo = '{
     "errors": {
         "nombre_del_campo": [
             "El campo {nombre_del_campo} es obligatorio."

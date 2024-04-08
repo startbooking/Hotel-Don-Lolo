@@ -4,24 +4,28 @@ require '../../../res/fpdf/fpdf.php';
 require '../../../res/phpqrcode/qrlib.php'; 
 
 $filename = '../../../img/pms/QR_'.$prefijo.'-'.$nroFactura.'.png';
-
 $size = 100; // Tamaño en píxeles
 $level = 'L'; // Nivel de corrección (L, M, Q, H)
 
 // Generar el código QR
+//QRcode::png($QRStr, $filename, $level, $size);
 
-echo print_r($datosCompania);
 
+$aplicarete = 0;
+$aplicaiva = 0;
+$aplicaica = 0;
+  
 $datosReserva = $hotel->getReservasDatos($reserva);
 $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
-
 $horaIng = $datosReserva[0]['hora_llegada'];
 
 if ($tipofac == 2) { 
-    $datosCompania = $hotel->getSeleccionaCompania($idperfil);
-    $diasCre = $datosCompania[0]['dias_credito'];    
+  $datosCompania = $hotel->getSeleccionaCompania($idperfil);
+  $diasCre = $datosCompania[0]['dias_credito'];  
+  $aplicarete = $datosCompania[0]['retefuente'];
+  $aplicaiva  = $datosCompania[0]['reteiva'];
+  $aplicaica  = $datosCompania[0]['reteica'];
 }
- 
 $textoResol = 'RESOLUCION DIAN No.'.$resolucion.' de '.$fechaRes.' Autorizacion Pref '.$prefijo.' desde el No. '.$desde.' AL '.$hasta;
 
 $fechaFac = FECHA_PMS;
@@ -30,16 +34,21 @@ $fechaVen = strtotime('+ '.$diasCre.' day', strtotime($fechaFac));
 $fechaVen = date('Y-m-d', $fechaVen);
 
 $tipoHabitacion = $hotel->getNombreTipoHabitacion($datosReserva[0]['tipo_habitacion']);
-$folios = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserva, $nroFolio, 1);
-$pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserva, $nroFolio, 3);
-$tipoimptos = $hotel->getValorImptoFolio($nroFactura, $reserva, $nroFolio, 2);
+$folios = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserva, $folioAct, 1);
+$pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserva, $folioAct, 3);
+$tipoimptos = $hotel->getValorImptoFolio($nroFactura, $reserva, $folioAct, 2);
 $fecha = $hotel->getDatePms();
-$retenciones = $hotel->traeValorRetenciones($reserva, $nroFolio);
 
-if($datosReserva[0]['fecha_salida']> FECHA_PMS){
-    $fechaSalida = FECHA_PMS;
+if($aplicarete==1){
+  $retenciones = $hotel->traeValorRetenciones($reserva, $folioAct);
+}
+
+// echo print_r($retenciones);
+
+if($datosReserva[0]['fecha_salida'] > FECHA_PMS){
+  $fechaSalida = FECHA_PMS;
 }else{
-    $fechaSalida = $datosReserva[0]['fecha_salida'];
+  $fechaSalida = $datosReserva[0]['fecha_salida'];
 }
 
 $pdf = new FPDF();
@@ -83,7 +92,7 @@ $pdf->Ln(1);
 
 $pdf->SetFont('Arial', 'B', 8);
 if ($tipofac == 2) {
-  if (!empty($datosCompania)) {
+//   if (!empty($datosCompania)) {
     $pdf->SetFont('Arial', '', 8);
     $pdf->Cell(30, 4, 'RAZON SOCIAL', 0, 0, 'L');
     $pdf->SetFont('Arial', 'B', 8);
@@ -91,7 +100,7 @@ if ($tipofac == 2) {
     $pdf->SetFont('Arial', '', 8);
     $pdf->Cell(10, 4, 'NIT.', 0, 0, 'L');
     $pdf->SetFont('Arial', 'B', 8);
-    $pdf->Cell(30, 4, number_format($datosCompania[0]['nit'], 0).'-'.$datosCompania[0]['dv'], 0, 1, 'L');
+    $pdf->Cell(30, 4, number_format($datosCompania[0]['nit'], 0) . '-' . $datosCompania[0]['dv'], 0, 1, 'L');
     $pdf->SetFont('Arial', '', 8);
     $pdf->Cell(30, 4, 'DIRECCION', 0, 0, 'L');
     $pdf->SetFont('Arial', 'B', 8);
@@ -104,7 +113,7 @@ if ($tipofac == 2) {
     $pdf->Cell(21, 4, 'TELEFONO', 0, 0, 'L');
     $pdf->SetFont('Arial', 'B');
     $pdf->Cell(20, 4, $datosCompania[0]['telefono'], 0, 1, 'L');
-  }
+//   }
 } else {
     $pdf->SetFont('Arial', '', 8);
     $pdf->Cell(30, 4, 'CLIENTE', 0, 0, 'L');
@@ -203,35 +212,62 @@ $pdf->Cell(30, 4, 'BASE', 1, 0, 'R');
 $pdf->Cell(30, 4, 'VALOR', 1, 0, 'R');
 $pdf->Cell(60, 4, 'DETALLE', 1, 0, 'C');
 $pdf->Cell(35, 4, 'VALOR', 1, 1, 'R');
-$pdf->SetFont('Arial', '', 9);
-/* $pdf->Cell(35, 4, 'RETEFUENTE', 1, 0, 'L');
-$pdf->Cell(30, 4, number_format($baseRete, 2), 1, 0, 'R');
-$pdf->Cell(30, 4, number_format($retefuente, 2), 1, 1, 'R'); */
+
 $totRetencion = 0 ;
-foreach ($retenciones as $retencion) {
-    $pdf->Cell(35, 4, $retencion['descripcionRetencion'], 0, 0, 'L');
-    $pdf->Cell(30, 4, number_format($retencion['base'], 2), 0, 0, 'R');
-    $pdf->Cell(30, 4, number_format($retencion['retencion'], 2), 0, 1, 'R');
-    $totRetencion = $totRetencion + round($retencion['retencion']);
-}
-
-
-$pdf->Cell(35, 4, 'RETEIVA', 1, 0, 'L');
-$pdf->Cell(30, 4, number_format($baseIva, 2), 1, 0, 'R');
-$pdf->Cell(30, 4, number_format($reteiva, 2), 1, 1, 'R');
-$pdf->Cell(35, 4, 'RETEICA', 1, 0, 'L');
-$pdf->Cell(30, 4, number_format($baseIca, 2), 1, 0, 'R');
-$pdf->Cell(30, 4, number_format($reteica, 2), 1, 1, 'R');
-$pdf->SetFont('Arial', 'B', 8);
-$pdf->Cell(50, 4, 'TOTAL RETENCIONES', 1, 0, 'L');
-$pdf->Cell(45, 4, number_format($reteiva + $reteica + $totRetencion, 2), 1, 1, 'R');
 $pdf->SetFont('Arial', '', 8);
+  foreach ($retenciones as $retencion) {  
+    $pdf->Cell(35, 4, $retencion['descripcionRetencion'], 1, 0, 'L');
+    if($tipofac == 2 ){
+      if($aplicarete == 1 ){        
+        $pdf->Cell(30, 4, number_format($retencion['base'], 2), 1, 0, 'R');
+        $pdf->Cell(30, 4, number_format($retencion['retencion'], 2), 1, 1, 'R');
+        $totRetencion = $totRetencion + round($retencion['retencion']);
+      }else{
+        $pdf->Cell(30, 4, number_format(0, 2), 1, 0, 'R');
+        $pdf->Cell(30, 4, number_format(0, 2), 1, 1, 'R');
+        $totRetencion = $totRetencion + 0;
+      }      
+    }else{
+      $pdf->Cell(30, 4, number_format(0, 2), 1, 0, 'R');
+      $pdf->Cell(30, 4, number_format(0, 2), 1, 1, 'R');
+      $totRetencion = $totRetencion + 0;
+    }
+  }
+  $pdf->Cell(35, 4, 'RETEIVA', 1, 0, 'L');
+  if($tipofac == 2){
+    $pdf->Cell(30, 4, number_format($baseIva, 2), 1, 0, 'R');
+    $pdf->Cell(30, 4, number_format($reteiva, 2), 1, 1, 'R');
+  } else {
+    $baseIva = 0;
+    $reteiva = 0;
+    $pdf->Cell(30, 4, number_format($baseIva, 2), 1, 0, 'R');
+    $pdf->Cell(30, 4, number_format($reteiva, 2), 1, 1, 'R');
+  }
+  
+  $pdf->Cell(35, 4, 'RETEICA', 1, 0, 'L');
+  if($tipofac == 2){
+    $pdf->Cell(30, 4, number_format($baseIca, 2), 1, 0, 'R');
+    $pdf->Cell(30, 4, number_format($reteica, 2), 1, 1, 'R');
+  } else {
+    $baseIca = 0;
+    $reteica = 0;
+    $pdf->Cell(30, 4, number_format($baseIca, 2), 1, 0, 'R');
+    $pdf->Cell(30, 4, number_format($reteica, 2), 1, 1, 'R');
 
+  } 
+
+if($tipofac == 2 && ($aplicarete == 1 || $aplicaiva == 1 || $aplicaica == 1)){
+  $pdf->SetFont('Arial', 'B', 8);
+  $pdf->Cell(50, 4, 'TOTAL RETENCIONES', 1, 0, 'L');
+  $pdf->Cell(45, 4, number_format($reteiva + $reteica + $totRetencion, 2), 1, 1, 'R');
+} 
+$pdf->SetFont('Arial', '', 8);
 $pagos = 0;
 $pdf->setY(163);
 $pdf->setX(105);
 
 $pdf->SetFont('Arial', '', 8);
+
 foreach ($pagosfolio as $pagofolio) {
     $pdf->setX(105);
     $pagos = $pagos + $pagofolio['pagos'];
@@ -257,7 +293,7 @@ foreach ($tipoimptos as $tipoimpto) {
 }
 $pdf->Ln(1);
 $pdf->SetFont('Arial', '', 8);
-$pdf->MultiCell(190, 4, 'SON :'.numtoletras($total), 1, 'L');
+$pdf->MultiCell(190, 4, 'SON :'.numtoletras($pagos), 1, 'L');
 $pdf->SetFont('Arial', '', 6);
 $pdf->MultiCell(190, 4, utf8_decode('Factura Nro : ').$prefijo.' '.$nroFactura.' '.utf8_decode(' Fecha Validación Dian ').$timeCrea.' CUFE '.$cufe, 1, 'L');
 $pdf->SetFont('Arial', '', 7);
@@ -292,9 +328,5 @@ $oFile = 'FES-'.$prefijo.$nroFactura.'.pdf';
 
 $pdfFile = $pdf->Output('', 'S');
 $base64Factura = chunk_split(base64_encode($pdfFile));
-
-// array_push($estadofactura, $prefijo.$nroFactura.'.pdf');
-// array_push($estadofactura, $base64String);
-
 ?>
 

@@ -76,7 +76,7 @@ if ($tipofac == 1) {
 $nroFactura = $numfactura;
 $idperfil = $id;
 
-$inserta = $hotel->insertFacturaHuesped($codigo, $textpago, $valor, $refer, $reserva, $room, $idhues, $folioAct, $canti, $usuario, $idUsuario, $fecha, $numfactura, $tipofac, $id, $idcentro, $prefijo, $perfilFac, strtoupper($detalle), $baseRete, $baseIva, $baseIca, $reteiva, $reteica, $retefuente, $correofac);
+$inserta = $hotel->insertFacturaHuesped($codigo, $textopago, $valor, strtoupper($refer), $reserva, $room, $idhues, $folioAct, $canti, $usuario, $usuario_id, $fecha, $numfactura, $tipofac, $id, $idcentro, $prefijo, $perfilFac, strtoupper($detalle), $baseRete, $baseIva, $baseIca, $reteiva, $reteica, $retefuente, $correofac);
 
 $factu = $hotel->updateCargosReservaFolio($reserva, $numfactura, $folioAct, $fecha, $usuario, $idUsuario, $tipofac, $id, $perfilFac);
 
@@ -95,7 +95,8 @@ if ($tipofac == 2) {
     $dvFact = $datosCompania[0]['dv'];
     $emaFact = $datosCompania[0]['email'];
     $tdiFact = $datosCompania[0]['tipo_documento'];
-    $triFact = $datosCompania[0]['tipoResponsabilidad'];
+    $triFact = $datosCompania[0]['tipoResponsabilidad']; 
+    
     // $dirFact = $datosCompania[0]['direccion'];
     // $telFact = $datosCompania[0]['telefono'];
     // $merFact = '0000000-00';
@@ -401,7 +402,7 @@ if ($perfilFac == 1 && $facturador == 1) {
 
     $respo = '';
 
-    $regis = $hotel->ingresaDatosFe($nroFactura, $prefijo, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cufe, $QRStr, $respofact, $Isvalid, $eFact, $errorMessage, $statusCode, $statusDesc, $statusMess);
+    $regis = $hotel->ingresaDatosFe($nroFactura, $prefijo, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cufe, $QRStr, '', $Isvalid, '', $errorMessage, $statusCode, $statusDesc, $statusMess);
 
     include_once '../../imprimir/imprimeFactura.php';
 

@@ -54,14 +54,7 @@ if ($perfil == 1 && $facturador == 1) {
         $dvFact = $datosCompania[0]['dv'];
         $emaFact = $datosCompania[0]['email'];
         $tdiFact = $datosCompania[0]['tipo_documento'];
-        $tdiFact = $datosCompania[0]['tipoResponsabilidad'];
-        /* $dirFact = utf8_decode($datosCompania[0]['direccion']);
-        $telFact = $datosCompania[0]['telefono'];
-        $merFact = '0000000-00';
-        $torFact = $datosCompania[0]['tipoAdquiriente'];
-        $tliFact = $hotel->traeIdResponsabilidadDianVenta($datosCompania[0]['responsabilidadTributaria']);
-        $munFact = $datosCompania[0]['ciudad'];
-        $triFact = 1; */
+        $triFact = $datosCompania[0]['tipoResponsabilidad'];
     } else {
         $datosHuesped = $hotel->getbuscaDatosHuesped($idperfil);
         $nitFact = $datosHuesped[0]['identificacion'];

@@ -20,7 +20,7 @@ $mDia = date('d',$oFecha);
 $datosCompania = $hotel->getSeleccionaCompania($datosReserva[0]['id_compania']);
 $tipoHabitacion = $hotel->getNombreTipoHabitacion($datosReserva[0]['tipo_habitacion']);
 
-echo print_r($datosCompania);
+// echo print_r($datosCompania);
 
 $credito = 0;
 $dias = 0;

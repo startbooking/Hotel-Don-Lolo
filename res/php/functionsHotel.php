@@ -834,9 +834,9 @@ class Hotel_Actions{
         global $database;
         
         $data = $database->query("SELECT
-        SUM(a.monto_cargo) AS monto,
-        SUM(a.base_impuesto) AS base,
-        SUM(a.impuesto) as impto,
+        ROUND(SUM(a.monto_cargo),0) AS monto,
+        ROUND(SUM(a.base_impuesto),0) AS base,
+        ROUND(SUM(a.impuesto),0) as impto,
         a.valor_cargo, 
         b.descripcionRetencion, 
         b.porcentajeRetencion,
@@ -852,6 +852,7 @@ class Hotel_Actions{
         numero_reserva = $nroReserva 
         AND folio_cargo = $nroFolio 
         AND cargo_anulado = 0
+        AND numero_factura = 0
     GROUP BY
     c.idRetencion
     ORDER BY

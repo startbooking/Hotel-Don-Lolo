@@ -38,7 +38,6 @@ $codigo = $pagosfolio[0]['id_codigo_cargo'];
 
 if ($perfil == 1 && $facturador == 1) {
     $datosFact = $hotel->traeDatosFE($numero);
-
     $uuid = $datosFact[0]['cufe'];
     
     $eNote = [];
@@ -48,27 +47,23 @@ if ($perfil == 1 && $facturador == 1) {
     $eInvo = [];
 
     if ($tipofac == 2) {
-        $datosCompania = $hotel->getSeleccionaCompania($idperfil);
-        $diasCre = $datosCompania[0]['dias_credito'];
-        $nomFact = utf8_decode($datosCompania[0]['empresa']);
-        $nitFact = $datosCompania[0]['nit'];
-        $dvFact = $datosCompania[0]['dv'];
-        $dirFact = utf8_decode($datosCompania[0]['direccion']);
-        $telFact = $datosCompania[0]['telefono'];
-        $emaFact = $datosCompania[0]['email'];
-        $merFact = '0000000-00';
-        $tdiFact = $datosCompania[0]['tipo_documento'];
-        $torFact = $datosCompania[0]['tipoAdquiriente'];
-        $tliFact = $hotel->traeIdResponsabilidadDianVenta($datosCompania[0]['responsabilidadTributaria']);
-        $munFact = $datosCompania[0]['ciudad'];
-        $triFact = 1;
+      $datosCompania = $hotel->getSeleccionaCompania($idperfil);
+      $diasCre = $datosCompania[0]['dias_credito'];
+      $nomFact = $datosCompania[0]['empresa'];
+      $nitFact = $datosCompania[0]['nit'];
+      $dvFact  = $datosCompania[0]['dv'];
+      $emaFact = $datosCompania[0]['email'];
+      $tdiFact = $datosCompania[0]['tipo_documento'];
+      $triFact = $datosCompania[0]['tipoResponsabilidad'];    
     } else {
-        $datosHuesped = $hotel->getbuscaDatosHuesped($idperfil);
-        $nitFact = $datosHuesped[0]['identificacion'];
-        $dvFact = '';
-        $nomFact = utf8_decode($datosHuesped[0]['nombre1'] . ' ' . $datosHuesped[0]['nombre2'] . ' ' . $datosHuesped[0]['apellido1'] . ' ' . $datosHuesped[0]['apellido2']);
-        $telFact = $datosHuesped[0]['telefono'];
-        $emaFact = $datosHuesped[0]['email'];
+      $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
+      $nitFact = $datosHuesped[0]['identificacion'];
+      $dvFact  = '';
+      $nomFact = $datosHuesped[0]['nombre1'] . ' ' . $datosHuesped[0]['nombre2'] . ' ' . $datosHuesped[0]['apellido1'] . ' ' . $datosHuesped[0]['apellido2'];
+      $emaFact = $datosHuesped[0]['email'];
+      $tdiFact = $datosHuesped[0]['tipo_identifica'];
+      $triFact = $datosHuesped[0]['tipoResponsabilidad'];
+    
     }
 
     $eBill['number'] = strval($dFactura[0]['factura_numero']);

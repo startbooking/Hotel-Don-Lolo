@@ -4237,7 +4237,6 @@ function anulaFactura() {
   });
 }
 
-
 function verDepositos(reserva) {
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
@@ -4876,6 +4875,7 @@ async function apagaselecomp(tipo) {
   var reteFte = 0;
   var reteIva = 0;
   var reteIca = 0;
+  let totCta = 0
 
   if (tipo == "2") {
     if (idCiaFac == "0") {
@@ -4890,16 +4890,18 @@ async function apagaselecomp(tipo) {
     $(".retencion").removeClass("apaga");
     
     valorRetencion = await valorRetencionesFolio(nroReserva, nroFolio);
+    
+    console.log();
+    
     totalRteFte = parseInt($("#baseRetenciones").val());
     totalImpto = parseInt($("#totalIva").val());
     totalBaseImpto = parseInt($("#totalBaseIva").val());
-    reteCia = await traeRetencionesCia(idCiaFac);
+    let reteCia = await traeRetencionesCia(idCiaFac);
     retenciones = await traeRetenciones();
     
     let valbase = 0;
     let valrete = 0;
-    
-    
+        
     valorRetencion.map((valor) => {
       let { base, retencion} = valor;
       valbase = valbase+base;
@@ -4953,9 +4955,11 @@ async function apagaselecomp(tipo) {
     $("#totalReteica").val(reteIca);
     $("#totalRetefuente").val(reteFte);
 
-    setTimeout(function () {
+    /* setTimeout(function () {
       sumaTotales();
-    }, 1000);
+    }, 1000); */
+    totCta = await sumaTotales();
+    
   } else {
     $(".retencion").addClass("apaga");
     $("#selecentro").css("display", "none");
@@ -4966,8 +4970,7 @@ async function apagaselecomp(tipo) {
     $("#totalReteiva").val(0);
     $("#totalReteica").val(0);
     $("#totalRetefuente").val(0);
-
-    sumaTotales();
+    totCta = await sumaTotales();
   }
 }
 
@@ -4998,11 +5001,12 @@ function sumaTotales() {
   toAbo = parseFloat($("#totalAbono").val());
   toRiv = parseFloat($("#totalReteiva").val());
   toRic = parseFloat($("#totalReteica").val());
-  toFue = parseFloat($("#totalRetefuente").val());
-  totGen = toCon + toImp - toAbo - toRiv - toRic - toFue;
-  $("#total").val(number_format(totGen, 2));
+  toFue = parseFloat($("#totalRetefuente").val()); 
+  totGen = toCon + toImp - (toAbo + toRiv + toRic + toFue);
   $("#SaldoFolioActual").val(totGen);
   $("#txtValorPago").val(totGen);
+  $("#total").val(totGen);
+  
 }
 
 const traeRetencionesCia = async (idcia) => {
@@ -5916,7 +5920,7 @@ async function salidaHuesped() {
     
     let facturado = await enviaPago(parametros);
     let { error, mensaje, factura, perfil, errorDian, archivo, folio } = facturado[0];
-    console.log(facturado);
+    // console.log(facturado);
     
     if(error == "1"){   
       if(errorDian==1){
@@ -5962,72 +5966,8 @@ async function salidaHuesped() {
           }
         );
       }
-    }
-    
-    /* $.ajax({
-      type: "POST",
-      url: web + "res/php/ingresoPago.php",
-      dataType: "json",
-      data: parametros,
-      success: function (data) {      
-        data = JSON.parse($.trim(data));
-        let {error, mensaje, folio, archivo } = data;  
-        if(error=="1"){
-          mensajeStr = JSON.stringify(mensaje)
-          mensajeError =  document.querySelector('#mensajeSalida');
-          mensajeError.innerHTML= ''
-          mensajeError.innerHTML= `
-          <h3 class="alert alert-warning" style="color:black !important">
-          <i class="fa-solid fa-circle-exclamation fa-2x" style="color:red;"></i>
-          Precaucion, Factura no Procesada <br><span style="font-size:20px;"> ${mensajeStr} </span></h3>`
-          
-          let anulaFact = await anulaFacturaEnvio(data)
-          
-        }else{
-          if (facturador == 1) {
-            ruta = "imprimir/facturas/FES-";
-          } else {
-            ruta = "imprimir/notas/";
-          }
-          var ventana = window.open(
-            ruta + archivo,
-            "PRINT",
-            "height=600,width=600"
-          );
-  
-          if (folio == "0") {
-            swal(
-              {
-                title: "Atencion !",
-                text: "Salida del Huesped Realizada con Exito !",
-                type: "success",
-                confirmButtonText: "Aceptar",
-                closeOnConfirm: true,
-              },
-              function () {
-                $(location).attr(ingresoPago"href", "facturacionEstadia");
-              }
-            );
-          } else {
-            swal(
-              {
-                title: "Precaucion !",
-                text: "La Cuenta Actual Presenta Folios con Saldos !",
-                type: "success",
-                confirmButtonText: "Aceptar",
-                closeOnConfirm: true,
-              },
-              function () {
-                $("#myModalSalidaHuesped").modal("hide");
-                activaFolio(reserva, folio);
-              }
-            );
-          }
-        }
-      },
-    }); */
+    }        
   }
-  
 }
 
 async function muestraError(cErrors){
