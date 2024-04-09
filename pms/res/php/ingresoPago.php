@@ -226,7 +226,7 @@ if ($perfilFac == 1 && $facturador == 1) {
         }else{
             $invo = [
                 'unit_measure_id' => $hotel->traeTipoUnidadDianVenta($folio1['id_codigo_cargo']),
-                'invoiced_quantity' => 1,
+                'invoiced_qsinBaseReteuantity' => 1,
                 'line_extension_amount' => $folio1['cargos'],
                 'free_of_charge_indicator' => false,
                 'description' => $folio1['descripcion_cargo'],

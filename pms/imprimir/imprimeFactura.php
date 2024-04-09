@@ -25,6 +25,7 @@ if ($tipofac == 2) {
   $aplicarete = $datosCompania[0]['retefuente'];
   $aplicaiva  = $datosCompania[0]['reteiva'];
   $aplicaica  = $datosCompania[0]['reteica'];
+  $sinBaseRete  = $datosCompania[0]['sinBaseRete'];
 }
 $textoResol = 'RESOLUCION DIAN No.'.$resolucion.' de '.$fechaRes.' Autorizacion Pref '.$prefijo.' desde el No. '.$desde.' AL '.$hasta;
 
@@ -39,11 +40,9 @@ $pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserv
 $tipoimptos = $hotel->getValorImptoFolio($nroFactura, $reserva, $folioAct, 2);
 $fecha = $hotel->getDatePms();
 
-if($aplicarete==1){
-  $retenciones = $hotel->traeValorRetenciones($reserva, $folioAct);
+if($aplicarete==1 ){
+  $retenciones = $hotel->traeValorRetenciones($reserva, $folioAct, $nroFactura);
 }
-
-// echo print_r($retenciones);
 
 if($datosReserva[0]['fecha_salida'] > FECHA_PMS){
   $fechaSalida = FECHA_PMS;
@@ -245,7 +244,7 @@ $pdf->SetFont('Arial', '', 8);
   }
   
   $pdf->Cell(35, 4, 'RETEICA', 1, 0, 'L');
-  if($tipofac == 2){
+  if($tipofac == 2){  
     $pdf->Cell(30, 4, number_format($baseIca, 2), 1, 0, 'R');
     $pdf->Cell(30, 4, number_format($reteica, 2), 1, 1, 'R');
   } else {
@@ -253,7 +252,6 @@ $pdf->SetFont('Arial', '', 8);
     $reteica = 0;
     $pdf->Cell(30, 4, number_format($baseIca, 2), 1, 0, 'R');
     $pdf->Cell(30, 4, number_format($reteica, 2), 1, 1, 'R');
-
   } 
 
 if($tipofac == 2 && ($aplicarete == 1 || $aplicaiva == 1 || $aplicaica == 1)){

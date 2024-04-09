@@ -48,7 +48,7 @@
               <div class="btn-group" role="group" aria-label="Basic example">
               <?php 
                 if($folio1['factura_numero']==0){
-                  if($folio1['fecha_cargo']==FECHA_PMS OR $nrohabi == '9500'){ ?>
+                  if($nrohabi !== '9500'){ ?>
                     <button 
                       style="display:block"
                       id="btnAnulaCargo"

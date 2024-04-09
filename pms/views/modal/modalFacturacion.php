@@ -1,20 +1,20 @@
 <?php
 $cias = $hotel->getCompanias();
-?> 
+?>
 
-<div class="modal fade" id="myModalCargosConsumo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">  
+<div class="modal fade" id="myModalCargosConsumo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <form id="guardarDatosRooms" class="form-horizontal" action="javascript:ingresaConsumos()" method="POST" enctype="multipart/form-data">
     <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
       <div class="modal-dialog modal-md" role="document">
-        <div class="modal-content"> 
-          <div class="modal-header"> 
+        <div class="modal-content">
+          <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span class="glyphicon glyphicon-off"></span>
-            </button> 
+              <span class="glyphicon glyphicon-off"></span>
+            </button>
             <h3 class="modal-title" id="exampleModalLabel">Ingreso Consumos</h3>
           </div>
-          <div id="mensaje"> 
-          </div> 
+          <div id="mensaje">
+          </div>
           <div class="modal-body">
             <input type="hidden" name="reservaActual" id="reservaActual" value="">
             <input type="hidden" name="txtIdHuespedDep" id="idHuespedSal" value="">
@@ -22,7 +22,7 @@ $cias = $hotel->getCompanias();
             <div class="form-group">
               <label class="control-label col-xs-2">Habitacion</label>
               <div class="col-xs-2">
-                <input class="form-control padInput" type="text" name='txtNumeroHabCon' id='txtNumeroHabCon' readonly> 
+                <input class="form-control padInput" type="text" name='txtNumeroHabCon' id='txtNumeroHabCon' readonly>
               </div>
               <label class="control-label col-xs-2">Huesped</label>
               <div class="col-xs-6">
@@ -32,15 +32,15 @@ $cias = $hotel->getCompanias();
             <div class="divs divDeposito">
               <div class="form-group">
                 <label class="control-label col-xs-3" for="codigoConsumo">Codigo Consumo</label>
-                <div class="col-lg-9 col-xs-9" >
+                <div class="col-lg-9 col-xs-9">
                   <select name="codigoConsumo" id="codigoConsumo" required>
                     <option value="">Seleccione Concepto</option>
                     <?php
-                      $codigos = $hotel->getCodigosConsumos(1);
-                      foreach ($codigos as $codigo) { ?>
-                        <option value="<?php echo $codigo['id_cargo']; ?>"><?php echo $codigo['descripcion_cargo']; ?></option>
-                        <?php
-                      }
+                    $codigos = $hotel->getCodigosConsumos(1);
+                    foreach ($codigos as $codigo) { ?>
+                      <option value="<?php echo $codigo['id_cargo']; ?>"><?php echo $codigo['descripcion_cargo']; ?></option>
+                    <?php
+                    }
                     ?>
                   </select>
                 </div>
@@ -52,7 +52,7 @@ $cias = $hotel->getCompanias();
                 </div>
                 <label for="txtValorConsumo" class="col-sm-2 control-label">Valor Cargo</label>
                 <div class="col-sm-5">
-                  <input class="form-control padInput" type="number" name="txtValorConsumo" id="txtValorConsumo" value="" required>
+                  <input class="form-control padInput" type="number" name="txtValorConsumo" id="txtValorConsumo" value="" min="1" required>
                 </div>
               </div>
               <div class="form-group">
@@ -71,17 +71,17 @@ $cias = $hotel->getCompanias();
                   <input class="form-control padInput" type="text" name="txtDetalleCargo" id="txtDetalleCargo" value='' placeholder="Informacion del Consumo ">
                 </div>
               </div>
-            </div>          
+            </div>
           </div>
           <div class="modal-footer">
             <div class="row">
-              <div class="col-xs-6 col-xs-offset-3" >
+              <div class="col-xs-6 col-xs-offset-3">
                 <div class="col-xs-6">
                   <button type="button" class="btn btn-warning btn-block" data-dismiss="modal"><I class="fa fa-reply"></I> Regresar</button>
                 </div>
                 <div class="col-xs-6">
                   <button class="btn btn-primary btn-block"><I class="fa fa-save"></I> Procesar</button>
-                </div>                
+                </div>
               </div>
             </div>
           </div>
@@ -90,16 +90,16 @@ $cias = $hotel->getCompanias();
     </div>
   </form>
 </div>
- 
-<div class="modal fade" id="myModalAjusteConsumo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"> 
+
+<div class="modal fade" id="myModalAjusteConsumo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <form id="guardarDatosRooms" class="form-horizontal" action="javascript:ingresaAjuste()" method="POST" enctype="multipart/form-data">
     <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
       <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
-          <div class="modal-header"> 
+          <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span class="glyphicon glyphicon-off"></span>
-            </button> 
+              <span class="glyphicon glyphicon-off"></span>
+            </button>
             <h3 class="modal-title" id="exampleModalLabel">Ajustes Consumos</h3>
           </div>
           <div id="mensaje">
@@ -111,7 +111,7 @@ $cias = $hotel->getCompanias();
             <div class="form-group">
               <label class="control-label col-lg-2">Habit.</label>
               <div class="col-lg-2 col-xs-2">
-                <input class="form-control padInput" type="text" name='txtNumeroHabAju' id='txtNumeroHabAju' readonly> 
+                <input class="form-control padInput" type="text" name='txtNumeroHabAju' id='txtNumeroHabAju' readonly>
               </div>
             </div>
             <div class="form-group">
@@ -127,15 +127,15 @@ $cias = $hotel->getCompanias();
             <div class="divs divDeposito">
               <div class="form-group">
                 <label class="control-label col-lg-3" for="codigoConsumo">Codigo Consumo</label>
-                <div class="col-lg-9 col-xs-" >
+                <div class="col-lg-9 col-xs-">
                   <select name="codigoAjuste" id="codigoAjuste" required>
                     <option value="">Seleccione el Ajuste</option>
                     <?php
-                      $codigos = $hotel->getCodigosConsumos(4);
-                      foreach ($codigos as $codigo) { ?>
-                        <option value="<?php echo $codigo['id_cargo']; ?>"><?php echo $codigo['descripcion_cargo']; ?></option>
-                        <?php
-                      }
+                    $codigos = $hotel->getCodigosConsumos(4);
+                    foreach ($codigos as $codigo) { ?>
+                      <option value="<?php echo $codigo['id_cargo']; ?>"><?php echo $codigo['descripcion_cargo']; ?></option>
+                    <?php
+                    }
                     ?>
                   </select>
                 </div>
@@ -166,17 +166,17 @@ $cias = $hotel->getCompanias();
                   <input class="form-control padInput" type="text" name="txtDetalleAjuste" id="txtDetalleAjuste" value='' placeholder="Informacion del Ajuste " required="">
                 </div>
               </div>
-            </div>          
+            </div>
           </div>
           <div class="modal-footer">
             <div class="row">
-              <div class="col-lg-6 col-lg-offset-3" >
+              <div class="col-lg-6 col-lg-offset-3">
                 <div class="col-lg-6">
                   <button type="button" class="btn btn-warning btn-block" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
                 </div>
                 <div class="col-lg-6">
                   <button class="btn btn-primary btn-block"><i class="fa fa-save"></i> Procesar</button>
-                </div>                
+                </div>
               </div>
             </div>
           </div>
@@ -185,7 +185,7 @@ $cias = $hotel->getCompanias();
     </div>
   </form>
 </div>
- 
+
 <div class="modal fade" id="myModalAbonosConsumos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <form id="abonosReserva" class="form-horizontal" action="javascript:ingresaAbonos()" method="POST" enctype="multipart/form-data">
     <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
@@ -193,8 +193,8 @@ $cias = $hotel->getCompanias();
         <div class="modal-content">
           <div class="modal-header"> #ae0505
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span class="glyphicon glyphicon-off"></span>
-            </button> 
+              <span class="glyphicon glyphicon-off"></span>
+            </button>
             <h3 class="modal-title" id="exampleModalLabel">Abonos a Cuenta</h3>
           </div>
           <div id="datos_ajax_register"></div>
@@ -217,15 +217,15 @@ $cias = $hotel->getCompanias();
             <div class="divs divDeposito">
               <div class="form-group">
                 <label class="control-label col-xs-3" for="codigoConsumo">Codigo Abono</label>
-                <div class="col-lg-9 col-xs-9" >
+                <div class="col-lg-9 col-xs-9">
                   <select name="codigoAbono" id="codigoAbono" required>
                     <option value="">Seleccione Concepto</option>
                     <?php
-                      $codigos = $hotel->getCodigosConsumos(3);
-                      foreach ($codigos as $codigo) { ?>
-                        <option value="<?php echo $codigo['id_cargo']; ?>"><?php echo $codigo['descripcion_cargo']; ?></option>
-                        <?php
-                      }
+                    $codigos = $hotel->getCodigosConsumos(3);
+                    foreach ($codigos as $codigo) { ?>
+                      <option value="<?php echo $codigo['id_cargo']; ?>"><?php echo $codigo['descripcion_cargo']; ?></option>
+                    <?php
+                    }
                     ?>
                   </select>
                 </div>
@@ -248,17 +248,17 @@ $cias = $hotel->getCompanias();
                   <input class="form-control padInput" type="text" name="txtDetalleAbo" id="txtDetalleAbo" value='' placeholder="Informacion del Abono ">
                 </div>
               </div>
-            </div>          
+            </div>
           </div>
           <div class="modal-footer">
             <div class="row">
-              <div class="col-xs-6 col-xs-offset-3" >
+              <div class="col-xs-6 col-xs-offset-3">
                 <div class="col-xs-6">
                   <button type="button" class="btn btn-warning btn-block" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
                 </div>
                 <div class="col-xs-6">
                   <button class="btn btn-primary btn-block"><i class="fa fa-save"></i> Procesar</button>
-                </div>                
+                </div>
               </div>
             </div>
           </div>
@@ -266,17 +266,17 @@ $cias = $hotel->getCompanias();
       </div>
     </div>
   </form>
-</div> 
+</div>
 
 <div class="modal fade" id="myModalEstadoCuenta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <form id="guardarDatosRooms" class="form-horizontal" action="javascript:imprimeEstadoCuenta()" method="POST" enctype="multipart/form-data">
     <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-          <div class="modal-header"> 
+          <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span class="glyphicon glyphicon-off"></span>
-            </button> 
+              <span class="glyphicon glyphicon-off"></span>
+            </button>
             <h3 class="modal-title" id="exampleModalLabel">Estado de Cuenta</h3>
           </div>
           <div id="datos_ajax_register"></div>
@@ -300,55 +300,55 @@ $cias = $hotel->getCompanias();
                 <input style="font-size:11px;" class="form-control padInput" type="text" name="txtNombresEst" id='txtNombresEst' value='0' readonly>
               </div>
             </div>
-            <div class="divs" id="divConsumos" >
-              <object id="verEstadoCuenta" width="100%" height="350" data=""></object> 
-            </div>          
+            <div class="divs" id="divConsumos">
+              <object id="verEstadoCuenta" width="100%" height="350" data=""></object>
+            </div>
           </div>
           <div class="modal-footer" style="text-align: center">
             <button style="width: 25%" type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
           </div>
         </div>
       </div>
-    </div> 
+    </div>
   </form>
-</div> 
- 
+</div>
+
 <div class="modal fade" id="myModalSalidaHuesped" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <form id="guardarPagosRoomSal" class="form-horizontal" action="javascript:salidaHuesped()" method="POST" enctype="multipart/form-data">
     <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
       <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
-          <div class="modal-header"> 
+          <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span class="glyphicon glyphicon-off"></span>
-            </button> 
+              <span class="glyphicon glyphicon-off"></span>
+            </button>
             <h3 class="modal-title" id="exampleModalLabel">Salida Huesped</h3>
-          </div> 
-          <div id="mensajeSal"></div> 
-          <div class="modal-body">                    
+          </div>
+          <div id="mensajeSal"></div>
+          <div class="modal-body">
             <input type="hidden" name="txtIdReservaSal" id="txtIdReservaSal" value="">
             <input type="hidden" name="txtIdHuespedSal" id="txtIdHuespedSal" value="">
             <input type="hidden" name="txtImptoTuriSal" id="txtImptoTuriSal" value="">
             <input type="hidden" name="txtIdCiaSal" id="txtIdCiaSal" value="">
-            <input type="hidden" name="txtIdCentroCiaSal" id="txtIdCentroCiaSal" value=""> 
+            <input type="hidden" name="txtIdCentroCiaSal" id="txtIdCentroCiaSal" value="">
             <input type="hidden" name="creditoCia" id="creditoCia" value="0">
             <input type="hidden" name="diasCreditoCia" id="diasCreditoCia" value="0">
-            <input type="hidden" name="credito" id="credito" value="0">            
+            <input type="hidden" name="credito" id="credito" value="0">
             <input type="hidden" name="perfilFactura" id="perfilFactura" value="0">
             <input type="hidden" name="retencionCia" id="retencionCia" value=''>
-            <div class="form-group"> 
+            <div class="form-group">
               <label style="margin-top: 3px;" for="llegada" class="col-sm-2 control-label">Facturar A </label>
               <div class="col-sm-6" style="padding:0;height: 30px">
                 <div class="col-sm-6">
                   <div class="form-check form-check-inline">
                     <input style="margin-top:5px" class="form-check-input" type="radio" name="habitacionOptionCon" for="inlineRadio1" id="inlineRadio1" value="1" onclick="apagaselecomp(this.value)" selected>
-                    <label style="margin-top:-20px;margin-left:25px" class="form-check-label" for="inlineRadio1" >Huesped</label>
-                  </div>                     
+                    <label style="margin-top:-20px;margin-left:25px" class="form-check-label" for="inlineRadio1">Huesped</label>
+                  </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="form-check form-check-inline">
                     <input style="margin-top:5px" class="form-check-input" type="radio" name="habitacionOptionCon" for="inlineRadio2" id="inlineRadio2" value="2" onclick="apagaselecomp(this.value)">
-                    <label style="margin-top:-20px;margin-left:25px" class="form-check-label" for="inlineRadio2" >Compañia</label>
+                    <label style="margin-top:-20px;margin-left:25px" class="form-check-label" for="inlineRadio2">Compañia</label>
                   </div>
                 </div>
               </div>
@@ -358,19 +358,19 @@ $cias = $hotel->getCompanias();
               <div class="col-lg-8 col-xs-8">
                 <select name="txtIdCiaSal" id="txtIdCiaSal" readonly disabled>
                   <?php
-                    foreach ($cias as $key => $value) { ?> 
-                      <option value="<?php echo $value['id_compania']; ?>"><?php echo $value['empresa']; ?></option>
-                      <?php
-                    }
+                  foreach ($cias as $key => $value) { ?>
+                    <option value="<?php echo $value['id_compania']; ?>"><?php echo $value['empresa']; ?></option>
+                  <?php
+                  }
                   ?>
                 </select>
               </div>
-            </div>            
+            </div>
             <div class="form-group" id="selecomp">
               <label class="control-label col-xs-2">Titular</label>
               <div class="col-lg-8 col-xs-8">
                 <select class="form-control" name="titular" id="titular" style="padding:3px 12px;" onchange="cambiaTitular()" required>
-                  <option value="">Seleccione El Titular de la Factura</option>         
+                  <option value="">Seleccione El Titular de la Factura</option>
                 </select>
               </div>
             </div>
@@ -386,14 +386,14 @@ $cias = $hotel->getCompanias();
             </div>
             <div id="mensajeSalida" class="centro apaga">
               <div class="alert alert-warning mt-10 mb-0 pd-5">
-                <i class="ion ion-ios-gear-outline fa-spin fa-3x" style="color:#ae0505"></i> 
+                <i class="ion ion-ios-gear-outline fa-spin fa-3x" style="color:#ae0505"></i>
                 <h3 class="mt-10">Procesando Factura Informacion, NO interrumpir</h3>
               </div>
             </div>
             <div id="estadoCuenta"></div>
           </div>
           <div class="modal-footer">
-            <div class="btn-group">              
+            <div class="btn-group">
               <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
               <button type="submit" class="btn btn-primary btnSalida"><i class="fa fa-save"></i> Procesar </button>
             </div>
@@ -402,22 +402,22 @@ $cias = $hotel->getCompanias();
       </div>
     </div>
   </form>
-</div>  
+</div>
 
 <div class="modal fade" id="myModalSaldoHuesped" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <form id="guardarDatosRooms" class="form-horizontal" action="javascript:ingresaAbonos()" method="POST" enctype="multipart/form-data">
     <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
       <div class="modal-dialog modal-md" role="document" id="">
         <div class="modal-content">
-          <div class="modal-header"> 
+          <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span class="glyphicon glyphicon-off"></span>
-            </button> 
+              <span class="glyphicon glyphicon-off"></span>
+            </button>
             <h3 class="modal-title" id="exampleModalLabel">Estado Cuenta</h3>
             <input type="hidden" name="txtIdReservaSaldo" id="txtIdReservaSaldo" value="">
             <input type="hidden" name="txtIdHuespedSaldo" id="txtIdHuespedSaldo" value="">
             <input type="hidden" name="txtImptoTuriSaldo" id="txtImptoTuriSaldo" value="">
-          </div> 
+          </div>
           <div class="modal-body">
             <div id="saldoHuesped" style="margin :-20px 0 -30px 0;font-size: 12px"></div>
           </div>
@@ -434,11 +434,11 @@ $cias = $hotel->getCompanias();
   <form id="guardarDatosRooms" class="form-horizontal" action="javascript:anulaConsumos()" method="POST" enctype="multipart/form-data">
     <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
       <div class="modal-dialog modal-md" role="document" id="saldoHuesped">
-        <div class="modal-content"> 
-          <div class="modal-header"> 
+        <div class="modal-content">
+          <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span class="glyphicon glyphicon-off"></span>
-            </button> 
+              <span class="glyphicon glyphicon-off"></span>
+            </button>
             <h3 class="modal-title" id="exampleModalLabel">Anular Cargo</h3>
           </div>
           <div id="datos_ajax_register"></div>
@@ -469,15 +469,15 @@ $cias = $hotel->getCompanias();
                 <div class="col-sm-3">
                   <input class="form-control padInput" style="text-align: right;" type="text" name="txtValorTotalAnu" id="txtValorTotalAnu" readonly disabled="">
                 </div>
-              </div>              
+              </div>
             </div>
-            <div id="divPagos" >
+            <div id="divPagos">
               <div class="form-group">
                 <label for="txtValorConsumo" class="col-sm-3 control-label">Valor Pago</label>
                 <div class="col-sm-3">
                   <input class="form-control padInput" style="text-align: right;" type="text" name="txtPagoConsumoAnu" id="txtPagoConsumoAnu" readonly disabled="">
-                </div>                
-              </div>              
+                </div>
+              </div>
             </div>
             <div class="form-group">
               <label for="txtReferenciaAnu" class="col-sm-3 control-label">Referencia</label>
@@ -500,13 +500,13 @@ $cias = $hotel->getCompanias();
           </div>
           <div class="modal-footer">
             <div class="row">
-              <div class="col-xs-6 col-xs-offset-3" >
+              <div class="col-xs-6 col-xs-offset-3">
                 <div class="col-lg-6 col-xs-6">
                   <button type="button" class="btn btn-warning btn-block" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
                 </div>
                 <div class="col-lg-6 col-xs-6">
                   <button class="btn btn-primary btn-block"><i class="fa fa-save"></i> Procesar</button>
-                </div>                
+                </div>
               </div>
             </div>
           </div>
@@ -521,10 +521,10 @@ $cias = $hotel->getCompanias();
     <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
       <div class="modal-dialog modal-md" role="document" id="saldoHuesped">
         <div class="modal-content">
-          <div class="modal-header"> 
+          <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span class="glyphicon glyphicon-off"></span>
-            </button> 
+              <span class="glyphicon glyphicon-off"></span>
+            </button>
             <h3 class="modal-title" id="exampleModalLabel">Anular Cargo</h3>
           </div>
           <div id="mensajeAnu"></div>
@@ -568,17 +568,17 @@ $cias = $hotel->getCompanias();
               <div class="col-sm-2">
                 <input class="form-control padInput" type="number" name="txtFolioMov" id="txtFolioMov" value="1" min="1" max="4">
               </div>
-            </div> 
+            </div>
           </div>
           <div class="modal-footer">
             <div class="row">
-              <div class="col-lg-6 col-lg-offset-3 col-xs-6 col-xs-offset-3" >
+              <div class="col-lg-6 col-lg-offset-3 col-xs-6 col-xs-offset-3">
                 <div class="col-lg-6 col-xs-6">
                   <button type="button" class="btn btn-warning btn-block" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
                 </div>
                 <div class="col-lg-6 col-xs-6">
                   <button class="btn btn-primary btn-block"><i class="fa fa-save"></i> Procesar</button>
-                </div>                
+                </div>
               </div>
             </div>
           </div>
@@ -593,10 +593,10 @@ $cias = $hotel->getCompanias();
     <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
       <div class="modal-dialog modal-md" role="document" id="saldoHuespedTras">
         <div class="modal-content">
-          <div class="modal-header"> 
+          <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span class="glyphicon glyphicon-off"></span>
-            </button> 
+              <span class="glyphicon glyphicon-off"></span>
+            </button>
             <h3 class="modal-title" id="exampleModalLabel">Anular Cargo</h3>
           </div>
           <div id="mensajeAnu"></div>
@@ -632,7 +632,7 @@ $cias = $hotel->getCompanias();
               <div class="col-sm-8">
                 <input class="form-control padInput" type="text" name="txtReferenciaTras" id="txtReferenciaTras" readonly disabled="">
               </div>
-            </div>              
+            </div>
             <div class="form-group">
               <label for="txtDetalleCargoAnu" class="col-sm-3 control-label">Comentarios</label>
               <div class="col-sm-8">
@@ -646,11 +646,11 @@ $cias = $hotel->getCompanias();
                 <select name="roomChange" id="roomChange" required="">
                   <option value="">Seleccione la Nueva Habitacion</option>
                   <?php
-                    $encasas = $hotel->getHuespedesenCasa(2, 'CA');
-                    foreach ($encasas as $encasa) { ?>
-                      <option value="<?php echo $encasa['num_reserva']; ?>"><?php echo $encasa['num_habitacion'].' '.$encasa['apellido1'].' '.$encasa['apellido2'].' '.$encasa['nombre1'].' '.$encasa['nombre2']; ?></option>
-                      <?php
-                    }
+                  $encasas = $hotel->getHuespedesenCasa(2, 'CA');
+                  foreach ($encasas as $encasa) { ?>
+                    <option value="<?php echo $encasa['num_reserva']; ?>"><?php echo $encasa['num_habitacion'] . ' ' . $encasa['apellido1'] . ' ' . $encasa['apellido2'] . ' ' . $encasa['nombre1'] . ' ' . $encasa['nombre2']; ?></option>
+                  <?php
+                  }
                   ?>
                 </select>
               </div>
@@ -660,24 +660,24 @@ $cias = $hotel->getCompanias();
               <div class="col-sm-8">
                 <input class="form-control padInput" type="text" name="txtMotivoTras" id="txtMotivoTras" required="">
               </div>
-            </div> 
+            </div>
           </div>
           <div class="modal-footer">
             <div class="row">
-              <div class="col-lg-6 col-lg-offset-3 col-xs-6 col-xs-offset-3" >
+              <div class="col-lg-6 col-lg-offset-3 col-xs-6 col-xs-offset-3">
                 <div class="col-lg-6 col-xs-6">
                   <button type="button" class="btn btn-warning btn-block" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
                 </div>
                 <div class="col-lg-6 col-xs-6">
                   <button class="btn btn-primary btn-block"><i class="fa fa-save"></i> Procesar</button>
-                </div>                
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </form>  
+  </form>
 </div>
 
 <div class="modal fade" id="myModalCongelarCuenta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -685,16 +685,16 @@ $cias = $hotel->getCompanias();
     <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
       <div class="modal-dialog modal-lg" role="document" style="font-size:12px">
         <div class="modal-content">
-          <div class="modal-header"> 
+          <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span class="glyphicon glyphicon-off"></span>
-            </button> 
+              <span class="glyphicon glyphicon-off"></span>
+            </button>
             <h3 class="modal-title" id="exampleModalLabel">Congelar Cuenta</h3>
           </div>
           <div id="mensajeSal"></div>
           <div class="modal-body">
             <input type="hidden" name="txtIdReservaCong" id="txtIdReservaCong" value="">
-            <input type="hidden" name="txtIdHuespedCong" id="txtIdHuespedCong" value="">            
+            <input type="hidden" name="txtIdHuespedCong" id="txtIdHuespedCong" value="">
             <div class="idCia"></div>
             <div class="form-group">
               <label for="direccion" class="col-sm-2 control-label">Empresa </label>
@@ -704,9 +704,9 @@ $cias = $hotel->getCompanias();
               </div>
               <label for="nombres" class="col-sm-1 control-label">Nit</label>
               <div class="col-sm-3">
-                <input type="text" class="form-control" id="txtNitCong" name ="txtNitCong" value="" readonly>
+                <input type="text" class="form-control" id="txtNitCong" name="txtNitCong" value="" readonly>
               </div>
-            </div>           
+            </div>
             <div class="form-group">
               <label class="control-label col-xs-2">Huesped</label>
               <div class="col-lg-6 col-xs-6">
@@ -740,23 +740,23 @@ $cias = $hotel->getCompanias();
     <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-          <div class="modal-header"> 
+          <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span class="glyphicon glyphicon-off"></span>
-            </button> 
+            </button>
             <h3 class="modal-title" id="exampleModalLabel">Estado de Cuenta</h3>
           </div>
           <div id="datos_ajax_register"></div>
           <div class="modal-body">
-            <div class="divs" id="divConsumos" >
-              <object type="application/pdf" id="verEstadoCuentaFolio" width="100%" height="350" data=""></object> 
-            </div>          
+            <div class="divs" id="divConsumos">
+              <object type="application/pdf" id="verEstadoCuentaFolio" width="100%" height="350" data=""></object>
+            </div>
           </div>
           <div class="modal-footer" style="text-align: center">
             <button style="width: 25%" type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
           </div>
         </div>
       </div>
-    </div> 
+    </div>
   </form>
-</div> 
+</div>

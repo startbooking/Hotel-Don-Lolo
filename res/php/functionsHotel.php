@@ -850,9 +850,8 @@ class Hotel_Actions{
         a.id_codigo_cargo = c.id_cargo and
         c.idRetencion = b.idRetencion AND
         numero_reserva = $nroReserva 
-        AND folio_cargo = $nroFolio 
-        AND cargo_anulado = 0
-        AND numero_factura = 0
+        AND a.folio_cargo = $nroFolio 
+        AND a.cargo_anulado = 0
     GROUP BY
     c.idRetencion
     ORDER BY
@@ -2859,7 +2858,7 @@ class Hotel_Actions{
     {
         global $database;
 
-        $data = $database->query("SELECT Sum(historico_cargos_pms.impuesto) as imptos, Sum(historico_cargos_pms.monto_cargo) as cargos, Sum(historico_cargos_pms.pagos_cargos) as pagos FROM cargos_pms WHERE historico_cargos_pms.cargo_anulado = 0 AND id_codigo_cargo = '$codi' AND MONTH(historico_cargos_pms.fecha_cargo) = '$fecha' AND YEAR(historico_cargos_pms.fecha_cargo) = '$anio'")->fetchAll();
+        $data = $database->query("SELECT Sum(historico_cargos_pms.impuesto) as imptos, Sum(historico_cargos_pms.monto_cargo) as cargos, Sum(historico_cargos_pms.pagos_cargos) as pagos FROM cargos_pms WHERE historico_cargos_pms.cargo_anulado = 0 AND id_codigo_cargo = '$codi' AND MONTH(historico_cargos_pms.fecha_cargo) = '$mes' AND YEAR(historico_cargos_pms.fecha_cargo) = '$anio'")->fetchAll();
 
         return $data;
     }

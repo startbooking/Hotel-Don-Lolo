@@ -4875,7 +4875,7 @@ async function apagaselecomp(tipo) {
   var reteFte = 0;
   var reteIva = 0;
   var reteIca = 0;
-  let totCta = 0
+  let totCta  = 0
 
   if (tipo == "2") {
     if (idCiaFac == "0") {
@@ -4889,7 +4889,7 @@ async function apagaselecomp(tipo) {
     $("#seleccionaCiaCon").attr("disabled", true);
     $(".retencion").removeClass("apaga");
     
-    valorRetencion = await valorRetencionesFolio(nroReserva, nroFolio);
+    let valorRetencion = await valorRetencionesFolio(nroReserva, nroFolio, idCiaFac);
     
     console.log();
     
@@ -4946,18 +4946,18 @@ async function apagaselecomp(tipo) {
     $("#reteiva").val(number_format(reteIva, 2));
     $("#reteica").val(number_format(reteIca, 2));
     $("#retefuente").val(number_format(reteFte, 2));
+    $("#sinBaseRete").val(sinBaseRete);
 
     $("#porceReteiva").val(number_format(rIva[0].porcentajeRetencion, 2));
     $("#porceReteica").val(number_format(rIca[0].porcentajeRetencion, 2));
     $("#porceRetefuente").val(number_format(rFte[0].porcentajeRetencion, 2));
 
+
+
     $("#totalReteiva").val(reteIva);
     $("#totalReteica").val(reteIca);
     $("#totalRetefuente").val(reteFte);
 
-    /* setTimeout(function () {
-      sumaTotales();
-    }, 1000); */
     totCta = await sumaTotales();
     
   } else {
@@ -4974,16 +4974,17 @@ async function apagaselecomp(tipo) {
   }
 }
 
-async function valorRetencionesFolio(nroReserva, nroFolio){
+async function valorRetencionesFolio(nroReserva, nroFolio, idCiaFac){
   data = {
     nroReserva, 
-    nroFolio
+    nroFolio, 
+    idCiaFac,
   }
   try {
     const resultado = await fetch(`res/php/traeRetencionesValor.php`, {
       method: "post",
       headers: {
-        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+        "Content-type": "application/json; charset=UTF-8",
       },
       body: JSON.stringify(data),
     });
@@ -5867,6 +5868,7 @@ async function salidaHuesped() {
     let baseIca = $("#baseRetenciones").val();
     let reteiva = $("#totalReteiva").val();
     let reteica = $("#totalReteica").val();
+    let sinBaseRete = $("#sinBaseRete").val();
     let retefuente = $("#totalRetefuente").val();
     let porceReteiva = $("#porceReteiva").val();
     let porceReteica = $("#porceReteica").val();

@@ -4,24 +4,24 @@ require '../../../res/php/app_topHotel.php';
 
 $turismo = $_POST['turismo'];
 $reserva = $_POST['reserva'];
-$folio = $_POST['folio']; 
-$nrohab = $_POST['nrohab'];  
+$folio = $_POST['folio'];
+$nrohab = $_POST['nrohab'];
 
 $consumos = $hotel->getConsumosReservaFolio($reserva, $folio);
 $totImptos = $hotel->getIvaReservaFolio($reserva, $folio);
 
 if (count($totImptos) == 0) {
-    $baseImpto = 0;
-    $totImpto = 0;
+  $baseImpto = 0;
+  $totImpto = 0;
 } else {
-    $baseImpto = $totImptos[0]['baseImpto'];
-    $totImpto = $totImptos[0]['imptos'];
-} 
+  $baseImpto = $totImptos[0]['baseImpto'];
+  $totImpto = $totImptos[0]['imptos'];
+}
 
 if (count($consumos) == 0) {
-    $consumos[0]['cargos'] = 0;
-    $consumos[0]['imptos'] = 0;
-    $consumos[0]['pagos'] = 0;
+  $consumos[0]['cargos'] = 0;
+  $consumos[0]['imptos'] = 0;
+  $consumos[0]['pagos'] = 0;
 }
 $consumo = $consumos[0]['cargos'];
 $impto = $consumos[0]['imptos'];
@@ -41,18 +41,19 @@ $totalFolio = ($consumo + $impto) - ($abono - $reteiva - $reteica - $retefuente)
   <div class="form-group">
     <label style="font-size:12px;height: 25px !important" for="consumo" class="col-sm-2 control-label">Consumos</label>
     <div class="col-sm-3">
-      <input type="hidden" id="totalIva"        name="totalIva"        value='<?php echo $totImpto; ?>'>
-      <input type="hidden" id="totalBaseIva"    name="totalBaseIva"    value='<?php echo $baseImpto; ?>'>
-      <input type="hidden" id="totalConsumo"    name="totalConsumo"    value='<?php echo $consumo; ?>'>
-      <input type="hidden" id="totalImpuesto"   name="totalImpuesto"   value='<?php echo $impto; ?>'>
-      <input type="hidden" id="totalAbono"      name="totalAbono"      value='<?php echo $abono; ?>'>
-      <input type="hidden" id="totalReteiva"    name="totalReteiva"    value='<?php echo $reteiva; ?>'>
-      <input type="hidden" id="totalReteica"    name="totalReteica"    value='<?php echo $reteica; ?>'>
+      <input type="hidden" id="totalIva" name="totalIva" value='<?php echo $totImpto; ?>'>
+      <input type="hidden" id="totalBaseIva" name="totalBaseIva" value='<?php echo $baseImpto; ?>'>
+      <input type="hidden" id="totalConsumo" name="totalConsumo" value='<?php echo $consumo; ?>'>
+      <input type="hidden" id="totalImpuesto" name="totalImpuesto" value='<?php echo $impto; ?>'>
+      <input type="hidden" id="totalAbono" name="totalAbono" value='<?php echo $abono; ?>'>
+      <input type="hidden" id="totalReteiva" name="totalReteiva" value='<?php echo $reteiva; ?>'>
+      <input type="hidden" id="totalReteica" name="totalReteica" value='<?php echo $reteica; ?>'>
       <input type="hidden" id="totalRetefuente" name="totalRetefuente" value='<?php echo $retefuente; ?>'>
-      <input type="hidden" id="porceReteiva"    name="porceReteiva"    value='<?php echo $reteiva; ?>'>
-      <input type="hidden" id="porceReteica"    name="porceReteica"    value='<?php echo $reteica; ?>'>
+      <input type="hidden" id="porceReteiva" name="porceReteiva" value='<?php echo $reteiva; ?>'>
+      <input type="hidden" id="porceReteica" name="porceReteica" value='<?php echo $reteica; ?>'>
       <input type="hidden" id="porceRetefuente" name="porceRetefuente" value='<?php echo $retefuente; ?>'>
       <input type="hidden" id="baseRetenciones" name="baseRetenciones" value='<?php echo $consumo; ?>'>
+      <input type="hidden" id="sinBaseRete" name="sinBaseRete" value='0'>
       <input type="hidden" id="SaldoFolioActual" name="SaldoFolioActual" value="<?php echo $totalFolio; ?>">
       <input style="font-size:12px;height: 25px !important;text-align: right;" type="text" class="form-control" id="consumo" value="<?php echo number_format($consumo, 2); ?>" readonly>
     </div>
@@ -74,7 +75,7 @@ $totalFolio = ($consumo + $impto) - ($abono - $reteiva - $reteica - $retefuente)
     <div class="col-sm-2">
       <input style="font-size:12px;height: 25px !important; text-align:right;" type="text" class="form-control" id="retefuente" placeholder="" value="<?php echo number_format($retefuente, 2); ?>" readonly>
     </div>
-  </div>          
+  </div>
   <div class="form-group">
     <label style="font-size:12px;height: 25px !important" for="abono" class="col-sm-2 control-label">Abonos</label>
     <div class="col-sm-3">
@@ -89,16 +90,16 @@ $totalFolio = ($consumo + $impto) - ($abono - $reteiva - $reteica - $retefuente)
 <div class="divs divDeposito">
   <div class="form-group">
     <label class="control-label col-md-2" for="codigoConsumo">Forma de Pago</label>
-    <div class="col-lg-4 col-md-4" >
+    <div class="col-lg-4 col-md-4">
       <select name="codigoPago" id="codigoPago" required>
         <option value="">Seleccione Forma de Pago</option>
         <?php
-       $codigos = $hotel->getCodigosConsumos(3);
-foreach ($codigos as $codigo) { ?>
+        $codigos = $hotel->getCodigosConsumos(3);
+        foreach ($codigos as $codigo) { ?>
           <option style="font-size:12px" value="<?php echo $codigo['id_cargo']; ?>"><?php echo $codigo['descripcion_cargo']; ?></option>
-          <?php
-}
-?>
+        <?php
+        }
+        ?>
       </select>
     </div>
   </div>
@@ -109,17 +110,17 @@ foreach ($codigos as $codigo) { ?>
     </div>
     <label for="txtReferenciaAbo" class="col-sm-2 control-label">Referencia</label>
     <div class="col-sm-4">
-      <input style="font-size:12px;height: 25px !important"  class="form-control padInput" type="text" name="txtReferenciaPag" id="txtReferenciaPag" value="" min="1">
+      <input style="font-size:12px;height: 25px !important" class="form-control padInput" type="text" name="txtReferenciaPag" id="txtReferenciaPag" value="" min="1">
     </div>
   </div>
   <div class="form-group">
     <label for="txtDetalleAbo" class="col-sm-2 control-label">Comentarios</label>
     <div class="col-sm-4">
-      <input style="font-size:12px;height: 25px !important"  class="form-control padInput" type="text" name="txtDetallePag" id="txtDetallePag" value='' placeholder="Informacion del Pago ">
+      <input style="font-size:12px;height: 25px !important" class="form-control padInput" type="text" name="txtDetallePag" id="txtDetallePag" value='' placeholder="Informacion del Pago ">
     </div>
     <label for="txtDetalleAbo" class="col-sm-2 control-label">Correo Alterno</label>
     <div class="col-sm-4">
-      <input style="font-size:12px;height: 25px !important"  class="form-control padInput" type="mail" name="txtCorreoPag" id="txtCorreoPag" value='' placeholder="Correo Envio Factura ">
+      <input style="font-size:12px;height: 25px !important" class="form-control padInput" type="mail" name="txtCorreoPag" id="txtCorreoPag" value='' placeholder="Correo Envio Factura ">
     </div>
   </div>
-</div>          
+</div>

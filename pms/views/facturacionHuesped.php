@@ -4,23 +4,19 @@ require_once '../../res/php/app_topHotel.php';
 
 $reserva = $_POST['reserva'];
 
-$datosReserva = $hotel->getReservasDatos($reserva);
-
-if (count($datosReserva) == 0) {?>
+if(!isset($reserva)){ ?>
     <meta charset="utf-8" />
     <meta http-equiv="refresh" content="0;URL=../../index.php" />
     <?php
-} 
+}
 
-$dia = substr(FECHA_PMS, 8, 2);
+$datosReserva = $hotel->getReservasDatos($reserva);
 
 $oFecha = strtotime(FECHA_PMS);
-$mDia = date('d',$oFecha);
+$dia = date('d',$oFecha);
 
 $datosCompania = $hotel->getSeleccionaCompania($datosReserva[0]['id_compania']);
 $tipoHabitacion = $hotel->getNombreTipoHabitacion($datosReserva[0]['tipo_habitacion']);
-
-// echo print_r($datosCompania);
 
 $credito = 0;
 $dias = 0;
