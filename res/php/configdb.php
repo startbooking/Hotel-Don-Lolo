@@ -11,7 +11,7 @@ $host = 'localhost';
 // $dbpass = '#eO18z5jkJEK';
 
 // $dbname = 'donloloweb';
-// $dbname = 'donloloerr';
+// $dbname = 'donloloerr';git a
 // $dbname = 'donloloFeb23';
 $server = 'localhost';
 $dbuser = 'root';

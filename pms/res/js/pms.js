@@ -4889,10 +4889,11 @@ async function apagaselecomp(tipo) {
     $("#seleccionaCiaCon").attr("disabled", true);
     $(".retencion").removeClass("apaga");
     
-    let valorRetencion = await valorRetencionesFolio(nroReserva, nroFolio, idCiaFac);
+    let valorRetencion = await valorRetencionesFolio(nroReserva, nroFolio);
     
-    console.log();
+    // console.log();
     
+    console.log(valorRetencion);
     totalRteFte = parseInt($("#baseRetenciones").val());
     totalImpto = parseInt($("#totalIva").val());
     totalBaseImpto = parseInt($("#totalBaseIva").val());
@@ -4909,6 +4910,8 @@ async function apagaselecomp(tipo) {
     });
     
     let { reteiva, reteica, retefuente, sinBaseRete } = reteCia;
+    
+    
     let rFte = retenciones.filter(
       (retencion) => retencion.idRetencion == "1"
     );
@@ -4952,8 +4955,6 @@ async function apagaselecomp(tipo) {
     $("#porceReteica").val(number_format(rIca[0].porcentajeRetencion, 2));
     $("#porceRetefuente").val(number_format(rFte[0].porcentajeRetencion, 2));
 
-
-
     $("#totalReteiva").val(reteIva);
     $("#totalReteica").val(reteIca);
     $("#totalRetefuente").val(reteFte);
@@ -4974,11 +4975,10 @@ async function apagaselecomp(tipo) {
   }
 }
 
-async function valorRetencionesFolio(nroReserva, nroFolio, idCiaFac){
+async function valorRetencionesFolio(nroReserva, nroFolio){
   data = {
     nroReserva, 
     nroFolio, 
-    idCiaFac,
   }
   try {
     const resultado = await fetch(`res/php/traeRetencionesValor.php`, {

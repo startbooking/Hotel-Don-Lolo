@@ -14,6 +14,7 @@ $level = 'L'; // Nivel de corrección (L, M, Q, H)
 $aplicarete = 0;
 $aplicaiva = 0;
 $aplicaica = 0;
+$sinBaseRete = 0;
   
 $datosReserva = $hotel->getReservasDatos($reserva);
 $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
@@ -40,9 +41,19 @@ $pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserv
 $tipoimptos = $hotel->getValorImptoFolio($nroFactura, $reserva, $folioAct, 2);
 $fecha = $hotel->getDatePms();
 
+// echo 'Paso 1';
+
 if($aplicarete==1 ){
-  $retenciones = $hotel->traeValorRetenciones($reserva, $folioAct, $nroFactura);
+  if($sinBaseRete==1){
+    $retenciones = $hotel->traeValorRetencionesSin($reserva, $folioAct);
+  }else{
+    $retenciones = $hotel->traeValorRetenciones($reserva, $folioAct);
+  }
 }
+
+// echo print_r($retenciones);
+
+// echo 'Paso 2';
 
 if($datosReserva[0]['fecha_salida'] > FECHA_PMS){
   $fechaSalida = FECHA_PMS;
