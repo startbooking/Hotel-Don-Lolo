@@ -287,7 +287,7 @@ require_once '../res/php/app_topHotel.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'historicoFacturas') {
         // / include_once 'views/modal/modalTipoHabitaciones.php' ;
         include_once 'views/modal/modalFacturas.php';
-    } elseif (isset($_GET['section']) && $_GET['section'] == 'facturasDelDia') {
+    } elseif (isset($_GET['section']) && ($_GET['section'] == 'facturasDelDia' || $_GET['section'] == 'recibosCajaDelDia')) {
         include_once 'views/modal/modalFacturas.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'notasCredito') {
         include_once 'views/modal/modalImprimeNC.php';

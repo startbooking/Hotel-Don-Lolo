@@ -81,6 +81,9 @@ $inserta = $hotel->insertFacturaHuesped($codigo, $textopago, $valor, strtoupper(
 $factu = $hotel->updateCargosReservaFolio($reserva, $numfactura, $folioAct, $fecha, $usuario, $idUsuario, $tipofac, $id, $perfilFac);
 
 $saldos = $hotel->getValorFactura($numfactura);
+
+echo print_r($saldos);
+
 $anticipos = $hotel->valorAnticipos($numfactura);
 
 if (count($anticipos) != 0) {

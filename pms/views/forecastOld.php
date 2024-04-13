@@ -1,8 +1,6 @@
 <?php 
   $fechapms = $hotel->getDatePms();
-
   $tipohabis = $hotel->getTipoHabitacion();
-
   $rooms    = $hotel->getHabitaciones(CTA_MASTER);
   $fechaini = $hotel->getPrimerDia(CTA_MASTER);
   $fechafin = $hotel->getUltimoDia(CTA_MASTER);

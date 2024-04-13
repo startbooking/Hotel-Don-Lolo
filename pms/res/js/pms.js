@@ -1852,12 +1852,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     var id = button.data("id");
     var hues = button.data("idhuesped");
     var nombre = button.data("nombre");
-/*     var apellido1 = button.data("apellido1");
-    var apellido2 = button.data("apellido2");
-    var nombre1 = button.data("nombre1");
-    var nombre2 = button.data("nombre2");
- */    
-    // var turismo = button.data("impto");
     var nrohab = button.data("nrohab");
     var impturis = button.data("impto");
     var modal = $(this);
@@ -2901,6 +2895,26 @@ function buscaNotasCreditoExporta() {
     .then((data) => llenaNotasCre(data));
 }
 
+function buscaAbonosExporta() {
+  desde = document.querySelector("#desdeFechaAB").value;
+  hasta = document.querySelector("#hastaFechaAB").value;
+  url = "res/php/exportaAbonos.php";
+  data = {
+    desde,
+    hasta, 
+  }
+  fetch(url, {
+    method: "post", 
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => response.text())
+    .then((data) => llenaAbonos(data));
+}
+
+
 function llenaFacturas(datos) {
   facturasHTML = document.querySelector("#dataTable tbody");
   resultado = document.querySelector(".alert");
@@ -2909,6 +2923,22 @@ function llenaFacturas(datos) {
     resultado.classList.remove("apaga");
     resultado.innerHTML =
       '<p style="text-align:center;"> Sin Facturas Generadas para el dia Seleccionado<p>  ';
+    setTimeout(() => {
+      resultado.classList.add("apaga");
+    }, 3000);
+  } else {
+    facturasHTML.innerHTML = datos;
+  }
+}
+
+function llenaAbonos(datos) {
+  facturasHTML = document.querySelector("#dataTableAbonos tbody");
+  resultado = document.querySelector(".mensajeAbonos");
+  if (datos.trim() == "1") {
+    facturasHTML.innerHTML = "";
+    resultado.classList.remove("apaga");
+    resultado.innerHTML =
+      '<p style="text-align:center;"> Sin Abonos Generadas para el dia Seleccionado<p>  ';
     setTimeout(() => {
       resultado.classList.add("apaga");
     }, 3000);
@@ -3473,11 +3503,10 @@ function generarXML(factura, test, modulo, ambiente) {
 function imprimeInformeAuditoria(informe, titulo) {
   web = $("#webPage").val();
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario, apellidos, nombres, usuario_id } = user;
+  let { user: { usuario, apellidos, nombres, usuario_id } } = sesion;
   file = makeid(12);
   $.ajax({
-    url: "imprimir/" + informe + ".php",
+    url: `imprimir/${informe}.php`,
     type: "POST",
     data: {
       file,
@@ -3781,10 +3810,18 @@ function mostrarNC(nc) {
   $("#myModalVerFactura").modal("show");
 
   var titulo = document.querySelector("#myModalVerFactura #exampleModalLabel");
-
   titulo.innerHTML = `Nota Credito :  ${nc}`;
-
   $("#verFacturaModalCon").attr("data", "imprimir/notas/NotaCredito_" + nota);
+}
+
+function mostrarRC(rc) {
+  var recibo = `Abono_${rc}.pdf`;
+
+  $("#myModalVerFactura").modal("show");
+  var titulo = document.querySelector("#myModalVerFactura #exampleModalLabel");
+  titulo.innerHTML = `Recibo de Caja :  ${rc}`;
+
+  $("#verFacturaModalCon").attr("data", `imprimir/notas/${recibo}`);
 }
 
 function verfacturaHistorico(fact) {
@@ -6012,7 +6049,7 @@ const anulaFacturaEnvio = async (factura, perfil) => {
   data = {
     factura, perfil, usuario, usuario_id
   }
-  console.log(data)
+  // console.log(data)
   
   var web = $("#rutaweb").val();
   
@@ -6512,8 +6549,6 @@ function ingresaAbonos() {
     }); 
     return ;
   }
-
-  
   
   var parametros = {
     codigo,

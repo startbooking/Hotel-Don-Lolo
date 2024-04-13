@@ -1,7 +1,3 @@
-<?php  
-  $hoy    = substr(FECHA_PMS,5,5);
-?>
-
 <div class="content-wrapper" id="pantallaReservas" > 
   <section class="content">
     <div class="panel panel-success">

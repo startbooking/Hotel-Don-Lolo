@@ -41,7 +41,7 @@ foreach ($cargos as $cargo) {
     $pdf->Cell(25, 4, number_format($cargo['pagos_cargos'], 2), 0, 0, 'R');
     $pdf->Cell(60, 4, substr(utf8_decode($cargo['motivo_anulacion']), 0, 24), 0, 0, 'L');
     $pdf->Cell(20, 4, $cargo['usuario_anulacion'], 0, 0, 'L');
-    $pdf->Cell(10, 4, substr($cargo['fecha_sistema_cargo'], 11, 5), 0, 1, 'R');
+    $pdf->Cell(10, 4, substr(utf8_decode($cargo['fecha_sistema_anula']), 11,5), 0, 1, 'R');
     $pago = $pago + $cargo['pagos_cargos'];
 }
 $pdf->Ln(2);

@@ -2279,7 +2279,7 @@ class Hotel_Actions{
     {
         global $database;
 
-        $data = $database->query($sele)->fetchAll();
+        $data = $database->query($sele)->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -3314,7 +3314,7 @@ class Hotel_Actions{
             'id_usuario_anulacion' => $idusuario,
             'fecha_anulacion' => FECHA_PMS,
             'numero_factura_cargo' => $numDoc,
-            // 'fecha_sistema_anula' => date('Y-m-d H:i:s'),
+            'fecha_sistema_anula' => date('Y-m-d H:i:s'),
         ], [
             'factura_numero' => $nro,
             'perfil_factura' => $perfil,
@@ -3451,7 +3451,7 @@ class Hotel_Actions{
     {
         global $database;
 
-        $data = $database->query("SELECT Sum(cargos_pms.monto_cargo) AS cargos, Sum(cargos_pms.base_impuesto) AS base, Sum(cargos_pms.impuesto) AS imptos, Sum(cargos_pms.pagos_cargos) AS pagos, cargos_pms.factura_numero FROM cargos_pms WHERE cargos_pms.cargo_anulado = 0 AND cargos_pms.factura_numero = '$id' GROUP BY cargos_pms.factura_numero ORDER BY cargos_pms.factura_numero ASC")->fetchAll();
+        $data = $database->query("SELECT Sum(cargos_pms.monto_cargo) AS cargos, Sum(cargos_pms.base_impuesto) AS base, Sum(cargos_pms.impuesto) AS imptos, Sum(cargos_pms.pagos_cargos) AS pagos, cargos_pms.factura_numero FROM cargos_pms WHERE cargos_pms.cargo_anulado = 0 AND cargos_pms.factura_numero = '$id' GROUP BY cargos_pms.factura_numero ORDER BY cargos_pms.factura_numero ASC")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -3484,6 +3484,7 @@ class Hotel_Actions{
             'id_huesped',
             'cantidad_cargo',
             'informacion_cargo',
+            'referencia_cargo',
             'folio_cargo',
             'pagos_cargos',
             'concecutivo_abono',
@@ -4031,10 +4032,7 @@ class Hotel_Actions{
             '[>]huespedes' => 'id_huesped',
             '[>]codigos_vta' => ['id_codigo_cargo' => 'id_cargo'],
         ], [
-            'huespedes.nombre1',
-            'huespedes.nombre2',
-            'huespedes.apellido1',
-            'huespedes.apellido2',
+            'huespedes.nombre_completo',
             'cargos_pms.fecha_cargo',
             'cargos_pms.monto_cargo',
             'cargos_pms.base_impuesto',
@@ -4059,6 +4057,7 @@ class Hotel_Actions{
             'cargos_pms.numero_reserva',
             'cargos_pms.habitacion_cargo',
             'cargos_pms.fecha_sistema_cargo',
+            'cargos_pms.fecha_sistema_anula',
             'cargos_pms.factura_numero',
             'cargos_pms.id_reserva',
         ], [
@@ -5101,10 +5100,7 @@ class Hotel_Actions{
             '[>]huespedes' => 'id_huesped',
             '[>]codigos_vta' => ['id_codigo_cargo' => 'id_cargo'],
         ], [
-            'huespedes.nombre1',
-            'huespedes.nombre2',
-            'huespedes.apellido1',
-            'huespedes.apellido2',
+            'huespedes.nombre_completo',
             'cargos_pms.fecha_cargo',
             'cargos_pms.monto_cargo',
             'cargos_pms.base_impuesto',
@@ -5129,6 +5125,7 @@ class Hotel_Actions{
             'cargos_pms.numero_reserva',
             'cargos_pms.habitacion_cargo',
             'cargos_pms.fecha_sistema_cargo',
+            'cargos_pms.fecha_sistema_anula',
             'cargos_pms.factura_numero',
         ], [
             'cargos_pms.fecha_anulacion' => $fecha,
@@ -6250,8 +6247,6 @@ class Hotel_Actions{
 
     public function updateAnulaConsumo($id, $motivo, $fecha, $usuario, $idusuario)
     {
-    
-        // echo $id, $motivo, $fecha, $usuario, $idusuario;
         global $database;
 
         $data = $database->update('cargos_pms', [
@@ -6260,9 +6255,7 @@ class Hotel_Actions{
             'usuario_anulacion' => $usuario,
             'id_usuario_anulacion' => $idusuario,
             'motivo_anulacion' => $motivo,
-            /* 
             'fecha_sistema_anula' => date('Y-m-d H:i:s'), 
-            */            
         ], [
             'id_cargo' => $id,
         ]); 

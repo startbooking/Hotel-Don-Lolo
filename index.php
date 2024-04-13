@@ -1,5 +1,5 @@
 <?php
-require_once 'res/php/titles.php';
+// require_once 'res/php/titles.php';
 require_once 'res/php/app_top.php';
 ?>
 <!DOCTYPE html>
@@ -7,7 +7,7 @@ require_once 'res/php/app_top.php';
 
 
 <head>
-	<title><?php echo TITLE; ?> Ingreso al Sistema</title>
+	<title>SACTel PMS Software | Ingreso al Sistema</title>
 	<?php include_once 'res/shared/archivo_head.php';	?>
 	<link href="res/css/miestilo.css" rel="stylesheet" type="text/css" media="all" />
 	<link rel="stylesheet" href="res/css/flexslider.css" type="text/css" media="screen" property="" />

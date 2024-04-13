@@ -46,7 +46,7 @@
                                     <td style="padding:3px 5px;text-align:center;">
                                       <button 
                                         class="btn btn-info btn-xs" 
-                                        onclick="verRecibo('<?php echo $recibo['concecutivo_abono']; ?>')" 
+                                        onclick="mostrarRC('<?php echo $recibo['concecutivo_abono']; ?>')" 
                                         type="button">
                                         <i class="fa fa-file-pdf" aria-hidden="true" title="Ver Recibo"></i>
                                       </button>

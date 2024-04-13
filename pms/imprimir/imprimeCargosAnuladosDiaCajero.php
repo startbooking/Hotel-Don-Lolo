@@ -44,7 +44,7 @@
     $pdf->Cell(25,4,number_format($cargo['impuesto'],2),0,0,'R');
     $pdf->Cell(25,4,number_format($cargo['monto_cargo']+$cargo['impuesto'],2),0,0,'R');
     $pdf->Cell(50,4,$cargo['motivo_anulacion'],0,0,'L');
-    $pdf->Cell(10,4,substr($cargo['fecha_sistema_cargo'],11,5),0,1,'R'); 
+    $pdf->Cell(10,4,substr($cargo['fecha_sistema_anula'],11,5),0,1,'R'); 
     $monto  = $monto + $cargo['monto_cargo'];
     $impto  = $impto + $cargo['impuesto'];
     $total  = $total + $cargo['monto_cargo'] + $cargo['impuesto'];        
