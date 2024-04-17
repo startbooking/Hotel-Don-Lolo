@@ -47,6 +47,17 @@ table tbody{
   font-weight: 500;
   margin-bottom: 0px;
 }
+.tituloEstado {
+  padding: 15px 0;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 40px;
+  color:#000 !important;
+}
+
+.ocupacion label  {
+  margin-top: 8px;
+}
 
 .huespecAcom {
   background: #3faa558a;
@@ -209,6 +220,10 @@ a.info span,
 
 .mt-10 {
   margin-top: 10px;
+}
+
+.mt-40 {
+  margin-top: 40px;
 }
 
 .mb-0 {
@@ -660,11 +675,11 @@ a.info:hover span {
 }
 
 .bg-limpiaVac {
-  background-color: #02ebff;
+  background-color: #02ebff3d;
 }
 
 .bg-limpiaOcu {
-  background-color: #038591;
+  background-color: #03859170;
 }
 
 .bg-suciaVac {
@@ -672,7 +687,11 @@ a.info:hover span {
 }
 
 .bg-suciaOcu {
-  background-color: #aeae05;
+  background-color: #62625361;
+}
+
+.bg-bloqueada {
+  background-color: #d81b6066;
 }
 
 .bg-fueraOrd {

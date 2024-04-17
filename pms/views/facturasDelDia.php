@@ -46,7 +46,6 @@ $facturador = $eToken[0]['facturador'];
                     </thead>
                     <tbody>
                       <?php
-
                       foreach ($facturas as $factura) {
                         if ($factura['tipo_factura'] == 1) {
                           $nombrecia = 'SIN COMPAÑIA ASOCIADA';
@@ -73,17 +72,17 @@ $facturador = $eToken[0]['facturador'];
                           <td style="padding:3px 5px"><?php echo $factura['fecha_llegada']; ?></td>
                           <td style="padding:3px 5px"><?php echo $factura['fecha_factura']; ?></td>
                           <td style="padding:3px 5px"><?php echo estadoFactura($factura['factura_anulada']); ?></td>
-                          <?php 
-                            if($facturador==1){ ?>
-                              <td style="padding:3px 5px"> 
+                            <?php 
+                              if($facturador==1){ ?>
+                                <td style="padding:3px 5px"> 
+                                  <?php
+                                    echo estadoFacturaDIAN($factura['estadoEnvio']); 
+                                  ?>
+                                </td>
                                 <?php
-                                  echo estadoFacturaDIAN($factura['estadoEnvio']); 
-                                ?>
-                              </td>
-                              <?php
-                            }
-                          ?>
-                          <td style="padding:3px 5px;width: 15%;text-align:center;">
+                              }
+                            ?>
+                          <td style="padding:3px 5px;width: 10%;text-align:center;">
                             <button 
                               class="btn btn-info btn-xs" 
                               type="button" 
@@ -149,7 +148,7 @@ $facturador = $eToken[0]['facturador'];
                               title="Descarga ZIP Attached">
                               <i class="fa-solid fa-file-zipper"></i>
                             </button>
-                            <button 
+                            <!-- <button 
                               class="btn btn-default btn-xs"                               
                               onclick="event.preventDefault();ValidaFactura('<?=FECHA_PMS?>',`FES-<?php echo $factura['prefijo_factura'].$factura['factura_numero']; ?>`,'<?php echo $correoFac; ?>');" 
                               type="button" 
@@ -162,8 +161,7 @@ $facturador = $eToken[0]['facturador'];
                               type="button" 
                               title="Valida Estado DIAN  ">
                               <i class="fa-solid fa-square-check"></i>
-                              <!-- <i class="fa-solid fa-envelope-circle-check"></i> -->
-                            </button>
+                            </button> -->
 
                           </td>
                         </tr>

@@ -4596,7 +4596,7 @@ function verRecibo(fact) {
 
 function buscaFacturasFecha() {
   var web = $("#rutaweb").val();
-  var pagina = $("#ubicacion").val();
+  var pagina = $("#ubicacion").val(); 
   var fechafac = $("#buscarFecha").val();
   var parametros = {
     fechafac: fechafac,
@@ -8052,25 +8052,6 @@ function guardarFoto() {
     miFoto = $("#fotoTomada").attr("src", "");
   }
 }
-
-/*function verObservaciones(reserva, estado) {
-  var web = $("#rutaweb").val();
-  var pagina = $("#ubicacion").val();
-  var parametros = {
-    reserva,
-    estado,
-  };
-  
-  $.ajax({
-    type: "POST",
-    url: web + "res/php/observacionesReservaModal.php",
-    data: parametros,
-    success: function (data) {
-      $("#myModalVerObservaciones").show();
-      $("#observacionesReserva").html(data);
-    },
-  });
-} */
 
 function salidaHuespedCongelada() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
