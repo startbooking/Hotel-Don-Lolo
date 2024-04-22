@@ -26,9 +26,9 @@
                 <td>Compañia</td>
                 <td>Llegada</td>
                 <td>Salida</td>
-                <td>Noches</td>
-                <td>Hombres</td>
-                <td>Mujeres</td>
+                <td>Noc</td>
+                <td>Hom</td>
+                <td>Muj</td>
                 <!-- <td>Niños</td> -->
                 <td style="text-align:center;">Accion</td>
               </tr>

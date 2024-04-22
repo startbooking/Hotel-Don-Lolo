@@ -8,7 +8,7 @@ $size = 100; // Tamaño en píxeles
 $level = 'L'; // Nivel de corrección (L, M, Q, H)
 
 // Generar el código QR
-//QRcode::png($QRStr, $filename, $level, $size);
+// QRcode::png($QRStr, $filename, $level, $size);
 
 
 $aplicarete = 0;
@@ -41,19 +41,7 @@ $pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserv
 $tipoimptos = $hotel->getValorImptoFolio($nroFactura, $reserva, $folioAct, 2);
 $fecha = $hotel->getDatePms();
 
-// echo 'Paso 1';
-
-if($aplicarete==1 ){
-  if($sinBaseRete==1){
-    $retenciones = $hotel->traeValorRetencionesSin($reserva, $folioAct);
-  }else{
-    $retenciones = $hotel->traeValorRetenciones($reserva, $folioAct);
-  }
-}
-
-// echo print_r($retenciones);
-
-// echo 'Paso 2';
+$retenciones = $hotel->traeValorRetenciones($reserva, $folioAct);
 
 if($datosReserva[0]['fecha_salida'] > FECHA_PMS){
   $fechaSalida = FECHA_PMS;
@@ -196,16 +184,16 @@ $impto = 0;
 $pagos = 0;
 $total = $consumos + $impto;
 foreach ($folios as $folio1) {
-    $pdf->Cell(15, 4, $folio1['cant'], 0, 0, 'C');
-    $pdf->Cell(65, 4, utf8_decode($folio1['descripcion_cargo']), 0, 0, 'L');
-    $pdf->Cell(30, 4, number_format($folio1['cargos'], 2), 0, 0, 'R');
-    $pdf->Cell(20, 4, number_format($folio1['porcentaje_impto'], 2), 0, 0, 'R');
-    $pdf->Cell(30, 4, number_format($folio1['imptos'], 2), 0, 0, 'R');
-    $pdf->Cell(30, 4, number_format($folio1['cargos'] + $folio1['imptos'], 2), 0, 1, 'R');
-    $consumos = $consumos + $folio1['cargos'];
-    $impto = $impto + $folio1['imptos'];
-    $total = $consumos + $impto;
-    $pagos = $pagos + $folio1['pagos'];
+  $pdf->Cell(15, 4, $folio1['cant'], 0, 0, 'C');
+  $pdf->Cell(65, 4, utf8_decode($folio1['descripcion_cargo']), 0, 0, 'L');
+  $pdf->Cell(30, 4, number_format($folio1['cargos'], 2), 0, 0, 'R');
+  $pdf->Cell(20, 4, number_format($folio1['porcentaje_impto'], 2), 0, 0, 'R');
+  $pdf->Cell(30, 4, number_format($folio1['imptos'], 2), 0, 0, 'R');
+  $pdf->Cell(30, 4, number_format($folio1['cargos'] + $folio1['imptos'], 2), 0, 1, 'R');
+  $consumos = $consumos + $folio1['cargos'];
+  $impto = $impto + $folio1['imptos'];
+  $total = $consumos + $impto;
+  $pagos = $pagos + $folio1['pagos'];
 }
 
 $pdf->Cell(110, 4, '', 0, 0, 'L');
@@ -226,18 +214,19 @@ $pdf->Cell(35, 4, 'VALOR', 1, 1, 'R');
 $totRetencion = 0 ;
 $pdf->SetFont('Arial', '', 8);
   foreach ($retenciones as $retencion) {  
-    $pdf->Cell(35, 4, $retencion['descripcionRetencion'], 1, 0, 'L');
     if($tipofac == 2 ){
-      if($aplicarete == 1 ){        
-        $pdf->Cell(30, 4, number_format($retencion['base'], 2), 1, 0, 'R');
-        $pdf->Cell(30, 4, number_format($retencion['retencion'], 2), 1, 1, 'R');
-        $totRetencion = $totRetencion + round($retencion['retencion']);
+      $pdf->Cell(35, 4, $retencion['descripcionRetencion'], 1, 0, 'L');
+      $pdf->Cell(30, 4, number_format($retencion['base'], 2), 1, 0, 'R');
+      $pdf->Cell(30, 4, number_format($retencion['valorRetencion'], 2), 1, 1, 'R');
+      $totRetencion = $totRetencion + round($retencion['valorRetencion']);
+/*       if($aplicarete == 1 ){        
       }else{
         $pdf->Cell(30, 4, number_format(0, 2), 1, 0, 'R');
         $pdf->Cell(30, 4, number_format(0, 2), 1, 1, 'R');
         $totRetencion = $totRetencion + 0;
-      }      
+      }       */
     }else{
+    $pdf->Cell(35,   4, 'RETEFUENTE', 1, 0, 'L');
       $pdf->Cell(30, 4, number_format(0, 2), 1, 0, 'R');
       $pdf->Cell(30, 4, number_format(0, 2), 1, 1, 'R');
       $totRetencion = $totRetencion + 0;

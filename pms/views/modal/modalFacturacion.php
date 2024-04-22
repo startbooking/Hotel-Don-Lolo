@@ -16,7 +16,7 @@ $cias = $hotel->getCompanias();
           <div id="mensaje">
           </div>
           <div class="modal-body">
-            <input type="hidden" name="reservaActual" id="reservaActual" value="">
+            <input type="hidden" name="reservaActual" id="reservaActual" value=""> 
             <input type="hidden" name="txtIdHuespedDep" id="idHuespedSal" value="">
             <input type="hidden" name="txtImptoTurismo" id="txtImptoTurismo" value="">
             <div class="form-group">

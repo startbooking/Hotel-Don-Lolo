@@ -868,8 +868,43 @@ class Hotel_Actions{
         return $data;
     }
 
-
     public function traeValorRetenciones($nroReserva, $nroFolio){
+        global $database;
+        
+        $data = $database->query("SELECT 
+                a.monto, a.base, a.idRetencion, a.descripcionRetencion, a.valorRetencion, a.porcentajeRetencion
+                FROM ( SELECT
+                ROUND(SUM(cargos_pms.monto_cargo),0) AS monto,
+                ROUND(SUM(cargos_pms.base_impuesto),0) AS base,
+                ROUND(SUM(cargos_pms.impuesto),0) as impto,
+                codigos_vta.idRetencion, 
+                cargos_pms.valor_cargo, 
+                retenciones.descripcionRetencion, 
+                retenciones.porcentajeRetencion,
+                retenciones.baseRetencion,
+                ROUND((sum(cargos_pms.monto_cargo) * porcentajeRetencion)/100,0) AS valorRetencion
+                FROM
+                    cargos_pms,
+                    retenciones,
+                    codigos_vta
+                WHERE
+                    cargos_pms.id_codigo_cargo = codigos_vta.id_cargo 
+                    AND codigos_vta.idRetencion = retenciones.idRetencion 
+                    AND cargos_pms.numero_reserva = $nroReserva 
+                    AND cargos_pms.folio_cargo = $nroFolio 
+                    AND cargos_pms.cargo_anulado = 0 
+                GROUP BY
+                codigos_vta.idRetencion
+                ORDER BY
+                codigos_vta.idRetencion) AS a,
+                retenciones
+                WHERE a.monto >= retenciones.baseRetencion
+                AND a.idRetencion = retenciones.idRetencion
+                ")->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
+    }
+
+    public function traeValorRetencionesOld($nroReserva, $nroFolio){
         global $database;
         
         $data = $database->query("SELECT
@@ -895,7 +930,7 @@ class Hotel_Actions{
             GROUP BY
             codigos_vta.idRetencion
             ORDER BY
-            codigos_vta.idRetencion")->fetchAll();
+            codigos_vta.idRetencion")->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     }
 
@@ -925,7 +960,7 @@ class Hotel_Actions{
         GROUP BY
         c.idRetencion
         ORDER BY
-        c.idRetencion")->fetchAll();
+        c.idRetencion")->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     }
 

@@ -8,4 +8,4 @@ extract($postBody);
 $valores = $hotel->traeValorRetenciones($nroReserva, $nroFolio);
 
 echo json_encode($valores); 
- 
+  

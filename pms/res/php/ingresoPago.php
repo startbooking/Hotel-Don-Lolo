@@ -82,8 +82,6 @@ $factu = $hotel->updateCargosReservaFolio($reserva, $numfactura, $folioAct, $fec
 
 $saldos = $hotel->getValorFactura($numfactura);
 
-echo print_r($saldos);
-
 $anticipos = $hotel->valorAnticipos($numfactura);
 
 if (count($anticipos) != 0) {

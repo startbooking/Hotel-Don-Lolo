@@ -1362,8 +1362,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   $("#myModalSalidaHuesped").on("show.bs.modal", function (event) {
   
     sesion = JSON.parse(localStorage.getItem("sesion"));
-    let { user } = sesion;
-    let { usuario, usuario_id } = user;
+    let { user: { usuario, usuario_id } } = sesion;
+    // let  = user;
     var credito = 0;
     var web = $("#rutaweb").val();
     var pagina = $("#ubicacion").val();
@@ -4926,11 +4926,8 @@ async function apagaselecomp(tipo) {
     $("#seleccionaCiaCon").attr("disabled", true);
     $(".retencion").removeClass("apaga");
     
-    let valorRetencion = await valorRetencionesFolio(nroReserva, nroFolio);
+    let reteFuentes = await valorRetencionesFolio(nroReserva, nroFolio);
     
-    // console.log();
-    
-    console.log(valorRetencion);
     totalRteFte = parseInt($("#baseRetenciones").val());
     totalImpto = parseInt($("#totalIva").val());
     totalBaseImpto = parseInt($("#totalBaseIva").val());
@@ -4940,15 +4937,15 @@ async function apagaselecomp(tipo) {
     let valbase = 0;
     let valrete = 0;
         
-    valorRetencion.map((valor) => {
-      let { base, retencion} = valor;
+    reteFuentes.map((valor) => {
+      let { base, valorRetencion} = valor;
       valbase = valbase+base;
-      valrete = valrete+retencion;
+      valrete = valrete+valorRetencion;
     });
+    // console.log({valbase, valrete})
     
     let { reteiva, reteica, retefuente, sinBaseRete } = reteCia;
-    
-    
+        
     let rFte = retenciones.filter(
       (retencion) => retencion.idRetencion == "1"
     );
@@ -5868,8 +5865,8 @@ async function salidaHuesped() {
 
   var pago = $("#txtValorPago").val();
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario, usuario_id, tipo } = user;
+  let { user: { usuario, usuario_id, tipo } } = sesion;
+  // let  = user;
 
   if (pago < saldo) {
     $("#mensajeSal").html(
@@ -5910,7 +5907,7 @@ async function salidaHuesped() {
     let porceReteiva = $("#porceReteiva").val();
     let porceReteica = $("#porceReteica").val();
     let porceRetefuente = $("#porceRetefuente").val();
-
+    
     estado = document.querySelector("#estadoCuenta");
     mensajeSal = document.querySelector("#mensajeSalida");
     btnSalida = document.querySelector(".btnSalida");
@@ -5958,6 +5955,8 @@ async function salidaHuesped() {
     };
     
     let facturado = await enviaPago(parametros);
+    
+    
     let { error, mensaje, factura, perfil, errorDian, archivo, folio } = facturado[0];
     // console.log(facturado);
     
