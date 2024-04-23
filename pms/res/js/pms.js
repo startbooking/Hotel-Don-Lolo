@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
     setTimeout(showProduct, 400);
     prd = `.product-item[category="${catProduct}"]`;
-    console.log(prd);
+    // console.log(prd);
 
     setTimeout(
       $(prd).css("transform", ""),
@@ -2461,14 +2461,14 @@ function regresaCasa(reserva) {
 
 function muestraReserva(ev) {
 
-  console.log(ev);
+  // console.log(ev);
   let reserva = ev.getAttribute("reserva");
   let estado = ev.getAttribute("estado");
   
-  console.log(reserva);
+/*   console.log(reserva);
   console.log(estado);
   
-
+ */
   swal("Atencion", "Dio CLick en Reserva" + reserva + estado, "success");
 }
 
@@ -2558,11 +2558,11 @@ const infoFactura = async (url, data, token) => {
       body: data
     });
     datos = await resultado.json();
-    console.log(datos)
+    // console.log(datos)
     return datos;  
   }
   catch (error){
-    console.log(error)
+    // console.log(error)
   }    
 };
 
@@ -2586,11 +2586,11 @@ const ValidaDIAN = async (cufe) => {
       body: data
     });
     datos = await resultado.json();
-    console.log(datos)
+    // console.log(datos)
     return datos;  
   }
   catch (error){
-    console.log(error)
+    // console.log(error)
   }    
 };
 
@@ -4896,7 +4896,7 @@ const calculaRetenciones = async () => {
       },
     });
     const datos = await resultado.json();
-    console.log(datos);
+    // console.log(datos);
     return datos;
   } catch (error) {
     // console.log(error);
@@ -4909,10 +4909,11 @@ async function apagaselecomp(tipo) {
   idCenFac = $("#txtIdCentroCiaSal").val();
   nroReserva = $("#txtIdReservaSal").val();
   nroFolio = $("#folioActivo").val();
+  sinBase  = $("#sinBaseRete").val();
   var reteFte = 0;
   var reteIva = 0;
   var reteIca = 0;
-  let totCta  = 0
+  let totCta  = 0 
 
   if (tipo == "2") {
     if (idCiaFac == "0") {
@@ -4926,12 +4927,14 @@ async function apagaselecomp(tipo) {
     $("#seleccionaCiaCon").attr("disabled", true);
     $(".retencion").removeClass("apaga");
     
-    let reteFuentes = await valorRetencionesFolio(nroReserva, nroFolio);
-    
+    let reteCia = await traeRetencionesCia(idCiaFac);
+    let {reteiva, reteica, retefuente, sinBaseRete } = reteCia;
+    // console.log({reteiva, reteica, retefuente, sinBaseRete });
+    let reteFuentes = await valorRetencionesFolio(nroReserva, nroFolio, sinBaseRete);
     totalRteFte = parseInt($("#baseRetenciones").val());
     totalImpto = parseInt($("#totalIva").val());
     totalBaseImpto = parseInt($("#totalBaseIva").val());
-    let reteCia = await traeRetencionesCia(idCiaFac);
+    
     retenciones = await traeRetenciones();
     
     let valbase = 0;
@@ -4942,9 +4945,6 @@ async function apagaselecomp(tipo) {
       valbase = valbase+base;
       valrete = valrete+valorRetencion;
     });
-    // console.log({valbase, valrete})
-    
-    let { reteiva, reteica, retefuente, sinBaseRete } = reteCia;
         
     let rFte = retenciones.filter(
       (retencion) => retencion.idRetencion == "1"
@@ -4956,24 +4956,35 @@ async function apagaselecomp(tipo) {
       (retencion) => retencion.idRetencion == "3"
     );
 
-    if (retefuente == "1") {
+    if (retefuente == 1) {
       if (sinBaseRete == 1) {
         reteFte = valrete ;
-      } else {      
+      } else {
         if (rFte[0].baseRetencion <= valbase) {
           reteFte = valrete ;
         }
       }
     }
 
-    if (reteiva == "1") {
-      if (rIva[0].baseRetencion <= totalRteFte) {
-        reteIva = totalImpto * (rIva[0].porcentajeRetencion / 100);
+       
+    if (reteiva == 1) {
+      if (sinBaseRete == 1) {
+        reteIva = totalImpto * (rIva[0].porcentajeRetencion / 100);      
+      } else {
+        if (rFte[0].baseRetencion <= valbase) {
+          reteIva = totalImpto * (rIva[0].porcentajeRetencion / 100);      
+        }
       }
-    }
-    if (reteica == "1") {
-      if (rIca[0].baseRetencion <= totalRteFte) {
+    }    
+    
+    
+    if (reteica == 1) {
+      if (sinBaseRete == 1) {
         reteIca = totalRteFte * (rIca[0].porcentajeRetencion / 100);
+      } else {
+        if (rFte[0].baseRetencion <= valbase) {
+          reteIca = totalRteFte * (rIca[0].porcentajeRetencion / 100);          
+        }
       }
     }
     reteFte = parseInt(reteFte.toFixed(0));
@@ -5005,14 +5016,22 @@ async function apagaselecomp(tipo) {
     $("#totalReteiva").val(0);
     $("#totalReteica").val(0);
     $("#totalRetefuente").val(0);
+    $("#sinBaseRete").val(0);
     totCta = await sumaTotales();
   }
 }
 
-async function valorRetencionesFolio(nroReserva, nroFolio){
+async function actualizaRetencionesCia(reteCia){
+// console.log(reteCia)
+let { sinBase } = reteCia;
+document.querySelector('#sinBaseRete').val = sinBase;
+}
+
+async function valorRetencionesFolio(nroReserva, nroFolio, sinBase){
   data = {
     nroReserva, 
     nroFolio, 
+    sinBase, 
   }
   try {
     const resultado = await fetch(`res/php/traeRetencionesValor.php`, {
@@ -5797,7 +5816,7 @@ async function cargarHabitacionCkeckIn(cargar) {
     data: parametros,
     url: "res/php/cargarHabitaciones.php",
     success: function (datos) {
-    console.log(datos)
+    // console.log(datos)
       if (datos == 1) {
         $("#aviso").html(
           '<div class="alert alert-info" style="margin-bottom: 30px"><h4 align="center" style="color:brown;font-weight: 700">Habitaciones Cargadas con Exito</h4></div>'
@@ -5823,7 +5842,7 @@ function cambiaEstadoCargarHabitaciones(tipo) {
 function cargosHuesped(reserva) {
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
-  var parametros = { reserva: reserva };
+  var parametros = { reserva };
   $.ajax({
     type: "POST",
     url: web + "res/php/movimientosCargosHuespedModal.php",
@@ -6061,7 +6080,7 @@ const anulaFacturaEnvio = async (factura, perfil) => {
       body: JSON.stringify(data)
     });
     const datos = await resultado.json();
-    console.log(datos);
+    // console.log(datos);
     return datos;
   } catch (error) {
     // console.log(error);
@@ -7322,8 +7341,8 @@ function ciudadesExpedicion(pais, city) {
   let edita = parseInt($("#editaPer").val());
   let acompana = parseInt($("#acompana").val());
   
-  console.log(edita);
-  console.log(acompana);
+  /* console.log(edita);
+  console.log(acompana); */
   
   if (edita == 1) {
     $("#ciudadExpUpd option").remove();
@@ -7817,7 +7836,7 @@ async function propinasPorFecha() {
     
     const informe = await generaInforme(data);
     
-    console.log(informe)
+    // console.log(informe)
     
     creaHTMLReportes(informe, 'Informe Propinas' )
     
