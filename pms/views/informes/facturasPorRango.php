@@ -70,16 +70,11 @@
                 <div class="imprimeInforme"></div>
               </div>
             </div>
-            <!-- <div class="panel-footer">
-            </div> -->
           </div>
           
         </div>
       </section>  
     </div>
-
 <?php 
-  // include_once 'views/modal/modalInformesfacturas.php';
   include_once 'views/modal/modalFacturas.php';
-  
-?> 
+?>

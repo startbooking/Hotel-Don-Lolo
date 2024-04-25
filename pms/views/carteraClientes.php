@@ -7,13 +7,7 @@
 						<input type="hidden" name="rutaweb" id="rutaweb" value="<?php echo BASE_ADM; ?>">
 						<input type="hidden" name="ubicacion" id="ubicacion" value="clientes()">
 						<h3 class="w3ls_head tituloPagina">
-							<i class="fa-solid fa-money-check-dollar"></i>
-							<!-- 
-							<i class="fa-solid fa-money-bill-1-wave"></i>
-								<i style="color:black;font-size:36px;" class="fa fa-address-book-o"> 
-									</i>
-								-->
-						 Estado Cartera Compañias
+							<i class="fa-solid fa-money-check-dollar"></i>Estado Cartera Compañias
 						</h3>
 					</div>
 					<div class="col-lg-6 col-md-6 col-xs-12">
@@ -38,12 +32,12 @@
 							<?php foreach ($clientes as $cliente) { ?>
 								<tr style='font-size:12px'>
 									<td><?php echo $cliente['nit']; ?>-<?php echo $cliente['dv']; ?></td>
-									<td><?php echo $cliente['empresa']; ?></td>
+									<td style="width:30%"><?php echo $cliente['empresa']; ?></td>
 									<td><?php echo $cliente['direccion']; ?></td>
 									<td class="t-right"><?php echo number_format($cliente['total'], 2); ?></td>
 									<td class="centro">
 										<button 
-											type="button" }
+											type="button"
 											class="btn btn-success btn-xs" 
 											data-toggle="modal" 
 											data-target="#dataEstadoCartera" 

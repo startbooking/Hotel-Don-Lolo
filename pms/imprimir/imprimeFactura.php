@@ -8,7 +8,7 @@ $size = 100; // Tamaño en píxeles
 $level = 'L'; // Nivel de corrección (L, M, Q, H)
 
 // Generar el código QR
-// QRcode::png($QRStr, $filename, $level, $size);
+QRcode::png($QRStr, $filename, $level, $size);
 
 
 $aplicarete = 0;
@@ -41,7 +41,13 @@ $pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserv
 $tipoimptos = $hotel->getValorImptoFolio($nroFactura, $reserva, $folioAct, 2);
 $fecha = $hotel->getDatePms();
 
-$retenciones = $hotel->traeValorRetenciones($reserva, $folioAct);
+if($aplicarete==1){
+  if($sinBaseRete==1){
+    $retenciones = $hotel->traeValorRetencionesSinBase($reserva, $folioAct);
+  }else{
+    $retenciones = $hotel->traeValorRetenciones($reserva, $folioAct);
+  }
+}
 
 if($datosReserva[0]['fecha_salida'] > FECHA_PMS){
   $fechaSalida = FECHA_PMS;
@@ -90,7 +96,6 @@ $pdf->Ln(1);
 
 $pdf->SetFont('Arial', 'B', 8);
 if ($tipofac == 2) {
-//   if (!empty($datosCompania)) {
     $pdf->SetFont('Arial', '', 8);
     $pdf->Cell(30, 4, 'RAZON SOCIAL', 0, 0, 'L');
     $pdf->SetFont('Arial', 'B', 8);
@@ -111,7 +116,6 @@ if ($tipofac == 2) {
     $pdf->Cell(21, 4, 'TELEFONO', 0, 0, 'L');
     $pdf->SetFont('Arial', 'B');
     $pdf->Cell(20, 4, $datosCompania[0]['telefono'], 0, 1, 'L');
-//   }
 } else {
     $pdf->SetFont('Arial', '', 8);
     $pdf->Cell(30, 4, 'CLIENTE', 0, 0, 'L');
@@ -213,25 +217,34 @@ $pdf->Cell(35, 4, 'VALOR', 1, 1, 'R');
 
 $totRetencion = 0 ;
 $pdf->SetFont('Arial', '', 8);
-  foreach ($retenciones as $retencion) {  
-    if($tipofac == 2 ){
-      $pdf->Cell(35, 4, $retencion['descripcionRetencion'], 1, 0, 'L');
-      $pdf->Cell(30, 4, number_format($retencion['base'], 2), 1, 0, 'R');
-      $pdf->Cell(30, 4, number_format($retencion['valorRetencion'], 2), 1, 1, 'R');
-      $totRetencion = $totRetencion + round($retencion['valorRetencion']);
-/*       if($aplicarete == 1 ){        
-      }else{
-        $pdf->Cell(30, 4, number_format(0, 2), 1, 0, 'R');
-        $pdf->Cell(30, 4, number_format(0, 2), 1, 1, 'R');
-        $totRetencion = $totRetencion + 0;
-      }       */
-    }else{
-    $pdf->Cell(35,   4, 'RETEFUENTE', 1, 0, 'L');
+  if($tipofac == 2){
+    if(count($retenciones) == 0){
+      $pdf->Cell(35,   4, 'RETEFUENTE', 1, 0, 'L');
       $pdf->Cell(30, 4, number_format(0, 2), 1, 0, 'R');
       $pdf->Cell(30, 4, number_format(0, 2), 1, 1, 'R');
       $totRetencion = $totRetencion + 0;
+    }else {
+      foreach ($retenciones as $retencion) {  
+        if($tipofac == 2 ){
+          $pdf->Cell(35, 4, $retencion['descripcionRetencion'], 1, 0, 'L');
+          $pdf->Cell(30, 4, number_format($retencion['base'], 2), 1, 0, 'R');
+          $pdf->Cell(30, 4, number_format($retencion['valorRetencion'], 2), 1, 1, 'R');
+          $totRetencion = $totRetencion + round($retencion['valorRetencion']);      
+        }else{
+          $pdf->Cell(35,   4, 'RETEFUENTE', 1, 0, 'L');
+          $pdf->Cell(30, 4, number_format(0, 2), 1, 0, 'R');
+          $pdf->Cell(30, 4, number_format(0, 2), 1, 1, 'R');
+          $totRetencion = $totRetencion + 0;
+        }
+      }
     }
+  }else{
+    $pdf->Cell(35, 4, 'RETEFUENTE', 1, 0, 'L');
+    $pdf->Cell(30, 4, number_format(0, 2), 1, 0, 'R');
+    $pdf->Cell(30, 4, number_format(0, 2), 1, 1, 'R');
+    $totRetencion = $totRetencion + 0;
   }
+  
   $pdf->Cell(35, 4, 'RETEIVA', 1, 0, 'L');
   if($tipofac == 2){
     $pdf->Cell(30, 4, number_format($baseIva, 2), 1, 0, 'R');
@@ -244,7 +257,7 @@ $pdf->SetFont('Arial', '', 8);
   }
   
   $pdf->Cell(35, 4, 'RETEICA', 1, 0, 'L');
-  if($tipofac == 2){  
+  if($tipofac == 2){
     $pdf->Cell(30, 4, number_format($baseIca, 2), 1, 0, 'R');
     $pdf->Cell(30, 4, number_format($reteica, 2), 1, 1, 'R');
   } else {

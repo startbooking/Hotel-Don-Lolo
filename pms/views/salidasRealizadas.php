@@ -20,7 +20,6 @@
           <table id="example1" class="table table-bordered">
             <thead>
               <tr class="warning" style="font-weight: bold">
-                <!-- <td>Reserva</td> -->
                 <td>Hab.</td>
                 <td>Huesped</td>
                 <td>Compañia</td>
@@ -29,7 +28,6 @@
                 <td>Noc</td>
                 <td>Hom</td>
                 <td>Muj</td>
-                <!-- <td>Niños</td> -->
                 <td style="text-align:center;">Accion</td>
               </tr>
             </thead>
@@ -46,7 +44,6 @@
                 }
                 ?>
                 <tr style='font-size:12px'>
-                  <!-- <td><?php echo $reserva['num_reserva']?></td> -->
                   <td><?php echo $reserva['num_habitacion']; ?></td>
                   <td style="width:50px;"> 
                     <span class="btn btn-primary" style="padding:1px 4px; font-size:12px;font-weight: bold;">

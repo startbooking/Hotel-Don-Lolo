@@ -148,7 +148,7 @@ if ($perfilFac == 1 && $facturador == 1) {
     $eRete = [];
     $reten = [];
     $eInvo = [];
-    $ehold = [];    
+    $ehold = [];
     $errores = [];
 
     $eFact['number'] = $nroFactura;
@@ -299,9 +299,9 @@ if ($perfilFac == 1 && $facturador == 1) {
     $eFact['operation_mode'] = $oMode;       
     $eFact = json_encode($eFact);
         
-    // include_once '../../api/enviaFactura.php';            
+    include_once '../../api/enviaFactura.php';            
     
-    include_once '../../api/prueba.php';            
+    // include_once '../../api/prueba.php';            
     $recibeCurl = json_decode(trim($respofact), true);
     
     file_put_contents($envCurl, $eFact.',',  FILE_APPEND | LOCK_EX);
@@ -426,7 +426,7 @@ if ($perfilFac == 1 && $facturador == 1) {
 
     $ePDF = json_encode($ePDF);
 
-    // include_once '../../api/enviaPDF.php';
+    include_once '../../api/enviaPDF.php';
     
     $recibePDF = json_decode($respopdf, true);
 
@@ -497,7 +497,7 @@ if ($totalFolio != 0) {
         'mensaje' => '', 
         'archivo' => $oFile,
         'errorDian' => '0',
-        'perfil' => $perfilFac,            
+        'perfil' => $perfilFac,
     ];
     
     array_push($estadofactura, $error);

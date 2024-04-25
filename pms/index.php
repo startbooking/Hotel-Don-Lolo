@@ -268,24 +268,20 @@ require_once '../res/php/app_topHotel.php';
         include_once 'views/modal/modalFacturacion.php';
         include_once 'views/modal/modalReservas.php';
         include_once 'views/modal/modalObservaciones.php';
-        include_once 'views/modal/modalCompania.php';        
+        include_once 'views/modal/modalCompania.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'ventasDirectas') {
         include_once 'views/modal/modalVentasDirectas.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'facturacionHuesped') {
         include_once 'views/modal/modalFacturacion.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'cuentasCongeladas') {
-        //   include_once 'views/modal/modalFacturacion.php';
         include_once 'views/modal/modalObservaciones.php';
         include_once 'views/modal/modalRecepcion.php';
         include_once 'views/modal/modalCongeladas.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'facturacionCongelada') {
-        // / include_once 'views/modal/modalFacturacion.php' ;
         include_once 'views/modal/modalCongeladas.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'informeFacturasRango') {
-        // / include_once 'views/modal/modalTipoHabitaciones.php' ;
         include_once 'views/modal/modalFacturas.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'historicoFacturas') {
-        // / include_once 'views/modal/modalTipoHabitaciones.php' ;
         include_once 'views/modal/modalFacturas.php';
     } elseif (isset($_GET['section']) && ($_GET['section'] == 'facturasDelDia' || $_GET['section'] == 'recibosCajaDelDia')) {
         include_once 'views/modal/modalFacturas.php';

@@ -61,7 +61,7 @@
                   <tr style='font-size:12px'>
                     <td>
                       <div style="display: flex">
-                        <span><?php echo $reserva['num_habitacion']; ?></span>                      
+                        <span><?php echo $reserva['num_habitacion']; ?></span>
                         <?php
                           if ($reserva['causar_impuesto'] == 2) { ?>
                             <span class="btn btn-default faReservas" title="Sin Impuestos" style="padding:2px;">
@@ -74,7 +74,7 @@
                             <span 
                               class="btn btn-success faReservas" 
                                 title="Reserva con Depositos" 
-                                onclick="verDepositos('<?php echo $reserva['num_reserva']; ?>')">                          
+                                onclick="verDepositos('<?php echo $reserva['num_reserva']; ?>')">
                                 <i class="fa fa-usd fa-stack-1x fa-inverse "></i>
                             </span>
                             <?php
@@ -89,7 +89,7 @@
                               <i class="fa fa-commenting fa-stack-1x fa-inverse"></i>
                             </span>
                             <?php
-                          }                        
+                          }
                           if ($hoy == substr($reserva['fecha_nacimiento'], 5, 5)) { ?>
                             <span class="btn btn-warning faReservas" title="El Huesped esta de Cumpleaños" style="margin-left:0px;cursor:pointer;" >
                               <i class="fa fa-birthday-cake fa-stack-1x fa-inverse"></i> 
@@ -107,8 +107,8 @@
                         if (count($acompanas) > 0) {
                           foreach ($acompanas as $key => $acompana) { ?>
                             <span class="btn btn-info" style="padding:1px 4px; margin-left:15px;margin-top:3px;font-size:10px;font-weight: bold;">
-                              <?php echo substr($acompana['nombre_completo'],0,35); ?>                            
-                            </span>              
+                              <?php echo substr($acompana['nombre_completo'],0,35); ?>
+                            </span>
                             <?php
                           }
                         }
@@ -202,7 +202,7 @@
                                         >
                                         <i class="fa fa-sign-out" aria-hidden="true"></i>
                                         Anular Ingreso</a>
-                                    </li>                 
+                                    </li>
                                   <?php
                                 }
                                 if ($reserva['num_habitacion'] != CTA_DEPOSITO) { ?>

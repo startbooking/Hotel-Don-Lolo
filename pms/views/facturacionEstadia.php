@@ -6,8 +6,6 @@
   $fecha = $resolucion[0]['fecha'];
   $vigen = $resolucion[0]['vigencia'];
   $fechaVigencia =   date("Y-m-d",strtotime($fecha."+ ".$resolucion[0]['vigencia']." month")); 
-    
-  //  echo $hora;
 
 ?>
 

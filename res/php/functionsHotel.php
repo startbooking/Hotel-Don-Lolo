@@ -119,8 +119,6 @@ class Hotel_Actions{
     public function traeInfoFE($numFact){
         global $database;
         
-        echo $numFact;
-        
         $data = $database->select('datosFE',[
           'QRStr',
           'cufe',
@@ -829,87 +827,9 @@ class Hotel_Actions{
         return $data;
     }
 
-    public function traeValorRetencionesXXX($nroReserva, $nroFolio)
-    {
-        global $database;
-
-        $data = $database->query("SELECT 
-            valRete.monto,  
-            valRete.base,              
-            valRete.impto,
-            valRete.retencion
-            
-            FROM
-            (SELECT 
-            ROUND(SUM(cargos_pms.monto_cargo),0) AS monto,
-            ROUND(SUM(cargos_pms.base_impuesto),0) AS base,
-            ROUND(SUM(cargos_pms.impuesto),0) as impto,
-            codigos_vta.idRetencion, 
-            cargos_pms.valor_cargo, 
-            retenciones.descripcionRetencion, 
-            retenciones.porcentajeRetencion,
-            retenciones.baseRetencion, 
-            ((sum(cargos_pms.monto_cargo) * porcentajeRetencion)/100) AS retencion
-            FROM
-                cargos_pms,
-                retenciones,  
-                codigos_vta
-            WHERE
-                cargos_pms.id_codigo_cargo = codigos_vta.id_cargo 
-                AND codigos_vta.idRetencion = retenciones.idRetencion 
-                AND cargos_pms.numero_reserva = $nroReserva 
-                AND cargos_pms.folio_cargo = $nroFolio 
-                AND cargos_pms.cargo_anulado = 0
-            GROUP BY
-            codigos_vta.idRetencion
-            ORDER BY
-            codigos_vta.idRetencion) as valRete
-        ")->fetchAll();
-        return $data;
-    }
-
     public function traeValorRetenciones($nroReserva, $nroFolio){
         global $database;
-        echo 'con base de retenion';
         
-        
-        $data = $database->query("SELECT 
-                a.monto, a.base, a.idRetencion, a.descripcionRetencion, a.valorRetencion, a.porcentajeRetencion
-                FROM ( SELECT
-                COALESCE(SUM(cargos_pms.monto_cargo),0) AS monto,
-                COALESCE(SUM(cargos_pms.base_impuesto),0) AS base,
-                COALESCE(SUM(cargos_pms.impuesto),0) as impto,
-                codigos_vta.idRetencion, 
-                cargos_pms.valor_cargo, 
-                retenciones.descripcionRetencion, 
-                retenciones.porcentajeRetencion,
-                retenciones.baseRetencion,
-                COALESCE(sum(cargos_pms.monto_cargo) * (porcentajeRetencion)/100,0) AS valorRetencion
-                FROM
-                    cargos_pms,
-                    retenciones,
-                    codigos_vta
-                WHERE
-                    cargos_pms.id_codigo_cargo = codigos_vta.id_cargo 
-                    AND codigos_vta.idRetencion = retenciones.idRetencion 
-                    AND cargos_pms.numero_reserva = $nroReserva 
-                    AND cargos_pms.folio_cargo = $nroFolio 
-                    AND cargos_pms.cargo_anulado = 0
-                    AND retenciones.tipoRetencion = 1
-                GROUP BY
-                codigos_vta.idRetencion
-                ORDER BY
-                codigos_vta.idRetencion) AS a
-                RIGHT JOIN retenciones ON a.idRetencion = retenciones.idRetencion AND retenciones.tipoRetencion = 1
-                ")->fetchAll(PDO::FETCH_ASSOC);
-        return $data;
-    }
-
-    public function traeValorRetencionesSin($nroReserva, $nroFolio)
-    {
-        global $database;
-        ECHO 'SIN BASE DE RETENCION ';
-
         $data = $database->query("SELECT 
                 a.monto, a.base, retenciones.idRetencion, retenciones.descripcionRetencion, a.valorRetencion, retenciones.porcentajeRetencion
                 FROM ( SELECT
@@ -921,88 +841,61 @@ class Hotel_Actions{
                 retenciones.descripcionRetencion, 
                 retenciones.porcentajeRetencion,
                 retenciones.baseRetencion,
-                COALESCE(sum(cargos_pms.monto_cargo) * porcentajeRetencion)/100,0) AS valorRetencion
+                retenciones.tipoRetencion,
+                COALESCE(sum(cargos_pms.monto_cargo) * (porcentajeRetencion)/100,0) AS valorRetencion
                 FROM
                     cargos_pms,
                     retenciones,
                     codigos_vta
                 WHERE
-                    cargos_pms.id_codigo_cargo = codigos_vta.id_cargo
-                    AND codigos_vta.idRetencion = retenciones.idRetencion
-                    AND cargos_pms.numero_reserva = $nroReserva
-                    AND cargos_pms.folio_cargo = $nroFolio
+                    cargos_pms.id_codigo_cargo = codigos_vta.id_cargo 
+                    AND codigos_vta.idRetencion = retenciones.idRetencion 
+                    AND cargos_pms.numero_reserva = $nroReserva 
+                    AND cargos_pms.folio_cargo = $nroFolio 
                     AND cargos_pms.cargo_anulado = 0
-                    AND retenciones.tipoRetencion = 1
                 GROUP BY
                 codigos_vta.idRetencion
                 ORDER BY
                 codigos_vta.idRetencion) AS a
-                RIGHT JOIN retenciones ON a.idRetencion = retenciones.idRetencion AND retenciones.tipoRetencion = 1
+                JOIN retenciones 
+                ON a.idRetencion = retenciones.idRetencion 
+                AND retenciones.tipoRetencion = 1 
+                AND  a.base >= retenciones.baseRetencion
                 ")->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     }
 
-
-    public function traeValorRetencionesOld($nroReserva, $nroFolio){
-        global $database;
-        
-        $data = $database->query("SELECT
-            ROUND(SUM(cargos_pms.monto_cargo),0) AS monto,
-            ROUND(SUM(cargos_pms.base_impuesto),0) AS base,
-            ROUND(SUM(cargos_pms.impuesto),0) as impto,
-            codigos_vta.idRetencion, 
-            cargos_pms.valor_cargo, 
-            retenciones.descripcionRetencion, 
-            retenciones.porcentajeRetencion,
-            retenciones.baseRetencion, 
-            ((sum(cargos_pms.monto_cargo) * porcentajeRetencion)/100) AS retencion
-            FROM
-                cargos_pms,
-                retenciones,  
-                codigos_vta
-            WHERE
-                cargos_pms.id_codigo_cargo = codigos_vta.id_cargo 
-                AND codigos_vta.idRetencion = retenciones.idRetencion 
-                AND cargos_pms.numero_reserva = $nroReserva 
-                AND cargos_pms.folio_cargo = $nroFolio 
-                AND cargos_pms.cargo_anulado = 0
-            GROUP BY
-            codigos_vta.idRetencion
-            ORDER BY
-            codigos_vta.idRetencion")->fetchAll(PDO::FETCH_ASSOC);
-        return $data;
-    }
-
-    public function traeValorRetencionesSinOLd($nroReserva, $nroFolio)
+    public function traeValorRetencionesSinBase($nroReserva, $nroFolio)
     {
         global $database;
 
         $data = $database->query("SELECT
-        ROUND(SUM(a.monto_cargo),0) AS monto,
-        ROUND(SUM(a.base_impuesto),0) AS base,
-        ROUND(SUM(a.impuesto),0) as impto,
-        a.valor_cargo, 
-        b.descripcionRetencion, 
-        b.porcentajeRetencion,
-        b.baseRetencion, 
-        ((sum(a.monto_cargo) * porcentajeRetencion)/100) AS retencion
-        FROM
-            cargos_pms a,
-            retenciones b,  
-            codigos_vta c
-        WHERE
-            a.id_codigo_cargo = c.id_cargo and
-            c.idRetencion = b.idRetencion AND
-            numero_reserva = $nroReserva 
-            AND a.folio_cargo = $nroFolio 
-            AND a.cargo_anulado = 0
-        GROUP BY
-        c.idRetencion
-        ORDER BY
-        c.idRetencion")->fetchAll(PDO::FETCH_ASSOC);
+                COALESCE(SUM(cargos_pms.monto_cargo),0) AS monto,
+                COALESCE(SUM(cargos_pms.base_impuesto),0) AS base,
+                COALESCE(SUM(cargos_pms.impuesto),0) as impto,
+                codigos_vta.idRetencion, 
+                cargos_pms.valor_cargo,
+                retenciones.descripcionRetencion, 
+                retenciones.porcentajeRetencion,
+                retenciones.baseRetencion,
+                COALESCE(sum(cargos_pms.monto_cargo) * (retenciones.porcentajeRetencion/100),0) AS valorRetencion
+                FROM
+                    cargos_pms
+                    JOIN codigos_vta 
+                    ON codigos_vta.id_cargo = cargos_pms.id_codigo_cargo
+                    RIGHT JOIN retenciones
+                    ON retenciones.idRetencion = codigos_vta.idRetencion
+                WHERE 
+                    cargos_pms.numero_reserva = $nroReserva 
+                    AND cargos_pms.folio_cargo = $nroFolio 
+                    AND cargos_pms.cargo_anulado = 0
+                GROUP BY
+                codigos_vta.idRetencion
+                ORDER BY
+                codigos_vta.idRetencion
+                ")->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     }
-
 
     public function traeDatosPerfilFactura($numero)
     {
@@ -4930,8 +4823,6 @@ class Hotel_Actions{
 
         $data = $database->query("SELECT COUNT(id) as rooms FROM habitaciones WHERE id_tipohabitacion <> '$cuenta' AND active_at = 1")->fetchAll();
 
-        // echo print_r($data);
-
         return $data[0]['rooms'];
     }
 
@@ -7653,7 +7544,7 @@ class Hotel_Actions{
 	return $data;
   }
 
-  public function traeBalanceHabitaciones(){
+public function traeBalanceHabitaciones($tipo){
     global $database;
     $data = $database->query("SELECT
 	reservas_pms.num_reserva, 
@@ -7680,7 +7571,7 @@ FROM
 	ON 
 		reservas_pms.id_huesped = huespedes.id_huesped
 WHERE
-	reservas_pms.estado = 'CA'
+	reservas_pms.estado = '$tipo'
 GROUP BY
 	reservas_pms.num_reserva
 ORDER BY

@@ -238,7 +238,7 @@ $facturas = $hotel->getFacturasPorRango($query);
 <script>
   $(function() {
     $('#example1').DataTable({
-      "iDisplayLength": 100,
+      "iDisplayLength": 50,
       "paging": true,
       "lengthChange": true,
       "searching": true,

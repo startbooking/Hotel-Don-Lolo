@@ -122,7 +122,9 @@ if (!isset($_GET['section'])) {
 } elseif (isset($_GET['section']) && $_GET['section'] == 'cargosDelDia') {
     $companias = $hotel->getCompanias(); 
 } elseif (isset($_GET['section']) && $_GET['section'] == 'cuentasCongeladas') {
-    $reservas = $hotel->getHuespedesenCasa(2, 'CO');
+    // $reservas = $hotel->getHuespedesenCasa(2, 'CO');
+    $reservas = $hotel->traeBalanceHabitaciones('CO');
+
 } elseif (isset($_GET['section']) && $_GET['section'] == 'facturasDiaNew') {
     $facturas = $hotel->getBuscaFacturasDia(FECHA_PMS);
 } elseif (isset($_GET['section']) && $_GET['section'] == 'facturasDelDia') {

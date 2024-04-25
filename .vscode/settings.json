@@ -13,6 +13,19 @@
       "database": "donlolojul03",
       "username": "root",
       "password": "B4r4h0n@"
+    },
+    {
+      "mysqlOptions": {
+        "authProtocol": "default",
+        "enableSsl": "Disabled"
+      },
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 3306,
+      "driver": "MySQL",
+      "name": "localHost",
+      "database": "donloloMarzo19",
+      "username": "root"
     }
   ],
   "editor.inlineSuggest.showToolbar": "always"

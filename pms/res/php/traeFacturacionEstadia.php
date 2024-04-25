@@ -1,7 +1,7 @@
 <?php
 require '../../../res/php/app_topHotel.php';
 extract($_POST);
-$reservas = $hotel->traeBalanceHabitaciones();
+$reservas = $hotel->traeBalanceHabitaciones('CA');
 ?>
 
 <div class="table-responsive">
