@@ -122,15 +122,15 @@ function estadoFacturaImp($estado){
 function estadoFactura($estado){
     switch ($estado) {
         case 0:
-            return '<span class="badge label-info">Activa</span>';
+            return '<span class="alert alert-info alert-function">Activa</span>';
         case 1:
-            return '<span class="badge label-danger">Anulada</span>';
+            return '<span class="alert alert-danger alert-function">Anulada</span>';
         case 'A':
-            return '<span class="badge label-info">Activa</span>';
+            return '<span class="alert alert-info alert-function">Activa</span>';
         case 'X':
-            return '<span class="badge label-danger">Anulada</span>'; 
+            return '<span class="alert alert-danger alert-function">Anulada</span>'; 
         case 2:
-            return '<span class="badge label-default">Sin Definir</span>';
+            return '<span class="alert alert-default alert-function">Sin Definir</span>';
     }
 }
 
@@ -139,7 +139,7 @@ function estadoDocumento($estado){
         case 0:
             return '<span class="badge label-info">Activo</span>';
         case 1:
-            return '<span class="badge label-danger">Anulado</span>';        
+            return '<span class="badge label-danger">Anulado</span>';
     }
 }
 
@@ -148,33 +148,33 @@ function operacionDocumento($estado){
         case 1:
             return '<span class="badge label-info">Individual</span>';
         case 2:
-            return '<span class="badge label-success">Acumulada</span>';        
+            return '<span class="badge label-success">Acumulada</span>';
     }
 }
 
 function estadoDocumentoDIAN($estado){
     switch ($estado) {
         case '0':
-            return '<span class="badge label-warning">No Procesada</span>';
+            return '<span class="alert alert-warning alert-function">No Procesada</span>';
         case '1':
-            return '<span class="badge label-success">Emitida</span>';
+            return '<span class="alert alert-success alert-function">Emitida</span>';
         case 'false':
-            return '<span class="badge label-warning">No Procesada</span>';
+            return '<span class="alert alert-warning alert-function">No Procesada</span>';
         case 'true':
-            return '<span class="badge label-success">Emitida</span>';
+            return '<span class="alert alert-success alert-function">Emitida</span>';
     }
 }
 
 function estadoFacturaDIAN($estado){
     switch ($estado) {
         case '0':
-            return '<span style="font-size:12px" class="label label-warning">No Procesada</span>';
+            return '<span style="font-size:12px" class="alert alert-warning alert-function">No Procesada</span>';
         case '1':
-            return '<span style="font-size:12px" class="label label-success">Emitida</span>';
+            return '<span style="font-size:12px" class="alert alert-success alert-function">Emitida</span>';
         case 'false':
-            return '<span style="font-size:12px" class="label label-warning">No Procesada</span>';
+            return '<span style="font-size:12px" class="alert alert-warning alert-function">No Procesada</span>';
         case 'true':
-            return '<span style="font-size:12px" class="label label-success">Emitida</span>';
+            return '<span style="font-size:12px" class="alert alert-success alert-function">Emitida</span>';
     }
 }
 

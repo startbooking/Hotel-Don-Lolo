@@ -3,7 +3,7 @@
     <a href="https://www.sactel.net" target="blank" style="color:#171414;">
     </a>
       <div class="col-xs-5">
-  	    <h6 style="margin-top:15px" ><strong>Todos lo Derechos Reservados <i class="fa fa-copyright" aria-hidden="true"></i> Bogota - Colombia 2016 - 2023 </strong>	</h6>
+  	    <h6 style="margin-top:15px" ><strong>Todos lo Derechos Reservados <i class="fa fa-copyright" aria-hidden="true"></i> Bogota - Colombia 2016 - 2024 </strong>	</h6>
       </div>
       <div class="col-xs-2 logopie" >
   	    <h6 style="margin:0px;text-align:center">

@@ -834,8 +834,6 @@ input[type="number"].form-control {
   cursor: default;
 }
 
-#nav > ul > li {
-}
 
 #nav > ul > li > a {
   border: 0;
@@ -872,14 +870,6 @@ input[type="number"].form-control {
   transition: color 0.25s ease-in-out;
 }
 
-#nav > ul > li.active,
-#nav > ul > li:hover {
-}
-
-#nav > ul > li.active > a,
-#nav > ul > li:hover > a {
-}
-
 #nav > ul > li.active > a:before,
 #nav > ul > li:hover > a:before {
   background: #ed786a;
@@ -891,11 +881,10 @@ input[type="number"].form-control {
   color: #ed786a;
 }
 
-/*********************************************************************************/
-/* Features                                                                      */
-/*********************************************************************************/
-
-#features {
+.alert-function {
+  color: #0009 !important;
+  margin-bottom: 0;
+  padding:3px 5px;
 }
 
 /*********************************************************************************/
@@ -919,9 +908,6 @@ input[type="number"].form-control {
 /* Content                                                                       */
 /*********************************************************************************/
 
-#content {
-}
-
 #content > section,
 #content > article {
   border-top: solid 2px #e5e5e5;
@@ -937,9 +923,6 @@ input[type="number"].form-control {
 /*********************************************************************************/
 /* Sidebar                                                                       */
 /*********************************************************************************/
-
-#sidebar {
-}
 
 #sidebar > section,
 #sidebar > article {
@@ -1013,7 +996,6 @@ input[type="number"].form-control {
 
 .form-top-left h3 {
   margin-top: 0;
-  /* color: #fff; */
 }
 .form-top-left p {
   opacity: 0.8;
@@ -1051,7 +1033,13 @@ input[type="number"].form-control {
   border-color: #de615e;
 }
 
-input:invalid { border-color: brown; } input, input:valid { border-color: #ccc; }
+input:invalid { 
+  border-color: brown; 
+} 
+
+input, input:valid { 
+  border-color: #ccc; 
+}
 
 #mask {
   position: absolute;
@@ -1178,11 +1166,6 @@ ul#produtos li h3 {
   color: #0009;
 }
 
-.img-thumbnail {
-  /* margin-top: 15%; */
-  /* width: 30%; */
-}
-
 .chat-buttons-row {
   height: 20px;
   width: 20px;
@@ -1262,13 +1245,6 @@ ul#produtos li h3 {
 .letraLogo {
   font-size: 70px;
   width: 83%;
-  /* 
-  position: relative;
-  font-family: ubuntu;
-  margin: 25px 0; 
-  margin-top: 10px; */
-  /* left: -100px;
-  top: 20px; */
 }
 
 .letraLogo > label {
@@ -1469,10 +1445,6 @@ padding: 10px 15px;
   .small-box h3 {
     font-size: 18px;
     font-weight: 500;
-  }
-
-  .navbar-custom-menu {
-    /* font-size: 10px; */
   }
 
   .letraLogo {

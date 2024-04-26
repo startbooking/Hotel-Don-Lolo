@@ -61,21 +61,23 @@ $facturador = $eToken[0]['facturador'];
                         }
                         $numFactura = $factura['prefijo_factura'] . $factura['factura_numero']; ?>
                         <tr style='font-size:12px'>
-                          <td style="padding:3px 5px"><?php echo $factura['factura_numero']; ?></td>
-                          <td style="padding:3px 5px"><?php
-                                                      if ($factura['tipo_factura'] == 1) {
-                                                        echo substr($factura['nombre_completo'], 0, 35);
-                                                      } else {
-                                                        echo substr($nombrecia, 0, 35);
-                                                      }
-                                                      ?></td>
+                          <td style="padding:3px 5px"><?php echo $factura['prefijo_factura'] . '-' . $factura['factura_numero']; ?></td>
+                          <td style="padding:3px 5px">
+                            <?php
+                            if ($factura['tipo_factura'] == 1) {
+                              echo substr($factura['nombre_completo'], 0, 35);
+                            } else {
+                              echo substr($nombrecia, 0, 35);
+                            }
+                            ?>
+                          </td>
                           <td style="padding:3px 5px"><?php echo substr($factura['nombre_completo'], 0, 35); ?></td>
                           <td style="padding:3px 5px"><?php echo $factura['fecha_llegada']; ?></td>
                           <td style="padding:3px 5px"><?php echo $factura['fecha_factura']; ?></td>
-                          <td style="padding:3px 5px"><?php echo estadoFactura($factura['factura_anulada']); ?></td>
+                          <td style="padding:3px 5px;text-align:center;"><?php echo estadoFactura($factura['factura_anulada']); ?></td>
                           <?php
                           if ($facturador == 1) { ?>
-                            <td style="padding:3px 5px">
+                            <td style="padding:3px 5px;text-align:center;">
                               <?php
                               echo estadoFacturaDIAN($factura['estadoEnvio']);
                               ?>

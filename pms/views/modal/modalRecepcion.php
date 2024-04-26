@@ -641,7 +641,7 @@
             </button> 
             <h3 class="modal-title" id="exampleModalLabel">Depositos a Reserva</h3>
           </div>
-          <div class="modal-body">
+          <div class="modal-body" style="height: 400px;overflow: auto;">
             <div id="depositoHuesped" style="margin :-20px 0 -30px 0;font-size: 12px"></div>
           </div>
           <div class="modal-footer">

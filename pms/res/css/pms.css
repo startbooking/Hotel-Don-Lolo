@@ -151,10 +151,6 @@ form select {
   height: 22px;
   }
 
-.menuForecast:hover {
-  /* background-color: #444; */
-}
-
 
 input[type="date"].form-control {
   line-height: 15px;
@@ -178,7 +174,7 @@ a.info span,
 }
 
 #reservasEsperadas {
-  position: relative;	
+  position: relative;
   text-align: center;
   top: 5px;
   width: 100%;
@@ -186,6 +182,11 @@ a.info span,
 
 #reservasEsperadas .alert{
   margin-bottom: 5px;
+}
+
+span .alert {
+  color:#0009 !important;
+  margin-bottom:0;
 }
 
 .reserva {
@@ -385,15 +386,6 @@ a.info span,
 	text-decoration: none;
 	/* color: #fff; */
 }
-
-.category_list .ct_item-active{
-	/* background: #2D3E50; */
-}
-
-.category_item:hover {
-  /* background-color: #680b0b !important; */
-}
-
 
 .products-list .product-item{
   transition: all .4s;
@@ -768,15 +760,11 @@ input[type="datetime-local"].form-control,
 input[type="month"].form-control {
   line-height: 17px;
 }
-.main-sidebar{
-  /* margin-top:50px;padding:0 */
-}
 
 .logoMenu {
   border-radius: 5px;
   margin-left: -10px;
   margin-top: 0px;
-  /* height: 30%; */
   width: 50%;
   margin-bottom: 0px;
 }
@@ -794,26 +782,16 @@ input[type="month"].form-control {
     margin-bottom: 0;
     text-align: right;
   }
-}
-
-@media (min-width: 340px) {
-  .fontDatePMS {
-    font-size: 12px;
-    margin-left: 10px;
-  }
-}
-
-@media (max-width: 768px) {
-  .derecha,
-  .izquierda {
-    text-align: center;
-  }
-
-  .alert-confirm {
-    text-align: center;
-    height: 140px;
-    background-color: rgb(205, 205, 205, 0.55);
-  }
+    .derecha,
+    .izquierda {
+      text-align: center;
+    }
+  
+    .alert-confirm {
+      text-align: center;
+      height: 140px;
+      background-color: rgb(205, 205, 205, 0.55);
+    }
 }
 
 @media (max-width: 480px) {
@@ -830,15 +808,15 @@ input[type="month"].form-control {
   }
 
   .controlPanel {
-    font-size:22px; 
-  
+    font-size: 22px;
+
   }
 
-  .inner > h3 {
+  .inner>h3 {
     font-size: 20px;
   }
 
-  .inner > p {
+  .inner>p {
     text-align: center;
   }
 
@@ -847,29 +825,40 @@ input[type="month"].form-control {
     margin-top: -70px;
     width: 15%;
   }
-  
+
   .content-wrapper {
     margin-bottom: 50px;
     margin-left: 11%;
   }
 
-  .sidebar-menu > li > a {
+  .sidebar-menu>li>a {
     padding: 5px;
     /* display: block; */
     font-size: 11px;
   }
 
-  .sidebar-menu .treeview-menu > li > a {
+  .sidebar-menu .treeview-menu>li>a {
     padding: 5px 5px 5px 10px;
     font-size: 12px;
   }
 
-  .sidebar-menu li > a > .pull-right {
+  .sidebar-menu li>a>.pull-right {
     right: -8px;
   }
-  .sidebar-menu > li > a > .fa, .sidebar-menu > li > a > .glyphicon, .sidebar-menu > li > a > .ion {
+
+  .sidebar-menu>li>a>.fa,
+  .sidebar-menu>li>a>.glyphicon,
+  .sidebar-menu>li>a>.ion {
     width: 14px;
   }
 
 
 }
+
+@media (min-width: 340px) {
+  .fontDatePMS {
+    font-size: 12px;
+    margin-left: 10px;
+  }
+}
+
