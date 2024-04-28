@@ -1,2 +1,6 @@
 *.zip
 *.pdf
+*.sql
+*.gz
+*.png
+*.json
