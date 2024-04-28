@@ -550,6 +550,8 @@ class User_Actions
             'tipo_empresa',
             'impto_incl',
             'cms',
+            'mantenimiento',
+            'suspendido'
         ]);
 
         return $data;

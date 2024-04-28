@@ -34,10 +34,10 @@
   function estadoInventario($tipo){
     switch ($tipo) {
       case 1:
-        return '<span class="label label-success" style="font-size:12px">SI</span>';
+        return '<span class="alert alert-warning alert-function" style="font-size:12px">SI</span>';
         break;
       case 2:
-        return '<span class="label label-info" style="font-size:12px">NO</span>';  
+        return '<span class="alert alert-info alert-function" style="font-size:12px">NO</span>';  
         break;
     }
   }
@@ -45,10 +45,10 @@
   function estadoMmto($tipo){
     switch ($tipo) {
       case 1:
-        return '<span class="label label-success" style="font-size:12px">En Mantenimiento</span>';
+        return '<span class="alert alert-success alert-function" style="font-size:12px">En Mantenimiento</span>';
         break;
       case 2:
-        return '<span class="label label-info" style="font-size:12px">Estadia</span>';  
+        return '<span class="alert alert-info alert-function" style="font-size:12px">Estadia</span>';  
         break;
     }
   }

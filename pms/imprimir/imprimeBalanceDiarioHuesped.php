@@ -1,6 +1,4 @@
 <?php 
-  // require 'plantillaAuditoria.php';
-
   $pdf = new PDF(); 
   $pdf->AddPage('P','letter');
   $pdf->SetFont('Arial','B',11);
@@ -16,7 +14,7 @@
     foreach ($encasas as $encasa) {
       $pdf->SetFont('Arial','B',10);
       $pdf->Cell(20,6,'Huesped ',0,0,'L');
-      $pdf->Cell(70,6,utf8_decode($encasa['apellido1'].' '.$encasa['apellido2'].' '.$encasa['nombre1'].' '.$encasa['nombre2']),0,0,'L');
+      $pdf->Cell(70,6,utf8_decode(substr($encasa['apellido1'].' '.$encasa['apellido2'].' '.$encasa['nombre1'].' '.$encasa['nombre2'],0,25)),0,0,'L');
       $pdf->Cell(10,6,'Hab ',0,0,'L');
       $pdf->Cell(10,6,$encasa['num_habitacion'],0,0,'C');
       $pdf->Cell(10,6,'Tipo ',0,0,'L');

@@ -32,11 +32,11 @@
 	define("IP_ACCESS", $empresa[0]['ip_acceso']);
 	define("TIPOEMPRESA", $user->getTypeCia($empresa[0]['tipo_empresa']));
 	define("CMS", $empresa[0]['cms']);
+	define("MMTO", $empresa[0]['mantenimiento']);
+	
 
-/* Datos Hotel */
-	
+	/* 
 	$hotel         = $user->getHotelInfo();
-	
 	define('ID_HOTEL', $hotel[0]['id_hotel']);
 	define("NAME_HOTEL", $hotel[0]['hotel_name']);
 	define("NIT_HOTEL", $hotel[0]['nit_hotel']);
@@ -57,7 +57,8 @@
 	define("COLOR_CARD", $hotel[0]['color_card']);
 	define("FONT_CARD", $hotel[0]['font_card']);
 	define("ADULTS", $hotel[0]['max_adults']);
-	define("KIDS", $hotel[0]['max_babys']);
+	define("KIDS", $hotel[0]['max_babys']);  define("MMTO", $hotel[0]['mmto']);
+
 	define("WEB_PAGE", $hotel[0]['web']); 
 	define("LANGUAGE", $hotel[0]['language']);
 	define("MAPS", $hotel[0]['api_key_maps']);
@@ -71,9 +72,10 @@
   define("CHECKOUT", $hotel[0]['check_out']);
   define("ESTADO", $hotel[0]['active_at']);
   define("MMTO", $hotel[0]['mmto']);
-  define("MENSAJEMMTO", $hotel[0]['textoMmto']);
+  define("MENSAJEMMTO", $hotel[0]['textoMmto']); 
+  */
 
-	$pc = gethostname();
+	/* $pc = gethostname();
 	$ip = $_SERVER['REMOTE_ADDR'];
 	if(!isset($_GET['section'])){
 		$link    = '';
@@ -81,8 +83,8 @@
 		$link    = $_GET['section'];
 	}
 	if(empty($infoseo)){
-	}
-	if(!isset($_GET['section'])){
+	} */
+	/* if(!isset($_GET['section'])){
 	}elseif(isset($_GET['section']) && $_GET['section'] == 'home'){
 		$sliders = $user->getSliderHotel(ID_HOTEL);	
 	}elseif(isset($_GET['section']) && $_GET['section'] == 'about'){
@@ -125,7 +127,7 @@
 			$cant = rand(1,($totimages-20 )); 
 		};
 		$images = $user->getGallery($cant,20,ID_HOTEL);	
-	}
+	} */
 
 
  ?> 

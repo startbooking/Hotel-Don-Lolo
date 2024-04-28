@@ -15,8 +15,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     })
   }
 
-  let { user } = sesion;
-  let { usuario, usuario_id, nombres, apellidos, tipo } = user;
+  let { user: { usuario, usuario_id, nombres, apellidos, tipo } } = sesion;
+  // let  = user;
   
   $('.category_list .category_item[category="all"]').addClass("ct_item-active");
   $(".category_item").click(function () {
@@ -5138,12 +5138,12 @@ function accesoUsuarios(){
   menuFicha  = document.querySelectorAll("#menuFicha")
   btnAdiciona =  document.querySelectorAll('.btnAdiciona')
   
-  if (tipo >= 2) {
+  if (tipo > 2) {
     document.querySelector('#menuAuditoria').classList.add('apaga')    
     document.querySelector('#menuCartera').classList.add('apaga')    
   }
 
-  if(tipo >= 4 ){
+  if(tipo > 4 ){
     $document.querySelector('menuAmaLlaves').classList.add('apaga')    
     $document.querySelector('menuFacturacion').classList.add('apaga')    
     menuFicha.forEach((element, index) => {
@@ -5790,7 +5790,7 @@ function cargarHabitaciones() {
     success: function (datos) {
       if (datos == 1) {
         $("#aviso").html(
-          '<div class="alert alert-info" style="margin-bottom: 30px"><h4 align="center" style="color:brown;font-weight: 700">Habitaciones Cargadas con Exito</h4></div>'
+          '<div class="alert alert-info alert-function" style="margin-bottom: 1px"><h4 align="center" style="color:brown;font-weight: 700">Habitaciones Cargadas con Exito</h4></div>'
         );
       } else {
         $("#aviso").html(datos);
@@ -6947,7 +6947,7 @@ function seleccionaTarifas() {
   var tipo = $("#tipohabi").val();
   var llega = $("#llegada").val();
   var sale = $("#salida").val();
-  var parametros = { tipo: tipo, llega: llega, sale: sale };
+  var parametros = { tipo, llega, sale };
   $.ajax({
     type: "POST",
     url: "res/php/seleccionaTarifas.php",
@@ -6974,11 +6974,11 @@ function valorHabitacion(tarifa) {
 
   if (tipo == "CMA") {
     var parametros = {
-      tarifa: tarifa,
-      tipo: tipo,
-      hom: hom,
-      muj: muj,
-      nin: nin,
+      tarifa,
+      tipo,
+      hom,
+      muj,
+      nin,
     };
     $.ajax({
       url: "res/php/valorTarifa.php",
@@ -7000,11 +7000,11 @@ function valorHabitacion(tarifa) {
       $("#hombres").focus();
     } else {
       var parametros = {
-        tarifa: tarifa,
-        tipo: tipo,
-        hom: hom,
-        muj: muj,
-        nin: nin,
+        tarifa,
+        tipo,
+        hom,
+        muj,
+        nin,
       };
       $.ajax({
         url: "res/php/valorTarifa.php",
@@ -7921,7 +7921,7 @@ function validaCierreDiario() {
       data: parametros,
       beforeSend: function (objeto) {
         $(".mensaje").html(
-          '<h3 class="alert alert-danger"><i style="font-size:3em;margin-top:1px;color:#BBB0B0; " class="ion ion-ios-gear-outline fa-spin"></i>Procesando Auditoria, NO Interrumpir</h3>'
+            `<h3 class="alert alert-danger" style="color:#0009;"><i style="font-size:3em;margin-top:1px;color:#BBB0B0; " class="ion ion-ios-gear-outline fa-spin"></i>Procesando Auditoria, NO Interrumpir</h3>}`
         );
       },
       success: function (x) {

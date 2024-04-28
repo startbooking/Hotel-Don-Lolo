@@ -73,13 +73,13 @@ $reservas = $hotel->traeBalanceHabitaciones('CA');
             ?>
           </td>
           <td>
-            <span class="btn btn-primary" style="padding:1px 4px; font-size:12px;font-weight: bold;">
+            <span class="btn alert-info alert-function" style="padding:1px 4px; font-size:12px;font-weight: bold;">
               <?php echo substr($reserva['nombre_completo'], 0, 35); ?></span>
             <?php
             $acompanas = $hotel->buscaAcompanantes($reserva['num_reserva']);
             if (count($acompanas) > 0) {
               foreach ($acompanas as $key => $acompana) { ?>
-                <span class="btn btn-info" style="padding:1px 4px; margin-left:15px;margin-top:3px;font-size:10px;font-weight: bold;">
+                <span class="btn alert-success alert-function" style="padding:1px 4px; margin-left:15px;margin-top:3px;font-size:10px;font-weight: bold;">
                   <?php echo substr($acompana['nombre_completo'], 0, 35); ?>
                 </span>
             <?php
@@ -110,11 +110,7 @@ $reservas = $hotel->traeBalanceHabitaciones('CA');
                       <?php
                       if ($vigencia == 0) { ?>
                         <li>
-                          <a 
-                            data-toggle="modal" 
-                            data-id="<?php echo $reserva['num_reserva']; ?>" 
-                            onclick="movimientosFactura(<?php echo $reserva['num_reserva']; ?>)" 
-                            href="">
+                          <a data-toggle="modal" data-id="<?php echo $reserva['num_reserva']; ?>" onclick="movimientosFactura(<?php echo $reserva['num_reserva']; ?>)" href="">
                             <i class="fa fa-address-card" aria-hidden="true"></i>
                             Facturacion</a>
                         </li>

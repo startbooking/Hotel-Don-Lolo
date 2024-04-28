@@ -116,7 +116,7 @@ foreach ($usuarios as $usuario) {
     $total = 0;
     foreach ($cargos as $cargo) {
         $pdf->Cell(10, 6, $cargo['habitacion_cargo'], 0, 0, 'L');
-        $pdf->Cell(50, 6, substr(utf8_decode($cargo['apellido1'].' '.$cargo['apellido2'].' '.$cargo['nombre1'].' '.$cargo['nombre2']), 0, 24), 0, 0, 'L');
+        $pdf->Cell(50, 6, substr(utf8_decode($cargo['nombre_completo']), 0, 24), 0, 0, 'L');
         $pdf->Cell(40, 6, substr($cargo['descripcion_cargo'], 0, 19), 0, 0, 'L');
         $pdf->Cell(25, 6, number_format($cargo['pagos_cargos'], 2), 0, 0, 'R');
         $pdf->Cell(50, 6, substr(utf8_decode($cargo['motivo_anulacion']), 0, 35), 0, 1, 'L');

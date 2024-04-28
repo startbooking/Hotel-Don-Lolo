@@ -99,8 +99,6 @@ $pdf->Ln(1);
 
 $pdf->SetFont('Arial', 'B', 8);
 
-echo 'Paso 1';
-
 if ($tipofac == 2) {
   if (!empty($datosCompania)) {
     $pdf->SetFont('Arial', '', 8);
@@ -209,15 +207,13 @@ foreach ($folios as $folio1) {
     $pagos = $pagos + $folio1['pagos'];
 }
 
-echo 'Paso 2';
-
-
 $pdf->Cell(110, 4, '', 0, 0, 'L');
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(50, 4, 'TOTAL ', 1, 0, 'C');
 $pdf->Cell(30, 4, number_format($total, 2), 1, 1, 'R');
 $pdf->Ln(1);
 $pdf->setY(155);
+16817
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(95, 4, 'RETENCIONES ', 1, 0, 'C');
 $pdf->Cell(95, 4, 'FORMAS DE PAGO ', 1, 1, 'C');
@@ -264,9 +260,6 @@ $pdf->Cell(45, 5, 'TIPO IMPUESTO', 1, 0, 'C');
 $pdf->Cell(20, 5, 'BASE', 1, 0, 'C');
 $pdf->Cell(30, 5, 'VALOR', 1, 1, 'C');
 
-echo 'Paso 3';
-
-
 foreach ($tipoimptos as $tipoimpto) {
     $pdf->Cell(45, 4, $tipoimpto['descripcion_cargo'], 0, 0, 'L');
     $pdf->Cell(20, 4, number_format($tipoimpto['cargos'], 2), 0, 0, 'R');
@@ -298,13 +291,15 @@ $pdf->Cell(55, 5, $usuario, 1, 1, 'L');
 $pdf->SetY(250);
 
 $pdf->Ln(1);
+
 $pdf->SetFont('Arial', '', 6);
 
 $pdf->MultiCell(190, 4, utf8_decode(PIEFACTURA), 0, 'C');
 
-$file = 'FES-'.$prefijo.$nroFactura.'.pdf';
+// $file = 'FES-'.$prefijo.$nroFactura.'.pdf';
+$file = '../../imprimir/facturas/FES-' . $prefijo . $nroFactura . '.pdf';
 
-echo $file;
+// echo $file;
 
 $pdf->Output($file, 'F');
 

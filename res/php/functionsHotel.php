@@ -3301,6 +3301,7 @@ class Hotel_Actions{
             'id_usuario_anulacion' => $idusuario,
             'fecha_anulacion' => FECHA_PMS,
             'numero_factura_cargo' => $numDoc,
+            'fecha_sistema_anula' => date('Y-m-d H:i:s'),
         ], [
             'factura_numero' => $nro,
             'perfil_factura' => $perfil,

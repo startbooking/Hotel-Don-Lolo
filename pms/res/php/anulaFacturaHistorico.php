@@ -22,6 +22,9 @@ $resFac = $hotel->getResolucion(1);
 $resolucion = $resFac[0]['resolucion'];
 $prefijo = $resFac[0]['prefijo'];
 
+$arcCurl = 'recibeCurl' . $mes . $anio . '.json';
+$envCurl = 'enviaFact' . $mes . $anio . '.json';
+
 $dFactura = $hotel->infoFacturaHis($numero);
 
 $tipofac = $dFactura[0]['tipo_factura'];
@@ -166,6 +169,10 @@ if ($perfil == 1 && $facturador == 1) {
     include_once '../../api/enviaNC.php';
 
     $recibeCurl = json_decode($respoNC, true);
+
+    file_put_contents($envCurl, $eNote . ',',  FILE_APPEND | LOCK_EX);
+    file_put_contents($arcCurl, $respoNC . ',',  FILE_APPEND | LOCK_EX);
+
 
     $message = $recibeCurl['message'];
     $sendSucc = $recibeCurl['send_email_success'];

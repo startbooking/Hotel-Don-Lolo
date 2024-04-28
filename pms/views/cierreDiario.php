@@ -29,7 +29,7 @@
               </div>
             </div>
             <div id="aviso"></div>
-            <div id="verInforme"></div>            
+            <div id="verInforme"></div>
           </div>
           <div class="panel-footer" style="text-align: center">
             <a style="width: 25%" type="button" class="btn btn-warning" href="home"><i class="fa fa-home"></i> Regresar</a >

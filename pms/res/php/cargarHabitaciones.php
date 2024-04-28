@@ -26,7 +26,7 @@ $regis = count($sinSalir);
 if ($regis >= 1 && $tipo == 2) { ?>
   <div class="container-fluid">
     <div class="alert alert-warning" style="padding:0;padding-top:5px;">
-      <h4 style="font-weight: 600;text-align :center;">Actualize las Salidas Antes de Realizar el Cargo de las Habitaciones</h4>
+      <h4 style="font-weight: 600;text-align :center;color: #000B;padding: 5px;">Actualize las Salidas Antes de Realizar el Cargo de las Habitaciones</h4>
     </div>
     <div class="table-responsive">
       <table id="example1" class="table table-bordered">
@@ -81,7 +81,7 @@ if ($regis >= 1 && $tipo == 2) { ?>
           $nuevototal = round($totalcargo / ((100 + $porcImpto) / 100), 2);
           if ($turismo == 2 && $imptoTuri == 1) {
             $impuesto = 0;
-            $nuevototal = round($nuevototal,0);
+            $nuevototal = round($nuevototal, 0);
             $textocodigo = $codigoVentaExc[0]['descripcion_cargo'];
             $codigocar = $codigoVentaExc[0]['id_cargo'];
             $iva = $codigoVentaExc[0]['id_impto'];
@@ -121,7 +121,7 @@ if ($regis >= 1 && $tipo == 2) { ?>
         $codigoVentaExc = $hotel->buscaTextoCodigoVenta($codigocarexc);
         $iva = $codigoVenta[0]['id_impto'];
         $textocodigo = $codigoVenta[0]['descripcion_cargo'];
-  
+
         $valor = $paquetes[0]['valor'];
 
         $totalcargo = $valor * $paxHue;
@@ -136,12 +136,12 @@ if ($regis >= 1 && $tipo == 2) { ?>
           $imptoTuri = $porcentaje[0]['decreto_turismo'];
 
           if (IVA_INCLUIDO == 1) {
-            $nuevototal = round($totalcargo / ((100 + $porcImpto) / 100), 2);            
+            $nuevototal = round($totalcargo / ((100 + $porcImpto) / 100), 2);
             if ($turismo == 2 && $imptoTuri == 1) {
               $impuesto = 0;
-              $nuevototal = round($nuevototal,0);
+              $nuevototal = round($nuevototal, 0);
               $iva = $codigoVentaExc[0]['id_impto'];
-              $textocodigo = $codigoVentaExc[0]['descripcion_cargo'];      
+              $textocodigo = $codigoVentaExc[0]['descripcion_cargo'];
             } else {
               $impuesto = $totalcargo - $nuevototal;
             }
