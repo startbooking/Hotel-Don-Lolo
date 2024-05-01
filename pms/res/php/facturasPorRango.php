@@ -14,6 +14,7 @@ $huesped = $_POST['huesped'];
 $empresa = $_POST['empresa'];
 $formaPa = $_POST['formaPa'];
 
+
 if ($empresa != '') {
   $sele = "SELECT companias.empresa, codigos_vta.descripcion_cargo, huespedes.nombre_completo, historico_cargos_pms.habitacion_cargo, historico_cargos_pms.tipo_factura, historico_cargos_pms.id_codigo_cargo, historico_cargos_pms.perfil_factura, historico_cargos_pms.id_perfil_factura, historico_cargos_pms.perfil_factura, historico_cargos_pms.factura_numero, historico_cargos_pms.numero_reserva, historico_cargos_pms.factura_anulada, historico_cargos_pms.id_usuario_factura, historico_cargos_pms.prefijo_factura, historico_cargos_pms.total_consumos, historico_cargos_pms.total_impuesto, historico_cargos_pms.total_pagos, historico_cargos_pms.fecha_factura, historico_cargos_pms.fecha_sistema_cargo, historico_cargos_pms.numero_factura_cargo, historico_reservas_pms.fecha_llegada, historico_reservas_pms.num_reserva,  historico_reservas_pms.fecha_salida, datosFE.estadoEnvio, datosFE.cufe FROM huespedes, historico_cargos_pms, codigos_vta, companias, historico_reservas_pms, datosFE WHERE ";
   $filtro = "huespedes.id_huesped = historico_cargos_pms.id_huesped AND codigos_vta.id_cargo = historico_cargos_pms.id_codigo_cargo AND factura=1 and tipo_factura = 2 AND companias.id_compania = historico_cargos_pms.id_perfil_factura AND historico_cargos_pms.numero_reserva = historico_reservas_pms.num_reserva AND historico_cargos_pms.factura_numero = datosFE.facturaNumero";
@@ -54,6 +55,7 @@ if ($formaPa != '') {
 
 $query    = $sele . $filtro . $sele2;
 $facturas = $hotel->getFacturasPorRango($query);
+
 ?>
 
 <div class="table-responsive" style="padding:0">

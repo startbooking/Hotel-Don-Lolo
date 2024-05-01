@@ -81,7 +81,7 @@ if ($_GET['section'] != 'cajeroCerrado') {
             <i class="fa-solid fa-money-check-dollar"></i>
             Facturacion Huespedes</a></li>
             <li><a href="ingresoConsumos"><i class="glyphicon glyphicon-download-alt"></i> Ingreso Consumos</a></li>
-            <!-- <li><a href="ventasDirectas"><i class="fa fa-archive"></i>Ventas Directas</a></li>  -->
+            <!-- <li><a href="vmenuCarteraentasDirectas"><i class="fa fa-archive"></i>Ventas Directas</a></li>  -->
             <li><a href="facturasDelDia"><i class="fa fa-archive"></i>Facturas Del Dia</a></li>
             <li><a href="recibosCajaDelDia"><i class="fa fa-archive"></i>Recibos de Caja Del Dia</a></li>
             <li><a href="notasCredito"><i class="fa fa-archive"></i>Notas Credito</a></li>
@@ -105,7 +105,7 @@ if ($_GET['section'] != 'cajeroCerrado') {
             Cuentas Congeladas</a></li>
           </ul>
         </li>
-        <li class="treeview menuCartera">
+        <li class="treeview" id="menuCartera">
           <a href="#">
             <i class="glyphicon glyphicon-edit"></i>
             <span>Cartera</span>

@@ -5137,6 +5137,8 @@ function anulaIngreso() {
 function accesoUsuarios(){
   menuFicha  = document.querySelectorAll("#menuFicha")
   btnAdiciona =  document.querySelectorAll('.btnAdiciona')
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { user:  { usuario, usuario_id, tipo } } = sesion;
   
   if (tipo > 2) {
     document.querySelector('#menuAuditoria').classList.add('apaga')    
@@ -5979,7 +5981,7 @@ async function salidaHuesped() {
     let { error, mensaje, factura, perfil, errorDian, archivo, folio } = facturado[0];
     // console.log(facturado);
     
-    if(error == "1"){   
+    if(error == "1"){
       if(errorDian==1){
         mensaje = JSON.parse(mensaje)
       }
@@ -6233,6 +6235,7 @@ function activaFolio(reserva, folio) {
     reserva,
     folio,
     nrohabi,
+    tipo,
   };
   $.ajax({
     type: "POST",

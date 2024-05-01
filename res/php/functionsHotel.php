@@ -7548,16 +7548,22 @@ class Hotel_Actions{
 public function traeBalanceHabitaciones($tipo){
     global $database;
     $data = $database->query("SELECT
-	reservas_pms.num_reserva, 
+	reservas_pms.num_reserva,
+	reservas_pms.causar_impuesto,
 	reservas_pms.num_habitacion,
 	reservas_pms.id_compania,
 	reservas_pms.fecha_llegada,
 	reservas_pms.fecha_salida,
 	reservas_pms.valor_diario,
+	reservas_pms.observaciones,
+	reservas_pms.tarifa,
+	reservas_pms.valor_reserva,
 	COALESCE ( SUM( cargos_pms.valor_cargo ), 0 ) AS cargos, 
 	COALESCE ( SUM( cargos_pms.pagos_cargos ), 0 ) AS pagos, 
 	COALESCE ( SUM( cargos_pms.impuesto ), 0 ) AS imptos, 
-	huespedes.nombre_completo
+	huespedes.nombre_completo,
+	huespedes.fecha_nacimiento, 
+	huespedes.id_huesped
 FROM
 	reservas_pms
 	LEFT JOIN

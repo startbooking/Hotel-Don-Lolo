@@ -10,7 +10,6 @@ $level = 'L'; // Nivel de corrección (L, M, Q, H)
 // Generar el código QR
 QRcode::png($QRStr, $filename, $level, $size);
 
-
 $aplicarete = 0;
 $aplicaiva = 0;
 $aplicaica = 0;
@@ -40,6 +39,7 @@ $folios = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserva, $
 $pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserva, $folioAct, 3);
 $tipoimptos = $hotel->getValorImptoFolio($nroFactura, $reserva, $folioAct, 2);
 $fecha = $hotel->getDatePms();
+$retenciones = [];
 
 if($aplicarete==1){
   if($sinBaseRete==1){
@@ -255,7 +255,7 @@ $pdf->SetFont('Arial', '', 8);
     $pdf->Cell(30, 4, number_format($baseIva, 2), 1, 0, 'R');
     $pdf->Cell(30, 4, number_format($reteiva, 2), 1, 1, 'R');
   }
-  
+
   $pdf->Cell(35, 4, 'RETEICA', 1, 0, 'L');
   if($tipofac == 2){
     $pdf->Cell(30, 4, number_format($baseIca, 2), 1, 0, 'R');

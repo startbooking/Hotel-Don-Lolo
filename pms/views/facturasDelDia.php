@@ -85,8 +85,7 @@ $facturador = $eToken[0]['facturador'];
                           ?>
                           <td style="padding:3px 5px;width: 10%;text-align:center;">
                             <?php
-                            if ($factura['estadoEnvio'] != Null) {
-                            ?>
+                            if ($factura['estadoEnvio'] != Null) { ?>
                               <button class="btn btn-info btn-xs" type="button" data-toggle="modal" data-tipo="0" data-facturador="<?php echo $facturador; ?>" data-apellidos="<?php echo $factura['apellido1'] . ' ' . $factura['apellido2']; ?>" data-nombres="<?php echo $factura['nombre1'] . ' ' . $factura['nombre2']; ?>" data-fechafac="<?php echo $factura['fecha_factura']; ?>" data-numero="<?php echo $factura['factura_numero']; ?>" data-reserva="<?php echo $factura['num_reserva']; ?>" href="#myModalVerFactura" title="Ver Factura">
                                 <i class="fa fa-file-pdf" aria-hidden="true"></i>
                               </button>
@@ -121,6 +120,11 @@ $facturador = $eToken[0]['facturador'];
                               title="Valida Estado DIAN  ">
                               <i class="fa-solid fa-square-check"></i>
                             </button> -->
+                            <?php
+                            } else { ?>
+                              <button class="btn btn-success btn-xs" onclick="event.preventDefault();reEnviaFactura('<?= $factura['factura_numero']; ?>');" type="button" title="ReProceesar Factura   ">
+                                <i class="fa-solid fa-square-check"></i>
+                              </button>
                             <?php
                             }
                             ?>

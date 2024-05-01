@@ -38,7 +38,15 @@
           <tr style="text-align:right;">
      			  <td style="text-align:left;"><?=$folio1['descripcion_cargo']?></td>
     	 		  <td><?=number_format($folio1['monto_cargo'],2)?></td>
-    	 		  <td><?=number_format($folio1['porcentaje_impto'],2)?></td>
+    	 		  <td>
+    	 		    <?php
+    	 		    if($folio1['porcentaje_impto']==0){
+                 number_format(0,2);
+    	 		    }else{
+                 number_format($folio1['porcentaje_impto'],2);
+    	 		    }
+    	 		    ?>
+    	 		  </td>
     	 		  <td><?=number_format($folio1['impuesto'],2)?></td>
             <td><?=number_format($folio1['monto_cargo']+$folio1['impuesto'],2)?></td>
     	 		  <td><?=number_format($folio1['pagos_cargos'],2)?></td>

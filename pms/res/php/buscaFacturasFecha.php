@@ -6,6 +6,8 @@ $fact    =  $_POST['fechafac'];
 
 $facturas = $hotel->getBuscaFacturasFecha($fact, 'historico_reservas_pms', 'historico_cargos_pms');
 
+// echo print_r($facturas);
+
 $regis = count($facturas);
 
 if ($regis == 0) { ?>

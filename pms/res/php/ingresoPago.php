@@ -19,8 +19,8 @@ $fecha = FECHA_PMS;
 
 $fechaAct = strtotime(FECHA_PMS.'T20:55:20');
   
-$arcCurl = 'recibeCurl'.$mes.$anio.'.json';
-$envCurl = 'enviaFact'.$mes.$anio.'.json';
+$arcCurl = '../../json/recibeCurl'.$mes.$anio.'.json';
+$envCurl = '../../json/enviaFact'.$mes.$anio.'.json';
 
 if ($reteiva == 0) {
   $baseIva = 0;
@@ -59,6 +59,14 @@ if ($perfilFac == 1 && $facturador == 1) {
     $perfilFac == 2;
     $numfactura = $hotel->getNumeroAbono(); // Numero Actual del Abono
     $nuevonumero = $hotel->updateNumeroAbonos($numfactura + 1); // Actualiza Consecutivo del Abono
+    if ($aplicarete == 1) {
+      if ($sinBaseRete == 1) {
+        $retenciones = $hotel->traeValorRetencionesSinBase($reserva, $folioAct);
+      } else {
+        $retenciones = $hotel->traeValorRetenciones($reserva, $folioAct);
+      }
+    }
+
 }
 
 if ($tipofac == 1) {
@@ -77,9 +85,7 @@ $nroFactura = $numfactura;
 $idperfil = $id;
 
 $inserta = $hotel->insertFacturaHuesped($codigo, $textopago, $valor, strtoupper($refer), $reserva, $room, $idhues, $folioAct, $canti, $usuario, $usuario_id, $fecha, $numfactura, $tipofac, $id, $idcentro, $prefijo, $perfilFac, strtoupper($detalle), $baseRete, $baseIva, $baseIca, $reteiva, $reteica, $retefuente, $correofac);
-
-$factu = $hotel->updateCargosReservaFolio($reserva, $numfactura, $folioAct, $fecha, $usuario, $idUsuario, $tipofac, $id, $perfilFac);
-
+$factu = $hotel->updateCargosReservaFolio($reserva, $numfactura, $folioAct, $fecha, $usuario, $usuario_id, $tipofac, $id, $perfilFac);
 $saldos = $hotel->getValorFactura($numfactura);
 
 $anticipos = $hotel->valorAnticipos($numfactura);
@@ -118,7 +124,7 @@ if ($tipofac == 2) {
     
 }
 
-$updFac = $hotel->updateFactura($idUsuario, $saldos[0]['cargos'], $saldos[0]['imptos'], $saldos[0]['pagos'], $saldos[0]['base'], $paganticipo, $fechaVen, $numfactura, $usuario, $fecha, $diasCre);
+$updFac = $hotel->updateFactura($usuario_id, $saldos[0]['cargos'], $saldos[0]['imptos'], $saldos[0]['pagos'], $saldos[0]['base'], $paganticipo, $fechaVen, $numfactura, $usuario, $fecha, $diasCre);
 
 $totalPago = $paganticipo + $saldos[0]['pagos'];
 $saldofactura = $hotel->getSaldoHabitacion($reserva);
@@ -173,7 +179,7 @@ if ($perfilFac == 1 && $facturador == 1) {
     $eCust['identification_number'] = $nitFact;
     $eCust['dv'] = $dvFact;
     $eCust['name'] = $nomFact;
-    $eCust['phone'] = $telFact;
+    // $eCust['phone'] = $telFact;
     $eCust['email'] = $emaFact;
     
     /* if($tipofac == 2){
@@ -240,7 +246,6 @@ if ($perfilFac == 1 && $facturador == 1) {
         }
         array_push($eInvo, $invo);
     }
-
     foreach ($tipoimptos as $impto) {
         if($impto['porcentaje_impto']!=0){
             $tax = [
@@ -294,14 +299,17 @@ if ($perfilFac == 1 && $facturador == 1) {
     $eFact['payment_form'] = $ePago;
     $eFact['legal_monetary_totals'] = $eLmon;
     $eFact['with_holding_tax_total'] = $eRete;
-    $eFact['tax_totals'] = $eTaxe;
+    if(count($eTaxe)>0){
+      $eFact['tax_totals'] = $eTaxe;
+    }
     $eFact['invoice_lines'] = $eInvo;
-    $eFact['operation_mode'] = $oMode;       
+    $eFact['operation_mode'] = $oMode;
     $eFact = json_encode($eFact);
-        
-    include_once '../../api/enviaFactura.php';            
+
+    include_once '../../api/enviaFactura.php';
+
+    // include_once '../../api/prueba.php';
     
-    // include_once '../../api/prueba.php';            
     $recibeCurl = json_decode(trim($respofact), true);
     
     file_put_contents($envCurl, $eFact.',',  FILE_APPEND | LOCK_EX);
@@ -408,7 +416,7 @@ if ($perfilFac == 1 && $facturador == 1) {
 
     include_once '../../imprimir/imprimeFactura.php';
 
-    $ePDF = [];  
+    $ePDF = [];
 
     $miFactura = strval($nroFactura);
 
@@ -425,11 +433,16 @@ if ($perfilFac == 1 && $facturador == 1) {
         $ePDF['email_cc_list'] = $correos;
     }
 
+    
     $ePDF = json_encode($ePDF);
-
+    
     include_once '../../api/enviaPDF.php';
     
     $recibePDF = json_decode($respopdf, true);
+    
+    file_put_contents($envCurl, $ePDF . ',',  FILE_APPEND | LOCK_EX);
+    file_put_contents($arcCurl, $respopdf . ',',  FILE_APPEND | LOCK_EX);
+
 
 } else {
     include_once '../../imprimir/imprimeReciboFactura.php';
@@ -504,7 +517,7 @@ if ($totalFolio != 0) {
     array_push($estadofactura, $error);
     
     $estadoReserva = $hotel->estadoReserva($reserva); 
-    $salida = $hotel->updateReservaHuespedSalida($reserva, $usuario, $idUsuario, FECHA_PMS);
+    $salida = $hotel->updateReservaHuespedSalida($reserva, $usuario, $usuario_id, FECHA_PMS);
 
     if($estadoReserva== 'CA'){
         $habSucia = $hotel->updateEstadoHabitacion($room);

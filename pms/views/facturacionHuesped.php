@@ -131,7 +131,7 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
                     }?>
                     >
                     <label style="margin-top:-30px;margin-left:25px" class="form-check-label" for="inlineRadio1" >NO</label>
-                  </div>                    
+                  </div>
                 </div>
                 <div class="col-sm-6" style="padding:0;height: 15px"> 
                   <div class="form-check form-check-inline">
