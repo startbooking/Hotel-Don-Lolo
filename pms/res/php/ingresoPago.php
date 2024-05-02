@@ -4,6 +4,11 @@ require_once '../../../res/php/app_topHotel.php';
 
 $postBody = json_decode(file_get_contents('php://input'), true);
 extract($postBody);
+
+$aplicarete = 0;
+$aplicaiva = 0;
+$aplicaica = 0;
+$sinBaseRete = 0;
   
 $eToken = $hotel->datosTokenCia();
 $token = $eToken[0]['token'];
@@ -59,25 +64,28 @@ if ($perfilFac == 1 && $facturador == 1) {
     $perfilFac == 2;
     $numfactura = $hotel->getNumeroAbono(); // Numero Actual del Abono
     $nuevonumero = $hotel->updateNumeroAbonos($numfactura + 1); // Actualiza Consecutivo del Abono
-    if ($aplicarete == 1) {
-      if ($sinBaseRete == 1) {
-        $retenciones = $hotel->traeValorRetencionesSinBase($reserva, $folioAct);
-      } else {
-        $retenciones = $hotel->traeValorRetenciones($reserva, $folioAct);
-      }
-    }
-
 }
 
 if ($tipofac == 1) {
   $id = $idhues;
 }else {
   $id = $idcia;
-  $dataCompany = $hotel->getSeleccionaCompania($id);
+  $datosCompania = $hotel->getSeleccionaCompania($id);
   if ($codigo == 2) {
-    $diasCre = $dataCompany[0]['dias_credito'];
+    $diasCre = $datosCompania[0]['dias_credito'];
     $fechaVen = strtotime('+ '.$diasCre.' day',strtotime($fechaFac));
     $fechaVen = date('Y-m-d', $fechaVen);
+    $aplicarete = $datosCompania[0]['retefuente'];
+    $aplicaiva  = $datosCompania[0]['reteiva'];
+    $aplicaica  = $datosCompania[0]['reteica'];
+    $sinBaseRete  = $datosCompania[0]['sinBaseRete'];
+  }
+  if ($aplicarete == 1) {
+    if ($sinBaseRete == 1) {
+      $valorRet = $hotel->traeValorRetencionesSinBase($reserva, $folioAct);
+    } else {
+      $valorRet = $hotel->traeValorRetenciones($reserva, $folioAct);
+    }
   }
 }
 
@@ -306,9 +314,9 @@ if ($perfilFac == 1 && $facturador == 1) {
     $eFact['operation_mode'] = $oMode;
     $eFact = json_encode($eFact);
 
-    include_once '../../api/enviaFactura.php';
+    // include_once '../../api/enviaFactura.php';
 
-    // include_once '../../api/prueba.php';
+    include_once '../../api/prueba.php';
     
     $recibeCurl = json_decode(trim($respofact), true);
     
@@ -436,9 +444,9 @@ if ($perfilFac == 1 && $facturador == 1) {
     
     $ePDF = json_encode($ePDF);
     
-    include_once '../../api/enviaPDF.php';
+    /* include_once '../../api/enviaPDF.php';
     
-    $recibePDF = json_decode($respopdf, true);
+    $recibePDF = json_decode($respopdf, true); */
     
     file_put_contents($envCurl, $ePDF . ',',  FILE_APPEND | LOCK_EX);
     file_put_contents($arcCurl, $respopdf . ',',  FILE_APPEND | LOCK_EX);

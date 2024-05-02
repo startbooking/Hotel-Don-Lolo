@@ -2461,15 +2461,10 @@ function regresaCasa(reserva) {
 
 function muestraReserva(ev) {
 
-  // console.log(ev);
   let reserva = ev.getAttribute("reserva");
   let estado = ev.getAttribute("estado");
   
-/*   console.log(reserva);
-  console.log(estado);
-  
- */
-  swal("Atencion", "Dio CLick en Reserva" + reserva + estado, "success");
+  swal("Atencion", "Dio Click en Reserva" + reserva + estado, "success");
 }
 
 function descargarAttach(numero) {
@@ -4653,6 +4648,68 @@ function traeAcompanantes(idres) {
   });
 }
 
+async function reEnviaFactura(factura){
+  let jsonFactura = await creaJSONFactura(factura); 
+  // console.log(jsonFactura);
+  const eToken = await traeToken();
+  let { token } = eToken[0];
+  // console.log(token);
+  let enviaFact = await enviaJSONFactura(jsonFactura, token+'aaaaa');
+}
+
+const creaJSONFactura = async (factura) => {
+  data = {factura}
+  try {
+    const resultado = await fetch(`res/php/creaJSONFactura.php`, {
+      method: "post",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+      body:JSON.stringify(data),
+    });
+    const datos = await resultado.json();
+    console.log(datos);
+    
+    return datos;
+  } catch (error) {
+    // console.log(error);
+    return error
+  }
+};
+
+const enviaJSONFactura = async (jsonFactura, token) => {
+  data = {jsonFactura}
+  
+  try {
+    // const resultado = await fetch(`res/php/creresultadoaJSONFactura.php`, {
+    url =  'https://api.nextpyme.plus/api/ubl2.1/invoice';
+    const resultado = await fetch(url, {
+      method: "post",
+      credentials: "same-origin",
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body:JSON.stringify(data),
+    });
+    
+    const datos = await resultado.json();
+    // console.log(await SendInvoice.json())
+    // const datos = await resultado.json();
+    console.log(await SendInvoice.json());
+    console.log(datos);
+    
+    return datos;
+  } catch (error) {
+    // console.log(error);
+    return error
+  }
+};
+
+
+
+
 async function guardaAcompanante(e) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   var web = $("#rutaweb").val();
@@ -4688,7 +4745,7 @@ async function guardaAcompanante(e) {
         traeAcompanantes(idreser);        
       } else {
         mostrarAlerta(error, "alerta");
-      }      
+      }
     },
   });
 }
@@ -4723,6 +4780,7 @@ function buscaHuespedAcompanante(id) {
     },
   });
 }
+
 function buscaIdentificacion(id) {
   var web = $("#rutaweb").val();
   var parametros = {
@@ -5887,8 +5945,7 @@ async function salidaHuesped() {
   var pago = $("#txtValorPago").val();
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user: { usuario, usuario_id, tipo } } = sesion;
-  // let  = user;
-
+  
   if (pago < saldo) {
     $("#mensajeSal").html(
       '<h4 align="center" class="bg-red" style="padding:10px"><span style="font-size:24px;font-weight: 700;font-family: ubuntu">El Valor Ingresado es menor al Saldo<br>Ingrese este valor por Abonos a Cuenta</span></h4>'

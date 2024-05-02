@@ -122,8 +122,9 @@ $facturador = $eToken[0]['facturador'];
                             </button> -->
                             <?php
                             } else { ?>
-                              <button class="btn btn-success btn-xs" onclick="event.preventDefault();reEnviaFactura('<?= $factura['factura_numero']; ?>');" type="button" title="ReProceesar Factura   ">
-                                <i class="fa-solid fa-square-check"></i>
+                              <button class="btn btn-success btn-xs" onclick="event.preventDefault();reEnviaFactura('<?= $factura['factura_numero']; ?>');" type="button" title="ReProcesar Factura">
+                                <i class="fa fa-location-arrow" aria-hidden="true"></i>
+                                <!-- <i class="fa-solid fa-square-check"></i> -->
                               </button>
                             <?php
                             }
