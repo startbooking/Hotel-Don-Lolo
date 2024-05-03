@@ -77,7 +77,7 @@ if ($tipofac == 1) {
     $fechaVen = date('Y-m-d', $fechaVen);
     $aplicarete = $datosCompania[0]['retefuente'];
     $aplicaiva  = $datosCompania[0]['reteiva'];
-    $aplicaica  = $datosCompania[0]['reteica'];
+    $aplicaica  = $datosCompania[0]['reteica']; 
     $sinBaseRete  = $datosCompania[0]['sinBaseRete'];
   }
   if ($aplicarete == 1) {
@@ -415,7 +415,6 @@ if ($perfilFac == 1 && $facturador == 1) {
     $urlinvoicepdf = $recibeCurl['urlinvoicepdf'];
     $cufe  = $recibeCurl['cufe'];
     $QRStr = $recibeCurl['QRStr'];
-    // $timeCrea   = $recibeCurl['ResponseDian']['Envelope']['Header']['Security']['Timestamp']['Created'];
     $timeCrea   = $recibeCurl['dian_validation_date_time'];
 
     $respo = '';

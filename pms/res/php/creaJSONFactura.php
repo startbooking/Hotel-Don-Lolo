@@ -70,7 +70,6 @@ if ($tipofac == 1) {
 
 }
 
-
 $retIva = $hotel->traeRetenciones(2);
 $retIca = $hotel->traeRetenciones(3);
 
@@ -281,14 +280,3 @@ $eFact['operation_mode'] = $oMode;
 $eFact = json_encode($eFact);
 
 echo $eFact ;
-    
-    
-
-
-
-/* $cargos = $hotel->actualizaCargosFacturas($factura, $perfil);
-$anula = $hotel->anulaFactura($factura, 'FACTURA NO PROCESADA POR LA DIAN', $usuario, $idusuario, $perfil, 0);
-// $regis = $hotel->ingresaNCFactura($numero, $motivo, $idusuario, $numDoc, FECHA_PMS);
-// $entra = $hotel->updateEstadoReserva($reserva); 
-
-echo $anula; */

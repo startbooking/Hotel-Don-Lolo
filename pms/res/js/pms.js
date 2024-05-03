@@ -2589,9 +2589,6 @@ const ValidaDIAN = async (cufe) => {
   }    
 };
 
-
-
-
 const traeRetenciones02 = async () => {
   try {
     const resultado = await fetch(`res/php/traeRetenciones.php`, {
@@ -4650,12 +4647,96 @@ function traeAcompanantes(idres) {
 
 async function reEnviaFactura(factura){
   let jsonFactura = await creaJSONFactura(factura); 
-  // console.log(jsonFactura);
   const eToken = await traeToken();
   let { token } = eToken[0];
-  // console.log(token);
-  let enviaFact = await enviaJSONFactura(jsonFactura, token+'aaaaa');
+  let recibeData = await enviaJSONFactura(jsonFactura, token);
+  let { ok } =  recibeData;
+  if(!ok){
+    let vistaErr = await errorEnvio(recibeData);
+  }else{
+    let recibe = await recibeData.json();
+    let { ResponseDian:  { Envelope: { Body : { SendBillSyncResponse : { SendBillSyncResult: {IsValid}}}}} } = recibe;
+    
+    if(IsValid === 'true'){
+      let { ResponseDian:  {Envelope : { Body : { SendBillSyncResponse: { SendBillSyncResult: { StatusMessage, StatusDescription, StatusCode }}}}}} = recibe ;
+      let infoFac = await traeResolucion();
+      let { prefijo } = infoFac;
+      // console.log(infoFac);
+      
+      
+      
+/*       let { ResponseDian:  {Envelope : { Body : { SendBillSyncResponse: { SendBillSyncResult: {  }}}}}} = recibe ;
+      let { ResponseDian:  {Envelope : { Body : { SendBillSyncResponse: { SendBillSyncResult: {  }}}}}} = recibe ; */
+      let { message, send_email_success, send_email_date_time, urlinvoicexml, urlinvoicepdf, cufe, QRStr, dian_validation_date_time } = recibe; 
+      
+      datosFe = { factura, prefijo, message, send_email_success, send_email_date_time, urlinvoicexml, urlinvoicepdf, cufe, QRStr, dian_validation_date_time };
+      
+      let insertaFE = await ingresaDatosFE(datosFe);
+
+    }else{
+      let { ResponseDian:{ Envelope: { Body: { SendBillSyncResponse : { SendBillSyncResult: {ErrorMessage}}}}} } = recibe
+      let { string } = ErrorMessage;
+      let mensaje  = '';
+      let isArray = Array.isArray(string);
+      if(isArray){
+        string.map((error) => {
+          mensaje = mensaje + error + '\n'
+        });
+      }else{
+        mensaje = string
+      }
+      dataErr= {
+        'statusText': mensaje,
+        'status': '200 \n',
+      }
+      let vistaErr = await errorEnvio(dataErr);
+      let alerta = document.querySelector('.showSweetAlert');
+      alerta.classList.add('anchoalerta');
+      
+            
+    }
+  
+  }
+  
+  
 }
+
+const traeResolucion = async () => {
+  try {
+    const resultado = await fetch(`res/php/traeResolucion.php`, {
+      method: "post",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    });
+    const datos = await resultado.json();
+    return datos;
+  } catch (error) {
+    // console.log(error);
+    return error
+  }
+};
+
+
+const ingresaDatosFE = async (datosFe) => {
+  data = {datosFe}
+  try {
+    const resultado = await fetch(`res/php/ingresaDatosFE.php`, {
+      method: "post",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+      body:JSON.stringify(datosFe),
+    });
+    const datos = await resultado.json();
+    console.log(datos);
+    
+    return JSON.stringify(datos);
+  } catch (error) {
+    // console.log(error);
+    return error
+  }
+};
 
 const creaJSONFactura = async (factura) => {
   data = {factura}
@@ -4668,9 +4749,9 @@ const creaJSONFactura = async (factura) => {
       body:JSON.stringify(data),
     });
     const datos = await resultado.json();
-    console.log(datos);
+    // console.log(JSON.stringify(datos));
     
-    return datos;
+    return JSON.stringify(datos);
   } catch (error) {
     // console.log(error);
     return error
@@ -4682,7 +4763,8 @@ const enviaJSONFactura = async (jsonFactura, token) => {
   
   try {
     // const resultado = await fetch(`res/php/creresultadoaJSONFactura.php`, {
-    url =  'https://api.nextpyme.plus/api/ubl2.1/invoice';
+    // url =  'https://api.nextpyme.plus/api/ubl2.1/invoice';
+    url =  'http://donlolo.lan/pms/api/prueba.json';
     const resultado = await fetch(url, {
       method: "post",
       credentials: "same-origin",
@@ -4691,24 +4773,16 @@ const enviaJSONFactura = async (jsonFactura, token) => {
         'Accept': 'application/json',
         'Authorization': `Bearer ${token}`
       },
-      body:JSON.stringify(data),
+      body:jsonFactura,
     });
     
-    const datos = await resultado.json();
-    // console.log(await SendInvoice.json())
-    // const datos = await resultado.json();
-    console.log(await SendInvoice.json());
-    console.log(datos);
-    
+    const datos = await resultado;    
     return datos;
   } catch (error) {
     // console.log(error);
     return error
   }
 };
-
-
-
 
 async function guardaAcompanante(e) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
@@ -5024,7 +5098,6 @@ async function apagaselecomp(tipo) {
       }
     }
 
-       
     if (reteiva == 1) {
       if (sinBaseRete == 1) {
         reteIva = totalImpto * (rIva[0].porcentajeRetencion / 100);      
@@ -6033,8 +6106,6 @@ async function salidaHuesped() {
     };
     
     let facturado = await enviaPago(parametros);
-    
-    
     let { error, mensaje, factura, perfil, errorDian, archivo, folio } = facturado[0];
     // console.log(facturado);
     
@@ -6085,6 +6156,18 @@ async function salidaHuesped() {
     }        
   }
 }
+
+async function errorEnvio(cErrors){
+    let { statusText, status } = cErrors
+    swal({
+      title: `Documento no Procesado`,
+      text: `Error ${status} ${statusText}`,
+      type: "warning",
+      confirmButtonText: "Aceptar",
+      closeOnConfirm: true,
+    })
+}
+
 
 async function muestraError(cErrors){
   mensajeErr= '' ;
