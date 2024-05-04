@@ -4658,20 +4658,20 @@ async function reEnviaFactura(factura){
     let { ResponseDian:  { Envelope: { Body : { SendBillSyncResponse : { SendBillSyncResult: {IsValid}}}}} } = recibe;
     
     if(IsValid === 'true'){
-      let { ResponseDian:  {Envelope : { Body : { SendBillSyncResponse: { SendBillSyncResult: { StatusMessage, StatusDescription, StatusCode }}}}}} = recibe ;
+      let { ResponseDian: {Envelope: { Body: { SendBillSyncResponse: { SendBillSyncResult: { ErrorMessage, StatusMessage, StatusDescription, StatusCode }}}}}} = recibe ;
+      
       let infoFac = await traeResolucion();
-      let { prefijo } = infoFac;
-      // console.log(infoFac);
+      let { prefijo } = infoFac[0];
       
-      
-      
-/*       let { ResponseDian:  {Envelope : { Body : { SendBillSyncResponse: { SendBillSyncResult: {  }}}}}} = recibe ;
-      let { ResponseDian:  {Envelope : { Body : { SendBillSyncResponse: { SendBillSyncResult: {  }}}}}} = recibe ; */
       let { message, send_email_success, send_email_date_time, urlinvoicexml, urlinvoicepdf, cufe, QRStr, dian_validation_date_time } = recibe; 
       
-      datosFe = { factura, prefijo, message, send_email_success, send_email_date_time, urlinvoicexml, urlinvoicepdf, cufe, QRStr, dian_validation_date_time };
+      datosFe = { factura, prefijo, message, send_email_success, send_email_date_time, urlinvoicexml, urlinvoicepdf, cufe, QRStr, dian_validation_date_time, IsValid, ErrorMessage, StatusCode, StatusDescription, StatusMessage };
       
       let insertaFE = await ingresaDatosFE(datosFe);
+      console.log(insertaFE);
+      let imprime = await imprimeFacturaReenvio(factura, prefijo);
+      console.log(imprime);
+      
 
     }else{
       let { ResponseDian:{ Envelope: { Body: { SendBillSyncResponse : { SendBillSyncResult: {ErrorMessage}}}}} } = recibe
@@ -4695,11 +4695,27 @@ async function reEnviaFactura(factura){
       
             
     }
-  
   }
-  
-  
 }
+
+const imprimeFacturaReenvio = async (factura, prefijo) => {
+  data = {factura, prefijo}
+  try {
+    const resultado = await fetch(`res/php/imprimeFacturaReenvio.php`, {
+      method: "post",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+      body:JSON.stringify(data),
+    });
+    const datos = await resultado.json();
+    return datos;
+  } catch (error) {
+    // console.log(error);
+    return error
+  }
+};
+
 
 const traeResolucion = async () => {
   try {
@@ -4717,7 +4733,6 @@ const traeResolucion = async () => {
   }
 };
 
-
 const ingresaDatosFE = async (datosFe) => {
   data = {datosFe}
   try {
@@ -4729,9 +4744,7 @@ const ingresaDatosFE = async (datosFe) => {
       body:JSON.stringify(datosFe),
     });
     const datos = await resultado.json();
-    console.log(datos);
-    
-    return JSON.stringify(datos);
+    return datos;
   } catch (error) {
     // console.log(error);
     return error
@@ -4810,13 +4823,13 @@ async function guardaAcompanante(e) {
     contentType: false,
     processData: false,
     success: function (resp){
-      let { id, adicional, error } = resp;      
+      let { id, adicional, error } = resp;
       if (id != "0") {
         btnSaveAco = document.querySelector('#btnSaveAco')
         btnSaleAco = document.querySelector('#bntSaleAcompana')
         btnSaveAco.click()
         btnSaleAco.click()
-        traeAcompanantes(idreser);        
+        traeAcompanantes(idreser);
       } else {
         mostrarAlerta(error, "alerta");
       }
@@ -6107,14 +6120,13 @@ async function salidaHuesped() {
     
     let facturado = await enviaPago(parametros);
     let { error, mensaje, factura, perfil, errorDian, archivo, folio } = facturado[0];
-    // console.log(facturado);
     
     if(error == "1"){
       if(errorDian==1){
         mensaje = JSON.parse(mensaje)
       }
       let muestra = await muestraError(mensaje);
-      let anulaFact = await anulaFacturaEnvio(factura, perfil);      
+      // let anulaFact = await anulaFacturaEnvio(factura, perfil)
     }else {
       if (facturador == 1) {
         ruta = "imprimir/facturas/";
@@ -6153,7 +6165,7 @@ async function salidaHuesped() {
           }
         );
       }
-    }        
+    }
   }
 }
 
@@ -6208,9 +6220,7 @@ const anulaFacturaEnvio = async (factura, perfil) => {
     
   data = {
     factura, perfil, usuario, usuario_id
-  }
-  // console.log(data)
-  
+  }  
   var web = $("#rutaweb").val();
   
   try {    
@@ -6222,7 +6232,6 @@ const anulaFacturaEnvio = async (factura, perfil) => {
       body: JSON.stringify(data)
     });
     const datos = await resultado.json();
-    // console.log(datos);
     return datos;
   } catch (error) {
     // console.log(error);

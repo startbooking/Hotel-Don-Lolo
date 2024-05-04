@@ -76,13 +76,6 @@ $retIca = $hotel->traeRetenciones(3);
 $porceReteiva = $retIva[0]['porcentajeRetencion'];
 $porceReteica = $retIca[0]['porcentajeRetencion'];
 
-/* 
-$nroFactura = $numfactura;
-$idperfil = $id;
-
-$inserta = $hotel->insertFacturaHuesped($codigo, $textopago, $valor, strtoupper($refer), $reserva, $room, $idhues, $folioAct, $canti, $usuario, $usuario_id, $fecha, $numfactura, $tipofac, $id, $idcentro, $prefijo, $perfilFac, strtoupper($detalle), $baseRete, $baseIva, $baseIca, $reteiva, $reteica, $retefuente, $correofac);
-$factu = $hotel->updateCargosReservaFolio($reserva, $numfactura, $folioAct, $fecha, $usuario, $usuario_id, $tipofac, $id, $perfilFac); */
-
 $saldos = $hotel->getValorFactura($factura);
 $anticipos = $hotel->valorAnticipos($factura);
 

@@ -5,6 +5,15 @@ require_once 'init.php';
 date_default_timezone_set('America/Bogota');
 
 class Hotel_Actions{
+  
+  public function consultaDatosFE($factura){
+    global $database ;
+    $data = $database->count('datosFE',[
+            'facturaNumero' => $factura
+    ]);
+    return $data;
+    
+  }
 
   public function traeInfoFactura($factura){
     global $database;
@@ -27,7 +36,8 @@ class Hotel_Actions{
       'numero_reserva',
       'fecha_sistema_cargo',
       'folio_cargo',
-      'id_perfil_factura'
+      'id_perfil_factura',
+      'usuario_factura'
       
     ],[
       'factura_numero' => $factura,
@@ -958,6 +968,42 @@ class Hotel_Actions{
         ]);
 
         return $data;
+    }
+
+    public function actualizaDatosFe($nroFactura, $prefijo, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cufe, $QRStr, $recibeCurl, $Isvalid, $eFact, $errorMessage, $statusCode, $statusDesc, $statusMess)
+    {
+        global $database;
+
+        $data = $database->update('datosFE', [
+            // 'facturaNumero' => $nroFactura,
+            // 'prefijo' => $prefijo,
+            'timeCreated' => $timeCrea,
+            'message' => $message,
+            'send_email_success' => $sendSucc,
+            'send_email_date_time' => $sendDate,
+            'responseDian' => $respo,
+            'invoicexml' => $invoicexml,
+            'zipinvoicexml' => $zipinvoicexml,
+            'unsignedinvoicexml' => $unsignedinvoicexml,
+            'reqfe' => $reqfe,
+            'rptafe' => $rptafe,
+            'attacheddocument' => $attacheddocument,
+            'urlinvoicexml' => $urlinvoicexml,
+            'urlinvoicepdf' => $urlinvoicepdf,
+            'cufe' => $cufe,
+            'QRStr' => $QRStr,
+            'recibeCurl' => $recibeCurl,
+            'estadoEnvio' => $Isvalid,
+            'jsonEnviado' => $eFact,
+            'errorMessage' =>  $errorMessage,
+            'statusCode' =>  $statusCode,
+            'statusDesc' =>  $statusDesc,
+            'statusMess' =>  $statusMess,
+        ],[
+            'facturaNumero' => $nroFactura,
+        ]);
+
+        return $database->id();
     }
 
     public function ingresaDatosFe($nroFactura, $prefijo, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cufe, $QRStr, $recibeCurl, $Isvalid, $eFact, $errorMessage, $statusCode, $statusDesc, $statusMess)
