@@ -439,7 +439,6 @@ if ($perfilFac == 1 && $facturador == 1) {
         array_push($correos, $emailadi);
         $ePDF['email_cc_list'] = $correos;
     }
-
     
     $ePDF = json_encode($ePDF);
     

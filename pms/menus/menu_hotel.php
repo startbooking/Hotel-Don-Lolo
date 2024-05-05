@@ -77,15 +77,12 @@ if ($_GET['section'] != 'cajeroCerrado') {
           </a>
           <ul class="treeview-menu">
             <li><a href="facturacionEstadia">
-            <!-- <i class="fa fa-money"></i>  -->
             <i class="fa-solid fa-money-check-dollar"></i>
             Facturacion Huespedes</a></li>
             <li><a href="ingresoConsumos"><i class="glyphicon glyphicon-download-alt"></i> Ingreso Consumos</a></li>
-            <!-- <li><a href="vmenuCarteraentasDirectas"><i class="fa fa-archive"></i>Ventas Directas</a></li>  -->
             <li><a href="facturasDelDia"><i class="fa fa-archive"></i>Facturas Del Dia</a></li>
             <li><a href="recibosCajaDelDia"><i class="fa fa-archive"></i>Recibos de Caja Del Dia</a></li>
             <li><a href="notasCredito"><i class="fa fa-archive"></i>Notas Credito</a></li>
-            <!-- <li><a href="exportaFacturas"><i class="fa fa-archive"></i>Exportar Facturas</a></li> -->
             <li><a href="exportaDocs"><i class="fa fa-archive"></i>Exportar Documentos</a></li>
             <li>
               <a href="#"><i class="fa fa-balance-scale"></i>Balance Cajero<i class="fa fa-angle-left pull-right"></i></a>
@@ -99,10 +96,7 @@ if ($_GET['section'] != 'cajeroCerrado') {
               </ul>
             </li>
             <li><a href="historicoFacturas"><i class="glyphicon glyphicon-paste"></i>Historico Facturas</a></li>
-            <li><a href="cuentasCongeladas">
-            <!-- <i class="fa fa-snowflake-o"></i> -->
-            <i class="fa-solid fa-snowflake"></i>
-            Cuentas Congeladas</a></li>
+            <li><a href="cuentasCongeladas"><i class="fa-solid fa-snowflake"></i>Cuentas Congeladas</a></li>
           </ul>
         </li>
         <li class="treeview" id="menuCartera">

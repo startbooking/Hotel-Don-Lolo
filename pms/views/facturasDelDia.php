@@ -3,6 +3,8 @@
 $eToken = $hotel->datosTokenCia();
 $facturador = $eToken[0]['facturador'];
 
+// echo json_encode($facturas);
+
 ?>
 
 <div class="content-wrapper">

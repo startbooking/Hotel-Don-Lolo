@@ -6,6 +6,41 @@ date_default_timezone_set('America/Bogota');
 
 class Hotel_Actions{
   
+  public function traeCorreoCia($id){
+    global $database;
+    $data = $database->select('companias',[
+      'email' 
+    ],[
+      'id_compania' => $id
+    ]);
+    return $data[0]['email']; 
+  }
+
+  public function traeCorreoHuesped($id){
+    global $database;
+    $data = $database->select('huespedes', [
+      'email'
+    ], [
+      'id_huesped' => $id
+    ]);
+    return $data[0]['email'];
+  }
+  
+  public function traePerfilFactura($factura){
+    global $database;
+    
+    $data = $database->select('cargos_pms',[
+      'correo',
+      'id_perfil_factura',
+      'tipo_factura',
+    ],[
+      'factura' => 1,
+      'factura_numero' => $factura
+    ]);
+    return $data;
+  
+  }
+
   public function consultaDatosFE($factura){
     global $database ;
     $data = $database->count('datosFE',[
@@ -5038,6 +5073,28 @@ class Hotel_Actions{
         return $data;
     }
 
+    public function enviaHistoricoFE()
+    {
+        global $database;
+
+        $data = $database->query('INSERT INTO historicoDatosFE SELECT * FROM datosFE WHERE facturaNumero != 0')->fetchAll();
+
+        return $data;
+    }
+
+    public function borraHistoricoFE()
+    {
+        global $database;
+
+        $data = $database->delete('datosFE', [
+            'AND' => [
+                'facturaNumero[>]' => 0,
+            ],
+        ]);
+
+        return $data;
+    }
+
     public function enviaHistoricoCargos()
     {
         global $database;
@@ -5046,7 +5103,10 @@ class Hotel_Actions{
 
         return $data;
     }
-
+    
+    
+    
+    
     public function borraHistoricoSalidas($fecha, $tipo)
     {
         global $database;

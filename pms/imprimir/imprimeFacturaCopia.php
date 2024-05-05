@@ -213,7 +213,6 @@ $pdf->Cell(50, 4, 'TOTAL ', 1, 0, 'C');
 $pdf->Cell(30, 4, number_format($total, 2), 1, 1, 'R');
 $pdf->Ln(1);
 $pdf->setY(155);
-16817
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(95, 4, 'RETENCIONES ', 1, 0, 'C');
 $pdf->Cell(95, 4, 'FORMAS DE PAGO ', 1, 1, 'C');

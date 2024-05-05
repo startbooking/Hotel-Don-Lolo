@@ -86,6 +86,11 @@ $idperfil = $id;
 
 include_once '../../imprimir/imprimeFacturaReenvio.php';
 
-echo $base64Factura;
+$envio = [
+  "impresion" => $base64Factura
+]; 
+
+
+echo json_encode($envio);
 
 /* echo json_encode($estadofactura); */

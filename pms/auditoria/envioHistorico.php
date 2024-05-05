@@ -169,7 +169,10 @@ $pasacargos = $hotel->enviaHistoricoCargos();
 sleep(2);
 $borracargo = $hotel->borraHistoricoCargos();
 sleep(2);
-
+$pasaFE = $hotel->enviaHistoricoFE();
+sleep(2);
+$borraFE = $hotel->borraHistoricoFE();
+sleep(2);
 /*
     foreach ($salidasfac as $salidafac) {
         /// echo $salidafac['num_reserva'];

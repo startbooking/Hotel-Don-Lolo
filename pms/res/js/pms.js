@@ -4668,11 +4668,31 @@ async function reEnviaFactura(factura){
       datosFe = { factura, prefijo, message, send_email_success, send_email_date_time, urlinvoicexml, urlinvoicepdf, cufe, QRStr, dian_validation_date_time, IsValid, ErrorMessage, StatusCode, StatusDescription, StatusMessage };
       
       let insertaFE = await ingresaDatosFE(datosFe);
-      console.log(insertaFE);
       let imprime = await imprimeFacturaReenvio(factura, prefijo);
-      console.log(imprime);
+      let guarda = await guardaJSON(JSON.stringify(recibe),jsonFactura)
+      let infocorreos = await traeCorreosFactura(factura);
+      let { impresion } = imprime;
+      let {correo, correofac} = infocorreos
       
-
+      let envioFAC = {
+        'number':factura,
+        'prefix':prefijo,
+        'base64graphicrepresentation': impresion,
+      }
+      console.log(envioFAC);
+                  
+      let mail = await enviaCorreoFactura(envioFAC, token)
+      swal({
+        title: "Atencion !",
+        text: "Documento Procesado Con Exito !",
+        type: "success",
+        confirmButtonText: "Aceptar",
+        closeOnConfirm: false,
+      },
+      function () {
+        $(location).attr("href", 'facturasDelDia');
+      })
+      
     }else{
       let { ResponseDian:{ Envelope: { Body: { SendBillSyncResponse : { SendBillSyncResult: {ErrorMessage}}}}} } = recibe
       let { string } = ErrorMessage;
@@ -4698,6 +4718,67 @@ async function reEnviaFactura(factura){
   }
 }
 
+const enviaCorreoFactura = async (envioFAC, token) => {
+  try {
+    // const resultado = await fetch(`res/php/creresultadoaJSONFactura.php`, {
+    // url =  'https://api.nextpyme.plus/api/ubl2.1/send-emaill';    
+    url =  'http://donlolo.lan/pms/api/pruebaCorreo.php';
+    const resultado = await fetch(url, {
+      method: "post",
+      credentials: "same-origin",
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body:JSON.stringify(envpms/res/php/pruebaCorreo.phpioFAC),
+    });    
+    const datos = await resultado;    
+    return datos;
+  }catch (error) {
+    // console.log(error);
+    return error
+  }
+  
+};
+
+const traeCorreosFactura = async (factura) => {
+  data = {factura}
+  try {
+    const resultado = await fetch(`res/php/traeCorreosFactura.php`, {
+      method: "post",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+      body:JSON.stringify(data),
+    });
+    const datos = await resultado.json();
+    return datos;
+  } catch (error) {
+    // console.log(error);
+    return error
+  }
+};
+
+const guardaJSON = async (recibe,envio) => {
+  data = {recibe,envio}
+  // console.log({recibe,envio})
+  try {
+    const resultado = await fetch(`res/php/guardaDatosJSON.php`, {
+      method: "post",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+      body:JSON.stringify(data),
+    });
+    const datos = await resultado.json();
+    return datos;
+  } catch (error) {
+    // console.log(error);
+    return error
+  }
+};
+
 const imprimeFacturaReenvio = async (factura, prefijo) => {
   data = {factura, prefijo}
   try {
@@ -4715,7 +4796,6 @@ const imprimeFacturaReenvio = async (factura, prefijo) => {
     return error
   }
 };
-
 
 const traeResolucion = async () => {
   try {
