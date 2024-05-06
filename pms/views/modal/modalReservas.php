@@ -33,7 +33,7 @@ $manana = date('Y-m-d', $manana);
                           </a>
                         </span>
                       </div>
-                    </div> 
+                    </div>
                     <div class="col-sm-4" style="padding-right: 0;text-align:right">
                       <a class="btn btn-success" data-toggle="modal" data-reserva='1' href="#myModalAdicionaPerfil">
                         <i class="fa fa-user-plus" aria-hidden="true"></i> Adicionar Huesped
@@ -349,16 +349,16 @@ $manana = date('Y-m-d', $manana);
           <div class="panel panel-default">
             <div class="panel-heading">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span class="glyphicon glyphicon-off"></span>
-              </button> 
+                <span class="glyphicon glyphicon-off"></span>
+              </button>
               <h3 class="modal-title" id="exampleModalLabel">Modificar Reserva</h3>
             </div>
             <div class="panel-body">
               <div id="modalReservasUpd"></div>
             </div>
           </div>
-        
-            <!-- <div class="modal-header">
+
+          <!-- <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span class="glyphicon glyphicon-off"></span>
               </button>
@@ -369,7 +369,7 @@ $manana = date('Y-m-d', $manana);
               <div id="mensaje" style="margin-bottom:-30px"></div>
             </div> -->
         </div>
-      </div> 
+      </div>
     </div>
   </form>
 </div>
@@ -391,7 +391,7 @@ $manana = date('Y-m-d', $manana);
           </div>
         </div>
       </div>
-    </div> 
+    </div>
   </form>
 </div>
 
@@ -719,8 +719,8 @@ $manana = date('Y-m-d', $manana);
         <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply" aria-hidden="true"></i> Regresar</button>
       </div>
     </div>
-  </div> 
-</div>
+  </div>
+</div>v1.42/pms/facturasDelDia
 
 <div class="modal fade" id="myModalBuscaHuesped" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <form id="guardarDatosRooms" class="form-horizontal" action="" method="POST" enctype="multipart/form-data">
@@ -760,7 +760,7 @@ $manana = date('Y-m-d', $manana);
             </button>
             <h3 class="modal-title" id="exampleModalLabel">Depositos a Reserva</h3>
           </div>
-          <div class="modal-body" style="height: 400px;overflow: auto;">
+          <div class="modal-body" style="max-height: 400px;overflow: auto;">
             <div id="depositoHuesped" style="margin :-20px 0 -30px 0;font-size: 12px"></div>
           </div>
           <div class="modal-footer">
@@ -790,21 +790,21 @@ $manana = date('Y-m-d', $manana);
                 <input type="hidden" name="estadoocupacion" value="ES">
                 <input type="hidden" name="nroreserva" id="nroreserva" value="">
 
-                <span class="col-lg-2">Huesped</span>              
+                <span class="col-lg-2">Huesped</span>
                 <div class="input-group">
                   <input type="text" class="form-control" id="buscarHuespedRes" placeholder="Buscar Huesped ...">
                   <span class="input-group-btn">
                     <button data-toggle="modal" href="#myModalBuscaHuespedRes" style="padding:3px" class="btn btn-default" type="button"><i style="padding:3px 8px" class="fa fa-search" aria-hidden="true"></i></button>
                   </span>
                 </div>
-              </div> 
-              <div class="col-lg-3 derecha">                        
+              </div>
+              <div class="col-lg-3 derecha">
                 <a class="btn btn-success" data-toggle="modal" data-reserva='1' href="#myModalAdicionaPerfil">
-                <i class="fa fa-user-plus" aria-hidden="true"></i> Adicionar Huesped
+                  <i class="fa fa-user-plus" aria-hidden="true"></i> Adicionar Huesped
                 </a>
-              </div>          
-            </div>            
-            <div id="datosHuespedAdi"></div> 
+              </div>
+            </div>
+            <div id="datosHuespedAdi"></div>
             <div id="depositoHuesped" style="margin :-20px 0 -30px 0;font-size: 12px"></div>
           </div>
           <div class="modal-footer">
@@ -999,7 +999,7 @@ $manana = date('Y-m-d', $manana);
                   $ciudades = $hotel->getCiudades();
                   foreach ($ciudades as $ciudad) { ?>
                     <option value="<?php echo $ciudad['id_ciudad']; ?>">
-                    <?php echo $ciudad['municipio'] . ' ' . $ciudad['depto']; ?></option>
+                      <?php echo $ciudad['municipio'] . ' ' . $ciudad['depto']; ?></option>
                   <?php
                   }
                   ?>

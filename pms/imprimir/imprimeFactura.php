@@ -8,7 +8,9 @@ $size = 100; // Tamaño en píxeles
 $level = 'L'; // Nivel de corrección (L, M, Q, H)
 
 // Generar el código QR
-QRcode::png($QRStr, $filename, $level, $size);
+if(DEV==0){
+  QRcode::png($QRStr, $filename, $level, $size);
+}
 
 $aplicarete = 0;
 $aplicaiva = 0;
@@ -59,7 +61,10 @@ $pdf = new FPDF();
 $pdf->AddPage('P', 'letter');
 $pdf->Rect(10, 50, 190, 210);
 $pdf->Image('../../../img/'.LOGO, 10, 5, 40);
-$pdf->Image($filename, 163, 5, 35);
+if (DEV == 0) {
+  $pdf->Image($filename, 163, 5, 35);
+}
+
 
 $pdf->SetFont('Arial', 'B', 11);
 $pdf->Cell(190, 4, utf8_decode(NAME_EMPRESA), 0, 1, 'C');

@@ -10,7 +10,7 @@ $size = 100; // Tamaño en píxeles
 $level = 'L'; // Nivel de corrección (L, M, Q, H)
 
 // Generar el código QR
-// QRcode::png($QRStr, $filename, $level, $size);
+QRcode::png($QRStr, $filename, $level, $size);
 
 $datosReserva = $hotel->getReservasDatos($reserva);
 $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
@@ -48,7 +48,7 @@ $pdf->AddPage('P', 'letter');
 $pdf->Rect(10, 50, 190, 210);
 
 $pdf->Image('../../../img/'.LOGO, 10, 5, 40);
-// $pdf->Image($filename, 163, 5, 33);
+$pdf->Image($filename, 163, 5, 33);
 
 
 $pdf->SetFont('Arial', 'B', 11);

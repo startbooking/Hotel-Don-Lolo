@@ -145,7 +145,7 @@
           </div>
         </div>
       </div>
-    </div> 
+    </div>
   </form>
 </div>
 
@@ -204,6 +204,44 @@
             <div class="form-group">
               <object id="verFacturaModalCon" width="100%" height="450" data=""></object>
             </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-warning" data-dismiss="modal"><I class="fa fa-reply"></I> Regresar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="modal fade" id="myModalReenviaFactura" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <form id="guardarDatosRooms" class="form-horizontal" method="POST" enctype="multipart/form-data">
+    <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+      <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class='glyphicon glyphicon-off' style="color:#530505"></span></button>
+            <h3 class="modal-title" id="exampleModalLabel">Reenvio Factura </h3>
+          </div>
+          <div class="modal-body">
+            <div id="mensaje">
+              <h4 class="bg-red" style="padding:10px;display:flex"><img style="margin-bottom:0" class="thumbnail" src="../img/loader.gif" alt="" /><span style="font-size:24px;font-weight: 700;font-family: ubuntu;margin:15px">Procesando Informacion, No Interrumpa </span></h4>
+            </div>
+            <!-- <input type="hidden" name="reserva" id="reserva" value="">
+            <input name="" id="verFacturaNro" value=""> -->
+            <div class="form-group">
+              <label for="noches" class="col-sm-2 control-label">Factura Nro</label>
+              <div class="col-sm-4">
+                <input type="number" class="form-control" name="verFacturaNro" id="verFacturaNro" readonly="">
+              </div>
+              <!-- <label for="llegada" class="col-sm-2 control-label">Fecha Factura</label>
+              <div class="col-sm-4" style="padding-right: 20px">
+                <input type="date" class="form-control" name="fechafac" id="fechafac" readonly="">
+              </div> -->
+            </div>
+            <!-- <div class="form-group">
+              <object id="verFacturaModalCon" width="100%" height="450" data=""></object>
+            </div> -->
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-warning" data-dismiss="modal"><I class="fa fa-reply"></I> Regresar</button>

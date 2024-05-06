@@ -2605,76 +2605,6 @@ const traeRetenciones02 = async () => {
   }
 };
 
-
-/*  
-
-const ValidateEmail = async (documentNumber, email) => {
-
-        const urlfe = 'https://api.nextpyme.plus/api/ubl2.1'
-        let query_subject = null;
-        const number = (documentNumber.split('-')[1]).slice(0, -4)
-        const {
-            value: formValues
-        } = await Swal.fire({
-            title: 'Estado del envio! <i class="fas fa-mail-bulk text-success"></i> ',
-            html: `Se validará el envio del correo electrónico del siguiente <strong>documento</strong> <br> <input id="swal-input1" class="swal2-input" value="${email}"> <br> <input id="swal-input2" disabled class="swal2-input" value="${number}">`,
-            focusConfirm: false,
-            showLoaderOnConfirm: true,
-            preConfirm: async () => {
-                try {
-                    const dataValidateMail = {
-                        url: `${urlfe.slice(0,-7)}/google_api/get_messages_by_receptor`,
-                        method: 'POST',
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Authorization": 'Bearer ' + atob(token),
-                            "Accept": "application/json",
-                        },
-                        typeResponse: 'json',
-                        bodyRequest: JSON.stringify({
-                            'to_email': email,
-                            'query_subject': number
-                        }),
-                    }
-                    const ResponseValidateMail = await RequestComponent(dataValidateMail)
-                    // console.log(ResponseValidateMail)
-                    if (ResponseValidateMail['resultSizeEstimate'] == 1) {
-                        return Swal.fire({
-                            title: `<strong>Mensaje No. ${ResponseValidateMail['Response']['id']}</strong>`,
-                            icon: 'success',
-                            html: `Correo electrónico enviado a <strong>${ResponseValidateMail['Response']['payload']['headers'][15]['value']}</strong> 
-                        el día <strong>${ResponseValidateMail['Response']['payload']['headers'][12]['value']}</strong> con el asunto <strong>${ResponseValidateMail['Response']['payload']['headers'][13]['value']}</strong>, 
-                        nombre del archivo ajunto <strong>${ResponseValidateMail['Response']['payload']['parts'][1]['filename']}</strong>`,
-                            showCloseButton: true,
-                            showCancelButton: false,
-                            focusConfirm: false,
-                            confirmButtonAriaLabel: 'Ok!',
-                            cancelButtonAriaLabel: 'Thumbs down'
-                        })
-                    }
-                    return Swal.fire({
-                        title: `<strong>Mensaje No. ${ResponseValidateMail['Response']['id']}</strong>`,
-                        icon: 'success',
-                        html: `Correo electrónico enviado en ${ResponseValidateMail['resultSizeEstimate']} ocasiones al correo ${email}, para mayor detalle comuniquese con su proveedor de software!`,
-                        showCloseButton: true,
-                        showCancelButton: false,
-                        focusConfirm: false,
-                        confirmButtonAriaLabel: 'Ok!',
-                        cancelButtonAriaLabel: 'Thumbs down'
-                    })
-                } catch (error) {
-                    return Notifications(null, 'Error al consultar el estado del correo', 'error',
-                        true,
-                        error,
-                        false)
-                }
-            }
-        })
-    }
-
-*/
-
-
 async function descargaArchivo(numero, nit, prefijo){
   url = `https://api.nextpyme.plus/api/ubl2.1/download/`;    
   const eToken = await traeToken();
@@ -2714,7 +2644,6 @@ const descargaXML = async (xmlUrl, token, tipo) => {
     }else{
       datos = await resultado.text();
     }
-    // console.log(datos)
     return datos;  
   }
   catch (error){
@@ -4591,7 +4520,7 @@ function buscaFacturasFecha() {
   var pagina = $("#ubicacion").val(); 
   var fechafac = $("#buscarFecha").val();
   var parametros = {
-    fechafac: fechafac,
+    fechafac,
   };
   $("#verFactura").attr("data", "");
   $.ajax({
@@ -4646,6 +4575,9 @@ function traeAcompanantes(idres) {
 }
 
 async function reEnviaFactura(factura){
+  $('#myModalReenviaFactura').modal('show');
+  document.querySelector('#verFacturaNro').value = factura;
+
   let jsonFactura = await creaJSONFactura(factura); 
   const eToken = await traeToken();
   let { token } = eToken[0];
@@ -4720,9 +4652,8 @@ async function reEnviaFactura(factura){
 
 const enviaCorreoFactura = async (envioFAC, token) => {
   try {
-    // const resultado = await fetch(`res/php/creresultadoaJSONFactura.php`, {
-    // url =  'https://api.nextpyme.plus/api/ubl2.1/send-emaill';    
-    url =  'http://donlolo.lan/pms/api/pruebaCorreo.php';
+    url =  'https://api.nextpyme.plus/api/ubl2.1/send-emaill';    
+    // url =  'http://donlolo.lan/pms/api/pruebaCorreo.php';
     const resultado = await fetch(url, {
       method: "post",
       credentials: "same-origin",
@@ -4731,7 +4662,7 @@ const enviaCorreoFactura = async (envioFAC, token) => {
         'Accept': 'application/json',
         'Authorization': `Bearer ${token}`
       },
-      body:JSON.stringify(envpms/res/php/pruebaCorreo.phpioFAC),
+      body:JSON.stringify(envioFAC),
     });    
     const datos = await resultado;    
     return datos;
@@ -4762,7 +4693,6 @@ const traeCorreosFactura = async (factura) => {
 
 const guardaJSON = async (recibe,envio) => {
   data = {recibe,envio}
-  // console.log({recibe,envio})
   try {
     const resultado = await fetch(`res/php/guardaDatosJSON.php`, {
       method: "post",
@@ -4855,9 +4785,8 @@ const enviaJSONFactura = async (jsonFactura, token) => {
   data = {jsonFactura}
   
   try {
-    // const resultado = await fetch(`res/php/creresultadoaJSONFactura.php`, {
-    // url =  'https://api.nextpyme.plus/api/ubl2.1/invoice';
-    url =  'http://donlolo.lan/pms/api/prueba.json';
+    url =  'https://api.nextpyme.plus/api/ubl2.1/invoice';
+    // url =  'http://donlolo.lan/pms/api/prueba.json';
     const resultado = await fetch(url, {
       method: "post",
       credentials: "same-origin",
@@ -6199,6 +6128,8 @@ async function salidaHuesped() {
     };
     
     let facturado = await enviaPago(parametros);
+    // console.log(facturado)
+    
     let { error, mensaje, factura, perfil, errorDian, archivo, folio } = facturado[0];
     
     if(error == "1"){
@@ -7573,9 +7504,6 @@ function ciudadesExpedicion(pais, city) {
   let edita = parseInt($("#editaPer").val());
   let acompana = parseInt($("#acompana").val());
   
-  /* console.log(edita);
-  console.log(acompana); */
-  
   if (edita == 1) {
     $("#ciudadExpUpd option").remove();
   } else {
@@ -7601,11 +7529,11 @@ function ciudadesExpedicion(pais, city) {
           "warning"
         );
       } else {
-        if (edita == "1") {
+        if (edita == 1) {
           $("#ciudadExpUpd").append(resp);
           $("#ciudadExpUpd").val(city);
         } else {     
-          if(acompana=="1"){
+          if(acompana==1){
             $("#ciudadExpAco").append(resp);
           }else{
             $("#ciudadExp").append(resp.trim());
