@@ -24,8 +24,31 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 });
 
+async function abreXML(){
+  fileXML = document.querySelector('#archivoxml');
+  let file = fileXML.files[0]
+  reader = new FileReader();
+  console.log(reader);
+  waitForTextReadComplete(reader);
+  reader.readAsText(file); 
+}
 
- 
+function parseTextAsXml(text) {
+  let parser = new DOMParser(),
+  xmlDom = parser.parseFromString(text, "text/xml");
+    console.log(reader)
+
+    //ahora, extraer los elementos del xmlDom y asignarlos a los imputs
+}
+
+function waitForTextReadComplete(reader) {
+  reader.onloadend = function(event) {
+    var text = event.target.result;
+    console.log(reader)
+    parseTextAsXml(text);
+  }
+}
+
 function muestraKardex(bodega) {
   $.ajax({
     url: "res/php/getKardex.php",

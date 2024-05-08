@@ -6,7 +6,7 @@
 
 <div class="content-wrapper">
   <section class="content centrar">
-    <div class="container">
+    <div class="container" style="padding:0">
       <div class="panel panel-success">
         <div class="panel-heading">
           <div class="row">
@@ -72,7 +72,6 @@
           </div>
         </div>
       </div>
-
     </div>
   </section>
 </div>

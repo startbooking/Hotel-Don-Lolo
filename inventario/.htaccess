@@ -25,6 +25,7 @@ RewriteRule ^conteos index.php?section=conteos [QSA]
 RewriteRule ^periodosActivos index.php?section=periodosActivos [QSA] 
 RewriteRule ^cierreMes index.php?section=cierreMes [QSA] 
 RewriteRule ^kardex index.php?section=kardex [QSA] 
+RewriteRule ^importaXML index.php?section=importaXML [QSA] 
 
 RewriteRule ^deptos index.php?section=deptos [QSA] 
 RewriteRule ^centrosdeCosto index.php?section=centrosdeCosto [QSA] 

@@ -26,8 +26,10 @@ if (!isset($_GET['section'])) {
     require 'views/entradas.php';
 } elseif (isset($_GET['section']) && $_GET['section'] == 'movimientoEntradas') {
     require 'views/movimientoEntradas.php';
+} elseif (isset($_GET['section']) && $_GET['section'] == 'importaXML') {
+  require 'views/importaXML.php';
 } elseif (isset($_GET['section']) && $_GET['section'] == 'salidas') {
-    require 'views/salidas.php';
+  require 'views/salidas.php';
 } elseif (isset($_GET['section']) && $_GET['section'] == 'movimientoSalidas') {
     require 'views/movimientoSalidas.php';
 } elseif (isset($_GET['section']) && $_GET['section'] == 'traslados') {

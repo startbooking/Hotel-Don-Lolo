@@ -1,12 +1,12 @@
 <?php
 require '../../../res/php/app_topHotel.php';
 
-$numero = $_POST['numero'];
-$motivo = strtoupper($_POST['motivo']);
-$reserva = $_POST['reserva'];
-$usuario = $_POST['usuario'];
+$numero    = $_POST['numero'];
+$motivo    = strtoupper($_POST['motivo']);
+$reserva   = $_POST['reserva'];
+$usuario   = $_POST['usuario'];
 $idusuario = $_POST['usuario_id'];
-$perfil = $_POST['perfil'];
+$perfil    = $_POST['perfil'];
 
 $horaDoc = date('H:s:i');
 $fechaDoc = FECHA_PMS;

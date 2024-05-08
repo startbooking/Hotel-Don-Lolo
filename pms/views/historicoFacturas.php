@@ -1,5 +1,5 @@
     <div class="content-wrapper"> 
-      <section class="content" style="height: 780px;">
+      <section class="content" style="height: 780px;padding:0px;">
         <div class="content" style="margin-bottom: 50px"> 
           <div class="panel panel-success">
             <div class="panel-heading">

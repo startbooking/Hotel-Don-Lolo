@@ -5971,7 +5971,6 @@ async function cargarHabitacionCkeckIn(cargar) {
     data: parametros,
     url: "res/php/cargarHabitaciones.php",
     success: function (datos) {
-    // console.log(datos)
       if (datos == 1) {
         $("#aviso").html(
           '<div class="alert alert-info" style="margin-bottom: 30px"><h4 align="center" style="color:brown;font-weight: 700">Habitaciones Cargadas con Exito</h4></div>'
@@ -6190,7 +6189,6 @@ async function errorEnvio(cErrors){
       closeOnConfirm: true,
     })
 }
-
 
 async function muestraError(cErrors){
   mensajeErr= '' ;
@@ -7950,12 +7948,24 @@ function facturasPorFecha() {
   ) {
     swal("Atencion", "Seleccione un Criterio de Busqueda", "warning");
   } else {
+    horaI = new Date();
+    
     $.ajax({
       url: web + "res/php/facturasPorRango.php",
       type: "POST",
       data: parametros,
+      beforeSend: function(o){
+        $(".imprimeInforme").html(`
+        <div style="text-align: center;">
+          <h3 class="alert alert-danger" style="color:#0009 !important;text-align:center;display:grid;"><i style="font-size:3em;margin-top:1px;color:#BBB0B0; " class="ion ion-ios-gear-outline fa-spin"></i>Procesando Informacion, NO Interrumpir</h3>
+        </div>
+        `
+        );
+      },
       success: function (x) {
+        horaF = new Date();
         $(".imprimeInforme").html(x);
+        
       },
     });
   }
@@ -7995,21 +8005,8 @@ async function propinasPorFecha() {
   } else {
     
     const informe = await generaInforme(data);
-    
-    // console.log(informe)
-    
     creaHTMLReportes(informe, 'Informe Propinas' )
     
-    
-  
-    /* $.ajax({
-      url: web + "res/php/facturasPorRango.php",
-      type: "POST",
-      data: parametros,
-      success: function (x) {
-        $(".imprimeInforme").html(x);
-      },
-    }); */
   }
 }
 
