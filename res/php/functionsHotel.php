@@ -1005,6 +1005,20 @@ class Hotel_Actions{
         return $data;
     }
 
+    public function traeDatosFEHis($numero)
+    {
+        global $database;
+
+        $data = $database->select('historicoDatosFE', [
+            'cufe',
+        ], [
+            'facturaNumero' => $numero,
+        ]);
+
+        return $data;
+    }
+
+
     public function actualizaDatosFe($nroFactura, $prefijo, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cufe, $QRStr, $recibeCurl, $Isvalid, $eFact, $errorMessage, $statusCode, $statusDesc, $statusMess)
     {
         global $database;

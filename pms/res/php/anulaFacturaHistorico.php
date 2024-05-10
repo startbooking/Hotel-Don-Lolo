@@ -1,5 +1,4 @@
 <?php
-
 require '../../../res/php/app_topHotel.php';
 
 $numero = $_POST['factura'];
@@ -22,8 +21,8 @@ $resFac = $hotel->getResolucion(1);
 $resolucion = $resFac[0]['resolucion'];
 $prefijo = $resFac[0]['prefijo'];
 
-$arcCurl = 'recibeCurl' . $mes . $anio . '.json';
-$envCurl = 'enviaFact' . $mes . $anio . '.json';
+$arcCurl = '../../json/recibeCurl' . $mes . $anio . '.json';
+$envCurl = '../../json/enviaFact' . $mes . $anio . '.json';
 
 $dFactura = $hotel->infoFacturaHis($numero);
 
@@ -40,7 +39,7 @@ $subtotales = $hotel->getConsumosReservaAgrupadoFolioHis($numero, $reserva, $nro
 $codigo = $pagosfolio[0]['id_codigo_cargo'];
 
 if ($perfil == 1 && $facturador == 1) {
-    $datosFact = $hotel->traeDatosFE($numero);
+    $datosFact = $hotel->traeDatosFEHis($numero);
     $uuid = $datosFact[0]['cufe'];
     
     $eNote = [];
@@ -51,30 +50,28 @@ if ($perfil == 1 && $facturador == 1) {
 
     if ($tipofac == 2) {
       $datosCompania = $hotel->getSeleccionaCompania($idperfil);
-      $diasCre = $datosCompania[0]['dias_credito'];
+      
       $nomFact = $datosCompania[0]['empresa'];
       $nitFact = $datosCompania[0]['nit'];
       $dvFact  = $datosCompania[0]['dv'];
+      $diasCre = $datosCompania[0]['dias_credito'];
       $emaFact = $datosCompania[0]['email'];
       $tdiFact = $datosCompania[0]['tipo_documento'];
-      $triFact = $datosCompania[0]['tipoResponsabilidad'];    
+      $triFact = $datosCompania[0]['tipoResponsabilidad'];
     } else {
-      $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
+      $datosHuesped = $hotel->getbuscaDatosHuesped($idperfil);
+      $nomFact = $datosHuesped[0]['nombre1'] . ' ' . $datosHuesped[0]['nombre2'] . ' ' . $datosHuesped[0]['apellido1'] . ' ' . $datosHuesped[0]['apellido2'];
       $nitFact = $datosHuesped[0]['identificacion'];
       $dvFact  = '';
-      $nomFact = $datosHuesped[0]['nombre1'] . ' ' . $datosHuesped[0]['nombre2'] . ' ' . $datosHuesped[0]['apellido1'] . ' ' . $datosHuesped[0]['apellido2'];
       $emaFact = $datosHuesped[0]['email'];
       $tdiFact = $datosHuesped[0]['tipo_identifica'];
       $triFact = $datosHuesped[0]['tipoResponsabilidad'];
-    
     }
 
     $eBill['number'] = strval($dFactura[0]['factura_numero']);
     $eBill['uuid'] = $uuid;
     $eBill['issue_date'] = $dFactura[0]['fecha_factura'];
-
     $eNote['billing_reference'] = $eBill;
-
     $eNote['discrepancyresponsecode'] = 2;
     $eNote['discrepancyresponsedescription'] = $motivo;
     $eNote['notes'] = '';
@@ -96,18 +93,7 @@ if ($perfil == 1 && $facturador == 1) {
     $eCust['identification_number'] = $nitFact;
     $eCust['dv'] = $dvFact;
     $eCust['name'] = $nomFact;
-    $eCust['phone'] = $telFact;
     $eCust['email'] = $emaFact;
-
-    if ($tipofac == 2) {
-        $eCust['address'] = $dirFact;
-        $eCust['merchant_registration'] = $merFact;
-        $eCust['type_document_identification_id'] = $tdiFact;
-        $eCust['type_organization_id'] = $torFact;
-        $eCust['type_liability_id'] = $tliFact;
-        $eCust['municipality_id'] = $munFact;
-        $eCust['type_regime_id'] = $triFact;
-    }
 
     $eNote['customer'] = $eCust;
 
@@ -165,7 +151,7 @@ if ($perfil == 1 && $facturador == 1) {
     $eNote['credit_note_lines'] = $eInvo;
 
     $eNote = json_encode($eNote);
-
+    
     include_once '../../api/enviaNC.php';
 
     $recibeCurl = json_decode($respoNC, true);
@@ -189,7 +175,8 @@ if ($perfil == 1 && $facturador == 1) {
     $urlinvoicepdf = $recibeCurl['urlinvoicepdf'];
     $cude = $recibeCurl['cude'];
     $QRStr = $recibeCurl['QRStr'];
-    $timeCrea   = $recibeCurl['ResponseDian']['Envelope']['Header']['Security']['Timestamp']['Created'];
+    $timeCrea   = $recibeCurl['dian_validation_date_time'];
+    
     $respo = '';
 
     $errorMessage = json_encode($recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['ErrorMessage']);
@@ -200,7 +187,7 @@ if ($perfil == 1 && $facturador == 1) {
 
     $message = $recibeCurl['message'];
 
-    $regis = $hotel->ingresaDatosFe($numDoc, $prefNC, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cude, $QRStr, '', $Isvalid, $eNote, $errorMessage, $statusCode, $statusDesc, $statusMess);
+    $regis = $hotel->ingresaDatosFe($numDoc, $prefNC, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cude, $QRStr, '', $Isvalid, '', $errorMessage, $statusCode, $statusDesc, $statusMess);
 
     include_once '../../imprimir/imprimeNotaCreditoHis.php';
 

@@ -6,10 +6,9 @@ require_once '../res/php/app_topHotel.php';
 <html>
 
 <head>
-    <title><?php echo TITLE_ADM; ?> | Administracion Hotelera</title>
-    <?php include_once '../res/shared/archivo_head.php'; ?>
-    <link rel="stylesheet" type="text/css" href="res/css/pms.css">
-    <!-- <script src="<?php echo BASE_WEB; ?>res/js/inicio.js"></script> -->
+  <title><?php echo TITLE_ADM; ?> | Administracion Hotelera</title>
+  <?php include_once '../res/shared/archivo_head.php'; ?>
+  <link rel="stylesheet" type="text/css" href="res/css/pms.css">
 </head>
 
 <body class="skin-green sidebar-mini">
@@ -307,7 +306,6 @@ require_once '../res/php/app_topHotel.php';
     <script>
         sesion = JSON.parse(localStorage.getItem('sesion'))
         var { user: {usuario_id, usuario, nombres, apellidos, tipo, estado_usuario_pms} } = sesion;
-        
         $('#usuarioActivo').val(usuario)
         $('#nombreUsuario').html(`${apellidos} ${nombres} <span class="caret"></span>`)
         $('#menuClave').html(`

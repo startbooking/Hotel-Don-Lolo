@@ -17,7 +17,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   let { user: { usuario, usuario_id }, cia:{ impuesto } } = sesion;
 });
 
-
 function botonEliminaProductoDivi(
   numero,
   codigo,
@@ -693,7 +692,7 @@ const guardaSubRecetas = async (subReceta) => {
     const datos = await resultado.json();
     return datos;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 };
 
@@ -794,7 +793,7 @@ const traeSubRecetas = async (receta,) => {
     const datos = await resultado.json();
     return datos;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 };
 
@@ -1812,6 +1811,8 @@ function botonDevolverProducto(
 }
 
 function devolverProducto() {
+  oPos = JSON.parse(localStorage.getItem("oPos"));
+  let { id_ambiente, nombre, propina, logo, fecha_auditoria, impuesto } = oPos[0];
   inicial = $("#cantiInicial").val();
   cantidad = $("#cantidadDev").val();
   comanda = $("#numeroComanda").val();
@@ -1826,11 +1827,6 @@ function devolverProducto() {
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
   let { pos, user:{ usuario } } = sesion;
-  let { fecha_auditoria } = oPos[0];
-  // 
-
-  // user: { usuario, usuario_id, tipo }= usuario;
-  fecha = fecha_auditoria;
 
   parametros = {
     comanda,
@@ -1841,7 +1837,7 @@ function devolverProducto() {
     importe,
     impto,
     motivo,
-    fecha,
+    fecha_auditoria,
     usuario,
     impuesto
   };
@@ -2512,7 +2508,7 @@ async function traeProductosRecetas(id){
     const datos = await resultado.json();
     return datos;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 }
 
@@ -3367,11 +3363,6 @@ function ventasHistoricoFormaPago() {
 
   $.ajax({
     url: "views/historicoFormasPago.php",
-    /* type: "POST",
-    data: parametros,
-    success: function (data) {
-      creaHTMLReportes(data, `Historico Formas de Pago`);
-    }, */
     type: "POST",
     data: parametros,
     success: function (data) {
@@ -3415,7 +3406,7 @@ function ventasProducto() {
 function ventasDiaAuditoria() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  console.log(oPos[0]);
+  // console.log(oPos[0]);
 
   let { pos, user: { usuario, usuario_id } } = sesion;
   let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } = oPos[0];
@@ -4311,7 +4302,7 @@ const mesasSinSalir = async (fecha_auditoria, id_ambiente) => {
     const datos = await resultado.json();
     return datos;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 };
 
@@ -4325,7 +4316,7 @@ mensajeAuditoria = async (mensaje) => {
       </h4>
       `;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 };
 
@@ -4961,7 +4952,7 @@ function productosActivos() {
           </td>
         </tr>`
         );
-        if (tipo > 3) {
+        if (tipo > 2) {
           $(".btnDevuelve").remove();
           $(".btnDevuelve").css("disabled", "disabled");
         }
@@ -4984,7 +4975,7 @@ function productosActivos() {
               </td>
           </tr>`
           );
-          if (tipo > 3) {
+          if (tipo > 2) {
             $(".btnDevuelve").remove();
             $(".btnDevuelve").css("disabled", "disabled");
           }
@@ -5025,7 +5016,6 @@ function productosActivos() {
 }
 
 function getVentas(nom, val, idp, imp, ambi) {
-// console.log({nom, val, idp, imp, ambi});
   propina = 0;
   descuento = 0;
   abonos = $("#abonosComanda").val();
@@ -5065,8 +5055,6 @@ function getVentas(nom, val, idp, imp, ambi) {
     subt = ((val * 1) / (1 + (imp / 100))).toFixed(2);  
     impuesto = (val * 1 - subt).toFixed(2);
     
-    console.log(impuesto)
-
     dataProd = {
       producto: nom,
       cant: 1,

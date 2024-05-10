@@ -11,7 +11,7 @@ $importe = $_POST['importe'];
 $impto = $_POST['impto'];
 $impuesto = $_POST['impuesto'];
 
-$fecha = $_POST['fecha'];
+$fecha = $_POST['fecha_auditoria'];
 $inicial = $_POST['inicial'];
 $devuelve = $_POST['cantidad'];
 $estado = 0;

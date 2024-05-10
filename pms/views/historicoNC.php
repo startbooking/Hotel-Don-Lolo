@@ -10,7 +10,7 @@
             <div class="panel-heading"> 
               <div class="row"> 
                 <div class="col-lg-9 col-sm-9">
-                  <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_PMS?>">                  
+                  <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_PMS?>">
                   <input type="hidden" name="ubicacion" id="ubicacion" value="informeFacturasRango">
                   <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-industry"></i> Historico de Notas Credito</h3>
                 </div>

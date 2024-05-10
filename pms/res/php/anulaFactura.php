@@ -23,8 +23,8 @@ $prefijo = $resFac[0]['prefijo'];
 
 $dFactura = $hotel->infoFactura($numero);
 
-$arcCurl = 'recibeCurl' . $mes . $anio . '.json';
-$envCurl = 'enviaFact' . $mes . $anio . '.json';
+$arcCurl = '../../json/recibeCurl' . $mes . $anio . '.json';
+$envCurl = '../../json/enviaFact' . $mes . $anio . '.json';
 
 $tipofac = $dFactura[0]['tipo_factura'];
 $idperfil = $dFactura[0]['id_perfil_factura'];
@@ -78,7 +78,6 @@ if ($perfil == 1 && $facturador == 1) {
     $eNote['discrepancyresponsecode'] = 2;
     $eNote['discrepancyresponsedescription'] = $motivo;
     $eNote['notes'] = '';
-    // $eNote['resolution_number'] = $resolucion;
     $eNote['prefix'] = $prefNC;
     $eNote['number'] = $numDoc;
     $eNote['type_document_id'] = 4;
@@ -99,16 +98,6 @@ if ($perfil == 1 && $facturador == 1) {
     $eCust['name'] = $nomFact;
     $eCust['phone'] = $telFact;
     $eCust['email'] = $emaFact;
-
-    /* if ($tipofac == 2) {
-        $eCust['address'] = $dirFact;
-        $eCust['merchant_registration'] = $merFact;
-        $eCust['type_document_identification_id'] = $tdiFact;
-        $eCust['type_organization_id'] = $torFact;
-        $eCust['type_liability_id'] = $tliFact;
-        $eCust['municipality_id'] = $munFact;
-        $eCust['type_regime_id'] = $triFact;
-    } */
 
     $eNote['customer'] = $eCust;
 
@@ -189,7 +178,8 @@ if ($perfil == 1 && $facturador == 1) {
     $urlinvoicepdf = $recibeCurl['urlinvoicepdf'];
     $cude = $recibeCurl['cude'];
     $QRStr = $recibeCurl['QRStr'];
-    $timeCrea = $recibeCurl['ResponseDian']['Envelope']['Header']['Security']['Timestamp']['Created'];
+    $timeCrea   = $recibeCurl['dian_validation_date_time'];
+    
     $respo = '';
 
     $errorMessage = json_encode($recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['ErrorMessage']);

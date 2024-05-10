@@ -315,7 +315,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     var id = button.data("id");
     var imagen = button.data("imagen");
     var modal = $(this);
-
     $("#muestraDocumento").prop("src", imagen);
   });
 
@@ -551,6 +550,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   $("#myModalAnulaFacturaHistorico").on("show.bs.modal", function (event) {
+    sesion = JSON.parse(localStorage.getItem("sesion"));
+    let { user:{ tipo } } = sesion;
+    if(tipo > 2){
+      swal('Precaucion','Usuario NO Permitido Anular Factura','warning');
+      $("#myModalAnulaFacturaHistorico").modal("hiden");
+      return 
+    }
     var button = $(event.relatedTarget);
     var apellidos = button.data("apellidos");
     var nombres = button.data("nombres");
@@ -626,6 +632,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   $("#myModalAnulaFactura").on("show.bs.modal", function (event) {
+    sesion = JSON.parse(localStorage.getItem("sesion"));
+    let { user:{ tipo } } = sesion;
+    if(tipo > 2){
+      swal('Precaucion','Usuario NO permitido Anular Factura','warning');
+      $("#myModalAnulaFactura").modal("hiden");
+      return
+    }
+  
     var web = $("#rutaweb").val();
     var button = $(event.relatedTarget);
     var apellidos = button.data("apellidos");
@@ -728,8 +742,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   $("#myModalSalidaCongelada").on("show.bs.modal", function (event) {
     sesion = JSON.parse(localStorage.getItem("sesion"));
-    let { user } = sesion;
-    let { usuario, usuario_id } = user;
+    let { user:{ usuario, usuario_id } } = sesion;
     var web = $("#rutaweb").val();
     var pagina = $("#ubicacion").val();
     var folio = $("#folioActivo").val();
@@ -2917,22 +2930,22 @@ function buscaHistoricoNC() {
 }
 
 function llenaHistoricoNC(datos) {
-  ncHTML = document.querySelector("#dataNotasC tbody");
-  resultado = document.querySelector("#muestraResultadoNC");
+  ncHTML = document.querySelector("#dataNotas tbody");
+  // resultado = document.querySelector("#muestraResultadoNC");
 
   if (datos.length == 0) {
-    resultado.classList.add("apaga");
+    // resultado.classList.add("apaga");
     mensaje = document.querySelector("#mensaje");
     mensaje.innerHTML = "";
     mensaje.classList.remove("apaga");
     mensaje.innerHTML = `
       <div class="alert alert-danger centro">
-      <h4> <i class="fa-solid fa-circle-exclamation fa-2x"></i> Sin Notas Credito Generadas el Rango de Fecha Seleccionada<h4>  
+      <h4 style="color:#0009"> <i class="fa-solid fa-circle-exclamation fa-2x"></i> Sin Notas Credito Generadas el Rango de Fecha Seleccionada<h4>  
       </div>
       `;
     setTimeout(() => {
       mensaje.classList.add("apaga");
-      resultado.classList.remove("apaga");
+      // resultado.classList.remove("apaga");
     }, 3000);
   } else {
     LimpiaNcHTML();
@@ -2965,6 +2978,7 @@ function llenaHistoricoNC(datos) {
 }
 
 function LimpiaNcHTML() {
+  ncHTML = document.querySelector("#dataNotas tbody");
   ncHTML.innerHTML = "";
 }
 
@@ -3752,20 +3766,20 @@ function verfacturaHistorico(fact) {
 
 function anulaFacturaHistorico() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario, usuario_id } = user;
+  let { user :{ usuario, usuario_id, tipo }  } = sesion;
   var pagina = $("#ubicacion").val();
   var factura = $("#facturaHis").val();
   var motivo = $("#motivoAnulaHis").val();
   var reserva = $("#reservaHis").val();
   var perfil = $("#perfilHis").val();
-
-  $(".btnAnulaFac").css("display", "none");
+  btnAnula = document.querySelector(".btnAnulaHis");
+  btnAnula.classList.add("apaga");
 
   $.ajax({
     url: "res/php/anulaFacturaHistorico.php",
     type: "POST",
     data: {
+      tipo,
       factura,
       motivo,
       usuario,
@@ -4154,8 +4168,7 @@ function buscaFechaAuditoria() {
 
 function anulaFactura() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario, usuario_id } = user;
+  let { user :{ usuario, usuario_id, tipo }  } = sesion;
   var pagina = $("#ubicacion").val();
   var numero = $("#factura").val();
   var motivo = $("#motivoAnula").val();
@@ -4163,11 +4176,14 @@ function anulaFactura() {
   var perfil = $("#perfil").val();
 
   $(".btnAnulaFac").css("display", "none");
+  btnAnula = document.querySelector(".btnAnulaFac");
+  btnAnula.classList.add("apaga");
 
   $.ajax({
     url: "res/php/anulaFactura.php",
     type: "POST",
     data: {
+      tipo,
       numero,
       motivo,
       reserva,
@@ -4198,7 +4214,7 @@ function anulaFactura() {
 function verDepositos(reserva) {
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
-  var parametros = { reserva: reserva };
+  var parametros = { reserva };
   $.ajax({
     type: "POST",
     url: web + "res/php/depositosReservaModal.php",
@@ -7791,9 +7807,7 @@ function adicionaObservacionObjeto() {
 
 function guardaObjeto() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario, usuario_id } = user;
-
+  let { user:{ usuario, usuario_id } } = sesion;
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var parametros = $("#formAdicionaObjetos").serializeArray();
@@ -7919,6 +7933,9 @@ function facturasPorImpuesto() {
 }
 
 function facturasPorFecha() {
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { user :{ usuario, usuario_id, tipo }  } = sesion;
+
   var web = $("#rutaweb").val();
   desdeFe = $("#desdeFecha").val();
   hastaFe = $("#hastaFecha").val();
@@ -7928,6 +7945,7 @@ function facturasPorFecha() {
   empresa = $("#desdeEmpresa").val();
   formaPa = $("#desdeFormaPago").val();
   parametros = {
+    tipo, 
     desdeFe,
     hastaFe,
     desdeNu,
@@ -8230,9 +8248,8 @@ function guardarFoto() {
 
 function salidaHuespedCongelada() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario, usuario_id } = user;
-
+  let { user: { usuario, usuario_id } } = sesion;
+  
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var saldo = $("#SaldoActual").val();
@@ -8317,7 +8334,8 @@ function salidaHuespedCongelada() {
             text: "Sin Adultos en esta Reserva",
             type: "error",
             confirmButtonText: "Aceptar",
-          });
+          });let  = user;
+
           $(location).attr("href", "home");
         } else {
           swal(

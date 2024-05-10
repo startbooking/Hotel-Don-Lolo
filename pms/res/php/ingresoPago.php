@@ -128,8 +128,6 @@ if ($tipofac == 2) {
     $emaFact = $datosHuesped[0]['email'];
     $tdiFact = $datosHuesped[0]['tipo_identifica'];
     $triFact = $datosHuesped[0]['tipoResponsabilidad'];
-    // $telFact = $datosHuesped[0]['telefono'];
-
 }
 
 $updFac = $hotel->updateFactura($usuario_id, $saldos[0]['cargos'], $saldos[0]['imptos'], $saldos[0]['pagos'], $saldos[0]['base'], $paganticipo, $fechaVen, $numfactura, $usuario, $fecha, $diasCre);
@@ -187,7 +185,6 @@ if ($perfilFac == 1 && $facturador == 1) {
     $eCust['identification_number'] = $nitFact;
     $eCust['dv'] = $dvFact;
     $eCust['name'] = $nomFact;
-    // $eCust['phone'] = $telFact;
     $eCust['email'] = $emaFact;
 
     /* if($tipofac == 2){
@@ -314,9 +311,9 @@ if ($perfilFac == 1 && $facturador == 1) {
     $eFact['operation_mode'] = $oMode;
     $eFact = json_encode($eFact);
 
-    // include_once '../../api/enviaFactura.php';
+    include_once '../../api/enviaFactura.php';
 
-    include_once '../../api/prueba.json';
+    // include_once '../../api/prueba.json';
 
     $recibeCurl = json_decode(trim($respofact), true);
 
@@ -442,8 +439,8 @@ if ($perfilFac == 1 && $facturador == 1) {
 
     $ePDF = json_encode($ePDF);
 
-    /* include_once '../../api/enviaPDF.php';
-    $recibePDF = json_decode($respopdf, true); */
+    include_once '../../api/enviaPDF.php';
+    $recibePDF = json_decode($respopdf, true);
 
     file_put_contents($envCurl, $ePDF . ',',  FILE_APPEND | LOCK_EX);
     file_put_contents($arcCurl, $respopdf . ',',  FILE_APPEND | LOCK_EX);

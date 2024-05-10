@@ -5,14 +5,18 @@ require '../../../res/php/app_topHotel.php';
 
 $eToken = $hotel->datosTokenCia();
 $facturador = $eToken[0]['facturador'];
+extract($_POST);
 
+// echo print_r($_POST);
+
+/* $tipo = 
 $desdeFe = $_POST['desdeFe'];
 $hastaFe = $_POST['hastaFe'];
 $desdeNu = $_POST['desdeNu'];
 $hastaNu = $_POST['hastaNu'];
-$huesped = $_POST['huesped'];
+huesped = $_POST['huesped'];
 $empresa = $_POST['empresa'];
-$formaPa = $_POST['formaPa'];
+$formaPa = $_POST['formaPa']; */
 
 if ($empresa != '') {
 
@@ -27,6 +31,7 @@ if ($empresa != '') {
 	historico_cargos_pms.tipo_factura,
 	historico_cargos_pms.id_codigo_cargo,
 	historico_cargos_pms.id_perfil_factura,
+	historico_cargos_pms.perfil_factura,
 	historico_cargos_pms.factura_numero,
 	historico_cargos_pms.factura_anulada,
 	historico_cargos_pms.total_consumos,
@@ -34,6 +39,8 @@ if ($empresa != '') {
 	historico_cargos_pms.total_pagos,
 	historico_cargos_pms.fecha_factura,
   historico_cargos_pms.prefijo_factura,
+  historico_cargos_pms.numero_reserva,
+  historico_cargos_pms.numero_factura_cargo,
 	historicoDatosFE.cufe,
 	historicoDatosFE.estadoEnvio,
 	huespedes.nombre_completo
@@ -51,8 +58,6 @@ WHERE ";
 }
 
 $sele2 = " ORDER BY historico_cargos_pms.factura_numero";
-
-
 
 if ($desdeFe != '' && $hastaFe != '') {
   // $filtro = $filtro . " AND historico.fecha_factura >='$desdeFe' AND fecha_factura <= '$hastaFe'";
@@ -83,7 +88,6 @@ if ($formaPa != '') {
 }
 
 $query    = $sele . $filtro . $sele2;
-
 $facturas = $hotel->getFacturasPorRango($query);
 
 ?>
@@ -158,19 +162,21 @@ $facturas = $hotel->getFacturasPorRango($query);
             }
             ?>
             <td style="padding:3px 5px;width: 9%;text-align:center;">
-              <button class="btn btn-info btn-xs" type="button" data-toggle="modal" data-tipo="0" data-facturador="<?php echo $facturador; ?>" data-apellidos="<?php echo $factura['apellido1'] . ' ' . $factura['apellido2']; ?>" data-nombres="<?php echo $factura['nombre1'] . ' ' . $factura['nombre2']; ?>" data-fechafac="<?php echo $factura['fecha_factura']; ?>" data-numero="<?php echo $factura['factura_numero']; ?>" data-reserva="<?php echo $factura['num_reserva']; ?>" href="#myModalVerFactura" title="Ver Factura">
+              <button class="btn btn-info btn-xs" type="button" data-toggle="modal" data-tipo="0" data-facturador="<?php echo $facturador; ?>" data-fechafac="<?php echo $factura['fecha_factura']; ?>" data-numero="<?php echo $factura['factura_numero']; ?>" data-reserva="<?php echo $factura['numero_reserva']; ?>" href="#myModalVerFactura" title="Ver Factura">
                 <i class="fa fa-file-pdf" aria-hidden="true"></i>
               </button>
               <?php
-              if ($factura['factura_anulada'] == 0) { ?>
-                <a class="btn btn-danger btn-xs btnAdiciona" data-toggle="modal" data-facturador="<?php echo $facturador; ?>" data-apellidos="<?php echo $factura['apellido1'] . ' ' . $factura['apellido2']; ?>" data-nombres="<?php echo $factura['nombre1'] . ' ' . $factura['nombre2']; ?>" data-llegada="<?php echo $factura['fecha_llegada']; ?>" data-salida="<?php echo $factura['fecha_salida']; ?>" data-fechafac="<?php echo $factura['fecha_factura']; ?>" data-numero="<?php echo $factura['factura_numero']; ?>" data-reserva="<?php echo $factura['num_reserva']; ?>" data-perfil="<?php echo $factura['perfil_factura']; ?>" data-idperfil="<?php echo $factura['id_perfil_factura']; ?>" data-prefijo="<?php echo $factura['prefijo_factura']; ?>" href="#myModalAnulaFacturaHistorico" type="button" title="Anular Factura">
-                  <i class="fa fa-window-close" aria-hidden="true"></i>
-                </a>
-              <?php
+              if ($factura['factura_anulada'] == 0 ) { 
+                if($tipo <= 2){ ?>
+                  <a class="btn btn-danger btn-xs btnAdiciona" data-toggle="modal" data-facturador="<?php echo $facturador; ?>" data-fechafac="<?php echo $factura['fecha_factura']; ?>" data-numero="<?php echo $factura['factura_numero']; ?>" data-reserva="<?php echo $factura['numero_reserva']; ?>" data-perfil="<?php echo $factura['perfil_factura']; ?>" data-idperfil="<?php echo $factura['id_perfil_factura']; ?>" data-prefijo="<?php echo $factura['prefijo_factura']; ?>" href="#myModalAnulaFacturaHistorico" type="button" title="Anular Factura">
+                    <i class="fa fa-window-close" aria-hidden="true"></i>
+                  </a>
+                  <?php
+                }
               } else { ?>
-                <button class="btn btn-success btn-xs" type="button" data-toggle="modal" data-tipo="1" data-facturador="<?php echo $facturador; ?>" data-apellidos="<?php echo $factura['apellido1'] . ' ' . $factura['apellido2']; ?>" data-nombres="<?php echo $factura['nombre1'] . ' ' . $factura['nombre2']; ?>" data-fechafac="<?php echo $factura['fecha_factura']; ?>" data-numero="<?php echo $factura['numero_factura_cargo']; ?>" data-reserva="<?php echo $factura['num_reserva']; ?>" href="#myModalVerFactura" title="Ver Nota Credito">
+                <button class="btn btn-success btn-xs" type="button" data-toggle="modal" data-tipo="1" data-facturador="<?php echo $facturador; ?>"  data-numero="<?php echo $factura['numero_factura_cargo']; ?>" data-reserva="<?php echo $factura['numero_reserva']; ?>" href="#myModalVerFactura" title="Ver Nota Credito">
                   <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                </button>"
+                </button>
               <?php
               }
               ?>
@@ -219,7 +225,7 @@ $facturas = $hotel->getFacturasPorRango($query);
             <?php
             }
             ?>
-            <td style="padding:3px 5px;text-align: left;"><?php echo $factura['apellido1'] . ' ' . $factura['apellido2'] . ' ' . $factura['nombre1'] . ' ' . $factura['nombre2']; ?></td>
+            <td style="padding:3px 5px;text-align: left;"><?php echo $factura['nombre_completo']; ?></td>
             <td style="padding:3px 5px"><?php echo $factura['fecha_factura']; ?></td>
             <td style="padding:3px 5px"><?php echo $factura['descripcion_cargo']; ?></td>
             <td style="text-align: right;"> <?= number_format($factura['total_consumos'], 2); ?></td>
@@ -256,8 +262,6 @@ $facturas = $hotel->getFacturasPorRango($query);
   </div>
 
 </div>
-
-
 
 <script>
   $(function() {

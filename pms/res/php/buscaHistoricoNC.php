@@ -12,12 +12,12 @@
 	notasCredito.facturaAnulada, 
 	notasCredito.fechaNC, 
 	notasCredito.usuarioNC, 
-	datosFE.statusMess, 
-	datosFE.estadoEnvio";
+	historicoDatosFE.statusMess, 
+	historicoDatosFE.estadoEnvio";
 
-  $from = " FROM notasCredito, datosFE";
+  $from = " FROM notasCredito, historicoDatosFE";
 
-  $filtro = " WHERE notasCredito.numeroNC = datosFE.facturaNumero";
+  $filtro = " WHERE notasCredito.numeroNC = historicoDatosFE.facturaNumero";
   
   $orden = " ORDER BY notasCredito.numeroNC";
   
@@ -39,9 +39,6 @@
   }
 
   $query = $sele.$from.$filtro.$orden;
-
-  // echo $query;
-
-	$notas = $hotel->lanzaQuery($query);
+  $notas = $hotel->lanzaQuery($query);
 
   echo json_encode($notas);

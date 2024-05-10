@@ -3,7 +3,6 @@
 $eToken = $hotel->datosTokenCia();
 $facturador = $eToken[0]['facturador'];
 
-// echo json_encode($facturas);
 
 ?>
 
@@ -93,7 +92,23 @@ $facturador = $eToken[0]['facturador'];
                               </button>
                               <?php
                               if ($factura['factura_anulada'] == 0) { ?>
-                                <a class="btn btn-danger btn-xs btnAdiciona" data-toggle="modal" data-facturador="<?php echo $facturador; ?>" data-apellidos="<?php echo $factura['apellido1'] . ' ' . $factura['apellido2']; ?>" data-nombres="<?php echo $factura['nombre1'] . ' ' . $factura['nombre2']; ?>" data-llegada="<?php echo $factura['fecha_llegada']; ?>" data-salida="<?php echo $factura['fecha_salida']; ?>" data-fechafac="<?php echo $factura['fecha_factura']; ?>" data-numero="<?php echo $factura['factura_numero']; ?>" data-reserva="<?php echo $factura['num_reserva']; ?>" data-perfil="<?php echo $factura['perfil_factura']; ?>" data-idperfil="<?php echo $factura['id_perfil_factura']; ?>" data-prefijo="<?php echo $factura['prefijo_factura']; ?>" href="#myModalAnulaFactura" type="button" title="Anular Factura">
+                                <a 
+                                  class="btn btn-danger btn-xs btnAdiciona" 
+                                  data-toggle="modal" 
+                                  data-facturador="<?php echo $facturador; ?>" 
+                                  data-apellidos="<?php echo $factura['apellido1'] . ' ' . $factura['apellido2']; ?>"
+                                  data-nombres="<?php echo $factura['nombre1'] . ' ' . $factura['nombre2']; ?>"
+                                  data-llegada="<?php echo $factura['fecha_llegada']; ?>" 
+                                  data-salida="<?php echo $factura['fecha_salida']; ?>" 
+                                  data-fechafac="<?php echo $factura['fecha_factura']; ?>" 
+                                  data-numero="<?php echo $factura['factura_numero']; ?>" 
+                                  data-reserva="<?php echo $factura['num_reserva']; ?>" 
+                                  data-perfil="<?php echo $factura['perfil_factura']; ?>" 
+                                  data-idperfil="<?php echo $factura['id_perfil_factura']; ?>" 
+                                  data-prefijo="<?php echo $factura['prefijo_factura']; ?>" 
+                                  href="#myModalAnulaFactura" 
+                                  type="button" 
+                                  title="Anular Factura">
                                   <i class="fa fa-window-close" aria-hidden="true"></i>
                                 </a>
                               <?php
@@ -126,7 +141,6 @@ $facturador = $eToken[0]['facturador'];
                             } else { ?>
                               <button class="btn btn-success btn-xs" onclick="event.preventDefault();reEnviaFactura('<?= $factura['factura_numero']; ?>');" type="button" title="ReProcesar Factura">
                                 <i class="fa fa-location-arrow" aria-hidden="true"></i>
-                                <!-- <i class="fa-solid fa-square-check"></i> -->
                               </button>
                             <?php
                             }
