@@ -96,7 +96,6 @@ if ($perfil == 1 && $facturador == 1) {
     $eCust['identification_number'] = $nitFact;
     $eCust['dv'] = $dvFact;
     $eCust['name'] = $nomFact;
-    $eCust['phone'] = $telFact;
     $eCust['email'] = $emaFact;
 
     $eNote['customer'] = $eCust;
@@ -156,6 +155,7 @@ if ($perfil == 1 && $facturador == 1) {
 
     $eNote = json_encode($eNote);
 
+    // include_once '../../api/pruebaNC.json';
     include_once '../../api/enviaNC.php';
 
     $recibeCurl = json_decode($respoNC, true);
@@ -189,7 +189,7 @@ if ($perfil == 1 && $facturador == 1) {
     $statusMess = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['StatusMessage'];
 
     $message = $recibeCurl['message'];
-
+    
     $regis = $hotel->ingresaDatosFe($numDoc, $prefNC, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cude, $QRStr, '', $Isvalid, '', $errorMessage, $statusCode, $statusDesc, $statusMess);
 
     include_once '../../imprimir/imprimeNotaCredito.php';
@@ -203,13 +203,13 @@ if ($perfil == 1 && $facturador == 1) {
     $ePDF['base64graphicrepresentation'] = $base64NC;
 
     $ePDF = json_encode($ePDF);
-
+    
     include_once '../../api/enviaPDF.php';
-
     $recibePDF = json_decode($respopdf, true);
+    
 } else {
     include_once '../../imprimir/imprimeNC.php';
-}
+};
 
 $regis = $hotel->actualizaNumeroCredito($numDoc + 1);
 $envia = $hotel->enviaCargosNC($numero);
@@ -217,4 +217,3 @@ $cargos = $hotel->actualizaCargosFacturas($numero, $perfil);
 $anula = $hotel->anulaFactura($numero, $motivo, $usuario, $idusuario, $perfil, $numDoc);
 $regis = $hotel->ingresaNCFactura($numero, $motivo, $idusuario, $numDoc, FECHA_PMS);
 $entra = $hotel->updateEstadoReserva($reserva); 
- 

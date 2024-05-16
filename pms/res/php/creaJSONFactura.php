@@ -163,10 +163,7 @@ $ePago['payment_method_id'] = $hotel->traeCodigoDianVenta($codigo);
 $ePago['payment_due_date'] = $fechaVen;
 $ePago['duration_measure'] = $diasCre;
 
-$eLmon['line_extension_amount'] = $subtotales[0]['cargos'];
-$eLmon['tax_exclusive_amount'] = $subtotales[0]['cargos']-$totalSinImpto;
-$eLmon['tax_inclusive_amount'] = $subtotales[0]['cargos'] + $subtotales[0]['imptos'];
-$eLmon['payable_amount'] = $subtotales[0]['cargos'] + $subtotales[0]['imptos'];
+
 
 $tax_totals = [];
 foreach ($folios as $folio1) {
@@ -227,13 +224,22 @@ foreach ($tipoimptos as $impto) {
 foreach ($valorRet as $rete) {
     $ret = [
         'tax_id' => '6',
-        'tax_amount' => $rete['retencion'],
+        'tax_amount' => $rete['valorRetencion'],
         'taxable_amount' => $rete['base'],
         'percent' => $rete['porcentajeRetencion'],
     ];
 
     array_push($eRete, $ret);
 }
+
+if (count($eTaxe) == 0) {
+  $eLmon['tax_exclusive_amount'] = 0;
+} else {
+  $eLmon['tax_exclusive_amount'] = $subtotales[0]['cargos'] - $totalSinImpto;
+}
+$eLmon['line_extension_amount'] = $subtotales[0]['cargos'];
+$eLmon['tax_inclusive_amount'] = $subtotales[0]['cargos'] + $subtotales[0]['imptos'];
+$eLmon['payable_amount'] = $subtotales[0]['cargos'] + $subtotales[0]['imptos'];
 
 $riva = [
     'tax_id' => '5',
@@ -257,7 +263,7 @@ if ($reteica > 0) {
 }
 
 $oMode = [
-    "company" => "NEXTPYME COLOMBIA S.A.S - Nit .: 901249232 - 0",
+    "company" => "HOTEL DON LOLO LTDA - Nit .: 892002427 - 7",
     "software" =>  "Facturación Electrónica - SACTel PMS ",
 ];
 

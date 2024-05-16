@@ -479,7 +479,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     modal.find(".modal-title").text(titulo + numero);
 
     $("#verFacturaModalCon").attr("data", imprime);
-    $(".alert").hide();
+    // $(".alert").hide();
   });
 
   $("#myModalVerReciboCaja").on("show.bs.modal", function (event) {
@@ -2394,8 +2394,6 @@ const traeAcompanaReserva = async (reserva, fecha) => {
   }
 };
 
-
-
 function estadoFacturaDIAN($estado) {
   switch ($estado) {
     case "0":
@@ -3787,6 +3785,12 @@ function anulaFacturaHistorico() {
       reserva,
       perfil,
     },
+    beforeSend: function (objeto) {registrosImpresos
+      $(".avisoAnuHis").html("");
+      $(".avisoAnuHis").html(
+        '<h4 class="bg-red" style="padding:10px;display:flex"><img style="margin-bottom:0" class="thumbnail" src="../img/loader.gif" alt="" /><span style="font-size:24px;font-weight: 700;font-family: ubuntu;margin:15px">Procesando Informacion, No Interrumpa </span></h4>'
+      );
+    },
     success: function (data) {
       var ventana = window.open(
         "imprimir/notas/" + data.trim(),
@@ -4191,6 +4195,12 @@ function anulaFactura() {
       usuario_id,
       perfil,
     },
+    beforeSend: function (objeto) {
+      $(".avisoAnu").html("");
+      $(".avisoAnu").html(
+        '<h4 class="bg-red" style="padding:10px;display:flex"><img style="margin-bottom:0" class="thumbnail" src="../img/loader.gif" alt="" /><span style="font-size:24px;font-weight: 700;font-family: ubuntu;margin:15px">Procesando Informacion, No Interrumpa </span></h4>'
+      );
+    },    
     success: function (data) {
       var ventana = window.open(
         "imprimir/notas/" + data.trim(),
@@ -4408,8 +4418,6 @@ function activaCongelado(reserva, folio) {
 }
 
 function movimientosCongelada(reserva) {
-
-  // console.log(reserva)
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var parametros = { reserva };
@@ -4601,10 +4609,11 @@ async function reEnviaFactura(factura){
   let { ok } =  recibeData;
   if(!ok){
     let vistaErr = await errorEnvio(recibeData);
+    let guarda = await guardaJSON(JSON.stringify(recibeData),jsonFactura)
+
   }else{
     let recibe = await recibeData.json();
-    let { ResponseDian:  { Envelope: { Body : { SendBillSyncResponse : { SendBillSyncResult: {IsValid}}}}} } = recibe;
-    
+    let { ResponseDian:  { Envelope: { Body : { SendBillSyncResponse : { SendBillSyncResult: {IsValid}}}}} } = recibe;    
     if(IsValid === 'true'){
       let { ResponseDian: {Envelope: { Body: { SendBillSyncResponse: { SendBillSyncResult: { ErrorMessage, StatusMessage, StatusDescription, StatusCode }}}}}} = recibe ;
       
@@ -4626,8 +4635,8 @@ async function reEnviaFactura(factura){
         'number':factura,
         'prefix':prefijo,
         'base64graphicrepresentation': impresion,
-      }
-      console.log(envioFAC);
+      }      // console.log(envioFAC);
+
                   
       let mail = await enviaCorreoFactura(envioFAC, token)
       swal({
@@ -4657,6 +4666,7 @@ async function reEnviaFactura(factura){
         'statusText': mensaje,
         'status': '200 \n',
       }
+      let guarda = await guardaJSON(JSON.stringify(recibe),jsonFactura)
       let vistaErr = await errorEnvio(dataErr);
       let alerta = document.querySelector('.showSweetAlert');
       alerta.classList.add('anchoalerta');
@@ -6142,9 +6152,7 @@ async function salidaHuesped() {
       correofac,
     };
     
-    let facturado = await enviaPago(parametros);
-    // console.log(facturado)
-    
+    let facturado = await enviaPago(parametros);    
     let { error, mensaje, factura, perfil, errorDian, archivo, folio } = facturado[0];
     
     if(error == "1"){

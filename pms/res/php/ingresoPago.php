@@ -55,6 +55,9 @@ $fechaVen = $fecha;
 $diasCre = 0;
 $paganticipo = 0;
 $totalSinImpto = 0;
+$valorRet = [];
+// $errores = '';
+$noAutorizado = '';
 
 if ($perfilFac == 1 && $facturador == 1) {
     $numfactura = $hotel->getNumeroFactura(); // Numero Actual de la Factura
@@ -71,7 +74,7 @@ if ($tipofac == 1) {
 } else {
     $id = $idcia;
     $datosCompania = $hotel->getSeleccionaCompania($id);
-    if ($codigo == 2) {
+    if ($codigovalorRet == 2) {
         $diasCre = $datosCompania[0]['dias_credito'];
         $fechaVen = strtotime('+ ' . $diasCre . ' day', strtotime($fechaFac));
         $fechaVen = date('Y-m-d', $fechaVen);
@@ -274,6 +277,15 @@ if ($perfilFac == 1 && $facturador == 1) {
         array_push($eRete, $ret);
     }
 
+    if (count($eTaxe) == 0) {
+    $eLmon['tax_exclusive_amount'] = 0;
+    } else {
+    $eLmon['tax_exclusive_amount'] = $subtotales[0]['cargos'] - $totalSinImpto;
+    }
+    $eLmon['line_extension_amount'] = $subtotales[0]['cargos'];
+    $eLmon['tax_inclusive_amount'] = $subtotales[0]['cargos'] + $subtotales[0]['imptos'];
+    $eLmon['payable_amount'] = $subtotales[0]['cargos'] + $subtotales[0]['imptos'];
+
     $riva = [
         'tax_id' => '5',
         'tax_amount' => $reteiva,
@@ -296,7 +308,7 @@ if ($perfilFac == 1 && $facturador == 1) {
     }
 
     $oMode = [
-        "company" => "NEXTPYME COLOMBIA S.A.S - Nit .: 901249232 - 0",
+        "company" => "HOTEL DON LOLO LTDA - Nit .: 892992427 - 7",
         "software" =>  "Facturación Electrónica - SACTel PMS ",
     ];
 
@@ -311,19 +323,19 @@ if ($perfilFac == 1 && $facturador == 1) {
     $eFact['operation_mode'] = $oMode;
     $eFact = json_encode($eFact);
 
-    include_once '../../api/enviaFactura.php';
+    // include_once '../../api/enviaFactura.php';
 
-    // include_once '../../api/prueba.json';
-
+    include_once '../../api/nuevoCurl.php';
+    
     $recibeCurl = json_decode(trim($respofact), true);
 
     file_put_contents($envCurl, $eFact . ',',  FILE_APPEND | LOCK_EX);
     file_put_contents($arcCurl, $respofact . ',',  FILE_APPEND | LOCK_EX);
 
-    $errores = $recibeCurl['errors'];
-    $success = $recibeCurl['success'];
-
+        // $errores = $recibeCurl['errors'];
     $noAutorizado = $recibeCurl['message'];
+    $success = $recibeCurl['success'];    
+    $errores = $recibeCurl['errors'];
 
     $errorMessage = json_encode($recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['ErrorMessage']);
     $Isvalid  = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['IsValid'];
@@ -379,7 +391,7 @@ if ($perfilFac == 1 && $facturador == 1) {
         return;
     }
 
-    if (isset($success)) {
+    if (!$success) {
         $error = [
             'error' => '1',
             'folio' => '0',
@@ -401,6 +413,8 @@ if ($perfilFac == 1 && $facturador == 1) {
     $message = $recibeCurl['message'];
     $sendSucc = $recibeCurl['send_email_success'];
     $sendDate = $recibeCurl['send_email_date_time'];
+    
+    
 
     $invoicexml = '';
     $zipinvoicexml = '';
@@ -439,8 +453,8 @@ if ($perfilFac == 1 && $facturador == 1) {
 
     $ePDF = json_encode($ePDF);
 
-    include_once '../../api/enviaPDF.php';
-    $recibePDF = json_decode($respopdf, true);
+    /* include_once '../../api/enviaPDF.php';
+    $recibePDF = json_decode($respopdf, true); */
 
     file_put_contents($envCurl, $ePDF . ',',  FILE_APPEND | LOCK_EX);
     file_put_contents($arcCurl, $respopdf . ',',  FILE_APPEND | LOCK_EX);
