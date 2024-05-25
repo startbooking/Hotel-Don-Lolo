@@ -23,9 +23,12 @@
     $pdf->Cell(30,4,substr($compania['telefono'],0,12),0,0,'L');
     $pdf->Cell(60,4,$compania['email'],0,1,'L');
   }    
-
+/* 
   $fileOut = '../../imprimir/informes/'.$file.'.pdf'; 
-
-  $pdf->Output($fileOut,'F');
+  $pdf->Output($fileOut,'F'); */
+  
+  $pdfFile = $pdf->Output('', 'S');
+  $base64String = chunk_split(base64_encode($pdfFile));
+  echo $base64String;
 
 ?>

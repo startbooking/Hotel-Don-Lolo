@@ -15,15 +15,15 @@ $pdf->Cell(260, 5, 'PAGOS ANULADOS DEL DIA ', 0, 1, 'C');
 $pdf->SetFont('Arial', '', 9);
 $pdf->Cell(260, 5, 'Fecha : '.FECHA_PMS, 0, 1, 'C');
 $pdf->Ln(2);
-$pdf->SetFont('Arial', 'B', 10);
-$pdf->Cell(20, 6, 'Nro Doc.', 0, 0, 'C');
-$pdf->Cell(10, 6, 'Hab.', 0, 0, 'C');
-$pdf->Cell(50, 6, 'Huesped', 0, 0, 'C');
-$pdf->Cell(40, 6, 'Descripcion ', 0, 0, 'C');
-$pdf->Cell(25, 6, 'Pago', 0, 0, 'C');
-$pdf->Cell(60, 6, 'Motivo Anulacion', 0, 0, 'C');
-$pdf->Cell(20, 6, 'Usuario', 0, 0, 'C');
-$pdf->Cell(10, 6, 'Hora', 0, 1, 'C');
+$pdf->SetFont('Arial', 'B', 9);
+$pdf->Cell(20, 6, 'Nro Doc.', 1, 0, 'C');
+$pdf->Cell(10, 6, 'Hab.', 1, 0, 'C');
+$pdf->Cell(50, 6, 'Huesped', 1, 0, 'C');
+$pdf->Cell(40, 6, 'Descripcion ', 1, 0, 'C');
+$pdf->Cell(25, 6, 'Pago', 1, 0, 'C');
+$pdf->Cell(60, 6, 'Motivo Anulacion', 1, 0, 'C');
+$pdf->Cell(20, 6, 'Usuario', 1, 0, 'C');
+$pdf->Cell(10, 6, 'Hora', 1, 1, 'C');
 $pdf->SetFont('Arial', '', 9);
 $cargos = $hotel->getCargosAnuladosporFecha(FECHA_PMS, 3, 1);
 
@@ -50,6 +50,7 @@ $pdf->Cell(100, 6, 'Total Pagos Anulados del Dia ', 0, 0, 'L');
 $pdf->Cell(25, 6, number_format($pago, 2), 0, 1, 'R');
 $pdf->Ln(3);
 
-$fileOut = '../imprimir/informes/'.$file.'.pdf';
-$pdf->Output($fileOut, 'F');
-echo $file.'.pdf';
+$pdfFile = $pdf->Output('', 'S');
+$base64String = chunk_split(base64_encode($pdfFile));
+
+echo $base64String;

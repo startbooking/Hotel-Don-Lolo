@@ -72,8 +72,15 @@
     $totalPagos = $totalPagos + $pagodia['pagos'] ;
   }
 
-  $fileOut = '../imprimir/informes/'.$file.'.pdf';
+  /* $fileOut = '../imprimir/informes/'.$file.'.pdf';
 
   $pdf->Output($fileOut,'F');
-  echo $file.'.pdf';
+  echo $file.'.pdf'; */
+  
+  $pdfFile = $pdf->Output('', 'S');
+  $base64String = chunk_split(base64_encode($pdfFile));
+
+  echo $base64String;
+
+  
 ?> 

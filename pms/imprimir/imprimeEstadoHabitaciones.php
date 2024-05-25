@@ -1,5 +1,4 @@
 <?php 
-  require '../../res/php/titles.php';
   require '../../res/php/app_topHotel.php'; 
   require 'plantillaFpdf.php';
 
@@ -11,14 +10,14 @@
 
   $habitaciones = $hotel->traeEstadoHabitaciones();
 
-  $pdf->SetFont('Arial','B',10);
+  $pdf->SetFont('Arial','B',9);
   $pdf->Cell(195,5,strtoupper('Estado Habitaciones Hotel'),0,1,'C');
   $pdf->Cell(195,5,'Fecha :'.FECHA_PMS,0,0,'C');
   $pdf->Ln(5);
   $pdf->SetFont('Arial','B',9);
-  $pdf->Cell(15,6,'Nro Hab.',1,0,'C');
-  $pdf->Cell(60,6,'Tipo Habitacion',1,0,'C');
-  $pdf->Cell(30,6,'Estado',1,1,'C');
+  $pdf->Cell(15,5,'Nro Hab.',1,0,'C');
+  $pdf->Cell(60,5,'Tipo Habitacion',1,0,'C');
+  $pdf->Cell(30,5,'Estado',1,1,'C');
   $pdf->SetFont('Arial','',9);
   
   foreach ($habitaciones as $habitacion) {
@@ -39,8 +38,9 @@
 
   }
   
-  $fileOut = '../imprimir/informes/'.$file.'.pdf';
-  $pdf->Output($fileOut, 'F');
-  echo $file.'.pdf';
+  $pdfFile = $pdf->Output('', 'S');
+  $base64String = chunk_split(base64_encode($pdfFile));
+
+  echo $base64String;
   
 ?>

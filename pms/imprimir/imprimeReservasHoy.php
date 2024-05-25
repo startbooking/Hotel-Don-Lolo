@@ -17,16 +17,16 @@
   $pdf->Cell(190,4,FECHA_PMS,0,1,'C');
   $pdf->Ln(1);
 
-  $pdf->SetFont('Arial','B',10);
-  $pdf->Cell(20,4,'Reserva ',0,0,'C');
-  $pdf->Cell(10,4,'Hab ',0,0,'C');
-  $pdf->Cell(25,4,'Fec. Llegada',0,0,'L');
-  $pdf->Cell(25,4,'Fec. Salida',0,0,'L');
-  $pdf->Cell(70,4,'Huesped',0,0,'L');
-  $pdf->Cell(5,4,'H',0,0,'L');
-  $pdf->Cell(5,4,'M',0,0,'L');
-  $pdf->Cell(5,4,'N',0,0,'L');
-  $pdf->Cell(25,4,'Tarifa',0,1,'C');
+  $pdf->SetFont('Arial','B',9);
+  $pdf->Cell(20,5,'Reserva ',1,0,'C');
+  $pdf->Cell(10,5,'Hab ',1,0,'C');
+  $pdf->Cell(25,5,'Fec. Llegada',1,0,'L');
+  $pdf->Cell(25,5,'Fec. Salida',1,0,'L');
+  $pdf->Cell(70,5,'Huesped',1,0,'C');
+  $pdf->Cell(5,5,'H',1,0,'L');
+  $pdf->Cell(5,5,'M',1,0,'L');
+  $pdf->Cell(5,5,'N',1,0,'L');
+  $pdf->Cell(25,5,'Tarifa',1,1,'C');
   $pdf->SetFont('Arial','',9);
   if($regis==0){
       $pdf->Cell(190,6,'SIN RESERVAS ACTIVAS ',0,0,'C');    
@@ -62,8 +62,14 @@
     $pdf->Cell(25,4,number_format($tar,2),0,1,'R');
   }
 
-  $fileOut = '../imprimir/informes/'.$file.'.pdf'; 
+  /* $fileOut = '../imprimir/informes/'.$file.'.pdf'; 
   $pdf->Output($fileOut,'F');
-  echo $file.'.pdf';
+  echo $file.'.pdf'; */
+  
+  $pdfFile = $pdf->Output('', 'S');
+  $base64String = chunk_split(base64_encode($pdfFile));
+
+  echo $base64String;
+
 
 ?>

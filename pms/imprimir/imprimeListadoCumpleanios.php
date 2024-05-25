@@ -24,8 +24,12 @@
     $pdf->Cell(30,4,$huesped['fecha_nacimiento'],0,1,'R');
   }    
 
-  $fileOut = '../../imprimir/informes/'.$file.'.pdf'; 
+/*   $fileOut = '../../imprimir/informes/'.$file.'.pdf'; 
+  $pdf->Output($fileOut,'F'); */
+  
+  $pdfFile = $pdf->Output('', 'S');
+  $base64String = chunk_split(base64_encode($pdfFile));
 
-  $pdf->Output($fileOut,'F');
+  echo $base64String;
 
 ?>

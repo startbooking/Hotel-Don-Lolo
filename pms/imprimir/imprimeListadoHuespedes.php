@@ -24,8 +24,17 @@
     $pdf->Cell(30,4,$huesped['identificacion'],0,1,'R');
   }    
 
+  /*   
   $fileOut = '../../imprimir/informes/'.$file.'.pdf'; 
-
   $pdf->Output($fileOut,'F');
 
+  */
+ 
+  $pdfFile = $pdf->Output('', 'S');
+  $base64String = chunk_split(base64_encode($pdfFile));
+
+  echo $base64String;
+
+ 
+ 
 ?>

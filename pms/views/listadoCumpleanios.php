@@ -37,7 +37,7 @@
                 <div class="col-md-3">
                   <div class="btn-group pull-right">                    
                     <button class="btn btn-success" type="buttom" onclick="listadoCumpleanios()"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</button>
-                    <button class="btn btn-info" type="buttom" disabled="disabled" onclick="exportTableToExcel('listadoCumpleanios')"><i class="glyphicon glyphicon-th" aria-hidden="true"></i> Exportar</button> 
+                    <!-- <button class="btn btn-info" type="buttom" disabled="disabled" onclick="exportTableToExcel('listadoCumpleanios')"><i class="glyphicon glyphicon-th" aria-hidden="true"></i> Exportar</button>  -->
                   </div>
                 </div>
               </div>
@@ -68,7 +68,7 @@
             <div class="panel-footer">
               <div class="row">
                 <div class="col-lg-4 col-lg-offset-4" >
-                  <div class="col-xs-12" style="padding:0">
+                  <div class="col-xs-12" style="padding:0;margin: auto;text-align: center;">
                     <a type="button" class="btn btn-warning" href="home"><i class="fa fa-reply"></i> Regresar</a>
                   </div>
                 </div>

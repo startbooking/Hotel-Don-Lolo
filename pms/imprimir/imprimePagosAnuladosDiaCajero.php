@@ -3,7 +3,7 @@
   $usuario   = $_POST['usuario'];
   $apellidos = $_POST['apellidos'];
   $nombres   = $_POST['nombres'];
-
+  
   require_once '../../res/php/app_topHotel.php';
   require_once '../imprimir/plantillaFpdf.php';
 
@@ -11,13 +11,9 @@
   $pdf->AddPage('P','letter');
   $pdf->SetFont('Arial','B',10);
   $pdf->Cell(195,5,'BALANCE CAJERO '.FECHA_PMS,0,1,'C');
-  // $pdf->Ln(1);
-  // $pdf->SetFont('Arial','B',10);
   $pdf->Cell(195,5,'PAGOS ANULADOS DEL DIA ',0,1,'C');
-  // $pdf->Ln(1);  
   $pdf->Cell(30,5,'Usuario ',0,0,'L');
   $pdf->Cell(50,5,$apellidos.' '.$nombres,0,1,'C');
-  // $pdf->Ln(2);
   $pdf->Cell(10,5,'Hab.',0,0,'C');
   $pdf->Cell(50,5,'Huesped',0,0,'C');
   $pdf->Cell(20,5,'FAC ',0,0,'C');
@@ -41,8 +37,10 @@
   $pdf->SetFont('Arial','B',9);
   $pdf->Cell(100,5,'Total Pagos Anulados Cajero ',0,0,'L');
   $pdf->Cell(25,5,number_format($pagosanu,2),0,1,'R');
+  
+  $pdfFile = $pdf->Output('', 'S');
+  $base64String = chunk_split(base64_encode($pdfFile));
 
-  $fileOut = '../imprimir/informes/'.$file.'.pdf';
-  $pdf->Output($fileOut,'F');
-  echo $file.'.pdf';
+  echo $base64String;
+
 ?>

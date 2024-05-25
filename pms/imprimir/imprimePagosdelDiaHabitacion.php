@@ -15,16 +15,16 @@
   $pdf->Cell(195,5,'Fecha : '.FECHA_PMS,0,1,'C');
   $pdf->Ln(2);
 
-  $pdf->SetFont('Arial','B',10);
-  $pdf->Cell(10,6,'Hab.',0,0,'C');
-  $pdf->Cell(20,6,'Reserva',0,0,'C'); 
-  $pdf->Cell(50,6,'Huesped',0,0,'C'); 
-  $pdf->Cell(40,6,'Descripcion ',0,0,'C');
-  $pdf->Cell(10,6,'Cant. ',0,0,'C');
-  $pdf->Cell(25,6,'Pago',0,0,'C');
-  $pdf->Cell(30,6,'Usuario',0,0,'C');
-  $pdf->Cell(10,6,'Hora',0,1,'C');
-  $pdf->SetFont('Arial','',9);
+  $pdf->SetFont('Arial','B',9);
+  $pdf->Cell(10,5,'Hab.',1,0,'C');
+  $pdf->Cell(20,5,'Reserva',1,0,'C'); 
+  $pdf->Cell(50,5,'Huesped',1,0,'C'); 
+  $pdf->Cell(40,5,'Descripcion ',1,0,'C');
+  $pdf->Cell(10,5,'Cant. ',1,0,'C');
+  $pdf->Cell(25,5,'Pago',1,0,'C');
+  $pdf->Cell(30,5,'Usuario',1,0,'C');
+  $pdf->Cell(10,5,'Hora',1,1,'C');
+  $pdf->SetFont('Arial','',8);
   $cargos = $hotel->getCargosporFecha(FECHA_PMS,3,0); 
   array_sort_by($cargos, 'habitacion_cargo', $order = SORT_ASC);  
 
@@ -42,11 +42,12 @@
   }
   $pdf->Ln(2);
   $pdf->SetFont('Arial','B',9);
-  $pdf->Cell(130,6,'Total Pagos del Dia ',0,0,'L');
-  $pdf->Cell(25,6,number_format($pago,2),0,1,'R');
+  $pdf->Cell(130,5,'Total Pagos del Dia ',1,0,'L');
+  $pdf->Cell(25,5,number_format($pago,2),1,1,'R');
   $pdf->Ln(3);
 
-  $fileOut = '../imprimir/informes/'.$file.'.pdf'; 
-  $pdf->Output($fileOut,'F');
-  echo $file.'.pdf';
+  $pdfFile = $pdf->Output('', 'S');
+  $base64String = chunk_split(base64_encode($pdfFile));
+
+  echo $base64String;
 ?>

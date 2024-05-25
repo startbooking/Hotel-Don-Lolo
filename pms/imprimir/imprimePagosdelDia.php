@@ -17,15 +17,15 @@ $pdf->Cell(195, 5, 'Fecha : '.FECHA_PMS, 0, 1, 'C');
 $pdf->Ln(2);
 
 $pdf->SetFont('Arial', 'B', 9);
-$pdf->Cell(10, 6, 'Hab.', 0, 0, 'C');
-$pdf->Cell(50, 6, 'Huesped', 0, 0, 'C');
-$pdf->Cell(40, 6, 'Descripcion ', 0, 0, 'C');
-$pdf->Cell(10, 6, 'Nro. Doc', 0, 0, 'C');
-$pdf->Cell(20, 6, 'Reserva', 0, 0, 'C');
-$pdf->Cell(20, 6, 'Pagos', 0, 0, 'C');
-$pdf->Cell(20, 6, 'Usuario', 0, 0, 'C');
-$pdf->Cell(10, 6, 'Hora', 0, 0, 'C');
-$pdf->Cell(15, 6, 'Estado', 0, 1, 'C');
+$pdf->Cell(10, 5, 'Hab.', 1, 0, 'C');
+$pdf->Cell(50, 5, 'Huesped', 1, 0, 'C');
+$pdf->Cell(40, 5, 'Descripcion ', 1, 0, 'C');
+$pdf->Cell(10, 5, 'Doc', 1, 0, 'C');
+$pdf->Cell(20, 5, 'Reserva', 1, 0, 'C');
+$pdf->Cell(20, 5, 'Pagos', 1, 0, 'C');
+$pdf->Cell(20, 5, 'Usuario', 1, 0, 'C');
+$pdf->Cell(10, 5, 'Hora', 1, 0, 'C');
+$pdf->Cell(15, 5, 'Estado', 1, 1, 'C');
 $pdf->SetFont('Arial', '', 8);
 $cargos = $hotel->getCargosporFecha(FECHA_PMS, 3, 0);
 
@@ -57,10 +57,11 @@ foreach ($cargos as $cargo) {
 }
 $pdf->Ln(2);
 $pdf->SetFont('Arial', 'B', 9);
-$pdf->Cell(140, 6, 'Total Pagos del Dia ', 0, 0, 'L');
-$pdf->Cell(25, 6, number_format($pagos, 2), 0, 0, 'R');
+$pdf->Cell(124, 5, 'Total Pagos del Dia ', 1, 0, 'L');
+$pdf->Cell(25, 5, number_format($pagos, 2), 1, 1, 'R');
 $pdf->Ln(3);
 
-$fileOut = '../imprimir/informes/'.$file.'.pdf';
-$pdf->Output($fileOut, 'F');
-echo $file.'.pdf';
+  $pdfFile = $pdf->Output('', 'S');
+  $base64String = chunk_split(base64_encode($pdfFile));
+
+  echo $base64String;

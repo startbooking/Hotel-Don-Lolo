@@ -6,6 +6,15 @@ date_default_timezone_set('America/Bogota');
 
 class Hotel_Actions{
   
+  public function creaConsulta($sele)
+  {
+    global $database;
+      $data = $database->query($sele)->fetchAll(PDO::FETCH_ASSOC);
+
+      return $data;
+  }  
+  
+  
   public function traeCorreoCia($id){
     global $database;
     $data = $database->select('companias',[
@@ -261,8 +270,6 @@ class Hotel_Actions{
     ]);
     return $data;
   }
-
-
 
     public function getHabitacionesLlegada($tipo, $llega){
         global $database;
@@ -602,6 +609,7 @@ class Hotel_Actions{
         $data = $database->query('SELECT * FROM valores_tarifas ')->fetchAll();
         return $data;
     }
+    
     public function traeUsuarioNC($factura)
     {
         global $database;
@@ -836,7 +844,6 @@ class Hotel_Actions{
         return $data;
     }
 
-
     public function traeClientesCartera()
     {
         global $database;
@@ -871,6 +878,7 @@ class Hotel_Actions{
         $data = $database->query($query)->fetchAll();
         return $data;
     }
+    
     public function traeNombreUsuario($id)
     {
         global $database;
@@ -903,8 +911,6 @@ class Hotel_Actions{
 
         return $data;
     }
-
-  
 
     public function traeValorRetenciones($nroReserva, $nroFolio){
         global $database;
@@ -4940,7 +4946,7 @@ class Hotel_Actions{
             'apellidos',
             'usuario',
         ], [
-            'estado' => 'A',
+            'estado' => '1',
             'ORDER' => ['usuario' => 'ASC'],
         ]);
 
@@ -5117,9 +5123,6 @@ class Hotel_Actions{
 
         return $data;
     }
-    
-    
-    
     
     public function borraHistoricoSalidas($fecha, $tipo)
     {
@@ -6915,7 +6918,6 @@ class Hotel_Actions{
         return $data;
     }
     
-
     public function getConsumosReservaAgrupadoFolioHis($fact, $numero, $folio, $tipo)
     {
         global $database;
@@ -8622,7 +8624,6 @@ ORDER BY
         return $data;
     }
 
-
     public function getSeleccionaHabitacionesTipoDia($tipo)
     {
         global $database;
@@ -8688,7 +8689,6 @@ ORDER BY
             'idCentroCia',
             'estado_credito',
         ], [
-            'LIMIT' => [$regis, $filas],
             'ORDER' => 'apellido1',
         ]);
 

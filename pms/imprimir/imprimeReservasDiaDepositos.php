@@ -20,16 +20,16 @@ $pdf->SetFont('Arial', '', 11);
 $pdf->Cell(265, 4, 'Fecha : '.FECHA_PMS, 0, 1, 'C');
 // $pdf->Ln(3);
 
-$pdf->SetFont('Arial', 'B', 10);
-$pdf->Cell(20, 5, 'Deposito. ', 0, 0, 'C');
-$pdf->Cell(20, 5, 'Reserva. ', 0, 0, 'C');
-$pdf->Cell(30, 5, 'Valor ', 0, 0, 'C');
-$pdf->Cell(10, 5, 'Hab. ', 0, 0, 'C');
-$pdf->Cell(50, 5, 'Forma de Pago ', 0, 0, 'C');
-$pdf->Cell(20, 5, 'Reserva ', 0, 0, 'C');
-$pdf->Cell(70, 5, 'Huesped', 0, 0, 'C');
-$pdf->Cell(20, 5, 'Fecha', 0, 0, 'C');
-$pdf->Cell(20, 5, 'Usuario', 0, 1, 'C');
+$pdf->SetFont('Arial', 'B', 9);
+$pdf->Cell(20, 5, 'Deposito. ', 1, 0, 'C');
+$pdf->Cell(20, 5, 'Reserva. ', 1, 0, 'C');
+$pdf->Cell(30, 5, 'Valor ', 1, 0, 'C');
+$pdf->Cell(10, 5, 'Hab. ', 1, 0, 'C');
+$pdf->Cell(50, 5, 'Forma de Pago ', 1, 0, 'C');
+$pdf->Cell(20, 5, 'Reserva ', 1, 0, 'C');
+$pdf->Cell(70, 5, 'Huesped', 1, 0, 'C');
+$pdf->Cell(20, 5, 'Fecha', 1, 0, 'C');
+$pdf->Cell(20, 5, 'Usuario', 1, 1, 'C');
 $pdf->SetFont('Arial', '', 9);
 $pdf->Ln(2);
 
@@ -50,10 +50,15 @@ if ($regis == 0) {
         $sal = $sal + $deposito['pagos_cargos'];
     }
     // $pdf->SetY(180);
+    $pdf->Ln(2);
+    
     $pdf->SetFont('Arial', '', 9);
-    $pdf->Cell(20, 6, 'Total Depositos', 0, 0, 'L');
-    $pdf->Cell(30, 6, number_format($sal, 2), 0, 1, 'R');
+    $pdf->Cell(40, 5, 'Total Depositos', 1, 0, 'L');
+    $pdf->Cell(30, 5, number_format($sal, 2), 1, 1, 'R');
 }
-$fileOut = '../imprimir/informes/'.$file.'.pdf';
-$pdf->Output($fileOut, 'F');
-echo $file.'.pdf';
+
+  $pdfFile = $pdf->Output('', 'S');
+  $base64String = chunk_split(base64_encode($pdfFile));
+
+  echo $base64String;
+

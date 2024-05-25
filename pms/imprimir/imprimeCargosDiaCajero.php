@@ -8,9 +8,6 @@ $nombres = $_POST['nombres'];
 require_once '../../res/php/app_topHotel.php';
 require_once '../imprimir/plantillaFpdf.php';
 
-if (file_exists('imprimir/informes/Informes_cajeros_'.$usuario.'.pdf')) {
-    unlink('imprimir/informes/Informes_cajeros_'.$usuario.'.pdf');
-}
 
 $pdf = new PDF();
 $pdf->AddPage('P', 'letter');
@@ -36,6 +33,7 @@ $cargos = $hotel->getCargosdelDiaporcajero(FECHA_PMS, $usuario, 1, 0);
 $monto = 0;
 $impto = 0;
 $total = 0;
+
 foreach ($cargos as $cargo) {
     $pdf->Cell(10, 4, $cargo['habitacion_cargo'], 0, 0, 'L');
     $pdf->Cell(50, 4, substr(utf8_decode($cargo['apellido1'].' '.$cargo['apellido2'].' '.$cargo['nombre1'].' '.$cargo['nombre2']), 0, 24), 0, 0, 'L');
@@ -57,6 +55,15 @@ $pdf->Cell(25, 4, number_format($impto, 2), 0, 0, 'R');
 $pdf->Cell(25, 4, number_format($total, 2), 0, 1, 'R');
 $pdf->Ln(3);
 
-$fileOut = '../imprimir/informes/'.$file.'.pdf';
+
+$pdfFile = $pdf->Output('', 'S');
+$base64String = chunk_split(base64_encode($pdfFile));
+
+echo $base64String;
+
+
+/* echo $file;
+// $fileOut = '../imprimir/informes/'.$file.'.pdf';
 $pdf->Output($fileOut, 'F');
 echo $file.'.pdf';
+ */

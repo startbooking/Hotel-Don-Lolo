@@ -1,4 +1,5 @@
 <?php 
+  
   $file      = $_POST['file'];
   $usuario   = $_POST['usuario'];
   $apellidos = $_POST['apellidos'];
@@ -14,7 +15,7 @@
   $pdf->SetFont('Arial','',10);
   $pdf->Cell(260,5,'Fecha : '.FECHA_PMS,0,1,'C');
   $pdf->Ln(2);
-
+  
   $pdf->SetFont('Arial','B',10);
   $usuarios = $hotel->getUsuariosCargos(FECHA_PMS,1,0); 
 
@@ -45,15 +46,15 @@
     $impto  = 0 ;
     $total  = 0 ;
     foreach ($cargos as $cargo) {    
-      $pdf->Cell(10,6,'',0,0,'L');
-      $pdf->Cell(50,6,utf8_decode($cargo['descripcion_cargo']),0,0,'');
-      $pdf->Cell(10,6,$cargo['habitacion_cargo'],0,0,'R');
-      $pdf->Cell(70,6,substr(utf8_decode($cargo['apellido1'].' '.$cargo['apellido2'].' '.$cargo['nombre1'].' '.$cargo['nombre2']),0,22),0,0,'L');
-      $pdf->Cell(10,6,$cargo['cantidad_cargo'],0,0,'C');
-      $pdf->Cell(25,6,number_format($cargo['monto_cargo'],2),0,0,'R');
-      $pdf->Cell(25,6,number_format($cargo['impuesto'],2),0,0,'R');
-      $pdf->Cell(25,6,number_format($cargo['monto_cargo']+$cargo['impuesto'],2),0,0,'R');
-      $pdf->Cell(10,6,substr($cargo['fecha_sistema_cargo'],11,5),0,1,'R'); 
+      $pdf->Cell(10,4,'',0,0,'L');
+      $pdf->Cell(50,4,utf8_decode($cargo['descripcion_cargo']),0,0,'');
+      $pdf->Cell(10,4,$cargo['habitacion_cargo'],0,0,'R');
+      $pdf->Cell(70,4,substr(utf8_decode($cargo['apellido1'].' '.$cargo['apellido2'].' '.$cargo['nombre1'].' '.$cargo['nombre2']),0,22),0,0,'L');
+      $pdf->Cell(10,4,$cargo['cantidad_cargo'],0,0,'C');
+      $pdf->Cell(25,4,number_format($cargo['monto_cargo'],2),0,0,'R');
+      $pdf->Cell(25,4,number_format($cargo['impuesto'],2),0,0,'R');
+      $pdf->Cell(25,4,number_format($cargo['monto_cargo']+$cargo['impuesto'],2),0,0,'R');
+      $pdf->Cell(10,4,substr($cargo['fecha_sistema_cargo'],11,5),0,1,'R'); 
       $monto  = $monto + $cargo['monto_cargo'];
       $impto  = $impto + $cargo['impuesto'];
       $total  = $total + $cargo['monto_cargo'] + $cargo['impuesto'];        
@@ -64,23 +65,23 @@
 
     $pdf->Ln(2);
     $pdf->SetFont('Arial','B',9);
-    $pdf->Cell(40,6,'Total Cargos Cajero',0,0,'L');
-    $pdf->Cell(110,6,utf8_decode($usuario['usuario']),0,0,'L');
-    $pdf->Cell(25,6,number_format($monto,2),0,0,'R');
-    $pdf->Cell(25,6,number_format($impto,2),0,0,'R');
-    $pdf->Cell(25,6,number_format($total,2),0,1,'R');
+    $pdf->Cell(40,5,'Total Cargos Cajero',0,0,'L');
+    $pdf->Cell(110,5,utf8_decode($usuario['usuario']),0,0,'L');
+    $pdf->Cell(25,5,number_format($monto,2),0,0,'R');
+    $pdf->Cell(25,5,number_format($impto,2),0,0,'R');
+    $pdf->Cell(25,5,number_format($total,2),0,1,'R');
     $pdf->Ln(3);
   }
   $pdf->Ln(2);
   $pdf->SetFont('Arial','B',9); 
-  $pdf->Cell(150,6,'Total Cargos Del Dia',0,0,'L');
-  $pdf->Cell(25,6,number_format($mon,2),0,0,'R');
-  $pdf->Cell(25,6,number_format($imp,2),0,0,'R');
-  $pdf->Cell(25,6,number_format($tot,2),0,1,'R');
+  $pdf->Cell(150,5,'Total Cargos Del Dia',0,0,'L');
+  $pdf->Cell(25,5,number_format($mon,2),0,0,'R');
+  $pdf->Cell(25,5,number_format($imp,2),0,0,'R');
+  $pdf->Cell(25,5,number_format($tot,2),0,1,'R');
   $pdf->Ln(3);
 
+  $pdfFile = $pdf->Output('', 'S');
+  $base64String = chunk_split(base64_encode($pdfFile));
 
-  $fileOut = '../imprimir/informes/'.$file.'.pdf'; 
-  $pdf->Output($fileOut,'F');
-  echo $file.'.pdf';
+  echo $base64String;
 ?>

@@ -7,10 +7,6 @@
   require_once '../../res/php/app_topHotel.php';
   require_once '../imprimir/plantillaFpdf.php';
 
-  if(file_exists('imprimir/informes/Informes_cajeros_'.$usuario.'.pdf')){
-    unlink('imprimir/informes/Informes_cajeros_'.$usuario.'.pdf');
-  }
-
   $pdf = new PDF();
   $pdf->AddPage('P','letter');
   $pdf->SetFont('Arial','B',10);
@@ -56,8 +52,14 @@
   $pdf->Cell(25,5,number_format($total,2),0,1,'R');
   $pdf->Ln(3);
 
-  $fileOut = '../imprimir/informes/'.$file.'.pdf';
+  /* $fileOut = '../imprimir/informes/'.$file.'.pdf';
   $pdf->Output($fileOut,'F');
-  echo $file.'.pdf';
+  echo $file.'.pdf'; */
+  $pdfFile = $pdf->Output('', 'S');
+  $base64String = chunk_split(base64_encode($pdfFile));
+
+  echo $base64String;
+
+
 
 ?>

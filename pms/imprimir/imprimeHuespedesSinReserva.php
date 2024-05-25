@@ -26,17 +26,17 @@
   $pdf->Cell(190,5,'Fecha: '.FECHA_PMS,0,1,'C');
   $pdf->Ln(3);
 
-  $pdf->SetFont('Arial','B',10);
-  $pdf->Cell(70,6,'Huesped',0,0,'C');
-  $pdf->Cell(25,6,'Llegada',0,0,'L');
-  $pdf->Cell(25,6,'Salida',0,0,'L');
-  $pdf->Cell(10,6,'Hab.',0,0,'C');
-  $pdf->Cell(5,6,'H',0,0,'L');
-  $pdf->Cell(5,6,'M',0,0,'L');
-  $pdf->Cell(5,6,'N',0,0,'L');
-  $pdf->Cell(25,6,'Tarifa',0,0,'C');
-  $pdf->Cell(10,6,'Res. ',0,0,'C');
-  $pdf->Cell(10,6,'Est. ',0,1,'C');
+  $pdf->SetFont('Arial','B',9);
+  $pdf->Cell(70,5,'Huesped',1,0,'C');
+  $pdf->Cell(25,5,'Llegada',1,0,'L');
+  $pdf->Cell(25,5,'Salida',1,0,'L');
+  $pdf->Cell(10,5,'Hab.',1,0,'C');
+  $pdf->Cell(5,5,'H',1,0,'L');
+  $pdf->Cell(5,5,'M',1,0,'L');
+  $pdf->Cell(5,5,'N',1,0,'L');
+  $pdf->Cell(25,5,'Tarifa',1,0,'C');
+  $pdf->Cell(10,5,'Res. ',1,0,'C');
+  $pdf->Cell(10,5,'Est. ',1,1,'C');
   $pdf->SetFont('Arial','',9);
   $hab = 0;
   $hom = 0;
@@ -44,20 +44,20 @@
   $nin = 0;
   $tar = 0;
   if($regis==0){
-      $pdf->Cell(190,6,'SIN LLEGADAS SIN RESERVA ',0,0,'C');    
+      $pdf->Cell(190,5,'SIN LLEGADAS SIN RESERVA ',0,0,'C');    
   }else{
 
     foreach ($reservas as $reserva) {
-      $pdf->Cell(70,6,substr(utf8_decode($reserva['apellido1'].' '.$reserva['apellido2'].' '.$reserva['nombre1'].' '.$reserva['nombre2']),0,31),0,0,'L');
-      $pdf->Cell(25,6,$reserva['fecha_llegada'],0,0,'L');
-      $pdf->Cell(25,6,$reserva['fecha_salida'],0,0,'L');
-      $pdf->Cell(10,6,$reserva['num_habitacion'],0,0,'L');
-      $pdf->Cell(5,6,$reserva['can_hombres'],0,0,'C');
-      $pdf->Cell(5,6,$reserva['can_mujeres'],0,0,'C');
-      $pdf->Cell(5,6,$reserva['can_ninos'],0,0,'C');
-      $pdf->Cell(25,6,number_format($reserva['valor_diario'],2),0,0,'R'); 
-      $pdf->Cell(10,6,$reserva['num_reserva'],0,0,'C');
-      $pdf->Cell(10,6,$reserva['estado'],0,1,'C');
+      $pdf->Cell(70,4,substr(utf8_decode($reserva['apellido1'].' '.$reserva['apellido2'].' '.$reserva['nombre1'].' '.$reserva['nombre2']),0,31),0,0,'L');
+      $pdf->Cell(25,4,$reserva['fecha_llegada'],0,0,'L');
+      $pdf->Cell(25,4,$reserva['fecha_salida'],0,0,'L');
+      $pdf->Cell(10,4,$reserva['num_habitacion'],0,0,'L');
+      $pdf->Cell(5,4,$reserva['can_hombres'],0,0,'C');
+      $pdf->Cell(5,4,$reserva['can_mujeres'],0,0,'C');
+      $pdf->Cell(5,4,$reserva['can_ninos'],0,0,'C');
+      $pdf->Cell(25,4,number_format($reserva['valor_diario'],2),0,0,'R'); 
+      $pdf->Cell(10,4,$reserva['num_reserva'],0,0,'C');
+      $pdf->Cell(10,4,$reserva['estado'],0,1,'C');
       if($reserva['tipo_habitacion']<> 'CMA'){
         $hab = $hab + 1;
       }
@@ -68,40 +68,41 @@
     }
   }
   
-  $pdf->Rect(10, 235, 190, 36);
+  $pdf->Rect(10, 239, 190, 20);
 
-  $pdf->SetY(235);
+  $pdf->SetY(239);
   $pdf->SetFont('Arial','',9);
-  $pdf->Cell(45,6,'Habitaciones Disponibles',1,0,'L');
-  $pdf->Cell(25,6,$dis,1,0,'C');
-  $pdf->Cell(45,6,'Habitaciones Ocupadas',1,0,'L');
-  $pdf->Cell(25,6,$hab,1,0,'C');
-  $pdf->Cell(25,6,'% Ocupacion',1,0,'L');
-  $pdf->Cell(25,6,number_format((($hab/$dis)*100),2).' %',1,1,'C');
-  $pdf->Cell(30,6,'Total Huespedes',1,0,'L');
-  $pdf->Cell(20,6,$hom+$muj+$nin,1,0,'C');
-  $pdf->Cell(25,6,'Hombres '.$hom,1,0,'C');
-  $pdf->Cell(25,6,'Mujeres '.$muj,1,0,'C');
-  $pdf->Cell(20,6,utf8_decode('Niños ').$nin,1,0,'C');
-  $pdf->Cell(40,6,'Ingreso Alojamiento',1,0,'L');
-  $pdf->Cell(30,6,number_format($tar,2),1,1,'C'); 
+  $pdf->Cell(45,5,'Habitaciones Disponibles',1,0,'L');
+  $pdf->Cell(25,5,$dis,1,0,'C');
+  $pdf->Cell(45,5,'Habitaciones Ocupadas',1,0,'L');
+  $pdf->Cell(25,5,$hab,1,0,'C');
+  $pdf->Cell(25,5,'% Ocupacion',1,0,'L');
+  $pdf->Cell(25,5,number_format((($hab/$dis)*100),2).' %',1,1,'C');
+  $pdf->Cell(30,5,'Total Huespedes',1,0,'L');
+  $pdf->Cell(20,5,$hom+$muj+$nin,1,0,'C');
+  $pdf->Cell(25,5,'Hombres '.$hom,1,0,'C');
+  $pdf->Cell(25,5,'Mujeres '.$muj,1,0,'C');
+  $pdf->Cell(20,5,utf8_decode('Niños ').$nin,1,0,'C');
+  $pdf->Cell(40,5,'Ingreso Alojamiento',1,0,'L');
+  $pdf->Cell(30,5,number_format($tar,2),1,1,'C'); 
 
-  $pdf->Cell(65,6,'Ingreso Promedio por Habitacion Ocupada',1,0,'L');
+  $pdf->Cell(65,5,'Ingreso Promedio por Habitacion Ocupada',1,0,'L');
   if($hab==0){
-    $pdf->Cell(30,6,number_format($hab,2),1,0,'C');
+    $pdf->Cell(30,5,number_format($hab,2),1,0,'C');
   }else{
-    $pdf->Cell(30,6,number_format($tar/$hab,2),1,0,'C');
+    $pdf->Cell(30,5,number_format($tar/$hab,2),1,0,'C');
   }
-  $pdf->Cell(65,6,'Ingreso Promedio por Huesped',1,0,'L');
+  $pdf->Cell(65,5,'Ingreso Promedio por Huesped',1,0,'L');
   if(($hom+$muj)==0){
-    $pdf->Cell(30,6,number_format($hom+$muj,2),1,1,'C');
+    $pdf->Cell(30,5,number_format($hom+$muj,2),1,1,'C');
   }else{
-    $pdf->Cell(30,6,number_format($tar/($hom+$muj),2),1,1,'C');
+    $pdf->Cell(30,5,number_format($tar/($hom+$muj),2),1,1,'C');
   }
-  $pdf->Cell(65,6,'Ingreso Promedio por Habitacion Disponibles',1,0,'L');
-  $pdf->Cell(30,6,number_format($tar/$dis,2),1,0,'C');
+  $pdf->Cell(65,5,'Ingreso Promedio por Habitacion Disponibles',1,0,'L');
+  $pdf->Cell(30,5,number_format($tar/$dis,2),1,0,'C');
 
-  $fileOut = '../imprimir/informes/'.$file.'.pdf'; 
-  $pdf->Output($fileOut,'F');
-  echo $file.'.pdf';
+  $pdfFile = $pdf->Output('', 'S');
+  $base64String = chunk_split(base64_encode($pdfFile));
+
+  echo $base64String;
 ?>

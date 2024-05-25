@@ -3250,7 +3250,7 @@ function validaIden() {
 }
 
 function listadoCumpleanios() {
-  let file = makeid(12);
+  // let file = makeid(12);
   let tipo = $("input[name=cumpleOption]:checked").val();
   $(".btn-info").removeAttr("disabled");
 
@@ -3258,56 +3258,52 @@ function listadoCumpleanios() {
     url: "res/php/listadoCumpleanios.php",
     type: "POST",
     data: {
-      file,
       tipo,
     },
   })
-    .done(function () {
+    .done(function (dato) {
       $("#muestraHuespedes").html(
-        `<object id="verHuespedes" width="100%" style="height:75vh" data="imprimir/informes/${file}.pdf"></object>`
+        `<object type="application/pdf" id="verInforme" width="100%" height="500" data="data:application/pdf;base64,${$.trim(dato)}"></object>`
       );
-    })
-    .fail(function () { })
-    .always(function (data) {
-      $("#listadoCumpleanios > tbody").html("");
-      $("#listadoCumpleanios > tbody").append(data);
-    });
+    })    
 }
 
 function listadoPerfilCompanias() {
-  file = makeid(12);
+  let desde = document.querySelector('#desdeEmp').value.toUpperCase();
+  // file = makeid(12);
   $.ajax({
     url: "res/php/listadoCompanias.php",
     type: "POST",
-    data: { file },
+     data: { desde },
   })
     .done(function (data) {
       $("#muestraHuespedes").html(
-        `<object id="verHuespedes" width="100%" style="height:75vh" data="imprimir/informes/${file}.pdf"></object>`
+        `<object type="application/pdf" id="verInforme" width="100%" height="500" data="data:application/pdf;base64,${$.trim(data)}"></object>`
       );
     })
-    .always(function (data) {
-      $("#listadoCompanias > tbody").html("");
-      $("#listadoCompanias > tbody").append(data);
-    });
 }
 
 function listadoPerfilHuespedes() {
-  file = makeid(12);
+  
+  let desde = document.querySelector('#desdeApe').value.toUpperCase();
+  // let hasta = document.querySelector('#hastaApe').value.toUpperCase();
+
+  datos = {
+    desde,
+  }  
   $.ajax({
-    url: "res/php/listadoHuespedes.php",
-    type: "POST",
-    data: { file },
-  })
-    .done(function (data) {
-      $("#muestraHuespedes").html(
-        `<object id="verHuespedes" width="100%" style="height:75vh" data="imprimir/informes/${file}.pdf"></object>`
+      url: "res/php/listadoHuespedes.php",
+      type: "POST",
+      data: datos,
+    })
+    .success(function (data) {    
+      // console.log(data);
+      $("#muestraHuespedes").html(`
+      <object type="application/pdf" id="verInforme" width="100%" height="500" data="data:application/pdf;base64,${$.trim(
+        data
+      )}"></object>`
       );
     })
-    .always(function (data) {
-      $("#listadoHuespedes > tbody").html("");
-      $("#listadoHuespedes > tbody").append(data);
-    });
 }
 
 function seleccionaCentro(idCia) {
@@ -3448,6 +3444,8 @@ function imprimeInformeAuditoria(informe, titulo) {
       nombres,
     },
   }).done(function (data) {
+    console.log(data);
+  
     $("#plantilla").html("");
     $("#plantilla").html(`<div class="content-wrapper"> 
       <section class="content">
@@ -3463,9 +3461,9 @@ function imprimeInformeAuditoria(informe, titulo) {
           </div>
           <div class="panel-body">
             <div class="imprimeInforme">
-              <object id="verInforme" width="100%" style="height:75vh" data="imprimir/informes/${$.trim(
-      data
-    )}"></object> 
+              <object type="application/pdf" id="verInforme" width="100%" height="500" data="data:application/pdf;base64,${$.trim(
+                data
+              )}"></object>
             </div>
           </div>
         </div>
@@ -3519,8 +3517,6 @@ function auditoriaHuespedes() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
   let { usuario, usuario_id } = user;
-  /* usuario = sesion["usuario"][0]["usuario"];
-  idusuario = sesion["usuario"][0]["usuario_id"]; */
   $.ajax({
     url: "imprimir/imprimeHuespedesPorHabitacion.php",
     type: "POST",
@@ -8148,9 +8144,9 @@ function validaCierreCajero() {
   usuario = $.trim(usuario);
 
   parametros = {
-    login: login,
-    pass: pass,
-    usuario: usuario,
+    login,
+    pass,
+    usuario,
   };
   if (usuario == login) {
     $.ajax({

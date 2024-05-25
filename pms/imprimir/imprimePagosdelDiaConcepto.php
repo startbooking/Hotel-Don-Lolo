@@ -70,6 +70,12 @@ $pdf->Cell(120, 4, 'Total Pagos Del Dia', 0, 0, 'L');
 $pdf->Cell(25, 4, number_format($pag, 2), 0, 0, 'R');
 $pdf->Ln(3);
 
-$fileOut = '../imprimir/informes/'.$file.'.pdf';
+/* $fileOut = '../imprimir/informes/'.$file.'.pdf';
 $pdf->Output($fileOut, 'F');
 echo $file.'.pdf';
+ */
+
+  $pdfFile = $pdf->Output('', 'S');
+  $base64String = chunk_split(base64_encode($pdfFile));
+
+  echo $base64String;

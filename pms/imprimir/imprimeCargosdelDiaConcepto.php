@@ -77,6 +77,7 @@ $pdf->Cell(25, 6, number_format($imp, 2), 0, 0, 'R');
 $pdf->Cell(25, 6, number_format($tot, 2), 0, 1, 'R');
 $pdf->Ln(3);
 
-$fileOut = '../imprimir/informes/'.$file.'.pdf';
-$pdf->Output($fileOut, 'F');
-echo $file.'.pdf';
+  $pdfFile = $pdf->Output('', 'S');
+  $base64String = chunk_split(base64_encode($pdfFile));
+
+  echo $base64String;
