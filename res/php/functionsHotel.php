@@ -314,6 +314,7 @@ class Hotel_Actions{
         tipo_habitacion = '$tipo' 
         and estado != 'SA' 
         and estado != 'CX'
+        and estado != 'CO'
         and fecha_llegada >= '$llega'
         and fecha_salida <= '$sale'
     ORDER BY num_habitacion; ")->fetchAll();

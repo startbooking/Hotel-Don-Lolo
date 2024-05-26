@@ -1,6 +1,6 @@
 
   <div class="skin-blue navbar navbar-default navbar-fixed-bottom" style="height: 40px;min-height: 35px;background-color: lightgray">
-    <a href="https://www.sactel.net" target="blank" style="color:#171414;">
+    <a href="https://www.sactel.cloud" target="blank" style="color:#171414;">
     </a>
       <div class="col-xs-5">
   	    <h6 style="margin-top:15px" ><strong>Todos lo Derechos Reservados <i class="fa fa-copyright" aria-hidden="true"></i> Bogota - Colombia 2016 - 2024 </strong>	</h6>
@@ -11,8 +11,8 @@
         </h6>
       </div>
       <div class="col-xs-5" style="padding:5px;">
-        <a target="blank" href="https://www.sactel.net">
-          <h6 class="pull-right" style="margin-top:5px;"> <strong class="badge btn btn-info" style="padding:5px;font-size:15px">Barahona Software</strong></h6>
+        <a target="blank" href="https://www.sactel.cloud">
+          <h6 class="pull-right" style="margin-top:5px;"> <strong class="badge btn btn-info" style="padding:5px;font-size:15px">SACTel Cloud</strong></h6>
         </a>
       </div>
   </div>

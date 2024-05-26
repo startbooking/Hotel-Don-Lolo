@@ -3,10 +3,24 @@
 require '../../../res/php/app_topHotel.php';
 
 $tipo = $_POST['tipo'];
-$llega = $_POST['llega'];
-$sale = $_POST['sale']; 
+$fechaLlegada = $_POST['llega'];
+$fechaSalida = $_POST['sale']; 
 
-$llegadas = $hotel->getHabitacionesLlegada($tipo, $llega);
+// $rangos = $hotel->getHabitacionesDentro($llega,$sale,$tipo);
+// $habitaciones = $hotel->getSeleccionaHabitacionesTipo($tipo);
+
+$query = "SELECT num_habitacion, fecha_llegada, fecha_salida, estado FROM reservas_pms WHERE tipo_habitacion = '$tipo'  AND ( estado = 'CA' OR estado = 'ES' )  ORDER BY num_habitacion;"
+
+$reservasActuales = $hotel->creaConsulta($query);
+
+echo print_r($reservasActuales);
+
+// $habitacionesDisponibles = obtenerHabitacionesDisponibles($fechaLlegada, $fechaSalida, $reservasActuales);
+
+
+
+
+/* $llegadas = $hotel->getHabitacionesLlegada($tipo, $llega);
 echo 'Fecha Llegada <br>';
 echo print_r($llegadas); 
 
@@ -100,10 +114,10 @@ foreach ($rangos as $reserva) {
 }
 
 // $dispos = array_diff($disponibles, $mantenimiento, $estadoOff, $encasaOff, $reservasOff);
-$dispos = array_diff($disponibles, $mantenimiento, $llegan, $salen, $dentro);
+$dispos = array_diff($disponibles, $mantenimiento, $llegan, $salen, $dentro); */
 
 
-echo print_r($dispos);
+echo print_r($habitacionesDisponibles);
 
 ?>
 

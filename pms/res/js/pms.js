@@ -4606,7 +4606,6 @@ async function reEnviaFactura(factura){
   if(!ok){
     let vistaErr = await errorEnvio(recibeData);
     let guarda = await guardaJSON(JSON.stringify(recibeData),jsonFactura)
-
   }else{
     let recibe = await recibeData.json();
     let { ResponseDian:  { Envelope: { Body : { SendBillSyncResponse : { SendBillSyncResult: {IsValid}}}}} } = recibe;    
@@ -7046,6 +7045,40 @@ function buscaHuesped(regis) {
       }
     },
   });
+}
+
+
+async function habitacionesDisponibles(){
+  var llega = $("#llegada").val();
+  var sale = $("#salida").val();
+  var tipo = $("#tipohabi").val();
+  var parametros = {
+    llega,
+    sale,
+    tipo,
+  };
+  const reservasActuales = await traeReservasActuales(parametros)
+
+}
+
+async function traeReservasActuales(data){
+
+  try {
+
+    const resultado = await fetch('res/php/traeReservasActuales.php', {
+      method: "post",
+      headers: {
+        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+      body: JSON.stringify(data),
+      
+    });
+    const datos = await resultado.text();
+    return datos.trim();
+  } catch (error) {
+  
+  }
+
 }
 
 function seleccionaHabitacion() {
