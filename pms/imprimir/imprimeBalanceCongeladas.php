@@ -46,7 +46,7 @@
         $consumos[0]['pagos']  = 0;
       } 
       $pdf->Cell(10,4,$reserva['num_habitacion'],0,0,'R');
-      $pdf->Cell(80,4,utf8_decode($reserva['apellido1'].' '.$reserva['apellido2'].' '.$reserva['nombre1'].' '.$reserva['nombre2']),0,0,'L');
+      $pdf->Cell(80,4,substr($reserva['nombre_completo'],0,35),0,0,'L');
       $pdf->Cell(25,4,$reserva['fecha_llegada'],0,0,'C');
       $pdf->Cell(25,4,$reserva['fecha_salida'],0,0,'C');
       $pdf->Cell(30,4,number_format($consumos[0]['cargos'],2),0,0,'R');
@@ -74,10 +74,6 @@
  
   }
 
-/*   $fileOut = '../imprimir/informes/'.$file.'.pdf'; 
-  $pdf->Output($fileOut,'F');
-  echo $file.'.pdf';
- */  
   $pdfFile = $pdf->Output('', 'S');
   $base64String = chunk_split(base64_encode($pdfFile));
 

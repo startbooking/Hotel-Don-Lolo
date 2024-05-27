@@ -7715,6 +7715,7 @@ public function traeBalanceHabitaciones($tipo){
 	reservas_pms.observaciones,
 	reservas_pms.tarifa,
 	reservas_pms.valor_reserva,
+	reservas_pms.tipo_habitacion,
 	COALESCE ( SUM( cargos_pms.valor_cargo ), 0 ) AS cargos, 
 	COALESCE ( SUM( cargos_pms.pagos_cargos ), 0 ) AS pagos, 
 	COALESCE ( SUM( cargos_pms.impuesto ), 0 ) AS imptos, 

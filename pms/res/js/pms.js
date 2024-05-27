@@ -2122,6 +2122,30 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 });
 
+async function backupSQL(){
+  var fs = require('fs');
+  var spawn = require('child_process').spawn;
+  var wstream = fs.createWriteStream('dumpfilename.sql'); //Name of SQL dump file
+
+  var mysqldump = spawn('mysqldump', [
+      '-u',
+      'root',
+      '-p DB_PASSWORD',
+      'DB_NAME'
+  ]);
+
+  mysqldump
+      .stdout
+      .pipe(wstream)
+      .on('finish', function () {
+          console.log('Completed')
+      })
+      .on('error', function (err) {
+          console.log(err)
+      });
+}
+
+
 async function enviaTRA(reserva, fecha) {
   const huesped = await traeHuespedReserva(reserva, fecha);
   const acompana = await traeAcompanaReserva(reserva, fecha);

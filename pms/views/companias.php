@@ -38,13 +38,18 @@
                 foreach ($companias as $compania) { ?>
                   <tr style='font-size:12px'>
                     <td style="width: 10%"><?php echo $compania["nit"]; ?> - <?php echo $compania['dv']; ?></td>
-                    <td><?php echo substr($compania["empresa"],0,35); ?> </td>
-                    <td><?php echo substr($compania["direccion"],0,30); ?> </td>
+                    <td><?php echo mb_substr($compania["empresa"],0,35); ?> </td>
+                    <td><?php 
+                    if($compania["direccion"]==''){
+                      echo ''; 
+                    }else{
+                      echo mb_substr($compania["direccion"],0,30);
+                    }
+                    ?> </td>                    
                     <td><?php echo $compania["celular"]; ?> </td>
-                    <td><?php echo substr($compania["email"],0,35); ?> </td>
-                    <!-- <td><?php echo $compania["descripcion_tarifa"]; ?> </td> -->
+                    <td><?php echo $compania["email"]; ?> </td>
                     <td style="padding:0px;width: 13%">
-                      <nav class="navbar navbar-default" id="menuFicha"style="margin-bottom: 0px;min-height:0px;">
+                      <nav class="navbar navbar-default" id="menuFicha" style="margin-bottom: 0px;">
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:1px">
                           <ul class="nav navbar-nav" style="width:100%">
                             <li class="dropdown">

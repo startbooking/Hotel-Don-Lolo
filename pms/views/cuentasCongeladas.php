@@ -67,9 +67,6 @@
                         }
                         ?>
                       </td>
-                      <?php
-                      ?>
-                      </td>
                       <td style="width:50px;">
                         <span class="btn btn-primary" style="padding:1px 4px; font-size:12px;font-weight: bold;">
                           <?php echo substr($reserva['nombre_completo'], 0, 35); ?>
@@ -91,7 +88,7 @@
                       <td style="text-align:right;"><a onclick="cargosHuesped(<?php echo $reserva['num_reserva']; ?>)"><?php echo number_format($consumos[0]['cargos'], 2); ?></a></td>
                       <td style="text-align:right;"><a onclick="cargosHuesped(<?php echo $reserva['num_reserva']; ?>)"><?php echo number_format($consumos[0]['imptos'], 2); ?></a></td>
                       <td style="text-align:right;"><a onclick="cargosHuesped(<?php echo $reserva['num_reserva']; ?>)"><?php echo number_format($consumos[0]['pagos'], 2); ?></a></td>
-                      <td style="text-align:right;"><a onclick="cargosHuesped(<?php echo $reserva['num_reserva']; ?>)"><?php echo number_format($consumos[0]['cargos'] + $consumos[0]['imptos'] - $consumos[0]['pagos'], 2); ?></td>
+                      <td style="text-align:right;"><a onclick="cargosHuesped(<?php echo $reserva['num_reserva']; ?>)"><?php echo number_format($consumos[0]['cargos'] + $consumos[0]['imptos'] - $consumos[0]['pagos'], 2); ?></a></td>
                       <td style="padding:3px;width: 12%">
 
                         <nav class="navbar navbar-default " style="margin-bottom: 0px;min-height:0px;">
@@ -104,10 +101,7 @@
                                     <a onclick="regresaCasa('<?php echo $reserva['num_reserva']; ?>')">
                                       <i class="fa-solid fa-house"></i> Regresar a Casa</a>
                                   </li>
-                                  <li>
-                                    <a data-toggle="modal" data-target="#myModalInformacionReserva" data-id="<?php echo $reserva['num_reserva']; ?>" data-tipohab="<?php echo descripcionTipoHabitacion($reserva['tipo_habitacion']); ?>" data-nrohab="<?php echo $reserva['num_habitacion']; ?>" data-nombre="<?php echo $reserva['nombre_completo']; ?>" data-impto="<?php echo $reserva['causar_impuesto']; ?>" data-llegada="<?php echo $reserva['fecha_llegada']; ?>" data-salida="<?php echo $reserva['fecha_salida']; ?>" data-noches="<?php echo $reserva['dias_reservados']; ?>" data-hombres="<?php echo $reserva['can_hombres']; ?>" data-mujeres="<?php echo $reserva['can_mujeres']; ?>" data-ninos="<?php echo $reserva['can_ninos']; ?>" data-tipo="<?php echo $reserva['tipo_reserva']; ?>" data-tarifa="<?php echo $hotel->getNombreTarifa($reserva['tarifa']); ?>" data-valor="<?php echo $reserva['valor_diario']; ?>" data-observaciones="<?php echo $reserva['observaciones']; ?>" data-usuario="<?php echo $reserva['usuario']; ?>" data-fechacrea="<?php echo $reserva['fecha_ingreso']; ?>">
-                                      <i class="fa fa-address-card-o" aria-hidden="true"></i> Informacion Estadia</a>
-                                  </li>
+                                  
                                   <li>
                                     <a data-toggle="modal" data-id="<?php echo $reserva['id_huesped']; ?>" data-nombre="<?php echo $reserva['nombre_completo']; ?>" href="#myModalModificaPerfilHuesped">
                                       <i class="fa fa-user-md" aria-hidden="true"></i>

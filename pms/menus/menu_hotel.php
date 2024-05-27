@@ -177,12 +177,6 @@ if ($_GET['section'] != 'cajeroCerrado') {
                 <li><a href="listadoHuespedes"><i class="glyphicon glyphicon-copy"></i>Datos Huespedes </a></li>
                 <li><a href="listadoCumpleanios"><i class="glyphicon glyphicon-paste"></i>Cumpleaños Huespedes </a></li>
                 <li><a href="listadoCompanias"><i class="fa fa-address-card-o"></i>Datos Compañias</a></li>
-                <!--
-                <li><a href="listadoContactos"><i class="fa fa-id-badge"></i>Contactos Por Compañia</a></li>
-                <li><a href="javascript:imprimeInformeAuditoria('imprimeReservasPorFecha','Reservas por Habitacion')"><i class="fa fa-calendar-check-o"></i>Reservas por Fecha Llegada</a></li>
-                <li><a href="javascript:imprimeInformeAuditoria('imprimeReservasCanceladas','Reservas Canceladas')"><i class="glyphicon glyphicon-save-file"></i>Reservas Canceladas</a></li>
-                <li><a href="javascript:imprimeInformeAuditoria('imprimeReservasDepositos','Depositos a Reservas')"><i class="glyphicon glyphicon-download-alt"></i>Depositos a Reserva</a></li>
-                -->
               </ul>
             </li>
             <li>
