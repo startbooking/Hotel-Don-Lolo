@@ -1,5 +1,5 @@
 <div class="modal fade" id="myModalAnulaFactura" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <form id="guardarDatosRooms" class="form-horizontal" action="javascript:anulaFactura()" method="POST" enctype="multipart/form-data">
+  <form id="datosAnulaFactura" class="form-horizontal" action="javascript:anulaFactura()" method="POST" enctype="multipart/form-data">
     <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
       <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
@@ -9,10 +9,10 @@
           </div>
           <div class="modal-body">
             <div class="form-group avisoAnu"></div>
-            <input type="hidden" name="reserva" id="reserva" value="">
+            <input type="hidden" name="reservaAnu" id="reservaAnu" value="">
             <input type="hidden" name="perfil" id="perfil" value="">
             <input type="hidden" name="idperfil" id="idperfil" value="">
-            <input type="hidden" name="txtFacturaNro" id="txtFacturaNro" value="">
+            <input type="hidden" name="txtFacturaNroAnu" id="txtFacturaNroAnu" value="">
             <div class="form-group">
               <label for="noches" class="col-sm-2 control-label">Factura Nro</label>
               <div class="col-sm-2">
@@ -74,7 +74,7 @@
 </div>
 
 <div class="modal fade" id="myModalAnulaFacturaHistorico" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="z-index:1500">
-  <form id="guardarDatosRooms" class="form-horizontal" action="javascript:anulaFacturaHistorico()" method="POST" enctype="multipart/form-data">
+  <form id="datosAnulaFacturaHist" class="form-horizontal" action="javascript:anulaFacturaHistorico()" method="POST" enctype="multipart/form-data">
     <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
       <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
@@ -96,7 +96,7 @@
                 </div>
                 <label for="llegada" class="col-sm-2 control-label">Fecha Factura</label>
                 <div class="col-sm-3" style="padding-right: 20px" form-group>
-                  <input type="date" class="form-control" name="fechafac" id="fechafac" readonly="">
+                  <input type="date" class="form-control" name="fechafacHis" id="fechafacHis" readonly="">
                 </div>
               </div>
               <div class="form-group">
@@ -148,7 +148,7 @@
 </div>
 
 <div class="modal fade" id="myModalVerInformacionEstadia" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <form id="guardarDatosRooms" class="form-horizontal" action="" method="POST" enctype="multipart/form-data">
+  <form id="datosVerEstadia" class="form-horizontal" action="" method="POST" enctype="multipart/form-data">
     <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -186,7 +186,7 @@
 </div>
 
 <div class="modal fade" id="myModalVerFactura" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <form id="guardarDatosRooms" class="form-horizontal" action="javascript:anulaFactura()" method="POST" enctype="multipart/form-data">
+  <form id="datosVerFactura" class="form-horizontal" action="javascript:anulaFactura()" method="POST" enctype="multipart/form-data">
     <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -197,8 +197,8 @@
           <div id="mensaje">
           </div>
           <div class="modal-body">
-            <input type="hidden" name="reserva" id="reserva" value="">
-            <input type="hidden" name="txtFacturaNro" id="txtFacturaNro" value="">
+            <input type="hidden" name="reservaVer" id="reservaVer" value="">
+            <input type="hidden" name="txtFacturaNroVer" id="txtFacturaNroVer" value="">
             <div class="form-group">
               <object id="verFacturaModalCon" width="100%" height="450" data=""></object>
             </div>
@@ -213,7 +213,7 @@
 </div>
 
 <div class="modal fade" id="myModalReenviaFactura" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <form id="guardarDatosRooms" class="form-horizontal" method="POST" enctype="multipart/form-data">
+  <form id="datosReenviarFactura" class="form-horizontal" method="POST" enctype="multipart/form-data">
     <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
       <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">

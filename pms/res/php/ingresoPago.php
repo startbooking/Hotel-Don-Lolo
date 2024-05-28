@@ -413,8 +413,6 @@ if ($perfilFac == 1 && $facturador == 1) {
     $message = $recibeCurl['message'];
     $sendSucc = $recibeCurl['send_email_success'];
     $sendDate = $recibeCurl['send_email_date_time'];
-    
-    
 
     $invoicexml = '';
     $zipinvoicexml = '';

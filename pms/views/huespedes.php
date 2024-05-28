@@ -7,8 +7,6 @@
             <input type="hidden" name="editaPer" id="editaPer" value="0">
             <input type="hidden" name="rutaweb" id="rutaweb" value="<?= BASE_PMS ?>">
             <input type="hidden" name="ubicacion" id="ubicacion" value="huespedesPerfil">
-            <input type="hidden" name="paginas" id="paginas" value="<?=$paginas?>">
-            <input type="hidden" name="regishue" id="regishue" value="<?=$reghues?>">
             <h3 class="w3ls_head tituloPagina">
               <i class="fa-solid fa-users-viewfinder"></i>
               </i> Huespedes

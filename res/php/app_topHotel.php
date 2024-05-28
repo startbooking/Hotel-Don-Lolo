@@ -15,7 +15,7 @@ $hotel = new Hotel_Actions();
 $admin = new Hotel_Admin();
 
 $datosHotel = $admin->getDatosHotel();
-$empresa = $admin->getInfoCia();
+$empresa    = $admin->getInfoCia();
 
 define('DEV', '1');
 define('FECHA_PMS', $datosHotel[0]['fecha_auditoria']);

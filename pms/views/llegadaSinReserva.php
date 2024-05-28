@@ -109,7 +109,7 @@
           <div class="form-group">
             <label for="tipohabi" class="col-sm-2 control-label">Tipo Habitacion</label>
             <div class="col-sm-4">
-              <select name="tipohabi" id="tipohabi" required onblur="seleccionaHabitacion()">
+              <select name="tipohabi" id="tipohabi" required onblur="habitacionesDisponibles()"> 
                 <option value="">Seleccione el Tipo de Habitacion</option>
                 <?php 
                   $tipos = $hotel->getTipoHabitacion();

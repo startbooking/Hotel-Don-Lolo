@@ -16,7 +16,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   let { user: { usuario, usuario_id, nombres, apellidos, tipo } } = sesion;
-  // let  = user;
   
   $('.category_list .category_item[category="all"]').addClass("ct_item-active");
   $(".category_item").click(function () {
@@ -75,10 +74,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   let fact = document.getElementById("pantallaFacturacion");
-    if (fact != null) {
+  if (fact != null) {
     traeFacturasEstadia();
   }
-
 
   $("#myModalAdicionaCompania").on("show.bs.modal", function (event) {
     document.querySelector("#formCompania").reset();
@@ -103,7 +101,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   });
 
-  
   $("#myModalAdicionaGrupo").on("show.bs.modal", function (event) {
     document.querySelector("#formGrupo").reset();
     document.querySelector("#idUsuario").value = usuario_id;
@@ -111,7 +108,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   $("#myModalConfirmaReserva").on("show.bs.modal", function (event) {
     var button = $(event.relatedTarget);
-
     let id = button.data("id");
     let huesped = button.data("huesped");
     let orden = button.data("orden");
@@ -384,14 +380,19 @@ document.addEventListener("DOMContentLoaded", async () => {
     $("#txtIdHuespedUpl").val(id);
   });
 
-  $("#myModalAdicionaPerfil").on("show.bs.modal", function (event) {
+  $("#myModalAdicionaPerfil").on("show.bs.modal", async function (event) {
+    alert('entro');
     $("#edita").val(0);
     $("#acompana").val(0);
     formu = document.querySelector('#formAdicionaHuespedes');
     formu.reset();
-    var button = $(event.relatedTarget);
+    var button = $(event.relatedTarget);    
     var tiporeserva = button.data("reserva");
     $("#creaReser").val(tiporeserva);
+    const tipoDoc = await traeTipoDocumento();
+    console.log(tipoDoc);
+    
+    
   });
 
   $("#myModalInformacionMmto").on("show.bs.modal", function (event) {
@@ -2120,31 +2121,76 @@ document.addEventListener("DOMContentLoaded", async () => {
       },
     });
   });
+  
 });
 
-async function backupSQL(){
-  var fs = require('fs');
-  var spawn = require('child_process').spawn;
-  var wstream = fs.createWriteStream('dumpfilename.sql'); //Name of SQL dump file
+async function traeTipoDocumento(){
 
-  var mysqldump = spawn('mysqldump', [
-      '-u',
-      'root',
-      '-p DB_PASSWORD',
-      'DB_NAME'
-  ]);
+  console.log('Entro a Traer')
 
-  mysqldump
-      .stdout
-      .pipe(wstream)
-      .on('finish', function () {
-          console.log('Completed')
-      })
-      .on('error', function (err) {
-          console.log(err)
-      });
+  try {
+
+    const resultado = await fetch('res/php/traeTipoDocumento.php', {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+      
+    });
+    const datos = await resultado.json();
+    return datos;
+  } catch (error) {
+    console.log(error)
+  
+  }
 }
 
+
+  /* try {
+    const resultado = await fetch('res/php/traeTipoDocumento.php', {
+      method: "post",
+      headers: {
+        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+    });
+    const datos = await resultado.json();
+    console.log(datos)
+    return datos;
+  } catch (error) {
+  }
+}   */
+
+async function backupSQL(){
+  const host = 'localhost';
+  const user = 'tu_usuario';
+  const password = 'tu_contraseña';
+  const database = 'tu_base_de_datos';
+
+  // Construir la URL para la consulta SQL
+  // const url = `http://${host}/backup.php?user=${user}&password=${password}&database=${database}`;
+  const url = `../res/php/backup.php`;
+
+  // Realizar la solicitud HTTP
+  fetch(url)
+    .then(response => response.text())
+    .then(data => {
+      // Guardar el backup en un archivo
+      const date = new Date();
+      const filename = `backup_${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}.sql`;
+      const blob = new Blob([data], { type: 'text/plain' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      console.log(`Backup guardado en ${filename}`);
+    })
+    .catch(error => {
+      console.error('Error al realizar el backup:', error);
+    });
+  
+}
 
 async function enviaTRA(reserva, fecha) {
   const huesped = await traeHuespedReserva(reserva, fecha);
@@ -7071,7 +7117,6 @@ function buscaHuesped(regis) {
   });
 }
 
-
 async function habitacionesDisponibles(){
   var llega = $("#llegada").val();
   var sale = $("#salida").val();
@@ -7081,28 +7126,93 @@ async function habitacionesDisponibles(){
     sale,
     tipo,
   };
-  const reservasActuales = await traeReservasActuales(parametros)
+  let habitacionesDisp = await traeHabitacionesDisp(parametros)
+  let habitacionMmto = await traeHabitacionesMmto(parametros)
+  let reservasActuales = await traeReservasActuales(parametros)
+    
+  habitacionesDisp = habitacionesDisp.filter(numero_hab => !habitacionMmto.includes(numero_hab));
+   
+  for (let reserva of reservasActuales) {
+    if (
+      (llega >= reserva.fecha_llegada && llega < reserva.fecha_salida) ||
+      (sale > reserva.fecha_llegada && sale <= reserva.fecha_salida) ||
+            (llega <= reserva.fecha_llegada && sale >= reserva.fecha_salida)
+    ) {
+      habitacionesDisp = habitacionesDisp.filter(habitacion => habitacion.numero_hab !== reserva.num_habitacion);      
+    }
+  }
+    
+  const limpia = await limpiaSelect();
+  const sele =  await llegaHabitacionesSele(habitacionesDisp);
 
 }
 
-async function traeReservasActuales(data){
+async function llegaHabitacionesSele(habitaciones){
+  const selectElement = document.getElementById('nrohabitacion');
+  habitaciones.map(item => {
+    const optionElement = document.createElement('option');
+    optionElement.value = item.numero_hab;
+    optionElement.text = item.numero_hab;
+    selectElement.add(optionElement);
+  });
+}
 
+function limpiaSelect() {
+  const selectElement = document.getElementById('nrohabitacion');
+  while (selectElement.firstChild) {
+    selectElement.removeChild(selectElement.firstChild);
+  }
+}
+
+async function traeHabitacionesDisp(data){  
+  try {
+
+    const resultado = await fetch('res/php/traeHabitacionesDisp.php', {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+      body: JSON.stringify(data)
+      
+    });
+    const datos = await resultado.json();
+    return datos;
+  } catch (error) {
+  }
+}
+
+async function traeHabitacionesMmto(data){  
+  try {
+
+    const resultado = await fetch('res/php/traeHabitacionesMmto.php', {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+      body: JSON.stringify(data)
+      
+    });
+    const datos = await resultado.json();
+    return datos;
+  } catch (error) {
+  }
+}
+
+async function traeReservasActuales(data){
   try {
 
     const resultado = await fetch('res/php/traeReservasActuales.php', {
-      method: "post",
+      method: "POST",
       headers: {
-        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+        "Content-type": "application/json; charset=UTF-8",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(data)
       
     });
-    const datos = await resultado.text();
-    return datos.trim();
+    const datos = await resultado.json();
+    return datos;
   } catch (error) {
-  
   }
-
 }
 
 function seleccionaHabitacion() {

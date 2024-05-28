@@ -357,17 +357,6 @@ $manana = date('Y-m-d', $manana);
               <div id="modalReservasUpd"></div>
             </div>
           </div>
-
-          <!-- <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span class="glyphicon glyphicon-off"></span>
-              </button>
-              <h3 class="modal-title" id="exampleModalLabel">Modificar Reserva</h3>
-              <div id="mensaje"></div>
-            </div>
-            <div class="modal-body" id="modalReservasUpd" style="padding:10px">
-              <div id="mensaje" style="margin-bottom:-30px"></div>
-            </div> -->
         </div>
       </div>
     </div>
@@ -720,7 +709,7 @@ $manana = date('Y-m-d', $manana);
       </div>
     </div>
   </div>
-</div>v1.42/pms/facturasDelDia
+</div>
 
 <div class="modal fade" id="myModalBuscaHuesped" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <form id="guardarDatosRooms" class="form-horizontal" action="" method="POST" enctype="multipart/form-data">

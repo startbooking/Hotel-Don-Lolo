@@ -313,7 +313,7 @@ $pdf->MultiCell(190, 4, 'SON :'.numtoletras($pagos), 1, 'L');
 $pdf->SetFont('Arial', '', 6);
 $pdf->MultiCell(190, 4, utf8_decode('Factura Nro : ').$prefijo.' '.$nroFactura.' '.utf8_decode(' Fecha Validación Dian ').$timeCrea.' CUFE '.$cufe, 1, 'L');
 $pdf->SetFont('Arial', '', 7);
-$pdf->MultiCell(190, 5, utf8_decode('Observaciones ').utf8_decode(strtoupper($detallePag)).' '.utf8_decode(strtoupper($refer)), 1, 'L');
+$pdf->MultiCell(190, 5, utf8_decode('Observaciones ').utf8_decode(strtoupper($detalle)).' '.utf8_decode(strtoupper($refer)), 1, 'L');
 $pdf->setY(226);
 $pdf->SetFont('Arial', '', 7);
 $pdf->MultiCell(95, 4, utf8_decode(TEXTOBANCO).', '.utf8_decode(TEXTOFACTURA), 1, 'C');

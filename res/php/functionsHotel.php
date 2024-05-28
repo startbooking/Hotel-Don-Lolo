@@ -6,12 +6,47 @@ date_default_timezone_set('America/Bogota');
 
 class Hotel_Actions{
   
-  public function creaConsulta($sele)
-  {
+  
+  public function traeHabitacionesDisp($tipo){
     global $database;
-      $data = $database->query($sele)->fetchAll(PDO::FETCH_ASSOC);
+    
+    $data = $database->select('habitaciones',[
+      'numero_hab'
+    ],[
+      'id_tipohabitacion' => $tipo,
+      'estado' => 1,
+      'mantenimiento' => 0,
+    ]);
+    return $data;
+    
+  }
+  
+  
+  public function treHabitacionesMmto($tipo)
+  {
+        global $database;
 
-      return $data;
+        $data = $database->select('mantenimiento_habitaciones', [
+            '[>]habitaciones' => ['id_habitacion' => 'id'],
+        ], [
+            'habitaciones.numero_hab',
+            'mantenimiento_habitaciones.desde_fecha',
+            'mantenimiento_habitaciones.hasta_fecha',
+        ], [
+            'mantenimiento_habitaciones.estado_mmto' => 1,
+            'habitaciones.id_tipohabitacion' => $tipo,
+        ]);
+
+        return $data;
+  }  
+    
+    
+  public function creaConsulta($sele) 
+  {
+      global $database;
+        $data = $database->query($sele)->fetchAll(PDO::FETCH_ASSOC);
+
+        return $data;
   }  
   
   
@@ -8728,7 +8763,7 @@ ORDER BY
     public function getReservasActuales($tipo)
     {
         global $database;
-
+        
         $data = $database->select('reservas_pms', [
             '[>]huespedes' => 'id_huesped',
         ], [

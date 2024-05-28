@@ -1,12 +1,12 @@
 <?php
-require_once '../res/php/titles.php';
-require_once '../res/php/app_topHotel.php';
+//   require_once '../res/php/titles.php';
+  require_once '../res/php/app_topHotel.php';
 ?>
 <!DOCTYPE html>
 <html>
 
 <head>
-  <title><?php echo TITLE_ADM; ?> | Administracion Hotelera</title>
+  <title> Sistema Administrativo Hotelero  | SACTel Cloud</title>
   <?php include_once '../res/shared/archivo_head.php'; ?>
   <link rel="stylesheet" type="text/css" href="res/css/pms.css">
 </head>
@@ -217,14 +217,14 @@ require_once '../res/php/app_topHotel.php';
         include_once 'views/modal/modalCompania.php';
         include_once 'views/modal/modalFacturas.php';
         include_once 'views/modal/modalCentrosCia.php';
-        include_once 'views/modal/modalAcompanantes.php';
+        // include_once 'views/modal/modalAcompanantes.php';
         include_once 'views/modal/modalDocumentosCia.php';
         
     } elseif (isset($_GET['section']) && $_GET['section'] == 'huespedesPerfil') {        
       include_once 'views/modal/modalHuespedes.php';
       include_once 'views/modal/modalFacturas.php';
       include_once 'views/modal/modalDocumentos.php';
-      include_once 'views/modal/modalAcompanantes.php';  
+    //   include_once 'views/modal/modalAcompanantes.php';  
     } elseif (isset($_GET['section']) && $_GET['section'] == 'agencias') {
         include_once 'views/modal/modalAgencia.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'grupos') {
@@ -299,7 +299,6 @@ require_once '../res/php/app_topHotel.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'mantenimiento') {
         require 'views/modal/modalMantenimiento.php';
     }
-    echo 'Seccion '.$_GET['section'];
     ?>
 
     <script src="<?php echo BASE_PMS; ?>res/js/pms.js"></script>

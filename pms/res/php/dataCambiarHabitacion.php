@@ -32,7 +32,7 @@
   <div class="form-group">
     <label class="control-label col-md-2">Nuevo Tipo Hab.</label>
     <div class="col-sm-5">
-      <select name="tipohabi" id="tipohabi" required onblur="seleccionaHabitacion()">
+      <select name="tipohabi" id="tipohabi" required onblur="habitacionesDisponibles()">
         <option value="">Seleccione el Tipo de Habitacion</option>
         <?php 
           foreach ($tipos as $tipo) { ?>
