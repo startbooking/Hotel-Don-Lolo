@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Módulo de Cobranzas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Módulo de Cobranzas</h1>
+    <label for="cliente">Seleccione el cliente:</label>
+    <select id="cliente">
+      <option value="">Seleccione un cliente</option>
+      <option value="juan_perez">Juan Pérez</option>
+      <option value="maria_lopez">María López</option>
+      <option value="pedro_gomez">Pedro Gómez</option>
+    </select>
+    <button onclick="seleccionarCliente()">Continuar</button>
+  </div>
+
+  <script>
+    function seleccionarCliente() {
+      const clienteSelect = document.getElementById('cliente');
+      const clienteSeleccionado = clienteSelect.value;
+
+      if (clienteSeleccionado) {
+        // Aquí puedes redirigir al usuario a la página de gestión de cobros para el cliente seleccionado
+        console.log(`Usted ha seleccionado al cliente: ${clienteSeleccionado}`);
+      } else {
+        alert('Por favor, seleccione un cliente.');
+      }
+    }
+  </script>
+</body>
+</html>

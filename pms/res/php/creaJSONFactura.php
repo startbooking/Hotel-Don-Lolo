@@ -84,14 +84,22 @@ if (count($anticipos) != 0) {
 }
 
 if ($tipofac == 2) {
-  $datosCompania = $hotel->getSeleccionaCompania($idPerfil);
-  $diasCre = $datosCompania[0]['dias_credito'];
-  $nomFact = $datosCompania[0]['empresa'];
-  $nitFact = $datosCompania[0]['nit'];
-  $dvFact = $datosCompania[0]['dv'];
-  $emaFact = $datosCompania[0]['email'];
-  $tdiFact = $datosCompania[0]['tipo_documento'];
-  $triFact = $datosCompania[0]['tipoResponsabilidad'];
+    $datosCompania = $hotel->getSeleccionaCompania($idperfil);
+    $diasCre = $datosCompania[0]['dias_credito'];
+    $nomFact = $datosCompania[0]['empresa'];
+    $nitFact = $datosCompania[0]['nit'];
+    $dvFact = $datosCompania[0]['dv'];
+    $emaFact = $datosCompania[0]['email'];
+    $tdiFact = $datosCompania[0]['tipo_documento'];
+    $triFact = $datosCompania[0]['tipoResponsabilidad'];
+
+    $dirFact = $datosCompania[0]['direccion'];
+    $merFact = '0000000-00';
+    $torFact = $datosCompania[0]['tipoAdquiriente'];
+    $tliFact = $hotel->traeIdResponsabilidadDianVenta($datosCompania[0]['responsabilidadTributaria']);
+    $munFact = $datosCompania[0]['ciudad'];
+    $telFact = $datosCompania[0]['telefono'];
+
 } else {
   $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
   $nitFact = $datosHuesped[0]['identificacion'];
@@ -101,17 +109,6 @@ if ($tipofac == 2) {
   $tdiFact = $datosHuesped[0]['tipo_identifica'];
   $triFact = $datosHuesped[0]['tipoResponsabilidad'];
 }
-
-// $updFac = $hotel->updateFactura($usuario_id, $saldos[0]['cargos'], $saldos[0]['imptos'], $saldos[0]['pagos'], $saldos[0]['base'], $paganticipo, $fechaVen, $numfactura, $usuario, $fecha, $diasCre);
-
-// $totalPago = $paganticipo + $saldos[0]['pagos'];
-// $saldofactura = $hotel->getSaldoHabitacion($reserva);
-
-/* if (count($saldofactura) == 0) {
-  $totalFolio = 0;
-} else {
-  $totalFolio = ($saldofactura[0]['cargos'] + $saldofactura[0]['imptos']);
-} */
 
 $folios = $hotel->getConsumosReservaAgrupadoCodigoFolio($factura, $reserva, $folioAct, 1);
 // $pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolio($factura, $reserva, $folioAct, 3);
@@ -158,12 +155,21 @@ $eCust['dv'] = $dvFact;
 $eCust['name'] = $nomFact;
 $eCust['email'] = $emaFact;
 
+if($tipofac == 2){
+  $eCust['address'] = $dirFact;
+  $eCust['phone'] = $telFact;
+  $eCust['merchant_registration'] = $merFact;
+  $eCust['type_document_identification_id'] = $tdiFact;
+  $eCust['type_organization_id'] = $torFact;
+  $eCust['type_liability_id'] = $tliFact;
+  $eCust['municipality_id'] = $munFact;
+  $eCust['type_regime_id'] = $triFact;
+}
+
 $ePago['payment_form_id'] = $hotel->traeCodigoDianVenta($codigo);
 $ePago['payment_method_id'] = $hotel->traeCodigoDianVenta($codigo);
 $ePago['payment_due_date'] = $fechaVen;
 $ePago['duration_measure'] = $diasCre;
-
-
 
 $tax_totals = [];
 foreach ($folios as $folio1) {

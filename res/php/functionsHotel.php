@@ -228,8 +228,9 @@ class Hotel_Actions{
         'tipo_factura',
         'numero_reserva',
         'folio_cargo',
-        'id_huesped',  
+        'id_huesped',
         'id_perfil_factura',
+        'usuario_factura'
       ],[
         'factura_numero' => $nroFactura
       ]);

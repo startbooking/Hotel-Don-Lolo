@@ -115,13 +115,12 @@ if ($tipofac == 2) {
     $tdiFact = $datosCompania[0]['tipo_documento'];
     $triFact = $datosCompania[0]['tipoResponsabilidad'];
 
-    // $dirFact = $datosCompania[0]['direccion'];
-    // $telFact = $datosCompania[0]['telefono'];
-    // $merFact = '0000000-00';
-    // $torFact = $datosCompania[0]['tipoAdquiriente'];
-    // $tliFact = $hotel->traeIdResponsabilidadDianVenta($datosCompania[0]['responsabilidadTributaria']);
-    // $munFact = $datosCompania[0]['ciudad'];
-    // $triFact = 1;
+    $dirFact = $datosCompania[0]['direccion'];
+    $merFact = '0000000-00';
+    $torFact = $datosCompania[0]['tipoAdquiriente'];
+    $tliFact = $hotel->traeIdResponsabilidadDianVenta($datosCompania[0]['responsabilidadTributaria']);
+    $munFact = $datosCompania[0]['ciudad'];
+    $telFact = $datosCompania[0]['telefono'];
 
 } else {
     $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
@@ -190,15 +189,16 @@ if ($perfilFac == 1 && $facturador == 1) {
     $eCust['name'] = $nomFact;
     $eCust['email'] = $emaFact;
 
-    /* if($tipofac == 2){
+    if($tipofac == 2){
       $eCust['address'] = $dirFact;
+      $eCust['phone'] = $telFact;
       $eCust['merchant_registration'] = $merFact;
       $eCust['type_document_identification_id'] = $tdiFact;
       $eCust['type_organization_id'] = $torFact;
       $eCust['type_liability_id'] = $tliFact;
       $eCust['municipality_id'] = $munFact;
       $eCust['type_regime_id'] = $triFact;
-    } */
+    } 
 
     $ePago['payment_form_id'] = $hotel->traeCodigoDianVenta($codigo);
     $ePago['payment_method_id'] = $hotel->traeCodigoDianVenta($codigo);

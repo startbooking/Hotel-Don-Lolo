@@ -381,7 +381,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   $("#myModalAdicionaPerfil").on("show.bs.modal", async function (event) {
-    alert('entro');
+    // alert('entro');
     $("#edita").val(0);
     $("#acompana").val(0);
     formu = document.querySelector('#formAdicionaHuespedes');
@@ -389,8 +389,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     var button = $(event.relatedTarget);    
     var tiporeserva = button.data("reserva");
     $("#creaReser").val(tiporeserva);
-    const tipoDoc = await traeTipoDocumento();
-    console.log(tipoDoc);
+    // const tipoDoc = await traeTipoDocumento();
+    // console.log(tipoDoc);
     
     
   });
@@ -2124,12 +2124,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   
 });
 
-async function traeTipoDocumento(){
-
-  console.log('Entro a Traer')
-
+async function traeTipoDocumentoOK(){
   try {
-
     const resultado = await fetch('res/php/traeTipoDocumento.php', {
       method: "POST",
       headers: {
@@ -2145,20 +2141,25 @@ async function traeTipoDocumento(){
   }
 }
 
-
-  /* try {
+const traeTipoDocumento = async () => {
+  try {
     const resultado = await fetch('res/php/traeTipoDocumento.php', {
       method: "post",
       headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": true,
         "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
       },
     });
     const datos = await resultado.json();
-    console.log(datos)
     return datos;
   } catch (error) {
+    console.log(error)
+    // return error
   }
-}   */
+};
+
+
 
 async function backupSQL(){
   const host = 'localhost';
@@ -3656,7 +3657,6 @@ function traeTotalCompanias(regis, filas) {
     success: function (data) {
       $("#listaCompanias").html("");
       $("#barraPaginas").html("");
-      // console.log(data)
       for (i = 0; i < data.length; i++) {
         lista =
           lista +
@@ -4701,8 +4701,6 @@ async function reEnviaFactura(factura){
         'prefix':prefijo,
         'base64graphicrepresentation': impresion,
       }      // console.log(envioFAC);
-
-                  
       let mail = await enviaCorreoFactura(envioFAC, token)
       swal({
         title: "Atencion !",
@@ -8267,7 +8265,7 @@ function validaCierreDiario() {
       data: parametros,
       beforeSend: function (objeto) {
         $(".mensaje").html(
-            `<h3 class="alert alert-danger" style="color:#0009;"><i style="font-size:3em;margin-top:1px;color:#BBB0B0; " class="ion ion-ios-gear-outline fa-spin"></i>Procesando Auditoria, NO Interrumpir</h3>}`
+            `<h3 class="alert alert-danger" style="color:#000;"><i style="font-size:3em;margin-top:1px;color:#BBB0B0; " class="ion ion-ios-gear-outline fa-spin"></i>Procesando Auditoria, NO Interrumpir</h3>`
         );
       },
       success: function (x) {

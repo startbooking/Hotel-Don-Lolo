@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ingreso de Pago</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Ingreso de Pago</h1>
+    <label for="cliente">Cliente:</label>
+    <input type="text" id="cliente" value="Juan Pérez" readonly>
+    <label for="factura">Número de Factura:</label>
+    <input type="text" id="factura">
+    <label for="retencion">Retenciones:</label>
+    <input type="text" id="retencion">
+    <label for="monto">Monto a Pagar:</label>
+    <input type="number" id="monto" step="0.01">
+    <button onclick="ingresarPago()">Ingresar Pago</button>
+  </div>
+
+  <script>
+    function ingresarPago() {
+      const cliente = document.getElementById('cliente').value;
+      const factura = document.getElementById('factura').value;
+      const retencion = parseFloat(document.getElementById('retencion').value) || 0;
+      const monto = parseFloat(document.getElementById('monto').value);
+
+      if (!factura || monto <= 0) {
+        alert('Por favor, ingrese la información del pago correctamente.');
+        return;
+      }
+
+      // Aquí puedes implementar la lógica para procesar el pago del cliente
+      console.log(`Pago ingresado:`);
+      console.log(`Cliente: ${cliente}`);
+      console.log(`Factura: ${factura}`);
+      console.log(`Retenciones: $${retencion}`);
+      console.log(`Monto a Pagar: $${monto}`);
+
+      // Limpiar los campos después de procesar el pago
+      document.getElementById('factura').value = '';
+      document.getElementById('retencion').value = '';
+      document.getElementById('monto').value = '';
+    }
+  </script>
+</body>
+</html>

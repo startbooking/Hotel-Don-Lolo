@@ -26,7 +26,7 @@
   define("BATCH_SIZE", 1000); // Batch size when selecting rows from database in order to not exhaust system 
   define("BCK_NAME",$bckname); // Nombre Backup Archivo de Salida  
 
-  $backupDatabase = new Backup_Database(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, CHARSET,BCK_NAME);
+  $backupDatabase = new Backup_Database(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, CHARSET, BCK_NAME);
   $result         = $backupDatabase->backupTables(TABLES, BACKUP_DIR) ? 'OK' : 'KO';
   /// $backupDatabase->obfPrint('Backup result: ' . $result, 1);
 

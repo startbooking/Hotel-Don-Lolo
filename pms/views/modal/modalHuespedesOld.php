@@ -27,13 +27,13 @@ $hoy = date('Y-m-d');
             <div class="col-sm-3">
               <select name="tipodoc" id="tipodoc" required="">
                 <option value="">Seleccione el Tipo de Documento</option>
-                <?php
+                <!-- <?php
                 $tipodocs = $hotel->getTipoDocumento();
                 foreach ($tipodocs as $tipodoc) { ?>
                   <option value="<?php echo $tipodoc['id_doc']; ?>"><?php echo $tipodoc['descripcion_documento']; ?></option>
                 <?php
                 }
-                ?>
+                ?> -->
               </select>
             </div>
           </div>

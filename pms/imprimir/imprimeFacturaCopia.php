@@ -13,19 +13,10 @@ $filename = '../../../img/pms/QR_'.$prefijo.'-'.$nroFactura.'.png';
 $size = 100; // Tamaño en píxeles
 $level = 'L'; // Nivel de corrección (L, M, Q, H)
 
-
-// echo 'crea codigo';
-// Generar el código QR
-
-
-QRcode::png($QRStr, $filename, $level, $size);
-
-// echo $filename;
+QRcode::png($QRStr, $filename, $level, $size); 
 
 $datosReserva = $hotel->getReservasDatos($reserva);
 $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
-
-// echo print_r($datosHuesped);
 
 $horaIng = $datosReserva[0]['hora_llegada'];
 

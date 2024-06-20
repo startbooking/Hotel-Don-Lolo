@@ -7,6 +7,6 @@
 	
 	$regAdi = $hotel->adicionaHuespedAdicional($numRese,$id);
 	
-	echo json_encode($regis);
+	echo json_encode($regAdi);
 
  

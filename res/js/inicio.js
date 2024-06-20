@@ -229,7 +229,6 @@ function valida_ingreso() {
     dataType: "json",
     data: "login=" + user + "&password=" + pass,
     success: function (data) {
-    // console.log(data);
       let { entro, user } = data;
       if (entro == "0") {
         muestraError("Usuario o Contraseña Incorrecto");
@@ -400,7 +399,6 @@ function leeCajeroActivo() {
 function muestraError(error) {
   $("#error").html(`
     <div class="alert alert-danger"> <span class="glyphicon glyphicon-info-sign"></span> ${error}</div>`);
-
   $("#login").val("");
   $("#pass").val("");
   $("#login").focus();

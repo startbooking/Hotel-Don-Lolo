@@ -1,5 +1,5 @@
 <?php
-  require_once '../../../res/php/titles.php';
+//   require_once '../../../res/php/titles.php';
   require_once '../../../res/php/app_topHotel.php';
   require_once '../../../res/php/configdb.php';
 
@@ -28,22 +28,22 @@
               require_once 'registrosSinImprimir.php';
           }
       } else { ?>     
-    <?php
+        <?php
           $activaAud = $hotel->EstadoAuditoriaPMS(1);
           $procesos = $hotel->getProcesoAuditoria();
           foreach ($procesos as $proceso) {
-              require_once '../../imprimir/plantillaAuditoria.php';
-              if ($proceso['estado_proceso'] == 0) {
-                  if (!is_null($proceso['nombre_proceso'])) {
-                      $proce = '../../auditoria/'.$proceso['nombre_proceso'];
-                      require_once $proce;
-                  } ?>
-        <?php
-                  $ejecutado = $hotel->updateProcesoAuditoria($proceso['id_proceso'], 1);
-              } else { ?>
-        <?php
-              }
-              time_sleep_until(microtime(true) + 1);
+            require_once '../../imprimir/plantillaAuditoria.php';
+            if ($proceso['estado_proceso'] == 0) {
+                if (!is_null($proceso['nombre_proceso'])) {
+                    $proce = '../../auditoria/'.$proceso['nombre_proceso'];
+                    require_once $proce;
+                } ?>
+                <?php
+                $ejecutado = $hotel->updateProcesoAuditoria($proceso['id_proceso'], 1);
+            } else { ?>
+            <?php
+            }
+            time_sleep_until(microtime(true) + 1);
           }
           $limpaEstado = $hotel->limpiaProcesosAuditoria();
           echo 1;

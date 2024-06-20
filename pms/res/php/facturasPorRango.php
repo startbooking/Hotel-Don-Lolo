@@ -7,24 +7,41 @@ $eToken = $hotel->datosTokenCia();
 $facturador = $eToken[0]['facturador'];
 extract($_POST);
 
-// echo print_r($_POST);
-
-/* $tipo = 
-$desdeFe = $_POST['desdeFe'];
-$hastaFe = $_POST['hastaFe'];
-$desdeNu = $_POST['desdeNu'];
-$hastaNu = $_POST['hastaNu'];
-huesped = $_POST['huesped'];
-$empresa = $_POST['empresa'];
-$formaPa = $_POST['formaPa']; */
-
 if ($empresa != '') {
-
-  $sele = "SELECT historico.*, huespedes.nombre_completo, companias.empresa,  historico_reservas_pms.fecha_llegada, historico_reservas_pms.fecha_salida, historico_reservas_pms.num_reserva, codigos_vta.descripcion_cargo,  fe.estadoEnvio, fe.cufe FROM historico_reservas_pms, huespedes, codigos_vta, companias,
-	(SELECT  historicoDatosFE.facturaNumero, historicoDatosFE.estadoEnvio, historicoDatosFE.cufe FROM historicoDatosFE WHERE historicoDatosFE.timeCreated BETWEEN '$desdeFe' AND '$hastaFe' ORDER BY historicoDatosFE.facturaNumero ) as fe, ( SELECT historico_cargos_pms.habitacion_cargo, historico_cargos_pms.tipo_factura, historico_cargos_pms.id_codigo_cargo, historico_cargos_pms.perfil_factura, historico_cargos_pms.id_perfil_factura, historico_cargos_pms.prefijo_factura, historico_cargos_pms.numero_factura_cargo, historico_cargos_pms.factura_numero, historico_cargos_pms.numero_reserva, historico_cargos_pms.factura_anulada, historico_cargos_pms.id_usuario_factura, historico_cargos_pms.total_consumos, historico_cargos_pms.total_impuesto, historico_cargos_pms.total_pagos, historico_cargos_pms.fecha_factura, historico_cargos_pms.fecha_sistema_cargo FROM historico_cargos_pms	WHERE historico_cargos_pms.fecha_factura BETWEEN '$desdeFe' AND '$hastaFe' AND historico_cargos_pms.factura = 1 ORDER BY historico_cargos_pms.factura_numero) AS historico WHERE ";
-
-
-  $filtro = " historico.numero_reserva = historico_reservas_pms.num_reserva AND historico_reservas_pms.id_huesped = huespedes.id_huesped AND historico.id_codigo_cargo = codigos_vta.id_cargo AND historico.factura_numero = fe.facturaNumero  AND historico.id_perfil_factura = companias.id_compania";
+  $sele = "SELECT
+	historico_cargos_pms.descripcion_cargo,
+	historico_cargos_pms.tipo_factura,
+	historico_cargos_pms.id_codigo_cargo,
+	historico_cargos_pms.id_perfil_factura,
+	historico_cargos_pms.perfil_factura,
+	historico_cargos_pms.factura_numero,
+	historico_cargos_pms.factura_anulada,
+	historico_cargos_pms.total_consumos,
+	historico_cargos_pms.total_impuesto,
+	historico_cargos_pms.total_pagos,
+	historico_cargos_pms.fecha_factura,
+	historico_cargos_pms.prefijo_factura,
+	historico_cargos_pms.numero_reserva,
+	historico_cargos_pms.numero_factura_cargo,
+	historicoDatosFE.cufe,
+	historicoDatosFE.estadoEnvio,
+	huespedes.nombre_completo,
+	companias.empresa
+FROM
+	historico_cargos_pms,
+	historicoDatosFE,
+	huespedes, 
+	companias  
+WHERE";
+ 
+  $filtro = " historico_cargos_pms.fecha_factura BETWEEN '$desdeFe' 
+	AND '$hastaFe' 
+	AND historico_cargos_pms.factura = 1 
+	AND historico_cargos_pms.factura_numero = historicoDatosFE.facturaNumero 
+	AND historico_cargos_pms.id_huesped = huespedes.id_huesped
+	AND historico_cargos_pms.id_perfil_factura = companias.id_compania
+	AND companias.empresa LIKE '%$empresa%'";
+    
 } else {
   $sele = "SELECT
 	historico_cargos_pms.descripcion_cargo,
@@ -49,15 +66,15 @@ FROM
 	historicoDatosFE,
 	huespedes
 WHERE ";
-
   $filtro = "historico_cargos_pms.fecha_factura BETWEEN '$desdeFe' 
 	AND '$hastaFe' 
 	AND historico_cargos_pms.factura = 1 
 	AND historico_cargos_pms.factura_numero = historicoDatosFE.facturaNumero 
 	and historico_cargos_pms.id_huesped = huespedes.id_huesped";
+	
 }
 
-$sele2 = " ORDER BY historico_cargos_pms.factura_numero";
+$orden = " ORDER BY historico_cargos_pms.factura_numero";
 
 if ($desdeFe != '' && $hastaFe != '') {
   // $filtro = $filtro . " AND historico.fecha_factura >='$desdeFe' AND fecha_factura <= '$hastaFe'";
@@ -68,7 +85,7 @@ if ($desdeFe != '' && $hastaFe != '') {
 }
 
 if ($desdeNu != '' && $hastaNu != '') {
-  $filtro = $filtro . " AND historico_cargos_pms.factura_numero >='$desdeNu' AND factura_numero <= '$hastaNu'";
+  $filtro = $filtro . " AND historico_cargos_pms.factura_numero >='$desdeNu' AND historico_cargos_pms.factura_numero <= '$hastaNu'";
 } elseif ($desdeNu == '' && $hastaNu != '') {
   $filtro = $filtro . " AND historico_cargos_pms.factura_numero <= '$hastaNu'";
 } elseif ($desdeNu != '' && $hastaNu == '') {
@@ -87,8 +104,10 @@ if ($formaPa != '') {
   $filtro = $filtro . " AND id_codigo_cargo = '$formaPa'";
 }
 
-$query    = $sele . $filtro . $sele2;
+$query    = $sele . $filtro . $orden;
 $facturas = $hotel->getFacturasPorRango($query);
+
+// echo print_r($facturas)
 
 ?>
 

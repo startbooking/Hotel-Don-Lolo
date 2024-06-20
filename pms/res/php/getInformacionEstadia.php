@@ -27,7 +27,7 @@
       <div class="form-group">
         <label for="inputEmail3" class="col-sm-2 control-label">Documento</label>
         <div class="col-sm-3">
-          <input type="hidden" name="numeroReserva" id="numeroReserva" value="<?php echo $id; ?>">
+          <input type="hidden" name="numeroReserva" id="numeroReserva" value="<?php echo $nroreserva; ?>">
           <input type="hidden" name="tipoocupacion" id="tipoocupacion" value="<?php echo $reserva[0]['tipo_ocupacion']; ?>">
           <input type="text" class="form-control" name="identifica" id="identifica" value="<?php echo $huesped[0]['identificacion']; ?>" readonly="">
         </div>
