@@ -6093,7 +6093,17 @@ class Hotel_Actions{
             'id_huesped' => $id,
         ]);
 
-        return $data->rowCount();
+        $result = [
+            'id' => $data->rowCount(),
+            'error' => $database->error,
+        ];
+
+        echo print_r($result);
+
+        return $result;
+
+
+        ;
     }
 
     public function getBuscaIdHuesped($id)
@@ -6138,6 +6148,22 @@ class Hotel_Actions{
         return $data;
     }
 
+    public function buscaHuespedHueped($ident, $id)
+    {
+        global $database;
+
+        $data = $database->select('huespedes', [
+            'id_huesped',
+            'nombre_completo',
+            'identificacion',
+        ], [
+            'identificacion' => $ident,
+            'id_huesped[<>]' => $id,
+        ]);
+
+        return $data;
+    }
+    
     public function updateCiaHuesped($idcia, $idhues, $idCentro)
     {
         global $database;

@@ -22,15 +22,15 @@
   		<th>Abonos</th>
   		<th>Fecha</th>
   		<th>Usuario</th>
-  		<th>Accion</th>							 				
+  		<th>Accion</th>
     </tr>
  	</thead>
  	<tbody>
-	  <?php 
+	  <?php
       $consumos = 0;
       $impto    = 0;
       $pagos    = 0;
-		  foreach ($folios1 as $folio1): 
+		  foreach ($folios1 as $folio1):
         $consumos = $consumos + $folio1['monto_cargo'];
         $impto    = $impto + $folio1['impuesto'];
         $pagos    = $pagos + $folio1['pagos_cargos'];	
@@ -159,14 +159,14 @@
     <div class="col-sm-2">
       <input type="text" style="text-align: right;" class="form-control" id="abonos<?=$folio?>" placeholder="" value="<?php echo number_format($pagos,2) ?>" readonly>
     </div>
-  </div>    			
+  </div>
 	<div class="form-group">
     <label for="total" class="col-sm-2 col-sm-offset-7 control-label" style="font-size:14px;">Total Folio</label>
     <div class="col-sm-3">
       <input type="text" style="font-size:14px;text-align: right;font-weight: 600" class="form-control" id="total<?=$folio?>" placeholder="" value="<?php echo number_format(($consumos+ $impto)-$pagos,2)?>" readonly>
-      <input type="hidden" name="txtConsumoCta" id="txtConsumoCta" value="<?=$consumos?>">            
-      <input type="hidden" name="txtImptoCta" id="txtImptoCta" value="<?=$impto?>">            
-      <input type="hidden" name="txtAbonosCta" id="txtAbonosCta" value="<?=$pagos?>">            
+      <input type="hidden" name="txtConsumoCta" id="txtConsumoCta" value="<?=$consumos?>">
+      <input type="hidden" name="txtImptoCta" id="txtImptoCta" value="<?=$impto?>">
+      <input type="hidden" name="txtAbonosCta" id="txtAbonosCta" value="<?=$pagos?>">
       <input type="hidden" name="txtSaldoCta" id="txtSaldoCta" value="<?=($consumos+ $impto)-$pagos?>">            
     </div>
   </div>

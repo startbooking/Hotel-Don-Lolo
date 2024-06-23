@@ -54,7 +54,6 @@ $hoy = date('Y-m-d');
             <div class="col-sm-3">
               <select name="ciudadExp" id="ciudadExp" required="">
                 <option value="">Ciudad de Expedicion</option>
-                
               </select>
             </div>
           </div>
@@ -140,7 +139,6 @@ $hoy = date('Y-m-d');
               <input type="date" class="form-control" name="fechanace" id="fechanace" placeholder="" value="<?php echo $hoy; ?>" max="<?php echo $hoy; ?>" required="">
             </div>
           </div>
-
           <div class="form-group">
             <label for="fechanace" class="col-sm-2 control-label">Tipo Persona </label>
             <div class="col-sm-4">

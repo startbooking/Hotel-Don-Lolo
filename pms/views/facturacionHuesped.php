@@ -5,9 +5,9 @@ require_once '../../res/php/app_topHotel.php';
 $reserva = $_POST['reserva'];
 
 if(!isset($reserva)){ ?>
-    <meta charset="utf-8" />
-    <meta http-equiv="refresh" content="0;URL=../../index.php" />
-    <?php
+  <meta charset="utf-8" />
+  <meta http-equiv="refresh" content="0;URL=../../index.php" />
+  <?php
 }
 
 $datosReserva = $hotel->getReservasDatos($reserva);
@@ -26,11 +26,11 @@ $retefuen = 0;
 $sinbase = 0;
 if (count($datosCompania) !== 0) {
   $credito  = $datosCompania[0]['credito'];
-  $dias     = $datosCompania[0]['dia_corte_credito'];    
-  $reteiva  =  $datosCompania[0]['reteiva']; 
-  $reteica  =  $datosCompania[0]['reteica']; 
+  $dias     = $datosCompania[0]['dia_corte_credito'];
+  $reteiva  =  $datosCompania[0]['reteiva'];
+  $reteica  =  $datosCompania[0]['reteica'];
   $retefuen = $datosCompania[0]['retefuente'];
-  $sinbase  =  $datosCompania[0]['sinBaseRete']; 
+  $sinbase  =  $datosCompania[0]['sinBaseRete'];
 }
 
 $saldofolio1 = $hotel->saldoFolio($reserva, 1);
@@ -53,7 +53,7 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
       <h3 style="text-align: center;margin-bottom: 25px" class="w3ls_head tituloPagina">Estado Cuenta Huesped</h3>
       <div class="panel panel-success panelFolio">
         <div class="panel-heading">
-          <div class="panel-title"> 
+          <div class="panel-title">
             <input type="hidden" name="facturador" id="facturador" value="<?=FACTURADOR?>">
             <input type="hidden" name="ingreso" id="ingreso" value="2">
             <input type="hidden" name="folioActivo" id="folioActivo" value="0">
@@ -66,7 +66,7 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
             <input type="hidden" name="nrofolio3" id="nrofolio3" value="<?php echo $saldofolio3 - $pagofolio3; ?>">
             <input type="hidden" name="nrofolio4" id="nrofolio4" value="<?php echo $saldofolio4 - $pagofolio4; ?>">
             <input type="hidden" name="idHuespedSal" id="idHuespedSal" value="<?php echo $datosReserva[0]['id_huesped']; ?>">
-            <input type="hidden" name="rutaweb" id="rutaweb" value="<?php echo BASE_PMS; ?>">              
+            <input type="hidden" name="rutaweb" id="rutaweb" value="<?php echo BASE_PMS; ?>">
             <input type="hidden" name="ubicacion" id="ubicacion" value="facturacionHuesped">
           </div>
           <div class="container-fluid ">
@@ -133,7 +133,7 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
                     <label style="margin-top:-30px;margin-left:25px" class="form-check-label" for="inlineRadio1" >NO</label>
                   </div>
                 </div>
-                <div class="col-sm-6" style="padding:0;height: 15px"> 
+                <div class="col-sm-6" style="padding:0;height: 15px">
                   <div class="form-check form-check-inline">
                     <input style="margin-top:0px" class="form-check-input" type="radio" name="imptoOption" id="inlineRadio2" value="2" disabled=""
                     <?php
@@ -238,7 +238,7 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
                 <div class="saldoFolioRoom4" style="font-size:12px"></div>
               </div>
             </div>
-          </div>          
+          </div>
         </div>
         <div class="panel-footer" style="background-color:lightgoldenrodyellow">
           <div class="container-fluid" id='saldoReserva'></div>
@@ -321,8 +321,8 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
                 href="facturacionEstadia"
                 ><i class="fa fa-home"></i> Inicio
               </a>
-            </div>            
-          </div>     
+            </div>
+          </div>
         </div>
       </div>
     </form>

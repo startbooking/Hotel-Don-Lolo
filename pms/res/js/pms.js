@@ -718,7 +718,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     let button = $(event.relatedTarget);
     let id = button.data("id");
     let nombre = button.data("nombre");
-    
     $("#editaPer").val(1);
 
     var parametros = {
@@ -3515,7 +3514,7 @@ function imprimeInformeAuditoria(informe, titulo) {
       nombres,
     },
   }).done(function (data) {
-    console.log(data);
+    // console.log(data);
   
     $("#plantilla").html("");
     $("#plantilla").html(`<div class="content-wrapper"> 
@@ -3525,7 +3524,7 @@ function imprimeInformeAuditoria(informe, titulo) {
             <div class="row">
               <div class="col-lg-9">
                 <input type="hidden" name="usuarioActivo" id="usuarioActivo" value="${usuario}">
-                <input type="hidden" name="rutaweb" id="rutaweb" value="${web}">                  
+                <input type="hidden" name="rutaweb" id="rutaweb" value="${web}">
                 <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-clone"></i> ${titulo} </h3>
               </div>
             </div>
@@ -3563,7 +3562,7 @@ function auditoriaCronologico() {
             <div class="row">
               <div class="col-lg-9">
                 <input type="hidden" name="usuarioActivo" id="usuarioActivo" value="${usuario}">
-                <input type="hidden" name="rutaweb" id="rutaweb" value="${web}">                  
+                <input type="hidden" name="rutaweb" id="rutaweb" value="${web}">
                 <input type="hidden" name="ubicacion" id="ubicacion" value="huespedesPorHabitacion">
                 <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-industry"></i> Informe de Huespedes en Casa Por Habitacion </h3>
               </div>
@@ -3571,9 +3570,7 @@ function auditoriaCronologico() {
           </div>
           <div class="panel-body">
             <div class="imprimeInforme">
-              <object id="verInforme" width="100%" style="height:75vh" data="imprimir/informes/${$.trim(
-      data
-    )}"></object> 
+              <object id="verInforme" width="100%" style="height:75vh" data="imprimir/informes/${$.trim(data)}"></object> 
             </div>
           </div>
         </div>
@@ -3593,14 +3590,14 @@ function auditoriaHuespedes() {
     type: "POST",
   }).done(function (data) {
     $("#plantilla").html("");
-    $("#plantilla").html(`<div class="content-wrapper"> 
+    $("#plantilla").html(`<div class="content-wrapper">
       <section class="content">
         <div class="panel panel-success">
-          <div class="panel-heading"> 
+          <div class="panel-heading">
             <div class="row">
               <div class="col-lg-9">
                 <input type="hidden" name="usuarioActivo" id="usuarioActivo" value="${usuario}">
-                <input type="hidden" name="rutaweb" id="rutaweb" value="${web}">                  
+                <input type="hidden" name="rutaweb" id="rutaweb" value="${web}">
                 <input type="hidden" name="ubicacion" id="ubicacion" value="huespedesPorHabitacion">
                 <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-industry"></i> Informe de Huespedes en Casa Por Habitacion </h3>
               </div>
@@ -3608,9 +3605,7 @@ function auditoriaHuespedes() {
           </div>
           <div class="panel-body">
             <div class="imprimeInforme">
-              <object id="verInforme" width="100%" style="height:75vh" data="imprimir/informes/${$.trim(
-      data
-    )}"></object> 
+              <object id="verInforme" width="100%" style="height:75vh" data="imprimir/informes/${$.trim(data)}"></object>
             </div>
           </div>
         </div>
@@ -4343,7 +4338,7 @@ async function guardaHuesped(e) {
     contentType: false,
     processData: false,
     success: function (resp) {
-      mensajeCrea(resp, 'Huesped', 'huespedesPerfil', creaRese)
+      mensajeCrea(resp, 'Huesped Creado', 'huespedesPerfil', creaRese)
     },
   });
 }
@@ -4353,7 +4348,7 @@ function mensajeCrea(resp, texto, pagina, creaRese) {
   if (id != "0") {
     swal({
       title: "Atencion!",
-      text: `${texto} Creado Con Exito`,
+      text: `${texto}  Con Exito`,
       type: "success",
       confirmButtonText: "Aceptar",
       closeOnConfirm: true,
@@ -4381,7 +4376,7 @@ function mostrarAlerta(mensaje, campo) {
   if ((alerta.classList.contains = "oculto")) {
     alerta.classList.remove("oculto");
     alerta.innerHTML = `
-        <h3 class="font-bold tc m0">¡ Error !<br>        
+        <h3 class="font-bold tc m0">¡ Error !<br>
         <span class="block sm:inline">${mensaje}</span>
         </h3>
     `;
@@ -4556,7 +4551,6 @@ function drop(ev) {
   ev.preventDefault();
   var data = ev.dataTransfer.getData("text");
   ev.target.appendChild(document.getElementById(data));
-  // console.log(ev);
 }
 
 function verAuditoria(info) {
@@ -4966,13 +4960,14 @@ function buscaHuespedAcompanante(id) {
   });
 }
 
-function buscaIdentificacion(id) {
+function buscaIdent(ident, id) {
   var web = $("#rutaweb").val();
   var parametros = {
+    ident,
     id,
   };
   $.ajax({
-    url: web + "res/php/buscaIdenAcompana.php",
+    url: web + "res/php/buscaIdenModi.php",
     type: "POST",
     dataType: "json",
     data: parametros,
@@ -4988,11 +4983,42 @@ function buscaIdentificacion(id) {
           closeOnConfirm: true,
         },    
         function () { 
-          document.querySelector('#identifica').value = ''
-          document.querySelector('#identifica').focus
+          document.querySelector('#identificaUpd').value = ''
+          document.querySelector('#identificaUpd').focus
         }
       );
     }
+    },
+  });
+}
+
+
+function buscaIdentificacion(id) {
+  var web = $("#rutaweb").val();
+  var parametros = {
+    id,
+  };
+  $.ajax({
+    url: web + "res/php/buscaIdenAcompana.php",
+    type: "POST",
+    dataType: "json",
+    data: parametros,
+    success: function (datos) {
+      if(datos.length !== 0){
+        let { identificacion } = datos[0];    
+        swal({
+            title: "Atencion!",
+            text: `Identificacion ${identificacion} Ya existe, NO permitido Duplicar`,
+            type: "error",
+            confirmButtonText: "Aceptar",
+            closeOnConfirm: true,
+          },
+          function () {
+            document.querySelector('#identifica').value = ''
+            document.querySelector('#identifica').focus
+          }
+        );
+      }
     },
   });
 }
@@ -5898,6 +5924,8 @@ async function actualizaHuesped() {
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var parametros = $("#formUpdateHuesped").serialize();
+  let creaRese = parseInt($("#creaReser").val());
+
 
   let formHuesped = document.querySelector('#formUpdateHuesped')
   let dataHuesp = new FormData(formHuesped)
@@ -5917,11 +5945,11 @@ async function actualizaHuesped() {
     contentType: false,
     processData: false,
     url: "res/php/updateHuesped.php",
-    success: function (datos) {
-      $(location).attr("href", pagina);
+    success: function (resp) {
+      mensajeCrea(resp, 'Huesped Actualizado', 'huespedesPerfil', creaRese)
     },
   });
-}
+} 
 
 function actualizaCiaHuesped() {
   var web = $("#rutaweb").val();

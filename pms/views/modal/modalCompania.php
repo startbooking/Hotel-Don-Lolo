@@ -24,9 +24,7 @@
                 <?php
                 $tipodocs = $hotel->getTipoDocumento();
                 foreach ($tipodocs as $tipodoc) { ?>
-                  <option value="<?php echo $tipodoc['id_doc']; ?>" <?php
-                                                  if ($tipodoc['id_doc'] == 8) { ?> selected <?php
-                                                                                                              }
+                  <option value="<?php echo $tipodoc['id_doc']; ?>" <?php if ($tipodoc['id_doc'] == 8) { ?> selected <?php }
                                                                                                                 ?>><?php echo $tipodoc['descripcion_documento']; ?></option>
                 <?php } ?>
               </select>
