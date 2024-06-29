@@ -1,4 +1,4 @@
-<?php 
+<?php
 	$usuario = $_SESSION['usuario'];
 	$fecha   = FECHA_PMS;
 
@@ -19,6 +19,3 @@
 	$borracan   = $hotel->borraHistoricoSalidas($fecha,'SA');
 
 ?>
-<script>
-
-</script>

@@ -12,22 +12,22 @@
   $fecha = FECHA_PMS;
 
   if (!empty($user)) {
-      $usuario = $user[0]['usuario'];
-      $idusuario = $user[0]['usuario_id'];
+    $usuario = $user[0]['usuario'];
+    $idusuario = $user[0]['usuario_id'];
 
-      $llegan = $hotel->getTotalHuespedeseLlegando();
-      $salen = $hotel->getSalidasDelDia($fecha);
+    $llegan = $hotel->getTotalHuespedeseLlegando();
+    $salen = $hotel->getSalidasDelDia($fecha);
 
-      $registro = count($hotel->registrosHotelerosSinImprimir($fecha));
+    $registro = count($hotel->registrosHotelerosSinImprimir($fecha));
 
-      if ($salen != 0 || $registro != 0) {
-          if ($salen != 0) {
-              require_once 'habitacionesSinSalir.php';
-          }
-          if ($registro != 0) {
-              require_once 'registrosSinImprimir.php';
-          }
-      } else { ?>     
+    if ($salen != 0 || $registro != 0) {
+      if ($salen != 0) {
+        require_once 'habitacionesSinSalir.php';
+      }
+      if ($registro != 0) {
+        require_once 'registrosSinImprimir.php';
+      }
+    } else { ?>
         <?php
           $activaAud = $hotel->EstadoAuditoriaPMS(1);
           $procesos = $hotel->getProcesoAuditoria();

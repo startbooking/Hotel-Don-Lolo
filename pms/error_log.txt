@@ -1,1 +1,0 @@
-[28-May-2024 12:54:52 America/Bogota] PHP Parse error:  syntax error, unexpected token "echo", expecting "function" or "const" in /var/www/donlolo.lan/res/php/funciones.php on line 983
