@@ -1488,11 +1488,11 @@ class Hotel_Actions{
         $data = $database->query(
             "
         SELECT
-            paquetes.codigo_vta, 
-            paquetes.codigo_excento, 
-            paquetes.valor, 
-            paquetes_tarifas.id_tarifa, 
-            paquetes_tarifas.id_paquete, 
+            paquetes.codigo_vta,
+            paquetes.codigo_excento,
+            paquetes.valor,
+            paquetes_tarifas.id_tarifa,
+            paquetes_tarifas.id_paquete,
             codigos_vta.id_impto,
             codigos_vta.porcentaje_impto,
             codigos_vta.decreto_turismo,

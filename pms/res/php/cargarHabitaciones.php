@@ -49,7 +49,7 @@ if ($regis >= 1 && $tipo == 2) { ?>
           }
           ?>
         </tbody>
-      </table>
+      </table> 
     </div>
   </div>
 <?php
@@ -142,6 +142,7 @@ if ($regis >= 1 && $tipo == 2) { ?>
               $nuevototal = round($nuevototal, 0);
               $iva = $codigoVentaExc[0]['id_impto'];
               $textocodigo = $codigoVentaExc[0]['descripcion_cargo'];
+              $codigocar = $codigoVentaExc[0]['id_cargo'];
             } else {
               $impuesto = $totalcargo - $nuevototal;
             }
