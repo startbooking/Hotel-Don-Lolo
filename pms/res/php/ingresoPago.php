@@ -74,7 +74,7 @@ if ($tipofac == 1) {
 } else {
     $id = $idcia;
     $datosCompania = $hotel->getSeleccionaCompania($id);
-    if ($codigovalorRet == 2) {
+    if ($codigo == 2) {
         $diasCre = $datosCompania[0]['dias_credito'];
         $fechaVen = strtotime('+ ' . $diasCre . ' day', strtotime($fechaFac));
         $fechaVen = date('Y-m-d', $fechaVen);
@@ -121,7 +121,6 @@ if ($tipofac == 2) {
     $tliFact = $hotel->traeIdResponsabilidadDianVenta($datosCompania[0]['responsabilidadTributaria']);
     $munFact = $datosCompania[0]['ciudad'];
     $telFact = $datosCompania[0]['telefono'];
-
 } else {
     $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
     $nitFact = $datosHuesped[0]['identificacion'];
@@ -189,16 +188,16 @@ if ($perfilFac == 1 && $facturador == 1) {
     $eCust['name'] = $nomFact;
     $eCust['email'] = $emaFact;
 
-    if($tipofac == 2){
-      $eCust['address'] = $dirFact;
-      $eCust['phone'] = $telFact;
-      $eCust['merchant_registration'] = $merFact;
-      $eCust['type_document_identification_id'] = $tdiFact;
-      $eCust['type_organization_id'] = $torFact;
-      $eCust['type_liability_id'] = $tliFact;
-      $eCust['municipality_id'] = $munFact;
-      $eCust['type_regime_id'] = $triFact;
-    } 
+    if ($tipofac == 2) {
+        $eCust['address'] = $dirFact;
+        $eCust['phone'] = $telFact;
+        $eCust['merchant_registration'] = $merFact;
+        $eCust['type_document_identification_id'] = $tdiFact;
+        $eCust['type_organization_id'] = $torFact;
+        $eCust['type_liability_id'] = $tliFact;
+        $eCust['municipality_id'] = $munFact;
+        $eCust['type_regime_id'] = $triFact;
+    }
 
     $ePago['payment_form_id'] = $hotel->traeCodigoDianVenta($codigo);
     $ePago['payment_method_id'] = $hotel->traeCodigoDianVenta($codigo);
@@ -278,9 +277,9 @@ if ($perfilFac == 1 && $facturador == 1) {
     }
 
     if (count($eTaxe) == 0) {
-    $eLmon['tax_exclusive_amount'] = 0;
+        $eLmon['tax_exclusive_amount'] = 0;
     } else {
-    $eLmon['tax_exclusive_amount'] = $subtotales[0]['cargos'] - $totalSinImpto;
+        $eLmon['tax_exclusive_amount'] = $subtotales[0]['cargos'] - $totalSinImpto;
     }
     $eLmon['line_extension_amount'] = $subtotales[0]['cargos'];
     $eLmon['tax_inclusive_amount'] = $subtotales[0]['cargos'] + $subtotales[0]['imptos'];
@@ -326,17 +325,27 @@ if ($perfilFac == 1 && $facturador == 1) {
     // include_once '../../api/enviaFactura.php';
 
     include_once '../../api/nuevoCurl.php';
-    
+
     $recibeCurl = json_decode(trim($respofact), true);
+    $errores = [];
 
-    file_put_contents($envCurl, $eFact . ',',  FILE_APPEND | LOCK_EX);
+/*     file_put_contents($envCurl, $eFact . ',',  FILE_APPEND | LOCK_EX);
     file_put_contents($arcCurl, $respofact . ',',  FILE_APPEND | LOCK_EX);
-
-        // $errores = $recibeCurl['errors'];
+ */
     $noAutorizado = $recibeCurl['message'];
-    $success = $recibeCurl['success'];    
-    $errores = $recibeCurl['errors'];
+    $success = $recibeCurl['success'];
 
+    // echo print_r($recibeCurl);
+    // echo 'Recibe Error '.$recibeCurl['errors'] . ' ACA <br>' ;
+    /* if(property_exists($recibeCurl, 'errors') || $recibeCurl['errors'] != false) {
+        $errores = $recibeCurl['errors'];
+    } */
+
+    if(isset($recibeCurl['errors'])){
+        if($recibeCurl['errors'] != false) {
+            $errores = $recibeCurl['errors'];
+        }
+    }
     $errorMessage = json_encode($recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['ErrorMessage']);
     $Isvalid  = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['IsValid'];
 
@@ -451,11 +460,13 @@ if ($perfilFac == 1 && $facturador == 1) {
 
     $ePDF = json_encode($ePDF);
 
-    /* include_once '../../api/enviaPDF.php';
-    $recibePDF = json_decode($respopdf, true); */
+    /*
+    include_once '../../api/enviaPDF.php';
+    $recibePDF = json_decode($respopdf, true);
 
     file_put_contents($envCurl, $ePDF . ',',  FILE_APPEND | LOCK_EX);
     file_put_contents($arcCurl, $respopdf . ',',  FILE_APPEND | LOCK_EX);
+    */
 } else {
     include_once '../../imprimir/imprimeReciboFactura.php';
 }

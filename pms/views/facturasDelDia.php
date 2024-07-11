@@ -84,7 +84,7 @@ $facturador = $eToken[0]['facturador'];
                           <?php
                           }
                           ?>
-                          <td style="padding:3px 5px;width: 10%;text-align:center;">
+                          <td style="padding:3px 5px;width: 12%;text-align:center;">
                             <?php
                             if ($factura['estadoEnvio'] != Null) { ?>
                               <button class="btn btn-info btn-xs" type="button" data-toggle="modal" data-tipo="0" data-facturador="<?php echo $facturador; ?>" data-apellidos="<?php echo $factura['apellido1'] . ' ' . $factura['apellido2']; ?>" data-nombres="<?php echo $factura['nombre1'] . ' ' . $factura['nombre2']; ?>" data-fechafac="<?php echo $factura['fecha_factura']; ?>" data-numero="<?php echo $factura['factura_numero']; ?>" data-reserva="<?php echo $factura['num_reserva']; ?>" href="#myModalVerFactura" title="Ver Factura">
@@ -123,15 +123,18 @@ $facturador = $eToken[0]['facturador'];
                               <button class="btn btn-primary btn-xs" onclick="event.preventDefault();DonwloadFile('<?php echo $factura['prefijo_factura'] . $factura['factura_numero']; ?>','<?php echo NIT; ?>','zip');" type="button" title="Descarga ZIP Attached">
                                 <i class="fa-solid fa-file-zipper"></i>
                               </button>
+                              <button class="btn btn-warning btn-xs" onclick="event.preventDefault();facturaDetallada('<?php echo $factura['prefijo_factura'] . $factura['factura_numero']; ?>');" type="button" title="Imprimir Factura Detallada">
+                                <i class="fa-solid fa-bars"></i>
+                              </button>
                               <!-- <button 
-                              class="btn btn-default btn-xs"                               
+                              class="btn btn-default btn-xs"
                               onclick="event.preventDefault();ValidaFactura('<?= FECHA_PMS ?>',`FES-<?php echo $factura['prefijo_factura'] . $factura['factura_numero']; ?>`,'<?php echo $correoFac; ?>');" 
                               type="button" 
                               title="Ver Constancia Envio Factura ">
                               <i class="fa-solid fa-envelope-circle-check"></i>
                             </button>
                             <button 
-                              class="btn btn-success btn-xs"                               
+                              class="btn btn-success btn-xs"
                               onclick="event.preventDefault();ValidaDIAN('<?= $factura['cufe']; ?>');" 
                               type="button" 
                               title="Valida Estado DIAN  ">

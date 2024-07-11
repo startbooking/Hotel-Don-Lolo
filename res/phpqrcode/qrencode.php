@@ -141,6 +141,7 @@
             } else if($this->count < $this->dataLength + $this->eccLength) {
                 $row = ($this->count - $this->dataLength) % $this->blocks;
                 $col = ($this->count - $this->dataLength) / $this->blocks;
+                echo $this->rsblocks[$row]->ecc[$col];
                 $ret = $this->rsblocks[$row]->ecc[$col];
             } else {
                 return 0;

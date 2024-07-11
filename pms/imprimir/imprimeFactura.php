@@ -8,9 +8,10 @@ $size = 100; // Tamaño en píxeles
 $level = 'L'; // Nivel de corrección (L, M, Q, H)
 
 // Generar el código QR
-if(DEV==0){
-  QRcode::png($QRStr, $filename, $level, $size);
-}
+QRcode::png($QRStr, $filename, $level, $size); 
+
+/* if(DEV==0){
+} */
 
 $aplicarete = 0;
 $aplicaiva = 0;
@@ -61,9 +62,9 @@ $pdf = new FPDF();
 $pdf->AddPage('P', 'letter');
 $pdf->Rect(10, 50, 190, 210);
 $pdf->Image('../../../img/'.LOGO, 10, 5, 40);
-if (DEV == 0) {
-  $pdf->Image($filename, 163, 5, 35);
-}
+/* if (DEV == 0) {
+} */
+$pdf->Image($filename, 163, 5, 35);
 
 
 $pdf->SetFont('Arial', 'B', 11);
@@ -104,7 +105,7 @@ if ($tipofac == 2) {
     $pdf->SetFont('Arial', '', 8);
     $pdf->Cell(30, 4, 'RAZON SOCIAL', 0, 0, 'L');
     $pdf->SetFont('Arial', 'B', 8);
-    $pdf->Cell(120, 4, substr($datosCompania[0]['empresa'],0,29), 0, 0, 'L');
+    $pdf->Cell(120, 4, substr($datosCompania[0]['empresa'],0,70), 0, 0, 'L');
     $pdf->SetFont('Arial', '', 8);
     $pdf->Cell(10, 4, 'NIT.', 0, 0, 'L');
     $pdf->SetFont('Arial', 'B', 8);
