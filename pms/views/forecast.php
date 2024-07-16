@@ -1,48 +1,44 @@
-<?php 
-  $fechapms = $hotel->getDatePms();
+<?php
+$fechapms = $hotel->getDatePms();
 
-  $tipohabis = $hotel->getTipoHabitacion();
+$tipohabis = $hotel->getTipoHabitacion();
 
-  $rooms    = $hotel->getHabitaciones(CTA_MASTER);
-  $fechaini = $hotel->getPrimerDia(CTA_MASTER);
-  $fechafin = $hotel->getUltimoDia(CTA_MASTER);
-  $fecha1   = strtotime ($fechaini);
-  $fecha2   = strtotime ($fechafin);
-  $resta    = $fecha2 - $fecha1;
-  $dias     = ($resta / (24 * 60 * 60))+1;
-  if($dias<30){
-    $dias = 30; 
-  }
+$rooms    = $hotel->getHabitaciones(CTA_MASTER);
+$fechaini = $hotel->getPrimerDia(CTA_MASTER);
+$fechafin = $hotel->getUltimoDia(CTA_MASTER);
+$fecha1   = strtotime($fechaini);
+$fecha2   = strtotime($fechafin);
+$resta    = $fecha2 - $fecha1;
+$dias     = ($resta / (24 * 60 * 60)) + 1;
+if ($dias < 30) {
+  $dias = 30;
+}
 
-  ?>
-<div class="content-wrapper"> 
+?>
+<div class="content-wrapper">
   <section class="content" style="margin-bottom: 10px !important">
     <div class="panel panel-success">
       <div class="panel-heading">
         <div class="row">
           <div class="col-lg-6 col-xs-12">
-            <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_PMS?>">
+            <input type="hidden" name="rutaweb" id="rutaweb" value="<?= BASE_PMS ?>">
             <input type="hidden" name="ubicacion" id="ubicacion" value="forecast">
             <h3 class="w3ls_head tituloPagina" style="padding:0;"> <i style="color:black;" class="fa fa-calendar ga-2x" aria-hidden="true"></i> Forecast Hotel</h3>
           </div>
-          <div class="col-lg-6 col-xs-12" >
+          <div class="col-lg-6 col-xs-12">
             <div class="wrap">
               <div class="store-wrapper">
-                <div class="category_list pull-right">                  
+                <div class="category_list pull-right">
                   <a href="#" class="btn btn-primary category_item " category="all">Todo</a>
                   <?php
-                    foreach($tipohabis as $tipohabi){
-                      ?>
-                      <a href="#" 
-                        class="category_item btn btn-danger" 
-                        category="<?= $tipohabi['codigo'];?>"
-                        title="<?=$tipohabi['descripcion_habitacion']?>"
-                        >
-                      <?= $tipohabi['codigo'];?>
-                      </a>
-                      <?php
-                    }
-                  ?>                  
+                  foreach ($tipohabis as $tipohabi) {
+                  ?>
+                    <a href="#" class="category_item btn btn-danger" category="<?= $tipohabi['codigo']; ?>" title="<?= $tipohabi['descripcion_habitacion'] ?>">
+                      <?= $tipohabi['codigo']; ?>
+                    </a>
+                  <?php
+                  }
+                  ?>
                 </div>
               </div>
             </div>
@@ -51,131 +47,112 @@
       </div>
       <div class="panel-body" style="padding:0;">
         <div class="row-fluid products-list" style="overflow:auto;">
-          <?php $anchop = $dias*44; ?>
+          <?php $anchop = $dias * 44; ?>
           <div class="col-sm-11 col-sm-offset-1" style="width: 1400px;padding:2px;height: 26px;">
-            <?php 
-              for ($i = 0; $i <= $dias; $i++) {
-                $fecha      = strtotime ( '+'.$i.'day',strtotime($fechaini)); ?>
-                  <div class="col-sm-1 btn btn-warning btn-sm" style="width: 40px;border-radius: 0px;padding:1px" title="<?= date('Y-m-d',$fecha)?>">
-                    <?=date ('d', $fecha );?>
-                  </div>
-                <?php
-              } 
-            ?>   
-          </div>                
-          <div class="col-sm-1" style="padding-left:2px;padding-right: 0">
-            <?php 
-            foreach ($rooms as $room) { ?>
-              <button 
-                style="width: 100%;padding:1px;margin-bottom: 1px;border-radius: 0" 
-                class="btn btn-success product-item" 
-                type="button" 
-                title="<?=$room['descripcion_habitacion']?>"
-                category="<?=$room['tipo_hab']?>"
-              >
-                <?=$room['tipo_hab'].' '.$room['numero_hab']?>
-              </button>
-              <?php 
+            <?php
+            for ($i = 0; $i <= $dias; $i++) {
+              $fecha      = strtotime('+' . $i . 'day', strtotime($fechaini)); ?>
+              <div class="col-sm-1 btn btn-warning btn-sm" style="width: 40px;border-radius: 0px;padding:1px" title="<?= date('Y-m-d', $fecha) ?>">
+                <?= date('d', $fecha); ?>
+              </div>
+            <?php
             }
-            ?>      
+            ?>
+          </div>
+          <div class="col-sm-1" style="padding-left:2px;padding-right: 0">
+            <?php
+            foreach ($rooms as $room) { ?>
+              <button style="width: 100%;padding:1px;margin-bottom: 1px;border-radius: 0" class="btn btn-success product-item" type="button" title="<?= $room['descripcion_habitacion'] ?>" category="<?= $room['tipo_hab'] ?>">
+                <?= $room['tipo_hab'] . ' ' . $room['numero_hab'] ?>
+              </button>
+            <?php
+            }
+            ?>
           </div>
           <div class="col-sm-11" style="padding-left:2px">
-            <?php 
-              foreach ($rooms as $room) { 
-                $numero = $room['numero_hab']; 
+            <?php
+            foreach ($rooms as $room) {
+              $numero = $room['numero_hab'];
+            ?>
+              <div class="row product-item" category="<?= $room['tipo_hab']; ?>" style="width: 1400px;margin-left:0px;">
+                <?php
+                for ($i = 0; $i <= $dias; $i++) {
+                  $fecha      = strtotime('+' . $i . 'day', strtotime($fechaini));
+                  $fechabusca = date('Y-m-d', $fecha);
+                  $estadias   = $hotel->buscaEstadia($fechabusca, $numero);
+
+                  $mmtoHab = $hotel->buscaMmto($fechabusca, $numero);
+
+                  if (count($mmtoHab) !== 0) {
+                    $desdemmto = $mmtoHab[0]['desde_fecha'];
+                    $hastammto = $mmtoHab[0]['hasta_fecha'];
+                    $diasMto = (strtotime($hastammto) - strtotime($desdemmto)) / 86400;
+
+                    $ancho = (40 * $diasMto) - 2;
+
+                    $izq = 42 * $i;
+                    $altoh = 21;
+                    $alto = 1;
                 ?>
-                <div class="row product-item" category="<?=$room['tipo_hab'];?>" style="width: 1400px;margin-left:0px;">
-                  <?php 
-                  for ($i = 0; $i <= $dias; $i++) {
-                    $fecha      = strtotime ( '+'.$i.'day' , strtotime ( $fechaini ) ) ;
-                    $fechabusca = date ('Y-m-d' , $fecha );
-                    $estadias   = $hotel->buscaEstadia($fechabusca,$numero);
-                    
-                    $mmtoHab = $hotel->buscaMmto($fechabusca,$numero);
-                    
-                    if(count($mmtoHab)!==0){
-                      $desdemmto = $mmtoHab[0]['desde_fecha'];
-                      $hastammto = $mmtoHab[0]['hasta_fecha'];
-                      $diasMto = (strtotime($hastammto) - strtotime($desdemmto)) /86400 ;
-                        
-                      $ancho = (40 * $diasMto)-2;
-                      
-                      $izq = 42 * $i ;
-                      $altoh = 21;
-                      $alto = 1;
-                      ?>                                              
-                      <div class="col-sm-1 mmto">
-                          <a 
-                            type="button"
-                            class="btnForecast btn-default"
-                            style="height:<?=$altoh?>px;width:<?=$ancho?>px;margin-top:<?=$alto?>px;" 
-                            class="info btn btn-default reserva" 
-                            title="Habitacion en Mantenimiento Observaciones <?=$mmtoHab[0]['observaciones']?> Desde <?=$mmtoHab[0]['desde_fecha'] ?> Hasta Fecha <?=$mmtoHab[0]['hasta_fecha']?>" 
-                            draggable="true" > Habitacion en Mantenimiento
-                          </a>
-                          <?php 
-                          $alto = $alto + 10;
-                        ?>
-                      </div>
+                    <div class="col-sm-1 mmto">
+                      <a type="button" class="btnForecast btn-default" style="height:<?= $altoh ?>px;width:<?= $ancho ?>px;margin-top:<?= $alto ?>px;" class="info btn btn-default reserva" title="Habitacion en Mantenimiento Observaciones <?= $mmtoHab[0]['observaciones'] ?> Desde <?= $mmtoHab[0]['desde_fecha'] ?> Hasta Fecha <?= $mmtoHab[0]['hasta_fecha'] ?>" draggable="true"> Habitacion en Mantenimiento
+                      </a>
                       <?php
-                    }else                                       
-                    if(count($estadias)==0){                      
-                        $izq = 42 * $i 
-                        ?>                                              
-                        <div class="col-sm-1 libre"></div>
-                      <?php
-                    }else{                      
-                      $izq  = 42 * $i;
-                      $alto = 1;
+                      $alto = $alto + 10;
                       ?>
-                        <div class="col-sm-1 ocupada">
-                          <?php 
-                          if(count($estadias)>1){
-                            $mas   = 1;
-                            $altoh = 10;
-                          }else{
-                            $mas   = 0;
-                            $altoh = 21;
-                          }
-                          foreach ($estadias as $estadia) { 
-                            if($estadia['estado']=='CA'){
-                              $color = 'btn-warning';
-                            }else{
-                              if($mas==1){
-                                $color = 'btn-danger';
-                              }else{                                
-                                $color = 'btn-info';
-                              }
-                            }
-                            $desde = $estadia['fecha_llegada'];
-                            $hasta = $estadia['fecha_salida'];                            
-                            $diasEs = (strtotime($hasta) - strtotime($desde)) /86400 ;
-                            $ancho = (40 * $diasEs)-2;
-                            if($estadia['estado']<>"SA" && $estadia['estado']<>"CX" ){ ?>
-                              <a 
-                                type="button" 
-                                style="height: <?=$altoh?>px;width:<?=$ancho?>px;margin-top:<?=$alto?>px;" 
-                                class="info btn <?=$color?> btnForecast" 
-                                title="Huesped <?=$estadia['apellido1'].' '.$estadia['apellido2'].' '.$estadia['nombre1'].' '.$estadia['nombre2']?> Habitacion <?=$estadia['num_habitacion']?> Adultos <?=$estadia['can_hombres']+$estadia['can_mujeres']?> Niños <?=$estadia['can_ninos']?> Fecha Llegada <?=$estadia['fecha_llegada'] ?> Fecha Salida <?=$estadia['fecha_salida']?> Tarifa $ <?=number_format($estadia['valor_diario'],2)?>" 
-                                draggable="true" 
-                                reserva="<?=$estadia['num_reserva']?>"
-                                estado="<?=$estadia['estado']?>"> 
-                                <!-- <span style="position: fixed;left: 500px; top: 52px;"></span> -->
-                                <?=$estadia['apellido1']?>
-                              </a>
-                              <?php 
-                              $alto = $alto + 10;
-                            }
-                          }
-                          ?>
-                        </div>
-                      <?php 
-                    }
-                  }
+                    </div>
+                  <?php
+                  } else
+                    if (count($estadias) == 0) {
+                    $izq = 42 * $i
                   ?>
-                </div>
-                <?php 
-              }
+                    <div class="col-sm-1 libre"></div>
+                  <?php
+                  } else {
+                    $izq  = 42 * $i;
+                    $alto = 1;
+                  ?>
+                    <div class="col-sm-1 ocupada">
+                      <?php
+                      if (count($estadias) > 1) {
+                        $mas   = 1;
+                        $altoh = 10;
+                      } else {
+                        $mas   = 0;
+                        $altoh = 21;
+                      }
+                      foreach ($estadias as $estadia) {
+                        if ($estadia['estado'] == 'CA') {
+                          $color = 'btn-warning';
+                        } else {
+                          if ($mas == 1) {
+                            $color = 'btn-danger';
+                          } else {
+                            $color = 'btn-info';
+                          }
+                        }
+                        $desde = $estadia['fecha_llegada'];
+                        $hasta = $estadia['fecha_salida'];
+                        $diasEs = (strtotime($hasta) - strtotime($desde)) / 86400;
+                        $ancho = (40 * $diasEs) - 2;
+                        if ($estadia['estado'] <> "SA" && $estadia['estado'] <> "CX") { ?>
+                          <a type="button" style="height: <?= $altoh ?>px;width:<?= $ancho ?>px;margin-top:<?= $alto ?>px;" class="info btn <?= $color ?> btnForecast" title="Huesped <?= $estadia['apellido1'] . ' ' . $estadia['apellido2'] . ' ' . $estadia['nombre1'] . ' ' . $estadia['nombre2'] ?> Habitacion <?= $estadia['num_habitacion'] ?> Adultos <?= $estadia['can_hombres'] + $estadia['can_mujeres'] ?> Niños <?= $estadia['can_ninos'] ?> Fecha Llegada <?= $estadia['fecha_llegada'] ?> Fecha Salida <?= $estadia['fecha_salida'] ?> Tarifa $ <?= number_format($estadia['valor_diario'], 2) ?>" draggable="true" reserva="<?= $estadia['num_reserva'] ?>" estado="<?= $estadia['estado'] ?>">
+                            <!-- <span style="position: fixed;left: 500px; top: 52px;"></span> -->
+                            <?= $estadia['apellido1'] ?>
+                          </a>
+                      <?php
+                          $alto = $alto + 10;
+                        }
+                      }
+                      ?>
+                    </div>
+                <?php
+                  }
+                }
+                ?>
+              </div>
+            <?php
+            }
             ?>
           </div>
         </div><br>
@@ -185,9 +162,8 @@
 </div>
 
 <script>
-    let ancho=screen.width;
-    let alto=screen.height;
-    forecast = document.querySelector('.products-list');
-    forecast.style.height = (alto-268)+'px';
-  </script>
-
+  let ancho = screen.width;
+  let alto = screen.height;
+  forecast = document.querySelector('.products-list');
+  forecast.style.height = (alto - 268) + 'px';
+</script>

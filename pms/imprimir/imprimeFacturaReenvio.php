@@ -266,7 +266,7 @@ $pdf->SetY(226);
 $pdf->SetX(105);
 $pdf->SetFont('Arial', '', 8);
 
-$pdf->MultiCell(95, 6, '  
+$pdf->MultiCell(95, 6, '
                         Nombre                                             Identificacion
 
                         Firma                                              Fecha', 1, 'L');

@@ -147,8 +147,9 @@ form select {
   /* 
   margin-left: 20px;
   border: 1px solid #000; */
-  width: 22px !important;
+  width: 100% !important;
   height: 22px;
+  overflow: hidden;
   }
 
 

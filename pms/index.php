@@ -1,14 +1,14 @@
 <?php
 //   require_once '../res/php/titles.php';
-  require_once '../res/php/app_topHotel.php';
+require_once '../res/php/app_topHotel.php';
 ?>
 <!DOCTYPE html>
 <html>
 
 <head>
-  <title> Sistema Administrativo Hotelero  | SACTel Cloud</title>
-  <?php include_once '../res/shared/archivo_head.php'; ?>
-  <link rel="stylesheet" type="text/css" href="res/css/pms.css">
+    <title> Sistema Administrativo Hotelero | SACTel Cloud</title>
+    <?php include_once '../res/shared/archivo_head.php'; ?>
+    <link rel="stylesheet" type="text/css" href="res/css/pms.css">
 </head>
 
 <body class="skin-green sidebar-mini">
@@ -16,47 +16,47 @@
     if (!isset($_GET['section'])) {
         $_GET['section'] = 'home';
     }
-    include_once 'menus/menu_hotel.php'; 
+    include_once 'menus/menu_hotel.php';
     include_once 'menus/menu_titulo.php';
     ?>
     <div class="content-fluid" id="plantilla">
-      <?php
+        <?php
         if (!isset($_GET['section'])) {
-          require 'views/home.php';
-        }elseif (isset($_GET['section']) && $_GET['section'] == 'index') {
-          require 'views/home.php';
-        }elseif (isset($_GET['section']) && $_GET['section'] == 'cajeroCerrado') {
-          require 'views/cajeroCerrado.php';
-        }elseif (isset($_GET['section']) && $_GET['section'] == 'home') {
-          require 'views/home.php';
-        }elseif (isset($_GET['section']) && $_GET['section'] == 'huespedesPerfil') {
-          require 'views/huespedes.php'; 
-        }elseif (isset($_GET['section']) && $_GET['section'] == 'companias') {
-          require 'views/companias.php';
-        }elseif (isset($_GET['section']) && $_GET['section'] == 'agencias') {
-          require 'views/agencias.php';
-        }elseif (isset($_GET['section']) && $_GET['section'] == 'reservasActivas') {
-          require 'views/reservasActivas.php';
-        }elseif (isset($_GET['section']) && $_GET['section'] == 'forecast') {
-          require 'views/forecast.php';
-        }elseif (isset($_GET['section']) && $_GET['section'] == 'Oldforecast') {
-          require 'views/forecastOld.php';
-        }elseif (isset($_GET['section']) && $_GET['section'] == 'grupos') {
-          require 'views/grupos.php';
-        }elseif (isset($_GET['section']) && $_GET['section'] == 'preregistros') {
-          require 'views/preregistros.php';
-        }elseif (isset($_GET['section']) && $_GET['section'] == 'encasa') {
-          require 'views/encasa.php';
-        }elseif (isset($_GET['section']) && $_GET['section'] == 'llegadasDelDia') {
-          require 'views/llegadasDelDia.php';
-        }elseif (isset($_GET['section']) && $_GET['section'] == 'llegadaSinReserva') {
-          require 'views/llegadaSinReserva.php';
-        }elseif (isset($_GET['section']) && $_GET['section'] == 'salidasDelDia') {
-          require 'views/salidasDelDia.php';
-        }elseif (isset($_GET['section']) && $_GET['section'] == 'salidasRealizadas') {
-          require 'views/salidasRealizadas.php';
-        }elseif (isset($_GET['section']) && $_GET['section'] == 'ventasDirectas') {
-          require 'views/ventasDirectas.php';
+            require 'views/home.php';
+        } elseif (isset($_GET['section']) && $_GET['section'] == 'index') {
+            require 'views/home.php';
+        } elseif (isset($_GET['section']) && $_GET['section'] == 'cajeroCerrado') {
+            require 'views/cajeroCerrado.php';
+        } elseif (isset($_GET['section']) && $_GET['section'] == 'home') {
+            require 'views/home.php';
+        } elseif (isset($_GET['section']) && $_GET['section'] == 'huespedesPerfil') {
+            require 'views/huespedes.php';
+        } elseif (isset($_GET['section']) && $_GET['section'] == 'companias') {
+            require 'views/companias.php';
+        } elseif (isset($_GET['section']) && $_GET['section'] == 'agencias') {
+            require 'views/agencias.php';
+        } elseif (isset($_GET['section']) && $_GET['section'] == 'reservasActivas') {
+            require 'views/reservasActivas.php';
+        } elseif (isset($_GET['section']) && $_GET['section'] == 'forecast') {
+            require 'views/forecast.php';
+        } elseif (isset($_GET['section']) && $_GET['section'] == 'Oldforecast') {
+            require 'views/forecastOld.php';
+        } elseif (isset($_GET['section']) && $_GET['section'] == 'grupos') {
+            require 'views/grupos.php';
+        } elseif (isset($_GET['section']) && $_GET['section'] == 'preregistros') {
+            require 'views/preregistros.php';
+        } elseif (isset($_GET['section']) && $_GET['section'] == 'encasa') {
+            require 'views/encasa.php';
+        } elseif (isset($_GET['section']) && $_GET['section'] == 'llegadasDelDia') {
+            require 'views/llegadasDelDia.php';
+        } elseif (isset($_GET['section']) && $_GET['section'] == 'llegadaSinReserva') {
+            require 'views/llegadaSinReserva.php';
+        } elseif (isset($_GET['section']) && $_GET['section'] == 'salidasDelDia') {
+            require 'views/salidasDelDia.php';
+        } elseif (isset($_GET['section']) && $_GET['section'] == 'salidasRealizadas') {
+            require 'views/salidasRealizadas.php';
+        } elseif (isset($_GET['section']) && $_GET['section'] == 'ventasDirectas') {
+            require 'views/ventasDirectas.php';
         } elseif (isset($_GET['section']) && $_GET['section'] == 'facturacionEstadia') {
             require 'views/facturacionEstadia.php';
         } elseif (isset($_GET['section']) && $_GET['section'] == 'facturacionHuesped') {
@@ -94,7 +94,7 @@
         } elseif (isset($_GET['section']) && $_GET['section'] == 'exportaDocs') {
             require 'views/exportaDocs.php';
         } elseif (isset($_GET['section']) && $_GET['section'] == 'propinas') {
-            require 'views/informePropinas.php'; 
+            require 'views/informePropinas.php';
         } elseif (isset($_GET['section']) && $_GET['section'] == 'historicoNC') {
             require 'views/historicoNC.php';
         } elseif (isset($_GET['section']) && $_GET['section'] == 'historicoReservas') {
@@ -206,8 +206,8 @@
         ?>
     </footer>
     <?php
-        include_once '../res/shared/archivo_script.php';
-        include_once '../views/modal/modalUsuario.php';
+    include_once '../res/shared/archivo_script.php';
+    include_once '../views/modal/modalUsuario.php';
     ?>
     <script src="<?php echo BASE_WEB; ?>res/js/inicio.js"></script>
     <?php
@@ -219,20 +219,19 @@
         include_once 'views/modal/modalCentrosCia.php';
         // include_once 'views/modal/modalAcompanantes.php';
         include_once 'views/modal/modalDocumentosCia.php';
-        
-    } elseif (isset($_GET['section']) && $_GET['section'] == 'huespedesPerfil') {        
-      include_once 'views/modal/modalHuespedes.php';
-      include_once 'views/modal/modalFacturas.php';
-      include_once 'views/modal/modalDocumentos.php';
-    //   include_once 'views/modal/modalAcompanantes.php';  
+    } elseif (isset($_GET['section']) && $_GET['section'] == 'huespedesPerfil') {
+        include_once 'views/modal/modalHuespedes.php';
+        include_once 'views/modal/modalFacturas.php';
+        include_once 'views/modal/modalDocumentos.php';
+        //   include_once 'views/modal/modalAcompanantes.php';  
     } elseif (isset($_GET['section']) && $_GET['section'] == 'agencias') {
         include_once 'views/modal/modalAgencia.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'grupos') {
         include_once 'views/modal/modalGrupos.php';
         include_once 'views/modal/modalCompania.php';
-    } elseif (isset($_GET['section']) && $_GET['section'] == 'reservasActivas' || isset($_GET['section']) && $_GET['section'] == 'forecast' || isset($_GET['section']) && $_GET['section'] == 'Oldforecast')  {
+    } elseif (isset($_GET['section']) && $_GET['section'] == 'reservasActivas' || isset($_GET['section']) && $_GET['section'] == 'forecast' || isset($_GET['section']) && $_GET['section'] == 'Oldforecast') {
         include_once 'views/modal/modalReservas.php';
-        include_once 'views/modal/modalAcompanantes.php'; 
+        include_once 'views/modal/modalAcompanantes.php';
         include_once 'views/modal/modalHuespedes.php';
         include_once 'views/modal/modalCompania.php';
         include_once 'views/modal/modalObservaciones.php';
@@ -252,7 +251,7 @@
         include_once 'views/modal/modalReservas.php';
         include_once 'views/modal/modalAcompanantes.php';
         include_once 'views/modal/modalObservaciones.php';
-        include_once 'views/modal/modalHuespedes.php';        
+        include_once 'views/modal/modalHuespedes.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'llegadaSinReserva') {
         include_once 'views/modal/modalNuevaReserva.php';
         include_once 'views/modal/modalHuespedes.php';
@@ -305,7 +304,16 @@
 
     <script>
         sesion = JSON.parse(localStorage.getItem('sesion'))
-        var { user: {usuario_id, usuario, nombres, apellidos, tipo, estado_usuario_pms} } = sesion;
+        var {
+            user: {
+                usuario_id,
+                usuario,
+                nombres,
+                apellidos,
+                tipo,
+                estado_usuario_pms
+            }
+        } = sesion;
         $('#usuarioActivo').val(usuario)
         $('#nombreUsuario').html(`${apellidos} ${nombres} <span class="caret"></span>`)
         $('#menuClave').html(`
@@ -318,7 +326,7 @@
             href="#myModalCambiarClave" style="padding:10px 15px">Cambiar Contraseña
           </a>
         `)
-        accesoUsuarios()        
+        accesoUsuarios()
     </script>
     <?php
     if (isset($_GET['section']) && $_GET['section'] == 'facturacionHuesped') { ?>
@@ -337,13 +345,13 @@
             if (tipo == 1) {
                 $('#cambiaHuesped').css('display', 'block')
             }
-            if(tipo >= 3){
+            if (tipo >= 3) {
                 $('.menuFicha').css('display', 'block')
             }
             $(function() {
-                $('#example1').DataTable({                
+                $('#example1').DataTable({
                     "iDisplayLength": 50,
-                    "language": { 
+                    "language": {
                         "decimal": "",
                         "emptyTable": "No hay registros",
                         "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
@@ -365,46 +373,44 @@
                     }
                 });
             });
-        </script> 
+        </script>
     <?php
     } elseif (isset($_GET['section']) && $_GET['section'] == 'huespedesPerfil') { ?>
         <script>
             new DataTable('#tablaHuespedes', {
-              lengthMenu: [50, 100, 200, 500],
-              ajax: 'res/php/datasetHuespedes.php',
-              processing: true,
-              serverSide: true,
-              iDisplayLength: 50,
-              language: {
-                sProcessing: "Procesando...",
-                sLengthMenu: "Mostrar _MENU_ registros",
-                sZeroRecords: "No se encontraron resultados",
-                sEmptyTable: "Ningún dato disponible en esta tabla",
-                sInfo: "Mostrando del _START_ al _END_ de un total de _TOTAL_ registros",
-                sInfoEmpty: "Mostrando del 0 al 0 de un total de 0 registros",
-                sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
-                sInfoPostFix: "",
-                sSearch: "Buscar:",
-                sUrl: "",
-                sInfoThousands: ",",
-                sLoadingRecords: "Cargando...",
-                oPaginate: {
-                  sFirst: "Primero",
-                  sLast: "Último",
-                  sNext: "Siguiente",
-                  sPrevious: "Anterior",
+                lengthMenu: [50, 100, 200, 500],
+                ajax: 'res/php/datasetHuespedes.php',
+                processing: true,
+                serverSide: true,
+                iDisplayLength: 50,
+                language: {
+                    sProcessing: "Procesando...",
+                    sLengthMenu: "Mostrar _MENU_ registros",
+                    sZeroRecords: "No se encontraron resultados",
+                    sEmptyTable: "Ningún dato disponible en esta tabla",
+                    sInfo: "Mostrando del _START_ al _END_ de un total de _TOTAL_ registros",
+                    sInfoEmpty: "Mostrando del 0 al 0 de un total de 0 registros",
+                    sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
+                    sInfoPostFix: "",
+                    sSearch: "Buscar:",
+                    sUrl: "",
+                    sInfoThousands: ",",
+                    sLoadingRecords: "Cargando...",
+                    oPaginate: {
+                        sFirst: "Primero",
+                        sLast: "Último",
+                        sNext: "Siguiente",
+                        sPrevious: "Anterior",
+                    },
+                    oAria: {
+                        sSortAscending: ": Activar para ordenar la columna de manera ascendente",
+                        sSortDescending: ": Activar para ordenar la columna de manera descendente",
+                    },
                 },
-                oAria: {
-                  sSortAscending:
-                    ": Activar para ordenar la columna de manera ascendente",
-                  sSortDescending:
-                    ": Activar para ordenar la columna de manera descendente",
-                },
-              },
-              columnDefs: [{
-                targets: "_all",
-                orderable: true
-              }],
+                columnDefs: [{
+                    targets: "_all",
+                    orderable: true
+                }],
             });
             accesoUsuarios()
         </script>

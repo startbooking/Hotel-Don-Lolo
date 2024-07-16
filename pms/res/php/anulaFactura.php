@@ -63,10 +63,9 @@ if ($perfil == 1 && $facturador == 1) {
         $nitFact = $datosHuesped[0]['identificacion'];
         $dvFact = '';
         $nomFact = $datosHuesped[0]['nombre1'] . ' ' . $datosHuesped[0]['nombre2'] . ' ' . $datosHuesped[0]['apellido1'] . ' ' . $datosHuesped[0]['apellido2'];
-        $emaFact = $datosHuesped[0]['email'];    
+        $emaFact = $datosHuesped[0]['email'];
         $tdiFact = $datosHuesped[0]['tipo_identifica'];
         $triFact = $datosHuesped[0]['tipoResponsabilidad'];
-    
     }
 
     $eBill['number'] = strval($dFactura[0]['factura_numero']);
@@ -179,7 +178,7 @@ if ($perfil == 1 && $facturador == 1) {
     $cude = $recibeCurl['cude'];
     $QRStr = $recibeCurl['QRStr'];
     $timeCrea   = $recibeCurl['dian_validation_date_time'];
-    
+
     $respo = '';
 
     $errorMessage = json_encode($recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['ErrorMessage']);
@@ -189,7 +188,7 @@ if ($perfil == 1 && $facturador == 1) {
     $statusMess = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['StatusMessage'];
 
     $message = $recibeCurl['message'];
-    
+
     $regis = $hotel->ingresaDatosFe($numDoc, $prefNC, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cude, $QRStr, '', $Isvalid, '', $errorMessage, $statusCode, $statusDesc, $statusMess);
 
     include_once '../../imprimir/imprimeNotaCredito.php';
@@ -203,10 +202,9 @@ if ($perfil == 1 && $facturador == 1) {
     $ePDF['base64graphicrepresentation'] = $base64NC;
 
     $ePDF = json_encode($ePDF);
-    
+
     include_once '../../api/enviaPDF.php';
     $recibePDF = json_decode($respopdf, true);
-    
 } else {
     include_once '../../imprimir/imprimeNC.php';
 };
@@ -216,4 +214,4 @@ $envia = $hotel->enviaCargosNC($numero);
 $cargos = $hotel->actualizaCargosFacturas($numero, $perfil);
 $anula = $hotel->anulaFactura($numero, $motivo, $usuario, $idusuario, $perfil, $numDoc);
 $regis = $hotel->ingresaNCFactura($numero, $motivo, $idusuario, $numDoc, FECHA_PMS);
-$entra = $hotel->updateEstadoReserva($reserva); 
+$entra = $hotel->updateEstadoReserva($reserva);

@@ -123,7 +123,7 @@ $facturador = $eToken[0]['facturador'];
                               <button class="btn btn-primary btn-xs" onclick="event.preventDefault();DonwloadFile('<?php echo $factura['prefijo_factura'] . $factura['factura_numero']; ?>','<?php echo NIT; ?>','zip');" type="button" title="Descarga ZIP Attached">
                                 <i class="fa-solid fa-file-zipper"></i>
                               </button>
-                              <button class="btn btn-warning btn-xs" onclick="event.preventDefault();facturaDetallada('<?php echo $factura['prefijo_factura'] . $factura['factura_numero']; ?>');" type="button" title="Imprimir Factura Detallada">
+                              <button class="btn btn-warning btn-xs" onclick="event.preventDefault();facturaDetallada('<?php echo $factura['prefijo_factura'] ?>','<?php echo $factura['factura_numero']; ?>');" type="button" title="Imprimir Factura Detallada">
                                 <i class="fa-solid fa-bars"></i>
                               </button>
                               <!-- <button 
@@ -132,18 +132,21 @@ $facturador = $eToken[0]['facturador'];
                               type="button" 
                               title="Ver Constancia Envio Factura ">
                               <i class="fa-solid fa-envelope-circle-check"></i>
-                            </button>
-                            <button 
-                              class="btn btn-success btn-xs"
-                              onclick="event.preventDefault();ValidaDIAN('<?= $factura['cufe']; ?>');" 
-                              type="button" 
-                              title="Valida Estado DIAN  ">
-                              <i class="fa-solid fa-square-check"></i>
-                            </button> -->
+                              </button>
+                              <button 
+                                class="btn btn-success btn-xs"
+                                onclick="event.preventDefault();ValidaDIAN('<?= $factura['cufe']; ?>');" 
+                                type="button" 
+                                title="Valida Estado DIAN  ">
+                                <i class="fa-solid fa-square-check"></i>
+                              </button> -->
                             <?php
                             } else { ?>
                               <button class="btn btn-success btn-xs" onclick="event.preventDefault();reEnviaFactura('<?= $factura['factura_numero']; ?>');" type="button" title="ReProcesar Factura">
                                 <i class="fa fa-location-arrow" aria-hidden="true"></i>
+                              </button>
+                              <button class="btn btn-danger btn-xs" onclick="event.preventDefault();anulaEnvioFactura('<?= $factura['factura_numero']; ?>','<?= $factura['num_reserva']; ?>');" type="button" title="ReProcesar Factura">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
                               </button>
                             <?php
                             }

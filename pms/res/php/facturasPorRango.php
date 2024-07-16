@@ -180,7 +180,7 @@ $facturas = $hotel->getFacturasPorRango($query);
             <?php
             }
             ?>
-            <td style="padding:3px 5px;width: 9%;text-align:center;">
+            <td style="padding:3px 5px;width: 12%;text-align:center;">
               <button class="btn btn-info btn-xs" type="button" data-toggle="modal" data-tipo="0" data-facturador="<?php echo $facturador; ?>" data-fechafac="<?php echo $factura['fecha_factura']; ?>" data-numero="<?php echo $factura['factura_numero']; ?>" data-reserva="<?php echo $factura['numero_reserva']; ?>" href="#myModalVerFactura" title="Ver Factura">
                 <i class="fa fa-file-pdf" aria-hidden="true"></i>
               </button>
@@ -201,6 +201,9 @@ $facturas = $hotel->getFacturasPorRango($query);
               ?>
               <button class="btn btn-primary btn-xs" onclick="event.preventDefault();DonwloadFile('<?php echo $factura['prefijo_factura'] . $factura['factura_numero']; ?>','<?php echo NIT; ?>','zip');" type="button" title="Descarga ZIP Attached">
                 <i class="fa-solid fa-file-zipper"></i>
+              </button>
+              <button class="btn btn-warning btn-xs" onclick="event.preventDefault();facturaDetalladaHistorico('<?php echo $factura['prefijo_factura'] ?>','<?php echo $factura['factura_numero']; ?>');" type="button" title="Imprimir Factura Detallada">
+                <i class="fa-solid fa-bars"></i>
               </button>
             </td>
           </tr>
