@@ -235,6 +235,7 @@ require_once '../res/php/app_topHotel.php';
         include_once 'views/modal/modalHuespedes.php';
         include_once 'views/modal/modalCompania.php';
         include_once 'views/modal/modalObservaciones.php';
+        include_once 'views/modal/modalFacturas.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'preregistros') {
         include_once 'views/modal/modalReservas.php';
         include_once 'views/modal/modalAcompanantes.php';
@@ -246,6 +247,7 @@ require_once '../res/php/app_topHotel.php';
         include_once 'views/modal/modalObservaciones.php';
         include_once 'views/modal/modalHuespedes.php';
         include_once 'views/modal/modalCompania.php';
+        include_once 'views/modal/modalFacturas.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'llegadasDelDia') {
         include_once 'views/modal/modalLlegadasDelDia.php';
         include_once 'views/modal/modalReservas.php';
@@ -267,6 +269,7 @@ require_once '../res/php/app_topHotel.php';
         include_once 'views/modal/modalReservas.php';
         include_once 'views/modal/modalObservaciones.php';
         include_once 'views/modal/modalCompania.php';
+        include_once 'views/modal/modalFacturas.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'ventasDirectas') {
         include_once 'views/modal/modalVentasDirectas.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'facturacionHuesped') {

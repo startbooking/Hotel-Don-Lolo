@@ -4554,9 +4554,13 @@ class Hotel_Actions
             'cargos_pms.id_perfil_factura',
             'cargos_pms.fecha_sistema_cargo',
         ], [
-            'cargos_pms.fecha_cargo' => $fecha,
+            // 'cargos_pms.fecha_cargo' => $fecha,
+            'reservas_pms.num_habitacion[!]' => 8000,
             'cargos_pms.concecutivo_abono[>]' => 0,
             'cargos_pms.factura' => 0,
+            'OR' => [
+                'reservas_pms.num_habitacion[!]' => 9600,
+            ],
             'ORDER' => ['cargos_pms.concecutivo_abono'],
         ]);
 

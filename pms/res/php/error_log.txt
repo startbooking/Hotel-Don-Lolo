@@ -1,0 +1,68 @@
+[17-Jul-2024 10:29:43 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[17-Jul-2024 10:29:43 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[17-Jul-2024 10:29:43 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[17-Jul-2024 10:29:43 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[17-Jul-2024 10:33:12 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[17-Jul-2024 10:33:12 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[17-Jul-2024 10:33:12 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[17-Jul-2024 10:33:12 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[17-Jul-2024 10:34:32 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[17-Jul-2024 10:34:32 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[17-Jul-2024 10:34:32 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[17-Jul-2024 10:34:32 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[17-Jul-2024 10:35:43 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[17-Jul-2024 10:35:43 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[17-Jul-2024 10:35:43 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[17-Jul-2024 10:35:43 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[17-Jul-2024 10:38:31 America/Bogota] PHP Fatal error:  Uncaught ValueError: Path cannot be empty in /var/www/donlolo.lan/res/php/funciones.php:36
+Stack trace:
+#0 /var/www/donlolo.lan/res/php/funciones.php(36): imagecreatefromjpeg()
+#1 /var/www/donlolo.lan/pms/res/php/ingresoDeposito.php(49): crearThumbJPEG()
+#2 {main}
+  thrown in /var/www/donlolo.lan/res/php/funciones.php on line 36
+[17-Jul-2024 10:39:06 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[17-Jul-2024 10:39:06 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[17-Jul-2024 10:39:06 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[17-Jul-2024 10:39:06 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[17-Jul-2024 10:44:03 America/Bogota] PHP Warning:  imagecreatefromjpeg(): gd-jpeg: JPEG library reports unrecoverable error: Not a JPEG file: starts with 0x89 0x50 in /var/www/donlolo.lan/res/php/funciones.php on line 36
+[17-Jul-2024 10:44:03 America/Bogota] PHP Warning:  imagecreatefromjpeg(): &quot;/tmp/phpd7xbSm&quot; is not a valid JPEG file in /var/www/donlolo.lan/res/php/funciones.php on line 36
+[17-Jul-2024 10:44:03 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[17-Jul-2024 10:44:03 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[17-Jul-2024 10:44:03 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[17-Jul-2024 10:44:03 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[17-Jul-2024 11:24:59 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[17-Jul-2024 11:24:59 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[17-Jul-2024 11:24:59 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[17-Jul-2024 11:24:59 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[17-Jul-2024 15:17:39 America/Bogota] PHP Warning:  imagecreatefromjpeg(): gd-jpeg: JPEG library reports unrecoverable error: Not a JPEG file: starts with 0x89 0x50 in /var/www/donlolo.lan/res/php/funciones.php on line 36
+[17-Jul-2024 15:17:39 America/Bogota] PHP Warning:  imagecreatefromjpeg(): &quot;/tmp/phpsUG2IS&quot; is not a valid JPEG file in /var/www/donlolo.lan/res/php/funciones.php on line 36
+[17-Jul-2024 15:17:39 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[17-Jul-2024 15:17:39 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[17-Jul-2024 15:17:39 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[17-Jul-2024 15:17:39 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[17-Jul-2024 15:27:24 America/Bogota] PHP Warning:  imagecreatefromjpeg(): gd-jpeg: JPEG library reports unrecoverable error: Not a JPEG file: starts with 0x89 0x50 in /var/www/donlolo.lan/res/php/funciones.php on line 36
+[17-Jul-2024 15:27:24 America/Bogota] PHP Warning:  imagecreatefromjpeg(): &quot;/tmp/phpfFXPnM&quot; is not a valid JPEG file in /var/www/donlolo.lan/res/php/funciones.php on line 36
+[17-Jul-2024 15:27:24 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[17-Jul-2024 15:27:24 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[17-Jul-2024 15:27:24 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[17-Jul-2024 15:27:24 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[17-Jul-2024 15:32:05 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[17-Jul-2024 15:32:05 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[17-Jul-2024 15:32:05 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[17-Jul-2024 15:32:05 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[17-Jul-2024 16:12:29 America/Bogota] PHP Warning:  Undefined variable $identifica in /var/www/donlolo.lan/pms/res/php/updateHuesped.php on line 8
+[17-Jul-2024 16:12:29 America/Bogota] PHP Deprecated:  strtoupper(): Passing null to parameter #1 ($string) of type string is deprecated in /var/www/donlolo.lan/pms/res/php/updateHuesped.php on line 8
+[17-Jul-2024 16:12:29 America/Bogota] PHP Warning:  PDOStatement::execute(): SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'huespedes.identificacion' in /var/www/donlolo.lan/res/php/Medoo.php on line 565
+[17-Jul-2024 16:12:29 America/Bogota] PHP Fatal error:  Uncaught Error: Call to a member function rowCount() on null in /var/www/donlolo.lan/res/php/functionsHotel.php:6269
+Stack trace:
+#0 /var/www/donlolo.lan/pms/res/php/updateHuesped.php(8): Hotel_Actions->updateHuesped()
+#1 {main}
+  thrown in /var/www/donlolo.lan/res/php/functionsHotel.php on line 6269
+[17-Jul-2024 16:12:31 America/Bogota] PHP Warning:  Undefined variable $identifica in /var/www/donlolo.lan/pms/res/php/updateHuesped.php on line 8
+[17-Jul-2024 16:12:31 America/Bogota] PHP Deprecated:  strtoupper(): Passing null to parameter #1 ($string) of type string is deprecated in /var/www/donlolo.lan/pms/res/php/updateHuesped.php on line 8
+[17-Jul-2024 16:12:31 America/Bogota] PHP Warning:  PDOStatement::execute(): SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'huespedes.identificacion' in /var/www/donlolo.lan/res/php/Medoo.php on line 565
+[17-Jul-2024 16:12:31 America/Bogota] PHP Fatal error:  Uncaught Error: Call to a member function rowCount() on null in /var/www/donlolo.lan/res/php/functionsHotel.php:6269
+Stack trace:
+#0 /var/www/donlolo.lan/pms/res/php/updateHuesped.php(8): Hotel_Actions->updateHuesped()
+#1 {main}
+  thrown in /var/www/donlolo.lan/res/php/functionsHotel.php on line 6269

@@ -300,6 +300,8 @@ function actualizaUsuario() {
 }
 
 function adicionaUsuario() {
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let {user:{ usuario_id } } = sesion
   let pagina = $("#ubicacion").val();
   let ruta = $("#rutaweb").val();
   let usuarioNew = $("#formAdicionaUsuario").serializeArray();
@@ -325,7 +327,6 @@ function adicionaUsuario() {
   usuarioNew.push({ name: "Inv", value: Inv });
   usuarioNew.push({ name: "Fe", value: Fe });
   usuarioNew.push({ name: "idUsr", value: usuario_id });
-  // var parametros = usuarioNew;
   $.ajax({
     url: ruta + "res/php/guardaUsuario.php",
     type: "POST",
@@ -1194,7 +1195,7 @@ function actualizaDescuento() {
       $("#montoAdi").val(0);
       $("#porcentajeAdi").focus();
       swal("Precaucion", "Descuento no Permitido", "warning");
-    } else {
+    } else { 
       var parametros = descu;
       $.ajax({
         url: ruta + "res/php/actualizaDescuento.php",
@@ -1206,7 +1207,7 @@ function actualizaDescuento() {
           );
           $(location).attr("href", ruta + pagina);
         },
-      });
+      }); 
     }
   }
 }

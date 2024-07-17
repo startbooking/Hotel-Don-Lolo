@@ -1,6 +1,7 @@
 <?php
 
-function estadoResolucion($tipo){
+function estadoResolucion($tipo)
+{
     switch ($tipo) {
         case 0:
             return '<span class="badge label-warning">Vencida</span>';
@@ -9,11 +10,11 @@ function estadoResolucion($tipo){
         case '2':
             return '<span class="badge label-danger">Sin Definir</span>';
     }
-
 }
 
 
-function tipoPagoDian($tipo){
+function tipoPagoDian($tipo)
+{
     switch ($tipo) {
         case 1:
             return '<span class="badge label-info">Contado</span>';
@@ -22,17 +23,18 @@ function tipoPagoDian($tipo){
         case '':
             return 'Sin Definir';
     }
-
 }
 
-function nombreMes($mes){
+function nombreMes($mes)
+{
     date_default_timezone_set('America/Bogota');
     $nombreMes = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 
     return $nombreMes[$mes - 1];
-} 
+}
 
-function crearThumbJPEG($rutaImagen, $rutaDestino, $anchoThumb = 200, $altoThumb = 150, $calidad = 50){
+function crearThumbJPEG($rutaImagen, $rutaDestino, $anchoThumb = 200, $altoThumb = 150, $calidad = 50)
+{
     $original = imagecreatefromjpeg($rutaImagen);
     if ($original !== false) {
         $thumb = imagecreatetruecolor($anchoThumb, $altoThumb);
@@ -51,7 +53,8 @@ function crearThumbJPEG($rutaImagen, $rutaDestino, $anchoThumb = 200, $altoThumb
     return false;
 }
 
-function sucia($estado){
+function sucia($estado)
+{
     switch ($estado) {
         case 0:
             return 'Limpia';
@@ -62,7 +65,8 @@ function sucia($estado){
     }
 }
 
-function estadoReceta($estado){
+function estadoReceta($estado)
+{
     switch ($estado) {
         case 0:
             return '<span style="font-size:12px;display:block;height:20px;padding:3px" class="label label-danger">en Proceso</span>';
@@ -73,11 +77,13 @@ function estadoReceta($estado){
     }
 }
 
-function generateRandomString($length = 10){
+function generateRandomString($length = 10)
+{
     return substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, $length);
 }
 
-function edad($fecha_nacimiento){
+function edad($fecha_nacimiento)
+{
     $tiempo = strtotime($fecha_nacimiento);
     $ahora = time();
     $edad = ($ahora - $tiempo) / (60 * 60 * 24 * 365.25);
@@ -86,7 +92,8 @@ function edad($fecha_nacimiento){
     return substr($edad1, 3, 3);
 }
 
-function estado($estado){
+function estado($estado)
+{
     switch ($estado) {
         case 0:
             return '<span style="font-size:12px;display:block;height:20px;padding:3px" class="label label-danger">Bloqueado</span>';
@@ -97,7 +104,8 @@ function estado($estado){
     }
 }
 
-function estadoProducto($estado){
+function estadoProducto($estado)
+{
     switch ($estado) {
         case 0:
             return '<span style="font-size:12px;display:block;height:20px;padding:3px" class="label label-danger">In-Activa</span>';
@@ -108,7 +116,8 @@ function estadoProducto($estado){
     }
 }
 
-function estadoFacturaImp($estado){
+function estadoFacturaImp($estado)
+{
     switch ($estado) {
         case 0:
             return 'Activa';
@@ -119,7 +128,8 @@ function estadoFacturaImp($estado){
     }
 }
 
-function estadoFactura($estado){
+function estadoFactura($estado)
+{
     switch ($estado) {
         case 0:
             return '<span class="alert alert-info alert-function">Activa</span>';
@@ -128,13 +138,14 @@ function estadoFactura($estado){
         case 'A':
             return '<span class="alert alert-info alert-function">Activa</span>';
         case 'X':
-            return '<span class="alert alert-danger alert-function">Anulada</span>'; 
+            return '<span class="alert alert-danger alert-function">Anulada</span>';
         case 2:
             return '<span class="alert alert-default alert-function">Sin Definir</span>';
     }
 }
 
-function estadoDocumento($estado){
+function estadoDocumento($estado)
+{
     switch ($estado) {
         case 0:
             return '<span class="badge label-info">Activo</span>';
@@ -143,7 +154,8 @@ function estadoDocumento($estado){
     }
 }
 
-function operacionDocumento($estado){
+function operacionDocumento($estado)
+{
     switch ($estado) {
         case 1:
             return '<span class="badge label-info">Individual</span>';
@@ -152,7 +164,8 @@ function operacionDocumento($estado){
     }
 }
 
-function estadoDocumentoDIAN($estado){
+function estadoDocumentoDIAN($estado)
+{
     switch ($estado) {
         case '0':
             return '<span class="alert alert-warning alert-function">No Procesada</span>';
@@ -165,7 +178,8 @@ function estadoDocumentoDIAN($estado){
     }
 }
 
-function estadoFacturaDIAN($estado){
+function estadoFacturaDIAN($estado)
+{
     switch ($estado) {
         case '0':
             return '<span style="font-size:12px" class="alert alert-warning alert-function">No Procesada</span>';
@@ -178,20 +192,22 @@ function estadoFacturaDIAN($estado){
     }
 }
 
-function tipoCompania($estado){
-  switch ($estado) {
-    case 0:
-      return '<span style="font-size:12px" class="label label-default">Sin Definir</span>';
-    case 1:
-      return '<span style="font-size:12px" class="label label-warning">Proveedor</span>';
-    case 2:
-      return '<span style="font-size:12px" class="label label-success">Tercero</span>';
-    case 3:
-      return '<span style="font-size:12px" class="label label-success">Ambos</span>';
-  }
+function tipoCompania($estado)
+{
+    switch ($estado) {
+        case 0:
+            return '<span style="font-size:12px" class="label label-default">Sin Definir</span>';
+        case 1:
+            return '<span style="font-size:12px" class="label label-warning">Proveedor</span>';
+        case 2:
+            return '<span style="font-size:12px" class="label label-success">Tercero</span>';
+        case 3:
+            return '<span style="font-size:12px" class="label label-success">Ambos</span>';
+    }
 }
 
-function estadoCompania($estado){
+function estadoCompania($estado)
+{
     switch ($estado) {
         case 0:
             return '<span style="font-size:12px" class="label label-default">Sin Definir</span>';
@@ -202,7 +218,8 @@ function estadoCompania($estado){
     }
 }
 
-function tipoUsuario($user){
+function tipoUsuario($user)
+{
     if ($user == '1') {
         return '<span style="font-size:12px" class="label label-success">Administrador</span>';
     }
@@ -220,7 +237,8 @@ function tipoUsuario($user){
     }
 }
 
-function estadoUsuario($user){
+function estadoUsuario($user)
+{
     if ($user == '0') {
         return '<span style="font-size:12px" class="label label-warning">InActivo</span>';
     }
@@ -235,14 +253,16 @@ function estadoUsuario($user){
     }
 }
 
-function ciudad_destino2($code){
+function ciudad_destino2($code)
+{
     $user = new User_Actions();
     $ciudad = $user->getCityName($code);
 
     return $ciudad;
 }
 
-function ciudad_hotel($code){
+function ciudad_hotel($code)
+{
     $user = new User_Actions();
     $codecity = $user->getCityHotel($code);
     $ciudad = $user->getCityName($codecity);
@@ -250,17 +270,19 @@ function ciudad_hotel($code){
     return $ciudad;
 }
 
-function clean_string($string){
+function clean_string($string)
+{
     $bad = ['content-type', 'bcc:', 'to:', 'cc:', 'href'];
 
     return str_replace($bad, '', $string);
 }
 
-function getRealIP2(){
+function getRealIP2()
+{
     if ($_SERVER['HTTP_X_FORWARDED_FOR'] != '') {
         $client_ip = (!empty($_SERVER['REMOTE_ADDR'])) ?
-        $_SERVER['REMOTE_ADDR'] : ((!empty($_ENV['REMOTE_ADDR'])) ?
-        $_ENV['REMOTE_ADDR'] : 'unknown');
+            $_SERVER['REMOTE_ADDR'] : ((!empty($_ENV['REMOTE_ADDR'])) ?
+                $_ENV['REMOTE_ADDR'] : 'unknown');
 
         // los proxys van añadiendo al final de esta cabecera
         // las direcciones ip que van "ocultando". Para localizar la ip real
@@ -276,11 +298,12 @@ function getRealIP2(){
             if (preg_match("/^([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)/", $entry, $ip_list)) {
                 // http://www.faqs.org/rfcs/rfc1918.html
                 $private_ip = [
-                                '/^0\./',
-                        '/^127\.0\.0\.1/',
-                        '/^192\.168\..*/',
-                        '/^172\.((1[6-9])|(2[0-9])|(3[0-1]))\..*/',
-                        '/^10\..*/'];
+                    '/^0\./',
+                    '/^127\.0\.0\.1/',
+                    '/^192\.168\..*/',
+                    '/^172\.((1[6-9])|(2[0-9])|(3[0-1]))\..*/',
+                    '/^10\..*/'
+                ];
 
                 $found_ip = preg_replace($private_ip, $client_ip, $ip_list[1]);
                 if ($client_ip != $found_ip) {
@@ -291,34 +314,17 @@ function getRealIP2(){
         }
     } else {
         $client_ip = (!empty($_SERVER['REMOTE_ADDR'])) ?
-        $_SERVER['REMOTE_ADDR'] : ((!empty($_ENV['REMOTE_ADDR'])) ?
-        $_ENV['REMOTE_ADDR'] : 'unknown');
+            $_SERVER['REMOTE_ADDR'] : ((!empty($_ENV['REMOTE_ADDR'])) ?
+                $_ENV['REMOTE_ADDR'] : 'unknown');
     }
 
     return $client_ip;
 }
 
-function consultar($campo, $tabla, $where){
-    $sql = mysqli_query("SELECT * FROM $tabla WHERE $where");
-    if ($row = mysqli_fetch_array($sql)) {
-        return $row[$campo];
-    } else {
-        return '';
-    }
-}
-
-function abonos_saldo($cuenta){
-    $sql = mysql_query("SELECT SUM(valor) as valores FROM abono WHERE cuenta='$cuenta'");
-    if ($row = mysql_fetch_array($sql)) {
-        return $row['valores'];
-    } else {
-        return 0;
-    }
-}
-
-function encrypt($string, $key){
+function encrypt($string, $key)
+{
     $result = '';
-    $key = $key.'2015';
+    $key = $key . '2015';
     for ($i = 0; $i < strlen($string); ++$i) {
         $char = substr($string, $i, 1);
         $keychar = substr($key, ($i % strlen($key)) - 1, 1);
@@ -330,9 +336,10 @@ function encrypt($string, $key){
 }
 // ####CONTRASEÑA DE-ENCRIPTAR
 
-function decrypt($string, $key){
+function decrypt($string, $key)
+{
     $result = '';
-    $key = $key.'2015';
+    $key = $key . '2015';
     $string = base64_decode($string);
     for ($i = 0; $i < strlen($string); ++$i) {
         $char = substr($string, $i, 1);
@@ -344,37 +351,42 @@ function decrypt($string, $key){
     return $result;
 }
 
-function diaSemana($ano, $mes, $dia){
+function diaSemana($ano, $mes, $dia)
+{
     $dias = ['DOMINGO', 'LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES', 'SABADO'];
     $dia = date('w', mktime(0, 0, 0, $mes, $dia, $ano));
 
     return $dias[$dia];
 }
 
-function cadenas(){
+function cadenas()
+{
     return 'YABCDFGJAH';
 }
 
-function fecha($fecha){
+function fecha($fecha)
+{
     $meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
     $a = substr($fecha, 0, 4);
     $m = substr($fecha, 5, 2);
     $d = substr($fecha, 8);
 
-    return $d.' de '.$meses[$m - 1].' de '.$a;
+    return $d . ' de ' . $meses[$m - 1] . ' de ' . $a;
 }
 
-function fechaReserva($fecha){
+function fechaReserva($fecha)
+{
     $meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
     $a = substr($fecha, 0, 4);
     $m = substr($fecha, 5, 2);
     $d = substr($fecha, 8);
     $dia = diaSemana($a, $m, $d);
 
-    return ucfirst(strtolower($dia)).' '.$d.' de '.$meses[$m - 1].' de '.$a;
+    return ucfirst(strtolower($dia)) . ' ' . $d . ' de ' . $meses[$m - 1] . ' de ' . $a;
 }
 
-function estado_c($estado){
+function estado_c($estado)
+{
     if ($estado == 's') {
         return '<span class="label label-success">Activo</span>';
     } elseif ($estado == 'n') {
@@ -382,7 +394,8 @@ function estado_c($estado){
     }
 }
 
-function estado_n($estado){
+function estado_n($estado)
+{
     if ($estado == 1) {
         return '<span class="label label-success">Activo</span>';
     } elseif ($estado == 0) {
@@ -390,7 +403,8 @@ function estado_n($estado){
     }
 }
 
-function estado_usuario($estado){
+function estado_usuario($estado)
+{
     if ($estado == 'N') {
         return '<span class="label label-important">Eliminado</span>';
     } elseif ($estado == 'A') {
@@ -400,7 +414,8 @@ function estado_usuario($estado){
     }
 }
 
-function estado_cliente($estado){
+function estado_cliente($estado)
+{
     if ($estado == 'N') {
         return 'Eliminado';
     } elseif ($estado == '1') {
@@ -410,7 +425,8 @@ function estado_cliente($estado){
     }
 }
 
-function tipo_bod($estado){
+function tipo_bod($estado)
+{
     if ($estado == 1) {
         return '<span class="label label-success">Principal</span>';
     } elseif ($estado == 2) {
@@ -426,7 +442,8 @@ function tipo_bod($estado){
     }
 }
 
-function mensajes($mensaje, $tipo){
+function mensajes($mensaje, $tipo)
+{
     if ($tipo == 'verde') {
         $tipo = 'alert alert-success';
     } elseif ($tipo == 'rojo') {
@@ -435,17 +452,19 @@ function mensajes($mensaje, $tipo){
         $tipo = 'alert alert-info';
     }
 
-    return '<div class="'.$tipo.'" align="center">
+    return '<div class="' . $tipo . '" align="center">
             <button type="button" class="close" data-dismiss="alert">×</button>
-            <strong>'.$mensaje.'</strong>
+            <strong>' . $mensaje . '</strong>
           </div>';
 }
 
-function formato($valor){
+function formato($valor)
+{
     return number_format($valor, 2, ',', '.');
 }
 
-function mysql_escape_mimic($inp){
+function mysql_escape_mimic($inp)
+{
     if (is_array($inp)) {
         return array_map(__METHOD__, $inp);
     }
@@ -457,7 +476,8 @@ function mysql_escape_mimic($inp){
     return $inp;
 }
 
-function limpiar($tags){
+function limpiar($tags)
+{
     $tags = strip_tags($tags);
     $tags = stripslashes($tags);
     $tags = mysql_escape_mimic($tags);
@@ -466,7 +486,8 @@ function limpiar($tags){
     return $tags;
 }
 
-function tipo_mov($tipo){
+function tipo_mov($tipo)
+{
     if ($tipo == '1') {
         return '<span class="label label-success">ENTRADA</span>';
     } else {
@@ -474,7 +495,8 @@ function tipo_mov($tipo){
     }
 }
 
-function frecuencia_pqte($tipo){
+function frecuencia_pqte($tipo)
+{
     if ($tipo == 'D') {
         return '<span class="label label-success" style="font-size:12px">Diaria</span>';
     } else {
@@ -482,7 +504,8 @@ function frecuencia_pqte($tipo){
     }
 }
 
-function tipo_cargo_pqte($tipo){
+function tipo_cargo_pqte($tipo)
+{
     if ($tipo == 'P') {
         return '<span class="label label-success" style="font-size:12px">Por Persona</span>';
     } else {
@@ -490,7 +513,8 @@ function tipo_cargo_pqte($tipo){
     }
 }
 
-function estado_fac($estado){
+function estado_fac($estado)
+{
     if ($estado == 'C') {
         return '<span class="label" style="font-size:1em;background-color:#BF0F0F;pading:5px">Anulada</span>';
     } else {
@@ -498,7 +522,8 @@ function estado_fac($estado){
     }
 }
 
-function estado_pms($estado){
+function estado_pms($estado)
+{
     if ($estado == 1) {
         return '<span class="label label-danger" style="font-size:1em;">Cuenta PMS</span>';
     } else {
@@ -506,24 +531,8 @@ function estado_pms($estado){
     }
 }
 
-function validatePassword2(){
-    // NO son iguales las password
-    if (inputPassword1.val() != inputPassword2.val()) {
-        reqPassword2.addClass('error');
-        inputPassword2.addClass('error');
-
-        return false;
-    }
-    // SI son iguales
-    else {
-        reqPassword2.removeClass('error');
-        inputPassword2.removeClass('error');
-
-        return true;
-    }
-}
-
-function tipo_usuario($estado){
+function tipo_usuario($estado)
+{
     if ($estado == 'A') {
         return '<span class="label label-success">Administrador</span>';
     } elseif ($estado == 'U') {
@@ -535,7 +544,8 @@ function tipo_usuario($estado){
     }
 }
 
-function cambia_est($estado){
+function cambia_est($estado)
+{
     if ($estado == 'S') {
         return 'Activar';
     } elseif ($estado == 'N') {
@@ -543,7 +553,8 @@ function cambia_est($estado){
     }
 }
 
-function derechos($estado){
+function derechos($estado)
+{
     if ($estado == 0) {
         return '<span class="label label-primary">No</span>';
     } elseif ($estado == 1) {
@@ -551,7 +562,8 @@ function derechos($estado){
     }
 }
 
-function tipo_prd($estado){
+function tipo_prd($estado)
+{
     if ($estado == 0) {
         return '<span class="label label-warning" style="font-size:12px;display:block;height:20px;padding:3px">Servicio</span>';
     } elseif ($estado == 1) {
@@ -561,7 +573,8 @@ function tipo_prd($estado){
     }
 }
 
-function tipo_imp($estado){
+function tipo_imp($estado)
+{
     if ($estado == 1) {
         return '<span class="label label-success">Impuesto</span>';
     } elseif ($estado == 2) {
@@ -569,7 +582,8 @@ function tipo_imp($estado){
     }
 }
 
-function numtoletras2($xcifra){
+function numtoletras2($xcifra)
+{
     $xarray = [0 => 'Cero', 1 => 'UN', 'DOS', 'TRES', 'CUATRO', 'CINCO', 'SEIS', 'SIETE', 'OCHO', 'NUEVE', 'DIEZ', 'ONCE', 'DOCE', 'TRECE', 'CATORCE', 'QUINCE', 'DIECISEIS', 'DIECISIETE', 'DIECIOCHO', 'DIECINUEVE', 'VEINTI', 30 => 'TREINTA', 40 => 'CUARENTA', 50 => 'CINCUENTA', 60 => 'SESENTA', 70 => 'SETENTA', 80 => 'OCHENTA', 90 => 'NOVENTA', 100 => 'CIENTO', 200 => 'DOSCIENTOS', 300 => 'TRESCIENTOS', 400 => 'CUATROCIENTOS', 500 => 'QUINIENTOS', 600 => 'SEISCIENTOS', 700 => 'SETECIENTOS', 800 => 'OCHOCIENTOS', 900 => 'NOVECIENTOS'];
     $xcifra = trim($xcifra);
     $xlength = strlen($xcifra);
@@ -578,11 +592,11 @@ function numtoletras2($xcifra){
     $xdecimales = '00';
     if (!($xpos_punto === false)) {
         if ($xpos_punto == 0) {
-            $xcifra = '0'.$xcifra;
+            $xcifra = '0' . $xcifra;
             $xpos_punto = strpos($xcifra, '.');
         }
         $xaux_int = substr($xcifra, 0, $xpos_punto); // obtengo el entero de la cifra a covertir
-        $xdecimales = substr($xcifra.'00', $xpos_punto + 1, 2); // obtengo los valores decimales
+        $xdecimales = substr($xcifra . '00', $xpos_punto + 1, 2); // obtengo los valores decimales
     }
 
     $XAUX = str_pad($xaux_int, 18, ' ', STR_PAD_LEFT); // ajusto la longitud de la cifra, para que sea divisible por centenas de miles (grupos de 6)
@@ -609,15 +623,15 @@ function numtoletras2($xcifra){
                                 $xseek = $xarray[$key];
                                 $xsub = subfijo($xaux); // devuelve el subfijo correspondiente (Millón, Millones, Mil o nada)
                                 if (substr($xaux, 0, 3) == 100) {
-                                    $xcadena = ' '.$xcadena.' CIEN '.$xsub;
+                                    $xcadena = ' ' . $xcadena . ' CIEN ' . $xsub;
                                 } else {
-                                    $xcadena = ' '.$xcadena.' '.$xseek.' '.$xsub;
+                                    $xcadena = ' ' . $xcadena . ' ' . $xseek . ' ' . $xsub;
                                 }
                                 $xy = 3; // la centena fue redonda, entonces termino el ciclo del for y ya no reviso decenas ni unidades
                             } else { // entra aquí si la centena no fue numero redondo (101, 253, 120, 980, etc.)
                                 $key = (int) substr($xaux, 0, 1) * 100;
                                 $xseek = $xarray[$key]; // toma el primer caracter de la centena y lo multiplica por cien y lo busca en el arreglo (para que busque 100,200,300, etc)
-                                $xcadena = ' '.$xcadena.' '.$xseek;
+                                $xcadena = ' ' . $xcadena . ' ' . $xseek;
                             } // ENDIF ($xseek)
                         } // ENDIF (substr($xaux, 0, 3) < 100)
                         break;
@@ -629,18 +643,18 @@ function numtoletras2($xcifra){
                                 $xseek = $xarray[$key];
                                 $xsub = subfijo($xaux);
                                 if (substr($xaux, 1, 2) == 20) {
-                                    $xcadena = ' '.$xcadena.' VEINTE '.$xsub;
+                                    $xcadena = ' ' . $xcadena . ' VEINTE ' . $xsub;
                                 } else {
-                                    $xcadena = ' '.$xcadena.' '.$xseek.' '.$xsub;
+                                    $xcadena = ' ' . $xcadena . ' ' . $xseek . ' ' . $xsub;
                                 }
                                 $xy = 3;
                             } else {
                                 $key = (int) substr($xaux, 1, 1) * 10;
                                 $xseek = $xarray[$key];
                                 if (20 == substr($xaux, 1, 1) * 10) {
-                                    $xcadena = ' '.$xcadena.' '.$xseek;
+                                    $xcadena = ' ' . $xcadena . ' ' . $xseek;
                                 } else {
-                                    $xcadena = ' '.$xcadena.' '.$xseek.' Y ';
+                                    $xcadena = ' ' . $xcadena . ' ' . $xseek . ' Y ';
                                 }
                             } // ENDIF ($xseek)
                         } // ENDIF (substr($xaux, 1, 2) < 10)
@@ -651,7 +665,7 @@ function numtoletras2($xcifra){
                             $key = (int) substr($xaux, 2, 1);
                             $xseek = $xarray[$key]; // obtengo directamente el valor de la unidad (del uno al nueve)
                             $xsub = subfijo($xaux);
-                            $xcadena = ' '.$xcadena.' '.$xseek.' '.$xsub;
+                            $xcadena = ' ' . $xcadena . ' ' . $xseek . ' ' . $xsub;
                         } // ENDIF (substr($xaux, 2, 1) < 1)
                         break;
                 } // END SWITCH
@@ -710,7 +724,8 @@ function numtoletras2($xcifra){
     return trim($xcadena);
 }
 
-function subfijo2($xx){
+function subfijo2($xx)
+{
     $xx = trim($xx);
     $xstrlen = strlen($xx);
     if ($xstrlen == 1 || $xstrlen == 2 || $xstrlen == 3) {
@@ -724,30 +739,6 @@ function subfijo2($xx){
     return $xsub;
 }
 
-/* Funcion Para CArgar los Productos a un list */
-function cargarproducto(){
-    // Conexion a la base de datos
-    // Consulta SQL a ejecutar para obtener los idiomas
-
-    $sql_con = 'SELECT * FROM productos_pos order by nombre';
-    $conn = mysqli_connect('localhost', 'root', 'b4r4h0n4', 'sactel');
-    // Se ejecuta la consulta
-    $result = mysqli_query($conn, $sql_con);
-    $respuesta = '';
-    // Si se obtuvo algun registro se recorre el resultado
-    if ($res = mysqli_num_rows($result) > 0) {
-        // Ciclo para crear la cadena con la lista de productos que va a retornar la funcion
-        while ($fila = $result->fetch_array()) {
-            // A cada producto se le asigna el atributo id, lo vamos a utilizar a la hora de guardar en la base de datos
-            // $respuesta .= '<li style="margin:5px 0; background:#ddd; cursor:move;        padding:5px; list-style-type: none;text-align:center" id="'.$fila['id'].'">'.utf8_encode($fila['nombre']).'</li>';
-            $respuesta .= '
-            <li style="" id="'.$fila['productos_pos_id'].'"><h4 style="font-weight:600;color:#0b344c;font-size:16px;">'.utf8_encode($fila['nombre']).'</h4><span class="badge" style="background-color:#9f4c33;color:#FFF;font-size:16px;">'.number_format($fila['vlr_venta'], 2).'</span> </li>';
-        }
-    }
-    // Se regresa la cadena de respuesta
-    return $respuesta;
-}
-
 /* Calcula del Digito de Verificacion del Nit */
 function calcularDV($nit)
 {
@@ -755,8 +746,10 @@ function calcularDV($nit)
         return false;
     }
 
-    $arr = [1 => 3, 4 => 17, 7 => 29, 10 => 43, 13 => 59, 2 => 7, 5 => 19,
-    8 => 37, 11 => 47, 14 => 67, 3 => 13, 6 => 23, 9 => 41, 12 => 53, 15 => 71];
+    $arr = [
+        1 => 3, 4 => 17, 7 => 29, 10 => 43, 13 => 59, 2 => 7, 5 => 19,
+        8 => 37, 11 => 47, 14 => 67, 3 => 13, 6 => 23, 9 => 41, 12 => 53, 15 => 71
+    ];
     $x = 0;
     $y = 0;
     $z = strlen($nit);
@@ -771,7 +764,7 @@ function calcularDV($nit)
 
     if ($y > 1) {
         $dv = 11 - $y;
-    // return $dv;
+        // return $dv;
     } else {
         $dv = $y;
     }
@@ -796,14 +789,6 @@ function numero_mov($tipo)
     }
 }
 
-function bodegas()
-{
-    $sqlbod = 'select * from bodegas order by nom_alma';
-    $sql = mysqli_query($conn, $sqlbod);
-
-    return $sql;
-}
-
 function numtoletras($xcifra)
 {
     $xarray = [0 => 'Cero', 1 => 'UN', 'DOS', 'TRES', 'CUATRO', 'CINCO', 'SEIS', 'SIETE', 'OCHO', 'NUEVE', 'DIEZ', 'ONCE', 'DOCE', 'TRECE', 'CATORCE', 'QUINCE', 'DIECISEIS', 'DIECISIETE', 'DIECIOCHO', 'DIECINUEVE', 'VEINTI', 30 => 'TREINTA', 40 => 'CUARENTA', 50 => 'CINCUENTA', 60 => 'SESENTA', 70 => 'SETENTA', 80 => 'OCHENTA', 90 => 'NOVENTA', 100 => 'CIENTO', 200 => 'DOSCIENTOS', 300 => 'TRESCIENTOS', 400 => 'CUATROCIENTOS', 500 => 'QUINIENTOS', 600 => 'SEISCIENTOS', 700 => 'SETECIENTOS', 800 => 'OCHOCIENTOS', 900 => 'NOVECIENTOS'];
@@ -814,11 +799,11 @@ function numtoletras($xcifra)
     $xdecimales = '00';
     if (!($xpos_punto === false)) {
         if ($xpos_punto == 0) {
-            $xcifra = '0'.$xcifra;
+            $xcifra = '0' . $xcifra;
             $xpos_punto = strpos($xcifra, '.');
         }
         $xaux_int = substr($xcifra, 0, $xpos_punto); // obtengo el entero de la cifra a covertir
-        $xdecimales = substr($xcifra.'00', $xpos_punto + 1, 2); // obtengo los valores decimales
+        $xdecimales = substr($xcifra . '00', $xpos_punto + 1, 2); // obtengo los valores decimales
     }
 
     $XAUX = str_pad($xaux_int, 18, ' ', STR_PAD_LEFT); // ajusto la longitud de la cifra, para que sea divisible por centenas de miles (grupos de 6)
@@ -845,15 +830,15 @@ function numtoletras($xcifra)
                                 $xseek = $xarray[$key];
                                 $xsub = subfijo($xaux); // devuelve el subfijo correspondiente (Millón, Millones, Mil o nada)
                                 if (substr($xaux, 0, 3) == 100) {
-                                    $xcadena = ' '.$xcadena.' CIEN '.$xsub;
+                                    $xcadena = ' ' . $xcadena . ' CIEN ' . $xsub;
                                 } else {
-                                    $xcadena = ' '.$xcadena.' '.$xseek.' '.$xsub;
+                                    $xcadena = ' ' . $xcadena . ' ' . $xseek . ' ' . $xsub;
                                 }
                                 $xy = 3; // la centena fue redonda, entonces termino el ciclo del for y ya no reviso decenas ni unidades
                             } else { // entra aquí si la centena no fue numero redondo (101, 253, 120, 980, etc.)
                                 $key = (int) substr($xaux, 0, 1) * 100;
                                 $xseek = $xarray[$key]; // toma el primer caracter de la centena y lo multiplica por cien y lo busca en el arreglo (para que busque 100,200,300, etc)
-                                $xcadena = ' '.$xcadena.' '.$xseek;
+                                $xcadena = ' ' . $xcadena . ' ' . $xseek;
                             } // ENDIF ($xseek)
                         } // ENDIF (substr($xaux, 0, 3) < 100)
                         break;
@@ -865,18 +850,18 @@ function numtoletras($xcifra)
                                 $xseek = $xarray[$key];
                                 $xsub = subfijo($xaux);
                                 if (substr($xaux, 1, 2) == 20) {
-                                    $xcadena = ' '.$xcadena.' VEINTE '.$xsub;
+                                    $xcadena = ' ' . $xcadena . ' VEINTE ' . $xsub;
                                 } else {
-                                    $xcadena = ' '.$xcadena.' '.$xseek.' '.$xsub;
+                                    $xcadena = ' ' . $xcadena . ' ' . $xseek . ' ' . $xsub;
                                 }
                                 $xy = 3;
                             } else {
                                 $key = (int) substr($xaux, 1, 1) * 10;
                                 $xseek = $xarray[$key];
                                 if (20 == substr($xaux, 1, 1) * 10) {
-                                    $xcadena = ' '.$xcadena.' '.$xseek;
+                                    $xcadena = ' ' . $xcadena . ' ' . $xseek;
                                 } else {
-                                    $xcadena = ' '.$xcadena.' '.$xseek.' Y ';
+                                    $xcadena = ' ' . $xcadena . ' ' . $xseek . ' Y ';
                                 }
                             } // ENDIF ($xseek)
                         } // ENDIF (substr($xaux, 1, 2) < 10)
@@ -887,7 +872,7 @@ function numtoletras($xcifra)
                             $key = (int) substr($xaux, 2, 1);
                             $xseek = $xarray[$key]; // obtengo directamente el valor de la unidad (del uno al nueve)
                             $xsub = subfijo($xaux);
-                            $xcadena = ' '.$xcadena.' '.$xseek.' '.$xsub;
+                            $xcadena = ' ' . $xcadena . ' ' . $xseek . ' ' . $xsub;
                         } // ENDIF (substr($xaux, 2, 1) < 1)
                         break;
                 } // END SWITCH
@@ -933,7 +918,7 @@ function numtoletras($xcifra)
                     break;
             } // endswitch ($xz)
         } // ENDIF (trim($xaux) != "")
-      // ------------------      en este caso, para México se usa esta leyenda     ----------------
+        // ------------------      en este caso, para México se usa esta leyenda     ----------------
         $xcadena = str_replace('VEINTI ', 'VEINTI', $xcadena); // quito el espacio para el VEINTI, para que quede: VEINTICUATRO, VEINTIUN, VEINTIDOS, etc
         $xcadena = str_replace('  ', ' ', $xcadena); // quito espacios dobles
         $xcadena = str_replace('UN UN', 'UN', $xcadena); // quito la duplicidad
@@ -962,24 +947,26 @@ function subfijo($xx)
 }
 
 /***  The Backup_Database class ***/
-class Backup_Database {
-      var $host;                      ///    * Host where the database is located
-      var $username;                  ///    * Username used to connect to database
-      var $passwd;                    ///    * Password used to connect to database
-      var $dbName;                    ///    * Database to backup
-      var $charset;                   ///    * Database charset
-      var $conn;                      ///    * Database connection
-      var $backupDir;                 ///    * Backup directory where backup files are stored 
-      var $backupFile;                ///    * Output backup file
-      var $gzipBackupFile;            ///    * Use gzip compression on backup file
-      var $output;                    ///    * Content of standard output
-      var $disableForeignKeyChecks;   ///    * Disable foreign key checks
-      var $batchSize;                 ///    * Batch size, number of rows to process per iteration
+class Backup_Database
+{
+    var $host;                      ///    * Host where the database is located
+    var $username;                  ///    * Username used to connect to database
+    var $passwd;                    ///    * Password used to connect to database
+    var $dbName;                    ///    * Database to backup
+    var $charset;                   ///    * Database charset
+    var $conn;                      ///    * Database connection
+    var $backupDir;                 ///    * Backup directory where backup files are stored 
+    var $backupFile;                ///    * Output backup file
+    var $gzipBackupFile;            ///    * Use gzip compression on backup file
+    var $output;                    ///    * Content of standard output
+    var $disableForeignKeyChecks;   ///    * Disable foreign key checks
+    var $batchSize;                 ///    * Batch size, number of rows to process per iteration
 
-      /**
-       * Constructor initializes database
-       */
-      public function __construct($host, $username, $passwd, $dbName, $charset, $bckname) {
+    /**
+     * Constructor initializes database
+     */
+    public function __construct($host, $username, $passwd, $dbName, $charset, $bckname)
+    {
         $this->host                    = $host;
         $this->username                = $username;
         $this->passwd                  = $passwd;
@@ -988,144 +975,146 @@ class Backup_Database {
         $this->conn                    = $this->initializeDatabase();
         $this->backupDir               = BACKUP_DIR ? BACKUP_DIR : '.';
         /// $this->backupFile              = 'myphp-backup-'.$this->dbName.'-'.date("Ymd_His", time()).'.sql';
-        $this->backupFile              = $bckname.'.sql';
+        $this->backupFile              = $bckname . '.sql';
         $this->gzipBackupFile          = defined('GZIP_BACKUP_FILE') ? GZIP_BACKUP_FILE : true;
         $this->disableForeignKeyChecks = defined('DISABLE_FOREIGN_KEY_CHECKS') ? DISABLE_FOREIGN_KEY_CHECKS : true;
         $this->batchSize               = defined('BATCH_SIZE') ? BATCH_SIZE : 1000; // default 1000 rows
         $this->output                  = '';
-      }
+    }
 
-      protected function initializeDatabase() {
+    protected function initializeDatabase()
+    {
         try {
-          $conn = mysqli_connect($this->host, $this->username, $this->passwd, $this->dbName);
-          if (mysqli_connect_errno()) {
-              throw new Exception('ERROR connecting database: ' . mysqli_connect_error());
-              die();
-          }
-          if (!mysqli_set_charset($conn, $this->charset)) {
-              mysqli_query($conn, 'SET NAMES '.$this->charset);
-          }
+            $conn = mysqli_connect($this->host, $this->username, $this->passwd, $this->dbName);
+            if (mysqli_connect_errno()) {
+                throw new Exception('ERROR connecting database: ' . mysqli_connect_error());
+                die();
+            }
+            if (!mysqli_set_charset($conn, $this->charset)) {
+                mysqli_query($conn, 'SET NAMES ' . $this->charset);
+            }
         } catch (Exception $e) {
             print_r($e->getMessage());
             die();
         }
 
         return $conn;
-      }
+    }
 
-      /**
-       * Backup the whole database or just some tables
-       * Use '*' for whole database or 'table1 table2 table3...'
-       * @param string $tables
-       */
-      public function backupTables($tables = '*') {
+    /**
+     * Backup the whole database or just some tables
+     * Use '*' for whole database or 'table1 table2 table3...'
+     * @param string $tables
+     */
+    public function backupTables($tables = '*')
+    {
         try {
-          /**
-           * Tables to export
-           */
-          if($tables == '*') {
-              $tables = array();
-              $result = mysqli_query($this->conn, 'SHOW TABLES');
-              while($row = mysqli_fetch_row($result)) {
-                  $tables[] = $row[0];
-              }
-          } else {
-              $tables = is_array($tables) ? $tables : explode(',', str_replace(' ', '', $tables));
-          }
+            /**
+             * Tables to export
+             */
+            if ($tables == '*') {
+                $tables = array();
+                $result = mysqli_query($this->conn, 'SHOW TABLES');
+                while ($row = mysqli_fetch_row($result)) {
+                    $tables[] = $row[0];
+                }
+            } else {
+                $tables = is_array($tables) ? $tables : explode(',', str_replace(' ', '', $tables));
+            }
 
-          $sql = 'CREATE DATABASE IF NOT EXISTS `'.$this->dbName."`;\n\n";
-          $sql .= 'USE `'.$this->dbName."`;\n\n";
+            $sql = 'CREATE DATABASE IF NOT EXISTS `' . $this->dbName . "`;\n\n";
+            $sql .= 'USE `' . $this->dbName . "`;\n\n";
 
-          /**
-           * Disable foreign key checks 
-           */
-          if ($this->disableForeignKeyChecks === true) {
-              $sql .= "SET foreign_key_checks = 0;\n\n";
-          }
+            /**
+             * Disable foreign key checks 
+             */
+            if ($this->disableForeignKeyChecks === true) {
+                $sql .= "SET foreign_key_checks = 0;\n\n";
+            }
 
-          /**
-           * Iterate tables
-           */
-          foreach($tables as $table) {
-              $this->obfPrint("Backing up `".$table."` table...".str_repeat('.', 50-strlen($table)), 0, 0);
+            /**
+             * Iterate tables
+             */
+            foreach ($tables as $table) {
+                $this->obfPrint("Backing up `" . $table . "` table..." . str_repeat('.', 50 - strlen($table)), 0, 0);
 
-              /**
-               * CREATE TABLE
-               */
-              $sql .= 'DROP TABLE IF EXISTS `'.$table.'`;';
-              $row = mysqli_fetch_row(mysqli_query($this->conn, 'SHOW CREATE TABLE `'.$table.'`'));
-              $sql .= "\n\n".$row[1].";\n\n";
+                /**
+                 * CREATE TABLE
+                 */
+                $sql .= 'DROP TABLE IF EXISTS `' . $table . '`;';
+                $row = mysqli_fetch_row(mysqli_query($this->conn, 'SHOW CREATE TABLE `' . $table . '`'));
+                $sql .= "\n\n" . $row[1] . ";\n\n";
 
-              /**
-               * INSERT INTO
-               */
+                /**
+                 * INSERT INTO
+                 */
 
-              $row = mysqli_fetch_row(mysqli_query($this->conn, 'SELECT COUNT(*) FROM `'.$table.'`'));
-              $numRows = $row[0];
+                $row = mysqli_fetch_row(mysqli_query($this->conn, 'SELECT COUNT(*) FROM `' . $table . '`'));
+                $numRows = $row[0];
 
-              // Split table in batches in order to not exhaust system memory 
-              $numBatches = intval($numRows / $this->batchSize) + 1; // Number of while-loop calls to perform
+                // Split table in batches in order to not exhaust system memory 
+                $numBatches = intval($numRows / $this->batchSize) + 1; // Number of while-loop calls to perform
 
-              for ($b = 1; $b <= $numBatches; $b++) {
-                  
-                  $query = 'SELECT * FROM `' . $table . '` LIMIT ' . ($b * $this->batchSize - $this->batchSize) . ',' . $this->batchSize;
-                  $result = mysqli_query($this->conn, $query);
-                  $realBatchSize = mysqli_num_rows ($result); // Last batch size can be different from $this->batchSize
-                  $numFields = mysqli_num_fields($result);
+                for ($b = 1; $b <= $numBatches; $b++) {
 
-                  if ($realBatchSize !== 0) {
-                      $sql .= 'INSERT INTO `'.$table.'` VALUES ';
+                    $query = 'SELECT * FROM `' . $table . '` LIMIT ' . ($b * $this->batchSize - $this->batchSize) . ',' . $this->batchSize;
+                    $result = mysqli_query($this->conn, $query);
+                    $realBatchSize = mysqli_num_rows($result); // Last batch size can be different from $this->batchSize
+                    $numFields = mysqli_num_fields($result);
 
-                      for ($i = 0; $i < $numFields; $i++) {
-                          $rowCount = 1;
-                          while($row = mysqli_fetch_row($result)) {
-                              $sql.='(';
-                              for($j=0; $j<$numFields; $j++) {
-                                  if (isset($row[$j])) {
-                                      $row[$j] = addslashes($row[$j]);
-                                      $row[$j] = str_replace("\n","\\n",$row[$j]);
-                                      $row[$j] = str_replace("\r","\\r",$row[$j]);
-                                      $row[$j] = str_replace("\f","\\f",$row[$j]);
-                                      $row[$j] = str_replace("\t","\\t",$row[$j]);
-                                      $row[$j] = str_replace("\v","\\v",$row[$j]);
-                                      $row[$j] = str_replace("\a","\\a",$row[$j]);
-                                      $row[$j] = str_replace("\b","\\b",$row[$j]);
-                                      if ($row[$j] == 'true' or $row[$j] == 'false' or preg_match('/^-?[0-9]+$/', $row[$j]) or $row[$j] == 'NULL' or $row[$j] == 'null') {
-                                          $sql .= $row[$j];
-                                      } else {
-                                          $sql .= '"'.$row[$j].'"' ;
-                                      }
-                                  } else {
-                                      $sql.= 'NULL';
-                                  }
-  
-                                  if ($j < ($numFields-1)) {
-                                      $sql .= ',';
-                                  }
-                              }
-  
-                              if ($rowCount == $realBatchSize) {
-                                  $rowCount = 0;
-                                  $sql.= ");\n"; //close the insert statement
-                              } else {
-                                  $sql.= "),\n"; //close the row
-                              }
-  
-                              $rowCount++;
-                          }
-                      }
-  
-                      $this->saveFile($sql);
-                      $sql = '';
-                  }
-              }
+                    if ($realBatchSize !== 0) {
+                        $sql .= 'INSERT INTO `' . $table . '` VALUES ';
 
-              /**
-               * CREATE TRIGGER
-               */
+                        for ($i = 0; $i < $numFields; $i++) {
+                            $rowCount = 1;
+                            while ($row = mysqli_fetch_row($result)) {
+                                $sql .= '(';
+                                for ($j = 0; $j < $numFields; $j++) {
+                                    if (isset($row[$j])) {
+                                        $row[$j] = addslashes($row[$j]);
+                                        $row[$j] = str_replace("\n", "\\n", $row[$j]);
+                                        $row[$j] = str_replace("\r", "\\r", $row[$j]);
+                                        $row[$j] = str_replace("\f", "\\f", $row[$j]);
+                                        $row[$j] = str_replace("\t", "\\t", $row[$j]);
+                                        $row[$j] = str_replace("\v", "\\v", $row[$j]);
+                                        $row[$j] = str_replace("\a", "\\a", $row[$j]);
+                                        $row[$j] = str_replace("\b", "\\b", $row[$j]);
+                                        if ($row[$j] == 'true' or $row[$j] == 'false' or preg_match('/^-?[0-9]+$/', $row[$j]) or $row[$j] == 'NULL' or $row[$j] == 'null') {
+                                            $sql .= $row[$j];
+                                        } else {
+                                            $sql .= '"' . $row[$j] . '"';
+                                        }
+                                    } else {
+                                        $sql .= 'NULL';
+                                    }
 
-              // Check if there are some TRIGGERS associated to the table
-              /*$query = "SHOW TRIGGERS LIKE '" . $table . "%'";
+                                    if ($j < ($numFields - 1)) {
+                                        $sql .= ',';
+                                    }
+                                }
+
+                                if ($rowCount == $realBatchSize) {
+                                    $rowCount = 0;
+                                    $sql .= ");\n"; //close the insert statement
+                                } else {
+                                    $sql .= "),\n"; //close the row
+                                }
+
+                                $rowCount++;
+                            }
+                        }
+
+                        $this->saveFile($sql);
+                        $sql = '';
+                    }
+                }
+
+                /**
+                 * CREATE TRIGGER
+                 */
+
+                // Check if there are some TRIGGERS associated to the table
+                /*$query = "SHOW TRIGGERS LIKE '" . $table . "%'";
               $result = mysqli_query ($this->conn, $query);
               if ($result) {
                   $triggers = array();
@@ -1147,38 +1136,39 @@ class Backup_Database {
                   $sql = '';
               }*/
 
-              $sql.="\n\n";
+                $sql .= "\n\n";
 
-              $this->obfPrint('OK');
-          }
+                $this->obfPrint('OK');
+            }
 
-          /**
-           * Re-enable foreign key checks 
-           */
-          if ($this->disableForeignKeyChecks === true) {
-              $sql .= "SET foreign_key_checks = 1;\n";
-          }
+            /**
+             * Re-enable foreign key checks 
+             */
+            if ($this->disableForeignKeyChecks === true) {
+                $sql .= "SET foreign_key_checks = 1;\n";
+            }
 
-          $this->saveFile($sql);
+            $this->saveFile($sql);
 
-          if ($this->gzipBackupFile) {
-              $this->gzipBackupFile();
-          } else {
-              $this->obfPrint('Backup file succesfully saved to ' . $this->backupDir.'/'.$this->backupFile, 1, 1);
-          }
+            if ($this->gzipBackupFile) {
+                $this->gzipBackupFile();
+            } else {
+                $this->obfPrint('Backup file succesfully saved to ' . $this->backupDir . '/' . $this->backupFile, 1, 1);
+            }
         } catch (Exception $e) {
-          print_r($e->getMessage());
-          return false;
+            print_r($e->getMessage());
+            return false;
         }
 
         return true;
-      }
+    }
 
-      /**
-       * Save SQL to file
-       * @param string $sql
-       */
-      protected function saveFile(&$sql) {
+    /**
+     * Save SQL to file
+     * @param string $sql
+     */
+    protected function saveFile(&$sql)
+    {
         if (!$sql) return false;
 
         try {
@@ -1187,23 +1177,23 @@ class Backup_Database {
                 mkdir($this->backupDir, 0777, true);
             }
 
-            file_put_contents($this->backupDir.'/'.$this->backupFile, $sql, FILE_APPEND | LOCK_EX);
-
+            file_put_contents($this->backupDir . '/' . $this->backupFile, $sql, FILE_APPEND | LOCK_EX);
         } catch (Exception $e) {
             print_r($e->getMessage());
             return false;
         }
 
         return true;
-      }
+    }
 
-      /*
+    /*
        * Gzip backup file
        *
        * @param integer $level GZIP compression level (default: 9)
        * @return string New filename (with .gz appended) if success, or false if operation fails
        */
-      protected function gzipBackupFile($level = 9) {
+    protected function gzipBackupFile($level = 9)
+    {
         if (!$this->gzipBackupFile) {
             return true;
         }
@@ -1215,7 +1205,7 @@ class Backup_Database {
 
         $mode = 'wb' . $level;
         if ($fpOut = gzopen($dest, $mode)) {
-            if ($fpIn = fopen($source,'rb')) {
+            if ($fpIn = fopen($source, 'rb')) {
                 while (!feof($fpIn)) {
                     gzwrite($fpOut, fread($fpIn, 1024 * 256));
                 }
@@ -1224,22 +1214,23 @@ class Backup_Database {
                 return false;
             }
             gzclose($fpOut);
-            if(!unlink($source)) {
+            if (!unlink($source)) {
                 return false;
             }
         } else {
             return false;
         }
-        
+
         $this->obfPrint('OK');
         return $dest;
-      }
+    }
 
-      /**
-       * Prints message forcing output buffer flush
-       *
-       */
-      public function obfPrint ($msg = '', $lineBreaksBefore = 0, $lineBreaksAfter = 1) {
+    /**
+     * Prints message forcing output buffer flush
+     *
+     */
+    public function obfPrint($msg = '', $lineBreaksBefore = 0, $lineBreaksAfter = 1)
+    {
         if (!$msg) {
             return false;
         }
@@ -1258,7 +1249,7 @@ class Backup_Database {
         if ($lineBreaksBefore > 0) {
             for ($i = 1; $i <= $lineBreaksBefore; $i++) {
                 $output .= $lineBreak;
-            }                
+            }
         }
 
         $output .= $msg;
@@ -1266,7 +1257,7 @@ class Backup_Database {
         if ($lineBreaksAfter > 0) {
             for ($i = 1; $i <= $lineBreaksAfter; $i++) {
                 $output .= $lineBreak;
-            }                
+            }
         }
 
 
@@ -1277,7 +1268,7 @@ class Backup_Database {
 
 
         if (php_sapi_name() != "cli") {
-            if( ob_get_level() > 0 ) {
+            if (ob_get_level() > 0) {
                 ob_flush();
             }
         }
@@ -1285,16 +1276,14 @@ class Backup_Database {
         $this->output .= " ";
 
         flush();
-      }
+    }
 
-      /**
-       * Returns full execution output
-       *
-       */
-      public function getOutput() {
+    /**
+     * Returns full execution output
+     *
+     */
+    public function getOutput()
+    {
         return $this->output;
-      }
-  }
-
-?>
-
+    }
+}

@@ -1,5 +1,5 @@
 <?php
-$cias = $hotel->getCompanias();
+  $cias = $hotel->getCompanias();
 ?>
 
 <div class="modal fade" id="myModalCargosConsumo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

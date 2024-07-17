@@ -637,7 +637,7 @@ $manana = date('Y-m-d', $manana);
               <div class="form-group">
                 <label for="txtValorDeposito" class="col-sm-3 control-label">Comprobante</label>
                 <div class="col-sm-9">
-                  <input type="file" name="images[]" id="imgSelect" multiple class='form-control' accept='.jpg' style="min-height: 35px">
+                  <input type="file" name="images[]" id="imgSelect" multiple class='form-control' accept='image/jpeg' style="min-height: 35px">
                 </div>
               </div>
               <div class="form-group">
@@ -649,7 +649,6 @@ $manana = date('Y-m-d', $manana);
             </div>
             <div class="btn-group" style="float: right">
               <div>
-
                 <button type="button" id="btnDeposito" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
                 <button class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i> Procesar</button>
               </div>

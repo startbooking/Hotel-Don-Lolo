@@ -7819,8 +7819,7 @@ function imprimechequeCuenta(numero) {
 
 function ingresaDeposito() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario, usuario_id } = user;
+  let { user: { usuario, usuario_id } } = sesion;
 
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
