@@ -7,6 +7,22 @@ date_default_timezone_set('America/Bogota');
 class Hotel_Actions
 {
 
+    public function buscaNitCia($ident, $id)
+    {
+        global $database;
+
+        $data = $database->select('companias', [
+            'id_compania',
+            'empresa',
+            'nit',
+        ], [
+            'nit' => $ident,
+            'id_compania[!]' => $id,
+        ]);
+
+        return $data;
+    }
+
 
     public function actualizaEstadoReserva($reserva){
         global $database;
@@ -53,7 +69,6 @@ class Hotel_Actions
         ]);
         return $data;
     }
-
 
     public function treHabitacionesMmto($tipo)
     {
@@ -6188,7 +6203,13 @@ class Hotel_Actions
             'id_compania' => $id,
         ]);
 
-        return $data->rowCount();
+        // return $data->rowCount();
+        $result = [
+            'id' => $data->rowCount(),
+            'error' => $database->error,
+        ];
+
+        return $result;
     }
 
     public function getBuscaIdEmpresa($id)
@@ -6270,9 +6291,7 @@ class Hotel_Actions
             'error' => $database->error,
         ];
 
-        echo print_r($result);
-
-        return $result;;
+        return $result;
     }
 
     public function getBuscaIdHuesped($id)
@@ -6327,7 +6346,7 @@ class Hotel_Actions
             'identificacion',
         ], [
             'identificacion' => $ident,
-            'id_huesped[<>]' => $id,
+            'id_huesped[!]' => $id,
         ]);
 
         return $data;

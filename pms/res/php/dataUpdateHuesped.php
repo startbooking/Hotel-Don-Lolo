@@ -16,7 +16,7 @@ $nombreCiu = $hotel->getNombreCiudad($huesped[0]['ciudad']);
     <label for="inputEmail3" class="col-sm-2 control-label">Documento</label>
     <div class="col-sm-3">
       <input type="hidden" name="txtIdHuespedUpd" id="txtIdHuespedUpd" value="<?php echo $id; ?>">
-      <input type="text" class="form-control" name="identificaUpd" id="identificaUpd" value="<?php echo $huesped[0]['identificacion']; ?>" onblur="buscaIdent(this.value, <?php echo $huesped[0]['id_huesped']; ?>)">
+      <input type="text" class="form-control" name="identificaUpd" id="identificaUpd" value="<?php echo $huesped[0]['identificacion']; ?>" onblur="buscaIdent(this.value, <?php echo $huesped[0]['id_huesped']; ?>)"> 
     </div>
     <label for="inputEmail3" class="col-sm-2 control-label">Tipo Documento</label>
     <div class="col-sm-3">

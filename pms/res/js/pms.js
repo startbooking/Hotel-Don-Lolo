@@ -1718,7 +1718,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     var button = $(event.relatedTarget);
     var id = button.data("id");
     var empresa = button.data("empresa");
-    var nit = button.data("nit");
     var parametros = {
       id,
     };
@@ -5153,6 +5152,39 @@ function buscaIdent(ident, id) {
   });
 }
 
+function buscaIdentNit(ident, id) {
+  var web = $("#rutaweb").val();
+  var parametros = {
+    ident,
+    id,
+  };
+  $.ajax({
+    url: web + "res/php/buscaIdenModiCia.php",
+    type: "POST",
+    dataType: "json",
+    data: parametros,
+    success: function (datos) {
+      // console.log(datos)
+      if (datos.length !== 0) {
+        let { nit } = datos[0];
+        swal(
+          {
+            title: "Atencion!",
+            text: `Nit ${nit} Ya existe, NO permitido Duplicar`,
+            type: "error",
+            confirmButtonText: "Aceptar",
+            closeOnConfirm: true,
+          },
+          function () {
+            document.querySelector("#nitUpd").value = "";
+            document.querySelector("#nitUpd").focus;
+          }
+        );
+      }
+    },
+  });
+}
+
 function buscaIdentificacion(id) {
   var web = $("#rutaweb").val();
   var parametros = {
@@ -6064,14 +6096,19 @@ function valorHabitacionUpd(tarifa) {
 
 function updateCompania() {
   var web = $("#rutaweb").val();
-  var pagina = $("#ubicacion").val();
-  var parametros = $("#formUpdateCompania").serialize();
+  let pagina = $("#ubicacion").val();
+  let parametros = $("#formUpdateCompania").serialize();
+  let creaRese = 0
   $.ajax({
     type: "POST",
     data: parametros,
     url: "res/php/updateCompania.php",
-    success: function (datos) {
-      $(location).attr("href", pagina);
+    success: function (resp) {
+      // console.log(resp)
+      console.log(pagina)
+      mensajeCrea(resp, "Compañia Actualizada", pagina, creaRese);
+
+      // $(location).attr("href", pagina);
     },
   });
 }
@@ -6103,7 +6140,7 @@ async function actualizaHuesped() {
     success: function (resp) {
       mensajeCrea(resp, "Huesped Actualizado", "huespedesPerfil", creaRese);
     },
-  });
+  }); 
 }
 
 function actualizaCiaHuesped() {
@@ -7846,9 +7883,6 @@ function ingresaDeposito() {
         "height=600,width=600"
       );
       document.querySelector("#btnDeposito").click();
-      /* $("#myModalDepositoReserva").hide();
-      $(".modal-backdrop").remove(); */
-      // $(location).attr("href", pagina);
     },
   });
 }

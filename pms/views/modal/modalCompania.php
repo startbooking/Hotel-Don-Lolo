@@ -240,7 +240,7 @@
       </form>
     </div>
   </div>
-</div>
+</div> 
 
 <div class="modal fade bs-example-modal-lg" id="myModalModificaPerfilCia" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-lg" role="document">

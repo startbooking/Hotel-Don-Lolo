@@ -138,6 +138,10 @@ form select {
   padding: 0.4em;
 }
 
+
+#menuFicha {
+  min-height: auto;
+}
 .menuForecast {
   padding: 0 !important;
   font-weight: bold;

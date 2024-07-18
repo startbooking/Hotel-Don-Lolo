@@ -11,7 +11,7 @@ $empresa = $hotel->getBuscaIdEmpresa($id);
       <label for="nit" class="col-sm-2 control-label">Nit</label>
       <div class="col-sm-3">
         <input type="hidden" name="txtIdCiaUpd" id="txtIdCiaUpd" value="<?php echo $id; ?>">
-        <input type="text" class="form-control" name="nit" id="nit" placeholder="Nit" value="<?php echo $empresa[0]['nit']; ?>" minlength="8">
+        <input type="text" class="form-control" name="nitUpd" id="nitUpd" placeholder="nit" value="<?php echo $empresa[0]['nit']; ?>" minlength="8" onblur="buscaIdentNit(this.value, <?php echo $empresa[0]['id_compania']; ?>)">
       </div>
       <label for="dv" class="col-sm-1 control-label">Digito</label>
       <div class="col-sm-1">
