@@ -170,7 +170,7 @@ if ($dias < 30) {
                             <nav class="navbar <?= $color ?> reserva" style="height: <?= $altoh ?>px;width:<?= $ancho ?>px;margin-top:<?= $alto ?>px;padding: 0 1px;">
                               <ul class="nav navbar-nav" style="width: 100%;overflow: hidden;">
                                 <li class="dropdown">
-                                  <a href="#" class="dropdown-toggle menuForecast info btn" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="">
+                                  <a href="#" class="dropdown-toggle menuForecast info btn" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa-solid fa-list"></i>
                                     <span style="position: fixed;left: 500px; top: 52px;">Huesped <?php echo substr($estadia['nombre_completo'], 0, 28) ?><br>Habitacion <?= $estadia['num_habitacion'] ?><br>Adultos <?= $estadia['can_hombres'] + $estadia['can_mujeres'] ?> Niños <?= $estadia['can_ninos'] ?> <br>Fecha Llegada <?= $estadia['fecha_llegada'] ?><br>Fecha Salida <?= $estadia['fecha_salida'] ?><br>Tarifa <?= number_format($estadia['valor_diario'], 2) ?></span>
                                     <?php
@@ -250,7 +250,7 @@ if ($dias < 30) {
                               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:0px;margin-top:-2px">
                                 <ul class="nav navbar-nav">
                                   <li class="dropdown submenu" style="width: 100%">
-                                    <a href="#" class="dropdown-toggle menuForecast info btn" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="">
+                                    <a href="#" class="dropdown-toggle menuForecast info btn" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                       <i class="fa-solid fa-list"></i>
                                       <span style="position: fixed;left: 500px; top: 52px;">Huesped <?php echo substr($estadia['nombre_completo'], 0, 28) ?><br>Habitacion <?= $estadia['num_habitacion'] ?><br>Adultos <?= $estadia['can_hombres'] + $estadia['can_mujeres'] ?> Niños <?= $estadia['can_ninos'] ?> <br>Fecha Llegada <?= $estadia['fecha_llegada'] ?><br>Fecha Salida <?= $estadia['fecha_salida'] ?><br>Tarifa <?= number_format($estadia['valor_diario'], 2) ?></span>
                                       <?php

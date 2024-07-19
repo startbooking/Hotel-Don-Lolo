@@ -217,13 +217,13 @@ require_once '../res/php/app_topHotel.php';
         include_once 'views/modal/modalCompania.php';
         include_once 'views/modal/modalFacturas.php';
         include_once 'views/modal/modalCentrosCia.php';
-        // include_once 'views/modal/modalAcompanantes.php';
+        include_once 'views/modal/modalAcompanantes.php';
         include_once 'views/modal/modalDocumentosCia.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'huespedesPerfil') {
         include_once 'views/modal/modalHuespedes.php';
         include_once 'views/modal/modalFacturas.php';
         include_once 'views/modal/modalDocumentos.php';
-        //   include_once 'views/modal/modalAcompanantes.php';  
+          include_once 'views/modal/modalAcompanantes.php';  
     } elseif (isset($_GET['section']) && $_GET['section'] == 'agencias') {
         include_once 'views/modal/modalAgencia.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'grupos') {

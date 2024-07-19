@@ -1,0 +1,13 @@
+[19-Jul-2024 09:05:35 America/Bogota] PHP Deprecated:  Function utf8_decode() is deprecated in /var/www/donlolo.lan/pms/imprimir/imprimeBalanceTotalHuesped.php on line 49
+[19-Jul-2024 09:05:35 America/Bogota] PHP Deprecated:  Function utf8_decode() is deprecated in /var/www/donlolo.lan/pms/imprimir/imprimeBalanceTotalHuesped.php on line 49
+[19-Jul-2024 09:05:35 America/Bogota] PHP Deprecated:  Function utf8_decode() is deprecated in /var/www/donlolo.lan/pms/imprimir/imprimeBalanceTotalHuesped.php on line 49
+[19-Jul-2024 09:05:35 America/Bogota] PHP Deprecated:  Function utf8_decode() is deprecated in /var/www/donlolo.lan/pms/imprimir/imprimeBalanceTotalHuesped.php on line 49
+[19-Jul-2024 09:05:35 America/Bogota] PHP Deprecated:  Function utf8_decode() is deprecated in /var/www/donlolo.lan/pms/imprimir/imprimeBalanceTotalHuesped.php on line 49
+[19-Jul-2024 09:05:35 America/Bogota] PHP Deprecated:  Function utf8_decode() is deprecated in /var/www/donlolo.lan/pms/imprimir/imprimeBalanceTotalHuesped.php on line 49
+[19-Jul-2024 09:05:35 America/Bogota] PHP Deprecated:  Function utf8_decode() is deprecated in /var/www/donlolo.lan/pms/imprimir/imprimeBalanceTotalHuesped.php on line 49
+[19-Jul-2024 09:05:35 America/Bogota] PHP Deprecated:  Function utf8_decode() is deprecated in /var/www/donlolo.lan/pms/imprimir/imprimeBalanceTotalHuesped.php on line 49
+[19-Jul-2024 09:05:35 America/Bogota] PHP Deprecated:  Function utf8_decode() is deprecated in /var/www/donlolo.lan/pms/imprimir/imprimeBalanceTotalHuesped.php on line 49
+[19-Jul-2024 09:05:35 America/Bogota] PHP Deprecated:  Function utf8_decode() is deprecated in /var/www/donlolo.lan/pms/imprimir/imprimeBalanceTotalHuesped.php on line 49
+[19-Jul-2024 09:05:35 America/Bogota] PHP Deprecated:  Function utf8_decode() is deprecated in /var/www/donlolo.lan/pms/imprimir/imprimeBalanceTotalHuesped.php on line 49
+[19-Jul-2024 09:05:35 America/Bogota] PHP Deprecated:  Function utf8_decode() is deprecated in /var/www/donlolo.lan/pms/imprimir/imprimeBalanceTotalHuesped.php on line 49
+[19-Jul-2024 09:05:35 America/Bogota] PHP Deprecated:  Function utf8_decode() is deprecated in /var/www/donlolo.lan/pms/imprimir/imprimeBalanceTotalHuesped.php on line 49

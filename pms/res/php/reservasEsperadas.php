@@ -23,7 +23,6 @@
 	          <td>Noches</td>
 	          <td>Hombres</td>
 	          <td>Mujeres</td>
-	          <td>Niños</td>
 	          <td>Estado</td>
 	        </tr>
 	      </thead>
@@ -39,7 +38,6 @@
 	            <td align="center"><?php echo $reserva['dias_reservados']; ?></td>
 	            <td align="center"><?php echo $reserva['can_hombres']; ?></td>
 	            <td align="center"><?php echo $reserva['can_mujeres']; ?></td>
-	            <td align="center"><?php echo $reserva['can_ninos']; ?></td>
 	            <td><?php echo estadoReserva($reserva['estado']); ?></td>
 	          </tr>
 	          <?php 

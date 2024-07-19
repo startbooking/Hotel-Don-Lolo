@@ -6104,11 +6104,7 @@ function updateCompania() {
     data: parametros,
     url: "res/php/updateCompania.php",
     success: function (resp) {
-      // console.log(resp)
-      console.log(pagina)
       mensajeCrea(resp, "Compañia Actualizada", pagina, creaRese);
-
-      // $(location).attr("href", pagina);
     },
   });
 }
@@ -6116,7 +6112,7 @@ function updateCompania() {
 async function actualizaHuesped() {
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
-  var parametros = $("#formUpdateHuesped").serialize();
+  // var parametros = $("#formUpdateHuesped").serialize();
   let creaRese = parseInt($("#creaReser").val());
 
   let formHuesped = document.querySelector("#formUpdateHuesped");
@@ -6138,10 +6134,70 @@ async function actualizaHuesped() {
     processData: false,
     url: "res/php/updateHuesped.php",
     success: function (resp) {
+      mensajeCrea(resp, "Huesped Actualizado", pagina, creaRese);
+    },
+  });
+}
+
+async function actualizaHuespedOld() {
+  var web = $("#rutaweb").val();
+  var pagina = $("#ubicacion").val();
+  var parametros = $("#formUpdateHuesped").serialize();
+  let creaRese = parseInt($("#creaReser").val());
+
+  let formHuesped = document.querySelector("#formUpdateHuesped");
+  let dataHuesp = new FormData(formHuesped);
+  // console.log(parametros);
+  // console.log({dataHuesp});
+  
+
+  fechanace = dataHuesp.get("fechanace");
+
+  const edad = await restaEdad(fechanace);
+  dataHuesp.append("usuario", usuario);
+  dataHuesp.append("usuario_id", usuario_id);
+  dataHuesp.append("edad", parseInt(edad));
+  /* data = {
+    dataHuesp
+  } */
+  // console.log( { FormData },dataHuesp );
+/*   console.log(data)
+  console.log(dataHuesp) */
+
+  const regis = await enviaPerfil(dataHuesp)
+  await mensajeCrea(regis, "Huesped Actualizado", pagina, creaRese);
+
+
+  /* $.ajax({
+    type: "POST",
+    dataType: "json",
+    data: dataHuesp,
+    url: "res/php/updateHuesped.php",
+    success: function (resp) {
       mensajeCrea(resp, "Huesped Actualizado", "huespedesPerfil", creaRese);
     },
-  }); 
+  });  */
 }
+
+async function enviaPerfil(dataHuesp){
+  // console.log(dataHuesp)
+  try {
+    const resp = await fetch(`res/php/updateHuesped.php`, {
+      method: "post",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+      body: dataHuesp,
+    });
+    console.log(resp);
+    const datos = await resp.json();
+    // mensajeCrea(datos, "Huesped Actualizado", pagina, creaRese);
+    // return datos;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+} 
 
 function actualizaCiaHuesped() {
   var web = $("#rutaweb").val();
@@ -6188,9 +6244,7 @@ function anulaConsumos() {
   var web = $("#rutaweb").val();
 
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {
-    user: { usuario, usuario_id },
-  } = sesion;
+  let { user: { usuario, usuario_id }, } = sesion;
 
   var id = $("#txtIdConsumoAnu").val();
   var motivo = $("#txtMotivoAnula").val();
@@ -6234,10 +6288,9 @@ function modificaReserva(reserva) {
 
 function cargarHabitaciones() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario, usuario_id } = user;
-  var web = $("#rutaweb").val();
-  var pagina = $("#ubicacion").val();
+  let { user: { usuario, usuario_id } } = sesion;
+  let web = $("#rutaweb").val();
+  let pagina = $("#ubicacion").val();
   $("input:radio:checked").each(function () {
     cargo = $(this).val();
   });
@@ -6547,9 +6600,7 @@ const enviaPago = async (data) => {
 
 const anulaFacturaEnvio = async (factura, perfil) => {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {
-    user: { usuario, usuario_id, tipo },
-  } = sesion;
+  let { user: { usuario, usuario_id, tipo } } = sesion;
 
   data = {
     factura,
