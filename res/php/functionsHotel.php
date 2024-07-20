@@ -6290,7 +6290,6 @@ class Hotel_Actions
             'id' => $data->rowCount(),
             'error' => $database->error,
         ];
-
         return $result;
     }
 
