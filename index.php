@@ -19,7 +19,7 @@ require_once 'res/php/app_top.php';
 			<?php include_once 'res/menus/menu_index.php'; ?>
 		</div>
 		<section class="centrar">
-			<div class="col-xs-8" style="margin-top:10%;">
+			<div class="col-xs-6" style="margin-top:10%;">
 				<div class="row" style="display:flex;">
 					<div class="polig dvGreen letraBaldosin">
 						<label for="" class="">POS</label>

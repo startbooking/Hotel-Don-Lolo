@@ -23,7 +23,6 @@ class Hotel_Actions
         return $data;
     }
 
-
     public function actualizaEstadoReserva($reserva){
         global $database;
 

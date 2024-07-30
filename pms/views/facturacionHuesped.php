@@ -327,3 +327,4 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
       </div>
     </form>
   </div>
+ 

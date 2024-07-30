@@ -1,30 +1,30 @@
 <?php
-  require '../../../res/fpdf/fpdf.php';
-  
-  class PDF extends FPDF 
-  {
-      public function Header()
-      {
-          $this->Image('../../../img/'.LOGO, 10, 10, 25);
-          $this->SetFont('Arial', 'B', 13);
-          $this->Cell(190, 7, NAME_EMPRESA, 0, 1, 'C');
-          $this->SetFont('Arial', '', 10);
-          $this->Cell(190, 5, 'Nit: '.NIT_EMPRESA, 0, 1, 'C');
-          $this->Cell(190, 5, ADRESS_EMPRESA, 0, 1, 'C');
-          $this->Cell(190, 5, utf8_decode(CIUDAD_EMPRESA.', '.PAIS_EMPRESA), 0, 1, 'C');
-          $this->Cell(190, 5, 'Telefono '.TELEFONO_EMPRESA.' Movil '.CELULAR_EMPRESA, 0, 1, 'C');
-          $this->SetFont('Arial', 'B', 11);
-          $this->Ln(1);
-      }
-  
-      public function Footer()
-      {
-          $this->SetY(-15);
-          $this->SetFont('Arial', '', 8);
-          $this->Cell(95, 5, WEB_EMPRESA, 0, 0, 'L');
-          $this->Cell(95, 5, CORREO_EMPRESA, 0, 1, 'R');
-      }
-  }
+require '../../../res/fpdf/fpdf.php';
+
+class PDF extends FPDF
+{
+    public function Header()
+    {
+        $this->Image('../../../img/' . LOGO, 10, 10, 25);
+        $this->SetFont('Arial', 'B', 13);
+        $this->Cell(190, 7, NAME_EMPRESA, 0, 1, 'C');
+        $this->SetFont('Arial', '', 10);
+        $this->Cell(190, 5, 'Nit: ' . NIT_EMPRESA, 0, 1, 'C');
+        $this->Cell(190, 5, ADRESS_EMPRESA, 0, 1, 'C');
+        $this->Cell(190, 5, (CIUDAD_EMPRESA . ', ' . PAIS_EMPRESA), 0, 1, 'C');
+        $this->Cell(190, 5, 'Telefono ' . TELEFONO_EMPRESA . ' Movil ' . CELULAR_EMPRESA, 0, 1, 'C');
+        $this->SetFont('Arial', 'B', 11);
+        $this->Ln(1);
+    }
+
+    public function Footer()
+    {
+        $this->SetY(-15);
+        $this->SetFont('Arial', '', 8);
+        $this->Cell(95, 5, WEB_EMPRESA, 0, 0, 'L');
+        $this->Cell(95, 5, CORREO_EMPRESA, 0, 1, 'R');
+    }
+}
 $pdf = new PDF();
 $pdf->AddPage();
 
@@ -53,7 +53,7 @@ $pdf->Cell(20, 5, $folio, 0, 1, 'L');
 $pdf->SetFont('Arial', '', 10);
 $pdf->Cell(20, 5, 'Huesped', 0, 0, 'L');
 $pdf->SetFont('Arial', 'B', 10);
-$pdf->Cell(80, 5, utf8_decode($datosHuesped[0]['apellido1'].' '.$datosHuesped[0]['apellido2'].' '.$datosHuesped[0]['nombre1'].' '.$datosHuesped[0]['nombre2']), 0, 0, 'L');
+$pdf->Cell(80, 5, ($datosHuesped[0]['apellido1'] . ' ' . $datosHuesped[0]['apellido2'] . ' ' . $datosHuesped[0]['nombre1'] . ' ' . $datosHuesped[0]['nombre2']), 0, 0, 'L');
 $pdf->SetFont('Arial', '', 10);
 $pdf->Cell(25, 5, 'Identificacion', 0, 0, 'L');
 $pdf->SetFont('Arial', 'B', 10);
@@ -89,11 +89,11 @@ if (!empty($datosReserva[0]['id_compania'])) {
     $pdf->SetFont('Arial', '', 10);
     $pdf->Cell(30, 5, 'Empresa', 0, 0, 'L');
     $pdf->SetFont('Arial', 'B', 10);
-    $pdf->Cell(120, 5, utf8_decode($datosCompania[0]['empresa']), 0, 0, 'L');
+    $pdf->Cell(120, 5, ($datosCompania[0]['empresa']), 0, 0, 'L');
     $pdf->SetFont('Arial', '', 10);
     $pdf->Cell(10, 5, 'Nit', 0, 0, 'L');
     $pdf->SetFont('Arial', 'B', 10);
-    $pdf->Cell(10, 5, $datosCompania[0]['nit'].'-'.$datosCompania[0]['dv'], 0, 1, 'L');
+    $pdf->Cell(10, 5, $datosCompania[0]['nit'] . '-' . $datosCompania[0]['dv'], 0, 1, 'L');
 }
 $pdf->Ln(2);
 $pdf->Cell(70, 6, 'Detalle', 1, 0, 'C');
@@ -110,7 +110,7 @@ foreach ($folios as $folio1) {
     $consumos = $consumos + $folio1['monto_cargo'];
     $impto = $impto + $folio1['impuesto'];
     $pagos = $pagos + $folio1['pagos_cargos'];
-    $pdf->Cell(70, 5, utf8_decode($folio1['descripcion_cargo']), 0, 0, 'L');
+    $pdf->Cell(70, 5, ($folio1['descripcion_cargo']), 0, 0, 'L');
     $pdf->Cell(30, 5, number_format($folio1['monto_cargo'], 2), 0, 0, 'R');
     $pdf->Cell(30, 5, number_format($folio1['impuesto'], 2), 0, 0, 'R');
     $pdf->Cell(30, 5, number_format($folio1['pagos_cargos'], 2), 0, 0, 'R');
@@ -137,14 +137,13 @@ $pdf->SetFont('Arial', '', 10);
 $pdf->Ln(1);
 $totalCta = ($consumos + $impto) - $pagos;
 
-if($totalCta < 0){
-    $totalCta = $totalCta *-1 ; 
-    $pdf->Cell(190, 5, 'SON : '.numtoletras($totalCta).' A FAVOR DEL CLIENTE' , 0, 1, 'L');
-}else{
-    $pdf->Cell(190, 5, 'SON : '.numtoletras($totalCta), 0, 1, 'L');
+if ($totalCta < 0) {
+    $totalCta = $totalCta * -1;
+    $pdf->Cell(190, 5, 'SON : ' . numtoletras($totalCta) . ' A FAVOR DEL CLIENTE', 0, 1, 'L');
+} else {
+    $pdf->Cell(190, 5, 'SON : ' . numtoletras($totalCta), 0, 1, 'L');
 }
 $pdfFile = $pdf->Output('', 'S');
 $base64String = chunk_split(base64_encode($pdfFile));
 
 echo $base64String;
-

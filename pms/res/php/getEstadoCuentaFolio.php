@@ -11,4 +11,4 @@ include_once '../../imprimir/imprimeEstadoCuentaFolio.php';
 
 ?>
 
-  
+   

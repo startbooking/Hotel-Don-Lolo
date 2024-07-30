@@ -1577,7 +1577,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     var parametros = {
       id,
     };
-    modal.find(".modal-title").text("Modifica Reserva Actual: " + nombre);
+    modal.find(".modal-title").text("Modifica Reserva Actual X: " + nombre);
 
     $.ajax({
       type: "POST",
@@ -6147,9 +6147,6 @@ async function actualizaHuespedOld() {
 
   let formHuesped = document.querySelector("#formUpdateHuesped");
   let dataHuesp = new FormData(formHuesped);
-  // console.log(parametros);
-  // console.log({dataHuesp});
-  
 
   fechanace = dataHuesp.get("fechanace");
 
@@ -6157,30 +6154,13 @@ async function actualizaHuespedOld() {
   dataHuesp.append("usuario", usuario);
   dataHuesp.append("usuario_id", usuario_id);
   dataHuesp.append("edad", parseInt(edad));
-  /* data = {
-    dataHuesp
-  } */
-  // console.log( { FormData },dataHuesp );
-/*   console.log(data)
-  console.log(dataHuesp) */
 
   const regis = await enviaPerfil(dataHuesp)
   await mensajeCrea(regis, "Huesped Actualizado", pagina, creaRese);
 
-
-  /* $.ajax({
-    type: "POST",
-    dataType: "json",
-    data: dataHuesp,
-    url: "res/php/updateHuesped.php",
-    success: function (resp) {
-      mensajeCrea(resp, "Huesped Actualizado", "huespedesPerfil", creaRese);
-    },
-  });  */
 }
 
 async function enviaPerfil(dataHuesp){
-  // console.log(dataHuesp)
   try {
     const resp = await fetch(`res/php/updateHuesped.php`, {
       method: "post",
@@ -6191,10 +6171,9 @@ async function enviaPerfil(dataHuesp){
     });
     console.log(resp);
     const datos = await resp.json();
-    // mensajeCrea(datos, "Huesped Actualizado", pagina, creaRese);
-    // return datos;
+    return datos;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return error;
   }
 } 

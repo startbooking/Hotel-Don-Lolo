@@ -139,21 +139,8 @@ $reservas = $hotel->getReservasActuales($tipo);
                               <a 
                                 data-toggle        ="modal"
                                 data-target        = "#myModalAcompanantesReserva"
-                                data-id            ="<?php echo $reserva['num_reserva']; ?>" 
-                                data-tipohab       ="<?php echo descripcionTipoHabitacion($reserva['tipo_habitacion']); ?>" 
-                                data-nrohab        ="<?php echo $reserva['num_habitacion']; ?>" 
+                                data-id            ="<?php echo $reserva['num_reserva']; ?>"
                                 data-nombre        ="<?php echo $reserva['nombre_completo']; ?>" 
-                                data-llegada       ="<?php echo $reserva['fecha_llegada']; ?>" 
-                                data-salida        ="<?php echo $reserva['fecha_salida']; ?>" 
-                                data-noches        ="<?php echo $reserva['dias_reservados']; ?>" 
-                                data-hombres       ="<?php echo $reserva['can_hombres']; ?>" 
-                                data-mujeres       ="<?php echo $reserva['can_mujeres']; ?>" 
-                                data-ninos         ="<?php echo $reserva['can_ninos']; ?>" 
-                                data-orden         ="<?php echo $reserva['orden_reserva']; ?>" 
-                                data-tipo          ="<?php echo $reserva['tipo_reserva']; ?>" 
-                                data-tarifa        ="<?php echo $hotel->getNombreTarifa($reserva['tarifa']); ?>" 
-                                data-valor         ="<?php echo $reserva['valor_diario']; ?>" 
-                                data-observaciones ="<?php echo $reserva['observaciones']; ?>" 
                                 >
                                 <i class="fa fa-users" aria-hidden="true"></i>Acompañantes Reserva
                               </a>
@@ -163,23 +150,6 @@ $reservas = $hotel->getReservasActuales($tipo);
                                 data-toggle        ="modal" 
                                 data-target        = "#myModalReasignarHuesped"
                                 data-reserva       ="<?php echo $reserva['num_reserva']; ?>" 
-                                data-tipohab       ="<?php echo descripcionTipoHabitacion($reserva['tipo_habitacion']); ?>" 
-                                data-nrohab        ="<?php echo $reserva['num_habitacion']; ?>" 
-                                data-apellido1     ="<?php echo $reserva['apellido1']; ?>" 
-                                data-apellido2     ="<?php echo $reserva['apellido2']; ?>" 
-                                data-nombre1       ="<?php echo $reserva['nombre1']; ?>" 
-                                data-nombre2       ="<?php echo $reserva['nombre2']; ?>"  
-                                data-llegada       ="<?php echo $reserva['fecha_llegada']; ?>" 
-                                data-salida        ="<?php echo $reserva['fecha_salida']; ?>" 
-                                data-noches        ="<?php echo $reserva['dias_reservados']; ?>" 
-                                data-hombres       ="<?php echo $reserva['can_hombres']; ?>" 
-                                data-mujeres       ="<?php echo $reserva['can_mujeres']; ?>" 
-                                data-ninos         ="<?php echo $reserva['can_ninos']; ?>" 
-                                data-orden         ="<?php echo $reserva['orden_reserva']; ?>" 
-                                data-tipo          ="<?php echo $reserva['tipo_reserva']; ?>" 
-                                data-tarifa        ="<?php echo $hotel->getNombreTarifa($reserva['tarifa']); ?>" 
-                                data-valor         ="<?php echo $reserva['valor_diario']; ?>" 
-                                data-observaciones ="<?php echo $reserva['observaciones']; ?>" 
                                 >
                                 <i class="fa fa-user-plus" aria-hidden="true"></i>Reasignar Huesped
                               </a>
@@ -189,6 +159,7 @@ $reservas = $hotel->getReservasActuales($tipo);
                                 data-toggle        ="modal" 
                                 data-target        = "#myModalModificaReserva" 
                                 data-id            ="<?php echo $reserva['num_reserva']; ?>" 
+                                
                                 data-tipohab       ="<?php echo descripcionTipoHabitacion($reserva['tipo_habitacion']); ?>" 
                                 data-nrohab        ="<?php echo $reserva['num_habitacion']; ?>" 
                                 data-apellido1     ="<?php echo $reserva['apellido1']; ?>" 
