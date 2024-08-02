@@ -20,6 +20,7 @@ if ($empresa != '') {
 	historico_cargos_pms.total_impuesto,
 	historico_cargos_pms.total_pagos,
 	historico_cargos_pms.fecha_factura,
+	month(historico_cargos_pms.fecha_factura) as mes,
 	historico_cargos_pms.prefijo_factura,
 	historico_cargos_pms.numero_reserva,
 	historico_cargos_pms.numero_factura_cargo,
@@ -55,6 +56,7 @@ WHERE";
 	historico_cargos_pms.total_impuesto,
 	historico_cargos_pms.total_pagos,
 	historico_cargos_pms.fecha_factura,
+	month(historico_cargos_pms.fecha_factura) as mes,
   historico_cargos_pms.prefijo_factura,
   historico_cargos_pms.numero_reserva,
   historico_cargos_pms.numero_factura_cargo,
@@ -106,8 +108,6 @@ if ($formaPa != '') {
 
 $query    = $sele . $filtro . $orden;
 $facturas = $hotel->getFacturasPorRango($query);
-
-// echo print_r($facturas)
 
 ?>
 
@@ -185,8 +185,8 @@ $facturas = $hotel->getFacturasPorRango($query);
                 <i class="fa fa-file-pdf" aria-hidden="true"></i>
               </button>
               <?php
-              if ($factura['factura_anulada'] == 0 ) { 
-                if($tipo <= 2){ ?>
+              if ($factura['factura_anulada'] == 0 ){
+                if($factura['mes'] == intval($mes)  && $tipo <= 1){ ?>
                   <a class="btn btn-danger btn-xs btnAdiciona" data-toggle="modal" data-facturador="<?php echo $facturador; ?>" data-fechafac="<?php echo $factura['fecha_factura']; ?>" data-numero="<?php echo $factura['factura_numero']; ?>" data-reserva="<?php echo $factura['numero_reserva']; ?>" data-perfil="<?php echo $factura['perfil_factura']; ?>" data-idperfil="<?php echo $factura['id_perfil_factura']; ?>" data-prefijo="<?php echo $factura['prefijo_factura']; ?>" href="#myModalAnulaFacturaHistorico" type="button" title="Anular Factura">
                     <i class="fa fa-window-close" aria-hidden="true"></i>
                   </a>

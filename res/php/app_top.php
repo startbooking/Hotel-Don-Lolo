@@ -5,7 +5,7 @@
   setlocale(LC_ALL,"es_CO.utf8","es_CO","esp")  ;
   date_default_timezone_set("America/Bogota");
 
-	require 'functions.php'; 
+	require 'functions.php';
 	require 'funciones.php';
 	require 'rutas.php';
 
@@ -14,7 +14,7 @@
 	$empresa = $user->getInfoCia();
 
 	define("NAME_EMPRESA", $empresa[0]['empresa']);
-	
+
 	$nit = number_format($empresa[0]['nit'],0);
 	$nit = str_replace(",",".",$nit);
 
@@ -33,101 +33,5 @@
 	define("TIPOEMPRESA", $user->getTypeCia($empresa[0]['tipo_empresa']));
 	define("CMS", $empresa[0]['cms']);
 	define("MMTO", $empresa[0]['mantenimiento']);
-	
 
-	/* 
-	$hotel         = $user->getHotelInfo();
-	define('ID_HOTEL', $hotel[0]['id_hotel']);
-	define("NAME_HOTEL", $hotel[0]['hotel_name']);
-	define("NIT_HOTEL", $hotel[0]['nit_hotel']);
-	define("MAIL_HOTEL", $hotel[0]['email']);
-	define("MAIL_CONTACT", $hotel[0]['email_contact']);
-	define("MAIL_BOOKING", $hotel[0]['email_book']);
-	define("ADRESS_HOTEL", $hotel[0]['adress']);
-	define("PHONE_HOTEL", $hotel[0]['phone']);
-	define("MOVIL_HOTEL", $hotel[0]['movil']);
-	define("CITY_HOTEL", $hotel[0]['city']);
-	define("LAND_HOTEL", $hotel[0]['land']);
-	define("LOGO_HOTEL", $hotel[0]['logo']);
-	define("ICONO_HOTEL", $hotel[0]['icono']);
-	define("COLOR_MENU", $hotel[0]['color_menu']);
-	define("FONT_MENU", $hotel[0]['font_menu']);
-	define("COLOR_FOOTER", $hotel[0]['color_footer']);
-	define("FONT_FOOTER", $hotel[0]['font_footer']);
-	define("COLOR_CARD", $hotel[0]['color_card']);
-	define("FONT_CARD", $hotel[0]['font_card']);
-	define("ADULTS", $hotel[0]['max_adults']);
-	define("KIDS", $hotel[0]['max_babys']);  define("MMTO", $hotel[0]['mmto']);
-
-	define("WEB_PAGE", $hotel[0]['web']); 
-	define("LANGUAGE", $hotel[0]['language']);
-	define("MAPS", $hotel[0]['api_key_maps']);
-	define("KEYWORD_TEXT", $hotel[0]['keyword_text']);
-	define("ANALYTICS", $hotel[0]['api_key_analytics']);
-	define("GOOGLETAG", $hotel[0]['api_key_googletag']);
-	define("TEMPLATE", $hotel[0]['template']);
-	define("IMG_FONDO", $hotel[0]['img_portada']);
-	define("DESCRIPTIONS", $hotel[0]['description']);
-  define("CHECKIN", $hotel[0]['check_in']);
-  define("CHECKOUT", $hotel[0]['check_out']);
-  define("ESTADO", $hotel[0]['active_at']);
-  define("MMTO", $hotel[0]['mmto']);
-  define("MENSAJEMMTO", $hotel[0]['textoMmto']); 
-  */
-
-	/* $pc = gethostname();
-	$ip = $_SERVER['REMOTE_ADDR'];
-	if(!isset($_GET['section'])){
-		$link    = '';
-	}else{
-		$link    = $_GET['section'];
-	}
-	if(empty($infoseo)){
-	} */
-	/* if(!isset($_GET['section'])){
-	}elseif(isset($_GET['section']) && $_GET['section'] == 'home'){
-		$sliders = $user->getSliderHotel(ID_HOTEL);	
-	}elseif(isset($_GET['section']) && $_GET['section'] == 'about'){
-		$totimages = $user->getCantidadImagenes(ID_HOTEL);
-		$cant      = rand(1,($totimages-5));
-		$galleries = $user->getGallery($cant,5,ID_HOTEL);
-	}elseif(isset($_GET['section']) && $_GET['section'] == 'rooms'){
-		// $infoseo = $user->getInfoSeo($_GET['section'],ID_HOTEL);	
-	}elseif(isset($_GET['section']) &&	$_GET['section'] == 'article'){
-		$article = $user->getArticleInfo($_GET['url'],ID_HOTEL);
-		$link = $_GET['url'];
-	}elseif(isset($_GET['section']) &&	$_GET['section'] == 'news'){
-		$news = $user->getNews(ID_HOTEL);
-	}elseif(isset($_GET['section']) &&	$_GET['section'] == 'new'){
-		// $infonew = $user->getNewsInfo($_GET['url'],ID_HOTEL);
-		$link    = $_GET['section'].'/'.$_GET['url'];
-	}elseif(isset($_GET['section']) &&	$_GET['section'] == 'events'){
-		// $events = $user->getEvents(ID_HOTEL);
-	}elseif(isset($_GET['section']) &&	$_GET['section'] == 'event'){
-		// $infoevent = $user->getEventsInfo($_GET['url'],ID_HOTEL);
-		$link = $_GET['section'].'/'.$_GET['url'];
-	}elseif(isset($_GET['section']) &&	$_GET['section'] == 'room'){
-		$inforoom  = $user->getRoomInfo($_GET['url'],ID_HOTEL);
-		$morerooms = $user->getMoreRoom($_GET['url'],ID_HOTEL);
-		$images    = $user->getImagesRoom($inforoom[0]['id_room'],ID_HOTEL);
-		$link = $_GET['section'].'/'.$_GET['url'];
-	}elseif(isset($_GET['section']) &&	$_GET['section'] == 'destination'){
-		$destination = $user->getDestinoInfo(ID_HOTEL,$_GET['id_destino']);
-		$link = $_GET['url'];
-	}elseif(isset($_GET['section']) &&	$_GET['section'] == 'hotel'){
-		$hotel = $user->getHotelInfo(ID_HOTEL);
-		$link = $_GET['url'];
-	}elseif(isset($_GET['section']) &&	$_GET['section'] == 'tourism'){
-		$tourisms = $user->getTourism(ID_HOTEL);
-	}elseif(isset($_GET['section']) && $_GET['section'] == 'gallery'){ 
-		$totimages = $user->getCantidadImagenes(ID_HOTEL); 
-		if($totimages<20){
-			$cant = 0 ;
-		}else{
-			$cant = rand(1,($totimages-20 )); 
-		};
-		$images = $user->getGallery($cant,20,ID_HOTEL);	
-	} */
-
-
- ?> 
+?>
