@@ -96,25 +96,25 @@
                 </div>
                 <label for="llegada" class="col-sm-2 control-label">Fecha Factura</label>
                 <div class="col-sm-3" style="padding-right: 20px" form-group>
-                  <input type="date" class="form-control" name="fechafacHis" id="fechafacHis" readonly="">
+                  <input type="date" class="form-control" name="fechaFacHis" id="fechaFacHis" readonly="">
                 </div>
               </div>
               <div class="form-group">
                 <label class="control-label col-sm-2">Huesped</label>
                 <div class="col-sm-7">
-                  <input class="form-control padInput" type="text" name="huesped" id='huesped' value='' readonly>
+                  <input class="form-control padInput" type="text" name="huespedFacHis" id='huespedFacHis' value='' readonly>
                 </div>
               </div>
-              <div class="form-group">
+              <!-- <div class="form-group">
                 <label for="llegada" class="col-sm-2 control-label">Llegada</label>
                 <div class="col-sm-3" style="padding-right: 20px">
-                  <input type="date" class="form-control" name="llegadaHis" id="llegadaHis" readonly="">
+                  <input type="date" class="form-control" name="llegadaFacHis" id="llegadaFacHis" readonly="">
                 </div>
                 <label for="salida" class="col-sm-1 control-label">Salida</label>
                 <div class="col-sm-3" style="padding-right: 20px">
-                  <input type="date" class="form-control" name="salidaHis" id="salidaHis" readonly="">
+                  <input type="date" class="form-control" name="salidaFacHis" id="salidaFacHis" readonly="">
                 </div>
-              </div>
+              </div> -->
               <div class="form-group">
                 <label class="control-label col-sm-2" for="codigoConsumo">Factura</label>
                 <div class="col-sm-10">

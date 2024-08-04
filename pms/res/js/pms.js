@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", async () => {
   let sesion = JSON.parse(localStorage.getItem("sesion"));
-
   if (sesion == null) {
     swal(
       {
@@ -18,8 +17,31 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   let {
-    user: { usuario, usuario_id, nombres, apellidos, tipo },
+    user: { usuario, usuario_id, nombres, apellidos, tipo, estado_usuario_pms },
   } = sesion;
+
+/*   var {
+    user: {
+        usuario_id,
+        usuario,
+        nombres,
+        apellidos,
+        tipo,
+        estado_usuario_pms
+    }
+} = sesion; */
+$('#usuarioActivo').val(usuario)
+$('#nombreUsuario').html(`${apellidos} ${nombres} <span class="caret"></span>`)
+$('#menuClave').html(`
+  <a class="altoMenu" id="cambiaPass" 
+    data-toggle    = 'modal'
+    data-id        = '${usuario_id}' 
+    data-user      = '${usuario}' 
+    data-apellidos = '${apellidos}' 
+    data-nombres   = '${nombres}' 
+    href="#myModalCambiarClave" style="padding:10px 15px">Cambiar Contraseña
+  </a>
+`)
 
   $('.category_list .category_item[category="all"]').addClass("ct_item-active");
   $(".category_item").click(function () {
@@ -561,10 +583,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
     var button = $(event.relatedTarget);
-    var apellidos = button.data("apellidos");
-    var nombres = button.data("nombres");
-    var llega = button.data("llegada");
-    var sale = button.data("salida");
+    var nombre = button.data("nombre");
+    /* var llega = button.data("llegada");
+    var sale = button.data("salida"); */
     var fecha = button.data("fechafac");
     var numero = button.data("numero");
     var reserva = button.data("reserva");
@@ -578,12 +599,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     modal.find(".modal-title").text("Anular Factura: " + numero);
     modal.find(".modal-body #facturaHis").val(numero);
-    modal.find(".modal-body #huesped").val(apellidos + " " + nombres);
-    modal.find(".modal-body #llegadaHis").val(llega);
-    modal.find(".modal-body #salidaHis").val(sale);
+    modal.find(".modal-body #huespedFacHis").val(nombre);
+    /* modal.find(".modal-body #llegadaFacHis").val(llega);
+    modal.find(".modal-body #salidaFacHis").val(sale); */
     modal.find(".modal-body #numero").val(numero);
     modal.find(".modal-body #reservaHis").val(reserva);
-    modal.find(".modal-body #fechafac").val(fecha);
+    modal.find(".modal-body #fechaFacHis").val(fecha);
     modal.find(".modal-body #motivoAnulaHis").val("");
     modal.find(".modal-body #perfilHis").val(perfil);
     modal.find(".modal-body #idperfilHis").val(idperfil);
@@ -8368,7 +8389,7 @@ function facturasPorImpuesto() {
 function facturasPorFecha() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let {
-    user: { usuario, usuario_id, tipo },
+    user: { usuario, usuario_id, tipo, contador },
   } = sesion;
 
   var web = $("#rutaweb").val();
@@ -8381,6 +8402,7 @@ function facturasPorFecha() {
   formaPa = $("#desdeFormaPago").val();
   parametros = {
     tipo,
+    contador,
     desdeFe,
     hastaFe,
     desdeNu,

@@ -510,6 +510,7 @@ class User_Actions
             'id_ambiente',
             'estado_usuario_pms',
             'estado_usuario_pos',
+            'contador',
         ], [
             'usuario' => $user,
             'password' => $pass,

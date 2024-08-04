@@ -34,7 +34,7 @@ FROM
 	huespedes, 
 	companias  
 WHERE";
- 
+
   $filtro = " historico_cargos_pms.fecha_factura BETWEEN '$desdeFe' 
 	AND '$hastaFe' 
 	AND historico_cargos_pms.factura = 1 
@@ -42,7 +42,6 @@ WHERE";
 	AND historico_cargos_pms.id_huesped = huespedes.id_huesped
 	AND historico_cargos_pms.id_perfil_factura = companias.id_compania
 	AND companias.empresa LIKE '%$empresa%'";
-    
 } else {
   $sele = "SELECT
 	historico_cargos_pms.descripcion_cargo,
@@ -73,7 +72,6 @@ WHERE ";
 	AND historico_cargos_pms.factura = 1 
 	AND historico_cargos_pms.factura_numero = historicoDatosFE.facturaNumero 
 	and historico_cargos_pms.id_huesped = huespedes.id_huesped";
-	
 }
 
 $orden = " ORDER BY historico_cargos_pms.factura_numero";
@@ -185,15 +183,21 @@ $facturas = $hotel->getFacturasPorRango($query);
                 <i class="fa fa-file-pdf" aria-hidden="true"></i>
               </button>
               <?php
-              if ($factura['factura_anulada'] == 0 ){
-                if($factura['mes'] == intval($mes)  && $tipo <= 1){ ?>
-                  <a class="btn btn-danger btn-xs btnAdiciona" data-toggle="modal" data-facturador="<?php echo $facturador; ?>" data-fechafac="<?php echo $factura['fecha_factura']; ?>" data-numero="<?php echo $factura['factura_numero']; ?>" data-reserva="<?php echo $factura['numero_reserva']; ?>" data-perfil="<?php echo $factura['perfil_factura']; ?>" data-idperfil="<?php echo $factura['id_perfil_factura']; ?>" data-prefijo="<?php echo $factura['prefijo_factura']; ?>" href="#myModalAnulaFacturaHistorico" type="button" title="Anular Factura">
+              if ($factura['factura_anulada'] == 0) {
+                if ($factura['mes'] == intval($mes)  && $tipo <= 1) { ?>
+                  <a class="btn btn-danger btn-xs btnAdiciona" data-toggle="modal" data-facturador="<?php echo $facturador; ?>" data-fechafac="<?php echo $factura['fecha_factura']; ?>" data-numero="<?php echo $factura['factura_numero']; ?>" data-reserva="<?php echo $factura['numero_reserva']; ?>" data-perfil="<?php echo $factura['perfil_factura']; ?>" data-idperfil="<?php echo $factura['id_perfil_factura']; ?>" data-prefijo="<?php echo $factura['prefijo_factura']; ?>" data-nombre="<?php echo $factura['nombre_completo']; ?>" href="#myModalAnulaFacturaHistorico" type="button" title="Anular Factura">
                     <i class="fa fa-window-close" aria-hidden="true"></i>
                   </a>
-                  <?php
+                <?php
+                } else if ($tipo <= 1 && $contador == 1) { ?>
+                  <a class="btn btn-danger btn-xs btnAdiciona" data-toggle="modal" data-facturador="<?php echo $facturador; ?>" data-fechafac="<?php echo $factura['fecha_factura']; ?>" data-numero="<?php echo $factura['factura_numero']; ?>" data-reserva="<?php echo $factura['numero_reserva']; ?>" data-perfil="<?php echo $factura['perfil_factura']; ?>" data-idperfil="<?php echo $factura['id_perfil_factura']; ?>" data-prefijo="<?php echo $factura['prefijo_factura']; ?>" data-nombre="<?php echo $factura['nombre_completo']; ?>" href="#myModalAnulaFacturaHistorico" type="button" title="Anular Factura">
+                    <i class="fa fa-window-close" aria-hidden="true"></i>
+                  </a>
+
+                <?php
                 }
               } else { ?>
-                <button class="btn btn-success btn-xs" type="button" data-toggle="modal" data-tipo="1" data-facturador="<?php echo $facturador; ?>"  data-numero="<?php echo $factura['numero_factura_cargo']; ?>" data-reserva="<?php echo $factura['numero_reserva']; ?>" href="#myModalVerFactura" title="Ver Nota Credito">
+                <button class="btn btn-success btn-xs" type="button" data-toggle="modal" data-tipo="1" data-facturador="<?php echo $facturador; ?>" data-numero="<?php echo $factura['numero_factura_cargo']; ?>" data-reserva="<?php echo $factura['numero_reserva']; ?>" href="#myModalVerFactura" title="Ver Nota Credito">
                   <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                 </button>
               <?php

@@ -6,6 +6,78 @@ date_default_timezone_set('America/Bogota');
 class Pos_Actions
 {
 
+    public function guardaPlanillaDesayunos($fec, $res, $idh, $est){
+		global $database;
+
+		$data = $database->insert('planillaDesayunos',[
+			'fecha' => $fec,
+			'num_reserva' => $res, 
+			'id_huesped' => $idh,
+			'estado' => $est
+		]);
+		return $database->id();
+	}
+
+    public function totalDesayunos($fecha){
+        global $database;
+        $data = $database->count('planillaDesayunos',[
+            'fecha' => $fecha
+        ]);
+        return $data;
+    }
+
+
+	public function huespedesEnCasaDesayunos(){
+		global $database;
+
+		$data = $database->query("SELECT *, 0 as 'estado'
+			FROM (
+			( SELECT
+				huespedes.id_huesped, 
+				huespedes.nombre_completo, 
+				reservas_pms.fecha_llegada, 
+				reservas_pms.fecha_salida, 
+				reservas_pms.num_habitacion,
+				reservas_pms.num_reserva
+			FROM
+				huespedes
+				LEFT JOIN
+				reservas_pms
+				ON 
+					huespedes.id_huesped = reservas_pms.id_huesped
+			WHERE
+				reservas_pms.estado = 'CA' AND 
+                reservas_pms.tipo_habitacion > 1
+			ORDER BY
+				reservas_pms.num_habitacion ASC, 
+				huespedes.nombre_completo ASC
+			) UNION (SELECT
+				huespedes.id_huesped, 
+				huespedes.nombre_completo, 
+				reservas_pms.fecha_llegada, 
+				reservas_pms.fecha_salida, 
+				reservas_pms.num_habitacion,
+				reservas_pms.num_reserva
+				FROM
+				acompanantes
+				INNER JOIN
+				reservas_pms
+				ON 
+					acompanantes.id_reserva = reservas_pms.num_reserva
+				INNER JOIN
+				huespedes
+				ON 
+					acompanantes.id_huesped = huespedes.id_huesped
+			WHERE
+				reservas_pms.estado = 'CA' AND 
+                reservas_pms.tipo_habitacion > 1
+			ORDER BY
+				reservas_pms.num_habitacion)
+				) HUES ORDER BY num_habitacion, nombre_completo")->fetchAll(PDO::FETCH_ASSOC);
+		return $data;
+
+	}
+
     public function getSubRecetasProducto($id)
     {
         global $database;

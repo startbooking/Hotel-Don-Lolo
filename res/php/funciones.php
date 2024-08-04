@@ -1,5 +1,17 @@
 <?php
 
+function estadoDesayunos($estado){
+    switch ($estado) {
+      case 0:
+        return 'NO Desayuno ';
+      case 1:
+        return 'Desayuno ';
+      case 2:
+        return 'Sin Definir';
+    }
+  }
+  
+
 function estadoResolucion($tipo)
 {
     switch ($tipo) {

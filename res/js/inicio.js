@@ -1,13 +1,10 @@
-sesion = JSON.parse(localStorage.getItem("sesion"));
-
-if (sesion) {
-  let { user: {usuario_id, usuario, nombres, apellidos, tipo, estado_usuario_pms} } = sesion;
-}
 document.addEventListener("DOMContentLoaded", async () => {    
+  let sesion = JSON.parse(localStorage.getItem("sesion"));
+  if (sesion) {
+    let { user: {usuario_id, usuario, nombres, apellidos, tipo, estado_usuario_pms} } = sesion;
+  }
+
   $("#myModalLogin").on("show.bs.modal", function (event) {
-    /* sesion = JSON.parse(localStorage.getItem("sesion"));
-    if (sesion) {
-    } */
     $("#error").html("");
     if (sesion) {
       let { user: {usuario_id, usuario, nombres, apellidos, tipo, estado_usuario_pms} } = sesion;
@@ -35,20 +32,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   $("#myModalCambiarClave").on("show.bs.modal", function (event) {
+    let { user: {usuario_id, usuario, nombres, apellidos, tipo, estado_usuario_pms} } = sesion;
     $("#error").html("");
-    if (localStorage.getItem("sesion")) {
-      $("#idUserPass").val(usuario_id);
-      $("#userPass").val(usuario);
-    }
+    $("#idUserPass").val(usuario_id);
+    $("#userPass").val(usuario);
   });
   
 });
   
-/* sesion = JSON.parse(localStorage.getItem("sesion"));
-if (sesion) {
-  var { user: {usuario_id, usuario, nombres, apellidos, tipo, estado_usuario_pms} } = sesion;
-} */
-
 function solicitudSoporte() {
   nombres = $("#nombres").val();
   correo = $("#email").val();
@@ -211,13 +202,17 @@ function redondeo(numero, decimales) {
 function duplicadoClave() {
   clave1 = $("#clave1").val();
   clave2 = $("#clave2").val();
-  if (clave1 == clave2) {
-  } else {
-    swal("Precaucion", "Las Contraseñas no Coinciden", "warning");
-    $("#clave1").val("");
-    $("#clave2").val("");
-    $("#clave1").focus();
+  if (clave1 != clave2) {
+    muestraErrorAlerta("Las Contraseñas no Coinciden")
+    limpiaClaves()
   }
+}
+
+function limpiaClaves(){
+  $("#claveactual").val("");
+  $("#clave1").val("");
+  $("#clave2").val("");
+  $("#clave1").focus();
 }
 
 function valida_ingreso() {
@@ -283,33 +278,37 @@ function cambiaClave() {
       type: "POST",
       dataType: "json",
       data: {
-        usuario: usuario,
-        id: id,
-        claveactual: claveactual,
-        nuevaclave: nuevaclave,
+        usuario,
+        id,
+        claveactual,
+        nuevaclave,
       },
-      success: function (x) {
+      success: function (resp) {
+        console.log(resp)
 
-        if (x == 0) {
-          $("#claveactual").val("");
+        if (resp == 0) {
+          muestraErrorAlerta("Contraseña Incorrecta !!")
+          limpiaClaves()
+          $/* ("#claveactual").val("");
           $("#nuevaclave").val("");
           $("#confirmaclave").val("");
           $("#mensaje").html(
-            '<div class="alert alert-warning"> <span class="glyphicon glyphicon-info-sign"></span> Contraseña Incorrecta !!</div>'
+            '<div class="alert alert-warning"> <span class="glyphicon glyphicon-info-sign"></span> </div>'
           );
-          $("#claveactual").focus();
+          $("#claveactual").focus(); */
         } else {
-          if (x == "1") {
+          if (resp == "1") {
             $("#confirmaclave").val("");
             $("#nuevaclave").val("");
             $("#claveactual").focus();
             swal("Atencion", "Contraseña Cambiada con Exito", "success");
-            $(location).attr("href", "home");
+            // $(location).attr("href", "home");
           }
         }
       },
     });
   } else {
+
     $("#mensaje").html(
       '<div class="alert alert-warning"> <span class="glyphicon glyphicon-info-sign"></span> No Coinciden los Datos de la Nueva Contraseña</div>'
     );
@@ -396,7 +395,7 @@ function leeCajeroActivo() {
   archivo.send(null);
 }
 
-function muestraError(error) {
+function muestraErrorAlerta(error) {
   $("#error").html(`
     <div class="alert alert-danger"> <span class="glyphicon glyphicon-info-sign"></span> ${error}</div>`);
   $("#login").val("");
@@ -409,5 +408,6 @@ function muestraError(error) {
 function limpiaError() {
   setTimeout(function () {
     $("#error").html(``);
-  }, 2000);
+  }, 4000);
 }
+

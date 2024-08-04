@@ -125,8 +125,14 @@
           </li>
           <li>
             <a class="menuPpal" onclick="huespedesenCasa()">
-              <i class="fa fa-bed" aria-hidden="true"></i>
+              <i class="fa fa-home" aria-hidden="true"></i>
               <span> Huespedes en Casa </span>
+            </a>
+          </li>
+          <li>
+            <a class="menuPpal" onclick="planillaDesayunos()">
+              <i class="fa fa-bed" aria-hidden="true"></i>
+              <span> Planilla de Desayunos </span>
             </a>
           </li>
         </ul>

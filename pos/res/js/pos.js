@@ -3698,6 +3698,172 @@ function huespedesenCasa() {
   });
 }
 
+async function planillaDesayunos(){
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  oPos = JSON.parse(localStorage.getItem("oPos"));
+  let { moduloPms: {fecha_auditoria} } = sesion; 
+  let { pos,  user: { usuario, usuario_id },  } = sesion;
+  let { logo, id_ambiente, nombre, propina, impuesto } = oPos[0];
+  parametros = {
+    id_ambiente,
+    fecha_auditoria,
+  };
+
+  let total = await totalDesayunos(parametros);
+
+  if(total > 0){
+    swal({
+      title:'Precaucion',
+      text:"Planilla de Desayunos ya Procesada",
+      type:'warning',
+    },function(){
+      data = `impresiones/planillaDesayunos_${fecha_auditoria}.pdf`;
+      verPDF(data, `Planilla Desayunos ${fecha_auditoria}`);
+      // enviaInicio()
+    })
+  }else {
+    let planilla = localStorage.getItem("planilla");
+    let huespedes;
+    if (!planilla) {
+      huespedes = await traeHuespedesDesayuno();
+      localStorage.setItem("planilla", JSON.stringify(huespedes));
+    } else {
+      huespedes = JSON.parse(localStorage.getItem("planilla"));
+    }
+    llenaHtml = await llenaHTML(huespedes);
+    document.querySelector('#pantalla').innerHTML = llenaHtml;
+
+  }
+}
+
+
+async function cambiaEstado(indice, check){
+  let huespedes = JSON.parse(localStorage.getItem("planilla"));
+  huespedes[indice].estado = check ? 1 : 0;
+  localStorage.setItem("planilla", JSON.stringify(huespedes));
+}
+
+async function llenaHTML(huespedes){
+  try {
+    const resp = await fetch(`views/planillaDesayunos.php`, {
+      method: "POST",
+      body: JSON.stringify(huespedes),
+    });
+    const datos = await resp.text();
+    return datos;
+  } catch (error) {
+    return error;
+  }
+}
+
+async function totalDesayunos(parametros){
+  try {
+    const resp = await fetch(`res/php/user_actions/totalDesayunos.php`, {
+      method: "POST",
+      body: JSON.stringify(parametros),
+    });
+    const datos = await resp.json();
+
+    return datos;
+  } catch (error) {
+    return error;
+  }
+}
+
+async function traeHuespedesDesayuno() {
+  try {
+    const resultado = await fetch(`res/php/user_actions/datosHuespedesDesayuno.php`, {
+      method: "get",
+    });
+    const datos = await resultado.json();
+    return datos;
+  } catch (error) {
+    return error;
+  }
+}
+
+async function guardaPlanillaDesayunos(){
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  oPos = JSON.parse(localStorage.getItem("oPos"));
+
+  let { moduloPms: {fecha_auditoria} } = sesion; 
+  let { logo, nombre } = oPos[0];
+  let resp = await preguntaGuardaPlanilla();
+  if(resp){
+    let huespedes = JSON.parse(localStorage.getItem("planilla"));
+    envia = {huespedes, fecha_auditoria, logo, nombre }
+    let regi = await guardaPlanilla(envia);
+    let impr = await imprimePlanilla(envia);
+    var planilla = `imprimir/${impr}`;
+    var ventana = window.open(planilla, "PRINT", "height=600,width=600");
+    localStorage.removeItem("planilla");
+    enviaInicio()
+  }else{
+    swal({
+      title:'Planilla no Guardada',
+      text:`No se ha guardado la planilla de desayunos \n Necesita escribir "Aceptar"`,
+      type:'warning',
+    },function(){
+    })
+  }
+}
+
+async function guardaPlanilla(envia) {
+  try {
+    const resp = await fetch(`res/php/user_actions/guardaPlanillaDesayunos.php`, {
+      method: "POST",
+      body: JSON.stringify(envia),
+    });
+    const datos = await resp.json();
+    return datos;
+  } catch (error) {
+    return error;
+  }
+}
+
+async function imprimePlanilla(envia) {
+  try {
+    const resp = await fetch(`imprimir/imprimePlanillaDesayunos.php`, {
+      method: "POST",
+      body: JSON.stringify(envia),
+    });
+    const datos = await resp.text();
+    return datos.trim();
+  } catch (error) {
+    return error;
+  }
+}
+
+async function preguntaGuardaPlanilla(){
+  return new Promise(resolve => {
+    swal({
+      icon:'warning',
+      title: "Desea Guardar la Planilla de Desayunos",
+      text: "Este proceso Almacenara la Informacion y no se podra adicionar mas desayunos en el dia \nDigita Aceptar para guardar la Planilla",
+      type: "input",
+      showCancelButton: true,
+      closeOnConfirm: true,
+      animation: "slide-from-top",
+      inputPlaceholder: "Digita Aceptar"
+    },
+    function(inputValue){
+      if (inputValue === false){
+        return resolve(false)
+      }
+      if (inputValue === "") {
+        swal.showInputError(`Necesita escribir "Aceptar" !`);
+        return resolve(false)
+      }
+      if (inputValue !== "Aceptar") {
+        swal.showInputError(`Necesita escribir "Aceptar" !`);
+        return resolve(false)
+      }else{
+        return resolve(true)
+      }
+    });
+  })
+}
+
 function cierreDiarioAuditoria() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
@@ -4175,6 +4341,32 @@ function cuentasActivasCajero() {
     },
   });
 }
+
+function verPDF(data, titulo) {
+  $("#pantalla").html("");
+  $("#pantalla").html(`
+  <section class="content">
+      <div class="panel panel-success">
+        <div class="panel-heading"> 
+          <div class="row">
+            <div class="col-lg-9">
+              <input type="hidden" name="user" id="user" value="">
+              <input type="hidden" name="rutaweb" id="rutaweb" value="<?php echo BASE_POS; ?>">
+              <input type="hidden" name="nombreAmbiente" id="nombreAmbiente" value="">
+              <input type="hidden" name="ubicacion" id="ubicacion" value="cuentasActivasCajero.php">
+              <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-industry"></i> ${titulo} <?php echo $usuario; ?></h3>
+            </div>
+          </div>
+        <div class="panel-body">
+          <div class="divInforme">
+              <object type="application/pdf" id="verInforme" width="100%" height="500" data="${data}"></object> 
+          </div>
+        </div>
+      </div> 
+    </section>
+  `);
+}
+
 
 function creaHTMLReportes(data, titulo) {
   $("#pantalla").html("");

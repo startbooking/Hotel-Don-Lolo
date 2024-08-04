@@ -7,7 +7,7 @@
       </div>
 			<form id="loginform" class="form-horizontal" action="javascript:cambiaClave();" role="form" method="POST" autocomplete="off">
       	<div class="modal-body">
-      		<div id="mensaje"></div>
+      		<div id="error"></div>
 					<input type="hidden" id="idUserPass" name="idUserPass" value ="" />
 					<input type="hidden" id="userPass" name="userPass" value ="" />
 					<div class="form-group" style="margin-bottom: 5px">

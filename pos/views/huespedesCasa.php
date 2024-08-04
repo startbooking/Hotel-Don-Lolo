@@ -27,7 +27,7 @@
     <div class="panel-heading"> 
       <div class="row" style="display: flex">
         <div class="col-lg-6">
-          <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_ADM?>">                  
+          <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_ADM?>">
           <input type="hidden" name="ubicacion" id="ubicacion" value="clientes.php">
           <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-address-book-o"></i> Huespedes en Casa </h3>
         </div>
@@ -35,7 +35,6 @@
           <span class="badge" style="background: lightseagreen;color:white">Titular Cuenta</span>
           <span class="badge" style="background: dimgrey;color:white">Acompañante</span>
         </div>
-
       </div>
     </div>
     <div class="panel-body">
@@ -87,7 +86,7 @@
             ?> 
           </tbody>
         </table>
-        </div>
+      </div>
     </div>
   </div>
 </section>

@@ -306,7 +306,7 @@ require_once '../res/php/app_topHotel.php';
     <script src="<?php echo BASE_PMS; ?>res/js/pms.js"></script>
 
     <script>
-        sesion = JSON.parse(localStorage.getItem('sesion'))
+        /* sesion = JSON.parse(localStorage.getItem('sesion'))
         var {
             user: {
                 usuario_id,
@@ -329,7 +329,7 @@ require_once '../res/php/app_topHotel.php';
             href="#myModalCambiarClave" style="padding:10px 15px">Cambiar Contraseña
           </a>
         `)
-        accesoUsuarios()
+        accesoUsuarios() */
     </script>
     <?php
     if (isset($_GET['section']) && $_GET['section'] == 'facturacionHuesped') { ?>
@@ -426,6 +426,6 @@ require_once '../res/php/app_topHotel.php';
     <?php
     }
     ?>
-</body>
+</body> 
 
 </html>
