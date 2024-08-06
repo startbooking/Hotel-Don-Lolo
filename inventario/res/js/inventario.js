@@ -1,20 +1,29 @@
-/* sesion = JSON.parse(localStorage.getItem("sesion"));
-let { usuarioAct } = sesion;
-let { usuario, usuario_id, apellidos, nombres } = usuarioAct;
- */
 
-document.addEventListener("DOMContentLoaded", async () => {    
+  document.addEventListener("DOMContentLoaded", async () => {
+    let sesion = JSON.parse(localStorage.getItem("sesion"));
+    if (sesion == null) {
+      swal(
+        {
+          title: "Precaucion",
+          text: "Usuario NO identificado en el Sistema",
+          confirmButtonText: "Aceptar",
+          type: "warning",
+          closeOnConfirm: true,
+        },
+        function () {
+          window.location.href = "/";
+          return;
+        }
+      );
+    }
+    let {user: { usuario, nombres, apellidos},} = sesion;
 
-  let sesion = JSON.parse(localStorage.getItem("sesion"));
- 
-  if(sesion == null){
-    alert('Usuario NO identificado en el Sistema');    
-    window.location.href = "/";
-    return 
-  }
+  $('#usuarioActivo').val(usuario)
+  $('#nombreUsuario').html(`${apellidos} ${nombres} <span class="caret"></span>`)
+  $('#cambiaPass').data('status','enviar') 
+  activaSesion()
 
-  let { user } = sesion;
-  let { usuario, usuario_id } = user;
+
   $("#modalConsultaKardex").on("show.bs.modal", function (event) {
     var button = $(event.relatedTarget); // Botón que activó el modal
     var id = button.data("id"); // Extraer la información de atributos de datos
@@ -64,7 +73,7 @@ function muestraKardex(bodega) {
   });
 }
 
-function imprimeMovimiento(id, tipo) {
+async function imprimeMovimiento(id, tipo) {
   switch (tipo) {
     case 1:
       doc = "imprimir/Entrada_" + id + ".pdf";
@@ -88,10 +97,10 @@ function imprimeMovimiento(id, tipo) {
   var ventana = window.open(doc, "PRINT", "height=600,width=600");
 }
 
-function anulaMovimiento(id, movimiento, bodega) {
+function anulaMovimiento(id, tipo, bodega) {
+  let sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { user: { usuario },} = sesion;
   var ubica = $("#ubicacion").val();
-  var id = id;
-  var tipo = movimiento;
   parametros = {
     id,
     tipo,
@@ -112,7 +121,7 @@ function anulaMovimiento(id, movimiento, bodega) {
   }
   swal(
     {
-      title: "Anular " + movimiento + "!",
+      title: `Anular ${movimiento} Nro ${id} !`,
       text: "Anular Presente Movimiento de " + movimiento + " ?",
       type: "warning",
       showCancelButton: true,
@@ -158,8 +167,8 @@ function actualizaProveedor() {
 }
 
 function guardaProveedor() {
-  /* sesion = JSON.parse(localStorage.getItem("sesion"));
-  usuario = sesion["usuario"][0]["usuario"]; */
+  let sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { user: { usuario },} = sesion;
   var pagina = $("#ubicacion").val();
   var ruta = $("#rutaweb").val();
   var proveedor =
@@ -180,8 +189,8 @@ function guardaProveedor() {
 }
 
 function guardaProducto() {
-  /* sesion = JSON.parse(localStorage.getItem("sesion"));
-  usuario = sesion["usuario"][0]["usuario"]; */
+  let sesion = JSON.parse(localStorage.getItem("sesion"));
+  let {user: { usuario },} = sesion;
   var pagina = $("#ubicacion").val();
   var ruta = $("#rutaweb").val();
   var productos =

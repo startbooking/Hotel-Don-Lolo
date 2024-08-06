@@ -11,13 +11,9 @@
   $pdf->AddPage(); 
   $pdf->Image('../../../../img/'.$logo,2,5,10);
   $pdf->SetFont('Arial','B',9);
-	$pdf->Cell(50,4,utf8_decode($nomambi),0,1,'C');
+	$pdf->Cell(50,4,($nomambi),0,1,'C');
   $pdf->SetFont('Arial','',7);
   $pdf->Cell(50,4,'NIT: '.NIT_EMPRESA,0,1,'C');
-  /* $pdf->Cell(50,4,'Iva Regimen Comun',0,1,'C');
-  $pdf->Cell(50,4,utf8_decode(ADRESS_EMPRESA),0,1,'C');
-  $pdf->Cell(50,4,utf8_decode(CIUDAD_EMPRESA.' '.PAIS_EMPRESA),0,1,'C');
-  $pdf->Cell(50,4,'Telefono '.TELEFONO_EMPRESA,0,1,'C'); */
   $pdf->SetFont('Arial','B',7);
   $pdf->Cell(50,4,'RECIBO DE CAJA',0,1,'C');
   $pdf->Ln(2);  
@@ -28,8 +24,8 @@
   $pdf->Cell(50,4,"Recibo Nro: ".$pref."-".str_pad($numerocaja,5,'0',STR_PAD_LEFT),0,1,'L');
 
   $pdf->Cell(50,4,'Factura de Compra: '.$documento,0,1,'L');
-  $pdf->MultiCell(50,4,'Pagado a : '.utf8_decode($proveedor),0,'L');
-  $pdf->MultiCell(50,4,'Concepto: '.utf8_decode($concepto),0,'L');
+  $pdf->MultiCell(50,4,'Pagado a : '.($proveedor),0,'L');
+  $pdf->MultiCell(50,4,'Concepto: '.($concepto),0,'L');
   $pdf->Cell(50,4,'Valor Pagado : '.number_format($base,2),0,1,'L');
 
 	$pdf->MultiCell(45,4,'Valor en letras : '.numtoletras($base),0,'L');

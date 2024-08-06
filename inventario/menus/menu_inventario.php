@@ -1,4 +1,4 @@
-<aside class="main-sidebar" style="margin-top:50px;">
+<aside class="main-sidebar">
   <section class="sidebar">
     <ul class="sidebar-menu">
       <!-- <li style="text-align: center">

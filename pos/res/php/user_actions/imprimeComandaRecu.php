@@ -26,7 +26,7 @@ $pdf = new FPDF('P', 'mm', [50, 250]);
 $pdf->AddPage();
 $pdf->SetMargins(0, 3, 0);
 $pdf->SetFont('Times', 'B', 8);
-$pdf->Cell(50, 7, utf8_decode($nomamb), 0, 1, 'C');
+$pdf->Cell(50, 7, ($nomamb), 0, 1, 'C');
 $pdf->Cell(50, 5, 'Fecha '.$fec.' Mesa '.$mesa, 0, 1, 'L');
 $pdf->Cell(50, 5, 'Comanda Nro: '.$pref.'-'.str_pad($numerocomanda, 5, '0', STR_PAD_LEFT), 0, 1, 'L');
 $pdf->SetFont('Arial', 'B', 7);
@@ -39,7 +39,7 @@ $pdf->Ln(2);
 $pdf->SetFont('Times', '', 10);
 
 foreach ($ventasdia as $producto) {
-    $pdf->Cell(35, 6, utf8_decode(substr($producto['nom'], 0, 20)), 0, 0, 'L');
+    $pdf->Cell(35, 6, (substr($producto['nom'], 0, 20)), 0, 0, 'L');
     $pdf->Cell(10, 6, $producto['cant'], 0, 1, 'R');
 }
 

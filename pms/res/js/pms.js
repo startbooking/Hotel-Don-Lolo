@@ -20,16 +20,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     user: { usuario, usuario_id, nombres, apellidos, tipo, estado_usuario_pms },
   } = sesion;
 
-/*   var {
-    user: {
-        usuario_id,
-        usuario,
-        nombres,
-        apellidos,
-        tipo,
-        estado_usuario_pms
-    }
-} = sesion; */
 $('#usuarioActivo').val(usuario)
 $('#nombreUsuario').html(`${apellidos} ${nombres} <span class="caret"></span>`)
 $('#menuClave').html(`
@@ -6563,22 +6553,7 @@ async function errorEnvio(cErrors) {
   });
 }
 
-async function muestraError(cErrors) {
-  mensajeErr = "";
-  mensajeError = document.querySelector("#mensajeSalida");
-  mensajeError.innerHTML = "";
-  mensajeError.innerHTML = `<div class="alert alert-warning" style="margin-bottom:0px">
-  <h3 style="color:black !important;margin-top:0px;">
-  <i class="fa-solid fa-circle-exclamation fa-2x" style="color:red;"></i>
-  ATENCION, Factura no Procesada </h3>
-  
-  <h4 style="color: brown;font-weight: 500;font-size: 16px;text-align:center;">MOTIVO DEL RECHAZO</h4>
-  <h4 style="color: brown;font-weight: 400;font-size: 14px;text-align:justify;">${JSON.stringify(
-    cErrors
-  )}</h4>
-  </div>`;
-  return 0;
-}
+
 
 const enviaPago = async (data) => {
   var web = $("#rutaweb").val();

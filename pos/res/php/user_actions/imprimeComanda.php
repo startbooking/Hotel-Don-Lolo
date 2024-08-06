@@ -25,7 +25,7 @@ $pdf->SetMargins(5, 5, 5);
 $pdf->Ln(2);
 
 $pdf->SetFont('Arial', 'B', 12);
-$pdf->Cell(65, 4, utf8_decode(NAME_EMPRESA), 0, 1, 'C');
+$pdf->Cell(65, 4, (NAME_EMPRESA), 0, 1, 'C');
 
 // $pdf->Cell(65, 6, $nomamb, 1, 1, 'C');
 $pdf->MultiCell(65, 6, $nomamb, 0, 'C');
@@ -50,7 +50,7 @@ $pdf->Ln(1);
 $pdf->SetFont('Arial', '', 10);
 
 foreach ($productos as $producto) {
-    $pdf->Cell(55, 4, utf8_decode(substr($producto['producto'], 0, 23)), 0, 0, 'L');
+    $pdf->Cell(55, 4, (substr($producto['producto'], 0, 23)), 0, 0, 'L');
     $pdf->Cell(10, 4, $producto['cant'], 0, 1, 'R');
 }
 

@@ -28,3 +28,4 @@ if (!empty($users)) {
     $entrada = ['entro' => '0'];
 }
 echo json_encode($entrada);
+ 

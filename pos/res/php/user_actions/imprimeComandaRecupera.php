@@ -27,8 +27,8 @@ $pdf->SetFont('Times', 'B', 8);
 
 $pdf->Ln(2);
 
-// $pdf->Cell(50,4,utf8_decode(NAME_EMPRESA),0,1,'C');
-$pdf->Cell(50, 4, utf8_decode($nomamb), 0, 1, 'C');
+// $pdf->Cell(50,4,(NAME_EMPRESA),0,1,'C');
+$pdf->Cell(50, 4, ($nomamb), 0, 1, 'C');
 $pdf->SetFont('Times', 'B', 7);
 $pdf->Cell(23, 4, 'Fecha '.$fec, 0, 0, 'L');
 $pdf->SetFont('Times', '', 7);
@@ -44,7 +44,7 @@ $pdf->SetFont('Arial', '', 7);
 
 foreach ($prods as $producto) {
     if ($producto['activo'] == 0) {
-        $pdf->Cell(35, 4, utf8_decode(substr($producto['producto'], 0, 23)), 0, 0, 'L');
+        $pdf->Cell(35, 4, (substr($producto['producto'], 0, 23)), 0, 0, 'L');
         $pdf->Cell(10, 4, $producto['cant'], 0, 1, 'R');
     }
 }

@@ -87,14 +87,14 @@
   $pdf->AddPage();
   $pdf->Image('../../../../img/'.$logo,5,15,15);
   $pdf->SetFont('Times','B',14);
-  $pdf->Cell(90,7,utf8_decode(NAME_EMPRESA),0,1,'C');
+  $pdf->Cell(90,7,(NAME_EMPRESA),0,1,'C');
   $pdf->SetFont('Arial','',11);
   $pdf->Cell(90,5,'NIT: '.NIT_EMPRESA,0,1,'C');
   $pdf->Cell(90,5,'Iva Regimen Comun',0,1,'C');
   $pdf->Cell(90,5,'NO SOMOS GRANDES CONTRIBUYENTES',0,1,'C');
   $pdf->Cell(90,5,'NI AGENTES RETENEDORES',0,1,'C');
-  $pdf->Cell(90,5,utf8_decode(ADRESS_EMPRESA),0,1,'C');
-  $pdf->Cell(90,5,utf8_decode(CIUDAD_EMPRESA.' '.PAIS_EMPRESA),0,1,'C');
+  $pdf->Cell(90,5,(ADRESS_EMPRESA),0,1,'C');
+  $pdf->Cell(90,5,(CIUDAD_EMPRESA.' '.PAIS_EMPRESA),0,1,'C');
   $pdf->Cell(90,5,'Telefono '.TELEFONO_EMPRESA.' Movil '.CELULAR_EMPRESA,0,1,'C');
   $pdf->SetFont('Arial','B',13);
   $pdf->Cell(90,7,$nomamb,0,1,'C');
@@ -108,7 +108,7 @@
 	  $pdf->Cell(25,5,'Iden. '.$identif,0,1,'L');
 	}else{
 	  $pdf->Cell(70,5,'Cheque Cuenta Nro: '.str_pad($nFact,5,'0',STR_PAD_LEFT),0,1,'L');
-	  $pdf->Cell(70,5,'Huesped '.substr(utf8_decode($cliente),0,22),0,0,'L');
+	  $pdf->Cell(70,5,'Huesped '.substr(($cliente),0,22),0,0,'L');
 	  $pdf->Cell(20,5,' Hab. '.$nrohabi,0,1,'L');
 	}
   $pdf->Ln(2);
@@ -131,7 +131,7 @@
 		foreach ($productosventa as $producto) {
 	    $na  = $na  + $producto['cant']; 
 	    $val = $val + $producto['venta']; 
-		  $pdf->Cell(60,5,utf8_decode($producto['nom']),0,0,'L');
+		  $pdf->Cell(60,5,($producto['nom']),0,0,'L');
 		  $pdf->Cell(10,5,$producto['cant'],0,0,'L');
 		  $pdf->Cell(20,5,number_format($producto['venta'],2,",","."),0,1,'R');
 

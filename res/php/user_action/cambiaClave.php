@@ -1,13 +1,17 @@
 <?php 
 
   require '../app_top.php'; 
+	extract($_POST);
 
-	$id    = $_POST["id"];
-	$usu   = strtoupper(addslashes($_POST["usuario"]));
-	$nueva = strtoupper(addslashes($_POST["nuevaclave"]));
+	$pass3 = sha1(md5(strtoupper($usuario) . strtoupper($claveactual)));
 
-	$nuevacla = sha1(md5($usu.$nueva));
-	$cambia   = $user->cambiaClaveUsuario($nuevacla, $usu, $id); 
+	$compara = $user->comparaPass($usuario, $pass3);
 
-	echo $cambia ;
+	if($compara==0){
+		echo $compara;
+	}else {
+		$nueva = sha1(md5(strtoupper($usuario) . strtoupper($nuevaclave)));
+		$cambia   = $user->cambiaClaveUsuario($nueva, $usuario);  
+		echo $cambia;
+	}
 ?>

@@ -1,0 +1,1 @@
+[05-Aug-2024 17:24:18 America/Bogota] PHP Warning:  Undefined array key "reservaCreada" in /var/www/donlolo.lan/pms/res/php/getInformacionEstadia.php on line 295

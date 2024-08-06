@@ -86,6 +86,7 @@ if (!isset($_GET['section'])) {
     $companias = $hotel->getCompanias();
 } elseif (isset($_GET['section']) && $_GET['section'] == 'companias') {
     $companias = $hotel->getPerfilCompanias();
+    $paices = $hotel->getPaices();
 } elseif (isset($_GET['section']) && $_GET['section'] == 'agencias') {
     $agencias = $hotel->getAgencias();
 } elseif (isset($_GET['section']) && $_GET['section'] == 'huespedesPerfil') {

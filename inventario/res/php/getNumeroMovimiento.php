@@ -10,7 +10,7 @@
 	$_SESSION['numeroEntrada'] = $numeroMov;
 
 	 
-	echo trim($numeroMov); 
+	echo intval($numeroMov);
 
 
 ?>

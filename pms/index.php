@@ -304,33 +304,6 @@ require_once '../res/php/app_topHotel.php';
     ?>
 
     <script src="<?php echo BASE_PMS; ?>res/js/pms.js"></script>
-
-    <script>
-        /* sesion = JSON.parse(localStorage.getItem('sesion'))
-        var {
-            user: {
-                usuario_id,
-                usuario,
-                nombres,
-                apellidos,
-                tipo,
-                estado_usuario_pms
-            }
-        } = sesion;
-        $('#usuarioActivo').val(usuario)
-        $('#nombreUsuario').html(`${apellidos} ${nombres} <span class="caret"></span>`)
-        $('#menuClave').html(`
-          <a class="altoMenu" id="cambiaPass" 
-            data-toggle    = 'modal'
-            data-id        = '${usuario_id}' 
-            data-user      = '${usuario}' 
-            data-apellidos = '${apellidos}' 
-            data-nombres   = '${nombres}' 
-            href="#myModalCambiarClave" style="padding:10px 15px">Cambiar Contraseña
-          </a>
-        `)
-        accesoUsuarios() */
-    </script>
     <?php
     if (isset($_GET['section']) && $_GET['section'] == 'facturacionHuesped') { ?>
         <script>

@@ -15,6 +15,8 @@
 
 	define("NAME_EMPRESA", $empresa[0]['empresa']);
 
+	$pc = gethostname();
+	$ip = $_SERVER['REMOTE_ADDR'];
 	$nit = number_format($empresa[0]['nit'],0);
 	$nit = str_replace(",",".",$nit);
 

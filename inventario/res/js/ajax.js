@@ -1,7 +1,5 @@
-sesion = JSON.parse(localStorage.getItem("sesion"));
-// let { user } = sesion;
-// let { usuario, usuario_id, apellidos, nombres } = user;
-
+let sesion = JSON.parse(localStorage.getItem("sesion"));
+let {user: { usuario },} = sesion;
 function buscaCantidad() {
   desde = $("#llegada").val();
   hasta = $("#salida").val();
@@ -21,8 +19,9 @@ function buscaCantidad() {
 
 function cierreMes() {
   periodo = $("#periodo").val();
-  /* sesion = JSON.parse(localStorage.getItem("sesion"));
-  user = sesion["usuario"][0]["usuario"]; */
+  let sesion = JSON.parse(localStorage.getItem("sesion"));
+  let {user: { usuario },} = sesion;
+
   parametros = {
     periodo,
     usuario,
@@ -62,11 +61,8 @@ function conteoInventario(bodega) {}
 function procesaRecPed() {
   var pagina = $("#ubicacion").val();
   var ruta = $("#rutaweb").val();
-  /* 
-  sesion = JSON.parse(localStorage.getItem("sesion"));
-  var idusr = sesion["usuario"][0]["usuario_id"];
-  var user = sesion["usuario"][0]["usuario"]; 
-  */
+  let sesion = JSON.parse(localStorage.getItem("sesion"));
+  let {user: { usuario, usuario_id },} = sesion;
 
   asignaConsecutivo(6);
 
@@ -304,9 +300,8 @@ function buscaRecetaPed(codigo) {
 function procesaRecReq() {
   var pagina = $("#ubicacion").val();
   var ruta = $("#rutaweb").val();
-  /* sesion = JSON.parse(localStorage.getItem("sesion"));
-  var idus = sesion["usuario"][0]["usuario_id"];
-  var usua = sesion["usuario"][0]["usuario"]; */
+  let sesion = JSON.parse(localStorage.getItem("sesion"));
+  let {user: { usuario,usuario_id },} = sesion;
 
   asignaConsecutivo(5);
 
@@ -547,11 +542,9 @@ function buscaRecetaReq(codigo) {
 function procesaPed() {
   var pagina = $("#ubicacion").val();
   var ruta = $("#rutaweb").val();
-  /* 
-  sesion = JSON.parse(localStorage.getItem("sesion"));
-  var idus = sesion["usuario"][0]["usuario_id"];
-  var usua = sesion["usuario"][0]["usuario"]; 
-  */
+  let sesion = JSON.parse(localStorage.getItem("sesion"));
+  let {user: { usuario,usuario_id },} = sesion;
+
   var centro = $("#almacenPed").val();
   var proveedor = $("#proveedorPed").val();
   var fecha = $("#fechaPed").val();
@@ -825,8 +818,8 @@ function muestraProductosPedido() {
 
 function anulaPedido(id) {
   var ubica = $("#ubicacion").val();
-  // sesion = JSON.parse(localStorage.getItem("sesion"));
-  // usuario = sesion["usuario"][0]["usuario"];
+  let sesion = JSON.parse(localStorage.getItem("sesion"));
+  let {user: { usuario },} = sesion;
   parametros = {
     id,
     usuario,
@@ -861,6 +854,9 @@ function anulaPedido(id) {
 /// REQUISICIONES
 
 function anulaRequisicion(id) {
+  let sesion = JSON.parse(localStorage.getItem("sesion"));
+  let {user: { usuario },} = sesion;
+
   var ubica = $("#ubicacion").val();
   parametros = {
     id,
@@ -896,9 +892,8 @@ function anulaRequisicion(id) {
 function procesaReq() {
   var pagina = $("#ubicacion").val();
   var ruta = $("#rutaweb").val();
-  /* sesion = JSON.parse(localStorage.getItem("sesion"));
-  var idus = sesion["usuario"][0]["usuario_id"];
-  var usua = sesion["usuario"][0]["usuario"]; */
+  let sesion = JSON.parse(localStorage.getItem("sesion"));
+  let {user: { usuario,usuario_id },} = sesion;
 
   asignaConsecutivo(5);
 
@@ -1210,6 +1205,9 @@ function muestraProductoKardex() {
 }
 
 function procesaAjuste(tipo) {
+  let sesion = JSON.parse(localStorage.getItem("sesion"));
+  let {user: { usuario },} = sesion;
+
   var pagina = $("#ubicacion").val();
   var ruta = $("#rutaweb").val();
   var almacen = localStorage.getItem("almacenAju");
@@ -1772,6 +1770,9 @@ function reImprimeMovimiento(numero, tipo){
 }
 
 function procesaTraslado(tipo) {
+  let sesion = JSON.parse(localStorage.getItem("sesion"));
+  let {user: { usuario },} = sesion;
+
   var pagina = $("#ubicacion").val();
   var ruta = $("#rutaweb").val();
   var alma = localStorage.getItem("almacenTras");
@@ -1873,6 +1874,9 @@ function actualizaSalida(codigo, regis) {
 }
 
 function procesaSalida(tipo) {
+  let sesion = JSON.parse(localStorage.getItem("sesion"));
+  let {user: { usuario },} = sesion;
+
   var pagina = $("#ubicacion").val();
   var ruta = $("#rutaweb").val();
 
@@ -1880,7 +1884,6 @@ function procesaSalida(tipo) {
 
   setTimeout(function () {
     numeroMov = $("#numeroMovimiento").val();
-    // var usua = sesion["usuario"][0]["usuario"];
     var storageList = localStorage.getItem("salidaListaProductos");
     movimiento = JSON.parse(storageList);
     (parametros = {
@@ -2094,10 +2097,9 @@ function agregaListaSalida() {
 }
 
 function cierraSesion() {
-  /*  
-  sesion = JSON.parse(localStorage.getItem("sesion"));
-  var id = sesion["usuario"][0]["usuario_id"];
-  var usua = sesion["usuario"][0]["usuario"]; */
+  let sesion = JSON.parse(localStorage.getItem("sesion"));
+  let {user: { usuario,usuario_id },} = sesion;
+
   $.ajax({
     url: "../../res/shared/salir.php",
     type: "POST",
@@ -2113,61 +2115,78 @@ function cierraSesion() {
   });
 }
 
-function asignaConsecutivo(tipo) {
-  var pagina = $("#ubicacion").val();
-  var ruta = $("#rutaweb").val();
-  $.ajax({
-    url: ruta + "res/php/getNumeroMovimiento.php",
-    type: "POST",
-    data: { tipo },
-    success: function (data) {
-      $("#numeroMovimiento").val(parseInt(data));
-    },
-  });
+async function asignaConsecutivo(tipo) {
+  try {
+    const resultado = await fetch("res/php/getNumeroMovimiento.php", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+      body: `tipo=${tipo}`,
+    });
+    const datos = await resultado.text();
+    return parseInt(datos);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-function procesaEntrada(tipo) {
+async function procesaEntrada(tipo) {
   var pagina = $("#ubicacion").val();
   var ruta = $("#rutaweb").val();
+  let conce = await asignaConsecutivo(tipo);
+  let guarda = await guardaMovimiento(conce);
+  let imprie = await imprimeMovimiento(conce, 1);
+  let cierra = await limpiaMovimiento(conce)
+}
 
-  asignaConsecutivo(1);
-
-  setTimeout(function () {
-    numeroMov = $("#numeroMovimiento").val();
-    // var usua = sesion["usuario"][0]["usuario"];
-    var storageList = localStorage.getItem("LocalProductList");
-    movimiento = JSON.parse(storageList);
+async function guardaMovimiento(numeroMov){
+  let sesion = JSON.parse(localStorage.getItem("sesion"));
+  let {user: { usuario, tipo }} = sesion;
+  var storageList = localStorage.getItem("LocalProductList");
+  movimientos = JSON.parse(storageList);
     parametros = {
       usuario,
       numeroMov,
       tipo,
-      movimiento,
+      movimientos,
     };
     $.ajax({
-      url: ruta + "res/php/guardaProductoMov.php",
+      url: "res/php/guardaProductoMov.php",
       type: "POST",
       data: parametros,
       success: function (data) {
-        data = $.trim(data);
-        localStorage.removeItem("LocalProductList");
-        localStorage.removeItem("proveedor");
-        localStorage.removeItem("almacen");
-        localStorage.removeItem("fecha");
-        localStorage.removeItem("factura");
-        localStorage.removeItem("tipoMov");
-        localStorage.removeItem("tipoMovSale");
-        swal(
-          "Atencion",
-          "Movimiento de Entradas Realizado con Exito",
-          "success",
-          5000
-        );
-        imprimeMovimiento(data, 1);
-        $(location).attr("href", "entradas");
+        return data;
       },
     });
-  }, 1000);
 }
+
+async function limpiaMovimiento(conce){
+  localStorage.removeItem("LocalProductList");
+  localStorage.removeItem("proveedor");
+  localStorage.removeItem("almacen");
+  localStorage.removeItem("fecha");
+  localStorage.removeItem("factura");
+  localStorage.removeItem("tipoMov");
+  localStorage.removeItem("tipoMovSale");
+  if(conce==0){
+    title = "Precaucion",
+    text = 'Movimiento de Entrada Cancelado',
+    type = 'warning'
+  }else{
+    title = "Atencion",
+    text = `Entrada Nro ${conce} Realizada con Exito`,
+    type = 'success'
+  }
+  swal({
+    title,
+    text,
+    type,
+  }, function(){
+    $(location).attr("href", "entradas");
+  });
+}
+
 
 function guardaRegistro() {}
 
@@ -2183,7 +2202,7 @@ function actualizaEntrada(codigo, regis) {
   resumen();
 }
 
-function agregaLista() {
+async function agregaLista() {
   var alma = $("#almacen").val();
   var tipomovi = $("#Movimiento").val();
   var movi = $("#tipoMov").val();
@@ -2234,8 +2253,7 @@ function agregaLista() {
   var subtot = parseFloat(valp);
   valp = parseFloat(valp);
   pori = parseInt(pori);
-  // cant = parseInt(cant);
-
+  
   if ($("#incluido").is(":checked")) {
     incl = 1;
   } else {
@@ -2350,8 +2368,25 @@ function resumen() {
   }
 }
 
-function cancelaEntrada() {
-  var pagina = $("#ubicacion").val();
+async function cancelaEntrada() {
+  swal(
+    {
+      title: "Cancelar Entrada",
+      text: "Esta Seguro que quiere Cancelar la Entrada",
+      type: "warning",
+      showCancelButton: true,
+      cancelButtonClass: "btn-warning",
+      cancelButtonText: "Continuar ",
+      confirmButtonClass: "btn-danger",
+      confirmButtonText: "Si, Cancela la Entrada !",
+      closeOnConfirm: false,
+    },
+    async function () {
+      sale = await limpiaMovimiento(0)
+    }
+  );
+  
+  /* var pagina = $("#ubicacion").val();
   var ruta = $("#rutaweb").val();
 
   localStorage.removeItem("LocalProductList");
@@ -2361,7 +2396,8 @@ function cancelaEntrada() {
   localStorage.removeItem("proveedor");
   localStorage.removeItem("tipoMov");
 
-  $(location).attr("href", ruta + pagina);
+  $(location).attr("href", ruta + pagina); */
+
 }
 
 function cancelaAdd() {

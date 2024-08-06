@@ -44,7 +44,7 @@ $pdf->AddPage();
 // $pdf->Image('../../../../img/'.$logo, 2, 5, 9);
 $pdf->SetFont('Arial', 'B', 12);
 
-$pdf->Cell(65, 4, utf8_decode(NAME_EMPRESA), 0, 1, 'C');
+$pdf->Cell(65, 4, (NAME_EMPRESA), 0, 1, 'C');
 // $pdf->Cell(65, 4, $nomamb, 0, 1, 'C');
 $pdf->MultiCell(65, 6, $nomamb, 0, 'C');
 
@@ -54,8 +54,8 @@ $pdf->Cell(65, 4, 'NIT: '.NIT_EMPRESA, 0, 1, 'C');
   $pdf->Cell(50,5,'NO SOMOS GRANDES CONTRIBUYENTES',0,1,'C');
   $pdf->Cell(50,5,'NI AGENTES RETENEDORES',0,1,'C');
  */
-$pdf->Cell(65, 4, utf8_decode(ADRESS_EMPRESA), 0, 1, 'C');
-$pdf->Cell(65, 4, utf8_decode(CIUDAD_EMPRESA.' '.PAIS_EMPRESA), 0, 1, 'C');
+$pdf->Cell(65, 4, (ADRESS_EMPRESA), 0, 1, 'C');
+$pdf->Cell(65, 4, (CIUDAD_EMPRESA.' '.PAIS_EMPRESA), 0, 1, 'C');
 $pdf->Cell(65, 4, 'Movil '.CELULAR_EMPRESA, 0, 1, 'C');
 $pdf->SetFont('Arial', '', 10);
 $pdf->Cell(65, 4, 'Fecha '.$fec.' Mesa '.$mesa, 0, 1, 'L');
@@ -86,7 +86,7 @@ $pdf->SetFont('Arial', '', 10);
 foreach ($productosventa as $producto) {
     $na = $na + $producto['cant'];
     $val = $val + $producto['venta'];
-    $pdf->Cell(35, 4, substr(utf8_decode($producto['nom']), 0, 17), 0, 0, 'L');
+    $pdf->Cell(35, 4, substr(($producto['nom']), 0, 17), 0, 0, 'L');
     $pdf->Cell(10, 4, $producto['cant'], 0, 0, 'R');
     $pdf->Cell(20, 4, number_format($producto['venta'], 2, ',', '.'), 0, 1, 'R');
 

@@ -1,9 +1,8 @@
-document.addEventListener("DOMContentLoaded", async () => {    
+document.addEventListener("DOMContentLoaded", async () => {
   let sesion = JSON.parse(localStorage.getItem("sesion"));
   if (sesion) {
-    let { user: {usuario_id, usuario, nombres, apellidos, tipo, estado_usuario_pms} } = sesion;
+    let {user: { usuario, usuario_id, nombres, apellidos, tipo, estado_usuario_pms },} = sesion;
   }
-
   $("#myModalLogin").on("show.bs.modal", function (event) {
     $("#error").html("");
     if (sesion) {
@@ -77,8 +76,8 @@ function solicitudSoporte() {
 
 function activaSesion() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { moduloPms } = sesion;
-  let { fecha_auditoria } = moduloPms;
+  let { user:{usuario, usuario_id, tipo, estado_usuario_pms}, moduloPms: {fecha_auditoria}} = sesion;
+  // let { fecha_auditoria } = moduloPms;
   parametros = {
     user: usuario,
     userId: usuario_id,
@@ -101,7 +100,7 @@ function ingresoInv() {
 }
 
 function ingresoAdmin() {
-  console.log(sesion)
+  sesion = JSON.parse(localStorage.getItem("sesion"));
   const { user: {usuario_id, usuario, nombres, apellidos, tipo, estado_usuario_pms} } = sesion;
   $("#usuarioActivo").val(usuario);
   $("#nombreUsuario").html(` ${apellidos} ${nombres} <span class="caret"></span>`
@@ -181,7 +180,8 @@ function activaModulos() {
     fecha.getDate() + "/" + (fecha.getMonth() + 1) + "/" + fecha.getFullYear();
   let { cia: { invMod, posMod, pmsMod, resMod }, user: { estado, ingreso, tipo, apellidos, nombres, inv, pos, pms, res }, moduloPms: { fecha_auditoria } } = sesion;
   /* let { estado, ingreso, tipo, apellidos, nombres, inv, pos, pms, res } = user;
-  let { invMod, posMod, pmsMod, resMod } = cia;
+  let {   console.log(sesion)
+invMod, posMod, pmsMod, resMod } = cia;
   let { fecha_auditoria } = moduloPms; */
 
   muestraFecha = document.querySelector('#fechaPms');
@@ -199,11 +199,11 @@ function redondeo(numero, decimales) {
   return resultado;
 }
 
-function duplicadoClave() {
+function       duplicadoClave() {
   clave1 = $("#clave1").val();
   clave2 = $("#clave2").val();
   if (clave1 != clave2) {
-    muestraErrorAlerta("Las Contraseñas no Coinciden")
+    muestraError("Las Contraseñas no Coinciden")
     limpiaClaves()
   }
 }
@@ -227,12 +227,15 @@ function valida_ingreso() {
       let { entro, user } = data;
       if (entro == "0") {
         muestraError("Usuario o Contraseña Incorrecto");
+        limpiaError();
       } else {
         let { estado, ingreso, multipleIngreso } = user;
         if (estado == "C") {
           muestraError("Usuario sin Acceso Permitido al Sistema");
+          limpiaError();
         } else if (ingreso == 1 && multipleIngreso == 0) {
           muestraError("Usuario Activo en el Sistema");
+          limpiaError();
         } else {
           localStorage.setItem("sesion", JSON.stringify(data));
           $(location).attr("href", "views/modulos.php");
@@ -284,25 +287,15 @@ function cambiaClave() {
         nuevaclave,
       },
       success: function (resp) {
-        console.log(resp)
 
         if (resp == 0) {
-          muestraErrorAlerta("Contraseña Incorrecta !!")
+          muestraError("Contraseña Incorrecta !!")
           limpiaClaves()
-          $/* ("#claveactual").val("");
-          $("#nuevaclave").val("");
-          $("#confirmaclave").val("");
-          $("#mensaje").html(
-            '<div class="alert alert-warning"> <span class="glyphicon glyphicon-info-sign"></span> </div>'
-          );
-          $("#claveactual").focus(); */
         } else {
           if (resp == "1") {
-            $("#confirmaclave").val("");
-            $("#nuevaclave").val("");
-            $("#claveactual").focus();
-            swal("Atencion", "Contraseña Cambiada con Exito", "success");
-            // $(location).attr("href", "home");
+            muestraError("Contraseña Actualizada con Exito !! \n Ingrese de Nuevo al sistema para Actualizar su Usuario")
+            limpiaClaves()
+            cierraSesion()
           }
         }
       },
@@ -317,6 +310,8 @@ function cambiaClave() {
     $("#claveactual").focus();
   }
 }
+
+
 
 function makeNro(length) {
   var result = "";
@@ -395,7 +390,7 @@ function leeCajeroActivo() {
   archivo.send(null);
 }
 
-function muestraErrorAlerta(error) {
+/* function muestraErrorAlerta(error) {
   $("#error").html(`
     <div class="alert alert-danger"> <span class="glyphicon glyphicon-info-sign"></span> ${error}</div>`);
   $("#login").val("");
@@ -403,11 +398,19 @@ function muestraErrorAlerta(error) {
   $("#login").focus();
 
   limpiaError();
-}
+} */
+
+function muestraError(error) {
+  $("#error").html(`
+    <div class="alert alert-danger"> <span class="glyphicon glyphicon-info-sign"></span> ${error}</div>`);
+    setTimeout(function () {
+      $("#error").html(``);
+    }, 4000);
+  }
 
 function limpiaError() {
-  setTimeout(function () {
-    $("#error").html(``);
-  }, 4000);
+  $("#login").val("");
+  $("#pass").val("");
+  $("#login").focus();
 }
 

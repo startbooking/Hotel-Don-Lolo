@@ -27,16 +27,16 @@ $pdf->AddPage();
 // $pdf->Image('../../../../img/'.$logo,2,3,20);
 /* $pdf->SetFont('Arial','B',14);
 */
-$pdf->Cell(100, 5, utf8_decode(NAME_EMPRESA), 0, 1, 'C');
-$pdf->Cell(100, 5, utf8_decode(NAME_EMPRESA), 0, 1, 'C');
+$pdf->Cell(100, 5, (NAME_EMPRESA), 0, 1, 'C');
+$pdf->Cell(100, 5, (NAME_EMPRESA), 0, 1, 'C');
 
 $pdf->Cell(100, 5, $nomamb, 0, 1, 'C');
 $pdf->SetFont('Arial', '', 12);
 $pdf->Cell(76, 5, 'NIT: '.NIT_EMPRESA, 0, 1, 'C');
 $pdf->Cell(76, 5, REGIMEN, 0, 1, 'C');
 $pdf->SetFont('Arial', '', 12);
-$pdf->Cell(76, 5, utf8_decode(ADRESS_EMPRESA), 0, 1, 'C');
-$pdf->Cell(76, 5, utf8_decode(CIUDAD_EMPRESA.' '.PAIS_EMPRESA), 0, 1, 'C');
+$pdf->Cell(76, 5, (ADRESS_EMPRESA), 0, 1, 'C');
+$pdf->Cell(76, 5, (CIUDAD_EMPRESA.' '.PAIS_EMPRESA), 0, 1, 'C');
 $pdf->Cell(76, 5, 'Telefono '.TELEFONO_EMPRESA.' Movil '.CELULAR_EMPRESA, 0, 1, 'C');
 
 $pdf->SetFont('Arial', '', 12);
@@ -62,9 +62,9 @@ $pdf->Ln(2);
 $pdf->SetFont('Arial', '', 12);
 
 foreach ($ventasdia as $producto) {
-    $pdf->Cell(60, 4, utf8_decode($producto['nom']), 0, 0, 'L');
+    $pdf->Cell(60, 4, ($producto['nom']), 0, 0, 'L');
 
-    // / $pdf->Cell(60,6,utf8_decode(substr($producto['nom'],0,20)),0,0,'L');
+    // / $pdf->Cell(60,6,(substr($producto['nom'],0,20)),0,0,'L');
     $pdf->Cell(20, 4, $producto['cant'], 0, 0, 'R');
     $pdf->Cell(20, 4, number_format($producto['importe'], 2), 0, 1, 'R');
 

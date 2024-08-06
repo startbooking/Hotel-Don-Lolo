@@ -18,12 +18,12 @@
   $pdf->Image('../../../../img/'.$logo,2,5,10);
   $pdf->SetFont('Arial','B',8);
   $pdf->Cell(50,6,$nomamb,0,1,'C');
-	// $pdf->Cell(50,4,utf8_decode(NAME_EMPRESA),0,1,'C');
+	// $pdf->Cell(50,4,(NAME_EMPRESA),0,1,'C');
   $pdf->SetFont('Arial','',8);
   $pdf->Cell(50,4,'NIT: '.NIT_EMPRESA,0,1,'C');
   $pdf->Cell(50,4,'Iva Regimen Simplificado',0,1,'C');
-  $pdf->Cell(50,4,utf8_decode(ADRESS_EMPRESA),0,1,'C');
-  $pdf->Cell(50,4,utf8_decode(CIUDAD_EMPRESA.' '.PAIS_EMPRESA),0,1,'C');
+  $pdf->Cell(50,4,(ADRESS_EMPRESA),0,1,'C');
+  $pdf->Cell(50,4,(CIUDAD_EMPRESA.' '.PAIS_EMPRESA),0,1,'C');
   $pdf->Cell(50,4,'Telefono '.TELEFONO_EMPRESA,0,1,'C');
   $pdf->SetFont('Arial','B',8);
   $pdf->SetFont('Arial','B',7);
@@ -41,7 +41,7 @@
   $pdf->SetFont('Arial','B',7);
 	$pdf->Cell(10,4,'Cliente: ',0,0,'L');
   $pdf->SetFont('Arial','',7);
-  $pdf->Cell(20,4,substr(utf8_decode($cliente),0,24),0,1,'L');
+  $pdf->Cell(20,4,substr(($cliente),0,24),0,1,'L');
   $pdf->SetFont('Arial','B',7);
   $pdf->Cell(25,4,"Abono a Cuenta: ",0,0,'L');
   $pdf->SetFont('Arial','',7);
@@ -59,7 +59,7 @@
   $pdf->Ln(1);
   $pdf->SetFont('Arial','',7);
   foreach ($productos as $producto) {
-    $pdf->Cell(35,4,utf8_decode(substr($producto['producto'],0,23)),0,0,'L');
+    $pdf->Cell(35,4,(substr($producto['producto'],0,23)),0,0,'L');
     $pdf->Cell(10,4,$producto['cant'],0,1,'R');
   }
  */

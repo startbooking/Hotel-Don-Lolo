@@ -24,7 +24,7 @@ $pdf = new FPDF('P', 'mm', [76, 350]);
 $pdf->AddPage();
 $pdf->SetMargins(5, 5, 5);
 $pdf->SetFont('Arial', 'B', 10);
-$pdf->Cell(65, 4, utf8_decode(NAME_EMPRESA), 1, 1, 'C');
+$pdf->Cell(65, 4, (NAME_EMPRESA), 1, 1, 'C');
 $pdf->SetFont('Arial', '', 10);
 $pdf->MultiCell(65, 6, $nomamb, 0, 'C');
 // $pdf->Cell(40, 4, $nomamb, 1, 1, 'C');
@@ -39,7 +39,7 @@ $pdf->Ln(2);
 $pdf->SetFont('Arial', '', 10);
 
 foreach ($productos as $producto) {
-    $pdf->Cell(55, 4, utf8_decode(substr($producto['producto'], 0, 23)), 0, 0, 'L');
+    $pdf->Cell(55, 4, (substr($producto['producto'], 0, 23)), 0, 0, 'L');
     $pdf->Cell(10, 4, $producto['cant'], 0, 1, 'R');
 }
 

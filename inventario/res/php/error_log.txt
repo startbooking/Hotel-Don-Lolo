@@ -1,0 +1,36 @@
+[05-Aug-2024 22:01:49 America/Bogota] PHP Warning:  Undefined variable $movimientos in /var/www/donlolo.lan/inventario/res/php/guardaProductoMov.php on line 8
+[05-Aug-2024 22:01:49 America/Bogota] PHP Warning:  foreach() argument must be of type array|object, null given in /var/www/donlolo.lan/inventario/res/php/guardaProductoMov.php on line 8
+[05-Aug-2024 22:01:49 America/Bogota] PHP Warning:  Undefined variable $almacen in /var/www/donlolo.lan/inventario/views/prints/imprimeSalidas.php on line 6
+[05-Aug-2024 22:01:49 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/inventario/views/prints/imprimeSalidas.php on line 19
+[05-Aug-2024 22:01:49 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/inventario/views/prints/imprimeSalidas.php on line 19
+[05-Aug-2024 22:01:49 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsInventario.php on line 664
+[05-Aug-2024 22:01:49 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/res/php/functionsInventario.php on line 664
+[05-Aug-2024 22:01:49 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[05-Aug-2024 22:01:49 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[05-Aug-2024 22:01:49 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[05-Aug-2024 22:01:49 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[05-Aug-2024 22:01:49 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/inventario/views/prints/imprimeSalidas.php on line 23
+[05-Aug-2024 22:01:49 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/inventario/views/prints/imprimeSalidas.php on line 23
+[05-Aug-2024 22:01:49 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsInventario.php on line 601
+[05-Aug-2024 22:01:49 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/res/php/functionsInventario.php on line 601
+[05-Aug-2024 22:01:49 America/Bogota] PHP Deprecated:  trim(): Passing null to parameter #1 ($string) of type string is deprecated in /var/www/donlolo.lan/res/php/functionsInventario.php on line 601
+[05-Aug-2024 22:01:49 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/inventario/views/prints/imprimeSalidas.php on line 31
+[05-Aug-2024 22:01:49 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/inventario/views/prints/imprimeSalidas.php on line 31
+[05-Aug-2024 22:01:49 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsInventario.php on line 693
+[05-Aug-2024 22:01:49 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/res/php/functionsInventario.php on line 693
+[05-Aug-2024 22:01:49 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[05-Aug-2024 22:01:49 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[05-Aug-2024 22:01:49 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[05-Aug-2024 22:01:49 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[05-Aug-2024 22:01:49 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/inventario/views/prints/imprimeSalidas.php on line 35
+[05-Aug-2024 22:01:49 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/inventario/views/prints/imprimeSalidas.php on line 35
+[05-Aug-2024 22:01:49 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[05-Aug-2024 22:01:49 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[05-Aug-2024 22:01:49 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[05-Aug-2024 22:01:49 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[05-Aug-2024 22:01:49 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/inventario/views/prints/imprimeSalidas.php on line 39
+[05-Aug-2024 22:01:49 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/inventario/views/prints/imprimeSalidas.php on line 39
+[05-Aug-2024 22:01:49 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[05-Aug-2024 22:01:49 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[05-Aug-2024 22:01:49 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212
+[05-Aug-2024 22:01:49 America/Bogota] PHP Deprecated:  strpos(): Passing null to parameter #1 ($haystack) of type string is deprecated in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1212

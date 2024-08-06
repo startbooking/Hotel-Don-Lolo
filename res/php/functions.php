@@ -5,6 +5,19 @@ date_default_timezone_set('America/Bogota');
 
 class User_Actions
 {
+
+    public function comparaPass($usuario, $pass){
+        global $database;
+
+        $data = $database->count('usuarios',[
+            'usuario',
+        ], [
+            'usuario' => $usuario,
+            'password' => $pass,
+        ]);
+        return $data;
+
+    }
     public function getUserSocial($red) // Menu Redes Sociales
     {
         global $database;
@@ -365,14 +378,14 @@ class User_Actions
         return $data->rowCount();
     }
 
-    public function cambiaClaveUsuario($pass, $user, $id)
+    public function cambiaClaveUsuario($pass, $user)
     {
         global $database;
 
         $data = $database->update('usuarios', [
             'password' => $pass,
         ], [
-            'usuario_id' => $id,
+            'usuario' => $user,
         ]);
 
         return $data->rowCount();

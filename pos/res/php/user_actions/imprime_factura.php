@@ -58,7 +58,7 @@ if ($pms == '1') {
     $nameImpr = 'Factura_'.$pref.'_'.$nFact.'.pdf';
     $file = '../../../impresiones/Factura_'.$pref.'_'.$nFact.'.pdf';
 }
-$cliente = utf8_decode($datosCliente[0]['apellido1'].' '.$datosCliente[0]['apellido2'].' '.$datosCliente[0]['nombre1'].' '.$datosCliente[0]['nombre2']);
+$cliente = ($datosCliente[0]['apellido1'].' '.$datosCliente[0]['apellido2'].' '.$datosCliente[0]['nombre1'].' '.$datosCliente[0]['nombre2']);
 
 $productosventa = $pos->getProductosVendidosFactura($amb, $nComa);
 
@@ -69,12 +69,12 @@ $pdf->SetMargins(5, 5, 5);
 
 $pdf->AddPage();
 $pdf->SetFont('Arial', 'B', 12);
-$pdf->Cell(65, 4, utf8_decode(NAME_EMPRESA), 0, 1, 'C');
+$pdf->Cell(65, 4, (NAME_EMPRESA), 0, 1, 'C');
 $pdf->SetFont('Arial', '', 10);
 $pdf->Cell(65, 4, 'NIT: '.NIT_EMPRESA, 0, 1, 'C');
 $pdf->Cell(65, 4, 'Iva Regimen Comun', 0, 1, 'C');
-$pdf->Cell(65, 4, utf8_decode(ADRESS_EMPRESA), 0, 1, 'C');
-$pdf->Cell(65, 4, utf8_decode(CIUDAD_EMPRESA.' '.PAIS_EMPRESA), 0, 1, 'C');
+$pdf->Cell(65, 4, (ADRESS_EMPRESA), 0, 1, 'C');
+$pdf->Cell(65, 4, (CIUDAD_EMPRESA.' '.PAIS_EMPRESA), 0, 1, 'C');
 $pdf->Cell(65, 4, 'Telefono '.TELEFONO_EMPRESA, 0, 1, 'C');
 $pdf->SetFont('Arial', 'B', 10);
 $pdf->MultiCell(65, 6, $nomamb, 0, 'C');
@@ -115,7 +115,7 @@ foreach ($productosventa as $producto) {
     $descu = $descu - $producto['descuento'];
     $sub = $sub + $producto['venta'];
     $imp = $imp + $producto['valorimpto'];
-    $pdf->Cell(35, 4, substr(utf8_decode($producto['nom']), 0, 17), 0, 0, 'L');
+    $pdf->Cell(35, 4, substr(($producto['nom']), 0, 17), 0, 0, 'L');
     $pdf->Cell(10, 4, $producto['cant'], 0, 0, 'R');
     $pdf->Cell(20, 4, number_format($producto['venta'], 2, ',', '.'), 0, 1, 'R');
 }

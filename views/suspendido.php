@@ -1,6 +1,6 @@
     <div class="container">
       <div class="row">
-        <h3 style="margin-top:50px;text-align: center;color:brown;font-weight: 800;font-size:60px">Modulo en Suspendido</h3>
+        <h3 style="margin-top:50px;text-align: center;color:brown;font-weight: 800;font-size:60px">Modulo Suspendido</h3>
       </div>
       <div class="row" style="margin-top:30px">
         <div class="col-lg-3">

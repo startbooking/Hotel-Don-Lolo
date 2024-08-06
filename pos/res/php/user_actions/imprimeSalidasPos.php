@@ -13,18 +13,17 @@
    $pdf->Cell(25,5,'Fecha',0,0,'L');
   $pdf->SetFont('Arial','B',11);
   $pdf->Cell(30,5,$movimientos[0]['fecha_movimiento'],0,0,'L');
-  // $pdf->SetFont('Arial','B',1);
   $pdf->Cell(35,5,'Salida Nro',0,0,'L');
   $pdf->SetFont('Arial','',11);
   $pdf->Cell(40,5,str_pad($movimientos[0]['numero'],5,'0',STR_PAD_LEFT),0,1,'L');
   $pdf->SetFont('Arial','B',11);
   $pdf->Cell(25,5,'Almacen ',0,0,'L');
   $pdf->SetFont('Arial','',12);
-  $pdf->Cell(70,5,$pos->buscaAlmacen(utf8_decode($movimientos[0]['id_bodega'])),0,0,'L');
+  $pdf->Cell(70,5,$pos->buscaAlmacen(($movimientos[0]['id_bodega'])),0,0,'L');
   $pdf->SetFont('Arial','B',12);
   $pdf->Cell(40,5,'Factura Nro ',0,0,'L');
   $pdf->SetFont('Arial','',12);
-  $pdf->Cell(50,6,utf8_decode($movimientos[0]['documento']),0,1,'L');
+  $pdf->Cell(50,6,($movimientos[0]['documento']),0,1,'L');
   $pdf->Ln(1);
   $pdf->SetFont('Arial','B',11);
   $pdf->Cell(195,5,'SALIDA DE INVENTARIOS',0,1,'C');
@@ -37,7 +36,7 @@
   $totalsum  = 0; 
   foreach ($movimientos as $movimiento) {
     $totalsum = $totalsum + $movimiento['valor_total']; 
-    $pdf->Cell(65,4,utf8_decode($movimiento['nombre_producto']),0,0,'L');
+    $pdf->Cell(65,4,($movimiento['nombre_producto']),0,0,'L');
     $pdf->Cell(20,4,number_format($movimiento['cantidad'],2),0,0,'R');
     $pdf->Cell(45,4,$pos->getUnidadAlmacena($movimiento['unidad_alm']),0,0,'L');
     $pdf->Cell(30,4,number_format($movimiento['valor_unitario'],2),0,0,'R');

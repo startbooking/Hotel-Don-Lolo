@@ -49,23 +49,12 @@
                               class       ="btn btn-info btn-xs" 
                               data-toggle ="modal" 
                               data-target ="#myModalModificaCiudad" 
-                              data-id     ="<?php echo $bodega['id_bodega']?>" 
-                              data-descri ="<?php echo $bodega['descripcion_bodega']?>" 
-                              data-tipo ="<?php echo $bodega['tipo_bodega']?>" 
-                              title       ="Modificar la Bodega Actual" >
+                              data-id     ="<?php echo $ciudad['id_ciudad']?>" 
+                              data-munic  ="<?php echo $ciudad['municipio']?>" 
+                              data-codigo ="<?php echo $ciudad['codigo']?>" 
+                              title       ="Modificar la Ciudad Actual" >
                               <i class='fa fa-pencil-square'></i>
                             </button>
-                            <!-- <button 
-                              type        ="button" 
-                              class       ="btn btn-danger btn-xs" 
-                              data-toggle ="modal" 
-                              data-target ="#myModalEliminaCiudad" 
-                              data-id     ="<?php echo $bodega['id_bodega']?>" 
-                              data-descri ="<?php echo $bodega['descripcion_bodega']?>" 
-                              data-tipo ="<?php echo $bodega['tipo_bodega']?>" 
-                              title       ="Elimina la Bodega Actual" >              
-                              <i class='fa fa-trash'></i>
-                            </button> -->
                           </div> 
                         </td>
                       </tr>

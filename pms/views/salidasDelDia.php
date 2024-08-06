@@ -52,7 +52,7 @@ $reservas = $hotel->getSalidasDia(FECHA_PMS, 2, "CA");
               ?>
                 <tr style='font-size:12px'>
                   <td>
-                    <?php echo $reserva['num_habitacion'] ?></span>|
+                    <?php echo $reserva['num_habitacion'] ?></span>
                   </td>
                   <td>
                     <span class="btn alert-info alert-function" style="padding:1px 4px; font-size:12px;font-weight: bold;">
