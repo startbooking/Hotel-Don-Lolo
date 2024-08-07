@@ -7,6 +7,12 @@ date_default_timezone_set('America/Bogota');
 class Hotel_Actions
 {
 
+    public function reservasPorMotivo($query){
+    global $database;
+    $data = $database->query($query)->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
+    }
+
     public function buscaNitCia($ident, $id)
     {
         global $database;

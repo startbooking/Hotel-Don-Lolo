@@ -58,7 +58,7 @@
     $impto = $impto + $movimiento['impuesto'];
     $total = $subto + $impto;
     $totalsum = $totalsum + $movimiento['valor_total']; 
-    $pdf->Cell(50,4,substr(utf8_decode($movimiento['nombre_producto']),0,25),1,0,'L');
+    $pdf->Cell(50,4,substr(($movimiento['nombre_producto']),0,25),1,0,'L');
     $pdf->Cell(30,4,substr($inven->getUnidadAlmacena($movimiento['unidad_alm']),0,12),1,0,'L');
     $pdf->Cell(15,4,number_format($movimiento['cantidad'],0),1,0,'R');
     $pdf->Cell(20,4,number_format($movimiento['valor_unitario'],2),1,0,'R');
@@ -114,7 +114,7 @@
     $impto = $impto + $movimiento['impuesto'];
     $total = $subto + $impto;
     $totalsum = $totalsum + $movimiento['valor_total']; 
-    $pdf->Cell(50,4,substr(utf8_decode($movimiento['nombre_producto']),0,25),1,0,'L');
+    $pdf->Cell(50,4,substr(($movimiento['nombre_producto']),0,25),1,0,'L');
     $pdf->Cell(30,4,substr($inven->getUnidadAlmacena($movimiento['unidad_alm']),0,12),1,0,'L');
     $pdf->Cell(15,4,number_format($movimiento['cantidad'],0),1,0,'R');
     $pdf->Cell(20,4,number_format($movimiento['valor_unitario'],2),1,0,'R');
@@ -129,7 +129,6 @@
     }else{
       $pdf->Cell(25,4,number_format($movimiento['impuesto'],2),1,0,'R');
     }
-    // $pdf->Cell(25,4,number_format($movimiento['impuesto'],2),1,0,'R');
     $pdf->Cell(25,4,number_format($movimiento['valor_total'],2),1,1,'R');
   }
   $pdf->Cell(95,5,'',0,0,'L');

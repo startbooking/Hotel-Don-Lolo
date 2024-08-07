@@ -680,7 +680,7 @@ class Inventario_User
         }
     }
 
-    public function buscaAlmacen($id)
+    public function buscaAlmacen($id) 
     {
         global $database;
 

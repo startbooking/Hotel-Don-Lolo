@@ -1,0 +1,8 @@
+[06-Aug-2024 20:58:18 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsInventario.php on line 693
+[06-Aug-2024 20:58:18 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/res/php/functionsInventario.php on line 693
+[06-Aug-2024 20:58:18 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsInventario.php on line 693
+[06-Aug-2024 20:58:18 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/res/php/functionsInventario.php on line 693
+[06-Aug-2024 20:58:51 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsInventario.php on line 693
+[06-Aug-2024 20:58:51 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/res/php/functionsInventario.php on line 693
+[06-Aug-2024 20:58:51 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsInventario.php on line 693
+[06-Aug-2024 20:58:51 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/res/php/functionsInventario.php on line 693
