@@ -9,7 +9,7 @@ $pedidos = count($inven->getPedidos());
   <section class="content">
     <h1 style="font-size:34px;font-weight: bold;">
     Panel de Control <br>
-      <small class="badge btn btn-success" style="padding:5px;font-weight: bold;">Movimientos del Dia</small>
+      <small class="badge btn btn-success" style="padding:5px;font-weight: bold;">DashBoard</small>
     </h1>
     <div class="content">
       <div class="row moduloCentrar">

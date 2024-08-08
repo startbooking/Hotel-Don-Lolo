@@ -25,13 +25,15 @@
                 <table class="table table-hover">
                   <thead>
                     <tr>
-                      <th>Periodo</th>
+                      <th>Año</th>
                       <th>Mes</th>
+                      <th>Periodo</th>
                     </tr>
                   </thead>
                   <tbody>
                     <?php foreach ($periodos as $key => $periodo):?>
                       <tr>
+                        <td><?=$periodo['anio']?></td>
                         <td><?=$periodo['mes']?></td>
                         <td><?=nombreMes($periodo['mes'])?></td>
                       </tr>                      

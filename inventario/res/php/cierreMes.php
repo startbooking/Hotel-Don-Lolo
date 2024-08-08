@@ -1,15 +1,13 @@
 <?php
 
-require_once '../../../res/php/configdb.php';
-require_once '../../../res/php/app_topInventario.php';
-require_once '../../../res/shared/BackupMySQL.php';
+require '../../../res/php/configdb.php';
+require '../../../res/php/app_topInventario.php';
+require '../../../res/shared/BackupMySQL.php';
 
-$periodo = $_POST['periodo'];
-$user = $_POST['usuario'];
+extract($_POST);
+
 $fechaing = date('Y-m-d');
-
 $datosCierre = $inven->datosCerrados();
-
 $bodegas = $inven->getBodegas();
 
 $anio = $datosCierre[0]['anio_actual'];
@@ -29,7 +27,7 @@ $tipomovi = $inven->getMovimientoCierre();
 
 $fecha = $anio.$mes.'01';
 
-foreach ($bodegas as $key => $bodega) {
+/* foreach ($bodegas as $key => $bodega) {
     $saldos = $inven->getTraeKardex($bodega['id_bodega']);
     if (count($saldos) > 0) {
         $numeroMov = $inven->getNumeroMovimientoInventario($tipo);
@@ -52,15 +50,15 @@ foreach ($bodegas as $key => $bodega) {
     }
 }
 
-$envioMov = $inven->enviaHistoricoMovimientos($periodo);
-$envioPed = $inven->enviaHistoricoPedidos($periodo);
-$envioReq = $inven->enviaHistoricoRequisicion($periodo);
+$envioMov = $inven->enviaHistoricoMovimientos($periodo,$anio);
+$envioPed = $inven->enviaHistoricoPedidos($periodo,$anio);
+$envioReq = $inven->enviaHistoricoRequisicion($periodo,$anio);
 
-$borraMov = $inven->eliminaMovimientos($periodo);
-$borraPed = $inven->eliminaPedidos($periodo);
-$borraReq = $inven->eliminaRequisicion($periodo);
+$borraMov = $inven->eliminaMovimientos($periodo,$anio);
+$borraPed = $inven->eliminaPedidos($periodo,$anio);
+$borraReq = $inven->eliminaRequisicion($periodo,$anio);
 
-$actPar = $inven->actualizaFechas($periodo, $anio);
+$actPar = $inven->actualizaFechas($periodo, $anio); */
 
 ?>
 

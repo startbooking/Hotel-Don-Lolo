@@ -17,12 +17,14 @@ function buscaCantidad() {
   });
 }
 
-function cierreMes() {
+async function cierreMes() {
   periodo = $("#periodo").val();
   let sesion = JSON.parse(localStorage.getItem("sesion"));
   let {user: { usuario },} = sesion;
 
-  parametros = {
+  let backup = await backupCierre()
+  console.log(backup);
+  /* parametros = {
     periodo,
     usuario,
   };
@@ -51,7 +53,22 @@ function cierreMes() {
         }
       );
     },
-  });
+  }); */
+}
+
+async function backupCierre(){
+  try {
+    const resultado = await fetch("res/php/backupCierre.php", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+    });
+    const datos = await resultado.text();
+    return parseInt(datos);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 function conteoInventario(bodega) {}
@@ -1204,11 +1221,12 @@ function muestraProductoKardex() {
   });
 }
 
-async function procesaAjuste(tipo) {
-  let conce = await asignaConsecutivo(tipo);
-  let guarda = await guardaAjuste(conce,tipo);
-  let imprie = await imprimeMovimiento(conce, tipo);
-  let cierra = await limpiaAjuste(conce,tipo)
+async function procesaAjuste() {
+
+  let conce = await asignaConsecutivo(4);
+  let guarda = await guardaAjuste(conce,4);
+  let imprie = await imprimeMovimiento(conce, 4);
+  let cierra = await limpiaAjuste(conce,4)
 
   /* setTimeout(function () {
     numeroMov = $("#numeroMovimiento").val();

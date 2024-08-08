@@ -121,56 +121,56 @@ class Inventario_User
         return $data->rowCount();
     }
 
-    public function eliminaRequisicion($periodo)
+    public function eliminaRequisicion($periodo, $anio)
     {
         global $database;
 
-        $data = $database->query("DELETE FROM requisiciones WHERE month(fecha_req) = '$periodo'")->fetchAll();
+        $data = $database->query("DELETE FROM requisiciones WHERE month(fecha_req) = '$periodo' AND year(fecha_req) = '$anio'")->fetchAll();
 
         return $data;
     }
 
-    public function enviaHistoricoRequisicion($periodo)
+    public function enviaHistoricoRequisicion($periodo, $anio)
     {
         global $database;
 
-        $data = $database->query("INSERT INTO historico_requisiciones SELECT * FROM requisiciones WHERE month(fecha_red)  = '$periodo'")->fetchAll();
+        $data = $database->query("INSERT INTO historico_requisiciones SELECT * FROM requisiciones WHERE month(fecha_red)  = '$periodo' AND year(fecha_red) = '$anio'")->fetchAll();
 
         return $database->id();
     }
 
-    public function eliminaPedidos($periodo)
+    public function eliminaPedidos($periodo, $anio)
     {
         global $database;
 
-        $data = $database->query("DELETE FROM pedidos WHERE month(fecha_ped) = '$periodo'")->fetchAll();
+        $data = $database->query("DELETE FROM pedidos WHERE month(fecha_ped) = '$periodo' AND year(fecha_ped) = '$anio'")->fetchAll();
 
         return $data;
     }
 
-    public function enviaHistoricoPedidos($periodo)
+    public function enviaHistoricoPedidos($periodo, $anio)
     {
         global $database;
 
-        $data = $database->query("INSERT INTO historico_pedidos SELECT * FROM pedidos WHERE month(fecha_ped)  = '$periodo'")->fetchAll();
+        $data = $database->query("INSERT INTO historico_pedidos SELECT * FROM pedidos WHERE month(fecha_ped)  = '$periodo' AND year(fecha_ped) = '$anio' ")->fetchAll();
 
         return $database->id();
     }
 
-    public function eliminaMovimientos($periodo)
+    public function eliminaMovimientos($periodo, $anio)
     {
         global $database;
 
-        $data = $database->query("DELETE FROM movimientos_inventario WHERE month(fecha_movimiento) = '$periodo'")->fetchAll();
+        $data = $database->query("DELETE FROM movimientos_inventario WHERE month(fecha_movimiento) = '$periodo' AND year(fecha_movimiento) = '$anio'")->fetchAll();
 
         return $data;
     }
 
-    public function enviaHistoricoMovimientos($periodo)
+    public function enviaHistoricoMovimientos($periodo,$anio)
     {
         global $database;
 
-        $data = $database->query("INSERT INTO historico_movimientos_inventario SELECT * FROM movimientos_inventario WHERE month(fecha_movimiento)  = '$periodo'")->fetchAll();
+        $data = $database->query("INSERT INTO historico_movimientos_inventario SELECT * FROM movimientos_inventario WHERE month(fecha_movimiento)  = '$periodo' AND year(fecha_movimiento) = '$anio'")->fetchAll();
 
         return $database->id();
     }
@@ -216,7 +216,7 @@ class Inventario_User
     {
         global $database;
 
-        $data = $database->query('SELECT DISTINCT month(fecha_movimiento) AS mes FROM movimientos_inventario')->fetchAll();
+        $data = $database->query('SELECT DISTINCT month(fecha_movimiento) AS mes, year(fecha_movimiento) AS anio FROM movimientos_inventario')->fetchAll();
 
         return $data;
     }

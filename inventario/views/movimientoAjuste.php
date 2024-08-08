@@ -160,7 +160,7 @@ $hoy = date('Y-m-d');
             <div class='col-lg-4'>
               <div class="btn-group pull-right">
                 <button class='btn btn-warning' type='button' onclick='cancelaAjuste();' id='btn-cancela'><i class='fa fa-times'></i> Cancelar Ajuste</button>
-                <button class='btn btn-primary' type='button' onclick='procesaAjuste(4);' id='btn-procesa' disabled><i class='fa fa-external-link'></i> Procesar Ajuste</button>
+                <button class='btn btn-primary' type='button' onclick='procesaAjuste(1);' id='btn-procesa' disabled><i class='fa fa-external-link'></i> Procesar Ajuste</button>
               </div>
             </div>
           </div>
