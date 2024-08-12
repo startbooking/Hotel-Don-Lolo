@@ -10,7 +10,7 @@
   $user = $hotel->getLogin($usu, $pass3);
 
   $fecha = FECHA_PMS;
-
+ 
   if (!empty($user)) {
     $usuario = $user[0]['usuario'];
     $idusuario = $user[0]['usuario_id'];

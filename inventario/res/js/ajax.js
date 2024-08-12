@@ -17,13 +17,25 @@ function buscaCantidad() {
   });
 }
 
-async function cierreMes() {
-  periodo = $("#periodo").val();
+async function cierreMes(periodo) {
+  console.log(periodo)
+  // periodo = $("#periodo").val();
   let sesion = JSON.parse(localStorage.getItem("sesion"));
   let {user: { usuario },} = sesion;
 
   let backup = await backupCierre()
   console.log(backup);
+  if(backup==1){
+    swal({
+      title:'Precaucion',
+      text:'Backup no se pudo Realizar, el Proceso de Cierre no Continuara',
+      type:'warning',
+    }, function(){
+      window.location.href = "home"
+    }
+
+  )
+  }
   /* parametros = {
     periodo,
     usuario,
@@ -65,7 +77,7 @@ async function backupCierre(){
       },
     });
     const datos = await resultado.text();
-    return parseInt(datos);
+    return datos;
   } catch (error) {
     console.log(error);
   }

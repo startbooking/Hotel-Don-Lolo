@@ -207,9 +207,9 @@ class Inventario_User
     {
         global $database;
 
-        $data = $database->query('SELECT DISTINCT month(fecha_movimiento) AS mes FROM movimientos_inventario LIMIT 1')->fetchAll();
+        $data = $database->query('SELECT DISTINCT month(fecha_movimiento) AS mes, year(fecha_movimiento) AS anio FROM movimientos_inventario LIMIT 1')->fetchAll(PDO::FETCH_ASSOC);
 
-        return $data[0]['mes'];
+        return $data;
     }
 
     public function periodosActivos()

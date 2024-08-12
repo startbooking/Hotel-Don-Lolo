@@ -77,7 +77,8 @@
 		- Code of triggers
 */
 
-class BackupMySQL {
+class BackupMySQL
+{
 
 	//——————————————————————————————————————————————
 	// CONSTANTS
@@ -119,7 +120,8 @@ class BackupMySQL {
 	//——————————————————————————————————————————————
 	// CONSTRUCTOR
 
-	public function __construct($connection=array(), $tables=array(), $show=array()) {
+	public function __construct($connection = array(), $tables = array(), $show = array())
+	{
 		$this->setConnection($connection);
 		$this->setTables($tables);
 		$this->setShow($show);
@@ -127,33 +129,39 @@ class BackupMySQL {
 		$this->setFolder(self::getTempFolder());
 	}
 
-	private static function getTempFolder() {
-		return ini_get('upload_tmp_dir')? ini_get('upload_tmp_dir') : sys_get_temp_dir();
+	private static function getTempFolder()
+	{
+		return ini_get('upload_tmp_dir') ? ini_get('upload_tmp_dir') : sys_get_temp_dir();
 	}
 
 	//——————————————————————————————————————————————
 	// SETTERS
 
-	public function setConnection($assoc) {
+	public function setConnection($assoc)
+	{
 		if (!isset($assoc['host'])) $assoc['host'] = "localhost";
 		if (!isset($assoc['user'])) $assoc['user'] = "root";
 		if (!isset($assoc['password'])) $assoc['password'] = "";
 		$this->connection = $assoc;
 	}
-	public function setTables($array) {
+	public function setTables($array)
+	{
 		if (empty($array)) $this->tables = array();
 		elseif (!is_array($array)) $this->tables = explode(',', $array);
 		else $this->tables = $array;
 	}
-	public function setShow($array) {
+	public function setShow($array)
+	{
 		if (empty($array)) $this->show = array();
 		elseif (!is_array($array)) $this->show = explode(',', $array);
 		else $this->show = $array;
 	}
-	public function setName($string) {
+	public function setName($string)
+	{
 		$this->name = $string;
 	}
-	public function setFolder($string) {
+	public function setFolder($string)
+	{
 		$this->folder = $string;
 	}
 
@@ -167,7 +175,8 @@ class BackupMySQL {
 			$backup->run();
 			echo $backup->getPath();
 	*/
-	public function run() {
+	public function run()
+	{
 		try {
 			$this->initDatabase();
 			$this->initMeta();
@@ -175,10 +184,9 @@ class BackupMySQL {
 			$this->initTables();
 			$this->initViews();
 			$this->openFile();
-				$this->backupDB();
+			$this->backupDB();
 			$this->closeFile();
-		}
-		catch (Exception $ex) {
+		} catch (Exception $ex) {
 			die($ex->getMessage());
 		}
 	}
@@ -186,16 +194,16 @@ class BackupMySQL {
 	/*
 		Creates a database backup and show it in the web browser
 	*/
-	public function view() {
+	public function view()
+	{
 		try {
 			header("Content-Type: text/plain");
 			$this->initDatabase();
 			$this->initMeta();
 			$this->initTables();
 			$this->initViews();
-			$this->backupDB();			
-		}
-		catch (Exception $ex) {
+			$this->backupDB();
+		} catch (Exception $ex) {
 			die($ex->getMessage());
 		}
 	}
@@ -207,13 +215,14 @@ class BackupMySQL {
 			$backup->zip();
 			echo $backup->getPath();
 	*/
-	public function zip() {
+	public function zip()
+	{
 		if (empty($this->path)) $this->run();
 		$path = $this->getPath();
-		$zip = rtrim($path, '.sql').'.zip';
+		$zip = rtrim($path, '.sql') . '.zip';
 		$za = new ZipArchive();
 		if ($za->open($zip, ZipArchive::CREATE) !== true)
-			throw new Exception ("Cannot open $zip");
+			throw new Exception("Cannot open $zip");
 		$za->addFile($path, basename($path));
 		$za->close(); // Fatal error: Maximum execution time of 30 seconds exceeded (87 MB)
 		unlink($path);
@@ -232,7 +241,8 @@ class BackupMySQL {
 			$backup->zip();
 			$backup->download();
 	*/
-	public function download($purge=true) {
+	public function download($purge = true)
+	{
 		if (empty($this->path)) $this->run();
 		$path = $this->getPath();
 		$quoted = sprintf('"%s"', addcslashes(basename($path), '"\\'));
@@ -240,13 +250,13 @@ class BackupMySQL {
 		header('Content-Description: File Transfer');
 		//header('Content-Type: application/octet-stream');
 		header("Content-Type: application/$ext");
-		header('Content-Disposition: attachment; filename='.$quoted);
+		header('Content-Disposition: attachment; filename=' . $quoted);
 		header('Content-Transfer-Encoding: binary');
 		header('Connection: Keep-Alive');
 		header('Expires: 0');
 		header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
 		header('Pragma: public');
-		header('Content-Length: '.filesize($path));
+		header('Content-Length: ' . filesize($path));
 		readfile($path); //echo file_get_contents($path);
 		if ($purge) unlink($path);
 	}
@@ -258,7 +268,8 @@ class BackupMySQL {
 		Get the path of the SQL or ZIP backup file
 		or empty text
 	*/
-	public function getPath() {
+	public function getPath()
+	{
 		return $this->path;
 	}
 
@@ -269,30 +280,35 @@ class BackupMySQL {
 	private $path = "";
 	private $buffer = "";
 
-	private function initFile() {
-		$name = empty($this->name)? $this->connection['database'] : $this->name;
+	private function initFile()
+	{
+		$name = empty($this->name) ? $this->connection['database'] : $this->name;
 		$time = date('Y-m-d_H-i-s'); //time();
-		$folder = empty($this->folder)? "" : rtrim($this->folder, '/').'/';
+		$folder = empty($this->folder) ? "" : rtrim($this->folder, '/') . '/';
 		$this->path = "{$folder}{$name}_{$time}.sql";
 	}
 
-	private function openFile() {
-		$this->file = fopen($this->path,'w+');
+	private function openFile()
+	{
+		$this->file = fopen($this->path, 'w+');
 		if ($this->file === false) throw new Exception("Failed to open $this->path");
 	}
 
-	private function append($text) {
+	private function append($text)
+	{
 		if ($this->file == null) echo $text;
 		else $this->buffer .= $text;
 	}
 
-	private function writeFile() {
+	private function writeFile()
+	{
 		if ($this->file == null) return;
 		fwrite($this->file, $this->buffer);
 		$this->buffer = "";
 	}
 
-	private function closeFile() {
+	private function closeFile()
+	{
 		if ($this->file == null) return;
 		$this->writeFile();
 		fclose($this->file);
@@ -306,7 +322,8 @@ class BackupMySQL {
 	private $dbtables = array();
 	private $dbviews  = array();
 
-	private function initDatabase() {
+	private function initDatabase()
+	{
 		extract($this->connection); // $host, $database, $user, $password
 		$charset = "utf8";
 		$string = "mysql:host=$host;dbname=$database;charset=$charset";
@@ -317,23 +334,27 @@ class BackupMySQL {
 		$this->pdo = $pdo;
 	}
 
-	private function initMeta() {
+	private function initMeta()
+	{
 		$database = $this->connection['database'];
 		$sentence = $this->pdo->prepare("SELECT 
 			DEFAULT_CHARACTER_SET_NAME AS charset, 
 			DEFAULT_COLLATION_NAME AS collation FROM information_schema.SCHEMATA 
 			WHERE schema_name = ?");
 		if ($sentence->execute([$database])) $this->dbMeta = $sentence->fetch(PDO::FETCH_ASSOC);
-		else $this->dbMeta = ['charset'=>"utf8", 'collation'=>"utf8_general_ci"];		
+		else $this->dbMeta = ['charset' => "utf8", 'collation' => "utf8_general_ci"];
 	}
 
-	private function initTables() {
+	private function initTables()
+	{
 		$this->dbtables = $this->findTables('TABLE', $this->tables);
 	}
-	private function initViews() {
+	private function initViews()
+	{
 		$this->dbviews = $this->findTables('VIEW', $this->tables);
 	}
-	private function findTables($like, $tables) {
+	private function findTables($like, $tables)
+	{
 		$database = $this->connection['database'];
 		$sql = "SHOW FULL TABLES IN $database WHERE TABLE_TYPE LIKE '%$like%'";
 		$result = $this->pdo->query($sql);
@@ -342,29 +363,31 @@ class BackupMySQL {
 		else if ($tables[0] == '*') return $this->findTablesToSubstract($all, $tables);
 		else return $this->findTablesToAdd($all, $tables);
 	}
-	public function findTablesToAdd($all, $tables) {
+	public function findTablesToAdd($all, $tables)
+	{
 		$result = array();
 		foreach ($all as $table) {
-			if ($this->matchTable($table, $tables)) $result[]= $table;
+			if ($this->matchTable($table, $tables)) $result[] = $table;
 		}
 		return $result;
 	}
-	public function findTablesToSubstract($all, $tables) {
+	public function findTablesToSubstract($all, $tables)
+	{
 		$result = array();
 		array_shift($tables); // Removes the '*' first item
 		foreach ($all as $table) {
-			if (!$this->matchTable($table, $tables)) $result[]= $table;
+			if (!$this->matchTable($table, $tables)) $result[] = $table;
 		}
 		return $result;
 	}
-	private function matchTable($table, $list) {
-		foreach($list as $item) {
+	private function matchTable($table, $list)
+	{
+		foreach ($list as $item) {
 			$item = trim($item);
 			if (substr($item, -1) == '*') {
 				$prefix = rtrim($item, '*');
 				if (substr($table, 0, strlen($prefix)) == $prefix) return true;
-			}
-			elseif ($table == $item) return true;
+			} elseif ($table == $item) return true;
 		}
 		return false;
 	}
@@ -372,7 +395,8 @@ class BackupMySQL {
 	//——————————————————————————————————————————————
 	// BACKUP
 
-	private function backupDB() {
+	private function backupDB()
+	{
 		$this->lockTables();
 		$this->sqlHeader();
 
@@ -390,7 +414,7 @@ class BackupMySQL {
 			foreach ($this->dbtables as $table) $this->sqlCreateTable($table);
 
 			$this->sqlComment('FOREIGN KEYS');
-			foreach($this->dbtables as $table) $this->sqlForeignsKeys($table);
+			foreach ($this->dbtables as $table) $this->sqlForeignsKeys($table);
 		}
 
 		if ($this->show('VIEWS')) {
@@ -424,7 +448,8 @@ class BackupMySQL {
 		$this->unlockTables();
 	}
 
-	private function show($item) {
+	private function show($item)
+	{
 		if (empty($this->show)) return true;
 		else return in_array($item, $this->show);
 	}
@@ -432,11 +457,13 @@ class BackupMySQL {
 	//——————————————————————————————————————————————
 	// LOCK TABLES
 
-	private function lockTables() {
+	private function lockTables()
+	{
 		$all = array_merge($this->dbtables, $this->dbviews);
 		$this->pdo->exec('LOCK TABLES `' . implode('` READ, `', $all) . '` READ');
 	}
-	private function unlockTables() {
+	private function unlockTables()
+	{
 		$this->pdo->exec("UNLOCK TABLES");
 	}
 
@@ -445,62 +472,72 @@ class BackupMySQL {
 
 	private $starttime;
 
-	private function sqlComment($text) {
+	private function sqlComment($text)
+	{
 		$comment = "-- $text ";
-		$dashes = str_repeat("-", 50-strlen($comment));
+		$dashes = str_repeat("-", 50 - strlen($comment));
 		$this->append("$comment$dashes\n\n");
 	}
 
-	private function sqlHeader() {
+	private function sqlHeader()
+	{
 		$this->starttime = microtime(true);
 		$database = $this->connection['database'];
 		$server = $_SERVER['SERVER_NAME'];
 		$datetime = date('Y-m-d H:i:s');
 		$this->append(
-			"-- BACKUP — $database@$server — $datetime — \n\n".
-			"SET NAMES utf8;\n".
-			"SET SQL_MODE = 'NO_AUTO_VALUE_ON_ZERO';\n".
-			"SET FOREIGN_KEY_CHECKS = FALSE;\n\n");
+			"-- BACKUP — $database@$server — $datetime — \n\n" .
+				"SET NAMES utf8;\n" .
+				"SET SQL_MODE = 'NO_AUTO_VALUE_ON_ZERO';\n" .
+				"SET FOREIGN_KEY_CHECKS = FALSE;\n\n"
+		);
 	}
 
-	private function sqlFooter() {
+	private function sqlFooter()
+	{
 		$timediff = microtime(true) - $this->starttime;
 		$timediff = self::secondsToTime($timediff);
 		$this->sqlComment("ELAPSED $timediff");
 		$this->append("SET FOREIGN_KEY_CHECKS = TRUE;\n");
 	}
-	private static function secondsToTime($sec) {
+	private static function secondsToTime($sec)
+	{
 		$dec = substr(ltrim($sec - floor($sec), '0'), 0, 5);
-		$hor = floor($sec / 3600); $sec -= $hor * 3600;
-		$min = floor($sec / 60);   $sec -= $min * 60;
+		$hor = floor($sec / 3600);
+		$sec -= $hor * 3600;
+		$min = floor($sec / 60);
+		$sec -= $min * 60;
 		return sprintf('%02d:%02d:%02d%s', $hor, $min, $sec, $dec);
 	}
 
-	private function sqlCreateDB() {
+	private function sqlCreateDB()
+	{
 		$database = $this->connection['database'];
 		extract($this->dbMeta); // $charset, $collation
-		$sql = "CREATE DATABASE IF NOT EXISTS $database\n".
-			"\tCHARACTER SET $charset\n".
-			"\tCOLLATE $collation;\n\n";			
+		$sql = "CREATE DATABASE IF NOT EXISTS $database\n" .
+			"\tCHARACTER SET $charset\n" .
+			"\tCOLLATE $collation;\n\n";
 		$sql .= "-- CREATE USER IF NOT EXISTS 'user'@'%' IDENTIFIED BY 'password';\n";
 		$sql .= "-- GRANT ALL PRIVILEGES ON $database.* TO 'user'@'%' IDENTIFIED BY 'password';\n\n";
 		$sql .= "USE $database;\n\n";
 		$this->append($sql);
 	}
 
-	private function sqlDropTable($table) {
+	private function sqlDropTable($table)
+	{
 		$this->append("DROP TABLE IF EXISTS `$table`;\n");
 	}
 
-	private function sqlCreateTable($table) {
+	private function sqlCreateTable($table)
+	{
 		$result = $this->pdo->query("SHOW CREATE TABLE `$table`");
 		$array = $result->fetch(PDO::FETCH_NUM); // Table, Create Table
 		$sql = $array[1];
-		$sql = substr($sql, 0, 12)." IF NOT EXISTS ".substr($sql, 13);
-		$sql = str_replace(" COLLATE ".$this->dbMeta['collation'], "", $sql);
-		$sql = str_replace(" COLLATE=".$this->dbMeta['collation'], "", $sql);
-		$sql = str_replace(" CHARACTER SET ".$this->dbMeta['charset'], "", $sql);
-		$sql = str_replace(" DEFAULT CHARSET=".$this->dbMeta['charset'], "", $sql);
+		$sql = substr($sql, 0, 12) . " IF NOT EXISTS " . substr($sql, 13);
+		$sql = str_replace(" COLLATE " . $this->dbMeta['collation'], "", $sql);
+		$sql = str_replace(" COLLATE=" . $this->dbMeta['collation'], "", $sql);
+		$sql = str_replace(" CHARACTER SET " . $this->dbMeta['charset'], "", $sql);
+		$sql = str_replace(" DEFAULT CHARSET=" . $this->dbMeta['charset'], "", $sql);
 		$sql = $this->extractForeignKeys($table, $sql);
 		$this->append("$sql;\n\n");
 	}
@@ -509,15 +546,17 @@ class BackupMySQL {
 		CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER
 			VIEW `vi_aromas` AS select ...
 	*/
-	private function sqlCreateView($view) {
+	private function sqlCreateView($view)
+	{
 		$result = $this->pdo->query("SHOW CREATE TABLE `$view`");
 		$array = $result->fetch(PDO::FETCH_NUM); // Table, Create Table
 		$sql = $array[1];
-		if (($pos = strpos($sql, 'VIEW')) !== false) $sql = "CREATE OR REPLACE ".substr($sql, $pos);
+		if (($pos = strpos($sql, 'VIEW')) !== false) $sql = "CREATE OR REPLACE " . substr($sql, $pos);
 		$this->append("$sql;\n\n");
 	}
 
-	private function sqlTruncateTable($table) {
+	private function sqlTruncateTable($table)
+	{
 		$this->append("TRUNCATE `$table`;\n");
 	}
 
@@ -528,21 +567,22 @@ class BackupMySQL {
 		//'table1'=> [ 'ADD CONSTRAINT `name1` FOREIGN KEY(`field1d`) REFERENCES...', ... ],
 	);
 
-	private function extractForeignKeys($table, $sqlCreateTable) {
+	private function extractForeignKeys($table, $sqlCreateTable)
+	{
 		$lines = explode("\n", $sqlCreateTable);
 		$result = array();
-		foreach($lines as $line) {
+		foreach ($lines as $line) {
 			if (strpos($line, 'FOREIGN KEY') !== false) {
 				if (!isset($this->foreignKeys[$table])) $this->foreignKeys[$table] = array();
-				$this->foreignKeys[$table][] = "ADD ".rtrim(trim($line),',');
- 			}
-			else $result[] = $line;
+				$this->foreignKeys[$table][] = "ADD " . rtrim(trim($line), ',');
+			} else $result[] = $line;
 		}
-		$result[count($result)-2] = rtrim($result[count($result)-2], ',');
+		$result[count($result) - 2] = rtrim($result[count($result) - 2], ',');
 		return implode("\n", $result);
 	}
 
-	private function sqlForeignsKeys($table) {
+	private function sqlForeignsKeys($table)
+	{
 		if (!isset($this->foreignKeys[$table])) return;
 		$this->append("ALTER TABLE `$table`\n ");
 		$this->append(implode(",\n ", $this->foreignKeys[$table]));
@@ -552,16 +592,18 @@ class BackupMySQL {
 	//——————————————————————————————————————————————
 	// DUMP DATA
 
-	private function sqlDumpTable($table) {
+	private function sqlDumpTable($table)
+	{
 		$limit = self::ROWS_PER_LIMIT;
-		for($offset = 0;; $offset += $limit) {
+		for ($offset = 0;; $offset += $limit) {
 			$sql = "SELECT * FROM `$table` LIMIT $offset, $limit ";
 			$result = $this->pdo->query($sql, PDO::FETCH_ASSOC);
 			if ($result->rowCount() == 0) return;
 			$this->sqlDumpResult($table, $result);
 		}
 	}
-	private function sqlDumpResult($table, $result) {
+	private function sqlDumpResult($table, $result)
+	{
 		$index = $count = 0;
 		$COUNT = $result->rowCount();
 		$this->writeFile();
@@ -573,55 +615,61 @@ class BackupMySQL {
 				$this->append(";\n\n");
 				$this->writeFile();
 				$index = 0;
-			}
-			else $this->append(",\n");
+			} else $this->append(",\n");
 		}
 		return $count;
 	}
-	private function sqlInsertTable($table, $row) {
+	private function sqlInsertTable($table, $row)
+	{
 		$fields = array();
-		foreach($row as $key=>$value) $fields[] = "`$key`";
+		foreach ($row as $key => $value) $fields[] = "`$key`";
 		$fields = implode(',', $fields);
 		$this->append("INSERT INTO `$table`($fields) VALUES\n");
 	}
-	private function sqlInsertValues($row) {
+	private function sqlInsertValues($row)
+	{
 		$values = array();
-		foreach ($row as $key=>$value) {
+		foreach ($row as $key => $value) {
 			if (isset($value)) {
 				$value = addslashes($value); // See PDO::quote()
-				$value = str_replace(array("\n","\r"), array('\\n','\\r'), $value);
+				$value = str_replace(array("\n", "\r"), array('\\n', '\\r'), $value);
 				$values[] = "'$value'";
-			}
-			else $values[] = "NULL";
+			} else $values[] = "NULL";
 		}
-		$this->append(" (".implode(',', $values).")");
+		$this->append(" (" . implode(',', $values) . ")");
 	}
 
 	//——————————————————————————————————————————————
 	// STORED PROCEDURES AND FUNCTIONS
 
-	private function listProcedures() {
+	private function listProcedures()
+	{
 		return $this->listStoredProgram('PROCEDURE');
 	}
-	private function listFunctions() {
+	private function listFunctions()
+	{
 		return $this->listStoredProgram('FUNCTION');
 	}
-	private function listStoredProgram($TYPE) {
+	private function listStoredProgram($TYPE)
+	{
 		$database = $this->connection['database'];
 		$sql = "SHOW $TYPE STATUS WHERE Db = '$database' AND Type = '$TYPE'";
 		$result = $this->pdo->query($sql);
 		$list = array();
-		foreach($result as $row) $list[] = $row['Name'];
+		foreach ($result as $row) $list[] = $row['Name'];
 		return $list;
 	}
 
-	private function sqlCreateProc($name) {
+	private function sqlCreateProc($name)
+	{
 		$this->sqlCreateStoredProgram($name, 'PROCEDURE');
 	}
-	private function sqlCreateFunc($name) {
+	private function sqlCreateFunc($name)
+	{
 		$this->sqlCreateStoredProgram($name, 'FUNCTION');
 	}
-	private function sqlCreateStoredProgram($name, $TYPE) {
+	private function sqlCreateStoredProgram($name, $TYPE)
+	{
 		//$sql = "SHOW $type CODE $proc"; // Pos, Instruction
 		$database = $this->connection['database'];
 		$sql = "SHOW CREATE $TYPE `$database`.`$name`";
@@ -631,11 +679,11 @@ class BackupMySQL {
 		$sql = $row[$fieldname];
 		$lines = array(
 			'DELIMITER $$',
-			"DROP $TYPE IF EXISTS `$name`".'$$',
-			$sql.'$$',
+			"DROP $TYPE IF EXISTS `$name`" . '$$',
+			$sql . '$$',
 			'DELIMITER ;'
 		);
-		$this->append(implode("\n", $lines)."\n\n");
+		$this->append(implode("\n", $lines) . "\n\n");
 	}
 
 	//——————————————————————————————————————————————
@@ -650,21 +698,21 @@ class BackupMySQL {
 		END$$
 		DELIMITER ;
 	*/
-	private function sqlTriggers() {
+	private function sqlTriggers()
+	{
 		$database = $this->connection['database'];
 		$sql = "SHOW TRIGGERS FROM $database";
 		$result = $this->pdo->query($sql);
 		foreach ($result as $row) {
 			extract($row); // $Trigger, $Event, $Table, $Statement, $Timing, ...
 			$lines = array(
-				"DELIMITER ".'$$',
-				"DROP TRIGGER IF EXISTS `$Trigger`".'$$',
+				"DELIMITER " . '$$',
+				"DROP TRIGGER IF EXISTS `$Trigger`" . '$$',
 				"CREATE TRIGGER `$Trigger` $Timing $Event ON `$Table` FOR EACH ROW",
-				"$Statement".'$$',
+				"$Statement" . '$$',
 				"DELIMITER ;"
 			);
-			$this->append(implode("\n", $lines)."\n\n");
+			$this->append(implode("\n", $lines) . "\n\n");
 		}
 	}
-
 } // class

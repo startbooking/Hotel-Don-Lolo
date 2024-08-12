@@ -1,4 +1,0 @@
-[08-Aug-2024 14:46:23 UTC] PHP Fatal error:  Uncaught Error: Class "Backup_Database" not found in /var/www/donlolo.lan/inventario/res/php/backupCierre.php:33
-Stack trace:
-#0 {main}
-  thrown in /var/www/donlolo.lan/inventario/res/php/backupCierre.php on line 33

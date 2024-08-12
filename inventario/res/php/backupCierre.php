@@ -1,10 +1,9 @@
 <?php 
 
-	require '../../../res/php/rutas.php' ;
-	require '../../../res/php/configdb.php' ;
-  require '../../../res/shared/BackupMySQL.php';
+	require_once '../../../res/php/rutas.php' ;
+	require_once '../../../res/php/configdb.php' ;
+  require_once '../../../res/php/app_topInventario.php'; 
 
-  echo 'Paso 1' ;
 
   $fecha = date('Y-m-d');
 
@@ -22,7 +21,7 @@
   define("DB_NAME", $dbname);
   define("DB_USER", $dbuser);
   define("DB_PASSWORD", $dbpass);
-  define("BACKUP_DIR", "../backups"); // Comment this line to use same script's directory ('.')
+  define("BACKUP_DIR", "../../backups"); // Comment this line to use same script's directory ('.')
   define("TABLES", '*'); // Full backup
   //define("TABLES", 'table1, table2, table3'); // Partial backup
   define("CHARSET", 'utf8');
@@ -31,7 +30,7 @@
   define("BATCH_SIZE", 1000); // Batch size when selecting rows from database in order to not exhaust system 
   define("BCK_NAME",$bckname); // Nombre Backup Archivo de Salida  
   $backupDatabase = new Backup_Database(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, CHARSET, BCK_NAME);
-  $result         = $backupDatabase->backupTables(TABLES, BACKUP_DIR) ? 'OK' : 'KO';
+  $result  = $backupDatabase->backupTables(TABLES, BACKUP_DIR) ? 1 : 0 ;
   echo $result;
   /// $backupDatabase->obfPrint('Backup result: ' . $result, 1);
 

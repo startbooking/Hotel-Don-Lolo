@@ -96,7 +96,7 @@ require_once '../res/php/app_topHotel.php';
         } elseif (isset($_GET['section']) && $_GET['section'] == 'propinas') {
             require 'views/informePropinas.php';
         } elseif (isset($_GET['section']) && $_GET['section'] == 'historicoNC') {
-            require 'views/historicoNC.php';
+            require 'views/historicoNC.php'; 
         } elseif (isset($_GET['section']) && $_GET['section'] == 'historicoReservas') {
             require 'views/informes/reservasPorRango.php';
         } elseif (isset($_GET['section']) && $_GET['section'] == 'historicoCajeros') {
