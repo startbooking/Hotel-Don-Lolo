@@ -28,7 +28,7 @@ $periodo = $inven->mesCerrar();
       <div id="loader">
 
       </div>
-      <form id="formCierreDiario" class="form-horizontal" action="javascript:cierreMes(<?php json_encode($periodo[0])?>)" method="POST" enctype="multipart/form-data">
+      <form id="formCierreDiario" class="form-horizontal" method="POST" enctype="multipart/form-data">
         <div class="panel-body">
           <div class="form -group">
             <div class="form-group">
@@ -40,6 +40,7 @@ $periodo = $inven->mesCerrar();
                   <?php echo ($periodo[0]['anio']); ?>
                 </h2>
                 </label>
+                <h2 id="tituloProcesa" class="oculto centro"> <i style="color:#BBB0B0; " class="ion ion-ios-gear-outline fa-spin fa-2x"></i> Procesando Informacion, No Interrumpa</h2>
             </div>
           </div>
           <div class="container-fluid" id='procesosCierre' style="display:none">
@@ -51,7 +52,8 @@ $periodo = $inven->mesCerrar();
         </div>
         <div class="panel-footer" style="text-align: center">
           <a href="home" style="width: 20%" type="button" class="btn btn-warning"><i class="fa fa-home"></i> Regresar</a>
-          <button style="width: 20%" type="submit" id="botonCierre" class="btn btn-primary"><i class="fa fa-arrow-circle-right"></i> Procesar</button>
+          <button style="width: 20%" 
+          type="button" id="botonCierre" class="btn btn-primary" data-mes="<?php echo ($periodo[0]['mes'])?>" data-anio="<?php echo ($periodo[0]['anio'])?>" onclick="cierreMes(<?php echo ($periodo[0]['mes'])?>,<?php echo ($periodo[0]['anio'])?>)"><i class="fa fa-arrow-circle-right"></i> Procesar</button>
         </div>
       </form>
     </div>

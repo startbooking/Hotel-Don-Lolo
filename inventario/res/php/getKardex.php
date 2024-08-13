@@ -6,8 +6,8 @@ $bodega = $_POST['bodega'];
 $nomBod = $admin->getNombreBodega($bodega);
 $kardexs = $inven->getTraeKardex($bodega);
 ?>
- 
-<div class="container-fluid pd10"> 
+
+<div class="container-fluid pd10">
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<div class="row">
@@ -17,9 +17,9 @@ $kardexs = $inven->getTraeKardex($bodega);
 				<div class="col-lg-2 pd10">
 					<button class="btn btn-info pull-right" onclick="exportTableToExcel('kardexInventario')">
 						<i class="glyphicon glyphicon-th" aria-hidden="true"></i> Exportar Kardex
-					</button> 
+					</button>
 				</div>
-			</div> 
+			</div>
 		</div>
 		<div class="panel-body">
 			<table id="example1" class="table table-hover table-bordered table-condensed">
@@ -37,9 +37,9 @@ $kardexs = $inven->getTraeKardex($bodega);
 				</thead>
 				<tbody>
 					<?php
-                    $valorInventario = 0;
-foreach ($kardexs as $kardex) {
-    ?>
+					$valorInventario = 0;
+					foreach ($kardexs as $kardex) {
+					?>
 						<tr>
 							<td><?php echo $kardex['nombre_producto']; ?></td>
 							<td><?php echo $kardex['descripcion_unidad']; ?></td>
@@ -47,38 +47,37 @@ foreach ($kardexs as $kardex) {
 							<td class="derecha"><?php echo number_format($kardex['salidas'], 2); ?></td>
 							<td class="derecha"><?php echo number_format($kardex['saldo'], 2); ?></td>
 							<td class="derecha"><?php
-								if ($kardex['promedio'] == '') {
-										echo number_format(0, 2);
-								} else {
-										echo number_format($kardex['promedio'], 2);
-								}
-    						?>
-						</td>
+																	if ($kardex['promedio'] == '') {
+																		echo number_format(0, 2);
+																	} else {
+																		echo number_format($kardex['promedio'], 2);
+																	}
+																	?>
+							</td>
 							<td class="derecha"><?php echo number_format($kardex['promedio'] * $kardex['saldo'], 2); ?></td>
-							<td class="centro"> 
-								<button 
-									type        = "button" 
-									class       = "btn btn-info btn-xs" 
-									data-toggle = "modal" 
-									data-target = "#modalConsultaKardex"  
-									data-id     = "<?php echo $kardex['id_producto']; ?>"  
-									data-bodega = "<?php echo $bodega; ?>"  
-									data-nombre = "<?php echo $kardex['nombre_producto']; ?>" 
-									onclick     = "muestraProductoKardex()" 
-									title       = "Muestra Movimientos de Inventario" 
-									>
+							<td class="centro">
+								<button
+									type="button"
+									class="btn btn-info btn-xs"
+									data-toggle="modal"
+									data-target="#modalConsultaKardex"
+									data-id="<?php echo $kardex['id_producto']; ?>"
+									data-bodega="<?php echo $bodega; ?>"
+									data-nombre="<?php echo $kardex['nombre_producto']; ?>"
+									onclick="muestraProductoKardex()"
+									title="Muestra Movimientos de Inventario">
 									<i class='glyphicon glyphicon-edit'></i>
 								</button>
 								<!-- <div class="btn-group">
 								</div> -->
 							</td>
-						</tr>											
-						<?php
-    $valorInventario += $kardex['promedio'] * $kardex['saldo'];
-}
-?>
+						</tr>
+					<?php
+						$valorInventario += $kardex['promedio'] * $kardex['saldo'];
+					}
+					?>
 				</tbody>
-			</table>			
+			</table>
 		</div>
 		<div class="panel-footer">
 			<table>
@@ -89,40 +88,39 @@ foreach ($kardexs as $kardex) {
 					</tr>
 				</thead>
 			</table>
+		</div>
+
 	</div>
 
-</div>
-
-<div class="container-fluid" style="display:none"> 
-  <table id="kardexInventario" class="table table-hover table-bordered table-condensed">
-    <thead>
-      <tr class="warning">
-				<th>Producto</th>
-				<th>Unidad</th>
-				<th>Entradas</th>
-				<th>Salidas</th>
-				<th>Saldo</th>
-				<th>Promedio</th>
-				<th>Valor Total</th>
-      </tr>
-    </thead>
-    <tbody>
-			<?php foreach ($kardexs as $kardex) {
-			    ?>
-				<tr>
-					<td><?php echo $kardex['nombre_producto']; ?></td>
-					<td><?php echo $kardex['descripcion_unidad']; ?></td>
-					<td style="text-align: right"><?php echo $kardex['entradas']; ?></td>
-					<td style="text-align: right"><?php echo $kardex['salidas']; ?></td>
-					<td style="text-align: right"><?php echo $kardex['saldo']; ?></td>
-					<td style="text-align: right"><?php echo $kardex['promedio']; ?></td>
-					<td style="text-align: right"><?php echo $kardex['promedio'] * $kardex['saldo']; ?></td>
-				</tr>		
+	<div class="container-fluid" style="display:none">
+		<table id="kardexInventario" class="table table-hover table-bordered table-condensed">
+			<thead>
+				<tr class="warning">
+					<th>Producto</th>
+					<th>Unidad</th>
+					<th>Entradas</th>
+					<th>Salidas</th>
+					<th>Saldo</th>
+					<th>Promedio</th>
+					<th>Valor Total</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php foreach ($kardexs as $kardex) {
+				?>
+					<tr>
+						<td><?php echo $kardex['nombre_producto']; ?></td>
+						<td><?php echo $kardex['descripcion_unidad']; ?></td>
+						<td style="text-align: right"><?php echo $kardex['entradas']; ?></td>
+						<td style="text-align: right"><?php echo $kardex['salidas']; ?></td>
+						<td style="text-align: right"><?php echo $kardex['saldo']; ?></td>
+						<td style="text-align: right"><?php echo $kardex['promedio']; ?></td>
+						<td style="text-align: right"><?php echo $kardex['promedio'] * $kardex['saldo']; ?></td>
+					</tr>
 				<?php
-			}
-?>
-    </tbody>
-			                  
-  </table>
-</div>
+				}
+				?>
+			</tbody>
 
+		</table>
+	</div>

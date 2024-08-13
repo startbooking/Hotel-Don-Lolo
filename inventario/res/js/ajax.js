@@ -1,5 +1,7 @@
 let sesion = JSON.parse(localStorage.getItem("sesion"));
-let {user: { usuario },} = sesion;
+let {
+  user: { usuario },
+} = sesion;
 function buscaCantidad() {
   desde = $("#llegada").val();
   hasta = $("#salida").val();
@@ -17,25 +19,38 @@ function buscaCantidad() {
   });
 }
 
-async function cierreMes(periodo) {
-  console.log(periodo)
-  // periodo = $("#periodo").val();
+async function cierreMes(mes, anio) {
+  let proce = document.querySelector('#tituloProcesa')
+  proce.classList.remove('oculto');
   let sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {user: { usuario },} = sesion;
+  let {
+    user: { usuario },
+  } = sesion;
 
-  let backup = await backupCierre()
+  let backup = await backupCierre();
   console.log(backup);
-  if(backup==1){
-    swal({
-      title:'Precaucion',
-      text:'Backup no se pudo Realizar, el Proceso de Cierre no Continuara',
-      type:'warning',
-    }, function(){
-      window.location.href = "home"
-    }
-
-  )
+  if (backup === 0) {
+    swal(
+      {
+        title: "Precaucion",
+        text: "Backup no se pudo Realizar, el Proceso de Cierre no Continuara",
+        type: "warning",
+      },
+      function () {
+        window.location.href = "home";
+      }
+    );
   }
+
+  envia = {
+    mes,
+    anio,
+    usuario,
+  };
+
+  const cierre = await cierreBodegas(envia);
+  console.log(cierre);
+
   /* parametros = {
     periodo,
     usuario,
@@ -68,7 +83,24 @@ async function cierreMes(periodo) {
   }); */
 }
 
-async function backupCierre(){
+async function cierreBodegas(envia) {
+
+  try {
+    const resultado = await fetch("res/php/cierreMes.php", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+      body: JSON.stringify(envia),
+    });
+    const datos = await resultado.text();
+    return parseInt(datos);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function backupCierre() {
   try {
     const resultado = await fetch("res/php/backupCierre.php", {
       method: "POST",
@@ -77,7 +109,7 @@ async function backupCierre(){
       },
     });
     const datos = await resultado.text();
-    return datos;
+    return parseInt(datos);
   } catch (error) {
     console.log(error);
   }
@@ -91,7 +123,9 @@ function procesaRecPed() {
   var pagina = $("#ubicacion").val();
   var ruta = $("#rutaweb").val();
   let sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {user: { usuario, usuario_id },} = sesion;
+  let {
+    user: { usuario, usuario_id },
+  } = sesion;
 
   asignaConsecutivo(6);
 
@@ -330,7 +364,9 @@ function procesaRecReq() {
   var pagina = $("#ubicacion").val();
   var ruta = $("#rutaweb").val();
   let sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {user: { usuario,usuario_id },} = sesion;
+  let {
+    user: { usuario, usuario_id },
+  } = sesion;
 
   asignaConsecutivo(5);
 
@@ -572,7 +608,9 @@ function procesaPed() {
   var pagina = $("#ubicacion").val();
   var ruta = $("#rutaweb").val();
   let sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {user: { usuario,usuario_id },} = sesion;
+  let {
+    user: { usuario, usuario_id },
+  } = sesion;
 
   var centro = $("#almacenPed").val();
   var proveedor = $("#proveedorPed").val();
@@ -848,7 +886,9 @@ function muestraProductosPedido() {
 function anulaPedido(id) {
   var ubica = $("#ubicacion").val();
   let sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {user: { usuario },} = sesion;
+  let {
+    user: { usuario },
+  } = sesion;
   parametros = {
     id,
     usuario,
@@ -884,7 +924,9 @@ function anulaPedido(id) {
 
 function anulaRequisicion(id) {
   let sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {user: { usuario },} = sesion;
+  let {
+    user: { usuario },
+  } = sesion;
 
   var ubica = $("#ubicacion").val();
   parametros = {
@@ -922,7 +964,9 @@ function procesaReq() {
   var pagina = $("#ubicacion").val();
   var ruta = $("#rutaweb").val();
   let sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {user: { usuario,usuario_id },} = sesion;
+  let {
+    user: { usuario, usuario_id },
+  } = sesion;
 
   asignaConsecutivo(5);
 
@@ -1234,11 +1278,10 @@ function muestraProductoKardex() {
 }
 
 async function procesaAjuste() {
-
   let conce = await asignaConsecutivo(4);
-  let guarda = await guardaAjuste(conce,4);
+  let guarda = await guardaAjuste(conce, 4);
   let imprie = await imprimeMovimiento(conce, 4);
-  let cierra = await limpiaAjuste(conce,4)
+  let cierra = await limpiaAjuste(conce, 4);
 
   /* setTimeout(function () {
     numeroMov = $("#numeroMovimiento").val();
@@ -1278,9 +1321,11 @@ async function procesaAjuste() {
   }, 1000); */
 }
 
-async function guardaAjuste(numeroMov, tipo){
+async function guardaAjuste(numeroMov, tipo) {
   let sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {user: { usuario }} = sesion;
+  let {
+    user: { usuario },
+  } = sesion;
   let almacen = localStorage.getItem("almacenAju");
   let storageList = localStorage.getItem("AjusteProductosLista");
   let tipomovi = localStorage.getItem("movimientoAju");
@@ -1297,41 +1342,43 @@ async function guardaAjuste(numeroMov, tipo){
     fecha,
     ajustes,
   };
-    $.ajax({
-      url: "res/php/guardaProductoAju.php",
-      type: "POST",
-      data: parametros,
-      success: function (data) {
-        return data;
-      },
-    });
+  $.ajax({
+    url: "res/php/guardaProductoAju.php",
+    type: "POST",
+    data: parametros,
+    success: function (data) {
+      return data;
+    },
+  });
 }
 
-async function limpiaAjuste(conce,tipo){
-  let movitext = "Ajuste"
+async function limpiaAjuste(conce, tipo) {
+  let movitext = "Ajuste";
   localStorage.removeItem("AjusteProductosLista");
   localStorage.removeItem("almacenAju");
   localStorage.removeItem("fechaAju");
   localStorage.removeItem("movimientoAju");
   localStorage.removeItem("tipoMovimientoAju");
-  if(conce==0){
-    title = "Precaucion",
-    text = `Movimiento de ${movitext} Cancelado`,
-    type = 'warning'
-  }else{
-    title = "Atencion",
-    text = `${movitext} Nro ${conce} Realizada con Exito`,
-    type = 'success'
+  if (conce == 0) {
+    (title = "Precaucion"),
+      (text = `Movimiento de ${movitext} Cancelado`),
+      (type = "warning");
+  } else {
+    (title = "Atencion"),
+      (text = `${movitext} Nro ${conce} Realizada con Exito`),
+      (type = "success");
   }
-  swal({
-    title,
-    text,
-    type,
-  }, function(){
-    $(location).attr("href", "ajustes");
-  });
+  swal(
+    {
+      title,
+      text,
+      type,
+    },
+    function () {
+      $(location).attr("href", "ajustes");
+    }
+  );
 }
-
 
 function cancelaAjuste() {
   var pagina = $("#ubicacion").val();
@@ -1393,7 +1440,7 @@ function agregaListaAjuste() {
   var unidalm = $("#unidadalm").val();
   var desunid = $("#unidad option:selected").text();
   var unit = $("#unitario").val();
-  var valp = $("#costo").val().replace(',','');
+  var valp = $("#costo").val().replace(",", "");
   var cant = $("#cantidad").val();
   var desc = $("#descripcion").val();
   var subtot = parseFloat(valp);
@@ -1557,7 +1604,7 @@ function btnMuestraProductos() {
       numero,
       tipo,
       movimiento,
-      descripcion, 
+      descripcion,
       bodega,
     };
     var modal = $(this);
@@ -1566,7 +1613,7 @@ function btnMuestraProductos() {
       .html(
         "Ver Movimiento : " + descripcion + "<br> Movimiento Nro : " + numero
       );
-    $.ajax({ 
+    $.ajax({
       url: "res/php/getProductosMovimiento.php",
       type: "POST",
       data: parametros,
@@ -1755,7 +1802,7 @@ function agregaListaTraslado() {
   var unidalm = $("#unidadalm").val();
   var desunid = $("#unidad option:selected").text();
   var unit = $("#unitario").val();
-  var valp = $("#costo").val().replace(',','');
+  var valp = $("#costo").val().replace(",", "");
   var cant = $("#cantidad").val();
   var desc = $("#descripcion").val();
   var subtot = parseFloat(valp);
@@ -1828,20 +1875,20 @@ function asignaConsecutivoTraslado(tipo) {
   });
 }
 
-function reImprimeMovimiento(numero, tipo){
+function reImprimeMovimiento(numero, tipo) {
   var ruta = $("#rutaweb").val();
-  
+
   parametros = {
     numero,
-    tipo
-  }
+    tipo,
+  };
 
   $.ajax({
     url: ruta + "res/php/reimprimeMovimiento.php",
     type: "POST",
     data: parametros,
     success: function (data) {
-    // console.log(data)
+      // console.log(data)
       imprimeMovimiento(data.trim(), 3);
     },
   });
@@ -1849,7 +1896,9 @@ function reImprimeMovimiento(numero, tipo){
 
 function procesaTraslado(tipo) {
   let sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {user: { usuario },} = sesion;
+  let {
+    user: { usuario },
+  } = sesion;
 
   var pagina = $("#ubicacion").val();
   var ruta = $("#rutaweb").val();
@@ -1877,7 +1926,7 @@ function procesaTraslado(tipo) {
       numeroTra,
       numeroEnt,
       numeroSal,
-      movimiento, 
+      movimiento,
     };
     $.ajax({
       url: ruta + "res/php/guardaProductoTras.php",
@@ -1918,7 +1967,7 @@ function cancelaSalida() {
   $(location).attr("href", ruta + pagina);
 }
 
-function cancelaTraslado(){
+function cancelaTraslado() {
   localStorage.removeItem("trasladoListaProductos");
   localStorage.removeItem("almacenTras");
   localStorage.removeItem("tipoMovEntr");
@@ -1926,7 +1975,6 @@ function cancelaTraslado(){
   localStorage.removeItem("destinoTras");
   localStorage.removeItem("fechaTras");
   $(location).attr("href", "traslados");
-
 }
 
 function buscaProductoSalida(codigo) {
@@ -1938,7 +1986,7 @@ function buscaProductoSalida(codigo) {
     dataType: "json",
     data: { codigo: codigo },
     success: function (x) {
-      console.log(x)
+      console.log(x);
       $("#codigo").val(x.id_producto);
       $("#unidadalm").val(x.unidad_almacena);
       $("#unidad").val(x.unidad_almacena);
@@ -1962,7 +2010,6 @@ function actualizaSalida(codigo, regis) {
   localStorage.setItem("salidaListaProductos", JSON.stringify(salidaProductos));
   resumenSalida();
 }
-
 
 function resumenSalida() {
   var total = 0.0;
@@ -2081,7 +2128,7 @@ function agregaListaSalida() {
   var unidalm = $("#unidadalm").val();
   var desunid = $("#unidad option:selected").text();
   var unit = $("#unitario").val();
-  var valp = $("#costo").val().replace(',','');
+  var valp = $("#costo").val().replace(",", "");
   var cant = $("#cantidad").val();
   var desc = $("#descripcion").val();
   var subtot = parseFloat(valp);
@@ -2146,7 +2193,9 @@ function agregaListaSalida() {
 
 function cierraSesion() {
   let sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {user: { usuario,usuario_id },} = sesion;
+  let {
+    user: { usuario, usuario_id },
+  } = sesion;
 
   $.ajax({
     url: "../../res/shared/salir.php",
@@ -2165,14 +2214,16 @@ function cierraSesion() {
 
 async function procesaSalida(tipo) {
   let sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {user: { usuario },} = sesion;
+  let {
+    user: { usuario },
+  } = sesion;
   var pagina = $("#ubicacion").val();
   var ruta = $("#rutaweb").val();
 
   let conce = await asignaConsecutivo(tipo);
-  let guarda = await guardaMovimiento(conce,tipo);
+  let guarda = await guardaMovimiento(conce, tipo);
   let imprie = await imprimeMovimiento(conce, tipo);
-  let cierra = await limpiaMovimiento(conce,tipo)
+  let cierra = await limpiaMovimiento(conce, tipo);
 }
 
 async function asignaConsecutivo(tipo) {
@@ -2195,72 +2246,79 @@ async function procesaEntrada(tipo) {
   var pagina = $("#ubicacion").val();
   var ruta = $("#rutaweb").val();
   let conce = await asignaConsecutivo(tipo);
-  let guarda = await guardaMovimiento(conce,tipo);
+  let guarda = await guardaMovimiento(conce, tipo);
   let imprie = await imprimeMovimiento(conce, tipo);
-  let cierra = await limpiaMovimiento(conce,tipo)
+  let cierra = await limpiaMovimiento(conce, tipo);
 }
 
-async function guardaMovimiento(numeroMov, tipo){
+async function guardaMovimiento(numeroMov, tipo) {
   let sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {user: { usuario }} = sesion;
-  let storageList
-  if(tipo==1){
+  let {
+    user: { usuario },
+  } = sesion;
+  let storageList;
+  if (tipo == 1) {
     storageList = localStorage.getItem("LocalProductList");
-  }else {
+  } else {
     storageList = localStorage.getItem("salidaListaProductos");
   }
   movimientos = JSON.parse(storageList);
-    parametros = {
-      usuario,
-      numeroMov,
-      tipo,
-      movimientos,
-    };
-    $.ajax({
-      url: "res/php/guardaProductoMov.php",
-      type: "POST",
-      data: parametros,
-      success: function (data) {
-        return data;
-      },
-    });
+  parametros = {
+    usuario,
+    numeroMov,
+    tipo,
+    movimientos,
+  };
+  $.ajax({
+    url: "res/php/guardaProductoMov.php",
+    type: "POST",
+    data: parametros,
+    success: function (data) {
+      return data;
+    },
+  });
 }
 
-async function limpiaMovimiento(conce,tipo){
-  let movitext
-  if(tipo==1){
+async function limpiaMovimiento(conce, tipo) {
+  let movitext;
+  if (tipo == 1) {
     localStorage.removeItem("LocalProductList");
     localStorage.removeItem("proveedor");
     localStorage.removeItem("tipoMovSale");
-    movitext = "Entrada"
-  }else {
+    movitext = "Entrada";
+  } else {
     localStorage.removeItem("salidaListaProductos");
     localStorage.removeItem("centroCosto");
     localStorage.removeItem("almacen");
     localStorage.removeItem("fecha");
     localStorage.removeItem("tipoMov");
-    movitext = "Salida"
+    movitext = "Salida";
   }
   localStorage.removeItem("almacen");
   localStorage.removeItem("fecha");
   localStorage.removeItem("factura");
   localStorage.removeItem("tipoMov");
-  if(conce==0){
-    title = "Precaucion",
-    text = `Movimiento de ${movitext} Cancelado`,
-    type = 'warning'
-  }else{
-    title = "Atencion",
-    text = `${movitext} Nro ${conce} Realizada con Exito`,
-    type = 'success'
+  if (conce == 0) {
+    (title = "Precaucion"),
+      (text = `Movimiento de ${movitext} Cancelado`),
+      (type = "warning");
+  } else {
+    (title = "Atencion"),
+      (text = `${movitext} Nro ${conce} Realizada con Exito`),
+      (type = "success");
   }
-  swal({
-    title,
-    text,
-    type,
-  }, function(){
-    tipo==1 ? $(location).attr("href", "entradas"): $(location).attr("href", "salidas");
-  });
+  swal(
+    {
+      title,
+      text,
+      type,
+    },
+    function () {
+      tipo == 1
+        ? $(location).attr("href", "entradas")
+        : $(location).attr("href", "salidas");
+    }
+  );
 }
 
 function guardaRegistro() {}
@@ -2316,11 +2374,7 @@ async function agregaLista() {
   }
 
   if (impu == "") {
-    swal(
-      "Precaucion",
-      "Sin Impuesto Asignado A Este Movimiento ",
-      "warning"
-    );
+    swal("Precaucion", "Sin Impuesto Asignado A Este Movimiento ", "warning");
     $("#factura").focus();
     return;
   }
@@ -2338,7 +2392,7 @@ async function agregaLista() {
   var subtot = parseFloat(valp);
   valp = parseFloat(valp);
   pori = parseInt(pori);
-  
+
   if ($("#incluido").is(":checked")) {
     incl = 1;
   } else {
@@ -2454,11 +2508,11 @@ function resumen() {
 }
 
 async function cancelaEntrada(tipo) {
-  let movitext 
-  if(tipo==1){
-    movitext = 'Entrada'
-  }else {
-    movitext = "Salida"
+  let movitext;
+  if (tipo == 1) {
+    movitext = "Entrada";
+  } else {
+    movitext = "Salida";
   }
   swal(
     {
@@ -2473,10 +2527,9 @@ async function cancelaEntrada(tipo) {
       closeOnConfirm: false,
     },
     async function () {
-      sale = await limpiaMovimiento(0,tipo)
+      sale = await limpiaMovimiento(0, tipo);
     }
   );
-  
 }
 
 function cancelaAdd() {
@@ -2600,7 +2653,7 @@ function buscaProducto(codigo) {
     dataType: "json",
     data: { codigo },
     success: function (x) {
-      console.log(x)
+      console.log(x);
       $("#codigo").val(x.id_producto);
       $("#unidadalm").val(x.unidad_almacena);
       $("#unidad").val(x.unidad_compra);

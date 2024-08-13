@@ -56,6 +56,8 @@
   $total    = $subto + $impto;
   $totalsum  = 0; 
 
+
+  // echo print_r($movimientos);
   foreach ($movimientos as $movimiento) {
     $subto = $subto + $movimiento['valor_subtotal'];
     $impto = $impto + $movimiento['impuesto'];

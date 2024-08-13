@@ -4,6 +4,14 @@ require_once 'init.php';
 date_default_timezone_set('America/Bogota');
 class Inventario_User
 {
+    public function traeKardexCierre($bodega, $mes, $anio){
+        global $database;
+
+        $data = $database->query("SELECT productos_inventario.id_producto, productos_inventario.nombre_producto, unidades.descripcion_unidad, movimientos_inventario.unidad_alm, movimientos_inventario.id_bodega, SUM(if(movimientos_inventario.movimiento=1,movimientos_inventario.cantidad,0)) AS entradas, SUM(if(movimientos_inventario.movimiento=2,movimientos_inventario.cantidad,0)) AS salidas, SUM(if(movimientos_inventario.movimiento=1,movimientos_inventario.cantidad,0) - if(movimientos_inventario.movimiento=2,movimientos_inventario.cantidad,0)) AS saldo, SUM(if(movimientos_inventario.movimiento=1,movimientos_inventario.valor_subtotal,0)) / SUM(if(movimientos_inventario.movimiento=1,movimientos_inventario.cantidad,0)) AS promedio FROM productos_inventario, movimientos_inventario, unidades WHERE movimientos_inventario.id_producto = productos_inventario.id_producto AND movimientos_inventario.estado = 1 AND productos_inventario.unidad_almacena = unidades.id_unidad AND movimientos_inventario.id_bodega = $bodega AND month(fecha_movimiento) = $mes AND year(fecha_movimiento) = $anio GROUP BY productos_inventario.nombre_producto ORDER BY productos_inventario.nombre_producto ASC")->fetchAll(PDO::FETCH_ASSOC);
+
+        return $data;
+    }
+
     public function actualizaValorReceta($receta, $costo)
     {
         global $database;
@@ -170,7 +178,7 @@ class Inventario_User
     {
         global $database;
 
-        $data = $database->query("INSERT INTO historico_movimientos_inventario SELECT * FROM movimientos_inventario WHERE month(fecha_movimiento)  = '$periodo' AND year(fecha_movimiento) = '$anio'")->fetchAll();
+        $data = $database->query("INSERT INTO historico_movimientos_inventario SELECT * FROM movimientos_inventario WHERE month(fecha_movimiento)  = $periodo AND year(fecha_movimiento) = $anio")->fetchAll();
 
         return $database->id();
     }
@@ -583,6 +591,10 @@ class Inventario_User
             'movimientos_inventario.id_producto' => $id,
             'movimientos_inventario.id_bodega' => $bodega,
             'movimientos_inventario.estado' => 1,
+            'ORDER' => [
+                'movimientos_inventario.fecha_movimiento',
+                'movimientos_inventario.tipo_movi',
+            ],
         ]);
 
         return $data;
