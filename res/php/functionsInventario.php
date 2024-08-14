@@ -133,7 +133,7 @@ class Inventario_User
     {
         global $database;
 
-        $data = $database->query("DELETE FROM requisiciones WHERE month(fecha_req) = '$periodo' AND year(fecha_req) = '$anio'")->fetchAll();
+        $data = $database->query("DELETE FROM requisiciones WHERE month(fecha_req) = $periodo AND year(fecha_req) = $anio")->fetchAll();
 
         return $data;
     }
@@ -142,7 +142,7 @@ class Inventario_User
     {
         global $database;
 
-        $data = $database->query("INSERT INTO historico_requisiciones SELECT * FROM requisiciones WHERE month(fecha_red)  = '$periodo' AND year(fecha_red) = '$anio'")->fetchAll();
+        $data = $database->query("INSERT INTO historico_requisiciones SELECT * FROM requisiciones WHERE month(fecha_req)  = $periodo AND year(fecha_req) = $anio")->fetchAll();
 
         return $database->id();
     }
@@ -151,7 +151,7 @@ class Inventario_User
     {
         global $database;
 
-        $data = $database->query("DELETE FROM pedidos WHERE month(fecha_ped) = '$periodo' AND year(fecha_ped) = '$anio'")->fetchAll();
+        $data = $database->query("DELETE FROM pedidos WHERE month(fecha_ped) = $periodo AND year(fecha_ped) = $anio")->fetchAll();
 
         return $data;
     }
@@ -160,7 +160,7 @@ class Inventario_User
     {
         global $database;
 
-        $data = $database->query("INSERT INTO historico_pedidos SELECT * FROM pedidos WHERE month(fecha_ped)  = '$periodo' AND year(fecha_ped) = '$anio' ")->fetchAll();
+        $data = $database->query("INSERT INTO historico_pedidos SELECT * FROM pedidos WHERE month(fecha_ped) = $periodo AND year(fecha_ped) = $anio ")->fetchAll();
 
         return $database->id();
     }
@@ -169,7 +169,7 @@ class Inventario_User
     {
         global $database;
 
-        $data = $database->query("DELETE FROM movimientos_inventario WHERE month(fecha_movimiento) = '$periodo' AND year(fecha_movimiento) = '$anio'")->fetchAll();
+        $data = $database->query("DELETE FROM movimientos_inventario WHERE month(fecha_movimiento) = $periodo AND year(fecha_movimiento) = $anio")->fetchAll();
 
         return $data;
     }

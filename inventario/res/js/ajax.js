@@ -20,15 +20,16 @@ function buscaCantidad() {
 }
 
 async function cierreMes(mes, anio) {
+
   let proce = document.querySelector('#tituloProcesa')
   proce.classList.remove('oculto');
+  document.querySelector('#botonCierre').disabled;
   let sesion = JSON.parse(localStorage.getItem("sesion"));
   let {
     user: { usuario },
   } = sesion;
 
   let backup = await backupCierre();
-  console.log(backup);
   if (backup === 0) {
     swal(
       {
@@ -49,7 +50,19 @@ async function cierreMes(mes, anio) {
   };
 
   const cierre = await cierreBodegas(envia);
-  console.log(cierre);
+  swal(
+    {
+      title: "Cierre de Mes Realizado con Exito !",
+      type: "success",
+      confirmButtonText: "Confirmar",
+      closeOnConfirm: false,
+    },
+    function () {
+      $(location).attr("href", "home");
+    }
+  );
+  
+  // console.log(cierre);
 
   /* parametros = {
     periodo,
@@ -109,6 +122,7 @@ async function backupCierre() {
       },
     });
     const datos = await resultado.text();
+    // console.log(datos);
     return parseInt(datos);
   } catch (error) {
     console.log(error);
