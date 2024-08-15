@@ -64,9 +64,58 @@ $pedidos = count($inven->getPedidos());
       </div>
       <div class="row" ></div>
     </div>
-    <!-- <section class="container-fluid" style="margin-top:0px;margin-bottom: 5px;">
-        <div class="container-fluid">
-          </div> 
-    </section> -->
+    <section class="container-fluid" style="margin-top:0px;margin-bottom: 5px;">
+    <div class="container-fluid">
+      <div class="col-md-6 col-xs-12">
+        <h2 class="accesos">Accesos Directos <i class="fa fa-external-link" aria-hidden="true"></i></h2>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="col-lg-4 col-sm-6 col-xs-12">
+        <div class="info-box">
+          <a
+            href="kardex">
+            <span class="info-box-icon bg-aqua"><i class="fa fa-calendar-plus-o"></i>
+            </span>
+            <div class="info-box-content">
+              <span class="info-box-text">Kardex</span>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-4 col-sm-6 col-xs-12">
+        <div class="info-box">
+          <a
+            href="proveedores">
+            <span class="info-box-icon bg-red"><i class="fa fa-user-plus"></i></span>
+            <div class="info-box-content">
+              <span class="info-box-text">Proveedores</span>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="clearfix visible-sm-block"></div>
+      <div class="col-lg-4 col-sm-6 col-xs-12">
+        <div class="info-box">
+          <a href="productos">
+            <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
+            <div class="info-box-content">
+              <span class="info-box-text">Productos</span>
+            </div>
+          </a>
+        </div>
+      </div>
+      <!-- <div class="col-lg-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+          <a href="forecast">
+            <span class="info-box-icon bg-yellow"><i class="fa fa-area-chart"></i></span>
+            <div class="info-box-content">
+              <span class="info-box-text">Forecast</span>
+            </div>
+          </a>
+        </div>
+      </div> -->
+    </div>
+    </section>
   </section>
 </div>

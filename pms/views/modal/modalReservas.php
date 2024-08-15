@@ -44,25 +44,6 @@ $manana = date('Y-m-d', $manana);
                 </div>
                 <div class="panel-body" style="padding: 5px 15px;">
                   <div class="form-group">
-                    <label for="inputEmail3" class="col-sm-2 control-label">Decreto 297 </label>
-                    <div class="col-sm-2 ondisplay">
-                      <div class="wrap">
-                        <div class="col-sm-6" style="padding:0;height: 15px">
-                          <div class="form-check form-check-inline">
-                            <input style="margin-top:5px" class="form-check-input" type="radio" name="imptoOption" id="inlineRadio1" value="1" checked>
-                            <label style="margin-top:-25px;margin-left:25px" class="form-check-label" for="inlineRadio1">NO</label>
-                          </div>
-                        </div>
-                        <div class="col-sm-6" style="padding:0;height: 15px">
-                          <div class="form-check form-check-inline">
-                            <input style="margin-top:5px" class="form-check-input" type="radio" name="imptoOption" id="inlineRadio2" value="2">
-                            <label style="margin-top:-25px;margin-left:25px" class="form-check-label" for="inlineRadio2">SI</label>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group">
                     <label for="llegada" class="col-sm-2 control-label">Llegada</label>
                     <div class="col-sm-3" style="padding-right: 20px">
                       <input type="date" class="form-control" name="llegada" id="llegada" required="" value="<?php echo FECHA_PMS; ?>" min="<?php echo FECHA_PMS; ?>" onblur="sumaFecha()">

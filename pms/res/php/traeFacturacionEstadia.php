@@ -101,7 +101,7 @@
           <td style="width: 7%;text-align:right;cursor: pointer;">
             <a onclick="cargosHuesped(<?php echo $reserva['num_reserva']; ?>)"><?php echo number_format($reserva['cargos'] - $reserva['pagos'], 2); ?></a>
           </td>
-          <td style="padding:3px;width: 13%">
+          <td style="padding:3px;width: 15%">
             <nav class="navbar navbar-default " style="margin-bottom: 0px;min-height:0px;">
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:0px;">
                 <ul class="nav navbar-nav" style="margin :0;width:100%;">
@@ -126,7 +126,7 @@
                           data-toggle="modal" 
                           data-target="#myModalInformacionReserva" 
                           data-id="<?php echo $reserva['num_reserva']; ?>" 
-                          data-nombre="<?php echo $reserva['nombre_completo']; ?>" 
+                          data-nombre="<?php echo $reserva['nombre_completo']; ?>">
                           <i class="fa fa-address-card" aria-hidden="true"></i>Informacion Estadia</a>
                       </li>
                       <li>

@@ -37,7 +37,7 @@ $hoy = date('Y-m-d');
               </select>
             </div>
           </div>
-          <div class="form-group">
+          <div class="form-group"> 
             <label for="paisExp" class="col-sm-2 control-label">Expedicion </label>
             <div class="col-sm-3">
               <select name="paisExp" id="paisExp" required="" onblur="ciudadesExpedicion(this.value,'')">
@@ -122,7 +122,7 @@ $hoy = date('Y-m-d');
           <div class="form-group">
             <label for="telefono" class="col-sm-2 control-label">Telefono</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" name="telefono" id="telefono" placeholder="Telefono" required="" minlength="10" maxlength="18" pattern="[0-9]+">
+              <input type="text" class="form-control" name="telefono" id="telefono" placeholder="Telefono" minlength="10" maxlength="18" pattern="[0-9]+">
             </div>
             <label for="celular" class="col-sm-2 control-label">Celular</label>
             <div class="col-sm-4">

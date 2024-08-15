@@ -1,36 +1,25 @@
 <?php
 
-  require '../../../res/php/app_topHotel.php';
+require '../../../res/php/app_topHotel.php';
 
-  $id = $_POST['id'];
-  $idusr = $_POST['idusr'];
-  $directorio = '../../uploads';
+$id = $_POST['id'];
+$idusr = $_POST['idusr'];
+$directorio = '../../uploads';
 
-  if (!file_exists($directorio)) {
-      mkdir($directorio, 0777) or exit('No se puede crear el directorio de extracci&oacute;n');
-  }
+if (!file_exists($directorio)) {
+    mkdir($directorio, 0644) or exit('No se puede crear el directorio de extracci&oacute;n');
+}
 
-  $dir = opendir($directorio);
+$dir  = opendir($directorio);
+$rutaimg   =  '../../uploads';
+$archivos = $_FILES['files']; //esto va a llegar en formato de array, si el name fue files[] 
 
-  foreach ($_FILES['images']['tmp_name'] as $key => $tmp_name) {
-      if ($_FILES['images']['name'][$key]) {
-          $filename = $_FILES['images']['name'][$key];
-          $source = $_FILES['images']['tmp_name'][$key];
-          $rtOriginal = $_FILES['images']['tmp_name'][$key];
-          $typefile = $_FILES['images']['type'][$key];
+foreach ($archivos['tmp_name'] as $indice => $tmp_name) {
+    $nombre_real = $archivos['name'][$indice];
+    $sube = move_uploaded_file($tmp_name, "../../uploads/$nombre_real");
+    if ($sube == 1) {
+        $img  = $hotel->insertImagenPerfil(1, $id, $nombre_real, 0, $idusr);
+    }
+}
 
-          $target_path = $directorio.'/'.$filename;
-          $original = imagecreatefromjpeg($source);
-
-          $aFile = crearThumbJPEG($source, $target_path, 600, 480, 90);
-
-          if ($aFile == 1) {
-              $img = $hotel->insertImagenPerfil(1, $id, $filename, 0, $idusr);
-          }
-
-          echo '1';
-      }
-  }
-
-  ?>
-
+echo $sube;

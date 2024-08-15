@@ -23,7 +23,7 @@ require_once '../../../res/fpdf/fpdf.php';
   $pdf->Cell(190,5,NAME_EMPRESA,0,1,'C');
   $pdf->SetFont('Arial','',6);
   $pdf->Cell(190,3,'Nit: '.NIT_EMPRESA,0,1,'C');
-  $pdf->Cell(190,3,utf8_decode(ADRESS_EMPRESA.' '.CIUDAD_EMPRESA.' '.PAIS_EMPRESA),0,1,'C');
+  $pdf->Cell(190,3,(ADRESS_EMPRESA.' '.CIUDAD_EMPRESA.' '.PAIS_EMPRESA),0,1,'C');
   $pdf->Cell(190,3,'Telefono '.TELEFONO_EMPRESA.' Movil '.CELULAR_EMPRESA,0,1,'C');
   $pdf->SetFont('Arial','B',7);
   $pdf->Cell(190,4,NAME_HOTEL,0,0,'C'); 
@@ -42,18 +42,18 @@ require_once '../../../res/fpdf/fpdf.php';
   $pdf->Cell(20,6,'IDENTIFICACION',1,0,'C');
   $pdf->Cell(40,6,'EXPEDICION',1,1,'C');
   $pdf->SetFont('Arial','',8);
-  $pdf->Cell(100,5,utf8_decode($datosHuesped[0]['apellido1'].' '.$datosHuesped[0]['apellido2'].' '.$datosHuesped[0]['nombre1'].' '.$datosHuesped[0]['nombre2']),1,0,'L');
-  $pdf->Cell(30,5,utf8_decode($hotel->getLandGuest($datosHuesped[0]['pais_expedicion'])),1,0,'L');
+  $pdf->Cell(100,5,($datosHuesped[0]['apellido1'].' '.$datosHuesped[0]['apellido2'].' '.$datosHuesped[0]['nombre1'].' '.$datosHuesped[0]['nombre2']),1,0,'L');
+  $pdf->Cell(30,5,($hotel->getLandGuest($datosHuesped[0]['pais_expedicion'])),1,0,'L');
   $pdf->Cell(20,5,$datosHuesped[0]['identificacion'],1,0,'R');
-  $pdf->Cell(40,5,utf8_decode(substr($hotel->getCityExp($datosHuesped[0]['ciudad_expedicion']),0,21)),1,1,'L');
+  $pdf->Cell(40,5,(substr($hotel->getCityExp($datosHuesped[0]['ciudad_expedicion']),0,21)),1,1,'L');
 
   foreach ($datosAcompanantes as $acompanante) {
-    $pdf->Cell(100,5,utf8_decode($acompanante['apellido1'].' '.$acompanante['apellido2'].' '.$acompanante['nombre1'].' '.$acompanante['nombre2']),1,0,'L');
+    $pdf->Cell(100,5,($acompanante['apellido1'].' '.$acompanante['apellido2'].' '.$acompanante['nombre1'].' '.$acompanante['nombre2']),1,0,'L');
 
-    $pdf->Cell(30,5,utf8_decode($hotel->getLandGUest($acompanante['pais_expedicion'])),1,0,'L');
+    $pdf->Cell(30,5,($hotel->getLandGUest($acompanante['pais_expedicion'])),1,0,'L');
     $pdf->Cell(20,5,$acompanante['identificacion'],1,0,'R');
 
-    $pdf->Cell(40,5,utf8_decode(substr($hotel->getCityExp($acompanante['ciudad_expedicion']),0,21)),1,1,'L');    
+    $pdf->Cell(40,5,(substr($hotel->getCityExp($acompanante['ciudad_expedicion']),0,21)),1,1,'L');    
   }
 
   $pdf->setY(79);
@@ -65,7 +65,7 @@ require_once '../../../res/fpdf/fpdf.php';
   $pdf->Cell(15,5,'Fecha Nac',1,0,'l');
   $pdf->Cell(18,5,$datosHuesped[0]['fecha_nacimiento'],1,0,'L');
   $pdf->Cell(10,5,'Ciudad',1,0,'L');
-  $pdf->Cell(20,5,substr(utf8_decode($hotel->getCityExp($datosHuesped[0]['ciudad'])),0,13),1,0,'L');
+  $pdf->Cell(20,5,substr(($hotel->getCityExp($datosHuesped[0]['ciudad'])),0,13),1,0,'L');
   $pdf->Cell(10,5,'Pais',1,0,'L');
   $pdf->Cell(20,5,$hotel->getLandGuest($datosHuesped[0]['pais']),1,1,'L');
   
@@ -97,9 +97,9 @@ require_once '../../../res/fpdf/fpdf.php';
   $pdf->Cell(20,5,'Motivo Viaje',1,0,'L');
   $pdf->Cell(30,5,substr($hotel->motivoViaje($datosReserva[0]['motivo_viaje']),0,20),1,0,'L');
   $pdf->Cell(20,5,'Procedencia',1,0,'L');
-  $pdf->Cell(30,5,substr(utf8_decode($hotel->getCityExp($datosReserva[0]['origen_reserva'])),0,20),1,0,'L');
+  $pdf->Cell(30,5,substr(($hotel->getCityExp($datosReserva[0]['origen_reserva'])),0,20),1,0,'L');
   $pdf->Cell(20,5,'Destino',1,0,'l');
-  $pdf->Cell(30,5,substr(utf8_decode($hotel->getCityExp($datosReserva[0]['destino_reserva'])),0,20),1,0,'L');
+  $pdf->Cell(30,5,substr(($hotel->getCityExp($datosReserva[0]['destino_reserva'])),0,20),1,0,'L');
   $pdf->Cell(10,5,'Email',1,0,'L');
   $pdf->Cell(30,5,substr($datosHuesped[0]['email'],0,23),1,1,'L');
 
@@ -147,11 +147,11 @@ require_once '../../../res/fpdf/fpdf.php';
   $pdf->Cell(25,5,$datosReserva[0]['fecha_llegada'],1,0,'C');
   $pdf->Cell(22,5,'SALIDA',1,0,'L');
   $pdf->Cell(25,5,$datosReserva[0]['fecha_salida'],1,0,'C');
-  $pdf->Cell(20,5,utf8_decode('Adultos / Niños'),1,0,'L');
+  $pdf->Cell(20,5,('Adultos / Niños'),1,0,'L');
   $pdf->Cell(10,5,$datosReserva[0]['can_hombres']+$datosReserva[0]['can_mujeres'].' / '.$datosReserva[0]['can_ninos'],1,1,'C');
   $pdf->SetFont('Arial','',6);
   $pdf->Ln(1);
-  $pdf->MultiCell(190,3,utf8_decode($textoContrato),1,'J');
+  $pdf->MultiCell(190,3,($textoContrato),1,'J');
 
   $pdf->AddPage('P','letter');
   $pdf->Rect(10, 36, 190, 230);
@@ -160,7 +160,7 @@ require_once '../../../res/fpdf/fpdf.php';
   $pdf->Cell(190,5,NAME_EMPRESA,0,1,'C');
   $pdf->SetFont('Arial','',6);
   $pdf->Cell(190,3,'Nit: '.NIT_EMPRESA,0,1,'C');
-  $pdf->Cell(190,3,utf8_decode(ADRESS_EMPRESA.' '.CIUDAD_EMPRESA.' '.PAIS_EMPRESA),0,1,'C');
+  $pdf->Cell(190,3,(ADRESS_EMPRESA.' '.CIUDAD_EMPRESA.' '.PAIS_EMPRESA),0,1,'C');
   $pdf->Cell(190,3,'Telefono '.TELEFONO_EMPRESA.' Movil '.CELULAR_EMPRESA,0,1,'C');
   $pdf->SetFont('Arial','B',7);
   $pdf->Cell(190,4,NAME_HOTEL,0,0,'C'); 
@@ -178,10 +178,10 @@ require_once '../../../res/fpdf/fpdf.php';
   $pdf->Cell(20,6,'IDENTIFICACION',1,0,'C');
   $pdf->Cell(40,6,'EXPEDICION',1,1,'C');
   $pdf->SetFont('Arial','',8);
-  $pdf->Cell(100,5,utf8_decode($datosHuesped[0]['nombre_completo']),1,0,'L');
-  $pdf->Cell(30,5,utf8_decode($hotel->getLandGUest($datosHuesped[0]['pais_expedicion'])),1,0,'L');
+  $pdf->Cell(100,5,($datosHuesped[0]['nombre_completo']),1,0,'L');
+  $pdf->Cell(30,5,($hotel->getLandGUest($datosHuesped[0]['pais_expedicion'])),1,0,'L');
   $pdf->Cell(20,5,$datosHuesped[0]['identificacion'],1,0,'R');
-  $pdf->Cell(40,5,utf8_decode(substr($hotel->getCityExp($datosHuesped[0]['ciudad_expedicion']),0,21)),1,1,'L');
+  $pdf->Cell(40,5,(substr($hotel->getCityExp($datosHuesped[0]['ciudad_expedicion']),0,21)),1,1,'L');
   $pdf->Ln(5);
   $pdf->SetFont('Arial','B',8);
   $pdf->Cell(190,4,'CONTACTO EN CASO DE EMERGENCIA',0,1,'C');
@@ -203,7 +203,7 @@ require_once '../../../res/fpdf/fpdf.php';
   $pdf->Rect(10, 85, 190, 40);
   $pdf->setY(130);
   $pdf->SetFont('Arial','',8);
-  $pdf->MultiCell(190,5,utf8_decode('Declaro que todas la información suministrada es verídica, adicional autorizo a '.NAME_HOTEL.' el manejo de datos de acuerdo a su política de datos personales. En caso de presentar Síntomas relacionados con el COVID-19 autorizo a ('.NAME_HOTEL.'), a realizar el reporte respectivo de acuerdo a los protocolos implementados.'));
+  $pdf->MultiCell(190,5,('Declaro que todas la información suministrada es verídica, adicional autorizo a '.NAME_HOTEL.' el manejo de datos de acuerdo a su política de datos personales. En caso de presentar Síntomas relacionados con el COVID-19 autorizo a ('.NAME_HOTEL.'), a realizar el reporte respectivo de acuerdo a los protocolos implementados.'));
 
   $pdf->Ln(2);
   $pdf->SetFont('Arial','',10);

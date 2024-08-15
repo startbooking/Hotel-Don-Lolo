@@ -1,28 +1,28 @@
 <?php
-  $encasa = $hotel->getTotalHuespedeseCasa(1);
-  $llegan = $hotel->getTotalHuespedeseLlegando();
-  $salen = $hotel->getTotalHuespedeseSaliendo();
-  $reservas = $hotel->getReservasActivas(1, 'ES');
-  $congeladas = $hotel->getReservasActivas(2, 'CO');
-  $maestras = $hotel->getCuentasMaestras();
-  $cargos = $hotel->sumCargosdelDia(FECHA_PMS);
-  $abonos = $hotel->sumAbonosdelDia(FECHA_PMS);
-  $deposito = $hotel->sumDepositosdelDia(FECHA_PMS);
-  $pagos = $hotel->sumPagosdelDia(FECHA_PMS);
-  $rooms = $hotel->habitacionesDisponibles(CTA_MASTER);
-  $cmaster = $hotel->getTotalCuentasMaestras();
-  $canMmto     = $hotel->habitacionesMmto();
-  ?>
+$encasa = $hotel->getTotalHuespedeseCasa(1);
+$llegan = $hotel->getTotalHuespedeseLlegando();
+$salen = $hotel->getTotalHuespedeseSaliendo();
+$reservas = $hotel->getReservasActivas(1, 'ES');
+$congeladas = $hotel->getReservasActivas(2, 'CO');
+$maestras = $hotel->getCuentasMaestras();
+$cargos = $hotel->sumCargosdelDia(FECHA_PMS);
+$abonos = $hotel->sumAbonosdelDia(FECHA_PMS);
+$deposito = $hotel->sumDepositosdelDia(FECHA_PMS);
+$pagos = $hotel->sumPagosdelDia(FECHA_PMS);
+$rooms = $hotel->habitacionesDisponibles(CTA_MASTER);
+$cmaster = $hotel->getTotalCuentasMaestras();
+$canMmto     = $hotel->habitacionesMmto();
+?>
 
 
-<div class="content-wrapper" >
+<div class="content-wrapper">
   <section class="container-fluid" style="margin-bottom: 5px;">
     <div class="container-fluid">
       <input type="hidden" name="rutaweb" id="rutaweb" value="<?php echo BASE_PMS; ?>">
       <input type="hidden" name="ubicacion" id="ubicacion" value="home">
       <h1 class="controlPanel">
-      Panel de Control <br>
-      <span><?php echo NAME_HOTEL; ?></span>
+        Panel de Control <br>
+        <span><?php echo NAME_HOTEL; ?></span>
       </h1>
     </div>
   </section>
@@ -39,16 +39,16 @@
                 </div>
                 <div class="inner col-sm-2 col-xs-4">
                   <h3 style="margin:0;text-align:center;"><?php echo $llegan[0]['hom'] + $llegan[0]['muj']; ?></h3>
-                  <p>Adultos</p>                    
+                  <p>Adultos</p>
                 </div>
                 <div class="inner col-sm-2 col-xs-4">
                   <h3 style="margin:0;text-align:center;">
                     <?php
-                      if ($llegan[0]['nin'] == '') {
-                          echo 0;
-                      } else {
-                          echo $llegan[0]['nin'];
-                      }
+                    if ($llegan[0]['nin'] == '') {
+                      echo 0;
+                    } else {
+                      echo $llegan[0]['nin'];
+                    }
                     ?>
                   </h3>
                   <p>Niños</p>
@@ -58,13 +58,13 @@
             <div class="icon">
               <i class="ion-person-add"></i>
             </div>
-            <span  class="small-box-footer">Mas Informacion <i class="fa fa-arrow-circle-right"></i></span>
+            <span class="small-box-footer">Mas Informacion <i class="fa fa-arrow-circle-right"></i></span>
           </a>
         </div>
       </div>
       <div class="col-lg-4 col-md-6 col-xs-12">
         <div>
-          <a  class="small-box bg-green" href="encasa">
+          <a class="small-box bg-green" href="encasa">
             <div class="inner">
               <div class="container-fluid" style="padding:0">
                 <div class="row-fluid">
@@ -74,18 +74,18 @@
                   </div>
                   <div class="inner col-sm-2 col-xs-4">
                     <h3 style="margin:0" align="center"><?php echo $encasa[0]['hom'] + $encasa[0]['muj']; ?></h3>
-                    <p>Adultos</p>                    
+                    <p>Adultos</p>
                   </div>
                   <div class="inner col-sm-2 col-xs-4">
                     <h3 style="margin:0" align="center">
                       <?php
-                        if ($encasa[0]['nin'] == '') {
-                            echo 0;
-                        } else {
-                            echo $encasa[0]['nin'];
-                        }
-                      ?>                      
-                      </h3>
+                      if ($encasa[0]['nin'] == '') {
+                        echo 0;
+                      } else {
+                        echo $encasa[0]['nin'];
+                      }
+                      ?>
+                    </h3>
                     <p>Niños</p>
                   </div>
                 </div>
@@ -94,33 +94,33 @@
             <div class="icon">
               <i class="ion ion-home"></i>
             </div>
-            <span  class="small-box-footer">Ver Huespedes en Casa <i class="fa fa-arrow-circle-right"></i></span>
+            <span class="small-box-footer">Ver Huespedes en Casa <i class="fa fa-arrow-circle-right"></i></span>
           </a>
         </div>
       </div>
       <div class="col-lg-4 col-md-6 col-xs-12">
-        <div >
-          <a class="small-box bg-yellow" href="salidasDelDia" >
+        <div>
+          <a class="small-box bg-yellow" href="salidasDelDia">
             <div class="inner">
               <div class="container-fluid" style="padding:0">
                 <div class="inner col-sm-8 col-xs-4">
                   <h3 style="margin:0"><?php echo $salen[0]['habi']; ?></h3>
-                  <p style="margin-bottom: 0">Salidas del Dia</p>                    
+                  <p style="margin-bottom: 0">Salidas del Dia</p>
                 </div>
                 <div class="inner col-sm-2 col-xs-4">
                   <h3 style="margin:0;text-align:center;"><?php echo $salen[0]['hom'] + $salen[0]['muj']; ?></h3>
-                  <p>Adultos</p>                    
+                  <p>Adultos</p>
                 </div>
                 <div class="inner col-sm-2 col-xs-4">
                   <h3 style="margin:0;text-align:center;">
                     <?php
-                      if ($salen[0]['nin'] == '') {
-                          echo 0;
-                      } else {
-                          echo $salen[0]['nin'];
-                      }
+                    if ($salen[0]['nin'] == '') {
+                      echo 0;
+                    } else {
+                      echo $salen[0]['nin'];
+                    }
                     ?>
-                    </h3>
+                  </h3>
                   <p>Niños</p>
                 </div>
               </div>
@@ -155,9 +155,9 @@
               <p>Cuentas Congeladas</p>
             </div>
             <div class="icon">
-              <i style="margin-top:30px"  class="fa fa-snowflake-o icon"></i>
+              <i style="margin-top:30px" class="fa fa-snowflake-o icon"></i>
             </div>
-            <span class="small-box-footer">ver Cuentas Congeladas <i class="fa fa-arrow-circle-right"></i>            
+            <span class="small-box-footer">ver Cuentas Congeladas <i class="fa fa-arrow-circle-right"></i>
             </span>
           </a>
         </div>
@@ -170,9 +170,9 @@
               <p>Cuentas Maestras Activas</p>
             </div>
             <div class="icon">
-              <i style="margin-top:30px"  class="fa fa-snowflake-o icon"></i>
+              <i style="margin-top:30px" class="fa fa-snowflake-o icon"></i>
             </div>
-            <span class="small-box-footer">ver Cuentas Maestras <i class="fa fa-arrow-circle-right"></i>            
+            <span class="small-box-footer">ver Cuentas Maestras <i class="fa fa-arrow-circle-right"></i>
             </span>
           </a>
         </div>
@@ -185,9 +185,9 @@
               <p>Habitaciones en Mantenimiento</p>
             </div>
             <div class="icon">
-              <i style="margin-top:30px"  class="fa fa-snowflake-o icon"></i>
+              <i style="margin-top:30px" class="fa fa-snowflake-o icon"></i>
             </div>
-            <span class="small-box-footer">ver Habitaciones en Mantenimiento <i class="fa fa-arrow-circle-right"></i>            
+            <span class="small-box-footer">ver Habitaciones en Mantenimiento <i class="fa fa-arrow-circle-right"></i>
             </span>
           </a>
         </div>
@@ -196,15 +196,15 @@
   </section>
   <section class="container-fluid">
     <div class="container-fluid">
-      <div class="col-md-6 col-xs-12">          
+      <div class="col-md-6 col-xs-12">
         <h2 class="accesos">Accesos Directos <i class="fa fa-external-link" aria-hidden="true"></i></h2>
       </div>
     </div>
     <div class="container-fluid">
       <div class="col-lg-3 col-sm-6 col-xs-12">
         <div class="info-box">
-          <a 
-            data-toggle="modal" 
+          <a
+            data-toggle="modal"
             href="#myModalAdicionaReserva">
             <span class="info-box-icon bg-aqua"><i class="fa fa-calendar-plus-o"></i>
             </span>
@@ -216,8 +216,8 @@
       </div>
       <div class="col-lg-3 col-sm-6 col-xs-12">
         <div class="info-box">
-          <a 
-            data-toggle="modal" 
+          <a
+            data-toggle="modal"
             href="#myModalAdicionaPerfil">
             <span class="info-box-icon bg-red"><i class="fa fa-user-plus"></i></span>
             <div class="info-box-content">
@@ -237,7 +237,7 @@
           </a>
         </div>
       </div>
-      <div class="col-lg-3 col-sm-6 col-xs-12">        
+      <div class="col-lg-3 col-sm-6 col-xs-12">
         <div class="info-box">
           <a href="forecast">
             <span class="info-box-icon bg-yellow"><i class="fa fa-area-chart"></i></span>

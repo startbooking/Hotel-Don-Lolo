@@ -1,0 +1,4 @@
+[15-Aug-2024 08:05:30 America/Bogota] PHP Warning:  Undefined variable $paices in /var/www/donlolo.lan/pms/views/modal/modalAcompanantes.php on line 117
+[15-Aug-2024 08:05:30 America/Bogota] PHP Warning:  foreach() argument must be of type array|object, null given in /var/www/donlolo.lan/pms/views/modal/modalAcompanantes.php on line 117
+[15-Aug-2024 08:05:30 America/Bogota] PHP Warning:  Undefined variable $paices in /var/www/donlolo.lan/pms/views/modal/modalAcompanantes.php on line 177
+[15-Aug-2024 08:05:30 America/Bogota] PHP Warning:  foreach() argument must be of type array|object, null given in /var/www/donlolo.lan/pms/views/modal/modalAcompanantes.php on line 177

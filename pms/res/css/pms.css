@@ -91,7 +91,7 @@ table tbody{
 
 .w3ls_head {
   font-weight: bold;
-  font-family: "ubuntu";
+  /* font-family: "ubuntu"; */
 }
 
 .form-horizontal {
@@ -211,8 +211,8 @@ span .alert {
 }
   
 .tituloPagina {
-  font-weight: 500;
-  font-family: "ubuntu";
+  font-weight: 600;
+  /* font-family: "ubuntu"; */
   color: brown;
   text-transform: none;
   padding: 0px;
@@ -262,7 +262,7 @@ span .alert {
   width: 16.3%;
   height: 120px;
   margin: 1px;
-  font-family: "ubuntu";
+  /* font-family: "ubuntu"; */
 }
 
 .btnRoom span {
@@ -471,18 +471,23 @@ span .alert {
 
 .panelFolio a {
   font-size: 12px;
-  font-family: "ubuntu";
+  /* font-family: "ubuntu"; */
 }
 
 .panelFolio table > tbody > tr > td {
   font-size: 11px;
-  font-family: "ubuntu";
+  /* font-family: "ubuntu"; */
   padding: 2px 5px;
 }
 
 .controlPanel {
-  font-size:34px; 
+  font-size:40px; 
+  font-weight: 700;
+}
 
+.controlPanel span {
+  font-size:34px; 
+  font-weight: 500;
 }
 
 

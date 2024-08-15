@@ -53,8 +53,8 @@
       </div>
     </div>
     <div class="panel-footer centro">
-      <a href="inicio" type="button" class="btn btn-warning"><i class="fa fa-reply" aria-hidden="true"></i> Regresar</a>
-        <button onclick="guardaPlanillaDesayunos()" class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i> Guardar</button>
+      <a onclick="enviaInicio()" type="button" class="btn btn-warning"><i class="fa fa-reply" aria-hidden="true"></i> Regresar</a>
+      <button onclick="guardaPlanillaDesayunos()" class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i> Guardar</button>
     </div>
   </div>
 </div>

@@ -1,6 +1,12 @@
-html, body{font-size:100%;font-family:'Open Sans', sans-serif;background:#ffffff;margin:0;}
+html, body{font-size:100%;
+	/* font-family:'Open Sans', sans-serif; */
+	background:#ffffff;margin:0;
+}
 p,ul li,ol li{margin:0;font-size:14px;}
-h1,h2,h3,h4,h5,h6{font-family:'Josefin Sans', sans-serif;margin:0;}
+h1,h2,h3,h4,h5,h6{
+	/* font-family:'Josefin Sans',	sans-serif; */
+	margin:0;
+}
 ul,label{margin:0;padding:0;}
 body a:hover{text-decoration:none;}
 input[type="submit"],input[type="reset"],a,.w3l_banner_bottom_grid1 i,.w3layouts_more a i{
@@ -333,7 +339,14 @@ span.ttt{color:#fff;}
 .w3l_testimonial_grid_pos{position:absolute;width:100%;text-align:center;top:-25%;left:0%;}
 .w3l_testimonial_grid_pos img{margin:0 auto;}
 .w3l_testimonial_grid p{color:#999;line-height:2em;position:relative;padding-left:2em;}
-.w3l_testimonial_grid p:before{content:"\f10d";font-size:2em;color:#000;font-family:FontAwesome;position:absolute;top:0%;left:0%;}
+.w3l_testimonial_grid p:before{
+	content:"\f10d";
+	font-size:2em;color:#000;
+	font-family:'FontAwesome';
+	position:absolute;
+	top:0%;
+	left:0%;
+}
 .agileits_testimonial_grid h4{
 	font-size:1.1em;
 	color:#212121;
@@ -428,7 +441,8 @@ span.ttt{color:#fff;}
 .slick-prev.slick-disabled:before,
 .slick-next.slick-disabled:before{opacity:.25;}
 .slick-prev:before,
-.slick-next:before{font-family:'FontAwesome';line-height:1;opacity:.75;color:white;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+.slick-next:before{
+	font-family:'FontAwesome';line-height:1;opacity:.75;color:white;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
 .slick-prev:before{content:"\f177";}
 [dir='rtl'] .slick-prev:before{content:"\f177";}
 .slick-next,[dir='rtl'] .slick-prev{right:6.5%;}
@@ -729,7 +743,7 @@ margin-top: 40px;
 
 
 .title-txt h1, h2, h3, h4, h5, h6 {
-	font-family: 'Ubuntu';
+	/* font-family: 'Ubuntu'; */
 } 
 
 
@@ -965,7 +979,10 @@ table.table.table-striped,.table-borde#000,.bs-docs-example{display:none;}
 .agile-gallery{position:relative;overflow:hidden;text-align:center;;}
 .agileits-caption{background:rgba(0, 0, 0, 0.62);padding:2em 1em 1em 1em;position:absolute;left:0;bottom:-105%;text-align:center;width:100%;height:170px;-webkit-transition:.5s all;transition:.5s all;-moz-transition:.5s all;}
 .agile-gallery:hover .agileits-caption{bottom:0%;}
-.agileits-caption h4{color:#FFFFFF;margin:0 0 .5em 0;font-size:1.5em;font-weight:600;font-family:'Laila', serif;text-transform:capitalize;}
+.agileits-caption h4{color:#FFFFFF;margin:0 0 .5em 0;font-size:1.5em;
+	font-weight:600;
+	/* font-family:'Laila', serif; */
+	text-transform:capitalize;}
 .agileits-caption p{color:#FFFFFF;font-size:.9em;margin:0;line-height:1.8em;}
 .gallery-grids{padding:1em 0;}
 .tel-prj{margin-top:4em;}

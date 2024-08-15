@@ -1,10 +1,8 @@
 <?php
-//   require_once '../res/php/titles.php';
 require_once '../res/php/app_topHotel.php';
 ?>
 <!DOCTYPE html>
 <html>
-
 <head>
     <title> Sistema Administrativo Hotelero | SACTel Cloud</title>
     <?php include_once '../res/shared/archivo_head.php'; ?>
@@ -304,101 +302,6 @@ require_once '../res/php/app_topHotel.php';
     ?>
 
     <script src="<?php echo BASE_PMS; ?>res/js/pms.js"></script>
-    <?php
-    if (isset($_GET['section']) && $_GET['section'] == 'facturacionHuesped') { ?>
-        <script>
-            var nrores = document.getElementById("reservaActual").value;
-            activaFolio(nrores, 1)
-        </script>
-    <?php
-    } elseif (isset($_GET['section']) && $_GET['section'] == 'cierreCajero') { ?>
-        <script>
-            $('.tituloPagina').html(`<i class="fa fa-tachometer" style="font-size:36px;color:black" ></i> Cierre Cajero [${usuario}]`)
-        </script>
-    <?php
-    } elseif ($_GET['section'] == 'reservasActivas' || $_GET['section'] == 'encasa' || $_GET['section'] == 'llegadasDelDia' || $_GET['section'] == 'facturacionEstadia' || $_GET['section'] == 'salidasDelDia' || $_GET['section'] == 'salidasRealizadas' || $_GET['section'] == 'grupos' || $_GET['section'] == 'mantenimiento' || $_GET['section'] == 'facturasDelDia' || $_GET['section'] == 'carteraClientes' || $_GET['section'] == 'cuentasCongeladas' || $_GET['section'] == 'notasCredito' || $_GET['section'] == 'companias') { ?>
-        <script>
-            if (tipo == 1) {
-                $('#cambiaHuesped').css('display', 'block')
-            }
-            if (tipo >= 3) {
-                $('.menuFicha').css('display', 'block')
-            }
-            $(function() {
-                $('#example1').DataTable({
-                    "iDisplayLength": 50,
-                    "language": {
-                        "decimal": "",
-                        "emptyTable": "No hay registros",
-                        "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
-                        "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
-                        "infoFiltered": "(Filtrado de _MAX_ total entradas)",
-                        "infoPostFix": "",
-                        "thousands": ",",
-                        "lengthMenu": "Mostrar _MENU_ Entradas",
-                        "loadingRecords": "Cargando...",
-                        "processing": "Procesando...",
-                        "search": "Buscar:",
-                        "zeroRecords": "Sin resultados encontrados",
-                        "paginate": {
-                            "first": "Primero",
-                            "last": "Ultimo",
-                            "next": "Siguiente",
-                            "previous": "Anterior"
-                        },
-                    }
-                });
-            });
-        </script>
-    <?php
-    } elseif (isset($_GET['section']) && $_GET['section'] == 'huespedesPerfil') { ?>
-        <script>
-            new DataTable('#tablaHuespedes', {
-                lengthMenu: [50, 100, 200, 500],
-                ajax: 'res/php/datasetHuespedes.php',
-                processing: true,
-                serverSide: true,
-                iDisplayLength: 50,
-                language: {
-                    sProcessing: "Procesando...",
-                    sLengthMenu: "Mostrar _MENU_ registros",
-                    sZeroRecords: "No se encontraron resultados",
-                    sEmptyTable: "Ningún dato disponible en esta tabla",
-                    sInfo: "Mostrando del _START_ al _END_ de un total de _TOTAL_ registros",
-                    sInfoEmpty: "Mostrando del 0 al 0 de un total de 0 registros",
-                    sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
-                    sInfoPostFix: "",
-                    sSearch: "Buscar:",
-                    sUrl: "",
-                    sInfoThousands: ",",
-                    sLoadingRecords: "Cargando...",
-                    oPaginate: {
-                        sFirst: "Primero",
-                        sLast: "Último",
-                        sNext: "Siguiente",
-                        sPrevious: "Anterior",
-                    },
-                    oAria: {
-                        sSortAscending: ": Activar para ordenar la columna de manera ascendente",
-                        sSortDescending: ": Activar para ordenar la columna de manera descendente",
-                    },
-                },
-                columnDefs: [{
-                    targets: "_all",
-                    orderable: true
-                }],
-            });
-            accesoUsuarios()
-        </script>
-    <?php
-    } elseif (isset($_GET['section']) && $_GET['section'] == 'facturacionCongelada') { ?>
-        <script>
-            var nrores = document.getElementById("reservaActual").value;
-            activaCongelado(nrores, 1)
-        </script>
-    <?php
-    }
-    ?>
 </body> 
 
 </html>

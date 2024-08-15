@@ -26,11 +26,11 @@ if($datosReserva[0]['id_compania']== 0){
   $pdf->Image('../../img/'.LOGO, 10, 5, 30);
 
   $pdf->SetFont('Arial', 'B', 13);
-  $pdf->Cell(190, 5, utf8_decode(NAME_EMPRESA), 0, 1, 'C');
+  $pdf->Cell(190, 5, (NAME_EMPRESA), 0, 1, 'C');
   $pdf->SetFont('Arial', '', 10);
   $pdf->Cell(190, 4, 'NIT: '.NIT_EMPRESA, 0, 1, 'C');
-  $pdf->Cell(190, 4, utf8_decode(ADRESS_EMPRESA), 0, 1, 'C');
-  $pdf->Cell(190, 4, utf8_decode(CIUDAD_EMPRESA).' '.PAIS_EMPRESA, 0, 1, 'C');
+  $pdf->Cell(190, 4, (ADRESS_EMPRESA), 0, 1, 'C');
+  $pdf->Cell(190, 4, (CIUDAD_EMPRESA).' '.PAIS_EMPRESA, 0, 1, 'C');
   $pdf->Cell(40, 4, '', 0, 0, 'C');
   $pdf->Cell(110, 4, 'Telefono '.TELEFONO_EMPRESA.' Movil '.CELULAR_EMPRESA, 0, 1, 'C');
   $pdf->SetFont('Arial', 'B', 10);
@@ -109,9 +109,9 @@ if($datosReserva[0]['id_compania']== 0){
   $pdf->Cell(190, 4, 'Politica de garantia, todas las reservas deben de estar garantizadas con pago pot los diferentes medios : ', 0, 1, 'L');
   $pdf->Cell(190, 4, '- Pago con Tarjeta de Credito, Visa, Master Card, American Express y Diners Club ', 0, 1, 'L');
   $pdf->Cell(190, 4, '- Con Tarjeta Debito por medio de PSE por la pagina web', 0, 1, 'L');
-  $pdf->MultiCell(190, 4, '- Via BALOTOy EFECTY - SERVIENTREGA o '.utf8_decode(TEXTOBANCO).', o enviar scanner de Tarjeta de Credito con copia de documento y carta de autorizacion donde especifique el valor a debita. Favor enviar al correo electronico reservas@donlolohotel.com la informacion del pago. ' , 0, 'J');
-  $pdf->MultiCell(190, 4, utf8_decode('Condiciones, no se genera recargo por alojamiento de infantes de  0 - 1 año, se efectuara un recargo para infantes en edades de 1 - 7 años y deberan compartir la estancia en la habitacion de los adultos responsables, aplica a partir de acomodacion doble con una restriccion de maximo 2 infantes, de 7 años en adelante se considera como adulto') , 0, 'J');
-  $pdf->MultiCell(190, 4, utf8_decode('Todos los Huespedes (Adultos o menores de edad) deberan presentar su documento de identificacion en el Check-In sin excepcion') , 0, 'J');
+  $pdf->MultiCell(190, 4, '- Via BALOTOy EFECTY - SERVIENTREGA o '.(TEXTOBANCO).', o enviar scanner de Tarjeta de Credito con copia de documento y carta de autorizacion donde especifique el valor a debita. Favor enviar al correo electronico reservas@donlolohotel.com la informacion del pago. ' , 0, 'J');
+  $pdf->MultiCell(190, 4, ('Condiciones, no se genera recargo por alojamiento de infantes de  0 - 1 año, se efectuara un recargo para infantes en edades de 1 - 7 años y deberan compartir la estancia en la habitacion de los adultos responsables, aplica a partir de acomodacion doble con una restriccion de maximo 2 infantes, de 7 años en adelante se considera como adulto') , 0, 'J');
+  $pdf->MultiCell(190, 4, ('Todos los Huespedes (Adultos o menores de edad) deberan presentar su documento de identificacion en el Check-In sin excepcion') , 0, 'J');
   $pdf->MultiCell(190, 4, 'Peticiones especiales sujetas a disponibilidad en el momento de Check-In' , 0, 'J');
 
   $file = 'reservas/ConfirmacionReserva_'.$reserva.'.pdf';

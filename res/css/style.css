@@ -22,7 +22,7 @@ body.is-loading * {
 }
 
 body, input, textarea, select {
-  font-family: "Ubuntu";
+  /* font-family: "Ubuntu"; */
   font-weight: 400;
   color: #090909#777;
 }
@@ -33,7 +33,7 @@ h1, h2, h3 {
 }
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-  font-family: "ubuntu";
+  /* font-family: "ubuntu"; */
 }
 
 .small-box h3 {
@@ -179,7 +179,7 @@ blockquote {
 }
 
 .logo span {
-  font-family: ubuntu;
+  /* font-family: ubuntu; */
   font-weight: 600;
 }
 
@@ -329,7 +329,7 @@ br.clear {
   background-color: #fff;
   font-weight: bold;
   font-size: 20px;
-  font-family: monospace;
+  /* font-family: monospace; */
   border-radius: 50%;
   position: absolute;
   top: 10px;
@@ -688,7 +688,7 @@ input[type="button"].alt:active, input[type="submit"].alt:active, input[type="re
 .icon:before {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
-  font-family: FontAwesome;
+  font-family: 'FontAwesome';
   font-style: normal;
   font-weight: normal;
   text-transform: none !important;
@@ -787,7 +787,7 @@ input[type="button"].alt:active, input[type="submit"].alt:active, input[type="re
 
 .tituloPagina {
   font-weight: 500;
-  font-family: "ubuntu";
+  /* font-family: "ubuntu"; */
   color: brown;
   text-transform: none;
   margin: 0px;
@@ -817,7 +817,7 @@ input[type="number"].form-control {
 }
 
 #header h1 {
-  font-family: "Arvo";
+  /* font-family: "Arvo"; */
   font-weight: 700;
   color: #ed786a;
   text-shadow: 0.05em 0.075em 0 rgba(0, 0, 0, 0.1);
@@ -1147,7 +1147,7 @@ ul#produtos li h3 {
 .fontModule {
   font-size: 30px;
   font-weight: 600;
-  font-family: ubuntu;
+  /* font-family: ubuntu; */
   margin-left: 0;
 }
 
@@ -1161,11 +1161,11 @@ ul#produtos li h3 {
 
 .dropdown-menu > li > a {
   padding: 5px 15px;
-  font-family: ubuntu;
+  /* font-family: ubuntu; */
 }
 
 .navbar-nav {
-  font-family: ubuntu;
+  /* font-family: ubuntu; */
   font-weight: bold;
 }
 
@@ -1207,7 +1207,7 @@ ul#produtos li h3 {
 .polig {
   width: 150px;
   height: 150px;
-  font-family: arial;
+  /* font-family: arial; */
   font-weight: bold;
   margin: 2px;
   border: 1px solid #000;
@@ -1246,7 +1246,7 @@ ul#produtos li h3 {
 
 .letraBaldosin > label {
   text-shadow: -1px 0 #fff, 0 1px #fff, 1px 0 #fff, 0 -1px #fff;
-  font-family: ubuntu;
+  /* font-family: ubuntu; */
 }
 
 .letraLogo {
@@ -1258,7 +1258,7 @@ ul#produtos li h3 {
   text-shadow: -1px 0 red, 0 2px red, 1px 0 red, 0 -1px red;
   margin-left: 0px;
   color: red;
-  font-family: ubuntu;
+  /* font-family: ubuntu; */
 }
 
 .navFooter {
