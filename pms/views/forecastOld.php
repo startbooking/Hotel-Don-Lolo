@@ -11,7 +11,7 @@ $dias     = ($resta / (24 * 60 * 60)) + 1;
 if ($dias < 30) {
   $dias = 30;
 }
-
+ 
 ?>
 <div class="content-wrapper">
   <section class="content" style="margin-bottom: 10px !important">
@@ -148,22 +148,6 @@ if ($dias < 30) {
                         $diasEs = (strtotime($hasta) - strtotime($desde)) / 86400;
                         $ancho = (40 * $diasEs) - 2;
                         if ($estadia['estado'] <> "SA" && $estadia['estado'] <> "CX") { ?>
-                          <!-- <a 
-                                style="padding:2px 5px;margin-bottom: 1px;height: <?= $altoh ?>px;width:<?= $ancho ?>px;margin-top:<?= $alto ?>px;margin-left:20px;z-index:20;display: block;border: 1px solid #000A;position:absolute;border-radius: 0;font-size:10px;color:#000;overflow: hidden;font-weight: 600" 
-                                class="info btn <?= $color ?> reserva" 
-                                title=""
-                                draggable="true"
-                                reserva="<?= $estadia['num_reserva'] ?>"
-                                estado="<?= $estadia['estado'] ?>"> 
-                                <span style="position: fixed;left: 500px; top: 52px;">Huesped <?php echo substr($estadia['nombre_completo'], 0, 28) ?><br>Habitacion <?= $estadia['num_habitacion'] ?><br>Adultos <?= $estadia['can_hombres'] + $estadia['can_mujeres'] ?> Niños <?= $estadia['can_ninos'] ?> <br>Fecha Llegada <?= $estadia['fecha_llegada'] ?><br>Fecha Salida <?= $estadia['fecha_salida'] ?><br>Tarifa <?= number_format($estadia['valor_diario'], 2) ?></span>
-                                <?php
-                                if ($estadia['dias_reservados'] != 1) {
-                                  echo $estadia['apellido1'];
-                                }
-                                ?>
-                              </a> -->
-
-
                           <?php
                           if ($estadia['estado'] == "ES") {
                           ?>
@@ -179,54 +163,54 @@ if ($dias < 30) {
                                   </a>
                                   <ul class="dropdown-menu submenu" style="float:left;margin-left:-180px;top:40px;">
                                     <li>
-                                      <a data-toggle="modal" data-target="#myModalAcompanantesReserva" data-id="<?php echo $reserva['num_reserva']; ?>" data-nombre="<?php echo $reserva['nombre_completo']; ?>">
+                                      <a data-toggle="modal" data-target="#myModalAcompanantesReserva" data-id="<?php echo $estadia['num_reserva']; ?>" data-nombre="<?php echo $estadia['nombre_completo']; ?>">
                                         <i class="fa fa-users" aria-hidden="true"></i>Acompañantes Reserva
                                       </a>
                                     </li>
                                     <li id="cambiaHuesped">
-                                      <a data-toggle="modal" data-target="#myModalReasignarHuesped" data-reserva="<?php echo $reserva['num_reserva']; ?>">
+                                      <a data-toggle="modal" data-target="#myModalReasignarHuesped" data-reserva="<?php echo $estadia['num_reserva']; ?>">
                                         <i class="fa fa-user-plus" aria-hidden="true"></i>Reasignar Huesped
                                       </a>
                                     </li>
                                     <li>
-                                      <a data-toggle="modal" data-target="#myModalModificaReserva" data-id="<?php echo $reserva['num_reserva']; ?>" data-nombre="<?php echo $reserva['nombre_completo']; ?>">
+                                      <a data-toggle="modal" data-target="#myModalModificaReserva" data-id="<?php echo $estadia['num_reserva']; ?>" data-nombre="<?php echo $estadia['nombre_completo']; ?>">
                                         <i class="fa fa-pencil-square" aria-hidden="true"></i>Modificar Reserva
                                       </a>
                                     </li>
                                     <li>
-                                      <a data-toggle="modal" data-target="#myModalCancelaReserva" data-id="<?php echo $reserva['num_reserva']; ?>" data-nombre="<?php echo $reserva['nombre_completo']; ?>">
+                                      <a data-toggle="modal" data-target="#myModalCancelaReserva" data-id="<?php echo $estadia['num_reserva']; ?>" data-nombre="<?php echo $estadia['nombre_completo']; ?>">
                                         <i class="fa fa-times" aria-hidden="true"></i>Cancelar Reserva</a>
                                     </li>
                                     <li>
-                                      <a data-toggle="modal" onclick="confirmarReserva(<?= $reserva['num_reserva'] ?>)">
+                                      <a data-toggle="modal" onclick="confirmarReserva(<?= $estadia['num_reserva'] ?>)">
                                         <i class="fa fa-book" aria-hidden="true"></i>Confirmar Reserva
                                       </a>
                                     </li>
                                     <li>
-                                      <a data-toggle="modal" onclick="imprimirRegistro(<?php echo $reserva['num_reserva']; ?>,<?php echo $reserva['causar_impuesto']; ?>)">
+                                      <a data-toggle="modal" onclick="imprimirRegistro(<?php echo $estadia['num_reserva']; ?>,<?php echo $estadia['causar_impuesto']; ?>)">
                                         <i class="fa fa-book" aria-hidden="true"></i>Imprimir Registro Hotelero
                                       </a>
                                     </li>
                                     <li>
-                                      <a data-toggle="modal" data-id="<?php echo $reserva['id_huesped']; ?>" data-nombre="<?php echo $reserva['nombre_completo']; ?>" href="#myModalModificaPerfilHuesped">
+                                      <a data-toggle="modal" data-id="<?php echo $estadia['id_huesped']; ?>" data-nombre="<?php echo $estadia['nombre_completo']; ?>" href="#myModalModificaPerfilHuesped">
                                         <i class="fa fa-user-md"></i>Perfil Huesped
                                       </a>
                                     </li>
                                     <li>
-                                      <a data-toggle="modal" data-target="#myModalDepositoReserva" data-id="<?php echo $reserva['num_reserva']; ?>" data-idhuesped="<?php echo $reserva['id_huesped']; ?>" data-tipohab="<?php echo descripcionTipoHabitacion($reserva['tipo_habitacion']); ?>" data-nrohab="<?php echo $reserva['num_habitacion']; ?>" data-nombre="<?php echo $reserva['nombre_completo']; ?>" data-llegada="<?php echo $reserva['fecha_llegada']; ?>" data-salida="<?php echo $reserva['fecha_salida']; ?>" data-noches="<?php echo $reserva['dias_reservados']; ?>" data-hombres="<?php echo $reserva['can_hombres']; ?>" data-mujeres="<?php echo $reserva['can_mujeres']; ?>" data-ninos="<?php echo $reserva['can_ninos']; ?>" data-orden="<?php echo $reserva['orden_reserva']; ?>" data-tarifa="<?php echo $hotel->getNombreTarifa($reserva['tarifa']) ?>" data-valor="<?php echo $reserva['valor_reserva']; ?>" data-observaciones="<?php echo $reserva['observaciones']; ?>">
+                                      <a data-toggle="modal" data-target="#myModalDepositoReserva" data-id="<?php echo $estadia['num_reserva']; ?>" data-idhuesped="<?php echo $estadia['id_huesped']; ?>" data-tipohab="<?php echo descripcionTipoHabitacion($estadia['tipo_habitacion']); ?>" data-nrohab="<?php echo $estadia['num_habitacion']; ?>" data-nombre="<?php echo $estadia['nombre_completo']; ?>" data-llegada="<?php echo $estadia['fecha_llegada']; ?>" data-salida="<?php echo $estadia['fecha_salida']; ?>" data-noches="<?php echo $estadia['dias_reservados']; ?>" data-hombres="<?php echo $estadia['can_hombres']; ?>" data-mujeres="<?php echo $estadia['can_mujeres']; ?>" data-ninos="<?php echo $estadia['can_ninos']; ?>" data-orden="<?php echo $estadia['orden_reserva']; ?>" data-tarifa="<?php echo $hotel->getNombreTarifa($estadia['tarifa']) ?>" data-valor="<?php echo $estadia['valor_reserva']; ?>" data-observaciones="<?php echo $estadia['observaciones']; ?>">
                                         <i class="fa-solid fa-money-bill"></i>
                                         Deposito a Reserva
                                       </a>
                                     </li>
                                     <li>
-                                      <a data-toggle="modal" data-idres="<?php echo $reserva['num_reserva']; ?>" data-idcia="<?php echo $reserva['id_compania']; ?>" data-idcen="<?php echo $reserva['idCentroCia']; ?>" data-nombre="<?php echo $reserva['nombre_completo']; ?>" href="#myModalAsignarCompania">
+                                      <a data-toggle="modal" data-idres="<?php echo $estadia['num_reserva']; ?>" data-idcia="<?php echo $estadia['id_compania']; ?>" data-idcen="<?php echo $estadia['idCentroCia']; ?>" data-nombre="<?php echo $estadia['nombre_completo']; ?>" href="#myModalAsignarCompania">
                                         <i class="fa fa-window-restore" aria-hidden="true"></i>
                                         Asignar Compañia</a>
                                     </li>
                                     <?php
-                                    if ($reserva['id_compania'] != 0) { ?>
+                                    if ($estadia['id_compania'] != 0) { ?>
                                       <li>
-                                        <a data-toggle="modal" data-id="<?php echo $reserva['id_compania']; ?>" data-empresa="<?php echo $nombrecia; ?>" href="#myModalModificaPerfilCia">
+                                        <a data-toggle="modal" data-id="<?php echo $estadia['id_compania']; ?>" data-empresa="<?php echo $nombrecia; ?>" href="#myModalModificaPerfilCia">
                                           <i class="fa fa-book" aria-hidden="true"></i>
                                           Datos Compañia</a>
                                       </li>
@@ -234,7 +218,7 @@ if ($dias < 30) {
                                     }
                                     ?>
                                     <li>
-                                      <a data-toggle="modal" data-id="<?php echo $reserva['num_reserva']; ?>" data-nrohab="<?php echo $reserva['num_habitacion']; ?>" data-nombre="<?php echo $reserva['nombre_completo']; ?>" data-llegada="<?php echo $reserva['fecha_llegada']; ?>" data-salida="<?php echo $reserva['fecha_salida']; ?>" data-noches="<?php echo $reserva['dias_reservados']; ?>" href="#myModalAdicionaObservaciones">
+                                      <a data-toggle="modal" data-id="<?php echo $estadia['num_reserva']; ?>" data-nrohab="<?php echo $estadia['num_habitacion']; ?>" data-nombre="<?php echo $estadia['nombre_completo']; ?>" data-llegada="<?php echo $estadia['fecha_llegada']; ?>" data-salida="<?php echo $estadia['fecha_salida']; ?>" data-noches="<?php echo $estadia['dias_reservados']; ?>" href="#myModalAdicionaObservaciones">
                                         <i class="fa-regular fa-comments"></i>
                                         Adicionar Observaciones</a>
                                     </li>
@@ -260,19 +244,19 @@ if ($dias < 30) {
                                     </a>
                                     <ul class="dropdown-menu" style="float:left;margin-left:-180px;top:40px;">
                                       <li>
-                                        <a data-toggle="modal" data-target="#myModalAcompanantesReserva" data-id="<?php echo $reserva['num_reserva']; ?>" data-tipohab="<?php echo descripcionTipoHabitacion($reserva['tipo_habitacion']); ?>" data-nrohab="<?php echo $reserva['num_habitacion']; ?>" data-nombre="<?php echo $reserva['nombre_completo']; ?>" data-impto="<?php echo $reserva['causar_impuesto']; ?>" data-llegada="<?php echo $reserva['fecha_llegada']; ?>" data-salida="<?php echo $reserva['fecha_salida']; ?>" data-noches="<?php echo $reserva['dias_reservados']; ?>" data-hombres="<?php echo $reserva['can_hombres']; ?>" data-mujeres="<?php echo $reserva['can_mujeres']; ?>" data-ninos="<?php echo $reserva['can_ninos']; ?>" data-tipo="<?php echo $reserva['tipo_reserva']; ?>" data-tarifa="<?php echo $hotel->getNombreTarifa($reserva['tarifa']); ?>" data-idtarifa="<?php echo $reserva['tarifa']; ?>" data-valor="<?php echo $reserva['valor_diario']; ?>" data-observaciones="<?php echo $reserva['observaciones']; ?>">
+                                        <a data-toggle="modal" data-target="#myModalAcompanantesReserva" data-id="<?php echo $estadia['num_reserva']; ?>" data-tipohab="<?php echo descripcionTipoHabitacion($estadia['tipo_habitacion']); ?>" data-nrohab="<?php echo $estadia['num_habitacion']; ?>" data-nombre="<?php echo $estadia['nombre_completo']; ?>" data-impto="<?php echo $estadia['causar_impuesto']; ?>" data-llegada="<?php echo $estadia['fecha_llegada']; ?>" data-salida="<?php echo $estadia['fecha_salida']; ?>" data-noches="<?php echo $estadia['dias_reservados']; ?>" data-hombres="<?php echo $estadia['can_hombres']; ?>" data-mujeres="<?php echo $estadia['can_mujeres']; ?>" data-ninos="<?php echo $estadia['can_ninos']; ?>" data-tipo="<?php echo $estadia['tipo_reserva']; ?>" data-tarifa="<?php echo $hotel->getNombreTarifa($estadia['tarifa']); ?>" data-idtarifa="<?php echo $estadia['tarifa']; ?>" data-valor="<?php echo $estadia['valor_diario']; ?>" data-observaciones="<?php echo $estadia['observaciones']; ?>">
                                           <i class="fa fa-users" aria-hidden="true"></i>Acompañantes Reserva
                                         </a>
                                       </li>
                                       <li>
-                                        <a data-toggle="modal" data-id="<?php echo $reserva['num_reserva']; ?>" data-nombre="<?php echo $reserva['nombre_completo']; ?>" data-impto="<?php echo $reserva['causar_impuesto']; ?>" onclick="imprimirRegistro(<?php echo $reserva['num_reserva']; ?>,<?php echo $reserva['causar_impuesto']; ?>)">
+                                        <a data-toggle="modal" data-id="<?php echo $estadia['num_reserva']; ?>" data-nombre="<?php echo $estadia['nombre_completo']; ?>" data-impto="<?php echo $estadia['causar_impuesto']; ?>" onclick="imprimirRegistro(<?php echo $estadia['num_reserva']; ?>,<?php echo $estadia['causar_impuesto']; ?>)">
                                           <i class="fa fa-book" aria-hidden="true"></i>
                                           Imprimir Registro Hotelero</a>
                                       </li>
                                       <?php
                                       if (TRA == 1) { ?>
                                         <li>
-                                          <a data-toggle="modal" data-id="<?php echo $reserva['num_reserva']; ?>" onclick="enviaTRA(<?php echo $reserva['num_reserva']; ?>,'<?php echo FECHA_PMS; ?>')">
+                                          <a data-toggle="modal" data-id="<?php echo $estadia['num_reserva']; ?>" onclick="enviaTRA(<?php echo $estadia['num_reserva']; ?>,'<?php echo FECHA_PMS; ?>')">
                                             <i class="fa-regular fa-paper-plane"></i>
                                             Envio Tarjeta Registro</a>
                                         </li>
@@ -280,26 +264,26 @@ if ($dias < 30) {
                                       }
                                       ?>
                                       <li>
-                                        <a data-toggle="modal" data-target="#myModalModificaEstadia" data-id="<?php echo $reserva['num_reserva']; ?>" data-tipohab="<?php echo descripcionTipoHabitacion($reserva['tipo_habitacion']); ?>" data-nrohab="<?php echo $reserva['num_habitacion']; ?>" data-nombre="<?php echo $reserva['nombre_completo']; ?>" data-impto="<?php echo $reserva['causar_impuesto']; ?>" data-llegada="<?php echo $reserva['fecha_llegada']; ?>" data-salida="<?php echo $reserva['fecha_salida']; ?>" data-noches="<?php echo $reserva['dias_reservados']; ?>" data-hombres="<?php echo $reserva['can_hombres']; ?>" data-mujeres="<?php echo $reserva['can_mujeres']; ?>" data-tarifa="<?php echo $hotel->getNombreTarifa($reserva['tarifa']); ?>" data-idtarifa="<?php echo $reserva['tarifa']; ?>" data-ninos="<?php echo $reserva['can_ninos']; ?>" data-valor="<?php echo $reserva['valor_diario']; ?>" data-observaciones="<?php echo $reserva['observaciones']; ?>">
+                                        <a data-toggle="modal" data-target="#myModalModificaEstadia" data-id="<?php echo $estadia['num_reserva']; ?>" data-tipohab="<?php echo descripcionTipoHabitacion($estadia['tipo_habitacion']); ?>" data-nrohab="<?php echo $estadia['num_habitacion']; ?>" data-nombre="<?php echo $estadia['nombre_completo']; ?>" data-impto="<?php echo $estadia['causar_impuesto']; ?>" data-llegada="<?php echo $estadia['fecha_llegada']; ?>" data-salida="<?php echo $estadia['fecha_salida']; ?>" data-noches="<?php echo $estadia['dias_reservados']; ?>" data-hombres="<?php echo $estadia['can_hombres']; ?>" data-mujeres="<?php echo $estadia['can_mujeres']; ?>" data-tarifa="<?php echo $hotel->getNombreTarifa($estadia['tarifa']); ?>" data-idtarifa="<?php echo $estadia['tarifa']; ?>" data-ninos="<?php echo $estadia['can_ninos']; ?>" data-valor="<?php echo $estadia['valor_diario']; ?>" data-observaciones="<?php echo $estadia['observaciones']; ?>">
                                           <i class="fa fa-pencil-square" aria-hidden="true"></i>Modificar Estadia</a>
                                       </li>
                                       <?php
-                                      if ($reserva['fecha_llegada'] == FECHA_PMS) { ?>
+                                      if ($estadia['fecha_llegada'] == FECHA_PMS) { ?>
                                         <li>
-                                          <a data-toggle="modal" data-target="#myModalAnulaIngreso" data-id="<?php echo $reserva['num_reserva']; ?>" data-tipohab="<?php echo descripcionTipoHabitacion($reserva['tipo_habitacion']); ?>" data-nrohab="<?php echo $reserva['num_habitacion']; ?>" data-nombre="<?php echo $reserva['nombre_completo']; ?>" data-impto="<?php echo $reserva['causar_impuesto']; ?>" data-llegada="<?php echo $reserva['fecha_llegada']; ?>" data-salida="<?php echo $reserva['fecha_salida']; ?>" data-noches="<?php echo $reserva['dias_reservados']; ?>" data-hombres="<?php echo $reserva['can_hombres']; ?>" data-mujeres="<?php echo $reserva['can_mujeres']; ?>" data-ninos="<?php echo $reserva['can_ninos']; ?>" data-tarifa="<?php echo $hotel->getNombreTarifa($reserva['tarifa']); ?>" data-idtarifa="<?php echo $reserva['tarifa']; ?>" data-valor="<?php echo $reserva['valor_diario']; ?>" data-observaciones="<?php echo $reserva['observaciones']; ?>">
+                                          <a data-toggle="modal" data-target="#myModalAnulaIngreso" data-id="<?php echo $estadia['num_reserva']; ?>" data-tipohab="<?php echo descripcionTipoHabitacion($estadia['tipo_habitacion']); ?>" data-nrohab="<?php echo $estadia['num_habitacion']; ?>" data-nombre="<?php echo $estadia['nombre_completo']; ?>" data-impto="<?php echo $estadia['causar_impuesto']; ?>" data-llegada="<?php echo $estadia['fecha_llegada']; ?>" data-salida="<?php echo $estadia['fecha_salida']; ?>" data-noches="<?php echo $estadia['dias_reservados']; ?>" data-hombres="<?php echo $estadia['can_hombres']; ?>" data-mujeres="<?php echo $estadia['can_mujeres']; ?>" data-ninos="<?php echo $estadia['can_ninos']; ?>" data-tarifa="<?php echo $hotel->getNombreTarifa($estadia['tarifa']); ?>" data-idtarifa="<?php echo $estadia['tarifa']; ?>" data-valor="<?php echo $estadia['valor_diario']; ?>" data-observaciones="<?php echo $estadia['observaciones']; ?>">
                                             <i class="fa fa-sign-out" aria-hidden="true"></i>
                                             Anular Ingreso</a>
                                         </li>
                                       <?php
                                       }
-                                      if ($reserva['num_habitacion'] != CTA_DEPOSITO) { ?>
+                                      if ($estadia['num_habitacion'] != CTA_DEPOSITO) { ?>
                                         <li>
-                                          <a data-toggle="modal" data-id="<?php echo $reserva['num_reserva']; ?>" data-tipohab="<?php echo descripcionTipoHabitacion($reserva['tipo_habitacion']); ?>" data-nrohab="<?php echo $reserva['num_habitacion']; ?>" data-nombre="<?php echo $reserva['nombre_completo']; ?>" data-llegada="<?php echo $reserva['fecha_llegada']; ?>" data-salida="<?php echo $reserva['fecha_salida']; ?>" data-impto="<?php echo $reserva['causar_impuesto']; ?>" href="#myModalCambiaHabitacion">
+                                          <a data-toggle="modal" data-id="<?php echo $estadia['num_reserva']; ?>" data-tipohab="<?php echo descripcionTipoHabitacion($estadia['tipo_habitacion']); ?>" data-nrohab="<?php echo $estadia['num_habitacion']; ?>" data-nombre="<?php echo $estadia['nombre_completo']; ?>" data-llegada="<?php echo $estadia['fecha_llegada']; ?>" data-salida="<?php echo $estadia['fecha_salida']; ?>" data-impto="<?php echo $estadia['causar_impuesto']; ?>" href="#myModalCambiaHabitacion">
                                             <i class="fa fa-clone" aria-hidden="true"></i>
                                             Cambiar Habitacion</a>
                                         </li>
                                         <li>
-                                          <a data-toggle="modal" data-id="<?php echo $reserva['num_reserva']; ?>" data-tipohab="<?php echo descripcionTipoHabitacion($reserva['tipo_habitacion']); ?>" data-nrohab="<?php echo $reserva['num_habitacion']; ?>" data-nombre="<?php echo $reserva['nombre_completo']; ?>" data-tarifa="<?php echo $reserva['tarifa']; ?>" data-impto="<?php echo $reserva['causar_impuesto']; ?>" href="#myModalCambiaTarifa">
+                                          <a data-toggle="modal" data-id="<?php echo $estadia['num_reserva']; ?>" data-tipohab="<?php echo descripcionTipoHabitacion($estadia['tipo_habitacion']); ?>" data-nrohab="<?php echo $estadia['num_habitacion']; ?>" data-nombre="<?php echo $estadia['nombre_completo']; ?>" data-tarifa="<?php echo $estadia['tarifa']; ?>" data-impto="<?php echo $estadia['causar_impuesto']; ?>" href="#myModalCambiaTarifa">
                                             <i class="fa fa-window-restore" aria-hidden="true"></i>
                                             Cambiar Tarifa</a>
                                         </li>
@@ -307,27 +291,27 @@ if ($dias < 30) {
                                       }
                                       ?>
                                       <li>
-                                        <a data-toggle="modal" data-id="<?php echo $reserva['id_huesped']; ?>" data-apellido1="<?php echo $reserva['apellido1']; ?>" data-apellido2="<?php echo $reserva['apellido2']; ?>" data-nombre1="<?php echo $reserva['nombre1']; ?>" data-nombre2="<?php echo $reserva['nombre2']; ?>" data-nombre="<?php echo $reserva['nombre_completo']; ?>" data-impto="<?php echo $reserva['causar_impuesto']; ?>" href="#myModalInformacionHuesped">
+                                        <a data-toggle="modal" data-id="<?php echo $estadia['id_huesped']; ?>" data-apellido1="<?php echo $estadia['apellido1']; ?>" data-apellido2="<?php echo $estadia['apellido2']; ?>" data-nombre1="<?php echo $estadia['nombre1']; ?>" data-nombre2="<?php echo $estadia['nombre2']; ?>" data-nombre="<?php echo $estadia['nombre_completo']; ?>" data-impto="<?php echo $estadia['causar_impuesto']; ?>" href="#myModalInformacionHuesped">
                                           <i class="fa fa-user-md" aria-hidden="true"></i>
                                           Perfil Huesped</a>
                                       </li>
                                       <li>
-                                        <a data-toggle="modal" data-id="<?php echo $reserva['id_huesped']; ?>" data-idres="<?php echo $reserva['num_reserva']; ?>" data-idcia="<?php echo $reserva['id_compania']; ?>" data-tipohab="<?php echo descripcionTipoHabitacion($reserva['tipo_habitacion']); ?>" data-nrohab="<?php echo $reserva['num_habitacion']; ?>" data-idcen="<?php echo $reserva['idCentroCia']; ?>" data-nombre="<?php echo $reserva['nombre_completo']; ?>" data-impto="<?php echo $reserva['causar_impuesto']; ?>" data-nombrecia="<?php echo $nombrecia; ?>" data-nitcia="<?php echo $nitcia; ?>" href="#myModalAsignarCompania">
+                                        <a data-toggle="modal" data-id="<?php echo $estadia['id_huesped']; ?>" data-idres="<?php echo $estadia['num_reserva']; ?>" data-idcia="<?php echo $estadia['id_compania']; ?>" data-tipohab="<?php echo descripcionTipoHabitacion($estadia['tipo_habitacion']); ?>" data-nrohab="<?php echo $estadia['num_habitacion']; ?>" data-idcen="<?php echo $estadia['idCentroCia']; ?>" data-nombre="<?php echo $estadia['nombre_completo']; ?>" data-impto="<?php echo $estadia['causar_impuesto']; ?>" data-nombrecia="<?php echo $nombrecia; ?>" data-nitcia="<?php echo $nitcia; ?>" href="#myModalAsignarCompania">
                                           <i class="fa fa-window-restore" aria-hidden="true"></i>
                                           Asignar Compañia</a>
                                       </li>
                                       <?php
-                                      if ($reserva['id_compania'] != 0) { ?>
+                                      if ($estadia['id_compania'] != 0) { ?>
                                         <li>
-                                          <a data-toggle="modal" data-id="<?php echo $reserva['num_reserva']; ?>" data-idhue="<?php echo $reserva['id_huesped']; ?>" data-idcia="<?php echo $reserva['id_compania']; ?>" data-idcen="<?php echo $reserva['idCentroCia']; ?>" data-nombre="<?php echo $reserva['nombre_completo']; ?>" data-impto="<?php echo $reserva['causar_impuesto']; ?>" href="#myModalInformacionCompania">
+                                          <a data-toggle="modal" data-id="<?php echo $estadia['num_reserva']; ?>" data-idhue="<?php echo $estadia['id_huesped']; ?>" data-idcia="<?php echo $estadia['id_compania']; ?>" data-idcen="<?php echo $estadia['idCentroCia']; ?>" data-nombre="<?php echo $estadia['nombre_completo']; ?>" data-impto="<?php echo $estadia['causar_impuesto']; ?>" href="#myModalInformacionCompania">
                                             <i class="fa fa-industry" aria-hidden="true"></i>
                                             Datos Compañia</a>
                                         </li>
                                       <?php
                                       }
-                                      if ($reserva['fecha_llegada'] == FECHA_PMS && $tipo == 1) { ?>
+                                      if ($estadia['fecha_llegada'] == FECHA_PMS && $tipo == 1) { ?>
                                         <li id="cambiaHuesped">
-                                          <a data-toggle="modal" data-target="#myModalReasignarHuesped" data-reserva="<?php echo $reserva['num_reserva']; ?>" data-tipohab="<?php echo descripcionTipoHabitacion($reserva['tipo_habitacion']); ?>" data-nrohab="<?php echo $reserva['num_habitacion']; ?>" data-apellido1="<?php echo $reserva['apellido1']; ?>" data-apellido2="<?php echo $reserva['apellido2']; ?>" data-nombre1="<?php echo $reserva['nombre1']; ?>" data-nombre2="<?php echo $reserva['nombre2']; ?>" data-llegada="<?php echo $reserva['fecha_llegada']; ?>" data-salida="<?php echo $reserva['fecha_salida']; ?>" data-noches="<?php echo $reserva['dias_reservados']; ?>" data-hombres="<?php echo $reserva['can_hombres']; ?>" data-mujeres="<?php echo $reserva['can_mujeres']; ?>" data-ninos="<?php echo $reserva['can_ninos']; ?>" data-tipo="<?php echo $reserva['tipo_reserva']; ?>" data-tarifa="<?php echo $hotel->getNombreTarifa($reserva['tarifa']); ?>" data-valor="<?php echo $reserva['valor_diario']; ?>" data-observaciones="<?php echo $reserva['observaciones']; ?>">
+                                          <a data-toggle="modal" data-target="#myModalReasignarHuesped" data-reserva="<?php echo $estadia['num_reserva']; ?>" data-tipohab="<?php echo descripcionTipoHabitacion($estadia['tipo_habitacion']); ?>" data-nrohab="<?php echo $estadia['num_habitacion']; ?>" data-apellido1="<?php echo $estadia['apellido1']; ?>" data-apellido2="<?php echo $estadia['apellido2']; ?>" data-nombre1="<?php echo $estadia['nombre1']; ?>" data-nombre2="<?php echo $estadia['nombre2']; ?>" data-llegada="<?php echo $estadia['fecha_llegada']; ?>" data-salida="<?php echo $estadia['fecha_salida']; ?>" data-noches="<?php echo $estadia['dias_reservados']; ?>" data-hombres="<?php echo $estadia['can_hombres']; ?>" data-mujeres="<?php echo $estadia['can_mujeres']; ?>" data-ninos="<?php echo $estadia['can_ninos']; ?>" data-tipo="<?php echo $estadia['tipo_reserva']; ?>" data-tarifa="<?php echo $hotel->getNombreTarifa($estadia['tarifa']); ?>" data-valor="<?php echo $estadia['valor_diario']; ?>" data-observaciones="<?php echo $estadia['observaciones']; ?>">
                                             <i class="fa fa-user-plus" aria-hidden="true"></i>Reasignar Huesped
                                           </a>
                                         </li>
@@ -335,7 +319,7 @@ if ($dias < 30) {
                                       }
                                       ?>
                                       <li>
-                                        <a data-toggle="modal" data-id="<?php echo $reserva['num_reserva']; ?>" data-cia="<?php echo $reserva['id_compania']; ?>" data-tipohab="<?php echo descripcionTipoHabitacion($reserva['tipo_habitacion']); ?>" data-nrohab="<?php echo $reserva['num_habitacion']; ?>" data-apellido1="<?php echo $reserva['apellido1']; ?>" data-apellido2="<?php echo $reserva['apellido2']; ?>" data-nombre1="<?php echo $reserva['nombre1']; ?>" data-nombre2="<?php echo $reserva['nombre2']; ?>" data-nombrecia="<?php echo $nombrecia; ?>" data-llegada="<?php echo $reserva['fecha_llegada']; ?>" data-salida="<?php echo $reserva['fecha_salida']; ?>" data-noches="<?php echo $reserva['dias_reservados']; ?>" data-nitcia="<?php echo $nitcia; ?>" data-observa="<?php echo $reserva['observaciones']; ?>" href="#myModalAdicionaObservaciones">
+                                        <a data-toggle="modal" data-id="<?php echo $estadia['num_reserva']; ?>" data-cia="<?php echo $estadia['id_compania']; ?>" data-tipohab="<?php echo descripcionTipoHabitacion($estadia['tipo_habitacion']); ?>" data-nrohab="<?php echo $estadia['num_habitacion']; ?>" data-apellido1="<?php echo $estadia['apellido1']; ?>" data-apellido2="<?php echo $estadia['apellido2']; ?>" data-nombre1="<?php echo $estadia['nombre1']; ?>" data-nombre2="<?php echo $estadia['nombre2']; ?>" data-nombrecia="<?php echo $nombrecia; ?>" data-llegada="<?php echo $estadia['fecha_llegada']; ?>" data-salida="<?php echo $estadia['fecha_salida']; ?>" data-noches="<?php echo $estadia['dias_reservados']; ?>" data-nitcia="<?php echo $nitcia; ?>" data-observa="<?php echo $estadia['observaciones']; ?>" href="#myModalAdicionaObservaciones">
                                           <i class="fa-regular fa-comments"></i>
                                           Adicionar Observaciones</a>
                                       </li>
