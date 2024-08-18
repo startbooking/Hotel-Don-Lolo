@@ -113,7 +113,7 @@
       <li class="treeview">
         <a href="#">
           <i class="fa fa-clone" aria-hidden="true"></i>
-          <span>Interfases </span>
+          <span>Hotel </span>
           <small class="fa fa-angle-left pull-right"></small>
         </a> 
         <ul class="treeview-menu">

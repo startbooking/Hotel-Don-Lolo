@@ -3786,12 +3786,12 @@ async function guardaPlanillaDesayunos(){
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { moduloPms: {fecha_auditoria} } = sesion; 
+  let { user: {usuario}, moduloPms: {fecha_auditoria} } = sesion; 
   let { logo, nombre } = oPos[0];
   let resp = await preguntaGuardaPlanilla();
   if(resp){
     let huespedes = JSON.parse(localStorage.getItem("planilla"));
-    envia = {huespedes, fecha_auditoria, logo, nombre }
+    envia = {huespedes, fecha_auditoria, logo, nombre, usuario }
     let regi = await guardaPlanilla(envia);
     let impr = await imprimePlanilla(envia);
     var planilla = `imprimir/${impr}`;

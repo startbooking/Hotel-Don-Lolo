@@ -13,7 +13,6 @@
               <div class="panel-body">
                 <div class="row">
                   <?php
-                  // echo print_r($recibos);
                   $regis = count($recibos);
                   if ($regis == 0) { ?>
                     <div class="col-xs-12" id="muestraResultado" style="font-size:12px;text-align:center;">

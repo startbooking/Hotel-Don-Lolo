@@ -140,5 +140,4 @@ if (!isset($_GET['section'])) {
     $objetos = $hotel->objetosOlvidados();
 } elseif (isset($_GET['section']) && $_GET['section'] == 'mantenimiento') {
     $mmtos = $hotel->habitacionesMantenimiento();
-} 
- 
+}
