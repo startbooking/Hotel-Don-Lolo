@@ -321,7 +321,7 @@ if ($perfilFac == 1 && $facturador == 1) {
     $eFact['invoice_lines'] = $eInvo;
     $eFact['operation_mode'] = $oMode;
     $eFact = json_encode($eFact);
-
+ 
     // include_once '../../api/enviaFactura.php';
 
     include_once '../../api/nuevoCurl.php';
@@ -334,6 +334,8 @@ if ($perfilFac == 1 && $facturador == 1) {
  */
     $noAutorizado = $recibeCurl['message'];
     $success = $recibeCurl['success'];
+
+    // echo print_r($success);
 
     // echo print_r($recibeCurl);
     // echo 'Recibe Error '.$recibeCurl['errors'] . ' ACA <br>' ;
@@ -353,24 +355,26 @@ if ($perfilFac == 1 && $facturador == 1) {
         'error' => '0'
     ];
 
-    if (isset($errores)) {
-        if (count($errores) > 0) {
-            $error = [
-                'error' => '1',
-                'folio' => '0',
-                'mensaje' => $errores,
-                'factura' => $numfactura,
-                'errorDian' => '0',
-                'perfil' => $perfilFac,
-                'archivo' => '',
-            ];
-            array_push($estadofactura, $error);
-            echo json_encode($estadofactura);
-            return;
-        }
+    if (count($errores) > 0) {
+        $error = [
+            'error' => '1',
+            'folio' => '0',
+            'mensaje' => $errores,
+            'factura' => $numfactura,
+            'errorDian' => '0',
+            'perfil' => $perfilFac,
+            'archivo' => '',
+        ];
+        array_push($estadofactura, $error);
+        echo json_encode($estadofactura);
+        return;
     }
+/*     if (isset($errores)) {
+        echo 'Matriz Errores';
+    } */
 
     if ($noAutorizado == 'Unauthenticated.') {
+        // echo 'No Autorizado';
         $error = [
             'error' => '1',
             'folio' => '0',
@@ -386,6 +390,8 @@ if ($perfilFac == 1 && $facturador == 1) {
     }
 
     if ($Isvalid == "false") {
+        // echo 'Matriz valid False';
+
         $error = [
             'error' => '1',
             'folio' => '0',
@@ -401,6 +407,8 @@ if ($perfilFac == 1 && $facturador == 1) {
     }
 
     if (!$success) {
+        // echo 'Matriz Success OFF ';
+
         $error = [
             'error' => '1',
             'folio' => '0',

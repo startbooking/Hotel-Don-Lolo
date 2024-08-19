@@ -194,13 +194,13 @@ function estadoFacturaDIAN($estado)
 {
     switch ($estado) {
         case '0':
-            return '<span style="font-size:12px" class="alert alert-warning alert-function">No Procesada</span>';
+            return '<span class="alert alert-warning alert-function">No Procesada</span>';
         case '1':
-            return '<span style="font-size:12px" class="alert alert-success alert-function">Emitida</span>';
+            return '<span class="alert alert-success alert-function">Emitida</span>';
         case 'false':
-            return '<span style="font-size:12px" class="alert alert-warning alert-function">No Procesada</span>';
+            return '<span class="alert alert-warning alert-function">No Procesada</span>';
         case 'true':
-            return '<span style="font-size:12px" class="alert alert-success alert-function">Emitida</span>';
+            return '<span class="alert alert-success alert-function">Emitida</span>';
     }
 }
 

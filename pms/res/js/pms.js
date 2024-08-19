@@ -6530,15 +6530,22 @@ async function salidaHuesped() {
       correofac,
     };
 
+    // console.log(parametros);
+
     let facturado = await enviaPago(parametros);
+    console.log(facturado)
     let { error, mensaje, factura, perfil, errorDian, archivo, folio } =
       facturado[0];
-
+      
+      // console.log(error)
     if (error == "1") {
-      if (errorDian == 1) {
+      console.log(mensaje)
+      if (errorDian == "1") {
         mensaje = JSON.parse(mensaje);
       }
+      console.log(mensaje);
       let muestra = await muestraError(mensaje);
+      console.log(muestra);
       // let anulaFact = await anulaFacturaEnvio(factura, perfil)
     } else {
       if (facturador == 1) {
@@ -6593,6 +6600,29 @@ async function errorEnvio(cErrors) {
     confirmButtonText: "Aceptar",
     closeOnConfirm: true,
   });
+}
+
+async function muestraError(cErrors){
+  let { string } = cErrors ;
+  let mensajeErr= '' ;
+
+  for (let index = 0; index < string.length; index++) {
+    const element = string[index];
+    mensajeErr += `<li class="justify">${element}</li>`;
+  }
+
+  let mensajeError =  document.querySelector('#mensajeSalida');
+  mensajeError.innerHTML= ''
+  mensajeError.innerHTML= `<div class="alert alert-warning" style="margin-bottom:0px">
+  <h3 style="color:black !important;margin-top:0px;">
+  <i class="fa-solid fa-circle-exclamation fa-2x" style="color:red;"></i>
+  ATENCION, Factura no Procesada </h3>
+  
+  <h4 style="color: brown;font-weight: 700;font-size: 20px;text-align:center;">MOTIVO DEL RECHAZO</h4>
+  <ul>
+    ${mensajeErr}
+  </ul>`
+  return 0
 }
 
 const enviaPago = async (data) => {

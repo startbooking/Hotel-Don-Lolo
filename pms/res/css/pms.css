@@ -30,6 +30,10 @@ table tbody{
   text-align: left;
 }
 
+
+.justify {
+  text-align: justify;
+}
 .badgeImpto {
   background-color: green;
 }
@@ -796,8 +800,7 @@ input[type="month"].form-control {
     margin-bottom: 0;
     text-align: right;
   }
-    .derecha,
-    .izquierda {
+    .derecha {
       text-align: center;
     }
   

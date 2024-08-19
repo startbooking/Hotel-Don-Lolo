@@ -80,7 +80,7 @@ $facturador = $eToken[0]['facturador'];
                               <?php
                               echo estadoFacturaDIAN($factura['estadoEnvio']);
                               ?>
-                            </td>
+                            </td> 
                           <?php
                           }
                           ?>

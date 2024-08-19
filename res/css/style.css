@@ -892,6 +892,7 @@ input[type="number"].form-control {
   color: #0009 !important;
   margin-bottom: 0;
   padding:3px 5px;
+  font-size: 13px;
 }
 
 /*********************************************************************************/
