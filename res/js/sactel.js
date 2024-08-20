@@ -123,21 +123,6 @@ function clickgaleria(){
   });  
 }
 
-$('.images').click(function(e){
-  var img = e.target.srcset;
-
-  var modalGallery = '<div class="modalGallery" id="modalGallery"><img src="'+ img +'" class="img-thumbnail"><div class="modal_boton"><i style="font-size:16px" class="fa fa-times" aria-hidden="true"></i></div></div>';
-  $('body').append(modalGallery);
-  $('.modal_boton').click(function(){
-    $('.modalGallery').remove();
-  });
-})
-
-$(document).keyup(function(e){
-  if(e.which==27){
-    $('.modalGallery').remove();
-  }
-})
 
 function number_format(amount, decimals) {
 
@@ -163,7 +148,40 @@ function number_format(amount, decimals) {
 }
 
 function creaUUID(){
+  alert('Entro ')
   return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
     (+c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> +c / 4).toString(16)
   );
 }
+
+function generateUUID() { // Public Domain/MIT
+  var d = new Date().getTime();//Timestamp
+  var d2 = ((typeof performance !== 'undefined') && performance.now && (performance.now()*1000)) || 0;//Time in microseconds since page-load or 0 if unsupported
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random() * 16;//random number between 0 and 16
+      if(d > 0){//Use timestamp until depleted
+          r = (d + r)%16 | 0;
+          d = Math.floor(d/16);
+      } else {//Use microseconds since page-load if supported
+          r = (d2 + r)%16 | 0;
+          d2 = Math.floor(d2/16);
+      }
+      return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+  });
+}
+
+$('.images').click(function(e){
+  var img = e.target.srcset;
+
+  var modalGallery = '<div class="modalGallery" id="modalGallery"><img src="'+ img +'" class="img-thumbnail"><div class="modal_boton"><i style="font-size:16px" class="fa fa-times" aria-hidden="true"></i></div></div>';
+  $('body').append(modalGallery);
+  $('.modal_boton').click(function(){
+    $('.modalGallery').remove();
+  });
+})
+
+$(document).keyup(function(e){
+  if(e.which==27){
+    $('.modalGallery').remove();
+  }
+})
