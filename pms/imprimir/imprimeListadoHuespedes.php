@@ -4,7 +4,7 @@
   $pdf = new PDF();
   $pdf->AddPage('L','letter');
   $pdf->SetFont('Arial','B',10);
-  $pdf->Cell(270,5,utf8_decode('LISTADO DE HUESPEDES'),0,1,'C');
+  $pdf->Cell(270,5,('LISTADO DE HUESPEDES'),0,1,'C');
   $pdf->SetFont('Arial','',10);
   $pdf->Cell(270,5,'Fecha: '.FECHA_PMS,0,1,'C');
   $pdf->Ln(1);
@@ -17,8 +17,8 @@
   $pdf->Cell(30,5,'identificacion',0,1,'C');
   $pdf->SetFont('Arial','',9);
   foreach ($huespedes as $huesped) {
-    $pdf->Cell(70,4,substr(utf8_decode($huesped['nombre_completo']),0,35),0,0,'L');
-    $pdf->Cell(70,4,substr(utf8_decode($huesped['direccion']),0,35),0,0,'L');
+    $pdf->Cell(70,4,substr(($huesped['nombre_completo']),0,35),0,0,'L');
+    $pdf->Cell(70,4,substr(($huesped['direccion']),0,35),0,0,'L');
     $pdf->Cell(30,4,$huesped['telefono'],0,0,'L');
     $pdf->Cell(60,4,$huesped['email'],0,0,'L');
     $pdf->Cell(30,4,$huesped['identificacion'],0,1,'R');

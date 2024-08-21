@@ -36,7 +36,7 @@ $nombres = $_POST['nombres'];
       $nombrepais = $hotel->buscaNacionalidad($reserva['pais']);
       $pdf->Cell(25,5,$reserva['fecha_llegada'],0,0,'L');
       $pdf->Cell(25,5,$reserva['fecha_salida'],0,0,'L');
-      $pdf->Cell(70,5,utf8_decode($reserva['apellido1'].' '.$reserva['apellido2'].' '.$reserva['nombre1'].' '.$reserva['nombre2']),0,0,'L');
+      $pdf->Cell(70,5,($reserva['apellido1'].' '.$reserva['apellido2'].' '.$reserva['nombre1'].' '.$reserva['nombre2']),0,0,'L');
       $pdf->Cell(35,5,$nombrepais,0,0,'L');
       $pdf->Cell(5,5,$reserva['can_hombres'],0,0,'C');
       $pdf->Cell(5,5,$reserva['can_mujeres'],0,0,'C');

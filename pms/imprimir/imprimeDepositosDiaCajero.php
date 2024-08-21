@@ -32,8 +32,8 @@ $pagos = 0;
 foreach ($cargos as $cargo) {
     $pdf->Cell(10, 4, $cargo['habitacion_cargo'], 0, 0, 'L');
     $pdf->Cell(10, 4, $cargo['concecutivo_abono'], 0, 0, 'L');
-    $pdf->Cell(70, 4, substr(utf8_decode($cargo['apellido1'].' '.$cargo['apellido2'].' '.$cargo['nombre1'].' '.$cargo['nombre2']), 0, 35), 0, 0, 'L');
-    $pdf->Cell(50, 4, utf8_decode($cargo['descripcion_cargo']), 0, 0, 'L');
+    $pdf->Cell(70, 4, substr(($cargo['apellido1'].' '.$cargo['apellido2'].' '.$cargo['nombre1'].' '.$cargo['nombre2']), 0, 35), 0, 0, 'L');
+    $pdf->Cell(50, 4, ($cargo['descripcion_cargo']), 0, 0, 'L');
     $pdf->Cell(25, 4, number_format($cargo['pagos_cargos'], 2), 0, 0, 'R');
     $pdf->Cell(10, 4, substr($cargo['fecha_sistema_cargo'], 11, 5), 0, 1, 'R');
     $pagos = $pagos + $cargo['pagos_cargos'];

@@ -12,10 +12,9 @@ class PDF extends FPDF
         $this->SetFont('Arial', '', 10);
         $this->Cell(190, 5, 'Nit: '.NIT_EMPRESA, 0, 1, 'C');
         $this->Cell(190, 5, ADRESS_EMPRESA, 0, 1, 'C');
-        $this->Cell(190, 5, utf8_decode(CIUDAD_EMPRESA.', '.PAIS_EMPRESA), 0, 1, 'C');
+        $this->Cell(190, 5, (CIUDAD_EMPRESA.', '.PAIS_EMPRESA), 0, 1, 'C');
         $this->Cell(190, 5, 'Telefono '.TELEFONO_EMPRESA.' Movil '.CELULAR_EMPRESA, 0, 1, 'C');
         $this->SetFont('Arial', 'B', 11);
-        // $this->Cell(190, 6, NAME_HOTEL, 0, 1, 'C');
         $this->Ln(1);
     }
 
@@ -54,7 +53,7 @@ $pdf->Cell(10, 5, $datosReserva[0]['num_habitacion'], 0, 0, 'L');
 $pdf->SetFont('Arial', '', 10);
 $pdf->Cell(20, 5, 'Huesped', 0, 0, 'L');
 $pdf->SetFont('Arial', 'B', 10);
-$pdf->Cell(80, 5, utf8_decode($datosHuesped[0]['apellido1'].' '.$datosHuesped[0]['apellido2'].' '.$datosHuesped[0]['nombre1'].' '.$datosHuesped[0]['nombre2']), 0, 0, 'L');
+$pdf->Cell(80, 5, ($datosHuesped[0]['apellido1'].' '.$datosHuesped[0]['apellido2'].' '.$datosHuesped[0]['nombre1'].' '.$datosHuesped[0]['nombre2']), 0, 0, 'L');
 $pdf->SetFont('Arial', '', 10);
 $pdf->Cell(25, 5, 'Identificacion', 0, 0, 'L');
 $pdf->SetFont('Arial', 'B', 10);
@@ -91,7 +90,7 @@ if (!empty($datosReserva[0]['id_compania'])) {
     $pdf->SetFont('Arial', '', 10);
     $pdf->Cell(30, 5, 'Empresa', 0, 0, 'L');
     $pdf->SetFont('Arial', 'B', 10);
-    $pdf->Cell(120, 5, utf8_decode($datosCompania[0]['empresa']), 0, 0, 'L');
+    $pdf->Cell(120, 5, ($datosCompania[0]['empresa']), 0, 0, 'L');
     $pdf->SetFont('Arial', '', 10);
     $pdf->Cell(10, 5, 'Nit', 0, 0, 'L');
     $pdf->SetFont('Arial', 'B', 10);
@@ -100,7 +99,7 @@ if (!empty($datosReserva[0]['id_compania'])) {
       $pdf->SetFont('Arial','',10);
       $pdf->Cell(30,5,'Centro de Costo',0,0,'L');
       $pdf->SetFont('Arial','B',10);
-      $pdf->Cell(130,5,utf8_decode($datosCentroCia[0]['descripcion_centro']),0,0,'L');
+      $pdf->Cell(130,5,($datosCentroCia[0]['descripcion_centro']),0,0,'L');
       $pdf->SetFont('Arial','',10);
     } */
 }
@@ -119,7 +118,7 @@ foreach ($folios as $folio1) {
     $consumos = $consumos + $folio1['monto_cargo'];
     $impto = $impto + $folio1['impuesto'];
     $pagos = $pagos + $folio1['pagos_cargos'];
-    $pdf->Cell(70, 5, utf8_decode($folio1['descripcion_cargo']), 0, 0, 'L');
+    $pdf->Cell(70, 5, ($folio1['descripcion_cargo']), 0, 0, 'L');
     $pdf->Cell(30, 5, number_format($folio1['monto_cargo'], 2), 0, 0, 'R');
     $pdf->Cell(30, 5, number_format($folio1['impuesto'], 2), 0, 0, 'R');
     $pdf->Cell(30, 5, number_format($folio1['pagos_cargos'], 2), 0, 0, 'R');

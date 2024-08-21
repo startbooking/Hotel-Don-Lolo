@@ -1,8 +1,0 @@
-[18-Aug-2024 10:34:24 America/Bogota] PHP Deprecated:  Function utf8_decode() is deprecated in /var/www/donlolo.lan/pms/imprimir/imprimeFacturasdelDiaAuditoria.php on line 37
-[18-Aug-2024 10:34:24 America/Bogota] PHP Deprecated:  Function utf8_decode() is deprecated in /var/www/donlolo.lan/pms/imprimir/imprimeFacturasdelDiaAuditoria.php on line 37
-[18-Aug-2024 10:34:24 America/Bogota] PHP Deprecated:  Function utf8_decode() is deprecated in /var/www/donlolo.lan/pms/imprimir/imprimeFacturasdelDiaAuditoria.php on line 37
-[18-Aug-2024 10:34:24 America/Bogota] PHP Deprecated:  Function utf8_decode() is deprecated in /var/www/donlolo.lan/pms/imprimir/imprimeFacturasdelDiaAuditoria.php on line 37
-[18-Aug-2024 10:34:24 America/Bogota] PHP Deprecated:  Function utf8_decode() is deprecated in /var/www/donlolo.lan/pms/imprimir/imprimeFacturasdelDiaAuditoria.php on line 37
-[18-Aug-2024 10:34:24 America/Bogota] PHP Deprecated:  Function utf8_decode() is deprecated in /var/www/donlolo.lan/pms/imprimir/imprimeFacturasdelDiaAuditoria.php on line 37
-[18-Aug-2024 10:34:24 America/Bogota] PHP Deprecated:  Function utf8_decode() is deprecated in /var/www/donlolo.lan/pms/imprimir/imprimeFacturasdelDiaAuditoria.php on line 37
-[18-Aug-2024 10:34:24 America/Bogota] PHP Deprecated:  Function utf8_decode() is deprecated in /var/www/donlolo.lan/pms/imprimir/imprimeFacturasdelDiaAuditoria.php on line 37

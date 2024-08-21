@@ -28,7 +28,7 @@ $total = 0;
 
 foreach ($codigos as $codigo) {
     $pdf->Cell(30, 5, 'Descripcion ', 0, 0, 'L');
-    $pdf->Cell(50, 5, utf8_decode($codigo['descripcion_cargo']), 0, 1, 'L');
+    $pdf->Cell(50, 5, ($codigo['descripcion_cargo']), 0, 1, 'L');
     $cargos = $hotel->getCargosdelDiaporCodigo(FECHA_PMS, $codigo['id_codigo_cargo'], 0);
     $pdf->Cell(30, 5, 'Hab.', 0, 0, 'R');
     $pdf->Cell(70, 5, 'Huesped', 0, 0, 'C');
@@ -45,7 +45,7 @@ foreach ($codigos as $codigo) {
 
     foreach ($cargos as $cargo) {
         $pdf->Cell(30, 4, $cargo['habitacion_cargo'], 0, 0, 'R');
-        $pdf->Cell(70, 4, substr(utf8_decode($cargo['nombre_completo']), 0, 24), 0, 0, 'L');
+        $pdf->Cell(70, 4, substr(($cargo['nombre_completo']), 0, 24), 0, 0, 'L');
         $pdf->Cell(10, 4, $cargo['cantidad_cargo'], 0, 0, 'C');
         $pdf->Cell(25, 4, number_format($cargo['monto_cargo'], 2), 0, 0, 'R');
         $pdf->Cell(25, 4, number_format($cargo['impuesto'], 2), 0, 0, 'R');
@@ -63,7 +63,7 @@ foreach ($codigos as $codigo) {
     $pdf->Ln(2);
     $pdf->SetFont('Arial', 'B', 9);
     $pdf->Cell(40, 6, 'Total Cargos Descripcion', 0, 0, 'L');
-    $pdf->Cell(70, 6, utf8_decode($cargo['descripcion_cargo']), 0, 0, 'L');
+    $pdf->Cell(70, 6, ($cargo['descripcion_cargo']), 0, 0, 'L');
     $pdf->Cell(25, 6, number_format($monto, 2), 0, 0, 'R');
     $pdf->Cell(25, 6, number_format($impto, 2), 0, 0, 'R');
     $pdf->Cell(25, 6, number_format($total, 2), 0, 1, 'R');

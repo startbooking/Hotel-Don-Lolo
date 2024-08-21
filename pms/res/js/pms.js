@@ -6530,22 +6530,15 @@ async function salidaHuesped() {
       correofac,
     };
 
-    // console.log(parametros);
-
     let facturado = await enviaPago(parametros);
-    console.log(facturado)
     let { error, mensaje, factura, perfil, errorDian, archivo, folio } =
       facturado[0];
-      
-      // console.log(error)
     if (error == "1") {
-      console.log(mensaje)
       if (errorDian == "1") {
         mensaje = JSON.parse(mensaje);
       }
       console.log(mensaje);
       let muestra = await muestraError(mensaje);
-      console.log(muestra);
       // let anulaFact = await anulaFacturaEnvio(factura, perfil)
     } else {
       if (facturador == 1) {
@@ -6586,7 +6579,7 @@ async function salidaHuesped() {
             activaFolio(reserva, folio);
           }
         );
-      }
+      }mensaje
     }
   }
 }
@@ -6606,9 +6599,13 @@ async function muestraError(cErrors){
   let { string } = cErrors ;
   let mensajeErr= '' ;
 
-  for (let index = 0; index < string.length; index++) {
-    const element = string[index];
-    mensajeErr += `<li class="justify">${element}</li>`;
+  if(typeof string == 'string'){
+    mensajeErr += `<li class="justify">${string}</li>`;
+  }else {
+    for (let index = 0; index < string.length; index++) {
+      const element = string[index];
+      mensajeErr += `<li class="justify">${element}</li>`;
+    }
   }
 
   let mensajeError =  document.querySelector('#mensajeSalida');
@@ -7394,8 +7391,7 @@ function buscaCompaniaActiva(iden) {
 
 function guardaCompania() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario, usuario_id } = user;
+  let { user: { usuario, usuario_id } } = sesion;
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var parametros = $("#formCompania").serializeArray();
@@ -7457,6 +7453,10 @@ function buscaHuesped(regis) {
 }
 
 async function habitacionesDisponibles() {
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { moduloPms: { fecha_auditoria } } = sesion;
+  // console.log(fecha_auditoria);
+
   var llega = $("#llegada").val();
   var sale = $("#salida").val();
   var tipo = $("#tipohabi").val();
@@ -7465,13 +7465,41 @@ async function habitacionesDisponibles() {
     sale,
     tipo,
   };
+
+  // console.log(llega);
+
   let habitacionesDisp = await traeHabitacionesDisp(parametros);
   let habitacionMmto = await traeHabitacionesMmto(parametros);
+  let suciasDia = await traeHabitacionesSucias(parametros);
+  /* console.log('Habitaciones Sucias');
+  console.log(suciasDia);
+  console.log('Habitaciones Sucias Sale'); */
   let reservasActuales = await traeReservasActuales(parametros);
 
   habitacionesDisp = habitacionesDisp.filter(
     (numero_hab) => !habitacionMmto.includes(numero_hab)
   );
+/* console.log('Habitaciones Disponibles')
+console.log(habitacionesDisp);
+console.log('Habitaciones en mantenimiento')
+console.log(habitacionMmto);
+console.log('Habitaciones Disponibles')
+console.log(habitacionesDisp);
+console.log('Habitaciones Sicuas')
+*/
+console.log(suciasDia); 
+
+  if(llega==fecha_auditoria){
+    console.log('LLegada = Fecha Auditoria');
+    for (let sucia of suciasDia) {
+      habitacionesDisp = habitacionesDisp.filter(
+        (habitacion) => habitacion.numero_hab !== sucia.numero_hab
+      );
+    }
+  }
+
+  console.log('Habitaciones Disponibles');
+  console.log(habitacionesDisp);
 
   for (let reserva of reservasActuales) {
     if (
@@ -7516,6 +7544,7 @@ async function traeHabitacionesDisp(data) {
       body: JSON.stringify(data),
     });
     const datos = await resultado.json();
+    // console.log(datos);
     return datos;
   } catch (error) {}
 }
@@ -7533,6 +7562,22 @@ async function traeHabitacionesMmto(data) {
     return datos;
   } catch (error) {}
 }
+
+async function traeHabitacionesSucias(data) {
+  try {
+    const resultado = await fetch("res/php/traeHabitacionesSucias.php", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+      body: JSON.stringify(data),
+    });
+    const datos = await resultado.json();
+    // console.log(datos);
+    return datos;
+  } catch (error) {}
+}
+
 
 async function traeReservasActuales(data) {
   try {
@@ -7647,7 +7692,6 @@ function valorHabitacion(tarifa) {
   var muj = $("#mujeres").val();
   var nin = $("#ninos").val();
 
-  // console.log(tipo);
   if (tipo == "") {
     swal("Precaucion", "Tipo de Habitacion no Asignado", "warning");
     return;

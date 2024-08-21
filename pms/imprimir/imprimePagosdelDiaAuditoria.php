@@ -20,7 +20,7 @@
     foreach ($codigos as $codigo) {
       $pdf->SetFont('Arial','B',9);
       $pdf->Cell(30,6,'Descripcion ',0,0,'L');
-      $pdf->Cell(50,6,utf8_decode($codigo['descripcion_cargo']),0,1,'L');
+      $pdf->Cell(50,6,($codigo['descripcion_cargo']),0,1,'L');
       $cargos = $hotel->getCargosdelDiaporCodigo(FECHA_PMS,$codigo['id_codigo_cargo'],0);
       $pdf->Cell(15,6,'Hab.',0,0,'R');
       $pdf->Cell(70,6,'Huesped',0,0,'C');
@@ -36,7 +36,7 @@
 
       foreach ($cargos as $cargo) {
         $pdf->Cell(15,6,$cargo['habitacion_cargo'],0,0,'R');
-        $pdf->Cell(70,6,substr(utf8_decode($cargo['apellido1'].' '.$cargo['apellido2'].' '.$cargo['nombre1'].' '.$cargo['nombre2']),0,24),0,0,'L');
+        $pdf->Cell(70,6,substr(($cargo['apellido1'].' '.$cargo['apellido2'].' '.$cargo['nombre1'].' '.$cargo['nombre2']),0,24),0,0,'L');
         $pdf->Cell(25,6,number_format($cargo['pagos_cargos'],2),0,0,'R');
         $pdf->Cell(15,6,$cargo['factura_numero'],0,0,'R');
         if($cargo['concecutivo_abono']==0){
@@ -53,7 +53,7 @@
       $pdf->Ln(2);
       $pdf->SetFont('Arial','B',9);
       $pdf->Cell(40,6,'Total Pagos Descripcion',0,0,'L');
-      $pdf->Cell(60,6,utf8_decode($cargo['descripcion_cargo']),0,0,'L');
+      $pdf->Cell(60,6,($cargo['descripcion_cargo']),0,0,'L');
       $pdf->Cell(25,6,number_format($monto,2),0,1,'R');
       $pdf->Ln(3);
     }

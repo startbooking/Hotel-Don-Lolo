@@ -20,7 +20,7 @@
     foreach ($encasas as $encasa) {
       $pdf->SetFont('Arial','B',10);
       $pdf->Cell(20,6,'Huesped ',0,0,'L');
-      $pdf->Cell(70,6,substr(utf8_decode($encasa['apellidos'].' '.$encasa['nombres']),0,27),0,0,'L');
+      $pdf->Cell(70,6,substr(($encasa['apellidos'].' '.$encasa['nombres']),0,27),0,0,'L');
       $pdf->Cell(10,6,'Hab ',0,0,'L');
       $pdf->Cell(10,6,$encasa['num_habitacion'],0,0,'C');
       $pdf->Cell(10,6,'Tipo ',0,0,'L');
@@ -43,7 +43,7 @@
         $total  = 0 ;
         $pagos  = 0 ;
         foreach ($cargos as $cargo) {
-          $pdf->Cell(60,6,utf8_decode($cargo['descripcion_cargo']),0,0,'L');
+          $pdf->Cell(60,6,($cargo['descripcion_cargo']),0,0,'L');
           $pdf->Cell(10,6,$cargo['cantidad_cargo'],0,0,'C');
           $pdf->Cell(25,6,number_format($cargo['monto_cargo'],2),0,0,'R');
           $pdf->Cell(25,6,number_format($cargo['impuesto'],2),0,0,'R');

@@ -22,7 +22,7 @@
 
   foreach ($usuarios as $usuario) {
     $pdf->Cell(20,5,'Usuario ',0,0,'L');
-    $pdf->Cell(50,5,utf8_decode($usuario['usuario']),0,1,'L');
+    $pdf->Cell(50,5,($usuario['usuario']),0,1,'L');
       
     $cargos = $hotel->getCargosdelDiaporcajero(FECHA_PMS,$usuario['usuario'],3,0);
     $pdf->Cell(60,5,'Descripcion.',0,0,'C');
@@ -36,10 +36,10 @@
     $pago  = 0 ;
 
     foreach ($cargos as $cargo) {
-      $pdf->Cell(60,4,utf8_decode($cargo['descripcion_cargo']),0,0,'');
+      $pdf->Cell(60,4,($cargo['descripcion_cargo']),0,0,'');
       $pdf->Cell(10,4,$cargo['habitacion_cargo'],0,0,'R');
       $pdf->Cell(20,4,$cargo['numero_reserva'],0,0,'R');
-      $pdf->Cell(60,4,substr(utf8_decode($cargo['apellido1'].' '.$cargo['apellido2'].' '.$cargo['nombre1'].' '.$cargo['nombre2']),0,22),0,0,'L');
+      $pdf->Cell(60,4,substr(($cargo['apellido1'].' '.$cargo['apellido2'].' '.$cargo['nombre1'].' '.$cargo['nombre2']),0,22),0,0,'L');
       $pdf->Cell(10,4,$cargo['cantidad_cargo'],0,0,'C');
       $pdf->Cell(25,4,number_format($cargo['pagos_cargos'],2),0,0,'R');
       $pdf->Cell(10,4,substr($cargo['fecha_sistema_cargo'],11,5),0,1,'R'); 
@@ -50,7 +50,7 @@
     $pdf->Ln(2);
     $pdf->SetFont('Arial','B',9);
     $pdf->Cell(40,5,'Total Pagos Cajero',0,0,'L');
-    $pdf->Cell(110,5,utf8_decode($usuario['usuario']),0,0,'L');
+    $pdf->Cell(110,5,($usuario['usuario']),0,0,'L');
     $pdf->Cell(25,5,number_format($pago,2),0,1,'R');
     $pdf->Ln(3);
   }

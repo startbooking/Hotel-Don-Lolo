@@ -28,7 +28,7 @@
     $pdf->Ln(2);
   
     $pdf->Cell(20,5,'Usuario ',0,0,'L');
-    $pdf->Cell(50,5,utf8_decode($usuario['apellidos'].' '.$usuario['nombres']),0,1,'L');
+    $pdf->Cell(50,5,($usuario['apellidos'].' '.$usuario['nombres']),0,1,'L');
       
     $cargos = $hotel->getCargosPorGrupoVentaHist($desdeFe, $hastaFe,$usuario['usuario'],1,0,25);
     
@@ -45,9 +45,9 @@
       $impto  = 0 ;
       $total  = 0 ;
       foreach ($cargos as $cargo) {    
-        $pdf->Cell(50,6,utf8_decode($cargo['descripcion_cargo']),0,0,'');
+        $pdf->Cell(50,6,($cargo['descripcion_cargo']),0,0,'');
         $pdf->Cell(10,6,$cargo['habitacion_cargo'],0,0,'R');
-        $pdf->Cell(70,6,substr(utf8_decode($cargo['nombre_completo']),0,35),0,0,'L');
+        $pdf->Cell(70,6,substr(($cargo['nombre_completo']),0,35),0,0,'L');
         $pdf->Cell(35,6,$cargo['numero_factura_cargo'],0,0,'R');        
         $pdf->Cell(35,6,number_format($cargo['monto_cargo'],2),0,0,'R');
         $pdf->Cell(20,6,$cargo['fecha_cargo'],0,0,'R'); 
@@ -59,7 +59,7 @@
       $pdf->Ln(2);
       $pdf->SetFont('Arial','B',9);
       $pdf->Cell(40,6,'Total Propina Cajero',0,0,'L');
-      $pdf->Cell(110,6,utf8_decode($usuario['apellidos'].' '.$usuario['nombres']),0,0,'L');
+      $pdf->Cell(110,6,($usuario['apellidos'].' '.$usuario['nombres']),0,0,'L');
       $pdf->Cell(25,6,number_format($monto,2),0,1,'R');
       $pdf->Ln(3);
     }

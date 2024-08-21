@@ -28,7 +28,7 @@
   }else{
     foreach ($reservas as $reserva) {
       $pdf->Cell(15,6,$reserva['num_habitacion'],0,0,'C');
-      $pdf->Cell(70,6,utf8_decode($reserva['apellido1'].' '.$reserva['apellido2'].' '.$reserva['nombre1'].' '.$reserva['nombre2']),0,0,'L');
+      $pdf->Cell(70,6,($reserva['apellido1'].' '.$reserva['apellido2'].' '.$reserva['nombre1'].' '.$reserva['nombre2']),0,0,'L');
       $pdf->Cell(25,6,$reserva['fecha_llegada'],0,0,'L');
       $pdf->Cell(25,6,$reserva['salida_checkout'],0,0,'L');
       $pdf->Cell(5,6,$reserva['dias_reservados'],0,0,'L');

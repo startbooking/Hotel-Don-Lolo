@@ -36,8 +36,8 @@ $total = 0;
 
 foreach ($cargos as $cargo) {
     $pdf->Cell(10, 4, $cargo['habitacion_cargo'], 0, 0, 'L');
-    $pdf->Cell(50, 4, substr(utf8_decode($cargo['apellido1'].' '.$cargo['apellido2'].' '.$cargo['nombre1'].' '.$cargo['nombre2']), 0, 24), 0, 0, 'L');
-    $pdf->Cell(40, 4, substr(utf8_decode($cargo['descripcion_cargo']), 0, 19), 0, 0, 'L');
+    $pdf->Cell(50, 4, substr(($cargo['apellido1'].' '.$cargo['apellido2'].' '.$cargo['nombre1'].' '.$cargo['nombre2']), 0, 24), 0, 0, 'L');
+    $pdf->Cell(40, 4, substr(($cargo['descripcion_cargo']), 0, 19), 0, 0, 'L');
     $pdf->Cell(10, 4, $cargo['cantidad_cargo'], 0, 0, 'C');
     $pdf->Cell(25, 4, number_format($cargo['monto_cargo'], 2), 0, 0, 'R');
     $pdf->Cell(25, 4, number_format($cargo['impuesto'], 2), 0, 0, 'R');

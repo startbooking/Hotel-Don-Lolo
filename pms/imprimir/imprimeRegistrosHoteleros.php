@@ -41,7 +41,7 @@ if ($regis == 0) {
 } else {
     foreach ($reservas as $reserva) {
       $pdf->Cell(15, 4, $reserva['num_registro'], 0, 0, 'R');
-      $pdf->Cell(70, 4, substr(utf8_decode($reserva['nombre_completo']), 0, 34), 0, 0, 'L');
+      $pdf->Cell(70, 4, substr(($reserva['nombre_completo']), 0, 34), 0, 0, 'L');
       $pdf->Cell(25, 4, $reserva['fecha_llegada'], 0, 0, 'L');
       $pdf->Cell(25, 4, $reserva['fecha_salida'], 0, 0, 'L');
       $pdf->Cell(10, 4, $reserva['num_habitacion'], 0, 0, 'L');
@@ -72,7 +72,7 @@ $pdf->Cell(30, 5, 'Total Huespedes', 1, 0, 'L');
 $pdf->Cell(20, 5, $hom + $muj + $nin, 1, 0, 'C');
 $pdf->Cell(25, 5, 'Hombres '.$hom, 1, 0, 'C');
 $pdf->Cell(25, 5, 'Mujeres '.$muj, 1, 0, 'C');
-$pdf->Cell(20, 5, utf8_decode('Niños ').$nin, 1, 0, 'C');
+$pdf->Cell(20, 5, ('Niños ').$nin, 1, 0, 'C');
 $pdf->Cell(40, 5, 'Ingreso Alojamiento', 1, 0, 'L');
 $pdf->Cell(30, 5, number_format($tar, 2), 1, 1, 'C');
 $pdf->Cell(65, 5, 'Ingreso Promedio por Habitacion Ocupada', 1, 0, 'L');

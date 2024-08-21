@@ -26,8 +26,8 @@
   $impto    = 0 ;
   $total    = 0 ;
   foreach ($cargos as $cargo) {
-    $pdf->Cell(10,4,utf8_decode($cargo['habitacion_cargo']),0,0,'L');
-    $pdf->Cell(50,4,substr(utf8_decode($cargo['nombre_completo']),0,24),0,0,'L');
+    $pdf->Cell(10,4,($cargo['habitacion_cargo']),0,0,'L');
+    $pdf->Cell(50,4,substr(($cargo['nombre_completo']),0,24),0,0,'L');
     $pdf->Cell(20,4,substr($cargo['factura_numero'],0,19),0,0,'C');
     $pdf->Cell(40,4,substr($cargo['descripcion_cargo'],0,19),0,0,'L');
     $pdf->Cell(25,4,number_format($cargo['pagos_cargos'],2),0,0,'R');

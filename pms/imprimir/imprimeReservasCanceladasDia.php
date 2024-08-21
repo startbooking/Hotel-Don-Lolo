@@ -33,7 +33,7 @@
     foreach ($reservas as $reserva) {
       $pdf->Cell(10,5,$reserva['num_reserva'],0,0,'C');
       $pdf->Cell(10,6,$reserva['num_habitacion'],0,0,'L');
-      $pdf->Cell(60,5,utf8_decode($reserva['apellido1'].' '.$reserva['apellido2'].' '.$reserva['nombre1'].' '.$reserva['nombre2']),0,0,'L');
+      $pdf->Cell(60,5,($reserva['apellido1'].' '.$reserva['apellido2'].' '.$reserva['nombre1'].' '.$reserva['nombre2']),0,0,'L');
       $pdf->Cell(20,5,$reserva['fecha_llegada'],0,0,'L');
       $pdf->Cell(20,5,$reserva['fecha_salida'],0,0,'L');
       $pdf->Cell(50,5,$hotel->motivoCancelaReserva($reserva['motivo_cancela']),0,0,'L');

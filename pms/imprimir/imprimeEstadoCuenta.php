@@ -30,7 +30,7 @@
   $pdf->SetFont('Arial','',10);
   $pdf->Cell(20,6,'Huesped',0,0,'L');
   $pdf->SetFont('Arial','B',10);
-  $pdf->Cell(80,6,utf8_decode($datosHuesped[0]["apellidos"].' '.$datosHuesped[0]["nombres"]),0,0,'L');
+  $pdf->Cell(80,6,($datosHuesped[0]["apellidos"].' '.$datosHuesped[0]["nombres"]),0,0,'L');
   $pdf->SetFont('Arial','',10);
   $pdf->Cell(25,6,'Identificacion',0,0,'L');
   $pdf->SetFont('Arial','B',10);
@@ -67,7 +67,7 @@
     $pdf->SetFont('Arial','',10);
     $pdf->Cell(20,6,'Empresa',0,0,'L');
     $pdf->SetFont('Arial','B',10);
-    $pdf->Cell(70,6,utf8_decode($datosCompania[0]['empresa']),0,0,'L');
+    $pdf->Cell(70,6,($datosCompania[0]['empresa']),0,0,'L');
     $pdf->SetFont('Arial','',10);
     $pdf->Cell(10,6,'Nit',0,0,'L');
     $pdf->SetFont('Arial','B',10);
@@ -88,7 +88,7 @@
     $consumos = $consumos + $folio1['cargos'];
     $impto    = $impto + $folio1['imptos'];
     $pagos    = $pagos + $folio1['pagos']; 
-    $pdf->Cell(100,6,utf8_decode($folio1['descripcion_cargo']),1,0,'L');
+    $pdf->Cell(100,6,($folio1['descripcion_cargo']),1,0,'L');
     $pdf->Cell(30,6,number_format($folio1['cargos'],2),1,0,'R');
     $pdf->Cell(30,6,number_format($folio1['imptos'],2),1,0,'R');
     $pdf->Cell(30,6,number_format($folio1['pagos'],2),1,1,'R');

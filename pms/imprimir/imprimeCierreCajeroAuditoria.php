@@ -29,7 +29,7 @@
   $total  = 0 ;
   foreach ($cargos as $cargo) {
     $pdf->Cell(10,6,$cargo['habitacion_cargo'],0,0,'L');
-    $pdf->Cell(50,6,substr(utf8_decode($cargo['apellido1'].' '.$cargo['apellido2'].' '.$cargo['nombre1'].' '.$cargo['nombre2']),0,24),0,0,'L');
+    $pdf->Cell(50,6,substr(($cargo['apellido1'].' '.$cargo['apellido2'].' '.$cargo['nombre1'].' '.$cargo['nombre2']),0,24),0,0,'L');
     $pdf->Cell(40,6,substr($cargo['descripcion_cargo'],0,19),0,0,'L');
     $pdf->Cell(10,6,$cargo['cantidad_cargo'],0,0,'C');
     $pdf->Cell(25,6,number_format($cargo['monto_cargo'],2),0,0,'R');
@@ -144,8 +144,8 @@
   foreach ($cargos as $cargo) {
     $pdf->Cell(10,6,$cargo['habitacion_cargo'],0,0,'L');
     $pdf->Cell(10,6,$cargo['concecutivo_deposito'],0,0,'L');
-    $pdf->Cell(70,6,substr(utf8_decode($cargo['apellido1'].' '.$cargo['apellido2'].' '.$cargo['nombre1'].' '.$cargo['nombre2']),0,35),0,0,'L');
-    $pdf->Cell(50,6,utf8_decode($cargo['descripcion_cargo']),0,0,'L');
+    $pdf->Cell(70,6,substr(($cargo['apellido1'].' '.$cargo['apellido2'].' '.$cargo['nombre1'].' '.$cargo['nombre2']),0,35),0,0,'L');
+    $pdf->Cell(50,6,($cargo['descripcion_cargo']),0,0,'L');
     $pdf->Cell(25,6,number_format($cargo['pagos_cargos'],2),0,0,'R');
     $pdf->Cell(10,6,substr($cargo['fecha_sistema_cargo'],11,5),0,1,'R'); 
     $pagos  = $pagos + $cargo['pagos_cargos'];

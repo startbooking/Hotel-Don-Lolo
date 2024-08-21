@@ -34,7 +34,7 @@
 
   foreach ($cargos as $cargo) {
     $pdf->Cell(10,4,$cargo['factura_numero'],0,0,'L');
-    $pdf->Cell(60,4,substr(utf8_decode($cargo['apellido1'].' '.$cargo['apellido2'].' '.$cargo['nombre1'].' '.$cargo['nombre2']),0,28),0,0,'L');
+    $pdf->Cell(60,4,substr(($cargo['apellido1'].' '.$cargo['apellido2'].' '.$cargo['nombre1'].' '.$cargo['nombre2']),0,28),0,0,'L');
     $pdf->Cell(22,4,number_format($cargo['total_consumos'],2),0,0,'R');
     $pdf->Cell(22,4,number_format($cargo['total_impuesto'],2),0,0,'R');
     $pdf->Cell(22,4,number_format($cargo['total_pagos'],2),0,0,'R');
@@ -57,10 +57,6 @@
   $pdf->Cell(22,6,number_format($pagos,2),0,0,'R');
   $pdf->Ln(3);
 
-/*   $fileOut = '../imprimir/informes/'.$file.'.pdf'; 
-  $pdf->Output($fileOut,'F');
-  echo $file.'.pdf'; */
-  
   $pdfFile = $pdf->Output('', 'S');
   $base64String = chunk_split(base64_encode($pdfFile));
 

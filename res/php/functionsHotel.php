@@ -75,7 +75,7 @@ class Hotel_Actions
         return $data;
     }
 
-    public function treHabitacionesMmto($tipo)
+    public function traeHabitacionesMmto($tipo)
     {
         global $database;
 
@@ -93,6 +93,19 @@ class Hotel_Actions
         return $data;
     }
 
+    public function traeHabitacionesSucias($tipo)
+    {
+        global $database;
+
+        $data = $database->select('habitaciones', [
+            'habitaciones.numero_hab',
+        ], [
+            'habitaciones.id_tipohabitacion' => $tipo,
+            'habitaciones.sucia' => 1,
+        ]);
+
+        return $data;
+    }
 
     public function creaConsulta($sele)
     {
@@ -955,7 +968,7 @@ class Hotel_Actions
         return $data;
     }
 
-    public function traeHabitacionesMmto()
+    public function traeHabitacionesMmtoOld()
     {
         global $database;
 
@@ -972,6 +985,27 @@ class Hotel_Actions
         ]);
         return $data;
     }
+
+    public function traeHabitacionesSuciasOld()
+    {
+        global $database;
+
+        $data = $database->select('mantenimiento_habitaciones', [
+            '[<]habitaciones' => ['id_habitacion' => 'id'],
+            '[<]grupos_cajas' => ['id_mantenimiento' => 'id_grupo']
+        ], [
+            'habitaciones.numero_hab',
+            'grupos_cajas.descripcion_grupo',
+            'mantenimiento_habitaciones.desde_fecha',
+            'mantenimiento_habitaciones.hasta_fecha',
+        ], [
+            'mantenimiento_habitaciones.estado_mmto' => 1,
+        ]);
+        return $data;
+    }
+
+
+
     public function traeEstadoHabitaciones()
     {
         global $database;

@@ -22,7 +22,7 @@
   foreach ($habitaciones as $habitacion) {
    
     $pdf->Cell(15,4,$habitacion['numero_hab'],0,0,'R');
-    $pdf->Cell(90,4,utf8_decode($habitacion['descripcion_grupo']),0,0,'L');
+    $pdf->Cell(90,4,($habitacion['descripcion_grupo']),0,0,'L');
     $pdf->Cell(30,4,$habitacion['desde_fecha'],0,0,'L');
     $pdf->Cell(30,4,$habitacion['hasta_fecha'],0,1,'L');
 

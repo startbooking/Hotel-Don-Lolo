@@ -44,9 +44,9 @@ if ($regis == 0) {
         $pdf->Cell(10, 4, $deposito['habitacion_cargo'], 0, 0, 'R');
         $pdf->Cell(50, 4, $deposito['descripcion_cargo'], 0, 0, 'L');
         $pdf->Cell(20, 4, $deposito['id_reserva'], 0, 0, 'C');
-        $pdf->Cell(70, 4, utf8_decode($deposito['apellido1'].' '.$deposito['apellido2'].' '.$deposito['nombre1'].' '.$deposito['nombre2']), 0, 0, 'L');
+        $pdf->Cell(70, 4, ($deposito['apellido1'].' '.$deposito['apellido2'].' '.$deposito['nombre1'].' '.$deposito['nombre2']), 0, 0, 'L');
         $pdf->Cell(20, 4, $deposito['fecha_cargo'], 0, 0, 'R');
-        $pdf->Cell(20, 4, utf8_decode($hotel->nombreUsuario($deposito['id_usuario'])), 0, 1, 'L');
+        $pdf->Cell(20, 4, ($hotel->nombreUsuario($deposito['id_usuario'])), 0, 1, 'L');
         $sal = $sal + $deposito['pagos_cargos'];
     }
     // $pdf->SetY(180);

@@ -33,7 +33,7 @@
       
     };
     $pdf->Cell(15,4,$habitacion['numero_hab'],0,0,'R');
-    $pdf->Cell(60,4,utf8_decode($habitacion['descripcion_habitacion']),0,0,'L');
+    $pdf->Cell(60,4,($habitacion['descripcion_habitacion']),0,0,'L');
     $pdf->Cell(30,4,$estado,0,1,'L');
 
   }

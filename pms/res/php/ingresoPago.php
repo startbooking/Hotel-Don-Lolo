@@ -322,26 +322,18 @@ if ($perfilFac == 1 && $facturador == 1) {
     $eFact['operation_mode'] = $oMode;
     $eFact = json_encode($eFact);
  
-    // include_once '../../api/enviaFactura.php';
+    include_once '../../api/enviaFactura.php';
 
-    include_once '../../api/nuevoCurl.php';
+    // include_once '../../api/nuevoCurl.php';
 
     $recibeCurl = json_decode(trim($respofact), true);
-    $errores = [];
 
-/*     file_put_contents($envCurl, $eFact . ',',  FILE_APPEND | LOCK_EX);
+    $errores = [];
+    file_put_contents($envCurl, $eFact . ',',  FILE_APPEND | LOCK_EX);
     file_put_contents($arcCurl, $respofact . ',',  FILE_APPEND | LOCK_EX);
- */
+
     $noAutorizado = $recibeCurl['message'];
     $success = $recibeCurl['success'];
-
-    // echo print_r($success);
-
-    // echo print_r($recibeCurl);
-    // echo 'Recibe Error '.$recibeCurl['errors'] . ' ACA <br>' ;
-    /* if(property_exists($recibeCurl, 'errors') || $recibeCurl['errors'] != false) {
-        $errores = $recibeCurl['errors'];
-    } */
 
     if(isset($recibeCurl['errors'])){
         if($recibeCurl['errors'] != false) {
@@ -369,12 +361,8 @@ if ($perfilFac == 1 && $facturador == 1) {
         echo json_encode($estadofactura);
         return;
     }
-/*     if (isset($errores)) {
-        echo 'Matriz Errores';
-    } */
 
     if ($noAutorizado == 'Unauthenticated.') {
-        // echo 'No Autorizado';
         $error = [
             'error' => '1',
             'folio' => '0',
@@ -390,8 +378,6 @@ if ($perfilFac == 1 && $facturador == 1) {
     }
 
     if ($Isvalid == "false") {
-        // echo 'Matriz valid False';
-
         $error = [
             'error' => '1',
             'folio' => '0',
@@ -407,8 +393,6 @@ if ($perfilFac == 1 && $facturador == 1) {
     }
 
     if (!$success) {
-        // echo 'Matriz Success OFF ';
-
         $error = [
             'error' => '1',
             'folio' => '0',
@@ -468,13 +452,12 @@ if ($perfilFac == 1 && $facturador == 1) {
 
     $ePDF = json_encode($ePDF);
 
-    /*
     include_once '../../api/enviaPDF.php';
     $recibePDF = json_decode($respopdf, true);
 
     file_put_contents($envCurl, $ePDF . ',',  FILE_APPEND | LOCK_EX);
     file_put_contents($arcCurl, $respopdf . ',',  FILE_APPEND | LOCK_EX);
-    */
+   
 } else {
     include_once '../../imprimir/imprimeReciboFactura.php';
 }

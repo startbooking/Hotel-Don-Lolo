@@ -12,7 +12,7 @@ class PDF extends FPDF
         $this->SetFont('Arial', '', 10);
         $this->Cell(195, 4, 'Nit: '.NIT_EMPRESA, 0, 1, 'C');
         $this->Cell(195, 4, ADRESS_EMPRESA, 0, 1, 'C');
-        $this->Cell(195, 4, utf8_decode(CIUDAD_EMPRESA.', '.PAIS_EMPRESA), 0, 1, 'C');
+        $this->Cell(195, 4, (CIUDAD_EMPRESA.', '.PAIS_EMPRESA), 0, 1, 'C');
         $this->Cell(195, 4, 'Telefono '.TELEFONO_EMPRESA.' Movil '.CELULAR_EMPRESA, 0, 1, 'C');
         $this->SetFont('Arial', 'B', 11);
         $this->Cell(195, 4, NAME_HOTEL, 0, 1, 'C');

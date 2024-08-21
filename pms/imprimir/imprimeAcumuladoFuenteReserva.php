@@ -17,8 +17,8 @@
   $pdf->Cell(30,5,'VALOR',0,0,'C');
   $pdf->Cell(30,5,'CANT MES',0,0,'C');
   $pdf->Cell(30,5,'VALOR MES',0,0,'C');
-  $pdf->Cell(30,5,utf8_decode('CANT AÑO'),0,0,'C');
-  $pdf->Cell(30,5,utf8_decode('VALOR AÑO'),0,1,'C');
+  $pdf->Cell(30,5,('CANT AÑO'),0,0,'C');
+  $pdf->Cell(30,5,('VALOR AÑO'),0,1,'C');
   $codigos = $hotel->getMotivoGrupo('FRE');
 
   $totcandia = 0;
@@ -29,7 +29,7 @@
   $totvalani = 0;
 
   foreach ($codigos as $codigo) { 
-    $pdf->Cell(70,6,utf8_decode(substr($codigo['descripcion_grupo'],0,30)),0,0,'L');
+    $pdf->Cell(70,6,(substr($codigo['descripcion_grupo'],0,30)),0,0,'L');
     $diafuen     = $hotel->getDiaFuenteReserva(FECHA_PMS, $codigo['id_grupo']);
     $mesfuen     = $hotel->getMesFuenteReserva(FECHA_PMS, $mes, $anio, $codigo['id_grupo']);
     $anifuen     = $hotel->getAniFuenteReserva(FECHA_PMS, $anio, $codigo['id_grupo']);
@@ -84,7 +84,7 @@
   $pdf->Ln(3);
   $pdf->SetFont('Arial','b',10);
 
-  $pdf->Cell(70,6,utf8_decode(substr('TOTAL RESERVAS',0,30)),0,0,'L');
+  $pdf->Cell(70,6,(substr('TOTAL RESERVAS',0,30)),0,0,'L');
   $pdf->Cell(30,6,number_format($totcandia,0),0,0,'R');
   $pdf->Cell(30,6,number_format($totvaldia,2),0,0,'R');
   $pdf->Cell(30,6,number_format($totcanmes,0),0,0,'R');
@@ -105,7 +105,7 @@
   $totimpani = 0;
 
   foreach ($pagos as $pago) { 
-    $pdf->Cell(70,6,utf8_decode(substr($pago['descripcion_cargo'],0,30)),0,0,'L');
+    $pdf->Cell(70,6,(substr($pago['descripcion_cargo'],0,30)),0,0,'L');
     $diavta     = $hotel->getVentasDiaCodigo(FECHA_PMS,$pago['id_cargo']);
     $mesvtaact  = $hotel->getVentasMesCodigo($mes,$anio,$pago['id_cargo']);
     $mesvtahis  = $hotel->getVentasMesCodigoHistorico($mes,$anio,$pago['id_cargo']);
@@ -132,7 +132,7 @@
   $pdf->Ln(3);
   $pdf->SetFont('Arial','b',10);
 
-  $pdf->Cell(70,6,utf8_decode(substr('TOTAL PAGOS RECIBIDOS',0,30)),0,0,'L');
+  $pdf->Cell(70,6,(substr('TOTAL PAGOS RECIBIDOS',0,30)),0,0,'L');
   $pdf->Cell(30,6,number_format($totingdia,2),0,0,'R');
   $pdf->Cell(30,6,number_format($totimpdia,2),0,0,'R');
   $pdf->Cell(30,6,number_format($totingmes,2),0,0,'R');

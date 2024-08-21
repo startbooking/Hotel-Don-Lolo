@@ -41,7 +41,7 @@
       $pdf->Cell(10,4,$reserva['num_habitacion'],0,0,'C');
       $pdf->Cell(25,4,$reserva['fecha_llegada'],0,0,'L');
       $pdf->Cell(25,4,$reserva['fecha_salida'],0,0,'L');
-      $pdf->Cell(70,4,utf8_decode($reserva['nombre_completo']),0,0,'L');
+      $pdf->Cell(70,4,($reserva['nombre_completo']),0,0,'L');
       $pdf->Cell(5,4,$reserva['can_hombres'],0,0,'C');
       $pdf->Cell(5,4,$reserva['can_mujeres'],0,0,'C');
       $pdf->Cell(5,4,$reserva['can_ninos'],0,0,'C');

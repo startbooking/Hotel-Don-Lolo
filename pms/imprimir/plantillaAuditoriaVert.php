@@ -9,7 +9,7 @@
 		  $this->SetFont('Arial','',10);
 		  $this->Cell(190,5,'Nit: '.NIT_EMPRESA,0,1,'C');
 		  $this->Cell(190,5,ADRESS_EMPRESA,0,1,'C');
-		  $this->Cell(190,5,utf8_decode(CIUDAD_EMPRESA.', '.PAIS_EMPRESA),0,1,'C');
+		  $this->Cell(190,5,(CIUDAD_EMPRESA.', '.PAIS_EMPRESA),0,1,'C');
 		  $this->Cell(190,5,'Telefono '.TELEFONO_EMPRESA.' Movil '.CELULAR_EMPRESA,0,1,'C');
 		  $this->SetFont('Arial','B',11);
 		  $this->Cell(190,6,NAME_HOTEL,0,1,'C');
