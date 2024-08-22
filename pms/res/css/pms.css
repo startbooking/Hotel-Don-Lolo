@@ -240,6 +240,10 @@ span .alert {
   margin-bottom: 0px;
 }
 
+.pd-0 {
+  padding:0px;
+}
+
 .pd-5 {
   padding: 5px;
 }
@@ -680,34 +684,67 @@ a.info:hover span {
   margin-left:10px;
 }
 
-.bg-limpiaVac {
-  background-color: #02ebff3d;
+.bg {
+  padding:5px 10px;
 }
 
 .bg-limpiaOcu {
-  background-color: #03859170;
+  background-color: #5ae3f0;
+}
+
+.bg-limpiaVac {
+  background-color: #5ae3f07a;
+  ;
 }
 
 .bg-suciaVac {
-  background-color: #fbfb04;
+  background-color: #c7c7ba;
 }
 
 .bg-suciaOcu {
-  background-color: #62625361;
+  background-color: #626253ba;
 }
 
 .bg-bloqueada {
-  background-color: #d81b6066;
+  background-color: #ff0b0bc2;
 }
 
 .bg-fueraOrd {
-  background-color: #038591;
+  background-color: #ac2d07;
 }
 
 .bg-fueraSer {
-  background-color: #02ebff;
+  background-color: #ff2802;
 }
 
+.panel .container-fluid {
+  margin-bottom: 20px;
+}
+
+.store-wrapper .products-list {
+  display:flex;
+	flex-wrap: wrap;
+	justify-content:center;
+}
+
+.products-list .col-sm-2 {
+  width: 12%;
+}
+
+.sombraBlanca {
+  text-shadow: 1px 1px 2px rgb(225, 255, 255);
+}
+
+.sombraNegra {
+  text-shadow: 1px 1px 2px rgb(0, 0, 0);
+}
+
+.product-item nav {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  padding:0px;
+}
 .menuEstadHab {
   list-style: none;
   display: flex;
@@ -725,7 +762,7 @@ a.info:hover span {
 }
 
 .btnRoomStatus {
-  padding: 2px;
+  padding: 30px 20px 0 20px;
   margin: 2px;
   color: #fff;
   width: 10%;

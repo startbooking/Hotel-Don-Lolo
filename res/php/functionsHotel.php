@@ -514,7 +514,7 @@ class Hotel_Actions
             and fecha_llegada <= '$llega'
             and fecha_salida > '$llega'
         ORDER BY 
-            num_habitacion")->fetchAll();
+            num_habitacion")->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     }
 
@@ -532,7 +532,7 @@ class Hotel_Actions
             and estado != 'CO'
             and fecha_llegada < '$sale'
             and fecha_salida > '$llega'
-        ORDER BY num_habitacion")->fetchAll();
+        ORDER BY num_habitacion")->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     }
 
@@ -549,7 +549,7 @@ class Hotel_Actions
         and estado != 'CO'
         and fecha_llegada >= '$llega'
         and fecha_salida <= '$sale'
-    ORDER BY num_habitacion; ")->fetchAll();
+    ORDER BY num_habitacion; ")->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     }
 
@@ -2413,7 +2413,7 @@ class Hotel_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT habitaciones.id, habitaciones.numero_hab, habitaciones.tipo_hab, habitaciones.pax, habitaciones.camas, habitaciones.estado_fo, habitaciones.estado_hk, habitaciones.mantenimiento, habitaciones.sucia, habitaciones.ocupada, tipo_habitaciones.descripcion_habitacion FROM  habitaciones, tipo_habitaciones WHERE habitaciones.id_tipohabitacion = tipo_habitaciones.id AND tipo_habitaciones.tipo_habitacion = 1 AND habitaciones.active_at = 1 AND habitaciones.mantenimiento = 0 ORDER BY  habitaciones.numero_hab")->fetchAll();
+        $data = $database->query("SELECT habitaciones.id, habitaciones.numero_hab, habitaciones.tipo_hab, habitaciones.pax, habitaciones.camas, habitaciones.estado_fo, habitaciones.estado_hk, habitaciones.mantenimiento, habitaciones.sucia, habitaciones.ocupada, tipo_habitaciones.descripcion_habitacion FROM  habitaciones, tipo_habitaciones WHERE habitaciones.id_tipohabitacion = tipo_habitaciones.id AND tipo_habitaciones.tipo_habitacion = 1 AND habitaciones.active_at = 1 AND habitaciones.mantenimiento = 0 ORDER BY  habitaciones.numero_hab")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -5130,7 +5130,7 @@ class Hotel_Actions
         return $data->rowCount();
     }
 
-    public function cambiaOcupacionHabitacon($habita, $estado)
+    public function cambiaOcupacionHabitacion($habita, $estado)
     {
         global $database;
 
@@ -7458,7 +7458,7 @@ class Hotel_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT habitaciones.id, habitaciones.numero_hab, habitaciones.tipo_hab, habitaciones.pax, habitaciones.camas, habitaciones.estado_fo, habitaciones.estado_hk, tipo_habitaciones.descripcion_habitacion, habitaciones.mantenimiento, habitaciones.sucia, habitaciones.ocupada FROM habitaciones, tipo_habitaciones WHERE habitaciones.id_tipohabitacion = tipo_habitaciones.id AND tipo_habitaciones.tipo_habitacion = 1 AND habitaciones.active_at = 1 AND habitaciones.id_tipohabitacion <> '1' ORDER BY  habitaciones.numero_hab")->fetchAll();
+        $data = $database->query("SELECT habitaciones.id, habitaciones.numero_hab, habitaciones.caracteristicas, habitaciones.tipo_hab, habitaciones.pax, habitaciones.camas, habitaciones.estado_fo, habitaciones.estado_hk, tipo_habitaciones.descripcion_habitacion, habitaciones.mantenimiento, habitaciones.sucia, habitaciones.ocupada FROM habitaciones, tipo_habitaciones WHERE habitaciones.id_tipohabitacion = tipo_habitaciones.id AND tipo_habitaciones.tipo_habitacion = 1 AND habitaciones.active_at = 1 AND habitaciones.id_tipohabitacion <> '1' ORDER BY habitaciones.piso,  habitaciones.numero_hab")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -9214,6 +9214,8 @@ ORDER BY
 
         $data = $database->select('reservas_pms', [
             '[>]huespedes' => 'id_huesped',
+            '[>]habitaciones' => ['num_habitacion' => 'numero_hab'] ,
+
         ], [
             'reservas_pms.cantidad',
             'reservas_pms.fecha_llegada',
@@ -9242,6 +9244,7 @@ ORDER BY
             'huespedes.apellido2',
             'huespedes.fecha_nacimiento',
             'huespedes.nombre_completo',
+            'habitaciones.sucia',
         ], [
             'reservas_pms.tipo_reserva' => $tipo,
             'reservas_pms.estado' => $estado,

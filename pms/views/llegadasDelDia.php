@@ -116,8 +116,25 @@ $hoy    = substr(FECHA_PMS, 5, 5);
                               <span class="caret" style="margin-left:10px"></span>
                             </a>
                             <ul class="dropdown-menu submenu" style="float:left;margin-left:none;top:40px;">
-                              <li>
-                                <a data-toggle="modal" data-target="#myModalRegistraReserva" data-id="<?php echo $reserva['num_reserva']; ?>" data-tipohab="<?php echo $hotel->getNombreTipoHabitacion2($reserva['tipo_habitacion']); ?>" data-nrohab="<style=" <?php echo $reserva['num_habitacion']; ?>" data-nombre="<?php echo $reserva['nombre_completo']; ?>" data-impto="<?php echo $reserva['causar_impuesto']; ?>" data-llegada="<?php echo $reserva['fecha_llegada']; ?>" data-salida="<?php echo $reserva['fecha_salida']; ?>" data-noches="<?php echo $reserva['dias_reservados']; ?>" data-hombres="<?php echo $reserva['can_hombres']; ?>" data-mujeres="<?php echo $reserva['can_mujeres']; ?>" data-ninos="<?php echo $reserva['can_ninos']; ?>" data-tarifa="<?php echo $hotel->getNombreTarifa($reserva['tarifa']); ?>" data-valor="<?php echo $reserva['valor_reserva']; ?>" data-observaciones="<?php echo $reserva['observaciones']; ?>">
+                              <li> 
+                                <a 
+                                  data-toggle="modal" 
+                                  data-target="#myModalRegistraReserva" 
+                                  data-id="<?php echo $reserva['num_reserva']; ?>" 
+                                  data-tipohab="<?php echo $hotel->getNombreTipoHabitacion2($reserva['tipo_habitacion']); ?>" 
+                                  data-nrohab="<?php echo $reserva['num_habitacion']; ?>" 
+                                  data-nombre="<?php echo $reserva['nombre_completo']; ?>" 
+                                  data-impto="<?php echo $reserva['causar_impuesto']; ?>" 
+                                  data-llegada="<?php echo $reserva['fecha_llegada']; ?>" 
+                                  data-salida="<?php echo $reserva['fecha_salida']; ?>" 
+                                  data-noches="<?php echo $reserva['dias_reservados']; ?>" 
+                                  data-hombres="<?php echo $reserva['can_hombres']; ?>" 
+                                  data-mujeres="<?php echo $reserva['can_mujeres']; ?>" 
+                                  data-ninos="<?php echo $reserva['can_ninos']; ?>" 
+                                  data-sucia="<?php echo $reserva['sucia']; ?>" 
+                                  data-tarifa="<?php echo $hotel->getNombreTarifa($reserva['tarifa']); ?>" 
+                                  data-valor="<?php echo $reserva['valor_reserva']; ?>" 
+                                  data-observaciones="<?php echo $reserva['observaciones']; ?>">
                                   <i class="fa fa-sign-out" aria-hidden="true"></i>
                                   Ingresar Reserva</a>
                               </li>

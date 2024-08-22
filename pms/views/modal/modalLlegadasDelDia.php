@@ -1,16 +1,21 @@
 <div class="modal fade" id="myModalRegistraReserva" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <form id="guardarDatosRooms" class="form-horizontal" action="javascript:ingresaReserva()" mingresaReservaethod="POST" enctype="multipart/form-data">
+  <form id="guardarDatosRooms" class="form-horizontal" action="javascript:ingresaReserva()" method="POST" enctype="multipart/form-data">
     <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-          <div class="modal-header"> 
+          <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span class="glyphicon glyphicon-off"></span> 
-            </button> 
-            <h3 class="modal-title" id="exampleModalLabel">Ingresa Reserva</h3> 
+              <span class="glyphicon glyphicon-off"></span>
+            </button>
+            <h3 class="modal-title" id="exampleModalLabel">Ingresa Reserva</h3>
           </div>
-          <div id="datos_ajax_register"></div>
           <div class="modal-body modalReservas">
+            <div id="datos_ajax_register">
+              <div class="alert alert-danger apaga pd-10" >
+                <h4 style="margin:0px;">Precaucion</h4>
+                <h5>Habitacion Sucia No Permitido Ingresar el Huesped</h5>
+              </div>
+            </div>
             <div class="form-group">
               <label class="control-label col-lg-2 col-md-2">Reserva Nro</label>
               <div class="col-lg-2 col-md-2 ">
@@ -22,7 +27,7 @@
               </div>
               <label class="control-label col-lg-1 col-md-1">Numero</label>
               <div class="col-lg-2 col-md-2">
-                <input class="form-control padInput" type="text" name='txtNumeroHabIng' id='txtNumeroHabIng' readonly="">    
+                <input class="form-control padInput" type="text" name='txtNumeroHabIng' id='txtNumeroHabIng' readonly="">
               </div>
             </div>
             <div class="form-group">
@@ -59,12 +64,12 @@
                 <input class="form-control padInput" type="text" name="txtNinosIng" id='txtNinosIng' value='0' readonly="">
               </div>
             </div>
-            <div class="form-group" >
+            <div class="form-group">
               <label class="control-label col-lg-2 col-md-2" for="">Comentarios</label>
-              <div class="col-lg-10 col-md-10" >
-                <textarea class="form-control padInput" id="areaComentariosINg" name="areaComentariosINg" readonly="" style="height: 5em !important;min-height: 5em"></textarea>  
-              </div>          
-            </div> 
+              <div class="col-lg-10 col-md-10">
+                <textarea class="form-control padInput" id="areaComentariosINg" name="areaComentariosINg" readonly="" style="height: 5em !important;min-height: 5em"></textarea>
+              </div>
+            </div>
             <div class="form-group">
               <label for="archivo" class="col-sm-2 control-label">Tarifa</label>
               <div class="col-sm-4">
@@ -72,7 +77,7 @@
               </div>
               <label for="archivo" class="col-sm-1 control-label">Valor</label>
               <div class="col-sm-2">
-                <input class="form-control padInput" style="text-align:right;padding:0 3px;" type="text" name="txtValorTarifaIng" id="txtValorTarifaIng" value=0 >
+                <input class="form-control padInput" style="text-align:right;padding:0 3px;" type="text" name="txtValorTarifaIng" id="txtValorTarifaIng" value=0>
               </div>
             </div>
             <div class="form-group">
@@ -82,7 +87,7 @@
               </div>
               <label for="archivo" class="col-sm-1 control-label">Equipaje</label>
               <div class="col-sm-3">
-                <input class="form-control padInput" type="text" name="equipaje" id="equipaje" >
+                <input class="form-control padInput" type="text" name="equipaje" id="equipaje">
               </div>
               <label for="archivo" class="col-sm-1 control-label">Transporte</label>
               <div class="col-sm-3">
@@ -101,13 +106,13 @@
           </div>
           <div class="modal-footer">
             <div class="row">
-              <div class="col-md-6 col-md-offset-3" >
+              <div class="col-md-6 col-md-offset-3">
                 <div class="col-md-6">
                   <button type="button" class="btn btn-warning btn-block" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
                 </div>
                 <div class="col-md-6">
-                  <button class="btn btn-primary btn-block" id="btnSaveRoom"><i class="fa fa-briefcase"></i> Registrar</button>
-                </div>                
+                  <button class="btn btn-primary btn-block" id="btnRegistra"><i class="fa fa-briefcase"></i> Registrar</button>
+                </div>
               </div>
             </div>
           </div>
@@ -122,10 +127,10 @@
     <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-          <div class="modal-header"> 
+          <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span class="glyphicon glyphicon-off"></span>
-            </button> 
+              <span class="glyphicon glyphicon-off"></span>
+            </button>
             <h3 class="modal-title" id="exampleModalLabel">Anular Ingreso</h3>
           </div>
           <div id="datos_ajax_register"></div>
@@ -142,7 +147,7 @@
               </div>
               <label class="control-label col-lg-2 col-md-2">Numero</label>
               <div class="col-lg-2 col-md-2">
-                <input class="form-control padInput" type="text" name='txtNumeroHab' id='txtNumeroHabAnu' readonly="">    
+                <input class="form-control padInput" type="text" name='txtNumeroHab' id='txtNumeroHabAnu' readonly="">
               </div>
             </div>
             <div class="form-group">
@@ -183,12 +188,12 @@
                 <input class="form-control padInput" type="text" name="txtNinos" id='txtNinosAnu' value='0' readonly="">
               </div>
             </div>
-            <div class="form-group" >
+            <div class="form-group">
               <label class="control-label col-lg-2 col-md-2" for="">Comentarios</label>
-              <div class="col-lg-10 col-md-10" >
-                <textarea class="form-control padInput" id="areaComentariosAnu" name="areaComentarios" readonly="" style="height: 5em !important;min-height: 5em"></textarea>  
-              </div>          
-            </div> 
+              <div class="col-lg-10 col-md-10">
+                <textarea class="form-control padInput" id="areaComentariosAnu" name="areaComentarios" readonly="" style="height: 5em !important;min-height: 5em"></textarea>
+              </div>
+            </div>
             <div class="form-group">
               <label for="archivo" class="col-sm-2 control-label">Tarifa</label>
               <div class="col-sm-3">
@@ -196,19 +201,19 @@
               </div>
               <label for="archivo" class="col-sm-3 control-label">Valor</label>
               <div class="col-sm-4">
-                <input class="form-control padInput" type="text" name="txtValorTarifaAnu" id="txtValorTarifaAnu" value=0 >
+                <input class="form-control padInput" type="text" name="txtValorTarifaAnu" id="txtValorTarifaAnu" value=0>
               </div>
             </div>
           </div>
           <div class="modal-footer">
             <div class="row">
-              <div class="col-lg-6 col-lg-offset-3" >
+              <div class="col-lg-6 col-lg-offset-3">
                 <div class="col-lg-6">
                   <button type="button" class="btn btn-warning btn-block" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
                 </div>
                 <div class="col-lg-6">
                   <button class="btn btn-primary btn-block" id="btnSaveRoom"><i class="fa fa-breifcase"></i> Registrar</button>
-                </div>                
+                </div>
               </div>
             </div>
           </div>

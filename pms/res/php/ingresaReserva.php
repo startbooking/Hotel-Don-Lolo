@@ -2,10 +2,9 @@
   require '../../../res/php/app_topHotel.php'; 
   extract($_POST);
 
-
   $ingresa = $hotel->updateingresaReserva($numero, $usuario, strtoupper($placa), strtoupper($equipaje), $transporte); 
   
-  $estHabi = $hotel->cambiaOcupacionHabitacon($habita,'1');
+  $estHabi = $hotel->cambiaOcupacionHabitacion($habita,'1');
 
   if($ingresa==1){
   	$buscadeposito = $hotel->getBuscaDeposito($numero);

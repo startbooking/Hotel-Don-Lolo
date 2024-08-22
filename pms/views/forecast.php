@@ -36,7 +36,7 @@ if ($dias < 30) {
                     </a>
                   <?php
                   }
-                  ?>
+                  ?> 
                 </div>
               </div>
             </div>

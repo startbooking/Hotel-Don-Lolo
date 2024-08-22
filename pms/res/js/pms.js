@@ -35,45 +35,45 @@ document.addEventListener("DOMContentLoaded", async () => {
   </a>
 `);
 
-  $('.category_list .category_item[category="all"]').addClass("ct_item-active");
-  $(".category_item").click(function () {
-    var catProduct = $(this).attr("category");
+  /* Nuevo FIltro Estado Habitaciones */
 
-    // AGREGANDO CLASE ACTIVE AL ENLACE SELECCIONADO
-    $(".category_item").removeClass("ct_item-active");
-    $(this).addClass("ct_item-active");
+  // AGREGANDO CLASE ACTIVE AL PRIMER ENLACE ====================
+	$('.category_list .category_item[category="all"]').addClass('ct_item-active');
 
-    // OCULTANDO PRODUCTOS =========================
-    $(".product-item").css("transform", "scale(0)");
-    function hideProduct() {
-      $(".product-item").hide();
-    }
-    setTimeout(hideProduct, 400);
+	// FILTRANDO PRODUCTOS  ============================================
 
-    // MOSTRANDO PRODUCTOS =========================
-    function showProduct() {
-      $('.product-item[category="' + catProduct + '"]').show();
-      $('.product-item[category="' + catProduct + '"]').css(
-        "transform",
-        "scale(1)"
-      );
-    }
-    setTimeout(showProduct, 400);
-    prd = `.product-item[category="${catProduct}"]`;
-    // console.log(prd);
+	$('.category_item').click(function(){
+		var catProduct = $(this).attr('category');
+		
+		// AGREGANDO CLASE ACTIVE AL ENLACE SELECCIONADO
+		$('.category_item').removeClass('ct_item-active');
+		$(this).addClass('ct_item-active');
 
-    setTimeout($(prd).css("transform", ""), 400);
-  });
+		// OCULTANDO PRODUCTOS =========================
+		$('.product-item').css('transform', 'scale(0)');
+		function hideProduct(){
+			$('.product-item').hide();
+		} setTimeout(hideProduct,400);
 
-  // MOSTRANDO TODOS LOS PRODUCTOS =======================
+		// MOSTRANDO PRODUCTOS =========================
+		function showProduct(){
+			$('.product-item[category="'+catProduct+'"]').show();
+			$('.product-item[category="'+catProduct+'"]').css('transform', 'scale(1)');
+		} setTimeout(showProduct,400);
+	});
 
-  $('.category_item[category="all"]').click(function () {
-    function showAll() {
-      $(".product-item").show();
-      $(".product-item").css("transform", "scale(1)");
-    }
-    setTimeout(showAll, 400);
-  });
+	// MOSTRANDO TODOS LOS PRODUCTOS =======================
+
+	$('.category_item[category="all"]').click(function(){
+		function showAll(){
+			$('.product-item').show();
+			$('.product-item').css('transform', 'scale(1)');
+		} setTimeout(showAll,400);
+	});
+
+
+  /* */
+
 
   let sinres = document.getElementById("formReservas");
   if (sinres != null) {
@@ -2125,16 +2125,24 @@ document.addEventListener("DOMContentLoaded", async () => {
     var ninos = button.data("ninos");
     var tarifa = button.data("tarifa");
     var valor = button.data("valor");
+    var sucia = button.data("sucia");
     var observaciones = button.data("observaciones");
     var modal = $(this);
 
+    if(sucia==1){
+      let mensaje = document.querySelector('.alert');
+      let btnIng = document.querySelector('#btnRegistra');
+      mensaje.classList.remove('apaga');
+      btnIng.classList.add('apaga');
+      $("#alert").css("display", "block");
+    
+    }
     modal.find(".modal-title").text("Ingresar Huesped: " + nombre);
     modal.find(".modal-body #txtIdReservaIng").val(id);
     modal.find(".modal-body #txtIdHuespedINg").val(hues);
     modal.find(".modal-body #txtTipoHabIng").val(tipohab);
     modal.find(".modal-body #txtNumeroHabIng").val(nrohab);
     modal.find(".modal-body #txtHuespedIng").val(nombre);
-    // modal.find(".modal-body #txtNombresIng").val(nombre1 + " " + nombre1);
     modal.find(".modal-body #txtLlegadaIng").val(llegada);
     modal.find(".modal-body #txtSalidaIng").val(salida);
     modal.find(".modal-body #txtNochesIng").val(noches);
@@ -2144,7 +2152,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     modal.find(".modal-body #areaComentariosIng").val(observaciones);
     modal.find(".modal-body #txtTarifaIng").val(tarifa);
     modal.find(".modal-body #txtValorTarifaIng").val(number_format(valor, 2));
-    $(".alert").hide();
+    // $(".alert").hide();
   });
 
   $("#dataEstadoCartera").on("show.bs.modal", function (event) {
@@ -7257,9 +7265,7 @@ function ingresaConsumos() {
 
 function ingresaReserva() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {
-    user: { usuario },
-  } = sesion;
+  let { user: { usuario },} = sesion;
   // let  = user;
   var pagina = $("#ubicacion").val();
   var numero = $("#txtIdReservaIng").val();
@@ -7276,6 +7282,7 @@ function ingresaReserva() {
     equipaje,
     transporte,
   };
+  
   $.ajax({
     type: "POST",
     url: "res/php/ingresaReserva.php",
@@ -7455,7 +7462,6 @@ function buscaHuesped(regis) {
 async function habitacionesDisponibles() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { moduloPms: { fecha_auditoria } } = sesion;
-  // console.log(fecha_auditoria);
 
   var llega = $("#llegada").val();
   var sale = $("#salida").val();
@@ -7466,40 +7472,22 @@ async function habitacionesDisponibles() {
     tipo,
   };
 
-  // console.log(llega);
-
   let habitacionesDisp = await traeHabitacionesDisp(parametros);
   let habitacionMmto = await traeHabitacionesMmto(parametros);
   let suciasDia = await traeHabitacionesSucias(parametros);
-  /* console.log('Habitaciones Sucias');
-  console.log(suciasDia);
-  console.log('Habitaciones Sucias Sale'); */
   let reservasActuales = await traeReservasActuales(parametros);
 
   habitacionesDisp = habitacionesDisp.filter(
     (numero_hab) => !habitacionMmto.includes(numero_hab)
   );
-/* console.log('Habitaciones Disponibles')
-console.log(habitacionesDisp);
-console.log('Habitaciones en mantenimiento')
-console.log(habitacionMmto);
-console.log('Habitaciones Disponibles')
-console.log(habitacionesDisp);
-console.log('Habitaciones Sicuas')
-*/
-console.log(suciasDia); 
 
   if(llega==fecha_auditoria){
-    console.log('LLegada = Fecha Auditoria');
     for (let sucia of suciasDia) {
       habitacionesDisp = habitacionesDisp.filter(
         (habitacion) => habitacion.numero_hab !== sucia.numero_hab
       );
     }
   }
-
-  console.log('Habitaciones Disponibles');
-  console.log(habitacionesDisp);
 
   for (let reserva of reservasActuales) {
     if (
@@ -8373,9 +8361,24 @@ function guardaObjeto() {
 }
 
 function cambiaEstadoAseo(habi, ocupada, sucia, cambio) {
-  var web = $("#rutaweb").val();
-  var pagina = $("#ubicacion").val();
+  
 
+  if(sucia==0 || ocupada == 0) {
+    actual = "bg-limpiaVac";
+    color = "bg-suciaVac";
+  }else if(sucia==0 || ocupada == 1){
+    actual = "bg-limpiaOcu";
+    color = "bg-suciaOcu";
+  }else if(sucia==1 || ocupada == 0){
+    actual= "bg-suciaVac";
+     color = "bg-limpiaVac";
+  }else if(sucia==1 || ocupada == 1){
+    actual = "bg-suciaOcu";
+    color = "bg-limpiaOcu";
+  }
+
+  console.log({color, actual})
+  /* }
   switch (cambio) {
     case "1":
       color = "bg-suciaOcu";
@@ -8383,25 +8386,26 @@ function cambiaEstadoAseo(habi, ocupada, sucia, cambio) {
     case "0":
       color = "bg-limpiaVac";
       break;
-  }
+  } */
 
-  switch (sucia) {
+  /* switch (sucia) {
     case "0":
       actual = "bg-suciaOcu";
       break;
     case "1":
       actual = "bg-limpiaVac";
       break;
-  }
+  } */
 
-  switch (ocupada) {
+  /* switch (ocupada) {
     case "0":
       break;
     case "1":
       color = "bg-limpiaOcu";
       break;
-  }
+  } */
 
+  console.log({color, actual})
   $.ajax({
     url: "res/php/cambiaEstadoAseoHabitacion.php",
     type: "POST",
@@ -8412,11 +8416,15 @@ function cambiaEstadoAseo(habi, ocupada, sucia, cambio) {
     success: function () {
       $("#" + habi).removeClass(actual);
       $("#" + habi).addClass(color);
-      if (sucia == 1) {
+      sucia == 1 ? $("#" + habi + " .fa-broom").removeClass("apaga") : $("#" + habi + " .fa-broom").addClass("apaga");
+      sucia == 1 ? $('#'+habi).attr('category','sucias') : $('#'+habi).attr('category','limpias');
+      /* if (sucia == 1) {
         $("#" + habi + " .fa-broom").removeClass("apaga");
+        $('#'+habi).attr('category','sucia')
       } else {
         $("#" + habi + " .fa-broom").addClass("apaga");
-      }
+        $('#'+habi).attr('category','limpia')
+      } */
     },
   });
 }
