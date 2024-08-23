@@ -2,8 +2,6 @@
 
 require '../../../res/php/app_topHotel.php';
 
-// echo print_r($_POST) ;
-
 $empresaGrupo = $_REQUES['empresaGrupo'];
 $nombreGrupo = $_POST['nombreGrupo'];
 $llegada = $_POST['llegada'];

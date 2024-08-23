@@ -298,6 +298,8 @@ require_once '../res/php/app_topHotel.php';
         require 'views/modal/modalObjetos.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'mantenimiento') {
         require 'views/modal/modalMantenimiento.php';
+    } elseif (isset($_GET['section']) && $_GET['section'] == 'estadoHabitaciones') {
+        require 'views/modal/modalEstadoHabitaciones.php';
     }
     ?>
 

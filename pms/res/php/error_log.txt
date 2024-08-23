@@ -1,0 +1,2 @@
+[22-Aug-2024 18:18:35 America/Bogota] PHP Warning:  PDOStatement::execute(): SQLSTATE[42S22]: Column not found: 1054 Unknown column 'numHabitacion' in 'field list' in /var/www/donlolo.lan/res/php/Medoo.php on line 565
+[22-Aug-2024 18:19:37 America/Bogota] PHP Warning:  PDOStatement::execute(): SQLSTATE[42S22]: Column not found: 1054 Unknown column 'observacioes' in 'field list' in /var/www/donlolo.lan/res/php/Medoo.php on line 565

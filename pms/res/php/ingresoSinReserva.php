@@ -1,5 +1,5 @@
 <?php 
-  require '../../../res/php/app_topHotel.php';  
+  require '../../../res/php/app_topHotel.php';
   extract($_POST); 
   $idcentro      =  0;
 	

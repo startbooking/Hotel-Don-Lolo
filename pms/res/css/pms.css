@@ -686,6 +686,7 @@ a.info:hover span {
 
 .bg {
   padding:5px 10px;
+  width: 19%;
 }
 
 .bg-limpiaOcu {
@@ -705,9 +706,6 @@ a.info:hover span {
   background-color: #626253ba;
 }
 
-.bg-bloqueada {
-  background-color: #ff0b0bc2;
-}
 
 .bg-fueraOrd {
   background-color: #ac2d07;
@@ -715,6 +713,27 @@ a.info:hover span {
 
 .bg-fueraSer {
   background-color: #ff2802;
+}
+
+.bg-bloqueada {
+  background-color: #ff0b0bc2;
+}
+
+.bg-ocupada {
+  background-color: hsl(54, 95%, 57%);
+}
+
+.bg-sucia {
+  background-color: #1c16166e;
+}
+
+.bg-limpia{
+  background-color: rgb(82, 236, 82);
+}
+.lb-ocupada {
+  padding:5px;
+  border-radius: 5px;
+  background-color: #2597cc7e;
 }
 
 .panel .container-fluid {

@@ -70,10 +70,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 			$('.product-item').css('transform', 'scale(1)');
 		} setTimeout(showAll,400);
 	});
-
-
   /* */
-
 
   let sinres = document.getElementById("formReservas");
   if (sinres != null) {
@@ -130,6 +127,38 @@ document.addEventListener("DOMContentLoaded", async () => {
             "previous": "Anterior"
         },
     }
+  });
+
+  $("#myModalObservaciones").on("show.bs.modal", async function (event) {
+    document.querySelector("#formObservacionesHab").reset();
+    var button = $(event.relatedTarget);
+    numero = button.data("numero");
+    reserva = button.data("reserva");
+    sucia = button.data("sucia");
+    ocupada = button.data("ocupada");
+    console.log({ocupada, sucia})
+    document.querySelector('#numeroHab').value = numero;
+    document.querySelector('#numeroRes').value = reserva;
+    document.querySelector('#ocupada').value = ocupada;
+    document.querySelector('#sucia').value = sucia;
+    // console.log(document.querySelector("#myModalObservaciones .modal-title"));
+    titulo = document.querySelector("#myModalObservaciones .modal-title");
+    // console.log(titulo);
+    if(ocupada==1){
+      console.log('Paso 1');
+      titulo.innerHTML = 'Ingresa Observaciones a la Estadia'
+    }else{
+      if(sucia==0){
+        console.log('Paso 2');
+        titulo.innerHTML = 'Envia A Estado Sucia la Habitacion'
+      }else{
+        console.log('Paso 3');
+        titulo.innerHTML = 'Limpiar Habitacion'
+      }
+    }
+    let camareras = await traeCamareras();
+    let seleCama = await llenaSelectCamareras(camareras);
+
   });
 
   $("#myModalAdicionaCompania").on("show.bs.modal", function (event) {
@@ -434,7 +463,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   $("#myModalAdicionaPerfil").on("show.bs.modal", async function (event) {
-    // alert('entro');
     $("#edita").val(0);
     $("#acompana").val(0);
     formu = document.querySelector("#formAdicionaHuespedes");
@@ -2181,6 +2209,75 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 });
 
+async function guardaReportaObs(){
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { user: { usuario_id } } = sesion;
+  let observas = document.querySelector("#formObservacionesHab");
+  let formData = new FormData(observas);
+  formData.set("usuario_id", usuario_id);
+  let ingresa = await ingresoObservacion(formData);
+  console.log(formData);
+  let ocupa = formData.get('ocupada')
+  let suc = formData.get('sucia')
+
+  if(ocupa==1){
+    text = "Observacion Ingresada Correctamente a la Habitacion";
+  }else {
+    if(suc==1){
+      text = "Habitacion Limpia ";
+    }else {
+      text  = "Cambio a Habitacion Sucia realizado con Exito";
+    }
+  }
+
+  swal({
+      title: "Atencion",
+      text,
+      type: "success",
+      confirmButtonText: "Aceptar",
+    },
+    function () {
+      $(location).attr("href", "estadoHabitaciones");
+  });
+}
+
+async function ingresoObservacion(data) {
+  try {
+    const resultado = await fetch("res/php/ingresoObservacionCam.php", {
+      method: "POST",
+      body: data,
+    });
+    const datos = await resultado.text();
+    return datos;
+  } catch (error) {}
+}
+
+async function traeCamareras() {
+  try {
+    const resultado = await fetch("res/php/traeCamareras.php", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    });
+    const datos = await resultado.json();
+    return datos;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function llenaSelectCamareras(camareras){
+  let selectElement = document.querySelector("#reportadoPor");
+  camareras.map((item) => {
+    let { idCamarera, apellidosCamarera, nombresCamarera } = item
+    const optionElement = document.createElement("option");
+    optionElement.value = idCamarera;
+    optionElement.text = `${apellidosCamarera} ${nombresCamarera}`;
+    selectElement.add(optionElement);
+  });
+}
+
 async function traeTipoDocumentoOK() {
   try {
     const resultado = await fetch("res/php/traeTipoDocumento.php", {
@@ -2284,8 +2381,7 @@ async function restaEdad(fecha) {
 
 const guardaProcesoEnvioTRA = async (reserva) => {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario_id } = user;
+  let { user: { usuario_id } } = sesion;
 
   data = {
     usuario_id,
@@ -6989,6 +7085,7 @@ async function guardasinReserva() {
     }
   );
 }
+
 async function ingresoSinReserva(data) {
   try {
     const resultado = await fetch("res/php/ingresoSinReserva.php", {
@@ -8360,63 +8457,37 @@ function guardaObjeto() {
   });
 }
 
-function cambiaEstadoAseo(habi, ocupada, sucia, cambio) {
-  
+function cambiaEstadoAseo(habi, ocupada, sucia, estado) {
 
-  if(sucia==0 || ocupada == 0) {
-    actual = "bg-limpiaVac";
-    color = "bg-suciaVac";
-  }else if(sucia==0 || ocupada == 1){
-    actual = "bg-limpiaOcu";
-    color = "bg-suciaOcu";
-  }else if(sucia==1 || ocupada == 0){
-    actual= "bg-suciaVac";
-     color = "bg-limpiaVac";
-  }else if(sucia==1 || ocupada == 1){
-    actual = "bg-suciaOcu";
-    color = "bg-limpiaOcu";
+  console.log({habi, ocupada, sucia, estado});
+
+  if(estado==0){
+    actual = 'bg-limpia';
+  }else {
+    actual = 'bg-sucia';
+  }
+
+  if(sucia==0){
+    color = 'bg-limpia';
+    categ = 'limpias';
+  }else{
+    color = 'bg-sucia';
+    categ = 'sucias';
   }
 
   console.log({color, actual})
-  /* }
-  switch (cambio) {
-    case "1":
-      color = "bg-suciaOcu";
-      break;
-    case "0":
-      color = "bg-limpiaVac";
-      break;
-  } */
-
-  /* switch (sucia) {
-    case "0":
-      actual = "bg-suciaOcu";
-      break;
-    case "1":
-      actual = "bg-limpiaVac";
-      break;
-  } */
-
-  /* switch (ocupada) {
-    case "0":
-      break;
-    case "1":
-      color = "bg-limpiaOcu";
-      break;
-  } */
-
-  console.log({color, actual})
+  
   $.ajax({
     url: "res/php/cambiaEstadoAseoHabitacion.php",
     type: "POST",
     data: {
       habi,
-      cambio,
+      sucia,
     },
     success: function () {
       $("#" + habi).removeClass(actual);
       $("#" + habi).addClass(color);
-      sucia == 1 ? $("#" + habi + " .fa-broom").removeClass("apaga") : $("#" + habi + " .fa-broom").addClass("apaga");
+      /* sucia == 1 ? $("#" + habi + " .fa-broom").removeClass("apaga") : $("#" + habi + " .fa-broom").addClass("apaga"); */
       sucia == 1 ? $('#'+habi).attr('category','sucias') : $('#'+habi).attr('category','limpias');
       /* if (sucia == 1) {
         $("#" + habi + " .fa-broom").removeClass("apaga");

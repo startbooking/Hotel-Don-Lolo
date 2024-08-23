@@ -7,6 +7,74 @@ date_default_timezone_set('America/Bogota');
 class Hotel_Actions
 {
 
+    public function ingresaObservacionCam($numeroRes, $numeroHab, $fechaObs, $reportadoPor, $reporteObs, $usuario_id, $ocupada, $sucia){
+        global $database;
+
+        $data = $database->insert('camareria',[
+            'numHabitacion' => $numeroHab,
+            'numReserva' => $numeroRes,
+            'idCamarera' => $reportadoPor,
+            'fecha' => $fechaObs,
+            'observaciones' => $reporteObs,
+            'idUsuario' => $usuario_id,
+            'ocupada' => $ocupada,
+            'sucia' => $sucia,
+        ]);
+        return $database->id();
+    }
+    
+    public function traeCamareras(){
+        global $database;
+
+        $data = $database->select('camareras',[
+            'apellidosCamarera',
+            'nombresCamarera',
+            'idCamarera',
+        ],[
+            'ORDER' => 'apellidosCamarera'
+        ],[
+            'estado' => 1
+        ]);
+        return $data;
+    }
+
+    public function estadoHabitacionesHK(){
+        global $database;
+
+        $data = $database->query("SELECT
+            habitaciones.numero_hab,
+            habitaciones.caracteristicas,
+            tipo_habitaciones.descripcion_habitacion,
+            habitaciones.sucia,
+            habitaciones.mantenimiento,
+            habitaciones.ocupada,
+            reservas.* 
+        FROM
+            habitaciones
+            JOIN tipo_habitaciones ON habitaciones.id_tipohabitacion = tipo_habitaciones.id
+            LEFT JOIN (
+            SELECT
+                reservas_pms.num_reserva,
+                reservas_pms.num_habitacion,
+                reservas_pms.fecha_llegada,
+                reservas_pms.fecha_salida 
+            FROM
+                reservas_pms 
+            WHERE
+                reservas_pms.estado = 'CA' 
+                AND reservas_pms.tipo_habitacion != 1 
+            ORDER BY
+                reservas_pms.num_habitacion 
+            ) AS reservas ON habitaciones.numero_hab = reservas.num_habitacion 
+        WHERE
+            tipo_habitaciones.tipo_habitacion = 1 
+        ORDER BY
+            habitaciones.piso,
+            habitaciones.numero_hab")->fetchAll(PDO::FETCH_ASSOC);
+
+            return $data;
+    } 
+
     public function reservasPorMotivo($query){
     global $database;
     $data = $database->query($query)->fetchAll(PDO::FETCH_ASSOC);
