@@ -322,9 +322,9 @@ if ($perfilFac == 1 && $facturador == 1) {
     $eFact['operation_mode'] = $oMode;
     $eFact = json_encode($eFact);
  
-    include_once '../../api/enviaFactura.php';
+    // include_once '../../api/enviaFactura.php';
 
-    // include_once '../../api/nuevoCurl.php';
+    include_once '../../api/nuevoCurl.php';
 
     $recibeCurl = json_decode(trim($respofact), true);
 
@@ -525,7 +525,7 @@ if ($totalFolio != 0) {
         'archivo' => $oFile,
         'errorDian' => '0',
         'perfil' => $perfilFac,
-    ];
+    ]; 
 
     array_push($estadofactura, $error);
 

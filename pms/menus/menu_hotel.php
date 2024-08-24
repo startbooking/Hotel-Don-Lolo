@@ -236,6 +236,7 @@ if ($_GET['section'] != 'cajeroCerrado') {
               <a href="#"><i class="fa fa-bed"></i>Ama de LLaves<i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeEstadoHabitaciones','Estado Habitaciones')"><i class="glyphicon glyphicon-paste"></i>Estado Habitaciones</a></li>
+                <li><a href="javascript:imprimeInformeAuditoria('imprimeEstadoCamareria','Reporte Estado Camareras')"><i class="glyphicon glyphicon-paste"></i>Estado Camareras</a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeHabitacionesMmto','Habitaciones en Mantenimiento')"><i class="glyphicon glyphicon-paste"></i>Habitaciones en Mantenimiento</a></li>
 
               </ul>

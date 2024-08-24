@@ -157,6 +157,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     }
     let camareras = await traeCamareras();
+    let limpia = await limpiaCamareras();
     let seleCama = await llenaSelectCamareras(camareras);
 
   });
@@ -1655,7 +1656,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     var parametros = {
       id,
     };
-    modal.find(".modal-title").text("Modifica Reserva Actual X: " + nombre);
+    modal.find(".modal-title").text("Modifica Reserva Actual: " + nombre);
 
     $.ajax({
       type: "POST",
@@ -2215,20 +2216,19 @@ async function guardaReportaObs(){
   let observas = document.querySelector("#formObservacionesHab");
   let formData = new FormData(observas);
   formData.set("usuario_id", usuario_id);
-  let ingresa = await ingresoObservacion(formData);
-  console.log(formData);
   let ocupa = formData.get('ocupada')
-  let suc = formData.get('sucia')
+  let sucia = formData.get('sucia')
+  let estado = sucia == 1 ? 0 : 1;
+  formData.set("estado", estado);
+  let habita = formData.get('numeroHab')
 
-  if(ocupa==1){
-    text = "Observacion Ingresada Correctamente a la Habitacion";
-  }else {
-    if(suc==1){
-      text = "Habitacion Limpia ";
-    }else {
-      text  = "Cambio a Habitacion Sucia realizado con Exito";
-    }
+  let ingresa = await ingresoObservacion(formData);
+
+  if(ocupa == 0){
+    let cambia = await cambiaEstadoAseo(habita,ocupa,estado,sucia) ;
   }
+
+  let text = ocupa ==1 ? "Observacion Ingresada Correctamente a la Habitacion" : sucia==1 ? "Habitacion Limpia " : "Cambio a Habitacion Sucia realizado con Exito" ;
 
   swal({
       title: "Atencion",
@@ -2276,6 +2276,14 @@ async function llenaSelectCamareras(camareras){
     optionElement.text = `${apellidosCamarera} ${nombresCamarera}`;
     selectElement.add(optionElement);
   });
+}
+
+async function limpiaCamareras() {
+  let selectElement = document.querySelector("#reportadoPor");
+
+  while (selectElement.firstChild) {
+    selectElement.removeChild(selectElement.firstChild);
+  }
 }
 
 async function traeTipoDocumentoOK() {
@@ -3652,7 +3660,7 @@ function generarXML(factura, test, modulo, ambiente) {
     success: function (data) {
       $("#verCargosFactura").html(data);
     },
-  });
+  }); 
 }
 
 function imprimeInformeAuditoria(informe, titulo) {
@@ -4720,7 +4728,7 @@ function congelaHuesped() {
     reserva,
     idcia,
     usuario,
-    idUser: usuario_id,
+    usuario_id ,
   };
   $.ajax({
     type: "POST",
@@ -6181,7 +6189,9 @@ function seleccionaTarifasUpd() {
   });
 }
 
-function seleccionaHabitacionUpd(tipo, anterior, numero, llega, sale) {
+function seleccionaHabitacionUpd(tipohab, anterior, numero, llega, sale) {
+  let tipo = document.querySelector('#tipohabiUpd').value
+  console.log(tipo);
   var parametros = {
     tipo,
     anterior,
@@ -7556,13 +7566,13 @@ function buscaHuesped(regis) {
   });
 }
 
-async function habitacionesDisponibles() {
+async function habitacionesDisponibles(estado) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { moduloPms: { fecha_auditoria } } = sesion;
-
-  var llega = $("#llegada").val();
-  var sale = $("#salida").val();
-  var tipo = $("#tipohabi").val();
+  let llega = estado == 1 ? $("#llegada").val() : $("#llegadaUpd").val()
+  let sale = estado == 1 ? $("#salida").val() : $("#salidaUpd").val()
+  let tipo = estado == 1 ? $("#tipohabi").val() : $("#tipohabiUpd").val()
+  
   var parametros = {
     llega,
     sale,
@@ -7598,12 +7608,18 @@ async function habitacionesDisponibles() {
     }
   }
 
-  const limpia = await limpiaSelect();
-  const sele = await llegaHabitacionesSele(habitacionesDisp);
+  const limpia = await limpiaSelect(estado);
+  const sele = await llegaHabitacionesSele(habitacionesDisp,estado);
 }
 
-async function llegaHabitacionesSele(habitaciones) {
-  const selectElement = document.getElementById("nrohabitacion");
+async function llegaHabitacionesSele(habitaciones, estado) {
+  let selectElement
+  if(estado == 1){
+    selectElement = document.getElementById("nrohabitacion");
+  }else {
+    selectElement = document.getElementById("nrohabitacionUpd");
+    selectElement.removeAttribute('disabled');
+  }
   habitaciones.map((item) => {
     const optionElement = document.createElement("option");
     optionElement.value = item.numero_hab;
@@ -7612,8 +7628,13 @@ async function llegaHabitacionesSele(habitaciones) {
   });
 }
 
-function limpiaSelect() {
-  const selectElement = document.getElementById("nrohabitacion");
+function limpiaSelect(estado) {
+  let selectElement
+  if(estado == 1){
+    selectElement = document.getElementById("nrohabitacion");
+  }else {
+    selectElement = document.getElementById("nrohabitacionUpd");
+  }
   while (selectElement.firstChild) {
     selectElement.removeChild(selectElement.firstChild);
   }
@@ -8437,9 +8458,7 @@ function adicionaObservacionObjeto() {
 
 function guardaObjeto() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {
-    user: { usuario, usuario_id },
-  } = sesion;
+  let { user: { usuario, usuario_id }, } = sesion;
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var parametros = $("#formAdicionaObjetos").serializeArray();
@@ -8457,7 +8476,7 @@ function guardaObjeto() {
   });
 }
 
-function cambiaEstadoAseo(habi, ocupada, sucia, estado) {
+async function cambiaEstadoAseo(habi, ocupada, sucia, estado) {
 
   console.log({habi, ocupada, sucia, estado});
 

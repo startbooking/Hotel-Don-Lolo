@@ -7,10 +7,55 @@ date_default_timezone_set('America/Bogota');
 class Hotel_Actions
 {
 
-    public function ingresaObservacionCam($numeroRes, $numeroHab, $fechaObs, $reportadoPor, $reporteObs, $usuario_id, $ocupada, $sucia){
+    public function informeCamareria($fecha){
+        global $database;
+        
+        $data = $database->query("SELECT
+            habitaciones.numero_hab, 
+            tipo_habitaciones.descripcion_habitacion, 
+            habitaciones.caracteristicas, 
+            camarera.*
+        FROM
+            habitaciones
+            INNER JOIN
+                tipo_habitaciones
+            ON 
+		        habitaciones.id_tipohabitacion = tipo_habitaciones.id
+		    LEFT JOIN (
+				SELECT
+                    camareras.apellidosCamarera, 
+                    camareras.nombresCamarera, 
+                    camareria.numHabitacion, 
+                    camareria.observaciones, 
+                    camareria.fecha,
+                    camareria.sucia	
+                FROM
+                    camareras
+                    INNER JOIN
+                        camareria
+                    ON 
+                        camareras.idCamarera = camareria.idCamarera
+                WHERE
+                    camareras.estado = 1  
+                    AND CAST(camareria.fecha AS DATE) = '$fecha'
+                ORDER BY
+                    camareras.apellidosCamarera, 
+                    camareria.numHabitacion
+            ) AS camarera
+            ON habitaciones.numero_hab = camarera.numHabitacion
+        WHERE
+            tipo_habitaciones.tipo_habitacion = 1
+        ORDER BY
+            habitaciones.piso,
+            habitaciones.numero_hab")->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
+    }
+    
+    public function ingresaObservacionCam($numeroRes, $numeroHab, $fechaObs, $reportadoPor, $reporteObs, $usuario_id, $ocupada, $sucia)
+    {
         global $database;
 
-        $data = $database->insert('camareria',[
+        $data = $database->insert('camareria', [
             'numHabitacion' => $numeroHab,
             'numReserva' => $numeroRes,
             'idCamarera' => $reportadoPor,
@@ -22,23 +67,88 @@ class Hotel_Actions
         ]);
         return $database->id();
     }
-    
-    public function traeCamareras(){
+
+    public function traeCamareras()
+    {
         global $database;
 
-        $data = $database->select('camareras',[
+        $data = $database->select('camareras', [
             'apellidosCamarera',
             'nombresCamarera',
             'idCamarera',
-        ],[
+        ], [
             'ORDER' => 'apellidosCamarera'
-        ],[
+        ], [
             'estado' => 1
         ]);
         return $data;
     }
 
-    public function estadoHabitacionesHK(){
+    public function estadoHabitacionesHK()
+    {
+        global $database;
+
+        $data = $database->query("SELECT
+            habitaciones.numero_hab,
+            habitaciones.caracteristicas,
+            tipo_habitaciones.descripcion_habitacion,
+            habitaciones.sucia,
+            habitaciones.mantenimiento,
+            habitaciones.ocupada,
+            reservas.fecha_llegada,
+            reservas.fecha_salida,
+            reservas.num_reserva,
+            mmto.desde_fecha,
+            mmto.hasta_fecha,
+            mmto.observaciones
+        FROM
+            habitaciones
+            JOIN tipo_habitaciones ON habitaciones.id_tipohabitacion = tipo_habitaciones.id
+            LEFT JOIN (
+            SELECT
+                reservas_pms.num_reserva,
+                reservas_pms.num_habitacion,
+                reservas_pms.fecha_llegada,
+                reservas_pms.fecha_salida 
+            FROM
+                reservas_pms 
+            WHERE
+                reservas_pms.estado = 'CA' 
+                AND reservas_pms.tipo_habitacion != 1 
+            ORDER BY
+                reservas_pms.num_habitacion 
+            ) AS reservas 
+            ON habitaciones.numero_hab = reservas.num_habitacion 
+            LEFT JOIN (
+            SELECT
+            habitaciones.numero_hab, 
+            mantenimiento_habitaciones.desde_fecha, 
+            mantenimiento_habitaciones.hasta_fecha,
+            mantenimiento_habitaciones.observaciones
+        FROM
+            mantenimiento_habitaciones
+            LEFT JOIN
+            habitaciones
+            ON 
+                mantenimiento_habitaciones.id_habitacion = habitaciones.id
+        WHERE
+            estado_mmto = 1
+        ORDER BY
+            habitaciones.numero_hab
+            
+        ) AS mmto 
+            ON habitaciones.numero_hab = mmto.numero_hab 
+        WHERE
+            tipo_habitaciones.tipo_habitacion = 1 
+        ORDER BY
+            habitaciones.piso,
+            habitaciones.numero_hab")->fetchAll(PDO::FETCH_ASSOC);
+
+        return $data;
+    }
+
+    public function estadoHabitacionesHKOld()
+    {
         global $database;
 
         $data = $database->query("SELECT
@@ -72,12 +182,14 @@ class Hotel_Actions
             habitaciones.piso,
             habitaciones.numero_hab")->fetchAll(PDO::FETCH_ASSOC);
 
-            return $data;
-    } 
+        return $data;
+    }
 
-    public function reservasPorMotivo($query){
-    global $database;
-    $data = $database->query($query)->fetchAll(PDO::FETCH_ASSOC);
+
+    public function reservasPorMotivo($query)
+    {
+        global $database;
+        $data = $database->query($query)->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     }
 
@@ -97,33 +209,36 @@ class Hotel_Actions
         return $data;
     }
 
-    public function actualizaEstadoReserva($reserva){
+    public function actualizaEstadoReserva($reserva)
+    {
         global $database;
 
-        $data = $database->update('reservas_pms',[
+        $data = $database->update('reservas_pms', [
             'estado' => 'CA'
-        ],[
+        ], [
             'num_reserva' => $reserva
         ]);
         return $data->rowCount();
     }
 
-    public function ingresaFE($factura){
+    public function ingresaFE($factura)
+    {
         global $database;
 
-        $data = $database->insert('datosFE',[
+        $data = $database->insert('datosFE', [
             'estadoEnvio' => false,
             'facturaNumero' => $factura
         ]);
         return $database->id();
     }
 
-    public function actualizaFE($factura) {
+    public function actualizaFE($factura)
+    {
         global $database;
 
-        $data = $database->update('datosFE',[
+        $data = $database->update('datosFE', [
             'estadoEnvio' => false
-        ],[
+        ], [
             'facturaNumero' => $factura
         ]);
         return $data->rowCount();
@@ -9282,7 +9397,7 @@ ORDER BY
 
         $data = $database->select('reservas_pms', [
             '[>]huespedes' => 'id_huesped',
-            '[>]habitaciones' => ['num_habitacion' => 'numero_hab'] ,
+            '[>]habitaciones' => ['num_habitacion' => 'numero_hab'],
 
         ], [
             'reservas_pms.cantidad',

@@ -2,7 +2,7 @@
   $rooms = $hotel->estadoHabitacionesHK();
 ?>
 
-<div class="content-wrapper">
+<div class="content-wrapper"> 
   <div class="container-fluid moduloCentrar">
     <div class="panel panel-success" style="width:100%">
       <div class="container-fluid">
@@ -55,8 +55,35 @@
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:1px">
                           <ul class="nav navbar-nav">
                             <li class="dropdown submenu">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="padding:1px 5px;font-size:11px;color: #000;"><i class="fa-solid fa-bars"></i></a>
-                              <ul class="dropdown-menu" style="left:20px;top:5px;">
+                              <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="padding:1px 5px;font-size:11px;color: #000;"><i class="fa-solid fa-bars"></i></a> -->
+                              <?php
+
+                              if($room['sucia']==1){ ?>
+                                <bottom 
+                                  data-toggle="modal" 
+                                  class="btn btn-xs btn-success"
+                                  href="#myModalObservaciones"
+                                  data-reserva="0"
+                                  data-numero="<?php echo $room['numero_hab']; ?>"
+                                  data-sucia="<?php echo $room['sucia']; ?>" 
+                                  data-ocupada="<?php echo $room['ocupada']; ?>" 
+                                  title="Limpiar Habitacion"><i class="fa-solid fa-broom"></i></bottom>
+                                <?php
+                              }else { ?>
+                                <bottom 
+                                data-toggle="modal" 
+                                class="btn btn-xs btn-default"
+                                href="#myModalObservaciones"
+                                data-reserva="0"
+                                data-numero="<?php echo $room['numero_hab']; ?>"
+                                data-sucia="<?php echo $room['sucia']; ?>" 
+                                data-ocupada="<?php echo $room['ocupada']; ?>" 
+                                title="Pasar A Habitacion Sucia"><i class="fa-solid fa-trash-can"></i></bottom>
+                                <?php
+                              }
+                              ?>
+                              <!-- <ul class="dropdown-menu" style="left:20px;top:5px;">
+                                
                                 <li>
                                   <a
                                     data-toggle="modal" 
@@ -65,8 +92,8 @@
                                     data-numero="<?php echo $room['numero_hab']; ?>" 
                                     data-sucia="<?php echo $room['sucia']; ?>" 
                                     data-ocupada="<?php echo $room['ocupada']; ?>" 
+                                    onclick="cambiaEstadoAseo('<?php echo $room['numero_hab']; ?>','<?php echo $room['ocupada']; ?>','0','<?php echo $room['sucia']; ?>')"
                                     >
-                                    <!-- onclick="cambiaEstadoAseo('<?php echo $room['numero_hab']; ?>','<?php echo $room['ocupada']; ?>','0','<?php echo $room['sucia']; ?>')" -->
                                     <i class="fa fa-address-card-o" aria-hidden="true"></i>Limpia</a>
                                   </li>
                                 <li>
@@ -77,12 +104,13 @@
                                     data-numero="<?php echo $room['numero_hab']; ?>" 
                                     data-sucia="<?php echo $room['sucia']; ?>" 
                                     data-ocupada="<?php echo $room['ocupada']; ?>" 
+                                    onclick="cambiaEstadoAseo('<?php echo $room['numero_hab']; ?>','<?php echo $room['ocupada']; ?>','1','<?php echo $room['sucia']; ?>')"
                                     >
-                                    <!-- onclick="cambiaEstadoAseo('<?php echo $room['numero_hab']; ?>','<?php echo $room['ocupada']; ?>','1','<?php echo $room['sucia']; ?>')" -->
                                     <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
                                     Sucia</a>
                                 </li>
-                              </ul>
+
+                              </ul> -->
                             </li>
                           </ul>
                         </div>
@@ -94,7 +122,7 @@
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:1px">
                           <bottom 
                             data-toggle="modal" 
-                            class="btn btn-xs btn-success"
+                            class="btn btn-xs btn-info"
                             href="#myModalObservaciones"
                             data-reserva="<?php echo $room['num_reserva']; ?>"
                             data-numero="<?php echo $room['numero_hab']; ?>"

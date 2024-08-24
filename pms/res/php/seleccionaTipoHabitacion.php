@@ -7,45 +7,15 @@ $llega = $_POST['llega'];
 $sale = $_POST['sale']; 
 
 $llegadas = $hotel->getHabitacionesLlegada($tipo, $llega);
-echo 'Fecha Llegada <br>';
-echo print_r($llegadas); 
-
 $sales = $hotel->getHabitacionesSalen($tipo,$llega, $sale);
-echo 'Fecha Salen  <br>'; 
-echo print_r($sales); 
-
 $rangos = $hotel->getHabitacionesDentro($llega,$sale,$tipo);
-echo 'Habitaciones Rango <br>';
-echo print_r($rangos); 
-
 $habitaciones = $hotel->getSeleccionaHabitacionesTipo($tipo);
-echo 'Fecha Habitaciones TIPO'.'<br>';
-echo print_r($habitaciones); 
-
 $mmtoHabi = $hotel->getMmtoHabitaciones($llega, $tipo);
-echo 'Mantenimiento Habitaciones <br>';
-echo print_r($mmtoHabi);  
-
 $estadohab = $hotel->traeEstadoHabitacionesHotel($tipo, $llega, $sale);
-echo 'Estado Habitaciones <br>';
-echo print_r($estadohab);
-
 $encasas = $hotel->getEnCasaporTipoHab($tipo, $llega, $sale, 'CA');
-echo 'En Casa <br>';
-echo print_r($encasas);
-
-
 $mananas = $hotel->getSaleMananaTipoHab($tipo, $llega, $sale, 'CA');
-echo 'Salen Manana <br>';
-echo print_r($mananas);
-
 $salidas = $hotel->getReservasporTipoHabSalida($tipo, $llega, $sale, 'CA');
-echo 'En Salidas '.'<br>';
-echo print_r($salidas);
-
 $reservas = $hotel->getReservasporTipoHab($tipo, $llega, $sale, 'ES');
-echo 'En Reserva <br>';
-echo print_r($reservas);
 
 $mantenimiento = [];
 $disponibles = [];
@@ -99,11 +69,8 @@ foreach ($rangos as $reserva) {
     $dentro[] = $reserva['num_habitacion'];
 }
 
-// $dispos = array_diff($disponibles, $mantenimiento, $estadoOff, $encasaOff, $reservasOff);
 $dispos = array_diff($disponibles, $mantenimiento, $llegan, $salen, $dentro);
 
-
-echo print_r($dispos);
 
 ?>
 

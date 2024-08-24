@@ -3,30 +3,6 @@
     <img class="img_thumbnail" src="<?php echo BASE_WEB; ?>img/logoBarahona.png">
     <span>SACTel Cloud</span>
   </a>
-  <?php
-  if (IP_ACCESS == 1) {
-      if ($busca == 0) { ?>
-        <nav class="navbar navbar-static-top" role="navigation">
-          <div class="navbar-custom-menu">
-            <ul class="nav navbar-nav">
-              <li> 
-                <a style="font-family: 'Source Sans Pro'"> 
-                   Equipo no Registrado 
-                   <?php
-                      $log = $user->ingresoLog(1, 'REMOTO', $pc, $ip, 'INTENTO DE ACCESO POR IP NO REGISTRADA', '', '', 'US');
-            ?>
-                  <i class="fa fa-power-off" aria-hidden="true"></i>
-                 </a>
-
-              </li>
-            </ul>
-          </div>
-        </nav>
-        <?php
-        return;
-      }
-  }
-  ?>
   <nav class="navbar navbar-static-top" role="navigation">
     <div class="navbar-custom-menu">
       <ul class="nav navbar-nav">
