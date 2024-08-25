@@ -1,6 +1,6 @@
 <div class="modal fade bs-example-modal-lg" id="myModalAcompanantesReserva" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog modal-lg" role="document"> 
-    <div class="modal-content">  
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class='glyphicon glyphicon-off' style="color:#530505"></span></button>
         <h4 class="modal-title" id="myModalLabel">Acompañantes en la Reserva </h4>
@@ -12,9 +12,9 @@
         <div id="acompanantes"></div>
         <div class="container-fluid">
           <input type="hidden" name="numeroReserva" id="numeroReserva">
-          <button class="btn btn-primary pull-right" type="button" 
-            data-toggle="modal" 
-            data-target="#myModalAdicionaAcompanante"  
+          <button class="btn btn-primary pull-right" type="button"
+            data-toggle="modal"
+            data-target="#myModalAdicionaAcompanante"
             title="Adicionar Acompañante Reserva">
             <i class="fa fa-plus" aria-hidden="true"></i> Adicionar
           </button>
@@ -23,7 +23,7 @@
       <div class="modal-footer">
         <a href="reservasActivas" class="btn btn-warning btnSaleAco"><i class="fa fa-reply" aria-hidden="true"></i> Regresar</a>
       </div>
-    </div> 
+    </div>
   </div>
 </div>
 
@@ -40,25 +40,25 @@
         <input type="hidden" name="paginaviene" id="paginaviene" value="">
         <div class="container-fluid"></div>
       </div>
-      <form id="acompananteReserva" class="form-horizontal" style="padding :0px;" action="javascript:guardaAcompanante()">        
-        <div class="modal-body" >
+      <form id="acompananteReserva" class="form-horizontal" style="padding :0px;" action="javascript:guardaAcompanante()">
+        <div class="modal-body">
           <div class="row">
             <div class="col-lg-8">
-              <span class="col-lg-2">Huesped</span>              
+              <span class="col-lg-2">Huesped</span>
               <div class="input-group">
                 <input type="text" class="form-control" id="buscarAcoHuesped" placeholder="Buscar Huesped ...">
                 <span class="input-group-btn">
                   <button data-toggle="modal" href="#myModalBuscaAcompanaHuesped" style="padding:3px" class="btn btn-default" type="button"><i style="padding:3px 8px" class="fa fa-search" aria-hidden="true"></i></button>
                 </span>
               </div>
-            </div> 
-            <div class="col-lg-4 derecha">                        
+            </div>
+            <div class="col-lg-4 derecha">
               <a class="btn btn-success" data-toggle="modal" data-reserva='1' href="#myModalAdicionaPerfilAcompanante">
-              <i class="fa fa-user-plus" aria-hidden="true"></i> Adicionar Huesped
+                <i class="fa fa-user-plus" aria-hidden="true"></i> Adicionar Huesped
               </a>
-            </div>          
-          </div> 
-        </div>  
+            </div>
+          </div>
+        </div>
         <div class="modal-footer">
           <div class="btn-group">
             <button type="button" class="btn btn-warning" id="bntSaleAcompana" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
@@ -68,7 +68,7 @@
       </form>
     </div>
   </div>
-</div> 
+</div>
 
 <div class="modal fade" id="myModalAdicionaPerfilAcompanante" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-lg" role="document">
@@ -83,7 +83,7 @@
         <input type="hidden" name="paginaviene" id="paginaviene" value="">
         <div class="container-fluid"></div>
       </div>
-      <form id="perfilAcompananteReserva" class="form-horizontal" style="padding :0px;" action="javascript:guardaAcompanante()">        
+      <form id="perfilAcompananteReserva" class="form-horizontal" style="padding :0px;" action="javascript:guardaAcompanante()">
         <div class="modal-body">
           <div class="alert alert-warning oculto centro" id="alerta"></div>
           <div class="form-group">
@@ -92,7 +92,7 @@
               <input type="hidden" name="idReservaAdiAco" id="idReservaAdiAco">
               <input type="hidden" name="nuevoPax" id="nuevoPax" value="1">
               <input type="hidden" name="idHuesAdi" id="idHuesAdi">
-              <input type="text" class="form-control" name="identificaAdiAco" id="identificaAdiAco" placeholder="Identificacion" onblur="buscaHuespedAcompanante(this.value)" >
+              <input type="text" class="form-control" name="identificaAdiAco" id="identificaAdiAco" placeholder="Identificacion" onblur="buscaHuespedAcompanante(this.value)">
             </div>
             <label for="inputEmail3" class="col-sm-2 control-label">Tipo </label>
             <div class="col-sm-3">
@@ -294,8 +294,8 @@
 </div>
 
 <div class="modal fade bs-example-modal-lg" id="myModalAcompanantesHistoricoReserva" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog modal-md" role="document"> 
-    <div class="modal-content"> 
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class='glyphicon glyphicon-off' style="color:#530505"></span></button>
         <h4 class="modal-title" id="myModalLabel">Acompañantes en la Reserva</h4>
@@ -311,7 +311,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply" aria-hidden="true"></i> Regresar</button>
       </div>
-    </div> 
+    </div>
   </div>
 </div>
 
@@ -327,7 +327,7 @@
             </button>
             <h3 class="modal-title" id="exampleModalLabel">Huesped Encontrados</h3>
           </div>
-          <div id="datos_ajax_register"></div> 
+          <div id="datos_ajax_register"></div>
           <div class="modal-body" id="huespedesAcompaEncontrados" style="max-height: 445px;overflow: auto;">
           </div>
           <div class="modal-footer">

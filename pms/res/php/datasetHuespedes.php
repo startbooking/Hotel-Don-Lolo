@@ -39,7 +39,7 @@ $columns = array(
   array( 'db' => 'email',          'dt' => 6 ),
   array( 'db' => 'edad',           'dt' => 7 ),
   array( 'db' => 'id_huesped',     'dt' => 8,
-    'formatter' => function( $d, $row ) { 
+    'formatter' => function( $d, $row ) {
       return '
       <nav class="navbar navbar-default" id="menuFicha" style="margin-bottom: 0px;min-height:0px;">
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:1px">
@@ -89,6 +89,18 @@ $columns = array(
                     href        ="#myModalDocumentos">
                   <i class="fa fa-clone" aria-hidden="true"></i>
                   Documentos</a>
+                </li>
+                <li>
+                  <a 
+                    data-id     ="'.$row["id_huesped"].'" 
+                    data-nombre ="'.$row["apellido1"].' '.$row["apellido2"].' '.$row["nombre1"].' '.$row["nombre2"].'"
+                    onclick="this.name,eliminaHuesped('.$row["id_huesped"].')"
+                    name="'.$row["id_huesped"].'"
+                    id="'.$row["id_huesped"].'"
+                    >
+                  <i class="fa fa-trash-o" aria-hidden="true"></i>
+
+                  Elimina Huesped</a>
                 </li>
               </ul>
             </li>

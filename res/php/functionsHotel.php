@@ -7,9 +7,46 @@ date_default_timezone_set('America/Bogota');
 class Hotel_Actions
 {
 
-    public function informeCamareria($fecha){
+    public function eliminaHuesped($id){
         global $database;
-        
+
+        $data = $database->delete('huespedes',[
+            "AND" => [
+                'id_huesped' => $id,
+            ] 
+        ]);
+        return $data->rowCount();
+    }
+    
+    public function estadisticasHuesped($id)
+    {
+        global $database;
+
+        $data = $database->query("SELECT
+                sum( estadia )  as ocupacion
+            FROM
+                (SELECT
+                    id_huesped,
+                    count( id ) AS estadia 
+                FROM
+                    reservas_pms 
+                WHERE
+                    id_huesped = $id UNION
+                SELECT
+                    id_huesped,
+                    count( id ) AS estadia 
+                FROM
+                    historico_reservas_pms 
+                WHERE
+                    id_huesped = $id 
+                ) AS a")->fetchAll(PDO::FETCH_ASSOC);
+        return $data[0]['ocupacion'];
+    }
+
+    public function informeCamareria($fecha)
+    {
+        global $database;
+
         $data = $database->query("SELECT
             habitaciones.numero_hab, 
             tipo_habitaciones.descripcion_habitacion, 
@@ -50,7 +87,7 @@ class Hotel_Actions
             habitaciones.numero_hab")->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     }
-    
+
     public function ingresaObservacionCam($numeroRes, $numeroHab, $fechaObs, $reportadoPor, $reporteObs, $usuario_id, $ocupada, $sucia)
     {
         global $database;

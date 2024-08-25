@@ -2210,6 +2210,81 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 });
 
+async function eliminaHuesped(e, huesped){
+  var button = document.getElementById(e);
+  let nombre = button.dataset.nombre
+  let id = button.dataset.id
+  let regis = await preguntaEliminaHuesped(nombre,id)
+  if(regis != 0){
+    swal({
+      title: "Atencion",
+      text:"El Huesped Tiene Estadisticas de Alojamiento, \n No es posible eliminar este Perfil",
+      type:"warning",
+    },
+    function(){
+
+    })
+    return false;
+  }
+
+  let elimina = await borraHuesped(id);
+  if(elimina=! 0){
+    swal({
+      title: "Atencion",
+      text: "Huesped Eliminado con Exito",
+      type: "warning",
+    },
+    function(){
+      $(location).attr("href", "huespedesPerfil");
+
+    })
+  }
+
+}
+
+async function borraHuesped(id){
+  req = {id}
+  try {
+    const res = await fetch("res/php/eliminaHuesped.php", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+      body: JSON.stringify(req),
+    });
+    const datos = await res.json();
+    return datos;
+  } catch (error) {
+    return error
+  }
+}
+
+async function preguntaEliminaHuesped(nombre,id){
+  return new Promise(resolve => {
+    swal({
+      title: `Huesped ${nombre}`,
+      text: "Este proceso Eliminara el Huesped Actual  \n No se podra recuperar la Informacion \n",
+      type: "warning",
+      showCancelButton: true,
+      cancelButtonText: "Cancelar",
+      confirmButtonText: "¡Adelante!",
+      closeOnConfirm: false },
+
+      async function(){
+        req = {id}
+        const resultado = await fetch("res/php/huespedActivo.php", {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+          body: JSON.stringify(req),
+        });
+        let dato = await resultado.json();
+        return resolve(dato);
+      });
+  })
+}
+
 async function guardaReportaObs(){
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user: { usuario_id } } = sesion;
@@ -2440,8 +2515,7 @@ const enviaJSONPpal = async (JSONPpal) => {
     urlTraAcompana == "" ||
     passwordTra == ""
   ) {
-    swal(
-      {
+    swal({
         title: "Precaucion",
         text: "Modulo de Envio de Tarjeta de Registro de Alojamiento – TRA - No Esta Configurado",
         type: "warning",
@@ -2672,8 +2746,7 @@ function actualizaMmto() {
       hasta,
     },
     success: function (data) {
-      swal(
-        {
+      swal({
           title: "Atencion",
           text: "Mantenimiento Actualizado con Exito",
           type: "success",
@@ -2687,8 +2760,7 @@ function actualizaMmto() {
 }
 
 function regresaCasa(reserva) {
-  swal(
-    {
+  swal({
       title: "Cuenta Congelada",
       text: "Desea Regresar a Casa la Presente Cuenta Congelada",
       type: "warning",
