@@ -22,7 +22,7 @@
     if($estadofo<>'FS' && $estadofo <>'FO'){
       $estadohk = 'S'.substr($estadohk,1,1);
       $estadofo = 'S'.substr($estadofo,1,1);
-      $estHabi = $hotel->cambiaEstadoHabitacion($habitacion['numero_hab'],$estadofo);
+      // $estHabi = $hotel->cambiaEstadoHabitacion($habitacion['numero_hab'],$estadofo);
     }
   }    
   $cambiaFecha  = $hotel->cambiaFechaAuditoria($fechanueva);
