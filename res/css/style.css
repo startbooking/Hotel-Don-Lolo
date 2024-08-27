@@ -30,13 +30,13 @@ body.is-loading * {
 }
 
 .sencilla {
-  height: 80px;
-  width: 80px;
+  height: 70px;
+  width: 70px;
 }
 
 .doble {
-  height: 80px;
-  width: 160px;
+  height: 70px;
+  width: 140px;
 }
 
 .pd20 {
@@ -111,6 +111,10 @@ h3 {
 
 .ml90{
   margin-left: 90px;
+}
+
+.ml110 {
+  margin-left: 110px;
 }
 
 .ml120{

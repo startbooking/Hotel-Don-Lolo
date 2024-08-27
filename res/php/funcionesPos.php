@@ -10,9 +10,9 @@
 
   function estadoFacturaAlert($estado){
     if($estado=='X'){
-      return '<span class="badge alert-danger">Anulada</span>';
+      return '<span class="badge alert alert-danger" style="margin-bottom:0px;">Anulada</span>';
     }else{
-      return '<span class="badge alert-success">Activa</span>';
+      return '<span class="badge alert alert-success" style="margin-bottom:0px;">Activa</span>';
     }
   }
 

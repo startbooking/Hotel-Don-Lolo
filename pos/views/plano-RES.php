@@ -5,24 +5,29 @@
           <div class="container-fluid">
             <button onclick="abreCuenta('03')" class="btn btn-success doble " id="boton03" name="boton12">M 03</button>
             <div class="cuadro t40 l250 sombraBlanca"></div>
-            <button onclick="abreCuenta('09')" class="btn btn-success sencilla ml120" id="boton09" name="boton13">M 09</button>
-            <button onclick="abreCuenta('10')" class="btn btn-success doble ml120" id="boton10" name="boton14">M 10</button>
+            <button onclick="abreCuenta('09')" class="btn btn-success sencilla ml150" id="boton09" name="boton13">M 09</button>
+            <button onclick="abreCuenta('10')" class="btn btn-success doble ml150" id="boton10" name="boton14">M 10</button>
             <div class="cuadro t40 r130 sombraBlanca"></div>
           </div>
           <div class="container-fluid mt40">
             <button onclick="abreCuenta('02')" class="btn btn-success sencilla" id="boton02" name="boton15">M 02</button>
-            <button onclick="abreCuenta('05')" class="btn btn-success sencilla ml90" id="boton05" name="boton16">M 05</button>
-            <button onclick="abreCuenta('08')" class="btn btn-success sencilla ml90" id="boton08" name="boton17">M 08</button>
-            <button onclick="abreCuenta('11')" class="btn btn-success sencilla ml90" id="boton11" name="boton12">M 11</button>
-            <button onclick="abreCuenta('14')" class="btn btn-success sencilla ml90" id="boton14" name="boton13">T 14</button>
+            <button onclick="abreCuenta('05')" class="btn btn-success sencilla ml110" id="boton05" name="boton16">M 05</button>
+            <button onclick="abreCuenta('08')" class="btn btn-success sencilla ml110" id="boton08" name="boton17">M 08</button>
+            <button onclick="abreCuenta('11')" class="btn btn-success sencilla ml110" id="boton11" name="boton12">M 11</button>
+            <button onclick="abreCuenta('14')" class="btn btn-success sencilla ml110" id="boton14" name="boton13">T 14</button>
           </div>
           <div class="container-fluid mt40">
             <button onclick="abreCuenta('01')" class="btn btn-success sencilla" id="boton01" name="boton14">M 01</button>
-            <button onclick="abreCuenta('06')" class="btn btn-success sencilla ml90" id="boton06" name="boton15">M 06</button>
+            <button onclick="abreCuenta('06')" class="btn btn-success sencilla ml120" id="boton06" name="boton15">M 06</button>
             <div class="cuadro l250 sombraBlanca"></div>
-            <button onclick="abreCuenta('07')" class="btn btn-success doble ml90" id="boton07" name="boton16">M 07</button>
+            <button onclick="abreCuenta('07')" class="btn btn-success doble ml110" id="boton07" name="boton16">M 07</button>
             <div class="cuadro r130 sombraBlanca"></div>
             <button onclick="abreCuenta('13')" class="btn btn-success sencilla ml180" id="boton13" name="boton17">M 13</button>
+            <div class="row-flui">
+              <div class="bordelinea"></div>
+              <div class="barra"></div>
+              <div class="puerta"></div>
+            </div>
           </div>
         </div>
     </div>

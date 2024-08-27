@@ -2007,12 +2007,8 @@ function facturasDia() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let {
-    pos,
-    user: { usuario, usuario_id, tipo },
-  } = sesion;
+  let {pos, user: { usuario, usuario_id, tipo },} = sesion;
   let { id_ambiente, nombre, prefijo } = oPos[0];
-  // let { tipo, usuario } = user;
 
   var parametros = {
     id_ambiente,
