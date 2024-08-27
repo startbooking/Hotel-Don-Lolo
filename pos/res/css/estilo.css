@@ -20,6 +20,12 @@
   background: #000;
 }
 
+.borde {
+  height: 460px;
+  width: 100%;
+  border: 1px solid #000;
+}
+
 .izquierda {
   text-align: left;
 }
@@ -370,7 +376,7 @@ form textarea {
 }
 
 .logoAmbiente{
-  width: 120px;
+  width: 90px;
   margin-top:5px;
   float: right;
 }

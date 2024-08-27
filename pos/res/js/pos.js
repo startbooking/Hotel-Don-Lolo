@@ -1384,11 +1384,13 @@ function abreCuenta(mesa) {
       $("#nromesas").attr("readonly", true);
       $("#nromesas").attr("disabled", true);
       let storageProd = localStorage.getItem("productoComanda");
+      let listaComanda
       if (storageProd == null) {
-        let listaComanda = [];
+        listaComanda = [];
       } else {
-        let listaComanda = JSON.parse(storageProd);
+        listaComanda = JSON.parse(storageProd);
       }
+      console.log(listaComanda);
       productosActivos();
       resumenComanda();
     },
@@ -2050,7 +2052,14 @@ function facturasDia() {
 
 function resumenComanda() {
   var storageProd = localStorage.getItem("productoComanda");
-  let listaComanda = JSON.parse(storageProd);
+
+  // let listaComanda = JSON.parse(storageProd);
+  let listaComanda ;
+  if (storageProd == null) {
+    listaComanda = [];
+  } else {
+    listaComanda = JSON.parse(storageProd);
+  }
 
   var impuesto = 0;
   var venta = 0;
@@ -3385,8 +3394,6 @@ function verfactura(fact) {
 function buscaFacturasFecha() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
-
-  // let { pos } = sesion;
   let { id_ambiente } = oPos[0];
 
   var fechafac = $("#buscarFecha").val();
@@ -5337,6 +5344,13 @@ function productosActivos() {
   numero = $("#numeroComanda").val();
   recuperar = $("#recuperarComanda").val();
   sesion = JSON.parse(localStorage.getItem("sesion"));
+  let storageProd = localStorage.getItem("productoComanda");
+  let listaComanda ;
+  if (storageProd == null) {
+    listaComanda = [];
+  } else {
+    listaComanda = JSON.parse(storageProd);
+  }
   let {
     user: { usuario, usuario_id, tipo },
   } = sesion;
@@ -5479,6 +5493,14 @@ function getVentas(nom, val, idp, imp, ambi) {
   descuento = 0;
   abonos = $("#abonosComanda").val();
   oPos = JSON.parse(localStorage.getItem("oPos"));
+  let storageProd = localStorage.getItem("productoComanda");
+  
+  let listaComanda ;
+  if (storageProd == null) {
+    listaComanda = [];
+  } else {
+    listaComanda = JSON.parse(storageProd);
+  }
 
   let { impuesto } = oPos[0];
   imptoInc = impuesto;

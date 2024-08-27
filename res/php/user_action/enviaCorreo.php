@@ -21,9 +21,7 @@ $subject  = htmlspecialchars($_POST['asunto']);
 $comments = htmlspecialchars($_POST['comments']);
 $idSoporte = $_POST['idSoporte'];
 
-if(get_magic_quotes_gpc()) {
-  $comments = stripslashes($comments);
-}
+$comments = stripslashes($comments);
 
 $envio = $user->adicionaSoporte($name, $email, $phone, $subject, $comments, $idSoporte, $ip);
 

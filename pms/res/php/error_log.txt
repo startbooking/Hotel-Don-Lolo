@@ -50,3 +50,7 @@ Stack trace:
 #3 /var/www/donlolo.lan/pms/res/php/imprimeFacturaDetallada.php(86): include_once('...')
 #4 {main}
   thrown in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 271
+[26-Aug-2024 11:52:00 America/Bogota] PHP Warning:  imagecreatefromjpeg(): gd-jpeg: JPEG library reports unrecoverable error: Not a JPEG file: starts with 0x89 0x50 in /var/www/donlolo.lan/pms/res/php/uploadCia.php on line 26
+[26-Aug-2024 11:52:00 America/Bogota] PHP Warning:  imagecreatefromjpeg(): &quot;/tmp/php43jQmP&quot; is not a valid JPEG file in /var/www/donlolo.lan/pms/res/php/uploadCia.php on line 26
+[26-Aug-2024 11:52:00 America/Bogota] PHP Warning:  imagecreatefromjpeg(): gd-jpeg: JPEG library reports unrecoverable error: Not a JPEG file: starts with 0x89 0x50 in /var/www/donlolo.lan/res/php/funciones.php on line 50
+[26-Aug-2024 11:52:00 America/Bogota] PHP Warning:  imagecreatefromjpeg(): &quot;/tmp/php43jQmP&quot; is not a valid JPEG file in /var/www/donlolo.lan/res/php/funciones.php on line 50
