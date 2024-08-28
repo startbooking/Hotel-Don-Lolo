@@ -167,8 +167,10 @@ require_once '../res/php/app_topHotel.php';
             require 'views/auditoria/facturasDelDiaAuditoria.php';
         } elseif (isset($_GET['section']) && $_GET['section'] == 'historicoFacturas') {
             require 'views/informes/facturasPorRango.php';
-        } elseif (isset($_GET['section']) && $_GET['section'] == 'informeRecibosCajaRango') {
+        } elseif (isset($_GET['section']) && $_GET['section'] == 'informeRecibosCajaPorRango') {
             require 'views/informes/recibosCajaPorRango.php';
+        } elseif (isset($_GET['section']) && $_GET['section'] == 'informeCargosPorRango') {
+            require 'views/informes/consumoCargosPorRango.php';
         } elseif (isset($_GET['section']) && $_GET['section'] == 'estadoCartera') {
             require 'views/informes/estadoCartera.php';
         } elseif (isset($_GET['section']) && $_GET['section'] == 'balanceCajeros') {

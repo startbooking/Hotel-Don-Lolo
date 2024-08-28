@@ -2210,6 +2210,36 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 });
 
+function consumosPorFecha() {
+  var web = $("#rutaweb").val();
+  desdeFe = $("#desdeFecha").val();
+  hastaFe = $("#hastaFecha").val();
+  codigo = $("#desdeFormaPago").val();
+  parametros = {
+    desdeFe,
+    hastaFe,
+    codigo,
+  };
+
+  if (
+    desdeFe == "" &&
+    hastaFe == "" &&
+    codigo == ""
+  ) {
+    swal("Atencion", "Seleccione un Criterio de Busqueda", "warning");
+  } else {
+    $.ajax({
+      url: web + "res/php/consumosPorRango.php",
+      type: "POST",
+      data: parametros,
+      success: function (x) {
+        $(".imprimeInforme").html(x);
+      },
+    });
+  }
+}
+
+
 async function eliminaHuesped(e, huesped){
   var button = document.getElementById(e);
   let nombre = button.dataset.nombre
@@ -6210,6 +6240,9 @@ function valorHabitacionAct(tarifa) {
 }
 
 function cambiaHabitacion() {
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { user: { usuario_id } } = sesion;
+  
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   $("input:radio:checked").each(function () {
@@ -6232,6 +6265,7 @@ function cambiaHabitacion() {
     motivo,
     observa,
     mmto,
+    usuario_id,
   };
 
   $.ajax({
@@ -7661,7 +7695,7 @@ async function habitacionesDisponibles(estado) {
     (numero_hab) => !habitacionMmto.includes(numero_hab)
   );
 
-  if(llega==fecha_auditoria){
+  if(llega <= fecha_auditoria){
     for (let sucia of suciasDia) {
       habitacionesDisp = habitacionesDisp.filter(
         (habitacion) => habitacion.numero_hab !== sucia.numero_hab
@@ -8579,15 +8613,7 @@ async function cambiaEstadoAseo(habi, ocupada, sucia, estado) {
     success: function () {
       $("#" + habi).removeClass(actual);
       $("#" + habi).addClass(color);
-      /* sucia == 1 ? $("#" + habi + " .fa-broom").removeClass("apaga") : $("#" + habi + " .fa-broom").addClass("apaga"); */
       sucia == 1 ? $('#'+habi).attr('category','sucias') : $('#'+habi).attr('category','limpias');
-      /* if (sucia == 1) {
-        $("#" + habi + " .fa-broom").removeClass("apaga");
-        $('#'+habi).attr('category','sucia')
-      } else {
-        $("#" + habi + " .fa-broom").addClass("apaga");
-        $('#'+habi).attr('category','limpia')
-      } */
     },
   });
 }

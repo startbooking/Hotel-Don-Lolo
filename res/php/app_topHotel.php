@@ -35,7 +35,7 @@ define('CITY_HOTEL', $datosHotel[0]['ciudad']);
 define('LAND_HOTEL', $datosHotel[0]['pais']);
 define('CTA_MASTER', $datosHotel[0]['codigo_cta_master']);
 define('DEMO', $datosHotel[0]['hoteldemo']);
-
+ 
 define('IVA_INCLUIDO', $empresa[0]['impto_incl']);
 define('NAME_EMPRESA', $empresa[0]['empresa']);
 define('NIT_EMPRESA', $empresa[0]['nit'] . '-' . $empresa[0]['dv']);

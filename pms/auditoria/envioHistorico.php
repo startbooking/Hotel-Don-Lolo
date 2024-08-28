@@ -12,8 +12,8 @@ $huespedcasa = $habhu - $habpm;
 $habitdis = $rooms;
 $regis = count($inghab);
 
-if ($regis == 0) {
-    $ingdia = 0;
+if ($regis == 0) { 
+    $ingdia = 0; 
     $ingimp = 0;
 } else {
     if ($inghab[0]['cargos'] == '') {
@@ -35,6 +35,8 @@ if ($huespedcasa == 0) {
 
 $canford = $hotel->getHabitacionsBloqueadas('FO');
 $canfser = $hotel->getHabitacionsBloqueadas('FS');
+
+$canMmto = count($hotel->traeTodasHabitacionesMmto());
 
 $cancamas = $hotel->getCamasDisponibles();
 $salidadia = $hotel->getSalidasHabitacionesDia(FECHA_PMS);
@@ -156,7 +158,7 @@ if (count($huespedes) == 0) {
     }
 }
 
-$audi = $hotel->insertDiaAuditoria($fecha, $ingdia, $ingimp, $ingpromhab, $ingpromocu, $habitdis, $ingpromhues, $canford, $canfser, $huespedcasa, $salidadia, $llegadasdia, $hom, $muj, $nin, $camas, $usuario, $idusuario, $ingcia, $ingage, $inggru, $ingind, $inghue, $repite, $nuevos, $nacionales, $internal, $resehoy, $noshow, $canceladas, $saleantes, $sinreserva, $llegaho, $llegamu, $llegani, $usodiaha, $usodiaho, $usodiamu, $usodiani, $conge);
+$audi = $hotel->insertDiaAuditoria($fecha, $ingdia, $ingimp, $ingpromhab, $ingpromocu, $habitdis, $ingpromhues, $canford, $canfser, $huespedcasa, $salidadia, $llegadasdia, $hom, $muj, $nin, $camas, $usuario, $idusuario, $ingcia, $ingage, $inggru, $ingind, $inghue, $repite, $nuevos, $nacionales, $internal, $resehoy, $noshow, $canceladas, $saleantes, $sinreserva, $llegaho, $llegamu, $llegani, $usodiaha, $usodiaho, $usodiamu, $usodiani, $conge, $canMmto);
 
 $cancelados = $hotel->enviaHistoricoCanceladas('CX');
 // $borracan   = $hotel->borraCanceladasHistorico('CX');

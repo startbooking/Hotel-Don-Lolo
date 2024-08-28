@@ -204,6 +204,7 @@ if ($_GET['section'] != 'cajeroCerrado') {
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeHuespedesAcompanantes','Huespedes con Acompañantes')"><i class="fa fa-users"></i>Huespedes con Acompañantes</a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeHuespedesSalidasHoy','Salidas del Dia')"><i class="fa fa-sign-out"></i>Salidas del Dia</a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeHuespedesPorSalir','Salidas Pendientes')"><i class="glyphicon glyphicon-download-alt"></i>Salidas Pendientes</a></li>
+                <li><a href="javascript:imprimeInformeAuditoria('imprimeHabitacionesTraslado','Traslado Habitaciones')"><i class="fa fa-balance-scale"></i>Traslado Habitaciones</a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeBalanceTotalHuesped','Balance Huespedes')"><i class="fa fa-balance-scale"></i>Balance Huespedes</a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeExtranjerosenCasa','Extranjeros en Casa')"><i class="fa fa-circle-o"></i>Extranjeros en Casa</a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeRegistrosHoteleros','Registros Hoteleros')"><i class="fa fa-circle-o"></i>Registros Hoteleros</a></li>
@@ -249,6 +250,7 @@ if ($_GET['section'] != 'cajeroCerrado') {
                 <li><a href="informeFacturasRango"><i class="fa fa-files-o"></i>Historico Facturas</a></li>
                 <li><a href="historicoNC"><i class="fa fa-circle-o"></i>Historico Notas Credito</a></li>
                 <li><a href="informeRecibosCajaRango"><i class="fa fa-files-o"></i>Historico Recibos de Caja</a></li>
+                <li><a href="informeCargosPorRango"><i class="fa fa-files-o"></i>Historico Cargos</a></li>
                 <li><a href="historicoAuditoria"><i class="fa fa-circle-o"></i>Historico Auditorias</a></li>
               </ul>
             </li>

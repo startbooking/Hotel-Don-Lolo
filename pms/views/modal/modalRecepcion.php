@@ -439,7 +439,7 @@
       </div>
     </div>
   </form>
-</div>
+</div> 
   
 <div class="modal fade" id="myModalModificaEstadia" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <form class="form-horizontal" id="formUpdateEstadia" action="javascript:updateEstadia()" method="POST">

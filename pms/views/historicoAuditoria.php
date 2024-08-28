@@ -13,7 +13,7 @@
               <input type="hidden" name="ubicacion" id="ubicacion" value="historicoAuditoria">
               <input type="hidden" name="pasos" id="pasos">
               <h3 class="w3ls_head tituloPagina"> <i class="fa fa-tachometer" style="font-size:36px;color:black" ></i> Historico Auditoria</h3>
-            </div> 
+            </div>
             <div class="datos_ajax_delete"></div>
             <form id="formCierreDiario" class="form-horizontal" action="javascript:buscaAuditoria()" method="POST" enctype="multipart/form-data">
               <div class="panel-body">

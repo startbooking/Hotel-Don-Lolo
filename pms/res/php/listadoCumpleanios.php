@@ -1,5 +1,5 @@
 <?php 
-	$file   = $_POST['file'];
+	// $file   = $_POST['file'];
 	$tipo   = $_POST['tipo'];
 
   require_once '../../../res/php/app_topHotel.php'; 

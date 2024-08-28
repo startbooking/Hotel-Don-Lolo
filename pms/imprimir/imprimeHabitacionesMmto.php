@@ -1,12 +1,12 @@
 <?php 
   require '../../res/php/titles.php';
   require '../../res/php/app_topHotel.php'; 
-  require 'plantillaFpdf.php';
+  require 'plantillaHK.php';
 
   $pdf = new PDF();
   $pdf->AddPage();
 
-  $habitaciones = $hotel->traeHabitacionesMmto();
+  $habitaciones = $hotel->traeTodasHabitacionesMmto();
 
   $pdf->SetFont('Arial','B',9);
   $pdf->Cell(195,5,strtoupper('Habitaciones en Mantenimiento'),0,1,'C');
@@ -25,7 +25,6 @@
     $pdf->Cell(90,4,($habitacion['descripcion_grupo']),0,0,'L');
     $pdf->Cell(30,4,$habitacion['desde_fecha'],0,0,'L');
     $pdf->Cell(30,4,$habitacion['hasta_fecha'],0,1,'L');
-
   }
   
   $pdfFile = $pdf->Output('', 'S');

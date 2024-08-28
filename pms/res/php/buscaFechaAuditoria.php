@@ -31,8 +31,8 @@
               <button class="btn btn-info btn-xs" type="button"><i class="fa fa-file-pdf-o" aria-hidden="true" onclick="verAuditoria('<?php echo $auditoria['reporte']?>')"></i></button>
             </td>
           </tr>
-          <?php 
-        }            
+          <?php
+        }
       }
       ?>
     </tbody>

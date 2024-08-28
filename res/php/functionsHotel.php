@@ -7,6 +7,53 @@ date_default_timezone_set('America/Bogota');
 class Hotel_Actions
 {
 
+    public function traeHabitacionesTraslado(){
+        global $database;
+
+        $data = $database->query("SELECT
+            traslado_habitaciones.hab_desde, 
+            traslado_habitaciones.hab_hasta, 
+            traslado_habitaciones.fecha, 
+            traslado_habitaciones.observaciones, 
+            desdetipo.descripcion_habitacion AS desdetipo, 
+            destinotipo.descripcion_habitacion AS destinotipo, 
+            huespedes.nombre_completo, 
+            usuarios.usuario, 
+            motivo_cancelacion.descripcion_motivo
+        FROM
+            traslado_habitaciones
+            INNER JOIN
+            tipo_habitaciones AS desdetipo
+            ON 
+                traslado_habitaciones.tipo_desde = desdetipo.id
+            INNER JOIN
+            tipo_habitaciones AS destinotipo
+            ON 
+                traslado_habitaciones.tipo_hasta = destinotipo.id
+            INNER JOIN
+            reservas_pms
+            ON 
+                traslado_habitaciones.id_reserva = reservas_pms.num_reserva
+            INNER JOIN
+            huespedes
+            ON 
+                reservas_pms.id_huesped = huespedes.id_huesped
+            INNER JOIN
+            usuarios
+            ON 
+                traslado_habitaciones.id_usuario = usuarios.usuario_id
+            INNER JOIN
+            motivo_cancelacion
+            ON 
+                traslado_habitaciones.motivo_cambio = motivo_cancelacion.id_cancela
+        WHERE
+            reservas_pms.tipo_habitacion <> 1
+        ORDER BY
+            traslado_habitaciones.hab_desde ASC")->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
+
+    }
+    
     public function eliminaHuesped($id){
         global $database;
 
@@ -222,7 +269,6 @@ class Hotel_Actions
         return $data;
     }
 
-
     public function reservasPorMotivo($query)
     {
         global $database;
@@ -294,6 +340,27 @@ class Hotel_Actions
         ]);
         return $data;
     }
+
+    public function traeTodasHabitacionesMmto()
+    {
+        global $database;
+
+        $data = $database->select('mantenimiento_habitaciones', [
+            '[>]habitaciones' => ['id_habitacion' => 'id'],
+            '[>]grupos_cajas' => ['id_mantenimiento' => 'id_grupo'],
+
+        ], [
+            'grupos_cajas.descripcion_grupo',
+            'habitaciones.numero_hab',
+            'mantenimiento_habitaciones.desde_fecha',
+            'mantenimiento_habitaciones.hasta_fecha',
+        ], [
+            'mantenimiento_habitaciones.estado_mmto' => 1,
+        ]);
+
+        return $data;
+    }
+
 
     public function traeHabitacionesMmto($tipo)
     {
@@ -4351,7 +4418,7 @@ class Hotel_Actions
         return $data;
     }
 
-    public function insertDiaAuditoria($fecha, $cargo, $impto, $promhab, $promocu, $habi, $promhues, $fo, $fs, $huesp, $salidas, $llegadas, $hom, $muj, $nin, $camas, $usuario, $idusuario, $ingcia, $ingage, $inggru, $ingind, $inghue, $repite, $nuevos, $nales, $inter, $resehoy, $noshow, $canceladas, $saleantes, $sinreserva, $llegaho, $llegamu, $llegani, $usodiaha, $usodiaho, $usodiamu, $usodiani, $conge)
+    public function insertDiaAuditoria($fecha, $cargo, $impto, $promhab, $promocu, $habi, $promhues, $fo, $fs, $huesp, $salidas, $llegadas, $hom, $muj, $nin, $camas, $usuario, $idusuario, $ingcia, $ingage, $inggru, $ingind, $inghue, $repite, $nuevos, $nales, $inter, $resehoy, $noshow, $canceladas, $saleantes, $sinreserva, $llegaho, $llegamu, $llegani, $usodiaha, $usodiaho, $usodiamu, $usodiani, $conge, $canmmto)
     {
         global $database;
 
@@ -4395,6 +4462,7 @@ class Hotel_Actions
             'usodia_mujeres' => $usodiamu,
             'usodia_ninos' => $usodiani,
             'cuentas_congeladas' => $conge,
+            'habitaciones_mmto' => $canmmto,
             'fecha_proceso_auditoria' => date('Y-m-d H:i:s'),
         ]);
 
@@ -4405,7 +4473,18 @@ class Hotel_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT Sum(habitaciones.camas) as camas FROM habitaciones WHERE (habitaciones.tipo_hab <> 'CMA' AND habitaciones.estado_fo <> 'FS' AND habitaciones.active_at = 1) OR (habitaciones.estado_fo <> 'FO' AND habitaciones.tipo_hab <> 'CMA' AND habitaciones.active_at = 1)")->fetchAll();
+        $data = $database->query("SELECT
+            sum(habitaciones.camas) as camas
+        FROM
+            habitaciones
+            INNER JOIN
+            tipo_habitaciones
+            ON 
+                habitaciones.id_tipohabitacion = tipo_habitaciones.id
+        WHERE
+            habitaciones.mantenimiento = 0 AND 
+            habitaciones.active_at = 1 AND 
+            tipo_habitaciones.tipo_habitacion = 1")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -5820,7 +5899,7 @@ class Hotel_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT huespedes.identificacion, huespedes.apellido1, huespedes.apellido2, huespedes.nombre1, huespedes.nombre2, huespedes.direccion, huespedes.email, huespedes.pais, huespedes.tipo_identifica, huespedes.sexo, reservas_pms.fecha_llegada, reservas_pms.fecha_salida, reservas_pms.dias_reservados, reservas_pms.num_habitacion, reservas_pms.tarifa, reservas_pms.tipo_habitacion, reservas_pms.can_hombres, reservas_pms.can_mujeres, reservas_pms.can_ninos, reservas_pms.valor_diario FROM huespedes, reservas_pms WHERE huespedes.id_huesped = reservas_pms.id_huesped AND reservas_pms.estado = '$estado' AND reservas_pms.fecha_llegada = '$fecha' AND huespedes.pais <> '$pais'")->fetchAll();
+        $data = $database->query("SELECT huespedes.identificacion, huespedes.apellido1, huespedes.apellido2, huespedes.nombre1, huespedes.nombre2, huespedes.direccion, huespedes.email, huespedes.pais, huespedes.tipo_identifica, huespedes.sexo, reservas_pms.fecha_llegada, reservas_pms.fecha_salida, reservas_pms.dias_reservados, reservas_pms.num_habitacion, reservas_pms.tarifa, reservas_pms.tipo_habitacion, reservas_pms.can_hombres, reservas_pms.can_mujeres, reservas_pms.can_ninos, reservas_pms.valor_diario FROM huespedes, reservas_pms WHERE huespedes.id_huesped = reservas_pms.id_huesped AND reservas_pms.estado = '$estado' AND reservas_pms.fecha_llegada = '$fecha' AND huespedes.pais <> '$pais'")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -5830,7 +5909,7 @@ class Hotel_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT huespedes.identificacion, huespedes.apellido1, huespedes.apellido2, huespedes.nombre1, huespedes.nombre2, huespedes.direccion, huespedes.email, huespedes.pais, huespedes.tipo_identifica, huespedes.sexo, reservas_pms.fecha_llegada, reservas_pms.fecha_salida, reservas_pms.dias_reservados, reservas_pms.num_habitacion, reservas_pms.tarifa, reservas_pms.tipo_habitacion, reservas_pms.can_hombres, reservas_pms.can_mujeres, reservas_pms.can_ninos, reservas_pms.valor_diario FROM huespedes, reservas_pms WHERE huespedes.id_huesped = reservas_pms.id_huesped AND reservas_pms.estado = 'CA' AND reservas_pms.fecha_llegada = '$fecha' AND huespedes.pais <> '$pais'")->fetchAll();
+        $data = $database->query("SELECT huespedes.identificacion, huespedes.apellido1, huespedes.apellido2, huespedes.nombre1, huespedes.nombre2, huespedes.direccion, huespedes.email, huespedes.pais, huespedes.tipo_identifica, huespedes.sexo, reservas_pms.fecha_llegada, reservas_pms.fecha_salida, reservas_pms.dias_reservados, reservas_pms.num_habitacion, reservas_pms.tarifa, reservas_pms.tipo_habitacion, reservas_pms.can_hombres, reservas_pms.can_mujeres, reservas_pms.can_ninos, reservas_pms.valor_diario FROM huespedes, reservas_pms WHERE huespedes.id_huesped = reservas_pms.id_huesped AND reservas_pms.estado = 'CA' AND reservas_pms.fecha_llegada = '$fecha' AND huespedes.pais <> '$pais'")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -6184,7 +6263,7 @@ class Hotel_Actions
         return $data->rowCount();
     }
 
-    public function insertCambioHabitaciones($id, $tipoact, $habiact, $tiponue, $habinue, $mmto, $motivo, $observa, $fecha, $tipo)
+    public function insertCambioHabitaciones($id, $tipoact, $habiact, $tiponue, $habinue, $mmto, $motivo, $observa, $fecha, $tipo, $idUsuario)
     {
         global $database;
 
@@ -6194,10 +6273,11 @@ class Hotel_Actions
             'hab_desde' => $habiact,
             'hab_hasta' => $habinue,
             'fecha' => $fecha,
-            'id_reserva' => $id,
+            'id_reserva' => $id, 
             'motivo_cambio' => $motivo,
             'observaciones' => $observa,
             'tipo_traslado' => $tipo,
+            'id_usuario' => $idUsuario,
         ]);
 
         return $database->id();
@@ -8484,8 +8564,8 @@ ORDER BY
         $data = $database->count('reservas_pms', [
             'id',
         ], [
-            'tipo_reserva' => 2,
             'estado' => 'CA',
+            'tipo_habitacion[<>]' => $ctamaster,
         ]);
 
         return $data;
@@ -8498,7 +8578,6 @@ ORDER BY
         $data = $database->count('reservas_pms', [
             'id',
         ], [
-            'tipo_reserva' => 2,
             'estado' => 'CA',
             'tipo_habitacion' => $ctamaster,
         ]);
