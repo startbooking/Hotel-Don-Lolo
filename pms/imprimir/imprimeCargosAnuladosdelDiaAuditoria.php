@@ -16,7 +16,6 @@ $pdf->Cell(10, 5, 'Cant. ', 1, 0, 'C');
 $pdf->Cell(25, 5, 'Monto', 1, 0, 'C');
 $pdf->Cell(25, 5, 'Impuesto', 1, 0, 'C');
 $pdf->Cell(25, 5, 'Total', 1, 0, 'C');
-/* $pdf->Cell(30,6,'Referencia',0,0,'L');*/
 $pdf->Cell(40, 5, 'Motivo Anulacion', 1, 0, 'C');
 $pdf->Cell(20, 5, 'Usuario', 1, 0, 'C');
 $pdf->Cell(10, 5, 'Hora', 1, 1, 'C');

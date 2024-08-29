@@ -8487,8 +8487,7 @@ function fechaReservasStr() {
 
 function guardaMantenimiento() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario, usuario_id } = user;
+  let { user: { usuario, usuario_id } } = sesion;
 
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
@@ -8585,7 +8584,7 @@ function guardaObjeto() {
 
 async function cambiaEstadoAseo(habi, ocupada, sucia, estado) {
 
-  console.log({habi, ocupada, sucia, estado});
+  // console.log({habi, ocupada, sucia, estado});
 
   if(estado==0){
     actual = 'bg-limpia';
@@ -8601,8 +8600,6 @@ async function cambiaEstadoAseo(habi, ocupada, sucia, estado) {
     categ = 'sucias';
   }
 
-  console.log({color, actual})
-  
   $.ajax({
     url: "res/php/cambiaEstadoAseoHabitacion.php",
     type: "POST",

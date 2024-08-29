@@ -14,7 +14,7 @@ try {
     'charset' => 'utf8',
     'error' => PDO::ERRMODE_WARNING,
   	'option' => [
-	  	PDO::ATTR_CASE => PDO::CASE_NATURAL
+	  	PDO::ATTR_CASE => PDO::FETCH_ASSOC
 	  ],
   ]);
 } catch (PDOException $e) {

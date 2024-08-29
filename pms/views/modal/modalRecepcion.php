@@ -159,7 +159,7 @@
             </button> 
             <h3 class="modal-title" id="exampleModalLabel">Cambiar Habitacion</h3>
             <div id="mensaje"></div>
-          </div>
+          </div> 
           <div class="modal-body modalReservas" id="cambiaHabitacion">
           </div>
           <div class="modal-footer" style="text-align: center">
