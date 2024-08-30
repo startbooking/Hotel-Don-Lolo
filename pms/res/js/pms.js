@@ -136,27 +136,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     reserva = button.data("reserva");
     sucia = button.data("sucia");
     ocupada = button.data("ocupada");
-    console.log({ocupada, sucia})
     document.querySelector('#numeroHab').value = numero;
     document.querySelector('#numeroRes').value = reserva;
     document.querySelector('#ocupada').value = ocupada;
     document.querySelector('#sucia').value = sucia;
-    // console.log(document.querySelector("#myModalObservaciones .modal-title"));
     titulo = document.querySelector("#myModalObservaciones .modal-title");
-    // console.log(titulo);
     if(ocupada==1){
-      console.log('Paso 1');
       titulo.innerHTML = 'Ingresa Observaciones a la Estadia'
     }else{
       if(sucia==0){
-        console.log('Paso 2');
         titulo.innerHTML = 'Envia A Estado Sucia la Habitacion'
       }else{
-        console.log('Paso 3');
         titulo.innerHTML = 'Limpiar Habitacion'
       }
     }
     let camareras = await traeCamareras();
+    console.log(camareras);
     let limpia = await limpiaCamareras();
     let seleCama = await llenaSelectCamareras(camareras);
 

@@ -978,3 +978,11 @@ Stack trace:
 Stack trace:
 #0 {main}
   thrown in /var/www/donlolo.lan/pms/auditoria/envioHistorico.php on line 47
+[30-Aug-2024 01:55:05 UTC] PHP Fatal error:  Uncaught Error: Undefined constant "FECHA_PMS" in /var/www/donlolo.lan/pms/auditoria/envioHistorico.php:3
+Stack trace:
+#0 {main}
+  thrown in /var/www/donlolo.lan/pms/auditoria/envioHistorico.php on line 3
+[30-Aug-2024 01:55:56 UTC] PHP Fatal error:  Uncaught Error: Undefined constant "FECHA_PMS" in /var/www/donlolo.lan/pms/auditoria/envioHistorico.php:3
+Stack trace:
+#0 {main}
+  thrown in /var/www/donlolo.lan/pms/auditoria/envioHistorico.php on line 3
