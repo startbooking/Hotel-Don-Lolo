@@ -1,19 +1,82 @@
 <?php
-// include_once '../../res/php/app_topHotel.php';
+include_once '../../res/php/app_topHotel.php';
+$usuario ='BARAHONA';
+$idusuario = 2;
+
 $fecha = FECHA_PMS;
 
-$inghab = $hotel->getIngresoDiarioGrupo($fecha, 'HA'); // 
-$ocupad = $hotel->habitacionesOcupadas();
-$habhot = $hotel->habitacionesHotel();
-$estaHab = $hotel->estadoHabitacionesHotel();
+echo $fecha;
 
-$habocu = $ocupad[0]['rooms'];
-$ctaocu = $ocupad[0]['ctas'];
-$conocu = $ocupad[0]['congela'];
+$habhot = $hotel->habitacionesHotel(); // Total Habitaciones del Hotel 
+// $habocup = $hotel->habitacionesOcupadas(); // Habitaciones Ocupadas
+$estaHab = $hotel->estadoHabitacionesHotel(); //Habitaciones Disponibles 
+$ocupaci = $hotel->ocupacionHotel($fecha);
+$inghab = $hotel->getIngresoDiarioGrupo($fecha, 'HA'); // Ingreso Diario Alojamiento
 
-echo print_r($estaHab);
+$habocu = $ocupaci[0]['encasa'];
+$ctaocu = $ocupaci[0]['ctamaster'];
+$conocu = $ocupaci[0]['congela'];
+
+$huecas = $ocupaci[0]['huecas'];
+$mujcas = $ocupaci[0]['mujcas'];
+$homcas = $ocupaci[0]['homcas'];
+$nincas = $ocupaci[0]['nincas'];
+
+$habtot = $habhot[0]['nrohab'];
+$habdis = $estaHab[0]['dispo'];
+$habmmt = $estaHab[0]['mmto'];
+$camadi = $estaHab[0]['camas'];
+
+$carhab = $inghab[0]['cargos'];
+$ingimp = $inghab[0]['impto'];
+$ingtot = $inghab[0]['total'];
+
+$ingprodis = $carhab / $habdis;
+$ingproocu = $carhab / $habocu;
+$ingprohue = $carhab / $huecas;
+
+echo print_r($ocupaci);
+
+$llegadas = $ocupaci[0]['llegadas'];
+$homlle = $ocupaci[0]['homlle'];
+$mujlle = $ocupaci[0]['mujlle'];
+$ninlle = $ocupaci[0]['ninlle'];
+
+$salidas = $ocupaci[0]['salidas'];
+$mujsal = $ocupaci[0]['mujsal'];
+$homsal = $ocupaci[0]['homsal'];
+$ninsal = $ocupaci[0]['ninsal'];
+
+$cancela = $ocupaci[0]['cancela'];
+$mujcan = $ocupaci[0]['mujcan'];
+$homcan = $ocupaci[0]['homcan'];
+$nincan = $ocupaci[0]['nincan'];
+
+$noshow = $ocupaci[0]['noshow'];
+$mujnsh = $ocupaci[0]['mujnsh'];
+$homnsh = $ocupaci[0]['homnsh'];
+$ninnsh = $ocupaci[0]['ninnsh'];
+
+$creadashoy = $ocupaci[0]['creadashoy'];
+$mujhoy = $ocupaci[0]['mujhoy'];
+$homhoy = $ocupaci[0]['homhoy'];
+$ninhoy = $ocupaci[0]['ninhoy'];
+
+$saleantes = $ocupaci[0]['saleantes'];
+$mujant = $ocupaci[0]['mujant'];
+$homant = $ocupaci[0]['homant'];
+$ninant = $ocupaci[0]['ninant'];
+
+$sinreserva = $ocupaci[0]['sinreserva'];
+$mujsin = $ocupaci[0]['mujsin'];
+$homsin = $ocupaci[0]['homsin'];
+$ninsin = $ocupaci[0]['ninsin'];
+
+echo print_r($inghab);
+echo print_r($ocupaci);
 
 
+$audi = $hotel->insertDiaAuditoria($fecha, $carhab, $ingimp, $ingprodis, $ingproocu, $habdis, $ingprohue, $habocu, $salidas, $llegadas, $homcas, $mujcas, $nincas, $camadi, $usuario, $idusuario, $ingcia, $ingage, $inggru, $ingind, $inghue, $repite, $nuevos, $nacionales, $internal, $creadashoy, $noshow, $cancela, $saleantes, $sinreserva, $homlle, $mujlle, $ninlle, $usodiaha, $usodiaho, $usodiamu, $usodiani, $conocu, $habmmt, $homsal, $mujsal, $ninsal);
 
 
 /* $habhu = $hotel->getCountHuespedesenCasa(CTA_MASTER, FECHA_PMS);
@@ -24,8 +87,8 @@ $conge = $hotel->getCuentasCongeladas();
 /* $rooms = count($hotel->cantidadHabitaciones(1));
 $pm = count($hotel->cantidadHabitaciones(5)); */
 
-$huespedcasa = $habhu - $habpm;
-$habitdis = $rooms;
+/* $huespedcasa = $habhu - $habpm;
+$habitdis = $rooms; */
 // $regis = count($inghab);
 
 /* if ($regis == 0) { 
@@ -40,23 +103,24 @@ $habitdis = $rooms;
 /*     }
 }
  */
-    $ingdia = $inghab[0]['cargos'];
+    /* $ingdia = $inghab[0]['cargos'];
     $ingimp = $inghab[0]['impto'];
-    $ingpromhab = round($ingdia / $habitdis, 2);
+    $ingpro = round($ingdia / $habitdis, 2); */
 
-if ($huespedcasa == 0) {
+/* if ($huespedcasa == 0) {
     $ingpromocu = 0;
 } else {
     $ingpromocu = round($ingdia / $huespedcasa, 2);
-}
+} */
 
 /* $canford = $hotel->getHabitacionsBloqueadas('FO');
 $canfser = $hotel->getHabitacionsBloqueadas('FS'); */
 
-$canMmto = count($hotel->traeTodasHabitacionesMmto());
+// $canMmto = count($hotel->traeTodasHabitacionesMmto());
 
-$cancamas = $hotel->getCamasDisponibles();
-$salidadia = $hotel->getSalidasHabitacionesDia(FECHA_PMS);
+// $cancamas = $hotel->getCamasDisponibles();
+
+/* $salidadia = $hotel->getSalidasHabitacionesDia(FECHA_PMS);
 $salidaspm = $hotel->getSalidaspmDia(FECHA_PMS);
 $salen = $hotel->getTotalHuespedeseSaliendo();
 
@@ -64,10 +128,10 @@ $llegadasdia = $hotel->getLlegadasHabitacionesDia(FECHA_PMS);
 $llegadaspm = $hotel->getLlegadaspmDia(FECHA_PMS);
 $llegan = $hotel->getTotalHuespedeseLlegando();
 $huespedes = $hotel->getHuespedesenCasaCierre(CTA_MASTER);
-$ingresocia = $hotel->getIngresoCia(FECHA_PMS);
+$ingresocia = $hotel->getIngresoCia(FECHA_PMS); */
 // $ingresoage  = $hotel->getIngresoAgencia(FECHA_PMS);
 
-$ingresogru = $hotel->getIngresoGrupo(FECHA_PMS);
+/* $ingresogru = $hotel->getIngresoGrupo(FECHA_PMS);
 $ingresoind = $hotel->getIngresoIndividual(FECHA_PMS);
 $ingresohue = $hotel->getIngresoHuesped(FECHA_PMS);
 $repetidos = $hotel->getHuespedesRepetitivos();
@@ -87,7 +151,7 @@ $canceladashoy = $hotel->getHuespedesenSalida(1, 'CX');
 $canceladas = count($canceladashoy);
 
 $saleantes = $hotel->getSalidasAntes(FECHA_PMS);
-$sinreserva = $hotel->getLlegadasSinReserva(FECHA_PMS);
+$sinreserva = $hotel->getLlegadasSinReserva(FECHA_PMS); */
 
 $repite = count($repetidos);
 $nuevos = $huespedcasa - $repite;
@@ -175,23 +239,23 @@ if (count($huespedes) == 0) {
     }
 }
 
-$audi = $hotel->insertDiaAuditoria($fecha, $ingdia, $ingimp, $ingpromhab, $ingpromocu, $habitdis, $ingpromhues, $huespedcasa, $salidadia, $llegadasdia, $hom, $muj, $nin, $camas, $usuario, $idusuario, $ingcia, $ingage, $inggru, $ingind, $inghue, $repite, $nuevos, $nacionales, $internal, $resehoy, $noshow, $canceladas, $saleantes, $sinreserva, $llegaho, $llegamu, $llegani, $usodiaha, $usodiaho, $usodiamu, $usodiani, $conge, $canMmto);
+// $audi = $hotel->insertDiaAuditoria($fecha, $ingdia, $ingimp, $ingpromhab, $ingpromocu, $habitdis, $ingpromhues, $huespedcasa, $salidadia, $llegadasdia, $hom, $muj, $nin, $camas, $usuario, $idusuario, $ingcia, $ingage, $inggru, $ingind, $inghue, $repite, $nuevos, $nacionales, $internal, $resehoy, $noshow, $canceladas, $saleantes, $sinreserva, $llegaho, $llegamu, $llegani, $usodiaha, $usodiaho, $usodiamu, $usodiani, $conge, $canMmto);
 
-$cancelados = $hotel->enviaHistoricoCanceladas('CX');
+/* $cancelados = $hotel->enviaHistoricoCanceladas('CX');
 // $borracan   = $hotel->borraCanceladasHistorico('CX');
 
 $salidasfac = $hotel->getSalidasDia(FECHA_PMS, 2, 'SA');
 // $ctascongel = $hotel->getSalidasDia(FECHA_PMS,2,'CO');
-    //
+    // */
 
-$pasacargos = $hotel->enviaHistoricoCargos();
+/* $pasacargos = $hotel->enviaHistoricoCargos();
 sleep(2);
 $borracargo = $hotel->borraHistoricoCargos();
 sleep(2);
 $pasaFE = $hotel->enviaHistoricoFE();
 sleep(2);
 $borraFE = $hotel->borraHistoricoFE();
-sleep(2);
+sleep(2); */
 /*
     foreach ($salidasfac as $salidafac) {
         /// echo $salidafac['num_reserva'];
@@ -211,7 +275,7 @@ if(count($ctascongel)<> 0){
 }
 */
 
-$envEspera = $hotel->enviaHistoricoEstadias($fecha, 'ES');
+/* $envEspera = $hotel->enviaHistoricoEstadias($fecha, 'ES');
 sleep(2);
 
 $envnoShow = $hotel->cambiaNoShow($fecha, 'ES');
@@ -219,7 +283,7 @@ sleep(2);
 $envSalida = $hotel->enviaHistoricoSalidas($fecha, 'SA');
 sleep(2);
 $envCancel = $hotel->enviaHistoricoSalidas($fecha, 'CX');
-sleep(2);
+sleep(2); */
 
 /*
 $borraesp   = $hotel->borraEnviadasaHistorico($fecha,'ES');
