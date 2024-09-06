@@ -6321,7 +6321,7 @@ function updateReserva() {
     data: parametros,
     url: "res/php/updateReserva.php",
     success: function (datos) {
-      $(location).attr("href", "reservasActivas");
+      // $(location).attr("href", "reservasActivas");
     },
   });
 }

@@ -3847,6 +3847,7 @@ class Hotel_Actions
             'historico_reservas_pms.cargo_habitacion',
             'historico_reservas_pms.causar_impuesto',
             'historico_reservas_pms.forma_pago',
+            'historico_reservas_pms.reservaCreada',
         ], [
             'num_reserva' => $id,
         ]);
