@@ -47,6 +47,6 @@ $pdf->Cell(25, 4, number_format($monto, 2), 0, 0, 'R');
 $pdf->Cell(25, 4, number_format($impto, 2), 0, 0, 'R');
 $pdf->Cell(25, 4, number_format($total, 2), 0, 1, 'R');
 $pdf->Ln(3);
-
+ 
 $file = '../../imprimir/auditorias/cargosAnuladosDelDia_'.FECHA_PMS.'.pdf';
 $pdf->Output($file,'F');

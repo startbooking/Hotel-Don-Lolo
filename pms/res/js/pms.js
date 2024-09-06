@@ -151,7 +151,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     }
     let camareras = await traeCamareras();
-    console.log(camareras);
     let limpia = await limpiaCamareras();
     let seleCama = await llenaSelectCamareras(camareras);
 

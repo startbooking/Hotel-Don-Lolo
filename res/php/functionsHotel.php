@@ -7,154 +7,315 @@ date_default_timezone_set('America/Bogota');
 class Hotel_Actions
 {
 
-    public function ocupacionHotel($fecha){
+    public function estadoHuespedesHotel(){
         global $database;
 
         $data = $database->query("SELECT
             a.*,
+            a.huecas - b.repetidos AS nuehues,
             b.*,
             c.*,
-            d.*,
-            e.*,
-            f.*,
-            g.*,
-            h.*,
-            i.*,
-            j.*
+            d.* 
         FROM
             (
             SELECT COALESCE
-                ( COUNT( reservas_pms.id ), 0 ) AS salidas,
-                COALESCE ( sum( reservas_pms.can_hombres ), 0 ) AS homsal,
-                COALESCE ( sum( reservas_pms.can_mujeres ), 0 ) AS mujsal,
-                COALESCE ( sum( reservas_pms.can_ninos ), 0 ) AS ninsal 
-            FROM
-                reservas_pms
-                INNER JOIN tipo_habitaciones ON reservas_pms.tipo_habitacion = tipo_habitaciones.id 
-            WHERE
-                reservas_pms.salida_checkout = '$fecha' 
-                AND estado = 'SA' 
-                AND tipo_habitaciones.tipo_habitacion = 1 
-            ) AS a,
-            (
-            SELECT COALESCE
-                ( COUNT( reservas_pms.id ), 0 ) AS llegadas,
-                COALESCE ( sum( reservas_pms.can_hombres ), 0 ) AS homlle,
-                COALESCE ( sum( reservas_pms.can_mujeres ), 0 ) AS mujlle,
-                COALESCE ( sum( reservas_pms.can_ninos ), 0 ) AS ninlle 
-            FROM
-                reservas_pms
-                INNER JOIN tipo_habitaciones ON reservas_pms.tipo_habitacion = tipo_habitaciones.id 
-            WHERE
-                reservas_pms.fecha_llegada = '$fecha' 
-                AND estado = 'CA' 
-                AND tipo_habitaciones.tipo_habitacion = 1 
-            ) AS b,
-            (
-            SELECT COALESCE
-                ( COUNT( reservas_pms.id ), 0 ) AS cancela,
-                COALESCE ( sum( reservas_pms.can_hombres ), 0 ) AS homcan,
-                COALESCE ( sum( reservas_pms.can_mujeres ), 0 ) AS mujcan,
-                COALESCE ( sum( reservas_pms.can_ninos ), 0 ) AS nincan 
-            FROM
-                reservas_pms
-                INNER JOIN tipo_habitaciones ON reservas_pms.tipo_habitacion = tipo_habitaciones.id 
-            WHERE
-                reservas_pms.fecha_llegada = '$fecha' 
-                AND estado = 'CX' 
-                AND tipo_habitaciones.tipo_habitacion = 1 
-            ) AS c,
-            (
-            SELECT COALESCE
-                ( COUNT( reservas_pms.id ), 0 ) AS noshow,
-                COALESCE ( sum( reservas_pms.can_hombres ), 0 ) AS homnsh,
-                COALESCE ( sum( reservas_pms.can_mujeres ), 0 ) AS mujnsh,
-                COALESCE ( sum( reservas_pms.can_ninos ), 0 ) AS ninnsh 
-            FROM
-                reservas_pms
-                INNER JOIN tipo_habitaciones ON reservas_pms.tipo_habitacion = tipo_habitaciones.id 
-            WHERE
-                reservas_pms.fecha_llegada = '$fecha' 
-                AND estado = 'NS' 
-                AND tipo_habitaciones.tipo_habitacion = 1 
-            ) AS d,
-            (
-            SELECT COALESCE
-                ( COUNT( reservas_pms.id ), 0 ) AS creadashoy,
-                COALESCE ( sum( reservas_pms.can_hombres ), 0 ) AS homhoy,
-                COALESCE ( sum( reservas_pms.can_mujeres ), 0 ) AS mujhoy,
-                COALESCE ( sum( reservas_pms.can_ninos ), 0 ) AS ninhoy 
-            FROM
-                reservas_pms
-                INNER JOIN tipo_habitaciones ON reservas_pms.tipo_habitacion = tipo_habitaciones.id 
-            WHERE
-                reservas_pms.fecha_reserva = '$fecha' 
-                AND estado = 'ES' 
-                AND tipo_habitaciones.tipo_habitacion = 1 
-            ) AS e,
-            (
-            SELECT COALESCE
-                ( COUNT( reservas_pms.id ), 0 ) AS saleantes,
-                COALESCE ( sum( reservas_pms.can_hombres ), 0 ) AS homant,
-                COALESCE ( sum( reservas_pms.can_mujeres ), 0 ) AS mujant,
-                COALESCE ( sum( reservas_pms.can_ninos ), 0 ) AS ninant 
-            FROM
-                reservas_pms
-                INNER JOIN tipo_habitaciones ON reservas_pms.tipo_habitacion = tipo_habitaciones.id 
-            WHERE
-                reservas_pms.fecha_salida <> salida_checkout 
-                AND estado = 'SA' 
-                AND tipo_habitaciones.tipo_habitacion = 1 
-            ) AS f,
-            (
-            SELECT COALESCE
-                ( COUNT( reservas_pms.id ), 0 ) AS sinreserva,
-                COALESCE ( sum( reservas_pms.can_hombres ), 0 ) AS homsin,
-                COALESCE ( sum( reservas_pms.can_mujeres ), 0 ) AS mujsin,
-                COALESCE ( sum( reservas_pms.can_ninos ), 0 ) AS ninsin 
-            FROM
-                reservas_pms
-                INNER JOIN tipo_habitaciones ON reservas_pms.tipo_habitacion = tipo_habitaciones.id 
-            WHERE
-                reservas_pms.fecha_llegada = '$fecha' 
-                AND estado = 'CA' 
-                AND sinreserva = 1 
-                AND tipo_habitaciones.tipo_habitacion = 1 
-            ) AS g,
-            (
-            SELECT COALESCE
-                ( COUNT( reservas_pms.id ), 0 ) AS encasa,
-                COALESCE ( sum( reservas_pms.can_hombres + reservas_pms.can_mujeres + reservas_pms.can_ninos ), 0 ) AS huecas,
-                COALESCE ( sum( reservas_pms.can_hombres ), 0 ) AS homcas,
-                COALESCE ( sum( reservas_pms.can_mujeres ), 0 ) AS mujcas,
-                COALESCE ( sum( reservas_pms.can_ninos ), 0 ) AS nincas 
+                ( COUNT( reservas_pms.id ), 0 ) AS habcasa,
+                COALESCE ( sum( reservas_pms.can_hombres + reservas_pms.can_mujeres + reservas_pms.can_ninos ), 0 ) AS huecas 
             FROM
                 reservas_pms
                 INNER JOIN tipo_habitaciones ON reservas_pms.tipo_habitacion = tipo_habitaciones.id 
             WHERE
                 reservas_pms.estado = 'CA' 
                 AND tipo_habitaciones.tipo_habitacion = 1 
-            ) AS h,
+            ) AS a,
             (
             SELECT
-                COUNT( reservas_pms.id ) AS congela 
+                COUNT( a.id_huesped ) repetidos 
+            FROM
+                (
+                SELECT
+                    count( id_huesped ) AS huesped,
+                    id_huesped 
+                FROM
+                    reservas_pms
+                    INNER JOIN tipo_habitaciones ON reservas_pms.tipo_habitacion = tipo_habitaciones.id 
+                WHERE
+                    reservas_pms.estado = 'CA' 
+                    AND tipo_habitaciones.tipo_habitacion = 1 
+                GROUP BY
+                    reservas_pms.id_huesped 
+                ) AS a,
+                (
+                SELECT
+                    count( historico_reservas_pms.id_huesped ) AS huesped,
+                    historico_reservas_pms.id_huesped 
+                FROM
+                    historico_reservas_pms
+                    INNER JOIN tipo_habitaciones ON historico_reservas_pms.tipo_habitacion = tipo_habitaciones.id 
+                WHERE
+                    estado = 'SA' 
+                    AND tipo_habitaciones.tipo_habitacion = 1 
+                GROUP BY
+                    historico_reservas_pms.id_huesped 
+                ) AS b 
+            WHERE
+                a.id_huesped = b.id_huesped 
+            ) AS b,
+            (
+            SELECT COALESCE
+                ( sum( reservas_pms.can_hombres + reservas_pms.can_mujeres + reservas_pms.can_ninos ), 0 ) AS extcas 
             FROM
                 reservas_pms
-                INNER JOIN tipo_habitaciones ON reservas_pms.tipo_habitacion = tipo_habitaciones.id 
+                INNER JOIN tipo_habitaciones ON reservas_pms.tipo_habitacion = tipo_habitaciones.id
+                INNER JOIN huespedes ON reservas_pms.id_huesped = huespedes.id_huesped 
             WHERE
-                estado = 'CO' 
+                reservas_pms.estado = 'CA' 
                 AND tipo_habitaciones.tipo_habitacion = 1 
-            ) AS i,
+                AND huespedes.pais <> 46 
+            ) AS c,
             (
-            SELECT
-                COUNT( reservas_pms.id ) AS ctamaster
+            SELECT COALESCE
+                ( sum( reservas_pms.can_hombres + reservas_pms.can_mujeres + reservas_pms.can_ninos ), 0 ) AS nalcas 
             FROM
                 reservas_pms
-                INNER JOIN tipo_habitaciones ON reservas_pms.tipo_habitacion = tipo_habitaciones.id 
+                INNER JOIN tipo_habitaciones ON reservas_pms.tipo_habitacion = tipo_habitaciones.id
+                INNER JOIN huespedes ON reservas_pms.id_huesped = huespedes.id_huesped 
             WHERE
-                estado = 'CA' 
-            AND tipo_habitaciones.tipo_habitacion = 5 
-            ) AS j")->fetchAll(PDO::FETCH_ASSOC);
+                reservas_pms.estado = 'CA' 
+                AND tipo_habitaciones.tipo_habitacion = 1 
+            AND huespedes.pais = 46 
+            ) AS d")->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
+    }
+    
+    public function ingresoDiarioAgrupacion($fecha, $agrup){
+        global $database;
+
+        $data = $database->query("SELECT a.*, b.*, c.* FROM (
+            SELECT
+            COALESCE
+            ( SUM( cargos_pms.monto_cargo ), 0 ) AS cargos, 
+            COALESCE ( SUM( cargos_pms.impuesto ), 0 ) AS impto, 
+            COALESCE ( SUM( cargos_pms.valor_cargo ), 0 ) AS total
+        FROM
+            cargos_pms
+            INNER JOIN
+            codigos_vta
+            ON 
+                cargos_pms.id_codigo_cargo = codigos_vta.id_cargo
+            INNER JOIN
+            reservas_pms
+            ON 
+                cargos_pms.numero_reserva = reservas_pms.num_reserva
+        WHERE
+            cargos_pms.fecha_cargo = '20240820' AND
+            cargos_pms.cargo_anulado = 0 AND
+            codigos_vta.agrupacion = 'HA' ) AS a, 
+            (SELECT
+            COALESCE
+            ( SUM( cargos_pms.monto_cargo ), 0 ) AS carindi, 
+            COALESCE ( SUM( cargos_pms.impuesto ), 0 ) AS impindi, 
+            COALESCE ( SUM( cargos_pms.valor_cargo ), 0 ) AS totindi
+        FROM
+            cargos_pms
+            INNER JOIN
+            codigos_vta
+            ON 
+                cargos_pms.id_codigo_cargo = codigos_vta.id_cargo
+            INNER JOIN
+            reservas_pms
+            ON 
+                cargos_pms.numero_reserva = reservas_pms.num_reserva
+        WHERE
+            cargos_pms.fecha_cargo = '20240820' AND
+            cargos_pms.cargo_anulado = 0 AND
+            codigos_vta.agrupacion = 'HA' AND
+            reservas_pms.id_compania = 0 ) as b,
+            ( SELECT
+            COALESCE
+            ( SUM( cargos_pms.monto_cargo ), 0 ) AS carcomp, 
+            COALESCE ( SUM( cargos_pms.impuesto ), 0 ) AS impcomp, 
+            COALESCE ( SUM( cargos_pms.valor_cargo ), 0 ) AS totcomp
+        FROM
+            cargos_pms
+            INNER JOIN
+            codigos_vta
+            ON 
+                cargos_pms.id_codigo_cargo = codigos_vta.id_cargo
+            INNER JOIN
+            reservas_pms
+            ON 
+                cargos_pms.numero_reserva = reservas_pms.num_reserva
+        WHERE
+            cargos_pms.fecha_cargo = '20240820' AND
+            cargos_pms.cargo_anulado = 0 AND
+            codigos_vta.agrupacion = 'HA' AND
+            reservas_pms.id_compania > 0 ) as c")->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
+    }
+    
+    public function ocupacionHotel($fecha){
+        global $database;
+
+        $data = $database->query("SELECT
+                a.*,
+                b.*,
+                c.*,
+                d.*,
+                e.*,
+                f.*,
+                g.*,
+                h.*,
+                i.*, 
+                j.*,
+                k.*
+            FROM
+                (
+                SELECT COALESCE
+                    ( COUNT( reservas_pms.id ), 0 ) AS salidas,
+                    COALESCE ( sum( reservas_pms.can_hombres ), 0 ) AS homsal,
+                    COALESCE ( sum( reservas_pms.can_mujeres ), 0 ) AS mujsal,
+                    COALESCE ( sum( reservas_pms.can_ninos ), 0 ) AS ninsal 
+                FROM
+                    reservas_pms
+                    INNER JOIN tipo_habitaciones ON reservas_pms.tipo_habitacion = tipo_habitaciones.id 
+                WHERE
+                    salida_checkout = '$fecha' 
+                    AND estado = 'SA' 
+                    AND tipo_habitaciones.tipo_habitacion = 1 
+                ) AS a,
+                (
+                SELECT COALESCE
+                    ( COUNT( reservas_pms.id ), 0 ) AS llegadas,
+                    COALESCE ( sum( reservas_pms.can_hombres ), 0 ) AS homlle,
+                    COALESCE ( sum( reservas_pms.can_mujeres ), 0 ) AS mujlle,
+                    COALESCE ( sum( reservas_pms.can_ninos ), 0 ) AS ninlle 
+                FROM
+                    reservas_pms
+                    INNER JOIN tipo_habitaciones ON reservas_pms.tipo_habitacion = tipo_habitaciones.id 
+                WHERE
+                    fecha_llegada = '$fecha' 
+                    AND estado = 'CA' 
+                    AND tipo_habitaciones.tipo_habitacion = 1 
+                ) AS b,
+                (
+                SELECT COALESCE
+                    ( COUNT( reservas_pms.id ), 0 ) AS cancela,
+                    COALESCE ( sum( reservas_pms.can_hombres ), 0 ) AS homcan,
+                    COALESCE ( sum( reservas_pms.can_mujeres ), 0 ) AS mujcan,
+                    COALESCE ( sum( reservas_pms.can_ninos ), 0 ) AS nincan 
+                FROM
+                    reservas_pms
+                    INNER JOIN tipo_habitaciones ON reservas_pms.tipo_habitacion = tipo_habitaciones.id 
+                WHERE
+                    fecha_llegada = '$fecha' 
+                    AND estado = 'CX' 
+                    AND tipo_habitaciones.tipo_habitacion = 1 
+                ) AS c,
+                (
+                SELECT COALESCE
+                    ( COUNT( reservas_pms.id ), 0 ) AS noshow,
+                    COALESCE ( sum( reservas_pms.can_hombres ), 0 ) AS homnsh,
+                    COALESCE ( sum( reservas_pms.can_mujeres ), 0 ) AS mujnsh,
+                    COALESCE ( sum( reservas_pms.can_ninos ), 0 ) AS ninnsh 
+                FROM
+                    reservas_pms
+                    INNER JOIN tipo_habitaciones ON reservas_pms.tipo_habitacion = tipo_habitaciones.id 
+                WHERE
+                    fecha_llegada = '$fecha' 
+                    AND estado = 'NS' 
+                    AND tipo_habitaciones.tipo_habitacion = 1 
+                ) AS d,
+                (
+                SELECT COALESCE
+                    ( COUNT( reservas_pms.id ), 0 ) AS creadashoy,
+                    COALESCE ( sum( reservas_pms.can_hombres ), 0 ) AS homhoy,
+                    COALESCE ( sum( reservas_pms.can_mujeres ), 0 ) AS mujhoy,
+                    COALESCE ( sum( reservas_pms.can_ninos ), 0 ) AS ninhoy 
+                FROM
+                    reservas_pms
+                    INNER JOIN tipo_habitaciones ON reservas_pms.tipo_habitacion = tipo_habitaciones.id 
+                WHERE
+                    fecha_reserva = '$fecha' 
+                    AND estado = 'ES' 
+                    AND tipo_habitaciones.tipo_habitacion = 1 
+                ) AS e,
+                (
+                SELECT COALESCE
+                    ( COUNT( reservas_pms.id ), 0 ) AS saleantes,
+                    COALESCE ( sum( reservas_pms.can_hombres ), 0 ) AS homant,
+                    COALESCE ( sum( reservas_pms.can_mujeres ), 0 ) AS mujant,
+                    COALESCE ( sum( reservas_pms.can_ninos ), 0 ) AS ninant 
+                FROM
+                    reservas_pms
+                    INNER JOIN tipo_habitaciones ON reservas_pms.tipo_habitacion = tipo_habitaciones.id 
+                WHERE
+                    fecha_salida <> salida_checkout 
+                    AND estado = 'SA' 
+                    AND tipo_habitaciones.tipo_habitacion = 1 
+                ) AS f,
+                (
+                SELECT COALESCE
+                    ( COUNT( reservas_pms.id ), 0 ) AS sinreserva,
+                    COALESCE ( sum( reservas_pms.can_hombres ), 0 ) AS homsin,
+                    COALESCE ( sum( reservas_pms.can_mujeres ), 0 ) AS mujsin,
+                    COALESCE ( sum( reservas_pms.can_ninos ), 0 ) AS ninsin 
+                FROM
+                    reservas_pms
+                    INNER JOIN tipo_habitaciones ON reservas_pms.tipo_habitacion = tipo_habitaciones.id 
+                WHERE
+                    fecha_llegada = '$fecha' 
+                    AND estado = 'CA' 
+                    AND sinreserva = 1 
+                    AND tipo_habitaciones.tipo_habitacion = 1 
+                ) AS g,
+                (
+                SELECT COALESCE
+                    ( COUNT( reservas_pms.id ), 0 ) AS encasa,
+                    COALESCE ( sum( reservas_pms.can_hombres + reservas_pms.can_mujeres + reservas_pms.can_ninos ), 0 ) AS huecas,
+                    COALESCE ( sum( reservas_pms.can_hombres ), 0 ) AS homcas,
+                    COALESCE ( sum( reservas_pms.can_mujeres ), 0 ) AS mujcas,
+                    COALESCE ( sum( reservas_pms.can_ninos ), 0 ) AS nincas 
+                FROM
+                    reservas_pms
+                    INNER JOIN tipo_habitaciones ON reservas_pms.tipo_habitacion = tipo_habitaciones.id 
+                WHERE
+                    estado = 'CA' 
+                    AND tipo_habitaciones.tipo_habitacion = 1 
+                ) AS h,
+                (
+                SELECT
+                    COUNT( reservas_pms.id ) AS congela 
+                FROM
+                    reservas_pms
+                    INNER JOIN tipo_habitaciones ON reservas_pms.tipo_habitacion = tipo_habitaciones.id 
+                WHERE
+                    estado = 'CO' 
+                    AND tipo_habitaciones.tipo_habitacion = 1 
+                ) AS i,
+                (
+                SELECT
+                    COUNT( reservas_pms.id ) AS ctamaster
+                FROM
+                    reservas_pms
+                    INNER JOIN tipo_habitaciones ON reservas_pms.tipo_habitacion = tipo_habitaciones.id 
+                WHERE
+                    estado = 'CA' 
+                AND tipo_habitaciones.tipo_habitacion = 5 
+                ) AS j,
+                (SELECT COALESCE
+                    ( COUNT( reservas_pms.id ), 0 ) AS usodia,
+                    COALESCE ( sum( reservas_pms.can_hombres ), 0 ) AS homuso,
+                    COALESCE ( sum( reservas_pms.can_mujeres ), 0 ) AS mujuso,
+                    COALESCE ( sum( reservas_pms.can_ninos ), 0 ) AS ninuso 
+                FROM
+                    reservas_pms
+                    INNER JOIN tipo_habitaciones ON reservas_pms.tipo_habitacion = tipo_habitaciones.id 
+                WHERE
+                    fecha_llegada = '$fecha' 
+                    AND estado = 'SA' 
+                    AND sinreserva = 1 
+                    AND tipo_habitaciones.tipo_habitacion = 1 ) as k")->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     }
 
@@ -4661,7 +4822,7 @@ class Hotel_Actions
         return $data;
     }
 
-    public function insertDiaAuditoria($fecha, $cargo, $impto, $promhab, $promocu, $habi, $promhues, $huesp, $salidas, $llegadas, $hom, $muj, $nin, $camas, $usuario, $idusuario, $ingcia, $ingage, $inggru, $ingind, $inghue, $repite, $nuevos, $nales, $inter, $resehoy, $noshow, $canceladas, $saleantes, $sinreserva, $llegaho, $llegamu, $llegani, $usodiaha, $usodiaho, $usodiamu, $usodiani, $conge, $canmmto, $homsal, $mujsal, $ninsal)
+    public function insertDiaAuditoria($fecha, $cargo, $impto, $promhab, $promocu, $habi, $promhues, $huesp, $salidas, $llegadas, $hom, $muj, $nin, $camas, $usuario, $idusuario, $ingcia, $ingage, $inggru, $ingind, $repite, $nuevos, $nales, $inter, $resehoy, $noshow, $canceladas, $saleantes, $sinreserva, $llegaho, $llegamu, $llegani, $usodiaha, $usodiaho, $usodiamu, $usodiani, $conge, $canmmto, $homsal, $mujsal, $ninsal)
     {
         global $database;
 
