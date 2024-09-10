@@ -425,7 +425,7 @@ if ($perfilFac == 1 && $facturador == 1) {
     $urlinvoicepdf = $recibeCurl['urlinvoicepdf'];
     $cufe  = $recibeCurl['cufe'];
     $QRStr = $recibeCurl['QRStr'];
-    $timeCrea   = $recibeCurl['dian_validation_date_time'];
+    $timeCrea   = $recibeCurl['dian_validation_date_time']['date'];
 
     $respo = '';
 

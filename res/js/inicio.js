@@ -199,7 +199,7 @@ function redondeo(numero, decimales) {
   return resultado;
 }
 
-function       duplicadoClave() {
+function duplicadoClave() {
   clave1 = $("#clave1").val();
   clave2 = $("#clave2").val();
   if (clave1 != clave2) {

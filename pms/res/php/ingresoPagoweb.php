@@ -131,10 +131,10 @@ $subtotales = $hotel->getConsumosReservaAgrupadoFolio($nroFactura, $reserva, $nr
 if ($tipofac == 2) {
     $datosCompania = $hotel->getSeleccionaCompania($idperfil);
     $diasCre = $datosCompania[0]['dias_credito'];
-    $nomFact = utf8_decode($datosCompania[0]['empresa']);
+    $nomFact = ($datosCompania[0]['empresa']);
     $nitFact = $datosCompania[0]['nit'];
     $dvFact = $datosCompania[0]['dv'];
-    $dirFact = utf8_decode($datosCompania[0]['direccion']);
+    $dirFact = ($datosCompania[0]['direccion']);
     $telFact = $datosCompania[0]['telefono'];
     $emaFact = $datosCompania[0]['email'];
     $merFact = '0000000-00';
@@ -147,7 +147,7 @@ if ($tipofac == 2) {
     $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
     $nitFact = $datosHuesped[0]['identificacion'];
     $dvFact = '';
-    $nomFact = utf8_decode($datosHuesped[0]['nombre1'].' '.$datosHuesped[0]['nombre2'].' '.$datosHuesped[0]['apellido1'].' '.$datosHuesped[0]['apellido2']);
+    $nomFact = ($datosHuesped[0]['nombre1'].' '.$datosHuesped[0]['nombre2'].' '.$datosHuesped[0]['apellido1'].' '.$datosHuesped[0]['apellido2']);
     $telFact = $datosHuesped[0]['telefono'];
     $emaFact = $datosHuesped[0]['email'];
 }

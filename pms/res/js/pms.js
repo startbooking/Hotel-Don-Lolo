@@ -2861,7 +2861,7 @@ const DonwloadFile = async (file, nit, typeFile, base64 = false) => {
   let { token } = eToken[0];
 
   if (nit !== null) {
-    let fileSystem = null;
+    let fileSystem = null; 
     if (typeFile == "pdf") {
       fileSystem = file;
     } else if (typeFile == "zip") {
@@ -5071,16 +5071,7 @@ async function reEnviaFactura(factura) {
       let infoFac = await traeResolucion();
       let { prefijo } = infoFac[0];
 
-      let {
-        message,
-        send_email_success,
-        send_email_date_time,
-        urlinvoicexml,
-        urlinvoicepdf,
-        cufe,
-        QRStr,
-        dian_validation_date_time,
-      } = recibe;
+      let { message, send_email_success, send_email_date_time, urlinvoicexml, urlinvoicepdf, cufe, QRStr, dian_validation_date_time: { date }, } = recibe;
 
       datosFe = {
         factura,
@@ -5092,7 +5083,7 @@ async function reEnviaFactura(factura) {
         urlinvoicepdf,
         cufe,
         QRStr,
-        dian_validation_date_time,
+        date,
         IsValid,
         ErrorMessage,
         StatusCode,
@@ -8959,7 +8950,7 @@ function subirArchivos(e) {
   let id = document.querySelector("#txtIdHuespedUpl").value;
   let archivos = document.querySelector("#imgSelect").files;
 
-  const FD = new FormData();
+  const FD = new FormData(); 
   for (let file of archivos) {
     FD.append("files[]", file);
     FD.append("id", id);
