@@ -6150,7 +6150,7 @@ class Hotel_Actions
         ]);
 
         return $data;
-    }
+    } 
 
     public function enviaHistoricoCanceladas($tipo)
     {

@@ -1,0 +1,6 @@
+[12-Sep-2024 21:49:51 America/Bogota] PHP Warning:  require(../imprimir/plantillaFpdf.php): Failed to open stream: No existe el archivo o el directorio in /var/www/donlolo.lan/pms/auditoria/diarioAcumulado.php on line 4
+[12-Sep-2024 21:49:51 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '../imprimir/plantillaFpdf.php' (include_path='.:/usr/share/php') in /var/www/donlolo.lan/pms/auditoria/diarioAcumulado.php:4
+Stack trace:
+#0 /var/www/donlolo.lan/pms/res/php/validaAuditor.php(39): require_once()
+#1 {main}
+  thrown in /var/www/donlolo.lan/pms/auditoria/diarioAcumulado.php on line 4

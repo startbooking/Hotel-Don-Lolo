@@ -79,7 +79,7 @@ $ip = $_SERVER['REMOTE_ADDR'];
 $oFecha = strtotime(FECHA_PMS);
 $hoy = date('d', $oFecha);
 $mes = date("m", $oFecha);
-$anio = date("Y", $oFecha);
+$anio = date("Y", $oFecha); 
 
 if (!isset($_GET['section'])) {
 } elseif (isset($_GET['section']) && $_GET['section'] == 'home') {
@@ -91,16 +91,18 @@ if (!isset($_GET['section'])) {
     $agencias = $hotel->getAgencias();
 } elseif (isset($_GET['section']) && $_GET['section'] == 'huespedesPerfil') {
     $huespedes = $hotel->getPerfilHuespedes();
+    $paices = $hotel->getPaices();
 } elseif (isset($_GET['section']) && $_GET['section'] == 'reservasActivas') {
-    $companias = $hotel->getCompanias();
     $reservas = $hotel->getReservasActuales(1);
+    $companias = $hotel->getCompanias();
     $paices = $hotel->getPaices();
 } elseif (isset($_GET['section']) && $_GET['section'] == 'forecast'|| $_GET['section'] == 'forecastOld') {
-    $companias = $hotel->getCompanias();
     $reservas = $hotel->getReservasActuales(1);
+    $companias = $hotel->getCompanias();
     $paices = $hotel->getPaices();
 } elseif (isset($_GET['section']) && $_GET['section'] == 'preregistros') {
     $reservas = $hotel->getReservasActuales(1);
+    $paices = $hotel->getPaices();
 } elseif (isset($_GET['section']) && $_GET['section'] == 'encasa') {
     $reservas = $hotel->getHuespedesenCasa(2, 'CA');
     $paices = $hotel->getPaices();

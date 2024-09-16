@@ -1,0 +1,5 @@
+[12-Sep-2024 20:19:35 America/Bogota] PHP Fatal error:  Uncaught Error: Class "PDF" not found in /var/www/donlolo.lan/pms/imprimir/imprimeBalanceCajeros.php:8
+Stack trace:
+#0 /var/www/donlolo.lan/pms/auditoria/balanceCajeros.php(11): require_once()
+#1 {main}
+  thrown in /var/www/donlolo.lan/pms/imprimir/imprimeBalanceCajeros.php on line 8

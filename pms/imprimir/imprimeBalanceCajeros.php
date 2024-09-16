@@ -1,7 +1,9 @@
-<?php
+<?php 
+
 
 $usuarios = $hotel->getUsuariosCargos(FECHA_PMS, 1);
-$regis = count($usuarios);
+// $regis = count($usuarios);
+// echo print_r($usuarios);
 
 $pdf = new PDF();
 $pdf->AddPage('P', 'letter');

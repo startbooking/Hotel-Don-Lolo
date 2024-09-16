@@ -66,7 +66,9 @@
   const xmlDoc = parser.parseFromString(xmlString, 'text/xml');
 
   console.log(xmlDoc);
-  console.log(xmlDoc.activeElement.children[23]);
+  console.log(xmlDoc.activeElement);
+  console.log(xmlDoc.activeElement.children);
+  console.log(xmlDoc.activeElement.children[20]);
   console.log(xmlDoc.activeElement.children[10]);
 
 let proveedor = senderParties[0].children[10].children[0].children;

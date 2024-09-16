@@ -1,8 +1,8 @@
 <?php
 /* include_once '../../res/php/app_topHotel.php';
 $usuario ='BARAHONA';
-$idusuario = 2;
- */
+$idusuario = 2; */
+
 $fecha = FECHA_PMS;
 
 $habhot = $hotel->habitacionesHotel(); // Total Habitaciones del Hotel 
@@ -100,11 +100,11 @@ sleep(2);
 $borracargo = $hotel->borraHistoricoCargos();
 sleep(2);
 $pasaFE = $hotel->enviaHistoricoFE();
-sleep(2);
+sleep(2); 
 $borraFE = $hotel->borraHistoricoFE();
 sleep(2);
-$envEspera = $hotel->enviaHistoricoEstadias($fecha, 'ES');
-sleep(2);
+// $envEspera = $hotel->enviaHistoricoEstadias($fecha, 'ES');
+// sleep(2);
 
 $envnoShow = $hotel->cambiaNoShow($fecha, 'ES');
 sleep(2);
