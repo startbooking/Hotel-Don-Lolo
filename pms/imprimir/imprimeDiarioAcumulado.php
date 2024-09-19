@@ -1,8 +1,6 @@
 <?php
 
-$horaini = time();
-
-echo $horaini.'<br>'; 
+$ini = time();
 
 $anio = substr(FECHA_PMS, 0, 4);
 $mes = substr(FECHA_PMS, 5, 2);
@@ -184,16 +182,14 @@ $pdf->Cell(30, 6, number_format($totimpani, 2), 0, 1, 'R');
 
 $pdf->Ln(3);
 $pdf->SetFont('Arial', '', 9);
+$fin = time();
+$dura = $fin - $ini ;
+echo $ini.'<br>'; 
+echo $fin.'<br>'; 
+echo $dura.'<br>';
+echo time();
 
-// $file = '../../imprimir/auditorias/Balance_DiarioAcumulado_'.FECHA_PMS.'.pdf'; // linea real
-$file = 'Balance_DiarioAcumulado_'.FECHA_PMS.'.pdf'; // linea para pruebas 
 
-$horafin = time();
-
-
-$duracion = $horafin - $horaini ;
-echo $horafin.'<br>'; 
-
-echo $duracion.'<br>';
-// echo time();
+// $file = '../../imprimir/auditorias/Balance_DiarioAcumulado_'.FECHA_PMS.'.pdf';
+$file = '../imprimir/auditorias/Balance_DiarioAcumulado_'.FECHA_PMS.'.pdf';
 $pdf->Output($file, 'F');

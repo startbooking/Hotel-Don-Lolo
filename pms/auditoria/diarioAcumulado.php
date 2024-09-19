@@ -7,6 +7,7 @@
 	$idusuario = 2;
 
 	// include '../../imprimir/imprimeDiarioAcumulado.php' ;
-	include '../imprimir/imprimeDiarioAcumulado.php' ;
+	include '../imprimir/imprimeDiarioAcumulado2.php' ;
 	
 ?> 
+ 

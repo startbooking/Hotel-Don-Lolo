@@ -13,8 +13,6 @@ require_once '../../../res/fpdf/fpdf.php';
   $regisCia          = count($datosCompania) ; 
   $fecha             = $hotel->getDatePms();
 
-
-
   $pdf = new FPDF();
   $pdf->AddPage('P','letter');
   $pdf->Rect(10, 36, 190, 230);

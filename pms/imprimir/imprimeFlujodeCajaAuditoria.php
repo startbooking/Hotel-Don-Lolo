@@ -7,7 +7,7 @@
   $pdf->Cell(195, 5, 'FLUJO DE CAJA', 0, 1, 'C');
   $pdf->SetFont('Arial', '', 9);
   $pdf->Cell(195, 5, 'Fecha : '.FECHA_PMS, 0, 1, 'C');
-  $pdf->Ln(2);
+  // $pdf->Ln(2);
   
   $mon   = 0;
   $monto = 0 ;

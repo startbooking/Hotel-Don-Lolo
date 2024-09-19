@@ -7,6 +7,118 @@ date_default_timezone_set('America/Bogota');
 class Hotel_Actions
 {
 
+    public function traeAcumuladoVentas($fecha, $mes, $anio, $tipo){
+        global $database;
+
+        $data = $database->query("SELECT
+            c.descripcion_cargo,
+            COALESCE ((SELECT SUM( p.monto_cargo ) FROM cargos_pms p WHERE p.id_codigo_cargo = c.id_cargo AND p.fecha_cargo = '$fecha' AND p.cargo_anulado = 0 ),0) AS cargosDiaCasa,
+            COALESCE ((SELECT SUM( p.monto_cargo ) FROM cargos_pms p WHERE p.id_codigo_cargo = c.id_cargo AND month(p.fecha_cargo) = $mes AND year(p.fecha_cargo) = $anio AND p.cargo_anulado = 0 ),0) AS cargosMesCasa,
+            COALESCE ((SELECT SUM( p.monto_cargo ) FROM cargos_pms p WHERE p.id_codigo_cargo = c.id_cargo AND year(p.fecha_cargo) = $anio AND p.cargo_anulado = 0 ),0) AS cargosAnioCasa,
+            COALESCE ((SELECT SUM( p.impuesto) FROM cargos_pms p WHERE p.id_codigo_cargo = c.id_cargo AND p.fecha_cargo = '$fecha' AND p.cargo_anulado = 0 ),0) AS imptoCasaDia,
+            COALESCE ((SELECT SUM( p.impuesto) FROM cargos_pms p WHERE p.id_codigo_cargo = c.id_cargo AND month(p.fecha_cargo) = $mes AND year(p.fecha_cargo) = $anio AND p.cargo_anulado = 0 ),0) AS imptoCasaMes,
+            COALESCE ((SELECT SUM( p.impuesto) FROM cargos_pms p WHERE p.id_codigo_cargo = c.id_cargo AND year(p.fecha_cargo) = $anio AND p.cargo_anulado = 0 ),0) AS imptoCasaAnio,
+            COALESCE ((SELECT SUM( p.pagos_cargos ) FROM cargos_pms p WHERE p.id_codigo_cargo = c.id_cargo AND p.fecha_cargo = '$fecha' AND p.cargo_anulado = 0 ),0) AS pagosDiaCasa,
+            COALESCE ((SELECT SUM( p.pagos_cargos ) FROM cargos_pms p WHERE p.id_codigo_cargo = c.id_cargo AND month(p.fecha_cargo) = $mes AND year(p.fecha_cargo) = $anio AND p.cargo_anulado = 0 ),0) AS pagosMesCasa,
+            COALESCE ((SELECT SUM( p.pagos_cargos ) FROM cargos_pms p WHERE p.id_codigo_cargo = c.id_cargo AND year(p.fecha_cargo) = $anio AND p.cargo_anulado = 0 ),0) AS pagosAnioCasa,
+            COALESCE ((SELECT SUM( hp.monto_cargo ) FROM historico_cargos_pms hp WHERE hp.id_codigo_cargo = c.id_cargo AND hp.fecha_cargo = '$fecha' AND hp.cargo_anulado = 0 
+                    ), 0 ) AS cargoDiaHis,
+            COALESCE ((SELECT SUM( hp.monto_cargo ) 
+                FROM
+                    historico_cargos_pms hp 
+                WHERE
+                    hp.id_codigo_cargo = c.id_cargo 
+                    AND month(hp.fecha_cargo) = $mes  
+                    AND year(hp.fecha_cargo) = $anio
+                    AND hp.cargo_anulado = 0 
+                    ),
+                0 
+            ) AS cargoMesHis,
+            COALESCE ((SELECT SUM( hp.monto_cargo ) 
+                FROM
+                    historico_cargos_pms hp 
+                WHERE
+                    hp.id_codigo_cargo = c.id_cargo 
+                    AND year(hp.fecha_cargo) = $anio
+                    AND hp.cargo_anulado = 0 
+                    ),
+                0 
+            ) AS cargoAnioHis,
+            COALESCE ((SELECT SUM( hp.impuesto ) FROM historico_cargos_pms hp WHERE hp.id_codigo_cargo = c.id_cargo AND hp.fecha_cargo = '$fecha' AND hp.cargo_anulado = 0 
+                    ), 0 ) AS imptoDiaHis,
+            COALESCE ((SELECT SUM( hp.impuesto ) 
+                FROM
+                    historico_cargos_pms hp 
+                WHERE
+                    hp.id_codigo_cargo = c.id_cargo 
+                    AND month(hp.fecha_cargo) = $mes  
+                    AND year(hp.fecha_cargo) = $anio
+                    AND hp.cargo_anulado = 0 
+                    ),
+                0 
+            ) AS imptoMesHis,
+            COALESCE ((SELECT SUM( hp.impuesto ) 
+                FROM
+                    historico_cargos_pms hp 
+                WHERE
+                    hp.id_codigo_cargo = c.id_cargo 
+                    AND year(hp.fecha_cargo) = $anio
+                    AND hp.cargo_anulado = 0 
+                    ),
+                0 
+            ) AS imptoAnioHis,
+            COALESCE ((SELECT SUM( hp.pagos_cargos ) FROM historico_cargos_pms hp WHERE hp.id_codigo_cargo = c.id_cargo AND hp.fecha_cargo = '$fecha' AND hp.cargo_anulado = 0 ), 0 ) AS pagosDiaHis,
+            COALESCE ((SELECT SUM( hp.pagos_cargos ) 
+                FROM
+                    historico_cargos_pms hp 
+                WHERE
+                    hp.id_codigo_cargo = c.id_cargo 
+                    AND month(hp.fecha_cargo) = $mes  
+                    AND year(hp.fecha_cargo) = $anio
+                    AND hp.cargo_anulado = 0 
+                    ),
+                0 
+            ) AS pagosMesHis,
+            COALESCE ((SELECT SUM( hp.pagos_cargos ) 
+                FROM
+                    historico_cargos_pms hp 
+                WHERE
+                    hp.id_codigo_cargo = c.id_cargo 
+                    AND year(hp.fecha_cargo) = $anio
+                    AND hp.cargo_anulado = 0 
+                    ),
+                0 
+            ) AS pagosAnioHis
+        FROM
+            codigos_vta c 
+        WHERE c.tipo_codigo = $tipo
+        GROUP BY
+            c.descripcion_cargo 
+        ORDER BY
+            c.descripcion_cargo ASC")->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
+
+    }
+
+
+    public function traeHabitacionesMmtoDia($tipo)
+    {
+        global $database;
+
+        $data = $database->select('habitaciones', [
+            '[>]tipo_habitaciones' => ['id_tipohabitacion' => 'id'],
+        ], [
+            'habitaciones.numero_hab',
+            'tipo_habitaciones.descripcion_habitacion',
+        ], [
+            'habitaciones.active_at' => 1,
+            'habitaciones.mantenimiento' => 1,
+            'tipo_habitaciones.tipo_habitacion' => $tipo,
+        ]);
+
+        return $data;
+    }
+
     public function estadoHuespedesHotel(){
         global $database;
 
@@ -108,7 +220,7 @@ class Hotel_Actions
             ON 
                 cargos_pms.numero_reserva = reservas_pms.num_reserva
         WHERE
-            cargos_pms.fecha_cargo = '20240820' AND
+            cargos_pms.fecha_cargo = '$fecha' AND
             cargos_pms.cargo_anulado = 0 AND
             codigos_vta.agrupacion = 'HA' ) AS a, 
             (SELECT
@@ -127,7 +239,7 @@ class Hotel_Actions
             ON 
                 cargos_pms.numero_reserva = reservas_pms.num_reserva
         WHERE
-            cargos_pms.fecha_cargo = '20240820' AND
+            cargos_pms.fecha_cargo = '$fecha' AND
             cargos_pms.cargo_anulado = 0 AND
             codigos_vta.agrupacion = 'HA' AND
             reservas_pms.id_compania = 0 ) as b,
@@ -147,7 +259,7 @@ class Hotel_Actions
             ON 
                 cargos_pms.numero_reserva = reservas_pms.num_reserva
         WHERE
-            cargos_pms.fecha_cargo = '20240820' AND
+            cargos_pms.fecha_cargo = '$fecha' AND
             cargos_pms.cargo_anulado = 0 AND
             codigos_vta.agrupacion = 'HA' AND
             reservas_pms.id_compania > 0 ) as c")->fetchAll(PDO::FETCH_ASSOC);

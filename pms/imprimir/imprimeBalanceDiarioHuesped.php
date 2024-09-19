@@ -37,24 +37,24 @@ if ($regis == 0) {
       $total  = 0;
       $pagos  = 0;
       foreach ($cargos as $cargo) {
-        $pdf->Cell(60, 6, $cargo['descripcion_cargo'], 0, 0, 'L');
-        $pdf->Cell(10, 6, $cargo['cantidad_cargo'], 0, 0, 'C');
-        $pdf->Cell(25, 6, number_format($cargo['monto_cargo'], 2), 0, 0, 'R');
-        $pdf->Cell(25, 6, number_format($cargo['impuesto'], 2), 0, 0, 'R');
-        $pdf->Cell(25, 6, number_format($cargo['monto_cargo'] + $cargo['impuesto'], 2), 0, 0, 'R');
-        $pdf->Cell(25, 6, number_format($cargo['pagos_cargos'], 2), 0, 0, 'R');
-        $pdf->Cell(10, 6, substr($cargo['fecha_sistema_cargo'], 11, 5), 0, 1, 'R');
+        $pdf->Cell(60, 4, $cargo['descripcion_cargo'], 0, 0, 'L');
+        $pdf->Cell(10, 4, $cargo['cantidad_cargo'], 0, 0, 'C');
+        $pdf->Cell(25, 4, number_format($cargo['monto_cargo'], 2), 0, 0, 'R');
+        $pdf->Cell(25, 4, number_format($cargo['impuesto'], 2), 0, 0, 'R');
+        $pdf->Cell(25, 4, number_format($cargo['monto_cargo'] + $cargo['impuesto'], 2), 0, 0, 'R');
+        $pdf->Cell(25, 4, number_format($cargo['pagos_cargos'], 2), 0, 0, 'R');
+        $pdf->Cell(10, 4, substr($cargo['fecha_sistema_cargo'], 11, 5), 0, 1, 'R');
         $monto = $monto + $cargo['monto_cargo'];
         $impto = $impto + $cargo['impuesto'];
         $total = $total + $cargo['monto_cargo'] + $cargo['impuesto'];
         $pagos = $pagos + $cargo['pagos_cargos'];
       }
       $pdf->SetFont('Arial', 'B', 9);
-      $pdf->Cell(70, 6, 'Total cargos Por Huesped ', 0, 0, 'L');
-      $pdf->Cell(25, 6, number_format($monto, 2), 0, 0, 'R');
-      $pdf->Cell(25, 6, number_format($impto, 2), 0, 0, 'R');
-      $pdf->Cell(25, 6, number_format($total, 2), 0, 0, 'R');
-      $pdf->Cell(25, 6, number_format($pagos, 2), 0, 1, 'R');
+      $pdf->Cell(70, 4, 'Total cargos Por Huesped ', 0, 0, 'L');
+      $pdf->Cell(25, 4, number_format($monto, 2), 0, 0, 'R');
+      $pdf->Cell(25, 4, number_format($impto, 2), 0, 0, 'R');
+      $pdf->Cell(25, 4, number_format($total, 2), 0, 0, 'R');
+      $pdf->Cell(25, 4, number_format($pagos, 2), 0, 1, 'R');
     } else {
       $pdf->SetFont('Arial', '', 9);
       $pdf->Cell(195, 6, 'SIN CARGOS EN EL DIA PARA ESTE HUESPEDES ', 0, 1, 'C');
