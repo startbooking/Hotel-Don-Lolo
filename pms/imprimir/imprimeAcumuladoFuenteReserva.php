@@ -1,8 +1,8 @@
 <?php 
   
-  $dia  = FECHA_PMS;
-  $mes  = substr(FECHA_PMS,5,2); 
-  $anio = substr(FECHA_PMS,0,4); 
+  // $dia  = FECHA_PMS;
+  /* $mes  = substr(FECHA_PMS,5,2); 
+  $anio = substr(FECHA_PMS,0,4);  */
 
   $pdf = new PDF();
   $pdf->AddPage('L','letter');
@@ -20,6 +20,29 @@
   $pdf->Cell(30,5,('CANT AÑO'),0,0,'C');
   $pdf->Cell(30,5,('VALOR AÑO'),0,1,'C');
   $codigos = $hotel->getMotivoGrupo('FRE');
+
+  // echo print_r($codigos);
+
+  $query = "SELECT
+		grupos_cajas.id_grupo,
+		grupos_cajas.descripcion_grupo,
+		COALESCE ( sum( reservas_pms.can_hombres), 0 ) AS hom,
+		COALESCE ( sum( reservas_pms.can_mujeres), 0 ) AS muj,
+		COALESCE ( sum( reservas_pms.can_ninos ), 0 ) AS nin 
+	FROM
+		grupos_cajas
+		LEFT JOIN reservas_pms ON grupos_cajas.id_grupo = reservas_pms.fuente_reserva 
+		AND reservas_pms.fecha_llegada = '2024-08-20' 
+	WHERE
+		grupos_cajas.codigo_grupo = 'FRE'
+	GROUP BY
+		grupos_cajas.codigo_grupo 
+	ORDER BY
+		grupos_cajas.codigo_grupo";
+
+  $fuentes = $hotel->creaConsulta($query);
+
+echo print_r($fuentes); 
 
   $totcandia = 0;
   $totvaldia = 0;

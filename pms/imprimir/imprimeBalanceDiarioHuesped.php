@@ -1,10 +1,11 @@
 <?php
 $pdf = new PDF();
 $pdf->AddPage('P', 'letter');
-$pdf->SetFont('Arial', 'B', 11);
+$pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell(195, 5, 'CARGOS DEL DIA POR HABITACION', 0, 1, 'C');
+$pdf->SetFont('Arial', '', 10);
 $pdf->Cell(195, 5, 'Fecha ' . FECHA_PMS, 0, 1, 'C');
-$pdf->Ln(2);
+$pdf->Ln(1);
 $encasas = $hotel->getHuespedesenCasa(2, 'CA');
 $regis   = count($encasas);
 
@@ -13,22 +14,22 @@ if ($regis == 0) {
 } else {
   foreach ($encasas as $encasa) {
     $pdf->SetFont('Arial', 'B', 10);
-    $pdf->Cell(20, 6, 'Huesped ', 0, 0, 'L');
-    $pdf->Cell(70, 6, (substr($encasa['apellido1'] . ' ' . $encasa['apellido2'] . ' ' . $encasa['nombre1'] . ' ' . $encasa['nombre2'], 0, 25)), 0, 0, 'L');
-    $pdf->Cell(10, 6, 'Hab ', 0, 0, 'L');
-    $pdf->Cell(10, 6, $encasa['num_habitacion'], 0, 0, 'C');
-    $pdf->Cell(10, 6, 'Tipo ', 0, 0, 'L');
-    $pdf->Cell(10, 6, $encasa['tipo_habitacion'], 0, 0, 'C');
-    $pdf->Cell(10, 6, 'Tarifa ', 0, 0, 'L');
-    $pdf->Cell(30, 6, number_format($encasa['valor_diario'], 2), 0, 1, 'C');
+    $pdf->Cell(20, 5, 'Huesped ', 1, 0, 'L');
+    $pdf->Cell(70, 5, (substr($encasa['apellido1'] . ' ' . $encasa['apellido2'] . ' ' . $encasa['nombre1'] . ' ' . $encasa['nombre2'], 0, 25)), 1, 0, 'L');
+    $pdf->Cell(10, 5, 'Hab ', 1, 0, 'L');
+    $pdf->Cell(10, 5, $encasa['num_habitacion'], 1, 1, 'C');
+    /* $pdf->Cell(10, 5, 'Tipo ', 0, 0, 'L');
+    $pdf->Cell(10, 5, $encasa['tipo_habitacion'], 0, 0, 'C');
+    $pdf->Cell(10, 5, 'Tarifa ', 0, 0, 'L');
+    $pdf->Cell(30, 5, number_format($encasa['valor_diario'], 2), 0, 1, 'C'); */
     $pdf->SetFont('Arial', '', 9);
-    $pdf->Cell(60, 6, 'Descripcion ', 0, 0, 'C');
-    $pdf->Cell(10, 6, 'Cant. ', 0, 0, 'C');
-    $pdf->Cell(25, 6, 'Monto', 0, 0, 'C');
-    $pdf->Cell(25, 6, 'Impuesto', 0, 0, 'C');
-    $pdf->Cell(25, 6, 'Total', 0, 0, 'C');
-    $pdf->Cell(25, 6, 'Pagos', 0, 0, 'C');
-    $pdf->Cell(10, 6, 'Hora', 0, 1, 'C');
+    $pdf->Cell(60, 5, 'Descripcion ', 0, 0, 'C');
+    $pdf->Cell(10, 5, 'Cant. ', 0, 0, 'C');
+    $pdf->Cell(25, 5, 'Monto', 0, 0, 'C');
+    $pdf->Cell(25, 5, 'Impuesto', 0, 0, 'C');
+    $pdf->Cell(25, 5, 'Total', 0, 0, 'C');
+    $pdf->Cell(25, 5, 'Pagos', 0, 0, 'C');
+    $pdf->Cell(10, 5, 'Hora', 0, 1, 'C');
     $cargos = $hotel->getCargosdelDiaporReserva(FECHA_PMS, $encasa['num_reserva']);
     $regis1 = count($cargos);
     $monto  = 0;

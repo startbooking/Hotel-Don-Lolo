@@ -1,0 +1,16 @@
+[19-Sep-2024 19:49:40 America/Bogota] PHP Warning:  file_put_contents(../../imprimir/auditorias/acumuladoFuenteReserva_2024-08-20.pdf): Failed to open stream: No existe el archivo o el directorio in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1026
+[19-Sep-2024 19:49:40 America/Bogota] PHP Fatal error:  Uncaught Exception: FPDF error: Unable to create output file: ../../imprimir/auditorias/acumuladoFuenteReserva_2024-08-20.pdf in /var/www/donlolo.lan/res/fpdf/fpdf.php:267
+Stack trace:
+#0 /var/www/donlolo.lan/res/fpdf/fpdf.php(1027): FPDF->Error()
+#1 /var/www/donlolo.lan/pms/imprimir/imprimeAcumuladoFuenteReserva.php(171): FPDF->Output()
+#2 /var/www/donlolo.lan/pms/auditoria/acumuladoTiposReserva.php(11): include('...')
+#3 {main}
+  thrown in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 267
+[19-Sep-2024 19:50:44 America/Bogota] PHP Warning:  file_put_contents(../../imprimir/auditorias/acumuladoFuenteReserva_2024-08-20.pdf): Failed to open stream: No existe el archivo o el directorio in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1026
+[19-Sep-2024 19:50:44 America/Bogota] PHP Fatal error:  Uncaught Exception: FPDF error: Unable to create output file: ../../imprimir/auditorias/acumuladoFuenteReserva_2024-08-20.pdf in /var/www/donlolo.lan/res/fpdf/fpdf.php:267
+Stack trace:
+#0 /var/www/donlolo.lan/res/fpdf/fpdf.php(1027): FPDF->Error()
+#1 /var/www/donlolo.lan/pms/imprimir/imprimeAcumuladoFuenteReserva.php(171): FPDF->Output()
+#2 /var/www/donlolo.lan/pms/auditoria/acumuladoTiposReserva.php(11): include('...')
+#3 {main}
+  thrown in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 267

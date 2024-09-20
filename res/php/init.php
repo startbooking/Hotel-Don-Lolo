@@ -18,5 +18,6 @@ try {
 	  ],
   ]);
 } catch (PDOException $e) {
+    echo "error {$e->getMessage()} <br>";
     echo 'No se pudo Conectar a la Base de Datos';
 }

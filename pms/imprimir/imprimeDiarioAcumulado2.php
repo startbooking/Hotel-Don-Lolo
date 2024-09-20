@@ -1,318 +1,185 @@
 <?php
 
-$horaini = time();
-
-echo $horaini.'Incio <br>'; 
-
 $anio = substr(FECHA_PMS, 0, 4);
 $mes = substr(FECHA_PMS, 5, 2);
-$hora2 = time();
 
-$query = "SELECT
-	codigos_vta.id_cargo,
-	codigos_vta.descripcion_cargo,
-	COALESCE(sum( cargos_pms.monto_cargo ),0) AS cargoDia,
-	COALESCE(sum( cargos_pms.impuesto ),0) AS imptoDia 
-FROM
-	codigos_vta
-	LEFT JOIN cargos_pms ON codigos_vta.id_cargo = cargos_pms.id_codigo_cargo 
-	AND cargos_pms.fecha_cargo = '20240820' AND cargos_pms.cargo_anulado = 0
-WHERE
-	codigos_vta.tipo_codigo = 1 
-GROUP BY
-	codigos_vta.descripcion_cargo 
-ORDER BY
-	codigos_vta.descripcion_cargo ASC";
+$pdf = new PDF();
+$pdf->AddPage('L', 'letter');
+$pdf->SetFont('Arial', 'B', 12);
+$pdf->Cell(260, 5, 'INFORME GENERAL VENTAS ', 0, 1, 'C');
+$pdf->SetFont('Arial', '', 11);
+$pdf->Cell(260, 4, 'Fecha : '.FECHA_PMS, 0, 1, 'C');
+$pdf->Ln(4);
+$pdf->SetFont('Arial', '', 9);
+$pdf->Cell(70, 5, 'DESCRIPCION ', 0, 0, 'C');
+$pdf->Cell(30, 5, 'VENTAS DIA', 0, 0, 'C');
+$pdf->Cell(30, 5, 'IMPUESTO', 0, 0, 'C');
+$pdf->Cell(30, 5, 'VENTAS MES', 0, 0, 'C');
+$pdf->Cell(30, 5, 'IMPUESTO', 0, 0, 'C');
+$pdf->Cell(30, 5, ('VENTAS AÑO'), 0, 0, 'C');
+$pdf->Cell(30, 5, ('IMPUESTO'), 0, 1, 'C');
 
-$query2 = "SELECT
-codigos_vta.id_cargo,
-codigos_vta.descripcion_cargo,
-COALESCE(sum( cargos_pms.monto_cargo ),0) AS cargoMes,
-COALESCE(sum( cargos_pms.impuesto ),0) AS imptoMes
-FROM
-codigos_vta
-LEFT JOIN cargos_pms ON codigos_vta.id_cargo = cargos_pms.id_codigo_cargo 
-AND month(cargos_pms.fecha_cargo) = 8 AND year(cargos_pms.fecha_cargo) = 2024 AND cargos_pms.cargo_anulado = 0
-WHERE
-codigos_vta.tipo_codigo = 1 
-GROUP BY
-codigos_vta.descripcion_cargo 
-ORDER BY
-codigos_vta.descripcion_cargo ASC";
+$codigos = $hotel->getCodigosConsumos(1);
+$totingdia = 0;
+$totimpdia = 0;
+$totingmes = 0;
+$totimpmes = 0;
+$totingani = 0;
+$totimpani = 0;
 
-$query3 = "SELECT
-codigos_vta.id_cargo,
-codigos_vta.descripcion_cargo,
-COALESCE(sum( cargos_pms.monto_cargo ),0) AS cargoAnio,
-COALESCE(sum( cargos_pms.impuesto ),0) AS imptoAnio
-FROM
-codigos_vta
-LEFT JOIN cargos_pms ON codigos_vta.id_cargo = cargos_pms.id_codigo_cargo 
-AND year(cargos_pms.fecha_cargo) = 2024 AND cargos_pms.cargo_anulado = 0
-WHERE
-codigos_vta.tipo_codigo = 1 
-GROUP BY
-codigos_vta.descripcion_cargo 
-ORDER BY
-codigos_vta.descripcion_cargo ASC";
+foreach ($codigos as $codigo) {
+    $pdf->Cell(70, 6, (substr($codigo['descripcion_cargo'], 0, 30)), 0, 0, 'L');
+    $diavta = $hotel->getVentasDiaCodigo(FECHA_PMS, $codigo['id_cargo']);
+    $mesvtaact = $hotel->getVentasMesCodigo($mes, $anio, $codigo['id_cargo']);
+    $mesvtahis = $hotel->getVentasMesCodigoHistorico($mes, $anio, $codigo['id_cargo']);
+    $aniovtaact = $hotel->getVentasAnioCodigo($anio, $codigo['id_cargo']);
+    $aniovtahis = $hotel->getVentasAnioCodigoHistorico($anio, $codigo['id_cargo']);
+    if ($diavta[0]['cargos'] == '') {
+        $cargos = 0;
+    } else {
+        $cargos = $diavta[0]['cargos'];
+    }
+    if ($diavta[0]['imptos'] == '') {
+        $impto = 0;
+    } else {
+        $impto = $diavta[0]['imptos'];
+    }
 
-$query4 = "SELECT
-	codigos_vta.id_cargo,
-	codigos_vta.descripcion_cargo,
-	COALESCE(sum( historico_cargos_pms.monto_cargo ),0) AS cargoHisDia,
-	COALESCE(sum( historico_cargos_pms.impuesto ),0) AS imptoHisDia 
-FROM
-	codigos_vta
-	LEFT JOIN historico_cargos_pms ON codigos_vta.id_cargo = historico_cargos_pms.id_codigo_cargo 
-	AND historico_cargos_pms.fecha_cargo = '20240820' AND historico_cargos_pms.cargo_anulado = 0
-WHERE
-	codigos_vta.tipo_codigo = 1 
-GROUP BY
-	codigos_vta.descripcion_cargo 
-ORDER BY
-	codigos_vta.descripcion_cargo ASC";
+    if (count($mesvtaact) == 0) {
+        $carmes = 0;
+    } else {
+        $carmes = $mesvtaact[0]['cargos'];
+    }
+    if (count($mesvtahis) == 0) {
+        $caracu = 0;
+    } else {
+        $caracu = $mesvtahis[0]['cargos'];
+    }
+    if (count($mesvtaact) == 0) {
+        $impmes = 0;
+    } else {
+        $impmes = $mesvtaact[0]['imptos'];
+    }
+    if (count($mesvtahis) == 0) {
+        $impacu = 0;
+    } else {
+        $impacu = $mesvtahis[0]['imptos'];
+    }
+    if (count($aniovtaact) == 0) {
+        $carani = 0;
+    } else {
+        $carani = $aniovtaact[0]['cargos'];
+    }
+    if (count($aniovtahis) == 0) {
+        $caracuani = 0;
+    } else {
+        $caracuani = $aniovtahis[0]['cargos'];
+    }
+    if (count($aniovtaact) == 0) {
+        $impani = 0;
+    } else {
+        $impani = $aniovtaact[0]['imptos'];
+    }
+    if (count($aniovtahis) == 0) {
+        $impacuani = 0;
+    } else {
+        $impacuani = $aniovtahis[0]['imptos'];
+    }
+    $pdf->Cell(30, 6, number_format($cargos, 2), 0, 0, 'R');
+    $pdf->Cell(30, 6, number_format($impto, 2), 0, 0, 'R');
+    $pdf->Cell(30, 6, number_format($carmes + $caracu, 2), 0, 0, 'R');
+    $pdf->Cell(30, 6, number_format($impmes + $impacu, 2), 0, 0, 'R');
+    $pdf->Cell(30, 6, number_format($carani + $caracuani, 2), 0, 0, 'R');
+    $pdf->Cell(30, 6, number_format($impani + $impacuani, 2), 0, 1, 'R');
 
-$query5 = "SELECT
-codigos_vta.id_cargo,
-codigos_vta.descripcion_cargo,
-COALESCE(sum( historico_cargos_pms.monto_cargo ),0) AS cargoHisMes,
-COALESCE(sum( historico_cargos_pms.impuesto ),0) AS imptoHisMes
-FROM
-codigos_vta
-LEFT JOIN historico_cargos_pms ON codigos_vta.id_cargo = historico_cargos_pms.id_codigo_cargo 
-AND month(historico_cargos_pms.fecha_cargo) = 8 AND year(historico_cargos_pms.fecha_cargo) = 2024 AND historico_cargos_pms.cargo_anulado = 0
-WHERE
-codigos_vta.tipo_codigo = 1 
-GROUP BY
-codigos_vta.descripcion_cargo 
-ORDER BY
-codigos_vta.descripcion_cargo ASC";
+    $totingdia = $totingdia + $cargos;
+    $totimpdia = $totimpdia + $impto;
+    $totingmes = $totingmes + $carmes + $caracu;
+    $totimpmes = $totimpmes + $impmes + $impacu;
+    $totingani = $totingani + $carani + $caracuani;
+    $totimpani = $totimpani + $impani + $impacuani;
+}
 
-$query6 = "SELECT
-codigos_vta.id_cargo,
-codigos_vta.descripcion_cargo,
-COALESCE(sum( historico_cargos_pms.monto_cargo ),0) AS cargoHisAnio,
-COALESCE(sum( historico_cargos_pms.impuesto ),0) AS imptoHisAnio
-FROM
-codigos_vta
-LEFT JOIN historico_cargos_pms ON codigos_vta.id_cargo = historico_cargos_pms.id_codigo_cargo 
-AND year(historico_cargos_pms.fecha_cargo) = 2024 AND historico_cargos_pms.cargo_anulado = 0
-WHERE
-codigos_vta.tipo_codigo = 1 
-GROUP BY
-codigos_vta.descripcion_cargo 
-ORDER BY
-codigos_vta.descripcion_cargo ASC";
+$pdf->Ln(3);
+$pdf->SetFont('Arial', 'b', 10);
 
-$query7 = "SELECT a.*, b.*, c.* from 
-(SELECT
-	codigos_vta.id_cargo,
-	codigos_vta.descripcion_cargo,
-	COALESCE(sum( cargos_pms.monto_cargo ),0) AS cargoDia,
-	COALESCE(sum( cargos_pms.impuesto ),0) AS improDia 
-FROM
-	codigos_vta
-	LEFT JOIN cargos_pms ON codigos_vta.id_cargo = cargos_pms.id_codigo_cargo 
-	AND cargos_pms.fecha_cargo = 20240820 
-WHERE
-	codigos_vta.tipo_codigo = 1 
-GROUP BY
-	codigos_vta.id_cargo 
-ORDER BY
-	codigos_vta.id_cargo) AS a,
-	(SELECT
-codigos_vta.id_cargo,
-codigos_vta.descripcion_cargo,
-COALESCE(sum( cargos_pms.monto_cargo ),0) AS cargoMes,
-COALESCE(sum( cargos_pms.impuesto ),0) AS imptoMes
-FROM
-codigos_vta
-LEFT JOIN cargos_pms ON codigos_vta.id_cargo = cargos_pms.id_codigo_cargo 
-AND month(cargos_pms.fecha_cargo) = 8 AND year(cargos_pms.fecha_cargo) = 2024 AND cargos_pms.cargo_anulado = 0
-WHERE
-codigos_vta.tipo_codigo = 1 
-GROUP BY
-codigos_vta.descripcion_cargo 
-ORDER BY
-codigos_vta.descripcion_cargo ASC) as b,
-(SELECT
-codigos_vta.id_cargo,
-codigos_vta.descripcion_cargo,
-COALESCE(sum( cargos_pms.monto_cargo ),0) AS cargoAnio,
-COALESCE(sum( cargos_pms.impuesto ),0) AS imptoAnio
-FROM
-codigos_vta
-LEFT JOIN cargos_pms ON codigos_vta.id_cargo = cargos_pms.id_codigo_cargo 
-AND year(cargos_pms.fecha_cargo) = 2024 AND cargos_pms.cargo_anulado = 0
-WHERE
-codigos_vta.tipo_codigo = 1 
-GROUP BY
-codigos_vta.descripcion_cargo 
-ORDER BY
-codigos_vta.descripcion_cargo ASC) as c
-WHERE a.id_cargo = b.id_cargo AND b.id_cargo = c.id_cargo ORDER BY a.descripcion_cargo";
+$pdf->Cell(70, 6, (substr('TOTAL INGRESOS', 0, 30)), 0, 0, 'L');
+$pdf->Cell(30, 6, number_format($totingdia, 2), 0, 0, 'R');
+$pdf->Cell(30, 6, number_format($totimpdia, 2), 0, 0, 'R');
+$pdf->Cell(30, 6, number_format($totingmes, 2), 0, 0, 'R');
+$pdf->Cell(30, 6, number_format($totimpmes, 2), 0, 0, 'R');
+$pdf->Cell(30, 6, number_format($totingani, 2), 0, 0, 'R');
+$pdf->Cell(30, 6, number_format($totimpani, 2), 0, 1, 'R');
 
-$query8 = "SELECT d.*, e.*, f.* from 
-	(SELECT
-		codigos_vta.id_cargo,
-		codigos_vta.descripcion_cargo,
-		COALESCE(sum( historico_cargos_pms.monto_cargo ),0) AS cargoHisDia,
-		COALESCE(sum( historico_cargos_pms.impuesto ),0) AS imptoHisDia 
-		FROM
-			codigos_vta
-			LEFT JOIN historico_cargos_pms ON codigos_vta.id_cargo = historico_cargos_pms.id_codigo_cargo 
-			AND historico_cargos_pms.fecha_cargo = 20240820 
-		WHERE
-			codigos_vta.tipo_codigo = 1 
-		GROUP BY
-			codigos_vta.id_cargo 
-		ORDER BY
-			codigos_vta.id_cargo) AS d,
-	(SELECT
-		codigos_vta.id_cargo,
-		codigos_vta.descripcion_cargo,
-		COALESCE(sum( historico_cargos_pms.monto_cargo ),0) AS cargoHisMes,
-		COALESCE(sum( historico_cargos_pms.impuesto ),0) AS imptoHisMes
-		FROM
-		codigos_vta
-		LEFT JOIN historico_cargos_pms ON codigos_vta.id_cargo = historico_cargos_pms.id_codigo_cargo 
-		AND month(historico_cargos_pms.fecha_cargo) = 8 AND year(historico_cargos_pms.fecha_cargo) = 2024 AND historico_cargos_pms.cargo_anulado = 0
-		WHERE
-		codigos_vta.tipo_codigo = 1 
-		GROUP BY
-		codigos_vta.descripcion_cargo 
-		ORDER BY
-		codigos_vta.descripcion_cargo ASC) as e,
-	(SELECT
-		codigos_vta.id_cargo,
-		codigos_vta.descripcion_cargo,
-		COALESCE(sum( historico_cargos_pms.monto_cargo ),0) AS cargoHisAnio,
-		COALESCE(sum( historico_cargos_pms.impuesto ),0) AS imptoHisAnio
-		FROM
-		codigos_vta
-		LEFT JOIN historico_cargos_pms ON codigos_vta.id_cargo = historico_cargos_pms.id_codigo_cargo 
-		AND year(historico_cargos_pms.fecha_cargo) = 2024 AND historico_cargos_pms.cargo_anulado = 0
-		WHERE
-		codigos_vta.tipo_codigo = 1 
-		GROUP BY
-		codigos_vta.descripcion_cargo 
-		ORDER BY
-		codigos_vta.descripcion_cargo ASC) as f
-		WHERE d.id_cargo = e.id_cargo AND e.id_cargo = f.id_cargo ORDER BY d.descripcion_cargo";
+$pdf->Ln(3);
+$pdf->SetFont('Arial', '', 9);
 
-$query9 = "SELECT a.*, b.*, c.*, d.*, e.*, f.* from 
-(SELECT
-	codigos_vta.id_cargo,
-	codigos_vta.descripcion_cargo,
-	COALESCE(sum( cargos_pms.monto_cargo ),0) AS cargoDia,
-	COALESCE(sum( cargos_pms.impuesto ),0) AS improDia 
-	FROM
-		codigos_vta
-		LEFT JOIN cargos_pms ON codigos_vta.id_cargo = cargos_pms.id_codigo_cargo 
-		AND cargos_pms.fecha_cargo = 20240820 
-	WHERE
-		codigos_vta.tipo_codigo = 1 
-	GROUP BY
-		codigos_vta.id_cargo 
-	ORDER BY
-		codigos_vta.id_cargo) AS a,
-(SELECT
-	codigos_vta.id_cargo,
-	codigos_vta.descripcion_cargo,
-	COALESCE(sum( cargos_pms.monto_cargo ),0) AS cargoMes,
-	COALESCE(sum( cargos_pms.impuesto ),0) AS imptoMes
-	FROM
-	codigos_vta
-	LEFT JOIN cargos_pms ON codigos_vta.id_cargo = cargos_pms.id_codigo_cargo 
-	AND month(cargos_pms.fecha_cargo) = 8 AND year(cargos_pms.fecha_cargo) = 2024 AND cargos_pms.cargo_anulado = 0
-	WHERE
-	codigos_vta.tipo_codigo = 1 
-	GROUP BY
-	codigos_vta.descripcion_cargo 
-	ORDER BY
-	codigos_vta.descripcion_cargo ASC) as b,
-(SELECT
-	codigos_vta.id_cargo,
-	codigos_vta.descripcion_cargo,
-	COALESCE(sum( cargos_pms.monto_cargo ),0) AS cargoAnio,
-	COALESCE(sum( cargos_pms.impuesto ),0) AS imptoAnio
-	FROM
-	codigos_vta
-	LEFT JOIN cargos_pms ON codigos_vta.id_cargo = cargos_pms.id_codigo_cargo 
-	AND year(cargos_pms.fecha_cargo) = 2024 AND cargos_pms.cargo_anulado = 0
-	WHERE
-	codigos_vta.tipo_codigo = 1 
-	GROUP BY
-	codigos_vta.descripcion_cargo 
-	ORDER BY
-	codigos_vta.descripcion_cargo ASC) as c,
-(SELECT
-	codigos_vta.id_cargo,
-	codigos_vta.descripcion_cargo,
-	COALESCE(sum( historico_cargos_pms.monto_cargo ),0) AS cargoHisDia,
-	COALESCE(sum( historico_cargos_pms.impuesto ),0) AS imptoHisDia 
-	FROM
-		codigos_vta
-		LEFT JOIN historico_cargos_pms ON codigos_vta.id_cargo = historico_cargos_pms.id_codigo_cargo 
-		AND historico_cargos_pms.fecha_cargo = 20240820 
-	WHERE
-		codigos_vta.tipo_codigo = 1 
-	GROUP BY
-		codigos_vta.id_cargo 
-	ORDER BY
-		codigos_vta.id_cargo) AS d,
-(SELECT
-	codigos_vta.id_cargo,
-	codigos_vta.descripcion_cargo,
-	COALESCE(sum( historico_cargos_pms.monto_cargo ),0) AS cargoHisMes,
-	COALESCE(sum( historico_cargos_pms.impuesto ),0) AS imptoHisMes
-	FROM
-	codigos_vta
-	LEFT JOIN historico_cargos_pms ON codigos_vta.id_cargo = historico_cargos_pms.id_codigo_cargo 
-	AND month(historico_cargos_pms.fecha_cargo) = 8 AND year(historico_cargos_pms.fecha_cargo) = 2024 AND historico_cargos_pms.cargo_anulado = 0
-	WHERE
-	codigos_vta.tipo_codigo = 1 
-	GROUP BY
-	codigos_vta.descripcion_cargo 
-	ORDER BY
-	codigos_vta.descripcion_cargo ASC) as e,
-(SELECT
-	codigos_vta.id_cargo,
-	codigos_vta.descripcion_cargo,
-	COALESCE(sum( historico_cargos_pms.monto_cargo ),0) AS cargoHisAnio,
-	COALESCE(sum( historico_cargos_pms.impuesto ),0) AS imptoHisAnio
-	FROM
-	codigos_vta
-	LEFT JOIN historico_cargos_pms ON codigos_vta.id_cargo = historico_cargos_pms.id_codigo_cargo 
-	AND year(historico_cargos_pms.fecha_cargo) = 2024 AND historico_cargos_pms.cargo_anulado = 0
-	WHERE
-	codigos_vta.tipo_codigo = 1 
-	GROUP BY
-	codigos_vta.descripcion_cargo 
-	ORDER BY
-	codigos_vta.descripcion_cargo ASC) as f
-WHERE a.id_cargo = b.id_cargo AND b.id_cargo = c.id_cargo and c.id_cargo = d.id_cargo AND d.id_cargo = e.id_cargo AND e.id_cargo = f.id_cargo ORDER BY a.descripcion_cargo";
+$pagos = $hotel->getCodigosConsumos(3);
+$totingdia = 0;
+$totimpdia = 0;
+$totingmes = 0;
+$totimpmes = 0;
+$totingani = 0;
+$totimpani = 0;
 
-$cargos9 = $hotel->creaConsulta($query9);
+foreach ($pagos as $pago) {
+    $pdf->Cell(70, 6, (substr($pago['descripcion_cargo'], 0, 30)), 0, 0, 'L');
+    $diavta = $hotel->getVentasDiaCodigo(FECHA_PMS, $pago['id_cargo']);
+    $mesvtaact = $hotel->getVentasMesCodigo($mes, $anio, $pago['id_cargo']);
+    $mesvtahis = $hotel->getVentasMesCodigoHistorico($mes, $anio, $pago['id_cargo']);
+    $aniovtaact = $hotel->getVentasAnioCodigo($anio, $pago['id_cargo']);
+    $aniovtahis = $hotel->getVentasAnioCodigoHistorico($anio, $pago['id_cargo']);
+    if ($diavta[0]['pagos'] == '') {
+        $cargos = 0;
+    } else {
+        $cargos = $diavta[0]['pagos'];
+    }
+    if (count($mesvtaact) == 0) {
+        $carmes = 0;
+    } else {
+        $carmes = $mesvtaact[0]['pagos'];
+    }
+    if (count($mesvtahis) == 0) {
+        $caracu = 0;
+    } else {
+        $caracu = $mesvtahis[0]['pagos'];
+    }
+    if (count($aniovtaact) == 0) {
+        $carani = 0;
+    } else {
+        $carani = $aniovtaact[0]['pagos'];
+    }
+    if (count($aniovtahis) == 0) {
+        $caracuani = 0;
+    } else {
+        $caracuani = $aniovtahis[0]['pagos'];
+    }
+    $pdf->Cell(30, 6, number_format($cargos, 2), 0, 0, 'R');
+    $pdf->Cell(30, 6, number_format(0, 2), 0, 0, 'R');
+    $pdf->Cell(30, 6, number_format($carmes + $caracu, 2), 0, 0, 'R');
+    $pdf->Cell(30, 6, number_format(0, 2), 0, 0, 'R');
+    $pdf->Cell(30, 6, number_format($carani + $caracuani, 2), 0, 0, 'R');
+    $pdf->Cell(30, 6, number_format(0, 2), 0, 1, 'R');
+    $totingdia = $totingdia + $cargos;
+    $totimpdia = $totimpdia + $impto;
+    $totingmes = $totingmes + $carmes + $caracu;
+    $totimpmes = $totimpmes + $impmes + $impacu;
+    $totingani = $totingani + $carani + $caracuani;
+    $totimpani = $totimpani + $impani + $impacuani;
+}
+$pdf->Ln(3);
+$pdf->SetFont('Arial', 'b', 10);
 
-/* echo print_r($cargos1);
-echo print_r($cargos2);
-echo print_r($cargos3);
-echo print_r($cargos4);
-echo print_r($cargos5);
-echo print_r($cargos6); */
-// echo print_r($cargos7);
-echo print_r($cargos9);
+$pdf->Cell(70, 6, (substr('TOTAL PAGOS RECIBIDOS', 0, 30)), 0, 0, 'L');
+$pdf->Cell(30, 6, number_format($totingdia, 2), 0, 0, 'R');
+$pdf->Cell(30, 6, number_format($totimpdia, 2), 0, 0, 'R');
+$pdf->Cell(30, 6, number_format($totingmes, 2), 0, 0, 'R');
+$pdf->Cell(30, 6, number_format($totimpmes, 2), 0, 0, 'R');
+$pdf->Cell(30, 6, number_format($totingani, 2), 0, 0, 'R');
+$pdf->Cell(30, 6, number_format($totimpani, 2), 0, 1, 'R');
 
+$pdf->Ln(3);
+$pdf->SetFont('Arial', '', 9);
 
-echo $hora2 - $horaini.'COnsulta <br>';
-
-
-
-$horafin = time();
-$duracion = $horafin - $horaini ;
-echo $horafin.'HOta fin<br> '; 
-echo $duracion.'Dura <br> ';
-echo time(); 
-
+$file = '../imprimir/auditorias/Balance_DiarioAcumulado_'.FECHA_PMS.'.pdf';
 $pdf->Output($file, 'F');

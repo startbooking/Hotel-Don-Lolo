@@ -10,6 +10,110 @@ class Hotel_Actions
     public function traeAcumuladoVentas($fecha, $mes, $anio, $tipo){
         global $database;
 
+        $data = $database->query("SELECT a.*, b.*, c.*, d.*, e.*, f.* from 
+            (SELECT
+                codigos_vta.id_cargo,
+                codigos_vta.descripcion_cargo,
+                COALESCE(sum( cargos_pms.monto_cargo ),0) AS cargoDia,
+                COALESCE(sum( cargos_pms.impuesto ),0) AS imptoDia,
+                COALESCE(sum( cargos_pms.pagos_cargos ),0) AS pagosDia
+                FROM
+                    codigos_vta
+                    LEFT JOIN cargos_pms ON codigos_vta.id_cargo = cargos_pms.id_codigo_cargo 
+                    AND cargos_pms.fecha_cargo = '$fecha' 
+                WHERE
+                    codigos_vta.tipo_codigo = $tipo
+                GROUP BY
+                    codigos_vta.id_cargo 
+                ORDER BY
+                    codigos_vta.id_cargo) AS a,
+            (SELECT
+                codigos_vta.id_cargo,
+                codigos_vta.descripcion_cargo,
+                COALESCE(sum( cargos_pms.monto_cargo ),0) AS cargoMes,
+                COALESCE(sum( cargos_pms.impuesto ),0) AS imptoMes,
+                COALESCE(sum( cargos_pms.pagos_cargos ),0) AS pagosMes
+                FROM
+                codigos_vta
+                LEFT JOIN cargos_pms ON codigos_vta.id_cargo = cargos_pms.id_codigo_cargo 
+                AND month(cargos_pms.fecha_cargo) = $mes AND year(cargos_pms.fecha_cargo) = $anio AND cargos_pms.cargo_anulado = 0
+                WHERE
+                codigos_vta.tipo_codigo = $tipo
+                GROUP BY
+                codigos_vta.descripcion_cargo 
+                ORDER BY
+                codigos_vta.descripcion_cargo ASC) as b,
+            (SELECT
+                codigos_vta.id_cargo,
+                codigos_vta.descripcion_cargo,
+                COALESCE(sum( cargos_pms.monto_cargo ),0) AS cargoAnio,
+                COALESCE(sum( cargos_pms.impuesto ),0) AS imptoAnio,
+                COALESCE(sum( cargos_pms.pagos_cargos ),0) AS pagosAnio
+                FROM
+                codigos_vta
+                LEFT JOIN cargos_pms ON codigos_vta.id_cargo = cargos_pms.id_codigo_cargo 
+                AND year(cargos_pms.fecha_cargo) = $anio AND cargos_pms.cargo_anulado = 0
+                WHERE
+                codigos_vta.tipo_codigo = $tipo
+                GROUP BY
+                codigos_vta.descripcion_cargo 
+                ORDER BY
+                codigos_vta.descripcion_cargo ASC) as c,
+            (SELECT
+                codigos_vta.id_cargo,
+                codigos_vta.descripcion_cargo,
+                COALESCE(sum( historico_cargos_pms.monto_cargo ),0) AS cargoHisDia,
+                COALESCE(sum( historico_cargos_pms.impuesto ),0) AS imptoHisDia,
+                COALESCE(sum( historico_cargos_pms.pagos_cargos ),0) AS pagosHisDia
+                FROM
+                    codigos_vta
+                    LEFT JOIN historico_cargos_pms ON codigos_vta.id_cargo = historico_cargos_pms.id_codigo_cargo 
+                    AND historico_cargos_pms.fecha_cargo = '$fecha' 
+                WHERE
+                    codigos_vta.tipo_codigo = $tipo
+                GROUP BY
+                    codigos_vta.id_cargo 
+                ORDER BY
+                    codigos_vta.id_cargo) AS d,
+            (SELECT
+                codigos_vta.id_cargo,
+                codigos_vta.descripcion_cargo,
+                COALESCE(sum( historico_cargos_pms.monto_cargo ),0) AS cargoHisMes,
+                COALESCE(sum( historico_cargos_pms.impuesto ),0) AS imptoHisMes,
+                COALESCE(sum( historico_cargos_pms.pagos_cargos ),0) AS pagosHisMes
+                FROM
+                codigos_vta
+                LEFT JOIN historico_cargos_pms ON codigos_vta.id_cargo = historico_cargos_pms.id_codigo_cargo 
+                AND month(historico_cargos_pms.fecha_cargo) = $mes AND year(historico_cargos_pms.fecha_cargo) = $anio AND historico_cargos_pms.cargo_anulado = 0
+                WHERE
+                codigos_vta.tipo_codigo = $tipo
+                GROUP BY
+                codigos_vta.descripcion_cargo 
+                ORDER BY
+                codigos_vta.descripcion_cargo ASC) as e,
+            (SELECT
+                codigos_vta.id_cargo,
+                codigos_vta.descripcion_cargo,
+                COALESCE(sum( historico_cargos_pms.monto_cargo ),0) AS cargoHisAnio,
+                COALESCE(sum( historico_cargos_pms.impuesto ),0) AS imptoHisAnio,
+                COALESCE(sum( historico_cargos_pms.pagos_cargos ),0) AS pagosHisAnio
+                FROM
+                codigos_vta
+                LEFT JOIN historico_cargos_pms ON codigos_vta.id_cargo = historico_cargos_pms.id_codigo_cargo 
+                AND year(historico_cargos_pms.fecha_cargo) = $anio AND historico_cargos_pms.cargo_anulado = 0
+                WHERE
+                codigos_vta.tipo_codigo = $tipo
+                GROUP BY
+                codigos_vta.descripcion_cargo 
+                ORDER BY
+                codigos_vta.descripcion_cargo ASC) as f
+            WHERE a.id_cargo = b.id_cargo AND b.id_cargo = c.id_cargo and c.id_cargo = d.id_cargo AND d.id_cargo = e.id_cargo AND e.id_cargo = f.id_cargo ORDER BY a.descripcion_cargo")->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
+    }
+
+    public function traeAcumuladoVentasOld($fecha, $mes, $anio, $tipo){
+        global $database;
+
         $data = $database->query("SELECT
             c.descripcion_cargo,
             COALESCE ((SELECT SUM( p.monto_cargo ) FROM cargos_pms p WHERE p.id_codigo_cargo = c.id_cargo AND p.fecha_cargo = '$fecha' AND p.cargo_anulado = 0 ),0) AS cargosDiaCasa,
@@ -99,7 +203,6 @@ class Hotel_Actions
         return $data;
 
     }
-
 
     public function traeHabitacionesMmtoDia($tipo)
     {
@@ -6343,7 +6446,7 @@ class Hotel_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT cargos_pms.descripcion_cargo, count(cargos_pms.monto_cargo) as canti, Sum(cargos_pms.monto_cargo) as cargos, Sum(cargos_pms.impuesto) as imptos, sum(cargos_pms.monto_cargo+cargos_pms.impuesto) as total_cargo, Sum(cargos_pms.pagos_cargos) as pagos FROM cargos_pms , codigos_vta WHERE cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND cargos_pms.cargo_anulado = 0 AND codigos_vta.tipo_codigo = '$tipo' AND cargos_pms.fecha_cargo = '$fecha' GROUP BY cargos_pms.descripcion_cargo ORDER BY cargos_pms.descripcion_cargo ASC")->fetchAll();
+        $data = $database->query("SELECT cargos_pms.descripcion_cargo, count(cargos_pms.monto_cargo) as canti, Sum(cargos_pms.monto_cargo) as cargos, Sum(cargos_pms.impuesto) as imptos, sum(cargos_pms.monto_cargo+cargos_pms.impuesto) as total_cargo, Sum(cargos_pms.pagos_cargos) as pagos FROM cargos_pms , codigos_vta WHERE cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND cargos_pms.cargo_anulado = 0 AND codigos_vta.tipo_codigo = '$tipo' AND cargos_pms.fecha_cargo = '$fecha' GROUP BY cargos_pms.descripcion_cargo ORDER BY cargos_pms.descripcion_cargo ASC")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -6352,8 +6455,19 @@ class Hotel_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT Sum(cargos_pms.monto_cargo) AS saldo_viene, Sum(cargos_pms.impuesto) AS impto_viene, Sum(cargos_pms.pagos_cargos) AS pagos_viene, Sum(cargos_pms.monto_cargo + cargos_pms.impuesto - cargos_pms.pagos_cargos) AS total_viene FROM cargos_pms , reservas_pms WHERE cargos_pms.numero_reserva = reservas_pms.num_reserva AND reservas_pms.tipo_reserva = 2 AND cargos_pms.fecha_cargo < '$fecha' AND cargos_pms.cargo_anulado = 0 AND reservas_pms.cargo_habitacion < '9450'")->fetchAll();
-
+        $data = $database->query("SELECT
+            COALESCE (Sum( cargos_pms.monto_cargo ),0) AS saldo_viene,
+            COALESCE (Sum( cargos_pms.impuesto ),0) AS impto_viene,
+            COALESCE (Sum( cargos_pms.pagos_cargos ),0) AS pagos_viene,
+            COALESCE (Sum( cargos_pms.monto_cargo + cargos_pms.impuesto - cargos_pms.pagos_cargos ),0) AS total_viene 
+        FROM
+            cargos_pms,
+            reservas_pms 
+        WHERE
+            cargos_pms.numero_reserva = reservas_pms.num_reserva 
+            AND reservas_pms.tipo_reserva = 2 
+            AND cargos_pms.fecha_cargo < '$fecha' 
+            AND cargos_pms.cargo_anulado = 0 ")->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     }
 
@@ -6361,7 +6475,7 @@ class Hotel_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT Sum(cargos_pms.monto_cargo) AS saldo_viene, Sum(cargos_pms.impuesto) AS impto_viene, Sum(cargos_pms.pagos_cargos) AS pagos_viene, Sum(cargos_pms.monto_cargo + cargos_pms.impuesto - cargos_pms.pagos_cargos) AS total_viene FROM cargos_pms , reservas_pms WHERE cargos_pms.numero_reserva = reservas_pms.num_reserva AND reservas_pms.tipo_reserva = 2 AND cargos_pms.fecha_cargo = '$fecha' AND cargos_pms.cargo_anulado = 0 AND reservas_pms.cargo_habitacion < '9450'")->fetchAll();
+        $data = $database->query("SELECT Sum(cargos_pms.monto_cargo) AS saldo_viene, Sum(cargos_pms.impuesto) AS impto_viene, Sum(cargos_pms.pagos_cargos) AS pagos_viene, Sum(cargos_pms.monto_cargo + cargos_pms.impuesto - cargos_pms.pagos_cargos) AS total_viene FROM cargos_pms , reservas_pms WHERE cargos_pms.numero_reserva = reservas_pms.num_reserva AND reservas_pms.tipo_reserva = 2 AND cargos_pms.fecha_cargo = '$fecha' AND cargos_pms.cargo_anulado = 0 AND reservas_pms.cargo_habitacion < '9450'")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }

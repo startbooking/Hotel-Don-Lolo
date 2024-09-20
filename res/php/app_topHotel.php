@@ -65,7 +65,6 @@ define('PIEFACTURA', $datosHotel[0]['info_pie']);
 define('FACTURADOR', $datosHotel[0]['facturador']);
 define('TRA', $datosHotel[0]['tra']);
 
-
 $notificaciones = [];
 
 if (CTA_DEPOSITO == '0') {

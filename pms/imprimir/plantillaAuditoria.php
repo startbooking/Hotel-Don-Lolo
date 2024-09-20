@@ -2,8 +2,8 @@
   require_once '../../../res/fpdf/fpdf.php';
 	class PDF extends FPDF{
 		function Header(){ 
-		  $this->Image('../../../img/'.LOGO,10, 10, 22);
-		  $this->SetFont('Arial','B',13);
+		  $this->Image('../../../img/'.LOGO,10, 5, 22);
+		  $this->SetFont('Arial','B',12);
 		  $this->Cell(190,5,NAME_EMPRESA,0,1,'C');
 		  $this->SetFont('Arial','',10);
 		  $this->Cell(190,5,'Nit: '.NIT_EMPRESA,0,1,'C');
@@ -12,7 +12,9 @@
 		  $this->Cell(190,5,'Telefono '.TELEFONO_EMPRESA.' Movil '.CELULAR_EMPRESA,0,1,'C');
 		  $this->SetFont('Arial','B',11);
 		  $this->Cell(190,5,NAME_HOTEL,0,1,'C');
- */		  $this->Ln(1);
+		  $this->Ln(1);
+			*/
+
 		  $this->Cell(190,5,'INFORMES DE AUDITORIA NOCTURNA',0,1,'C');
 		  $this->Ln(1);
 		}
