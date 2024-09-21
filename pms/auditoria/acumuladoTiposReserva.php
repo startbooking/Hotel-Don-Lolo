@@ -1,6 +1,4 @@
-<?php 
-
-	// echo __DIR__;
+<?php
 	require '../imprimir/plantillaFpdf.php';
 	include_once '../../res/php/app_topHotel.php';
 	$usuario ='BARAHONA';

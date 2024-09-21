@@ -55,30 +55,31 @@
     	 		  <td style="text-align:right;">
               <div class="btn-group" role="group" aria-label="Basic example">
               <?php 
-                if($folio1['factura_numero']==0){
+                if($folio1['factura_numero']==0){ ?>
+                  <button 
+                    style="display:block"
+                    id="btnAnulaCargo"
+                    type="button" class="btn btn-danger btn-xs" 
+                    data-toggle  ="modal" 
+                    data-target  ="#myModalAnulaCargo" 
+                    data-id      ="<?php echo $folio1['id_cargo']?>" 
+                    data-descrip ="<?php echo $folio1['descripcion_cargo']?>" 
+                    data-monto   ="<?php echo $folio1['monto_cargo']?>" 
+                    data-impto   ="<?php echo $folio1['impuesto']?>" 
+                    data-info    ="<?php echo $folio1['informacion_cargo']?>" 
+                    data-pagos   ="<?php echo $folio1['pagos_cargos']?>" 
+                    data-refer   ="<?php echo $folio1['referencia_cargo']?>" 
+                    data-fecha   ="<?php echo $folio1['fecha_cargo']?>" 
+                    data-reserva ="<?php echo $folio1['numero_reserva']?>" 
+                    data-huesped ="<?php echo $folio1['id_huesped']?>" 
+                    data-room    ="<?php echo $folio1['habitacion_cargo']?>" 
+                    data-cant    ="<?php echo $folio1['cantidad_cargo']?>" 
+                    data-tipo    ="<?php echo $folio1['tipo_codigo']?>" 
+                    title="Anula Cargo Actual" >
+                    <i class='glyphicon glyphicon-remove-circle'></i>
+                  </button>
+                  <?php
                   if($nrohabi !== '9500'){ ?>
-                    <button 
-                      style="display:block"
-                      id="btnAnulaCargo"
-                      type="button" class="btn btn-danger btn-xs" 
-                      data-toggle  ="modal" 
-                      data-target  ="#myModalAnulaCargo" 
-                      data-id      ="<?php echo $folio1['id_cargo']?>" 
-                      data-descrip ="<?php echo $folio1['descripcion_cargo']?>" 
-                      data-monto   ="<?php echo $folio1['monto_cargo']?>" 
-                      data-impto   ="<?php echo $folio1['impuesto']?>" 
-                      data-info    ="<?php echo $folio1['informacion_cargo']?>" 
-                      data-pagos   ="<?php echo $folio1['pagos_cargos']?>" 
-                      data-refer   ="<?php echo $folio1['referencia_cargo']?>" 
-                      data-fecha   ="<?php echo $folio1['fecha_cargo']?>" 
-                      data-reserva ="<?php echo $folio1['numero_reserva']?>" 
-                      data-huesped ="<?php echo $folio1['id_huesped']?>" 
-                      data-room    ="<?php echo $folio1['habitacion_cargo']?>" 
-                      data-cant    ="<?php echo $folio1['cantidad_cargo']?>" 
-                      data-tipo    ="<?php echo $folio1['tipo_codigo']?>" 
-                      title="Anula Cargo Actual" >
-                      <i class='glyphicon glyphicon-remove-circle'></i>
-                    </button>
                     <?php 
                   }
                   ?>

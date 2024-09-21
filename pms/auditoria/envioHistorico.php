@@ -1,7 +1,7 @@
 <?php
-/* include_once '../../res/php/app_topHotel.php';
+include_once '../../res/php/app_topHotel.php';
 $usuario ='BARAHONA';
-$idusuario = 2; */
+$idusuario = 2;
 
 $fecha = FECHA_PMS;
 
@@ -10,6 +10,8 @@ $estaHab = $hotel->estadoHabitacionesHotel(); //Habitaciones Disponibles
 $ocupaci = $hotel->ocupacionHotel($fecha);
 $inghab = $hotel->ingresoDiarioAgrupacion($fecha, 'HA'); // Ingreso Diario Alojamiento
 $huespedes = $hotel->estadoHuespedesHotel();
+
+// echo print_r($habhot);
 
 $habocu = $ocupaci[0]['encasa'];
 $ctaocu = $ocupaci[0]['ctamaster'];
@@ -90,7 +92,7 @@ $huenue = $huespedes[0]['nuehues'];
 $hueext = $huespedes[0]['extcas'];
 $huenal = $huespedes[0]['nalcas'];
 
-$audi = $hotel->insertDiaAuditoria($fecha, $carhab, $ingimp, $ingprodis, $ingproocu, $habdis, $ingprohue, $habocu, $salidas, $llegadas, $homcas, $mujcas, $nincas, $camadi, $usuario, $idusuario, $comhab, $ingage, $inggru, $indhab, $huerep, $huenue, $huenal, $hueext, $creadashoy, $noshow, $cancela, $saleantes, $sinreserva, $homlle, $mujlle, $ninlle, $usodia, $homuso, $mujuso, $ninuso, $conocu, $habmmt, $homsal, $mujsal, $ninsal);
+$audi = $hotel->insertDiaAuditoria($fecha, $habtot, $carhab, $ingimp, $ingprodis, $ingproocu, $habdis, $ingprohue, $habocu, $salidas, $llegadas, $homcas, $mujcas, $nincas, $camadi, $usuario, $idusuario, $comhab, $ingage, $inggru, $indhab, $huerep, $huenue, $huenal, $hueext, $creadashoy, $noshow, $cancela, $saleantes, $sinreserva, $homlle, $mujlle, $ninlle, $usodia, $homuso, $mujuso, $ninuso, $conocu, $habmmt, $homsal, $mujsal, $ninsal);
 
 $cancelados = $hotel->enviaHistoricoCanceladas('CX');
 $salidasfac = $hotel->getSalidasDia(FECHA_PMS, 2, 'SA');

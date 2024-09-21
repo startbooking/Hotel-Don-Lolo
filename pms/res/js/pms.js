@@ -7022,7 +7022,7 @@ function activaFolio(reserva, folio) {
     folio,
     nrohabi,
     tipo,
-  };
+  }; 
   $.ajax({
     type: "POST",
     url: web + "res/php/movimientoFolio.php",

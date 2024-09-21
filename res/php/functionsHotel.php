@@ -1018,6 +1018,7 @@ class Hotel_Actions
     public function creaConsulta($sele)
     {
         global $database;
+        // echo $sele;
         $data = $database->query($sele)->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
@@ -4927,39 +4928,41 @@ class Hotel_Actions
         global $database;
 
         $data = $database->query("SELECT 
-        SUM(ingreso_habitaciones) AS aingHab, 
-        SUM(ingreso_impto_habitaciones) AS aingImp, 
-        SUM(ingreso_promedio_habitacion_disponible)AS aingProHabDis, 
-        SUM(ingreso_promedio_habitacion_ocupada)AS aingProHabOcu, 
-        SUM(ingresos_compania)AS aingCom, 
-        SUM(ingresos_agencia) AS aingAge, 
-        SUM(ingresos_grupo) AS aingGru, 
-        SUM(ingresos_individual) AS aingInd, 
-        SUM(ingreso_promedio_huesped) AS aproHue, 
-        SUM(habitaciones_disponibles) AS ahabDis, 
-        SUM(habitaciones_fuera_orden) AS ahabFor, 
-        SUM(habitaciones_fuera_servicio) AS ahabFse, 
-        SUM(habitaciones_ocupadas) AS ahabOcu, 
-        SUM(salidas_dia) AS asalDia, 
-        SUM(llegadas_dia) AS alleDia, 
-        SUM(habitaciones_cortesia) AS ahabCor, 
-        SUM(habitaciones_usocasa) AS ahabUca, 
-        SUM(habitaciones_usodia) AS ahabUdi, 
-        SUM(ingreso_potencial) AS aingPot, 
-        SUM(camas_disponibles) AS acamDis, 
-        SUM(hombres) AS aHom, 
-        SUM(mujeres) AS aMuj, 
-        SUM(ninos) AS aNin, 
-        SUM(huespedes_repetitivos) AS ahueRep, 
-        SUM(nuevos_huespedes) AS ahueNue, 
-        SUM(huespedes_nacionales) AS ahueNal, 
-        SUM(huespedes_extranjeros) AS ahueInt, 
-        SUM(reservas_creadashoy) AS aresHoy, 
-        SUM(reservas_noshows) AS aresNos,
-        SUM(salidas_anticipadas) AS asalAnt, 
-        SUM(reservas_canceladas) AS aresCan, 
-        SUM(llegadas_sinreserva) AS alleSin 
-        FROM 
+            sum(habitaciones_hotel) as ahabhot,
+            SUM(ingreso_habitaciones) AS aingHab, 
+            SUM(ingreso_impto_habitaciones) AS aingImp, 
+            SUM(ingreso_promedio_habitacion_disponible)AS aingProHabDis, 
+            SUM(ingreso_promedio_habitacion_ocupada)AS aingProHabOcu, 
+            SUM(ingresos_compania)AS aingCom, 
+            SUM(ingresos_agencia) AS aingAge, 
+            SUM(ingresos_grupo) AS aingGru, 
+            SUM(ingresos_individual) AS aingInd, 
+            SUM(ingreso_promedio_huesped) AS aproHue, 
+            SUM(habitaciones_disponibles) AS ahabDis, 
+            SUM(habitaciones_fuera_orden) AS ahabFor, 
+            SUM(habitaciones_fuera_servicio) AS ahabFse, 
+            SUM(habitaciones_mmto) AS ahabMmto, 
+            SUM(habitaciones_ocupadas) AS ahabOcu, 
+            SUM(salidas_dia) AS asalDia, 
+            SUM(llegadas_dia) AS alleDia, 
+            SUM(habitaciones_cortesia) AS ahabCor, 
+            SUM(habitaciones_usocasa) AS ahabUca, 
+            SUM(habitaciones_usodia) AS ahabUdi, 
+            SUM(ingreso_potencial) AS aingPot, 
+            SUM(camas_disponibles) AS acamDis, 
+            SUM(hombres) AS aHom, 
+            SUM(mujeres) AS aMuj, 
+            SUM(ninos) AS aNin, 
+            SUM(huespedes_repetitivos) AS ahueRep, 
+            SUM(nuevos_huespedes) AS ahueNue, 
+            SUM(huespedes_nacionales) AS ahueNal, 
+            SUM(huespedes_extranjeros) AS ahueInt, 
+            SUM(reservas_creadashoy) AS aresHoy, 
+            SUM(reservas_noshows) AS aresNos,
+            SUM(salidas_anticipadas) AS asalAnt, 
+            SUM(reservas_canceladas) AS aresCan, 
+            SUM(llegadas_sinreserva) AS alleSin 
+            FROM 
         reporte_gerencia 
         WHERE YEAR(fecha_auditoria) = '$anio'")->fetchAll();
 
@@ -4980,7 +4983,43 @@ class Hotel_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT sum(ingreso_habitaciones)as mingHab, sum(ingreso_impto_habitaciones) as mingImp, sum(ingreso_promedio_habitacion_disponible)as mingProHabDis, sum(ingreso_promedio_habitacion_ocupada)as mingProHabOcu, sum(ingresos_compania)as mingCom, sum(ingresos_agencia) as mingAge, sum(ingresos_grupo) as mingGru, sum(ingresos_individual) as mingInd, sum(ingreso_promedio_huesped) as mproHue, sum(habitaciones_disponibles) as mhabDis, sum(habitaciones_fuera_orden) as mhabFor, sum(habitaciones_fuera_servicio) as mhabFse, sum(habitaciones_ocupadas) as mhabOcu, sum(salidas_dia) as msalDia, sum(llegadas_dia) as mlleDia, sum(habitaciones_cortesia) as mhabCor, sum(habitaciones_usocasa) as mhabUca, sum(habitaciones_usodia) as mhabUdi, sum(ingreso_potencial) as mingPot, sum(camas_disponibles) as mcamDis, sum(hombres) as mHom, sum(mujeres) as mMuj, sum(ninos) as mNin, sum(huespedes_repetitivos) as mhueRep, sum(nuevos_huespedes) as mhueNue, sum(huespedes_nacionales) as mhueNal, sum(huespedes_extranjeros) as mhueInt, sum(reservas_creadashoy) as mresHoy, sum(reservas_noshows) as mresNos, sum(salidas_anticipadas) as msalAnt, sum(reservas_canceladas) as mresCan, sum(llegadas_sinreserva) as mlleSin FROM reporte_gerencia WHERE month(fecha_auditoria) = '$mes' AND year(fecha_auditoria) = '$anio'")->fetchAll();
+        $data = $database->query("SELECT 
+            sum(habitaciones_hotel) as mhabhot,
+            sum(ingreso_habitaciones)as mingHab, 
+            sum(ingreso_impto_habitaciones) as mingImp, 
+            sum(ingreso_promedio_habitacion_disponible)as mingProHabDis, 
+            sum(ingreso_promedio_habitacion_ocupada)as mingProHabOcu, 
+            sum(ingresos_compania)as mingCom, 
+            sum(ingresos_agencia) as mingAge, 
+            sum(ingresos_grupo) as mingGru, 
+            sum(ingresos_individual) as mingInd, 
+            sum(ingreso_promedio_huesped) as mproHue, 
+            sum(habitaciones_disponibles) as mhabDis, 
+            sum(habitaciones_fuera_orden) as mhabFor, 
+            sum(habitaciones_fuera_servicio) as mhabFse, 
+            sum(habitaciones_ocupadas) as mhabOcu, 
+            sum(habitaciones_Mmto) as mhabMmto, 
+            sum(salidas_dia) as msalDia, 
+            sum(llegadas_dia) as mlleDia, 
+            sum(habitaciones_cortesia) as mhabCor, 
+            sum(habitaciones_usocasa) as mhabUca, 
+            sum(habitaciones_usodia) as mhabUdi, 
+            sum(ingreso_potencial) as mingPot, 
+            sum(camas_disponibles) as mcamDis, 
+            sum(hombres) as mHom, 
+            sum(mujeres) as mMuj, 
+            sum(ninos) as mNin, 
+            sum(huespedes_repetitivos) as mhueRep, 
+            sum(nuevos_huespedes) as mhueNue, 
+            sum(huespedes_nacionales) as mhueNal, 
+            sum(huespedes_extranjeros) as mhueInt, 
+            sum(reservas_creadashoy) as mresHoy, 
+            sum(reservas_noshows) as mresNos, 
+            sum(salidas_anticipadas) as msalAnt, 
+            sum(reservas_canceladas) as mresCan, 
+            sum(llegadas_sinreserva) as mlleSin 
+            FROM reporte_gerencia 
+            WHERE month(fecha_auditoria) = '$mes' AND year(fecha_auditoria) = '$anio'")->fetchAll();
 
         return $data;
     }
@@ -4991,6 +5030,7 @@ class Hotel_Actions
 
         $data = $database->select('reporte_gerencia', [
             'fecha_auditoria',
+            'habitaciones_hotel',
             'ingreso_habitaciones',
             'ingreso_impto_habitaciones',
             'ingreso_promedio_habitacion_disponible',
@@ -5003,6 +5043,7 @@ class Hotel_Actions
             'habitaciones_disponibles',
             'habitaciones_fuera_orden',
             'habitaciones_fuera_servicio',
+            'habitaciones_mmto',
             'habitaciones_ocupadas',
             'salidas_dia',
             'llegadas_dia',
@@ -5038,12 +5079,13 @@ class Hotel_Actions
         return $data;
     }
 
-    public function insertDiaAuditoria($fecha, $cargo, $impto, $promhab, $promocu, $habi, $promhues, $huesp, $salidas, $llegadas, $hom, $muj, $nin, $camas, $usuario, $idusuario, $ingcia, $ingage, $inggru, $ingind, $repite, $nuevos, $nales, $inter, $resehoy, $noshow, $canceladas, $saleantes, $sinreserva, $llegaho, $llegamu, $llegani, $usodiaha, $usodiaho, $usodiamu, $usodiani, $conge, $canmmto, $homsal, $mujsal, $ninsal)
+    public function insertDiaAuditoria($fecha, $habtot, $cargo, $impto, $promhab, $promocu, $habi, $promhues, $huesp, $salidas, $llegadas, $hom, $muj, $nin, $camas, $usuario, $idusuario, $ingcia, $ingage, $inggru, $ingind, $repite, $nuevos, $nales, $inter, $resehoy, $noshow, $canceladas, $saleantes, $sinreserva, $llegaho, $llegamu, $llegani, $usodiaha, $usodiaho, $usodiamu, $usodiani, $conge, $canmmto, $homsal, $mujsal, $ninsal)
     {
         global $database;
 
         $data = $database->insert('reporte_gerencia', [
             'fecha_auditoria' => $fecha,
+            'habitaciones_hotel' => $habtot, 
             'ingreso_habitaciones' => $cargo,
             'ingreso_impto_habitaciones' => $impto,
             'ingreso_promedio_habitacion_disponible' => $promhab,

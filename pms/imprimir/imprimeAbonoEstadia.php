@@ -31,7 +31,7 @@ $pdf->Cell(15, 5, str_pad($numero, 5, '0', STR_PAD_LEFT), 0, 0, 'L');
 $pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell(20, 5, 'FECHA ', 0, 0, 'L');
 $pdf->SetFont('Arial', '', 10);
-$pdf->Cell(30, 5, FECHA_PMS, 0, 0, 'L');
+$pdf->Cell(40, 5, date('Y-m-d H:i:s'), 0, 0, 'L');
 $pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell(30, 5, 'Nro Reserva ', 0, 0, 'L');
 $pdf->SetFont('Arial', '', 10);

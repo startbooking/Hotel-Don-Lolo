@@ -1,18 +1,22 @@
 <?php 
   
-  $anio          = substr(FECHA_PMS,0,4); 
+  /* $anio          = substr(FECHA_PMS,0,4); 
   $mes           = substr(FECHA_PMS,5,2); 
-  $dia           = substr(FECHA_PMS,8,2); 
+  $dia           = substr(FECHA_PMS,8,2);  */
   $auditoria     = $hotel->getDatosAuditoria(FECHA_PMS); 
   $acumulames    = $hotel->getDatosMesAuditoria($mes,$anio); 
   $acumulaanio   = $hotel->getDatosAnioAuditoria($anio); 
   
+  // echo print_r($auditoria);
+
+  $habhot       = $auditoria[0]['habitaciones_hotel'];
   $saldia       = $auditoria[0]['salidas_dia'];
   $lledia       = $auditoria[0]['llegadas_dia'];
   $habdis       = $auditoria[0]['habitaciones_disponibles'];
   $habocu       = $auditoria[0]['habitaciones_ocupadas'];
   $habfor       = $auditoria[0]['habitaciones_fuera_orden'];
   $habfse       = $auditoria[0]['habitaciones_fuera_servicio'];
+  $habmto       = $auditoria[0]['habitaciones_mmto'];
   $habcor       = $auditoria[0]['habitaciones_cortesia'];
   $habuso       = $auditoria[0]['habitaciones_usocasa'];
   $habdia       = $auditoria[0]['habitaciones_usodia'];
@@ -45,6 +49,7 @@
   $rescan       = $auditoria[0]['reservas_canceladas'];
   $llesin       = $auditoria[0]['llegadas_sinreserva'];
   
+  $meshabhot       = $acumulames[0]['mhabhot'];
   $messaldia       = $acumulames[0]['msalDia'];
   $meslledia       = $acumulames[0]['mlleDia'];
   $meshabdis       = $acumulames[0]['mhabDis'];
@@ -52,6 +57,7 @@
   $meshabfor       = $acumulames[0]['mhabFor'];
   $meshabfse       = $acumulames[0]['mhabFse'];
   $meshabcor       = $acumulames[0]['mhabCor'];
+  $meshabmto       = $acumulames[0]['mhabMmto'];
   $meshabuso       = $acumulames[0]['mhabUca'];
   $meshabdia       = $acumulames[0]['mhabUdi'];
   $meshabdisven    = $meshabdis - $meshabfor - $meshabfse;
@@ -80,6 +86,7 @@
   $mesrescan       = $acumulames[0]['mresCan'];
   $mesllesin       = $acumulames[0]['mlleSin'];
   
+  $aniohabhot       = $acumulaanio[0]['ahabhot'];
   $aniosaldia       = $acumulaanio[0]['asalDia'];
   $aniolledia       = $acumulaanio[0]['alleDia'];
   $aniohabdis       = $acumulaanio[0]['ahabDis'];
@@ -87,6 +94,7 @@
   $aniohabfor       = $acumulaanio[0]['ahabFor'];
   $aniohabfse       = $acumulaanio[0]['ahabFse'];
   $aniohabcor       = $acumulaanio[0]['ahabCor'];
+  $aniohabmto       = $acumulaanio[0]['ahabMmto'];
   $aniohabuso       = $acumulaanio[0]['ahabUca'];
   $aniohabdia       = $acumulaanio[0]['ahabUdi'];
   $aniohabdisven    = $aniohabdis - $aniohabfor - $aniohabfse;
@@ -168,65 +176,60 @@
   $pdf->Cell(10,6,'',0,0,'C');  
   $pdf->Cell(90,6,'HUESPEDES',1,1,'C');  
 
-  $pdf->Cell(45,6,'Habitaciones Disponibles',1,0,'L');
-  $pdf->Cell(15,6,$habdis,1,0,'R');
-  $pdf->Cell(15,6,$meshabdis,1,0,'R');
-  $pdf->Cell(15,6,$aniohabdis,1,0,'R');
+  $pdf->Cell(45,6,'Habitaciones Hotel',1,0,'L');
+  $pdf->Cell(15,6,$habhot,1,0,'R');
+  $pdf->Cell(15,6,$meshabhot,1,0,'R');
+  $pdf->Cell(15,6,$aniohabhot,1,0,'R');
   $pdf->Cell(10,6,'',0,0,'C');  
   $pdf->Cell(45,6,'Pernoctaciones Disponibles ',1,0,'L');
   $pdf->Cell(15,6,$camdis,1,0,'R');
   $pdf->Cell(15,6,$mescamdis,1,0,'R');
   $pdf->Cell(15,6,$aniocamdis,1,1,'R');
 
-  $pdf->Cell(45,6,'Habitaciones Fuera de Orden',1,0,'L');
-  $pdf->Cell(15,6,$habfor,1,0,'R');
-  $pdf->Cell(15,6,$meshabfor,1,0,'R');
-  $pdf->Cell(15,6,$aniohabfor,1,0,'R');
+  $pdf->Cell(45,6,'Habitaciones en Mantenimiento',1,0,'L');
+  $pdf->Cell(15,6,$habmto,1,0,'R');
+  $pdf->Cell(15,6,$meshabmto,1,0,'R');
+  $pdf->Cell(15,6,$aniohabmto,1,0,'R');
   $pdf->Cell(10,6,'',0,0,'C');  
   $pdf->Cell(45,6,'Huespedes en Casa ',1,0,'L');
   $pdf->Cell(15,6,$hom+$muj+$nin,1,0,'R');
   $pdf->Cell(15,6,$meshom+$mesmuj+$mesnin,1,0,'R');
   $pdf->Cell(15,6,$aniohom+$aniomuj+$anionin,1,1,'R');
 
-  $pdf->Cell(45,6,'Habitaciones Fuera de Servicio',1,0,'L');
+  /* $pdf->Cell(45,6,'Habitaciones Fuera de Servicio',1,0,'L');
   $pdf->Cell(15,6,$habfse,1,0,'R');
   $pdf->Cell(15,6,$meshabfse,1,0,'R');
   $pdf->Cell(15,6,$aniohabfse,1,0,'R');
+  $pdf->Cell(10,6,'',0,0,'C');   */
+  $pdf->Cell(45,6,'Habitaciones Disponible Venta',1,0,'L');
+  $pdf->Cell(15,6,$habdisven,1,0,'R');
+  $pdf->Cell(15,6,$meshabdisven,1,0,'R');
+  $pdf->Cell(15,6,$aniohabdisven,1,0,'R');
   $pdf->Cell(10,6,'',0,0,'C');  
   $pdf->Cell(45,6,'Hombres en Casa ',1,0,'L');
   $pdf->Cell(15,6,$hom,1,0,'R');
   $pdf->Cell(15,6,$meshom,1,0,'R');
   $pdf->Cell(15,6,$aniohom,1,1,'R');
 
-  $pdf->Cell(45,6,'Habitaciones Disponible Venta',1,0,'L');
-  $pdf->Cell(15,6,$habdisven,1,0,'R');
-  $pdf->Cell(15,6,$meshabdisven,1,0,'R');
-  $pdf->Cell(15,6,$aniohabdisven,1,0,'R');
+  $pdf->Cell(45,6,'Habitaciones Ocupadas',1,0,'L');
+  $pdf->Cell(15,6,$habocu,1,0,'R');
+  $pdf->Cell(15,6,$meshabocu,1,0,'R');
+  $pdf->Cell(15,6,$aniohabocu,1,0,'R');
   $pdf->Cell(10,6,'',0,0,'C');  
   $pdf->Cell(45,6,'Mujeres en Casa ',1,0,'L');
   $pdf->Cell(15,6,$muj,1,0,'R');
   $pdf->Cell(15,6,$mesmuj,1,0,'R');
   $pdf->Cell(15,6,$aniomuj,1,1,'R');
 
-  $pdf->Cell(45,6,'Habitaciones Ocupadas',1,0,'L');
-  $pdf->Cell(15,6,$habocu,1,0,'R');
-  $pdf->Cell(15,6,$meshabocu,1,0,'R');
-  $pdf->Cell(15,6,$aniohabocu,1,0,'R');
-  $pdf->Cell(10,6,'',0,0,'C');  
-  $pdf->Cell(45,6,('Niños en Casa '),1,0,'L');
-  $pdf->Cell(15,6,$nin,1,0,'R');
-  $pdf->Cell(15,6,$mesnin,1,0,'R');
-  $pdf->Cell(15,6,$anionin,1,1,'R');
-
   $pdf->Cell(45,6,'Habitaciones Vacantes',1,0,'L');
   $pdf->Cell(15,6,$habdisven - $habocu,1,0,'R');
   $pdf->Cell(15,6,$meshabdisven - $meshabocu,1,0,'R');
   $pdf->Cell(15,6,$aniohabdisven - $aniohabocu,1,0,'R');
   $pdf->Cell(10,6,'',0,0,'C');  
-  $pdf->Cell(45,6,('Huespedes Repetitivos '),1,0,'L');
-  $pdf->Cell(15,6,$huerep,1,0,'R');
-  $pdf->Cell(15,6,$meshuerep,1,0,'R');
-  $pdf->Cell(15,6,$aniohuerep,1,1,'R');
+  $pdf->Cell(45,6,('Niños en Casa '),1,0,'L');
+  $pdf->Cell(15,6,$nin,1,0,'R');
+  $pdf->Cell(15,6,$mesnin,1,0,'R');
+  $pdf->Cell(15,6,$anionin,1,1,'R');
 
   $pdf->Cell(45,6,'% Ocupacion ',1,0,'L');
   if($habdisven==0){
@@ -246,6 +249,12 @@
     $pdf->Cell(15,6,number_format(($aniohabocu / $aniohabdisven)*100,2),1,0,'R');
   }
   $pdf->Cell(10,6,'',0,0,'C');  
+  $pdf->Cell(45,6,('Huespedes Repetitivos '),1,0,'L');
+  $pdf->Cell(15,6,$huerep,1,0,'R');
+  $pdf->Cell(15,6,$meshuerep,1,0,'R');
+  $pdf->Cell(15,6,$aniohuerep,1,1,'R');
+
+  $pdf->Cell(100,6,'',0,0,'C');  
   $pdf->Cell(45,6,('Huespedes Nuevos '),1,0,'L');
   $pdf->Cell(15,6,$nuehue,1,0,'R');
   $pdf->Cell(15,6,$mesnuehue,1,0,'R');
@@ -302,6 +311,7 @@
   $pdf->Cell(15,6,$mesllesin,1,0,'R');
   $pdf->Cell(15,6,$aniollesin,1,1,'R');
 
-  $file = '../../imprimir/auditorias/Informe_Diario_Gerencia_'.FECHA_PMS.'.pdf';
+  // $file = '../../imprimir/auditorias/Informe_Diario_Gerencia_'.FECHA_PMS.'.pdf';
+  $file = '../imprimir/auditorias/Informe_Diario_Gerencia_'.FECHA_PMS.'.pdf';
   $pdf->Output($file,'F');
 ?>
