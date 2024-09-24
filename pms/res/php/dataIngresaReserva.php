@@ -349,10 +349,10 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
       </div>
     </div>
   </div>
-  <div class="panel-footer">
+  <!-- <div class="panel-footer">
     <div class="btn-group" style="width: 30%;margin-left:35%">
       <button style="width: 50%" type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply" aria-hidden="true"></i> Regresar</button>
       <button style="width: 50%;text-align:right" class="btn btn-success"><i class="fa fa-save" aria-hidden="true"></i> Actualizar</button>
     </div>
-  </div>
+  </div> -->
 </div>

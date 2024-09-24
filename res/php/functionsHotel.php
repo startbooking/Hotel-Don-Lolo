@@ -1,13 +1,13 @@
 <?php
 
 require_once 'init.php';
-
 date_default_timezone_set('America/Bogota');
 
 class Hotel_Actions
 {
 
-    public function traeAcumuladoVentas($fecha, $mes, $anio, $tipo){
+    public function traeAcumuladoVentas($fecha, $mes, $anio, $tipo)
+    {
         global $database;
 
         $data = $database->query("SELECT a.*, b.*, c.*, d.*, e.*, f.* from 
@@ -111,99 +111,6 @@ class Hotel_Actions
         return $data;
     }
 
-    public function traeAcumuladoVentasOld($fecha, $mes, $anio, $tipo){
-        global $database;
-
-        $data = $database->query("SELECT
-            c.descripcion_cargo,
-            COALESCE ((SELECT SUM( p.monto_cargo ) FROM cargos_pms p WHERE p.id_codigo_cargo = c.id_cargo AND p.fecha_cargo = '$fecha' AND p.cargo_anulado = 0 ),0) AS cargosDiaCasa,
-            COALESCE ((SELECT SUM( p.monto_cargo ) FROM cargos_pms p WHERE p.id_codigo_cargo = c.id_cargo AND month(p.fecha_cargo) = $mes AND year(p.fecha_cargo) = $anio AND p.cargo_anulado = 0 ),0) AS cargosMesCasa,
-            COALESCE ((SELECT SUM( p.monto_cargo ) FROM cargos_pms p WHERE p.id_codigo_cargo = c.id_cargo AND year(p.fecha_cargo) = $anio AND p.cargo_anulado = 0 ),0) AS cargosAnioCasa,
-            COALESCE ((SELECT SUM( p.impuesto) FROM cargos_pms p WHERE p.id_codigo_cargo = c.id_cargo AND p.fecha_cargo = '$fecha' AND p.cargo_anulado = 0 ),0) AS imptoCasaDia,
-            COALESCE ((SELECT SUM( p.impuesto) FROM cargos_pms p WHERE p.id_codigo_cargo = c.id_cargo AND month(p.fecha_cargo) = $mes AND year(p.fecha_cargo) = $anio AND p.cargo_anulado = 0 ),0) AS imptoCasaMes,
-            COALESCE ((SELECT SUM( p.impuesto) FROM cargos_pms p WHERE p.id_codigo_cargo = c.id_cargo AND year(p.fecha_cargo) = $anio AND p.cargo_anulado = 0 ),0) AS imptoCasaAnio,
-            COALESCE ((SELECT SUM( p.pagos_cargos ) FROM cargos_pms p WHERE p.id_codigo_cargo = c.id_cargo AND p.fecha_cargo = '$fecha' AND p.cargo_anulado = 0 ),0) AS pagosDiaCasa,
-            COALESCE ((SELECT SUM( p.pagos_cargos ) FROM cargos_pms p WHERE p.id_codigo_cargo = c.id_cargo AND month(p.fecha_cargo) = $mes AND year(p.fecha_cargo) = $anio AND p.cargo_anulado = 0 ),0) AS pagosMesCasa,
-            COALESCE ((SELECT SUM( p.pagos_cargos ) FROM cargos_pms p WHERE p.id_codigo_cargo = c.id_cargo AND year(p.fecha_cargo) = $anio AND p.cargo_anulado = 0 ),0) AS pagosAnioCasa,
-            COALESCE ((SELECT SUM( hp.monto_cargo ) FROM historico_cargos_pms hp WHERE hp.id_codigo_cargo = c.id_cargo AND hp.fecha_cargo = '$fecha' AND hp.cargo_anulado = 0 
-                    ), 0 ) AS cargoDiaHis,
-            COALESCE ((SELECT SUM( hp.monto_cargo ) 
-                FROM
-                    historico_cargos_pms hp 
-                WHERE
-                    hp.id_codigo_cargo = c.id_cargo 
-                    AND month(hp.fecha_cargo) = $mes  
-                    AND year(hp.fecha_cargo) = $anio
-                    AND hp.cargo_anulado = 0 
-                    ),
-                0 
-            ) AS cargoMesHis,
-            COALESCE ((SELECT SUM( hp.monto_cargo ) 
-                FROM
-                    historico_cargos_pms hp 
-                WHERE
-                    hp.id_codigo_cargo = c.id_cargo 
-                    AND year(hp.fecha_cargo) = $anio
-                    AND hp.cargo_anulado = 0 
-                    ),
-                0 
-            ) AS cargoAnioHis,
-            COALESCE ((SELECT SUM( hp.impuesto ) FROM historico_cargos_pms hp WHERE hp.id_codigo_cargo = c.id_cargo AND hp.fecha_cargo = '$fecha' AND hp.cargo_anulado = 0 
-                    ), 0 ) AS imptoDiaHis,
-            COALESCE ((SELECT SUM( hp.impuesto ) 
-                FROM
-                    historico_cargos_pms hp 
-                WHERE
-                    hp.id_codigo_cargo = c.id_cargo 
-                    AND month(hp.fecha_cargo) = $mes  
-                    AND year(hp.fecha_cargo) = $anio
-                    AND hp.cargo_anulado = 0 
-                    ),
-                0 
-            ) AS imptoMesHis,
-            COALESCE ((SELECT SUM( hp.impuesto ) 
-                FROM
-                    historico_cargos_pms hp 
-                WHERE
-                    hp.id_codigo_cargo = c.id_cargo 
-                    AND year(hp.fecha_cargo) = $anio
-                    AND hp.cargo_anulado = 0 
-                    ),
-                0 
-            ) AS imptoAnioHis,
-            COALESCE ((SELECT SUM( hp.pagos_cargos ) FROM historico_cargos_pms hp WHERE hp.id_codigo_cargo = c.id_cargo AND hp.fecha_cargo = '$fecha' AND hp.cargo_anulado = 0 ), 0 ) AS pagosDiaHis,
-            COALESCE ((SELECT SUM( hp.pagos_cargos ) 
-                FROM
-                    historico_cargos_pms hp 
-                WHERE
-                    hp.id_codigo_cargo = c.id_cargo 
-                    AND month(hp.fecha_cargo) = $mes  
-                    AND year(hp.fecha_cargo) = $anio
-                    AND hp.cargo_anulado = 0 
-                    ),
-                0 
-            ) AS pagosMesHis,
-            COALESCE ((SELECT SUM( hp.pagos_cargos ) 
-                FROM
-                    historico_cargos_pms hp 
-                WHERE
-                    hp.id_codigo_cargo = c.id_cargo 
-                    AND year(hp.fecha_cargo) = $anio
-                    AND hp.cargo_anulado = 0 
-                    ),
-                0 
-            ) AS pagosAnioHis
-        FROM
-            codigos_vta c 
-        WHERE c.tipo_codigo = $tipo
-        GROUP BY
-            c.descripcion_cargo 
-        ORDER BY
-            c.descripcion_cargo ASC")->fetchAll(PDO::FETCH_ASSOC);
-        return $data;
-
-    }
-
     public function traeHabitacionesMmtoDia($tipo)
     {
         global $database;
@@ -222,7 +129,8 @@ class Hotel_Actions
         return $data;
     }
 
-    public function estadoHuespedesHotel(){
+    public function estadoHuespedesHotel()
+    {
         global $database;
 
         $data = $database->query("SELECT
@@ -302,8 +210,9 @@ class Hotel_Actions
             ) AS d")->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     }
-    
-    public function ingresoDiarioAgrupacion($fecha, $agrup){
+
+    public function ingresoDiarioAgrupacion($fecha, $agrup)
+    {
         global $database;
 
         $data = $database->query("SELECT a.*, b.*, c.* FROM (
@@ -368,8 +277,9 @@ class Hotel_Actions
             reservas_pms.id_compania > 0 ) as c")->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     }
-    
-    public function ocupacionHotel($fecha){
+
+    public function ocupacionHotel($fecha)
+    {
         global $database;
 
         $data = $database->query("SELECT
@@ -534,7 +444,8 @@ class Hotel_Actions
         return $data;
     }
 
-    public function estadoHabitacionesHotel(){
+    public function estadoHabitacionesHotel()
+    {
         global $database;
 
         $data = $database->query("SELECT SUM(a.mmto) as mmto, sum(a.dispo) as dispo, sum(a.camas) as camas  from (
@@ -557,27 +468,8 @@ class Hotel_Actions
         return $data;
     }
 
-    public function estadoHabitacionesHotelOld(){
-        global $database;
-
-        $data = $database->query("SELECT
-            if(habitaciones.mantenimiento = 1, sum(habitaciones.mantenimiento), 0) AS mmto
-        FROM
-            habitaciones
-            INNER JOIN
-            tipo_habitaciones
-            ON 
-                habitaciones.id_tipohabitacion = tipo_habitaciones.id
-        WHERE
-            habitaciones.active_at = 1 AND
-            tipo_habitaciones.tipo_habitacion = 1
-        GROUP BY
-            tipo_habitaciones.tipo_habitacion")->fetchAll(PDO::FETCH_ASSOC);
-        return $data;
-
-    }
-    
-    public function habitacionesHotel(){
+    public function habitacionesHotel()
+    {
         global $database;
 
         $data = $database->query("SELECT a.nrohab, b.nroctas, nrocab from (
@@ -617,7 +509,8 @@ class Hotel_Actions
         return $data;
     }
 
-    public function habitacionesOcupadas(){
+    public function habitacionesOcupadas()
+    {
         global $database;
 
         $data = $database->query("SELECT
@@ -664,10 +557,10 @@ class Hotel_Actions
             AND tipo_habitaciones.tipo_habitacion = 1 
             ) AS c")->fetchAll(PDO::FETCH_ASSOC);
         return $data;
-
     }
-    
-    public function traeHabitacionesTraslado(){
+
+    public function traeHabitacionesTraslado()
+    {
         global $database;
 
         $data = $database->query("SELECT
@@ -711,20 +604,20 @@ class Hotel_Actions
         ORDER BY
             traslado_habitaciones.hab_desde ASC")->fetchAll(PDO::FETCH_ASSOC);
         return $data;
-
     }
-    
-    public function eliminaHuesped($id){
+
+    public function eliminaHuesped($id)
+    {
         global $database;
 
-        $data = $database->delete('huespedes',[
+        $data = $database->delete('huespedes', [
             "AND" => [
                 'id_huesped' => $id,
-            ] 
+            ]
         ]);
         return $data->rowCount();
     }
-    
+
     public function estadisticasHuesped($id)
     {
         global $database;
@@ -1018,7 +911,6 @@ class Hotel_Actions
     public function creaConsulta($sele)
     {
         global $database;
-        // echo $sele;
         $data = $database->query($sele)->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
@@ -1271,30 +1163,29 @@ class Hotel_Actions
         return $data;
     }
 
-
     public function traeUsuariosPosVentas($desdeFe, $hastaFe, $grupo)
     {
         global $database;
 
         $data = $database->query("SELECT usuarios.usuario,
-        usuarios.nombres,
-        usuarios.apellidos 
-    FROM
-        usuarios,
-        historico_cargos_pms,
-        codigos_vta
-    WHERE
-        usuarios.usuario = historico_cargos_pms.usuario 
-        AND codigos_vta.id_cargo = historico_cargos_pms.id_codigo_cargo
-        AND historico_cargos_pms.fecha_cargo >= '$desdeFe' 
-        AND historico_cargos_pms.fecha_cargo <= '$hastaFe' 
-        AND codigos_vta.grupo_vta = $grupo
-        AND usuarios.estado = 1 
-        AND usuarios.pos = 1 
-    GROUP BY
-        usuarios.usuario 
-    ORDER BY
-        usuarios.usuario")->fetchAll();
+            usuarios.nombres,
+            usuarios.apellidos 
+        FROM
+            usuarios,
+            historico_cargos_pms,
+            codigos_vta
+        WHERE
+            usuarios.usuario = historico_cargos_pms.usuario 
+            AND codigos_vta.id_cargo = historico_cargos_pms.id_codigo_cargo
+            AND historico_cargos_pms.fecha_cargo >= '$desdeFe' 
+            AND historico_cargos_pms.fecha_cargo <= '$hastaFe' 
+            AND codigos_vta.grupo_vta = $grupo
+            AND usuarios.estado = 1 
+            AND usuarios.pos = 1 
+        GROUP BY
+            usuarios.usuario 
+        ORDER BY
+            usuarios.usuario")->fetchAll();
         return $data;
     }
 
@@ -1332,7 +1223,6 @@ class Hotel_Actions
         ]);
         return $data;
     }
-
 
     public function traeInfoFE($numFact)
     {
@@ -1379,7 +1269,6 @@ class Hotel_Actions
         ]);
         return $data;
     }
-
 
     public function asignaDiasCredito($id, $dias)
     {
@@ -1447,16 +1336,16 @@ class Hotel_Actions
     {
         global $database;
 
-        $data = $database->query("select num_habitacion, fecha_llegada, fecha_salida, estado  
-        from reservas_pms 
-        where 
-        tipo_habitacion = '$tipo' 
-        and estado != 'SA' 
-        and estado != 'CX'
-        and estado != 'CO'
-        and fecha_llegada >= '$llega'
-        and fecha_salida <= '$sale'
-    ORDER BY num_habitacion; ")->fetchAll(PDO::FETCH_ASSOC);
+        $data = $database->query("SELECT num_habitacion, fecha_llegada, fecha_salida, estado  
+            from reservas_pms 
+            where 
+            tipo_habitacion = '$tipo' 
+            and estado != 'SA' 
+            and estado != 'CX'
+            and estado != 'CO'
+            and fecha_llegada >= '$llega'
+            and fecha_salida <= '$sale'
+        ORDER BY num_habitacion; ")->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     }
 
@@ -1485,30 +1374,28 @@ class Hotel_Actions
         return $data->rowCount();
     }
 
-
     public function buscaAcompananteTRA($reserva)
     {
         global $database;
 
         $data = $database->query("SELECT
-        acompanantes.id_huesped, 
-        huespedes.identificacion, 
-        huespedes.apellido1, 
-        huespedes.apellido2, 
-        huespedes.nombre1, 
-        huespedes.nombre2, 
-        tipo_documento.descripcion_documento
-    FROM
-        acompanantes,
-        huespedes,
-        tipo_documento
-    WHERE
-        acompanantes.id_huesped = huespedes.id_huesped AND
-        huespedes.tipo_identifica = tipo_documento.id_doc AND 
-        acompanantes.id_reserva  = $reserva ORDER BY huespedes.apellido1 ASC")->fetchAll();
+            acompanantes.id_huesped, 
+            huespedes.identificacion, 
+            huespedes.apellido1, 
+            huespedes.apellido2, 
+            huespedes.nombre1, 
+            huespedes.nombre2, 
+            tipo_documento.descripcion_documento
+        FROM
+            acompanantes,
+            huespedes,
+            tipo_documento
+        WHERE
+            acompanantes.id_huesped = huespedes.id_huesped AND
+            huespedes.tipo_identifica = tipo_documento.id_doc AND 
+            acompanantes.id_reserva  = $reserva ORDER BY huespedes.apellido1 ASC")->fetchAll();
         return $data;
     }
-
 
     public function traeInfoHotel()
     {
@@ -1539,85 +1426,46 @@ class Hotel_Actions
         return $data;
     }
 
-
-    public function HuespedllegadaDelDiaTRAOld($reserva, $fecha, $tipo)
-    {
-        global $database;
-        $data = $database->select('reservas_pms', [
-            '[<]huespedes' => ['id_huesped', 'id_huesped'],
-            '[<]tipo_documento' => ['tipo_documento.id_doc' => 'huespedes.tipo_identifica'],
-        ], [
-            'huespedes.apellido1',
-            'huespedes.apellido2',
-            'huespedes.nombre1',
-            'huespedes.nombre2',
-            'huespedes.ciudad',
-            'huespedes.identificacion',
-            'tipo_documento.descripcion_documento',
-            'reservas_pms.fecha_llegada',
-            'reservas_pms.fecha_salida',
-            'reservas_pms.valor_diario',
-            'reservas_pms.origen_reserva',
-            'reservas_pms.num_reserva',
-            'reservas_pms.num_habitacion',
-            'reservas_pms.motivo_viaje',
-        ], [
-            'reservas_pms.fecha_llegada' => $fecha,
-            'reservas_pms.num_reserva' => $reserva,
-            'reservas_pms.estado' => $tipo,
-            'ORDER' => ['huespedes.apellido1' => 'ASC']
-        ]);
-        return $data;
-    }
-
     public function HuespedllegadaDelDiaTRA($reserva, $fecha, $tipo)
     {
         global $database;
         $data = $database->query("SELECT
-        huespedes.identificacion, 
-        huespedes.apellido1, 
-        huespedes.apellido2, 
-        huespedes.nombre1, 
-        huespedes.nombre2, 
-        reservas_pms.fecha_llegada, 
-        reservas_pms.fecha_salida, 
-        reservas_pms.num_habitacion, 
-        reservas_pms.valor_diario, 
-        reservas_pms.origen_reserva, 
-        tipo_habitaciones.descripcion_habitacion, 
-        tipo_documento.descripcion_documento, 
-        ciudades.municipio, 
-        grupos_cajas.descripcion_grupo
-    FROM
-        huespedes,
-        reservas_pms,
-        tipo_documento,
-        tipo_habitaciones,
-        ciudades,
-        grupos_cajas
-    WHERE
-        huespedes.id_huesped = reservas_pms.id_huesped AND
-        reservas_pms.num_reserva = $reserva AND
-        huespedes.tipo_identifica = id_doc AND
-        reservas_pms.tipo_habitacion = tipo_habitaciones.id AND
-        huespedes.ciudad = ciudades.id_ciudad AND
-        reservas_pms.motivo_viaje = grupos_cajas.id_grupo")->fetchAll();
+            huespedes.identificacion, 
+            huespedes.apellido1, 
+            huespedes.apellido2, 
+            huespedes.nombre1, 
+            huespedes.nombre2, 
+            reservas_pms.fecha_llegada, 
+            reservas_pms.fecha_salida, 
+            reservas_pms.num_habitacion, 
+            reservas_pms.valor_diario, 
+            reservas_pms.origen_reserva, 
+            tipo_habitaciones.descripcion_habitacion, 
+            tipo_documento.descripcion_documento, 
+            ciudades.municipio, 
+            grupos_cajas.descripcion_grupo
+        FROM
+            huespedes,
+            reservas_pms,
+            tipo_documento,
+            tipo_habitaciones,
+            ciudades,
+            grupos_cajas
+        WHERE
+            huespedes.id_huesped = reservas_pms.id_huesped AND
+            reservas_pms.num_reserva = $reserva AND
+            huespedes.tipo_identifica = id_doc AND
+            reservas_pms.tipo_habitacion = tipo_habitaciones.id AND
+            huespedes.ciudad = ciudades.id_ciudad AND
+            reservas_pms.motivo_viaje = grupos_cajas.id_grupo")->fetchAll();
         return $data;
     }
-
-
-
-
-
-
-
 
     public function llegadasDelDiaTRA($fecha, $tipo)
     {
         global $database;
         $data = $database->select('reservas_pms', [
             '[<]huespedes' => ['id_huesped', 'id_huesped'],
-            // '[<]paices' => ['pais' => 'id_pais'],
         ], [
             'huespedes.apellido1',
             'huespedes.apellido2',
@@ -1638,7 +1486,6 @@ class Hotel_Actions
         ]);
         return $data;
     }
-
 
     public function actualizaHuespedessinNombreCompleto($id, $resultado)
     {
@@ -1784,7 +1631,6 @@ class Hotel_Actions
         return $database->id();
     }
 
-
     public function traeNotas()
     {
         global $database;
@@ -1815,7 +1661,6 @@ class Hotel_Actions
         ]);
         return $database->id();
     }
-
 
     public function creaGrupo($empresaGrupo, $nombreGrupo, $llegada, $noches, $salida, $hombres, $mujeres, $ninos, $cantHabi, $tarifahab, $valortar, $origen, $destino, $motivo, $fuente, $segmento, $formapago, $observaciones, $usuario, $idusuario)
     {
@@ -1875,44 +1720,6 @@ class Hotel_Actions
         return $data;
     }
 
-    public function traeHabitacionesMmtoOld()
-    {
-        global $database;
-
-        $data = $database->select('mantenimiento_habitaciones', [
-            '[<]habitaciones' => ['id_habitacion' => 'id'],
-            '[<]grupos_cajas' => ['id_mantenimiento' => 'id_grupo']
-        ], [
-            'habitaciones.numero_hab',
-            'grupos_cajas.descripcion_grupo',
-            'mantenimiento_habitaciones.desde_fecha',
-            'mantenimiento_habitaciones.hasta_fecha',
-        ], [
-            'mantenimiento_habitaciones.estado_mmto' => 1,
-        ]);
-        return $data;
-    }
-
-    public function traeHabitacionesSuciasOld()
-    {
-        global $database;
-
-        $data = $database->select('mantenimiento_habitaciones', [
-            '[<]habitaciones' => ['id_habitacion' => 'id'],
-            '[<]grupos_cajas' => ['id_mantenimiento' => 'id_grupo']
-        ], [
-            'habitaciones.numero_hab',
-            'grupos_cajas.descripcion_grupo',
-            'mantenimiento_habitaciones.desde_fecha',
-            'mantenimiento_habitaciones.hasta_fecha',
-        ], [
-            'mantenimiento_habitaciones.estado_mmto' => 1,
-        ]);
-        return $data;
-    }
-
-
-
     public function traeEstadoHabitaciones()
     {
         global $database;
@@ -1935,7 +1742,6 @@ class Hotel_Actions
         ]);
         return $data;
     }
-
 
     public function regresaCasa($reserva)
     {
@@ -1962,7 +1768,6 @@ class Hotel_Actions
         return $data->rowCount();
     }
 
-
     public function traeDescripcionContable($codigo)
     {
         global $database;
@@ -1987,6 +1792,7 @@ class Hotel_Actions
         ]);
         return $data[0]['estado'];
     }
+
     public function getFacturasCompanias($id)
     {
         global $database;
@@ -2083,37 +1889,37 @@ class Hotel_Actions
         global $database;
 
         $data = $database->query("SELECT 
-                a.monto, a.base, retenciones.idRetencion, retenciones.descripcionRetencion, a.valorRetencion, retenciones.porcentajeRetencion
-                FROM ( SELECT
-                COALESCE(SUM(cargos_pms.monto_cargo),0) AS monto,
-                COALESCE(SUM(cargos_pms.base_impuesto),0) AS base,
-                COALESCE(SUM(cargos_pms.impuesto),0) as impto,
-                codigos_vta.idRetencion, 
-                cargos_pms.valor_cargo, 
-                retenciones.descripcionRetencion, 
-                retenciones.porcentajeRetencion,
-                retenciones.baseRetencion,
-                retenciones.tipoRetencion,
-                COALESCE(sum(cargos_pms.monto_cargo) * (porcentajeRetencion)/100,0) AS valorRetencion
-                FROM
-                    cargos_pms,
-                    retenciones,
-                    codigos_vta
-                WHERE
-                    cargos_pms.id_codigo_cargo = codigos_vta.id_cargo 
-                    AND codigos_vta.idRetencion = retenciones.idRetencion 
-                    AND cargos_pms.numero_reserva = $nroReserva 
-                    AND cargos_pms.folio_cargo = $nroFolio 
-                    AND cargos_pms.cargo_anulado = 0
-                GROUP BY
-                codigos_vta.idRetencion
-                ORDER BY
-                codigos_vta.idRetencion) AS a
-                JOIN retenciones 
-                ON a.idRetencion = retenciones.idRetencion 
-                AND retenciones.tipoRetencion = 1 
-                AND  a.base >= retenciones.baseRetencion
-                ")->fetchAll(PDO::FETCH_ASSOC);
+            a.monto, a.base, retenciones.idRetencion, retenciones.descripcionRetencion, a.valorRetencion, retenciones.porcentajeRetencion
+            FROM ( SELECT
+            COALESCE(SUM(cargos_pms.monto_cargo),0) AS monto,
+            COALESCE(SUM(cargos_pms.base_impuesto),0) AS base,
+            COALESCE(SUM(cargos_pms.impuesto),0) as impto,
+            codigos_vta.idRetencion, 
+            cargos_pms.valor_cargo, 
+            retenciones.descripcionRetencion, 
+            retenciones.porcentajeRetencion,
+            retenciones.baseRetencion,
+            retenciones.tipoRetencion,
+            COALESCE(sum(cargos_pms.monto_cargo) * (porcentajeRetencion)/100,0) AS valorRetencion
+            FROM
+                cargos_pms,
+                retenciones,
+                codigos_vta
+            WHERE
+                cargos_pms.id_codigo_cargo = codigos_vta.id_cargo 
+                AND codigos_vta.idRetencion = retenciones.idRetencion 
+                AND cargos_pms.numero_reserva = $nroReserva 
+                AND cargos_pms.folio_cargo = $nroFolio 
+                AND cargos_pms.cargo_anulado = 0
+            GROUP BY
+            codigos_vta.idRetencion
+            ORDER BY
+            codigos_vta.idRetencion) AS a
+            JOIN retenciones 
+            ON a.idRetencion = retenciones.idRetencion 
+            AND retenciones.tipoRetencion = 1 
+            AND  a.base >= retenciones.baseRetencion
+            ")->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     }
 
@@ -2122,30 +1928,30 @@ class Hotel_Actions
         global $database;
 
         $data = $database->query("SELECT
-                COALESCE(SUM(cargos_pms.monto_cargo),0) AS monto,
-                COALESCE(SUM(cargos_pms.base_impuesto),0) AS base,
-                COALESCE(SUM(cargos_pms.impuesto),0) as impto,
-                codigos_vta.idRetencion, 
-                cargos_pms.valor_cargo,
-                retenciones.descripcionRetencion, 
-                retenciones.porcentajeRetencion,
-                retenciones.baseRetencion,
-                COALESCE(sum(cargos_pms.monto_cargo) * (retenciones.porcentajeRetencion/100),0) AS valorRetencion
-                FROM
-                    cargos_pms
-                    JOIN codigos_vta 
-                    ON codigos_vta.id_cargo = cargos_pms.id_codigo_cargo
-                    RIGHT JOIN retenciones
-                    ON retenciones.idRetencion = codigos_vta.idRetencion
-                WHERE 
-                    cargos_pms.numero_reserva = $nroReserva 
-                    AND cargos_pms.folio_cargo = $nroFolio 
-                    AND cargos_pms.cargo_anulado = 0
-                GROUP BY
-                codigos_vta.idRetencion
-                ORDER BY
-                codigos_vta.idRetencion
-                ")->fetchAll(PDO::FETCH_ASSOC);
+            COALESCE(SUM(cargos_pms.monto_cargo),0) AS monto,
+            COALESCE(SUM(cargos_pms.base_impuesto),0) AS base,
+            COALESCE(SUM(cargos_pms.impuesto),0) as impto,
+            codigos_vta.idRetencion, 
+            cargos_pms.valor_cargo,
+            retenciones.descripcionRetencion, 
+            retenciones.porcentajeRetencion,
+            retenciones.baseRetencion,
+            COALESCE(sum(cargos_pms.monto_cargo) * (retenciones.porcentajeRetencion/100),0) AS valorRetencion
+            FROM
+                cargos_pms
+                JOIN codigos_vta 
+                ON codigos_vta.id_cargo = cargos_pms.id_codigo_cargo
+                RIGHT JOIN retenciones
+                ON retenciones.idRetencion = codigos_vta.idRetencion
+            WHERE 
+                cargos_pms.numero_reserva = $nroReserva 
+                AND cargos_pms.folio_cargo = $nroFolio 
+                AND cargos_pms.cargo_anulado = 0
+            GROUP BY
+            codigos_vta.idRetencion
+            ORDER BY
+            codigos_vta.idRetencion
+            ")->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     }
 
@@ -2190,7 +1996,6 @@ class Hotel_Actions
 
         return $data;
     }
-
 
     public function actualizaDatosFe($nroFactura, $prefijo, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cufe, $QRStr, $recibeCurl, $Isvalid, $eFact, $errorMessage, $statusCode, $statusDesc, $statusMess)
     {
@@ -4969,16 +4774,6 @@ class Hotel_Actions
         return $data;
     }
 
-
-    public function getDatosAnioAuditoriaOld2($anio)
-    {
-        global $database;
-
-        $data = $database->query("SELECT SUM(ingreso_habitaciones) as aingHab, SUM(ingreso_impto_habitaciones) as aingImp, SUM(ingreso_promedio_habitacion_disponible)as aingProHabDis, SUM(ingreso_promedio_habitacion_ocupada)as aingProHabOcu, SUM(ingresos_compania)as aingCom, SUM(ingresos_agencia) as aingAge, SUM(ingresos_grupo) as aingGru, SUM(ingresos_individual) as aingInd, SUM(ingreso_promedio_huesped) as aproHue, SUM(habitaciones_disponibles) as ahabDis, SUM(habitaciones_fuera_orden) as ahabFor, SUM (habitaciones_fuera_servicio) as ahabFse, SUM(habitaciones_ocupadas) as ahabOcu, SUM(salidas_dia) as asalDia, SUM(llegadas_dia) as alleDia, SUM(habitaciones_cortesia) as ahabCor, SUM(habitaciones_usocasa) as ahabUca, SUM(habitaciones_usodia) as ahabUdi, SUM(ingreso_potencial) as aingPot, SUM(camas_disponibles) as acamDis, SUM(hombres) as aHom, SUM(mujeres) as aMuj, SUM(ninos) as aNin, SUM(huespedes_repetitivos) as ahueRep, SUM(nuevos_huespedes) as ahueNue, SUM(huespedes_nacionales) as ahueNal, SUM(huespedes_extranjeros) as ahueInt, SUM(reservas_creadashoy) as aresHoy, SUM(reservas_noshows) as aresNos, SUM(salidas_anticipadas) as asalAnt, SUM(reservas_canceladas) as aresCan, SUM(llegadas_sinreserva) as alleSin FROM reporte_gerencia WHERE year(fecha_auditoria) = '$anio'")->fetchAll();
-
-        return $data;
-    }
-
     public function getDatosMesAuditoria($mes, $anio)
     {
         global $database;
@@ -5085,7 +4880,7 @@ class Hotel_Actions
 
         $data = $database->insert('reporte_gerencia', [
             'fecha_auditoria' => $fecha,
-            'habitaciones_hotel' => $habtot, 
+            'habitaciones_hotel' => $habtot,
             'ingreso_habitaciones' => $cargo,
             'ingreso_impto_habitaciones' => $impto,
             'ingreso_promedio_habitacion_disponible' => $promhab,
@@ -5936,37 +5731,11 @@ class Hotel_Actions
         return $data;
     }
 
-
-
-
     public function traeEstadoHabitacionesHotel($tipo, $llega, $sale)
     {
         global $database;
 
         $data = $database->query("SELECT num_habitacion, fecha_llegada, fecha_salida, estado FROM reservas_pms WHERE (estado = 'CA'  OR estado = 'ES') AND tipo_habitacion = '$tipo' AND fecha_llegada <= '$llega' and fecha_salida >= '$sale' order BY num_habitacion")->fetchAll();
-        return $data;
-    }
-
-    public function traeEstadoHabitacionesHotelOld2($tipo, $llega, $sale)
-    {
-        global $database;
-
-        $data = $database->query("SELECT 
-        num_habitacion, fecha_llegada, fecha_salida, estado 
-        FROM 
-        reservas_pms
-        WHERE 
-        tipo_habitacion = '$tipo' AND 
-        estado != 'CX' AND
-        estado != 'CO' AND
-        estado != 'SA' AND
-        fecha_salida < '$sale' OR
-        tipo_habitacion = '$tipo' AND 
-        estado != 'CX' AND
-        estado != 'CO' AND
-        estado != 'SA' AND
-        fecha_llegada < '$llega' 
-        ORDER BY num_habitacion, fecha_llegada")->fetchAll();
         return $data;
     }
 
@@ -5984,23 +5753,6 @@ class Hotel_Actions
         global $database;
 
         $data = $database->query("SELECT num_habitacion, fecha_llegada, fecha_salida, estado FROM reservas_pms WHERE (estado = 'CA' OR estado = 'ES') AND tipo_habitacion = '$tipo' AND fecha_salida = '$llega' ORDER BY num_habitacion")->fetchAll();
-
-        return $data;
-    }
-
-
-    public function getEnCasaporTipoHabOld($tipo, $llega, $sale, $estado)
-    {
-        global $database;
-
-        $data = $database->select('reservas_pms', [
-            'num_habitacion',
-        ], [
-            'fecha_llegada[>=]' => $llega,
-            'fecha_salida[<=]' => $sale,
-            'tipo_habitacion' => $tipo,
-            'estado' => $estado,
-        ]);
 
         return $data;
     }
@@ -6407,7 +6159,7 @@ class Hotel_Actions
         ]);
 
         return $data;
-    } 
+    }
 
     public function enviaHistoricoCanceladas($tipo)
     {
@@ -6947,7 +6699,7 @@ class Hotel_Actions
             'hab_desde' => $habiact,
             'hab_hasta' => $habinue,
             'fecha' => $fecha,
-            'id_reserva' => $id, 
+            'id_reserva' => $id,
             'motivo_cambio' => $motivo,
             'observaciones' => $observa,
             'tipo_traslado' => $tipo,
@@ -9282,15 +9034,6 @@ ORDER BY
         return $data;
     }
 
-    public function getTotalHuespedeseCasaOld($ctamaster, $tipo)
-    {
-        global $database;
-
-        $data = $database->query("SELECT count(id) as habi, Sum(reservas_pms.can_hombres) AS hom, Sum(reservas_pms.can_mujeres) AS muj, Sum(reservas_pms.can_ninos) AS nin FROM reservas_pms WHERE reservas_pms.estado = 'CA' AND reservas_pms.tipo_habitacion <> 'CMA'")->fetchAll();
-
-        return $data;
-    }
-
     public function getTotalHuespedeseSaliendo()
     {
         global $database;
@@ -9891,15 +9634,6 @@ ORDER BY
         global $database;
 
         $data = $database->query("SELECT numero_hab as num_habitacion FROM habitaciones WHERE id_tipohabitacion = '$tipo' AND active_at = 1 ORDER BY numero_hab")->fetchAll();
-
-        return $data;
-    }
-
-    public function getSeleccionaHabitacionesTipoOld($tipo)
-    {
-        global $database;
-
-        $data = $database->query("SELECT numero_hab as num_habitacion FROM habitaciones WHERE id_tipohabitacion = '$tipo' AND active_at = 1 AND mantenimiento = 0 AND sucia = 0 AND ocupada = 0 ORDER BY numero_hab")->fetchAll();
 
         return $data;
     }

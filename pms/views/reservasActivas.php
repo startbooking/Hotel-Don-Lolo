@@ -74,13 +74,28 @@
                     <?php
                     }
                     if (!empty($reserva['observaciones'])) { ?>
-                      <span class="btn btn-info faReservas" title="Observaciones a la Reserva" data-toggle="modal" data-target="#myModalVerObservaciones" data-reserva="<?php echo $reserva['num_reserva']; ?>" data-estado="1">
+                      <span 
+                        class="btn btn-info faReservas" 
+                        title="Observaciones a la Reserva" 
+                        data-toggle="modal" 
+                        data-target="#myModalVerObservaciones" 
+                        data-reserva="<?php echo $reserva['num_reserva']; ?>" 
+                        data-estado="1"
+                        >
                         <i class="fa fa-commenting fa-stack-1x fa-inverse"></i>
                       </span>
                     <?php
                     }
                     if (!empty($reserva['observaciones_cancela'])) { ?>
-                      <span class="btn btn-danger faReservas" title="Observaciones a Cancelacion de la Reserva" style="margin-left:0px;cursor:pointer;" onclick="verObservaciones('<?php echo $reserva['num_reserva']; ?>','2')">
+                      <span 
+                        class="btn btn-danger faReservas" 
+                        title="Observaciones a Cancelacion de la Reserva" 
+                        style="margin-left:0px;cursor:pointer;" 
+                        data-toggle="modal" 
+                        data-target="#myModalVerObservaciones" 
+                        data-reserva="<?php echo $reserva['num_reserva']; ?>" 
+                        data-estado="2"
+                        >
                         <i class="fa fa-commenting fa-stack-1x fa-inverse"></i>
                       </span>
                     <?php

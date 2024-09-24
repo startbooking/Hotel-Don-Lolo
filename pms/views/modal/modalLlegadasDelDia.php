@@ -9,7 +9,7 @@
             </button>
             <h3 class="modal-title" id="exampleModalLabel">Ingresa Reserva</h3>
           </div>
-          <div class="modal-body modalReservas">
+          <div class="modal-body modalReservasIng">
             <div id="datos_ajax_register">
               <div class="alert alert-danger apaga pd-10" >
                 <h4 style="margin:0px;">Precaucion</h4>

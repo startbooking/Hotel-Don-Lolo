@@ -2133,9 +2133,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     $(".alert").hide();
   });
 
-  $("#myModalRegistraReserva").on("show.bs.modal", function (event) {
+  $("#myModalRegistraReservaOld").on("show.bs.modal", function (event) {
     var button = $(event.relatedTarget);
-    var id = button.data("id");
+    var id = button.data("id"); 
     var hues = button.data("idhuesped");
     var tipohab = button.data("tipohab");
     var nrohab = button.data("nrohab");
@@ -2158,7 +2158,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       mensaje.classList.remove('apaga');
       btnIng.classList.add('apaga');
       $("#alert").css("display", "block");
-    
     }
     modal.find(".modal-title").text("Ingresar Huesped: " + nombre);
     modal.find(".modal-body #txtIdReservaIng").val(id);
@@ -2177,6 +2176,32 @@ document.addEventListener("DOMContentLoaded", async () => {
     modal.find(".modal-body #txtValorTarifaIng").val(number_format(valor, 2));
     // $(".alert").hide();
   });
+
+  $("#myModalRegistraReserva").on("show.bs.modal", function (event) {
+    var button = $(event.relatedTarget);
+    var id = button.data("id");
+    var nombre = button.data("nombre");
+    var sucia = button.data("sucia");
+
+    var modal = $(this);
+    $("#editaRes").val(1);
+    var parametros = {
+      id,
+    };
+    modal.find(".modal-title").text("Modifica Reserva Actual: " + nombre);
+
+    $.ajax({
+      type: "POST",
+      data: parametros,
+      url: "res/php/dataIngresaReserva.php",
+      success: function (datos) {
+        $(".modalReservasIng").html("");
+        $(".modalReservasIng").html(datos);
+      },
+    });
+    $(".alert").hide();
+  });
+
 
   $("#dataEstadoCartera").on("show.bs.modal", function (event) {
     var button = $(event.relatedTarget);
@@ -2232,7 +2257,6 @@ function consumosPorFecha() {
     });
   }
 }
-
 
 async function eliminaHuesped(e, huesped){
   var button = document.getElementById(e);

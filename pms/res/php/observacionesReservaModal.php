@@ -7,14 +7,13 @@
 
   $datosReserva = $hotel->getReservasDatos($reserva); 
 
-	/// echo print_r($datosReserva);  
 ?>
 
 <div class="container-fluid" style="padding:0px;margin-top:10px;">
 	<form class="form-horizontal" id="formHuespedes" action="#" method="POST">
     <div class="panel panel-success">
     	<div class="panel-heading" style="padding:5px;">
-    		<div class="container-fluid" style="padding:0px;">
+    		<div class="container-fluid" style="padding:0px;margin-bottom:0;">
 					<div class="form-group">
 			      <label for="apellidos" class="col-sm-2 control-label">Habitacion</label>
 			      <div class="col-sm-2">

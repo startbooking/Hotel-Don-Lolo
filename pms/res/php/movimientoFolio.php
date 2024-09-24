@@ -78,11 +78,6 @@
                     title="Anula Cargo Actual" >
                     <i class='glyphicon glyphicon-remove-circle'></i>
                   </button>
-                  <?php
-                  if($nrohabi !== '9500'){ ?>
-                    <?php 
-                  }
-                  ?>
                   <button type="button" class="btn btn-info btn-xs" 
                     data-toggle  ="modal" 
                     data-target  ="#myModalMoverCargo" 

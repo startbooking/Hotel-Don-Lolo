@@ -15,6 +15,7 @@
   $limpaEstado  = $hotel->limpiaProcesosAuditoria();
   $fechanueva   = strtotime ( '+1 day' , strtotime ( $fecha ) ) ;
   $fechanueva   = date ('Y-m-d' , $fechanueva );
+  /* 
   $habitaciones = $hotel->getHabitaciones(CTA_MASTER);
   foreach ($habitaciones as $habitacion) {
     $estadofo = $habitacion['estado_fo'];
@@ -24,7 +25,7 @@
       $estadofo = 'S'.substr($estadofo,1,1);
       // $estHabi = $hotel->cambiaEstadoHabitacion($habitacion['numero_hab'],$estadofo);
     }
-  }    
+  } */    
   $cambiaFecha  = $hotel->cambiaFechaAuditoria($fechanueva);
   $cambiaCajero = $hotel->cambiaEstadoCajeros();
   $abreCajero   = $hotel->getAbrirCajero($usuario);
