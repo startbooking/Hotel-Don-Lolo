@@ -13,7 +13,7 @@ $fecha = FECHA_PMS;
 $refer = FECHA_PMS;
 $detalle = 'Cargo Noche del ' . FECHA_PMS;
 $regis = 0;
-
+ 
 if ($tipo == 1) {
   $cargoshab = $hotel->getCargoUnaHabitacion($reserva);
 } else {

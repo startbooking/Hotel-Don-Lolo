@@ -1,5 +1,5 @@
 <div class="modal fade" id="myModalRegistraReserva" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <form id="guardarDatosRooms" class="form-horizontal" action="javascript:ingresaReserva()" method="POST" enctype="multipart/form-data">
+  <form id="formIngreso" class="form-horizontal" action="javascript:ingresaReserva()" method="POST" enctype="multipart/form-data">
     <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -64,7 +64,7 @@
                 <input class="form-control padInput" type="text" name="txtNinosIng" id='txtNinosIng' value='0' readonly="">
               </div>
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label class="control-label col-lg-2 col-md-2" for="">Comentarios</label>
               <div class="col-lg-10 col-md-10">
                 <textarea class="form-control padInput" id="areaComentariosINg" name="areaComentariosINg" readonly="" style="height: 5em !important;min-height: 5em"></textarea>
@@ -79,7 +79,7 @@
               <div class="col-sm-2">
                 <input class="form-control padInput" style="text-align:right;padding:0 3px;" type="text" name="txtValorTarifaIng" id="txtValorTarifaIng" value=0>
               </div>
-            </div>
+            </div> -->
             <div class="form-group">
               <label for="archivo" class="col-sm-2 control-label">Placa Vehiculo</label>
               <div class="col-sm-2">

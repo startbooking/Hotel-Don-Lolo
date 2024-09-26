@@ -37,19 +37,7 @@ $reservas = $hotel->getSalidasDia(FECHA_PMS, 2, "CA");
             </thead>
             <tbody>
               <?php
-              foreach ($reservas as $reserva) {
-                $depositos = $hotel->getDepositosReservas($reserva['num_reserva']);
-                if ($reserva['id_compania'] == 0) {
-                  $nombrecia = 'SIN COMPAÑIA ASOCIADA';
-                  $nitcia    = '222.222';
-                } else {
-                  $cias      = $hotel->getBuscaCia($reserva['id_compania']);
-                  if (count($cias) <> 0) {
-                    $nombrecia = $cias[0]['empresa'];
-                    $nitcia    = $cias[0]['nit'] . '-' . $cias[0]['dv'];
-                  }
-                }
-              ?>
+              foreach ($reservas as $reserva) {?>
                 <tr style='font-size:12px'>
                   <td>
                     <?php echo $reserva['num_habitacion'] ?></span>
@@ -70,7 +58,13 @@ $reservas = $hotel->getSalidasDia(FECHA_PMS, 2, "CA");
                     }
                     ?>
                   </td>
-                  <td><?php echo $nombrecia; ?></td>
+                  <td><?php 
+                    if($reserva['empresa'] != null){
+                      echo substr($reserva['empresa'],0,35); 
+                    }else{
+                      echo 'SIN COMPAÑIA ASOCIADA';
+                    }
+                  ?></td>
                   <td><?php echo $reserva['fecha_llegada']; ?></td>
                   <td><?php echo $reserva['fecha_salida']; ?></td>
                   <td style="text-align:center;"><?php echo $reserva['dias_reservados']; ?></td>
@@ -97,7 +91,17 @@ $reservas = $hotel->getSalidasDia(FECHA_PMS, 2, "CA");
                                   Perfil Huesped</a>
                               </li>
                               <li>
-                                <a data-toggle="modal" data-id="<?php echo $reserva['num_reserva'] ?>" data-cia="<?php echo $reserva['id_compania'] ?>" data-tipohab="<?php echo descripcionTipoHabitacion($reserva['tipo_habitacion']) ?>" data-nrohab="<?php echo $reserva['num_habitacion'] ?>" data-apellido1="<?php echo $reserva['apellido1'] ?>" data-apellido2="<?php echo $reserva['apellido2'] ?>" data-nombre1="<?php echo $reserva['nombre1'] ?>" data-nombre2="<?php echo $reserva['nombre2'] ?>" data-nombrecia="<?php echo $nombrecia ?>" data-llegada="<?php echo $reserva['fecha_llegada'] ?>" data-salida="<?php echo $reserva['fecha_salida'] ?>" data-noches="<?php echo $reserva['dias_reservados'] ?>" data-nitcia="<?php echo $nitcia ?>" data-observa="<?php echo $reserva['observaciones'] ?>" href="#myModalAdicionaObservaciones">
+                                <a 
+                                  data-toggle="modal" 
+                                  data-id="<?php echo $reserva['num_reserva'] ?>"
+                                  data-nrohab="<?php echo $reserva['num_habitacion'] ?>" 
+                                  data-nombre="<?php echo $reserva['nombre_completo'] ?>" 
+                                  data-noches="<?php echo $reserva['dias_reservados'] ?>" 
+                                  data-llegada="<?php echo $reserva['fecha_llegada'] ?>" 
+                                  data-salida="<?php echo $reserva['fecha_salida'] ?>" 
+                                  data-observa="<?php echo $reserva['observaciones'] ?>"
+                                  href="#myModalAdicionaObservaciones"
+                                  >
                                   <i class="fa fa-commenting-o" aria-hidden="true"></i>
                                   Adicionar Observaciones</a>
                               </li>

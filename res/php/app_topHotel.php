@@ -96,9 +96,9 @@ if (!isset($_GET['section'])) {
     $companias = $hotel->getCompanias();
     $paices = $hotel->getPaices();
 } elseif (isset($_GET['section']) && $_GET['section'] == 'forecast'|| $_GET['section'] == 'forecastOld') {
-    $reservas = $hotel->getReservasActuales(1);
+    /* $reservas = $hotel->getReservasActuales(1);
     $companias = $hotel->getCompanias();
-    $paices = $hotel->getPaices();
+    $paices = $hotel->getPaices(); */
 } elseif (isset($_GET['section']) && $_GET['section'] == 'preregistros') {
     $reservas = $hotel->getReservasActuales(1);
     $paices = $hotel->getPaices();
@@ -115,6 +115,7 @@ if (!isset($_GET['section'])) {
     $companias = $hotel->getCompanias();
 } elseif (isset($_GET['section']) && $_GET['section'] == 'salidasDelDia') {
     $reservas = $hotel->getSalidasDia(FECHA_PMS, 2, 'CA');
+    $paices = $hotel->getPaices();
 } elseif (isset($_GET['section']) && $_GET['section'] == 'salidasRealizadas') {
     $reservas = $hotel->getSalidasRealizadas(FECHA_PMS, 2, 'SA');
 } elseif (isset($_GET['section']) && $_GET['section'] == 'facturacionEstadia') {

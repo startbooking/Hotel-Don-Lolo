@@ -67,7 +67,7 @@ $vacantes = $habdisp - $paxs[0]['habi'];
             </div>
           </div>
           <div class="container-fluid">
-            <h4 class="alert alert-success tituloEstado mt-40">Ocupacion Hoy</h4>
+            <h4 class="alert alert-success tituloEstado" style="margin:0 0 20px 0;">Ocupacion Hoy</h4>
             <div class="container-fluid ocupacion">
               <div class="row form-group">
                 <label for="nit" class="col-sm-4 control-label">Habitaciones Ocupadas</label>

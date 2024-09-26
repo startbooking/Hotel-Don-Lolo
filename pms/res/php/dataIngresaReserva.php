@@ -46,12 +46,12 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
       <label for="inputEmail3" class="col-sm-2 control-label">Huesped </label>
       <div class="col-sm-6">
         <input type="hidden" name="idhuesped" id="idhuesped" value="<?php echo $reserva[0]['id_huesped']; ?>">
-        <input type="text" class="form-control" name="huesped" id="huesped" value="<?php echo $huesped[0]['nombre_completo']; ?>" readonly="">
+        <input type="text" class="form-control" name="huesped" id="huesped" value="<?php echo $huesped[0]['nombre_completo']; ?>" readonly="" >
       </div>
       <div class="form-group">
         <label for="inputEmail3" class="col-sm-2 control-label">Decreto 297</label>
         <div class="col-sm-2">
-          <div class="wrap">
+          <div class="wrap" disabled>
             <div class="col-sm-6" style="padding:0;height: 15px">
               <div class="form-check form-check-inline">
                 <input style="margin-top:5px" class="form-check-input" type="radio" name="imptoOption" id="inlineRadio1" value="1"
@@ -83,7 +83,7 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
     <div class="form-group">
       <label for="inputEmail3" class="col-sm-2 control-label">Empresa</label>
       <div class="col-lg-6 col-md-6">
-        <select class="form-control" name="empresaUpd" id="empresaUpd">
+        <select class="form-control" name="empresaUpd" id="empresaUpd" disabled>
           <option value="0">SIN COMPAÑIA</option>
           <?php
           $companias = $hotel->getCompanias();
@@ -118,39 +118,39 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
           disabled="true"
           <?php
           }
-          ?>>
+          ?> disabled>
       </div>
       <label for="noches" class="col-sm-1 control-label">Noches</label>
       <div class="col-sm-1" style="padding:0 5px">
-        <input type="number" class="form-control" name="nochesUpd" id="nochesUpd" required="" value='<?php echo $reserva[0]['dias_reservados']; ?>' min='1' onchange="sumaFecha()">
+        <input type="number" class="form-control" name="nochesUpd" id="nochesUpd" required="" value='<?php echo $reserva[0]['dias_reservados']; ?>' min='1' onchange="sumaFecha()" disabled>
       </div>
       <label for="salida" class="col-sm-2 control-label">Salida</label>
       <div class="col-sm-3">
-        <input type="date" onfocus="sumaFecha()" onblur="restaFechas()" class="form-control" name="salidaUpd" id="salidaUpd" required="" value="<?php echo $reserva[0]['fecha_salida']; ?>">
+        <input type="date" onfocus="sumaFecha()" onblur="restaFechas()" class="form-control" name="salidaUpd" id="salidaUpd" required="" value="<?php echo $reserva[0]['fecha_salida']; ?>" disabled>
       </div>
     </div>
     <div class="form-group">
       <label for="hombres" class="col-sm-2 control-label">Hombres</label>
       <div class="col-sm-1" style='padding-right: 5px'>
-        <input type="number" class="form-control" name="hombresUpd" id="hombresUpd" required="" value="<?php echo $reserva[0]['can_hombres']; ?>" min=0>
+        <input type="number" class="form-control" name="hombresUpd" id="hombresUpd" required="" value="<?php echo $reserva[0]['can_hombres']; ?>" min=0 disabled>
       </div>
       <label for="mujeres" class="col-sm-1 control-label">Mujeres</label>
       <div class="col-sm-1" style='padding-right: 5px'>
-        <input type="number" class="form-control" name="mujeresUpd" id="mujeresUpd" required="" value='<?php echo $reserva[0]['can_mujeres']; ?>' min=0>
+        <input type="number" class="form-control" name="mujeresUpd" id="mujeresUpd" required="" value='<?php echo $reserva[0]['can_mujeres']; ?>' min=0 disabled>
       </div>
       <label for="ninos" class="col-sm-1 control-label">Niños</label>
       <div class="col-sm-1" style='padding-right: 5px'>
-        <input type="number" class="form-control" name="ninosUpd" id="ninosUpd" required="" value="<?php echo $reserva[0]['can_ninos']; ?>" min=0>
+        <input type="number" class="form-control" name="ninosUpd" id="ninosUpd" required="" value="<?php echo $reserva[0]['can_ninos']; ?>" min=0 disabled>
       </div>
       <label for="orden" class="col-sm-2 control-label">Orden Nro</label>
       <div class="col-sm-3">
-        <input type="text" class="form-control" name="orden" id="orden" value="<?php echo $reserva[0]['orden_reserva']; ?>">
+        <input type="text" class="form-control" name="orden" id="orden" value="<?php echo $reserva[0]['orden_reserva']; ?>" disabled>
       </div>
     </div>
     <div class="form-group">
       <label for="tipohabi" class="col-sm-2 control-label">Tipo Habitacion</label>
       <div class="col-sm-4">
-        <select name="tipohabiUpd" id="tipohabiUpd" required onblur="habitacionesDisponibles(2)">
+        <select name="tipohabiUpd" id="tipohabiUpd" required onblur="habitacionesDisponibles(2)" disabled>
           <?php
           foreach ($tipos as $tipo) {
           ?>
@@ -169,7 +169,7 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
       <label for="nrohabitacion" class="col-sm-2 control-label">Nro Habitacion</label>
       <div class="col-sm-4">
         <div id="habitacionesUpd" >
-          <select name="nrohabitacionUpd" id="nrohabitacionUpd" required disabled>
+          <select name="nrohabitacionUpd" id="nrohabitacionUpd" required readonly>
             <?php
             foreach ($habitaciones as $habitacion) { ?>
               <option value="<?php echo $habitacion['num_habitacion']; ?>"
@@ -190,7 +190,7 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
       <label for="tarifahab" class="col-sm-2 control-label">Tipo Tarifa</label>
       <div class="col-sm-4">
         <div>
-          <select name="tarifahabUpd" id="tarifahabUpd" required onblur="valorHabitacionUpd(this.value)">
+          <select name="tarifahabUpd" id="tarifahabUpd" required onblur="valorHabitacionUpd(this.value)" disabled>
             <?php
             foreach ($tarifas as $tarifa) { ?>
               <option value="<?php echo $tarifa['id']; ?>"
@@ -209,14 +209,14 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
       <label for="valortar" class="col-sm-2 control-label">Valor Tarifa</label>
       <div class="col-sm-4">
         <div id="valortarifas">
-          <input type="text" class="form-control" name="valortarifaUpd" id="valortarifaUpd" required="" value="<?php echo number_format($reserva[0]['valor_diario'], 2); ?>" min=0>
+          <input type="text" class="form-control" name="valortarifaUpd" id="valortarifaUpd" required="" value="<?php echo number_format($reserva[0]['valor_diario'], 2); ?>" min=0 disabled>
         </div>
       </div>
     </div>
     <div class="form-group">
-      <label for="tarifahab" class="col-sm-2 control-label">Procedencia</label>
+      <label for="origen" class="col-sm-2 control-label">Procedencia</label>
       <div class="col-sm-4">
-        <select name="origen" id="origen">
+        <select name="origen" id="origen" required>
           <option value="">Seleccione la Ciudad de Procedencia</option>
           <?php
           foreach ($ciudades as $ciudad) { ?>
@@ -232,9 +232,9 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
           ?>
         </select>
       </div>
-      <label for="tarifahab" class="col-sm-2 control-label">Destino</label>
+      <label for="destino" class="col-sm-2 control-label">Destino</label>
       <div class="col-sm-4">
-        <select name="destino" id="destino">
+        <select name="destino" id="destino" required>
           <option value="">Seleccione la Ciudad de Destino</option>}
           <?php
           foreach ($ciudades as $ciudad) { ?>
@@ -254,7 +254,7 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
     <div class="form-group">
       <label for="motivo" class="col-sm-2 control-label">Motivo Viaje</label>
       <div class="col-sm-4">
-        <select name="motivo" id="motivo">
+        <select name="motivo" id="motivo" required>
           <option value="">Seleccione el Motivo</option>
           <?php
           $motivos = $hotel->getMotivoGrupo('MVI');
@@ -272,9 +272,9 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
           ?>
         </select>
       </div>
-      <label for="tarifahab" class="col-sm-2 control-label">Fuente de Reserva</label>
+      <label for="fuente" class="col-sm-2 control-label">Fuente de Reserva</label>
       <div class="col-sm-4">
-        <select name="fuente" id="fuente">
+        <select name="fuente" id="fuente" required>
           <option value="">Seleccione Fuente</option>
           <?php
           $motivos = $hotel->getMotivoGrupo('FRE');
@@ -295,7 +295,7 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
     <div class="form-group">
       <label for="tarifahab" class="col-sm-2 control-label">Segmento</label>
       <div class="col-sm-4">
-        <select name="segmento" id="segmento">
+        <select name="segmento" id="segmento" required>
           <option value="">Seleccione el Segmento</option>
           <?php
           $motivos = $hotel->getMotivoGrupo('SME');
@@ -314,7 +314,7 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
       </div>
       <label for="formapago" class="col-sm-2 control-label">Forma de Pago </label>
       <div class="col-sm-4">
-        <select name="formapagoUpd" id="formapagoUpd">
+        <select name="formapagoUpd" id="formapagoUpd" required>
           <option value="">Seleccione La Forma de Pago</option>
           <?php
           $codigos = $hotel->getCodigosConsumos(3);
@@ -332,7 +332,7 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
         </select>
       </div>
     </div>
-    <div class="form-group">
+    <!-- <div class="form-group">
       <label for="motivo" class="col-sm-2 control-label">Observaciones</label>
       <div class="col-sm-10">
         <textarea style="height: 5em !important;min-height: 5em" name="observaciones" id="observaciones" class="form-control" rows="4" readonly=""><?php echo $reserva[0]['observaciones']; ?></textarea>
@@ -346,6 +346,30 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
       <label for="formapago" class="col-sm-2 control-label">Fecha - Hora </label>
       <div class="col-sm-4">
         <input type="text" class="form-control" name="createdusr" id="createdusr" value="<?php echo $reserva[0]['reservaCreada']; ?>" readonly="">
+      </div>
+    </div> -->
+
+    <div class="form-group">
+      <label for="placavehiculo" class="col-sm-2 control-label">Placa Vehiculo</label>
+      <div class="col-sm-2">
+        <input class="form-control padInput" type="text" name="placavehiculo" id="placavehiculo">
+      </div>
+      <label for="equipaje" class="col-sm-1 control-label">Equipaje</label>
+      <div class="col-sm-3">
+        <input class="form-control padInput" type="text" name="equipaje" id="equipaje">
+      </div>
+      <label for="transporte" class="col-sm-1 control-label">Transporte</label>
+      <div class="col-sm-3">
+        <select name="transporte" id="transporte" required>
+          <option value="">Seleccione El Transporte</option>
+          <?php
+          $motivos = $hotel->getMotivoGrupo('TTR');
+          foreach ($motivos as $motivo) { ?>
+            <option value="<?php echo $motivo['id_grupo']; ?>"><?php echo $motivo['descripcion_grupo']; ?></option>
+          <?php
+          }
+          ?>
+        </select>
       </div>
     </div>
   </div>

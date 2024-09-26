@@ -32,16 +32,7 @@
             </thead>
             <tbody>
               <?php
-              foreach ($reservas as $reserva) {
-                if (empty($reserva['id_compania'])) {
-                  $nombrecia = 'SIN COMPAÑIA ASOCIADA';
-                  $nitcia    = '';
-                } else {
-                  $cias      = $hotel->getBuscaCia($reserva['id_compania']);
-                  $nombrecia = $cias[0]['empresa'];
-                  $nitcia    = $cias[0]['nit'] . '-' . $cias[0]['dv'];
-                }
-              ?>
+              foreach ($reservas as $reserva) {?>
                 <tr style='font-size:12px'>
                   <td><?php echo $reserva['num_habitacion']; ?></td>
                   <td style="width:50px;">
@@ -60,7 +51,14 @@
                     }
                     ?>
                   </td>
-                  <td><?php echo substr($nombrecia, 0, 50); ?></td>
+                  <td><?php 
+                    if($reserva['empresa'] != null){
+                      echo substr($reserva['empresa'], 0, 50); 
+                    }else {
+                      echo 'SIN COMPAÑIA ASOCIADA';
+                    }
+                    ?>
+                  </td>
                   <td><?php echo $reserva['fecha_llegada']; ?></td>
                   <td><?php echo $reserva['fecha_salida']; ?></td>
                   <td style="text-align:center;"><?php echo $reserva['dias_reservados']; ?></td>
@@ -70,7 +68,7 @@
                     <nav class="navbar navbar-default" style="margin-bottom: 0px;min-height:0px;">
                       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding:0px;">
                         <ul class="nav navbar-nav" style="margin :0">
-                          <li class="dropdown dropdownMenu pull-right">
+                          <li classgetSalidasRealizadas="dropdown dropdownMenu pull-right">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="padding:3px 5px;font-weight: bold;color:#000">
                               Ficha Estadia<span class="caret" style="margin-left:10px;"></span></a>
                             <ul class="dropdown-menu submenu" style="float:left;margin-left:none;">

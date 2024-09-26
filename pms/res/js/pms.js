@@ -129,6 +129,40 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
+  
+  $("#myModalCalendarioReservas").on("show.bs.modal", async function (event) {
+    let reservas = await traeReservasTotal();
+    // let limpia = await limpiaTablaReserva();
+    let llenaTabla = await llenaTablaReservas(reservas);
+    /*
+     */
+
+    /* document.querySelector("#formObservacionesHab").reset();
+    var button = $(event.relatedTarget);
+    numero = button.data("numero");
+    reserva = button.data("reserva");
+    sucia = button.data("sucia");
+    ocupada = button.data("ocupada");
+    document.querySelector('#numeroHab').value = numero;
+    document.querySelector('#numeroRes').value = reserva;
+    document.querySelector('#ocupada').value = ocupada;
+    document.querySelector('#sucia').value = sucia;
+    titulo = document.querySelector("#myModalObservaciones .modal-title");
+    if(ocupada==1){
+      titulo.innerHTML = 'Ingresa Observaciones a la Estadia'
+    }else{
+      if(sucia==0){
+        titulo.innerHTML = 'Envia A Estado Sucia la Habitacion'
+      }else{
+        titulo.innerHTML = 'Limpiar Habitacion'
+      }
+    }
+    let camareras = await traeCamareras();
+    let limpia = await limpiaCamareras();
+    let seleCama = await llenaSelectCamareras(camareras); */
+
+  });
+
   $("#myModalObservaciones").on("show.bs.modal", async function (event) {
     document.querySelector("#formObservacionesHab").reset();
     var button = $(event.relatedTarget);
@@ -2188,7 +2222,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     var parametros = {
       id,
     };
-    modal.find(".modal-title").text("Modifica Reserva Actual: " + nombre);
+    modal.find(".modal-title").text("Ingreso Reserva: " + nombre);
 
     $.ajax({
       type: "POST",
@@ -2228,6 +2262,24 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   });
 });
+
+async function llenaTablaReservas(reservas){
+
+  reservas.map((reserva) => {
+    let { fecha_llegada, reservas, salidas } = reserva
+    $("#tablaCalendario >tbody").append(
+      `<tr>
+        <td>${fecha_llegada}</td>
+        <td style="text-align:right;">${reservas}</td>
+        <td style="text-align:right;">${salidas}</td>
+        </tr>`
+    );
+    // selectElement.add(optionElement);
+  });
+
+
+}
+
 
 function consumosPorFecha() {
   var web = $("#rutaweb").val();
@@ -2389,6 +2441,22 @@ async function traeCamareras() {
     console.log(error);
   }
 }
+
+async function traeReservasTotal() {
+  try {
+    const resultado = await fetch("res/php/traeTotalReservas.php", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    });
+    const datos = await resultado.json();
+    return datos;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 
 async function llenaSelectCamareras(camareras){
   let selectElement = document.querySelector("#reportadoPor");
@@ -7488,24 +7556,19 @@ function ingresaConsumos() {
 
 function ingresaReserva() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario },} = sesion;
-  // let  = user;
+  let { user: { usuario, usuario_id },} = sesion;
+  var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
-  var numero = $("#txtIdReservaIng").val();
+  var numero = $("#numeroReserva").val();
   var habita = $("#txtNumeroHabIng").val();
   let placa = $("#placavehiculo").val();
   let equipaje = $("#equipaje").val();
   let transporte = $("#transporte").val();
 
-  var parametros = {
-    numero,
-    habita,
-    usuario,
-    placa,
-    equipaje,
-    transporte,
-  };
-  
+  var parametros = $("#formIngreso").serializeArray();
+  parametros.push({ name: "usuario", value: usuario });
+  parametros.push({ name: "idusuario", value: usuario_id });
+
   $.ajax({
     type: "POST",
     url: "res/php/ingresaReserva.php",

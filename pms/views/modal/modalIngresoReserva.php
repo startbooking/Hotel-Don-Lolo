@@ -3,10 +3,10 @@
     <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-          <div class="modal-header"> 
+          <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span class="glyphicon glyphicon-off"></span>
-            </button> 
+              <span class="glyphicon glyphicon-off"></span>
+            </button>
             <h3 class="modal-title" id="exampleModalLabel">Ingresa Reserva</h3>
           </div>
           <div id="datos_ajax_register"></div>
@@ -19,7 +19,7 @@
               </div>
               <label class="form-label col-lg-2 col-md-2">Numero</label>
               <div class="col-lg-2 col-md-2 col-md-2">
-                <input class="form-control" type="text" name='txtNumeroHab' id='txtNumeroHab' required>    
+                <input class="form-control" type="text" name='txtNumeroHab' id='txtNumeroHab' required>
               </div>
             </div>
             <div class="form-group">
@@ -60,11 +60,11 @@
                 <input class="form-control" type="text" name="txtNinos" id='txtNinos' value='0'>
               </div>
             </div>
-            <div class="form-group" >
+            <div class="form-group">
               <label class="form-label col-lg-2 col-md-2" for="">Comentarios</label>
-              <div class="col-lg-10 col-md-10" >
-                <textarea class="form-control" id="areaComentarios" name="areaComentarios" placeholder="Comentarios de la Reserva"></textarea>  
-              </div>          
+              <div class="col-lg-10 col-md-10">
+                <textarea class="form-control" id="areaComentarios" name="areaComentarios" placeholder="Comentarios de la Reserva"></textarea>
+              </div>
             </div>
             <div class="form-group">
               <label for="archivo" class="col-sm-2 control-label">Tarifa</label>
@@ -79,13 +79,13 @@
           </div>
           <div class="modal-footer">
             <div class="row">
-              <div class="col-lg-6 col-lg-offset-3" >
+              <div class="col-lg-6 col-lg-offset-3">
                 <div class="col-lg-6">
                   <button type="button" class="btn btn-warning btn-block" data-dismiss="modal">Regresar</button>
                 </div>
                 <div class="col-lg-6">
                   <button class="btn btn-primary btn-block" id="btnSaveRoom">Guardar</button>
-                </div>                
+                </div>
               </div>
             </div>
           </div>
@@ -100,13 +100,13 @@
   <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
-        <div class="modal-header">   
+        <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span class="glyphicon glyphicon-off"></span>
-          </button> 
+            <span class="glyphicon glyphicon-off"></span>
+          </button>
           <h3 class="modal-title" id="exampleModalLabel">Nueva Reserva</h3>
         </div>
-        <div class="modal-body" id="modalReservasIns"> 
+        <div class="modal-body" id="modalReservasIns">
           <div id="mensaje" style="margin-bottom:-30px"></div>
           <form class="form-horizontal" id="formReservas" action="javascript:guardaReserva()" method="POST">
             <div class="panel panel-success" id='pantallaNuevaReserva'>
@@ -115,11 +115,11 @@
                   <input type="hidden" name="tipoocupacion" value="1">
                   <input type="hidden" name="estadoocupacion" value="ES">
                   <label for="inputEmail3" class="col-sm-2 control-label">Huesped</label>
-                  <div class="form-group has-success has-feedback col-sm-5" >
+                  <div class="form-group has-success has-feedback col-sm-5">
                     <div class="input-group" style="padding-left:15px;">
                       <input type="text" class="form-control" id="buscarHuesped" aria-describedby="inputGroupSuccess4Status" style="background:#FFF">
                       <span class="input-group-addon" style="padding:1px;border:none">
-                        <a data-toggle="modal" 
+                        <a data-toggle="modal"
                           href="#myModalBuscaHuesped">
                           <i style="padding:5px 10px" class="fa fa-search" aria-hidden="true"></i>
                         </a>
@@ -127,11 +127,11 @@
                     </div>
                   </div>
                   <div class="col-sm-4" align="right" style="padding-right: 0">
-                    <a 
+                    <a
                       class="btn btn-success"
-                      data-toggle="modal" 
+                      data-toggle="modal"
                       href="#myModalAdicionaPerfil">
-                      <i class="fa fa-user-plus" aria-hidden="true"></i>  Adicionar Huesped
+                      <i class="fa fa-user-plus" aria-hidden="true"></i> Adicionar Huesped
                     </a>
                   </div>
                 </div>
@@ -155,10 +155,10 @@
                       <div class="col-sm-6" style="padding:0;height: 15px">
                         <div class="form-check form-check-inline">
                           <input style="margin-top:5px" class="form-check-input" type="radio" name="imptoOption" id="inlineRadio1" value="1" checked>
-                          <label style="margin-top:-25px;margin-left:25px" class="form-check-label" for="inlineRadio1" >NO</label>
-                        </div>                    
+                          <label style="margin-top:-25px;margin-left:25px" class="form-check-label" for="inlineRadio1">NO</label>
+                        </div>
                       </div>
-                      <div class="col-sm-6" style="padding:0;height: 15px"> 
+                      <div class="col-sm-6" style="padding:0;height: 15px">
                         <div class="form-check form-check-inline">
                           <input style="margin-top:5px" class="form-check-input" type="radio" name="imptoOption" id="inlineRadio2" value="2">
                           <label style="margin-top:-25px;margin-left:25px" class="form-check-label" for="inlineRadio2">SI</label>
@@ -170,7 +170,7 @@
                 <div class="form-group">
                   <label for="llegada" class="col-sm-2 control-label">Llegada</label>
                   <div class="col-sm-3" style="padding-right: 20px">
-                    <input type="date" class="form-control" name="llegada" id="llegada" required="" value="<?php echo FECHA_PMS; ?>" min="<?php echo FECHA_PMS; ?>"> 
+                    <input type="date" class="form-control" name="llegada" id="llegada" required="" value="<?php echo FECHA_PMS; ?>" min="<?php echo FECHA_PMS; ?>">
                   </div>
                   <label for="noches" class="col-sm-1 control-label">Noches</label>
                   <div class="col-sm-2">
@@ -192,14 +192,14 @@
                   </div>
                   <label for="ninos" class="col-sm-1 control-label">Niños</label>
                   <div class="col-sm-1" style='padding-right: 5px'>
-                    <input type="number" class="form-control" name="ninos" id="ninos" required="" value="0" min=0> 
+                    <input type="number" class="form-control" name="ninos" id="ninos" required="" value="0" min=0>
                   </div>
                   <label for="orden" class="col-sm-2 control-label">Orden Nro</label>
                   <div class="col-sm-3">
                     <input type="text" class="form-control" name="orden" id="orden" value="">
-                  </div> 
+                  </div>
                 </div>
-                <div class="form-group">                    
+                <div class="form-group">
                   <label for="tipohabi" class="col-sm-2 control-label">Tipo Habitacion</label>
                   <div class="col-sm-4">
                     <select name="tipohabi" id="tipohabi" required onfocus="asignaTipoHabitacion()" onblur="seleccionaHabitacion()">
@@ -210,7 +210,7 @@
                   <div class="col-sm-4">
                     <select name="nrohabitacion" id="nrohabitacion" required onblur='seleccionaTarifas()'>
                       <option value="">Seleccione la Habitacion</option>
-                    </select>                        
+                    </select>
                   </div>
                 </div>
                 <div class="form-group">
@@ -225,7 +225,7 @@
                   <label for="valortar" class="col-sm-2 control-label">Valor Tarifa</label>
                   <div class="col-sm-4">
                     <div id="valortarifas">
-                      <input type="text" class="form-control" name="valortar" id="valortar" required="" value="0" min=0> 
+                      <input type="text" class="form-control" name="valortar" id="valortar" required="" value="0" min=0>
                     </div>
                   </div>
                 </div>
@@ -235,12 +235,12 @@
                     <select name="origen" id="origen">
                       <option value="">Seleccione la Procedencia</option>
                       <?php
-                        $ciudades = $hotel->getCiudades();
-                    foreach ($ciudades as $ciudad) { ?>
-                          <option value="<?php echo $ciudad['id_ciudad']; ?>"><?php echo $ciudad['municipio'].' '.$ciudad['depto']; ?></option>}
-                          <?php
-                    }
-                    ?>
+                      $ciudades = $hotel->getCiudades();
+                      foreach ($ciudades as $ciudad) { ?>
+                        <option value="<?php echo $ciudad['id_ciudad']; ?>"><?php echo $ciudad['municipio'] . ' ' . $ciudad['depto']; ?></option>}
+                      <?php
+                      }
+                      ?>
                     </select>
                   </div>
                   <label for="tarifahab" class="col-sm-2 control-label">Destino</label>
@@ -248,15 +248,15 @@
                     <select name="destino" id="destino">
                       <option value="">Seleccione el Destino</option>
                       <?php
-                     $ciudades = $hotel->getCiudades();
-                    foreach ($ciudades as $ciudad) { ?>
-                          <option value="<?php echo $ciudad['id_ciudad']; ?>"><?php echo $ciudad['municipio'].' '.$ciudad['depto']; ?></option>}
-                          <?php
-                    }
-                    ?>
+                      $ciudades = $hotel->getCiudades();
+                      foreach ($ciudades as $ciudad) { ?>
+                        <option value="<?php echo $ciudad['id_ciudad']; ?>"><?php echo $ciudad['municipio'] . ' ' . $ciudad['depto']; ?></option>}
+                      <?php
+                      }
+                      ?>
                     </select>
                   </div>
-                </div>            
+                </div>
                 <div class="form-group">
                   <label for="motivo" class="col-sm-2 control-label">Motivo Viaje</label>
                   <div class="col-sm-4">
@@ -264,11 +264,11 @@
                       <option value="">Seleccione el Motivo</option>
                       <?php
                       $motivos = $hotel->getMotivoGrupo('MVI');
-                    foreach ($motivos as $motivo) { ?>
+                      foreach ($motivos as $motivo) { ?>
                         <option value="<?php echo $motivo['id_grupo']; ?>"><?php echo $motivo['descripcion_grupo']; ?></option>}
-                        <?php
-                    }
-                    ?>
+                      <?php
+                      }
+                      ?>
                     </select>
                   </div>
                   <label for="tarifahab" class="col-sm-2 control-label">Fuente de Reserva</label>
@@ -276,12 +276,12 @@
                     <select name="fuente" id="fuente">
                       <option value="">Seleccione Fuente</option>
                       <?php
-                     $motivos = $hotel->getMotivoGrupo('FRE');
-                    foreach ($motivos as $motivo) { ?>
-                          <option value="<?php echo $motivo['id_grupo']; ?>"><?php echo $motivo['descripcion_grupo']; ?></option>}
-                          <?php
-                    }
-                    ?>
+                      $motivos = $hotel->getMotivoGrupo('FRE');
+                      foreach ($motivos as $motivo) { ?>
+                        <option value="<?php echo $motivo['id_grupo']; ?>"><?php echo $motivo['descripcion_grupo']; ?></option>}
+                      <?php
+                      }
+                      ?>
                     </select>
                   </div>
                 </div>
@@ -291,12 +291,12 @@
                     <select name="segmento" id="segmento">
                       <option value="">Seleccione el Segmento</option>
                       <?php
-                     $motivos = $hotel->getMotivoGrupo('SME');
-                    foreach ($motivos as $motivo) { ?>
-                          <option value="<?php echo $motivo['id_grupo']; ?>"><?php echo $motivo['descripcion_grupo']; ?></option>}
-                          <?php
-                    }
-                    ?>
+                      $motivos = $hotel->getMotivoGrupo('SME');
+                      foreach ($motivos as $motivo) { ?>
+                        <option value="<?php echo $motivo['id_grupo']; ?>"><?php echo $motivo['descripcion_grupo']; ?></option>}
+                      <?php
+                      }
+                      ?>
                     </select>
                   </div>
                   <label for="formapago" class="col-sm-2 control-label">Forma de Pago </label>
@@ -304,12 +304,12 @@
                     <select name="formapago" id="formapago">
                       <option value="">Seleccione La Forma de Pago</option>
                       <?php
-                     $codigos = $hotel->getCodigosConsumos(3);
-                    foreach ($codigos as $codigo) { ?>
-                          <option value="<?php echo $codigo['id_cargo']; ?>"><?php echo $codigo['descripcion_cargo']; ?></option>
-                          <?php
-                    }
-                    ?>
+                      $codigos = $hotel->getCodigosConsumos(3);
+                      foreach ($codigos as $codigo) { ?>
+                        <option value="<?php echo $codigo['id_cargo']; ?>"><?php echo $codigo['descripcion_cargo']; ?></option>
+                      <?php
+                      }
+                      ?>
                     </select>
                   </div>
                 </div>
@@ -317,14 +317,14 @@
                   <label for="motivo" class="col-sm-2 control-label">Observaciones</label>
                   <div class="col-sm-10">
                     <textarea style="height: 5em !important;min-height: 5em" name="observaciones" id="observaciones" class="form-control" rows="4"></textarea>
-                  </div>                    
-                </div>                 
+                  </div>
+                </div>
               </div>
               <div class="panel-footer">
                 <div class="btn-group" style="width: 30%;margin-left:35%">
-                  <button style="width: 50%" type="button" class="btn btn-warning btn-block" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>                  
+                  <button style="width: 50%" type="button" class="btn btn-warning btn-block" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
                   <button style="width: 50%" class="btn btn-success" align="right"><i class="fa fa-save" aria-hidden="true"></i> Guardar</button>
-                </div>     
+                </div>
               </div>
             </div>
           </form>

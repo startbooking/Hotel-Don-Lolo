@@ -20,10 +20,22 @@ $canMmto     = $hotel->habitacionesMmto();
     <div class="container-fluid">
       <input type="hidden" name="rutaweb" id="rutaweb" value="<?php echo BASE_PMS; ?>">
       <input type="hidden" name="ubicacion" id="ubicacion" value="home">
-      <h1 class="controlPanel">
-        Panel de Control <br>
-        <span><?php echo NAME_HOTEL; ?></span>
-      </h1>
+      <div class="container-fluid">
+        <div class="col-lg-9">
+          <h1 class="controlPanel">
+            Panel de Control <br>
+            <span><?php echo NAME_HOTEL; ?></span>
+          </h1>
+        </div>
+        <div class="col-lg-3" style="text-align: right;margin-top: 30px;">
+            <!-- <a class="btn btn-success  btnAdiciona" >
+              <i class="fa fa-plus" aria-hidden="true"></i> Adicionar Huesped
+            </a> -->
+          <button class="btn btn-xs pull-right" data-toggle="modal" data-reserva='0' href="#myModalCalendarioReservas">
+            <i class="fa-solid fa-calendar-days fa-4x"></i>
+          </button>
+        </div>
+      </div>
     </div>
   </section>
   <section class="container-fluid" style="margin-bottom: 5px">

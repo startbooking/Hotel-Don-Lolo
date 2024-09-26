@@ -1,5 +1,7 @@
 <?php
-$hoy    = substr(FECHA_PMS, 5, 5);
+// $hoy    = substr(FECHA_PMS, 5, 5);
+
+// echo print_r($reservas);
 ?>
 
 <div class="content-wrapper" id="pantallaenCasa">
@@ -29,7 +31,7 @@ $hoy    = substr(FECHA_PMS, 5, 5);
 
             <thead>
               <tr class="warning" style="font-weight: bold">
-                <td style="">Hab.</td>
+                <td>Hab.</td>
                 <!-- <td></td> -->
                 <td style="text-align:center;">Huesped</td>
                 <td style="text-align:left;">Compañia</td>
@@ -46,7 +48,7 @@ $hoy    = substr(FECHA_PMS, 5, 5);
             <tbody>
               <?php
               foreach ($reservas as $reserva) {
-                $depositos = $hotel->getDepositosReservas($reserva['num_reserva']);
+                /* $depositos = $hotel->getDepositosReservas($reserva['num_reserva']);
                 if ($reserva['id_compania'] == 0) {
                   $nombrecia = 'SIN COMPAÑIA ASOCIADA';
                   $nitcia = '222.222.222';
@@ -56,7 +58,7 @@ $hoy    = substr(FECHA_PMS, 5, 5);
                     $nombrecia = $cias[0]['empresa'];
                     $nitcia = $cias[0]['nit'] . '-' . $cias[0]['dv'];
                   }
-                }
+                } */
               ?>
                 <tr style='font-size:12px'>
                   <td>
@@ -70,7 +72,7 @@ $hoy    = substr(FECHA_PMS, 5, 5);
                         </span>
                       <?php
                       }
-                      if (count($depositos) != 0) { ?>
+                      if ($reserva['pagos_cargos'] != null) { ?>
                         <span class="btn btn-success faReservas" title="Reserva con Depositos" onclick="verDepositos('<?php echo $reserva['num_reserva']; ?>')">
                           <i class="fa fa-usd fa-stack-1x fa-inverse "></i>
                         </span>
@@ -106,7 +108,15 @@ $hoy    = substr(FECHA_PMS, 5, 5);
                     }
                     ?>
                   </td>
-                  <td style="padding:2px"><?php echo substr($nombrecia, 0, 30); ?></td>
+                  <td style="padding:2px">
+                    <?php 
+                    if($reserva['empresa'] != null){
+                      echo substr($reserva['empresa'], 0, 30); 
+                    }else{
+                      echo 'SIN COMPAÑIA ASOCIADA';
+                    }
+                    ?>
+                  </td>
                   <td style="padding:2px"><?php echo $reserva['fecha_llegada']; ?></td>
                   <td style="padding:2px"><?php echo $reserva['fecha_salida']; ?></td>
                   <td style="padding:2px;text-align:center;"><?php echo $reserva['dias_reservados']; ?></td>
@@ -182,7 +192,7 @@ $hoy    = substr(FECHA_PMS, 5, 5);
                               <?php
                               if ($reserva['id_compania'] != 0) { ?>
                                 <li>
-                                  <a data-toggle="modal" data-id="<?php echo $reserva['id_compania']; ?>" data-empresa="<?php echo $nombrecia; ?>" href="#myModalModificaPerfilCia">
+                                  <a data-toggle="modal" data-id="<?php echo $reserva['id_compania']; ?>" data-empresa="<?php echo $reserva['empresa']; ?>" href="#myModalModificaPerfilCia">
                                     <i class="fa fa-industry" aria-hidden="true"></i>
                                     Datos Compañia</a>
                                 </li>
@@ -232,7 +242,7 @@ $hoy    = substr(FECHA_PMS, 5, 5);
           <tbody>
             <?php
             foreach ($reservas as $reserva) {
-              $depositos = $hotel->getDepositosReservas($reserva['num_reserva']);
+              /* $depositos = $hotel->getDepositosReservas($reserva['num_reserva']);
               if ($reserva['id_compania'] == 0) {
                 $nombrecia = 'SIN COMPAÑIA ASOCIADA';
                 $nitcia = '222.222';
@@ -242,7 +252,7 @@ $hoy    = substr(FECHA_PMS, 5, 5);
                   $nombrecia = $cias[0]['empresa'];
                   $nitcia = $cias[0]['nit'] . '-' . $cias[0]['dv'];
                 }
-              }
+              } */
             ?>
               <tr style='font-size:12px'>
                 <td>

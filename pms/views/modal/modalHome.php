@@ -468,3 +468,44 @@
     </div>
   </form>
 </div>
+
+<div class="modal fade" id="myModalCalendarioReservas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <form id="formCalendario" class="form-horizontal" action="" method="POST" enctype="multipart/form-data">
+    <div id="dataCalendario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+      <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+          <div class="modal-header"> 
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span class="glyphicon glyphicon-off"></span>
+            </button> 
+            <h3 class="modal-title" id="exampleModalLabel">Reservas / Salidas Proyectada</h3>
+          </div>
+          <div id="datos_ajax_register"></div>
+          <div class="modal-body" id="huespedesCalendario">
+          <div class="table-responsive" style="max-height: 350px;overflow: auto;">
+          <table id="tablaCalendario" class="table table-striped table-bordered table-condensed" >
+            <thead class="centro b500">
+              <tr class="table-success">
+                <td>Fecha</td>
+                <td>Llegadas</td>
+                <td>Salidas</td>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+          </div>
+          <div class="modal-footer">
+            <div class="row">
+              <div class="col-lg-4 col-lg-offset-4" >
+                  <button type="button" class="btn btn-warning btn-block" data-dismiss="modal"><i class="fa fa-reply" aria-hidden="true"></i> Regresar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+

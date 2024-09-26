@@ -6,6 +6,43 @@ date_default_timezone_set('America/Bogota');
 class Hotel_Actions
 {
 
+    public function traeReservasTotal(){
+        global $database;
+
+
+        $data = $database->query("SELECT a.fecha_llegada, a.reservas, COALESCE(b.salidas,0)  as salidas 
+        FROM
+            (
+            SELECT
+                reservas_pms.fecha_llegada,
+                COALESCE ( count( reservas_pms.num_reserva ), 0 ) AS reservas 
+            FROM
+                reservas_pms 
+            WHERE
+                estado = 'ES' 
+            GROUP BY
+                reservas_pms.fecha_llegada 
+            ORDER BY
+                reservas_pms.fecha_llegada ASC 
+            ) AS a
+            LEFT JOIN (
+            SELECT
+                reservas_pms.fecha_salida,
+                COALESCE ( count( reservas_pms.num_reserva ), 0 ) AS salidas 
+            FROM
+                reservas_pms 
+            WHERE
+                estado = 'CA' 
+            GROUP BY
+                reservas_pms.fecha_salida 
+            ORDER BY
+                reservas_pms.fecha_salida ASC 
+            ) AS b ON a.fecha_llegada = b.fecha_salida 
+        ORDER BY
+            a.fecha_llegada ASC")->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
+    }
+
     public function traeAcumuladoVentas($fecha, $mes, $anio, $tipo)
     {
         global $database;
@@ -4102,7 +4139,9 @@ class Hotel_Actions
         global $database;
 
         $data = $database->select('reservas_pms', [
-            '[>]huespedes' => 'id_huesped',
+            '[>]companias' => ['id_compania' => 'id_compania'],
+            '[>]huespedes' => ['id_huesped' => 'id_huesped'],
+            '[>]cargos_pms' => ['num_reserva' => 'id_reserva'],
         ], [
             'reservas_pms.cantidad',
             'reservas_pms.fecha_llegada',
@@ -4130,6 +4169,8 @@ class Hotel_Actions
             'huespedes.nombre2',
             'huespedes.apellido1',
             'huespedes.apellido2',
+            'companias.empresa',
+            'cargos_pms.pagos_cargos',
         ], [
             'tipo_reserva' => $tipo,
             'estado' => $estado,
@@ -8846,12 +8887,18 @@ ORDER BY
             return $data[0]['num_registro'];
         }
     }
-
-    public function updateIngresaReserva($numero, $usuario, $placa, $equipaje, $transporte)
+   
+    public function updateIngresaReserva($origen, $destino, $motivo, $fuente, $segmento, $formapago, $numero, $usuario, $placa, $equipaje, $transporte)
     {
         global $database;
 
         $data = $database->update('reservas_pms', [
+            'origen_reserva' => $origen, 
+            'destino_reserva' => $destino, 
+            'segmento_mercado' => $segmento, 
+            'motivo_viaje'=> $motivo, 
+            'fuente_reserva'=> $fuente, 
+            'forma_pago' => $formapago,
             'estado' => 'CA',
             'tipo_reserva' => 2,
             'usuario_ingreso' => $usuario,
@@ -9743,7 +9790,9 @@ ORDER BY
         global $database;
 
         $data = $database->select('reservas_pms', [
-            '[>]huespedes' => 'id_huesped',
+            '[>]companias' => ['id_compania' => 'id_compania'],
+            '[>]huespedes' => ['id_huesped' => 'id_huesped'],
+            '[>]cargos_pms' => ['num_reserva' => 'id_reserva'],
         ], [
             'reservas_pms.cantidad',
             'reservas_pms.fecha_llegada',
@@ -9775,6 +9824,8 @@ ORDER BY
             'huespedes.apellido2',
             'huespedes.fecha_nacimiento',
             'huespedes.id_huesped',
+            'companias.empresa',
+            'cargos_pms.pagos_cargos',
         ], [
             'reservas_pms.tipo_reserva' => $tipo,
         ]);
@@ -9787,7 +9838,9 @@ ORDER BY
         global $database;
 
         $data = $database->select('reservas_pms', [
-            '[>]huespedes' => 'id_huesped',
+            '[>]companias' => ['id_compania' => 'id_compania'],
+            '[>]huespedes' => ['id_huesped' => 'id_huesped'],
+            '[>]cargos_pms' => ['num_reserva' => 'id_reserva'],
         ], [
             'reservas_pms.id',
             'reservas_pms.cantidad',
@@ -9821,6 +9874,8 @@ ORDER BY
             'huespedes.apellido2',
             'huespedes.fecha_nacimiento',
             'huespedes.id_huesped',
+            'companias.empresa',
+            'cargos_pms.pagos_cargos',
         ], [
             'reservas_pms.tipo_reserva' => $tipo,
             'reservas_pms.estado' => $estado,
@@ -9920,9 +9975,10 @@ ORDER BY
         global $database;
 
         $data = $database->select('reservas_pms', [
-            '[>]huespedes' => 'id_huesped',
+            '[>]companias' => ['id_compania' => 'id_compania'],
+            '[>]huespedes' => ['id_huesped' => 'id_huesped'],
+            '[>]cargos_pms' => ['num_reserva' => 'id_reserva'],
             '[>]habitaciones' => ['num_habitacion' => 'numero_hab'],
-
         ], [
             'reservas_pms.cantidad',
             'reservas_pms.fecha_llegada',
@@ -9952,6 +10008,8 @@ ORDER BY
             'huespedes.fecha_nacimiento',
             'huespedes.nombre_completo',
             'habitaciones.sucia',
+            'companias.empresa',
+            'cargos_pms.pagos_cargos',
         ], [
             'reservas_pms.tipo_reserva' => $tipo,
             'reservas_pms.estado' => $estado,
@@ -9967,7 +10025,8 @@ ORDER BY
         global $database;
 
         $data = $database->select('reservas_pms', [
-            '[>]huespedes' => 'id_huesped',
+            '[>]companias' => ['id_compania' => 'id_compania'],
+            '[>]huespedes' => ['id_huesped' => 'id_huesped'],
         ], [
             'reservas_pms.cantidad',
             'reservas_pms.fecha_llegada',
@@ -9996,6 +10055,7 @@ ORDER BY
             'huespedes.nombre2',
             'huespedes.apellido1',
             'huespedes.apellido2',
+            'companias.empresa',
         ], [
             'tipo_reserva' => $tipo,
             'estado' => $estado,

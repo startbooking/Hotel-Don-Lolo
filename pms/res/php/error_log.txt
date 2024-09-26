@@ -1,6 +1,0 @@
-[20-Sep-2024 21:52:06 America/Bogota] PHP Warning:  Undefined variable $placa in /var/www/donlolo.lan/pms/res/php/ingresaReserva.php on line 5
-[20-Sep-2024 21:52:06 America/Bogota] PHP Deprecated:  strtoupper(): Passing null to parameter #1 ($string) of type string is deprecated in /var/www/donlolo.lan/pms/res/php/ingresaReserva.php on line 5
-[20-Sep-2024 21:52:06 America/Bogota] PHP Warning:  Undefined variable $equipaje in /var/www/donlolo.lan/pms/res/php/ingresaReserva.php on line 5
-[20-Sep-2024 21:52:06 America/Bogota] PHP Deprecated:  strtoupper(): Passing null to parameter #1 ($string) of type string is deprecated in /var/www/donlolo.lan/pms/res/php/ingresaReserva.php on line 5
-[20-Sep-2024 21:52:06 America/Bogota] PHP Warning:  Undefined variable $transporte in /var/www/donlolo.lan/pms/res/php/ingresaReserva.php on line 5
-[20-Sep-2024 21:52:06 America/Bogota] PHP Warning:  Undefined variable $habita in /var/www/donlolo.lan/pms/res/php/ingresaReserva.php on line 7

@@ -1,6 +1,6 @@
-<?php
-$hoy    = substr(FECHA_PMS, 5, 5);
-?>
+<!-- <?php
+// $hoy    = substr(FECHA_PMS, 5, 5);
+?> -->
 
 <div class="content-wrapper" id="pantallaLlegadas">
   <section class="content" style="margin-bottom: 40px">
@@ -34,17 +34,7 @@ $hoy    = substr(FECHA_PMS, 5, 5);
             </thead>
             <tbody>
               <?php
-              foreach ($reservas as $reserva) {
-                $depositos = $hotel->getDepositosReservas($reserva['num_reserva']);
-                if ($reserva['id_compania'] == 0) {
-                  $nombrecia = 'SIN COMPAÑIA ASOCIADA';
-                  $nitcia = '';
-                } else {
-                  $cias = $hotel->getBuscaCia($reserva['id_compania']);
-                  $nombrecia = $cias[0]['empresa'];
-                  $nitcia = $cias[0]['nit'] . '-' . $cias[0]['dv'];
-                }
-              ?>
+              foreach ($reservas as $reserva) { ?>
                 <tr style='font-size:12px'>
                   <td style="display: inline-flex;padding:0 2px">
                     <span><?php echo $reserva['num_reserva']; ?></span>
@@ -56,7 +46,7 @@ $hoy    = substr(FECHA_PMS, 5, 5);
                       </span>
                     <?php
                     }
-                    if (count($depositos) != 0) { ?>
+                    if ($reserva['pagos_cargos'] != null) { ?>
                       <span class="btn btn-success faReservas" title="Reserva con Depositos" onclick="verDepositos('<?php echo $reserva['num_reserva']; ?>')">
                         <i class="fa fa-usd fa-stack-1x fa-inverse "></i>
                       </span>
@@ -99,7 +89,15 @@ $hoy    = substr(FECHA_PMS, 5, 5);
                     }
                     ?>
                   </td>
-                  <td style="padding:2px;"><?php echo substr($nombrecia, 0, 35); ?></td>
+                  <td style="padding:2px;">
+                    <?php
+                    if($reserva['empresa']!= null){
+                      echo substr($reserva['empresa'], 0, 35); 
+                    }else{
+                      echo 'SIN COMPAÑIA ASOCIADA';
+                    }
+                      ?>
+                  </td>
                   <td style="padding:2px">
                     <?php echo $reserva['fecha_llegada']; ?></td>
                   <td style="padding:2px">
