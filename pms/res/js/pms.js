@@ -70,7 +70,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 			$('.product-item').css('transform', 'scale(1)');
 		} setTimeout(showAll,400);
 	});
-  /* */
 
   let sinres = document.getElementById("formReservas");
   if (sinres != null) {
@@ -85,8 +84,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     traeTotalCompanias(numRegis, filas);
   }
 
-  let perf = document.getElementById("pantallaHuespedes");
-  if(perf != null){
+  let perfil = document.getElementById("pantallaHuespedes");
+  if(perfil != null){
     new DataTable('#tablaHuespedes', {
       lengthMenu: [50, 100, 200, 500],
       ajax: 'res/php/datasetHuespedes.php',
@@ -7612,10 +7611,7 @@ function imprimeDeposito(web, numero, pagina) {
 
 function cancelaReserva() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {
-    user: { usuario, usuario_id },
-  } = sesion;
-  // let  = user;
+  let { user: { usuario, usuario_id },} = sesion;
   var pagina = $("#ubicacion").val();
   var motivo = $("#motivoCancela").val();
   var numero = $("#txtIdReservaCan").val();
@@ -7633,7 +7629,7 @@ function cancelaReserva() {
     data: parametros,
     success: function (data) {
       data = JSON.parse(data);
-      let { anula, cancela } = data;
+      let { anula, cancela } = data; 
 
       if (cancela == 0) {
         titulo = "Precaucion !! ";

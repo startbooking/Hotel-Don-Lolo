@@ -349,7 +349,7 @@ $manana = date('Y-m-d', $manana);
     <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-          <div class="modal-header">
+          <div class="modal-header"> 
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span class="glyphicon glyphicon-off"></span>
             </button>

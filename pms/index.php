@@ -167,7 +167,7 @@ require_once '../res/php/app_topHotel.php';
             require 'views/auditoria/facturasDelDiaAuditoria.php';
         } elseif (isset($_GET['section']) && $_GET['section'] == 'historicoFacturas') {
             require 'views/informes/facturasPorRango.php';
-        } elseif (isset($_GET['section']) && $_GET['section'] == 'informeRecibosCajaPorRango') {
+        } elseif (isset($_GET['section']) && $_GET['section'] == 'informeRecibosCajaRango') {
             require 'views/informes/recibosCajaPorRango.php';
         } elseif (isset($_GET['section']) && $_GET['section'] == 'informeCargosPorRango') {
             require 'views/informes/consumoCargosPorRango.php';
@@ -216,31 +216,31 @@ require_once '../res/php/app_topHotel.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'companias') {
         include_once 'views/modal/modalCompania.php';
         include_once 'views/modal/modalFacturas.php';
-        include_once 'views/modal/modalCentrosCia.php';
+        // include_once 'views/modal/modalCentrosCia.php';
         include_once 'views/modal/modalAcompanantes.php'; 
         include_once 'views/modal/modalDocumentosCia.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'huespedesPerfil') {
         include_once 'views/modal/modalHuespedes.php';
         include_once 'views/modal/modalFacturas.php';
         include_once 'views/modal/modalDocumentos.php';
-          include_once 'views/modal/modalAcompanantes.php';  
+        include_once 'views/modal/modalAcompanantes.php';  
     } elseif (isset($_GET['section']) && $_GET['section'] == 'agencias') {
         include_once 'views/modal/modalAgencia.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'grupos') {
         include_once 'views/modal/modalGrupos.php';
         include_once 'views/modal/modalCompania.php';
-    } elseif (isset($_GET['section']) && $_GET['section'] == 'reservasActivas' || isset($_GET['section']) && $_GET['section'] == 'forecast' || isset($_GET['section']) && $_GET['section'] == 'Oldforecast') {
+    } elseif (isset($_GET['section']) && $_GET['section'] == 'reservasActivas') {
         include_once 'views/modal/modalReservas.php';
         include_once 'views/modal/modalAcompanantes.php';
         include_once 'views/modal/modalHuespedes.php';
         include_once 'views/modal/modalCompania.php';
         include_once 'views/modal/modalObservaciones.php';
         include_once 'views/modal/modalFacturas.php';
-    } elseif (isset($_GET['section']) && $_GET['section'] == 'preregistros') {
+    /* } elseif (isset($_GET['section']) && $_GET['section'] == 'preregistros') {
         include_once 'views/modal/modalReservas.php';
         include_once 'views/modal/modalAcompanantes.php';
         include_once 'views/modal/modalHuespedes.php';
-        include_once 'views/modal/modalObservaciones.php';
+        include_once 'views/modal/modalObservaciones.php'; */
     } elseif (isset($_GET['section']) && $_GET['section'] == 'encasa') {
         include_once 'views/modal/modalRecepcion.php';
         include_once 'views/modal/modalAcompanantes.php';

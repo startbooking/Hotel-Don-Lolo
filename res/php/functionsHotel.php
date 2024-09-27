@@ -9790,9 +9790,9 @@ ORDER BY
         global $database;
 
         $data = $database->select('reservas_pms', [
-            '[>]companias' => ['id_compania' => 'id_compania'],
-            '[>]huespedes' => ['id_huesped' => 'id_huesped'],
             '[>]cargos_pms' => ['num_reserva' => 'id_reserva'],
+            '[>]companias' => ['id_compania' => 'id_compania'],
+            '[<]huespedes' => ['id_huesped' => 'id_huesped'],
         ], [
             'reservas_pms.cantidad',
             'reservas_pms.fecha_llegada',
