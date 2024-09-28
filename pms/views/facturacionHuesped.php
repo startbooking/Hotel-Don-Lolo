@@ -244,11 +244,10 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
           <div class="container-fluid" id='saldoReserva'></div>
           <div class="container-fluid" style='padding: 0px'>
             <div class="container-fluid centro">
+            <div class="btn-group" role="group" aria-label="Basic example">
               <?php
-                if ($credito == 1 && $dia >= $dias) {
-                    $ancho = 12; ?>
-                  <a 
-                    style          ="width: <?php echo $ancho; ?>%" 
+                if ($credito == 1 && $dia >= $dias) { ?>
+                  <a
                     type           ="button" 
                     class          ="btn btn-warning" 
                     data-toggle    ="modal" 
@@ -268,11 +267,9 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
                     data-salida    ="<?php echo $datosReserva[0]['fecha_salida']; ?>" 
                     ><i class="fa fa-snowflake-o"></i> Congelar Cuenta</a>
                   <?php
-                } else {
-                    $ancho = 13;
                 }
               ?>
-              <a style="width: <?php echo $ancho; ?>%"
+              <a 
                 type           ="button" 
                 class          ="btn btn-success" 
                 data-toggle    ="modal" 
@@ -288,7 +285,7 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
                 data-salida    ="<?php echo $datosReserva[0]['fecha_salida']; ?>" 
                 data-valor     ="<?php echo $datosReserva[0]['valor_diario']; ?>" 
                 ><i class="fa fa-sign-out"></i> Salida Huesped</a>
-              <a  style="width: <?php echo $ancho; ?>%"
+              <a  
                 type           ="button" class="btn btn-info" data-toggle="modal" 
                 data-id        ="<?php echo $datosReserva[0]['num_reserva']; ?>" 
                 data-nombre    ="<?php echo $datosReserva[0]['nombre_completo']; ?>" 
@@ -298,7 +295,7 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
                 href           ="#myModalCargosConsumo"
                 ><i class      ="fa fa-plus-square"></i> Ingreso Consumos 
               </a>
-              <a  style="width: <?php echo $ancho; ?>%"
+              <a
                 type           ="button" class="btn btn-danger"  data-toggle="modal" 
                 data-target    = "#myModalAbonosConsumos"
                 data-id        ="<?php echo $datosReserva[0]['num_reserva']; ?>" 
@@ -308,7 +305,7 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
                 data-impto     ="<?php echo $datosReserva[0]['causar_impuesto']; ?>" 
                 ><i class      ="fa fa-money "></i> Abonos a Cuenta
               </a>
-              <a  style="width: <?php echo $ancho; ?>%"
+              <a
                 type           ="button" class="btn btn-primary"  data-toggle="modal" 
                 data-target    = "#myModalEstadoCuentaFolio"
                 data-reserva   ="<?php echo $datosReserva[0]['num_reserva']; ?>" 
@@ -316,11 +313,11 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
                 data-idhuesped ="<?php echo $datosReserva[0]['id_huesped']; ?>" 
                 ><i class      ="fa fa-money "></i> Estado de Cuenta
               </a>
-              <a  style="width: <?php echo $ancho; ?>%"
-                type="button" class="btn btn-warning"
-                href="facturacionEstadia"
-                ><i class="fa fa-home"></i> Inicio
-              </a>
+              <a 
+                type="button" 
+                class="btn btn-warning"
+                data-target="#myModalAjustarCuenta"
+                href="facturacionEstadia"><i class="fa-solid fa-receipt"></i> Ajustar Cuenta</a>
             </div>
           </div>
         </div>

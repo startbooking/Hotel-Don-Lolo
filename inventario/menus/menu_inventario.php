@@ -1,11 +1,11 @@
 <aside class="main-sidebar">
   <section class="sidebar">
     <ul class="sidebar-menu">
-      <!-- <li style="text-align: center">
+      <li style="text-align: center">
         <a href="home" style="font-weight: 700">
-          <img class="img-thumbnail" src="<?php echo BASE_IMG.LOGO; ?>" alt="" style="width: 50px;margin-top:0px;border-radius:50%;"> Control de Inventarios
+          <img class="img-thumbnail" src="<?php echo BASE_IMG.LOGO; ?>" alt="" style="width: 50px;margin-top:0px;border-radius:50%;"> <span>Control de Inventarios</span>
         </a>
-      </li> -->
+      </li>
       <li class="treeview">
         <a href="#">
         <i class="fa-solid fa-tachograph-digital"></i> <span>Datos</span> <i class="fa fa-angle-left pull-right"></i>

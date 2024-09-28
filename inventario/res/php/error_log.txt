@@ -1,0 +1,5 @@
+[27-Sep-2024 08:30:01 America/Bogota] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /var/www/donlolo.lan/inventario/views/prints/imprimeAjuste.php on line 60
+[27-Sep-2024 09:47:28 America/Bogota] PHP Deprecated:  round(): Passing null to parameter #1 ($num) of type int|float is deprecated in /var/www/donlolo.lan/res/php/functionsInventario.php on line 493
+[27-Sep-2024 09:47:28 America/Bogota] PHP Deprecated:  round(): Passing null to parameter #1 ($num) of type int|float is deprecated in /var/www/donlolo.lan/res/php/functionsInventario.php on line 494
+[27-Sep-2024 09:47:28 America/Bogota] PHP Deprecated:  round(): Passing null to parameter #1 ($num) of type int|float is deprecated in /var/www/donlolo.lan/res/php/functionsInventario.php on line 495
+[27-Sep-2024 09:47:28 America/Bogota] PHP Deprecated:  round(): Passing null to parameter #1 ($num) of type int|float is deprecated in /var/www/donlolo.lan/res/php/functionsInventario.php on line 496

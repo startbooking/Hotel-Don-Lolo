@@ -131,35 +131,15 @@ document.addEventListener("DOMContentLoaded", async () => {
   
   $("#myModalCalendarioReservas").on("show.bs.modal", async function (event) {
     let reservas = await traeReservasTotal();
-    // let limpia = await limpiaTablaReserva();
     let llenaTabla = await llenaTablaReservas(reservas);
-    /*
-     */
+  });
 
-    /* document.querySelector("#formObservacionesHab").reset();
-    var button = $(event.relatedTarget);
-    numero = button.data("numero");
-    reserva = button.data("reserva");
-    sucia = button.data("sucia");
-    ocupada = button.data("ocupada");
-    document.querySelector('#numeroHab').value = numero;
-    document.querySelector('#numeroRes').value = reserva;
-    document.querySelector('#ocupada').value = ocupada;
-    document.querySelector('#sucia').value = sucia;
-    titulo = document.querySelector("#myModalObservaciones .modal-title");
-    if(ocupada==1){
-      titulo.innerHTML = 'Ingresa Observaciones a la Estadia'
-    }else{
-      if(sucia==0){
-        titulo.innerHTML = 'Envia A Estado Sucia la Habitacion'
-      }else{
-        titulo.innerHTML = 'Limpiar Habitacion'
-      }
-    }
-    let camareras = await traeCamareras();
-    let limpia = await limpiaCamareras();
-    let seleCama = await llenaSelectCamareras(camareras); */
 
+  $("#myModalAjustarCuenta").on("show.bs.modal", async function (event) {
+    let folioNro = document.querySelector('#folioActivo');
+    let reservaNro = document.querySelector('#reservaActual');
+
+    console.log({folioNro, reservaNro}); "
   });
 
   $("#myModalObservaciones").on("show.bs.modal", async function (event) {
@@ -173,7 +153,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.querySelector('#numeroRes').value = reserva;
     document.querySelector('#ocupada').value = ocupada;
     document.querySelector('#sucia').value = sucia;
-    titulo = document.querySelector("#myModalObservaciones .modal-title");
+    titulo = document.querySelector("#myModalObservaciones .modal-title");"
     if(ocupada==1){
       titulo.innerHTML = 'Ingresa Observaciones a la Estadia'
     }else{

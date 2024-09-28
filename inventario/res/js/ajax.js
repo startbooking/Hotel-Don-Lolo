@@ -1292,6 +1292,7 @@ function muestraProductoKardex() {
 }
 
 async function procesaAjuste() {
+
   let conce = await asignaConsecutivo(4);
   let guarda = await guardaAjuste(conce, 4);
   let imprie = await imprimeMovimiento(conce, 4);
@@ -1337,14 +1338,13 @@ async function procesaAjuste() {
 
 async function guardaAjuste(numeroMov, tipo) {
   let sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {
-    user: { usuario },
-  } = sesion;
+  let { user: { usuario }, } = sesion;
   let almacen = localStorage.getItem("almacenAju");
   let storageList = localStorage.getItem("AjusteProductosLista");
   let tipomovi = localStorage.getItem("movimientoAju");
   let movimi = $("#tipoMovimientoAju").val();
-  let fecha = localStorage.getItem("fechaAju");
+  // let fecha = localStorage.getItem("fechaAju");
+  let fecha = document.querySelector("#fechaAju").value
   let ajustes = JSON.parse(storageList);
   parametros = {
     usuario,

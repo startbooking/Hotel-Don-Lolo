@@ -4,6 +4,25 @@ require_once 'init.php';
 date_default_timezone_set('America/Bogota');
 class Inventario_User
 {
+    public function traeInfoMovimientos(){
+        global $database;
+
+        $data = $database->query("SELECT
+            a.*,
+            b.*,
+            c.*,
+            d.*,
+            e.* 
+        FROM
+            ( SELECT count( id ) AS entradas FROM movimientos_inventario WHERE tipo = 1 AND estado = 1 ) AS a,
+            ( SELECT count( id ) AS salidas FROM movimientos_inventario WHERE tipo = 2 AND estado = 1 ) AS b,
+            ( SELECT count( id ) AS ajustes FROM movimientos_inventario WHERE tipo = 4 AND estado = 1 ) AS c,
+            ( SELECT count( id_requisicion ) AS requisicion FROM requisiciones WHERE estado = 1 ) AS d,
+            ( SELECT count( id_pedido ) AS pedidos FROM pedidos WHERE estado = 1 ) AS e")->fetchAll(PDO::FETCH_ASSOC);
+            return $data;
+    }
+    
+    
     public function traeKardexCierre($bodega, $mes, $anio){
         global $database;
 

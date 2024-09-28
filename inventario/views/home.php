@@ -1,8 +1,11 @@
 <?php
-$entradas = count($inven->getMovimientosInventarios(1));
-$salidas = count($inven->getSalidasInventarios(2));
-$requisiciones = count($inven->getRequisiciones());
-$pedidos = count($inven->getPedidos());
+$info = $inven->traeInfoMovimientos();
+
+$entradas = $info[0]['entradas'];
+$salidas = $info[0]['salidas'];
+$ajustes = $info[0]['ajustes'];
+$requisiciones = $info[0]['requisicion'];
+$pedidos = $info[0]['pedidos'];
 
 ?>
 <div class="content-wrapper"> 
@@ -59,6 +62,18 @@ $pedidos = count($inven->getPedidos());
               <i class="ion ion-pie-graph"></i>
             </div>
             <a href="salidas" class="small-box-footer">Detalles<i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-4 col-xs-12">
+          <div class="small-box bg-blue">
+            <div class="inner">
+              <h3><?php echo $ajustes; ?></h3>
+              <p>Ajustes</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-pie-graph"></i>
+            </div>
+            <a href="ajustes" class="small-box-footer">Detalles<i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
       </div>
