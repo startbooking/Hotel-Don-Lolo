@@ -49,7 +49,7 @@ $prefijo = $resFac[0]['prefijo'];
 $fechaRes = $resFac[0]['fecha'];
 $desde = $resFac[0]['desde'];
 $hasta = $resFac[0]['hasta'];
-
+ 
 $fechaFac = $fecha;
 $fechaVen = $fecha;
 $diasCre = 0;

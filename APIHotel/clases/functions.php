@@ -1,17 +1,45 @@
 <?php
-
-require_once 'init.php';
+require_once 'conexion/init.php';
 date_default_timezone_set('America/Bogota');
 
 class Hotel_Actions
 {
 
+    public function actualizaNumeroAjuste($numero){
+        global $database;
+
+        $data = $database->update('parametros_pms',[
+            'con_ajuste_cuenta' => $numero
+        ]);
+        return $data->rowCount();
+    }
+
+
+    public function actualizaAjusteCuenta($folio,$reserva, $numero, $prefijo, $usuario, $usuario_id){
+        global $database;
+
+        $data = $database->update('cargos_pms',[
+            'factura_numero' => $numero,
+            'prefijo_factura' => $prefijo,
+            'usuario_factura' => $usuario,
+            'id_usuario_factura' => $usuario_id,
+            'fecha_factura' => date('Y-m-d'),
+            'tipo_factura' => 3,
+        ],[
+            'numero_reserva' => $reserva,
+            'folio_cargo' => $folio,
+        ]);
+        return $data->rowCount();
+
+    }
+    
     public function traeNumeroAjuste()
     {
         global $database;
 
         $data = $database->select('parametros_pms', [
             'con_ajuste_cuenta',
+            'pref_ajuste_cuenta',
         ]);
 
         return $data;
@@ -7800,14 +7828,13 @@ class Hotel_Actions
             'cargos_pms.numero_reserva',
             'cargos_pms.cargo_anulado',
             'cargos_pms.factura_numero',
-            'cargos_pms.prefijo_factura',
             'cargos_pms.numero_factura_cargo',
             'codigos_vta.tipo_codigo',
         ], [
             'cargos_pms.numero_reserva' => $reserva,
             'cargos_pms.folio_cargo' => $folio,
             'cargos_pms.cargo_anulado' => 0,
-            // 'cargos_pms.tipo_factura' => 0,
+            'cargos_pms.tipo_factura' => 0,
             'ORDER' => 'cargos_pms.id_cargo',
         ]);
 

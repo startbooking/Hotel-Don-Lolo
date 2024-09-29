@@ -36,7 +36,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 `);
 
   /* Nuevo FIltro Estado Habitaciones */
-
   // AGREGANDO CLASE ACTIVE AL PRIMER ENLACE ====================
 	$('.category_list .category_item[category="all"]').addClass('ct_item-active');
 
@@ -128,18 +127,37 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
-  
   $("#myModalCalendarioReservas").on("show.bs.modal", async function (event) {
     let reservas = await traeReservasTotal();
     let llenaTabla = await llenaTablaReservas(reservas);
   });
 
+  $("#myModalAjusteCuenta").on("show.bs.modal", async function (event) {
+    let button = $(event.relatedTarget);
+    let nombre = button.data("nombre");
+    let folio = document.querySelector('#folioActivo').value;
+    let reserva = document.querySelector('#reservaActual').value;
+    let modal = $(this);
+    parametros = {
+      reserva, 
+      folio,
+    }
+    modal
+    .find(".modal-title")
+    .text(`Ajustar Cuenta ${nombre} - Folio Nro ${folio}`);
+  $.ajax({
+    url: "res/php/getEstadoCuentaFolio.php",
+    type: "POST",
+    data: parametros,
+    success: function (data) {
+      $("#verAjusteCuenta").attr(
+        "data",
+        `data:application/pdf;base64,${$.trim(data)}`
+      );
+    },
+  });
 
-  $("#myModalAjustarCuenta").on("show.bs.modal", async function (event) {
-    let folioNro = document.querySelector('#folioActivo');
-    let reservaNro = document.querySelector('#reservaActual');
-
-    console.log({folioNro, reservaNro}); "
+    // console.log({folio, reserva});
   });
 
   $("#myModalObservaciones").on("show.bs.modal", async function (event) {
@@ -153,7 +171,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.querySelector('#numeroRes').value = reserva;
     document.querySelector('#ocupada').value = ocupada;
     document.querySelector('#sucia').value = sucia;
-    titulo = document.querySelector("#myModalObservaciones .modal-title");"
+    titulo = document.querySelector("#myModalObservaciones .modal-title");
     if(ocupada==1){
       titulo.innerHTML = 'Ingresa Observaciones a la Estadia'
     }else{
@@ -2243,7 +2261,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 async function llenaTablaReservas(reservas){
-
   reservas.map((reserva) => {
     let { fecha_llegada, reservas, salidas } = reserva
     $("#tablaCalendario >tbody").append(
@@ -2255,10 +2272,109 @@ async function llenaTablaReservas(reservas){
     );
     // selectElement.add(optionElement);
   });
+}
 
+async function ajusteCuenta(){
+  let folio = document.querySelector('#folioActivo').value;
+  let reserva = document.querySelector('#reservaActual').value;
+  
+  let conse = await traeConsecutivo();
+  let guarda = await guardaAjusteCuenta(reserva, folio, conse);
+  let { con_ajuste_cuenta } = conse[0];
+  let nuevo = await actualizaConsecutivoCuenta(con_ajuste_cuenta+1);
+  let imprime = await imprimeAjusteCuenta(con_ajuste_cuenta, reserva, folio);
 
 }
 
+async function imprimeAjusteCuenta(numero, reserva, folio){
+  let token = "9b25a3d3-dbc5-42a8-830d-899d2c9d9233";
+  let req = {
+    numero,
+    reserva,
+    folio, 
+  }
+
+  try {
+    const res = await fetch(`/APIHotel/data/imprimeAjusteCuenta.php`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(req),
+    });
+    const datos = await res.json();
+    return datos;
+  } catch (error) {
+    return error
+  }
+}
+
+
+async function actualizaConsecutivoCuenta(numero){
+  let token = "9b25a3d3-dbc5-42a8-830d-899d2c9d9233";
+  let req = {
+    numero
+  }
+
+  try {
+    const res = await fetch(`/APIHotel/data/consecutivoAjusteCuenta.php`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(req),
+    });
+    const datos = await res.json();
+    return datos;
+  } catch (error) {
+    return error
+  }
+}
+
+async function guardaAjusteCuenta(reserva, folio, conse){
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { user: { usuario, usuario_id } } = sesion;
+  let token = "9b25a3d3-dbc5-42a8-830d-899d2c9d9233";
+  let req = {
+    reserva, folio, conse,usuario, usuario_id
+  }
+
+  try {
+    const res = await fetch("/APIHotel/data/actualizaAjusteCuenta.php", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(req),
+    });
+    const datos = await res.json();
+    return datos;
+  } catch (error) {
+    return error
+  }
+}
+
+const traeConsecutivo = async () => {
+  let token = "9b25a3d3-dbc5-42a8-830d-899d2c9d9233";
+  try {
+    const resultado = await fetch(`/APIHotel/data/consecutivoAjusteCuenta.php`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const datos = await resultado.json();
+    // console.log(datos);
+    return datos;
+  } catch (error) {
+    return error;
+  }
+};
 
 function consumosPorFecha() {
   var web = $("#rutaweb").val();
@@ -6717,9 +6833,7 @@ async function salidaHuesped() {
 
   var pago = $("#txtValorPago").val();
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {
-    user: { usuario, usuario_id, tipo },
-  } = sesion;
+  let { user: { usuario, usuario_id, tipo },} = sesion;
 
   if (pago < saldo) {
     $("#mensajeSal").html(
@@ -6814,7 +6928,7 @@ async function salidaHuesped() {
       if (errorDian == "1") {
         mensaje = JSON.parse(mensaje);
       }
-      console.log(mensaje);
+      // console.log(mensaje);
       let muestra = await muestraError(mensaje);
       // let anulaFact = await anulaFacturaEnvio(factura, perfil)
     } else {

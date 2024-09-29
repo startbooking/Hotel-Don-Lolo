@@ -775,11 +775,13 @@
           <div id="datos_ajax_register"></div>
           <div class="modal-body">
             <div class="divs" id="divConsumos">
-              <object type="application/pdf" id="verEstadoCuentaFolio" width="100%" height="350" data=""></object>
+              <object type="application/pdf" id="verAjusteCuenta" width="100%" height="350" data=""></object>
             </div>
           </div>
           <div class="modal-footer" style="text-align: center">
-            <button style="width: 25%" type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
+            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
+            <button type="submit" class="btn btn-info" >
+              <i class="fa-solid fa-floppy-disk"></i>Ajustar Cuenta</button>
           </div>
         </div>
       </div>
