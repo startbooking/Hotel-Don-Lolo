@@ -1,6 +1,6 @@
 <?php 
 
-  require '../../../res/php/titles.php';
+  // require '../../../res/php/titles.php';
   require '../../../res/php/app_topHotel.php'; 
 	
 	$empresa       = $_POST['empresaUpd'];

@@ -8,8 +8,8 @@ class PDF extends FPDF
     public function Header()
     {
         $this->Image('../../img/' . LOGO, 10, 10, 25);
-        $this->SetFont('Arial', 'B', 13);
-        $this->Cell(190, 7, NAME_EMPRESA, 0, 1, 'C');
+        $this->SetFont('Arial', 'B', 12);
+        $this->Cell(190, 5, NAME_EMPRESA, 0, 1, 'C');
         $this->SetFont('Arial', '', 10);
         $this->Cell(190, 5, 'Nit: ' . NIT_EMPRESA, 0, 1, 'C');
         $this->Cell(190, 5, ADRESS_EMPRESA, 0, 1, 'C');
@@ -33,10 +33,7 @@ $pdf->AddPage();
 $datosReserva = $hotel->getReservasDatos($reserva);
 $datosHuesped = $hotel->getbuscaDatosHuesped($datosReserva[0]['id_huesped']);
 $datosCompania = $hotel->getSeleccionaCompania($datosReserva[0]['id_compania']);
-// $tipoHabitacion = $hotel->getNombreTipoHabitacion($datosReserva[0]['tipo_habitacion']);
 $folios = $hotel->getCargosReservaFolio($reserva, $folio);
-
-// echo print_r($folios);
 
 $pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell(190, 5, strtoupper('Estado de Cuenta Huesped '), 0, 1, 'C');
@@ -46,8 +43,8 @@ $pdf->Cell(20, 5, 'Fecha ', 0, 0, 'L');
 $pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell(20, 5, FECHA_PMS, 0, 0, 'L');
 $pdf->SetFont('Arial', 'B', 10);
-$pdf->MultiCell(40, 4, 'Nro '.$folios[0]['prefijo_factura'].' '.str_pad($folios[0]['factura_numero'], 4, '0', STR_PAD_LEFT), 1, 'C');
-// $pdf->SetFont('Arial', '', 8);
+$pdf->Cell(110, 5, '', 0, 0, 'L');
+$pdf->Cell(40, 5, 'AJUSTE DE CUENTA', 0, 1, 'C');
 
 $pdf->SetFont('Arial', '', 10);
 $pdf->Cell(20, 5, 'Habitacion', 0, 0, 'L');
@@ -56,11 +53,14 @@ $pdf->Cell(20, 5, $datosReserva[0]['num_habitacion'], 0, 0, 'L');
 $pdf->SetFont('Arial', '', 10);
 $pdf->Cell(20, 5, 'Folio ', 0, 0, 'L');
 $pdf->SetFont('Arial', 'B', 10);
-$pdf->Cell(20, 5, $folio, 0, 1, 'L');
+$pdf->Cell(20, 5, $folio, 0, 0, 'L');
+$pdf->Cell(70, 5, '', 0, 0, 'L');
+$pdf->MultiCell(40, 5, 'Nro '.$folios[0]['prefijo_factura'].' '.str_pad($folios[0]['factura_numero'], 4, '0', STR_PAD_LEFT), 1, 'C');
+
 $pdf->SetFont('Arial', '', 10);
 $pdf->Cell(20, 5, 'Huesped', 0, 0, 'L');
 $pdf->SetFont('Arial', 'B', 10);
-$pdf->Cell(80, 5, ($datosHuesped[0]['apellido1'] . ' ' . $datosHuesped[0]['apellido2'] . ' ' . $datosHuesped[0]['nombre1'] . ' ' . $datosHuesped[0]['nombre2']), 0, 0, 'L');
+$pdf->Cell(70, 5, ($datosHuesped[0]['apellido1'] . ' ' . $datosHuesped[0]['apellido2'] . ' ' . $datosHuesped[0]['nombre1'] . ' ' . $datosHuesped[0]['nombre2']), 0, 0, 'L');
 $pdf->SetFont('Arial', '', 10);
 $pdf->Cell(25, 5, 'Identificacion', 0, 0, 'L');
 $pdf->SetFont('Arial', 'B', 10);
@@ -150,15 +150,9 @@ if ($totalCta < 0) {
 } else {
     $pdf->Cell(190, 5, 'SON : ' . numtoletras($totalCta), 0, 1, 'L');
 }
-/*
-$pdfFile = $pdf->Output('', 'S');
-$base64String = chunk_split(base64_encode($pdfFile));
 
-echo $base64String;
- */
-
-//  echo __DIR__;
-
- $file = 'Ajuste-'.$folios[0]['prefijo_factura'].'-'.str_pad($folios[0]['factura_numero'], 4, '0', STR_PAD_LEFT).'.pdf';
+ $file = '../../pms/imprimir/ajustes/'.$folios[0]['prefijo_factura'].str_pad($folios[0]['factura_numero'], 4, '0', STR_PAD_LEFT).'.pdf';
 
 $pdf->Output($file, 'F');
+
+echo $file;

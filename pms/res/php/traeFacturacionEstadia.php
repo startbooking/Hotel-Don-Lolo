@@ -2,7 +2,9 @@
   require '../../../res/php/app_topHotel.php';
   extract($_POST);
   $reservas = $hotel->traeBalanceHabitaciones('CA');
-  
+
+  // echo print_r($reservas);
+   
 ?>
 
 <div class="table-responsive">
@@ -24,14 +26,14 @@
     <tbody>
       <?php
       foreach ($reservas as $reserva) {
-        if ($reserva['id_compania'] == 0) {
+        /* if ($reserva['id_compania'] == 0) {
           $nombrecia = 'SIN COMPAÑIA ASOCIADA';
           $nitcia = '';
         } else {
           $cias = $hotel->getBuscaCia($reserva['id_compania']);
           $nombrecia = $cias[0]['empresa'];
           $nitcia = $cias[0]['nit'] . '-' . $cias[0]['dv'];
-        }
+        } */
         $depositos = $hotel->getDepositosReservas($reserva['num_reserva']);
         $consumos = $hotel->getConsumosReserva($reserva['num_reserva']);
         if (count($consumos) == 0) {
@@ -88,7 +90,14 @@
             }
             ?>
           </td>
-          <td style="width: 20%"><?php echo substr($nombrecia, 0, 35); ?></td>
+          <td style="width: 20%"><?php 
+          if($reserva['empresa']==null){
+            echo 'SIN COMPAÑIA ASOCIADA';
+          }else{
+            echo substr($reserva['empresa'],0,35);
+          }
+          // echo substr($nombrecia, 0, 35); 
+          ?></td>
           <td style="width: 7%;text-align:right;"><?php echo number_format($reserva['valor_diario'], 2); ?></td>
           <td style="width: 7%"><?php echo $reserva['fecha_llegada']; ?></td>
           <td style="width: 7%"><?php echo $reserva['fecha_salida']; ?></td>
@@ -153,7 +162,7 @@
                           <a 
                             data-toggle="modal" 
                             data-id="<?php echo $reserva['id_compania']; ?>" 
-                            data-empresa="<?php echo $nombrecia; ?>" href="#myModalModificaPerfilCia">
+                            data-empresa="<?php echo $reserva['empresa']; ?>" href="#myModalModificaPerfilCia">
                             <i class="fa fa-book" aria-hidden="true"></i>
                             Datos Compañia</a>
                         </li>
@@ -188,8 +197,8 @@
                         data-cia="<?php echo $reserva['id_compania']; ?>" 
                         data-nrohab="<?php echo $reserva['num_habitacion']; ?>" 
                         data-nombre="<?php echo $reserva['nombre_completo']; ?>" 
-                        data-nombrecia="<?php echo $nombrecia; ?>" 
-                        data-nitcia="<?php echo $nitcia; ?>" 
+                        data-nombrecia="<?php echo $reserva['empresa']; ?>" 
+                        data-nitcia="<?php echo $reserva['nit'].'-'.$reserva['dv']; ?>" 
                         data-observa="<?php echo $reserva['observaciones']; ?>" href="#myModalAdicionaObservaciones">
                           <i class="fa fa-commenting" aria-hidden="true"></i>Adicionar Observaciones</a>
                       </li>

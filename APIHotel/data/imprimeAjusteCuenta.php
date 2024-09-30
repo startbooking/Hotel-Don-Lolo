@@ -16,7 +16,6 @@ if ($token == '' ) {
   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $postBody = json_decode(file_get_contents('php://input'), true);
     extract($postBody);
-    // echo print_r($postBody);
     require_once '../../pms/imprimir/imprimeAjusteCuenta.php'; 
     /* $lista = $_hotel->actualizaNumeroAjuste($numero);
     echo json_encode($lista); */

@@ -315,11 +315,11 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
               </a>
               <a 
                 type="button" 
-                class="btn btn-warning"
+                class="btn btn-warning apaga"
                 data-toggle="modal"
                 data-target="#myModalAjusteCuenta"
-                data-nombre    ="<?php echo $datosReserva[0]['nombre_completo']; ?>" 
-
+                data-nombre ="<?php echo $datosReserva[0]['nombre_completo']; ?>" 
+                id="btnAjuste"
                 ><i class="fa-solid fa-receipt"></i> Ajustar Cuenta</a>
             </div>
           </div>

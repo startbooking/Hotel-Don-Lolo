@@ -20,36 +20,36 @@ class Hotel_Actions
     public function traeReservasTotal(){
         global $database;
 
-        $data = $database->query("SELECT a.fecha_llegada, a.reservas, COALESCE(b.salidas,0)  as salidas 
-        FROM
-            (
-            SELECT
-                reservas_pms.fecha_llegada,
-                COALESCE ( count( reservas_pms.num_reserva ), 0 ) AS reservas 
+            $data = $database->query("SELECT a.fecha_llegada, a.reservas, COALESCE(b.salidas,0)  as salidas 
             FROM
-                reservas_pms 
-            WHERE
-                estado = 'ES' 
-            GROUP BY
-                reservas_pms.fecha_llegada 
+                (
+                SELECT
+                    reservas_pms.fecha_llegada,
+                    COALESCE ( count( reservas_pms.num_reserva ), 0 ) AS reservas 
+                FROM
+                    reservas_pms 
+                WHERE
+                    estado = 'ES' 
+                GROUP BY
+                    reservas_pms.fecha_llegada 
+                ORDER BY
+                    reservas_pms.fecha_llegada ASC 
+                ) AS a
+                LEFT JOIN (
+                SELECT
+                    reservas_pms.fecha_salida,
+                    COALESCE ( count( reservas_pms.num_reserva ), 0 ) AS salidas 
+                FROM
+                    reservas_pms 
+                WHERE
+                    estado = 'CA' 
+                GROUP BY
+                    reservas_pms.fecha_salida 
+                ORDER BY
+                    reservas_pms.fecha_salida ASC 
+                ) AS b ON a.fecha_llegada = b.fecha_salida 
             ORDER BY
-                reservas_pms.fecha_llegada ASC 
-            ) AS a
-            LEFT JOIN (
-            SELECT
-                reservas_pms.fecha_salida,
-                COALESCE ( count( reservas_pms.num_reserva ), 0 ) AS salidas 
-            FROM
-                reservas_pms 
-            WHERE
-                estado = 'CA' 
-            GROUP BY
-                reservas_pms.fecha_salida 
-            ORDER BY
-                reservas_pms.fecha_salida ASC 
-            ) AS b ON a.fecha_llegada = b.fecha_salida 
-        ORDER BY
-            a.fecha_llegada ASC")->fetchAll(PDO::FETCH_ASSOC);
+                a.fecha_llegada ASC")->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     }
 
@@ -8790,42 +8790,43 @@ class Hotel_Actions
     {
         global $database;
         $data = $database->query("SELECT
-	reservas_pms.num_reserva,
-	reservas_pms.causar_impuesto,
-	reservas_pms.num_habitacion,
-	reservas_pms.id_compania,
-	reservas_pms.fecha_llegada,
-	reservas_pms.fecha_salida,
-	reservas_pms.valor_diario,
-	reservas_pms.observaciones,
-	reservas_pms.tarifa,
-	reservas_pms.valor_reserva,
-	reservas_pms.tipo_habitacion,
-	COALESCE ( SUM( cargos_pms.valor_cargo ), 0 ) AS cargos, 
-	COALESCE ( SUM( cargos_pms.pagos_cargos ), 0 ) AS pagos, 
-	COALESCE ( SUM( cargos_pms.impuesto ), 0 ) AS imptos, 
-	huespedes.nombre_completo,
-	huespedes.fecha_nacimiento, 
-	huespedes.id_huesped
-FROM
-	reservas_pms
-	LEFT JOIN
-	cargos_pms
-	ON 
-		cargos_pms.numero_reserva = reservas_pms.num_reserva AND
-		cargos_pms.cargo_anulado = 0 AND
-		cargos_pms.factura = 0 AND
-		cargos_pms.factura_numero = 0
-	INNER JOIN
-	huespedes
-	ON 
-		reservas_pms.id_huesped = huespedes.id_huesped
-WHERE
-	reservas_pms.estado = '$tipo'
-GROUP BY
-	reservas_pms.num_reserva
-ORDER BY
-	reservas_pms.num_reserva ASC")->fetchAll();
+            reservas_pms.num_reserva, 
+            reservas_pms.causar_impuesto, 
+            reservas_pms.num_habitacion, 
+            reservas_pms.id_compania, 
+            reservas_pms.fecha_llegada, 
+            reservas_pms.fecha_salida, 
+            reservas_pms.valor_diario, 
+            reservas_pms.observaciones, 
+            reservas_pms.tarifa, 
+            reservas_pms.valor_reserva, 
+            reservas_pms.tipo_habitacion, 
+            COALESCE ( SUM( cargos_pms.valor_cargo ), 0 ) AS cargos, 
+            COALESCE ( SUM( cargos_pms.pagos_cargos ), 0 ) AS pagos, 
+            COALESCE ( SUM( cargos_pms.impuesto ), 0 ) AS imptos, 
+            huespedes.nombre_completo, 
+            huespedes.fecha_nacimiento, 
+            huespedes.id_huesped,
+            companias.empresa,
+            companias.nit,
+            companias.dv
+        FROM
+            reservas_pms
+            LEFT JOIN
+            cargos_pms
+            ON 
+                cargos_pms.numero_reserva = reservas_pms.num_reserva AND
+                cargos_pms.cargo_anulado = 0 AND
+                cargos_pms.factura = 0 AND
+                cargos_pms.factura_numero = 0
+            INNER JOIN huespedes ON reservas_pms.id_huesped = huespedes.id_huesped
+            LEFT JOIN companias ON reservas_pms.id_compania = companias.id_compania
+        WHERE
+            reservas_pms.estado = 'CA'
+        GROUP BY
+            reservas_pms.num_reserva
+        ORDER BY
+            reservas_pms.num_reserva ASC")->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     }
 

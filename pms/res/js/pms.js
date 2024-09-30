@@ -137,6 +137,20 @@ document.addEventListener("DOMContentLoaded", async () => {
     let nombre = button.data("nombre");
     let folio = document.querySelector('#folioActivo').value;
     let reserva = document.querySelector('#reservaActual').value;
+    let saldo = document.querySelector("#txtSaldoCta").value
+    if(saldo === 0){
+      swal({
+        title: "Precaucion",
+        text: "Sin Saldo en la Presente Cuenta",
+        confirmButtonText: "Aceptar",
+        type: "warning",
+        closeOnConfirm: true,
+      },
+      function(){
+        $("#myModalAjusteCuenta").modal('hide')
+      })
+      return ;
+    }
     let modal = $(this);
     parametros = {
       reserva, 
@@ -145,19 +159,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     modal
     .find(".modal-title")
     .text(`Ajustar Cuenta ${nombre} - Folio Nro ${folio}`);
-  $.ajax({
-    url: "res/php/getEstadoCuentaFolio.php",
-    type: "POST",
-    data: parametros,
-    success: function (data) {
-      $("#verAjusteCuenta").attr(
-        "data",
-        `data:application/pdf;base64,${$.trim(data)}`
-      );
-    },
-  });
+    $.ajax({
+      url: "res/php/getEstadoCuentaFolio.php",
+      type: "POST",
+      data: parametros,
+      success: function (data) {
+        $("#verAjusteCuenta").attr(
+          "data",
+          `data:application/pdf;base64,${$.trim(data)}`
+        );
+      },
+    });
 
-    // console.log({folio, reserva});
   });
 
   $("#myModalObservaciones").on("show.bs.modal", async function (event) {
@@ -2283,7 +2296,14 @@ async function ajusteCuenta(){
   let { con_ajuste_cuenta } = conse[0];
   let nuevo = await actualizaConsecutivoCuenta(con_ajuste_cuenta+1);
   let imprime = await imprimeAjusteCuenta(con_ajuste_cuenta, reserva, folio);
-
+  console.log(imprime);
+  // imprime = $.trim(data);
+  var ventana = window.open(
+    imprime,
+    "PRINT",
+    "height=600,width=600"
+  );
+  $(location).attr("href", "facturacionEstadia");
 }
 
 async function imprimeAjusteCuenta(numero, reserva, folio){
@@ -2303,13 +2323,13 @@ async function imprimeAjusteCuenta(numero, reserva, folio){
       },
       body: JSON.stringify(req),
     });
-    const datos = await res.json();
+    const datos = await res.text();
+    console.log(datos);
     return datos;
   } catch (error) {
     return error
   }
 }
-
 
 async function actualizaConsecutivoCuenta(numero){
   let token = "9b25a3d3-dbc5-42a8-830d-899d2c9d9233";
@@ -7221,6 +7241,9 @@ function activaFolio(reserva, folio) {
   });
 }
 function movimientosFactura(reserva) {
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { user: { tipo }, } = sesion;
+  console.log(tipo);
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var parametros = { reserva };
@@ -7231,6 +7254,10 @@ function movimientosFactura(reserva) {
     success: function (data) {
       $("#listado").html("");
       $("#listado").html(data);
+      if(tipo==1){
+        btn = document.querySelector('#btnAjuste');
+        btn.classList.remove('apaga')
+      }
       activaFolio(reserva, 1);
     },
   });
