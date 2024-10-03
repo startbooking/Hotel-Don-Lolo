@@ -6948,9 +6948,7 @@ async function salidaHuesped() {
       if (errorDian == "1") {
         mensaje = JSON.parse(mensaje);
       }
-      // console.log(mensaje);
       let muestra = await muestraError(mensaje);
-      // let anulaFact = await anulaFacturaEnvio(factura, perfil)
     } else {
       if (facturador == 1) {
         ruta = "imprimir/facturas/";
@@ -7031,7 +7029,7 @@ async function muestraError(cErrors){
     ${mensajeErr}
   </ul>`
   return 0
-}
+} 
 
 const enviaPago = async (data) => {
   var web = $("#rutaweb").val();
@@ -7046,7 +7044,6 @@ const enviaPago = async (data) => {
     const datos = await resultado.json();
     return datos;
   } catch (error) {
-    // console.log(error);
     return error;
   }
 };
@@ -7243,7 +7240,7 @@ function activaFolio(reserva, folio) {
 function movimientosFactura(reserva) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user: { tipo }, } = sesion;
-  console.log(tipo);
+  // console.log(tipo);
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var parametros = { reserva };

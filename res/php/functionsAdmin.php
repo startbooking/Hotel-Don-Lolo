@@ -5,6 +5,61 @@
     class Hotel_Admin
     {
 
+        public function eliminaMesa($idmesa){
+			global $database; 
+ 
+			$data = $database->delete('mesas',[
+				'id' => $idmesa
+			]);
+			return $data->rowCount();
+		}
+
+		public function updateMesa($idmesa, $idambi,$mesa, $pers){
+			global $database;
+
+			$data = $database->update('mesas',[
+				'ambiente'    => $idambi,
+				'numero_mesa' => $mesa,
+				'puestos'     => $pers
+			],[
+				'id' => $idmesa
+			]);
+			return $data->rowCount();
+		}
+
+		public function insertMesa($idambi,$mesa, $pers){
+			global $database;
+
+			$data = $database->insert('mesas',[
+				'ambiente'    => $idambi,
+				'numero_mesa' => $mesa,
+				'puestos'     => $pers,
+				'flag'        => 0,
+				'estado'      => 'L'
+			]);
+			return $database->id();
+		}
+
+		public function getMesasAmbiente(){
+			global $database;
+
+			$data = $database->select('mesas',[
+				'[>]ambientes' => ['ambiente' => 'id_ambiente']
+			],[
+				'ambientes.id_ambiente',
+				'ambientes.nombre',
+				'mesas.numero_mesa',
+				'mesas.puestos',
+				'mesas.id'
+			],[
+				'ORDER' => [
+					'ambientes.nombre' => 'ASC',
+					'mesas.numero_mesa' => 'ASC'
+				]
+			]);
+			return $data;
+		}
+
         public function getResoluciones($id)
         {
             global $database;

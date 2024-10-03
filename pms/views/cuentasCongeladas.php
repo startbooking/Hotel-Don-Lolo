@@ -1,4 +1,5 @@
-    <div class="content-wrapper">
+
+<div class="content-wrapper">
       <section class="content" style="height: 780px" id="listado">
         <div class="panel panel-success">
           <div class="panel-heading">

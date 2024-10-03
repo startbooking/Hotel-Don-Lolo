@@ -6,6 +6,45 @@ date_default_timezone_set('America/Bogota');
 class Hotel_Actions
 {
 
+    public function getAjustesCargosDelDia(){
+        global $database;
+
+        $data = $database->query("SELECT
+            sum(cargos_pms.monto_cargo) AS monto, 
+            sum(cargos_pms.impuesto) as imptos, 
+            sum(cargos_pms.valor_cargo) as cargos, 
+            cargos_pms.tipo_factura, 
+            cargos_pms.fecha_factura, 
+            cargos_pms.usuario_factura, 
+            cargos_pms.factura_numero, 
+            cargos_pms.fecha_sistema_cargo,
+            reservas_pms.fecha_llegada, 
+            reservas_pms.fecha_salida, 
+            reservas_pms.num_habitacion, 
+            huespedes.nombre_completo,
+            huespedes.nombre1,
+            huespedes.nombre2,
+            huespedes.apellido1,
+            huespedes.apellido2
+        FROM
+            cargos_pms
+            INNER JOIN
+            reservas_pms
+            ON 
+                cargos_pms.numero_reserva = reservas_pms.num_reserva
+            INNER JOIN
+            huespedes
+            ON 
+                reservas_pms.id_huesped = huespedes.id_huesped
+        WHERE
+            cargos_pms.tipo_factura = 3
+        GROUP BY
+        cargos_pms.factura_numero
+        ORDER BY 
+        cargos_pms.factura_numero")->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
+    }
+    
     public function traeNumeroAjuste()
     {
         global $database;
@@ -1833,11 +1872,12 @@ class Hotel_Actions
         global $database;
 
         $data = $database->select('reservas_pms', [
-            'estado'
+            'estado',
+            'con_congela',
         ], [
             'num_reserva' => $room,
         ]);
-        return $data[0]['estado'];
+        return $data;
     }
 
     public function getFacturasCompanias($id)
@@ -8822,7 +8862,7 @@ class Hotel_Actions
             INNER JOIN huespedes ON reservas_pms.id_huesped = huespedes.id_huesped
             LEFT JOIN companias ON reservas_pms.id_compania = companias.id_compania
         WHERE
-            reservas_pms.estado = 'CA'
+            reservas_pms.estado = '$tipo'
         GROUP BY
             reservas_pms.num_reserva
         ORDER BY

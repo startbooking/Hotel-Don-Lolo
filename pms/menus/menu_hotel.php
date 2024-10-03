@@ -224,6 +224,7 @@ if ($_GET['section'] != 'cajeroCerrado') {
                 <li><a href="javascript:imprimeInformeAuditoria('imprimePagosdelDiaHabitacion','Pagos del Dia Por Habitacion')"><i class="glyphicon glyphicon-paste"></i>Pagos del Dia Por Habitacion</a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimePagosAnuladosdelDia','Pagos Anulados en el Dia')"><i class="glyphicon glyphicon-usd"></i>Pagos Anulados en el Dia</a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeFacturasdelDiaAuditoria','Facturas del Dia')"><i class="glyphicon glyphicon-paste"></i>Facturas del Dia</a></li>
+                <li><a href="javascript:imprimeInformeAuditoria('imprimeAjustesCargosDelDia','Ajustes Cargos Del Dia')"><i class="glyphicon glyphicon-paste"></i>Ajustes Cargos del Dia</a></li>
                 <li><a href="informeFacturasRango"><i class="glyphicon glyphicon-paste"></i>Facturas por Rango de Fechas</a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeBalanceTotalHuesped','Saldo Huespedes')"><i class="fa fa-circle-o"></i>Saldo Huespedes</a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeBalanceDiario','Balance Diario')"><i class="fa fa-circle-o"></i>Balance Diario</a></li>
@@ -250,6 +251,7 @@ if ($_GET['section'] != 'cajeroCerrado') {
                 <li><a href="historicoNC"><i class="fa fa-circle-o"></i>Historico Notas Credito</a></li>
                 <li><a href="informeRecibosCajaRango"><i class="fa fa-files-o"></i>Historico Recibos de Caja</a></li>
                 <li><a href="informeCargosPorRango"><i class="fa fa-files-o"></i>Historico Cargos</a></li>
+                <li><a href="historicoAjustesCargos"><i class="fa fa-files-o"></i>Historico Ajustes Cargos</a></li>
                 <li><a href="historicoAuditoria"><i class="fa fa-circle-o"></i>Historico Auditorias</a></li>
               </ul>
             </li>

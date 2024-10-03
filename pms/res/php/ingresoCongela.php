@@ -24,6 +24,6 @@ $nuevonumero = $hotel->updateNumeroCongela($numcongela + 1); // Actualiza Consec
 $salida = $hotel->updateReservaHuespedCongela($reserva, $usuario, $idUser, $fecha, $numcongela);
 $habSucia = $hotel->updateEstadoHabitacion($room);
 
-echo $salida;
+// echo $salida;
 
 include_once '../../imprimir/imprimeCongelada.php';
