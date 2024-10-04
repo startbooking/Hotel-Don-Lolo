@@ -21,6 +21,7 @@
 }
 
 
+
 .borde, .bordelinea, .barra, .puerta {
   border: 1px solid #000;
 
@@ -271,13 +272,14 @@ td span .alert {
   background-color:#FAF705;
 }
 
-.table > tbody > tr > td, 
-.table > tbody > tr > th, 
 .table > tfoot > tr > td, 
 .table > tfoot > tr > th {
   font-size:12px;
   border: 1px solid #d7d5d5;
 }
+
+
+
 
 .table > thead > tr > td, 
 .table > thead > tr > th {
@@ -291,6 +293,14 @@ td span .alert {
 
 .table-striped > tbody > tr:nth-of-type(2n+1) {
   background-color: #eeebeb;
+}
+
+.table > tbody > tr > td, 
+.table > tbody > tr > th { 
+  padding: 4px 0 4px 8px;
+  line-height: 0.85;
+  vertical-align: middle;
+  font-size: 11px;
 }
 
 .comandaDiv >tbody>tr>td {

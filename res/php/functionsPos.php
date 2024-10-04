@@ -4245,6 +4245,8 @@ class Pos_Actions
                 'subtotal',
                 'impuesto',
                 'total',
+                'valor_descuento',
+                'cliente',
                 'id_usuario_anula',
                 'usuario_anula',
                 'motivo_anulada',

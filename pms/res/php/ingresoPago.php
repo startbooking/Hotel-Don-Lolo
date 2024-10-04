@@ -530,7 +530,6 @@ if ($totalFolio != 0) {
     array_push($estadofactura, $error);
 
     $estado = $hotel->estadoReserva($reserva);
-    // echo print_r($estado);
     $salida = $hotel->updateReservaHuespedSalida($reserva, $usuario, $usuario_id, FECHA_PMS);
 
     if ($estado[0]['estado']== 'CA' && $estado[0]['con_congela'] == null ) {

@@ -1246,16 +1246,13 @@ function getComandasPlano(comanda, nromesa, nomBtn) {
   var ancho = screen.width;
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  let {
-    pos,
-    user: { usuario, usuario_id, tipo },
-  } = sesion;
+  let { pos, user: { usuario, usuario_id, tipo }, } = sesion;
   let { id_ambiente, nombre, logo, prefijo, fecha_auditoria } = oPos[0];
 
   $(".btn-menu").css("display", "block");
   miBoton = "#" + nomBtn;
-  propina = $(miBoton).attr("propina");
   impuesto = $(miBoton).attr("impto");
+  propina = $(miBoton).attr("propina");
   descuento = $(miBoton).attr("descuento");
   subtotal = $(miBoton).attr("subtotal");
   abonos = $(miBoton).attr("abonos");
@@ -1279,6 +1276,8 @@ function getComandasPlano(comanda, nromesa, nomBtn) {
     cliente,
   };
 
+  // console.log(parametros)
+
   $.ajax({
     url: "ventas/cuentasPlano.php",
     type: "POST",
@@ -1299,10 +1298,7 @@ function mesasActivasPlano() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let {
-    pos,
-    user: { usuario, usuario_id, tipo },
-  } = sesion;
+  let {pos, user: { usuario, usuario_id, tipo }, } = sesion;
   let { id_ambiente, nombre, propina, prefijo, fecha_auditoria, impuesto } =
     oPos[0];
 
@@ -1321,26 +1317,44 @@ function mesasActivasPlano() {
     type: "POST",
     data: parametros,
     dataType: "json",
-    success: function (data) {
-      for (i = 0; i < data.length; i++) {
-        mesa = "boton" + data[i]["mesa"];
-        nroMesa = data[i]["mesa"];
-        comanda = data[i]["comanda"];
-        $("#" + mesa).removeClass("btn-success");
-        $("#" + mesa).addClass("btn-warning");
-        $("#" + mesa).removeAttr("attribute onclick");
-        $("#" + mesa).attr("impto", data[i]["impuesto"]);
-        $("#" + mesa).attr("subtotal", data[i]["subtotal"]);
-        $("#" + mesa).attr("total", data[i]["total"]);
-        $("#" + mesa).attr("descuento", data[i]["valor_descuento"]);
-        $("#" + mesa).attr("abonos", data[i]["abonos"]);
-        $("#" + mesa).attr("propina", data[i]["propina"]);
-        $("#" + mesa).attr("cliente", data[i]["cliente"]);
-        $("#" + mesa).attr(
+    success: function (datos) {
+      datos.map((data) => {
+        const {
+          mesa,
+          comanda,
+          impuesto,
+          subtotal,
+          total,
+          valor_descuento,
+          abonos,
+          propina,
+          cliente,
+        } = data;
+        // let btnmesa = "boton" + mesa,
+        let nroMesa = `boton${mesa}`;
+        // let comanda = data[i]["comanda"];
+        $("#"+nroMesa).attr("impto", impuesto);
+        $("#"+nroMesa).attr("subtotal", subtotal);
+        $("#"+nroMesa).attr("total", total);
+        $("#"+nroMesa).attr("descuento", valor_descuento);
+        $("#"+nroMesa).attr("abonos", abonos);
+        $("#"+nroMesa).attr("propina", propina);
+        $("#"+nroMesa).attr("cliente", cliente);
+        $("#"+nroMesa).removeClass("btn-success");
+        $("#"+nroMesa).addClass("btn-warning");
+        $("#"+nroMesa).removeAttr("attribute onclick");
+        
+        $("#"+nroMesa).attr(
           "onclick",
-          `getComandasPlano(${comanda} ,'${nroMesa}',this.name)`
+          `getComandasPlano(${comanda} ,'${mesa}',this.name)`
         );
-      }
+        
+      });
+
+
+
+      /* for (i = 0; i < data.length; i++) {
+      } */
     },
   });
 }
@@ -3246,8 +3260,7 @@ function muestraPos(ambSel) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { user, pos } = sesion;
-  let { tipo, apellidos, nombres } = user;
+  let { user:{ tipo, apellidos, nombres }, pos, } = sesion;
   let { plano, fecha_auditoria } = oPos[0];
   $("#fechaPos").html(`Fecha Proceso ${fecha_auditoria}`);
   $("#fechaAuditoria").val(fecha_auditoria);
@@ -5354,12 +5367,13 @@ function productosActivos() {
   $(".comanda > tbody").html("");
   listaComanda.map((productos) => {
     let { id, producto, cant, total, codigo, ambiente } = productos;
+    console.log({ id, producto, cant, total, codigo, ambiente })
   });
 
   for (i = 0; i < listaComanda.length; i++) {
     if (numero == 0) {
       $(".comanda > tbody").append(
-        `<tr>
+        `<tr class="tablaComanda">
           <td>${listaComanda[i]["producto"]}</td>
           <td>${listaComanda[i]["cant"]}</td>
           <td class="t-right">${number_format(listaComanda[i]["total"], 2)}</td>
@@ -5390,7 +5404,7 @@ function productosActivos() {
     } else {
       if (recuperar == 0) {
         $(".comanda > tbody").append(
-          `<tr>
+          `<tr class="tablaComanda">
           <td>${listaComanda[i]["producto"]}</td>
           <td>${listaComanda[i]["cant"]}</td>
           <td class="t-right">${number_format(listaComanda[i]["total"], 2)}</td>
@@ -5419,7 +5433,7 @@ function productosActivos() {
       } else {
         if (listaComanda[i]["activo"] == 1) {
           $(".comanda > tbody").append(
-            `<tr>
+            `<tr class="tablaComanda">
               <td>${listaComanda[i]["producto"]}</td>
               <td>${listaComanda[i]["cant"]}</td>
               <td class="t-right">${number_format(
@@ -5450,7 +5464,7 @@ function productosActivos() {
           }
         } else {
           $(".comanda > tbody").append(
-            `<tr>
+            `<tr class="tablaComanda">
               <td>${listaComanda[i]["producto"]}</td>
               <td>${listaComanda[i]["cant"]}</td>
               <td>${number_format(listaComanda[i]["total"], 2)}</td>
