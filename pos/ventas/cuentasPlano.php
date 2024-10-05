@@ -41,7 +41,7 @@
       <input type="hidden" name="recuperarComanda" id="recuperarComanda" value="0">
       <input type="hidden" name="prefijoAmb" id="prefijoAmb" value="<?=$prefijo?>">
       <input type="hidden" name="idAmbiente" id="idAmbiente" value="<?=$idamb?>">
-      <div class="col-lg-9 col-md-9" style="padding:0 5px;">
+      <div class="col-lg-9 col-md-9" style="padding:0 5px 0 0;">
         <div id='productosComanda' class="row-fluid" style="padding:0;background-color:#FCF7AB;margin-top: 0;overflow: auto">
           <table class="table table-hover comanda">
             <thead>
@@ -60,18 +60,17 @@
           <table class="table table-responsive estadoComanda" style="margin-bottom: 0px;font-size:14px">
             <tbody>
               <tr style="text-align:right">
-                <td style="font-size:14px;padding:5px;text-align:right">Valor Cuenta</td>
-                <td style="font-size:14px;padding:5px;text-align:right" id="totalVta" ><?php echo '$ '.number_format($subtotal,2,",",".");?>
-                <td style="font-size:14px;padding:5px">Impuesto</td>
-                <td style="font-size:14px;padding:5px" id="valorImpto"><?php echo '$ '.number_format($impuesto,2) ?></td>
+                <td>Valor Cuenta</td>
+                <td id="totalVta" ><?php echo '$ '.number_format($subtotal,2,",",".");?>
+                <td>Impuesto</td>
+                <td id="valorImpto"><?php echo '$ '.number_format($impuesto,2) ?></td>
                 </td>
               </tr>
               <tr style="text-align:right">
-                <td style="font-size:14px;padding:5px;text-align:right">Descuento</td>
-                <td style="font-size:14px;padding:5px;text-align:right" id="totalDesc" ><?php echo '$ '.number_format($descuento,2,",",".");?>
-                </td>
-                <td style="font-size:14px;padding:5px;text-align:right" >Total a Pagar</td>
-                <td style="font-size:14px;padding:5px;text-align:right" id="totalCuenta" ><?php echo '$ '.number_format($total,2,",",".");?>
+                <td></td>
+                <td id="totalDesc" ></td>
+                <td>Total a Pagar</td>
+                <td id="totalCuenta" ><?php echo '$ '.number_format($total,2,",",".");?>
                 </td>
               </tr>
             </tbody>
@@ -102,7 +101,7 @@
               >
               <i class="fa fa-save"></i> Recuperar
             </button>
-            <button
+            <!-- <button
               style       ="height: 64px;font-weight: 600;font-size:14px;background-color: yellow;border-color:yellow;color:black;"
               data-toggle ="modal"
               type        ="button"
@@ -112,7 +111,7 @@
               name        ="<?php echo $user;?>"
               title       ="Descuentos A la Presente Cuenta">
               <i class="fa fa-calculator"></i> Descuento
-            </button>
+            </button> -->
             <button
               style       ="height: 64px;overflow: hidden;font-weight: 600;font-size:14px;"
               type        ="button"
@@ -121,7 +120,7 @@
               data-target ="#myImprimirCuenta"
               onclick     ="imprimeEstadoCuenta()"
               title       ="Imprimir Estado de Cuenta">
-              <i class="fa fa-print"></i> Cuenta
+              <i class="fa fa-print"></i> Pre-Cuenta
             </button>
             <?php
             if($nivel=='2'){ ?>
@@ -149,7 +148,7 @@
               ><i class="fa fa-money"></i> Pagar
             </button>
             <button
-              style="height: 64px;overflow: hidden;margin-top:94px;font-weight: 600;font-size:14px;"
+              style="height: 64px;overflow: hidden;margin-top:86px;font-weight: 600;font-size:14px;"
               type="button"
               class="btn btn-default prende btnActivo"
               data-toggle="modal"

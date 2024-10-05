@@ -325,11 +325,10 @@ function pagarFactura() {
 }
 
 function guardarCuentaRecuperadaPlano() {
-  let { pos, user } = sesion;
-  let { usuario } = user;
+  let { pos, user: {usuario} } = sesion;
   let { id_ambiente, impuesto, nombre, fecha_auditoria } = oPos[0];
 
-  imptoInc = impuesto;
+  imptoIncl = impuesto;
 
   $("#recuperarComanda").val(0);
   $("#guardaCuenta").css("display", "none");
@@ -353,14 +352,32 @@ function guardarCuentaRecuperadaPlano() {
   $("#tituloComanda").html("Comandas Activas");
   $("#regresarComanda").css("margin-top", "0px");
 
-  var comanda = $("#numeroComanda").val();
-  var recuperar = $("#recuperarComanda").val();
-  var productos = JSON.parse(localStorage.getItem("productoComanda"));
+  let comanda = $("#numeroComanda").val();
+  let recuperar = $("#recuperarComanda").val();
+  let productos = JSON.parse(localStorage.getItem("productoComanda"));
+
+  // console.log(productos);
+
+  let recuento = productos.filter(item => item.activo === 0).length;
+
+  // console.log(recuento)
+  if(recuento==0){
+    swal({
+      title: "Precaucion",
+      text:"Sin Prodcutos Adicionados a la Comanda",
+      type:"warning"
+    })
+    limpiaLista();
+    enviaInicio();
+
+    return
+  }
+
 
   var parametros = {
     user: usuario,
     idamb: id_ambiente,
-    imptoIncl: impuesto,
+    imptoIncl,
     nomamb: nombre,
     fecha: fecha_auditoria,
     comanda,
@@ -865,13 +882,19 @@ function guardaFactura() {
 }
 
 function getBorraCuenta(usuario, amb) {
-  cant = $("#cantProd").val();
+  let productos = JSON.parse(localStorage.getItem("productoComanda"));
+  let listaComanda;
+  if (productos == null) {
+    listaComanda = [];
+  } else {
+    listaComanda = JSON.parse(productos);
+  }
 
-  if (cant == 0) {
+  if (listaComanda.length == 0  ) {
     getSeleccionaAmbiente(amb);
     return false;
   }
-  var parametros = {
+  let parametros = {
     usuario,
     amb,
   };
@@ -896,8 +919,7 @@ function guardarCuentaRecuperada() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user } = sesion;
-  let { usuario } = user;
+  let { pos, user: { usuario } } = sesion;
   let { id_ambiente, impuesto, nombre, fecha_auditoria } = oPos[0];
 
   $("#recuperarComanda").val(0);

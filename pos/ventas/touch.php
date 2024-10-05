@@ -82,14 +82,14 @@
         <div class="row-fluid" id="valores" style='margin-top:5px;background-color: #B9E3E4B3'>
           <table class="table table-responsive estadoComanda" style="margin-bottom: 0px;font-size:14px">
             <tbody>
-              <!-- <tr style="text-align:right">
+              <tr style="text-align:right">
                 <input type="hidden" name="cantProd" id="cantProd" value='0'>
                 <td>Valor Cuenta</td>
                 <td id="totalVta" ><?php echo '$ '.number_format(0 + 0 - 0, 2, ',', '.'); ?>
                 <td>Impuesto</td>
                 <td id="valorImpto"><?php echo '$ '.number_format(0, 2); ?></td>
                 </td>
-              </tr> -->
+              </tr>
               <tr style="text-align:right">
                 <td ></td>
                 <td id="totalDesc" ></td>
@@ -130,7 +130,7 @@
               type     ="button"
               class    ="btn btn-secondary btn-warning"
               name     ="<?php echo $user; ?>"
-              style    ="height: 64px;font-weight: 600;font-size:14px;margin-top:385px;" title="Anula Ingreso Presente Cuenta">
+              style    ="height: 64px;font-weight: 600;font-size:14px;margin-top:383px;" title="Anula Ingreso Presente Cuenta">
               <i class ="fa fa-reply"></i> Regresar
             </button>
           </div>

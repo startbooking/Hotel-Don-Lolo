@@ -1,33 +1,34 @@
 .content {
-  padding:0;
+  padding: 0;
 }
 
-#pantalla{
+#pantalla {
   min-height: 600px;
 }
 .form-signin {
   max-width: 350px;
   padding: 19px 29px 29px;
   margin: 0 auto 20px;
-  background-color: #D9EDF7;
+  background-color: #d9edf7;
   border: 1px solid #e5e5e5;
   border-radius: 25px;
-  box-shadow: 0 1px 2px rgba(0,0,110,.05);
+  box-shadow: 0 1px 2px rgba(0, 0, 110, 0.05);
 }
-  
+
 #menuPos {
-  padding-top:0px;
+  padding-top: 0px;
   background: #000;
 }
 
-
-
-.borde, .bordelinea, .barra, .puerta {
+.borde,
+.bordelinea,
+.barra,
+.puerta {
   border: 1px solid #000;
-
 }
 
-.bordelinea, .barra  {
+.bordelinea,
+.barra {
   height: 40px;
   position: absolute;
   bottom: 20px;
@@ -72,7 +73,7 @@ td span .alert {
   text-align: center;
 }
 
-.tituloCliente{
+.tituloCliente {
   width: 96%;
   border-radius: 1px;
   margin-top: 3px;
@@ -85,7 +86,7 @@ td span .alert {
 
 .form-signin input[type="text"],
 .form-signin input[type="password"] {
-  width: 100% ;
+  width: 100%;
   font-size: 16px;
   height: auto;
   margin-bottom: 5px;
@@ -100,216 +101,215 @@ td span .alert {
 }
 
 .secciones {
-  background-color:#D0E5E6;
+  background-color: #d0e5e6;
   border-width: 1px;
   height: 120px;
   padding: 0px;
 }
 
-.container-secciones{
-  width:25%;
+.container-secciones {
+  width: 25%;
   height: 50%;
   border-width: 1px;
 }
 
-.text-seccion{
+.text-seccion {
   font-size: 14px;
   height: 60%;
 }
 
-.btnPos{
+.btnPos {
   font-weight: bold;
   text-align: center;
-  white-space:unset;
-  padding:0;
-  margin:.5px;
-  font-family:'ubuntu';
-  height:80px;
-  font-size:13px;
-  color:black;
+  white-space: unset;
+  padding: 0;
+  margin: 0.5px;
+  font-family: "ubuntu";
+  height: 80px;
+  font-size: 13px;
+  color: black;
   line-height: 15px;
+  overflow: hidden;
 }
 
-.tablas{
-  padding:5px 0px 0px 10px;
-  overflow: auto; 
-  display:none
+.tablas {
+  padding: 5px 0px 0px 10px;
+  overflow: auto;
+  display: none;
 }
 
 .btnProd {
-  width:33%;
+  width: 33%;
 }
 
 .prende {
-  display:none;
+  display: none;
 }
 
-.btnSecc{
-  width:32.2%;
-  font-size:13px;
+.btnSecc {
+  width: 32.2%;
+  font-size: 13px;
 }
 
-.btnInfoCom{
+.btnInfoCom {
   width: 19.3%;
-  height: 80px
+  height: 80px;
 }
 
 .btnFactura {
-  height:30px;
-  width:30px;
+  height: 30px;
+  width: 30px;
   line-height: 1px;
-  font-size:12px;
+  font-size: 12px;
 }
 
 .btnFactura i {
   margin-left: -4px;
   font-size: 14px;
 }
-.btnInfoCom h3{
+.btnInfoCom h3 {
   font-weight: bold;
-  font-size:15px;
+  font-size: 15px;
   margin: 0;
 }
 
 .btnRecu {
   height: 50px;
   font-weight: 600;
-  font-size:14px;
+  font-size: 14px;
 }
 
 .btn-toolbar {
   margin: 0px;
 }
 
-.btn-group, .btn-group-vertical {
+.btn-group,
+.btn-group-vertical {
   display: contents;
 }
-.btnInfoCom h4{
+.btnInfoCom h4 {
   font-weight: bold;
-  font-size:12px;
+  font-size: 12px;
   margin: 0;
   margin-top: 2px;
 }
 
 #nombreUsuario {
-  display:flex;
+  display: flex;
 }
 
-#nombreUsuario p{
+#nombreUsuario p {
   margin: 0;
 }
 
-#nombreUsuario span{
-  margin:8px;
+#nombreUsuario span {
+  margin: 8px;
 }
 
-.marginrl-5{
+.marginrl-5 {
   margin-left: 5px;
   margin-right: 5px;
 }
 
-.paddingrl-5{
+.paddingrl-5 {
   padding-left: 5px;
   padding-right: 5px;
 }
 
-.form-control{
+.form-control {
   height: 30px;
 }
 
-.form-group{
-  margin-bottom:5px;
+.form-group {
+  margin-bottom: 5px;
 }
 
-.main-sidebar, .left-side {
+.main-sidebar,
+.left-side {
   min-height: 86%;
 }
 
-.form-group input[type="text"], 
-.form-group input[type="email"], 
-.form-group input[type="password"], 
-.form-group select, 
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group select,
 .form-group textarea {
-  padding:5px;
-}
-
-.ctrlCta {
-  padding:1px 0px;
-  font-size:12px;
-}
-
-.btn-group {
-  padding:1px;
-  font-size: 12px;
-}
-
-.btn-group > btn{
-  font-size:12px;
   padding: 5px;
 }
 
-.btnGroup{
-  font-size:12px;
-  padding:5px;
+.ctrlCta {
+  padding: 1px 0px;
+  font-size: 12px;
+}
+
+.btn-group {
+  padding: 1px;
+  font-size: 12px;
+}
+
+.btn-group > btn {
+  font-size: 12px;
+  padding: 5px;
+}
+
+.btnGroup {
+  font-size: 12px;
+  padding: 5px;
   width: 50%;
 }
 .avisoVta {
-  font-size:28px;
-  text-align:center;
-  border-radius:10px;
+  font-size: 28px;
+  text-align: center;
+  border-radius: 10px;
   padding-top: 10px;
   padding-bottom: 10px;
-  margin:0px;
+  margin: 0px;
 }
 
-.avisoSaldo{
-  color:#DA3030;
-  background-color:#F4C23A;
+.avisoSaldo {
+  color: #da3030;
+  background-color: #f4c23a;
 }
 
-.avisCambio{
-  color:#F00E0E;
-  background-color:#FAF705;
+.avisCambio {
+  color: #f00e0e;
+  background-color: #faf705;
 }
 
-.table > tfoot > tr > td, 
+.table > tfoot > tr > td,
 .table > tfoot > tr > th {
-  font-size:12px;
+  font-size: 12px;
   border: 1px solid #d7d5d5;
 }
 
-
-
-
-.table > thead > tr > td, 
+.table > thead > tr > td,
 .table > thead > tr > th {
-  font-size:15px;
-
+  font-size: 15px;
 }
 .table > thead > tr > th {
   font-weight: 700;
   text-align: center;
 }
 
-.table-striped > tbody > tr:nth-of-type(2n+1) {
+.table-striped > tbody > tr:nth-of-type(2n + 1) {
   background-color: #eeebeb;
 }
 
-.table > tbody > tr > td, 
-.table > tbody > tr > th { 
-  padding: 4px 0 4px 8px;
+.table > tbody > tr > td,
+.table > tbody > tr > th {
+  padding: 2px 0 2px 4px;
   line-height: 0.85;
   vertical-align: middle;
   font-size: 11px;
 }
 
-.comandaDiv >tbody>tr>td {
- padding:3px;
+.comandaDiv > tbody > tr > td {
+  padding: 3px;
 }
 
-.estadoComanda{
-  font-size:17px;
-  font-weight: 700;  
+.estadoComanda {
+  font-size: 17px;
+  font-weight: 700;
 }
 
 .tituloEscritorio {
@@ -320,20 +320,19 @@ td span .alert {
   word-spacing: 7px;
 }
 
-.table-bordered > thead > tr > th, 
+.table-bordered > thead > tr > th,
 .table-bordered > thead > tr > td {
   padding: 5px !important;
-  
 }
 
-.table-bordered > tbody > tr > th, 
-.table-bordered > tbody > tr > td, 
-.table-bordered > tfoot > tr > th, 
+.table-bordered > tbody > tr > th,
+.table-bordered > tbody > tr > td,
+.table-bordered > tfoot > tr > th,
 .table-bordered > tfoot > tr > td {
   padding: 3px 5px !important;
 }
 
-.centrarBotones{
+.centrarBotones {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -341,9 +340,9 @@ td span .alert {
 
 .fecha {
   font-weight: 600;
-  padding:11px 15px;
-  color:#FFF;
-  font-size:16px
+  padding: 11px 15px;
+  color: #fff;
+  font-size: 16px;
 }
 
 .apaga {
@@ -365,27 +364,25 @@ td span .alert {
 
 .btn-outline:active {
   box-shadow: inset 0 0 0 20rem var(--darken-2),
-    inset 0 3px 4px 0 var(--darken-3),
-    0 0 1px var(--darken-2);
+    inset 0 3px 4px 0 var(--darken-3), 0 0 1px var(--darken-2);
 }
 
 .btn-outline:disabled,
 .btn-outline.is-disabled {
-  opacity: .5;
+  opacity: 0.5;
 }
 
-.modal-info{
+.modal-info {
   background-color: #44916d4f !important;
 }
 
 .modal-success {
-  
-  background-color:#06a85ed9 !important;
+  background-color: #06a85ed9 !important;
 }
 
 .btnTitle {
-  float:right;
-  margin-top:10px;
+  float: right;
+  margin-top: 10px;
 }
 
 .btn-menu {
@@ -393,9 +390,9 @@ td span .alert {
   padding: 4px;
   height: 30px;
   width: 30px;
-  font-size:15px;
+  font-size: 15px;
   cursor: pointer;
-  z-index:20;
+  z-index: 20;
 }
 
 .content-wrapper {
@@ -407,92 +404,98 @@ form textarea {
 }
 
 .btnPropina {
-  background-color:#FAE00A;
-  border-color:#F5DF14;
+  background-color: #fae00a;
+  border-color: #f5df14;
 }
 
-.btnPropina:hover, 
-.btnPropina:active, 
+.btnPropina:hover,
+.btnPropina:active,
 .btnPropina.hover {
-    background-color: #F5C50E;
-
+  background-color: #f5c50e;
 }
 
-.logoAmbiente{
+.logoAmbiente {
   width: 90px;
-  margin-top:5px;
+  margin-top: 5px;
   float: right;
 }
 
-@media (max-width:1200px){
+@media (max-width: 1200px) {
   .btnPos {
     width: 31%;
-    font-size:12px;
+    font-size: 12px;
   }
 
-  .btnPos h3{
-    font-size:17px;
+  .btnPos h3 {
+    font-size: 17px;
   }
 
   .container h3 {
-    font-size:20px;
+    font-size: 20px;
   }
 }
 
-@media (max-width:1024px){
-  .estadoComanda{
-    font-size:15px;
-    font-weight: 600;  
+@media (max-width: 1024px) {
+  .estadoComanda {
+    font-size: 15px;
+    font-weight: 600;
   }
   .comanda tr td {
     /* font-weight: bold; */
-    font-weight:400;
-    font-size:13px;
+    font-weight: 400;
+    font-size: 13px;
   }
 
-  .menuComanda{
-    padding:0px;
+  .menuComanda {
+    padding: 0px;
   }
 
   .mr-2 {
     width: 95%;
   }
 }
-#valorReceta{
-  font-size:18px;
+#valorReceta {
+  font-size: 18px;
   font-weight: bold;
-  text-align:left;
+  text-align: left;
 }
 
-#productoList{
-  padding:0px;text-align:center;overflow: auto;display:block;
-}
-
-#seccionList{
-  padding:0;display:block;text-align:center;
-}
-
-#ventasList{
-  padding:0px;
+#productoList {
+  padding: 0px;
+  text-align: center;
+  overflow: auto;
+  display: block;
 }
 
 #seccionList {
-  min-height: 120px; height: 417px;
+  padding: 0;
+  display: block;
+  text-align: center;
 }
 
-#productosComanda, #productosDivide {
-  background-color:#FCF7AB;
+#ventasList {
+  padding: 0px;
+}
+
+#seccionList {
+  min-height: 120px;
+  height: 417px;
+}
+
+#productosComanda,
+#productosDivide {
+  background-color: #fcf7ab;
   margin-top: 0;
   overflow: auto;
-  height: 428px;
+  height: 463px;
 }
 
 #comanda tbody tr td {
-  padding:3px 3px 0px 3px;  
+  padding: 3px 3px 0px 3px;
 }
 
 #tituloNumero {
-  padding:2px;
+  padding: 2px;
   text-align: center;
   font-weight: bold;
   margin: 0px 15px 0 0;
@@ -507,34 +510,38 @@ form textarea {
 }
 
 .menuComanda {
-  padding: 0 5px 0 0;margin-top:0px;
+  padding: 0 5px 0 0;
+  margin-top: 0px;
 }
 
-.estadoComanda tbody tr td, .estadoComandaDiv tbody tr td{
-  font-size:13px;padding:5px
+.estadoComanda tbody tr td,
+.estadoComandaDiv tbody tr td {
+  font-size: 12px;
+  padding: 5px;
 }
 
 .base {
-  position:absolute;top:25%;left:25%
+  position: absolute;
+  top: 25%;
+  left: 25%;
 }
 
-@media (max-width:767px){
-
+@media (max-width: 767px) {
   .base {
     left: 5%;
   }
 
   #productosComanda {
-    margin-top:10px;
+    margin-top: 10px;
   }
 
-  .table > thead > tr > td, 
+  .table > thead > tr > td,
   .table > thead > tr > th {
     font-size: 12px;
-}
+  }
 
   #tituloNumero {
-    margin-top:10px;
+    margin-top: 10px;
   }
 
   .info td {
@@ -549,37 +556,35 @@ form textarea {
 
   .mr-2 {
     width: 100%;
-  } 
+  }
 
   .btn {
     width: 33%;
   }
-  #Escritorio{
-    margin-left:50px;
+  #Escritorio {
+    margin-left: 50px;
   }
+
   .btnPos {
     width: 32%;
   }
 
-  .logoAmbiente{
+  .logoAmbiente {
     width: 60px;
-    margin-top:5px;
+    margin-top: 5px;
     float: right;
   }
 
   h3 {
-    font-size:20px;
-  }    
-}
-
-@media (max-width: 420px){
-  .fecha{
-    font-weight: 600;
-    padding:11px 15px;
-    color:#FFF;
-    font-size:10px
+    font-size: 20px;
   }
 }
 
-
-
+@media (max-width: 420px) {
+  .fecha {
+    font-weight: 600;
+    padding: 11px 15px;
+    color: #fff;
+    font-size: 10px;
+  }
+}

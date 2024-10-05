@@ -1276,8 +1276,6 @@ function getComandasPlano(comanda, nromesa, nomBtn) {
     cliente,
   };
 
-  // console.log(parametros)
-
   $.ajax({
     url: "ventas/cuentasPlano.php",
     type: "POST",
@@ -1287,8 +1285,8 @@ function getComandasPlano(comanda, nromesa, nomBtn) {
       $("#tituloNumero2").html(
         `<h3 style="margin-top:10px">Comanda Nro ${comanda} <br>Mesa Nro ${nromesa}</h3>`
       );
-      $("#productosComanda").css("min-height", 350);
-      $("#productosComanda").css("height", alto - 320);
+      // $("#productosComanda").css("min-height", 350);
+      // $("#productosComanda").css("height", alto - 348);
       $("#Escritorio").css("height", alto - 420);
     },
   });
@@ -1350,27 +1348,21 @@ function mesasActivasPlano() {
         );
         
       });
-
-
-
-      /* for (i = 0; i < data.length; i++) {
-      } */
     },
   });
 }
 
 function abreCuenta(mesa) {
-  var alto = screen.height;
-  var ancho = screen.width;
+  let alto = screen.height;
+  let ancho = screen.width;
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  let {
-    pos,
-    user: { usuario, usuario_id, tipo },
-  } = sesion;
-
-  let { id_ambiente, nombre, propina, prefijo, fecha_auditoria, impuesto } =
-    oPos[0];
+  let { pos, user: { usuario, usuario_id, tipo }, } = sesion;
+  let { id_ambiente, nombre, propina, prefijo, fecha_auditoria, impuesto } = oPos[0];
+  storageProd = localStorage.getItem("productoComanda");
+  if (storageProd === null) {
+    listaComanda = [];
+  }
 
   $("#btnGuardar").attr("disabled", "enabled");
 
@@ -1392,7 +1384,7 @@ function abreCuenta(mesa) {
     success: function (data) {
       getSecciones();
       $("#pantalla").html(data);
-      $("#productosComanda").css("height", alto - 292);
+      // $("#productosComanda").css("height", alto - 292);
       $("#Escritorio").css("height", alto - 420);
       $("#nromesas").val(mesa);
       $("#nromesas").attr("readonly", true);
@@ -1404,7 +1396,7 @@ function abreCuenta(mesa) {
       } else {
         listaComanda = JSON.parse(storageProd);
       }
-      console.log(listaComanda);
+      // console.log(listaComanda);
       productosActivos();
       resumenComanda();
     },
@@ -2061,25 +2053,36 @@ function facturasDia() {
 }
 
 function resumenComanda() {
-  var storageProd = localStorage.getItem("productoComanda");
+  let storageProd = localStorage.getItem("productoComanda");
 
-  // let listaComanda = JSON.parse(storageProd);
+  // console.log(storageProd);
   let listaComanda ;
-  if (storageProd == null) {
-    listaComanda = [];
-  } else {
-    listaComanda = JSON.parse(storageProd);
-  }
+  storageProd == null ? listaComanda = [] : listaComanda = JSON.parse(storageProd)
 
-  var impuesto = 0;
-  var venta = 0;
-  var canti = 0;
-  var propina = 0;
-  var abonos = 0;
-  var totalCuenta = 0;
-  var totalCta = 0;
+  // console.log(listaComanda);
 
-  for (i = 0; i < listaComanda.length; i++) {
+  let impuesto = 0;
+  let venta = 0;
+  let canti = 0;
+  let propina = 0;
+  let abonos = 0;
+  let totalCuenta = 0;
+  let totalCta = 0;
+
+  // descuento = listaComanda.reduce((totdes, comanda) => totdes + comanda.descuento,0);
+  canti = listaComanda.reduce((canti, comanda) => canti + parseFloat(comanda.cant),0);
+  impuesto = listaComanda.reduce((impuesto, comanda) => impuesto + parseFloat(comanda.valorimpto),0);
+  ventas = listaComanda.reduce((ventas, comanda) => ventas + parseFloat(comanda.venta),0);
+  totalCta = listaComanda.reduce((totalCta, comanda) => totalCta + parseFloat(comanda.total),0);
+
+/*   console.log(parseFloat(canti));
+  console.log(parseFloat(impuesto));
+  console.log(parseFloat(ventas));
+  console.log(parseFloat(totalCta));
+
+ */
+  
+  /* for (i = 0; i < listaComanda.length; i++) {
     canti += canti;
     impuesto = impuesto + parseFloat(listaComanda[i]["valorimpto"]);
 
@@ -2088,17 +2091,22 @@ function resumenComanda() {
     totalCta =
       totalCta +
       parseFloat(listaComanda[i]["importe"]) *
-        parseFloat(listaComanda[i]["cant"]);
-  }
+      parseFloat(listaComanda[i]["cant"]);
+  } */
 
   let miBoton = "comanda" + $("#numeroComanda").val();
+  
+  $("#totalVta").val(ventas);
+  $("#valorImpto").val(impuesto);
   $("#totalComanda").val(totalCta);
+  $("#totalVta").html(number_format(ventas, 2));
+  $("#valorImpto").html(number_format(impuesto, 2));
   $("#totalCuenta").html(number_format(totalCta, 2));
   $("#cantProd").val(canti);
 
   $("#" + miBoton).attr("subtotal", venta.toFixed(2));
   $("#" + miBoton).attr("impto", impuesto.toFixed(2));
-  $("#" + miBoton).attr("descuento", descuento);
+  // $("#" + miBoton).attr("descuento", descuento);
   $("#" + miBoton).attr("abonos", abonos);
   $("#" + miBoton).attr("total", totalCuenta.toFixed(2));
 }
@@ -3232,11 +3240,11 @@ function recuperarCuenta() {
   $("#guardaCuenta").css("display", "block");
   $("#recuperaCuenta").css("display", "none");
   $(".btnActivo").css("display", "none");
-  $("#regresarComanda").css("margin-top", "410px");
-  $("#productosComanda").css("height", "480px");
+  $("#regresarComanda").css("margin-top", "336px");
+  $("#productosComanda").css("height", "422px");
 
   $("#seccionList").css("display", "block");
-  // $("#seccionList").css("margin-top", "5px");
+  $("#seccionList").css("margin-top", "5px");
   $("#tituloComanda").removeClass("col-lg-12");
   $("#tituloComanda").addClass("col-lg-6");
   $("#tituloBusca").css("display", "block");
@@ -5365,11 +5373,11 @@ function productosActivos() {
   } = sesion;
 
   $(".comanda > tbody").html("");
-  listaComanda.map((productos) => {
+  /* listaComanda.map((productos) => {
     let { id, producto, cant, total, codigo, ambiente } = productos;
-    console.log({ id, producto, cant, total, codigo, ambiente })
+    // console.log({ id, producto, cant, total, codigo, ambiente })
   });
-
+ */
   for (i = 0; i < listaComanda.length; i++) {
     if (numero == 0) {
       $(".comanda > tbody").append(
@@ -5408,7 +5416,7 @@ function productosActivos() {
           <td>${listaComanda[i]["producto"]}</td>
           <td>${listaComanda[i]["cant"]}</td>
           <td class="t-right">${number_format(listaComanda[i]["total"], 2)}</td>
-          <td cnom, val, idp, imp, ambilass="t-center">
+          <td class="t-center">
             <button
               type="button"
               id="${i}"
