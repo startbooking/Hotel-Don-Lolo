@@ -55,15 +55,15 @@ function activaModulos() {
 function guardaMesa() {
   var pagina = $("#ubicacion").val();
   var ruta = $("#rutaweb").val();
-  var impuestos = $("#guardarDatosMesa").serialize();
-  var parametros = impuestos;
+  var data = $("#guardarDatosMesa").serializeArray();
   $.ajax({
     url: ruta + "res/php/guardaMesa.php",
     type: "POST",
-    data: parametros,
+    datatype:'json',
+    data: data,
     success: function (objeto) {
       $("#mensaje").html(
-        '<div style="padding:5px" class="alert alert-info"><h4" align="center">Impuesto Ingresado con Exito</h4></div>'
+        '<div style="padding:5px" class="alert alert-info"><h4" align="center">Mesa Ingresada con Exito</h4></div>'
       );
       $(location).attr("href", ruta + pagina);
     },
@@ -284,12 +284,12 @@ function actualizaUsuario() {
   usuario.push({ name: "PMS", value: PMS });
   usuario.push({ name: "Inv", value: Inv });
 
-  var parametros = usuario;
+  // var parametros = usuario;
 
   $.ajax({
     url: ruta + "res/php/actualizaUsuario.php",
     type: "POST",
-    data: parametros,
+    data: usuario,
     success: function (objeto) {
       $("#mensajeMod").html(
         '<div class="alert alert-info"><h4 style="text-align:center;">Usuario Actualizado con Exito</h4></div>'
@@ -1016,7 +1016,6 @@ function guardaFormaPagoPos() {
   var pagina = $("#ubicacion").val();
   var ruta = $("#rutaweb").val();
   var formaspago = $("#guardarDatosFormaPagoPos").serializeArray();
-  var parametros = formaspago;
   $.ajax({
     url: ruta + "res/php/guardaFormaPagoPos.php",
     type: "POST",
@@ -1034,7 +1033,6 @@ function actualizaFormaPagoPos() {
   var pagina = $("#ubicacion").val();
   var ruta = $("#rutaweb").val();
   var formaspago = $("#actualizaDatosFormaPagoPos").serializeArray();
-  var parametros = formaspago;
 
   $.ajax({
     url: ruta + "res/php/actualizaFormaPagoPos.php",

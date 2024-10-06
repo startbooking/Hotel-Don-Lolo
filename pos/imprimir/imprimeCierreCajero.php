@@ -10,17 +10,17 @@
   $pdf = new FPDF();
   $pdf->AddPage('L','letter');
   $pdf->Image('../../../img/'.$logo,10,10,25);
-  $pdf->SetFont('Arial','B',13);
-  $pdf->Cell(260,6,$amb,0,1,'C');
-  $pdf->Cell(260,7,'INFORME DE VENTAS - BALANCE DIARIO',0,1,'C');
   $pdf->SetFont('Arial','B',11);
+  $pdf->Cell(260,6,$amb,0,1,'C');
+  $pdf->Cell(260,6,'INFORME DE VENTAS - BALANCE DIARIO',0,1,'C');
+  $pdf->SetFont('Arial','',11);
   $pdf->Cell(260,5,'USUARIO : '.$user,0,1,'C');
   $pdf->Cell(260,5,'Fecha : '.$fecha,0,1,'C');
   $pdf->Ln(5);
 
-  $pdf->SetFont('Arial','B',11);  
-  $pdf->Cell(260,7,'DETALLE FACTURAS GENERADAS ',1,1,'C');
-  $pdf->SetFont('Arial','',10);  
+  $pdf->SetFont('Arial','B',10);  
+  $pdf->Cell(260,6,'DETALLE FACTURAS GENERADAS ',1,1,'C');
+  $pdf->SetFont('Arial','',9);  
   $pdf->Cell(15,6,'Fact.',1,0,'C');
   $pdf->Cell(15,6,'Com. ',1,0,'C');
   $pdf->Cell(15,6,'Mesa ',1,0,'C');
@@ -60,7 +60,8 @@
     $pdf->Cell(30,4,$detalle['usuario'],0,0,'L');
     $pdf->Cell(60,4,$pos->nombrePago($detalle['forma_pago']),0,1,'L');
   }
-  $pdf->Cell(60,5,'Total',1,0,'C');
+  $pdf->Ln(2);
+  $pdf->Cell(60,5,'Total',1,0,'L');
   $pdf->Cell(25,5,number_format($neto,2),1,0,'R');
   $pdf->Cell(20,5,number_format($impt,2),1,0,'R');
   $pdf->Cell(20,5,number_format($prop,2),1,0,'R');
@@ -69,9 +70,9 @@
 
   $pdf->Ln(5);
 
-  $pdf->SetFont('Arial','B',11);  
+  $pdf->SetFont('Arial','B',10);  
   $pdf->Cell(260,5,'DETALLE FACTURAS ANULADAS ',1,1,'C');
-  $pdf->SetFont('Arial','',10);  
+  $pdf->SetFont('Arial','',9);  
   $pdf->Cell(25,5,'Fact.',1,0,'C');
   $pdf->Cell(25,5,'Com. ',1,0,'C');
   $pdf->Cell(25,5,'Mesa ',1,0,'C');
@@ -92,9 +93,9 @@
 
   $pdf->Ln(5);
 
-  $pdf->SetFont('Arial','B',11);  
+  $pdf->SetFont('Arial','B',10);  
   $pdf->Cell(260,5,'DETALLE FORMAS DE PAGO ',1,1,'C');
-  $pdf->SetFont('Arial','',10);  
+  $pdf->SetFont('Arial','',9);  
   $pdf->Cell(60,5,'Forma de pago.',1,0,'C');
   $pdf->Cell(25,5,'Cant. ',1,0,'C');
   $pdf->Cell(35,5,'SubTotal ',1,0,'C');
@@ -125,20 +126,19 @@
     $pdf->Cell(35,4,number_format($detalle['impto'],2),0,0,'R');
     $pdf->Cell(35,4,number_format($detalle['pagado']-$detalle['cambio'],2),0,1,'R');
   }
-  $pdf->Cell(85,5,'Total',1,0,'C');
+  $pdf->Ln(2);
+  $pdf->Cell(85,5,'Total',1,0,'l');
   $pdf->Cell(35,5,number_format($neto,2),1,0,'R');
   $pdf->Cell(35,5,number_format($prop,2),1,0,'R');
   $pdf->Cell(35,5,number_format($serv,2),1,0,'R');
   $pdf->Cell(35,5,number_format($impt,2),1,0,'R');
   $pdf->Cell(35,5,number_format($tota,2),1,1,'R');
 
-
-
   $pdf->Ln(5);
 
-  $pdf->SetFont('Arial','B',11);  
+  $pdf->SetFont('Arial','B',10);  
   $pdf->Cell(260,5,'DETALLE FORMAS DE PAGO ANULADAS ',1,1,'C');
-  $pdf->SetFont('Arial','',10);  
+  $pdf->SetFont('Arial','',9);  
   $pdf->Cell(60,5,'Forma de pago.',1,0,'C');
   $pdf->Cell(25,5,'Cant. ',1,0,'C');
   $pdf->Cell(35,5,'SubTotal ',1,0,'C');
@@ -172,19 +172,15 @@
   }
 
   $pdf->Ln(5);
-  $pdf->SetFont('Arial','B',11);
+  $pdf->SetFont('Arial','B',10);
   $pdf->Cell(260,5,'COMANDAS ACTIVAS ',1,1,'C');
-  // $pdf->Ln(2);
   $comandas = $pos->getComandasActivasCajero($idamb,'A',$user);
   
   $monto  = 0 ;
   $impto  = 0 ;
   $total  = 0 ;
   if(count($comandas)==0){
-    // $pdf->Ln(2);
     $pdf->Cell(260,5,'SIN COMANDAS ACTIVAS',1,1,'C');
-    // $pdf->Ln(2);
-    
   }else{
     $pdf->Cell(20,5,'Comanda',1,0,'C');
     $pdf->Cell(20,5,'Mesa ',1,0,'C');
@@ -200,13 +196,13 @@
       $pdf->Cell(40,4,$comanda['usuario'],0,0,'L');
       $pdf->Cell(20,4,substr($comanda['fecha_comanda'],11,5),0,1,'R');
     }
-    $pdf->Cell(100,5,'Total Comandas Activas',1,0,'C');
+    $pdf->Cell(100,5,'Total Comandas Activas',1,0,'L');
     $pdf->Cell(20,5,number_format($total,0),1,1,'R');
   }
 
   $pdf->Ln(2);
 
-  $pdf->SetFont('Arial','B',11);
+  $pdf->SetFont('Arial','B',10);
   $pdf->Cell(260,5,'COMANDAS ANULADAS ',1,1,'C');
 
   $comandas = $pos->getComandasAnuladasCajero($idamb,'X',$user);
@@ -215,12 +211,8 @@
   $impto  = 0 ;
   $total  = 0 ;
   if(count($comandas)==0){
-    // $pdf->Ln(2);
     $pdf->Cell(260,5,'SIN COMANDAS ANULADAS',1,1,'C');
-    // $pdf->Ln(2);
-
   }else{
-    // $pdf->Ln(2);
     $pdf->Cell(20,5,'Comanda.',1,0,'C');
     $pdf->Cell(20,5,'Mesa ',1,0,'C');
     $pdf->Cell(20,5,'PAX. ',1,0,'C');
@@ -235,7 +227,7 @@
       $pdf->Cell(90,4,$comanda['motivo_anulada'],0,1,'R');
     }
   }
-  $pdf->Ln(3);
+  $pdf->Ln(2);
 
   $devoluciones = $pos->getDevolucionUsuario($idamb,$user);
 
@@ -243,14 +235,10 @@
   $impto  = 0 ;
   $total  = 0 ;
 
-  $pdf->SetFont('Arial','B',11);
+  $pdf->SetFont('Arial','B',10);
   $pdf->Cell(260,5,'DEVOLUCION DE PRODUCTOS ',1,1,'C');
-  // $pdf->Ln(2);
   if(count($devoluciones)==0){
-    // $pdf->Ln(2);
     $pdf->Cell(260,5,'SIN DEVOLUCION DE PRODUCTOS  ',1,1,'C');
-    // $pdf->Ln(2);
-
   }else{
     $pdf->Cell(20,5,'Comanda.',1,0,'C');
     $pdf->Cell(20,5,'Mesa ',1,0,'C');

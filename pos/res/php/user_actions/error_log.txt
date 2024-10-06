@@ -1,6 +1,0 @@
-[04-Oct-2024 17:58:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pos/res/php/user_actions/imprimeComandaGen.php on line 19
-[04-Oct-2024 17:58:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pos/res/php/user_actions/imprimeComandaGen.php on line 19
-[04-Oct-2024 17:58:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pos/res/php/user_actions/imprimeComandaGen.php on line 20
-[04-Oct-2024 17:58:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pos/res/php/user_actions/imprimeComandaGen.php on line 20
-[04-Oct-2024 17:58:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pos/res/php/user_actions/imprimeComandaGen.php on line 21
-[04-Oct-2024 17:58:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pos/res/php/user_actions/imprimeComandaGen.php on line 21

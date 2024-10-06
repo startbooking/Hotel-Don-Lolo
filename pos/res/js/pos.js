@@ -254,7 +254,7 @@ function dividirCuenta() {
     `<h4 style="padding:2px;text-align: center;font-weight: bold;margin:0;background:cornflowerblue"> Productos Nueva Comanda</h4>`
   );
   $(".prende").css("display", "none");
-  $("#regresarComanda").css("margin-top", "424px");
+  // $("#regresarComanda").css("margin-top", "424px");
   $("#divideComanda").css("display", "block");
   $("#comandaDividida").css("display", "block");
 
@@ -1246,7 +1246,10 @@ function getComandasPlano(comanda, nromesa, nomBtn) {
   var ancho = screen.width;
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  let { pos, user: { usuario, usuario_id, tipo }, } = sesion;
+  let {
+    pos,
+    user: { usuario, usuario_id, tipo },
+  } = sesion;
   let { id_ambiente, nombre, logo, prefijo, fecha_auditoria } = oPos[0];
 
   $(".btn-menu").css("display", "block");
@@ -1255,17 +1258,17 @@ function getComandasPlano(comanda, nromesa, nomBtn) {
   propina = $(miBoton).attr("propina");
   descuento = $(miBoton).attr("descuento");
   subtotal = $(miBoton).attr("subtotal");
-  abonos = $(miBoton).attr("abonos");
+  // abonos = $(miBoton).attr("abonos");
   total = $(miBoton).attr("total");
   cliente = $(miBoton).attr("cliente");
 
   parametros = {
-    idamb: id_ambiente,
-    amb: nombre,
-    user: usuario,
-    nivel: tipo,
-    fecha: fecha_auditoria,
-    pref: prefijo,
+    id_ambiente,
+    nombre,
+    usuario,
+    tipo,
+    fecha_auditoria,
+    prefijo,
     impuesto,
     propina,
     descuento,
@@ -1296,7 +1299,10 @@ function mesasActivasPlano() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let {pos, user: { usuario, usuario_id, tipo }, } = sesion;
+  let {
+    pos,
+    user: { usuario, usuario_id, tipo },
+  } = sesion;
   let { id_ambiente, nombre, propina, prefijo, fecha_auditoria, impuesto } =
     oPos[0];
 
@@ -1331,22 +1337,20 @@ function mesasActivasPlano() {
         // let btnmesa = "boton" + mesa,
         let nroMesa = `boton${mesa}`;
         // let comanda = data[i]["comanda"];
-        $("#"+nroMesa).attr("impto", impuesto);
-        $("#"+nroMesa).attr("subtotal", subtotal);
-        $("#"+nroMesa).attr("total", total);
-        $("#"+nroMesa).attr("descuento", valor_descuento);
-        $("#"+nroMesa).attr("abonos", abonos);
-        $("#"+nroMesa).attr("propina", propina);
-        $("#"+nroMesa).attr("cliente", cliente);
-        $("#"+nroMesa).removeClass("btn-success");
-        $("#"+nroMesa).addClass("btn-warning");
-        $("#"+nroMesa).removeAttr("attribute onclick");
-        
-        $("#"+nroMesa).attr(
+        $("#" + nroMesa).attr("impto", impuesto);
+        $("#" + nroMesa).attr("subtotal", subtotal);
+        $("#" + nroMesa).attr("total", total);
+        $("#" + nroMesa).attr("descuento", valor_descuento);
+        $("#" + nroMesa).attr("abonos", abonos);
+        $("#" + nroMesa).attr("propina", propina);
+        $("#" + nroMesa).attr("cliente", cliente);
+        $("#" + nroMesa).removeClass("btn-success");
+        $("#" + nroMesa).addClass("btn-warning");
+        $("#" + nroMesa).removeAttr("attribute onclick");
+        $("#" + nroMesa).attr(
           "onclick",
           `getComandasPlano(${comanda} ,'${mesa}',this.name)`
         );
-        
       });
     },
   });
@@ -1357,11 +1361,15 @@ function abreCuenta(mesa) {
   let ancho = screen.width;
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  let { pos, user: { usuario, usuario_id, tipo }, } = sesion;
-  let { id_ambiente, nombre, propina, prefijo, fecha_auditoria, impuesto } = oPos[0];
+  let {
+    pos,
+    user: { usuario, usuario_id, tipo },
+  } = sesion;
+  let { id_ambiente, nombre, propina, prefijo, fecha_auditoria, impuesto } =
+    oPos[0];
   storageProd = localStorage.getItem("productoComanda");
   if (storageProd === null) {
-    listaComanda = [];
+    var listaComanda = [];
   }
 
   $("#btnGuardar").attr("disabled", "enabled");
@@ -1384,13 +1392,13 @@ function abreCuenta(mesa) {
     success: function (data) {
       getSecciones();
       $("#pantalla").html(data);
-      // $("#productosComanda").css("height", alto - 292);
+      $("#productosComanda").css("height", 463);
       $("#Escritorio").css("height", alto - 420);
       $("#nromesas").val(mesa);
       $("#nromesas").attr("readonly", true);
       $("#nromesas").attr("disabled", true);
       let storageProd = localStorage.getItem("productoComanda");
-      let listaComanda
+      let listaComanda;
       if (storageProd == null) {
         listaComanda = [];
       } else {
@@ -2013,7 +2021,10 @@ function facturasDia() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let {pos, user: { usuario, usuario_id, tipo },} = sesion;
+  let {
+    pos,
+    user: { usuario, usuario_id, tipo },
+  } = sesion;
   let { id_ambiente, nombre, prefijo } = oPos[0];
 
   var parametros = {
@@ -2054,12 +2065,10 @@ function facturasDia() {
 
 function resumenComanda() {
   let storageProd = localStorage.getItem("productoComanda");
-
-  // console.log(storageProd);
-  let listaComanda ;
-  storageProd == null ? listaComanda = [] : listaComanda = JSON.parse(storageProd)
-
-  // console.log(listaComanda);
+  let listaComanda;
+  storageProd == null
+    ? (listaComanda = [])
+    : (listaComanda = JSON.parse(storageProd));
 
   let impuesto = 0;
   let venta = 0;
@@ -2068,34 +2077,25 @@ function resumenComanda() {
   let abonos = 0;
   let totalCuenta = 0;
   let totalCta = 0;
-
-  // descuento = listaComanda.reduce((totdes, comanda) => totdes + comanda.descuento,0);
-  canti = listaComanda.reduce((canti, comanda) => canti + parseFloat(comanda.cant),0);
-  impuesto = listaComanda.reduce((impuesto, comanda) => impuesto + parseFloat(comanda.valorimpto),0);
-  ventas = listaComanda.reduce((ventas, comanda) => ventas + parseFloat(comanda.venta),0);
-  totalCta = listaComanda.reduce((totalCta, comanda) => totalCta + parseFloat(comanda.total),0);
-
-/*   console.log(parseFloat(canti));
-  console.log(parseFloat(impuesto));
-  console.log(parseFloat(ventas));
-  console.log(parseFloat(totalCta));
-
- */
-  
-  /* for (i = 0; i < listaComanda.length; i++) {
-    canti += canti;
-    impuesto = impuesto + parseFloat(listaComanda[i]["valorimpto"]);
-
-    venta = venta + parseFloat(listaComanda[i]["venta"]);
-    totalCuenta = venta + impuesto;
-    totalCta =
-      totalCta +
-      parseFloat(listaComanda[i]["importe"]) *
-      parseFloat(listaComanda[i]["cant"]);
-  } */
+  canti = listaComanda.reduce(
+    (canti, comanda) => canti + parseFloat(comanda.cant),
+    0
+  );
+  impuesto = listaComanda.reduce(
+    (impuesto, comanda) => impuesto + parseFloat(comanda.valorimpto),
+    0
+  );
+  ventas = listaComanda.reduce(
+    (ventas, comanda) => ventas + parseFloat(comanda.venta),
+    0
+  );
+  totalCta = listaComanda.reduce(
+    (totalCta, comanda) => totalCta + parseFloat(comanda.total),
+    0
+  );
 
   let miBoton = "comanda" + $("#numeroComanda").val();
-  
+
   $("#totalVta").val(ventas);
   $("#valorImpto").val(impuesto);
   $("#totalComanda").val(totalCta);
@@ -2109,6 +2109,38 @@ function resumenComanda() {
   // $("#" + miBoton).attr("descuento", descuento);
   $("#" + miBoton).attr("abonos", abonos);
   $("#" + miBoton).attr("total", totalCuenta.toFixed(2));
+}
+
+function saldoComanda() {
+  let storageProd = localStorage.getItem("productoComanda");
+  let listaComanda;
+  storageProd == null
+    ? (listaComanda = [])
+    : (listaComanda = JSON.parse(storageProd));
+
+  let impuesto = 0;
+  let venta = 0;
+  let canti = 0;
+  let propina = 0;
+  let abonos = 0;
+  let totalCuenta = 0;
+  let totalCta = 0;
+  canti = listaComanda.reduce(
+    (canti, comanda) => canti + parseFloat(comanda.cant),
+    0
+  );
+  impuesto = listaComanda.reduce(
+    (impuesto, comanda) => impuesto + parseFloat(comanda.valorimpto),
+    0
+  );
+  ventas = listaComanda.reduce(
+    (ventas, comanda) => ventas + parseFloat(comanda.venta),
+    0
+  );
+  totalCta = listaComanda.reduce(
+    (totalCta, comanda) => totalCta + parseFloat(comanda.total),
+    0
+  );
 }
 
 function resumenDescuento(ambiente, comanda) {
@@ -3240,7 +3272,7 @@ function recuperarCuenta() {
   $("#guardaCuenta").css("display", "block");
   $("#recuperaCuenta").css("display", "none");
   $(".btnActivo").css("display", "none");
-  $("#regresarComanda").css("margin-top", "336px");
+  // $("#regresarComanda").css("margin-top", "336px");
   $("#productosComanda").css("height", "422px");
 
   $("#seccionList").css("display", "block");
@@ -3268,7 +3300,10 @@ function muestraPos(ambSel) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { user:{ tipo, apellidos, nombres }, pos, } = sesion;
+  let {
+    user: { tipo, apellidos, nombres },
+    pos,
+  } = sesion;
   let { plano, fecha_auditoria } = oPos[0];
   $("#fechaPos").html(`Fecha Proceso ${fecha_auditoria}`);
   $("#fechaAuditoria").val(fecha_auditoria);
@@ -3722,11 +3757,16 @@ function huespedesenCasa() {
   });
 }
 
-async function planillaDesayunos(){
+async function planillaDesayunos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  let { moduloPms: {fecha_auditoria} } = sesion; 
-  let { pos,  user: { usuario, usuario_id },  } = sesion;
+  let {
+    moduloPms: { fecha_auditoria },
+  } = sesion;
+  let {
+    pos,
+    user: { usuario, usuario_id },
+  } = sesion;
   let { logo, id_ambiente, nombre, propina, impuesto } = oPos[0];
   parametros = {
     id_ambiente,
@@ -3735,17 +3775,20 @@ async function planillaDesayunos(){
 
   let total = await totalDesayunos(parametros);
 
-  if(total > 0){
-    swal({
-      title:'Precaucion',
-      text:"Planilla de Desayunos ya Procesada",
-      type:'warning',
-    },function(){
-      data = `impresiones/planillaDesayunos_${fecha_auditoria}.pdf`;
-      verPDF(data, `Planilla Desayunos ${fecha_auditoria}`);
-      // enviaInicio()
-    })
-  }else {
+  if (total > 0) {
+    swal(
+      {
+        title: "Precaucion",
+        text: "Planilla de Desayunos ya Procesada",
+        type: "warning",
+      },
+      function () {
+        data = `impresiones/planillaDesayunos_${fecha_auditoria}.pdf`;
+        verPDF(data, `Planilla Desayunos ${fecha_auditoria}`);
+        // enviaInicio()
+      }
+    );
+  } else {
     let planilla = localStorage.getItem("planilla");
     let huespedes;
     if (!planilla) {
@@ -3755,19 +3798,17 @@ async function planillaDesayunos(){
       huespedes = JSON.parse(localStorage.getItem("planilla"));
     }
     llenaHtml = await llenaHTML(huespedes);
-    document.querySelector('#pantalla').innerHTML = llenaHtml;
-
+    document.querySelector("#pantalla").innerHTML = llenaHtml;
   }
 }
 
-
-async function cambiaEstado(indice, check){
+async function cambiaEstado(indice, check) {
   let huespedes = JSON.parse(localStorage.getItem("planilla"));
   huespedes[indice].estado = check ? 1 : 0;
   localStorage.setItem("planilla", JSON.stringify(huespedes));
 }
 
-async function llenaHTML(huespedes){
+async function llenaHTML(huespedes) {
   try {
     const resp = await fetch(`views/planillaDesayunos.php`, {
       method: "POST",
@@ -3780,7 +3821,7 @@ async function llenaHTML(huespedes){
   }
 }
 
-async function totalDesayunos(parametros){
+async function totalDesayunos(parametros) {
   try {
     const resp = await fetch(`res/php/user_actions/totalDesayunos.php`, {
       method: "POST",
@@ -3796,9 +3837,12 @@ async function totalDesayunos(parametros){
 
 async function traeHuespedesDesayuno() {
   try {
-    const resultado = await fetch(`res/php/user_actions/datosHuespedesDesayuno.php`, {
-      method: "get",
-    });
+    const resultado = await fetch(
+      `res/php/user_actions/datosHuespedesDesayuno.php`,
+      {
+        method: "get",
+      }
+    );
     const datos = await resultado.json();
     return datos;
   } catch (error) {
@@ -3806,38 +3850,46 @@ async function traeHuespedesDesayuno() {
   }
 }
 
-async function guardaPlanillaDesayunos(){
+async function guardaPlanillaDesayunos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { user: {usuario}, moduloPms: {fecha_auditoria} } = sesion; 
+  let {
+    user: { usuario },
+    moduloPms: { fecha_auditoria },
+  } = sesion;
   let { logo, nombre } = oPos[0];
   let resp = await preguntaGuardaPlanilla();
-  if(resp){
+  if (resp) {
     let huespedes = JSON.parse(localStorage.getItem("planilla"));
-    envia = {huespedes, fecha_auditoria, logo, nombre, usuario }
+    envia = { huespedes, fecha_auditoria, logo, nombre, usuario };
     let regi = await guardaPlanilla(envia);
     let impr = await imprimePlanilla(envia);
     var planilla = `imprimir/${impr}`;
     var ventana = window.open(planilla, "PRINT", "height=600,width=600");
     localStorage.removeItem("planilla");
-    enviaInicio()
-  }else{
-    swal({
-      title:'Planilla no Guardada',
-      text:`No se ha guardado la planilla de desayunos \n Necesita escribir "Aceptar"`,
-      type:'warning',
-    },function(){
-    })
+    enviaInicio();
+  } else {
+    swal(
+      {
+        title: "Planilla no Guardada",
+        text: `No se ha guardado la planilla de desayunos \n Necesita escribir "Aceptar"`,
+        type: "warning",
+      },
+      function () {}
+    );
   }
 }
 
 async function guardaPlanilla(envia) {
   try {
-    const resp = await fetch(`res/php/user_actions/guardaPlanillaDesayunos.php`, {
-      method: "POST",
-      body: JSON.stringify(envia),
-    });
+    const resp = await fetch(
+      `res/php/user_actions/guardaPlanillaDesayunos.php`,
+      {
+        method: "POST",
+        body: JSON.stringify(envia),
+      }
+    );
     const datos = await resp.json();
     return datos;
   } catch (error) {
@@ -3858,34 +3910,36 @@ async function imprimePlanilla(envia) {
   }
 }
 
-async function preguntaGuardaPlanilla(){
-  return new Promise(resolve => {
-    swal({
-      icon:'warning',
-      title: "Desea Guardar la Planilla de Desayunos",
-      text: "Este proceso Almacenara la Informacion y no se podra adicionar mas desayunos en el dia \nDigita Aceptar para guardar la Planilla",
-      type: "input",
-      showCancelButton: true,
-      closeOnConfirm: true,
-      animation: "slide-from-top",
-      inputPlaceholder: "Digita Aceptar"
-    },
-    function(inputValue){
-      if (inputValue === false){
-        return resolve(false)
+async function preguntaGuardaPlanilla() {
+  return new Promise((resolve) => {
+    swal(
+      {
+        icon: "warning",
+        title: "Desea Guardar la Planilla de Desayunos",
+        text: "Este proceso Almacenara la Informacion y no se podra adicionar mas desayunos en el dia \nDigita Aceptar para guardar la Planilla",
+        type: "input",
+        showCancelButton: true,
+        closeOnConfirm: true,
+        animation: "slide-from-top",
+        inputPlaceholder: "Digita Aceptar",
+      },
+      function (inputValue) {
+        if (inputValue === false) {
+          return resolve(false);
+        }
+        if (inputValue === "") {
+          swal.showInputError(`Necesita escribir "Aceptar" !`);
+          return resolve(false);
+        }
+        if (inputValue !== "Aceptar") {
+          swal.showInputError(`Necesita escribir "Aceptar" !`);
+          return resolve(false);
+        } else {
+          return resolve(true);
+        }
       }
-      if (inputValue === "") {
-        swal.showInputError(`Necesita escribir "Aceptar" !`);
-        return resolve(false)
-      }
-      if (inputValue !== "Aceptar") {
-        swal.showInputError(`Necesita escribir "Aceptar" !`);
-        return resolve(false)
-      }else{
-        return resolve(true)
-      }
-    });
-  })
+    );
+  });
 }
 
 function cierreDiarioAuditoria() {
@@ -4391,7 +4445,6 @@ function verPDF(data, titulo) {
   `);
 }
 
-
 function creaHTMLReportes(data, titulo) {
   $("#pantalla").html("");
   $("#pantalla").html(`
@@ -4546,18 +4599,36 @@ function muestraTouch() {
 function calcular_total() {
   var coma = $("#numeroComanda").val();
   miBoton = "#comanda" + coma;
+  let storageProd = localStorage.getItem("productoComanda");
+  let listaComanda;
+  storageProd == null
+    ? (listaComanda = [])
+    : (listaComanda = JSON.parse(storageProd));
+
+  canti = listaComanda.reduce(
+    (canti, comanda) => canti + parseFloat(comanda.cant),
+    0
+  );
+  subtotal = listaComanda.reduce(
+    (ventas, comanda) => ventas + parseFloat(comanda.venta),
+    0
+  );
+  impuesto = listaComanda.reduce(
+    (impuesto, comanda) => impuesto + parseFloat(comanda.valorimpto),
+    0
+  );
+  total = listaComanda.reduce(
+    (totalCta, comanda) => totalCta + parseFloat(comanda.total),
+    0
+  );
+
   propina = parseFloat($("#propinaPag").val().replaceAll(",", ""));
-  subtotal = parseFloat($(miBoton).attr("subtotal"));
-  impuesto = parseFloat($(miBoton).attr("impto"));
   roomser = parseFloat(document.querySelector("#servicio").value);
 
-  let descuento = 0;
-  abonos = parseFloat($(miBoton).attr("abonos"));
-  total = parseFloat($(miBoton).attr("total"));
-
-  $("#montopago").val(
-    subtotal + impuesto + propina - descuento - abonos + roomser
-  );
+  totalCta = total + propina + roomser;
+  // console.log(totalCta);
+  $("#totalCuentPag").val(totalCta);
+  $("#montopago").val(totalCta);
 }
 
 function calcular_totalDir() {
@@ -4566,7 +4637,7 @@ function calcular_totalDir() {
   propina = parseFloat($("#propinaDir").val().replaceAll(",", ""));
   total = totalini + propina;
   $("#totalDir").val(number_format(total, 2));
-  $("#montopagoDir").val(total);
+  $("#totalCuenta").val(total);
 }
 
 function activaMenus() {
@@ -5259,6 +5330,7 @@ function getAmbientes() {
 }
 
 function getSeleccionaAmbiente(codigo) {
+  // var listaComanda;
   var parametros = {
     codigo,
   };
@@ -5362,7 +5434,7 @@ function productosActivos() {
   recuperar = $("#recuperarComanda").val();
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let storageProd = localStorage.getItem("productoComanda");
-  let listaComanda ;
+  let listaComanda;
   if (storageProd == null) {
     listaComanda = [];
   } else {
@@ -5435,8 +5507,11 @@ function productosActivos() {
         </tr>`
         );
         if (tipo > 2) {
-          $(".btnDevuelve").remove();
+          // $(".btnDevuelve").remove();
+          /* $(".btnDevuelve").css("readonly", "readonly");
           $(".btnDevuelve").css("disabled", "disabled");
+          $(".btnDevuelve").css("display", "none"); */
+          $(".btnDevuelve").removeAttr("attribute onclick");
         }
       } else {
         if (listaComanda[i]["activo"] == 1) {
@@ -5512,8 +5587,8 @@ function getVentas(nom, val, idp, imp, ambi) {
   abonos = $("#abonosComanda").val();
   oPos = JSON.parse(localStorage.getItem("oPos"));
   let storageProd = localStorage.getItem("productoComanda");
-  
-  let listaComanda ;
+
+  let listaComanda;
   if (storageProd == null) {
     listaComanda = [];
   } else {
@@ -5580,6 +5655,8 @@ function getVentas(nom, val, idp, imp, ambi) {
 }
 
 function getRestarVentas(codigo, index) {
+  let listaComanda = JSON.parse(localStorage.getItem("productoComanda"));
+
   if (listaComanda[codigo]["cant"] == 1) {
     getBorraVentas(codigo, index);
   } else {
@@ -5601,6 +5678,7 @@ function getRestarVentas(codigo, index) {
 }
 
 function getSumaVentas(codigo, index) {
+  let listaComanda = JSON.parse(localStorage.getItem("productoComanda"));
   canti = listaComanda[index - 1]["cant"] + 1;
   totve = canti * listaComanda[index - 1]["importe"];
   subt = (
@@ -5619,6 +5697,7 @@ function getSumaVentas(codigo, index) {
 }
 
 function getBorraVentas(codigo, regis) {
+  let listaComanda = JSON.parse(localStorage.getItem("productoComanda"));
   listaComanda.splice(codigo, 1);
   localStorage.setItem("productoComanda", JSON.stringify(listaComanda));
   productosActivos();
@@ -6015,23 +6094,9 @@ function getComandas(comanda, numero) {
 }
 
 function calculaCambio() {
-  var coma = $("#numeroComanda").val();
-  let miBoton = "#comanda" + coma;
-  let pagado = 0;
-  let cambio = 0;
-
-  let propina = parseFloat($("#propinaPag").val().replaceAll(",", ""));
-  let subtotal = parseFloat($(miBoton).attr("subtotal"));
-  let impuesto = parseFloat($(miBoton).attr("impto"));
-  let descuento = parseFloat($(miBoton).attr("descuento"));
-  let abonos = parseFloat($(miBoton).attr("abonos"));
-  let total = parseFloat($(miBoton).attr("total"));
-  let roomser = parseInt(document.querySelector("#servicio").value);
-
-  nueProp = parseInt($("#propinaPag").val());
-
-  pagado = parseFloat($("#montopago").val().replaceAll(",", ""));
-  cambio = total + nueProp + roomser - pagado;
+  let pago = +parseFloat($("#montopago").val().replace(",", ""));
+  totalCta = +$("#totalCuentPag").val();
+  cambio = pago - totalCta;
 
   $("#cambio").val(cambio);
 
@@ -6040,16 +6105,16 @@ function calculaCambio() {
       `<label name='resultado' class='avisoVta avisCambio alert alert-success'>SALDO PENDIENTE ${cambio}</label>`
     );
   }
-  if (cambio > 0) {
-    $("#resultado").html(
-      `<label name='resultado' class='avisoVta avisCambio alert alert-danger'>SALDO PENDIENTE $ ${cambio}</label>`
-    );
-  }
   if (cambio < 0) {
     $("#resultado").html(
-      `<label name='resultado' class='avisoVta avisCambio alert alert-info'>VUELTAS/CAMBIO $ ${
+      `<label name='resultado' class='avisoVta avisCambio alert alert-danger'>SALDO PENDIENTE $ ${
         cambio * -1
       }</label>`
+    );
+  }
+  if (cambio > 0) {
+    $("#resultado").html(
+      `<label name='resultado' class='avisoVta avisCambio alert alert-info'>VUELTAS/CAMBIO $ ${cambio}</label>`
     );
   }
 }

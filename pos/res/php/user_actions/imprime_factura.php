@@ -1,6 +1,6 @@
 <?php
 
-require '../../../../res/php/titles.php';
+// require '../../../../res/php/titles.php';
 require '../../../../res/php/app_topPos.php';
 require '../../../../res/fpdf/fpdf.php';
 
@@ -25,7 +25,6 @@ $desd = 0;
 $hast = 0;
 $habi = '';
 $tipo = '';
-
 $totabo = 0;
 
 $datosFac = $pos->getDatosFactura($amb, $nComa);

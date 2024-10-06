@@ -2,23 +2,23 @@
   // require '../../res/php/titles.php';
   require '../../res/php/app_topPos.php'; 
 
-  $idamb     = $_POST['idamb']; 
-  $amb       = $_POST['amb'];  
-  $nivel     = $_POST['nivel'];  
-  $user      = $_POST['user']; 
-  $prefijo   = $_POST['pref']; 
-  $fecha     = $_POST['fecha']; 
+  $idamb     = $_POST['id_ambiente']; 
+  $amb       = $_POST['nombre'];  
+  $nivel     = $_POST['tipo'];  
+  $user      = $_POST['usuario']; 
+  $prefijo   = $_POST['prefijo']; 
+  $fecha     = $_POST['fecha_auditoria']; 
   $comanda   = $_POST['comanda']; 
   $nromesa   = $_POST['nromesa']; 
   $impuesto  = $_POST['impuesto']; 
-  $propina   = $_POST['propina']; 
-  $descuento = $_POST['descuento']; 
+  // $propina   = $_POST['propina']; 
+  // $descuento = $_POST['descuento']; 
   $subtotal  = $_POST['subtotal']; 
   $total     = $_POST['total']; 
   $cliente   = $_POST['cliente']; 
   
   $datosClientes = $pos->getClientes();
-  $descuentos    = $pos->getDescuentosPos($idamb);
+  // $descuentos    = $pos->getDescuentosPos($idamb);
   $formasdepagos = $pos->getFormasPago();
 
 ?>
@@ -32,15 +32,18 @@
   </div>
   <div class="row-fluid">
     <input type="hidden" name="comandaActiva" id="comandaActiva" value="<?=$comanda?>">
+    <input type="hidden" name="numeroComanda" id="numeroComanda" value="">
+    <input type="hidden" name="recuperarComanda" id="recuperarComanda" value="0">
+    <input type="hidden" name="prefijoAmb" id="prefijoAmb" value="<?=$prefijo?>">
+    <input type="hidden" name="idAmbiente" id="idAmbiente" value="<?=$idamb?>">
+    <input type="hidden" name="mesaAct" id="mesaAct" value="">
+    <input type="hidden" name="paxMesa" id="paxMesa" value="">
+
     <div class="col-lg-3 col-md-3 moduloCentrar" id="seccionList" style="padding:0;display:none;">
     </div>
     <div class="col-lg-4 col-md-4 col-xs-6 moduloCentrar" id="productoList" style="padding:0px;margin-bottom: 50px;overflow: auto;display:none;margin-top:5px;">
     </div>
     <div class="col-lg-6 col-md-6 col-xs-12" id="ventasList" style="padding:5px 0px 0px 0px;">
-      <input type="hidden" name="numeroComanda" id="numeroComanda" value="">
-      <input type="hidden" name="recuperarComanda" id="recuperarComanda" value="0">
-      <input type="hidden" name="prefijoAmb" id="prefijoAmb" value="<?=$prefijo?>">
-      <input type="hidden" name="idAmbiente" id="idAmbiente" value="<?=$idamb?>">
       <div class="col-lg-9 col-md-9" style="padding:0 5px 0 0;">
         <div id='productosComanda' class="row-fluid" style="padding:0;background-color:#FCF7AB;margin-top: 0;overflow: auto">
           <table class="table table-hover comanda">
@@ -123,7 +126,7 @@
               <i class="fa fa-print"></i> Pre-Cuenta
             </button>
             <?php
-            if($nivel=='2'){ ?>
+            if($nivel <=2){ ?>
               <button
                 type        ="button"
                 class       ="btn btn-danger prende btnActivo"
@@ -148,7 +151,7 @@
               ><i class="fa fa-money"></i> Pagar
             </button>
             <button
-              style="height: 64px;overflow: hidden;margin-top:86px;font-weight: 600;font-size:14px;"
+              style="height: 64px;overflow: hidden;font-weight: 600;font-size:14px;"
               type="button"
               class="btn btn-default prende btnActivo"
               data-toggle="modal"
@@ -156,7 +159,7 @@
               onclick="imprimeComandaGen()"
               id="imprimeComanda"
               title="Imprimir Presente Cuenta">
-              <i class="fa fa-print"></i> Imprimir
+              <i class="fa fa-print"></i> Comanda
             </button>
             <button
               style   ="height: 64px;padding:20px 0;font-weight: 600;font-size:14px;"

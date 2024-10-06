@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", async () => {
   let sesion = JSON.parse(localStorage.getItem("sesion"));
+  let {user: { usuario, usuario_id, nombres, apellidos, tipo, estado_usuario_pms, estado_usuario_pos },} = sesion;
   if (sesion) {
-    let {user: { usuario, usuario_id, nombres, apellidos, tipo, estado_usuario_pms },} = sesion;
   }
   $("#myModalLogin").on("show.bs.modal", function (event) {
     $("#error").html("");
@@ -37,6 +37,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     $("#userPass").val(usuario);
   });
   
+  modulos = document.querySelector('#modulos');
+
+  if(modulos != null){
+    if (estado_usuario_pos == "2") {
+      $("#cerrado").css("display", "block");
+      $("#linkPos").attr("href", "#");
+    }
+  }
+
 });
   
 function solicitudSoporte() {
@@ -76,8 +85,7 @@ function solicitudSoporte() {
 
 function activaSesion() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user:{usuario, usuario_id, tipo, estado_usuario_pms}, moduloPms: {fecha_auditoria}} = sesion;
-  // let { fecha_auditoria } = moduloPms;
+  let { user:{ usuario, usuario_id, tipo, estado_usuario_pms}, moduloPms: {fecha_auditoria}} = sesion;
   parametros = {
     user: usuario,
     userId: usuario_id,
@@ -112,9 +120,7 @@ function ingresoPms() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
 
   let { user: { usuario, usuario_id, tipo, estado_usuario_pms }, moduloPms:{ fecha_auditoria } } = sesion;
-  // let { usuario, usuario_id, tipo, estado_usuario_pms } = user;
-  // let { fecha_auditoria } = moduloPms;
-
+  
   parametros = {
     usuario,
     usuario_id,
@@ -178,7 +184,7 @@ function activaModulos() {
   fecha = new Date();
   fechaAct =
     fecha.getDate() + "/" + (fecha.getMonth() + 1) + "/" + fecha.getFullYear();
-  let { cia: { invMod, posMod, pmsMod, resMod }, user: { estado, ingreso, tipo, apellidos, nombres, inv, pos, pms, res }, moduloPms: { fecha_auditoria } } = sesion;
+  let { cia: { invMod, posMod, pmsMod, resMod }, user: { estado, ingreso, tipo, apellidos, nombres, inv, pos, pms, res, estado_usuario_pos }, moduloPms: { fecha_auditoria } } = sesion;
   /* let { estado, ingreso, tipo, apellidos, nombres, inv, pos, pms, res } = user;
   let {   console.log(sesion)
 invMod, posMod, pmsMod, resMod } = cia;
@@ -190,6 +196,11 @@ invMod, posMod, pmsMod, resMod } = cia;
   $("#nombreUsuario").html(
     `${apellidos}  ${nombres}<span class="caret"></span>`
   );
+
+  if (estado_usuario_pos == "2") {
+    $("#cerrado").css("display", "block");
+    $("#linkPos").attr("href", "#");
+  }
 }
 
 function redondeo(numero, decimales) {

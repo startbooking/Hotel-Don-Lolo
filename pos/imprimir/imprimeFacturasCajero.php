@@ -60,12 +60,15 @@ if (count($detalles) == 0) {
         $pdf->Cell(40, 4, substr($pos->nombrePago($detalle['forma_pago']), 0, 19), 0, 0, 'L');
         $pdf->Cell(20, 4, substr($detalle['fecha_factura'], 11, 8), 0, 1, 'R');
     }
-    $pdf->Cell(60, 6, 'Total', 1, 0, 'C');
+    $pdf->SetFont('Arial', 'B', 10);
+    $pdf->Cell(60, 6, 'Total', 1, 0, 'L');
     $pdf->Cell(25, 6, number_format($neto, 2), 1, 0, 'R');
     $pdf->Cell(20, 6, number_format($impt, 2), 1, 0, 'R');
     $pdf->Cell(20, 6, number_format($prop, 2), 1, 0, 'R');
     $pdf->Cell(25, 6, number_format($serv, 2), 1, 0, 'R');
     $pdf->Cell(25, 6, number_format($tota, 2), 1, 1, 'R');
+    $pdf->SetFont('Arial', '', 10);
+
 }
 
 $pdf->Ln(5);

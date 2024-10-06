@@ -1,2 +1,0 @@
-[03-Oct-2024 18:45:30 America/Bogota] PHP Warning:  PDOStatement::execute(): SQLSTATE[42S22]: Column not found: 1054 Unknown column 'descuento' in 'field list' in /var/www/donlolo.lan/res/php/Medoo.php on line 565
-[03-Oct-2024 18:45:30 America/Bogota] PHP Warning:  PDOStatement::execute(): SQLSTATE[42S22]: Column not found: 1054 Unknown column 'descuento' in 'field list' in /var/www/donlolo.lan/res/php/Medoo.php on line 565

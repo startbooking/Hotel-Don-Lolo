@@ -8,7 +8,7 @@
     <?php
   } else { ?>
       <div class="container-fluid">
-        <h2 style="text-align:center" style="font-weight:700">Punto de Venta no Seleccionado</h2>
+        <h2 style="text-align:center;font-weight:700">Punto de Venta no Seleccionado</h2>
         <h4 style="padding:15px;margin:10px;font-size:2.5em;text-align:center">Seleccione el Punto de Venta</h4>
       </div>
       <div class="container-fluid moduloCentrar" style="margin-bottom: 50px;">

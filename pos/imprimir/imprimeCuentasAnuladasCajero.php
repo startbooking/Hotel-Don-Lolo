@@ -33,7 +33,7 @@ if (count($comandas) == 0) {
         $pdf->Cell(20, 5, $comanda['mesa'], 0, 0, 'C');
         $pdf->Cell(20, 5, $comanda['pax'], 0, 0, 'C');
         $pdf->Cell(15, 5, substr($comanda['fecha_comanda_anulada'], 11, 5), 0, 0, 'R');
-        $pdf->Cell(90, 5, utf8_decode(substr($comanda['motivo_anulada'], 0, 43)), 0, 1, 'L');
+        $pdf->Cell(90, 5, (substr($comanda['motivo_anulada'], 0, 43)), 0, 1, 'L');
     }
 }
 $pdf->Ln(3);

@@ -181,6 +181,9 @@ td span .alert {
 
 .btn-toolbar {
   margin: 0px;
+  height: 466px;
+  background: rgba(0, 0, 0, 0.205);
+  padding: 5px 5px;
 }
 
 .btn-group,
@@ -487,7 +490,7 @@ form textarea {
   background-color: #fcf7ab;
   margin-top: 0;
   overflow: auto;
-  height: 463px;
+  height: 423px;
 }
 
 #comanda tbody tr td {
@@ -495,7 +498,7 @@ form textarea {
 }
 
 #tituloNumero {
-  padding: 2px;
+  padding: 5px;
   text-align: center;
   font-weight: bold;
   margin: 0px 15px 0 0;

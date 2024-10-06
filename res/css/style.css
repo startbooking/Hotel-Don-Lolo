@@ -87,7 +87,7 @@ h3 {
 
 .cierre {
   text-align: center;
-  font-size: 45px;
+  font-size: 35px;
   color: brown;
   z-index: 200;
   background-color: transparent;
@@ -95,6 +95,7 @@ h3 {
   display: none;
   margin-top: -64px;
   position: absolute;
+  font-weight: 700;
 }
 
 .mr20 {
