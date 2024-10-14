@@ -43,6 +43,10 @@ body.is-loading * {
   padding: 20px;
 }
 
+.btn-group-vertical {
+  
+}
+
 .mt body,
 input,
 textarea,

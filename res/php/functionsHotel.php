@@ -26,7 +26,7 @@ class Hotel_Actions
             huespedes.nombre2,
             huespedes.apellido1,
             huespedes.apellido2
-        FROM
+        FROM 
             cargos_pms
             INNER JOIN
             reservas_pms
@@ -9842,7 +9842,6 @@ class Hotel_Actions
         global $database;
 
         $data = $database->select('reservas_pms', [
-            '[>]cargos_pms' => ['num_reserva' => 'id_reserva'],
             '[>]companias' => ['id_compania' => 'id_compania'],
             '[<]huespedes' => ['id_huesped' => 'id_huesped'],
         ], [
@@ -9877,7 +9876,6 @@ class Hotel_Actions
             'huespedes.fecha_nacimiento',
             'huespedes.id_huesped',
             'companias.empresa',
-            'cargos_pms.pagos_cargos',
         ], [
             'reservas_pms.tipo_reserva' => $tipo,
         ]);

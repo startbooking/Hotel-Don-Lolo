@@ -179,7 +179,7 @@ td span .alert {
   font-size: 14px;
 }
 
-.btn-toolbar {
+.btn-toolbar .btn-group-vertical{
   margin: 0px;
   height: 466px;
   background: rgba(0, 0, 0, 0.205);
