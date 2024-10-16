@@ -56,7 +56,7 @@
   $pdf->Cell(30,5,'No Desayunaron ',1,0,'L');
   $pdf->Cell(20,5,$nod,1,0,'C');
 
-  $file = '../impresiones/planillaDesayunos_'.$fecha_auditoria.'.pdf';
+  $file = '../impresiones/planillaDesayunos_'.$prefijo.'-'.$fecha_auditoria.'.pdf';
 
   $pdf->Output($file,'F');
   echo $file;

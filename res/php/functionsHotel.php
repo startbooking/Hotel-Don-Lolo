@@ -5336,7 +5336,7 @@ class Hotel_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT huespedes.apellido1, huespedes.apellido2, huespedes.nombre1, huespedes.nombre2, reservas_pms.num_reserva, reservas_pms.fecha_llegada, reservas_pms.fecha_salida, reservas_pms.num_habitacion, cargos_pms.fecha_cargo, cargos_pms.descripcion_cargo, cargos_pms.pagos_cargos, cargos_pms.concecutivo_abono, cargos_pms.id_usuario FROM huespedes, reservas_pms, cargos_pms WHERE huespedes.id_huesped = reservas_pms.id_huesped AND reservas_pms.estado = 'ES' AND reservas_pms.num_reserva = cargos_pms.id_reserva AND cargos_pms.cargo_anulado = 0")->fetchAll();
+        $data = $database->query("SELECT huespedes.apellido1, huespedes.apellido2, huespedes.nombre1, huespedes.nombre2, reservas_pms.num_reserva, reservas_pms.fecha_llegada, reservas_pms.fecha_salida, reservas_pms.num_habitacion, cargos_pms.fecha_cargo, cargos_pms.descripcion_cargo, cargos_pms.pagos_cargos, cargos_pms.concecutivo_abono, cargos_pms.id_usuario, cargos_pms.concecutivo_deposito FROM huespedes, reservas_pms, cargos_pms WHERE huespedes.id_huesped = reservas_pms.id_huesped AND reservas_pms.estado = 'ES' AND reservas_pms.num_reserva = cargos_pms.id_reserva AND cargos_pms.cargo_anulado = 0")->fetchAll();
 
         return $data;
     }

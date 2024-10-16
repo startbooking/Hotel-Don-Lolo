@@ -1,9 +1,5 @@
 <?php
 
-// $dia  = FECHA_PMS;
-/* $mes  = substr(FECHA_PMS,5,2); 
-  $anio = substr(FECHA_PMS,0,4);  */
-
 $pdf = new PDF();
 $pdf->AddPage('L', 'letter');
 $pdf->SetFont('Arial', 'B', 12);

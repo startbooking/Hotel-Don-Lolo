@@ -76,9 +76,14 @@
   // ** BALANCE DIARIO **//
   require_once '../../../imprimir/imprimeBalanceDiarioAuditoria.php';
 
-  $anio = substr($fecha, 0, 4);
+/*   $anio = substr($fecha, 0, 4);
   $mes = substr($fecha, 5, 2);
-  $dia = substr($fecha, 8, 2);
+  $dia = substr($fecha, 8, 2); */
+
+  $dia = date('d', strtotime($fecha));
+  $mes = date("m", strtotime($fecha));
+  $anio = date("Y", strtotime($fecha)); 
+  
   $mesasDis = $pos->getMesasDisponibles($idamb);
   $mesasVen = count($facturas);
   $mesasAnu = count($anuladas);

@@ -61,7 +61,7 @@ function botonEliminaProductoDivi(
     totalProductos[existe].valorimpto =
       totalProductos[existe].importe * totalProductos[existe].cant -
       (totalProductos[existe].importe * totalProductos[existe].cant) /
-        (1 + totalProductos[existe].impto / 100);
+      (1 + totalProductos[existe].impto / 100);
   }
 
   localStorage.setItem("productoComanda", JSON.stringify(totalProductos));
@@ -204,7 +204,7 @@ function botonDivideComanda(
     nuevaComanda[existe].valorimpto =
       nuevaComanda[existe].importe * nuevaComanda[existe].cant -
       (nuevaComanda[existe].importe * nuevaComanda[existe].cant) /
-        (1 + nuevaComanda[existe].impto / 100);
+      (1 + nuevaComanda[existe].impto / 100);
   }
   localStorage.setItem("nuevaComanda", JSON.stringify(nuevaComanda));
 
@@ -227,7 +227,7 @@ function botonDivideComanda(
       totalProductos[exis].valorimpto =
         totalProductos[exis].importe * totalProductos[exis].cant -
         (totalProductos[exis].importe * totalProductos[exis].cant) /
-          (1 + totalProductos[exis].impto / 100);
+        (1 + totalProductos[exis].impto / 100);
     }
   }
 
@@ -1344,8 +1344,8 @@ function mesasActivasPlano() {
         $("#" + nroMesa).attr("abonos", abonos);
         $("#" + nroMesa).attr("propina", propina);
         $("#" + nroMesa).attr("cliente", cliente);
-        $("#" + nroMesa).removeClass("btn-success");
-        $("#" + nroMesa).addClass("btn-warning");
+        $("." + nroMesa).removeClass("alert-success");
+        $("." + nroMesa).addClass("alert-danger");
         $("#" + nroMesa).removeAttr("attribute onclick");
         $("#" + nroMesa).attr(
           "onclick",
@@ -1554,7 +1554,6 @@ function historicoProductos() {
     user: { usuario, usuario_id, tipo },
   } = sesion;
   const { nombre, id_ambiente, logo, prefijo, id_bodega } = oPos[0];
-  // const { usuario, usuario_id } = user;
 
   parametros = {
     nombre,
@@ -2403,7 +2402,7 @@ function eliminaProductoReceta() {
     url: "res/php/user_actions/eliminaProductoReceta.php",
     type: "POST",
     data: { id: id },
-    success: function () {},
+    success: function () { },
   });
 }
 
@@ -2438,22 +2437,22 @@ function agregarFila(
   idrece
 ) {
   var htmlTags = `<tr>
-                      <td>${producto}</td>
-                      <td align="right">${cantidad}</td>
-                      <td>${medida}</td>
-                      <td align="right">${number_format(valUnita, 2)}</td>
-                      <td align="right">${number_format(valTotal, 2)}</td>
-                      <td style="text-align: center">
-                        <button 
-                          id="${idprod}"
-                          type="button" 
-                          class="btn btn-danger btn-xs"
-                          receta='${idrece}'
-                          onclick="actualizaRece(this.id,this.parentNode.parentNode.rowIndex,this.receta,${idprod})">
-                          <i class="glyphicon glyphicon-trash"></i>
-                        </button>
-                      </td>
-                    </tr>`;
+                    <td>${producto}</td>
+                    <td align="right">${cantidad}</td>
+                    <td>${medida}</td>
+                    <td align="right">${number_format(valUnita, 2)}</td>
+                    <td align="right">${number_format(valTotal, 2)}</td>
+                    <td style="text-align: center">
+                      <button 
+                        id="${idprod}"
+                        type="button" 
+                        class="btn btn-danger btn-xs"
+                        receta='${idrece}'
+                        onclick="actualizaRece(this.id,this.parentNode.parentNode.rowIndex,this.receta,${idprod})">
+                        <i class="glyphicon glyphicon-trash"></i>
+                      </button>
+                    </td>
+                  </tr>`;
   $("#materiaPrima tr:last").after(htmlTags);
 }
 
@@ -2926,6 +2925,123 @@ function ventasHistoricoGrupos() {
   });
 }
 
+
+function diaPlanillaDesayunos() {
+  oPos = JSON.parse(localStorage.getItem("oPos"));
+  let { fecha_auditoria, prefijo } = oPos[0];
+  file = `impresiones/planillaDesayunos_${prefijo}-${fecha_auditoria}.pdf`
+
+  muestraPDF(file, `Planilla Desayunos Dia ${fecha_auditoria}`)
+}
+
+function historicoPlanillaDesayunos() {
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  oPos = JSON.parse(localStorage.getItem("oPos"));
+
+  let { pos, user: { usuario, usuario_id }, } = sesion;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } = oPos[0];
+
+  parametros = {
+    id_ambiente,
+    nombre,
+    usuario,
+    usuario_id,
+    impuesto,
+    propina,
+    fecha_auditoria,
+    logo,
+  };
+
+  $.ajax({
+    url: "views/historicoDesayunos.php",
+    type: "POST",
+    data: parametros,
+    success: function (data) {
+      $("#pantalla").html(data);
+    },
+  });
+}
+
+
+function historicoDesayunos() {
+  ambiente = $("#ambiente").val()
+  desdeFe = $("#desdeFecha").val();
+  hastaFe = $("#hastaFecha").val();
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  oPos = JSON.parse(localStorage.getItem("oPos"));
+
+  let {pos, user: { usuario, usuario_id, tipo }, } = sesion;
+  let { nombre, id_ambiente, logo, prefijo, id_bodega } = oPos[0];
+
+  if(ambiente == '' || desdeFe == '' || hastaFe == ''){
+    swal({
+      title:'Atencion',
+      text:'Todos los Campos Son Obligatorios',
+      type:'warning',
+    })
+    return false;
+  }
+
+  parametros = {
+    ambiente,
+    desdeFe,
+    hastaFe,
+  };
+
+  if (desdeFe == "" && hastaFe == "") {
+    swal("Atencion", "Seleccione un Criterio de Fechas", "warning");
+  } else {
+    $.ajax({
+      url: "res/php/user_actions/traeHistoricoDesayunos.php",
+      type: "POST",
+      dataType: "json",
+      data: parametros,
+      success: function (datos) {
+        console.log(datos)
+        llenaHistoricoDesayunos(datos);
+      }, 
+    });
+  }
+}
+
+function muestraDesayuno(fecha, id, pref){
+  file = `impresiones/planillaDesayunos_${pref}-${fecha}.pdf`
+
+  muestraPDFHist(file, `Planilla Desayunos del Dia ${fecha}`)
+
+}
+
+function muestraPDFHist(file, titulo) {
+
+  document.querySelector("#muestraDesayunos .tituloPagina").innerHTML= titulo;
+  document.querySelector("#verDesayuno").data = file;
+}
+
+
+
+function llenaHistoricoDesayunos(datos){
+  pantDesa = document.querySelector("#dataDesayunos");
+  pantDesa.classList.remove('apaga')
+  dataDesa = document.querySelector("#dataDesayunos tbody");
+  let html = "";
+  datos.forEach((dato) => {
+    let { fecha, cantidad, id_ambiente, prefijo } = dato;
+    html += `
+    <tr>
+      <td style="font-size:13px;">${fecha}</td>
+      <td class="centro" style="font-size:13px;">${cantidad}</td>
+      <td class="centro">
+        <button class="btn btn-warning" onclick="muestraDesayuno('${fecha}',${id_ambiente}, '${prefijo}')">
+          <i class="fa-solid fa-print"></i>
+        </button>
+      </td>
+    </tr>
+    `;
+  });
+  dataDesa.innerHTML = html;
+}
+
+
 function ventasHistoricoProductos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
@@ -2962,12 +3078,8 @@ function ventasHistoricoPeriodos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let {
-    pos,
-    user: { usuario, usuario_id },
-  } = sesion;
-  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } =
-    oPos[0];
+  let { pos, user: { usuario, usuario_id }, } = sesion;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } = oPos[0];
 
   parametros = {
     id: id_ambiente,
@@ -2992,9 +3104,7 @@ function ventasHistoricoPeriodos() {
 
 function buscarRecu() {
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  // let { pos } = sesion;
   let { id_ambiente } = oPos[0];
-
   let valorBusqueda = $("input#busqueda").val();
   if (textoBusqueda != "") {
     $.post(
@@ -3035,15 +3145,11 @@ function getRestarVentasRecu(codigo) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let {
-    pos,
-    user: { usuario, usuario_id, tipo },
-  } = sesion;
+  let {pos, user: { usuario, usuario_id, tipo }, } = sesion;
   let { id_ambiente, propina } = oPos[0];
 
   idamb = id_ambiente;
   impto = impuesto;
-  // user: { usuario, usuario_id, tipo }= usuario;
   prop = propina;
   var parametros = {
     codigo,
@@ -3071,15 +3177,11 @@ function getBorraVentasRecu(codigo) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let {
-    pos,
-    user: { usuario, usuario_id, tipo },
-  } = sesion;
+  let {pos, user: { usuario, usuario_id, tipo }, } = sesion;
   let { id_ambiente, propina } = oPos[0];
 
   idamb = id_ambiente;
   impto = impuesto;
-  // user: { usuario, usuario_id, tipo }= usuario;
   prop = propina;
 
   var parametros = {
@@ -3300,10 +3402,7 @@ function muestraPos(ambSel) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let {
-    user: { tipo, apellidos, nombres },
-    pos,
-  } = sesion;
+  let {user: { tipo, apellidos, nombres }, pos, } = sesion;
   let { plano, fecha_auditoria } = oPos[0];
   $("#fechaPos").html(`Fecha Proceso ${fecha_auditoria}`);
   $("#fechaAuditoria").val(fecha_auditoria);
@@ -3401,10 +3500,7 @@ function ventasPorPeriodo() {
 
 function buscaReportesCajero() {
   var fecha = $("#buscarFecha").val();
-  // var user: { usuario, usuario_id, tipo }= $("#usuario").val();
-
   $("#verFactura").attr("data", "");
-
   var repo = "cierre_Cajero_" + usuario + "_" + fecha + ".pdf";
   $("#verFactura").attr("data", "imprimir/cierres/" + repo);
 }
@@ -3634,16 +3730,11 @@ function ventasProducto() {
 }
 
 function ventasDiaAuditoria() {
-  sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-  // console.log(oPos[0]);
+  let sesion = JSON.parse(localStorage.getItem("sesion"));
+  let oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let {
-    pos,
-    user: { usuario, usuario_id },
-  } = sesion;
-  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } =
-    oPos[0];
+  let { pos, user: { usuario, usuario_id }, } = sesion;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } = oPos[0];
 
   parametros = {
     id: id_ambiente,
@@ -3760,14 +3851,11 @@ function huespedesenCasa() {
 async function planillaDesayunos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  let {
+  /* let {
     moduloPms: { fecha_auditoria },
-  } = sesion;
-  let {
-    pos,
-    user: { usuario, usuario_id },
-  } = sesion;
-  let { logo, id_ambiente, nombre, propina, impuesto } = oPos[0];
+  } = sesion; */
+  let { pos, user: { usuario, usuario_id }, moduloPms: { fecha_auditoria } } = sesion;
+  let { id_ambiente, prefijo } = oPos[0];
   parametros = {
     id_ambiente,
     fecha_auditoria,
@@ -3783,7 +3871,7 @@ async function planillaDesayunos() {
         type: "warning",
       },
       function () {
-        data = `impresiones/planillaDesayunos_${fecha_auditoria}.pdf`;
+        data = `impresiones/planillaDesayunos_${prefijo}-${fecha_auditoria}.pdf`;
         verPDF(data, `Planilla Desayunos ${fecha_auditoria}`);
         // enviaInicio()
       }
@@ -3828,7 +3916,6 @@ async function totalDesayunos(parametros) {
       body: JSON.stringify(parametros),
     });
     const datos = await resp.json();
-
     return datos;
   } catch (error) {
     return error;
@@ -3854,15 +3941,12 @@ async function guardaPlanillaDesayunos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let {
-    user: { usuario },
-    moduloPms: { fecha_auditoria },
-  } = sesion;
-  let { logo, nombre } = oPos[0];
+  let { user: { usuario }, moduloPms: { fecha_auditoria }, } = sesion;
+  let { logo, nombre, prefijo } = oPos[0];
   let resp = await preguntaGuardaPlanilla();
   if (resp) {
     let huespedes = JSON.parse(localStorage.getItem("planilla"));
-    envia = { huespedes, fecha_auditoria, logo, nombre, usuario };
+    envia = { huespedes, fecha_auditoria, logo, nombre, usuario, prefijo };
     let regi = await guardaPlanilla(envia);
     let impr = await imprimePlanilla(envia);
     var planilla = `imprimir/${impr}`;
@@ -3876,7 +3960,7 @@ async function guardaPlanillaDesayunos() {
         text: `No se ha guardado la planilla de desayunos \n Necesita escribir "Aceptar"`,
         type: "warning",
       },
-      function () {}
+      function () { }
     );
   }
 }
@@ -4123,10 +4207,7 @@ function cierreDiarioCajero() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let {
-    pos,
-    user: { usuario, usuario_id, tipo },
-  } = sesion;
+  let {pos, user: { usuario, usuario_id, tipo }, } = sesion;
   let {
     id_ambiente,
     nombre,
@@ -4445,6 +4526,28 @@ function verPDF(data, titulo) {
   `);
 }
 
+function muestraPDF(file, titulo) {
+  $("#pantalla").html("");
+  $("#pantalla").html(`
+  <section class="content">
+      <div class="panel panel-success">
+        <div class="panel-heading"> 
+          <div class="row">
+            <div class="col-lg-9">
+              <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-industry"></i> ${titulo} </h3>
+            </div>
+          </div>
+        <div class="panel-body">
+          <div class="divInforme">
+            <object type="application/pdf" id="verInforme" width="100%" height="500" data="${file}"></object>
+          </div>
+        </div>
+      </div> 
+    </section>
+  `);
+}
+
+
 function creaHTMLReportes(data, titulo) {
   $("#pantalla").html("");
   $("#pantalla").html(`
@@ -4462,9 +4565,7 @@ function creaHTMLReportes(data, titulo) {
           </div>
         <div class="panel-body">
           <div class="divInforme">
-              <object type="application/pdf" id="verInforme" width="100%" height="500" data="data:application/pdf;base64,${$.trim(
-                data
-              )}"></object> 
+            <object type="application/pdf" id="verInforme" width="100%" height="500" data="data:application/pdf;base64,${$.trim(data)}"></object>
           </div>
         </div>
       </div> 
@@ -4713,7 +4814,7 @@ function ingresoPos() {
       url: "res/php/user_actions/activaCajero.php",
       type: "POST",
       data: { usuario_id },
-      success: function () {},
+      success: function () { },
     });
   }
 }
@@ -4730,9 +4831,7 @@ function activaPos() {
 function cierreCajero(cajero) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  let {
-    user: { usuario, usuario_id, tipo, nombres, apellidos },
-  } = sesion;
+  let { user: { usuario, usuario_id, tipo, nombres, apellidos }, } = sesion;
   let { fecha_auditoria, id_ambiente, nombre, logo } = oPos[0];
 
   var web = $("#rutaweb").val();
@@ -5492,12 +5591,9 @@ function productosActivos() {
             <button
               type="button"
               id="${i}"
-              onclick="botonDevolverProducto('${numero}','${
-            listaComanda[i]["codigo"]
-          }','${listaComanda[i]["ambiente"]}','${listaComanda[i]["cant"]}','${
-            listaComanda[i]["producto"]
-          }','${listaComanda[i]["id"]}','${listaComanda[i]["importe"]}','${
-            listaComanda[i]["impto"]
+              onclick="botonDevolverProducto('${numero}','${listaComanda[i]["codigo"]
+          }','${listaComanda[i]["ambiente"]}','${listaComanda[i]["cant"]}','${listaComanda[i]["producto"]
+          }','${listaComanda[i]["id"]}','${listaComanda[i]["importe"]}','${listaComanda[i]["impto"]
           }',this.id, this.parentNode.parentNode.parentNode.rowIndex)"
               class="btn btn-danger btn-xs btnDevuelve"
               title="Devolver Producto Uno">
@@ -5520,19 +5616,16 @@ function productosActivos() {
               <td>${listaComanda[i]["producto"]}</td>
               <td>${listaComanda[i]["cant"]}</td>
               <td class="t-right">${number_format(
-                listaComanda[i]["total"],
-                2
-              )}</td>
+              listaComanda[i]["total"],
+              2
+            )}</td>
               <td class="t-center">
                 <button
                   type="button"
                   id="${i}"
-                  onclick="botonDevolverProducto('${numero}','${
-              listaComanda[i]["codigo"]
-            }','${listaComanda[i]["ambiente"]}','${listaComanda[i]["cant"]}','${
-              listaComanda[i]["producto"]
-            }','${listaComanda[i]["id"]}','${listaComanda[i]["importe"]}','${
-              listaComanda[i]["impto"]
+                  onclick="botonDevolverProducto('${numero}','${listaComanda[i]["codigo"]
+            }','${listaComanda[i]["ambiente"]}','${listaComanda[i]["cant"]}','${listaComanda[i]["producto"]
+            }','${listaComanda[i]["id"]}','${listaComanda[i]["importe"]}','${listaComanda[i]["impto"]
             }',this.id, this.parentNode.parentNode.parentNode.rowIndex)"
                   class="btn btn-danger btn-xs"
                   title="Devolver Producto Dos">
@@ -5992,8 +6085,7 @@ function getProductosComanda(comanda, mesa) {
       for (j = 0; j < dato.length; j++) {
         titulo =
           titulo +
-          `${dato[j]["nom"].substring(0, 30).padEnd(30, " ")} ${
-            dato[j]["cant"]
+          `${dato[j]["nom"].substring(0, 30).padEnd(30, " ")} ${dato[j]["cant"]
           }     ${number_format(dato[j]["venta"], 2)} \n`;
         total = total + parseInt(dato[j]["venta"], 10);
       }
@@ -6107,8 +6199,7 @@ function calculaCambio() {
   }
   if (cambio < 0) {
     $("#resultado").html(
-      `<label name='resultado' class='avisoVta avisCambio alert alert-danger'>SALDO PENDIENTE $ ${
-        cambio * -1
+      `<label name='resultado' class='avisoVta avisCambio alert alert-danger'>SALDO PENDIENTE $ ${cambio * -1
       }</label>`
     );
   }

@@ -6,6 +6,31 @@ date_default_timezone_set('America/Bogota');
 class Pos_Actions
 {
 
+    public function traeDesayunoHistoricos($desdeFe, $hastaFe, $ambiente){
+        global $database;
+
+        $data = $database->query("SELECT
+            planillaDesayunos.fecha, 
+            sum(planillaDesayunos.estado) AS cantidad, 
+            ambientes.id_ambiente, 
+            ambientes.prefijo
+        FROM
+            planillaDesayunos
+            INNER JOIN
+            ambientes
+            ON 
+                planillaDesayunos.ambiente = ambientes.id_ambiente
+        WHERE
+            fecha BETWEEN '$desdeFe' AND '$hastaFe' AND
+            ambiente = '$ambiente'
+        GROUP BY
+            planillaDesayunos.fecha
+        ORDER BY
+            planillaDesayunos.fecha ASC")->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
+    }
+
+
     public function guardaPlanillaDesayunos($fec, $res, $idh, $est){
 		global $database;
 

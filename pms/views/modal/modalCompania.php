@@ -99,7 +99,7 @@
             </div>
             <label for="correo" class="col-sm-2 control-label">Correo </label>
             <div class="col-sm-4">
-              <input type="email" class="form-control" name="correo" id="correo" placeholder="Correo Electronico" required>
+              <input type="email" class="form-control" name="correo" id="correo" placeholder="Correo Electronico" onblur="validateEmail(this.value)" required>
             </div>
           </div>
           <div class="form-group">

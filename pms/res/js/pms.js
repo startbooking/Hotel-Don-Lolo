@@ -6051,6 +6051,8 @@ function accesoUsuarios() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user: { usuario, usuario_id, tipo }, } = sesion;
 
+  console.log(tipo);
+
   if (tipo > 2) {
     document.querySelector("#menuAuditoria").classList.add("apaga");
     document.querySelector("#menuCartera").classList.add("apaga");
@@ -6061,7 +6063,7 @@ function accesoUsuarios() {
     $document.querySelector("menuFacturacion").classList.add("apaga");
     menuFicha.forEach((element, index) => {
       if (index < menuFicha.length) {
-        element.classList.add("accesoUsuariosapaga");
+        element.classList.add("accesoUsuarios apaga");
       }
     });
     btnAdiciona.forEach((element, index) => {

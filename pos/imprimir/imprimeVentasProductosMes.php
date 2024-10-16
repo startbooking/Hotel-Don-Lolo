@@ -59,10 +59,9 @@ if (count($ventas) == 0) {
         $idprod = $comanda['id_receta'];
         $regis = array_search($idprod, array_column($kardexs, 'id_producto'));
 
-        $pdf->Cell(60, 4, substr(utf8_decode($comanda['nom']), 0, 32), 0, 0, 'L');
+        $pdf->Cell(60, 4, substr(($comanda['nom']), 0, 32), 0, 0, 'L');
         $pdf->Cell(20, 4, number_format($comanda['unitario'], 2), 0, 0, 'R');
         $pdf->Cell(20, 4, $comanda['cant'], 0, 0, 'R');
-        // $pdf->Cell(20, 4, number_format($comanda['descuento'], 2), 0, 0, 'R');
         $pdf->Cell(20, 4, number_format($comanda['ventas'], 2), 0, 0, 'R');
 
         if ($regis != '') {

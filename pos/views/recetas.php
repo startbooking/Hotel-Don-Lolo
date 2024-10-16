@@ -45,7 +45,7 @@ $recetas = $pos->getRecetas($idamb);
 							</thead>
 							<tbody>
 								<?php foreach ($recetas as $producto) { ?>
-								  <tr style='font-size:12px'>
+								  <tr>
 								    <td><?php echo $producto['nombre_receta']; ?></td>
 								    <td><?php echo $producto['nombre_seccion']; ?></td>
 										<td class="t-right"><?php echo number_format($producto['valor_porcion'], 2); ?></td>

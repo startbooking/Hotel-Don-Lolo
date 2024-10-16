@@ -132,7 +132,7 @@ $hoy = date('Y-m-d');
           <div class="form-group">
             <label for="correo" class="col-sm-2 control-label">Correo </label>
             <div class="col-sm-4">
-              <input type="email" class="form-control" name="correo" id="correo" placeholder="Correo Electronico" required>
+              <input type="email" class="form-control" name="correo" id="correo" placeholder="Correo Electronico" onblur="validateEmail(this.value)" required>
             </div>
             <label for="fechanace" class="col-sm-2 control-label">Fecha Nacimiento </label>
             <div class="col-sm-4">

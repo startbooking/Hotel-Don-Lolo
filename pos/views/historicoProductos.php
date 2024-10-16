@@ -18,7 +18,7 @@ $inicial = date('Y-m-01', $dia);
 ?>
 <section class="content centrar">
   <div class="container">
-    <div class="panel panel-success">
+    <div class="panel panel-success"> 
       <div class="panel-heading">
         <div class="row">
           <div class="col-md-6">

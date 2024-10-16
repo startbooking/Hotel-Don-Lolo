@@ -7,13 +7,12 @@ $ventas = $pos->getVentasdelDia($idamb);
 $pdf = new FPDF();
 $pdf->AddPage('L', 'letter');
 $pdf->Image('../../img/'.$logo, 10, 10, 15);
-$pdf->SetFont('Arial', 'B', 13);
+$pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(260, 5, $nomamb, 0, 1, 'C');
 $pdf->SetFont('Arial', '', 11);
 $pdf->Cell(260, 5, 'VENTAS DEL DIA ', 0, 1, 'C');
 $pdf->Cell(260, 5, 'Fecha '.$fecha, 0, 1, 'C');
-$pdf->Ln(2);
- 
+$pdf->Ln(1);
 $pers = 0;
 $neto = 0;
 $impto = 0;
@@ -56,14 +55,14 @@ if (count($ventas) == 0) {
         $pdf->Cell(20, 5, number_format($comanda['propina'], 2), 0, 0, 'R');
         $pdf->Cell(20, 5, number_format($comanda['impuesto'], 2), 0, 0, 'R');
         $pdf->Cell(20, 5, number_format($comanda['pagado'] - $comanda['cambio'], 2), 0, 0, 'R');
-        $pdf->Cell(40, 5, substr($comanda['descripcion'], 0, 17), 0, 0, 'L');
+        $pdf->Cell(40, 5, substr($comanda['descripcion'], 0, 18), 0, 0, 'L');
         $pdf->Cell(20, 5, estadoFacturaInf($comanda['estado']), 0, 0, 'L');
         $pdf->Cell(25, 5, $comanda['usuario_factura'], 0, 0, 'L');
-        $pdf->Cell(20, 5, substr($comanda['fecha_factura'], 11, 9), 0, 1, 'L');
+        $pdf->Cell(20, 5, date('H:m:i', strtotime($comanda['fecha_factura'])), 0, 1, 'R');
         if ($comanda['estado'] == 'A') {
             $pers += $comanda['pax'];
             $neto += $comanda['valor_neto'];
-            $impto += $comanda['impuesto'];
+            $impto += $comanda['impuesto']; 
             $propina += $comanda['propina'];
             $servicio += $comanda['servicio'];
             $total = $total + ($comanda['pagado'] - $comanda['cambio']);

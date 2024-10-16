@@ -5,9 +5,6 @@ $tipoUsr = $_POST['tipo'];
 require '../../../../res/php/app_topPos.php';
 
 $ambienteSeleccionado = $pos->getAmbienteSeleccionado($ambSel);
-// $ambi = $ambienteSeleccionado;
-
-// $ventaPos = $pos->sumSalesDay($ambSel);
 $comandaPos = $pos->countComandasPos($ambSel, 'A');
 $comandaAnuladaPos = $pos->countComandasPos($ambSel, 'X');
 $facturasPos = $pos->countFacturasPos($ambSel);

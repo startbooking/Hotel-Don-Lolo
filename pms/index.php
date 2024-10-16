@@ -3,6 +3,7 @@ require_once '../res/php/app_topHotel.php';
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
     <title> Sistema Administrativo Hotelero | SACTel Cloud</title>
     <?php include_once '../res/shared/archivo_head.php'; ?>
@@ -94,7 +95,7 @@ require_once '../res/php/app_topHotel.php';
         } elseif (isset($_GET['section']) && $_GET['section'] == 'propinas') {
             require 'views/informePropinas.php';
         } elseif (isset($_GET['section']) && $_GET['section'] == 'historicoNC') {
-            require 'views/historicoNC.php'; 
+            require 'views/historicoNC.php';
         } elseif (isset($_GET['section']) && $_GET['section'] == 'historicoReservas') {
             require 'views/informes/reservasPorRango.php';
         } elseif (isset($_GET['section']) && $_GET['section'] == 'historicoCajeros') {
@@ -217,13 +218,13 @@ require_once '../res/php/app_topHotel.php';
         include_once 'views/modal/modalCompania.php';
         include_once 'views/modal/modalFacturas.php';
         // include_once 'views/modal/modalCentrosCia.php';
-        include_once 'views/modal/modalAcompanantes.php'; 
+        include_once 'views/modal/modalAcompanantes.php';
         include_once 'views/modal/modalDocumentosCia.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'huespedesPerfil') {
         include_once 'views/modal/modalHuespedes.php';
         include_once 'views/modal/modalFacturas.php';
         include_once 'views/modal/modalDocumentos.php';
-        include_once 'views/modal/modalAcompanantes.php';  
+        include_once 'views/modal/modalAcompanantes.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'agencias') {
         include_once 'views/modal/modalAgencia.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'grupos') {
@@ -236,7 +237,7 @@ require_once '../res/php/app_topHotel.php';
         include_once 'views/modal/modalCompania.php';
         include_once 'views/modal/modalObservaciones.php';
         include_once 'views/modal/modalFacturas.php';
-    /* } elseif (isset($_GET['section']) && $_GET['section'] == 'preregistros') {
+        /* } elseif (isset($_GET['section']) && $_GET['section'] == 'preregistros') {
         include_once 'views/modal/modalReservas.php';
         include_once 'views/modal/modalAcompanantes.php';
         include_once 'views/modal/modalHuespedes.php';
@@ -306,6 +307,9 @@ require_once '../res/php/app_topHotel.php';
     ?>
 
     <script src="<?php echo BASE_PMS; ?>res/js/pms.js"></script>
-</body> 
+    <script>
+        accesoUsuarios();
+    </script>
+</body>
 
 </html>

@@ -1,5 +1,5 @@
 <?php
-require '../../res/php/titles.php';
+// require '../../res/php/titles.php';
 require '../../res/php/app_topPos.php';
 
 $idamb = $_POST['id'];
@@ -40,12 +40,10 @@ $inicial = date('Y-m-01', $dia);
             <label class="control-label col-md-2">Desde Fecha</label>
             <div class="col-lg-3 col-md-3">
               <input class="form-control" type="date" min="1" name="desdeFecha" id='desdeFecha' value='<?php echo $inicial; ?>' style="line-height:16px" required>              
-              <!-- <input class="form-control" type="date" min="1" name="desdeFecha" id='desdeFecha' value='' style="line-height:16px" required> -->
             </div>
             <label class="control-label col-md-2">Hasta Fecha</label>
             <div class="col-lg-3 col-md-3">
               <input class="form-control" type="date" min="1" name="hastaFecha" id='hastaFecha' value='<?php echo $ayer; ?>' style="line-height:16px" required>
-              <!-- <input class="form-control" type="date" min="1" name="hastaFecha" id='hastaFecha' value='' style="line-height:16px" required> -->
             </div>
           </div>
           <div class="imprimeInforme" style="margin-top:20px;">

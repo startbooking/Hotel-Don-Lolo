@@ -66,7 +66,7 @@
             </div>
             <label for="correo" class="control-label col-lg-2 col-md-2">Correo</label>
             <div class="col-lg-4 col-md-4">
-              <input type="email" class="form-control" id="correo" name="correo" required maxlength="80">
+              <input type="email" class="form-control" id="correo" name="correo" required maxlength="80" onblur="validateEmail(this.value)">
             </div>
           </div>
           <div class="form-group">

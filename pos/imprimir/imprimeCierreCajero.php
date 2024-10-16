@@ -28,7 +28,7 @@
   $pdf->Cell(25,6,'Neto ',1,0,'C');
   $pdf->Cell(20,6,'Impuesto ',1,0,'C');
   $pdf->Cell(20,6,'Propina ',1,0,'C');
-  $pdf->Cell(20,6,'Descuento ',1,0,'C');
+  $pdf->Cell(20,6,'Room Service ',1,0,'C');
   $pdf->Cell(25,6,'Total Fact ',1,0,'C');
   $pdf->Cell(30,6,'Usuario ',1,0,'C');
   $pdf->Cell(60,6,'Forma de Pago ',1,1,'C');

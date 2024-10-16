@@ -26,7 +26,7 @@
                   <input style="line-height: 15px;" type="date" class="form-control" id="buscarFecha" name="buscarFecha" aria-describedby="inputGroupSuccess4Status" value="<?=$ayer?>" max="<?=$ayer?>">
                   <span class="input-group-addon" style="padding:1px;border:none"> 
                     <a 
-                      onclick="buscaFechaAuditoria()" 
+                      onclick="buscaFechaDesayuno()" 
                       >
                       <i style="padding:5px 10px" class="fa fa-search" aria-hidden="true"></i>
                     </a>

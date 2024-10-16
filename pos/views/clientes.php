@@ -44,7 +44,7 @@ $clientes = $pos->getClientes();
 						</thead>
 						<tbody>
 							<?php foreach ($clientes as $cliente) { ?>
-							 	<tr style='font-size:12px'>
+							 	<tr>
 							    <td><?php echo $cliente['identificacion']; ?></td>
 							    <td><?php echo $cliente['apellido1'].' '.$cliente['apellido2'].' '.$cliente['nombre1'].' '.$cliente['nombre2']; ?></td>
 							    <td><?php echo $cliente['direccion']; ?></td>
@@ -55,7 +55,7 @@ $clientes = $pos->getClientes();
 							   			<?php echo estado_cliente($cliente['estado']); ?>
 							   		</button>
 							   	</td> 
-							   	<td style="text-align:center;'>
+							   	<td style="text-align:center;">
 							   		<div class="btn-group">
 											<button 
 												type="button" class="btn btn-info btn-xs" 

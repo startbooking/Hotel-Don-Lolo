@@ -303,7 +303,7 @@ td span .alert {
   padding: 2px 0 2px 4px;
   line-height: 0.85;
   vertical-align: middle;
-  font-size: 11px;
+  /* font-size: 11px; */
 }
 
 .comandaDiv > tbody > tr > td {
@@ -423,6 +423,10 @@ form textarea {
   float: right;
 }
 
+.btn-group-xs > .btn, .btn-xs {
+  font-size: 14px;
+}
+
 @media (max-width: 1200px) {
   .btnPos {
     width: 31%;
@@ -457,6 +461,7 @@ form textarea {
     width: 95%;
   }
 }
+
 #valorReceta {
   font-size: 18px;
   font-weight: bold;

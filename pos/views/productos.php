@@ -46,8 +46,8 @@ $productos = $pos->getProductos($idamb);
 							</thead>
 							<tbody>
 								<?php
-                                    foreach ($productos as $producto) { ?>
-								  <tr style='font-size:12px'>
+									foreach ($productos as $producto) { ?>
+								  <tr>
 								    <td><?php echo $producto['nom']; ?></td>
 								    <td><?php echo $producto['cod']; ?></td>
 								    <td><?php echo $producto['nombre_seccion']; ?></td>
@@ -71,7 +71,7 @@ $productos = $pos->getProductos($idamb);
 													data-tipo     ="<?php echo $producto['estado']; ?>" 
 													title         ="Modifica Datos del Producto"
 													onclick       ="updateProducto(<?php echo $producto['producto_id']; ?>)"
-													 >
+												>
 													<i class='glyphicon glyphicon-edit'></i>
 												</button>
 												<button 
