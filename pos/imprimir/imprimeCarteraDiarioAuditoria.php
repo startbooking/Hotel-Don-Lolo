@@ -31,7 +31,7 @@ foreach ($creditos as $detalle) {
     $tota = $tota + $detalle['valor_total'];
 
     $pdf->Cell(25, 4, $detalle['factura'], 0, 0, 'R');
-    $pdf->Cell(120, 4, utf8_decode($detalle['apellido1'].' '.$detalle['apellido2'].' '.$detalle['nombre1'].' '.$detalle['nombre2']), 0, 0, 'L');
+    $pdf->Cell(120, 4, ($detalle['apellido1'].' '.$detalle['apellido2'].' '.$detalle['nombre1'].' '.$detalle['nombre2']), 0, 0, 'L');
     $pdf->Cell(35, 4, number_format($detalle['valor_total'], 2), 0, 1, 'R');
 }
 $pdf->Cell(145, 6, 'Total Ventas Credito', 1, 0, 'C');

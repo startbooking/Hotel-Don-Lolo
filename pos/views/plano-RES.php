@@ -1,7 +1,7 @@
 <div class="container-fluid pd0">
   <div class="col-lg-9">
-    <div class="container-fluid ">
-      <div class="container-fluid sombraNegra borde pd20">
+    <div class="container-fluid pd0">
+      <div class="container-fluid sombraNegra borde pd10">
         <div class="container-fluid">
           <button onclick="abreCuenta('03')" class="btn btn-default doble" id="boton03" name="boton03">
             <div class="mesadoble mesa">
@@ -158,8 +158,8 @@
     </div>
   </div>
   <div class="col-lg-3">
-    <div class="containe r-fluid">
-      <div class="container-fluid" style="padding:10px">
+    <div class="container-fluid pd0">
+      <div class="container-fluid pd0">
         <div class="row moduloCentrar">
           <div class="col-md-12 col-xs-12">
             <a onclick="facturasDia()" class="small-box-footer">

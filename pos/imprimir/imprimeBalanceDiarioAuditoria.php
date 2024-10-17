@@ -203,7 +203,7 @@ if (count($comandaAnuladas) == 0) {
         $pdf->Cell(20, 5, $comanda['pax'], 1, 0, 'C');
         $pdf->Cell(30, 5, $pos->nombreUsuario($comanda['id_usuario_anula']), 1, 0, 'R');
         $pdf->Cell(20, 5, substr($comanda['fecha_comanda_anulada'], 11, 5), 1, 0, 'R');
-        $pdf->Cell(120, 5, utf8_decode($comanda['motivo_anulada']), 1, 1, 'L');
+        $pdf->Cell(120, 5, ($comanda['motivo_anulada']), 1, 1, 'L');
     }
 }
 $pdf->Ln(5);
@@ -216,7 +216,7 @@ $pdf->Cell(25, 6, 'Cant. ', 1, 0, 'C');
 $pdf->Cell(35, 6, 'Total Venta ', 1, 1, 'C');
 
 foreach ($populares as $popular) {
-    $pdf->Cell(90, 5, utf8_decode($popular['nom']), 1, 0, 'L');
+    $pdf->Cell(90, 5, ($popular['nom']), 1, 0, 'L');
     $pdf->Cell(25, 5, $popular['cant'], 1, 0, 'R');
     $pdf->Cell(35, 5, number_format($popular['venta'], 2), 1, 1, 'R');
 }
@@ -231,7 +231,7 @@ $pdf->Cell(25, 6, 'Cant. ', 1, 0, 'C');
 $pdf->Cell(35, 6, 'Total Venta ', 1, 1, 'C');
 
 foreach ($popularAnulados as $popular) {
-    $pdf->Cell(90, 5, utf8_decode($popular['nom']), 1, 0, 'L');
+    $pdf->Cell(90, 5, ($popular['nom']), 1, 0, 'L');
     $pdf->Cell(25, 5, $popular['cant'], 1, 0, 'R');
     $pdf->Cell(35, 5, number_format($popular['venta'], 2), 1, 1, 'R');
 }
@@ -258,9 +258,9 @@ if (count($devoluciones) == 0) {
     foreach ($devoluciones as $comanda) {
         $pdf->Cell(20, 5, $comanda['comanda'], 1, 0, 'C');
         $pdf->Cell(20, 5, $comanda['mesa'], 1, 0, 'C');
-        $pdf->Cell(70, 5, utf8_decode($comanda['nom']), 1, 0, 'L');
+        $pdf->Cell(70, 5, ($comanda['nom']), 1, 0, 'L');
         $pdf->Cell(20, 5, $comanda['cant'], 1, 0, 'C');
-        $pdf->Cell(65, 5, utf8_decode($comanda['motivo_devo']), 1, 0, 'L');
+        $pdf->Cell(65, 5, ($comanda['motivo_devo']), 1, 0, 'L');
         $pdf->Cell(25, 5, $comanda['usuario_devo'], 1, 1, 'L');
     }
 }

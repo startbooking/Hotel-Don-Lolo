@@ -32,7 +32,7 @@ if (count($periodos) == 0) {
     $pdf->Cell(190, 5, 'SIN PRODUCTOS VENDIDOS EN EL DIA', 1, 1, 'C');
 } else {
     foreach ($periodos as $comanda) {
-        $pdf->Cell(90, 4, utf8_decode($comanda['descripcion_periodo']), 0, 0, 'L');
+        $pdf->Cell(90, 4, ($comanda['descripcion_periodo']), 0, 0, 'L');
         $pdf->Cell(25, 4, number_format($comanda['neto'], 2), 0, 0, 'R');
         $pdf->Cell(25, 4, number_format($comanda['servicio'], 2), 0, 0, 'R');
         $pdf->Cell(25, 4, number_format($comanda['imptos'], 2), 0, 0, 'R');

@@ -229,7 +229,7 @@ if (count($devoluciones) == 0) {
         $pdf->Cell(20, 5, $comanda['mesa'], 1, 0, 'C');
         $pdf->Cell(70, 5, $comanda['nom'], 1, 0, 'L');
         $pdf->Cell(20, 5, $comanda['cant'], 1, 0, 'C');
-        $pdf->Cell(65, 5, utf8_decode($comanda['motivo_devo']), 1, 1, 'L');
+        $pdf->Cell(65, 5, ($comanda['motivo_devo']), 1, 1, 'L');
     }
 }
 $pdf->Ln(3);

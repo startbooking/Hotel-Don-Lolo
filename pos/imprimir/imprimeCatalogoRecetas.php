@@ -26,7 +26,7 @@
   $pdf->AddPage('P','letter');
   $pdf->Image('../../img/'.$logo,10,10,15);
   $pdf->SetFont('Arial','B',13);
-  $pdf->Cell(190,7,utf8_decode(NAME_EMPRESA),0,1,'C');
+  $pdf->Cell(190,7,(NAME_EMPRESA),0,1,'C');
   $pdf->SetFont('Arial','',10);
   $pdf->Cell(190,5,'NIT: '.NIT_EMPRESA,0,1,'C');
 
@@ -46,8 +46,8 @@
   $pdf->SetFont('Arial','',9);
 
   foreach ($recetas as $detalle) {
-    $pdf->Cell(60,5,utf8_decode($detalle['nombre_receta']),1,0,'L');
-    $pdf->Cell(40,5,utf8_decode($detalle['nombre_seccion']),1,0,'l');
+    $pdf->Cell(60,5,($detalle['nombre_receta']),1,0,'L');
+    $pdf->Cell(40,5,($detalle['nombre_seccion']),1,0,'l');
     $pdf->Cell(20,5,$detalle['cantidad'],1,1,'R');
 
     $productos = $pos->getProductosRecetas($detalle['id_receta']);
@@ -62,9 +62,9 @@
     $total = 0;
     foreach ($productos as $producto) {
       $pdf->Cell(20,4,' ',0,0,'C');
-      $pdf->Cell(60,4,utf8_decode($producto["nombre_producto"]),1,0,'L');
+      $pdf->Cell(60,4,($producto["nombre_producto"]),1,0,'L');
       $pdf->Cell(20,4,number_format($producto["cantidad"],2),1,0,'R');
-      $pdf->Cell(20,4,utf8_decode($producto["descripcion_unidad"]),1,0,'L');
+      $pdf->Cell(20,4,($producto["descripcion_unidad"]),1,0,'L');
       // $pdf->Cell(60,5,number_format($producto["valor_unitario_promedio"],2),1,0,'L');
       $pdf->Cell(20,4,number_format($producto["valor_promedio"],2),1,1,'R');
       $total += $producto["valor_promedio"];

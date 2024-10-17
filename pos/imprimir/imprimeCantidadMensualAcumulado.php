@@ -28,7 +28,7 @@ $pdf->Cell(18, 5, 'NOVIE ', 1, 0, 'C');
 $pdf->Cell(18, 5, 'DICIE ', 1, 0, 'C');
 $pdf->Cell(18, 5, 'TOTAL ', 1, 1, 'C');
 /* $pdf->Cell(20, 5, 'CANT MES', 1, 0, 'C');
-$pdf->Cell(20, 5, utf8_decode('CANT AÑO'), 1, 1, 'C'); */
+$pdf->Cell(20, 5, ('CANT AÑO'), 1, 1, 'C'); */
 $pdf->SetFont('Arial', '', 9);
 $pdf->Ln(1);
 
@@ -78,7 +78,7 @@ foreach ($productos as $producto) {
     $nomnov = array_search($idprod, array_column($novvta, 'producto_id'));
     $nomdic = array_search($idprod, array_column($dicvta, 'producto_id'));
 
-    $pdf->Cell(60, 4, utf8_decode(substr($producto['nom'], 0, 28)), 0, 0, 'L');
+    $pdf->Cell(60, 4, (substr($producto['nom'], 0, 28)), 0, 0, 'L');
     $pdf->Cell(25, 4, number_format($producto['venta'], 2), 0, 0, 'R');
 
     $prdene = 0;

@@ -46,7 +46,7 @@ if (count($ventas) == 0) {
     $pdf->Cell(20, 6, '% Cant. ', 1, 0, 'C');
     $pdf->Cell(20, 6, '% Valor. ', 1, 1, 'C');
     foreach ($ventas as $comanda) {
-        $pdf->Cell(60, 5, utf8_decode($comanda['nom']), 0, 0, 'L');
+        $pdf->Cell(60, 5, ($comanda['nom']), 0, 0, 'L');
         $pdf->Cell(20, 5, $comanda['cant'], 0, 0, 'C');
         $pdf->Cell(25, 5, number_format($comanda['ventas'], 2), 0, 0, 'R');
         $pdf->Cell(25, 5, number_format($comanda['imptos'], 2), 0, 0, 'R');

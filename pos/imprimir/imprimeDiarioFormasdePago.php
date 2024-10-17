@@ -17,7 +17,7 @@ $pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell(60, 5, 'FORMA DE PAGO ', 0, 0, 'C');
 $pdf->Cell(40, 5, 'VENTAS DIA', 0, 0, 'C');
 $pdf->Cell(40, 5, 'VENTAS MES', 0, 0, 'C');
-$pdf->Cell(40, 5, utf8_decode('VENTAS AÑO'), 0, 1, 'C');
+$pdf->Cell(40, 5, ('VENTAS AÑO'), 0, 1, 'C');
 $pdf->SetFont('Arial', '', 9);
 
 $codigos = $pos->getFormasdePago();
@@ -31,7 +31,7 @@ $pagomes = $pos->getPagosMes($anio, $mes, $idamb);
 $pagoanio = $pos->getPagosAnio($anio, $idamb);
 
 foreach ($codigos as $codigo) {
-    $pdf->Cell(60, 6, utf8_decode(substr($codigo['descripcion'], 0, 30)), 0, 0, 'L');
+    $pdf->Cell(60, 6, (substr($codigo['descripcion'], 0, 30)), 0, 0, 'L');
     $idforma = $codigo['id_pago'];
 
     $nomdia = array_search($idforma, array_column($pagodia, 'id_pago'));
@@ -63,7 +63,7 @@ foreach ($codigos as $codigo) {
 $pdf->Ln(3);
 $pdf->SetFont('Arial', 'B', 10);
 
-$pdf->Cell(60, 5, utf8_decode(substr('TOTAL PAGOS', 0, 30)), 0, 0, 'L');
+$pdf->Cell(60, 5, (substr('TOTAL PAGOS', 0, 30)), 0, 0, 'L');
 $pdf->Cell(40, 5, number_format($sdia, 2), 0, 0, 'R');
 $pdf->Cell(40, 5, number_format($smes, 2), 0, 0, 'R');
 $pdf->Cell(40, 5, number_format($sanio, 2), 0, 1, 'R');

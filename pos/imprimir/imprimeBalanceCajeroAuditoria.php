@@ -262,7 +262,7 @@
     $fact  = $fact + 1;
     $tota  = $tota + $detalle['valor_total'];
 
-    $pdf->Cell(120,6,utf8_decode($detalle['apellido1'].' '.$detalle['apellido2'].' '.$detalle['nombre1'].' '.$detalle['nombre2']),1,0,'L');
+    $pdf->Cell(120,6,($detalle['apellido1'].' '.$detalle['apellido2'].' '.$detalle['nombre1'].' '.$detalle['nombre2']),1,0,'L');
     $pdf->Cell(25,6,$detalle['factura'],1,0,'R');
     $pdf->Cell(35,6,number_format($detalle['valor_total'],2),1,1,'R');
   }
@@ -354,7 +354,7 @@
     $fact  = $fact + 1; 
     $tota  = $tota + $detalle['valor_total'];
 
-    $pdf->Cell(120,6,utf8_decode($detalle['apellido1'].' '.$detalle['apellido2'].' '.$detalle['nombre1'].' '.$detalle['nombre2']),1,0,'L');
+    $pdf->Cell(120,6,($detalle['apellido1'].' '.$detalle['apellido2'].' '.$detalle['nombre1'].' '.$detalle['nombre2']),1,0,'L');
     $pdf->Cell(25,6,$detalle['factura'],1,0,'R');
     $pdf->Cell(35,6,number_format($detalle['valor_total'],2),1,1,'R');
   }
@@ -436,8 +436,8 @@
   
     foreach ($basesCaj as $caja) {
       $totbase = $totbase + $caja['monto'];
-      $pdf->Cell(110, 5, utf8_decode($caja['concepto']), 0, 0, 'l');
-      $pdf->Cell(50, 5, utf8_decode($caja['proveedor']), 0, 0, 'L');
+      $pdf->Cell(110, 5, ($caja['concepto']), 0, 0, 'l');
+      $pdf->Cell(50, 5, ($caja['proveedor']), 0, 0, 'L');
       $pdf->Cell(30, 5, number_format($caja['monto'], 2), 0, 1, 'R');
     }
   }

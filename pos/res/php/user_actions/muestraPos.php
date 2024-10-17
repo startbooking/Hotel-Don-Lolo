@@ -10,17 +10,17 @@ $comandaAnuladaPos = $pos->countComandasPos($ambSel, 'X');
 $facturasPos = $pos->countFacturasPos($ambSel);
 
 ?>
-<section class="container-fluid" style="padding:0">
-  <section class="container-fluid" style="margin-top:0px;margin-bottom: 5px;">
-    <div class="container-fluid">
+<section class="container-fluid pd0">
+  <section class="container-fluid pd0" style="margin-top:0px;margin-bottom: 5px;">
+    <div class="container-fluid pd0">
       <input type="hidden" name="ubicacion" id="ubicacion" value="home">
-      <div class="col-xs-8">
+      <div class="col-xs-9">
         <h1 class="fontModule">
           <?php echo $ambienteSeleccionado[0]['nombre']; ?><br>
           <small>Panel de Control </small>
         </h1>
       </div>
-      <div class="col-xs-4">
+      <div class="col-xs-3">
         <img class="img-thumbnail logoAmbiente" src="../img/<?php echo $ambienteSeleccionado[0]['logo']; ?>"" alt="">
       </div>
     </div>
@@ -75,7 +75,6 @@ $facturasPos = $pos->countFacturasPos($ambSel);
                   <i class="ion ion-archive"></i>
                 </div>
                 <small class="small-box-footer" style="font-size:12px">Detalles<i class="fa fa-arrow-circle-right"></i></small>
-
               </div>
             </a>
           </div>

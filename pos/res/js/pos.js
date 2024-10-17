@@ -512,13 +512,8 @@ function balanceHistorico() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let {
-    pos,
-    user: { usuario, usuario_id, tipo },
-  } = sesion;
-
-  let { id_ambiente, nombre, propina, fecha_auditoria, impuesto, logo } =
-    oPos[0];
+  let {pos, user: { usuario, usuario_id, tipo }, } = sesion;
+  let { id_ambiente, nombre, propina, fecha_auditoria, impuesto, logo } = oPos[0];
   file = makeid(12);
   parametros = {
     id: id_ambiente,
@@ -1459,10 +1454,7 @@ function historicoGrupos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let {
-    pos,
-    user: { usuario, usuario_id, tipo },
-  } = sesion;
+  let {pos, user: { usuario, usuario_id, tipo }, } = sesion;
   let { id_ambiente, nombre, logo, prefijo } = oPos[0];
 
   parametros = {
@@ -1504,10 +1496,7 @@ function historicoFormasPago() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let {
-    pos,
-    user: { usuario, usuario_id, tipo },
-  } = sesion;
+  let {pos, user: { usuario, usuario_id, tipo }, } = sesion;
   let { id_ambiente, nombre, logo, prefijo } = oPos[0];
 
   parametros = {
@@ -1632,10 +1621,7 @@ function historicoBalanceCaja() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let {
-    pos,
-    user: { usuario, usuario_id, tipo },
-  } = sesion;
+  let {pos, user: { usuario, usuario_id, tipo }, } = sesion;
   let { id_ambiente, nombre, logo, prefijo } = oPos[0];
 
   parametros = {
@@ -1677,13 +1663,8 @@ function historicoPeriodos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let {
-    pos,
-    user: { usuario, usuario_id, tipo },
-  } = sesion;
-
+  let { pos, user: { usuario, usuario_id, tipo }, } = sesion;
   const { nombre, id_ambiente, logo, prefijo, id_bodega } = oPos[0];
-  // const { usuario, usuario_id } = user;
   parametros = {
     nombre,
     usuario,
@@ -3500,6 +3481,7 @@ function ventasPorPeriodo() {
 
 function buscaReportesCajero() {
   var fecha = $("#buscarFecha").val();
+  let usuario = document.querySelector('#usuario').value;
   $("#verFactura").attr("data", "");
   var repo = "cierre_Cajero_" + usuario + "_" + fecha + ".pdf";
   $("#verFactura").attr("data", "imprimir/cierres/" + repo);
@@ -3508,12 +3490,9 @@ function buscaReportesCajero() {
 function historicoCajeros() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  let {
-    pos,
-    user: { usuario, usuario_id },
-  } = sesion;
-  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } =
-    oPos[0];
+  
+  let {pos, user: { usuario, usuario_id }, } = sesion;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } = oPos[0];
 
   parametros = {
     id: id_ambiente,
@@ -3688,11 +3667,7 @@ function ventasHistoricoFormaPago() {
     type: "POST",
     data: parametros,
     success: function (data) {
-      // console.log(data)
       $("#pantalla").html(data);
-      // creaHTMLReportes(data, `Ventas Por Forma de Pago`);
-
-      // $("#verInforme").attr("data", "imprimir/informes/" + file + ".pdf");
     },
   });
 }

@@ -11,7 +11,6 @@
   $pdf->SetFont('Arial','B',13);
   $pdf->Cell(260,6,$nomamb,0,1,'C');
   $pdf->SetFont('Arial','',10);
-  // $pdf->Cell(260,5,'NIT: '.NIT_EMPRESA,0,1,'C');
   $pdf->Cell(260,6,'INFORME DE VENTAS - BALANCE DIARIO USUARIO',0,1,'C');
   $pdf->Cell(260,6,'USUARIO : '.$user.' Fecha : '.$fecha,0,1,'C');
   $pdf->Ln(5);
@@ -36,7 +35,7 @@
     $tota  = $tota + $detalle['valor_total'];
 
     $pdf->Cell(25,6,$detalle['factura'],1,0,'R');
-    $pdf->Cell(120,6,utf8_decode($detalle['apellido1'].' '.$detalle['apellido2'].' '.$detalle['nombre1'].' '.$detalle['nombre2']),1,0,'L');
+    $pdf->Cell(120,6,($detalle['apellido1'].' '.$detalle['apellido2'].' '.$detalle['nombre1'].' '.$detalle['nombre2']),1,0,'L');
     $pdf->Cell(35,6,number_format($detalle['valor_total'],2),1,1,'R');
   }
   $pdf->Cell(145,6,'Total Ventas Credito',1,0,'C');

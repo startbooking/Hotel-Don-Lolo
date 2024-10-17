@@ -99,7 +99,7 @@ if (count($carteras) == 0) {
   foreach ($carteras as $caja) {
     $totcart = $totcart + $caja['monto'];
 
-    $pdf->Cell(80, 5, utf8_decode($pos->traeClienteCartera($caja['proveedor'])), 0, 0, 'L');
+    $pdf->Cell(80, 5, ($pos->traeClienteCartera($caja['proveedor'])), 0, 0, 'L');
     $pdf->Cell(80, 5, substr($caja['concepto'], 0, 42), 0, 0, 'L');
     $pdf->Cell(30, 5, number_format($caja['monto'], 2), 0, 1, 'R');
   }

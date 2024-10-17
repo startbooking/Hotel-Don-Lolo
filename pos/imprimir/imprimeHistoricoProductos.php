@@ -20,9 +20,9 @@ $pdf->Cell(20, 5, 'VENTAS DIA', 0, 0, 'C');
 $pdf->Cell(20, 5, 'CANT MES', 0, 0, 'C');
 $pdf->Cell(25, 5, 'IMPUESTO', 0, 0, 'C');
 $pdf->Cell(25, 5, 'VENTAS MES', 0, 0, 'C');
-$pdf->Cell(20, 5, utf8_decode('CANT AÑO'), 0, 0, 'C');
+$pdf->Cell(20, 5, ('CANT AÑO'), 0, 0, 'C');
 $pdf->Cell(30, 5, 'IMPUESTO', 0, 0, 'C');
-$pdf->Cell(30, 5, utf8_decode('VENTAS AÑO'), 0, 1, 'C');
+$pdf->Cell(30, 5, ('VENTAS AÑO'), 0, 1, 'C');
 $pdf->SetFont('Arial', '', 9);
 
 // $codigos = $pos->traeProductos($idamb);
@@ -49,7 +49,7 @@ $diavta = $pos->acumuladoMesProductosVendidos($idamb, $anio, $mes);
 echo print_r($diavta);
 
 foreach ($diavta as $codigo) {
-    $pdf->Cell(50, 6, utf8_decode(substr($codigo['nom'], 0, 30)), 0, 0, 'L');
+    $pdf->Cell(50, 6, (substr($codigo['nom'], 0, 30)), 0, 0, 'L');
 
     // $diavta = $pos->getVentasDiaProducto($fecha, $codigo['producto_id'], $idamb);
 
@@ -131,7 +131,7 @@ foreach ($diavta as $codigo) {
 $pdf->Ln(3);
 $pdf->SetFont('Arial', 'B', 9);
 
-$pdf->Cell(50, 6, utf8_decode(substr('TOTAL INGRESOS', 0, 30)), 0, 0, 'L');
+$pdf->Cell(50, 6, (substr('TOTAL INGRESOS', 0, 30)), 0, 0, 'L');
 $pdf->Cell(20, 6, number_format($totingdia, 0), 0, 0, 'R');
 // $pdf->Cell(20, 6, number_format($totimpdia, 2), 0, 0, 'R');
 $pdf->Cell(20, 6, number_format($totvendia, 2), 0, 1, 'R');

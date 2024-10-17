@@ -20,16 +20,9 @@
   $pdf->Image('../../img/'.$logo,10,10,15);
   $pdf->SetFont('Arial','B',13);
   
-  $pdf->Cell(190,7,utf8_decode(NAME_EMPRESA),0,1,'C');
+  $pdf->Cell(190,7,(NAME_EMPRESA),0,1,'C');
   $pdf->SetFont('Arial','',10);
   $pdf->Cell(190,5,'NIT: '.NIT_EMPRESA,0,1,'C');
-  /*
-  $pdf->Cell(190,5,TIPOEMPRESA,0,1,'C');
-  $pdf->Cell(190,5,utf8_decode(ADRESS_EMPRESA),0,1,'C');
-  $pdf->Cell(190,5,utf8_decode(CIUDAD_EMPRESA).' '.PAIS_EMPRESA,0,1,'C');
-  $pdf->Cell(40,5,'',0,0,'C');
-  $pdf->Cell(110,5,'Telefono '.TELEFONO_EMPRESA.' Movil '.CELULAR_EMPRESA,0,1,'C');
-  */
   $pdf->SetFont('Arial','B',12);
   $pdf->Cell(190,6,$nomamb,0,1,'C');
 
@@ -62,7 +55,7 @@
     $pdf->Cell(25,6,'Total. ',1,1,'C');
     $pdf->SetFont('Arial','',9);
     foreach ($ventas as $comanda) {
-      $pdf->Cell(70,5,substr(utf8_decode($comanda['apellido1'].' '.$comanda['apellido2'].' '.$comanda['nombre1'].' '.$comanda['nombre2']),0,35),0,0,'L');
+      $pdf->Cell(70,5,substr(($comanda['apellido1'].' '.$comanda['apellido2'].' '.$comanda['nombre1'].' '.$comanda['nombre2']),0,35),0,0,'L');
       $pdf->Cell(10,5,$comanda['cant'],0,0,'R');
       $pdf->Cell(25,5,number_format($comanda['neto'],2),0,0,'R');
       $pdf->Cell(20,5,number_format($comanda['descto'],2),0,0,'R');

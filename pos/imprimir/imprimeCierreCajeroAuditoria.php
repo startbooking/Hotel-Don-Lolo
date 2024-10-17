@@ -245,7 +245,7 @@ if (count($comandasAnu) == 0) {
         $pdf->Cell(20, 5, $comanda['mesa'], 1, 0, 'C');
         $pdf->Cell(20, 5, $comanda['pax'], 1, 0, 'C');
         $pdf->Cell(20, 5, substr($comanda['fecha_anulada'], 11, 5), 1, 0, 'R');
-        $pdf->Cell(90, 5, utf8_decode($comanda['motivo_anulada']), 1, 1, 'R');
+        $pdf->Cell(90, 5, ($comanda['motivo_anulada']), 1, 1, 'R');
     }
 }
 $pdf->Ln(3);
@@ -269,7 +269,7 @@ foreach ($creditosCaj as $detalle) {
     $fact = $fact + 1;
     $tota = $tota + $detalle['valor_total'];
 
-    $pdf->Cell(120, 6, utf8_decode($detalle['apellido1'].' '.$detalle['apellido2'].' '.$detalle['nombre1'].' '.$detalle['nombre2']), 1, 0, 'L');
+    $pdf->Cell(120, 6, ($detalle['apellido1'].' '.$detalle['apellido2'].' '.$detalle['nombre1'].' '.$detalle['nombre2']), 1, 0, 'L');
     $pdf->Cell(25, 6, $detalle['factura'], 1, 0, 'R');
     $pdf->Cell(35, 6, number_format($detalle['valor_total'], 2), 1, 1, 'R');
 }

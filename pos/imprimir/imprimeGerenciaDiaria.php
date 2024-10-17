@@ -140,7 +140,7 @@
   $pdf->Cell(45,6,'Descripcion',1,0,'C');
   $pdf->Cell(25,6,'Ingreso Dia',1,0,'C');
   $pdf->Cell(25,6,'Ingreso Mes',1,0,'C');
-  $pdf->Cell(25,6,utf8_decode('Ingreso Año'),1,1,'C');
+  $pdf->Cell(25,6,('Ingreso Año'),1,1,'C');
   $pdf->Cell(45,6,'Ingreso Habitaciones',1,0,'L');
   $pdf->Cell(25,6,number_format($ingtot,2),1,0,'R');
   $pdf->Cell(25,6,number_format($mesingtot,2),1,0,'R');
@@ -159,7 +159,7 @@
   $pdf->Cell(45,6,'Descripcion',1,0,'C');
   $pdf->Cell(15,6,'Dia',1,0,'C');  
   $pdf->Cell(15,6,'Mes',1,0,'C');  
-  $pdf->Cell(15,6,utf8_decode('Año'),1,0,'C');  
+  $pdf->Cell(15,6,('Año'),1,0,'C');  
   $pdf->Cell(10,6,'',0,0,'C');  
   $pdf->Cell(90,6,'HUESPEDES',1,1,'C');  
 
@@ -208,7 +208,7 @@
   $pdf->Cell(15,6,$meshabocu,1,0,'R');
   $pdf->Cell(15,6,$aniohabocu,1,0,'R');
   $pdf->Cell(10,6,'',0,0,'C');  
-  $pdf->Cell(45,6,utf8_decode('Niños en Casa '),1,0,'L');
+  $pdf->Cell(45,6,('Niños en Casa '),1,0,'L');
   $pdf->Cell(15,6,$nin,1,0,'R');
   $pdf->Cell(15,6,$mesnin,1,0,'R');
   $pdf->Cell(15,6,$anionin,1,1,'R');
@@ -218,7 +218,7 @@
   $pdf->Cell(15,6,$meshabdisven - $meshabocu,1,0,'R');
   $pdf->Cell(15,6,$aniohabdisven - $aniohabocu,1,0,'R');
   $pdf->Cell(10,6,'',0,0,'C');  
-  $pdf->Cell(45,6,utf8_decode('Huespedes Repetitivos '),1,0,'L');
+  $pdf->Cell(45,6,('Huespedes Repetitivos '),1,0,'L');
   $pdf->Cell(15,6,$huerep,1,0,'R');
   $pdf->Cell(15,6,$meshuerep,1,0,'R');
   $pdf->Cell(15,6,$aniohuerep,1,1,'R');
@@ -241,20 +241,20 @@
     $pdf->Cell(15,6,number_format(($aniohabocu / $aniohabdisven)*100,2),1,0,'R');
   }
   $pdf->Cell(10,6,'',0,0,'C');  
-  $pdf->Cell(45,6,utf8_decode('Huespedes Nuevos '),1,0,'L');
+  $pdf->Cell(45,6,('Huespedes Nuevos '),1,0,'L');
   $pdf->Cell(15,6,$nuehue,1,0,'R');
   $pdf->Cell(15,6,$mesnuehue,1,0,'R');
   $pdf->Cell(15,6,$anionuehue,1,1,'R');
 
 
   $pdf->Cell(100,6,'',0,0,'C');  
-  $pdf->Cell(45,6,utf8_decode('Huespedes Nacionales '),1,0,'L');
+  $pdf->Cell(45,6,('Huespedes Nacionales '),1,0,'L');
   $pdf->Cell(15,6,$huenal,1,0,'R');
   $pdf->Cell(15,6,$meshuenal,1,0,'R');
   $pdf->Cell(15,6,$aniohuenal,1,1,'R');
 
   $pdf->Cell(100,6,'',0,0,'C');  
-  $pdf->Cell(45,6,utf8_decode('Huespedes Extranjeros '),1,0,'L');
+  $pdf->Cell(45,6,('Huespedes Extranjeros '),1,0,'L');
   $pdf->Cell(15,6,$hueint,1,0,'R');
   $pdf->Cell(15,6,$meshueint,1,0,'R');
   $pdf->Cell(15,6,$aniohueint,1,1,'R');
@@ -266,7 +266,7 @@
   $pdf->Cell(15,6,$mesreshoy,1,0,'C');
   $pdf->Cell(15,6,$anioreshoy,1,0,'C');
   $pdf->Cell(10,6,'',0,0,'C');  
-  $pdf->Cell(45,6,utf8_decode('Salidas del Dia '),1,0,'L');
+  $pdf->Cell(45,6,('Salidas del Dia '),1,0,'L');
   $pdf->Cell(15,6,$saldia,1,0,'R');
   $pdf->Cell(15,6,$messaldia,1,0,'R');
   $pdf->Cell(15,6,$aniosaldia,1,1,'R');
@@ -276,7 +276,7 @@
   $pdf->Cell(15,6,$mesresnos,1,0,'C');
   $pdf->Cell(15,6,$anioresnos,1,0,'C');
   $pdf->Cell(10,6,'',0,0,'C');  
-  $pdf->Cell(45,6,utf8_decode('Salidas Anticipadas '),1,0,'L');
+  $pdf->Cell(45,6,('Salidas Anticipadas '),1,0,'L');
   $pdf->Cell(15,6,$salant,1,0,'R');
   $pdf->Cell(15,6,$messalant,1,0,'R');
   $pdf->Cell(15,6,$aniosalant,1,1,'R');
@@ -286,13 +286,13 @@
   $pdf->Cell(15,6,$mesrescan,1,0,'C');
   $pdf->Cell(15,6,$aniorescan,1,0,'C');
   $pdf->Cell(10,6,'',0,0,'C');  
-  $pdf->Cell(45,6,utf8_decode('Llegadas del Dia'),1,0,'L');
+  $pdf->Cell(45,6,('Llegadas del Dia'),1,0,'L');
   $pdf->Cell(15,6,$lledia,1,0,'R');
   $pdf->Cell(15,6,$meslledia,1,0,'R');
   $pdf->Cell(15,6,$aniolledia,1,1,'R');
 
   $pdf->Cell(100,6,'',0,0,'C');  
-  $pdf->Cell(45,6,utf8_decode('Llegadas Sin Reserva'),1,0,'L');
+  $pdf->Cell(45,6,('Llegadas Sin Reserva'),1,0,'L');
   $pdf->Cell(15,6,$llesin,1,0,'R');
   $pdf->Cell(15,6,$mesllesin,1,0,'R');
   $pdf->Cell(15,6,$aniollesin,1,1,'R');

@@ -1,5 +1,4 @@
 <?php
-// require_once '../../res/php/titles.php';
 require_once '../../res/php/app_topPos.php';
 require_once '../../res/fpdf/fpdf.php';
 
@@ -19,7 +18,7 @@ $pagos    = $pos->getDetalleFormasdePagoBalanceCajaMes('A', $desdefe, $hastafe, 
 
 // echo print_r($pagos);
 
-$pdf = new FPDF();
+$pdf = new FPDF(); 
 $pdf->AddPage('P', 'letter'); 
 $pdf->Image('../../img/' . $logo, 10, 10, 22);
 $pdf->SetFont('Arial', 'B', 11);
@@ -52,8 +51,8 @@ if (count($bases) == 0) {
 } else {
   foreach ($bases as $caja) {
     $totbase = $totbase + $caja['monto'];
-    $pdf->Cell(90, 4, utf8_decode($caja['concepto']), 0, 0, 'l');
-    $pdf->Cell(50, 4, utf8_decode($caja['proveedor']), 0, 0, 'L');
+    $pdf->Cell(90, 4, ($caja['concepto']), 0, 0, 'l');
+    $pdf->Cell(50, 4, ($caja['proveedor']), 0, 0, 'L');
     $pdf->Cell(30, 4, number_format($caja['monto'], 2), 0, 0, 'R');
     $pdf->Cell(20, 4, $caja['fecha'], 0, 1, 'R');
   }
@@ -76,9 +75,9 @@ if (count($cajas) == 0) {
 } else {
   foreach ($cajas as $caja) {
     $totcaja = $totcaja + $caja['monto'];
-    $pdf->Cell(70, 4, utf8_decode(substr($caja['concepto'], 0, 30)), 0, 0, 'L');
+    $pdf->Cell(70, 4, (substr($caja['concepto'], 0, 30)), 0, 0, 'L');
     $pdf->Cell(30, 4, $caja['documento'], 0, 0, 'L');
-    $pdf->Cell(50, 4, utf8_decode($caja['proveedor']), 0, 0, 'L');
+    $pdf->Cell(50, 4, ($caja['proveedor']), 0, 0, 'L');
     $pdf->Cell(20, 4, number_format($caja['monto'], 2), 0, 0, 'R');
     $pdf->Cell(20, 4, $caja['fecha'], 0, 1, 'R');
   }
@@ -104,8 +103,8 @@ if (count($carteras) == 0) {
       $efecart = $efecart + $caja['monto'];
     }
     $totcart = $totcart + $caja['monto'];
-    $pdf->Cell(70, 4, utf8_decode($pos->traeClienteCartera($caja['proveedor'])), 0, 0, 'L');
-    $pdf->Cell(75, 4, utf8_decode(substr($caja['concepto'], 0, 42)), 0, 0, 'L');
+    $pdf->Cell(70, 4, ($pos->traeClienteCartera($caja['proveedor'])), 0, 0, 'L');
+    $pdf->Cell(75, 4, (substr($caja['concepto'], 0, 42)), 0, 0, 'L');
     $pdf->Cell(25, 4, number_format($caja['monto'], 2), 0, 0, 'R');
     $pdf->Cell(20, 4, $caja['fecha'], 0, 1, 'R');
   }
@@ -115,44 +114,49 @@ if (count($carteras) == 0) {
 }
  */
 // $pdf->Ln(5);
-$pdf->SetFont('Arial', 'B', 10);
+$pdf->SetFont('Arial', 'B', 9);
 
 $impt = 0;
 $serv = 0;
 $neto = 0;
 $totl = 0;
+$prop = 0;
 
-$pdf->Cell(190, 5, 'VENTAS ACUMULADAS', 1, 1, 'C');
-$pdf->Cell(30, 5, 'Usuario ', 1, 0, 'C');
+$pdf->Cell(195, 5, 'VENTAS ACUMULADAS', 1, 1, 'C');
+$pdf->Cell(20, 5, 'Usuario ', 1, 0, 'C');
 $pdf->Cell(40, 5, 'Concepto ', 1, 0, 'C');
 $pdf->Cell(30, 5, 'Valor Neto', 1, 0, 'C');
-$pdf->Cell(30, 5, 'Impuesto', 1, 0, 'C');
-$pdf->Cell(30, 5, 'Room Service', 1, 0, 'C');
+$pdf->Cell(25, 5, 'Impuesto', 1, 0, 'C');
+$pdf->Cell(25, 5, 'Room Service', 1, 0, 'C');
+$pdf->Cell(25, 5, 'Propina', 1, 0, 'C');
 $pdf->Cell(30, 5, 'Total', 1, 1, 'C');
 $pdf->SetFont('Arial', '', 9);
 if (count($pagos) == 0) {
-  $pdf->Cell(190, 5, 'SiN VENTAS ACUMULADAS', 0, 1, 'C');
+  $pdf->Cell(195, 5, 'SiN VENTAS ACUMULADAS', 0, 1, 'C');
 } else {
 
   foreach ($pagos as $caja) {
-    $neto += $caja['valortotal'];
+    $neto += $caja['total'];
     $impt += $caja['impto'];
     $serv += $caja['servicio'];
-    $totl += $caja['total'];
-    $pdf->Cell(30, 4, $caja['usuario'], 0, 0, 'L');
-    $pdf->Cell(40, 4, utf8_decode($caja['descripcion']), 0, 0, 'L');
-    $pdf->Cell(30, 4, number_format($caja['valortotal'], 2), 0, 0, 'R');
-    $pdf->Cell(30, 4, number_format($caja['impto'], 2), 0, 0, 'R');
-    $pdf->Cell(30, 4, number_format($caja['servicio'], 2), 0, 0, 'R');
-    $pdf->Cell(30, 4, number_format($caja['total'], 2), 0, 1, 'R');
+    $prop += $caja['propina'];
+    $totl += $caja['pagado']-$caja['cambio'];
+    $pdf->Cell(20, 4, $caja['usuario'], 0, 0, 'L');
+    $pdf->Cell(40, 4, ($caja['descripcion']), 0, 0, 'L');
+    $pdf->Cell(30, 4, number_format($caja['total'], 2), 0, 0, 'R');
+    $pdf->Cell(25, 4, number_format($caja['impto'], 2), 0, 0, 'R');
+    $pdf->Cell(25, 4, number_format($caja['servicio'], 2), 0, 0, 'R');
+    $pdf->Cell(25, 4, number_format($caja['propina'], 2), 0, 0, 'R');
+    $pdf->Cell(30, 4, number_format($caja['pagado']-$caja['cambio'], 2), 0, 1, 'R');
   }
 }
 $pdf->Ln(2);
 $pdf->SetFont('Arial', 'B', 10);
-$pdf->Cell(70, 5, 'Total Ventas del Dia', 1, 0, 'L');
+$pdf->Cell(60, 5, 'Total Ventas del Dia', 1, 0, 'L');
 $pdf->Cell(30, 5, number_format($neto, 2), 1, 0, 'R');
-$pdf->Cell(30, 5, number_format($impt, 2), 1, 0, 'R');
-$pdf->Cell(30, 5, number_format($serv, 2), 1, 0, 'R');
+$pdf->Cell(25, 5, number_format($impt, 2), 1, 0, 'R');
+$pdf->Cell(25, 5, number_format($serv, 2), 1, 0, 'R');
+$pdf->Cell(25, 5, number_format($prop, 2), 1, 0, 'R');
 $pdf->Cell(30, 5, number_format($totl, 2), 1, 1, 'R');
 
 $pdf->Ln(5);

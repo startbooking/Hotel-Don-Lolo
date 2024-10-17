@@ -39,26 +39,22 @@ $cambio = 0;
 $abono = 0;
 $canti = 0;
 $pdf->SetFont('Arial', 'B', 8);
-$pdf->Cell(60, 6, 'Forma de Pago', 1, 0, 'C');
-$pdf->Cell(10, 6, 'Cant', 1, 0, 'C');
-$pdf->Cell(20, 6, 'Valor', 1, 0, 'C');
-// $pdf->Cell(20, 6, 'Descuento', 1, 0, 'C');
-$pdf->Cell(20, 6, 'Impuesto', 1, 0, 'C');
-// $pdf->Cell(20, 6, 'Abonos', 1, 0, 'C');
-$pdf->Cell(20, 6, 'Pagado', 1, 0, 'C');
-$pdf->Cell(15, 6, '% Cant', 1, 0, 'C');
-$pdf->Cell(15, 6, '% Valor', 1, 1, 'C');
+$pdf->Cell(60, 5, 'Forma de Pago', 1, 0, 'C');
+$pdf->Cell(10, 5, 'Cant', 1, 0, 'C');
+$pdf->Cell(20, 5, 'Valor', 1, 0, 'C');
+$pdf->Cell(20, 5, 'Impuesto', 1, 0, 'C');
+$pdf->Cell(20, 5, 'Pagado', 1, 0, 'C');
+$pdf->Cell(15, 5, '% Cant', 1, 0, 'C');
+$pdf->Cell(15, 5, '% Valor', 1, 1, 'C');
 $pdf->SetFont('Arial', '', 8);
 if (count($ventas) == 0) {
     $pdf->Cell(200, 5, 'SIN PRODUCTOS VENDIDOS EN EL DIA', 1, 1, 'C');
 } else {
     foreach ($ventas as $comanda) {
-        $pdf->Cell(60, 4, substr(utf8_decode($comanda['descripcion']), 0, 32), 0, 0, 'L');
+        $pdf->Cell(60, 4, substr(($comanda['descripcion']), 0, 32), 0, 0, 'L');
         $pdf->Cell(10, 4, $comanda['cant'], 0, 0, 'R');
         $pdf->Cell(20, 4, number_format($comanda['neto'], 2), 0, 0, 'R');
-        // $pdf->Cell(20, 4, number_format($comanda['descuento'], 2), 0, 0, 'R');
         $pdf->Cell(20, 4, number_format($comanda['imptos'], 2), 0, 0, 'R');
-        // $pdf->Cell(20, 4, number_format($comanda['abonos'], 2), 0, 0, 'R');
         $pdf->Cell(20, 4, number_format($comanda['pagado'], 2), 0, 0, 'R');
         $pdf->Cell(15, 4, number_format(($comanda['cant'] / $canProd) * 100, 2), 0, 0, 'R');
         $pdf->Cell(15, 4, number_format(($comanda['ventas'] / $valProd) * 100, 2), 0, 1, 'R');
@@ -74,13 +70,11 @@ if (count($ventas) == 0) {
         $total += $comanda['total'];
     }
     $pdf->SetFont('Arial', 'B', 9);
-    $pdf->Cell(60, 6, 'Total ', 1, 0, 'L');
-    $pdf->Cell(10, 6, number_format($canti, 0), 1, 0, 'R');
-    $pdf->Cell(20, 6, number_format($neto, 2), 1, 0, 'R');
-    // $pdf->Cell(20, 6, number_format($descuen, 2), 1, 0, 'R');
-    $pdf->Cell(20, 6, number_format($impto, 2), 1, 0, 'R');
-    // $pdf->Cell(20, 6, number_format($abono, 2), 1, 0, 'R');
-    $pdf->Cell(20, 6, number_format($pagado, 2), 1, 1, 'R');
+    $pdf->Cell(60, 5, 'Total ', 1, 0, 'L');
+    $pdf->Cell(10, 5, number_format($canti, 0), 1, 0, 'R');
+    $pdf->Cell(20, 5, number_format($neto, 2), 1, 0, 'R');
+    $pdf->Cell(20, 5, number_format($impto, 2), 1, 0, 'R');
+    $pdf->Cell(20, 5, number_format($pagado, 2), 1, 1, 'R');
 }
 $pdf->Ln(3);
 

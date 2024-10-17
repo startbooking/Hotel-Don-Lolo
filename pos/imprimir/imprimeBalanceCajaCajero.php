@@ -8,10 +8,7 @@ $pdf->Image('../../img/'.$logo, 10, 10, 22);
 $pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell(195, 5, $nomamb, 0, 1, 'C');
 $pdf->SetFont('Arial', '', 10);
-// $pdf->Cell(195, 5, 'NIT: '.NIT_EMPRESA, 0, 1, 'C');
-// $pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell(195, 5, 'BALANCE CAJA '.$user, 0, 1, 'C');
-// $pdf->SetFont('Arial', '', 10);
 $pdf->Cell(195, 4, 'Fecha '.$fecha, 0, 1, 'C');
 $pdf->Ln(5);
 
@@ -41,8 +38,8 @@ if (count($bases) == 0) {
 } else {
     foreach ($bases as $caja) {
         $totbase = $totbase + $caja['monto'];
-        $pdf->Cell(70, 5, utf8_decode($caja['concepto']), 0, 0, 'l');
-        $pdf->Cell(70, 5, utf8_decode($caja['proveedor']), 0, 0, 'L');
+        $pdf->Cell(70, 5, ($caja['concepto']), 0, 0, 'l');
+        $pdf->Cell(70, 5, ($caja['proveedor']), 0, 0, 'L');
         $pdf->Cell(20, 5, number_format($caja['monto'], 2), 0, 1, 'R');
     }
     $pdf->SetFont('Arial', 'B', 9);
@@ -65,9 +62,9 @@ if (count($cajas) == 0) {
 } else {
     foreach ($cajas as $caja) {
         $totcaja = $totcaja + $caja['monto'];
-        $pdf->Cell(90, 5, utf8_decode(substr($caja['concepto'], 0, 45)), 0, 0, 'L');
+        $pdf->Cell(90, 5, (substr($caja['concepto'], 0, 45)), 0, 0, 'L');
         $pdf->Cell(20, 5, $caja['documento'], 0, 0, 'L');
-        $pdf->Cell(60, 5, utf8_decode($caja['proveedor']), 0, 0, 'L');
+        $pdf->Cell(60, 5, ($caja['proveedor']), 0, 0, 'L');
         $pdf->Cell(20, 5, number_format($caja['monto'], 2), 0, 1, 'R');
     }
     $pdf->SetFont('Arial', 'B', 9);

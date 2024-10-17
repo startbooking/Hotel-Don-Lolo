@@ -1,6 +1,5 @@
 <?php
 
-require '../../res/php/titles.php';
 require '../../res/php/app_topPos.php';
 
 $idamb = $_POST['idamb'];
@@ -13,17 +12,6 @@ $desdefe = $_POST['desdeFe'];
 $hastafe = $_POST['hastaFe'];
 
 $ventas = $pos->getTotalGruposVendidosMes($idamb, $desdefe, $hastafe);
-$cantidad = $pos->getCantidadGruposVendidosMes($idamb, $desdefe, $hastafe);
-
-if (count($cantidad) == 0) {
-    $canProd = 0;
-    $valProd = 0;
-    $perProd = 0;
-} else {
-    $canProd = $cantidad[0]['cant'];
-    $valProd = $cantidad[0]['ventas'];
-    $perProd = $cantidad[0]['pers'];
-}
 
 require_once '../../res/fpdf/fpdf.php';
 
@@ -40,15 +28,13 @@ $pdf->SetFont('Arial', '', 10);
 $pdf->Cell(195, 5, 'Desde  Fecha '.$desdefe.' Hasta Fecha '.$hastafe, 0, 1, 'C');
 $pdf->Ln(2);
 
-$pdf->SetFont('Arial', 'B', 8);
+$pdf->SetFont('Arial', 'B', 9);
 $pdf->Cell(60, 5, 'Grupo Productos', 1, 0, 'C');
 $pdf->Cell(20, 5, 'Cantidad ', 1, 0, 'C');
 $pdf->Cell(25, 5, 'Valor. ', 1, 0, 'C');
 $pdf->Cell(25, 5, 'Impuesto. ', 1, 0, 'C');
-$pdf->Cell(25, 5, 'Total. ', 1, 0, 'C');
-$pdf->Cell(20, 5, '% Cant. ', 1, 0, 'C');
-$pdf->Cell(20, 5, '% Valor. ', 1, 1, 'C');
-$pdf->SetFont('Arial', '', 8);
+$pdf->Cell(25, 5, 'Total. ', 1, 1, 'C');
+$pdf->SetFont('Arial', '', 9);
 
 $monto = 0;
 $impto = 0;
@@ -61,13 +47,11 @@ if (count($ventas) == 0) {
     $pdf->Ln(2);
 } else {
     foreach ($ventas as $comanda) {
-        $pdf->Cell(60, 4, utf8_decode($comanda['nombre_seccion']), 0, 0, 'L');
+        $pdf->Cell(60, 4, ($comanda['nombre_seccion']), 0, 0, 'L');
         $pdf->Cell(20, 4, $comanda['cant'], 0, 0, 'R');
         $pdf->Cell(25, 4, number_format($comanda['ventas'], 2), 0, 0, 'R');
         $pdf->Cell(25, 4, number_format($comanda['imptos'], 2), 0, 0, 'R');
-        $pdf->Cell(25, 4, number_format($comanda['total'], 2), 0, 0, 'R');
-        $pdf->Cell(20, 4, number_format(($comanda['cant'] / $canProd) * 100, 2), 0, 0, 'R');
-        $pdf->Cell(20, 4, number_format(($comanda['ventas'] / $valProd) * 100, 2), 0, 1, 'R');
+        $pdf->Cell(25, 4, number_format($comanda['total'], 2), 0, 1, 'R');
         $valprod = $valprod + $comanda['ventas'];
         $canti = $canti + $comanda['cant'];
         $monto = $monto + $comanda['ventas'];

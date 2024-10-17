@@ -46,13 +46,13 @@ if (count($ventas) == 0) {
     $pdf->Cell(195, 5, 'SIN PRODUCTOS VENDIDOS EN EL DIA', 1, 1, 'C');
 } else {
     foreach ($ventas as $comanda) {
-        $pdf->Cell(60, 5, utf8_decode($comanda['nombre_seccion']), 0, 0, 'L');
-        $pdf->Cell(20, 5, $comanda['cant'], 0, 0, 'C');
-        $pdf->Cell(25, 5, number_format($comanda['ventas'], 2), 0, 0, 'R');
-        $pdf->Cell(25, 5, number_format($comanda['imptos'], 2), 0, 0, 'R');
-        $pdf->Cell(25, 5, number_format($comanda['total'], 2), 0, 0, 'R');
-        $pdf->Cell(20, 5, number_format(($comanda['cant'] / $canProd) * 100, 2), 0, 0, 'R');
-        $pdf->Cell(20, 5, number_format(($comanda['ventas'] / $valProd) * 100, 2), 0, 1, 'R');
+        $pdf->Cell(60, 4, ($comanda['nombre_seccion']), 0, 0, 'L');
+        $pdf->Cell(20, 4, $comanda['cant'], 0, 0, 'C');
+        $pdf->Cell(25, 4, number_format($comanda['ventas'], 2), 0, 0, 'R');
+        $pdf->Cell(25, 4, number_format($comanda['imptos'], 2), 0, 0, 'R');
+        $pdf->Cell(25, 4, number_format($comanda['total'], 2), 0, 0, 'R');
+        $pdf->Cell(20, 4, number_format(($comanda['cant'] / $canProd) * 100, 2), 0, 0, 'R');
+        $pdf->Cell(20, 4, number_format(($comanda['ventas'] / $valProd) * 100, 2), 0, 1, 'R');
         $valprod = $valprod + $comanda['ventas'];
         $canti = $canti + $comanda['cant'];
         $monto = $monto + $comanda['ventas'];

@@ -44,11 +44,11 @@ if (count($ventas) == 0) {
     $pdf->Cell(20, 6, '% Cant. ', 0, 0, 'C');
     $pdf->Cell(20, 6, '% Valor. ', 0, 1, 'C');
     foreach ($ventas as $comanda) {
-        $pdf->Cell(60, 5, utf8_decode($comanda['nom']), 0, 0, 'L');
+        $pdf->Cell(60, 5, ($comanda['nom']), 0, 0, 'L');
         $pdf->Cell(20, 5, $comanda['cant'], 0, 0, 'C');
-        $pdf->Cell(25, 5, money_format('%.2n', $comanda['ventas']), 0, 0, 'R');
-        $pdf->Cell(25, 5, money_format('%.2n', $comanda['imptos']), 0, 0, 'R');
-        $pdf->Cell(25, 5, money_format('%.2n', $comanda['total']), 0, 0, 'R');
+        $pdf->Cell(25, 5, number_format($comanda['ventas'],2), 0, 0, 'R');
+        $pdf->Cell(25, 5, number_format($comanda['imptos'],2), 0, 0, 'R');
+        $pdf->Cell(25, 5, number_format($comanda['total'],2), 0, 0, 'R');
         $pdf->Cell(20, 5, number_format(($comanda['cant'] / $canProd) * 100, 2), 0, 0, 'R');
         $pdf->Cell(20, 5, number_format(($comanda['ventas'] / $valProd) * 100, 2), 0, 1, 'R');
         $valprod = $valprod + $comanda['ventas'];
@@ -60,9 +60,9 @@ if (count($ventas) == 0) {
     $pdf->Ln(2);
     $pdf->Cell(60, 6, 'Total ', 1, 0, 'L');
     $pdf->Cell(20, 6, number_format($canti, 0), 1, 0, 'R');
-    $pdf->Cell(25, 6, money_format('%.2n', $monto), 1, 0, 'R');
-    $pdf->Cell(25, 6, money_format('%.2n', $impto), 1, 0, 'R');
-    $pdf->Cell(25, 6, money_format('%.2n', $total), 1, 1, 'R');
+    $pdf->Cell(25, 6, number_format($monto,2), 1, 0, 'R');
+    $pdf->Cell(25, 6, number_format($impto,2), 1, 0, 'R');
+    $pdf->Cell(25, 6, number_format($total,2), 1, 1, 'R');
 }
 $pdf->Ln(3);
 

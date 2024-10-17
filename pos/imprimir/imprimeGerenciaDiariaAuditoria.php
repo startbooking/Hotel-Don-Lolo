@@ -33,7 +33,7 @@ $pdf->Ln(5);
 $pdf->Cell(45, 6, 'Descripcion', 1, 0, 'C');
 $pdf->Cell(25, 6, 'Acumulado Dia', 1, 0, 'C');
 $pdf->Cell(25, 6, 'Acumulado Mes', 1, 0, 'C');
-$pdf->Cell(25, 6, utf8_decode('Acumulado Año'), 1, 1, 'C');
+$pdf->Cell(25, 6, ('Acumulado Año'), 1, 1, 'C');
 $pdf->Cell(45, 6, 'Ventas', 1, 0, 'L');
 $pdf->Cell(25, 6, number_format($ventasDia[0]['ingreso_ventas'], 2), 1, 0, 'R');
 $pdf->Cell(25, 6, number_format($ventasMes[0]['mesVta'], 2), 1, 0, 'R');

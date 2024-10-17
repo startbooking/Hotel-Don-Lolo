@@ -41,7 +41,7 @@
       $pdf->SetFont('Arial','',10);
       $pdf->Cell(30,5,'RAZON SOCIAL',0,0,'L');
       $pdf->SetFont('Arial','B',10);
-      $pdf->Cell(70,5,utf8_decode($datosCompania[0]['empresa']),0,0,'L');
+      $pdf->Cell(70,5,($datosCompania[0]['empresa']),0,0,'L');
       $pdf->SetFont('Arial','',10);
       $pdf->Cell(10,5,'NIT.',0,0,'L');
       $pdf->SetFont('Arial','B',10);
@@ -49,11 +49,11 @@
       $pdf->SetFont('Arial','',10);
       $pdf->Cell(30,5,'DIRECCION',0,0,'L');
       $pdf->SetFont('Arial','B',10);
-      $pdf->Cell(70,5,utf8_decode($datosCompania[0]['direccion']),0,0,'L');
+      $pdf->Cell(70,5,($datosCompania[0]['direccion']),0,0,'L');
       $pdf->SetFont('Arial','',10);
       $pdf->Cell(20,5,'CIUDAD',0,0,'L');
       $pdf->SetFont('Arial','B',10);
-      $pdf->Cell(30,5,utf8_decode($hotel->getCityName($datosCompania[0]['ciudad'])),0,0,'L');
+      $pdf->Cell(30,5,($hotel->getCityName($datosCompania[0]['ciudad'])),0,0,'L');
       $pdf->SetFont('Arial','',10);
       $pdf->Cell(25,5,'TELEFONO',0,0,'L');
       $pdf->SetFont('Arial','B',10);
@@ -63,7 +63,7 @@
     $pdf->SetFont('Arial','',10);
     $pdf->Cell(30,5,'CLIENTE',0,0,'L');
     $pdf->SetFont('Arial','B',10);
-    $pdf->Cell(70,5,utf8_decode($datosHuesped[0]["apellido1"].' '.$datosHuesped[0]["apellido2"].' '.$datosHuesped[0]["nombre1"].' '.$datosHuesped[0]["nombre2"]),0,0,'L');
+    $pdf->Cell(70,5,($datosHuesped[0]["apellido1"].' '.$datosHuesped[0]["apellido2"].' '.$datosHuesped[0]["nombre1"].' '.$datosHuesped[0]["nombre2"]),0,0,'L');
     $pdf->SetFont('Arial','',10);
     $pdf->Cell(35,5,'IDENTIFICACION',0,0,'L');
     $pdf->SetFont('Arial','B',10);
@@ -71,11 +71,11 @@
     $pdf->SetFont('Arial','',10);
     $pdf->Cell(30,5,'DIRECCION',0,0,'L');
     $pdf->SetFont('Arial','B',10);
-    $pdf->Cell(70,5,utf8_decode($datosHuesped[0]['direccion']),0,0,'L');
+    $pdf->Cell(70,5,($datosHuesped[0]['direccion']),0,0,'L');
     $pdf->SetFont('Arial','',10);
     $pdf->Cell(15,5,'CIUDAD',0,0,'L');
     $pdf->SetFont('Arial','B',10);
-    $pdf->Cell(30,5,substr(utf8_decode($hotel->getCityName($datosHuesped[0]['ciudad'])),0,12),0,0,'L');
+    $pdf->Cell(30,5,substr(($hotel->getCityName($datosHuesped[0]['ciudad'])),0,12),0,0,'L');
     $pdf->SetFont('Arial','',10);
     $pdf->Cell(20,5,'TELEFONO',0,0,'L');
     $pdf->SetFont('Arial','B',10);
@@ -85,13 +85,13 @@
   $pdf->SetFont('Arial','',10);
   $pdf->Cell(30,5,'Huesped ',0,0,'L');
   $pdf->SetFont('Arial','B',10);
-  $pdf->Cell(70,5,utf8_decode($datosHuesped[0]["apellido1"].' '.$datosHuesped[0]["apellido2"].' '.$datosHuesped[0]["nombre1"].' '.$datosHuesped[0]["nombre2"]),0,0,'L');
+  $pdf->Cell(70,5,($datosHuesped[0]["apellido1"].' '.$datosHuesped[0]["apellido2"].' '.$datosHuesped[0]["nombre1"].' '.$datosHuesped[0]["nombre2"]),0,0,'L');
   $pdf->SetFont('Arial','',10);
   $pdf->Cell(25,5,'Identificacion',0,0,'L');
   $pdf->SetFont('Arial','B',10);
   $pdf->Cell(25,5,$datosHuesped[0]['identificacion'],0,1,'L');
   $pdf->SetFont('Arial','',10);
-  $pdf->Cell(47,5,utf8_decode('ADULTOS / NIÑOS'),1,0,'C');  
+  $pdf->Cell(47,5,('ADULTOS / NIÑOS'),1,0,'C');  
   $pdf->Cell(47,5,'HABITACION',1,0,'C');
   $pdf->Cell(48,5,'TARIFA',1,0,'C');
   $pdf->Cell(48,5,'HORAL SALIDA',1,1,'C');
@@ -124,7 +124,7 @@
   $pagos    = 0;
   $total    = $consumos + $impto;
   foreach ($folios as $folio1) {
-    $pdf->Cell(85,5,utf8_decode($folio1['descripcion_cargo']),1,0,'L');
+    $pdf->Cell(85,5,($folio1['descripcion_cargo']),1,0,'L');
     $pdf->Cell(15,5,$folio1['cant'],1,0,'C');
     $pdf->Cell(30,5,number_format($folio1['cargos'],2),1,0,'R');
     $pdf->Cell(30,5,number_format($folio1['imptos'],2),1,0,'R');
@@ -184,7 +184,7 @@
   $pdf->SetY(233);
   $pdf->MultiCell(95,4,'FACTURA IMPRESA POR COMPUTADOR. Resolucion Nro 18762015917578 del 2019-07-26 Autoriza desde el No 1 al No 5000, Esta Factura de venta se asimila en todos sus efectos a una leta de cambio Art. 774 del Codigo de Comercio, Actvidad Economica Principal 5511 tarifa 4.00 x 1000',1,'C');
   $pdf->Ln(1);
-  $pdf->MultiCell(190,4,utf8_decode('Entiendo mi Responsabilidad por esta cuenta sigue vigente y me hago responsable en el caso que la persona, compañia o asociacion indicada dejase de pagar parcial o totalmente la suma de los cargos alli especificados'),0,'C');
+  $pdf->MultiCell(190,4,('Entiendo mi Responsabilidad por esta cuenta sigue vigente y me hago responsable en el caso que la persona, compañia o asociacion indicada dejase de pagar parcial o totalmente la suma de los cargos alli especificados'),0,'C');
 
   $file = 'facturas/Factura_'.$nroFactura.'.pdf';
   $pdf->Output($file,'F');

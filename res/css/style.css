@@ -51,6 +51,10 @@ body.is-loading * {
   padding: 20px;
 }
 
+.pd10{
+  padding: 10px;
+}
+
 .sencilla label,
 .doble label {
   display: grid;

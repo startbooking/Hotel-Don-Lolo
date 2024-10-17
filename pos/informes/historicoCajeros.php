@@ -1,5 +1,4 @@
 <?php
-// require_once '../../res/php/titles.php';
 require_once '../../res/php/app_topPos.php';
 
 $fecha = $_POST['fecha'];
@@ -27,7 +26,7 @@ $ayer  = date('Y-m-d', $ayer);
                 <label style="padding:0" for="direccion" class="col-sm-2 control-label">Fecha Movimiento </label>
                 <div class="col-sm-4 has-success has-feedback">
                   <div class="input-group">
-                    <input style="line-height: 15px;padding:0 10px" type="date" class="form-control" id="buscarFecha" aria-describedby="inputGroupSuccess4Status" value="<?= $fecha ?>" max="<?= $fecha ?>">
+                    <input style="line-height: 15px;padding:0 10px" type="date" class="form-control" id="buscarFecha" aria-describedby="inputGroupSuccess4Status" value="<?= $ayer ?>" max="<?= $fecha ?>">
                     <span class="input-group-addon" style="padding:1px;border:none">
                     </span>
                   </div>

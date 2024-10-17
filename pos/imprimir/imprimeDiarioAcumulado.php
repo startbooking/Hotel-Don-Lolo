@@ -20,9 +20,9 @@ $pdf->Cell(20, 5, 'VENTAS DIA', 1, 0, 'C');
 $pdf->Cell(20, 5, 'CANT MES', 1, 0, 'C');
 $pdf->Cell(25, 5, 'IMPUESTO', 1, 0, 'C');
 $pdf->Cell(25, 5, 'VENTAS MES', 1, 0, 'C');
-$pdf->Cell(20, 5, utf8_decode('CANT AÑO'), 1, 0, 'C');
+$pdf->Cell(20, 5, ('CANT AÑO'), 1, 0, 'C');
 $pdf->Cell(25, 5, 'IMPUESTO', 1, 0, 'C');
-$pdf->Cell(25, 5, utf8_decode('VENTAS AÑO'), 1, 1, 'C');
+$pdf->Cell(25, 5, ('VENTAS AÑO'), 1, 1, 'C');
 $pdf->SetFont('Arial', '', 9);
 $pdf->Ln(1);
 
@@ -48,7 +48,7 @@ foreach ($productos as $producto) {
     $nommes = array_search($idprod, array_column($mesvta, 'producto_id'));
     $nomanio = array_search($idprod, array_column($aniovta, 'producto_id'));
 
-    $pdf->Cell(60, 4, utf8_decode(substr($producto['nom'], 0, 28)), 0, 0, 'L');
+    $pdf->Cell(60, 4, (substr($producto['nom'], 0, 28)), 0, 0, 'L');
 
     if ($nomdia != '') {
         $pdf->Cell(20, 4, number_format($diavta[$nomdia]['cant'], 0), 0, 0, 'R');
@@ -92,7 +92,7 @@ foreach ($productos as $producto) {
 $pdf->Ln(3);
 $pdf->SetFont('Arial', 'B', 9);
 
-$pdf->Cell(60, 5, utf8_decode(substr('TOTAL INGRESOS', 0, 30)), 0, 0, 'L');
+$pdf->Cell(60, 5, (substr('TOTAL INGRESOS', 0, 30)), 0, 0, 'L');
 $pdf->Cell(20, 5, number_format($totingdia, 0), 0, 0, 'R');
 $pdf->Cell(20, 5, number_format($totimpdia, 2), 0, 0, 'R');
 $pdf->Cell(20, 5, number_format($totvendia, 2), 0, 0, 'R');

@@ -20,9 +20,9 @@ $pdf->Cell(20, 5, 'VENTAS DIA', 0, 0, 'C');
 $pdf->Cell(20, 5, 'CANT MES', 0, 0, 'C');
 $pdf->Cell(25, 5, 'IMPUESTO', 0, 0, 'C');
 $pdf->Cell(25, 5, 'VENTAS MES', 0, 0, 'C');
-$pdf->Cell(20, 5, utf8_decode('CANT AÑO'), 0, 0, 'C');
+$pdf->Cell(20, 5, ('CANT AÑO'), 0, 0, 'C');
 $pdf->Cell(25, 5, 'IMPUESTO', 0, 0, 'C');
-$pdf->Cell(25, 5, utf8_decode('VENTAS AÑO'), 0, 1, 'C');
+$pdf->Cell(25, 5, ('VENTAS AÑO'), 0, 1, 'C');
 
 $codigos = $pos->getSeccionesPos($idamb);
 
@@ -46,7 +46,7 @@ foreach ($codigos as $codigo) {
     $nommes = array_search($idgrupo, array_column($mesvta, 'id_seccion'));
     $nomanio = array_search($idgrupo, array_column($aniovta, 'id_seccion'));
 
-    $pdf->Cell(60, 4, utf8_decode(substr($codigo['nombre_seccion'], 0, 30)), 0, 0, 'L');
+    $pdf->Cell(60, 4, (substr($codigo['nombre_seccion'], 0, 30)), 0, 0, 'L');
 
     if ($nomdia != '') {
         $pdf->Cell(20, 4, number_format($diavta[$nomdia]['cant'], 0), 0, 0, 'R');
@@ -90,7 +90,7 @@ foreach ($codigos as $codigo) {
 $pdf->Ln(3);
 $pdf->SetFont('Arial', 'b', 10);
 
-$pdf->Cell(60, 6, utf8_decode(substr('TOTAL INGRESOS', 0, 30)), 0, 0, 'L');
+$pdf->Cell(60, 6, (substr('TOTAL INGRESOS', 0, 30)), 0, 0, 'L');
 $pdf->Cell(20, 6, number_format($totingdia, 0), 0, 0, 'R');
 $pdf->Cell(20, 6, number_format($totimpdia, 2), 0, 0, 'R');
 $pdf->Cell(20, 6, number_format($totvendia, 2), 0, 0, 'R');

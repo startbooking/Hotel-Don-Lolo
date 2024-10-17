@@ -1,7 +1,4 @@
 <?php
-
-require '../../res/php/titles.php';
-// require '../../res/php/app_topInventario.php';
 require '../../res/php/app_topPos.php';
 
 $idamb = $_POST['id_ambiente'];
@@ -15,7 +12,8 @@ $desdefe = $_POST['desdeFe'];
 $hastafe = $_POST['hastaFe'];
 
 $ventas = $pos->getTotalProductosVendidosMes($idamb, $desdefe, $hastafe);
-$kardexs = $inven->getTraeKardex($bodega);
+// $kardexs = $inven->getTraeKardex($bodega);
+$kardexs = [];
 
 require_once '../../res/fpdf/fpdf.php';
 
@@ -38,15 +36,16 @@ $total = 0;
 $valprod = 0;
 $descuen = 0;
 $canti = 0;
+$impu = 0;
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(60, 6, 'Producto.', 1, 0, 'C');
 $pdf->Cell(20, 6, 'Valor Unit. ', 1, 0, 'C');
 $pdf->Cell(20, 6, 'Cantidad ', 1, 0, 'C');
-// $pdf->Cell(20, 6, 'Descuento. ', 1, 0, 'C');
-// $pdf->Cell(20, 6, 'Impuesto. ', 1, 0, 'C');
-$pdf->Cell(20, 6, 'Total. ', 1, 0, 'C');
-$pdf->Cell(20, 6, 'Costo Unit. ', 1, 0, 'C');
-$pdf->Cell(20, 6, 'Total Costo ', 1, 1, 'C');
+$pdf->Cell(20, 6, 'Sub Total. ', 1, 0, 'C');
+/* $pdf->Cell(20, 6, 'Costo Unit. ', 1, 0, 'C');
+*/
+$pdf->Cell(20, 6, 'Impuesto ', 1, 0, 'C'); 
+$pdf->Cell(20, 6, 'Total ', 1, 1, 'C'); 
 $pdf->SetFont('Arial', '', 8);
 
 if (count($ventas) == 0) {
@@ -64,7 +63,7 @@ if (count($ventas) == 0) {
         $pdf->Cell(20, 4, $comanda['cant'], 0, 0, 'R');
         $pdf->Cell(20, 4, number_format($comanda['ventas'], 2), 0, 0, 'R');
 
-        if ($regis != '') {
+        /* if ($regis != '') {
             if ($kardexs[$regis]['promedio'] == '') {
                 $costoPro = 0;
             } else {
@@ -73,11 +72,14 @@ if (count($ventas) == 0) {
         }
 
         $pdf->Cell(20, 4, number_format($costoPro, 2), 0, 0, 'R');
-        $pdf->Cell(20, 4, number_format($costoPro * $comanda['cant'], 2), 0, 1, 'R');
+        */
+        $pdf->Cell(20, 4, number_format($comanda['imptos'], 2), 0, 0, 'R'); 
+        $pdf->Cell(20, 4, number_format($comanda['ventas']+$comanda['imptos'], 2), 0, 1, 'R'); 
         $valprod = $valprod + $comanda['ventas'];
         $descuen = $descuen + $comanda['descuento'];
         $canti = $canti + $comanda['cant'];
         $monto = $monto + $comanda['ventas'];
+        $impu = $impu + $comanda['imptos'];
         $total = $total + $comanda['total'];
     }
 
@@ -88,8 +90,8 @@ if (count($ventas) == 0) {
     // $pdf->Cell(20, 5, number_format($descuen, 2), 1, 0, 'R');
     // $pdf->Cell(20, 5, number_format($impto, 2), 1, 0, 'R');
     // $pdf->Cell(20, 5, number_format($total, 2), 1, 0, 'R');
-    $pdf->Cell(20, 5, number_format(0, 2), 1, 0, 'R');
-    $pdf->Cell(20, 5, number_format(0, 2), 1, 1, 'R');
+    $pdf->Cell(20, 5, number_format($impu, 2), 1, 0, 'R');
+    $pdf->Cell(20, 5, number_format($monto+$impu, 2), 1, 1, 'R');
 }
 
 $pdf->Ln(3);

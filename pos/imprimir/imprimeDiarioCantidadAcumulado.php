@@ -17,7 +17,7 @@ $pdf->Cell(60, 5, 'PRODUCTO ', 1, 0, 'C');
 $pdf->Cell(30, 5, 'PRECIO. ', 1, 0, 'C');
 $pdf->Cell(20, 5, 'CANT. ', 1, 0, 'C');
 $pdf->Cell(20, 5, 'CANT MES', 1, 0, 'C');
-$pdf->Cell(20, 5, utf8_decode('CANT AÑO'), 1, 1, 'C');
+$pdf->Cell(20, 5, ('CANT AÑO'), 1, 1, 'C');
 $pdf->SetFont('Arial', '', 9);
 $pdf->Ln(1);
 
@@ -37,7 +37,7 @@ foreach ($productos as $producto) {
     $nommes = array_search($idprod, array_column($mesvta, 'producto_id'));
     $nomanio = array_search($idprod, array_column($aniovta, 'producto_id'));
 
-    $pdf->Cell(60, 4, utf8_decode(substr($producto['nom'], 0, 28)), 0, 0, 'L');
+    $pdf->Cell(60, 4, (substr($producto['nom'], 0, 28)), 0, 0, 'L');
     $pdf->Cell(30, 4, number_format($producto['venta'], 2), 0, 0, 'R');
 
     if ($nomdia != '') {

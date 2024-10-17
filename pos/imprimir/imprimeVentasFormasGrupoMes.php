@@ -69,7 +69,7 @@ if (count($ventas) == 0) {
   $pdf->Cell(20, 6, '% Valor. ', 1, 1, 'C');
   $pdf->SetFont('Arial', '', 8);
   foreach ($ventas as $comanda) {
-    $pdf->Cell(60, 4, utf8_decode($comanda['nombre_seccion']), 0, 0, 'L');
+    $pdf->Cell(60, 4, ($comanda['nombre_seccion']), 0, 0, 'L');
     $pdf->Cell(20, 4, $comanda['cant'], 0, 0, 'R');
     $pdf->Cell(25, 4, number_format($comanda['ventas'], 2), 0, 0, 'R');
     $pdf->Cell(25, 4, number_format($comanda['imptos'], 2), 0, 0, 'R');
