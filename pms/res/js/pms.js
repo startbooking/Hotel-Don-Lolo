@@ -5240,12 +5240,12 @@ async function reEnviaFactura(factura) {
   const eToken = await traeToken();
   let { token } = eToken[0];
   let recibeData = await enviaJSONFactura(jsonFactura, token);
+  let recibe = await recibeData.json();
   let { ok } = recibeData;
   if (!ok) {
     let vistaErr = await errorEnvio(recibeData);
-    let guarda = await guardaJSON(JSON.stringify(recibeData), jsonFactura);
+    // let guarda = await guardaJSON(JSON.stringify(recibeData), jsonFactura);
   } else {
-    let recibe = await recibeData.json();
     let {
       ResponseDian: {
         Envelope: {
@@ -5349,12 +5349,12 @@ async function reEnviaFactura(factura) {
         statusText: mensaje,
         status: "200 \n",
       };
-      let guarda = await guardaJSON(JSON.stringify(recibe), jsonFactura);
       let vistaErr = await errorEnvio(dataErr);
       let alerta = document.querySelector(".showSweetAlert");
       alerta.classList.add("anchoalerta");
     }
   }
+  let guarda = await guardaJSON(JSON.stringify(recibe), jsonFactura);
 }
 
 const enviaCorreoFactura = async (envioFAC, token) => {
@@ -5482,7 +5482,6 @@ const creaJSONFactura = async (factura) => {
 
 const enviaJSONFactura = async (jsonFactura, token) => {
   data = { jsonFactura };
-
   try {
     url = "https://api.nextpyme.plus/api/ubl2.1/invoice";
     // url =  'http://donlolo.lan/pms/api/prueba.json';
@@ -5515,13 +5514,13 @@ async function guardaAcompanante(e) {
   let dataHuesp = new FormData(formHuesped);
 
   let idreser = dataHuesp.get("idReservaAdiAco");
-  let fechanace = dataHuesp.get("fechanace");
+  /* let fechanace = dataHuesp.get("fechanace");
 
-  const edad = await restaEdad(fechanace);
+  const edad = await restaEdad(fechanace); */
 
   dataHuesp.append("usuario", usuario);
   dataHuesp.append("usuario_id", usuario_id);
-  dataHuesp.append("edad", parseInt(edad));
+  // dataHuesp.append("edad", parseInt(edad));
 
   $.ajax({
     type: "POST",
@@ -6051,8 +6050,7 @@ function accesoUsuarios() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user: { usuario, usuario_id, tipo }, } = sesion;
 
-  console.log(tipo);
-
+  // console.log(tipo);
   if (tipo > 2) {
     document.querySelector("#menuAuditoria").classList.add("apaga");
     document.querySelector("#menuCartera").classList.add("apaga");
@@ -6946,10 +6944,11 @@ async function salidaHuesped() {
     let facturado = await enviaPago(parametros);
     let { error, mensaje, factura, perfil, errorDian, archivo, folio } =
       facturado[0];
+      console.log(mensaje);
     if (error == "1") {
-      if (errorDian == "1") {
+      /* if (errorDian == "1") {
         mensaje = JSON.parse(mensaje);
-      }
+      } */
       let muestra = await muestraError(mensaje);
     } else {
       if (facturador == 1) {
@@ -6990,7 +6989,7 @@ async function salidaHuesped() {
             activaFolio(reserva, folio);
           }
         );
-      }mensaje
+      }
     }
   }
 }
@@ -7009,13 +7008,15 @@ async function errorEnvio(cErrors) {
 async function muestraError(cErrors){
   let { string } = cErrors ;
   let mensajeErr= '' ;
-
-  if(typeof string == 'string'){
-    mensajeErr += `<li class="justify">${string}</li>`;
+  if(typeof cErrors == 'string'){
+    mensajeErr += `<li class="justify">${cErrors}</li>`;
   }else {
-    for (let index = 0; index < string.length; index++) {
-      const element = string[index];
-      mensajeErr += `<li class="justify">${element}</li>`;
+    
+    for (const campo in cErrors) {
+      const errores = cErrors[campo];
+      for (const error of errores) {
+        mensajeErr += `<li class="justify">Campo: ${campo},  Error: ${error}</li>`;
+      }
     }
   }
 
@@ -7052,9 +7053,7 @@ const enviaPago = async (data) => {
 
 const anulaFacturaEnvio = async (factura, perfil) => {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {
-    user: { usuario, usuario_id, tipo },
-  } = sesion;
+  let {user: { usuario, usuario_id }, } = sesion;
 
   data = {
     factura,
@@ -7347,11 +7346,9 @@ function getCiudadesPaisAco(pais) {
 
 async function guardasinReserva() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {
-    user: { usuario, usuario_id },
-  } = sesion;
+  let { user: { usuario, usuario_id }, } = sesion;
   iden = $("#identifica").val();
-
+  
   if (iden == "") {
     swal("Precaucion", "Seleccione el Huesped a Reservar", "warning");
     return;
@@ -7360,7 +7357,8 @@ async function guardasinReserva() {
   var pagina = $("#ubicacion").val();
   let reserva = document.querySelector("#formReservas");
   let formData = new FormData(reserva);
-
+  
+  document.querySelector('#btnRegistra').setAttribute("disabled", pagina);
   let idhuesped = formData.get("idhuesped");
   let idcia = formData.get("empresaUpd");
 
@@ -7372,16 +7370,19 @@ async function guardasinReserva() {
   let nroRes = await ingresoSinReserva(formData);
   let cargo = await cargarHabitacionCkeckIn(nroRes.trim());
 
+  let errores = {...hErrors, ...cErrors};
+  console.log(errores)
+
   mensajeErr = "Huesped Registrado Con Exito \n";
-  if (hErrors.length > 0) {
+  /* if (hErrors.length > 0) {
     hErrors.map(function (error) {
       let { mensaje } = error;
       mensajeErr += mensaje + "\n";
     });
-  }
+  } */
 
-  if (cErrors.length > 0) {
-    cErrors.map(function (error) {
+  if (errores.length > 0) {
+    errores.map(function (error) {
       let { mensaje } = error;
       mensajeErr += mensaje + "\n";
     });
@@ -7394,7 +7395,7 @@ async function guardasinReserva() {
       closeOnConfirm: true,
     },
     function () {
-      $(location).attr("href", "home");
+      // $(location).attr("href", "home");
     }
   );
 }
@@ -9286,6 +9287,7 @@ function salidaHuespedCongelada() {
       url: web + "res/php/ingresoPago.php",
       data: parametros,
       success: function (data) {
+        console.log(data);
         var ventana = window.open(
           "imprimir/facturas/FES-" + data[0],
           "PRINT",

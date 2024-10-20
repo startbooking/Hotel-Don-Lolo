@@ -211,47 +211,47 @@ if ($perfilFac == 1 && $facturador == 1) {
 
     $tax_totals = [];
     foreach ($folios as $folio1) {
-        $taxfolio = [];
-        $taxTot = [];
-        if ($folio1['porcentaje_impto'] != 0) {
-            $taxTot = [
-                'tax_id' => $hotel->traeCodigoDianVenta($folio1['codigo_impto']),
-                'tax_amount' => $folio1['imptos'],
-                'percent' => number_format($folio1['porcentaje_impto'], 0),
-                'taxable_amount' => $folio1['cargos'],
-            ];
-            array_push($taxfolio, $taxTot);
-            array_push($tax_totals, $taxTot);
-        }
-        if ($folio1['porcentaje_impto'] != 0) {
-            $invo = [
-                'unit_measure_id' => $hotel->traeTipoUnidadDianVenta($folio1['id_codigo_cargo']),
-                'invoiced_quantity' => 1,
-                'line_extension_amount' => $folio1['cargos'],
-                'free_of_charge_indicator' => false,
-                'tax_totals' => $taxfolio,
-                'description' => $folio1['descripcion_cargo'],
-                'notes' => '',
-                'code' => $hotel->traeCodigoDianVenta($folio1['id_codigo_cargo']),
-                'type_item_identification_id' => 4,
-                'price_amount' => $folio1['cargos'] + $folio1['imptos'],
-                'base_quantity' => 1,
-            ];
-        } else {
-            $invo = [
-                'unit_measure_id' => $hotel->traeTipoUnidadDianVenta($folio1['id_codigo_cargo']),
-                'invoiced_quantity' => 1,
-                'line_extension_amount' => $folio1['cargos'],
-                'free_of_charge_indicator' => false,
-                'description' => $folio1['descripcion_cargo'],
-                'notes' => '',
-                'code' => $hotel->traeCodigoDianVenta($folio1['id_codigo_cargo']),
-                'type_item_identification_id' => 4,
-                'price_amount' => $folio1['cargos'] + $folio1['imptos'],
-                'base_quantity' => 1,
-            ];
-        }
-        array_push($eInvo, $invo);
+      $taxfolio = [];
+      $taxTot = [];
+      if ($folio1['porcentaje_impto'] != 0) {
+        $taxTot = [
+          'tax_id' => $hotel->traeCodigoDianVenta($folio1['codigo_impto']),
+          'tax_amount' => $folio1['imptos'],
+          'percent' => number_format($folio1['porcentaje_impto'], 0),
+          'taxable_amount' => $folio1['cargos'],
+        ];
+        array_push($taxfolio, $taxTot);
+        array_push($tax_totals, $taxTot);
+      }
+      if ($folio1['porcentaje_impto'] != 0) {
+        $invo = [
+          'unit_measure_id' => $hotel->traeTipoUnidadDianVenta($folio1['id_codigo_cargo']),
+          'invoiced_quantity' => 1,
+          'line_extension_amount' => $folio1['cargos'],
+          'free_of_charge_indicator' => false,
+          'tax_totals' => $taxfolio,
+          'description' => $folio1['descripcion_cargo'],
+          'notes' => '',
+          'code' => $hotel->traeCodigoDianVenta($folio1['id_codigo_cargo']),
+          'type_item_identification_id' => 4,
+          'price_amount' => $folio1['cargos'] + $folio1['imptos'],
+          'base_quantity' => 1,
+        ];
+      } else {
+        $invo = [
+          'unit_measure_id' => $hotel->traeTipoUnidadDianVenta($folio1['id_codigo_cargo']),
+          'invoiced_quantity' => 1,
+          'line_extension_amount' => $folio1['cargos'],
+          'free_of_charge_indicator' => false,
+          'description' => $folio1['descripcion_cargo'],
+          'notes' => '',
+          'code' => $hotel->traeCodigoDianVenta($folio1['id_codigo_cargo']),
+          'type_item_identification_id' => 4,
+          'price_amount' => $folio1['cargos'] + $folio1['imptos'],
+          'base_quantity' => 1,
+        ];
+      }
+      array_push($eInvo, $invo);
     }
     foreach ($tipoimptos as $impto) {
         if ($impto['porcentaje_impto'] != 0) {
@@ -307,8 +307,8 @@ if ($perfilFac == 1 && $facturador == 1) {
     }
 
     $oMode = [
-        "company" => "HOTEL DON LOLO LTDA - Nit .: 892992427 - 7",
-        "software" =>  "Facturación Electrónica - SACTel PMS ",
+      "company" => "HOTEL DON LOLO LTDA - Nit .: 892992427 - 7",
+      "software" =>  "Facturación Electrónica - SACTel PMS ",
     ];
 
     $eFact['customer'] = $eCust;
@@ -316,7 +316,7 @@ if ($perfilFac == 1 && $facturador == 1) {
     $eFact['legal_monetary_totals'] = $eLmon;
     $eFact['with_holding_tax_total'] = $eRete;
     if (count($eTaxe) > 0) {
-        $eFact['tax_totals'] = $eTaxe;
+      $eFact['tax_totals'] = $eTaxe;
     }
     $eFact['invoice_lines'] = $eInvo;
     $eFact['operation_mode'] = $oMode;
@@ -329,25 +329,18 @@ if ($perfilFac == 1 && $facturador == 1) {
     $recibeCurl = json_decode(trim($respofact), true);
 
     $errores = [];
+    $error = [];
+
     file_put_contents($envCurl, $eFact . ',',  FILE_APPEND | LOCK_EX);
     file_put_contents($arcCurl, $respofact . ',',  FILE_APPEND | LOCK_EX);
 
     $noAutorizado = $recibeCurl['message'];
-    $success = $recibeCurl['success'];
 
-    if(isset($recibeCurl['errors'])){
-        if($recibeCurl['errors'] != false) {
-            $errores = $recibeCurl['errors'];
-        }
-    }
-    $errorMessage = json_encode($recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['ErrorMessage']);
-    $Isvalid  = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['IsValid'];
-
-    $error = [
-        'error' => '0'
-    ];
-
-    if (count($errores) > 0) {
+    if ($noAutorizado == 'Unauthenticated.') {
+        $errores = [
+            'tipo.err' => [$noAutorizado],
+            'error.srv' => ['Usuario NO Autorizado en Facturacion Electronica'],
+        ];
         $error = [
             'error' => '1',
             'folio' => '0',
@@ -359,8 +352,31 @@ if ($perfilFac == 1 && $facturador == 1) {
         ];
         array_push($estadofactura, $error);
         echo json_encode($estadofactura);
-        return;
+        return ;
     }
+
+    if(isset($recibeCurl['errors'])){
+      if($recibeCurl['errors'] != false) {
+        $errores = $recibeCurl['errors'];
+      }
+      $error = [
+        'error' => '1',
+        'folio' => '0',
+        'mensaje' => $errores,
+        'factura' => $numfactura,
+        'errorDian' => '0',
+        'perfil' => $perfilFac,
+        'archivo' => '',
+      ];
+      array_push($estadofactura, $error);
+      echo json_encode($estadofactura);
+      return;
+    }
+
+    $success = $recibeCurl['success'];
+
+    $errorMessage = json_encode($recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['ErrorMessage']);
+    $Isvalid  = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['IsValid'];
 
     if ($noAutorizado == 'Unauthenticated.') {
         $error = [
@@ -407,56 +423,61 @@ if ($perfilFac == 1 && $facturador == 1) {
         return;
     }
 
-    $statusCode   = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['StatusCode'];
-    $statusDesc   = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['StatusDescription'];
-    $statusMess   = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['StatusMessage'];
+    if(count($error)==0){
+        $statusCode   = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['StatusCode'];
+        $statusDesc   = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['StatusDescription'];
+        $statusMess   = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['StatusMessage'];
 
-    $message = $recibeCurl['message'];
-    $sendSucc = $recibeCurl['send_email_success'];
-    $sendDate = $recibeCurl['send_email_date_time'];
+        $message = $recibeCurl['message'];
+        $sendSucc = $recibeCurl['send_email_success'];
+        $sendDate = $recibeCurl['send_email_date_time'];
 
-    $invoicexml = '';
-    $zipinvoicexml = '';
-    $unsignedinvoicexml = '';
-    $reqfe = '';
-    $rptafe = '';
-    $attacheddocument = '';
-    $urlinvoicexml = $recibeCurl['urlinvoicexml'];
-    $urlinvoicepdf = $recibeCurl['urlinvoicepdf'];
-    $cufe  = $recibeCurl['cufe'];
-    $QRStr = $recibeCurl['QRStr'];
-    $timeCrea   = $recibeCurl['dian_validation_date_time']['date'];
+        $invoicexml = '';
+        $zipinvoicexml = '';
+        $unsignedinvoicexml = '';
+        $reqfe = '';
+        $rptafe = '';
+        $attacheddocument = '';
+        $urlinvoicexml = $recibeCurl['urlinvoicexml'];
+        $urlinvoicepdf = $recibeCurl['urlinvoicepdf'];
+        $cufe  = $recibeCurl['cufe'];
+        $QRStr = $recibeCurl['QRStr'];
+        $timeCrea   = $recibeCurl['dian_validation_date_time']['date'];
 
-    $respo = '';
+        $respo = '';
 
-    $regis = $hotel->ingresaDatosFe($nroFactura, $prefijo, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cufe, $QRStr, '', $Isvalid, '', $errorMessage, $statusCode, $statusDesc, $statusMess);
+        $regis = $hotel->ingresaDatosFe($nroFactura, $prefijo, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cufe, $QRStr, '', $Isvalid, '', $errorMessage, $statusCode, $statusDesc, $statusMess);
 
-    include_once '../../imprimir/imprimeFactura.php';
+        include_once '../../imprimir/imprimeFactura.php';
 
-    $ePDF = [];
+        $ePDF = [];
 
-    $miFactura = strval($nroFactura);
+        $miFactura = strval($nroFactura);
 
-    $ePDF['prefix'] = $prefijo;
-    $ePDF['number'] = $miFactura;
-    $ePDF['base64graphicrepresentation'] = $base64Factura;
+        $ePDF['prefix'] = $prefijo;
+        $ePDF['number'] = $miFactura;
+        $ePDF['base64graphicrepresentation'] = $base64Factura;
 
-    if ($correofac != '') {
-        $correos = [];
-        $emailadi = [
-            'email' => $correofac,
-        ];
-        array_push($correos, $emailadi);
-        $ePDF['email_cc_list'] = $correos;
+        if ($correofac != '') {
+            $correos = [];
+            $emailadi = [
+                'email' => $correofac,
+            ];
+            array_push($correos, $emailadi);
+            $ePDF['email_cc_list'] = $correos;
+        }
+
+        $ePDF = json_encode($ePDF);
+
+        include_once '../../api/enviaPDF.php';
+        $recibePDF = json_decode($respopdf, true);
+
+        file_put_contents($envCurl, $ePDF . ',',  FILE_APPEND | LOCK_EX);
+        file_put_contents($arcCurl, $respopdf . ',',  FILE_APPEND | LOCK_EX);
     }
 
-    $ePDF = json_encode($ePDF);
+    // echo 'Paso a contador error mayor a 1 ';
 
-    include_once '../../api/enviaPDF.php';
-    $recibePDF = json_decode($respopdf, true);
-
-    file_put_contents($envCurl, $ePDF . ',',  FILE_APPEND | LOCK_EX);
-    file_put_contents($arcCurl, $respopdf . ',',  FILE_APPEND | LOCK_EX);
    
 } else {
     include_once '../../imprimir/imprimeReciboFactura.php';

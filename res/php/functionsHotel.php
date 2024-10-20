@@ -4443,6 +4443,7 @@ class Hotel_Actions
         ], [
             'fecha_factura' => FECHA_PMS,
             'factura' => 1,
+            'tipo_factura[<]' => 3,
             'ORDER' => ['factura_numero' => 'ASC'],
         ]);
 
@@ -5504,6 +5505,7 @@ class Hotel_Actions
         ], [
             'cargos_pms.fecha_cargo' => $fecha,
             'cargos_pms.factura' => 1,
+            'cargos_pms.tipo_factura[<]' => 3,
             'ORDER' => ['cargos_pms.factura_numero'],
         ]);
 

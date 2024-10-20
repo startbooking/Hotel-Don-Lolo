@@ -143,8 +143,7 @@
                   <?php
                   $ciudades = $hotel->getCiudades();
                   foreach ($ciudades as $ciudad) { ?>
-                    <option value="<?= $ciudad['id_ciudad'] ?>"><?= $ciudad['municipio'] . ' ' . $ciudad['depto'] ?></option>}
-                    option
+                    <option value="<?= $ciudad['id_ciudad'] ?>"><?= $ciudad['municipio'] . ' ' . $ciudad['depto'] ?></option>
                   <?php
                   }
                   ?>
@@ -159,8 +158,7 @@
                   <?php
                   $motivos = $hotel->getMotivoGrupo('MVI');
                   foreach ($motivos as $motivo) { ?>
-                    <option value="<?= $motivo['id_grupo'] ?>"><?= $motivo['descripcion_grupo'] ?></option>}
-                    option
+                    <option value="<?= $motivo['id_grupo'] ?>"><?= $motivo['descripcion_grupo'] ?></option>
                   <?php
                   }
                   ?>
@@ -173,8 +171,7 @@
                   <?php
                   $motivos = $hotel->getMotivoGrupo('FRE');
                   foreach ($motivos as $motivo) { ?>
-                    <option value="<?= $motivo['id_grupo'] ?>"><?= $motivo['descripcion_grupo'] ?></option>}
-                    option
+                    <option value="<?= $motivo['id_grupo'] ?>"><?= $motivo['descripcion_grupo'] ?></option>
                   <?php
                   }
                   ?>
@@ -189,8 +186,7 @@
                   <?php
                   $motivos = $hotel->getMotivoGrupo('SME');
                   foreach ($motivos as $motivo) { ?>
-                    <option value="<?= $motivo['id_grupo'] ?>"><?= $motivo['descripcion_grupo'] ?></option>}
-                    option
+                    <option value="<?= $motivo['id_grupo'] ?>"><?= $motivo['descripcion_grupo'] ?></option>
                   <?php
                   }
                   ?>
@@ -243,7 +239,7 @@
           <div class="panel-footer">
             <div class="btn-group" style="width: 30%;margin-left:35%">
               <a style="width: 50%" type="button" class="btn btn-warning" href="index"><i class="fa fa-reply"></i> Cancelar</a>
-              <button style="width: 50%;" class="btn btn-success"><i class="fa fa-save"></i> Registrar</button>
+              <button id="btnRegistra" style="width: 50%;" class="btn btn-success"><i class="fa fa-save"></i> Registrar</button>
             </div>
           </div>
         </form>

@@ -92,7 +92,7 @@
               <input type="hidden" name="idReservaAdiAco" id="idReservaAdiAco">
               <input type="hidden" name="nuevoPax" id="nuevoPax" value="1">
               <input type="hidden" name="idHuesAdi" id="idHuesAdi">
-              <input type="text" class="form-control" name="identificaAdiAco" id="identificaAdiAco" placeholder="Identificacion" onblur="buscaHuespedAcompanante(this.value)">
+              <input type="text" class="form-control" name="identificaAdiAco" id="identificaAdiAco" placeholder="Identificacion" onblur="buscaHuespedAcompanante(this.value)" required>
             </div>
             <label for="inputEmail3" class="col-sm-2 control-label">Tipo </label>
             <div class="col-sm-3">
@@ -147,7 +147,7 @@
             <div class="col-sm-3">
               <input type="text" class="form-control" name="nombre2" id="nombre2" placeholder="Segundo Nombre">
             </div>
-            <div class="col-sm-2" style="padding:0">
+            <!-- <div class="col-sm-2" style="padding:0">
               <div class="col-sm-6" style="padding:0;height: 15px">
                 <div class="form-check form-check-inline">
                   <input style="margin-top:5px" class="form-check-input" type="radio" name="sexOption" id="inlineRadio1" value="1" checked>
@@ -160,15 +160,15 @@
                   <label style="margin-top:-21px;margin-left:25px" class="form-check-label" for="inlineRadio2">Fem.</label>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label for="direccion" class="col-sm-2 control-label">Direccion </label>
             <div class="col-sm-8">
               <input type="text" class="form-control" name="direccion" id="direccion" placeholder="Direccion" pattern="[A-Za-z0-9 ]+">
             </div>
-          </div>
-          <div class="form-group">
+          </div> -->
+          <!-- <div class="form-group">
             <label for="paices" class="col-sm-2 control-label">Nacionalidad </label>
             <div class="col-sm-4">
               <select name="paices" id="paices" onblur="getCiudadesPaisAco(this.value)" required="">
@@ -199,18 +199,18 @@
             <div class="col-sm-4">
               <input type="text" class="form-control" name="celular" id="celular" placeholder="Nro celular" minlength="10" maxlength="18" pattern="[0-9]+">
             </div>
-          </div>
+          </div> -->
           <div class="form-group">
             <label for="correo" class="col-sm-2 control-label">Correo </label>
             <div class="col-sm-4">
-              <input type="email" class="form-control" name="correo" id="correo" placeholder="Correo Electronico" required>
+              <input type="email" class="form-control" name="correo" id="correo" placeholder="Correo Electronico" required onblur="valitedEmail(this.value)">
             </div>
-            <label for="fechanace" class="col-sm-2 control-label">Fecha Nacimiento </label>
+            <!-- <label for="fechanace" class="col-sm-2 control-label">Fecha Nacimiento </label>
             <div class="col-sm-4">
               <input type="date" class="form-control" name="fechanace" id="fechanace" placeholder="" value="<?php echo $hoy; ?>" max="<?php echo $hoy; ?>" required="">
-            </div>
+            </div> -->
           </div>
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label for="fechanace" class="col-sm-2 control-label">Tipo Persona </label>
             <div class="col-sm-4">
               <select name="tipoAdquiriente" id="tipoAdquiriente" required>
@@ -237,8 +237,8 @@
                 ?>
               </select>
             </div>
-          </div>
-          <div class="form-group">
+          </div> -->
+          <!-- <div class="form-group">
             <label for="correo" class="col-sm-2 control-label">Tipo Obligacion </label>
             <div class="col-sm-4">
               <select name="responsabilidadTribu" id="responsabilidadTribu" required>
@@ -280,7 +280,7 @@
                 } ?>
               </select>
             </div>
-          </div>
+          </div> -->
         </div>
         <div class="modal-footer">
           <div class="btn-group">

@@ -38,6 +38,7 @@ WHERE";
   $filtro = " historico_cargos_pms.fecha_factura BETWEEN '$desdeFe' 
 	AND '$hastaFe' 
 	AND historico_cargos_pms.factura = 1 
+	AND historico_cargos_pms.tipo_factura < 3 
 	AND historico_cargos_pms.factura_numero = historicoDatosFE.facturaNumero 
 	AND historico_cargos_pms.id_huesped = huespedes.id_huesped
 	AND historico_cargos_pms.id_perfil_factura = companias.id_compania
@@ -70,6 +71,7 @@ WHERE ";
   $filtro = "historico_cargos_pms.fecha_factura BETWEEN '$desdeFe' 
 	AND '$hastaFe' 
 	AND historico_cargos_pms.factura = 1 
+	AND historico_cargos_pms.tipo_factura < 3 
 	AND historico_cargos_pms.factura_numero = historicoDatosFE.facturaNumero 
 	and historico_cargos_pms.id_huesped = huespedes.id_huesped";
 }

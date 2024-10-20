@@ -284,7 +284,7 @@ $respofact04 = '
   "absolut_plan": null
 }';
 
-$respofact = '{
+$respofact06 = '{
   "success": true,
   "message": "AttachedDocument #HDL18463 generada con \u00e9xito",
   "send_email_success": false,
@@ -342,7 +342,7 @@ $respofact = '{
   "attacheddocument": "",
   "urlinvoicexml": "FES-HDL18463.xml",
   "urlinvoicepdf": "FES-HDL18463.pdf",
-  "urlinvoiceattached": "ad08920024270002439942979.xml",
+  "urlinvoiceattachrespofacted": "ad08920024270002439942979.xml",
   "cufe": "bc22165ae36e137219a40b5880893f5fee70adc96415ef317e50776795200991d299cb63ecc4bb18562ca5e510c550c2",
   "uuid_dian": "bc22165ae36e137219a40b5880893f5fee70adc96415ef317e50776795200991d299cb63ecc4bb18562ca5e510c550c2",
   "dian_validation_date_time": {
@@ -353,4 +353,34 @@ $respofact = '{
   "QRStr": "NumFac: 18463\nFecFac: 2024-10-01\nNitFac: 892002427\nDocAdq: 890207037\nValFac: 557526.22\nValIva: 3688.15\nValOtroIm: 0.00\nValTotal: 662995\nCUFE: bc22165ae36e137219a40b5880893f5fee70adc96415ef317e50776795200991d299cb63ecc4bb18562ca5e510c550c2\nhttps:\/\/catalogo-vpfe.dian.gov.co\/document\/searchqr?documentkey=bc22165ae36e137219a40b5880893f5fee70adc96415ef317e50776795200991d299cb63ecc4bb18562ca5e510c550c2",
   "certificate_days_left": 241,
   "resolution_days_left": 47,
-  "absolut_plan": null }';
+  "absolut_plan": null 
+}';
+
+$respofact07 = '{"message":"Unauthenticated."}'; // error de Autenticacion - No se conecta al Servidor 
+
+
+// Errores DIAN
+$respofact = '{ 
+  "message": "The given data was invalid.",
+  "errors": {
+    "customer.dv": [
+      "Error, el digito de verificacion no es valido para este NIT."
+    ]
+  }
+}';
+
+
+$respofact09 = '{
+  "message": "The given data was invalid.",
+  "errors": {
+    "customer.identification_number": [
+      "El campo customer.identification number es obligatorio."
+    ],
+    "customer.name": [
+      "El campo customer.name es obligatorio."
+    ],
+    "customer.email": [
+      "El campo customer.email es obligatorio a menos que customer.identification number esté en 222222222222."
+    ]
+  }
+}';
