@@ -104,7 +104,7 @@ if (!isset($_GET['section'])) {
     $paices = $hotel->getPaices();
 } elseif (isset($_GET['section']) && $_GET['section'] == 'encasa') {
     $reservas = $hotel->getHuespedesenCasa(2, 'CA');
-    $paices = $hotel->getPaices();
+    $paices = $hotel->getPaices(); 
 } elseif (isset($_GET['section']) && $_GET['section'] == 'grupos') {
     $grupos = $hotel->getGrupos();
 } elseif (isset($_GET['section']) && $_GET['section'] == 'llegadasDelDia') {

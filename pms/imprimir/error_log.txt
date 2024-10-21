@@ -1,0 +1,713 @@
+[20-Oct-2024 09:48:00 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 14
+[20-Oct-2024 09:48:00 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 14
+[20-Oct-2024 09:48:00 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 15
+[20-Oct-2024 09:48:00 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 15
+[20-Oct-2024 09:48:00 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 17
+[20-Oct-2024 09:48:00 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 17
+[20-Oct-2024 09:48:00 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 49
+[20-Oct-2024 09:48:00 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 49
+[20-Oct-2024 09:48:00 America/Bogota] PHP Deprecated:  str_pad(): Passing null to parameter #1 ($string) of type string is deprecated in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 49
+[20-Oct-2024 09:48:00 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 53
+[20-Oct-2024 09:48:00 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 53
+[20-Oct-2024 09:48:00 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 57
+[20-Oct-2024 09:48:00 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 57
+[20-Oct-2024 09:48:00 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 61
+[20-Oct-2024 09:48:00 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 61
+[20-Oct-2024 09:48:00 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 09:48:00 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 09:48:00 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 09:48:00 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 09:48:00 America/Bogota] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 09:48:00 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 09:48:00 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 09:48:00 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 09:48:00 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 09:48:00 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 09:48:00 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 09:48:00 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 09:48:00 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 09:48:00 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 09:48:00 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 09:48:00 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 09:48:00 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 09:48:00 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 74
+[20-Oct-2024 09:48:00 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 74
+[20-Oct-2024 09:48:00 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 98
+[20-Oct-2024 09:48:00 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 98
+[20-Oct-2024 09:48:00 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 103
+[20-Oct-2024 09:48:00 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 103
+[20-Oct-2024 09:48:00 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 1952
+[20-Oct-2024 09:48:00 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/res/php/functionsHotel.php on line 1952
+[20-Oct-2024 09:48:00 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 1952
+[20-Oct-2024 09:48:00 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/res/php/functionsHotel.php on line 1952
+[20-Oct-2024 09:48:00 America/Bogota] PHP Warning:  file_put_contents(reservas/ConfirmacionReserva_Array
+(
+    [tipoocupacion] =&gt; 1
+    [estadoocupacion] =&gt; ES
+    [sexo] =&gt; 1
+    [idhuesped] =&gt; 40166
+    [identifica] =&gt; 1018482494
+    [idcia] =&gt; 0
+    [imptoOption] =&gt; 1
+    [empresaUpd] =&gt; 0
+    [llegada] =&gt; 2025-01-01
+    [noches] =&gt; 3
+    [salida] =&gt; 2025-01-04
+    [hombres] =&gt; 1
+    [mujeres] =&gt; 1
+    [ninos] =&gt; 0
+    [orden] =&gt; 
+    [tipohabi] =&gt; 11
+    [nrohabitacion] =&gt; 902
+    [tarifahab] =&gt; 123
+    [valortar] =&gt;   255136
+    [origen] =&gt; 149
+    [destino] =&gt; 149
+    [motivo] =&gt; 
+    [fuente] =&gt; 
+    [segmento] =&gt; 
+    [formapago] =&gt; 
+    [observaciones] =&gt; 
+    [usuario] =&gt; NAYITG
+    [idusuario] =&gt; 35
+)
+190215647.pdf): Failed to open stream: Nombre de archivo demasiado largo in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1026
+[20-Oct-2024 09:48:00 America/Bogota] PHP Fatal error:  Uncaught Exception: FPDF error: Unable to create output file: reservas/ConfirmacionReserva_Array
+(
+    [tipoocupacion] => 1
+    [estadoocupacion] => ES
+    [sexo] => 1
+    [idhuesped] => 40166
+    [identifica] => 1018482494
+    [idcia] => 0
+    [imptoOption] => 1
+    [empresaUpd] => 0
+    [llegada] => 2025-01-01
+    [noches] => 3
+    [salida] => 2025-01-04
+    [hombres] => 1
+    [mujeres] => 1
+    [ninos] => 0
+    [orden] => 
+    [tipohabi] => 11
+    [nrohabitacion] => 902
+    [tarifahab] => 123
+    [valortar] =>   255136
+    [origen] => 149
+    [destino] => 149
+    [motivo] => 
+    [fuente] => 
+    [segmento] => 
+    [formapago] => 
+    [observaciones] => 
+    [usuario] => NAYITG
+    [idusuario] => 35
+)
+190215647.pdf in /var/www/donlolo.lan/res/fpdf/fpdf.php:267
+Stack trace:
+#0 /var/www/donlolo.lan/res/fpdf/fpdf.php(1027): FPDF->Error()
+#1 /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php(120): FPDF->Output()
+#2 {main}
+  thrown in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 267
+[20-Oct-2024 09:50:02 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 14
+[20-Oct-2024 09:50:02 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 14
+[20-Oct-2024 09:50:02 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 15
+[20-Oct-2024 09:50:02 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 15
+[20-Oct-2024 09:50:02 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 17
+[20-Oct-2024 09:50:02 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 17
+[20-Oct-2024 09:50:02 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 49
+[20-Oct-2024 09:50:02 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 49
+[20-Oct-2024 09:50:02 America/Bogota] PHP Deprecated:  str_pad(): Passing null to parameter #1 ($string) of type string is deprecated in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 49
+[20-Oct-2024 09:50:02 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 53
+[20-Oct-2024 09:50:02 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 53
+[20-Oct-2024 09:50:02 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 57
+[20-Oct-2024 09:50:02 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 57
+[20-Oct-2024 09:50:02 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 61
+[20-Oct-2024 09:50:02 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 61
+[20-Oct-2024 09:50:02 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 09:50:02 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 09:50:02 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 09:50:02 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 09:50:02 America/Bogota] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 09:50:02 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 09:50:02 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 09:50:02 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 09:50:02 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 09:50:02 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 09:50:02 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 09:50:02 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 09:50:02 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 09:50:02 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 09:50:02 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 09:50:02 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 09:50:02 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 09:50:02 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 74
+[20-Oct-2024 09:50:02 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 74
+[20-Oct-2024 09:50:02 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 98
+[20-Oct-2024 09:50:02 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 98
+[20-Oct-2024 09:50:02 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 103
+[20-Oct-2024 09:50:02 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 103
+[20-Oct-2024 09:50:02 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 1952
+[20-Oct-2024 09:50:02 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/res/php/functionsHotel.php on line 1952
+[20-Oct-2024 09:50:02 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 1952
+[20-Oct-2024 09:50:02 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/res/php/functionsHotel.php on line 1952
+[20-Oct-2024 09:50:02 America/Bogota] PHP Warning:  file_put_contents(reservas/ConfirmacionReserva_Array
+(
+    [tipoocupacion] =&gt; 1
+    [estadoocupacion] =&gt; ES
+    [sexo] =&gt; 1
+    [idhuesped] =&gt; 40166
+    [identifica] =&gt; 1018482494
+    [idcia] =&gt; 0
+    [imptoOption] =&gt; 1
+    [empresaUpd] =&gt; 0
+    [llegada] =&gt; 2025-01-01
+    [noches] =&gt; 3
+    [salida] =&gt; 2025-01-04
+    [hombres] =&gt; 1
+    [mujeres] =&gt; 1
+    [ninos] =&gt; 0
+    [orden] =&gt; 
+    [tipohabi] =&gt; 11
+    [nrohabitacion] =&gt; 902
+    [tarifahab] =&gt; 188
+    [valortar] =&gt; 0
+    [origen] =&gt; 
+    [destino] =&gt; 
+    [motivo] =&gt; 
+    [fuente] =&gt; 
+    [segmento] =&gt; 
+    [formapago] =&gt; 
+    [observaciones] =&gt; 
+    [usuario] =&gt; NAYITG
+    [idusuario] =&gt; 35
+)
+190215648.pdf): Failed to open stream: Nombre de archivo demasiado largo in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1026
+[20-Oct-2024 09:50:02 America/Bogota] PHP Fatal error:  Uncaught Exception: FPDF error: Unable to create output file: reservas/ConfirmacionReserva_Array
+(
+    [tipoocupacion] => 1
+    [estadoocupacion] => ES
+    [sexo] => 1
+    [idhuesped] => 40166
+    [identifica] => 1018482494
+    [idcia] => 0
+    [imptoOption] => 1
+    [empresaUpd] => 0
+    [llegada] => 2025-01-01
+    [noches] => 3
+    [salida] => 2025-01-04
+    [hombres] => 1
+    [mujeres] => 1
+    [ninos] => 0
+    [orden] => 
+    [tipohabi] => 11
+    [nrohabitacion] => 902
+    [tarifahab] => 188
+    [valortar] => 0
+    [origen] => 
+    [destino] => 
+    [motivo] => 
+    [fuente] => 
+    [segmento] => 
+    [formapago] => 
+    [observaciones] => 
+    [usuario] => NAYITG
+    [idusuario] => 35
+)
+190215648.pdf in /var/www/donlolo.lan/res/fpdf/fpdf.php:267
+Stack trace:
+#0 /var/www/donlolo.lan/res/fpdf/fpdf.php(1027): FPDF->Error()
+#1 /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php(120): FPDF->Output()
+#2 {main}
+  thrown in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 267
+[20-Oct-2024 10:03:56 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 14
+[20-Oct-2024 10:03:56 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 14
+[20-Oct-2024 10:03:56 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 15
+[20-Oct-2024 10:03:56 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 15
+[20-Oct-2024 10:03:56 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 17
+[20-Oct-2024 10:03:56 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 17
+[20-Oct-2024 10:03:56 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 49
+[20-Oct-2024 10:03:56 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 49
+[20-Oct-2024 10:03:56 America/Bogota] PHP Deprecated:  str_pad(): Passing null to parameter #1 ($string) of type string is deprecated in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 49
+[20-Oct-2024 10:03:56 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 53
+[20-Oct-2024 10:03:56 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 53
+[20-Oct-2024 10:03:56 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 57
+[20-Oct-2024 10:03:56 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 57
+[20-Oct-2024 10:03:56 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 61
+[20-Oct-2024 10:03:56 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 61
+[20-Oct-2024 10:03:56 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:03:56 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:03:56 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:03:56 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:03:56 America/Bogota] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:03:56 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:03:56 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:03:56 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:03:56 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:03:56 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:03:56 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:03:56 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:03:56 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:03:56 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:03:56 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:03:56 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:03:56 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:03:56 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 74
+[20-Oct-2024 10:03:56 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 74
+[20-Oct-2024 10:03:56 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 98
+[20-Oct-2024 10:03:56 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 98
+[20-Oct-2024 10:03:56 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 103
+[20-Oct-2024 10:03:56 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 103
+[20-Oct-2024 10:03:56 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 1952
+[20-Oct-2024 10:03:56 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/res/php/functionsHotel.php on line 1952
+[20-Oct-2024 10:03:56 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 1952
+[20-Oct-2024 10:03:56 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/res/php/functionsHotel.php on line 1952
+[20-Oct-2024 10:03:56 America/Bogota] PHP Warning:  file_put_contents(reservas/ConfirmacionReserva_Array
+(
+    [tipoocupacion] =&gt; 1
+    [estadoocupacion] =&gt; ES
+    [sexo] =&gt; 1
+    [idhuesped] =&gt; 40166
+    [identifica] =&gt; 1018482494
+    [idcia] =&gt; 0
+    [imptoOption] =&gt; 1
+    [empresaUpd] =&gt; 0
+    [llegada] =&gt; 2025-01-01
+    [noches] =&gt; 5
+    [salida] =&gt; 2025-01-06
+    [hombres] =&gt; 1
+    [mujeres] =&gt; 1
+    [ninos] =&gt; 0
+    [orden] =&gt; 
+    [tipohabi] =&gt; 11
+    [nrohabitacion] =&gt; Array
+        (
+            [0] =&gt; 302
+            [1] =&gt; 402
+            [2] =&gt; 502
+            [3] =&gt; 602
+            [4] =&gt; 702
+            [5] =&gt; 802
+            [6] =&gt; 902
+        )
+
+    [tarifahab] =&gt; 60
+    [valortar] =&gt;   318920
+    [origen] =&gt; 149
+    [destino] =&gt; 149
+    [motivo] =&gt; 
+    [fuente] =&gt; 
+    [segmento] =&gt; 
+    [formapago] =&gt; 
+    [observaciones] =&gt; 
+    [usuario] =&gt; NAYITG
+    [idusuario] =&gt; 35
+)
+15649.pdf): Failed to open stream: Nombre de archivo demasiado largo in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1026
+[20-Oct-2024 10:03:56 America/Bogota] PHP Fatal error:  Uncaught Exception: FPDF error: Unable to create output file: reservas/ConfirmacionReserva_Array
+(
+    [tipoocupacion] => 1
+    [estadoocupacion] => ES
+    [sexo] => 1
+    [idhuesped] => 40166
+    [identifica] => 1018482494
+    [idcia] => 0
+    [imptoOption] => 1
+    [empresaUpd] => 0
+    [llegada] => 2025-01-01
+    [noches] => 5
+    [salida] => 2025-01-06
+    [hombres] => 1
+    [mujeres] => 1
+    [ninos] => 0
+    [orden] => 
+    [tipohabi] => 11
+    [nrohabitacion] => Array
+        (
+            [0] => 302
+            [1] => 402
+            [2] => 502
+            [3] => 602
+            [4] => 702
+            [5] => 802
+            [6] => 902
+        )
+
+    [tarifahab] => 60
+    [valortar] =>   318920
+    [origen] => 149
+    [destino] => 149
+    [motivo] => 
+    [fuente] => 
+    [segmento] => 
+    [formapago] => 
+    [observaciones] => 
+    [usuario] => NAYITG
+    [idusuario] => 35
+)
+15649.pdf in /var/www/donlolo.lan/res/fpdf/fpdf.php:267
+Stack trace:
+#0 /var/www/donlolo.lan/res/fpdf/fpdf.php(1027): FPDF->Error()
+#1 /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php(120): FPDF->Output()
+#2 {main}
+  thrown in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 267
+[20-Oct-2024 10:22:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 14
+[20-Oct-2024 10:22:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 14
+[20-Oct-2024 10:22:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 15
+[20-Oct-2024 10:22:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 15
+[20-Oct-2024 10:22:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 17
+[20-Oct-2024 10:22:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 17
+[20-Oct-2024 10:22:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 49
+[20-Oct-2024 10:22:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 49
+[20-Oct-2024 10:22:15 America/Bogota] PHP Deprecated:  str_pad(): Passing null to parameter #1 ($string) of type string is deprecated in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 49
+[20-Oct-2024 10:22:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 53
+[20-Oct-2024 10:22:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 53
+[20-Oct-2024 10:22:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 57
+[20-Oct-2024 10:22:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 57
+[20-Oct-2024 10:22:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 61
+[20-Oct-2024 10:22:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 61
+[20-Oct-2024 10:22:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:22:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:22:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:22:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:22:15 America/Bogota] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:22:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:22:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:22:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:22:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:22:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:22:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:22:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:22:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:22:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:22:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:22:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:22:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:22:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 74
+[20-Oct-2024 10:22:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 74
+[20-Oct-2024 10:22:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 98
+[20-Oct-2024 10:22:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 98
+[20-Oct-2024 10:22:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 103
+[20-Oct-2024 10:22:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 103
+[20-Oct-2024 10:22:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 1952
+[20-Oct-2024 10:22:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/res/php/functionsHotel.php on line 1952
+[20-Oct-2024 10:22:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 1952
+[20-Oct-2024 10:22:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/res/php/functionsHotel.php on line 1952
+[20-Oct-2024 10:22:15 America/Bogota] PHP Warning:  file_put_contents(reservas/ConfirmacionReserva_Array
+(
+    [tipoocupacion] =&gt; 1
+    [estadoocupacion] =&gt; ES
+    [sexo] =&gt; 1
+    [idhuesped] =&gt; 40166
+    [identifica] =&gt; 1018482494
+    [idcia] =&gt; 0
+    [imptoOption] =&gt; 1
+    [empresaUpd] =&gt; 0
+    [llegada] =&gt; 2025-01-01
+    [noches] =&gt; 5
+    [salida] =&gt; 2025-01-06
+    [hombres] =&gt; 1
+    [mujeres] =&gt; 1
+    [ninos] =&gt; 0
+    [orden] =&gt; 
+    [tipohabi] =&gt; 11
+    [nrohabitacion] =&gt; Array
+        (
+            [0] =&gt; 302
+            [1] =&gt; 402
+            [2] =&gt; 502
+            [3] =&gt; 602
+            [4] =&gt; 702
+            [5] =&gt; 802
+            [6] =&gt; 902
+        )
+
+    [tarifahab] =&gt; 60
+    [valortar] =&gt;   318920
+    [origen] =&gt; 149
+    [destino] =&gt; 149
+    [motivo] =&gt; 
+    [fuente] =&gt; 
+    [segmento] =&gt; 
+    [formapago] =&gt; 
+    [observaciones] =&gt; 
+    [usuario] =&gt; NAYITG
+    [idusuario] =&gt; 35
+)
+1&lt;br /&gt;
+&lt;b&gt;Warning&lt;/b&gt;:  Undefined variable $valortar in &lt;b&gt;/var/www/donlolo.lan/pms/res/php/ingresoReserva.php&lt;/b&gt; on line &lt;b&gt;7&lt;/b&gt;&lt;br /&gt;
+Array
+(
+    [0] =&gt; 302
+    [1] =&gt; 402
+    [2] =&gt; 502
+    [3] =&gt; 602
+    [4] =&gt; 702
+    [5] =&gt; 802
+    [6] =&gt; 902
+)
+1&lt;br /&gt;
+&lt;b&gt;Warning&lt;/b&gt;:  Undefined variable $observa in &lt;b&gt;/var/www/donlolo.lan/pms/res/php/ingresoReserva.php&lt;/b&gt; on line &lt;b&gt;49&lt;/b&gt;&lt;br /&gt;
+5650.pdf): Failed to open stream: Nombre de archivo demasiado largo in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1026
+[20-Oct-2024 10:22:15 America/Bogota] PHP Fatal error:  Uncaught Exception: FPDF error: Unable to create output file: reservas/ConfirmacionReserva_Array
+(
+    [tipoocupacion] => 1
+    [estadoocupacion] => ES
+    [sexo] => 1
+    [idhuesped] => 40166
+    [identifica] => 1018482494
+    [idcia] => 0
+    [imptoOption] => 1
+    [empresaUpd] => 0
+    [llegada] => 2025-01-01
+    [noches] => 5
+    [salida] => 2025-01-06
+    [hombres] => 1
+    [mujeres] => 1
+    [ninos] => 0
+    [orden] => 
+    [tipohabi] => 11
+    [nrohabitacion] => Array
+        (
+            [0] => 302
+            [1] => 402
+            [2] => 502
+            [3] => 602
+            [4] => 702
+            [5] => 802
+            [6] => 902
+        )
+
+    [tarifahab] => 60
+    [valortar] =>   318920
+    [origen] => 149
+    [destino] => 149
+    [motivo] => 
+    [fuente] => 
+    [segmento] => 
+    [formapago] => 
+    [observaciones] => 
+    [usuario] => NAYITG
+    [idusuario] => 35
+)
+1<br />
+<b>Warning</b>:  Undefined variable $valortar in <b>/var/www/donlolo.lan/pms/res/php/ingresoReserva.php</b> on line <b>7</b><br />
+Array
+(
+    [0] => 302
+    [1] => 402
+    [2] => 502
+    [3] => 602
+    [4] => 702
+    [5] => 802
+    [6] => 902
+)
+1<br />
+<b>Warning</b>:  Undefined variable $observa in <b>/var/www/donlolo.lan/pms/res/php/ingresoReserva.php</b> on line <b>49</b><br />
+5650.pdf in /var/www/donlolo.lan/res/fpdf/fpdf.php:267
+Stack trace:
+#0 /var/www/donlolo.lan/res/fpdf/fpdf.php(1027): FPDF->Error()
+#1 /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php(120): FPDF->Output()
+#2 {main}
+  thrown in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 267
+[20-Oct-2024 10:24:27 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 14
+[20-Oct-2024 10:24:27 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 14
+[20-Oct-2024 10:24:27 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 15
+[20-Oct-2024 10:24:27 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 15
+[20-Oct-2024 10:24:27 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 17
+[20-Oct-2024 10:24:27 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 17
+[20-Oct-2024 10:24:27 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 49
+[20-Oct-2024 10:24:27 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 49
+[20-Oct-2024 10:24:27 America/Bogota] PHP Deprecated:  str_pad(): Passing null to parameter #1 ($string) of type string is deprecated in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 49
+[20-Oct-2024 10:24:27 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 53
+[20-Oct-2024 10:24:27 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 53
+[20-Oct-2024 10:24:27 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 57
+[20-Oct-2024 10:24:27 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 57
+[20-Oct-2024 10:24:27 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 61
+[20-Oct-2024 10:24:27 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 61
+[20-Oct-2024 10:24:27 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:24:27 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:24:27 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:24:27 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:24:27 America/Bogota] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:24:27 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:24:27 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:24:27 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:24:27 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:24:27 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:24:27 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:24:27 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:24:27 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:24:27 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:24:27 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:24:27 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:24:27 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:24:27 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 74
+[20-Oct-2024 10:24:27 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 74
+[20-Oct-2024 10:24:27 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 98
+[20-Oct-2024 10:24:27 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 98
+[20-Oct-2024 10:24:27 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 103
+[20-Oct-2024 10:24:27 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 103
+[20-Oct-2024 10:24:27 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 1952
+[20-Oct-2024 10:24:27 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/res/php/functionsHotel.php on line 1952
+[20-Oct-2024 10:24:27 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 1952
+[20-Oct-2024 10:24:27 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/res/php/functionsHotel.php on line 1952
+[20-Oct-2024 10:24:27 America/Bogota] PHP Warning:  file_put_contents(reservas/ConfirmacionReserva_Array
+(
+    [tipoocupacion] =&gt; 1
+    [estadoocupacion] =&gt; ES
+    [sexo] =&gt; 1
+    [idhuesped] =&gt; 40166
+    [identifica] =&gt; 1018482494
+    [idcia] =&gt; 0
+    [imptoOption] =&gt; 1
+    [empresaUpd] =&gt; 0
+    [llegada] =&gt; 2025-01-01
+    [noches] =&gt; 5
+    [salida] =&gt; 2025-01-06
+    [hombres] =&gt; 1
+    [mujeres] =&gt; 1
+    [ninos] =&gt; 0
+    [orden] =&gt; 
+    [tipohabi] =&gt; 11
+    [nrohabitacion] =&gt; Array
+        (
+            [0] =&gt; 302
+            [1] =&gt; 402
+            [2] =&gt; 502
+            [3] =&gt; 602
+            [4] =&gt; 702
+            [5] =&gt; 802
+            [6] =&gt; 902
+        )
+
+    [tarifahab] =&gt; 60
+    [valortar] =&gt;   318920
+    [origen] =&gt; 149
+    [destino] =&gt; 149
+    [motivo] =&gt; 
+    [fuente] =&gt; 
+    [segmento] =&gt; 
+    [formapago] =&gt; 
+    [observaciones] =&gt; 
+    [usuario] =&gt; NAYITG
+    [idusuario] =&gt; 35
+)
+1  318920Array
+(
+    [0] =&gt; 302
+    [1] =&gt; 402
+    [2] =&gt; 502
+    [3] =&gt; 602
+    [4] =&gt; 702
+    [5] =&gt; 802
+    [6] =&gt; 902
+)
+1&lt;br /&gt;
+&lt;b&gt;Warning&lt;/b&gt;:  Undefined variable $valortarifa in &lt;b&gt;/var/www/donlolo.lan/pms/res/php/ingresoReserva.php&lt;/b&gt; on line &lt;b&gt;51&lt;/b&gt;&lt;br /&gt;
+&lt;br /&gt;
+&lt;b&gt;Warning&lt;/b&gt;:  Undefined variable $observa in &lt;b&gt;/var/www/donlolo.lan/pms/res/php/ingresoReserva.php&lt;/b&gt; on line &lt;b&gt;51&lt;/b&gt;&lt;br /&gt;
+5651.pdf): Failed to open stream: Nombre de archivo demasiado largo in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1026
+[20-Oct-2024 10:24:27 America/Bogota] PHP Fatal error:  Uncaught Exception: FPDF error: Unable to create output file: reservas/ConfirmacionReserva_Array
+(
+    [tipoocupacion] => 1
+    [estadoocupacion] => ES
+    [sexo] => 1
+    [idhuesped] => 40166
+    [identifica] => 1018482494
+    [idcia] => 0
+    [imptoOption] => 1
+    [empresaUpd] => 0
+    [llegada] => 2025-01-01
+    [noches] => 5
+    [salida] => 2025-01-06
+    [hombres] => 1
+    [mujeres] => 1
+    [ninos] => 0
+    [orden] => 
+    [tipohabi] => 11
+    [nrohabitacion] => Array
+        (
+            [0] => 302
+            [1] => 402
+            [2] => 502
+            [3] => 602
+            [4] => 702
+            [5] => 802
+            [6] => 902
+        )
+
+    [tarifahab] => 60
+    [valortar] =>   318920
+    [origen] => 149
+    [destino] => 149
+    [motivo] => 
+    [fuente] => 
+    [segmento] => 
+    [formapago] => 
+    [observaciones] => 
+    [usuario] => NAYITG
+    [idusuario] => 35
+)
+1  318920Array
+(
+    [0] => 302
+    [1] => 402
+    [2] => 502
+    [3] => 602
+    [4] => 702
+    [5] => 802
+    [6] => 902
+)
+1<br />
+<b>Warning</b>:  Undefined variable $valortarifa in <b>/var/www/donlolo.lan/pms/res/php/ingresoReserva.php</b> on line <b>51</b><br />
+<br />
+<b>Warning</b>:  Undefined variable $observa in <b>/var/www/donlolo.lan/pms/res/php/ingresoReserva.php</b> on line <b>51</b><br />
+5651.pdf in /var/www/donlolo.lan/res/fpdf/fpdf.php:267
+Stack trace:
+#0 /var/www/donlolo.lan/res/fpdf/fpdf.php(1027): FPDF->Error()
+#1 /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php(120): FPDF->Output()
+#2 {main}
+  thrown in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 267
+[20-Oct-2024 10:27:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 14
+[20-Oct-2024 10:27:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 14
+[20-Oct-2024 10:27:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 15
+[20-Oct-2024 10:27:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 15
+[20-Oct-2024 10:27:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 17
+[20-Oct-2024 10:27:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 17
+[20-Oct-2024 10:27:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 49
+[20-Oct-2024 10:27:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 49
+[20-Oct-2024 10:27:15 America/Bogota] PHP Deprecated:  str_pad(): Passing null to parameter #1 ($string) of type string is deprecated in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 49
+[20-Oct-2024 10:27:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 53
+[20-Oct-2024 10:27:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 53
+[20-Oct-2024 10:27:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 57
+[20-Oct-2024 10:27:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 57
+[20-Oct-2024 10:27:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 61
+[20-Oct-2024 10:27:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 61
+[20-Oct-2024 10:27:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:27:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:27:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:27:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:27:15 America/Bogota] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:27:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:27:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:27:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:27:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:27:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:27:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:27:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:27:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:27:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:27:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:27:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:27:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 67
+[20-Oct-2024 10:27:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 74
+[20-Oct-2024 10:27:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 74
+[20-Oct-2024 10:27:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 98
+[20-Oct-2024 10:27:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 98
+[20-Oct-2024 10:27:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 103
+[20-Oct-2024 10:27:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/confirmaReserva.php on line 103
+[20-Oct-2024 10:27:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 1952
+[20-Oct-2024 10:27:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/res/php/functionsHotel.php on line 1952
+[20-Oct-2024 10:27:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 1952
+[20-Oct-2024 10:27:15 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/res/php/functionsHotel.php on line 1952

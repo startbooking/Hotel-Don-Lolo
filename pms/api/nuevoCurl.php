@@ -360,7 +360,7 @@ $respofact07 = '{"message":"Unauthenticated."}'; // error de Autenticacion - No 
 
 
 // Errores DIAN
-$respofact = '{ 
+$respofact08 = '{ 
   "message": "The given data was invalid.",
   "errors": {
     "customer.dv": [
@@ -370,7 +370,7 @@ $respofact = '{
 }';
 
 
-$respofact09 = '{
+$respofact = '{
   "message": "The given data was invalid.",
   "errors": {
     "customer.identification_number": [

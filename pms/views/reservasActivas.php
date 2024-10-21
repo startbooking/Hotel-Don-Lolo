@@ -28,7 +28,6 @@
             <thead>
               <tr class="warning">
                 <td>Nro</td>
-                <!-- <td style="width:7%;"></td> -->
                 <td style="padding:10px;">Hab.</td>
                 <td style="text-align:center;width:80px;">Huesped</td>
                 <td style="text-align:left;width:180px;">Compañia</td>

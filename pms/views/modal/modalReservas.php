@@ -91,7 +91,7 @@ $manana = date('Y-m-d', $manana);
                     </div>
                     <label for="nrohabitacion" class="col-sm-2 control-label">Nro Habitacion</label>
                     <div class="col-sm-4">
-                      <select name="nrohabitacion" id="nrohabitacion" required onblur='seleccionaTarifas()'>
+                      <select name="nrohabitacion[]" id="nrohabitacion" required onblur='seleccionaTarifas()' multiple>
                       </select>
                     </div>
                   </div>

@@ -5514,13 +5514,9 @@ async function guardaAcompanante(e) {
   let dataHuesp = new FormData(formHuesped);
 
   let idreser = dataHuesp.get("idReservaAdiAco");
-  /* let fechanace = dataHuesp.get("fechanace");
-
-  const edad = await restaEdad(fechanace); */
 
   dataHuesp.append("usuario", usuario);
   dataHuesp.append("usuario_id", usuario_id);
-  // dataHuesp.append("edad", parseInt(edad));
 
   $.ajax({
     type: "POST",
@@ -7370,19 +7366,11 @@ async function guardasinReserva() {
   let nroRes = await ingresoSinReserva(formData);
   let cargo = await cargarHabitacionCkeckIn(nroRes.trim());
 
-  let errores = {...hErrors, ...cErrors};
-  console.log(errores)
-
+  cErrors = cErrors.concat(hErrors);
   mensajeErr = "Huesped Registrado Con Exito \n";
-  /* if (hErrors.length > 0) {
-    hErrors.map(function (error) {
-      let { mensaje } = error;
-      mensajeErr += mensaje + "\n";
-    });
-  } */
 
-  if (errores.length > 0) {
-    errores.map(function (error) {
+  if (cErrors.length > 0) {
+    cErrors.map(function (error) {
       let { mensaje } = error;
       mensajeErr += mensaje + "\n";
     });
@@ -7395,7 +7383,7 @@ async function guardasinReserva() {
       closeOnConfirm: true,
     },
     function () {
-      // $(location).attr("href", "home");
+      $(location).attr("href", "home");
     }
   );
 }
@@ -7946,7 +7934,6 @@ async function traeHabitacionesDisp(data) {
       body: JSON.stringify(data),
     });
     const datos = await resultado.json();
-    // console.log(datos);
     return datos;
   } catch (error) {}
 }

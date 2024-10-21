@@ -1,9 +1,3 @@
-<?php
-// $hoy    = substr(FECHA_PMS, 5, 5);
-
-// echo print_r($reservas);
-?>
-
 <div class="content-wrapper" id="pantallaenCasa">
   <section class="content">
     <div class="panel panel-success">
@@ -28,11 +22,9 @@
       <div class="panel-body" id="paginaenCasa">
         <div class="table-responsive">
           <table id="example1" class="table modalTable table-condensed">
-
             <thead>
               <tr class="warning" style="font-weight: bold">
                 <td>Hab.</td>
-                <!-- <td></td> -->
                 <td style="text-align:center;">Huesped</td>
                 <td style="text-align:left;">Compañia</td>
                 <td>Llegada</td>
@@ -40,7 +32,6 @@
                 <td>Noc</td>
                 <td>Hom</td>
                 <td>Muj</td>
-                <!-- <td>Niñ</td> -->
                 <td>Tarifa</td>
                 <td style="text-align:center;">Accion</td>
               </tr>
@@ -48,17 +39,7 @@
             <tbody>
               <?php
               foreach ($reservas as $reserva) {
-                /* $depositos = $hotel->getDepositosReservas($reserva['num_reserva']);
-                if ($reserva['id_compania'] == 0) {
-                  $nombrecia = 'SIN COMPAÑIA ASOCIADA';
-                  $nitcia = '222.222.222';
-                } else {
-                  $cias = $hotel->getBuscaCia($reserva['id_compania']);
-                  if (count($cias) != 0) {
-                    $nombrecia = $cias[0]['empresa'];
-                    $nitcia = $cias[0]['nit'] . '-' . $cias[0]['dv'];
-                  }
-                } */
+                $depositos = $hotel->getDepositosReservas($reserva['num_reserva']);
               ?>
                 <tr style='font-size:12px'>
                   <td>
@@ -72,11 +53,17 @@
                         </span>
                       <?php
                       }
-                      if ($reserva['pagos_cargos'] != null) { ?>
+                      /* if ($reserva['pagos_cargos'] != null) { ?>
                         <span class="btn btn-success faReservas" title="Reserva con Depositos" onclick="verDepositos('<?php echo $reserva['num_reserva']; ?>')">
                           <i class="fa fa-usd fa-stack-1x fa-inverse "></i>
                         </span>
                       <?php
+                      } */
+                      if (count($depositos) != 0) { ?>
+                        <span class="btn btn-success faReservas" title="Reserva con Depositos" onclick="verDepositos('<?php echo $reserva['num_reserva']; ?>')">
+                          <i class="fa fa-usd fa-stack-1x fa-inverse "></i>
+                        </span>
+                        <?php
                       }
                       if (!empty($reserva['observaciones'])) { ?>
                         <span class="btn btn-info faReservas" title="Observaciones a la Reserva" data-toggle="modal" data-target="#myModalVerObservaciones" data-reserva="<?php echo $reserva['num_reserva']; ?>" data-estado="1">
