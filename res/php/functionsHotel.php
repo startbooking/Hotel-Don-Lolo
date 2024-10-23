@@ -3734,13 +3734,13 @@ class Hotel_Actions
         return $data->rowCount();
     }
 
-    public function registrosHotelerosSinImprimir($fecha)
+    public function registrosHotelerosSinImprimir()
     {
         global $database;
 
         $data = $database->select('reservas_pms', [
             '[>]huespedes' => 'id_huesped',
-            '[>]tipo_habitaciones' => ['tipo_habitacion' => 'codigo'],
+            '[>]tipo_habitaciones' => ['tipo_habitacion' => 'id'],
         ], [
             'fecha_llegada',
             'huespedes.nombre_completo',
@@ -3751,7 +3751,7 @@ class Hotel_Actions
             'num_habitacion',
             'num_registro',
         ], [
-            'tipo_habitaciones.tipo_habitacion[<]' => 4,
+            'tipo_habitaciones.tipo_habitacion' => 1,
             'num_registro' => 0,
             'estado' => 'CA',
             'ORDER' => ['num_habitacion' => 'ASC'],
@@ -9373,7 +9373,7 @@ class Hotel_Actions
             'pais' => $pais,
             'ciudad' => $ciudad,
             'profesion' => $profesion,
-            'nombre_completo' => $apellido1 . ' ' . $apellido2 . ' ' . $nombre1 . ' ' . $nombre2,
+            'nombre_completo' => $apellido1.' '.$apellido2.' '.$nombre1.' '.$nombre2,
             'tipoAdquiriente' => $tipoAdqui,
             'tipoResponsabilidad' => $tipoRespo,
             'responsabilidadTributaria' => $repoTribu,

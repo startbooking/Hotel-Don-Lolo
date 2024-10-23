@@ -1,8 +1,8 @@
 <?php
-include_once '../../res/php/app_topHotel.php';
+/* include_once '../../res/php/app_topHotel.php';
 $usuario ='BARAHONA';
 $idusuario = 2;
-
+ */
 $fecha = FECHA_PMS;
 
 $habhot = $hotel->habitacionesHotel(); // Total Habitaciones del Hotel 

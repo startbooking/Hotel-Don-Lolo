@@ -18,13 +18,13 @@
   $pag = 0;
   $monto = 0;
   
-  $pdf->Cell(20, 5, 'Numero', 0, 0, 'R');
-  $pdf->Cell(20, 5, 'Hab.', 0, 0, 'R');
-  $pdf->Cell(70, 5, 'Huesped', 0, 0, 'C');
-  $pdf->Cell(10, 5, 'Cant. ', 0, 0, 'C');
-  $pdf->Cell(25, 5, 'Pago', 0, 0, 'C');
-  $pdf->Cell(30, 5, 'Usuario', 0, 0, 'C');
-  $pdf->Cell(10, 5, 'Hora', 0, 1, 'C');
+  $pdf->Cell(20, 5, 'Numero', 1, 0, 'R');
+  $pdf->Cell(20, 5, 'Hab.', 1, 0, 'R');
+  $pdf->Cell(70, 5, 'Huesped', 1, 0, 'C');
+  $pdf->Cell(10, 5, 'Cant. ', 1, 0, 'C');
+  $pdf->Cell(25, 5, 'Pago', 1, 0, 'C');
+  $pdf->Cell(30, 5, 'Usuario', 1, 0, 'C');
+  $pdf->Cell(10, 5, 'Hora', 1, 1, 'C');
   
   foreach ($codigos as $codigo) {
       $pdf->Cell(40, 5, 'Forma de Pago ', 0, 0, 'L');

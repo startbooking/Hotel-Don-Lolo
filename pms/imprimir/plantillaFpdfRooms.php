@@ -3,16 +3,17 @@
 
 	class PDF extends FPDF{
 		function Header(){
-		  $this->Image('../../img/'.LOGO,xPOS,yPOS,tPOS);
+		  $this->Image('../../img/'.LOGO,xPOS,5,tPOS);
 		  $this->SetFont('Arial','B',13);
 		  $this->Cell(190,5,NAME_EMPRESA,0,1,'C');
-		  $this->SetFont('Arial','',10);
+		  /* $this->SetFont('Arial','',10);
 		  $this->Cell(190,4,'Nit: '.NIT_EMPRESA,0,1,'C');
 		  $this->Cell(190,4,ADRESS_EMPRESA,0,1,'C');
 		  $this->Cell(190,4,(CIUDAD_EMPRESA.', '.PAIS_EMPRESA),0,1,'C');
 		  $this->Cell(190,4,'Telefono '.TELEFONO_EMPRESA.' Movil '.CELULAR_EMPRESA,0,1,'C');
-		  $this->SetFont('Arial','B',11);
+		  $this->SetFont('Arial','B',11); 
 		  $this->Cell(190,4,NAME_HOTEL,0,1,'C');
+			*/
 		  $this->Ln(1);
 		}
 

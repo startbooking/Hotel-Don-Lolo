@@ -311,7 +311,7 @@
   $pdf->Cell(15,6,$mesllesin,1,0,'R');
   $pdf->Cell(15,6,$aniollesin,1,1,'R');
 
-  // $file = '../../imprimir/auditorias/Informe_Diario_Gerencia_'.FECHA_PMS.'.pdf';
-  $file = '../imprimir/auditorias/Informe_Diario_Gerencia_'.FECHA_PMS.'.pdf';
+  $file = '../../imprimir/auditorias/Informe_Diario_Gerencia_'.FECHA_PMS.'.pdf';
+  // $file = '../imprimir/auditorias/Informe_Diario_Gerencia_'.FECHA_PMS.'.pdf';
   $pdf->Output($file,'F');
 ?>

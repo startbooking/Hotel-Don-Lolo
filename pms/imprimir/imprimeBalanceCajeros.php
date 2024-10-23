@@ -7,14 +7,14 @@ $usuarios = $hotel->getUsuariosCargos(FECHA_PMS, 1);
 
 $pdf = new PDF();
 $pdf->AddPage('P', 'letter');
-$pdf->SetFont('Arial', 'B', 11);
+$pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell(195, 5, 'BALANCE CAJERO '.FECHA_PMS, 0, 1, 'C');
 $pdf->Ln(2);
 
 foreach ($usuarios as $usuario) {
-    $pdf->SetFont('Arial', 'B', 10);
-    $pdf->Cell(30, 5, 'Usuario ', 0, 0, 'L');
-    $pdf->Cell(50, 5, ($usuario['apellidos'].' '.$usuario['nombres']), 0, 1, 'C');
+    $pdf->SetFont('Arial', 'B', 9);
+    $pdf->Cell(30, 5, 'Usuario ', 1, 0, 'L');
+    $pdf->Cell(50, 5, ($usuario['apellidos'].' '.$usuario['nombres']), 1, 1, 'C');
     $pdf->Cell(195, 5, 'CARGOS DEL DIA '.FECHA_PMS, 0, 1, 'C');
     $pdf->Cell(10, 5, 'Hab.', 0, 0, 'C');
     $pdf->Cell(50, 5, 'Huesped', 0, 0, 'C');
@@ -43,7 +43,7 @@ foreach ($usuarios as $usuario) {
         $total = $total + $cargo['monto_cargo'] + $cargo['impuesto'];
     }
     $pdf->SetFont('Arial', 'B', 9);
-    $pdf->Cell(110, 65, 'Total cargos Por Cajero ', 0, 0, 'L');
+    $pdf->Cell(110, 5, 'Total cargos Por Cajero ', 0, 0, 'L');
     $pdf->Cell(25, 5, number_format($monto, 2), 0, 0, 'R');
     $pdf->Cell(25, 5, number_format($impto, 2), 0, 0, 'R');
     $pdf->Cell(25, 5, number_format($total, 2), 0, 1, 'R');

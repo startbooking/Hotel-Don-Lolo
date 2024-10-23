@@ -8,15 +8,15 @@ $pdf->SetFont('Arial', '', 9);
 $pdf->Cell(260, 4, 'Fecha : '.FECHA_PMS, 0, 1, 'C');
 
 $pdf->SetFont('Arial', 'B', 10);
-$pdf->Cell(10, 5, 'Hab.', 0, 0, 'C');
-$pdf->Cell(70, 5, 'Huesped', 0, 0, 'C');
-$pdf->Cell(50, 5, 'Descripcion ', 0, 0, 'C');
-$pdf->Cell(10, 5, 'Cant. ', 0, 0, 'C');
-$pdf->Cell(25, 5, 'Monto', 0, 0, 'C');
-$pdf->Cell(25, 5, 'Impuesto', 0, 0, 'C');
-$pdf->Cell(25, 5, 'Total', 0, 0, 'C');
-$pdf->Cell(30, 5, 'Usuario', 0, 0, 'C');
-$pdf->Cell(10, 5, 'Hora', 0, 1, 'C');
+$pdf->Cell(10, 5, 'Hab.', 1, 0, 'C');
+$pdf->Cell(70, 5, 'Huesped', 1, 0, 'C');
+$pdf->Cell(50, 5, 'Descripcion ', 1, 0, 'C');
+$pdf->Cell(10, 5, 'Cant. ', 1, 0, 'C');
+$pdf->Cell(25, 5, 'Monto', 1, 0, 'C');
+$pdf->Cell(25, 5, 'Impuesto', 1, 0, 'C');
+$pdf->Cell(25, 5, 'Total', 1, 0, 'C');
+$pdf->Cell(30, 5, 'Usuario', 1, 0, 'C');
+$pdf->Cell(10, 5, 'Hora', 1, 1, 'C');
 $pdf->SetFont('Arial', '', 9);
 $cargos = $hotel->getCargosporFecha(FECHA_PMS, 1, 0);
 

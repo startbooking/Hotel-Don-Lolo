@@ -1,3 +1,2 @@
-<?php 
-	include '../../imprimir/imprimeHuespedesenCasa.php'; 
-?>
+<?php
+include '../../imprimir/imprimeHuespedesenCasa.php';

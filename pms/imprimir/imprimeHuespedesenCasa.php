@@ -4,31 +4,28 @@
 
 $reservas = $hotel->getHuespedesenCasa(2, 'CA');
 $TotRooms = count($hotel->cantidadHabitaciones(1));
-// $rooms = count($room); 
-/* $canford = $hotel->getHabitacionsBloqueadas('FO');
-$canfser = $hotel->getHabitacionsBloqueadas('FS'); */
 $habMmto = count($hotel->traeHabitacionesMmtoDia(1));
 $habDisp = $TotRooms - $habMmto ;
 $regis = count($reservas);
 
 $pdf = new PDF();
 $pdf->AddPage('P', 'letter');
-$pdf->SetFont('Arial', 'B', 13);
+$pdf->SetFont('Arial', 'B', 11);
 $pdf->Cell(190, 5, 'HUESPEDES EN CASA', 0, 1, 'C');
-$pdf->SetFont('Arial', '', 11);
+$pdf->SetFont('Arial', '', 10);
 $pdf->Cell(190, 5, 'Fecha : '.FECHA_PMS, 0, 1, 'C');
 $pdf->Ln(3);
 
-$pdf->SetFont('Arial', 'B', 10);
-$pdf->Cell(15, 5, 'Hab.', 0, 0, 'C');
-$pdf->Cell(70, 5, 'Huesped', 0, 0, 'C');
-$pdf->Cell(25, 5, 'Llegada', 0, 0, 'C');
-$pdf->Cell(25, 5, 'Salida', 0, 0, 'C');
-$pdf->Cell(10, 5, 'Noc', 0, 0, 'C');
-$pdf->Cell(10, 5, 'H', 0, 0, 'C');
-$pdf->Cell(10, 5, 'M', 0, 0, 'C');
-$pdf->Cell(10, 5, 'N', 0, 0, 'C');
-$pdf->Cell(25, 5, 'Tarifa', 0, 1, 'C');
+$pdf->SetFont('Arial', 'B', 9);
+$pdf->Cell(15, 5, 'Hab.', 1, 0, 'C');
+$pdf->Cell(70, 5, 'Huesped', 1, 0, 'C');
+$pdf->Cell(25, 5, 'Llegada', 1, 0, 'C');
+$pdf->Cell(25, 5, 'Salida', 1, 0, 'C');
+$pdf->Cell(10, 5, 'Noc', 1, 0, 'C');
+$pdf->Cell(10, 5, 'H', 1, 0, 'C');
+$pdf->Cell(10, 5, 'M', 1, 0, 'C');
+$pdf->Cell(10, 5, 'N', 1, 0, 'C');
+$pdf->Cell(25, 5, 'Tarifa', 1, 1, 'C');
 $pdf->SetFont('Arial', '', 9);
 $habOcu = 0;
 $hom = 0;
@@ -36,14 +33,14 @@ $muj = 0;
 $nin = 0;
 $tar = 0;
 if ($regis == 0) {
-    $pdf->Cell(190, 6, 'SIN HUESPEDES EN CASA', 0, 1, 'C');
+    $pdf->Cell(190, 6, 'SIN HUESPEDES EN CASA', 1, 1, 'C');
 } else {
     foreach ($reservas as $reserva) {
         if ($reserva['causar_impuesto'] == 2) {
             $pdf->Cell(5, 4, 'Exc', 0, 0, 'C');
-            $pdf->Cell(10, 4, $reserva['num_habitacion'], 0, 0, 'C');
+            $pdf->Cell(10, 4, $reserva['num_habitacion'], 0, 0, 'R');
         } else {
-            $pdf->Cell(15, 4, $reserva['num_habitacion'], 0, 0, 'C');
+            $pdf->Cell(15, 4, $reserva['num_habitacion'], 0, 0, 'R');
         }
         $pdf->Cell(70, 4, substr(($reserva['apellido1'].' '.$reserva['apellido2'].' '.$reserva['nombre1'].' '.$reserva['nombre2']), 0, 30), 0, 0, 'L');
         $pdf->Cell(25, 4, $reserva['fecha_llegada'], 0, 0, 'L');

@@ -13,18 +13,18 @@
   $pdf->Ln(3);
 
   $pdf->SetFont('Arial','B',10);
-  $pdf->Cell(15,5,'Tipo Hab. ',0,0,'C');
-  $pdf->Cell(70,5,'Huesped',0,0,'C');
-  $pdf->Cell(25,5,'Llegada',0,0,'C'); 
-  $pdf->Cell(25,5,'Salida',0,0,'C');
-  $pdf->Cell(5,5,'Noc',0,0,'C');
-  $pdf->Cell(5,5,'H',0,0,'C');
-  $pdf->Cell(5,5,'M',0,0,'C');
-  $pdf->Cell(5,5,'N',0,0,'C');
-  $pdf->Cell(25,5,'Tarifa',0,1,'C');
+  $pdf->Cell(15,5,'Tipo Hab. ',1,0,'C');
+  $pdf->Cell(70,5,'Huesped',1,0,'C');
+  $pdf->Cell(25,5,'Llegada',1,0,'C'); 
+  $pdf->Cell(25,5,'Salida',1,0,'C');
+  $pdf->Cell(5,5,'Noc',1,0,'C');
+  $pdf->Cell(5,5,'H',1,0,'C');
+  $pdf->Cell(5,5,'M',1,0,'C');
+  $pdf->Cell(5,5,'N',1,0,'C');
+  $pdf->Cell(25,5,'Tarifa',1,1,'C');
   $pdf->SetFont('Arial','',9);
   if($regis==0){
-      $pdf->Cell(190,6,'SIN SALIDAS EN ESTE DIA',0,0,'C');    
+      $pdf->Cell(190,6,'SIN SALIDAS EN ESTE DIA',1,1,'C');    
   }else{
     foreach ($reservas as $reserva) {
       $pdf->Cell(15,4,$reserva['num_habitacion'],0,0,'C');

@@ -7,11 +7,11 @@
 		  $this->SetFont('Arial','B',13);
 		  $this->Cell(260,7,NAME_EMPRESA,0,1,'C');
 		  $this->SetFont('Arial','',10);
-		  $this->Cell(260,5,'Nit: '.NIT_EMPRESA,0,1,'C');
+		 /*  $this->Cell(260,5,'Nit: '.NIT_EMPRESA,0,1,'C');
 		  $this->Cell(260,5,ADRESS_EMPRESA,0,1,'C');
 		  $this->Cell(260,5,(CIUDAD_EMPRESA.', '.PAIS_EMPRESA),0,1,'C');
 		  $this->Cell(260,5,'Telefono '.TELEFONO_EMPRESA.' Movil '.CELULAR_EMPRESA,0,1,'C');
-		  $this->SetFont('Arial','B',11);
+		  $this->SetFont('Arial','B',11); */
 		  $this->Cell(260,5,NAME_HOTEL,0,1,'C');
 		  $this->Ln(1);
 		  $this->Cell(260,5,'INFORMES DE AUDITORIA NOCTURNA',0,1,'C');

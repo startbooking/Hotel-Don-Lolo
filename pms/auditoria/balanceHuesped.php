@@ -1,3 +1,2 @@
-<?php 
-	include '../../imprimir/imprimeBalanceHuespedAuditoria.php';
-?>
+<?php
+include '../../imprimir/imprimeBalanceHuespedAuditoria.php';

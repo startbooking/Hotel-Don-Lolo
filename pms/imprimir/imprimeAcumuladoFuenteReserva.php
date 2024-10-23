@@ -1,5 +1,7 @@
 <?php
 
+$fecha = FECHA_PMS;
+
 $pdf = new PDF();
 $pdf->AddPage('L', 'letter');
 $pdf->SetFont('Arial', 'B', 12);
@@ -38,7 +40,7 @@ FROM
 	LEFT JOIN grupos_cajas ON reservas_pms.fuente_reserva = grupos_cajas.id_grupo
 	LEFT JOIN tipo_habitaciones ON reservas_pms.tipo_habitacion = tipo_habitaciones.id 
 WHERE
-	reservas_pms.fecha_llegada = '20240820' 
+	reservas_pms.fecha_llegada = '$fecha' 
 	AND reservas_pms.estado = 'CA' 
 	AND tipo_habitaciones.tipo_habitacion = 1 
 GROUP BY
@@ -57,8 +59,8 @@ FROM
 	LEFT JOIN grupos_cajas ON reservas_pms.fuente_reserva = grupos_cajas.id_grupo
 	LEFT JOIN tipo_habitaciones ON reservas_pms.tipo_habitacion = tipo_habitaciones.id 
 WHERE
-	MONTH ( reservas_pms.fecha_llegada ) = 8 
-	AND YEAR ( reservas_pms.fecha_llegada ) = 2024 
+	MONTH ( reservas_pms.fecha_llegada ) = MONTH($fecha) 
+	AND YEAR ( reservas_pms.fecha_llegada ) = YEAR($fecha) 
 	AND reservas_pms.estado = 'CA' 
 	AND tipo_habitaciones.tipo_habitacion = 1 
 GROUP BY
@@ -77,7 +79,7 @@ FROM
 	LEFT JOIN grupos_cajas ON reservas_pms.fuente_reserva = grupos_cajas.id_grupo
 	LEFT JOIN tipo_habitaciones ON reservas_pms.tipo_habitacion = tipo_habitaciones.id 
 WHERE
-	YEAR ( reservas_pms.fecha_llegada ) = 2024 
+	YEAR ( reservas_pms.fecha_llegada ) = YEAR($fecha) 
 	AND reservas_pms.estado = 'CA' 
 	AND tipo_habitaciones.tipo_habitacion = 1 
 GROUP BY
@@ -96,7 +98,7 @@ FROM
 	LEFT JOIN grupos_cajas ON historico_reservas_pms.fuente_reserva = grupos_cajas.id_grupo
 	LEFT JOIN tipo_habitaciones ON historico_reservas_pms.tipo_habitacion = tipo_habitaciones.id 
 WHERE
-	historico_reservas_pms.fecha_llegada = '20240820' 
+	historico_reservas_pms.fecha_llegada = '$fecha' 
 	AND historico_reservas_pms.estado = 'SA' 
 	AND tipo_habitaciones.tipo_habitacion = 1 
 GROUP BY
@@ -115,8 +117,8 @@ FROM
 	LEFT JOIN grupos_cajas ON historico_reservas_pms.fuente_reserva = grupos_cajas.id_grupo
 	LEFT JOIN tipo_habitaciones ON historico_reservas_pms.tipo_habitacion = tipo_habitaciones.id 
 WHERE
-	MONTH ( historico_reservas_pms.fecha_llegada ) = 8 
-	AND YEAR ( historico_reservas_pms.fecha_llegada ) = 2024 
+	MONTH ( historico_reservas_pms.fecha_llegada ) = MONTH($fecha)
+	AND YEAR ( historico_reservas_pms.fecha_llegada ) = YEAR($fecha)
 	AND historico_reservas_pms.estado = 'SA' 
 	AND tipo_habitaciones.tipo_habitacion = 1 
 GROUP BY
@@ -135,7 +137,7 @@ FROM
 	LEFT JOIN grupos_cajas ON historico_reservas_pms.fuente_reserva = grupos_cajas.id_grupo
 	LEFT JOIN tipo_habitaciones ON historico_reservas_pms.tipo_habitacion = tipo_habitaciones.id 
 WHERE
-	YEAR ( historico_reservas_pms.fecha_llegada ) = 2024 
+	YEAR ( historico_reservas_pms.fecha_llegada ) = YEAR($fecha) 
 	AND historico_reservas_pms.estado = 'SA' 
 	AND tipo_habitaciones.tipo_habitacion = 1 
 GROUP BY
@@ -156,7 +158,7 @@ ORDER BY
 
 $fuentes = $hotel->creaConsulta($query);
 
-echo print_r($fuentes);
+// echo print_r($fuentes);
 
 $totcandia = 0;
 $totvaldia = 0;

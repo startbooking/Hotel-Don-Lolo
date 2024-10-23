@@ -11,17 +11,17 @@
   $pdf->Cell(190,5,'Fecha '.FECHA_PMS,0,1,'C');
   $pdf->Ln(3);
   $pdf->SetFont('Arial','B',10);
-  $pdf->Cell(25,6,'Llegada',0,0,'L');
-  $pdf->Cell(25,6,'Salida',0,0,'L');
-  $pdf->Cell(70,6,'Huesped',0,0,'L');
-  $pdf->Cell(35,6,'Nacionalidad',0,0,'L');
-  $pdf->Cell(5,6,'H',0,0,'L');
-  $pdf->Cell(5,6,'M',0,0,'L');
-  $pdf->Cell(5,6,'N',0,0,'L');
-  $pdf->Cell(25,6,'Tarifa',0,1,'C');
+  $pdf->Cell(25,5,'Llegada',1,0,'L');
+  $pdf->Cell(25,5,'Salida',1,0,'L');
+  $pdf->Cell(70,5,'Huesped',1,0,'L');
+  $pdf->Cell(35,5,'Nacionalidad',1,0,'L');
+  $pdf->Cell(5,5,'H',1,0,'L');
+  $pdf->Cell(5,5,'M',1,0,'L');
+  $pdf->Cell(5,5,'N',1,0,'L');
+  $pdf->Cell(25,5,'Tarifa',1,1,'C');
   $pdf->SetFont('Arial','',9);
   if($regis==0){
-      $pdf->Cell(190,6,'SIN SALIDAS DE EXTRANJEROS ESTE DIA',0,0,'C');    
+      $pdf->Cell(190,6,'SIN SALIDAS DE EXTRANJEROS ESTE DIA',1,1,'C');    
   }else{
     foreach ($reservas as $reserva) {
       $nombrepais = $hotel->buscaNacionalidad($reserva['pais']);

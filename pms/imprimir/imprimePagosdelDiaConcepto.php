@@ -10,7 +10,7 @@ require_once '../imprimir/plantillaFpdfFinancL.php';
 
 $pdf = new PDF();
 $pdf->AddPage('P', 'letter');
-$pdf->SetFont('Arial', 'B', 11);
+$pdf->SetFont('Arial', 'B', 11); 
 $pdf->Cell(195, 4, 'FLUJO DE CAJA', 0, 1, 'C');
 $pdf->SetFont('Arial', '', 9);
 $pdf->Cell(195, 4, 'Fecha : '.FECHA_PMS, 0, 1, 'C');

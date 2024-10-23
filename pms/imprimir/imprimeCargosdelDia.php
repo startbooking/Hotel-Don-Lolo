@@ -8,7 +8,7 @@ $nombres = $_POST['nombres'];
 require_once '../../res/php/app_topHotel.php';
 require_once '../imprimir/plantillaFpdfFinanc.php';
 
-$pdf = new PDF();
+$pdf = new PDF(); 
 $pdf->AddPage('L', 'letter');
 $pdf->SetFont('Arial', 'B', 9);
 $pdf->Cell(260, 4, 'CARGOS DEL DIA ', 0, 1, 'C');

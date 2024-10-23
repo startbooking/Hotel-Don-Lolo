@@ -15,7 +15,7 @@
   $monto = 0 ;
 
   if(count($codigos)==0){
-      $pdf->Cell(195,6,'SIN PAGOS RECIBIDOS EN EL DIA ',0,1,'C');
+      $pdf->Cell(195,6,'SIN PAGOS RECIBIDOS EN EL DIA ',1,1,'C');
   }else{
     foreach ($codigos as $codigo) {
       $pdf->SetFont('Arial','B',9);

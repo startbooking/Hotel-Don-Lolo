@@ -9,7 +9,6 @@ require_once '../../res/php/app_topHotel.php';
 require_once '../imprimir/plantillaFpdfRooms.php';
 
 $reservas = $hotel->getHuespedesenCasa(2, 'CA');
-// echo print_r($reservas);
 
 $room = $hotel->cantidadHabitaciones(1);
 $pm = $hotel->cantidadHabitaciones(5);

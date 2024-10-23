@@ -3,9 +3,9 @@
 
   $pdf = new PDF();
   $pdf->AddPage('P','letter');
-  $pdf->SetFont('Arial','B',11);
+  $pdf->SetFont('Arial','B',10);
   $pdf->Cell(195,4,'BALANCE DIARIO ',0,1,'C');
-  $pdf->SetFont('Arial','',11);
+  $pdf->SetFont('Arial','',10);
   $pdf->Cell(195,4,'Fecha : '.FECHA_PMS,0,1,'C');
   $pdf->Ln(4);
 

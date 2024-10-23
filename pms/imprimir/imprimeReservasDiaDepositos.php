@@ -31,7 +31,7 @@ $pdf->Cell(70, 5, 'Huesped', 1, 0, 'C');
 $pdf->Cell(20, 5, 'Fecha', 1, 0, 'C');
 $pdf->Cell(20, 5, 'Usuario', 1, 1, 'C');
 $pdf->SetFont('Arial', '', 9);
-$pdf->Ln(2);
+$pdf->Ln(1);
 
 if ($regis == 0) {
     $pdf->Cell(260, 6, 'SIN RECIBOS DE CAJA ', 0, 0, 'C');
@@ -43,7 +43,7 @@ if ($regis == 0) {
         $pdf->Cell(30, 4, number_format($deposito['pagos_cargos'], 2), 0, 0, 'R');
         $pdf->Cell(10, 4, $deposito['habitacion_cargo'], 0, 0, 'R');
         $pdf->Cell(50, 4, $deposito['descripcion_cargo'], 0, 0, 'L');
-        $pdf->Cell(20, 4, $deposito['id_reserva'], 0, 0, 'C');
+        $pdf->Cell(20, 4, $deposito['id_reserva'], 0, 0, 'R');
         $pdf->Cell(70, 4, ($deposito['apellido1'].' '.$deposito['apellido2'].' '.$deposito['nombre1'].' '.$deposito['nombre2']), 0, 0, 'L');
         $pdf->Cell(20, 4, $deposito['fecha_cargo'], 0, 0, 'R');
         $pdf->Cell(20, 4, ($hotel->nombreUsuario($deposito['id_usuario'])), 0, 1, 'L');

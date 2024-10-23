@@ -300,7 +300,7 @@ td span .alert {
 
 .table > tbody > tr > td,
 .table > tbody > tr > th {
-  padding: 2px 0 2px 4px;
+  /* padding: 2px 0 2px 4px; */
   line-height: 0.85;
   vertical-align: middle;
   /* font-size: 11px; */
@@ -332,7 +332,7 @@ td span .alert {
 .table-bordered > tbody > tr > td,
 .table-bordered > tfoot > tr > th,
 .table-bordered > tfoot > tr > td {
-  padding: 3px 5px !important;
+  /* padding: 3px 5px !important; */
 }
 
 .centrarBotones {

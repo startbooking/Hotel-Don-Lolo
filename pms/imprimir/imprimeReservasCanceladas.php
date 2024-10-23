@@ -11,7 +11,7 @@
   
   array_sort_by($reservas, 'apellido1', $order = SORT_ASC);  
 
-  $regis    = count($reservas);
+  $regis    = count($reservas); 
 
   $pdf = new PDF();
   $pdf->AddPage('P','letter');
