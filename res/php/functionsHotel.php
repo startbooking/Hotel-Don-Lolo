@@ -81,7 +81,7 @@ class Hotel_Actions
                 FROM
                     reservas_pms 
                 WHERE
-                    estado = 'CA' 
+                    estado = 'ES' 
                 GROUP BY
                     reservas_pms.fecha_salida 
                 ORDER BY
@@ -858,7 +858,6 @@ class Hotel_Actions
             estado_mmto = 1
         ORDER BY
             habitaciones.numero_hab
-            
         ) AS mmto 
             ON habitaciones.numero_hab = mmto.numero_hab 
         WHERE
