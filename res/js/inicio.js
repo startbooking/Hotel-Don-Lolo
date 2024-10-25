@@ -184,7 +184,7 @@ function activaModulos() {
   fecha = new Date();
   fechaAct =
     fecha.getDate() + "/" + (fecha.getMonth() + 1) + "/" + fecha.getFullYear();
-  let { cia: { invMod, posMod, pmsMod, resMod }, user: { estado, ingreso, tipo, apellidos, nombres, inv, pos, pms, res, estado_usuario_pos }, moduloPms: { fecha_auditoria } } = sesion;
+  let { cia: { invMod, posMod, pmsMod, resMod, feMod }, user: { estado, ingreso, tipo, apellidos, nombres, inv, pos, pms, res, fe, estado_usuario_pos }, moduloPms: { fecha_auditoria } } = sesion;
   /* let { estado, ingreso, tipo, apellidos, nombres, inv, pos, pms, res } = user;
   let {   console.log(sesion)
 invMod, posMod, pmsMod, resMod } = cia;

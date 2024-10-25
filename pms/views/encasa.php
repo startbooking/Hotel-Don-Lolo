@@ -1,3 +1,7 @@
+<?php 
+// echo print_r($reservas);
+?>
+
 <div class="content-wrapper" id="pantallaenCasa">
   <section class="content">
     <div class="panel panel-success">
