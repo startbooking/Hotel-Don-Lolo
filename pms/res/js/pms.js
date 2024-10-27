@@ -1359,6 +1359,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     var id = button.data("id");
     var nombre = button.data("nombre");
     var modal = $(this);
+    // $("#editaRes").val(0);
     var parametros = {
       id,
     };
@@ -1367,11 +1368,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       type: "POST",
       data: parametros,
       url: "res/php/dataUpdateEstadia.php",
-      beforeSend: function (objeto) {},
       success: function (datos) {
         $("#modalReservasEst").html("");
         $("#modalReservasEst").html(datos);
-      },
+      }, 
     });
     $(".alert").hide();
   });

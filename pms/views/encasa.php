@@ -8,7 +8,7 @@
       <div class="panel-heading">
         <div class="row">
           <div class="col-lg-6 col-md-6">
-            <input type="hidden" name="edita" id="edita" value="0">
+            <input type="hidden" name="editaRes" id="editaRes" value="0">
             <input type="hidden" name="cuentadepositos" id="cuentadepositos" value="<?= CTA_DEPOSITO ?>">
             <input type="hidden" name="rutaweb" id="rutaweb" value="<?= BASE_PMS ?>">
             <input type="hidden" name="ubicacion" id="ubicacion" value="encasa">

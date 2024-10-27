@@ -39,7 +39,7 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
               ?>>
               <?php echo $tipodoc['descripcion_documento']; ?></option>
           <?php } ?>
-        </select>
+        </select> 
       </div>
     </div>
     <div class="form-group">
@@ -107,12 +107,12 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
       <label for="llegada" class="col-sm-2 control-label">Llegada</label>
       <div class="col-sm-3">
         <input type="date" class="form-control" name="llegadaUpd" id="llegadaUpd" required="" onblur="sumaFecha()" value="<?php echo $reserva[0]['fecha_llegada']; ?>" min='
-        <?php 
-          if ($reserva[0]['tipo_reserva'] == 2) { 
-            echo $reserva[0]['fecha_llegada'];
-          } else {
-            echo FECHA_PMS;
-          } ?>'
+        <?php
+        if ($reserva[0]['tipo_reserva'] == 2) {
+          echo $reserva[0]['fecha_llegada'];
+        } else {
+          echo FECHA_PMS;
+        } ?>'
           <?php
           if ($reserva[0]['tipo_reserva'] == 2) { ?>
           disabled="true"
@@ -168,7 +168,7 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
       </div>
       <label for="nrohabitacion" class="col-sm-2 control-label">Nro Habitacion</label>
       <div class="col-sm-4">
-        <div id="habitacionesUpd" >
+        <div id="habitacionesUpd">
           <select name="nrohabitacionUpd" id="nrohabitacionUpd" required readonly>
             <?php
             foreach ($habitaciones as $habitacion) { ?>

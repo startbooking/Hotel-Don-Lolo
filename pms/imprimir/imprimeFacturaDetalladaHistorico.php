@@ -15,7 +15,7 @@ $level = 'L'; // Nivel de corrección (L, M, Q, H)
 $datosReserva = $hotel->getReservasDatosHistorico($reserva);
 $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
 
-echo print_r($datosReserva);
+// echo print_r($datosReserva);
 
 $horaIng = $datosReserva[0]['hora_llegada'];
 

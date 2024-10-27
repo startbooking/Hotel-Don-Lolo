@@ -22,7 +22,7 @@ $cia     = $hotel->getBuscaCia($reserva[0]['id_compania']);
         <input type="hidden" name="numeroReserva" id="numeroReserva" value="<?= $id ?>">
         <input type="hidden" name="tipoocupacion" id="tipoocupacion" value="<?= $reserva[0]['tipo_ocupacion'] ?>">
         <input type="text" class="form-control" name="identifica" id="identifica" value="<?= $huesped[0]['identificacion'] ?>" readonly="">
-      </div>
+      </div> 
       <label for="inputEmail3" class="col-sm-1 control-label">Tipo</label>
       <div class="col-sm-3">
         <select name="tipodoc" id="tipodoc" disabled="" readonly>
