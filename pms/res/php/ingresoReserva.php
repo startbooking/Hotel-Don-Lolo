@@ -7,7 +7,7 @@ extract($_POST);
 $idCentro = 0;
 
 if ($observaciones != '') {
-    $observaciones = strtoupper($observa).' Usuario: '.$usuario.' Fecha Observacion: '.date('Y.m.d H:i:s');
+    $observaciones = strtoupper($observaciones).' Usuario: '.$usuario.' Fecha Observacion: '.date('Y.m.d H:i:s');
 }
 
 foreach ($nrohabitacion as $key => $value) {

@@ -3,13 +3,8 @@
 require '../../../res/fpdf/fpdf.php';
 require '../../../res/phpqrcode/qrlib.php'; 
 
-// echo $nroFactura;
-
-
-// $filename = 'QR_'.$prefijo.'-'.$nroFactura.'.png';
 $filename = '../../../img/pms/QR_'.$prefijo.'-'.$nroFactura.'.png';
 
-// echo $filename;
 $size = 100; // Tamaño en píxeles
 $level = 'L'; // Nivel de corrección (L, M, Q, H)
 
@@ -46,14 +41,12 @@ if($datosReserva[0]['fecha_salida']> FECHA_PMS){
     $fechaSalida = $datosReserva[0]['fecha_salida'];
 }
 
-
 $pdf = new FPDF();
 $pdf->AddPage('P', 'letter');
 $pdf->Rect(10, 50, 190, 210);
 
 $pdf->Image('../../../img/'.LOGO, 10, 5, 40);
 $pdf->Image($filename, 163, 5, 33);
-
 
 $pdf->SetFont('Arial', 'B', 11);
 $pdf->Cell(190, 4, (NAME_EMPRESA), 0, 1, 'C');
