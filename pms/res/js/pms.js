@@ -5038,7 +5038,8 @@ function congelaHuesped() {
     url: web + "res/php/ingresoCongela.php",
     data: parametros,
     success: function (data) {
-      var ventana = window.open(data, "PRINT", "height=600,width=600");
+      console.log(data);
+      var ventana = window.open('imprimir/congela/'+data.trim(), "PRINT", "height=600,width=600");
       swal(
         {
           title: "Atencion",

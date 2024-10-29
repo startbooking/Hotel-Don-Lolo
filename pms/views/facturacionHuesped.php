@@ -85,7 +85,7 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
             </div>
           </div>
           <div class="form-group">
-            <label for="llegada" class="col-sm-1 control-label">Llegada</label>
+            <label for="llegada" class="couseNavigatel-sm-1 control-label">Llegada</label>
             <div class="col-sm-2">
               <input type="text" class="form-control" name="llegada" id="llegada" readonly="" value="<?php echo $datosReserva[0]['fecha_llegada']; ?>">
             </div>

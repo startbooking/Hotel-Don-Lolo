@@ -27,3 +27,4 @@ $habSucia = $hotel->updateEstadoHabitacion($room);
 // echo $salida;
 
 include_once '../../imprimir/imprimeCongelada.php';
+ 
