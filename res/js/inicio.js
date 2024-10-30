@@ -39,12 +39,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   
   modulos = document.querySelector('#modulos');
 
-  if(modulos != null){
+  /* if(modulos != null){
     if (estado_usuario_pos == "2") {
       $("#cerrado").css("display", "block");
       $("#linkPos").attr("href", "#");
     }
-  }
+  } */
 
 });
   
@@ -197,10 +197,10 @@ invMod, posMod, pmsMod, resMod } = cia;
     `${apellidos}  ${nombres}<span class="caret"></span>`
   );
 
-  if (estado_usuario_pos == "2") {
+  /* if (estado_usuario_pos == "2") {
     $("#cerrado").css("display", "block");
     $("#linkPos").attr("href", "#");
-  }
+  } */
 }
 
 function redondeo(numero, decimales) {
