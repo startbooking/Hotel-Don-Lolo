@@ -2315,7 +2315,7 @@ async function imprimeAjusteCuenta(numero, reserva, folio){
   }
 
   try {
-    const res = await fetch(`APIHotel/data/imprimeAjusteCuenta.php`, {
+    const res = await fetch(`../APIHotel/data/imprimeAjusteCuenta.php`, {
       method: "POST",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -2338,7 +2338,7 @@ async function actualizaConsecutivoCuenta(numero){
   }
 
   try {
-    const res = await fetch(`APIHotel/data/consecutivoAjusteCuenta.php`, {
+    const res = await fetch(`../APIHotel/data/consecutivoAjusteCuenta.php`, {
       method: "POST",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -2362,7 +2362,7 @@ async function guardaAjusteCuenta(reserva, folio, conse){
   }
 
   try {
-    const res = await fetch("APIHotel/data/actualizaAjusteCuenta.php", {
+    const res = await fetch("../APIHotel/data/actualizaAjusteCuenta.php", {
       method: "POST",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -2380,7 +2380,7 @@ async function guardaAjusteCuenta(reserva, folio, conse){
 const traeConsecutivo = async () => {
   let token = "9b25a3d3-dbc5-42a8-830d-899d2c9d9233";
   try {
-    const resultado = await fetch(`APIHotel/data/consecutivoAjusteCuenta.php`,
+    const resultado = await fetch(`../APIHotel/data/consecutivoAjusteCuenta.php`,
       {
         method: "GET",
         headers: {
