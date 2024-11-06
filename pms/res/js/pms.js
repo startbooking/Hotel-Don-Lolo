@@ -2296,10 +2296,9 @@ async function ajusteCuenta(){
   let { con_ajuste_cuenta } = conse[0];
   let nuevo = await actualizaConsecutivoCuenta(con_ajuste_cuenta+1);
   let imprime = await imprimeAjusteCuenta(con_ajuste_cuenta, reserva, folio);
-  // console.log(imprime);
-  // imprime = $.trim(data);
+  
   var ventana = window.open(
-    imprime,
+    'imprimir/ajustes/'+imprime,
     "PRINT",
     "height=600,width=600"
   );
@@ -2312,7 +2311,7 @@ async function imprimeAjusteCuenta(numero, reserva, folio){
     numero,
     reserva,
     folio, 
-  }
+  } 
 
   try {
     const res = await fetch(`../APIHotel/data/imprimeAjusteCuenta.php`, {
@@ -2324,7 +2323,6 @@ async function imprimeAjusteCuenta(numero, reserva, folio){
       body: JSON.stringify(req),
     });
     const datos = await res.text();
-    console.log(datos);
     return datos;
   } catch (error) {
     return error

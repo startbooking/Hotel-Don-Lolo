@@ -251,11 +251,11 @@ if ($_GET['section'] != 'cajeroCerrado') {
                 <li><a href="historicoNC"><i class="fa fa-circle-o"></i>Historico Notas Credito</a></li>
                 <li><a href="informeRecibosCajaRango"><i class="fa fa-files-o"></i>Historico Recibos de Caja</a></li>
                 <li><a href="informeCargosPorRango"><i class="fa fa-files-o"></i>Historico Cargos</a></li>
-                <li><a href="historicoAjustesCargos"><i class="fa fa-files-o"></i>Historico Ajustes Cargos</a></li>
+                <!-- <li><a href="historicoAjustesCargos"><i class="fa fa-files-o"></i>Historico Ajustes Cargos</a></li> -->
                 <li><a href="historicoAuditoria"><i class="fa fa-circle-o"></i>Historico Auditorias</a></li>
               </ul>
             </li>
-          </ul>
+          </ul> 
         </li>
         <li><a href="javascript:cierraSesion()"><i class="glyphicon glyphicon-off" aria-hidden="true"></i><span>Cerrar Sesion </span></a></li>
       </ul>

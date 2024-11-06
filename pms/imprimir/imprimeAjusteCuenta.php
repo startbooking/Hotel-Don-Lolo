@@ -151,8 +151,8 @@ if ($totalCta < 0) {
     $pdf->Cell(190, 5, 'SON : ' . numtoletras($totalCta), 0, 1, 'L');
 }
 
- $file = '../../pms/imprimir/ajustes/'.$folios[0]['prefijo_factura'].str_pad($folios[0]['factura_numero'], 4, '0', STR_PAD_LEFT).'.pdf';
-
+$file = '../../pms/imprimir/ajustes/'.$folios[0]['prefijo_factura'].str_pad($folios[0]['factura_numero'], 4, '0', STR_PAD_LEFT).'.pdf';
+$filePrint = $folios[0]['prefijo_factura'].str_pad($folios[0]['factura_numero'], 4, '0', STR_PAD_LEFT).'.pdf';
 $pdf->Output($file, 'F');
 
-echo $file;
+echo $filePrint;
