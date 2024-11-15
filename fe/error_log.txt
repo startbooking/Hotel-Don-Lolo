@@ -1,0 +1,2 @@
+[09-Nov-2024 14:18:45 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/fe/views/facturas.php on line 10
+[09-Nov-2024 14:18:45 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/fe/views/facturas.php on line 10

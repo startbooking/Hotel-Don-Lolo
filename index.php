@@ -5,7 +5,6 @@ require_once 'res/php/app_top.php';
 <!DOCTYPE html>
 <html lang="es">
 
-
 <head>
 	<title>SACTel PMS Software | Ingreso al Sistema</title>
 	<?php include_once 'res/shared/archivo_head.php';	?>
