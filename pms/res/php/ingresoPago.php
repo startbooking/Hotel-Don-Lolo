@@ -39,7 +39,7 @@ if ($reteica == 0) {
     $baseIca = 0;
 }
 
-$idhuesped = $idhues;
+$idhuesped = $idhues; 
 
 $horaFact = date('H:s:i');
 
@@ -49,6 +49,7 @@ $prefijo = $resFac[0]['prefijo'];
 $fechaRes = $resFac[0]['fecha'];
 $desde = $resFac[0]['desde'];
 $hasta = $resFac[0]['hasta'];
+$tipoRes = $resFac[0]['tipo'];
  
 $fechaFac = $fecha;
 $fechaVen = $fecha;
@@ -74,16 +75,16 @@ if ($tipofac == 1) {
 } else {
     $id = $idcia;
     $datosCompania = $hotel->getSeleccionaCompania($id);
+    $aplicarete = $datosCompania[0]['retefuente'];
+    $aplicaiva  = $datosCompania[0]['reteiva'];
+    $aplicaica  = $datosCompania[0]['reteica'];
+    $sinBaseRete  = $datosCompania[0]['sinBaseRete'];
     if ($codigo == 2) {
         $diasCre = $datosCompania[0]['dias_credito'];
         $fechaVen = strtotime('+ ' . $diasCre . ' day', strtotime($fechaFac));
         $fechaVen = date('Y-m-d', $fechaVen);
-        $aplicarete = $datosCompania[0]['retefuente'];
-        $aplicaiva  = $datosCompania[0]['reteiva'];
-        $aplicaica  = $datosCompania[0]['reteica'];
-        $sinBaseRete  = $datosCompania[0]['sinBaseRete'];
-    }
-    if ($aplicarete == 1) {
+    } 
+    if ($aplicarete === 1) {
         if ($sinBaseRete == 1) {
             $valorRet = $hotel->traeValorRetencionesSinBase($reserva, $folioAct);
         } else {
@@ -268,7 +269,7 @@ if ($perfilFac == 1 && $facturador == 1) {
     foreach ($valorRet as $rete) {
         $ret = [
             'tax_id' => '6',
-            'tax_amount' => $rete['retencion'],
+            'tax_amount' => $rete['valorRetencion'],
             'taxable_amount' => $rete['base'],
             'percent' => $rete['porcentajeRetencion'],
         ];
@@ -328,6 +329,8 @@ if ($perfilFac == 1 && $facturador == 1) {
 
     $recibeCurl = json_decode(trim($respofact), true);
 
+    return 0 ;
+    exit();
     $errores = [];
     $error = [];
 

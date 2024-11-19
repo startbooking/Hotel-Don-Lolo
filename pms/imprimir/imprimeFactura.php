@@ -10,9 +10,6 @@ $level = 'L'; // Nivel de corrección (L, M, Q, H)
 // Generar el código QR
 QRcode::png($QRStr, $filename, $level, $size); 
 
-/* if(DEV==0){
-} */
-
 $aplicarete = 0;
 $aplicaiva = 0;
 $aplicaica = 0;
@@ -24,13 +21,20 @@ $horaIng = $datosReserva[0]['hora_llegada'];
 
 if ($tipofac == 2) { 
   $datosCompania = $hotel->getSeleccionaCompania($idperfil);
-  $diasCre = $datosCompania[0]['dias_credito'];  
+  $diasCre = $datosCompania[0]['dias_credito'];
   $aplicarete = $datosCompania[0]['retefuente'];
   $aplicaiva  = $datosCompania[0]['reteiva'];
   $aplicaica  = $datosCompania[0]['reteica'];
   $sinBaseRete  = $datosCompania[0]['sinBaseRete'];
 }
-$textoResol = 'RESOLUCION DIAN No.'.$resolucion.' de '.$fechaRes.' Autorizacion Pref '.$prefijo.' desde el No. '.$desde.' AL '.$hasta;
+
+if($tipoRes =1 ){
+  $textTipoRes = 'Autorizacion';
+}else {
+  $textTipoRes = 'Habilitacion';
+}
+
+$textoResol = 'RESOLUCION DIAN No.'.$resolucion.' de '.$fechaRes.' '.$textTipoRes.' Pref '.$prefijo.' desde el No. '.$desde.' AL '.$hasta;
 
 $fechaFac = FECHA_PMS;
 $fechaVen = $fechaFac;
@@ -62,10 +66,7 @@ $pdf = new FPDF();
 $pdf->AddPage('P', 'letter');
 $pdf->Rect(10, 50, 190, 210);
 $pdf->Image('../../../img/'.LOGO, 10, 5, 40);
-/* if (DEV == 0) {
-} */
 $pdf->Image($filename, 163, 5, 35);
-
 
 $pdf->SetFont('Arial', 'B', 11);
 $pdf->Cell(190, 4, (NAME_EMPRESA), 0, 1, 'C');
@@ -220,9 +221,10 @@ $pdf->Cell(30, 4, 'BASE', 1, 0, 'R');
 $pdf->Cell(30, 4, 'VALOR', 1, 0, 'R');
 $pdf->Cell(60, 4, 'DETALLE', 1, 0, 'C');
 $pdf->Cell(35, 4, 'VALOR', 1, 1, 'R');
+$pdf->SetFont('Arial', '', 8);
 
 $totRetencion = 0 ;
-$pdf->SetFont('Arial', '', 8);
+
   if($tipofac == 2){
     if(count($retenciones) == 0){
       $pdf->Cell(35,   4, 'RETEFUENTE', 1, 0, 'L');
@@ -278,7 +280,6 @@ if($tipofac == 2 && ($aplicarete == 1 || $aplicaiva == 1 || $aplicaica == 1)){
   $pdf->Cell(50, 4, 'TOTAL RETENCIONES', 1, 0, 'L');
   $pdf->Cell(45, 4, number_format($reteiva + $reteica + $totRetencion, 2), 1, 1, 'R');
 } 
-$pdf->SetFont('Arial', '', 8);
 $pagos = 0;
 $pdf->setY(163);
 $pdf->setX(105);

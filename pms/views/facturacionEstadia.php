@@ -1,12 +1,13 @@
 <?php
 $resolucion = $hotel->getResolucion(1);
 $numFact = $hotel->getNumeroFactura();
-$desde = $resolucion[0]['desde'];
-$hasta = $resolucion[0]['hasta'];
-$fecha = $resolucion[0]['fecha'];
-$vigen = $resolucion[0]['vigencia'];
-$fechaVigencia =   date("Y-m-d", strtotime($fecha . "+ " . $resolucion[0]['vigencia'] . " month"));
- 
+if (count($resolucion) > 0) {
+  $desde = $resolucion[0]['desde'];
+  $hasta = $resolucion[0]['hasta'];
+  $fecha = $resolucion[0]['fecha'];
+  $vigen = $resolucion[0]['vigencia'];
+  $fechaVigencia =   date("Y-m-d", strtotime($fecha . "+ " . $resolucion[0]['vigencia'] . " month"));
+}
 ?>
 
 <div class="content-wrapper" id="pantallaFacturacion">
@@ -24,17 +25,27 @@ $fechaVigencia =   date("Y-m-d", strtotime($fecha . "+ " . $resolucion[0]['vigen
           </div>
           <div class="col-lg-6">
             <?php
-            if (FECHA_PMS > $fechaVigencia || $numFact > $hasta) { ?>
+            if (count($resolucion) == 0) { ?>
               <div class="alert alert-danger centro mb-0" style="color: #000 !important;">
                 <h4>Precaucion</h4>
-                <h5>Resolucion de Facturacion a Vencido </h5>
-                <h5>Fecha Vencimiento Facturacion <?= $fechaVigencia ?> Rango Facturacion Desde <?= $desde ?> Hasta <?= $hasta ?></h5>
+                <h5>SIN Resolucion de Facturacion </h5>
+                <h5>NO permitido Generar Facturas </h5>
               </div>
               <input type="hidden" name="vigencia" id="vigencia" value="1">
+              <?php
+            } else {
+              if (FECHA_PMS > $fechaVigencia || $numFact > $hasta) { ?>
+                <div class="alert alert-danger centro mb-0" style="color: #000 !important;">
+                  <h4>Precaucion</h4>
+                  <h5>Resolucion de Facturacion a Vencido </h5>
+                  <h5>Fecha Vencimiento Facturacion <?= $fechaVigencia ?> Rango Facturacion Desde <?= $desde ?> Hasta <?= $hasta ?></h5>
+                </div>
+                <input type="hidden" name="vigencia" id="vigencia" value="1">
+              <?php
+              } else { ?>
+                <input type="hidden" name="vigencia" id="vigencia" value="0">
             <?php
-            } else { ?>
-              <input type="hidden" name="vigencia" id="vigencia" value="0">
-            <?php
+              }
             }
             ?>
           </div>

@@ -1,0 +1,2 @@
+[18-Nov-2024 10:25:58 America/Bogota] PHP Warning:  Undefined array key "retencion" in /var/www/donlolo.lan/pms/res/php/ingresoPago.php on line 282
+[18-Nov-2024 10:25:58 America/Bogota] PHP Warning:  Undefined array key "retencion" in /var/www/donlolo.lan/pms/res/php/ingresoPago.php on line 282
