@@ -3,7 +3,7 @@ require '../../../res/php/app_topHotel.php';
 
 $numero    = $_POST['numero'];
 $motivo    = strtoupper($_POST['motivo']);
-$reserva   = $_POST['reserva'];
+// $reserva   = $_POST['reserva'];
 $usuario   = $_POST['usuario'];
 $idusuario = $_POST['usuario_id'];
 $perfil    = $_POST['perfil'];
@@ -18,7 +18,7 @@ $password = $eToken[0]['password'];
 $facturador = $eToken[0]['facturador'];
 
 $resFac = $hotel->getResolucion(1);
-$resolucion = $resFac[0]['resolucion'];
+$resolucion = $resFac[0]['resolucion']; 
 $prefijo = $resFac[0]['prefijo'];
 
 $dFactura = $hotel->infoFactura($numero);

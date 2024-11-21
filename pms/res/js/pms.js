@@ -3421,6 +3421,7 @@ function llenaAbonos(datos) {
 }
 
 function llenaNotasCre(datos) {
+  console.log(datos);
   facturasHTML = document.querySelector("#dataTableNC tbody");
   resultado = document.querySelector(".mensajeNC");
   if (datos.trim() == "1") {
@@ -4738,9 +4739,7 @@ async function anulaEnvioFactura(factura, reserva) {
 
 function anulaFactura() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {
-    user: { usuario, usuario_id, tipo },
-  } = sesion;
+  let { user: { usuario, usuario_id, tipo }, } = sesion;
   var pagina = $("#ubicacion").val();
   var numero = $("#factura").val();
   var motivo = $("#motivoAnula").val();

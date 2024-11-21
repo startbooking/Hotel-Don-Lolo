@@ -25,3 +25,5 @@
 [05-Oct-2024 15:19:55 America/Bogota] PHP Warning:  Undefined variable $ambienteAdi in /var/www/donlolo.lan/admin/res/php/guardaMesa.php on line 10
 [05-Oct-2024 15:19:55 America/Bogota] PHP Warning:  Undefined variable $mesaAdi in /var/www/donlolo.lan/admin/res/php/guardaMesa.php on line 10
 [05-Oct-2024 15:19:55 America/Bogota] PHP Warning:  Undefined variable $paxAdi in /var/www/donlolo.lan/admin/res/php/guardaMesa.php on line 10
+[19-Nov-2024 14:50:37 America/Bogota] PHP Warning:  PDOStatement::execute(): SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'BARAHONA' for key 'usuarios.usuario' in /var/www/donlolo.lan/res/php/Medoo.php on line 565
+[19-Nov-2024 14:55:05 America/Bogota] PHP Warning:  PDOStatement::execute(): SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'BARAHONA' for key 'usuarios.usuario' in /var/www/donlolo.lan/res/php/Medoo.php on line 565

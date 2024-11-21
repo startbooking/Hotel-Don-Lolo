@@ -11,7 +11,7 @@
                   <div class="datos_ajax_delete"></div>
                   <form id="formCierreDiario" class="form-horizontal" method="POST" enctype="multipart/form-data">
                       <div class="panel-body">
-                          <div class="row">
+                          <div class="row"> 
                               <?php
                                 $regis = count($notas);
                                 if ($regis == 0) { ?>

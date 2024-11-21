@@ -133,7 +133,7 @@ $inicial = date('Y-m-01', $dia);
             <div class="datos_ajax_delete"></div>
             <form id="formCierreDiario" class="form-horizontal" method="POST" enctype="multipart/form-data">
               <div class="panel-body">
-                <div class="row">
+                <div class="row"> 
                   <h3 class="centraTitulo"><i class="fa-solid fa-wallet "></i> Notas Credito</h3>
                   <div class="form-horizontal">
                     <div class="form-group">

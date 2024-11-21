@@ -14,6 +14,12 @@ $aplicarete = 0;
 $aplicaiva = 0;
 $aplicaica = 0;
 $sinBaseRete = 0;
+$reteiva = 0;
+$baseIva = 0;
+$retefuente = 0;
+$baseRete = 0;
+$reteica = 0;
+$baseIca = 0;
 
 $datosReserva = $hotel->getReservasDatos($reserva);
 $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
@@ -21,18 +27,18 @@ $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
 $horaIng = $datosReserva[0]['hora_llegada'];
 
 if ($tipofac == 2) {
-  $datosCompania = $hotel->getSeleccionaCompania($idperfil);
-  $diasCre = $datosCompania[0]['dias_credito'];
-  $aplicarete = $datosCompania[0]['retefuente'];
-  $aplicaiva  = $datosCompania[0]['reteiva'];
-  $aplicaica  = $datosCompania[0]['reteica'];
-  $sinBaseRete  = $datosCompania[0]['sinBaseRete'];
+    $datosCompania = $hotel->getSeleccionaCompania($idperfil);
+    $diasCre = $datosCompania[0]['dias_credito'];
+    $aplicarete = $datosCompania[0]['retefuente'];
+    $aplicaiva  = $datosCompania[0]['reteiva'];
+    $aplicaica  = $datosCompania[0]['reteica'];
+    $sinBaseRete  = $datosCompania[0]['sinBaseRete'];
 }
 
 if ($tipoRes = 1) {
-  $textTipoRes = 'Autorizacion';
+    $textTipoRes = 'Autorizacion';
 } else {
-  $textTipoRes = 'Habilitacion';
+    $textTipoRes = 'Habilitacion';
 }
 
 $textoResol = 'RESOLUCION DIAN No.' . $resolucion . ' de ' . $fechaRes . ' ' . $textTipoRes . ' Pref ' . $prefijo . ' desde el No. ' . $desde . ' AL ' . $hasta;
@@ -51,13 +57,23 @@ $tipoimptos = $hotel->getValorImptoFolio($nroFactura, $reserva, $nroFolio, 2);
 $fecha = $hotel->getDatePms();
 $retenciones = [];
 
-if($aplicarete==1){
-    if($sinBaseRete==1){
-      $retenciones = $hotel->traeValorRetencionesSinBase($reserva, $folioAct);
-    }else{
-      $retenciones = $hotel->traeValorRetenciones($reserva, $folioAct);
-    }
+// echo print_r($pagosfolio);
+
+if ($aplicarete == 1) {
+  if ($sinBaseRete == 1) {
+    $retenciones = $hotel->traeValorRetencionesSinBase($reserva, $nroFolio);
+  } else {
+    $retenciones = $hotel->traeValorRetenciones($reserva, $nroFolio);
   }
+}
+
+echo print_r($retenciones);
+
+/* if($sinBase==1){
+    $valores = $hotel->traeValorRetencionesSinBase($nroReserva, $nroFolio);  
+  }else{
+    $valores = $hotel->traeValorRetenciones($nroReserva, $nroFolio);
+  } */
 
 if ($datosReserva[0]['fecha_salida'] > FECHA_PMS) {
     $fechaSalida = FECHA_PMS;
@@ -200,16 +216,16 @@ $impto = 0;
 $pagos = 0;
 $total = $consumos + $impto;
 foreach ($folios as $folio1) {
-  $pdf->Cell(15, 4, $folio1['cant'], 0, 0, 'C');
-  $pdf->Cell(65, 4, ($folio1['descripcion_cargo']), 0, 0, 'L');
-  $pdf->Cell(30, 4, number_format($folio1['cargos'], 2), 0, 0, 'R');
-  $pdf->Cell(20, 4, number_format($folio1['porcentaje_impto'], 2), 0, 0, 'R');
-  $pdf->Cell(30, 4, number_format($folio1['imptos'], 2), 0, 0, 'R');
-  $pdf->Cell(30, 4, number_format($folio1['cargos'] + $folio1['imptos'], 2), 0, 1, 'R');
-  $consumos = $consumos + $folio1['cargos'];
-  $impto = $impto + $folio1['imptos'];
-  $total = $consumos + $impto;
-  $pagos = $pagos + $folio1['pagos'];
+    $pdf->Cell(15, 4, $folio1['cant'], 0, 0, 'C');
+    $pdf->Cell(65, 4, ($folio1['descripcion_cargo']), 0, 0, 'L');
+    $pdf->Cell(30, 4, number_format($folio1['cargos'], 2), 0, 0, 'R');
+    $pdf->Cell(20, 4, number_format($folio1['porcentaje_impto'], 2), 0, 0, 'R');
+    $pdf->Cell(30, 4, number_format($folio1['imptos'], 2), 0, 0, 'R');
+    $pdf->Cell(30, 4, number_format($folio1['cargos'] + $folio1['imptos'], 2), 0, 1, 'R');
+    $consumos = $consumos + $folio1['cargos'];
+    $impto = $impto + $folio1['imptos'];
+    $total = $consumos + $impto;
+    $pagos = $pagos + $folio1['pagos'];
 }
 
 $pdf->Cell(110, 4, '', 0, 0, 'L');
@@ -228,63 +244,61 @@ $pdf->Cell(60, 4, 'DETALLE', 1, 0, 'C');
 $pdf->Cell(35, 4, 'VALOR', 1, 1, 'R');
 $pdf->SetFont('Arial', '', 8);
 
-$totRetencion = 0 ;
+$totRetencion = 0;
 
-  if($tipofac == 2){
-    if(count($retenciones) == 0){
-      $pdf->Cell(35,   4, 'RETEFUENTE', 1, 0, 'L');
-      $pdf->Cell(30, 4, number_format(0, 2), 1, 0, 'R');
-      $pdf->Cell(30, 4, number_format(0, 2), 1, 1, 'R');
-      $totRetencion = $totRetencion + 0;
-    }else {
-      foreach ($retenciones as $retencion) {  
-        if($tipofac == 2 ){
-          $pdf->Cell(35, 4, $retencion['descripcionRetencion'], 1, 0, 'L');
-          $pdf->Cell(30, 4, number_format($retencion['base'], 2), 1, 0, 'R');
-          $pdf->Cell(30, 4, number_format($retencion['valorRetencion'], 2), 1, 1, 'R');
-          $totRetencion = $totRetencion + round($retencion['valorRetencion']);      
-        }else{
-          $pdf->Cell(35,   4, 'RETEFUENTE', 1, 0, 'L');
-          $pdf->Cell(30, 4, number_format(0, 2), 1, 0, 'R');
-          $pdf->Cell(30, 4, number_format(0, 2), 1, 1, 'R');
-          $totRetencion = $totRetencion + 0;
+if ($tipofac == 2) {
+    if (count($retenciones) == 0) {
+        $pdf->Cell(35,   4, 'RETEFUENTE', 1, 0, 'L');
+        $pdf->Cell(30, 4, number_format(0, 2), 1, 0, 'R');
+        $pdf->Cell(30, 4, number_format(0, 2), 1, 1, 'R');
+        $totRetencion = $totRetencion + 0;
+    } else {
+        foreach ($retenciones as $retencion) {
+            if ($tipofac == 2) {
+                $pdf->Cell(35, 4, $retencion['descripcionRetencion'], 1, 0, 'L');
+                $pdf->Cell(30, 4, number_format($retencion['base'], 2), 1, 0, 'R');
+                $pdf->Cell(30, 4, number_format($retencion['valorRetencion'], 2), 1, 1, 'R');
+                $totRetencion = $totRetencion + round($retencion['valorRetencion']);
+            } else {
+                $pdf->Cell(35,   4, 'RETEFUENTE', 1, 0, 'L');
+                $pdf->Cell(30, 4, number_format(0, 2), 1, 0, 'R');
+                $pdf->Cell(30, 4, number_format(0, 2), 1, 1, 'R');
+                $totRetencion = $totRetencion + 0;
+            }
         }
-      }
     }
-  }else{
+} else {
     $pdf->Cell(35, 4, 'RETEFUENTE', 1, 0, 'L');
     $pdf->Cell(30, 4, number_format(0, 2), 1, 0, 'R');
     $pdf->Cell(30, 4, number_format(0, 2), 1, 1, 'R');
     $totRetencion = $totRetencion + 0;
-  }
-  
-  $pdf->Cell(35, 4, 'RETEIVA', 1, 0, 'L');
-  if($tipofac == 2){
-    $pdf->Cell(30, 4, number_format($baseIva, 2), 1, 0, 'R');
-    $pdf->Cell(30, 4, number_format($reteiva, 2), 1, 1, 'R');
-  } else {
-    $baseIva = 0;
-    $reteiva = 0;
-    $pdf->Cell(30, 4, number_format($baseIva, 2), 1, 0, 'R');
-    $pdf->Cell(30, 4, number_format($reteiva, 2), 1, 1, 'R');
-  }
+}
 
-  $pdf->Cell(35, 4, 'RETEICA', 1, 0, 'L');
-  if($tipofac == 2){
+$pdf->Cell(35, 4, 'RETEIVA', 1, 0, 'L');
+if ($tipofac == 2) {
+    $pdf->Cell(30, 4, number_format($baseIva, 2), 1, 0, 'R');
+    $pdf->Cell(30, 4, number_format($reteiva, 2), 1, 1, 'R');
+} else {
+    $pdf->Cell(30, 4, number_format($baseIva, 2), 1, 0, 'R');
+    $pdf->Cell(30, 4, number_format($reteiva, 2), 1, 1, 'R');
+}
+
+$pdf->Cell(35, 4, 'RETEICA', 1, 0, 'L');
+if ($tipofac == 2) {
     $pdf->Cell(30, 4, number_format($baseIca, 2), 1, 0, 'R');
     $pdf->Cell(30, 4, number_format($reteica, 2), 1, 1, 'R');
-  } else {
+} else {
     $baseIca = 0;
     $reteica = 0;
     $pdf->Cell(30, 4, number_format($baseIca, 2), 1, 0, 'R');
     $pdf->Cell(30, 4, number_format($reteica, 2), 1, 1, 'R');
-  } 
+}
 
-if($tipofac == 2 && ($aplicarete == 1 || $aplicaiva == 1 || $aplicaica == 1)){
-  $pdf->SetFont('Arial', 'B', 8);
-  $pdf->Cell(50, 4, 'TOTAL RETENCIONES', 1, 0, 'L');
-  $pdf->Cell(45, 4, number_format($reteiva + $reteica + $totRetencion, 2), 1, 1, 'R');
-} 
+if ($tipofac == 2 && ($aplicarete == 1 || $aplicaiva == 1 || $aplicaica == 1)) {
+    $pdf->SetFont('Arial', 'B', 8);
+    $pdf->Cell(50, 4, 'TOTAL RETENCIONES', 1, 0, 'L');
+    $pdf->Cell(45, 4, number_format($reteiva + $reteica + $totRetencion, 2), 1, 1, 'R');
+}
 
 $pagos = 0;
 $pdf->setY(163);
@@ -347,4 +361,3 @@ $pdf->MultiCell(190, 4, (PIEFACTURA), 0, 'C');
 $file = '../../imprimir/facturas/FES-' . $prefijo . $nroFactura . '.pdf';
 
 $pdf->Output($file, 'F');
-

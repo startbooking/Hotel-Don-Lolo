@@ -4,8 +4,8 @@
   require '../../../res/php/app_topHotel.php'; 
 	$factura =  $_POST['numero'];
 	$reserva =  $_POST['reserva'];
-	
 	$cargos  = $hotel->getBuscaHistoricoCargosFactura($factura,$reserva);
+	$folio    = $cargos[0]['folio_cargo'];	
 
   ?>
 
@@ -21,9 +21,6 @@
 	  		<th>Abonos</th>
 	  		<th>Fecha</th>
 	  		<th>Usuario</th>
-	  		<!--
-	  		<th>Doc</th>
-	  		-->
 	    </tr>
 	 	</thead>
 	 	<tbody>
@@ -35,7 +32,7 @@
 	        $consumos = $consumos + $folio1['monto_cargo'];
 	        $impto    = $impto + $folio1['impuesto'];
 	        $pagos    = $pagos + $folio1['pagos_cargos'];	
-	        $folio = $folio1['folio_cargo'];	
+	        $folio    = $folio1['folio_cargo'];	
 	      		?>
 	          <tr style="text-align:right;">
 	     			  <td style="text-align:left;"><?=$folio1['descripcion_cargo']?></td>
