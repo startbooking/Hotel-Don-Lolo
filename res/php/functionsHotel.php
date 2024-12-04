@@ -10028,7 +10028,6 @@ class Hotel_Actions
         $data = $database->select('reservas_pms', [
             '[>]companias' => ['id_compania' => 'id_compania'],
             '[>]huespedes' => ['id_huesped' => 'id_huesped'],
-            '[>]cargos_pms' => ['num_reserva' => 'id_reserva'],
             '[>]habitaciones' => ['num_habitacion' => 'numero_hab'],
         ], [
             'reservas_pms.cantidad',
@@ -10060,7 +10059,6 @@ class Hotel_Actions
             'huespedes.nombre_completo',
             'habitaciones.sucia',
             'companias.empresa',
-            'cargos_pms.pagos_cargos',
         ], [
             'reservas_pms.tipo_reserva' => $tipo,
             'reservas_pms.estado' => $estado,

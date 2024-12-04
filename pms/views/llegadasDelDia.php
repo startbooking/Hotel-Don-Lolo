@@ -34,7 +34,9 @@
             </thead>
             <tbody>
               <?php
-              foreach ($reservas as $reserva) { ?>
+              foreach ($reservas as $reserva) { 
+                $depositos = $hotel->getDepositosReservas($reserva['num_reserva']);
+                ?>
                 <tr style='font-size:12px'>
                   <td style="display: inline-flex;padding:0 2px">
                     <span><?php echo $reserva['num_reserva']; ?></span>
@@ -46,7 +48,13 @@
                       </span>
                     <?php
                     }
-                    if ($reserva['pagos_cargos'] != null) { ?>
+                    /* if ($reserva['pagos_cargos'] != null) { ?>
+                      <span class="btn btn-success faReservas" title="Reserva con Depositos" onclick="verDepositos('<?php echo $reserva['num_reserva']; ?>')">
+                        <i class="fa fa-usd fa-stack-1x fa-inverse "></i>
+                      </span>
+                    <?php
+                    } */
+                    if (count($depositos) != 0) { ?>
                       <span class="btn btn-success faReservas" title="Reserva con Depositos" onclick="verDepositos('<?php echo $reserva['num_reserva']; ?>')">
                         <i class="fa fa-usd fa-stack-1x fa-inverse "></i>
                       </span>

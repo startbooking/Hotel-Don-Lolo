@@ -266,6 +266,8 @@ if ($perfilFac == 1 && $facturador == 1) {
         }
     }
 
+    // echo print_r($valorRet);
+
     foreach ($valorRet as $rete) {
         $ret = [
             'tax_id' => '6',

@@ -17,6 +17,8 @@ $token = $eToken[0]['token'];
 $password = $eToken[0]['password'];
 $facturador = $eToken[0]['facturador'];
 
+$estadofactura = [];
+
 $resFac = $hotel->getResolucion(1);
 $resolucion = $resFac[0]['resolucion'];
 $prefijo = $resFac[0]['prefijo'];
@@ -152,13 +154,15 @@ if ($perfil == 1 && $facturador == 1) {
 
     $eNote = json_encode($eNote);
     
-    include_once '../../api/enviaNC.php';
+    // include_once '../../api/enviaNC.php';
+
+
+    include_once '../../api/recibeNC.php';
 
     $recibeCurl = json_decode($respoNC, true);
 
     file_put_contents($envCurl, $eNote . ',',  FILE_APPEND | LOCK_EX);
     file_put_contents($arcCurl, $respoNC . ',',  FILE_APPEND | LOCK_EX);
-
 
     $message = $recibeCurl['message'];
     $sendSucc = $recibeCurl['send_email_success'];
@@ -175,15 +179,31 @@ if ($perfil == 1 && $facturador == 1) {
     $urlinvoicepdf = $recibeCurl['urlinvoicepdf'];
     $cude = $recibeCurl['cude'];
     $QRStr = $recibeCurl['QRStr'];
-    $timeCrea   = $recibeCurl['dian_validation_date_time']['date'];
     
     $respo = '';
-
+    
     $errorMessage = json_encode($recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['ErrorMessage']);
     $Isvalid      = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['IsValid'];
+    
+    if ($Isvalid == "false") {
+        $error = [
+            'error' => '1',
+            'folio' => '0',
+            'mensaje' => $errorMessage,
+            'factura' => $numDoc,
+            'errorDian' => '1',
+            'perfil' => $perfil,
+            'archivo' => '',
+        ];
+        array_push($estadofactura, $error);
+        echo json_encode($estadofactura);
+        return;
+    }
+
     $statusCode   = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['StatusCode'];
     $statusDesc   = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['StatusDescription'];
     $statusMess   = $recibeCurl['ResponseDian']['Envelope']['Body']['SendBillSyncResponse']['SendBillSyncResult']['StatusMessage'];
+    $timeCrea     = $recibeCurl['dian_validation_date_time']['date'];
 
     $message = $recibeCurl['message'];
 
@@ -204,6 +224,19 @@ if ($perfil == 1 && $facturador == 1) {
     include_once '../../api/enviaPDF.php';
 
     $recibePDF = json_decode($respopdf, true);
+
+    $error = [
+        'error' => '0',
+        'folio' => '1',
+        'mensaje' => '',
+        'archivo' => $file,
+        'factura' => $numfactura,
+        'errorDian' => '0',
+        'perfil' => $perfil,
+    ];
+    array_push($estadofactura, $error);
+
+
 } else {
     include_once '../../imprimir/imprimeNCHis.php';
 }

@@ -14,12 +14,11 @@ $aplicarete = 0;
 $aplicaiva = 0;
 $aplicaica = 0;
 $sinBaseRete = 0;
-  
 $datosReserva = $hotel->getReservasDatos($reserva);
 $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
 $horaIng = $datosReserva[0]['hora_llegada'];
 
-if ($tipofac == 2) { 
+if ($tipofac == 2) {
   $datosCompania = $hotel->getSeleccionaCompania($idperfil);
   $diasCre = $datosCompania[0]['dias_credito'];
   $aplicarete = $datosCompania[0]['retefuente'];

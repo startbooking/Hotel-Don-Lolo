@@ -97,7 +97,7 @@ if (!isset($_GET['section'])) {
     $paices = $hotel->getPaices();
 } elseif (isset($_GET['section']) && $_GET['section'] == 'forecast'|| $_GET['section'] == 'forecastOld') {
     /* $reservas = $hotel->getReservasActuales(1);
-    $companias = $hotel->getCompanias();
+    $companias = $hotel->getCompanias(); 
     $paices = $hotel->getPaices(); */
 } elseif (isset($_GET['section']) && $_GET['section'] == 'preregistros') {
     $reservas = $hotel->getReservasActuales(1);

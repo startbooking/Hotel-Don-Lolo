@@ -557,8 +557,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     var numero = button.data("numero");
     var reserva = button.data("reserva");
     var parametros = {
-      numero: numero,
-      reserva: reserva,
+      numero,
+      reserva,
     };
     var modal = $(this);
 
@@ -4311,6 +4311,7 @@ function anulaFacturaHistorico() {
   $.ajax({
     url: "res/php/anulaFacturaHistorico.php",
     type: "POST",
+    dataType: "json",
     data: {
       tipo,
       factura,
@@ -4328,21 +4329,43 @@ function anulaFacturaHistorico() {
       );
     },
     success: function (data) {
-      var ventana = window.open(
-        "imprimir/notas/" + data.trim(),
-        "PRINT",
-        "height=600,width=600"
-      );
-      swal(
-        {
-          title: "Atencion",
-          text: "Factura Anulada con Exito",
-          type: "success",
-        },
-        function () {
-          $(location).attr("href", pagina);
+      let { error, mensaje, archivo} = data[0];
+      let mensajeErr = '';
+      infoError = JSON.parse(mensaje)
+      if(error == "1"){
+        let {string} = infoError 
+        for (let i = 0; i < string.length; i++) {
+          mensajeErr += `<li class="justify">${string[i]}</li>`;
         }
-      );
+        mensajeError = `<div class="alert alert-warning" style="margin-bottom:0px">
+        <h3 style="color:black !important;margin-top:0px;">
+        <i class="fa-solid fa-circle-exclamation fa-2x" style="color:red;"></i>
+        ATENCION, Nota Credito no Procesada </h3>
+        
+        <h4 style="color: brown;font-weight: 700;font-size: 20px;text-align:center;">MOTIVO DEL RECHAZO</h4>
+        <ul>
+          ${mensajeErr}
+        </ul>`
+        $(".avisoAnuHis").html("");
+        $(".avisoAnuHis").html(mensajeError);
+      }else{
+        var ventana = window.open(
+          "imprimir/notas/" + archivo.trim(),
+          "PRINT",
+          "height=600,width=600"
+        );
+        swal(
+          {
+            title: "Atencion",
+            text: "Factura Anulada con Exito",
+            type: "success",
+          },
+          function () {
+            $(location).attr("href", pagina);
+          }
+        );
+      }
+
     },
   });
 }
@@ -6938,11 +6961,8 @@ async function salidaHuesped() {
     let facturado = await enviaPago(parametros);
     let { error, mensaje, factura, perfil, errorDian, archivo, folio } =
       facturado[0];
-      console.log(mensaje);
+      // console.log(mensaje);
     if (error == "1") {
-      /* if (errorDian == "1") {
-        mensaje = JSON.parse(mensaje);
-      } */
       let muestra = await muestraError(mensaje);
     } else {
       if (facturador == 1) {
@@ -7825,8 +7845,8 @@ function buscaHuespedActivo(iden) {
   });
 }
 
-function buscaHuesped(regis) {
-  var parametros = { iden: regis };
+function buscaHuesped(id) {
+  var parametros = { id };
   web = $("#webPage").val();
   $.ajax({
     type: "POST",
@@ -7844,7 +7864,7 @@ function buscaHuesped(regis) {
       } else {
         $("#datoshuesped").html(data);
       }
-    },
+    }, 
   });
 }
 

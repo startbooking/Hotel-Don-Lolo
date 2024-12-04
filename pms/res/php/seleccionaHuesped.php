@@ -8,8 +8,8 @@ if (!empty($huesped[0]['tipo_identifica'])) {
   $tipoDoc = $hotel->getTipoDocumentoHuesped($huesped[0]['tipo_identifica']);
 } else {
   $tipoDoc = '';
-}
-
+} 
+ 
 if (empty($huesped)) {
   echo '0';
 } else { ?>

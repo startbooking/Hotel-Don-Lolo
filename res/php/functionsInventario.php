@@ -37,14 +37,14 @@ class Inventario_User
 
         $data = $database->query("UPDATE recetasEstandar SET valor_costo = '$costo', valor_costo_porcion = ('$costo' / cantidad) WHERE id_receta = '$receta' ");
 
-        return $data->rowCount();
+        return $data->rowCount(PDO::FETCH_ASSOC);
     }
 
     public function getValorPromedioProducto($bodega, $producto)
     {
         global $database;
 
-        $data = $database->query("SELECT productos_inventario.id_producto, productos_inventario.nombre_producto, unidades.descripcion_unidad, movimientos_inventario.unidad_alm, movimientos_inventario.id_bodega, SUM(if(movimientos_inventario.movimiento=1,movimientos_inventario.cantidad,0)) AS entradas, SUM(if(movimientos_inventario.movimiento=2,movimientos_inventario.cantidad,0)) AS salidas, SUM(if(movimientos_inventario.movimiento=1,movimientos_inventario.cantidad,0) - if(movimientos_inventario.movimiento=2,movimientos_inventario.cantidad,0)) AS saldo, SUM(if(movimientos_inventario.movimiento=1,movimientos_inventario.valor_subtotal,0)) / SUM(if(movimientos_inventario.movimiento=1,movimientos_inventario.cantidad,0)) AS promedio FROM productos_inventario, movimientos_inventario, unidades WHERE movimientos_inventario.id_producto = productos_inventario.id_producto AND movimientos_inventario.estado = 1 AND productos_inventario.unidad_almacena = unidades.id_unidad AND movimientos_inventario.id_bodega = '$bodega' AND movimientos_inventario.id_producto = '$producto' GROUP BY productos_inventario.nombre_producto ORDER BY productos_inventario.nombre_producto ASC")->fetchAll();
+        $data = $database->query("SELECT productos_inventario.id_producto, productos_inventario.nombre_producto, unidades.descripcion_unidad, movimientos_inventario.unidad_alm, movimientos_inventario.id_bodega, SUM(if(movimientos_inventario.movimiento=1,movimientos_inventario.cantidad,0)) AS entradas, SUM(if(movimientos_inventario.movimiento=2,movimientos_inventario.cantidad,0)) AS salidas, SUM(if(movimientos_inventario.movimiento=1,movimientos_inventario.cantidad,0) - if(movimientos_inventario.movimiento=2,movimientos_inventario.cantidad,0)) AS saldo, SUM(if(movimientos_inventario.movimiento=1,movimientos_inventario.valor_subtotal,0)) / SUM(if(movimientos_inventario.movimiento=1,movimientos_inventario.cantidad,0)) AS promedio FROM productos_inventario, movimientos_inventario, unidades WHERE movimientos_inventario.id_producto = productos_inventario.id_producto AND movimientos_inventario.estado = 1 AND productos_inventario.unidad_almacena = unidades.id_unidad AND movimientos_inventario.id_bodega = '$bodega' AND movimientos_inventario.id_producto = '$producto' GROUP BY productos_inventario.nombre_producto ORDER BY productos_inventario.nombre_producto ASC")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -53,7 +53,7 @@ class Inventario_User
     {
         global $database;
 
-        $data = $database->query("SELECT sum(productos_recetas.valor_promedio) as costo FROM productos_recetas WHERE productos_recetas.id_receta = '$receta' AND productos_recetas.deleted_at IS NULL")->fetchAll();
+        $data = $database->query("SELECT sum(productos_recetas.valor_promedio) as costo FROM productos_recetas WHERE productos_recetas.id_receta = '$receta' AND productos_recetas.deleted_at IS NULL")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data[0]['costo'];
     }
@@ -62,7 +62,7 @@ class Inventario_User
     {
         global $database;
 
-        $data = $database->query("SELECT Sum(productos_recetas.valor_promedio) AS costo FROM productos_recetas WHERE productos_recetas.id_receta = '$receta' AND productos_recetas.deleted_at is Null GROUP BY productos_recetas.id_receta")->fetchAll();
+        $data = $database->query("SELECT Sum(productos_recetas.valor_promedio) AS costo FROM productos_recetas WHERE productos_recetas.id_receta = '$receta' AND productos_recetas.deleted_at is Null GROUP BY productos_recetas.id_receta")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data[0]['costo'];
     }
@@ -86,7 +86,7 @@ class Inventario_User
     {
         global $database;
 
-        $data = $database->query("SELECT conversiones.valor_conversion FROM productos_inventario, conversiones WHERE productos_inventario.id_producto = $prod AND productos_inventario.unidad_procesa = conversiones.id_conversion AND productos_inventario.unidad_almacena = conversiones.id_unidad")->fetchAll();
+        $data = $database->query("SELECT conversiones.valor_conversion FROM productos_inventario, conversiones WHERE productos_inventario.id_producto = $prod AND productos_inventario.unidad_procesa = conversiones.id_conversion AND productos_inventario.unidad_almacena = conversiones.id_unidad")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data[0]['valor_conversion'];
     }
@@ -95,7 +95,7 @@ class Inventario_User
     {
         global $database;
 
-        $data = $database->query("UPDATE productos_recetas SET valor_unitario_promedio = '$promedio', valor_promedio = cantidad * '$promedio' WHERE id_producto = '$producto' ")->fetchAll();
+        $data = $database->query("UPDATE productos_recetas SET valor_unitario_promedio = '$promedio', valor_promedio = cantidad * '$promedio' WHERE id_producto = '$producto' ")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -118,7 +118,7 @@ class Inventario_User
     {
         global $database;
 
-        $data = $database->query("SELECT sum(can_hombres+can_mujeres+can_ninos) AS pax FROM reservas_pms WHERE fecha_llegada>='$desde' AND fecha_salida <= '$hasta' ")->fetchAll();
+        $data = $database->query("SELECT sum(can_hombres+can_mujeres+can_ninos) AS pax FROM reservas_pms WHERE fecha_llegada>='$desde' AND fecha_salida <= '$hasta' ")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data[0]['pax'];
     }
@@ -243,7 +243,7 @@ class Inventario_User
     {
         global $database;
 
-        $data = $database->query('SELECT DISTINCT month(fecha_movimiento) AS mes, year(fecha_movimiento) AS anio FROM movimientos_inventario')->fetchAll();
+        $data = $database->query('SELECT DISTINCT month(fecha_movimiento) AS mes, year(fecha_movimiento) AS anio FROM movimientos_inventario')->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -297,7 +297,7 @@ class Inventario_User
     {
         global $database;
 
-        $data = $database->query("SELECT productos_inventario.nombre_producto, productos_inventario.valor_costo, productos_inventario.valor_promedio, productos_inventario.unidad_compra, productos_inventario.unidad_almacena, productos_inventario.unidad_procesa,productos_recetas.id_producto, productos_recetas.id_unidad_procesa, productos_recetas.cantidad, '$cant' as cantPedida, '$porc' as porciones, conversiones.id, conversiones.valor_conversion FROM productos_inventario, productos_recetas, conversiones WHERE productos_inventario.id_producto = productos_recetas.id_producto AND productos_recetas.deleted_at IS NULL AND productos_recetas.id_receta = '$receta' AND productos_inventario.unidad_procesa = conversiones.id_conversion AND productos_inventario.unidad_almacena = conversiones.id_unidad ORDER BY productos_inventario.nombre_producto ASC")->fetchAll();
+        $data = $database->query("SELECT productos_inventario.nombre_producto, productos_inventario.valor_costo, productos_inventario.valor_promedio, productos_inventario.unidad_compra, productos_inventario.unidad_almacena, productos_inventario.unidad_procesa,productos_recetas.id_producto, productos_recetas.id_unidad_procesa, productos_recetas.cantidad, '$cant' as cantPedida, '$porc' as porciones, conversiones.id, conversiones.valor_conversion FROM productos_inventario, productos_recetas, conversiones WHERE productos_inventario.id_producto = productos_recetas.id_producto AND productos_recetas.deleted_at IS NULL AND productos_recetas.id_receta = '$receta' AND productos_inventario.unidad_procesa = conversiones.id_conversion AND productos_inventario.unidad_almacena = conversiones.id_unidad ORDER BY productos_inventario.nombre_producto ASC")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -455,7 +455,7 @@ class Inventario_User
 				centrocosto.descripcion_centro, 
 				pedidos.estado 
 				FROM pedidos, centrocosto 
-				WHERE pedidos.id_centrocosto = centrocosto.id_centrocosto GROUP BY pedidos.numero_ped, pedidos.fecha_ped')->fetchAll();
+				WHERE pedidos.id_centrocosto = centrocosto.id_centrocosto GROUP BY pedidos.numero_ped, pedidos.fecha_ped')->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -477,7 +477,7 @@ class Inventario_User
     {
         global $database;
 
-        $data = $database->query("SELECT Sum(if(movimientos_inventario.movimiento=1,movimientos_inventario.cantidad,0)) AS entradas, Sum(if(movimientos_inventario.movimiento=2,movimientos_inventario.cantidad,0)) AS salidas, Sum(if(movimientos_inventario.movimiento=1,movimientos_inventario.cantidad,0) - if(movimientos_inventario.movimiento=2,movimientos_inventario.cantidad,0)) AS saldo, Sum(if(movimientos_inventario.movimiento=1,movimientos_inventario.valor_subtotal,0)) AS valorentradas, Sum(if(movimientos_inventario.movimiento=2,movimientos_inventario.valor_subtotal,0)) AS valorsalidas, Sum(if(movimientos_inventario.movimiento=1,movimientos_inventario.valor_subtotal,0) - if(movimientos_inventario.movimiento=2,movimientos_inventario.valor_subtotal,0)) AS valorsaldo, SUM(if(movimientos_inventario.movimiento=1,movimientos_inventario.valor_subtotal,0)) / SUM(if(movimientos_inventario.movimiento=1,movimientos_inventario.cantidad,0)) AS promedio FROM movimientos_inventario WHERE movimientos_inventario.estado = 1 AND movimientos_inventario.id_bodega = '$bodega' AND movimientos_inventario.id_producto = '$prod'")->fetchAll();
+        $data = $database->query("SELECT Sum(if(movimientos_inventario.movimiento=1,movimientos_inventario.cantidad,0)) AS entradas, Sum(if(movimientos_inventario.movimiento=2,movimientos_inventario.cantidad,0)) AS salidas, Sum(if(movimientos_inventario.movimiento=1,movimientos_inventario.cantidad,0) - if(movimientos_inventario.movimiento=2,movimientos_inventario.cantidad,0)) AS saldo, Sum(if(movimientos_inventario.movimiento=1,movimientos_inventario.valor_subtotal,0)) AS valorentradas, Sum(if(movimientos_inventario.movimiento=2,movimientos_inventario.valor_subtotal,0)) AS valorsalidas, Sum(if(movimientos_inventario.movimiento=1,movimientos_inventario.valor_subtotal,0) - if(movimientos_inventario.movimiento=2,movimientos_inventario.valor_subtotal,0)) AS valorsaldo, SUM(if(movimientos_inventario.movimiento=1,movimientos_inventario.valor_subtotal,0)) / SUM(if(movimientos_inventario.movimiento=1,movimientos_inventario.cantidad,0)) AS promedio FROM movimientos_inventario WHERE movimientos_inventario.estado = 1 AND movimientos_inventario.id_bodega = '$bodega' AND movimientos_inventario.id_producto = '$prod'")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -801,7 +801,7 @@ class Inventario_User
 				bodegas.descripcion_bodega, 
 				movimientos_inventario.estado 
 				FROM movimientos_inventario, tipo_movimiento_inventario, bodegas 
-				WHERE movimientos_inventario.tipo_movi = tipo_movimiento_inventario.id_tipomovi AND movimientos_inventario.tipo = '$tipo' AND movimientos_inventario.id_bodega = bodegas.id_bodega GROUP BY movimientos_inventario.numero, tipo_movimiento_inventario.descripcion_tipo, movimientos_inventario.documento, movimientos_inventario.fecha_movimiento")->fetchAll();
+				WHERE movimientos_inventario.tipo_movi = tipo_movimiento_inventario.id_tipomovi AND movimientos_inventario.tipo = '$tipo' AND movimientos_inventario.id_bodega = bodegas.id_bodega GROUP BY movimientos_inventario.numero, tipo_movimiento_inventario.descripcion_tipo, movimientos_inventario.documento, movimientos_inventario.fecha_movimiento")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -810,7 +810,7 @@ class Inventario_User
     {
         global $database;
 
-        $data = $database->query("SELECT movimientos_inventario.numero, tipo_movimiento_inventario.descripcion_tipo, movimientos_inventario.tipo, movimientos_inventario.documento, movimientos_inventario.fecha_movimiento, movimientos_inventario.id_bodega, movimientos_inventario.movimiento, Sum(movimientos_inventario.valor_total) as total, movimientos_inventario.estado, centrocosto.descripcion_centro, movimientos_inventario.id_proveedor, bodegas.descripcion_bodega FROM movimientos_inventario , tipo_movimiento_inventario , centrocosto, bodegas WHERE movimientos_inventario.tipo_movi = tipo_movimiento_inventario.id_tipomovi AND movimientos_inventario.tipo = '$tipo' AND movimientos_inventario.id_proveedor = centrocosto.id_centrocosto AND movimientos_inventario.id_bodega = bodegas.id_bodega GROUP BY movimientos_inventario.numero, tipo_movimiento_inventario.descripcion_tipo, movimientos_inventario.documento, movimientos_inventario.fecha_movimiento ORDER BY movimientos_inventario.numero")->fetchAll();
+        $data = $database->query("SELECT movimientos_inventario.numero, tipo_movimiento_inventario.descripcion_tipo, movimientos_inventario.tipo, movimientos_inventario.documento, movimientos_inventario.fecha_movimiento, movimientos_inventario.id_bodega, movimientos_inventario.movimiento, Sum(movimientos_inventario.valor_total) as total, movimientos_inventario.estado, centrocosto.descripcion_centro, movimientos_inventario.id_proveedor, bodegas.descripcion_bodega FROM movimientos_inventario , tipo_movimiento_inventario , centrocosto, bodegas WHERE movimientos_inventario.tipo_movi = tipo_movimiento_inventario.id_tipomovi AND movimientos_inventario.tipo = '$tipo' AND movimientos_inventario.id_proveedor = centrocosto.id_centrocosto AND movimientos_inventario.id_bodega = bodegas.id_bodega GROUP BY movimientos_inventario.numero, tipo_movimiento_inventario.descripcion_tipo, movimientos_inventario.documento, movimientos_inventario.fecha_movimiento ORDER BY movimientos_inventario.numero")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -835,7 +835,7 @@ class Inventario_User
 				bodegas.descripcion_bodega, 
 				movimientos_inventario.estado 
 				FROM movimientos_inventario, tipo_movimiento_inventario, bodegas 
-				WHERE movimientos_inventario.tipo_movi = tipo_movimiento_inventario.id_tipomovi AND movimientos_inventario.tipo = '$tipo' AND movimientos_inventario.id_bodega = bodegas.id_bodega GROUP BY movimientos_inventario.numero, tipo_movimiento_inventario.descripcion_tipo, movimientos_inventario.documento, movimientos_inventario.fecha_movimiento")->fetchAll();
+				WHERE movimientos_inventario.tipo_movi = tipo_movimiento_inventario.id_tipomovi AND movimientos_inventario.tipo = '$tipo' AND movimientos_inventario.id_bodega = bodegas.id_bodega GROUP BY movimientos_inventario.numero, tipo_movimiento_inventario.descripcion_tipo, movimientos_inventario.documento, movimientos_inventario.fecha_movimiento")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -844,7 +844,7 @@ class Inventario_User
     {
         global $database;
 
-        $data = $database->query("SELECT movimientos_inventario.numero, tipo_movimiento_inventario.descripcion_tipo, movimientos_inventario.documento, movimientos_inventario.fecha_movimiento, movimientos_inventario.tipo, movimientos_inventario.movimiento, Sum(movimientos_inventario.valor_subtotal) as subtotal, Sum(movimientos_inventario.impuesto) as impto, Sum(movimientos_inventario.valor_total) as total,  bodegas.descripcion_bodega, bodegas.id_bodega, movimientos_inventario.estado, movimientos_inventario.id_proveedor FROM movimientos_inventario, tipo_movimiento_inventario, bodegas WHERE movimientos_inventario.movimiento = 1 AND movimientos_inventario.tipo_movi = tipo_movimiento_inventario.id_tipomovi AND movimientos_inventario.traslado = '$tipo' AND movimientos_inventario.id_bodega = bodegas.id_bodega GROUP BY movimientos_inventario.numero, tipo_movimiento_inventario.descripcion_tipo, movimientos_inventario.documento, movimientos_inventario.fecha_movimiento")->fetchAll();
+        $data = $database->query("SELECT movimientos_inventario.numero, tipo_movimiento_inventario.descripcion_tipo, movimientos_inventario.documento, movimientos_inventario.fecha_movimiento, movimientos_inventario.tipo, movimientos_inventario.movimiento, Sum(movimientos_inventario.valor_subtotal) as subtotal, Sum(movimientos_inventario.impuesto) as impto, Sum(movimientos_inventario.valor_total) as total,  bodegas.descripcion_bodega, bodegas.id_bodega, movimientos_inventario.estado, movimientos_inventario.id_proveedor FROM movimientos_inventario, tipo_movimiento_inventario, bodegas WHERE movimientos_inventario.movimiento = 1 AND movimientos_inventario.tipo_movi = tipo_movimiento_inventario.id_tipomovi AND movimientos_inventario.traslado = '$tipo' AND movimientos_inventario.id_bodega = bodegas.id_bodega GROUP BY movimientos_inventario.numero, tipo_movimiento_inventario.descripcion_tipo, movimientos_inventario.documento, movimientos_inventario.fecha_movimiento")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
