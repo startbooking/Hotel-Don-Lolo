@@ -2015,7 +2015,7 @@ class Hotel_Actions
 
     public function traeValorRetencionesSinBase($nroReserva, $nroFolio)
     {
-        global $database;
+        global $database; 
 
         $data = $database->query("SELECT
             COALESCE(SUM(cargos_pms.monto_cargo),0) AS monto,

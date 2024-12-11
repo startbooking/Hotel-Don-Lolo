@@ -13,34 +13,106 @@
   
   $rpre = '';
 
-  $sele = "SELECT formas_pago.descripcion, clientes.apellido1, clientes.apellido2, clientes.nombre1, clientes.nombre2, historico_facturas_pos.factura, historico_facturas_pos.comanda, historico_facturas_pos.ambiente, historico_facturas_pos.mesa, historico_facturas_pos.pax, historico_facturas_pos.usuario, historico_facturas_pos.valor_total, historico_facturas_pos.valor_neto, historico_facturas_pos.impuesto, historico_facturas_pos.propina, historico_facturas_pos.descuento, historico_facturas_pos.fecha, historico_facturas_pos.pms, historico_facturas_pos.estado FROM clientes, historico_facturas_pos, formas_pago WHERE ";
-      $filtro = "clientes.id_cliente = historico_facturas_pos.id_cliente AND formas_pago.id_pago = historico_facturas_pos.forma_pago AND historico_facturas_pos.ambiente='$idamb'";
+$sele = "SELECT
+	formas_pago.descripcion,
+	clientes.apellido1,
+	clientes.apellido2,
+	clientes.nombre1,
+	clientes.nombre2,
+	historico_facturas_pos.factura,
+	historico_facturas_pos.comanda,
+	historico_facturas_pos.ambiente,
+	historico_facturas_pos.mesa,
+	historico_facturas_pos.pax,
+	historico_facturas_pos.usuario,
+	historico_facturas_pos.valor_total,
+	historico_facturas_pos.valor_neto,
+	historico_facturas_pos.impuesto,
+	historico_facturas_pos.propina,
+	historico_facturas_pos.descuento,
+	historico_facturas_pos.fecha,
+	historico_facturas_pos.pms,
+	historico_facturas_pos.estado 
+FROM
+	clientes,
+	historico_facturas_pos,
+	formas_pago 
+WHERE
+	clientes.id_cliente = historico_facturas_pos.id_cliente 
+	AND formas_pago.id_pago = historico_facturas_pos.forma_pago 
+	AND historico_facturas_pos.ambiente = '$idamb'
+	AND historico_facturas_pos.fecha >='$desdeFe' AND historico_facturas_pos.fecha <= '$hastaFe'
+UNION ALL
+SELECT
+    formas_pago.descripcion,
+    huespedes.apellido1,
+    huespedes.apellido2,
+    huespedes.nombre1,
+    huespedes.nombre2,
+    historico_facturas_pos.factura,
+    historico_facturas_pos.comanda,
+    historico_facturas_pos.ambiente,
+    historico_facturas_pos.mesa,
+    historico_facturas_pos.pax,
+    historico_facturas_pos.usuario,
+    historico_facturas_pos.valor_total,
+    historico_facturas_pos.valor_neto,
+    historico_facturas_pos.impuesto,
+    historico_facturas_pos.propina,
+    historico_facturas_pos.descuento,
+    historico_facturas_pos.fecha,
+    historico_facturas_pos.pms,
+    historico_facturas_pos.estado 
+FROM
+    huespedes,
+    historico_facturas_pos,
+    formas_pago,
+    historico_reservas_pms
+WHERE
+    huespedes.id_huesped = historico_reservas_pms.id_huesped
+    AND historico_facturas_pos.id_cliente = historico_reservas_pms.id
+    AND formas_pago.id_pago = historico_facturas_pos.forma_pago 
+    AND historico_facturas_pos.ambiente = '$idamb' 
+    AND historico_facturas_pos.pms = 1 
+    AND historico_facturas_pos.fecha >='$desdeFe' AND historico_facturas_pos.fecha <= '$hastaFe'
+UNION ALL
 
-  $sele2 = " ORDER BY historico_facturas_pos.factura";
+SELECT
+    formas_pago.descripcion,
+    huespedes.apellido1,
+    huespedes.apellido2,
+    huespedes.nombre1,
+    huespedes.nombre2,
+    historico_facturas_pos.factura,
+    historico_facturas_pos.comanda,
+    historico_facturas_pos.ambiente,
+    historico_facturas_pos.mesa,
+    historico_facturas_pos.pax,
+    historico_facturas_pos.usuario,
+    historico_facturas_pos.valor_total,
+    historico_facturas_pos.valor_neto,
+    historico_facturas_pos.impuesto,
+    historico_facturas_pos.propina,
+    historico_facturas_pos.descuento,
+    historico_facturas_pos.fecha,
+    historico_facturas_pos.pms,
+    historico_facturas_pos.estado 
+FROM
+    huespedes,
+    historico_facturas_pos,
+    formas_pago,
+    reservas_pms
+WHERE
+    huespedes.id_huesped = reservas_pms.id_huesped
+    AND historico_facturas_pos.id_cliente = reservas_pms.id
+    AND formas_pago.id_pago = historico_facturas_pos.forma_pago 
+    AND historico_facturas_pos.ambiente = '$idamb' 
+    AND historico_facturas_pos.pms = 1 
+    AND historico_facturas_pos.fecha >='$desdeFe' AND historico_facturas_pos.fecha <= '$hastaFe'
+ORDER BY
+    fecha, factura";
 
-  if($desdeFe!='' && $hastaFe!= ''){
-    $filtro = $filtro." AND fecha >='$desdeFe' AND fecha <= '$hastaFe'";
-  }elseif($desdeFe=='' && $hastaFe!= ''){
-    $filtro = $filtro." AND fecha <= '$hastaFe'";
-  }elseif($desdeFe!='' && $hastaFe== ''){
-    $filtro = $filtro." AND fecha = '$desdeFe'";
-  }
-
-  if($desdeNu!='' && $hastaNu!= ''){
-    $filtro = $filtro." AND factura >='$desdeNu' AND factura <= '$hastaNu'";
-  }elseif($desdeNu=='' && $hastaNu!= ''){
-    $filtro = $filtro." AND factura <= '$hastaNu'";
-  }elseif($desdeNu!='' && $hastaNu== ''){
-    $filtro = $filtro." AND factura = '$desdeNu'";
-  }
- 
-  if($formaPa!=''){
-    $filtro = $filtro." AND id_pago = '$formaPa'";
-  }
-  
-  $query    = $sele.$filtro.$sele2;
-
-  $facturas = $pos->getFacturasPorRango($query);
+  $facturas = $pos->getFacturasPorRango($sele);
   $exportas = $facturas ;
 
 ?>
@@ -77,10 +149,10 @@
               <button 
               <?php 
                 $nombre = '' ;
-                if($factura['pms']=0){
-                  $nombre = "ChequeCuenta_".$prefijo."_".$rpre."-".$factura['factura'].".pdf";
+                if($factura['pms']===0){
+                  $nombre = "ChequeCuenta_".$prefijo."_".$factura['factura'].".pdf";
                 }else {
-                  $nombre = "Factura_".$prefijo."_".$rpre."-".$factura['factura'].".pdf";
+                  $nombre = "Factura_".$prefijo."_".$factura['factura'].".pdf";
                 }
                 ?>
                 class          ="btn btn-danger btn-xs" 
@@ -89,7 +161,7 @@
                 data-apellidos ="<?= $factura['apellido1'].' '.$factura['apellido2']?>" 
                 data-nombres   ="<?= $factura['nombre1'].' '.$factura['nombre2']?>" 
                 data-fechafac  ="<?= $factura['fecha']?>" 
-                data-factura   ="ChequeCuenta_<?=$prefijo?>_<?= $factura['factura']?>" 
+                data-factura   ="<?=$nombre?>" 
                 data-numero    ="<?= $factura['factura']?>" 
                 data-pms       ="<?= $factura['pms']?>"
                 onclick        = "verfacturaHis('<?= $factura['factura']?>','<?=$nombre?>')"

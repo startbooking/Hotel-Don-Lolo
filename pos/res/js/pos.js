@@ -2826,11 +2826,8 @@ function facturasPorFecha() {
         $("#dataTable").DataTable({
           iDisplayLength: 25,
           paging: true,
-          lengthChange: true,
           searching: true,
-          ordering: true,
-          info: true,
-          autoWidth: true,
+          ordering: false,
           language: {
             next: "Siguiente",
             search: "Buscar:",
@@ -2852,7 +2849,7 @@ function historicoListadoFacturas() {
   let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } =
     oPos[0];
 
-  parametros = {
+  parametros = { 
     id: id_ambiente,
     amb: nombre,
     user: usuario,
