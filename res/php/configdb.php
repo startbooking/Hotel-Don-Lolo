@@ -5,7 +5,7 @@ $host = 'localhost';
 $server = 'localhost';
 $dbuser = 'root';
 $dbpass = 'b4r4h0n4';
-$dbname = 'donloloDic11';
+$dbname = 'donloloDic26';
 /* 
 $server = 'srv1013.hstgr.io';
 $dbuser = 'u609569776_donlolousr';
