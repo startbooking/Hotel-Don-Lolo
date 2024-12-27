@@ -1,16 +1,39 @@
 <?php
 
+function generarContenidoTooltip($estadia, $formato){
+    $adultos = $estadia['can_hombres'] + $estadia['can_mujeres'];
+    return sprintf(
+        'Huésped: %s %s %s %s' .
+        ' Habitación: %s' .
+        ' Adultos: %d' .
+        ' Niños: %d' .
+        ' Fecha Llegada: %s' .
+        ' Fecha Salida: %s' .
+        ' Tarifa: $ %s',
+        $estadia['apellido1'],
+        $estadia['apellido2'],
+        $estadia['nombre1'],
+        $estadia['nombre2'],
+        $estadia['num_habitacion'],
+        $adultos,
+        $estadia['can_ninos'],
+        ucwords($formato->format(strtotime($estadia['fecha_llegada']))),
+        ucwords($formato->format(strtotime($estadia['fecha_salida']))),
+        number_format($estadia['valor_diario'], 2)
+    );
+}
+
 function estadoDesayunos($estado){
     switch ($estado) {
-      case 0:
-        return 'NO Desayuno ';
-      case 1:
-        return 'Desayuno ';
-      case 2:
-        return 'Sin Definir';
+        case 0:
+            return 'NO Desayuno ';
+        case 1:
+            return 'Desayuno ';
+        case 2:
+            return 'Sin Definir';
     }
-  }
-  
+}
+
 
 function estadoResolucion($tipo)
 {
@@ -759,8 +782,21 @@ function calcularDV($nit)
     }
 
     $arr = [
-        1 => 3, 4 => 17, 7 => 29, 10 => 43, 13 => 59, 2 => 7, 5 => 19,
-        8 => 37, 11 => 47, 14 => 67, 3 => 13, 6 => 23, 9 => 41, 12 => 53, 15 => 71
+        1 => 3,
+        4 => 17,
+        7 => 29,
+        10 => 43,
+        13 => 59,
+        2 => 7,
+        5 => 19,
+        8 => 37,
+        11 => 47,
+        14 => 67,
+        3 => 13,
+        6 => 23,
+        9 => 41,
+        12 => 53,
+        15 => 71
     ];
     $x = 0;
     $y = 0;

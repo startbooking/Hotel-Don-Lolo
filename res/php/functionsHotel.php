@@ -1964,7 +1964,7 @@ class Hotel_Actions
             'descripcionRetencion',
             'porcentajeRetencion',
             'baseRetencion',
-            'tipoRetencion',
+            'tipoRetencion', 
             'codigoPuc',
         ], [
             'tipoRetencion' => $numero,
@@ -7321,18 +7321,25 @@ class Hotel_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT reservas_pms.fecha_llegada, reservas_pms.num_habitacion, reservas_pms.tipo_habitacion FROM reservas_pms WHERE (reservas_pms.tipo_habitacion <> '$ctamaster' AND reservas_pms.estado = 'CA') ORDER BY reservas_pms.fecha_llegada ASC LIMIT 1")->fetchAll();
+        $data = $database->query("SELECT reservas_pms.fecha_llegada, reservas_pms.num_habitacion, reservas_pms.tipo_habitacion FROM reservas_pms WHERE (reservas_pms.tipo_habitacion <> '$ctamaster' AND reservas_pms.estado = 'CA') ORDER BY reservas_pms.fecha_llegada ASC LIMIT 1")->fetchAll(PDO::FETCH_ASSOC);
 
-        return $data[0]['fecha_llegada'];
+        if(count($data)==0){
+            return FECHA_PMS;
+        }else{
+            return $data[0]['fecha_llegada'];
+        }
     }
 
-    public function getUltimoDia($ctamaster)
-    {
+    public function getUltimoDia($ctamaster){
         global $database;
 
         $data = $database->query("SELECT reservas_pms.fecha_salida, reservas_pms.num_habitacion, reservas_pms.tipo_habitacion FROM reservas_pms WHERE (reservas_pms.tipo_habitacion <> '$ctamaster' AND reservas_pms.estado = 'CA') ORDER BY reservas_pms.fecha_llegada DESC LIMIT 1")->fetchAll();
 
-        return $data[0]['fecha_salida'];
+        if(count($data)==0){
+            return FECHA_PMS;
+        }else{
+            return $data[0]['fecha_salida'];
+        }
     }
 
     public function buscaCasa($fecha, $room)

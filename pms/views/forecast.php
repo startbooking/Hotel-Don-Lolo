@@ -12,6 +12,17 @@ if ($dias < 30) {
   $dias = 30;
 }
 
+date_default_timezone_set("America/Bogota");
+setlocale(LC_TIME, 'es_CO.UTF-8', 'esp');
+$formato2 = new IntlDateFormatter(
+  'es-CO',
+  IntlDateFormatter::FULL,
+  IntlDateFormatter::FULL,
+  'America/Bogota',
+  IntlDateFormatter::GREGORIAN,
+  "eeee dd 'de' LLLL 'de' yyyy"
+);
+
 ?>
 <div class="content-wrapper">
   <section class="content" style="margin-bottom: 10px !important">
@@ -36,7 +47,7 @@ if ($dias < 30) {
                     </a>
                   <?php
                   }
-                  ?> 
+                  ?>
                 </div>
               </div>
             </div>
@@ -50,7 +61,7 @@ if ($dias < 30) {
             <?php
             for ($i = 0; $i <= $dias; $i++) {
               $fecha      = strtotime('+' . $i . 'day', strtotime($fechaini)); ?>
-              <div class="col-sm-1 btn btn-warning btn-sm" style="width: 40px;border-radius: 0px;padding:1px" title="<?= date('Y-m-d', $fecha) ?>">
+              <div class="col-sm-1 btn btn-warning btn-sm" style="width: 40px;border-radius: 0px;padding:1px" title="<?= ucwords($formato2->format($fecha)) ?>">
                 <?= date('d', $fecha); ?>
               </div>
             <?php
@@ -133,9 +144,24 @@ if ($dias < 30) {
                         $hasta = $estadia['fecha_salida'];
                         $diasEs = (strtotime($hasta) - strtotime($desde)) / 86400;
                         $ancho = (40 * $diasEs) - 2;
-                        if ($estadia['estado'] <> "SA" && $estadia['estado'] <> "CX") { ?>
-                          <a type="button" style="height: <?= $altoh ?>px;width:<?= $ancho ?>px;margin-top:<?= $alto ?>px;" class="info btn <?= $color ?> btnForecast" title="Huesped <?= $estadia['apellido1'] . ' ' . $estadia['apellido2'] . ' ' . $estadia['nombre1'] . ' ' . $estadia['nombre2'] ?> Habitacion <?= $estadia['num_habitacion'] ?> Adultos <?= $estadia['can_hombres'] + $estadia['can_mujeres'] ?> Niños <?= $estadia['can_ninos'] ?> Fecha Llegada <?= $estadia['fecha_llegada'] ?> Fecha Salida <?= $estadia['fecha_salida'] ?> Tarifa $ <?= number_format($estadia['valor_diario'], 2) ?>" draggable="true" reserva="<?= $estadia['num_reserva'] ?>" estado="<?= $estadia['estado'] ?>">
-                            <!-- <span style="position: fixed;left: 500px; top: 52px;"></span> -->
+                        if ($estadia['estado'] <> "SA" && $estadia['estado'] <> "CX") {
+                          /* $altoh = 50; // Ejemplo de altura
+                          $ancho = 200; // Ejemplo de ancho
+                          $alto = 10; // Ejemplo de margen superior
+                          $color = 'btn-primary'; // Ejemplo de clase de color */
+                          // Gen46erar el contenido del tooltip
+                          $contenidoTooltip = generarContenidoTooltip($estadia, $formato2);
+                      ?>
+                          <!-- <a type="button" style="height: <?= $altoh ?>px; width: <?= $ancho ?>px; margin-top: <?= $alto ?>px;" class="info btn <?= $color ?> btnForecast">
+                            <?= htmlspecialchars($estadia['apellido1']) ?>
+                            <div class="tooltipfore">
+                              <div class="tooltiptext">
+                                <?= $contenidoTooltip ?>
+                              </div>
+                            </div>
+                          </a> -->
+
+                          <a type="button" style="height: <?= $altoh ?>px;width:<?= $ancho ?>px;margin-top:<?= $alto ?>px;" class="info btn <?= $color ?> btnForecast" title="<?=$contenidoTooltip?>">
                             <?= $estadia['apellido1'] ?>
                           </a>
                       <?php
@@ -144,7 +170,7 @@ if ($dias < 30) {
                       }
                       ?>
                     </div>
-                <?php
+                <?php46
                   }
                 }
                 ?>
@@ -153,15 +179,16 @@ if ($dias < 30) {
             }
             ?>
           </div>
-        </div><br>
+        </div>
       </div>
     </div>
   </section>
 </div>
-
+46
 <script>
   let ancho = screen.width;
   let alto = screen.height;
   forecast = document.querySelector('.products-list');
-  forecast.style.height = (alto - 268) + 'px';
+  forecast.style.height = (alto - 248) + 'px';
+  forecast.style.paddingBottom = 10+'px';
 </script>
