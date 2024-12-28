@@ -1,8 +1,4 @@
 <?php
-/* include_once '../../res/php/app_topHotel.php';
-$usuario ='BARAHONA';
-$idusuario = 2;
- */
 $fecha = FECHA_PMS;
 
 $habhot = $hotel->habitacionesHotel(); // Total Habitaciones del Hotel 
@@ -11,41 +7,13 @@ $ocupaci = $hotel->ocupacionHotel($fecha);
 $inghab = $hotel->ingresoDiarioAgrupacion($fecha, 'HA'); // Ingreso Diario Alojamiento
 $huespedes = $hotel->estadoHuespedesHotel();
 
-// echo print_r($habhot);
-
 $habocu = $ocupaci[0]['encasa'];
 $ctaocu = $ocupaci[0]['ctamaster'];
 $conocu = $ocupaci[0]['congela'];
-
 $huecas = $ocupaci[0]['huecas'];
 $mujcas = $ocupaci[0]['mujcas'];
 $homcas = $ocupaci[0]['homcas'];
 $nincas = $ocupaci[0]['nincas'];
-
-$habtot = $habhot[0]['nrohab'];
-$habdis = $estaHab[0]['dispo'];
-$habmmt = $estaHab[0]['mmto'];
-$camadi = $estaHab[0]['camas'];
-
-$carhab = $inghab[0]['cargos'];
-$ingimp = $inghab[0]['impto'];
-$ingtot = $inghab[0]['total'];
-
-$comhab = $inghab[0]['carcomp'];
-$comimp = $inghab[0]['impcomp'];
-$comtot = $inghab[0]['totcomp'];
-
-$indhab = $inghab[0]['carindi'];
-$indimp = $inghab[0]['impindi'];
-$indtot = $inghab[0]['totindi'];
-
-$ingage = 0 ; // campo e Desuso
-$inggru = 0 ;// Campo no implementado
-
-$ingprodis = $carhab / $habdis;
-$ingproocu = $carhab / $habocu;
-$ingprohue = $carhab / $huecas;
-
 $llegadas = $ocupaci[0]['llegadas'];
 $homlle = $ocupaci[0]['homlle'];
 $mujlle = $ocupaci[0]['mujlle'];
@@ -86,6 +54,43 @@ $mujuso = $ocupaci[0]['mujuso'];
 $homuso = $ocupaci[0]['homuso'];
 $ninuso = $ocupaci[0]['ninuso'];
 
+$habtot = $habhot[0]['nrohab'];
+
+$habdis = $estaHab[0]['dispo'];
+$habmmt = $estaHab[0]['mmto'];
+$camadi = $estaHab[0]['camas'];
+
+$carhab = $inghab[0]['cargos'];
+$ingimp = $inghab[0]['impto'];
+$ingtot = $inghab[0]['total'];
+
+$comhab = $inghab[0]['carcomp'];
+$comimp = $inghab[0]['impcomp'];
+$comtot = $inghab[0]['totcomp'];
+
+$indhab = $inghab[0]['carindi'];
+$indimp = $inghab[0]['impindi'];
+$indtot = $inghab[0]['totindi'];
+
+$ingage = 0; // campo e Desuso
+$inggru = 0; // Campo no implementado
+
+if ($habocu == 0) {
+  $ingproocu = 0;
+} else {
+  $ingproocu = $carhab / $habocu;
+}
+if ($habdis == 0) {
+  $ingprodis = 0;
+} else {
+  $ingprodis = $carhab / $habdis;
+}
+
+if ($huecas == 0) {
+  $ingprohue = 0;
+} else {
+  $ingprohue = $carhab / $huecas;
+}
 
 $huerep = $huespedes[0]['repetidos'];
 $huenue = $huespedes[0]['nuehues'];
@@ -102,7 +107,7 @@ sleep(2);
 $borracargo = $hotel->borraHistoricoCargos();
 sleep(2);
 $pasaFE = $hotel->enviaHistoricoFE();
-sleep(2); 
+sleep(2);
 $borraFE = $hotel->borraHistoricoFE();
 sleep(2);
 // $envEspera = $hotel->enviaHistoricoEstadias($fecha, 'ES');
