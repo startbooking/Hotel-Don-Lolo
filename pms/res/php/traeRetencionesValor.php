@@ -12,4 +12,4 @@ if($sinBase==1){
 }
 
 echo json_encode($valores); 
-  
+   

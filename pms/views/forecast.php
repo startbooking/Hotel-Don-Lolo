@@ -82,7 +82,7 @@ $formato2 = new IntlDateFormatter(
             <?php
             foreach ($rooms as $room) {
               $numero = $room['numero_hab'];
-            ?>
+              ?>
               <div class="row product-item" category="<?= $room['tipo_hab']; ?>" style="width: 1400px;margin-left:0px;">
                 <?php
                 for ($i = 0; $i <= $dias; $i++) {
@@ -96,13 +96,12 @@ $formato2 = new IntlDateFormatter(
                     $desdemmto = $mmtoHab[0]['desde_fecha'];
                     $hastammto = $mmtoHab[0]['hasta_fecha'];
                     $diasMto = (strtotime($hastammto) - strtotime($desdemmto)) / 86400;
-
                     $ancho = (40 * $diasMto) - 2;
 
                     $izq = 42 * $i;
                     $altoh = 21;
                     $alto = 1;
-                ?>
+                    ?>
                     <div class="col-sm-1 mmto">
                       <a type="button" class="btnForecast btn-default" style="height:<?= $altoh ?>px;width:<?= $ancho ?>px;margin-top:<?= $alto ?>px;" class="info btn btn-default reserva" title="Habitacion en Mantenimiento Observaciones <?= $mmtoHab[0]['observaciones'] ?> Desde <?= $mmtoHab[0]['desde_fecha'] ?> Hasta Fecha <?= $mmtoHab[0]['hasta_fecha'] ?>" draggable="true"> Habitacion en Mantenimiento
                       </a>
@@ -110,72 +109,59 @@ $formato2 = new IntlDateFormatter(
                       $alto = $alto + 10;
                       ?>
                     </div>
-                  <?php
-                  } else
-                    if (count($estadias) == 0) {
-                    $izq = 42 * $i
-                  ?>
-                    <div class="col-sm-1 libre"></div>
-                  <?php
+                    <?php
                   } else {
-                    $izq  = 42 * $i;
-                    $alto = 1;
-                  ?>
-                    <div class="col-sm-1 ocupada">
+                    if (count($estadias) == 0) {
+                      $izq = 42 * $i
+                      ?>
+                      <div class="col-sm-1 libre"></div>
                       <?php
-                      if (count($estadias) > 1) {
-                        $mas   = 1;
-                        $altoh = 10;
-                      } else {
-                        $mas   = 0;
-                        $altoh = 21;
-                      }
-                      foreach ($estadias as $estadia) {
-                        if ($estadia['estado'] == 'CA') {
-                          $color = 'btn-warning';
+                    } else {
+                      $izq  = 42 * $i;
+                      $alto = 1;
+                      ?>
+                      <div class="col-sm-1 ocupada">
+                        <?php
+                        if (count($estadias) > 1) {
+                          $mas   = 1;
+                          $altoh = 10;
                         } else {
-                          if ($mas == 1) {
-                            $color = 'btn-danger';
+                          $mas   = 0;
+                          $altoh = 21;
+                        }
+                        foreach ($estadias as $estadia) {
+                          if ($estadia['estado'] == 'CA') {
+                            $color = 'btn-warning';
                           } else {
-                            $color = 'btn-info';
+                            if ($mas == 1) {
+                              $color = 'btn-danger';
+                            } else {
+                              $color = 'btn-info';
+                            }
+                          }
+                          $desde = $estadia['fecha_llegada'];
+                          $hasta = $estadia['fecha_salida'];
+                          $diasEs = (strtotime($hasta) - strtotime($desde)) / 86400;
+                          $ancho = (40 * $diasEs) - 2;
+                          if ($estadia['estado'] <> "SA" && $estadia['estado'] <> "CX") {
+                            $contenidoTooltip = generarContenidoTooltip($estadia, $formato2);
+                            ?>
+                            <a type="button" style="height: <?= $altoh ?>px;width:<?= $ancho ?>px;margin-top:<?= $alto ?>px;" class="info btn <?= $color ?> btnForecast" title="<?=$contenidoTooltip?>">
+                              <?= $estadia['apellido1'] ?>
+                            </a>
+                            <?php
+                            $alto = $alto + 10;
                           }
                         }
-                        $desde = $estadia['fecha_llegada'];
-                        $hasta = $estadia['fecha_salida'];
-                        $diasEs = (strtotime($hasta) - strtotime($desde)) / 86400;
-                        $ancho = (40 * $diasEs) - 2;
-                        if ($estadia['estado'] <> "SA" && $estadia['estado'] <> "CX") {
-                          /* $altoh = 50; // Ejemplo de altura
-                          $ancho = 200; // Ejemplo de ancho
-                          $alto = 10; // Ejemplo de margen superior
-                          $color = 'btn-primary'; // Ejemplo de clase de color */
-                          // Gen46erar el contenido del tooltip
-                          $contenidoTooltip = generarContenidoTooltip($estadia, $formato2);
-                      ?>
-                          <!-- <a type="button" style="height: <?= $altoh ?>px; width: <?= $ancho ?>px; margin-top: <?= $alto ?>px;" class="info btn <?= $color ?> btnForecast">
-                            <?= htmlspecialchars($estadia['apellido1']) ?>
-                            <div class="tooltipfore">
-                              <div class="tooltiptext">
-                                <?= $contenidoTooltip ?>
-                              </div>
-                            </div>
-                          </a> -->
-
-                          <a type="button" style="height: <?= $altoh ?>px;width:<?= $ancho ?>px;margin-top:<?= $alto ?>px;" class="info btn <?= $color ?> btnForecast" title="<?=$contenidoTooltip?>">
-                            <?= $estadia['apellido1'] ?>
-                          </a>
+                        ?>
+                      </div>
                       <?php
-                          $alto = $alto + 10;
-                        }
-                      }
-                      ?>
-                    </div>
-                <?php46
+                    } 
                   }
                 }
                 ?>
               </div>
-            <?php
+              <?php
             }
             ?>
           </div>
@@ -184,7 +170,7 @@ $formato2 = new IntlDateFormatter(
     </div>
   </section>
 </div>
-46
+
 <script>
   let ancho = screen.width;
   let alto = screen.height;

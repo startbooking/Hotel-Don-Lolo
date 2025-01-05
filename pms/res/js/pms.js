@@ -4872,6 +4872,7 @@ async function guardaHuesped(e) {
     contentType: false,
     processData: false,
     success: function (resp) {
+      // console.log(resp);
       mensajeCrea(resp, "Huesped Creado", "huespedesPerfil", creaRese);
     },
   });
@@ -5870,6 +5871,8 @@ async function apagaselecomp(tipo) {
       nroFolio,
       sinBaseRete
     );
+console.log();
+
     totalRteFte = parseInt($("#baseRetenciones").val());
     totalImpto = parseInt($("#totalIva").val());
     totalBaseImpto = parseInt($("#totalBaseIva").val());
@@ -5961,7 +5964,7 @@ async function valorRetencionesFolio(nroReserva, nroFolio, sinBase) {
   data = {
     nroReserva,
     nroFolio,
-    sinBase,
+    sinBase, 
   };
   try {
     const resultado = await fetch(`res/php/traeRetencionesValor.php`, {

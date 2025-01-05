@@ -92,7 +92,7 @@ if ($huecas == 0) {
   $ingprohue = $carhab / $huecas;
 }
 
-$huerep = $huespedes[0]['repetidos'];
+$huerep = $huespedes[0]['repetidos']; 
 $huenue = $huespedes[0]['nuehues'];
 $hueext = $huespedes[0]['extcas'];
 $huenal = $huespedes[0]['nalcas'];

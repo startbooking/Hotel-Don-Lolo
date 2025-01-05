@@ -272,7 +272,7 @@ if ($perfilFac == 1 && $facturador == 1) {
         $ret = [
             'tax_id' => '6',
             'tax_amount' => $rete['valorRetencion'],
-            'taxable_amount' => $rete['base'],
+            'taxable_amount' => $rete['monto'],
             'percent' => $rete['porcentajeRetencion'],
         ];
 
@@ -324,6 +324,8 @@ if ($perfilFac == 1 && $facturador == 1) {
     $eFact['invoice_lines'] = $eInvo;
     $eFact['operation_mode'] = $oMode;
     $eFact = json_encode($eFact);
+
+    // echo $eFact;
  
     // include_once '../../api/enviaFactura.php';
 

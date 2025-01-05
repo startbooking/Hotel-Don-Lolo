@@ -1099,15 +1099,15 @@ class Hotel_Actions
         global $database;
 
         $data = $database->query("SELECT
-                COALESCE(SUM(historico_cargos_pms.monto_cargo),0) AS monto,
-                COALESCE(SUM(historico_cargos_pms.base_impuesto),0) AS base,
-                COALESCE(SUM(historico_cargos_pms.impuesto),0) as impto,
+                round(COALESCE(SUM(historico_cargos_pms.monto_cargo),0),2) AS monto,
+                round(COALESCE(SUM(historico_cargos_pms.base_impuesto),0),2) AS base,
+                round(COALESCE(SUM(historico_cargos_pms.impuesto),0),2) as impto,
                 codigos_vta.idRetencion, 
                 historico_cargos_pms.valor_cargo,
                 retenciones.descripcionRetencion, 
                 retenciones.porcentajeRetencion,
                 retenciones.baseRetencion,
-                COALESCE(sum(historico_cargos_pms.monto_cargo) * (retenciones.porcentajeRetencion/100),0) AS valorRetencion
+                round(COALESCE(sum(historico_cargos_pms.monto_cargo) * (retenciones.porcentajeRetencion/100),0),2) AS valorRetencion
                 FROM
                     historico_cargos_pms
                     JOIN codigos_vta 
@@ -1133,16 +1133,16 @@ class Hotel_Actions
         $data = $database->query("SELECT 
                 a.monto, a.base, retenciones.idRetencion, retenciones.descripcionRetencion, a.valorRetencion, retenciones.porcentajeRetencion
                 FROM ( SELECT
-                COALESCE(SUM(historico_cargos_pms.monto_cargo),0) AS monto,
-                COALESCE(SUM(historico_cargos_pms.base_impuesto),0) AS base,
-                COALESCE(SUM(historico_cargos_pms.impuesto),0) as impto,
+                round(COALESCE(SUM(historico_cargos_pms.monto_cargo),0),2) AS monto,
+                round(COALESCE(SUM(historico_cargos_pms.base_impuesto),0),2) AS base,
+                round(COALESCE(SUM(historico_cargos_pms.impuesto),0),2) as impto,
                 codigos_vta.idRetencion, 
                 historico_cargos_pms.valor_cargo, 
                 retenciones.descripcionRetencion, 
                 retenciones.porcentajeRetencion,
                 retenciones.baseRetencion,
                 retenciones.tipoRetencion,
-                COALESCE(sum(historico_cargos_pms.monto_cargo) * (porcentajeRetencion)/100,0) AS valorRetencion
+                round(COALESCE(sum(historico_cargos_pms.monto_cargo) * (porcentajeRetencion)/100,0),2) AS valorRetencion
                 FROM
                     historico_cargos_pms,
                     retenciones,
@@ -1981,16 +1981,16 @@ class Hotel_Actions
         $data = $database->query("SELECT 
             a.monto, a.base, retenciones.idRetencion, retenciones.descripcionRetencion, a.valorRetencion, retenciones.porcentajeRetencion
             FROM ( SELECT
-            COALESCE(SUM(cargos_pms.monto_cargo),0) AS monto,
-            COALESCE(SUM(cargos_pms.base_impuesto),0) AS base,
-            COALESCE(SUM(cargos_pms.impuesto),0) as impto,
+            round(COALESCE(SUM(cargos_pms.monto_cargo),0),2) AS monto,
+            round(COALESCE(SUM(cargos_pms.base_impuesto),0),2) AS base,
+            round(COALESCE(SUM(cargos_pms.impuesto),0),2) as impto,
             codigos_vta.idRetencion, 
             cargos_pms.valor_cargo, 
             retenciones.descripcionRetencion, 
             retenciones.porcentajeRetencion,
             retenciones.baseRetencion,
             retenciones.tipoRetencion,
-            COALESCE(sum(cargos_pms.monto_cargo) * (porcentajeRetencion)/100,0) AS valorRetencion
+            round(COALESCE(sum(cargos_pms.monto_cargo) * (porcentajeRetencion)/100,0),2) AS valorRetencion
             FROM
                 cargos_pms,
                 retenciones,
@@ -2018,15 +2018,15 @@ class Hotel_Actions
         global $database; 
 
         $data = $database->query("SELECT
-            COALESCE(SUM(cargos_pms.monto_cargo),0) AS monto,
-            COALESCE(SUM(cargos_pms.base_impuesto),0) AS base,
-            COALESCE(SUM(cargos_pms.impuesto),0) as impto,
+            round(COALESCE(SUM(cargos_pms.monto_cargo),0),2) AS monto,
+            round(COALESCE(SUM(cargos_pms.base_impuesto),0),2) AS base,
+            round(COALESCE(SUM(cargos_pms.impuesto),0),2) as impto,
             codigos_vta.idRetencion, 
             cargos_pms.valor_cargo,
             retenciones.descripcionRetencion, 
             retenciones.porcentajeRetencion,
             retenciones.baseRetencion,
-            COALESCE(sum(cargos_pms.monto_cargo) * (retenciones.porcentajeRetencion/100),0) AS valorRetencion
+            round(COALESCE(sum(cargos_pms.monto_cargo) * (retenciones.porcentajeRetencion/100),0),2) AS valorRetencion
             FROM
                 cargos_pms
                 JOIN codigos_vta 
