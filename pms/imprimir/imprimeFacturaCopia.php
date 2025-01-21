@@ -160,7 +160,7 @@ if ($tipofac == 2) {
     $pdf->SetFont('Arial', '', 8);
     $pdf->Cell(15, 4, 'CIUDAD', 0, 0, 'L');
     $pdf->SetFont('Arial', 'B', 8);
-    $pdf->Cell(30, 4, substr(($hotel->gaplicareteetCityName($datosHuesped[0]['ciudad'])), 0, 12), 0, 0, 'L');
+    $pdf->Cell(30, 4, substr(($hotel->getCityName($datosHuesped[0]['ciudad'])), 0, 12), 0, 0, 'L');
     $pdf->SetFont('Arial', '', 8);
     $pdf->Cell(20, 4, 'TELEFONO', 0, 0, 'L');
     $pdf->SetFont('Arial', 'B', 8);

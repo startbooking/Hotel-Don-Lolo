@@ -1,7 +1,7 @@
 <?php
     require '../../../res/php/app_topHotel.php'; 
         
-    // $nroFactura = '18756';
+    $nroFactura = '19224';
     
     $diasCre = 0;
      
@@ -14,7 +14,7 @@
     $hasta = $resFac[0]['hasta'];
     
     $infoFE = $hotel->traeInfoFE($nroFactura);
-    
+
     $cufe = $infoFE[0]['cufe'];
     $timeCrea = $infoFE[0]['timeCreated'];
     $QRStr = $infoFE[0]['QRStr'];
@@ -49,6 +49,9 @@
     $idperfil = $id;
 
     include_once '../../imprimir/imprimeFacturaCopia.php';
+
+
+    
 
 
  

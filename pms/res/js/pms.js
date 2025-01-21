@@ -2298,7 +2298,7 @@ async function ajusteCuenta(){
   let imprime = await imprimeAjusteCuenta(con_ajuste_cuenta, reserva, folio);
   
   var ventana = window.open(
-    'imprimir/ajustes/'+imprime,
+    'imprimir/ajustes/'+imprime.trim(),
     "PRINT",
     "height=600,width=600"
   );
@@ -3353,7 +3353,7 @@ function buscaFacturasExporta() {
     .then((response) => response.text())
     .then((data) => llenaFacturas(data));
 }
-
+ 
 function buscaNotasCreditoExporta() {
   desde = document.querySelector("#desdeFechaNC").value;
   hasta = document.querySelector("#hastaFechaNC").value;

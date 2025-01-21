@@ -1305,7 +1305,7 @@ class Hotel_Actions
             'usuario_factura',
             'id_codigo_cargo',
             'informacion_cargo',
-            'referencia_cargo'
+            'referencia_cargo' 
         ], [
             'factura_numero' => $nroFactura,
             'factura' => 1
