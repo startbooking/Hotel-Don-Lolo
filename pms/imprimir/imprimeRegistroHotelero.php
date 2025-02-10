@@ -15,7 +15,7 @@ require_once '../../../res/fpdf/fpdf.php';
 
   $pdf = new FPDF();
   $pdf->AddPage('P','letter');
-  $pdf->Rect(10, 36, 190, 230);
+  $pdf->Rect(10, 34, 190, 230);
   $pdf->Image('../../../img/'.LOGO,xPOS,10,tPOS);
   $pdf->SetFont('Arial','B',8);
   $pdf->Cell(190,5,NAME_EMPRESA,0,1,'C');
@@ -25,20 +25,20 @@ require_once '../../../res/fpdf/fpdf.php';
   $pdf->Cell(190,3,'Telefono '.TELEFONO_EMPRESA.' Movil '.CELULAR_EMPRESA,0,1,'C');
   $pdf->SetFont('Arial','B',7);
   $pdf->Cell(190,4,NAME_HOTEL,0,0,'C'); 
-  $pdf->Ln(4);
+  $pdf->Ln(2);
 
   $pdf->SetFont('Arial','B',6);
   $pdf->Cell(190,4,'REGISTRO HOTELERO ',0,1,'R');
-  $pdf->SetFont('Arial','',6);
+  $pdf->SetFont('Arial','',5);
   $pdf->Cell(180,3,'Numero ',0,0,'R');
-  $pdf->SetFont('Arial','B',6);
+  $pdf->SetFont('Arial','B',5);
   $pdf->Cell(10,3,str_pad($datosReserva[0]["num_registro"],5,'0',STR_PAD_LEFT),0,1,'C');
 
   $pdf->Ln(1);
-  $pdf->Cell(100,6,'NOMBRE / NAME',1,0,'C');
-  $pdf->Cell(30,6,'NACIONALIDAD',1,0,'C');
-  $pdf->Cell(20,6,'IDENTIFICACION',1,0,'C');
-  $pdf->Cell(40,6,'EXPEDICION',1,1,'C');
+  $pdf->Cell(100,5,'NOMBRE / NAME',1,0,'C');
+  $pdf->Cell(30,5,'NACIONALIDAD',1,0,'C');
+  $pdf->Cell(20,5,'IDENTIFICACION',1,0,'C');
+  $pdf->Cell(40,5,'EXPEDICION',1,1,'C');
   $pdf->SetFont('Arial','',8);
   $pdf->Cell(100,5,($datosHuesped[0]['apellido1'].' '.$datosHuesped[0]['apellido2'].' '.$datosHuesped[0]['nombre1'].' '.$datosHuesped[0]['nombre2']),1,0,'L');
   $pdf->Cell(30,5,($hotel->getLandGuest($datosHuesped[0]['pais_expedicion'])),1,0,'L');
@@ -54,7 +54,7 @@ require_once '../../../res/fpdf/fpdf.php';
     $pdf->Cell(40,5,(substr($hotel->getCityExp($acompanante['ciudad_expedicion']),0,21)),1,1,'L');    
   }
 
-  $pdf->setY(79);
+  $pdf->setY(75);
   $pdf->SetFont('Arial','',7);
   $pdf->Cell(15,5,'Direccion',1,0,'L');
   $pdf->Cell(50,5,substr($datosHuesped[0]['direccion'],0,35),1,0,'L');
@@ -67,7 +67,7 @@ require_once '../../../res/fpdf/fpdf.php';
   $pdf->Cell(10,5,'Pais',1,0,'L');
   $pdf->Cell(20,5,$hotel->getLandGuest($datosHuesped[0]['pais']),1,1,'L');
   
-  $pdf->Cell(15,5,'Empresa',1,0,'L');
+  $pdf->Cell(15,59,'Empresa',1,0,'L');
   if($regisCia==0){
     $pdf->Cell(80,5,'',1,0,'L');
   }else{    

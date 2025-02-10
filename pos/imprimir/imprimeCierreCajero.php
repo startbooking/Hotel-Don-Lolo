@@ -16,8 +16,9 @@
   $pdf->SetFont('Arial','',11);
   $pdf->Cell(260,5,'USUARIO : '.$user,0,1,'C');
   $pdf->Cell(260,5,'Fecha : '.$fecha,0,1,'C');
+  $pdf->Cell(260,5,'Hora Cierre : '.date('H:i:s'),0,1,'C');
   $pdf->Ln(5);
-
+ 
   $pdf->SetFont('Arial','B',10);  
   $pdf->Cell(260,6,'DETALLE FACTURAS GENERADAS ',1,1,'C');
   $pdf->SetFont('Arial','',9);  

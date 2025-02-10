@@ -1198,6 +1198,73 @@ class Hotel_Actions
         return $data;
     }
 
+    public function getCargosPropinas($desdeFe, $hastaFe, $usuario){
+        global $database;
+
+        $data = $database->query("SELECT
+            historico_cargos_pms.fecha_cargo, 
+            historico_cargos_pms.monto_cargo, 
+            historico_cargos_pms.habitacion_cargo, 
+            historico_cargos_pms.descripcion_cargo, 
+            historico_cargos_pms.numero_factura_cargo, 
+            historico_cargos_pms.valor_cargo, 
+            historico_cargos_pms.concecutivo_abono, 
+            historico_cargos_pms.habitacion_cargo, 
+            historico_cargos_pms.fecha_sistema_cargo, 
+            huespedes.nombre_completo, 
+            codigos_vta.descripcion_cargo
+        FROM
+            historico_cargos_pms
+            INNER JOIN
+            huespedes
+            ON 
+                historico_cargos_pms.id_huesped = huespedes.id_huesped
+            INNER JOIN
+            codigos_vta
+            ON 
+                historico_cargos_pms.id_codigo_cargo = codigos_vta.id_cargo
+        WHERE
+            historico_cargos_pms.cargo_anulado = 0 AND
+            historico_cargos_pms.concecutivo_abono = 0 AND
+            codigos_vta.grupo_vta = 25 AND 
+            historico_cargos_pms.usuario = '$usuario' and 
+            historico_cargos_pms.fecha_cargo between '$desdeFe' AND '$hastaFe'
+        UNION ALL
+            SELECT
+            cargos_pms.fecha_cargo, 
+            cargos_pms.monto_cargo, 
+            cargos_pms.habitacion_cargo, 
+            cargos_pms.descripcion_cargo, 
+            cargos_pms.numero_factura_cargo, 
+            cargos_pms.valor_cargo, 
+            cargos_pms.concecutivo_abono, 
+            cargos_pms.habitacion_cargo, 
+            cargos_pms.fecha_sistema_cargo, 
+            huespedes.nombre_completo, 
+            codigos_vta.descripcion_cargo
+        FROM
+            cargos_pms
+            INNER JOIN
+            huespedes
+            ON 
+                cargos_pms.id_huesped = huespedes.id_huesped
+            INNER JOIN
+            codigos_vta
+            ON 
+                cargos_pms.id_codigo_cargo = codigos_vta.id_cargo
+        WHERE
+            cargos_pms.cargo_anulado = 0 AND
+            cargos_pms.concecutivo_abono = 0 AND
+            codigos_vta.grupo_vta = 25 AND 
+            cargos_pms.usuario = '$usuario' and 
+            cargos_pms.fecha_cargo between '$desdeFe' AND '$hastaFe'
+        ORDER BY
+            fecha_cargo ASC")->fetchAll(PDO::FETCH_ASSOC);
+
+    return $data;
+    }
+
+
     public function getCargosPorGrupoVentaHist($desdeFe, $hastaFe, $usuario, $tipo, $estado, $grupo)
     {
         global $database;

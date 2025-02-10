@@ -11,7 +11,7 @@
   $pdf->SetFont('Arial','',10);
   $pdf->Cell(190,5,'Fecha '.FECHA_PMS,0,1,'C');
   $pdf->Ln(3);
-
+ 
   $pdf->SetFont('Arial','B',10);
   $pdf->Cell(15,5,'Tipo Hab. ',1,0,'C');
   $pdf->Cell(70,5,'Huesped',1,0,'C');

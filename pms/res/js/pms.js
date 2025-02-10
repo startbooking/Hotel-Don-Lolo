@@ -8929,6 +8929,7 @@ function facturasPorFecha() {
 }
 
 async function generaInforme(data) {
+  console.log(data);
   try {
     const resultado = await fetch("imprimir/imprimePropinas.php", {
       method: "post",
@@ -8951,6 +8952,8 @@ async function propinasPorFecha() {
     desdeFe,
     hastaFe,
   };
+
+  // console.log(data);
 
   if (desdeFe == "" && hastaFe == "") {
     swal("Atencion", "Seleccione un Criterio de Busqueda", "warning");

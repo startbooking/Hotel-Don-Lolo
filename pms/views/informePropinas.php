@@ -2,7 +2,7 @@
   $dia = strtotime('-1 day', strtotime(FECHA_PMS));
   $ayer = date('Y-m-d', $dia);
   $inicial = date('Y-m-01', $dia);
-?>
+?> 
     <div class="content-wrapper"> 
       <section class="content centrar">
         <div class="container">
