@@ -34,8 +34,8 @@
   $pdf->Cell(5,5,'M',1,0,'L');
   $pdf->Cell(5,5,'N',1,0,'L');
   $pdf->Cell(25,5,'Tarifa',1,0,'C');
-  $pdf->Cell(10,5,'Res. ',1,0,'C');
-  $pdf->Cell(10,5,'Est. ',1,1,'C');
+  // $pdf->Cell(10,5,'Res. ',1,0,'C');
+  $pdf->Cell(20,5,'Usuario. ',1,1,'C');
   $pdf->SetFont('Arial','',9);
   $hab = 0;
   $hom = 0;
@@ -55,8 +55,8 @@
       $pdf->Cell(5,4,$reserva['can_mujeres'],0,0,'C');
       $pdf->Cell(5,4,$reserva['can_ninos'],0,0,'C');
       $pdf->Cell(25,4,number_format($reserva['valor_diario'],2),0,0,'R'); 
-      $pdf->Cell(10,4,$reserva['num_reserva'],0,0,'C');
-      $pdf->Cell(10,4,$reserva['estado'],0,1,'C');
+      // $pdf->Cell(10,4,$reserva['num_reserva'],0,0,'C');
+      $pdf->Cell(20,4,$reserva['usuario_checkout'],0,1,'C');
       if($reserva['tipo_habitacion'] != '1'){
         $hab = $hab + 1;
         $hom = $hom + $reserva['can_hombres'];

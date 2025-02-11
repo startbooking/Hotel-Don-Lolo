@@ -4306,7 +4306,7 @@ function anulaFacturaHistorico() {
   var reserva = $("#reservaHis").val();
   var perfil = $("#perfilHis").val();
   btnAnula = document.querySelector(".btnAnulaHis");
-  btnAnula.classList.add("apaga");
+  btnAnula.classList.add("apaga"); 
 
   $.ajax({
     url: "res/php/anulaFacturaHistorico.php",

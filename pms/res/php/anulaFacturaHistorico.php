@@ -240,10 +240,10 @@ if ($perfil == 1 && $facturador == 1) {
 } else {
     include_once '../../imprimir/imprimeNCHis.php';
 }
-
+ 
 $regis = $hotel->actualizaNumeroCredito($numDoc + 1);
 $envia = $hotel->enviaCargosHistoricoNC($numero);
-$cargos = $hotel->actualizaCargosFacturasHis($numero, $perfil);
+// $cargos = $hotel->actualizaCargosFacturasHis($numero, $perfil);
 $anula = $hotel->anulaFacturaHis($numero, $motivo, $usuario, $idusuario, $perfil, $numDoc);
 $regis = $hotel->ingresaNCFactura($numero, $motivo, $idusuario, $numDoc, FECHA_PMS);
 
