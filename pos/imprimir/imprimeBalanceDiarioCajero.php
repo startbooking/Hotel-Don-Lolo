@@ -10,7 +10,7 @@ $pagosAnulados = $pos->getDetalleFormasdePagoAnuladas('X', $user);
 
 $pdf = new FPDF();
 $pdf->AddPage('P', 'letter');
-$pdf->Image('../../img/'.$logo, 10, 10, 15);
+$pdf->Image('../../img/'.$logo, 10, 10, 15); 
 $pdf->SetFont('Arial', 'B', 13);
 
 $pdf->SetFont('Arial', 'B', 13);
@@ -99,13 +99,13 @@ foreach ($detalleAnuladas as $detalle) {
     $impt = $impt + $detalle['impuesto'];
     $prop = $prop + $detalle['propina'];
     $desc = $desc + $detalle['descuento'];
-    $tota = $tota + $detalle['valor_total'];
+    $tota = $tota + $detalle['pagado'] - $detalle['cambio'];
 
     $pdf->Cell(25, 6, $detalle['factura'], 1, 0, 'R');
     $pdf->Cell(25, 6, $detalle['comanda'], 1, 0, 'R');
     $pdf->Cell(25, 6, $detalle['mesa'], 1, 0, 'R');
     $pdf->Cell(25, 6, $detalle['pax'], 1, 0, 'R');
-    $pdf->Cell(35, 6, number_format($detalle['valor_total'], 2), 1, 0, 'R');
+    $pdf->Cell(35, 6, number_format($detalle['pagado'] - $detalle['cambio'], 2), 1, 0, 'R');
     $pdf->Cell(30, 6, $detalle['usuario_anulada'], 1, 0, 'R');
     $pdf->Cell(95, 6, $detalle['motivo_anulada'], 1, 1, 'R');
 }

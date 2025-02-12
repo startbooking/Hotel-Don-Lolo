@@ -94,7 +94,7 @@ $desc = 0;
 
 foreach ($detalleAnuladas as $detalle) {
     $fact = $fact + 1;
-    $neto = $neto + $detalle['valor_neto'];
+    $neto = $neto + $detalle['pagado'] - $detalle['cambio'];;
     $impt = $impt + $detalle['impuesto'];
     $prop = $prop + $detalle['propina'];
     $desc = $desc + $detalle['descuento'];
@@ -104,7 +104,7 @@ foreach ($detalleAnuladas as $detalle) {
     $pdf->Cell(20, 6, $detalle['comanda'], 1, 0, 'R');
     $pdf->Cell(20, 6, $detalle['mesa'], 1, 0, 'R');
     $pdf->Cell(20, 6, $detalle['pax'], 1, 0, 'R');
-    $pdf->Cell(35, 6, number_format($detalle['valor_total'], 2), 1, 0, 'R');
+    $pdf->Cell(35, 6, number_format($detalle['pagado'] - $detalle['cambio'], 2), 1, 0, 'R');
     $pdf->Cell(30, 6, $detalle['usuario_anulada'], 1, 0, 'R');
     $pdf->Cell(80, 6, $detalle['motivo_anulada'], 1, 0, 'L');
     $pdf->Cell(35, 6, $detalle['fecha_factura_anulada'], 1, 1, 'R');
