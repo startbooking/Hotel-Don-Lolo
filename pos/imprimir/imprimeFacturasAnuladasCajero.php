@@ -42,13 +42,13 @@ if (count($detalles) == 0) {
         $impt = $impt + $detalle['impuesto'];
         $prop = $prop + $detalle['propina'];
         $desc = $desc + $detalle['descuento'];
-        $tota = $tota + $detalle['valor_total'];
+        $tota = $tota + $detalle['pagado']-$detalle['cambio'];
 
         $pdf->Cell(20, 4, $detalle['factura'], 0, 0, 'R');
         $pdf->Cell(20, 4, $detalle['comanda'], 0, 0, 'R');
         $pdf->Cell(20, 4, $detalle['mesa'], 0, 0, 'R');
         $pdf->Cell(20, 4, $detalle['pax'], 0, 0, 'R');
-        $pdf->Cell(35, 4, number_format($detalle['valor_total'], 2), 0, 0, 'R');
+        $pdf->Cell(35, 4, number_format($detalle['pagado']-$detalle['cambio'], 2), 0, 0, 'R');
         $pdf->Cell(30, 4, $detalle['usuario_anulada'], 0, 0, 'L');
         $pdf->Cell(80, 4, $detalle['motivo_anulada'], 0, 0, 'L');
         $pdf->Cell(35, 4, $detalle['fecha_factura_anulada'], 0, 1, 'L');

@@ -87,7 +87,7 @@
     $pdf->Cell(25,4,$detalle['comanda'],0,0,'R');
     $pdf->Cell(25,4,$detalle['mesa'],0,0,'R');
     $pdf->Cell(25,4,$detalle['pax'],0,0,'R');
-    $pdf->Cell(35,4,number_format($detalle['valor_total'],2),0,0,'R');
+    $pdf->Cell(35,4,number_format($detalle['pagado']-$detalle['cambio'],2),0,0,'R');
     $pdf->Cell(30,4,$detalle['usuario_anulada'],0,0,'L');
     $pdf->Cell(95,4,substr($detalle['motivo_anulada'],0,40),0,1,'L');
   }

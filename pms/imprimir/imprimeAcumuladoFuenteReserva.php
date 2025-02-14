@@ -22,143 +22,140 @@ $codigos = $hotel->getMotivoGrupo('FRE');
 // echo print_r($codigos);
 
 $query = "SELECT
-	a.*,
-	b.*,
-	c.*,
-	d.*,
-	e.*,
-	f.* 
-FROM
-	(
-	SELECT
+    a.*,
+    b.*,
+    c.*,
+    d.*,
+    e.*,
+    f.* 
+  FROM
+    (
+    SELECT
+    reservas_pms.fuente_reserva,
+    grupos_cajas.descripcion_grupo AS fuente,
+    COUNT( reservas_pms.num_reserva ) AS cant,
+    SUM( reservas_pms.valor_diario ) AS valor 
+  FROM
+    reservas_pms
+    LEFT JOIN grupos_cajas ON reservas_pms.fuente_reserva = grupos_cajas.id_grupo
+    LEFT JOIN tipo_habitaciones ON reservas_pms.tipo_habitacion = tipo_habitaciones.id 
+  WHERE
+    reservas_pms.fecha_llegada = '$fecha' 
+    AND reservas_pms.estado = 'CA' 
+    AND tipo_habitaciones.tipo_habitacion = 1 
+  GROUP BY
+    reservas_pms.fuente_reserva 
+  ORDER BY
+    grupos_cajas.descripcion_grupo 
+    ) AS a,
+    (
+    SELECT
   reservas_pms.fuente_reserva,
   grupos_cajas.descripcion_grupo AS fuente,
-	COUNT( reservas_pms.num_reserva ) AS cant,
-	SUM( reservas_pms.valor_diario ) AS valor 
-FROM
-	reservas_pms
-	LEFT JOIN grupos_cajas ON reservas_pms.fuente_reserva = grupos_cajas.id_grupo
-	LEFT JOIN tipo_habitaciones ON reservas_pms.tipo_habitacion = tipo_habitaciones.id 
-WHERE
-	reservas_pms.fecha_llegada = '$fecha' 
-	AND reservas_pms.estado = 'CA' 
-	AND tipo_habitaciones.tipo_habitacion = 1 
-GROUP BY
-	reservas_pms.fuente_reserva 
-ORDER BY
-	grupos_cajas.descripcion_grupo 
-	) AS a,
-	(
-	SELECT
-reservas_pms.fuente_reserva,
-grupos_cajas.descripcion_grupo AS fuente,
-	COUNT( reservas_pms.num_reserva ) AS cant,
-	SUM( reservas_pms.valor_diario ) AS valor 
-FROM
-	reservas_pms
-	LEFT JOIN grupos_cajas ON reservas_pms.fuente_reserva = grupos_cajas.id_grupo
-	LEFT JOIN tipo_habitaciones ON reservas_pms.tipo_habitacion = tipo_habitaciones.id 
-WHERE
-	MONTH ( reservas_pms.fecha_llegada ) = MONTH($fecha) 
-	AND YEAR ( reservas_pms.fecha_llegada ) = YEAR($fecha) 
-	AND reservas_pms.estado = 'CA' 
-	AND tipo_habitaciones.tipo_habitacion = 1 
-GROUP BY
-	reservas_pms.fuente_reserva 
-ORDER BY
-	grupos_cajas.descripcion_grupo
-	) AS b,
-	(
-	SELECT
-reservas_pms.fuente_reserva,
-grupos_cajas.descripcion_grupo AS fuente,
-	COUNT( reservas_pms.num_reserva ) AS cant,
-	SUM( reservas_pms.valor_diario ) AS valor 
-FROM
-	reservas_pms
-	LEFT JOIN grupos_cajas ON reservas_pms.fuente_reserva = grupos_cajas.id_grupo
-	LEFT JOIN tipo_habitaciones ON reservas_pms.tipo_habitacion = tipo_habitaciones.id 
-WHERE
-	YEAR ( reservas_pms.fecha_llegada ) = YEAR($fecha) 
-	AND reservas_pms.estado = 'CA' 
-	AND tipo_habitaciones.tipo_habitacion = 1 
-GROUP BY
-	reservas_pms.fuente_reserva 
-ORDER BY
-	grupos_cajas.descripcion_grupo
-	) AS c,
-	(
-	SELECT
-historico_reservas_pms.fuente_reserva,
-grupos_cajas.descripcion_grupo AS fuente,
-	COUNT( historico_reservas_pms.num_reserva ) AS cantDia,
-	SUM( historico_reservas_pms.valor_diario ) AS valorDia
-FROM
-	historico_reservas_pms
-	LEFT JOIN grupos_cajas ON historico_reservas_pms.fuente_reserva = grupos_cajas.id_grupo
-	LEFT JOIN tipo_habitaciones ON historico_reservas_pms.tipo_habitacion = tipo_habitaciones.id 
-WHERE
-	historico_reservas_pms.fecha_llegada = '$fecha' 
-	AND historico_reservas_pms.estado = 'SA' 
-	AND tipo_habitaciones.tipo_habitacion = 1 
-GROUP BY
-	historico_reservas_pms.fuente_reserva 
-ORDER BY
-	grupos_cajas.descripcion_grupo
-	) AS d,
-	(
-	SELECT
-historico_reservas_pms.fuente_reserva,
-grupos_cajas.descripcion_grupo AS fuente,
-	COUNT( historico_reservas_pms.num_reserva ) AS cantMes,
-	SUM( historico_reservas_pms.valor_diario ) AS valorMes
-FROM
-	historico_reservas_pms
-	LEFT JOIN grupos_cajas ON historico_reservas_pms.fuente_reserva = grupos_cajas.id_grupo
-	LEFT JOIN tipo_habitaciones ON historico_reservas_pms.tipo_habitacion = tipo_habitaciones.id 
-WHERE
-	MONTH ( historico_reservas_pms.fecha_llegada ) = MONTH($fecha)
-	AND YEAR ( historico_reservas_pms.fecha_llegada ) = YEAR($fecha)
-	AND historico_reservas_pms.estado = 'SA' 
-	AND tipo_habitaciones.tipo_habitacion = 1 
-GROUP BY
-	historico_reservas_pms.fuente_reserva 
-ORDER BY
-	grupos_cajas.descripcion_grupo
-	) AS e,
-	(
-	SELECT
-historico_reservas_pms.fuente_reserva,
-grupos_cajas.descripcion_grupo AS fuente,
-	COUNT( historico_reservas_pms.num_reserva ) AS cantAnio,
-	SUM( historico_reservas_pms.valor_diario ) AS valorAnio
-FROM
-	historico_reservas_pms
-	LEFT JOIN grupos_cajas ON historico_reservas_pms.fuente_reserva = grupos_cajas.id_grupo
-	LEFT JOIN tipo_habitaciones ON historico_reservas_pms.tipo_habitacion = tipo_habitaciones.id 
-WHERE
-	YEAR ( historico_reservas_pms.fecha_llegada ) = YEAR($fecha) 
-	AND historico_reservas_pms.estado = 'SA' 
-	AND tipo_habitaciones.tipo_habitacion = 1 
-GROUP BY
-	historico_reservas_pms.fuente_reserva 
-ORDER BY
-	grupos_cajas.descripcion_grupo 
-	) AS f 
-WHERE
-	a.fuente_reserva = b.fuente_reserva 
-	AND b.fuente_reserva = c.fuente_reserva 
-	AND c.fuente_reserva = d.fuente_reserva 
-	AND d.fuente_reserva = e.fuente_reserva 
-	AND e.fuente_reserva = f.fuente_reserva 
-ORDER BY
-	a.fuente";
-
-// echo $query;
+    COUNT( reservas_pms.num_reserva ) AS cant,
+    SUM( reservas_pms.valor_diario ) AS valor 
+  FROM
+    reservas_pms
+    LEFT JOIN grupos_cajas ON reservas_pms.fuente_reserva = grupos_cajas.id_grupo
+    LEFT JOIN tipo_habitaciones ON reservas_pms.tipo_habitacion = tipo_habitaciones.id 
+  WHERE
+    MONTH ( reservas_pms.fecha_llegada ) = MONTH($fecha) 
+    AND YEAR ( reservas_pms.fecha_llegada ) = YEAR($fecha) 
+    AND reservas_pms.estado = 'CA' 
+    AND tipo_habitaciones.tipo_habitacion = 1 
+  GROUP BY
+    reservas_pms.fuente_reserva 
+  ORDER BY
+    grupos_cajas.descripcion_grupo
+    ) AS b,
+    (
+    SELECT
+  reservas_pms.fuente_reserva,
+  grupos_cajas.descripcion_grupo AS fuente,
+    COUNT( reservas_pms.num_reserva ) AS cant,
+    SUM( reservas_pms.valor_diario ) AS valor 
+  FROM
+    reservas_pms
+    LEFT JOIN grupos_cajas ON reservas_pms.fuente_reserva = grupos_cajas.id_grupo
+    LEFT JOIN tipo_habitaciones ON reservas_pms.tipo_habitacion = tipo_habitaciones.id 
+  WHERE
+    YEAR ( reservas_pms.fecha_llegada ) = YEAR($fecha) 
+    AND reservas_pms.estado = 'CA' 
+    AND tipo_habitaciones.tipo_habitacion = 1 
+  GROUP BY
+    reservas_pms.fuente_reserva 
+  ORDER BY
+    grupos_cajas.descripcion_grupo
+    ) AS c,
+    (
+    SELECT
+  historico_reservas_pms.fuente_reserva,
+  grupos_cajas.descripcion_grupo AS fuente,
+    COUNT( historico_reservas_pms.num_reserva ) AS cantDia,
+    SUM( historico_reservas_pms.valor_diario ) AS valorDia
+  FROM
+    historico_reservas_pms
+    LEFT JOIN grupos_cajas ON historico_reservas_pms.fuente_reserva = grupos_cajas.id_grupo
+    LEFT JOIN tipo_habitaciones ON historico_reservas_pms.tipo_habitacion = tipo_habitaciones.id 
+  WHERE
+    historico_reservas_pms.fecha_llegada = '$fecha' 
+    AND historico_reservas_pms.estado = 'SA' 
+    AND tipo_habitaciones.tipo_habitacion = 1 
+  GROUP BY
+    historico_reservas_pms.fuente_reserva 
+  ORDER BY
+    grupos_cajas.descripcion_grupo
+    ) AS d,
+    (
+    SELECT
+  historico_reservas_pms.fuente_reserva,
+  grupos_cajas.descripcion_grupo AS fuente,
+    COUNT( historico_reservas_pms.num_reserva ) AS cantMes,
+    SUM( historico_reservas_pms.valor_diario ) AS valorMes
+  FROM
+    historico_reservas_pms
+    LEFT JOIN grupos_cajas ON historico_reservas_pms.fuente_reserva = grupos_cajas.id_grupo
+    LEFT JOIN tipo_habitaciones ON historico_reservas_pms.tipo_habitacion = tipo_habitaciones.id 
+  WHERE
+    MONTH ( historico_reservas_pms.fecha_llegada ) = MONTH($fecha)
+    AND YEAR ( historico_reservas_pms.fecha_llegada ) = YEAR($fecha)
+    AND historico_reservas_pms.estado = 'SA' 
+    AND tipo_habitaciones.tipo_habitacion = 1 
+  GROUP BY
+    historico_reservas_pms.fuente_reserva 
+  ORDER BY
+    grupos_cajas.descripcion_grupo
+    ) AS e,
+    (
+    SELECT
+  historico_reservas_pms.fuente_reserva,
+  grupos_cajas.descripcion_grupo AS fuente,
+    COUNT( historico_reservas_pms.num_reserva ) AS cantAnio,
+    SUM( historico_reservas_pms.valor_diario ) AS valorAnio
+  FROM
+    historico_reservas_pms
+    LEFT JOIN grupos_cajas ON historico_reservas_pms.fuente_reserva = grupos_cajas.id_grupo
+    LEFT JOIN tipo_habitaciones ON historico_reservas_pms.tipo_habitacion = tipo_habitaciones.id 
+  WHERE
+    YEAR ( historico_reservas_pms.fecha_llegada ) = YEAR($fecha) 
+    AND historico_reservas_pms.estado = 'SA' 
+    AND tipo_habitaciones.tipo_habitacion = 1 
+  GROUP BY
+    historico_reservas_pms.fuente_reserva 
+  ORDER BY
+    grupos_cajas.descripcion_grupo 
+    ) AS f 
+  WHERE
+    a.fuente_reserva = b.fuente_reserva 
+    AND b.fuente_reserva = c.fuente_reserva 
+    AND c.fuente_reserva = d.fuente_reserva 
+    AND d.fuente_reserva = e.fuente_reserva 
+    AND e.fuente_reserva = f.fuente_reserva 
+  ORDER BY a.fuente";
 
 $fuentes = $hotel->creaConsulta($query);
+echo print_r($fuentes);
 
-// echo print_r($fuentes);
 
 $totcandia = 0;
 $totvaldia = 0;
@@ -306,6 +303,8 @@ $pdf->Cell(30, 6, number_format($totvalani, 2), 0, 1, 'R');
   $pdf->Ln(3);
   $pdf->SetFont('Arial','',9);
 */
+
+echo 'Imprimio';
 
 $file = '../../imprimir/auditorias/acumuladoFuenteReserva_' . FECHA_PMS . '.pdf';
 $pdf->Output($file, 'F');

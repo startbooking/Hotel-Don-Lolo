@@ -25,7 +25,7 @@ $monto = 0;
 $impto = 0;
 $total = 0;
 if (count($comandas) == 0) {
-    $pdf->Cell(110, 5, 'SIN COMANDAS ACTIVAS', 1, 1, 'C');
+    $pdf->Cell(125, 5, 'SIN COMANDAS ACTIVAS', 1, 1, 'C');
     $pdf->Ln(2);
 } else {
     foreach ($comandas as $comanda) {

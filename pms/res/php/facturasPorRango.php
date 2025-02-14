@@ -9,71 +9,70 @@ extract($_POST);
 
 if ($empresa != '') {
   $sele = "SELECT
-	historico_cargos_pms.descripcion_cargo,
-	historico_cargos_pms.tipo_factura,
-	historico_cargos_pms.id_codigo_cargo,
-	historico_cargos_pms.id_perfil_factura,
-	historico_cargos_pms.perfil_factura,
-	historico_cargos_pms.factura_numero,
-	historico_cargos_pms.factura_anulada,
-	historico_cargos_pms.total_consumos,
-	historico_cargos_pms.total_impuesto,
-	historico_cargos_pms.total_pagos,
-	historico_cargos_pms.fecha_factura,
-	month(historico_cargos_pms.fecha_factura) as mes,
-	historico_cargos_pms.prefijo_factura,
-	historico_cargos_pms.numero_reserva,
-	historico_cargos_pms.numero_factura_cargo,
-	historicoDatosFE.cufe,
-	historicoDatosFE.estadoEnvio,
-	huespedes.nombre_completo,
-	companias.empresa
-FROM
-	historico_cargos_pms,
-	historicoDatosFE,
-	huespedes, 
-	companias  
-WHERE";
-
-  $filtro = " historico_cargos_pms.fecha_factura BETWEEN '$desdeFe' 
-	AND '$hastaFe' 
-	AND historico_cargos_pms.factura = 1 
-	AND historico_cargos_pms.tipo_factura < 3 
-	AND historico_cargos_pms.factura_numero = historicoDatosFE.facturaNumero 
-	AND historico_cargos_pms.id_huesped = huespedes.id_huesped
-	AND historico_cargos_pms.id_perfil_factura = companias.id_compania
-	AND companias.empresa LIKE '%$empresa%'";
+    historico_cargos_pms.descripcion_cargo,
+    historico_cargos_pms.tipo_factura,
+    historico_cargos_pms.id_codigo_cargo,
+    historico_cargos_pms.id_perfil_factura,
+    historico_cargos_pms.perfil_factura,
+    historico_cargos_pms.factura_numero,
+    historico_cargos_pms.factura_anulada,
+    historico_cargos_pms.total_consumos,
+    historico_cargos_pms.total_impuesto,
+    historico_cargos_pms.total_pagos,
+    historico_cargos_pms.fecha_factura,
+    month(historico_cargos_pms.fecha_factura) as mes,
+    historico_cargos_pms.prefijo_factura,
+    historico_cargos_pms.numero_reserva,
+    historico_cargos_pms.numero_factura_cargo,
+    historicoDatosFE.cufe,
+    historicoDatosFE.estadoEnvio,
+    huespedes.nombre_completo,
+    companias.empresa
+  FROM
+    historico_cargos_pms,
+    historicoDatosFE,
+    huespedes, 
+    companias  
+  WHERE";
+    $filtro = " historico_cargos_pms.fecha_factura BETWEEN '$desdeFe' 
+    AND '$hastaFe' 
+    AND historico_cargos_pms.factura = 1 
+    AND historico_cargos_pms.tipo_factura < 3 
+    AND historico_cargos_pms.factura_numero = historicoDatosFE.facturaNumero 
+    AND historico_cargos_pms.id_huesped = huespedes.id_huesped
+    AND historico_cargos_pms.id_perfil_factura = companias.id_compania
+    AND (companias.empresa LIKE '%$empresa%' OR companias.nit LIKE '%$empresa%')";
 } else {
   $sele = "SELECT
-	historico_cargos_pms.descripcion_cargo,
-	historico_cargos_pms.tipo_factura,
-	historico_cargos_pms.id_codigo_cargo,
-	historico_cargos_pms.id_perfil_factura,
-	historico_cargos_pms.perfil_factura,
-	historico_cargos_pms.factura_numero,
-	historico_cargos_pms.factura_anulada,
-	historico_cargos_pms.total_consumos,
-	historico_cargos_pms.total_impuesto,
-	historico_cargos_pms.total_pagos,
-	historico_cargos_pms.fecha_factura,
-	month(historico_cargos_pms.fecha_factura) as mes,
-  historico_cargos_pms.prefijo_factura,
-  historico_cargos_pms.numero_reserva,
-  historico_cargos_pms.numero_factura_cargo,
-	historicoDatosFE.cufe,
-	historicoDatosFE.estadoEnvio,
-	huespedes.nombre_completo
-FROM
-	historico_cargos_pms,
-	historicoDatosFE,
-	huespedes
-WHERE ";
-  $filtro = "historico_cargos_pms.fecha_factura BETWEEN '$desdeFe' 
-	AND '$hastaFe' 
-	AND historico_cargos_pms.factura = 1 
-	AND historico_cargos_pms.tipo_factura < 3 
-	AND historico_cargos_pms.factura_numero = historicoDatosFE.facturaNumero 
-	and historico_cargos_pms.id_huesped = huespedes.id_huesped";
+    historico_cargos_pms.descripcion_cargo,
+    historico_cargos_pms.tipo_factura,
+    historico_cargos_pms.id_codigo_cargo,
+    historico_cargos_pms.id_perfil_factura,
+    historico_cargos_pms.perfil_factura,
+    historico_cargos_pms.factura_numero,
+    historico_cargos_pms.factura_anulada,
+    historico_cargos_pms.total_consumos,
+    historico_cargos_pms.total_impuesto,
+    historico_cargos_pms.total_pagos,
+    historico_cargos_pms.fecha_factura,
+    month(historico_cargos_pms.fecha_factura) as mes,
+    historico_cargos_pms.prefijo_factura,
+    historico_cargos_pms.numero_reserva,
+    historico_cargos_pms.numero_factura_cargo,
+    historicoDatosFE.cufe,
+    historicoDatosFE.estadoEnvio,
+    huespedes.nombre_completo
+  FROM
+    historico_cargos_pms,
+    historicoDatosFE,
+    huespedes
+  WHERE ";
+    $filtro = "historico_cargos_pms.fecha_factura BETWEEN '$desdeFe' 
+    AND '$hastaFe' 
+    AND historico_cargos_pms.factura = 1 
+    AND historico_cargos_pms.tipo_factura < 3 
+    AND historico_cargos_pms.factura_numero = historicoDatosFE.facturaNumero 
+    and historico_cargos_pms.id_huesped = huespedes.id_huesped";
 }
 
 $orden = " ORDER BY historico_cargos_pms.factura_numero";
@@ -95,18 +94,19 @@ if ($desdeNu != '' && $hastaNu != '') {
 }
 
 if ($huesped != '') {
-  $filtro = $filtro . " AND nombre_completo LIKE '%$huesped%'";
+  $filtro = $filtro . " AND (nombre_completo LIKE '%$huesped%' or identificacion LIKE '%$huesped%')";
 }
 
-if ($empresa != '') {
+/* if ($empresa != '') {
   $filtro = $filtro . " AND empresa LIKE '%$empresa%'";
-}
+} */
 
 if ($formaPa != '') {
   $filtro = $filtro . " AND id_codigo_cargo = '$formaPa'";
 }
 
 $query    = $sele . $filtro . $orden;
+
 $facturas = $hotel->getFacturasPorRango($query);
 
 ?>
