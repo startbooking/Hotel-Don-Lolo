@@ -5,649 +5,314 @@
   $desde = $_POST['desde'];
   $hasta = $_POST['hasta'];
 
-    $consulta = "SELECT SUM(historico_cargos_pms.monto_cargo) AS monto,  SUM(historico_cargos_pms.pagos_cargos) AS pagos,  SUM(historico_cargos_pms.impuesto) AS impto,  SUM(historico_cargos_pms.valor_cargo) AS total,  historico_cargos_pms.cantidad_cargo AS cantidad,  historico_cargos_pms.id_cargo,  codigos_vta.descripcion_cargo,  codigos_vta.cuenta_puc,  codigos_vta.descripcion_contable,  codigos_vta.centroCosto,  codigos_vta.idRetencion,  historico_cargos_pms.valorUnitario AS unitario,  historico_cargos_pms.valorUnitario,  historico_cargos_pms.codigo_impto,  historico_cargos_pms.habitacion_cargo,  historico_cargos_pms.id_codigo_cargo,  historico_cargos_pms.tipo_factura,  historico_cargos_pms.id_perfil_factura,  historico_cargos_pms.factura,  historico_cargos_pms.factura_numero,  historico_cargos_pms.numero_reserva,  historico_cargos_pms.referencia_cargo,  historico_cargos_pms.factura_anulada, historico_cargos_pms.id_usuario_factura, historico_cargos_pms.total_consumos, historico_cargos_pms.total_impuesto, historico_cargos_pms.total_pagos, historico_cargos_pms.fecha_factura, historico_cargos_pms.diasCredito, YEAR ( historico_cargos_pms.fecha_factura ) AS anio, historico_cargos_pms.fecha_sistema_cargo, SUM(historico_cargos_pms.reteiva) AS reteiva, SUM(historico_cargos_pms.reteica) AS reteica, SUM(historico_cargos_pms.retefuente) AS retefuente, SUM(historico_cargos_pms.basereteiva) AS baseiva, SUM(historico_cargos_pms.basereteica) AS baseica, SUM(historico_cargos_pms.baseretefuente) AS basefuent FROM  historico_cargos_pms, codigos_vta WHERE historico_cargos_pms.perfil_factura = 1 AND historico_cargos_pms.tipo_factura < 3 AND codigos_vta.id_cargo = historico_cargos_pms.id_codigo_cargo AND historico_cargos_pms.fecha_factura BETWEEN '$desde' AND '$hasta' ORDER BY historico_cargos_pms.factura_numero ASC, codigos_vta.tipo_codigo ASC, historico_cargos_pms.descripcion_cargo ASC";
+  $consulta = "WITH factura_info AS (
+    SELECT DISTINCT
+        hc.factura_numero,
+        hc.tipo_factura,
+        hc.fecha_factura,
+        hc.diasCredito,
+        hc.referencia_cargo,
+        CASE 
+            WHEN hc.tipo_factura = 1 THEN h.nombre1
+            ELSE NULL
+        END AS nombre1,
+        CASE 
+            WHEN hc.tipo_factura = 1 THEN h.nombre2
+            ELSE NULL
+        END AS nombre2,
+        CASE 
+            WHEN hc.tipo_factura = 1 THEN h.apellido1
+            ELSE NULL
+        END AS apellido1,
+        CASE 
+            WHEN hc.tipo_factura = 1 THEN h.apellido2
+            ELSE NULL
+        END AS apellido2,
+        CASE 
+            WHEN hc.tipo_factura = 2 THEN c.empresa
+            ELSE NULL
+        END AS razon_social,
+        CASE 
+            WHEN hc.tipo_factura = 1 THEN h.identificacion
+            WHEN hc.tipo_factura = 2 THEN c.nit
+            ELSE NULL
+        END AS nit,
+        CASE 
+            WHEN hc.tipo_factura = 2 THEN c.dv
+            ELSE NULL
+        END AS dv,
+        CASE 
+            WHEN hc.tipo_factura = 1 THEN h.direccion
+            WHEN hc.tipo_factura = 2 THEN c.direccion
+            ELSE NULL
+        END AS direccion,
+        CASE 
+            WHEN hc.tipo_factura = 1 THEN h.telefono
+            WHEN hc.tipo_factura = 2 THEN c.telefono
+            ELSE NULL
+        END AS telefono,
+        CASE 
+            WHEN hc.tipo_factura = 1 THEN h.sexo
+            ELSE NULL
+        END AS sexo,
+        CASE 
+            WHEN hc.tipo_factura = 1 THEN ciudad_h.codigo
+            WHEN hc.tipo_factura = 2 THEN ciudad_c.codigo
+            ELSE NULL
+        END AS ciudad
+    FROM 
+        historico_cargos_pms hc
+    LEFT JOIN 
+        huespedes h ON hc.id_perfil_factura = h.id_huesped AND hc.tipo_factura = 1
+    LEFT JOIN 
+        companias c ON hc.id_perfil_factura = c.id_compania AND hc.tipo_factura = 2
+    LEFT JOIN
+        ciudades ciudad_h ON h.ciudad = ciudad_h.id_ciudad
+    LEFT JOIN
+        ciudades ciudad_c ON c.ciudad = ciudad_c.id_ciudad
+    WHERE 
+        hc.perfil_factura = 1 AND
+        hc.factura = 1 AND
+        hc.tipo_factura < 3 AND
+        hc.fecha_factura BETWEEN '$desde' AND '$hasta'
+  )
+  SELECT
+    @row_number := IF(@current_factura = fi.factura_numero, @row_number + 1, 1) AS linea,
+    @current_factura := fi.factura_numero AS factura_numero,
+    fi.factura_numero,
+    fi.tipo_factura,
+    fi.fecha_factura,
+    fi.diasCredito,
+    fi.referencia_cargo,
+    fi.nombre1,
+    fi.nombre2,
+    fi.apellido1,
+    fi.apellido2,
+    fi.razon_social,
+    fi.direccion,
+    fi.nit,
+    fi.dv,
+    fi.sexo,
+    fi.ciudad,
+    fi.telefono,
+    d.cargodeb,
+    d.cargocre,
+    d.anulado,
+    d.cuenta_puc,
+    d.descripcion_cargo,
+    d.tipo_codigo,
+    d.descripcion_contable,
+    d.centroCosto,
+    d.anio
+  FROM 
+    factura_info fi
+  JOIN (
+      SELECT 
+        factura_numero,
+        SUM(CASE WHEN tipo != 'cargo' THEN monto ELSE 0 END) AS cargodeb,
+        SUM(CASE WHEN tipo = 'cargo' THEN monto ELSE 0 END) AS cargocre,
+        MAX(anulado) AS anulado,
+        cuenta_puc,
+        descripcion_cargo,
+        tipo_codigo,
+        descripcion_contable,
+        centroCosto,
+          MAX(anio) AS anio
+      FROM (
+          SELECT 
+            factura_numero,
+            IF(pagos_cargos = 0, monto_cargo, pagos_cargos ) AS monto,
+            IF(pagos_cargos = 0, 'cargo', 'pago' ) AS tipo,
+            IF(cargo_anulado = 0, 'N', 'S') AS anulado,
+            IF(concecutivo_abono = 0, cuenta_puc, cuenta_cruce) AS cuenta_puc,
+            cv.descripcion_cargo,
+            cv.tipo_codigo,
+            descripcion_contable,
+            centroCosto,
+            YEAR(fecha_factura) AS anio
+          FROM 
+            historico_cargos_pms hc
+          INNER JOIN 
+              codigos_vta cv ON cv.id_cargo = hc.id_codigo_cargo 
+  
+          UNION ALL
+  
+          SELECT 
+              factura_numero,
+              hc.impuesto AS monto,
+              'cargo' AS tipo,
+              IF(cargo_anulado = 0, 'N', 'S') AS anulado,
+              cuenta_puc,
+              cv.descripcion_cargo,
+              cv.tipo_codigo,
+              descripcion_contable,
+              centroCosto,
+              YEAR(fecha_factura) AS anio
+          FROM 
+              historico_cargos_pms hc
+          INNER JOIN  
+              codigos_vta cv ON cv.id_cargo = hc.codigo_impto
+          
+          UNION ALL
+  
+          SELECT 
+              hc.factura_numero,
+              hc.retefuente AS monto,
+              'retefuente' AS tipo,
+              IF(hc.cargo_anulado = 0, 'N', 'S') AS anulado,
+              r.codigoPuc AS cuenta_puc,
+              r.descripcionRetencion AS descripcion_cargo,
+              4 AS tipo_codigo,
+              r.descripcionRetencion AS descripcion_contable,
+              '03' AS centroCosto,
+              YEAR(hc.fecha_factura) AS anio
+          FROM 
+              historico_cargos_pms hc
+          INNER JOIN 
+              companias c ON c.id_compania = hc.id_perfil_factura
+          INNER JOIN  
+              retenciones r ON r.idRetencion = 1
+          WHERE 
+              hc.retefuente > 0
+  
+          UNION ALL
+  
+          SELECT 
+              hc.factura_numero,
+              hc.reteiva AS monto,
+              'reteiva' AS tipo,
+              IF(hc.cargo_anulado = 0, 'N', 'S') AS anulado,
+              r.codigoPuc AS cuenta_puc,
+              r.descripcionRetencion AS descripcion_cargo,
+              4 AS tipo_codigo,
+              r.descripcionRetencion AS descripcion_contable,
+              '03' AS centroCosto,
+              YEAR(hc.fecha_factura) AS anio
+          FROM 
+              historico_cargos_pms hc
+          INNER JOIN 
+              companias c ON c.id_compania = hc.id_perfil_factura
+          INNER JOIN  
+              retenciones r ON r.idRetencion = 2
+          WHERE 
+              hc.reteiva > 0
+  
+          UNION ALL
+  
+          SELECT 
+              hc.factura_numero,
+              hc.reteica AS monto,
+              'reteica' AS tipo,
+              IF(hc.cargo_anulado = 0, 'N', 'S') AS anulado,
+              r.codigoPuc AS cuenta_puc,
+              r.descripcionRetencion AS descripcion_cargo,
+              4 AS tipo_codigo,
+              r.descripcionRetencion AS descripcion_contable,
+              '03' AS centroCosto,
+              YEAR(hc.fecha_factura) AS anio
+          FROM 
+              historico_cargos_pms hc
+          INNER JOIN 
+              companias c ON c.id_compania = hc.id_perfil_factura
+          INNER JOIN  
+              retenciones r ON r.idRetencion = 3
+          WHERE 
+              hc.reteica > 0
+      ) AS subquery
+      GROUP BY 
+          factura_numero, 
+          cuenta_puc,
+          descripcion_cargo,
+          tipo_codigo,
+          descripcion_contable,
+          centroCosto
+  ) d ON fi.factura_numero = d.factura_numero
+  ORDER BY 
+      fi.factura_numero ASC,
+      linea ASC, 
+      d.tipo_codigo ASC,
+      d.descripcion_cargo ASC;";
+  
 
-$ingresos = "SELECT if(concecutivo_abono = 0 , SUM(monto_cargo), SUM(pagos_cargos)) AS cargodeb, if(concecutivo_abono = 0 , SUM(pagos_cargos),0) AS cargocre, if(historico_cargos_pms.cargo_anulado = 0,'N','S') as anulado, if(concecutivo_abono = 0 , cuenta_puc,cuenta_cruce) AS cuenta_puc, historico_cargos_pms.descripcion_cargo, descripcion_contable, centroCosto, factura_numero, fecha_factura, diasCredito, referencia_cargo, YEAR(fecha_factura) AS anio   FROM historico_cargos_pms INNER JOIN codigos_vta ON codigos_vta.id_cargo = historico_cargos_pms.id_codigo_cargo WHERE historico_cargos_pms.perfil_factura = 1 AND historico_cargos_pms.tipo_factura < 3 AND historico_cargos_pms.fecha_factura BETWEEN '2025-01-01' AND '2025-01-31' AND historico_cargos_pms.factura_numero = 19386 GROUP BY factura_numero, descripcion_cargo  ORDER BY factura_numero ASC, tipo_codigo ASC,  descripcion_cargo ASC " ;
 
-$impto = "SELECT
-    0 AS cargodeb,
-    SUM(historico_cargos_pms.impuesto) AS cargocre,
-    if(historico_cargos_pms.cargo_anulado = 0,'N','S') as anulado,
-    cuenta_puc,cuenta_cruce AS cuenta_puc,
-    codigos_vta.descripcion_cargo,
-    descripcion_contable,
-    centroCosto,
-    factura_numero,
-    fecha_factura,
-    diasCredito,
-    referencia_cargo,
-    YEAR(fecha_factura) AS anio
-  FROM
-    historico_cargos_pms
-  INNER JOIN  
-    codigos_vta ON codigos_vta.id_cargo = historico_cargos_pms.codigo_impto
-  WHERE
-    historico_cargos_pms.perfil_factura = 1 AND
-    historico_cargos_pms.tipo_factura < 3 AND
-    historico_cargos_pms.fecha_factura BETWEEN '2025-01-01' AND '2025-01-31' AND
-    historico_cargos_pms.factura_numero = 19386
-  GROUP BY
-    factura_numero,
-    descripcion_cargo
-  ORDER BY
-    factura_numero ASC,
-    tipo_codigo ASC, 
-    descripcion_cargo ASC;";
+  $facturas = $hotel->creaConsulta($consulta);
 
-$prueba = "SELECT 
-    IF(concecutivo_abono = 0, SUM(monto_cargo), SUM(pagos_cargos)) AS cargodeb,
-    IF(concecutivo_abono = 0, SUM(pagos_cargos), 0) AS cargocre,
-    IF(historico_cargos_pms.cargo_anulado = 0, 'N', 'S') AS anulado,
-    IF(concecutivo_abono = 0, cuenta_puc, cuenta_cruce) AS cuenta_puc,
-    historico_cargos_pms.descripcion_cargo,
-    descripcion_contable,
-    centroCosto,
-    factura_numero,
-    fecha_factura,
-    diasCredito,
-    referencia_cargo,
-    YEAR(fecha_factura) AS anio,
-    tipo_codigo
-FROM 
-    historico_cargos_pms
-INNER JOIN 
-    codigos_vta ON codigos_vta.id_cargo = historico_cargos_pms.id_codigo_cargo
-WHERE 
-    historico_cargos_pms.perfil_factura = 1 
-    AND historico_cargos_pms.tipo_factura < 3 
-    AND historico_cargos_pms.fecha_factura BETWEEN '2024-11-01' AND '2024-11-31' 
-GROUP BY 
-    factura_numero, descripcion_cargo
+//   echo print_r($facturas);
 
-UNION ALL
-
-SELECT 
-    0 AS cargodeb,
-    SUM(historico_cargos_pms.impuesto) AS cargocre,
-    IF(historico_cargos_pms.cargo_anulado = 0, 'N', 'S') AS anulado,
-    cuenta_puc AS cuenta_puc,
-    codigos_vta.descripcion_cargo,
-    descripcion_contable,
-    centroCosto,
-    factura_numero,
-    fecha_factura,
-    diasCredito,
-    referencia_cargo,
-    YEAR(fecha_factura) AS anio,
-    tipo_codigo
-FROM 
-    historico_cargos_pms
-INNER JOIN  
-    codigos_vta ON codigos_vta.id_cargo = historico_cargos_pms.codigo_impto
-WHERE 
-    historico_cargos_pms.perfil_factura = 1 
-    AND historico_cargos_pms.tipo_factura < 3 
-    AND historico_cargos_pms.fecha_factura BETWEEN '2024-11-01' AND '2024-11-31' 
-GROUP BY 
-    factura_numero, descripcion_cargo
-
-ORDER BY 
-    factura_numero ASC, 
-    tipo_codigo ASC,
-    descripcion_cargo ASC;";
-
-
-// echo $prueba;
-
-
-  $query = "SELECT historico_cargos_pms.id_cargo, codigos_vta.descripcion_cargo, codigos_vta.cuenta_puc, codigos_vta.descripcion_contable, codigos_vta.centroCosto, codigos_vta.idRetencion, SUM(historico_cargos_pms.monto_cargo) AS monto, SUM(historico_cargos_pms.pagos_cargos) AS pagos, SUM(historico_cargos_pms.impuesto) AS impto, SUM(historico_cargos_pms.valor_cargo) AS total, SUM(historico_cargos_pms.cantidad_cargo) AS cantidad, historico_cargos_pms.valorUnitario AS unitario, historico_cargos_pms.valorUnitario, historico_cargos_pms.codigo_impto, historico_cargos_pms.habitacion_cargo, historico_cargos_pms.id_codigo_cargo, historico_cargos_pms.tipo_factura, historico_cargos_pms.id_perfil_factura, historico_cargos_pms.factura, historico_cargos_pms.factura_numero, historico_cargos_pms.numero_reserva, historico_cargos_pms.referencia_cargo, historico_cargos_pms.factura_anulada, historico_cargos_pms.id_usuario_factura, historico_cargos_pms.total_consumos, historico_cargos_pms.total_impuesto, historico_cargos_pms.total_pagos, historico_cargos_pms.fecha_factura, historico_cargos_pms.diasCredito, year(historico_cargos_pms.fecha_factura) as anio, historico_cargos_pms.fecha_sistema_cargo, SUM(historico_cargos_pms.reteiva) AS reteiva, SUM(historico_cargos_pms.reteica) AS reteica, SUM(historico_cargos_pms.retefuente) AS retefuente, SUM(historico_cargos_pms.basereteiva) AS baseiva, SUM(historico_cargos_pms.basereteica) AS baseica, SUM(historico_cargos_pms.baseretefuente) AS basefuent FROM historico_cargos_pms, codigos_vta WHERE historico_cargos_pms.perfil_factura = 1 AND historico_cargos_pms.tipo_factura < 3 AND codigos_vta.id_cargo = historico_cargos_pms.id_codigo_cargo AND historico_cargos_pms.fecha_factura >= '$desde' AND historico_cargos_pms.fecha_factura <= '$hasta' GROUP BY historico_cargos_pms.factura_numero, historico_cargos_pms.id_codigo_cargo ORDER BY historico_cargos_pms.factura_numero";
-
-  $queryIVA = "SELECT historico_cargos_pms.id_cargo, codigos_vta.descripcion_cargo, codigos_vta.cuenta_puc, codigos_vta.descripcion_contable, codigos_vta.centroCosto, sum(historico_cargos_pms.impuesto) as impuesto, historico_cargos_pms.codigo_impto, historico_cargos_pms.habitacion_cargo, historico_cargos_pms.id_codigo_cargo, historico_cargos_pms.tipo_factura, historico_cargos_pms.id_perfil_factura, historico_cargos_pms.factura, historico_cargos_pms.factura_numero, historico_cargos_pms.numero_reserva, historico_cargos_pms.referencia_cargo, historico_cargos_pms.factura_anulada, historico_cargos_pms.id_usuario_factura, historico_cargos_pms.total_consumos, historico_cargos_pms.total_impuesto, historico_cargos_pms.total_pagos, historico_cargos_pms.fecha_factura, historico_cargos_pms.diasCredito, year(historico_cargos_pms.fecha_factura) as anio, historico_cargos_pms.fecha_sistema_cargo FROM historico_cargos_pms, codigos_vta WHERE historico_cargos_pms.perfil_factura = 1 AND historico_cargos_pms.tipo_factura < 3 AND codigos_vta.id_cargo = historico_cargos_pms.codigo_impto AND historico_cargos_pms.fecha_factura >= '$desde' AND historico_cargos_pms.fecha_factura <= '$hasta' AND historico_cargos_pms.codigo_impto <> '' GROUP BY historico_cargos_pms.factura_numero, historico_cargos_pms.codigo_impto ORDER BY historico_cargos_pms.factura_numero";
-
-  $queryRteFte = "SELECT historico_cargos_pms.id_cargo, codigos_vta.descripcion_cargo, codigos_vta.cuenta_puc, codigos_vta.descripcion_contable, codigos_vta.centroCosto, codigos_vta.idRetencion, SUM(historico_cargos_pms.monto_cargo) AS monto, SUM(historico_cargos_pms.pagos_cargos) AS pagos, SUM(historico_cargos_pms.impuesto) AS impto, SUM(historico_cargos_pms.valor_cargo) AS total, SUM(historico_cargos_pms.cantidad_cargo) AS cantidad, historico_cargos_pms.valorUnitario AS unitario, historico_cargos_pms.valorUnitario, historico_cargos_pms.codigo_impto, historico_cargos_pms.habitacion_cargo, historico_cargos_pms.id_codigo_cargo, historico_cargos_pms.tipo_factura, historico_cargos_pms.id_perfil_factura, historico_cargos_pms.factura, historico_cargos_pms.factura_numero, historico_cargos_pms.numero_reserva, historico_cargos_pms.referencia_cargo, historico_cargos_pms.factura_anulada, historico_cargos_pms.id_usuario_factura, historico_cargos_pms.total_consumos, historico_cargos_pms.total_impuesto, historico_cargos_pms.total_pagos, historico_cargos_pms.fecha_factura, historico_cargos_pms.diasCredito, year(historico_cargos_pms.fecha_factura) as anio, historico_cargos_pms.fecha_sistema_cargo, SUM(historico_cargos_pms.reteiva) AS reteiva, SUM(historico_cargos_pms.reteica) AS reteica, SUM(historico_cargos_pms.retefuente) AS retefuente, SUM(historico_cargos_pms.basereteiva) AS baseiva, SUM(historico_cargos_pms.basereteica) AS baseica, SUM(historico_cargos_pms.baseretefuente) AS basefuent FROM historico_cargos_pms, codigos_vta WHERE historico_cargos_pms.perfil_factura = 1 AND historico_cargos_pms.tipo_factura < 3 AND codigos_vta.id_cargo = historico_cargos_pms.id_codigo_cargo AND historico_cargos_pms.fecha_factura >= '$desde' AND historico_cargos_pms.fecha_factura <= '$hasta' AND historico_cargos_pms.factura_anulada = 0 AND historico_cargos_pms.factura = 1 AND historico_cargos_pms.retefuente > 0 GROUP BY historico_cargos_pms.factura_numero, historico_cargos_pms.id_codigo_cargo ORDER BY historico_cargos_pms.factura_numero";
-
-  $queryRteIva = "SELECT historico_cargos_pms.id_cargo, codigos_vta.descripcion_cargo, codigos_vta.cuenta_puc, codigos_vta.descripcion_contable, codigos_vta.centroCosto, codigos_vta.idRetencion, SUM(historico_cargos_pms.monto_cargo) AS monto, SUM(historico_cargos_pms.pagos_cargos) AS pagos, SUM(historico_cargos_pms.impuesto) AS impto, SUM(historico_cargos_pms.valor_cargo) AS total, SUM(historico_cargos_pms.cantidad_cargo) AS cantidad, historico_cargos_pms.valorUnitario AS unitario, historico_cargos_pms.valorUnitario, historico_cargos_pms.codigo_impto, historico_cargos_pms.habitacion_cargo, historico_cargos_pms.id_codigo_cargo, historico_cargos_pms.tipo_factura, historico_cargos_pms.id_perfil_factura, historico_cargos_pms.factura, historico_cargos_pms.factura_numero, historico_cargos_pms.numero_reserva, historico_cargos_pms.referencia_cargo, historico_cargos_pms.factura_anulada, historico_cargos_pms.id_usuario_factura, historico_cargos_pms.total_consumos, historico_cargos_pms.total_impuesto, historico_cargos_pms.total_pagos, historico_cargos_pms.fecha_factura, historico_cargos_pms.diasCredito, year(historico_cargos_pms.fecha_factura) as anio, historico_cargos_pms.fecha_sistema_cargo, SUM(historico_cargos_pms.reteiva) AS reteiva, SUM(historico_cargos_pms.reteica) AS reteica, SUM(historico_cargos_pms.retefuente) AS retefuente, SUM(historico_cargos_pms.basereteiva) AS baseiva, SUM(historico_cargos_pms.basereteica) AS baseica, SUM(historico_cargos_pms.baseretefuente) AS basefuent FROM historico_cargos_pms, codigos_vta WHERE historico_cargos_pms.perfil_factura = 1 AND historico_cargos_pms.tipo_factura < 3 AND codigos_vta.id_cargo = historico_cargos_pms.id_codigo_cargo AND historico_cargos_pms.fecha_factura >= '$desde' AND historico_cargos_pms.fecha_factura <= '$hasta' AND historico_cargos_pms.factura_anulada = 0 AND historico_cargos_pms.factura = 1 AND historico_cargos_pms.reteiva > 0 GROUP BY historico_cargos_pms.factura_numero, historico_cargos_pms.id_codigo_cargo ORDER BY historico_cargos_pms.factura_numero";
-
-  $queryRteIca = "SELECT historico_cargos_pms.id_cargo, codigos_vta.descripcion_cargo, codigos_vta.cuenta_puc, codigos_vta.descripcion_contable, codigos_vta.centroCosto, codigos_vta.idRetencion, SUM(historico_cargos_pms.monto_cargo) AS monto, SUM(historico_cargos_pms.pagos_cargos) AS pagos, SUM(historico_cargos_pms.impuesto) AS impto, SUM(historico_cargos_pms.valor_cargo) AS total, SUM(historico_cargos_pms.cantidad_cargo) AS cantidad, historico_cargos_pms.valorUnitario AS unitario, historico_cargos_pms.valorUnitario, historico_cargos_pms.codigo_impto, historico_cargos_pms.habitacion_cargo, historico_cargos_pms.id_codigo_cargo, historico_cargos_pms.tipo_factura, historico_cargos_pms.id_perfil_factura, historico_cargos_pms.factura, historico_cargos_pms.factura_numero, historico_cargos_pms.numero_reserva, historico_cargos_pms.referencia_cargo, historico_cargos_pms.factura_anulada, historico_cargos_pms.id_usuario_factura, historico_cargos_pms.total_consumos, historico_cargos_pms.total_impuesto, historico_cargos_pms.total_pagos, historico_cargos_pms.fecha_factura, historico_cargos_pms.diasCredito, year(historico_cargos_pms.fecha_factura) as anio, historico_cargos_pms.fecha_sistema_cargo, SUM(historico_cargos_pms.reteiva) AS reteiva, SUM(historico_cargos_pms.reteica) AS reteica, SUM(historico_cargos_pms.retefuente) AS retefuente, SUM(historico_cargos_pms.basereteiva) AS baseiva, SUM(historico_cargos_pms.basereteica) AS baseica, SUM(historico_cargos_pms.baseretefuente) AS basefuent FROM historico_cargos_pms, codigos_vta WHERE historico_cargos_pms.perfil_factura = 1 AND historico_cargos_pms.tipo_factura < 3 AND codigos_vta.id_cargo = historico_cargos_pms.id_codigo_cargo AND historico_cargos_pms.fecha_factura >= '$desde' AND historico_cargos_pms.fecha_factura <= '$hasta' AND historico_cargos_pms.factura_anulada = 0 AND historico_cargos_pms.factura = 1 AND historico_cargos_pms.reteica > 0 GROUP BY historico_cargos_pms.factura_numero, historico_cargos_pms.id_codigo_cargo ORDER BY historico_cargos_pms.factura_numero";
-
-    // echo $impto;
-
-    $respData = $hotel->creaConsulta($prueba);
-
-    echo print_r($respData);
-
-/*      
-        $facturas = $hotel->getFacturasPorRango($query);
-        $retefuente = $hotel->getFacturasPorRango($queryRteFte);
-        $reteiva = $hotel->getFacturasPorRango($queryRteIva);
-        $reteica = $hotel->getFacturasPorRango($queryRteIca);
-        $impuestos = $hotel->getFacturasPorRango($queryIVA);
-        
-        $vacio = '';
-
-        $infoRteFTE = $hotel->traeRetenciones(1) ;
-        $infoRteIVA = $hotel->traeRetenciones(2) ;
-        $infoRteICA = $hotel->traeRetenciones(3) ;
-
-        if (count($facturas) == 0) {
-            echo '1';
-        } else {
+  if (count($facturas) == 0) {
+    echo '1';
+  } else { 
+    ?>
+    <tbody>
+        <?php
+        $numero = 0;
+        $total = 0;
+        foreach ($facturas as $factura) { 
+            if($factura['cargodeb']==0){
+                $total = $factura['cargocre'];
+            }else{
+                $total = $factura['cargodeb'];
+            }
             ?>
-            <tbody>
-                <?php
-                $numero = 0;
-                foreach ($facturas as $factura) {
-                    $apellido1 = '';
-                    $apellido2 = '';
-                    $nombre1 = '';
-                    $nombre2 = '';
-                    $empresa = '';
-                    $nit = '';
-                    $dv = '';
-                    $codDepto = '';
-                    $codCiudad = '';
-                    $direccion = '';
-                    $telefono = '';
-                    $anulada = 'N';
-                    $sexo = '';
-                    if ($factura['factura_anulada'] == 1) {
-                        $anulada = 'S';
-                    }
-                    if ($numero == $factura['factura_numero']) {
-                        ++$i;
-                    } else {
-                        $i = 1;
-                        $numero = $factura['factura_numero'];
-                    }
-                    $idC = $factura['id_perfil_factura'];
-                    if ($factura['tipo_factura'] == 1) {
-                        $cliente = $hotel->getbuscaDatosHuesped($idC);
-                        $apellido1 = $cliente[0]['apellido1'];
-                        $apellido2 = $cliente[0]['apellido2'];
-                        $nombre1 = $cliente[0]['nombre1'];
-                        $nombre2 = $cliente[0]['nombre2'];
-                        $nit = $cliente[0]['identificacion'];
-                        $sexo = $cliente[0]['sexo'];
-                    } else {
-                        $cliente = $hotel->getSeleccionaCompania($idC);
-                        $empresa = $cliente[0]['empresa'];
-                        $nit = $cliente[0]['nit'];
-                        $dv = $cliente[0]['dv'];
-                    }
-
-                    $direccion = $cliente[0]['direccion'];
-
-                    if ($cliente[0]['ciudad'] == '' || $cliente[0]['ciudad'] == null) {
-                        $codigoMun = '';
-                    } else {
-                        $codigoMun = $hotel->traeCodigoCiudad($cliente[0]['ciudad']);
-                    }
-
-                    $codCiudad = "'".substr($codigoMun, 2, 3);
-                    $codDepto = substr($codigoMun, 0, 2);
-                    $telefono = $cliente[0]['telefono'];
-                    $totales = $factura['pagos'] + $factura['monto'];
-                    ?>
-                        <tr>
-                            <td>1</td>
-                            <td><?php echo $factura['anio']; ?></td>
-                            <td>3</td>
-                            <td><?php echo $factura['factura_numero']; ?></td>
-                            <td><?php echo substr($factura['fecha_factura'], 8, 2).'/'.substr($factura['fecha_factura'], 5, 2).'/'.substr($factura['fecha_factura'], 0, 4); ?></td>
-                            <td><?php echo $factura['descripcion_cargo']; ?></td>
-                            <td><?php echo $anulada; ?></td>
-                            <td>CONTABILIDAD</td>
-                            <td>1</td>
-                            <td><?php echo $factura['anio']; ?></td>
-                            <td>3</td>
-                            <td><?php echo $factura['factura_numero']; ?></td>
-                            <td><?php 
-                            if($anulada=='S'){
-                                echo '110505';
-                            }else{
-                                echo $factura['cuenta_puc']; 
-                            }
-                            ?></td>
-                            <td><?php echo $i; ?></td>
-                            <td><?php echo substr($factura['fecha_factura'], 8, 2).'/'.substr($factura['fecha_factura'], 5, 2).'/'.substr($factura['fecha_factura'], 0, 4); ?></td>
-                            <td><?php echo "'".$factura['centroCosto']; ?></td>
-                            <td><?php echo $nit; ?></td>
-                            <td><?php echo $dv; ?></td>
-                            <td><?php echo $apellido1; ?></td>
-                            <td><?php echo $apellido2; ?></td>
-                            <td><?php echo $nombre1; ?></td>
-                            <td><?php echo $nombre2; ?></td>
-                            <td><?php echo $empresa; ?></td>
-                            <td><?php echo $codDepto; ?></td>
-                            <td><?php echo $codCiudad; ?></td>
-                            <td><?php echo $direccion; ?></td>
-                            <td><?php echo $telefono; ?></td>
-                            <td><?php echo $sexo; ?></td>
-                            <td><?php echo $factura['referencia_cargo']; ?></td>
-                            <td><?php echo $factura['descripcion_contable']; ?></td>
-                            <td style="text-align:right;"> 
-                            <?php 
-                                if($anulada=='S'){
-                                echo 0;
-                                }else{
-                                echo $factura['pagos']; 
-                                }
-                            ?>
-                                <!-- <?php echo $factura['pagos']; ?> -->
-                            </td>
-                            <td style="text-align:right;"><?php
-                                if ($anulada == 1) {
-                                    echo 0;
-                                } else {
-                                    echo round($factura['monto'],0);
-                                }
-                            ?></td>
-                            <td>
-                            <?php                     
-                                if($factura['cuenta_puc']=='130505' && $anulada=='N'){
-                                    echo $factura['factura_numero'];
-                                }else{
-                                    echo $vacio; 
-                                }
-                            ?>
-                                </td>
-                            <td>
-                            <?php                     
-                                if($factura['cuenta_puc']=='130505' && $anulada=='N'){
-                                    echo $factura['diasCredito'];
-                                }else{
-                                    echo $vacio; 
-                                }
-                            ?>                                    
-                            </td>
-                            <td><?php echo $vacio; ?></td>
-                            <td style="text-align:right;">
-                            <?php 
-                                if($anulada=='S'){
-                                    echo 0;
-                                }else{
-                                    echo round($totales,0); 
-                                }
-                            ?>
-                            </td>
-                        </tr>
-                    <?php
+            <tr>
+                <td>1</td>
+                <td><?php echo $factura['anio']; ?></td>
+                <td>3</td>
+                <td><?php echo $factura['factura_numero']; ?></td>
+                <td><?php echo substr($factura['fecha_factura'], 8, 2).'/'.substr($factura['fecha_factura'], 5, 2).'/'.substr($factura['fecha_factura'], 0, 4); ?></td>
+                <td><?php echo $factura['descripcion_cargo']; ?></td>
+                <td><?php echo $factura['anulado']; ?></td>
+                <td>CONTABILIDAD</td>
+                <td>1</td>
+                <td><?php echo $factura['anio']; ?></td>
+                <td>3</td>
+                <td><?php echo $factura['factura_numero']; ?></td>
+                <td><?php echo $factura['cuenta_puc']; ?></td>
+                <td><?php echo $factura['linea']; ?></td>
+                <td><?php echo substr($factura['fecha_factura'], 8, 2).'/'.substr($factura['fecha_factura'], 5, 2).'/'.substr($factura['fecha_factura'], 0, 4); ?></td>
+                <td><?php echo "'".$factura['centroCosto']; ?></td>
+                <td><?php echo $factura['nit']; ?></td>
+                <td><?php echo $factura['dv']; ?></td>
+                <td><?php echo $factura['apellido1']; ?></td>
+                <td><?php echo $factura['apellido2']; ?></td>
+                <td><?php echo $factura['nombre1']; ?></td>
+                <td><?php echo $factura['nombre2']; ?></td>
+                <td><?php echo $factura['razon_social']; ?></td>
+                <td><?php if($factura['ciudad']==''){
+                    echo '';
+                }else {
+                    echo substr($factura['ciudad'],0,2);
                 }
-
-                foreach ($impuestos as $factura) {
-                    $apellido1 = '';
-                    $apellido2 = '';
-                    $nombre1 = '';
-                    $nombre2 = '';
-                    $empresa = '';
-                    $nit = '';
-                    $dv = '';
-                    $codDepto = '';
-                    $codCiudad = '';
-                    $direccion = '';
-                    $telefono = '';
-                    $anulada = 'N';
-                    $sexo = '';
-                    if ($factura['factura_anulada'] == 1) {
-                        $anulada = 'S';
-                    }
-                    if ($numero == $factura['factura_numero']) {
-                        ++$i;
-                    } else {
-                        $i = 1;
-                        $numero = $factura['factura_numero'];
-                    }
-                    $idC = $factura['id_perfil_factura'];
-                    if ($factura['tipo_factura'] == 1) {
-                        $cliente = $hotel->getbuscaDatosHuesped($idC);
-                        $apellido1 = $cliente[0]['apellido1'];
-                        $apellido2 = $cliente[0]['apellido2'];
-                        $nombre1 = $cliente[0]['nombre1'];
-                        $nombre2 = $cliente[0]['nombre2'];
-                        $nit = $cliente[0]['identificacion'];
-                        $sexo = $cliente[0]['sexo'];
-                    } else {
-                        $cliente = $hotel->getSeleccionaCompania($idC);
-                        $empresa = $cliente[0]['empresa'];
-                        $nit = $cliente[0]['nit'];
-                        $dv = $cliente[0]['dv'];
-                    }
-
-                    if ($cliente[0]['ciudad'] == '') {
-                        $codigoMun = '';
-                    } else {
-                        $codigoMun = $hotel->traeCodigoCiudad($cliente[0]['ciudad']);
-                    }
-
-                    $codCiudad = "'".substr($codigoMun, 2, 3);
-                    $codDepto = substr($codigoMun, 0, 2);
-                    $direccion = $cliente[0]['direccion'];
-                    $telefono = $cliente[0]['telefono'];
-
-                    $totales = $factura['impuesto'];
-
-                    if ($factura['impuesto'] != 0) { ?>
-                    <tr>
-                        <td>1</td>
-                        <td><?php echo $factura['anio']; ?></td>
-                        <td>3</td>
-                        <td><?php echo $factura['factura_numero']; ?></td>
-                        <td><?php echo substr($factura['fecha_factura'], 8, 2).'/'.substr($factura['fecha_factura'], 5, 2).'/'.substr($factura['fecha_factura'], 0, 4); ?></td>
-                        <td><?php echo $factura['descripcion_cargo']; ?></td>
-                        <td><?php echo $anulada; ?></td>
-                        <td>CONTABILIDAD</td>
-                        <td>1</td>
-                        <td><?php echo $factura['anio']; ?></td>
-                        <td>3</td>
-                        <td><?php echo $factura['factura_numero']; ?></td>
-                        <td><?php echo $factura['cuenta_puc']; ?></td>
-                        <td><?php echo $i; ?></td>
-                        <td><?php echo substr($factura['fecha_factura'], 8, 2).'/'.substr($factura['fecha_factura'], 5, 2).'/'.substr($factura['fecha_factura'], 0, 4); ?></td>
-                        <td><?php echo "'".$factura['centroCosto']; ?></td>
-                        <td><?php echo $nit; ?></td>
-                        <td><?php echo $dv; ?></td>
-                        <td><?php echo $apellido1; ?></td>
-                        <td><?php echo $apellido2; ?></td>
-                        <td><?php echo $nombre1; ?></td>
-                        <td><?php echo $nombre2; ?></td>
-                        <td><?php echo $empresa; ?></td>
-                        <td><?php echo $codDepto; ?></td>
-                        <td><?php echo $codCiudad; ?></td>
-                        <td><?php echo $direccion; ?></td>
-                        <td><?php echo $telefono; ?></td>
-                        <td><?php echo $sexo; ?></td>
-                        <td><?php echo ''; ?></td>
-                        <td><?php echo $factura['descripcion_cargo']; ?></td>
-                        <td style="text-align:right;"><?php echo 0; ?></td>
-                        <td style="text-align:right;"><?php echo round($factura['impuesto'],0); ?></td>
-                        <td><?php echo $vacio; ?></td>
-                        <td><?php echo $vacio; ?></td>
-                        <td><?php echo $vacio; ?></td>
-                        <td style="text-align:right;"><?php echo round($factura['impuesto'],0); ?></td>
-                    </tr>
-                    <?php
-                    }
-                }
-
-                foreach ($retefuente as $factura) {
-                    $apellido1 = '';
-                    $apellido2 = '';
-                    $nombre1 = '';
-                    $nombre2 = '';
-                    $empresa = '';
-                    $nit = '';
-                    $dv = '';
-                    $codDepto = '';
-                    $codCiudad = '';
-                    $direccion = '';
-                    $telefono = '';
-                    $anulada = 'N';
-                    $sexo = '';
-                    if ($numero == $factura['factura_numero']) {
-                        ++$i;
-                    } else {
-                        $i = 1;
-                        $numero = $factura['factura_numero'];
-                    }
-                    $idC = $factura['id_perfil_factura'];
-                    if ($factura['tipo_factura'] == 1) {
-                        $cliente = $hotel->getbuscaDatosHuesped($idC);
-                        $apellido1 = $cliente[0]['apellido1'];
-                        $apellido2 = $cliente[0]['apellido2'];
-                        $nombre1 = $cliente[0]['nombre1'];
-                        $nombre2 = $cliente[0]['nombre2'];
-                        $nit = $cliente[0]['identificacion'];
-                        $sexo = $cliente[0]['sexo'];
-                    } else {
-                        $cliente = $hotel->getSeleccionaCompania($idC);
-                        $empresa = $cliente[0]['empresa'];
-                        $nit = $cliente[0]['nit'];
-                        $dv = $cliente[0]['dv'];
-                    }
-
-                    if ($cliente[0]['ciudad'] == '') {
-                        $codigoMun = '';
-                    } else {
-                        $codigoMun = $hotel->traeCodigoCiudad($cliente[0]['ciudad']);
-                    }
-                    $codCiudad = "'".substr($codigoMun, 2, 3);
-                    $codDepto = substr($codigoMun, 0, 2);
-                    $direccion = $cliente[0]['direccion'];
-                    $telefono = $cliente[0]['telefono'];
-
-                    $totales = $factura['retefuente'];
-
-                    $desReteFte = $infoRteFTE[0]['descripcionRetencion'];
-                    $pucReteFte = $infoRteFTE[0]['codigoPuc'];
-                    ?>
-                    <tr>
-                        <td>1</td>
-                        <td><?php echo $factura['anio']; ?></td>
-                        <td>3</td>
-                        <td><?php echo $factura['factura_numero']; ?></td>
-                        <td><?php echo substr($factura['fecha_factura'], 8, 2).'/'.substr($factura['fecha_factura'], 5, 2).'/'.substr($factura['fecha_factura'], 0, 4); ?></td>
-                        <td><?php echo $desReteFte; ?></td>
-                        <td><?php echo $anulada; ?></td>
-                        <td>CONTABILIDAD</td>
-                        <td>1</td>
-                        <td><?php echo $factura['anio']; ?></td>
-                        <td>3</td>
-                        <td><?php echo $factura['factura_numero']; ?></td>
-                        <td><?php echo $pucReteFte; ?></td>
-                        <td><?php echo $i; ?></td>
-                        <td><?php echo substr($factura['fecha_factura'], 8, 2).'/'.substr($factura['fecha_factura'], 5, 2).'/'.substr($factura['fecha_factura'], 0, 4); ?></td>
-                        <td><?php echo "'".$factura['centroCosto']; ?></td>
-                        <td><?php echo $nit; ?></td>
-                        <td><?php echo $dv; ?></td>
-                        <td><?php echo $apellido1; ?></td>
-                        <td><?php echo $apellido2; ?></td>
-                        <td><?php echo $nombre1; ?></td>
-                        <td><?php echo $nombre2; ?></td>
-                        <td><?php echo $empresa; ?></td>
-                        <td><?php echo $codDepto; ?></td>
-                        <td><?php echo $codCiudad; ?></td>
-                        <td><?php echo $direccion; ?></td>
-                        <td><?php echo $telefono; ?></td>
-                        <td><?php echo $sexo; ?></td>
-                        <td><?php echo ''; ?></td>
-                        <td><?php echo $desReteFte; ?></td>
-                        <td style="text-align:right;"><?php echo round($factura['retefuente'],0); ?></td>
-                        <td style="text-align:right;"><?php echo 0; ?></td>
-                        <td><?php echo $vacio; ?></td>
-                        <td><?php echo $vacio; ?></td>
-                        <td><?php echo $vacio; ?></td>
-                        <td style="text-align:right;"><?php echo round($factura['retefuente'],0); ?></td>
-                    </tr>
-                    <?php
-                }
-
-                foreach ($reteiva as $factura) {            
-                    $apellido1 = '';
-                    $apellido2 = '';
-                    $nombre1 = '';
-                    $nombre2 = '';
-                    $empresa = '';
-                    $nit = '';
-                    $dv = '';
-                    $codDepto = '';
-                    $codCiudad = '';
-                    $direccion = '';
-                    $telefono = '';
-                    $anulada = 'N';
-                    $sexo = '';
-                    if ($numero == $factura['factura_numero']) {
-                        ++$i;
-                    } else {
-                        $i = 1;
-                        $numero = $factura['factura_numero'];
-                    }
-                    $idC = $factura['id_perfil_factura'];
-                    if ($factura['tipo_factura'] == 1) {
-                        $cliente = $hotel->getbuscaDatosHuesped($idC);
-                        $apellido1 = $cliente[0]['apellido1'];
-                        $apellido2 = $cliente[0]['apellido2'];
-                        $nombre1 = $cliente[0]['nombre1'];
-                        $nombre2 = $cliente[0]['nombre2'];
-                        $nit = $cliente[0]['identificacion'];
-                        $sexo = $cliente[0]['sexo'];
-                    } else {
-                        $cliente = $hotel->getSeleccionaCompania($idC);
-                        $empresa = $cliente[0]['empresa'];
-                        $nit = $cliente[0]['nit'];
-                        $dv = $cliente[0]['dv'];
-                    }
-
-                    if ($cliente[0]['ciudad'] == '') {
-                        $codigoMun = '';
-                    } else {
-                        $codigoMun = $hotel->traeCodigoCiudad($cliente[0]['ciudad']);
-                    }
-                    $codCiudad = "'".substr($codigoMun, 2, 3);
-                    $codDepto = substr($codigoMun, 0, 2);
-                    $direccion = $cliente[0]['direccion'];
-                    $telefono = $cliente[0]['telefono'];
-
-                    $totales = $factura['reteiva'];
-
-                    $desReteFte = $infoRteIVA[0]['descripcionRetencion'];
-                    $pucReteFte = $infoRteIVA[0]['codigoPuc'];
-                    ?>
-                    <tr>
-                        <td>1</td>
-                        <td><?php echo $factura['anio']; ?></td>
-                        <td>3</td>
-                        <td><?php echo $factura['factura_numero']; ?></td>
-                        <td><?php echo substr($factura['fecha_factura'], 8, 2).'/'.substr($factura['fecha_factura'], 5, 2).'/'.substr($factura['fecha_factura'], 0, 4); ?></td>
-                        <td><?php echo $desReteFte; ?></td>
-                        <td><?php echo $anulada; ?></td>
-                        <td>CONTABILIDAD</td>
-                        <td>1</td>
-                        <td><?php echo $factura['anio']; ?></td>
-                        <td>3</td>
-                        <td><?php echo $factura['factura_numero']; ?></td>
-                        <td><?php echo $pucReteFte; ?></td>
-                        <td><?php echo $i; ?></td>
-                        <td><?php echo substr($factura['fecha_factura'], 8, 2).'/'.substr($factura['fecha_factura'], 5, 2).'/'.substr($factura['fecha_factura'], 0, 4); ?></td>
-                        <td><?php echo "'".$factura['centroCosto']; ?></td>
-                        <td><?php echo $nit; ?></td>
-                        <td><?php echo $dv; ?></td>
-                        <td><?php echo $apellido1; ?></td>
-                        <td><?php echo $apellido2; ?></td>
-                        <td><?php echo $nombre1; ?></td>
-                        <td><?php echo $nombre2; ?></td>
-                        <td><?php echo $empresa; ?></td>
-                        <td><?php echo $codDepto; ?></td>
-                        <td><?php echo $codCiudad; ?></td>
-                        <td><?php echo $direccion; ?></td>
-                        <td><?php echo $telefono; ?></td>
-                        <td><?php echo $sexo; ?></td>
-                        <td><?php echo ''; ?></td>
-                        <td><?php echo $desReteFte; ?></td>
-                        <td style="text-align:right;"><?php echo round($factura['reteiva'],0); ?></td>
-                        <td style="text-align:right;"><?php echo 0; ?></td>
-                        <td><?php echo $vacio; ?></td>
-                        <td><?php echo $vacio; ?></td>
-                        <td><?php echo $vacio; ?></td>
-                        <td style="text-align:right;"><?php echo round($factura['reteiva'],0); ?></td>
-                    </tr>
-                    <?php
-                }
-        
-                foreach ($reteica as $factura) {            
-                    $apellido1 = '';
-                    $apellido2 = '';
-                    $nombre1 = '';
-                    $nombre2 = '';
-                    $empresa = '';
-                    $nit = '';
-                    $dv = '';
-                    $codDepto = '';
-                    $codCiudad = '';
-                    $direccion = '';
-                    $telefono = '';
-                    $anulada = 'N';
-                    $sexo = '';
-                    if ($numero == $factura['factura_numero']) {
-                        ++$i;
-                    } else {
-                        $i = 1;
-                        $numero = $factura['factura_numero'];
-                    }
-                    $idC = $factura['id_perfil_factura'];
-                    if ($factura['tipo_factura'] == 1) {
-                        $cliente = $hotel->getbuscaDatosHuesped($idC);
-                        $apellido1 = $cliente[0]['apellido1'];
-                        $apellido2 = $cliente[0]['apellido2'];
-                        $nombre1 = $cliente[0]['nombre1'];
-                        $nombre2 = $cliente[0]['nombre2'];
-                        $nit = $cliente[0]['identificacion'];
-                        $sexo = $cliente[0]['sexo'];
-                    } else {
-                        $cliente = $hotel->getSeleccionaCompania($idC);
-                        $empresa = $cliente[0]['empresa'];
-                        $nit = $cliente[0]['nit'];
-                        $dv = $cliente[0]['dv'];
-                    }
-
-                    if ($cliente[0]['ciudad'] == '') {
-                        $codigoMun = '';
-                    } else {
-                        $codigoMun = $hotel->traeCodigoCiudad($cliente[0]['ciudad']);
-                    }
-                    $codCiudad = "'".substr($codigoMun, 2, 3);
-                    $codDepto = substr($codigoMun, 0, 2);
-                    $direccion = $cliente[0]['direccion'];
-                    $telefono = $cliente[0]['telefono'];
-
-                    $totales = $factura['reteica'];
-
-                    $desReteFte = $infoRteICA[0]['descripcionRetencion'];
-                    $pucReteFte = $infoRteICA[0]['codigoPuc'];
-                    ?>
-                    <tr>
-                        <td>1</td>
-                        <td><?php echo $factura['anio']; ?></td>
-                        <td>3</td>
-                        <td><?php echo $factura['factura_numero']; ?></td>
-                        <td><?php echo substr($factura['fecha_factura'], 8, 2).'/'.substr($factura['fecha_factura'], 5, 2).'/'.substr($factura['fecha_factura'], 0, 4); ?></td>
-                        <td><?php echo $desReteFte; ?></td>
-                        <td><?php echo $anulada; ?></td>
-                        <td>CONTABILIDAD</td>
-                        <td>1</td>
-                        <td><?php echo $factura['anio']; ?></td>
-                        <td>3</td>
-                        <td><?php echo $factura['factura_numero']; ?></td>
-                        <td><?php echo $pucReteFte; ?></td>
-                        <td><?php echo $i; ?></td>
-                        <td><?php echo substr($factura['fecha_factura'], 8, 2).'/'.substr($factura['fecha_factura'], 5, 2).'/'.substr($factura['fecha_factura'], 0, 4); ?></td>
-                        <td><?php echo "'".$factura['centroCosto']; ?></td>
-                        <td><?php echo $nit; ?></td>
-                        <td><?php echo $dv; ?></td>
-                        <td><?php echo $apellido1; ?></td>
-                        <td><?php echo $apellido2; ?></td>
-                        <td><?php echo $nombre1; ?></td>
-                        <td><?php echo $nombre2; ?></td>
-                        <td><?php echo $empresa; ?></td>
-                        <td><?php echo $codDepto; ?></td>
-                        <td><?php echo $codCiudad; ?></td>
-                        <td><?php echo $direccion; ?></td>
-                        <td><?php echo $telefono; ?></td>
-                        <td><?php echo $sexo; ?></td>
-                        <td><?php echo ''; ?></td>
-                        <td><?php echo $desReteFte; ?></td>
-                        <td style="text-align:right;"><?php echo round($factura['reteica'],0); ?></td>
-                        <td style="text-align:right;"><?php echo 0; ?></td>
-                        <td><?php echo $vacio; ?></td>
-                        <td><?php echo $vacio; ?></td>
-                        <td><?php echo $vacio; ?></td>
-                        <td style="text-align:right;"><?php echo round($factura['reteica'],0); ?></td>
-                    </tr>
-                    <?php
-                }
+                ?>
+                </td>
+                <td>
+                    <?php if($factura['ciudad']==''){
+                    echo '';
+                }else {
+                    echo substr($factura['ciudad'],2,3); 
+                }?></td>
+                <td><?php echo $factura['direccion']; ?></td>
+                <td><?php echo $factura['telefono']; ?></td>
+                <td><?php echo $factura['sexo']; ?></td>
+                <td><?php echo $factura['referencia_cargo']; ?></td>
+                <td><?php echo $factura['descripcion_contable']; ?></td>
+                <td style="text-align:right;"><?php echo round($factura['cargodeb'],0); ?></td>
+                <td style="text-align:right;"><?php echo round($factura['cargocre'],0); ?></td>
+                <td> <?php echo $factura['factura_numero']; ?></td>
+                <td> <?php echo ''; ?></td>
+                <td><?php echo ''; ?></td>
+                <td style="text-align:right;">
+                <?php echo round($total,0);?>
+                </td>
+            </tr>
+        <?php
+        }
         ?>
-	  </tbody>
-	<?php
-  } */
+    </tbody>
+    <?php
+    } 
   ?>
+
+
 
 
