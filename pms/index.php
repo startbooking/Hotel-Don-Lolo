@@ -66,6 +66,8 @@ require_once '../res/php/app_topHotel.php';
             require 'views/facturasDelDia.php';
         } elseif (isset($_GET['section']) && $_GET['section'] == 'carteraClientes') {
             require 'views/carteraClientes.php';
+        } elseif (isset($_GET['section']) && $_GET['section'] == 'recaudosCartera') {
+            require 'views/recaudosCartera.php';
         } elseif (isset($_GET['section']) && $_GET['section'] == 'recibosCajaDelDia') {
             require 'views/recibosCajaDelDia.php';
         } elseif (isset($_GET['section']) && $_GET['section'] == 'notasCredito') {

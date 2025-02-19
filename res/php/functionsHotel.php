@@ -6,6 +6,51 @@ date_default_timezone_set('America/Bogota');
 class Hotel_Actions
 {
 
+    public function getFacturasCliente($idcliente)
+    {
+        global $database;
+
+        $data = $database->select('historico_cargos_pms', [
+            '[>]codigos_vta' => ['forma_pago' => 'id_pago'],
+            '[>]clientes' => ['id_cliente' => 'id_cliente'],
+        ], [
+            'historico_cargos_pms.id',
+            'historico_cargos_pms.factura',
+            'historico_cargos_pms.comanda',
+            'historico_cargos_pms.mesa',
+            'historico_cargos_pms.pax',
+            'historico_cargos_pms.valor_total',
+            'historico_cargos_pms.valor_neto',
+            'historico_cargos_pms.pagado',
+            'historico_cargos_pms.cambio',
+            'historico_cargos_pms.impuesto',
+            'historico_cargos_pms.propina',
+            'historico_cargos_pms.descuento',
+            'historico_cargos_pms.pagado',
+            'historico_cargos_pms.cambio',
+            'historico_cargos_pms.fecha',
+            'historico_cargos_pms.fecha_factura',
+            'historico_cargos_pms.usuario_factura',
+            'historico_cargos_pms.estado',
+            'historico_cargos_pms.pms',
+            'historico_cargos_pms.forma_pago',
+            'historico_cargos_pms.usuario',
+            'historico_cargos_pms.num_movimiento_inv',
+            'formas_pago.descripcion',
+            'clientes.apellido1',
+            'clientes.apellido2',
+            'clientes.nombre1',
+            'clientes.nombre2',
+        ], [
+            'historico_facturas_pos.id_cliente' => $idcliente,
+            'historico_facturas_pos.estado' => 'A',
+            'historico_facturas_pos.forma_pago' => '11',
+            'historico_facturas_pos.cartera' => 0,
+        ]);
+
+        return $data;
+    }
+
     public function getAjustesCargosDelDia(){
         global $database;
 
@@ -1959,6 +2004,10 @@ class Hotel_Actions
         ], [
             'huespedes.nombre_completo',
             'historico_cargos_pms.pagos_cargos',
+            'historico_cargos_pms.retefuente',
+            'historico_cargos_pms.reteica',
+            'historico_cargos_pms.reteiva',
+            'historico_cargos_pms.comision',
             'historico_cargos_pms.fecha_factura',
             'historico_cargos_pms.factura_numero',
         ], [
@@ -8853,7 +8902,6 @@ class Hotel_Actions
     public function getCodigosConsumos($tipo)
     {
         global $database;
-
         $data = $database->select('codigos_vta', [
             'id_cargo',
             'descripcion_cargo',

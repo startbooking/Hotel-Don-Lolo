@@ -3,6 +3,10 @@
   overflow-x: inherit;
 }
 
+#dataClientes tbody tr td {
+  padding :5px 8px;
+}
+
 .content {
   padding: 10px;
 }

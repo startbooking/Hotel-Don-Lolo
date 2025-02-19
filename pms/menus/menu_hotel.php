@@ -107,12 +107,7 @@ if ($_GET['section'] != 'cajeroCerrado') {
           </a>
           <ul class="treeview-menu">
             <li><a href="carteraClientes"><i class="fa-solid fa-money-bill-1-wave"></i> Cartera Compañias</a></li>
-            <?php
-            if (DEV == 1) { ?>
-              <li><a href="recaudosCartera"><i class='glyphicon glyphicon-briefcase'></i> Recaudos Cartera</a>
-              <?php 
-            }
-            ?>
+            <li><a href="recaudosCartera"><i class='glyphicon glyphicon-briefcase'></i> Recaudos Cartera</a>
             </li>
           </ul>
         </li>

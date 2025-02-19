@@ -2423,6 +2423,29 @@ function consumosPorFecha() {
   }
 }
 
+function traeFacturasCliente() {
+  let idcliente = $("#proveedor").val();
+  if (idcliente == "") {
+    swal("Precaucion", "Seleccione Primero el Cliente", "warning");
+    $("#proveedor").focus();
+    return 0;
+  }
+  // $("#modalFacturasCliente").modal("show");
+  /* let cliente = $("#proveedor option:selected").text();
+  let modal = $(this);
+  $(".modal-title").text("Cliente : " + cliente); */
+
+  $.ajax({
+    type: "POST",
+    url: "res/php/traeFacturasCliente.php",
+    data: { idcliente },
+    success: function (data) {
+      $("#dataClientes tbody").html(data);
+    },
+  });
+}
+
+
 async function eliminaHuesped(e, huesped){
   var button = document.getElementById(e);
   let nombre = button.dataset.nombre

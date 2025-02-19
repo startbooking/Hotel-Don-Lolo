@@ -2,9 +2,6 @@
   require '../../../res/php/app_topHotel.php';
   extract($_POST);
   $reservas = $hotel->traeBalanceHabitaciones('CA');
-
-  // echo print_r($reservas);
-   
 ?>
 
 <div class="table-responsive">
