@@ -6,6 +6,69 @@ date_default_timezone_set('America/Bogota');
 class Hotel_Actions
 {
 
+    public function calculaReteIVAFactura($numero){
+        global $database;
+  
+        $data = $database->query("SELECT
+			((hc.impuesto)* (rt.porcentajeRetencion/100)) AS retencion,pagos_cargos, factura,
+			rt.porcentajeRetencion
+		FROM
+			historico_cargos_pms AS hc
+		INNER JOIN 
+			retenciones rt on rt.idRetencion = 2
+		WHERE
+			factura_numero = 13796 AND factura = 0
+		ORDER BY
+			hc.factura_numero ASC")->fetchAll(PDO::FETCH_ASSOC);
+      return round($data[0]['retencion'],0);
+      }
+  
+
+    public function calculaReteICAFactura($numero){
+      global $database;
+
+      $data = $database->query("SELECT
+        sum((hc.monto_cargo)* (rt.porcentajeRetencion/100)) AS retencion,
+        rt.porcentajeRetencion
+	  FROM
+        historico_cargos_pms AS hc
+	  INNER JOIN 
+		retenciones rt on rt.idRetencion = 3
+	  WHERE
+        factura_numero = 131 AND factura = 0
+	  GROUP BY hc.factura_numero 
+	  ORDER BY
+		hc.factura_numero ASC")->fetchAll(PDO::FETCH_ASSOC);
+    return round($data[0]['retencion'],0);
+    }
+
+    public function calculaRetencionesFactura($numero){
+        global $database;
+
+        $data = $database->query("SELECT sum(vt.retencion) AS totalRetencion FROM (SELECT
+			sum(hc.monto_cargo) * (rt.porcentajeRetencion/100) AS retencion, cv.idRetencion, 
+			rt.porcentajeRetencion
+		FROM
+			historico_cargos_pms AS hc
+			INNER JOIN
+			codigos_vta AS cv
+			ON 
+				cv.id_cargo = hc.id_codigo_cargo
+			INNER JOIN
+			retenciones AS rt
+			ON 
+				rt.idRetencion = cv.idRetencion
+		WHERE
+			factura_numero = $numero
+		GROUP BY
+			cv.idRetencion
+		ORDER BY
+			hc.factura_numero ASC
+	) as vt")->fetchAll(PDO::FETCH_ASSOC);
+    return round($data[0]['totalRetencion'],0);
+    }
+
+
     public function getFacturasCliente($idcliente)
     {
         global $database;

@@ -2424,16 +2424,12 @@ function consumosPorFecha() {
 }
 
 function traeFacturasCliente() {
-  let idcliente = $("#proveedor").val();
+  let idcliente = $("#cliente").val();
   if (idcliente == "") {
     swal("Precaucion", "Seleccione Primero el Cliente", "warning");
     $("#proveedor").focus();
     return 0;
   }
-  // $("#modalFacturasCliente").modal("show");
-  /* let cliente = $("#proveedor option:selected").text();
-  let modal = $(this);
-  $(".modal-title").text("Cliente : " + cliente); */
 
   $.ajax({
     type: "POST",
@@ -2445,6 +2441,151 @@ function traeFacturasCliente() {
   });
 }
 
+async function sumaFacturasOld() {
+  const rows = document.querySelectorAll("#dataClientes > tbody > tr");
+  let valorTotal = 0;
+  let nrofacturas = "";
+
+  /* rows.forEach(row => {
+    const checkbox = row.querySelector("#asigna");
+    if (checkbox && checkbox.checked) {
+      const fields = ['valorcta', 'valorret', 'valorica', 'valoriva', 'valorcom'];
+      const values = fields.reduce((acc, field) => {
+        const element = row.querySelector(`#${field}`);
+        acc[field] = element ? parseFloat(element.textContent.replace(/,/g, '')) || 0 : 0;
+        return acc;
+      }, {});
+      console.log(values);
+      
+      const subtotal = values.valorcta - (values.valorret + values.valorica + values.valoriva + values.valorcom);
+      valorTotal += subtotal;
+
+      const nroFacturaElement = row.querySelector("#nrofactura");
+      if (nroFacturaElement) {
+        nrofacturas += nroFacturaElement.textContent + " ";
+      }
+    }
+  }); */
+
+  document.getElementById("concepto").value = nrofacturas.trim();
+  document.getElementById("totalpago").value = valorTotal.toFixed(2);
+}
+
+
+async function sumaFacturas() {
+  let valorTotal = 0;
+  let nrofacturas = "";
+
+  $("#dataClientes > tbody > tr").each(function () {
+    let carga = $("#asigna", this).is(":checked");
+    console.log(carga)
+    if (carga === true) {
+      valorTotal = valorTotal + parseFloat($("#valorcta", this).html().replaceAll(",", ""));
+      console.log(valorTotal);
+      nrofacturas = nrofacturas + $("#nrofactura", this).html() + " ";
+    }
+  });
+
+/*   $("#nrofacturas").val(nrofacturas);
+  $("#totalpago").val(number_format(valorselec, 2));
+  */
+  document.getElementById("concepto").value = nrofacturas.trim(); 
+  document.getElementById("totalpago").value = valorTotal.toFixed(2);
+
+}
+
+
+async function asignaRetencion(fila){
+  if (!fila.checked) {
+    fila.parentNode.parentNode.cells[5].lastChild.value=number_format(0,2);
+  }else {
+    let valorRetencion = 0;
+    let idcliente = $("#cliente").val();
+    let numFactura = fila.parentNode.parentNode.cells[1].innerHTML ;
+    valorRetencion = await calculaRetencion(numFactura, idcliente);
+    fila.parentNode.parentNode.cells[5].lastChild.value=number_format(valorRetencion,2);
+  }
+  await sumaFacturas();
+}
+
+async function asignaReteICA(fila){
+  if (!fila.checked) {
+    fila.parentNode.parentNode.cells[7].lastChild.value=number_format(0,2);
+  }else {
+    let valorRetencion = 0;
+    let idcliente = $("#cliente").val();
+    let numFactura = fila.parentNode.parentNode.cells[1].innerHTML ;
+    valorRetencion = await calculaReteICA(numFactura, idcliente);
+    fila.parentNode.parentNode.cells[7].lastChild.value=number_format(valorRetencion,2);
+  }
+  await sumaFacturas();
+}
+
+async function asignaReteIVA(fila){
+  if (!fila.checked) {
+    fila.parentNode.parentNode.cells[9].lastChild.value=number_format(0,2);
+  }else {
+    let valorRetencion = 0;
+    let idcliente = $("#cliente").val();
+    let numFactura = fila.parentNode.parentNode.cells[1].innerHTML ;
+    valorRetencion = await calculaReteIVA(numFactura, idcliente);
+    fila.parentNode.parentNode.cells[9].lastChild.value=number_format(valorRetencion,2);
+  }
+  await sumaFacturas();
+
+}
+
+
+async function calculaRetencion(numero, idcliente){
+  req = {numero,idcliente}
+  try {
+    const res = await fetch("res/php/calculaRetencionFactura.php", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+      body: JSON.stringify(req),
+    });
+    const datos = await res.json();
+    return datos;
+  } catch (error) {
+    return error
+  }
+}
+
+async function calculaReteICA(numero, idcliente){
+  req = {numero,idcliente}
+  try {
+    const res = await fetch("res/php/calculaReteICAFactura.php", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+      body: JSON.stringify(req),
+    });
+    const datos = await res.json();
+    return datos;
+  } catch (error) {
+    return error
+  }
+}
+
+async function calculaReteIVA(numero, idcliente){
+  req = {numero,idcliente}
+  try {
+    const res = await fetch("res/php/calculaReteIVAFactura.php", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+      body: JSON.stringify(req),
+    });
+    const datos = await res.json();
+    return datos;
+  } catch (error) {
+    return error
+  }
+}
 
 async function eliminaHuesped(e, huesped){
   var button = document.getElementById(e);
@@ -5894,7 +6035,6 @@ async function apagaselecomp(tipo) {
       nroFolio,
       sinBaseRete
     );
-console.log();
 
     totalRteFte = parseInt($("#baseRetenciones").val());
     totalImpto = parseInt($("#totalIva").val());

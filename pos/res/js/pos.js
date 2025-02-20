@@ -4792,10 +4792,7 @@ function ingresoPos() {
 }
 
 function activaPos() {
-  // sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
-
-  // let { pos, user: { usuario, usuario_id, tipo, nombres, apellidos } } = sesion;
   let { fecha_auditoria } = oPos[0];
   $("#fechaAuditoria").val(fecha_auditoria);
 }

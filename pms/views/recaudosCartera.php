@@ -1,17 +1,7 @@
-<?php
-  // require_once '../../res/php/app_topHotel.php';
-  // echo FECHA_PMS;
-  /* $clientes = $pos->getClientes();
-  $fodataClientesrmasdepagos = $pos->getFormasPago(); */
-
-  // echo print_r($fpagos);
-
-?>
-
 
 <div class="content-wrapper" id="recaudosCartera">
   <section class="content" style="position: relative;">
-    <div class="col-lg-8 col-xs-12 base" style="position: absolute;top: 10%;left: 0;right:0;bottom:0;margin:auto;">
+    <div class="col-lg-9 col-xs-12 base" style="position: absolute;top: 10%;left: 0;right:0;bottom:0;margin:auto;">
       <form id="guardarBaseCaja" class="form-horizontal" action="javascript:guardaCartera()">
         <input type="hidden" id="naturaleza" value="1">
         <div class="panel panel-success">
@@ -27,20 +17,19 @@
               </div>
             </div>
             <div class="form-group">
-              <label for="proveedor" class="col-lg-3 col-md-3 col-xs-12">Cliente</label>
+              <label for="cliente" class="col-lg-3 col-md-3 col-xs-12">Cliente</label>
               <div class="col-lg-8 col-md-8 col-xs-10">
-                <select name="proveedor" id="proveedor" onblur="javascript:traeFacturasCliente()">
+                <select name="cliente" id="cliente" onblur="javascript:traeFacturasCliente()">
                   <option value="">Seleccione el Cliente</option>
                   <?php
                     foreach ($clientes as $cliente) { ?>
-                    <option value="<?php echo $cliente['id_compania']; ?>"><?php echo $cliente['empresa']; ?></option>
+                    <option value="<?php echo $cliente['id_compania']; ?>"><?php echo substr($cliente['empresa'],0,60); ?></option>
                     <?php
                     }
                   ?>
 
                 </select>
               </div>
-              
               <!-- <div class="col-lg-1 col-xs-2">
                 <a
                 data-toggle="modal"
@@ -52,17 +41,22 @@
                 <i class="fa fa-bars" aria-hidden="true"></i></a>
               </div> -->
             </div>
-            <div class="form-group" name="traeFacturas" id="traeFacturas" style="max-height: 250px;overflow: auto;">
-              <table name="datosClienteCartera" id="dataClientes" class="table table-bordered">
+            <div class="form-group ph-15" name="traeFacturas" id="traeFacturas" style="max-height: 250px;overflow: auto;">
+              <table name="datosClienteCartera" id="dataClientes" class="table table-responsive">
                 <thead>
                   <tr class="warning" style="font-weight:bold;text-align: center">
+                    <td>Pagar</td>
                     <td>Factura</td>
                     <td>Fecha</td>
                     <td>Total</td>
-                    <td>ReteFuente</td>
-                    <td>ReteICA</td>
-                    <td>ReteIVA</td>
-                    <td>Comision</td>
+                    <td style="width:20px"></td>
+                    <td class="tl">ReteFuente</td>
+                    <td style="width:20px"></td>
+                    <td class="tl">ReteICA</td>
+                    <td style="width:20px"></td>
+                    <td class="tl">ReteIVA</td>
+                    <td style="width:20px"></td>
+                    <td class="tl">Comision</td>
                   </tr>
                 </thead> 
                 <tbody>
@@ -93,7 +87,7 @@
             <div class="form-group">
               <label for="receta" class="col-lg-3 col-md-3">Valor</label>
               <div class="col-lg-4 col-md-4">
-                <input type="number" class="form-control" id="base" name="base" required readonly>
+                <input type="number" class="form-control tr" id="totalpago" name="base" min="0" required readonly>
               </div>
             </div>
           </div>
