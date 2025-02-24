@@ -122,9 +122,12 @@ if (!isset($_GET['section'])) {
     // $reservas = $hotel->getHuespedesenCasa(2,'CA');
 } elseif (isset($_GET['section']) && $_GET['section'] == 'carteraClientes') {
     $clientes = $hotel->traeClientesCartera();
-} elseif (isset($_GET['section']) && $_GET['section'] == 'recaudosCartera') {
+} elseif (isset($_GET['section']) && $_GET['section'] == 'adicionaRecaudoCartera') {
     $clientes = $hotel->traeClientesCartera();
-    $fpagos   = $hotel->getCodigosConsumos(3); 
+    $fpagos   = $hotel->getCodigosConsumos(3);
+} elseif (isset($_GET['section']) && $_GET['section'] == 'recaudosCartera') {
+    $recaudos = $hotel->traeRecaudosCartera();
+    // echo print_r($recaudos);
 } elseif (isset($_GET['section']) && $_GET['section'] == 'facturacionHuesped') {
 } elseif (isset($_GET['section']) && $_GET['section'] == 'ingresoConsumos') {
     $reservas = $hotel->getHuespedesenCasa(2, 'CA');

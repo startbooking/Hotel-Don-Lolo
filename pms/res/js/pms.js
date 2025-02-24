@@ -713,8 +713,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     } else {
       imprime = web + "imprimir/notas/Abono_" + numero + ".pdf";
     }
-
-    // var factura = "HDL" + numero + ".pdf";
     $("#verFacturaHistoricoModal").attr("data", imprime);
     $(".alert").hide();
   });
@@ -2273,6 +2271,106 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 });
 
+async function guardaCartera() {
+  let sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { user: { usuario_id },  } = sesion;
+
+  let cartera = document.querySelector("#guardarBaseCaja");
+  let formData = new FormData(cartera);
+  facturas = await obtenerItemsSeleccionados()
+  formData.append("facturas", JSON.stringify(facturas));
+  formData.append("idusr", usuario_id);
+  let recaudo = await ingresaCartera(formData)
+  let imprime = await imprimeRecaudo(recaudo)
+
+  console.log(imprime)
+
+  var ventana = window.open(
+    'imprimir/'+imprime.trim(),
+    "PRINT",
+    "height=600,width=600"
+  );
+  $(location).attr("href", "recaudosCartera");
+
+}
+
+
+async function mostrarRecaudo(numero){
+  var ventana = window.open(
+    `imprimir/recaudos/recaudoCartera_NB-${numero.trim()}.pdf`,
+    "PRINT",
+    "height=600,width=600"
+  );
+}
+
+async function imprimeRecaudo(numero){
+  let req = {
+    numero,
+  } 
+ try {
+    const res = await fetch(`imprimir/imprimeRecaudo.php`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      },
+      body: JSON.stringify(req),
+    });
+    const datos = await res.text();
+    return datos;
+  } catch (error) {
+    return error
+  }
+}
+
+
+
+async function ingresaCartera(data){
+  try {
+    const res = await fetch(`res/php/guardaCartera.php`, {
+      method: "POST",
+      body: data,
+    });
+    const datos = await res.json(res);
+    return datos;
+  } catch (error) {
+    return error
+  }
+
+}
+
+async function obtenerItemsSeleccionados() {
+  const tabla = document.querySelector('#dataClientes');
+  const filas = tabla.getElementsByTagName('tr');
+  const itemsSeleccionados = [];
+
+  for (let i = 0; i < filas.length; i++) {
+      const fila = filas[i];
+      const checkbox = fila.querySelector('input[type="checkbox"][name="asigna"]');
+
+      if (checkbox && checkbox.checked) {
+          const nrofactura = fila.querySelector('td[name="nrofactura"]').textContent;
+          const fecha = fila.querySelector('td[name="fecha"]').textContent;
+          const valorcta = fila.querySelector('td[name="valorcta"]').textContent;
+          const valorret = fila.querySelector('input[name="valorret"]').value;
+          const valorica = fila.querySelector('input[name="valorica"]').value;
+          const valoriva = fila.querySelector('input[name="valoriva"]').value;
+          const valorcom = fila.querySelector('input[name="valorcom"]').value;
+
+          itemsSeleccionados.push({
+              nrofactura: nrofactura,
+              fecha: fecha,
+              valorcta: valorcta,
+              valorret: valorret,
+              valorica: valorica,
+              valoriva: valoriva,
+              valorcom: valorcom
+          });
+      }
+  }
+
+  return itemsSeleccionados;
+}
+
 async function llenaTablaReservas(reservas){
   reservas.map((reserva) => {
     let { fecha_llegada, reservas, salidas } = reserva
@@ -2441,100 +2539,59 @@ function traeFacturasCliente() {
   });
 }
 
-async function sumaFacturasOld() {
-  const rows = document.querySelectorAll("#dataClientes > tbody > tr");
-  let valorTotal = 0;
-  let nrofacturas = "";
-
-  /* rows.forEach(row => {
-    const checkbox = row.querySelector("#asigna");
-    if (checkbox && checkbox.checked) {
-      const fields = ['valorcta', 'valorret', 'valorica', 'valoriva', 'valorcom'];
-      const values = fields.reduce((acc, field) => {
-        const element = row.querySelector(`#${field}`);
-        acc[field] = element ? parseFloat(element.textContent.replace(/,/g, '')) || 0 : 0;
-        return acc;
-      }, {});
-      console.log(values);
-      
-      const subtotal = values.valorcta - (values.valorret + values.valorica + values.valoriva + values.valorcom);
-      valorTotal += subtotal;
-
-      const nroFacturaElement = row.querySelector("#nrofactura");
-      if (nroFacturaElement) {
-        nrofacturas += nroFacturaElement.textContent + " ";
-      }
-    }
-  }); */
-
-  document.getElementById("concepto").value = nrofacturas.trim();
-  document.getElementById("totalpago").value = valorTotal.toFixed(2);
-}
-
-
 async function sumaFacturas() {
   let valorTotal = 0;
   let nrofacturas = "";
-
   $("#dataClientes > tbody > tr").each(function () {
     let carga = $("#asigna", this).is(":checked");
-    console.log(carga)
     if (carga === true) {
-      valorTotal = valorTotal + parseFloat($("#valorcta", this).html().replaceAll(",", ""));
-      console.log(valorTotal);
+      valorTotal = valorTotal + parseFloat($("#valorcta", this).html().replaceAll(",", "")) -(parseFloat($("#valorret", this).val().replaceAll(",", ""))+parseFloat($("#valorica", this).val().replaceAll(",", ""))+parseFloat($("#valoriva", this).val().replaceAll(",", ""))+parseFloat($("#valorcom", this).val().replaceAll(",", "")));
       nrofacturas = nrofacturas + $("#nrofactura", this).html() + " ";
     }
   });
-
-/*   $("#nrofacturas").val(nrofacturas);
-  $("#totalpago").val(number_format(valorselec, 2));
-  */
   document.getElementById("concepto").value = nrofacturas.trim(); 
   document.getElementById("totalpago").value = valorTotal.toFixed(2);
-
 }
-
 
 async function asignaRetencion(fila){
   if (!fila.checked) {
-    fila.parentNode.parentNode.cells[5].lastChild.value=number_format(0,2);
+    fila.parentNode.parentNode.cells[5].children[0].value=number_format(0,2);
   }else {
     let valorRetencion = 0;
     let idcliente = $("#cliente").val();
     let numFactura = fila.parentNode.parentNode.cells[1].innerHTML ;
     valorRetencion = await calculaRetencion(numFactura, idcliente);
-    fila.parentNode.parentNode.cells[5].lastChild.value=number_format(valorRetencion,2);
+    fila.parentNode.parentNode.cells[5].children[0].value=number_format(valorRetencion,2);
   }
   await sumaFacturas();
 }
 
 async function asignaReteICA(fila){
   if (!fila.checked) {
-    fila.parentNode.parentNode.cells[7].lastChild.value=number_format(0,2);
+    fila.parentNode.parentNode.cells[7].children[0].value=number_format(0,2);
   }else {
     let valorRetencion = 0;
     let idcliente = $("#cliente").val();
     let numFactura = fila.parentNode.parentNode.cells[1].innerHTML ;
     valorRetencion = await calculaReteICA(numFactura, idcliente);
-    fila.parentNode.parentNode.cells[7].lastChild.value=number_format(valorRetencion,2);
+    fila.parentNode.parentNode.cells[7].children[0].value=number_format(valorRetencion,2);
   }
   await sumaFacturas();
 }
 
 async function asignaReteIVA(fila){
   if (!fila.checked) {
-    fila.parentNode.parentNode.cells[9].lastChild.value=number_format(0,2);
+    fila.parentNode.parentNode.cells[9].children[0].value=number_format(0,2);
   }else {
     let valorRetencion = 0;
     let idcliente = $("#cliente").val();
     let numFactura = fila.parentNode.parentNode.cells[1].innerHTML ;
     valorRetencion = await calculaReteIVA(numFactura, idcliente);
-    fila.parentNode.parentNode.cells[9].lastChild.value=number_format(valorRetencion,2);
+    fila.parentNode.parentNode.cells[9].children[0].value=number_format(valorRetencion,2);
   }
   await sumaFacturas();
 
 }
-
 
 async function calculaRetencion(numero, idcliente){
   req = {numero,idcliente}
@@ -7424,7 +7481,7 @@ function movimientosFactura(reserva) {
   // console.log(tipo);
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
-  var parametros = { reserva };
+  var parametros = { reserva, tipo };
   $.ajax({
     type: "POST",
     url: web + "views/facturacionHuesped.php",

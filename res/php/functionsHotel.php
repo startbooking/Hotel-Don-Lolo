@@ -6,24 +6,164 @@ date_default_timezone_set('America/Bogota');
 class Hotel_Actions
 {
 
-    public function calculaReteIVAFactura($numero){
+    public function traeRecaudosCartera(){
         global $database;
-  
-        $data = $database->query("SELECT
-			((hc.impuesto)* (rt.porcentajeRetencion/100)) AS retencion,pagos_cargos, factura,
-			rt.porcentajeRetencion
-		FROM
-			historico_cargos_pms AS hc
-		INNER JOIN 
-			retenciones rt on rt.idRetencion = 2
-		WHERE
-			factura_numero = 13796 AND factura = 0
-		ORDER BY
-			hc.factura_numero ASC")->fetchAll(PDO::FETCH_ASSOC);
-      return round($data[0]['retencion'],0);
-      }
-  
 
+        $data = $database->select('recaudoCartera',[
+            '[>]companias' => ['idCliente' => 'id_compania'],
+            '[>]usuarios' => ['idUsuario' => 'usuario_id']
+        ],[
+            'companias.empresa', 
+            'companias.nit', 
+            'companias.dv',
+            'usuarios.usuario', 
+            'recaudoCartera.numeroRecaudo', 
+            'recaudoCartera.totalRecaudo', 
+            'recaudoCartera.detalleRecaudo', 
+            'recaudoCartera.fechaRecaudo',
+            'recaudoCartera.idRecaudo',
+            'recaudoCartera.fechaIngreso',
+            'recaudoCartera.estado'
+        ],[
+            'recaudoCartera.fechaRecaudo' => FECHA_PMS,
+            'ORDER' => ['numeroRecaudo' => 'ASC']
+        ]);
+        return $data;
+
+    }
+
+    public function traePrefijoRecaudo(){
+        global $database;
+
+        $data = $database->select('parametros_pms',[
+            'pref_recaudo',
+        ]);
+        return $data[0]['pref_recaudo'];
+    }
+
+    public function traeRecaudoCartera($numero){
+        global $database;
+
+        $data = $database->select('recaudoCartera',[
+          '[<]companias' => ['idCliente' => 'id_compania'],
+          '[<]recaudosDetalle' => ['numeroRecaudo' => 'numeroRecaudo'],
+          '[<]usuarios' => ['idUsuario' => 'usuario_id'],
+          '[<]ciudades' => ['companias.ciudad' => 'id_ciudad']
+        ],[
+          'companias.empresa',
+          'companias.nit',
+          'companias.dv',
+          'companias.direccion',
+          'companias.telefono',
+          'usuarios.nombres',
+          'usuarios.apellidos',
+          'recaudoCartera.numeroRecaudo',
+          'recaudoCartera.totalRecaudo',
+          'recaudoCartera.detalleRecaudo',
+          'recaudoCartera.fechaRecaudo',
+          'recaudoCartera.fechaIngreso',
+          'recaudosDetalle.facturaNumero',
+          'recaudosDetalle.fechaFactura',
+          'recaudosDetalle.valorFactura',
+          'recaudosDetalle.reteFuente',
+          'recaudosDetalle.reteIca',
+          'recaudosDetalle.reteIva',
+          'recaudosDetalle.comision',
+          'recaudosDetalle.valorPago',
+          'ciudades.municipio'
+        ],[
+          'recaudoCartera.numeroRecaudo' => $numero,
+          'ORDER' => ['facturaNumero' => 'ASC'],
+        ]);
+        return $data;
+
+    }
+    
+    public function actualizaEstadoCartera($factura){
+        global $database;
+
+        $data = $database->update('historico_cargos_pms',[
+            'cartera' => 1
+        ],[
+            'factura' => 1,
+            'factura_numero' => $factura,
+        ]);
+        return $data;
+    }
+
+    public function ingresoDetalleRecaudo($recaudo, $factura, $fecha,$valorcta,$valorret, $valorica, $valoriva,$valorcom){
+        global $database;
+        $data = $database->insert('recaudosDetalle',[
+            'numeroRecaudo' => $recaudo,
+            'facturaNumero' => $factura,
+            'fechaFactura' => $fecha,
+            'valorFactura' => $valorcta,
+            'reteFuente' => $valorret,
+            'reteIca' => $valorica,
+            'reteIva' => $valoriva,
+            'comision' => $valorcom,
+            'valorPago' => $valorcta - ($valorret+$valorica+$valoriva+$valorcom),
+            'fechaIngreso' => date('Y-m-d H:m:s')
+        ]);
+        return $database->id();
+    }
+
+    public function ingresoCartera($recaudo, $fecha, $cliente,$formapago,  $concepto, $totalpago, $idusr ){
+        global $database;
+
+        $data = $database->insert('recaudoCartera',[
+            'numeroRecaudo' => $recaudo,
+            'fechaRecaudo' => $fecha,
+            'idUsuario' => $idusr,
+            'detalleRecaudo' => $concepto,
+            'formaPago' => $formapago,
+            'fechaRecaudo' => $fecha,
+            'idCliente' => $cliente,
+            'totalRecaudo' => $totalpago
+        ]);
+        return $database->id();
+    }
+
+    public function incrementaConsecutivoRecaudo($recaudo){
+        global $database;
+
+        $data = $database->update('parametros_pms',[
+            'con_recaudo' => $recaudo,
+        ]);
+        return $data;
+    }
+
+
+    public function traeConsecutivoRecaudo(){
+        global $database;
+
+        $data = $database->select('parametros_pms',[
+            'con_recaudo',
+            'pref_recaudo'
+        ],[
+            'LIMIT' => 1
+        ]);
+        return $data;
+    }
+
+  public function calculaReteIVAFactura($numero){
+    global $database;
+    $data = $database->query("SELECT sum(vt.retencion) AS totalRetencion FROM (SELECT
+  	  ((hc.impuesto)* (rt.porcentajeRetencion/100)) AS retencion,pagos_cargos, factura,
+	  rt.porcentajeRetencion
+	FROM
+	  historico_cargos_pms AS hc
+	INNER JOIN 
+	  retenciones rt on rt.idRetencion = 2
+	WHERE
+	  factura_numero = $numero AND factura = 0
+	ORDER BY
+	  hc.factura_numero ASC
+    ) as vt")->fetchAll(PDO::FETCH_ASSOC);
+    return round($data[0]['totalRetencion'],0);
+  }
+
+    
     public function calculaReteICAFactura($numero){
       global $database;
 
@@ -35,11 +175,11 @@ class Hotel_Actions
 	  INNER JOIN 
 		retenciones rt on rt.idRetencion = 3
 	  WHERE
-        factura_numero = 131 AND factura = 0
+        factura_numero = $numero AND factura = 0
 	  GROUP BY hc.factura_numero 
 	  ORDER BY
 		hc.factura_numero ASC")->fetchAll(PDO::FETCH_ASSOC);
-    return round($data[0]['retencion'],0);
+      return round($data[0]['retencion'],0);
     }
 
     public function calculaRetencionesFactura($numero){
@@ -67,7 +207,6 @@ class Hotel_Actions
 	) as vt")->fetchAll(PDO::FETCH_ASSOC);
     return round($data[0]['totalRetencion'],0);
     }
-
 
     public function getFacturasCliente($idcliente)
     {
@@ -2067,10 +2206,6 @@ class Hotel_Actions
         ], [
             'huespedes.nombre_completo',
             'historico_cargos_pms.pagos_cargos',
-            'historico_cargos_pms.retefuente',
-            'historico_cargos_pms.reteica',
-            'historico_cargos_pms.reteiva',
-            'historico_cargos_pms.comision',
             'historico_cargos_pms.fecha_factura',
             'historico_cargos_pms.factura_numero',
         ], [

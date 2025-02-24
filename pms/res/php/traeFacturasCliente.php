@@ -4,10 +4,6 @@ require '../../../res/php/app_topHotel.php';
 $idcliente = $_POST['idcliente'];
 $facturas = $hotel->getFacturasCompanias($idcliente);
 
-// echo print_r($facturas);
-
-
-
 $regis = count($facturas); ?>
 <?php
 if ($regis == 0) { ?>
@@ -26,17 +22,23 @@ if ($regis == 0) { ?>
       <td class="t-right b-i" name="asignaret" id="asignaret">
         <input name="fuente" id="fuente" type="checkbox" onclick="asignaRetencion(this)">
       </td>
-      <td class="t-right" name="valorret" id="valorret">
-        <input class="tr" type="text" value="<?php echo number_format($factura['retefuente'], 2); ?>">
+      <td class="t-right">
+        <input class="tr" name="valorret" id="valorret" type="text" value="<?php echo number_format(0, 2); ?>">
       </td>
       <td class="t-right b-i" name="asignaica" id="asignaica">
         <input name="ica" id="ica" type="checkbox" onclick="asignaReteICA(this)"></td>
-      <td class="t-right" name="valorica" id="valorica"><input class="tr" type="text" value="<?php echo number_format($factura['reteica'], 2); ?>"></td>
+      <td class="t-right">
+        <input name="valorica" id="valorica" class="tr" type="text" value="<?php echo number_format(0, 2); ?>">
+      </td>
       <td class="t-right b-i" name="asignaiva" id="asignaiva">
-        <input name="iva" id="iva" type="checkbox" onclick="asignaReteIVA(this)"></td>
-      <td class="t-right" name="valoriva" id="valoriva"><input class="tr" type="text" value="<?php echo number_format($factura['reteiva'], 2); ?>"></td>
-      <td class="t-right b-i" name="asignacom" id="asignacom"><input name="comi" id="asigna" type="checkbox" onclick="sumaFacturas()"></td>
-      <td class="t-right" name="valorcom" id="valorcom"><input class="tr" type="text" value="<?php echo number_format($factura['comision'], 2); ?>"></td>
+        <input name="iva" id="iva" type="checkbox" onclick="asignaReteIVA(this)">
+      </td>
+      <td class="t-right">
+        <input class="tr" type="text" name="valoriva" id="valoriva" value="<?php echo number_format(0, 2); ?>">
+      </td>
+      <td class="t-right">
+        <input class="tr" type="text" name="valorcom" id="valorcom" onblur="sumaFacturas()" value="<?php echo number_format(0, 2); ?>">
+      </td>
     </tr>
 <?php
   }

@@ -1,0 +1,4 @@
+[21-Feb-2025 15:54:19 America/Bogota] PHP Warning:  Undefined array key "pref_recaudo" in /var/www/donlolo.lan/pms/res/php/guardaCartera.php on line 5
+[21-Feb-2025 15:54:19 America/Bogota] PHP Warning:  Undefined array key "con_recaudo" in /var/www/donlolo.lan/pms/res/php/guardaCartera.php on line 6
+[21-Feb-2025 16:00:26 America/Bogota] PHP Warning:  Undefined array key "pref_recaudo" in /var/www/donlolo.lan/pms/res/php/guardaCartera.php on line 5
+[21-Feb-2025 16:00:26 America/Bogota] PHP Warning:  Undefined array key "con_recaudo" in /var/www/donlolo.lan/pms/res/php/guardaCartera.php on line 6

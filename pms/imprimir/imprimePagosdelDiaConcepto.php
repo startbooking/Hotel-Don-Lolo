@@ -56,25 +56,39 @@ foreach ($codigos as $codigo) {
         $pagos = $pagos + $cargo['pagos_cargos'];
     }
     $pag = $pag + $pagos;
-
-    // $pdf->Ln(2);
     $pdf->SetFont('Arial', '', 8);
-    // $pdf->Cell(40, 4, 'Total Forma de Pago', 0, 0, 'L');
     $pdf->Cell(120, 4, ($cargo['descripcion_cargo']), 0, 0, 'L');
     $pdf->Cell(25, 4, number_format($pagos, 2), 0, 1, 'R');
-    // $pdf->Ln(3);
 }
 $pdf->Ln(2);
 $pdf->SetFont('Arial', '', 8);
-$pdf->Cell(120, 4, 'Total Pagos Del Dia', 0, 0, 'L');
-$pdf->Cell(25, 4, number_format($pag, 2), 0, 0, 'R');
+$pdf->Cell(120, 4, 'Total Pagos Del Dia', 1, 0, 'L');
+$pdf->Cell(25, 4, number_format($pag, 2), 1, 1, 'R');
 $pdf->Ln(3);
 
-/* $fileOut = '../imprimir/informes/'.$file.'.pdf';
-$pdf->Output($fileOut, 'F');
-echo $file.'.pdf';
- */
+$recaudos = $hotel->traeRecaudosCartera();
+$pag = 0;
+$monto = 0;
 
+$pdf->Cell(20, 5, 'Numero', 1, 0, 'C');
+$pdf->Cell(20, 5, 'Fecha', 1, 0, 'C');
+$pdf->Cell(100, 5, 'Empresa.', 1, 0, 'C');
+$pdf->Cell(20, 5, 'Valor', 1, 0, 'C');
+$pdf->Cell(20, 5, 'Usuario ', 1, 1, 'C');
+
+foreach ($recaudos as $codigo) {
+    $pdf->Cell(20, 5, $codigo['numeroRecaudo'], 0, 0, 'L');
+    $pdf->Cell(20, 5, $codigo['fechaRecaudo'], 0, 0, 'L');
+    $pdf->Cell(100, 5, $codigo['empresa'], 0, 0, 'L');
+    $pdf->Cell(20, 5, number_format($codigo['totalRecaudo'],2), 0, 0, 'R');
+    $pdf->Cell(20, 5, $codigo['usuario'], 0, 1, 'L');
+    $pag = $pag + $codigo['totalRecaudo'];
+}
+$pdf->Ln(2);
+$pdf->SetFont('Arial', 'B', 8);
+$pdf->Cell(140, 5, 'Total Recaudos Del Dia', 1, 0, 'L');
+$pdf->Cell(20, 5, number_format($pag, 2), 1, 1, 'R');
+$pdf->Ln(3);
   $pdfFile = $pdf->Output('', 'S');
   $base64String = chunk_split(base64_encode($pdfFile));
 

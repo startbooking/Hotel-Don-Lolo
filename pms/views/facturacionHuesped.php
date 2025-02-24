@@ -1,8 +1,7 @@
 <?php
 
 require_once '../../res/php/app_topHotel.php';
-
-$reserva = $_POST['reserva'];
+extract($_POST);
 
 if (!isset($reserva)) { ?>
   <meta charset="utf-8" />
@@ -244,26 +243,28 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
           <div class="container-fluid centro">
             <div class="btn-group" role="group" aria-label="Basic example">
               <?php
-              if ($credito == 1 && $dia >= $dias) { ?>
-                <a
-                  type="button"
-                  class="btn btn-warning"
-                  data-toggle="modal"
-                  data-target="#myModalCongelarCuenta"
-                  data-id="<?php echo $datosReserva[0]['num_reserva']; ?>"
-                  data-idhues="<?php echo $datosReserva[0]['id_huesped']; ?>"
-                  data-idcia="<?php echo $datosReserva[0]['id_compania']; ?>"
-                  data-idcentro="<?php echo $datosReserva[0]['idCentroCia']; ?>"
-                  data-nrohab="<?php echo $datosReserva[0]['num_habitacion']; ?>"
-                  data-apellido1="<?php echo $datosReserva[0]['apellido1']; ?>"
-                  data-apellido2="<?php echo $datosReserva[0]['apellido2']; ?>"
-                  data-nombre="<?php echo $datosReserva[0]['nombre_completo']; ?>"
-                  data-nombre1="<?php echo $datosReserva[0]['nombre1']; ?>"
-                  data-nombre2="<?php echo $datosReserva[0]['nombre2']; ?>"
-                  data-impto="<?php echo $datosReserva[0]['causar_impuesto']; ?>"
-                  data-llegada="<?php echo $datosReserva[0]['fecha_llegada']; ?>"
-                  data-salida="<?php echo $datosReserva[0]['fecha_salida']; ?>"><i class="fa fa-snowflake-o"></i> Congelar Cuenta</a>
-              <?php
+              if($tipo == 1){
+                if ($credito == 1 && $dia >= $dias) { ?>
+                  <a
+                    type="button"
+                    class="btn btn-warning"
+                    data-toggle="modal"
+                    data-target="#myModalCongelarCuenta"
+                    data-id="<?php echo $datosReserva[0]['num_reserva']; ?>"
+                    data-idhues="<?php echo $datosReserva[0]['id_huesped']; ?>"
+                    data-idcia="<?php echo $datosReserva[0]['id_compania']; ?>"
+                    data-idcentro="<?php echo $datosReserva[0]['idCentroCia']; ?>"
+                    data-nrohab="<?php echo $datosReserva[0]['num_habitacion']; ?>"
+                    data-apellido1="<?php echo $datosReserva[0]['apellido1']; ?>"
+                    data-apellido2="<?php echo $datosReserva[0]['apellido2']; ?>"
+                    data-nombre="<?php echo $datosReserva[0]['nombre_completo']; ?>"
+                    data-nombre1="<?php echo $datosReserva[0]['nombre1']; ?>"
+                    data-nombre2="<?php echo $datosReserva[0]['nombre2']; ?>"
+                    data-impto="<?php echo $datosReserva[0]['causar_impuesto']; ?>"
+                    data-llegada="<?php echo $datosReserva[0]['fecha_llegada']; ?>"
+                    data-salida="<?php echo $datosReserva[0]['fecha_salida']; ?>"><i class="fa fa-snowflake-o"></i> Congelar Cuenta</a>
+                <?php
+                }
               }
               ?>
               <a

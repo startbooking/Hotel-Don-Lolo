@@ -5,11 +5,8 @@ require_once '../../../res/php/app_topHotel.php';
 $postBody = json_decode(file_get_contents('php://input'), true);
 extract($postBody);
 
-// echo print_r($postBody);
-
 $infoFactura = $hotel->traeInfoFactura($factura);
 $infoFE = $hotel->traeInfoFE($factura);
-// echo print_r($infoFE);
 
 $QRStr = $infoFE[0]['QRStr'];
 $cufe = $infoFE[0]['cufe'];

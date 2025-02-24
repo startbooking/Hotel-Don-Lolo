@@ -7,7 +7,6 @@ extract($postBody);
 
 $infoFactura = $hotel->traeInfoFactura($factura);
 $infoFE = $hotel->traeInfoFE($factura);
-// echo print_r($infoFE);
 
 $QRStr = $infoFE[0]['QRStr'];
 $cufe = $infoFE[0]['cufe'];

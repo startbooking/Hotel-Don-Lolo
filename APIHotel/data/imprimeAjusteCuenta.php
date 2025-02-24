@@ -1,8 +1,5 @@
 <?php
 
-/* require_once '../clases/functions.php';
-$_hotel = new Hotel_Actions();
- */
 $headers = apache_request_headers();
 $token = str_replace('Bearer ','',$headers['Authorization']);
 

@@ -47,6 +47,6 @@
 		$pagos = $user->getFormasPago(); 
 	}elseif(isset($_GET['section']) &&	$_GET['section'] == 'docSoporte'){
 		$documentos = $user->getDocumentoSoporte();    
-  }
+  }traeRecaudosCartera
 
  ?> 

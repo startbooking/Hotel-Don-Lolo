@@ -146,6 +146,7 @@ if ($_GET['section'] != 'cajeroCerrado') {
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeReservasDiaDepositos','Depositos a Reserva del Dia')"><i class="glyphicon glyphicon-download-alt"></i>Abonos - Depositos del Dia </a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeBalanceCongeladas','Depositos a Reserva del Dia')"><i class="fa fa-snowflake-o"></i>Cuentas Congeladas </a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimePagosdelDiaConcepto','Flujo de Caja del Dia')"><i class="glyphicon glyphicon-save-file"></i>Flujo de Caja</a></li>
+                <li><a href="javascript:imprimeInformeAuditoria('imprimeRecaudosdelDia','Flujo de Caja del Dia')"><i class="glyphicon glyphicon-save-file"></i>Recaudos del Dia</a></li>
                 <!-- <li><a href="javascript:imprimeInformeAuditoria('imprimePropinasCajeros','Propinas Cajeros')"><i class="glyphicon glyphicon-save-file"></i>Flujo de Caja</a></li> -->                
               </ul>
             </li>
