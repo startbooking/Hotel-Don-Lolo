@@ -46,7 +46,7 @@ $pdf->AddPage('P', 'letter');
 $pdf->Rect(10, 50, 190, 210);
 
 $pdf->Image('../../../img/'.LOGO, 10, 5, 40);
-$pdf->Image($filename, 163, 5, 33);
+// $pdf->Image($filename, 163, 5, 33);
 
 $pdf->SetFont('Arial', 'B', 11);
 $pdf->Cell(190, 4, (NAME_EMPRESA), 0, 1, 'C');
@@ -227,7 +227,8 @@ $pdf->SetFont('Arial', '', 8);
 foreach ($pagosfolio as $pagofolio) {
     $pdf->setX(105);
     $pagos = $pagos + $pagofolio['pagos'];
-    $pdf->Cell(60, 4, $pagofolio['descripcion_cargo'], 0, 0, 'L');
+    $pdf->Cell(60, 4, str_replace('DEPOSITO EN ','',str_replace('ABONO EN ','',$pagofolio['descripcion_cargo'])), 0, 0, 'L');
+    // $pdf->Cell(60, 4, str_replace('ABONO EN ','',$pagofolio['descripcion_cargo']), 0, 0, 'L');
     $pdf->Cell(35, 4, number_format($pagofolio['pagos'], 2), 0, 1, 'R');
 }
 $pdf->Cell(95, 4, '', 0, 0, 'L');

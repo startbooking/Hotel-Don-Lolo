@@ -1318,7 +1318,7 @@ class Hotel_Actions
             'folio_cargo',
             'id_perfil_factura',
             'usuario_factura'
-
+ 
         ], [
             'factura_numero' => $factura,
             'factura' => 1
@@ -1336,7 +1336,7 @@ class Hotel_Actions
             'timeCreated',
         ], [
             'facturaNumero' => $numFact,
-            'estadoEnvio' => 'true'
+            'estadoEnvio' => '1'
         ]);
         return $data;
     }
@@ -1637,7 +1637,7 @@ class Hotel_Actions
             'timeCreated',
         ], [
             'facturaNumero' => $numFact,
-            'estadoEnvio' => 'true'
+            'estadoEnvio' => '1'
         ]);
         return $data;
     }

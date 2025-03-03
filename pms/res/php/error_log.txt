@@ -1,4 +1,33 @@
-[21-Feb-2025 15:54:19 America/Bogota] PHP Warning:  Undefined array key "pref_recaudo" in /var/www/donlolo.lan/pms/res/php/guardaCartera.php on line 5
-[21-Feb-2025 15:54:19 America/Bogota] PHP Warning:  Undefined array key "con_recaudo" in /var/www/donlolo.lan/pms/res/php/guardaCartera.php on line 6
-[21-Feb-2025 16:00:26 America/Bogota] PHP Warning:  Undefined array key "pref_recaudo" in /var/www/donlolo.lan/pms/res/php/guardaCartera.php on line 5
-[21-Feb-2025 16:00:26 America/Bogota] PHP Warning:  Undefined array key "con_recaudo" in /var/www/donlolo.lan/pms/res/php/guardaCartera.php on line 6
+[24-Feb-2025 15:43:10 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/res/php/imprimeFacturaDetallada.php on line 14
+[24-Feb-2025 15:43:10 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/imprimeFacturaDetallada.php on line 14
+[24-Feb-2025 15:43:10 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/res/php/imprimeFacturaDetallada.php on line 15
+[24-Feb-2025 15:43:10 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/imprimeFacturaDetallada.php on line 15
+[24-Feb-2025 15:43:10 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/res/php/imprimeFacturaDetallada.php on line 16
+[24-Feb-2025 15:43:10 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/imprimeFacturaDetallada.php on line 16
+[24-Feb-2025 15:43:10 America/Bogota] PHP Warning:  fopen(../../../img/pms/QR_HDL-19772.png): Failed to open stream: No existe el archivo o el directorio in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1274
+[24-Feb-2025 15:43:10 America/Bogota] PHP Fatal error:  Uncaught Exception: FPDF error: Can't open image file: ../../../img/pms/QR_HDL-19772.png in /var/www/donlolo.lan/res/fpdf/fpdf.php:267
+Stack trace:
+#0 /var/www/donlolo.lan/res/fpdf/fpdf.php(1276): FPDF->Error()
+#1 /var/www/donlolo.lan/res/fpdf/fpdf.php(890): FPDF->_parsepng()
+#2 /var/www/donlolo.lan/pms/imprimir/imprimeFacturaDetallada.php(49): FPDF->Image()
+#3 /var/www/donlolo.lan/pms/res/php/imprimeFacturaDetallada.php(86): include_once('...')
+#4 {main}
+  thrown in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 267
+[24-Feb-2025 15:43:59 America/Bogota] PHP Warning:  fopen(../../../img/pms/QR_HDL-19772.png): Failed to open stream: No existe el archivo o el directorio in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1274
+[24-Feb-2025 15:43:59 America/Bogota] PHP Fatal error:  Uncaught Exception: FPDF error: Can't open image file: ../../../img/pms/QR_HDL-19772.png in /var/www/donlolo.lan/res/fpdf/fpdf.php:267
+Stack trace:
+#0 /var/www/donlolo.lan/res/fpdf/fpdf.php(1276): FPDF->Error()
+#1 /var/www/donlolo.lan/res/fpdf/fpdf.php(890): FPDF->_parsepng()
+#2 /var/www/donlolo.lan/pms/imprimir/imprimeFacturaDetallada.php(49): FPDF->Image()
+#3 /var/www/donlolo.lan/pms/res/php/imprimeFacturaDetallada.php(86): include_once('...')
+#4 {main}
+  thrown in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 267
+[24-Feb-2025 15:44:24 America/Bogota] PHP Warning:  fopen(../../../img/pms/QR_HDL-19772.png): Failed to open stream: No existe el archivo o el directorio in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 1274
+[24-Feb-2025 15:44:24 America/Bogota] PHP Fatal error:  Uncaught Exception: FPDF error: Can't open image file: ../../../img/pms/QR_HDL-19772.png in /var/www/donlolo.lan/res/fpdf/fpdf.php:267
+Stack trace:
+#0 /var/www/donlolo.lan/res/fpdf/fpdf.php(1276): FPDF->Error()
+#1 /var/www/donlolo.lan/res/fpdf/fpdf.php(890): FPDF->_parsepng()
+#2 /var/www/donlolo.lan/pms/imprimir/imprimeFacturaDetallada.php(49): FPDF->Image()
+#3 /var/www/donlolo.lan/pms/res/php/imprimeFacturaDetallada.php(83): include_once('...')
+#4 {main}
+  thrown in /var/www/donlolo.lan/res/fpdf/fpdf.php on line 267

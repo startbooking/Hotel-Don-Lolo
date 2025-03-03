@@ -2,11 +2,14 @@
 
 require_once '../../../res/php/app_topHotel.php';
 
+
 $postBody = json_decode(file_get_contents('php://input'), true);
 extract($postBody);
 
 $infoFactura = $hotel->traeInfoFacturaHist($factura);
 $infoFE = $hotel->traeInfoFEHistorico($factura);
+
+echo print_r($infoFE);
 
 $QRStr = $infoFE[0]['QRStr'];
 $cufe = $infoFE[0]['cufe'];
@@ -84,4 +87,4 @@ $envio = [
 
 echo json_encode($envio);
 
-/* echo json_encode($estadofactura); */
+/* echo json_encode($estadofactura); */ 

@@ -1,7 +1,7 @@
 <?php
     require '../../../res/php/app_topHotel.php'; 
         
-    $nroFactura = '19224';
+    $nroFactura = '19899';
     
     $diasCre = 0;
      
