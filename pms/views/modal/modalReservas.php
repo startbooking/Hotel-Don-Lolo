@@ -101,9 +101,14 @@ $manana = date('Y-m-d', $manana);
                       <div>
                         <select name="tarifahab" required="" id="tarifahab" onblur="valorHabitacion(this.value)">
                           <option value="">Seleccione la Tarifa</option>
+                        <?php
+                          $tarifas = $hotel->getTarifasHuespedes();
+                          foreach ($tarifas as $tarifa) { ?>
+                          <option value="<?php echo $tarifa['id_tarifa']; ?>"><?php echo $tarifa['descripcion_tarifa']; ?></option>
+                          <?php } ?>
                         </select>
                       </div>
-                    </div>
+                      </div>
                     <label for="valortar" class="col-sm-2 control-label">Valor Tarifa</label>
                     <div class="col-sm-4">
                       <div id="valortarifas">
@@ -694,7 +699,7 @@ $manana = date('Y-m-d', $manana);
 <div class="modal fade" id="myModalBuscaHuesped" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <form id="guardarDatosRooms" class="form-horizontal" action="" method="POST" enctype="multipart/form-data">
     <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-      <div class="modal-dialog modal-md" role="document">
+      <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">

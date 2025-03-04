@@ -1294,7 +1294,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     var parametros = {
       buscar,
     };
-    modal.find(".modal-title").text("Buscar Huesped Por : " + buscar);
+    modal.find(".modal-title").text("Buscar Huesped Por : " + buscar.toUpperCase());
     $.ajax({
       type: "POST",
       data: parametros,
@@ -1675,11 +1675,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   $("#myModalAdicionaReserva").on("show.bs.modal", function (event) {
-
     $("#edita").val(0);
     $("#editaRes").val(0);
     $("#creaReser").val(1);
-
     formRes = document.querySelector("#formReservas").reset() ;
   });
 
@@ -5072,6 +5070,7 @@ async function guardaHuesped(e) {
   let pagina = $("#ubicacion").val();
   let nuevaIde = $("#identifica").val();
   let creaRese = parseInt($("#creaReser").val());
+  let tarifa = $("#tarifa").val();
 
   let formHuesped = document.querySelector("#formAdicionaHuespedes");
   let dataHuesp = new FormData(formHuesped);
@@ -5093,13 +5092,12 @@ async function guardaHuesped(e) {
     contentType: false,
     processData: false,
     success: function (resp) {
-      // console.log(resp);
-      mensajeCrea(resp, "Huesped Creado", "huespedesPerfil", creaRese);
+      mensajeCrea(resp, "Huesped Creado", "huespedesPerfil", creaRese, tarifa);
     },
   });
 }
 
-function mensajeCrea(resp, texto, pagina, creaRese) {
+function mensajeCrea(resp, texto, pagina, creaRese, tarifa) {
   let { id, error } = resp;
   if (id != "0") {
     swal(
@@ -5117,7 +5115,7 @@ function mensajeCrea(resp, texto, pagina, creaRese) {
           btnRegresa.click();
           var nuevaIde = $("#identifica").val();
           $("#buscarHuesped").val(nuevaIde);
-          seleccionaHuespedReserva(id);
+          seleccionaHuespedReserva(id, tarifa);
           $("#noches").focus();
         } else {
           window.location.href = pagina;
@@ -6291,7 +6289,6 @@ function accesoUsuarios() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user: { usuario, usuario_id, tipo }, } = sesion;
 
-  // console.log(tipo);
   if (tipo > 2) {
     document.querySelector("#menuAuditoria").classList.add("apaga");
     document.querySelector("#menuCartera").classList.add("apaga");
@@ -6313,7 +6310,18 @@ function accesoUsuarios() {
   }
 }
 
-function seleccionaHuespedReserva(id) {
+function seleccionaHuespedReserva(id, tarifa) {
+  if (!tarifa){
+  swal(
+    {
+      title: "Precaucion !",
+      text: `Huesped sin Tarifa Asociada \n No permitido Crear la Reserva !`,
+      type: "warning",
+      confirmButtonText: "Aceptar",
+      closeOnConfirm: false,
+    });
+    return
+  }
   var web = $("#webPage").val();
   var pagina = $("#ubicacion").val();
   var parametros = {
@@ -6760,7 +6768,7 @@ function updateReserva() {
     data: parametros,
     url: "res/php/updateReserva.php",
     success: function (datos) {
-      // $(location).attr("href", "reservasActivas");
+      $(location).attr("href", "reservasActivas");
     },
   });
 }
@@ -7821,7 +7829,7 @@ function ingresaAbonos() {
         "height=600,width=600"
       );
       $("#myModalAbonosConsumos").modal("hide");
-      // movimientosFactura(numero);
+      movimientosFactura(numero);
     },
   });
 }
@@ -8725,7 +8733,6 @@ function ciudadesExpedicion(pais, city) {
           if (acompana == 1) {
             $("#ciudadExpAco").append(resp);
           } else {
-            // console.log(resp)
             $("#ciudadExp").append(resp.trim());
           }
         }

@@ -58,12 +58,6 @@
                       </span>
                     <?php
                     }
-                    /* if ($reserva['pagos_cargos'] != null && $reserva['estado'] == 'ES') { ?>
-                      <span class="btn btn-success faReservas" title="Reserva con Depositos" onclick="verDepositos('<?php echo $reserva['num_reserva']; ?>')">
-                        <i class="fa fa-usd fa-stack-1x fa-inverse "></i>
-                      </span>
-                    <?php
-                    } */
                     if (count($depositos) != 0) { ?>
                       <span class="btn btn-success faReservas" title="Reserva con Depositos" onclick="verDepositos('<?php echo $reserva['num_reserva']; ?>')">
                         <i class="fa fa-usd fa-stack-1x fa-inverse "></i>

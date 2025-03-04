@@ -58,7 +58,6 @@ $inicial = date('Y-m-01', $dia);
                       </div>
                     </div>
                   </div>
-                  <div class="col-lg-6 col-md-6 col-xs-12" id='loader'></div>
                 </div>
                 <div class="row">
                   <div class="alert alert-danger apaga">
@@ -107,7 +106,6 @@ $inicial = date('Y-m-01', $dia);
                         </tr>
                       </thead>
                       <tbody>
-
                       </tbody>
                     </table>
                   </div>
@@ -153,7 +151,6 @@ $inicial = date('Y-m-01', $dia);
                       </div>
                     </div>
                   </div>
-                  <div class="col-lg-6 col-md-6 col-xs-12" id='loader'></div>
                 </div>
                 <div class="row">
                   <div class="alert alert-danger apaga mensajeNC">
@@ -202,7 +199,6 @@ $inicial = date('Y-m-01', $dia);
                         </tr>
                       </thead>
                       <tbody>
-
                       </tbody>
                     </table>
                   </div>
@@ -251,7 +247,6 @@ $inicial = date('Y-m-01', $dia);
                       </div>
                     </div>
                   </div>
-                  <div class="col-lg-6 col-md-6 col-xs-12" id='loader'></div>
                 </div>
                 <div class="row">
                   <div class="alert alert-danger apaga mensajeAbonos">
@@ -300,7 +295,6 @@ $inicial = date('Y-m-01', $dia);
                         </tr>
                       </thead>
                       <tbody>
-
                       </tbody>
                     </table>
                   </div>

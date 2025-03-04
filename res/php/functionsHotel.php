@@ -6,6 +6,17 @@ date_default_timezone_set('America/Bogota');
 class Hotel_Actions
 {
 
+    public function actualizaTarifaHuesped($id, $tarifa){
+        global $database;
+
+        $data = $database->update('huespedes',[
+            'id_tarifa' => $tarifa,
+        ],[
+            'id_huesped' => $id
+        ]);
+        return $data;    }
+
+
     public function traeRecaudosCartera(){
         global $database;
 
@@ -1618,7 +1629,7 @@ class Hotel_Actions
             'id_perfil_factura',
             'usuario_factura',
             'id_codigo_cargo',
-            'informacion_cargo',
+            'informacion_cargo', 
             'referencia_cargo' 
         ], [
             'factura_numero' => $nroFactura,
@@ -6593,7 +6604,7 @@ class Hotel_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT huespedes.apellido1, huespedes.apellido2, huespedes.nombre1, huespedes.nombre2, huespedes.email, huespedes.identificacion, huespedes.id_huesped FROM huespedes WHERE identificacion LIKE '%$buscar%' OR nombre_completo LIKE '%$buscar%' order by huespedes.apellido1")->fetchAll();
+        $data = $database->query("SELECT T.id_huesped, T.nombre_completo, T.email, T.identificacion, T.empresa, descripcion_tarifa, id_tarifa FROM tarifas RIGHT JOIN (SELECT huespedes.nombre_completo, huespedes.email, huespedes.identificacion, huespedes.id_huesped, companias.empresa, IF ( huespedes.id_compania = 0, huespedes.id_tarifa, companias.id_tarifa ) AS tarifa FROM huespedes LEFT JOIN companias ON huespedes.id_compania = companias.id_compania WHERE identificacion LIKE '%$buscar%' OR nombre_completo LIKE '%$buscar%' ORDER BY huespedes.apellido1 ASC) AS T ON tarifas.id_tarifa = T.tarifa ORDER BY descripcion_tarifa")->fetchAll();
 
         return $data;
     }
@@ -9670,7 +9681,7 @@ class Hotel_Actions
         return $data;
     }
 
-    public function insertaNuevoHuesped($iden, $tipodoc, $apellido1, $apellido2, $nombre1, $nombre2, $sexo, $direccion, $telefono, $celular, $correo, $fechanace, $pais, $ciudad, $paisExp, $ciudadExp, $usuario, $idusuario, $tipoAdqui, $tipoRespo, $repoTribu, $empresa, $profesion, $edad)
+    public function insertaNuevoHuesped($iden, $tipodoc, $apellido1, $apellido2, $nombre1, $nombre2, $sexo, $direccion, $telefono, $celular, $correo, $fechanace, $pais, $ciudad, $paisExp, $ciudadExp, $usuario, $idusuario, $tipoAdqui, $tipoRespo, $repoTribu, $empresa, $profesion, $edad, $tarifa, $formapago)
     {
         global $database;
 
@@ -9700,6 +9711,8 @@ class Hotel_Actions
             'tipoAdquiriente' => $tipoAdqui,
             'tipoResponsabilidad' => $tipoRespo,
             'responsabilidadTributaria' => $repoTribu,
+            'id_tarifa' => $tarifa,
+            'id_forma_pago' => $formapago,
             'id_compania' => $empresa,
             'fecha_creacion' => date('Y-m-d H:i:s'),
         ]);
@@ -9985,7 +9998,6 @@ class Hotel_Actions
             'email',
             'sexo',
             'id_compania',
-            'idCentroCia',
             'pais',
         ], [
             'id_huesped' => $id,

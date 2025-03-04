@@ -201,14 +201,12 @@ FROM
     LEFT JOIN
         ciudades ciudad_c ON c.ciudad = ciudad_c.id_ciudad
 WHERE
-		a.fecha_factura BETWEEN '$desde' AND '$hasta'
+    a.fecha_factura BETWEEN '$desde' AND '$hasta' AND tipo_factura < 3
 group by factura_numero, descripcion_cargo
 ORDER BY
 	a.factura_numero ASC,
-    linea ASC, 
 	a.tipo_codigo ASC,
 	a.concecutivo_abono ASC";
-
   $facturas = $hotel->creaConsulta($consulta);
 
   if (count($facturas) == 0) {
@@ -225,6 +223,12 @@ ORDER BY
             }else{
                 $total = $factura['cargodeb'];
             }
+            if ($numero == $factura['factura_numero']) {
+                ++$i;
+            } else {
+                $i = 1;
+                $numero = $factura['factura_numero'];
+            }
             ?>
             <tr>
                 <td>1</td>
@@ -240,7 +244,7 @@ ORDER BY
                 <td>3</td>
                 <td><?php echo $factura['factura_numero']; ?></td>
                 <td><?php echo $factura['cuenta_puc']; ?></td>
-                <td><?php echo $factura['linea']; ?></td>
+                <td><?php echo $i; ?></td>
                 <td><?php echo substr($factura['fecha_factura'], 8, 2).'/'.substr($factura['fecha_factura'], 5, 2).'/'.substr($factura['fecha_factura'], 0, 4); ?></td>
                 <td><?php echo "'".$factura['centroCosto']; ?></td>
                 <td><?php echo $factura['nit']; ?></td>

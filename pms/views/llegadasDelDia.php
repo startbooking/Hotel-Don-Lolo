@@ -1,7 +1,3 @@
-<!-- <?php
-// $hoy    = substr(FECHA_PMS, 5, 5);
-?> -->
-
 <div class="content-wrapper" id="pantallaLlegadas">
   <section class="content" style="margin-bottom: 40px">
     <div class="panel panel-success">
@@ -48,12 +44,6 @@
                       </span>
                     <?php
                     }
-                    /* if ($reserva['pagos_cargos'] != null) { ?>
-                      <span class="btn btn-success faReservas" title="Reserva con Depositos" onclick="verDepositos('<?php echo $reserva['num_reserva']; ?>')">
-                        <i class="fa fa-usd fa-stack-1x fa-inverse "></i>
-                      </span>
-                    <?php
-                    } */
                     if (count($depositos) != 0) { ?>
                       <span class="btn btn-success faReservas" title="Reserva con Depositos" onclick="verDepositos('<?php echo $reserva['num_reserva']; ?>')">
                         <i class="fa fa-usd fa-stack-1x fa-inverse "></i>
