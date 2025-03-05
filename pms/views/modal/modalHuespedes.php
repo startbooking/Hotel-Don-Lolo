@@ -192,7 +192,7 @@ $hoy = date('Y-m-d');
                 <?php
                 }
                 ?>
-              </select>
+              </select> 
             </div>
           </div>
           <div class="form-group">
@@ -224,13 +224,13 @@ $hoy = date('Y-m-d');
           <div class="form-group">
             <label for="empresa" class="col-sm-2 control-label">Empresa </label>
             <div class="col-sm-6">
-              <select name="empresaAdi" id="empresaAdi" required="">
+              <select name="empresaAdi" id="empresaAdi" required="" onblur="traeCreditoCia(this.value)">
                 <option value="">Seleccione La Empresa</option>
                 <option value="0">SIN COMPAÑIA</option>
                 <?php
                 $companias = $hotel->getCompanias();
                 foreach ($companias as $compañia) { ?>
-                  <option value="<?= $compañia['id_compania'] ?>"><?= $compañia['empresa'] ?></option>
+                  <option value="<?= $compañia['id_compania'] ?>"><?= substr($compañia['empresa'],0,60) ?></option>
                 <?php
                 } ?>
               </select>

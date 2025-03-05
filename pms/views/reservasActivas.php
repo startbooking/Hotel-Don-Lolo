@@ -42,6 +42,7 @@
             </thead>
             <tbody id="paginaReservas">
               <?php
+              // print_r($reservas);
               foreach ($reservas as $reserva) {
                 $depositos = $hotel->getDepositosReservas($reserva['num_reserva']);
                 ?>

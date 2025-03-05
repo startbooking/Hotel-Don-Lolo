@@ -6,6 +6,35 @@ date_default_timezone_set('America/Bogota');
 class Hotel_Actions
 {
 
+    public function traeValorTarifa($tarifa, $tipo, $desde, $hasta){
+        global $database;
+
+        $data = $database->select('valores_tarifas',[
+            'valor_un_pax',
+            'valor_dos_pax',
+            'valor_tre_pax',
+            'valor_cua_pax',
+            'valor_cin_pax',
+            'valor_sei_pax',
+            'valor_sie_pax',
+            'valor_och_pax',
+            'valor_nue_pax',
+            'valor_die_pax',
+            'valor_nino',
+            'valor_adicional',
+            'valor_dormitorio',
+        ], [
+            'id_subtarifa' => $tarifa,
+            'id_tipohabitacion' => $tipo,
+            'desde_fecha[<]'  => $desde,
+            'hasta_fecha[>]'  => $desde,
+        ]);
+        return $data[0];
+    }
+    
+
+
+    
     public function actualizaTarifaHuesped($id, $tarifa){
         global $database;
 
@@ -14,8 +43,8 @@ class Hotel_Actions
         ],[
             'id_huesped' => $id
         ]);
-        return $data;    }
-
+        return $data;    
+    }
 
     public function traeRecaudosCartera(){
         global $database;
@@ -4288,7 +4317,7 @@ class Hotel_Actions
             'num_reserva' => $id,
         ]);
 
-        return $data;
+        return $data[0];
     }
 
     public function getBuscaHistoricoCargosFactura($factura, $reserva)
@@ -6595,7 +6624,7 @@ class Hotel_Actions
     {
         global $database;
 
-        $data = $database->query("INSERT INTO historico_reservas_pms SELECT * FROM reservas_pms WHERE estado = '$tipo' AND fecha_llegada = '$fecha'")->fetchAll();
+        $data = $database->query("INSERT INTO historico_reservas_pms SELECT * FROM reservas_pms WHERE estado = '$tipo' AND fecha_llegada = '$fecha'")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -6604,7 +6633,7 @@ class Hotel_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT T.id_huesped, T.nombre_completo, T.email, T.identificacion, T.empresa, descripcion_tarifa, id_tarifa FROM tarifas RIGHT JOIN (SELECT huespedes.nombre_completo, huespedes.email, huespedes.identificacion, huespedes.id_huesped, companias.empresa, IF ( huespedes.id_compania = 0, huespedes.id_tarifa, companias.id_tarifa ) AS tarifa FROM huespedes LEFT JOIN companias ON huespedes.id_compania = companias.id_compania WHERE identificacion LIKE '%$buscar%' OR nombre_completo LIKE '%$buscar%' ORDER BY huespedes.apellido1 ASC) AS T ON tarifas.id_tarifa = T.tarifa ORDER BY descripcion_tarifa")->fetchAll();
+        $data = $database->query("SELECT T.id_huesped, T.nombre_completo, T.email, T.identificacion, T.empresa, T.credito, descripcion_tarifa, id_tarifa FROM tarifas RIGHT JOIN (SELECT huespedes.nombre_completo, huespedes.email, huespedes.identificacion, huespedes.id_huesped, companias.empresa, IF ( huespedes.id_compania = 0, huespedes.id_tarifa, companias.id_tarifa ) AS tarifa,IF ( huespedes.id_compania = 0, 0, companias.credito) AS credito FROM huespedes LEFT JOIN companias ON huespedes.id_compania = companias.id_compania WHERE identificacion LIKE '%$buscar%' OR nombre_completo LIKE '%$buscar%' ORDER BY huespedes.apellido1 ASC) AS T ON tarifas.id_tarifa = T.tarifa ORDER BY descripcion_tarifa")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -7228,12 +7257,11 @@ class Hotel_Actions
             'reservas_pms.placaVehiculo',
             'reservas_pms.equipaje',
             'reservas_pms.tipoTransporte',
-
         ], [
             'reservas_pms.num_reserva' => $id,
         ]);
 
-        return $data;
+        return $data[0];
     }
 
     public function getHistoricoReservasCia($id)
@@ -7437,7 +7465,7 @@ class Hotel_Actions
         return $data;
     }
 
-    public function updateHuesped($id, $iden, $tipodoc, $apellido1, $apellido2, $nombre1, $nombre2, $sexo, $direccion, $telefono, $celular, $correo, $fechanace, $pais, $ciudad, $paisExp, $ciudadExp, $tipoAdqui, $tipoRespo, $repoTribu, $empresa, $profesion, $edad)
+    public function updateHuesped($id, $iden, $tipodoc, $apellido1, $apellido2, $nombre1, $nombre2, $sexo, $direccion, $telefono, $celular, $correo, $fechanace, $pais, $ciudad, $paisExp, $ciudadExp, $tipoAdqui, $tipoRespo, $repoTribu, $empresa, $profesion, $edad, $tarifaUpd, $formapagoUpd)
     {
         global $database;
 
@@ -7465,6 +7493,8 @@ class Hotel_Actions
             'tipoResponsabilidad' => $tipoRespo,
             'responsabilidadTributaria' => $repoTribu,
             'id_compania' => $empresa,
+            'id_tarifa'  => $tarifaUpd,
+            'id_forma_pago' => $formapagoUpd,
         ], [
             'id_huesped' => $id,
         ]);
@@ -7510,12 +7540,11 @@ class Hotel_Actions
             'tipoAdquiriente',
             'tipoResponsabilidad',
             'responsabilidadTributaria',
-
         ], [
             'id_huesped' => $id,
         ]);
 
-        return $data;
+        return $data[0];
     }
 
     public function buscaHuespedHueped($ident, $id)
@@ -9986,21 +10015,24 @@ class Hotel_Actions
         global $database;
 
         $data = $database->select('huespedes', [
-            'id_huesped',
-            'identificacion',
-            'apellido1',
-            'apellido2',
-            'nombre1',
-            'nombre2',
-            'direccion',
-            'celular',
-            'tipo_identifica',
-            'email',
-            'sexo',
-            'id_compania',
-            'pais',
+            '[>]companias' => ['id_compania' => 'id_compania']
+        ],[
+            'huespedes.id_huesped',
+            'huespedes.identificacion',
+            'huespedes.apellido1',
+            'huespedes.apellido2',
+            'huespedes.nombre1',
+            'huespedes.nombre2',
+            'huespedes.direccion',
+            'huespedes.celular',
+            'huespedes.tipo_identifica',
+            'huespedes.email',
+            'huespedes.sexo',
+            'huespedes.id_compania',
+            'huespedes.pais',
+            'companias.credito'
         ], [
-            'id_huesped' => $id,
+            'huespedes.id_huesped' => $id,
         ]);
 
         return $data;

@@ -175,10 +175,11 @@ $empresa = $hotel->getBuscaIdEmpresa($id);
           <?php
           $tipoTribus = $hotel->getResponsabilidadTributaria();
           foreach ($tipoTribus as $tipoTribu) { ?>
-            <option value="<?php echo $tipoTribu['id']; ?>" <?php
-                                                            if ($empresa[0]['responsabilidadTributaria'] == $tipoTribu['id']) { ?> selected <?php
-                                                                                                                                          }
-                                                                                                                                            ?>><?php echo $tipoTribu['descripcionResponsabilidad']; ?></option>
+            <option value="<?php echo $tipoTribu['id']; ?>" 
+              <?php
+                if ($empresa[0]['responsabilidadTributaria'] == $tipoTribu['id']) { 
+              ?>
+              selected <?php }?>><?php echo $tipoTribu['descripcionResponsabilidad']; ?></option>
           <?php
           }
           ?>
@@ -192,16 +193,14 @@ $empresa = $hotel->getBuscaIdEmpresa($id);
         <div class="col-sm-2">
           <div class="col-sm-6">
             <div class="form-check form-check-inline">
-              <input style="margin-top:5px" class="form-check-input" type="radio" name="creditOption" id="inlineRadio1" value="1" onclick="cambiaEstadoCreditoUpd(this.value)" <?php
-                                                                                                                                                                                if ($empresa[0]['credito'] == 1) { ?> checked <?php
-                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                              ?>>
+              <input style="margin-top:5px" class="form-check-input" type="radio" name="creditOption" id="inlineRadio1" value="1" onclick="cambiaEstadoCreditoUpd(this.value)" 
+                <?php if ($empresa[0]['credito'] == 1) { ?> checked <?php }?>>
               <label style="margin-top:-18px;margin-left:25px" class="form-check-label" for="inlineRadio1">Si</label>
             </div>
           </div>
           <div class="col-sm-6">
             <div class="form-check form-check-inline">
-              <input style="margin-top:5px" class="form-check-input" type="radio" name="creditOption" id="inlineRadio2" value="2" onclick="cambiaEstadoCreditoUpd(this.value)" <?php if ($empresa[0]['credito'] == 2) { ?> checked <?php } ?>>
+              <input style="margin-top:5px" class="form-check-input" type="radio" name="creditOption" id="inlineRadio2" value="0" onclick="cambiaEstadoCreditoUpd(this.value)" <?php if ($empresa[0]['credito'] == 0) { ?> checked <?php } ?>>
               <label style="margin-top:-18px;margin-left:25px" class="form-check-label" for="inlineRadio2">No</label>
             </div>
           </div>

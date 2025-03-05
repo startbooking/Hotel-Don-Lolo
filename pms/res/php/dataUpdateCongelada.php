@@ -1,16 +1,16 @@
 <?php 
-  require_once '../../../res/php/titles.php';
+  // require_once '../../../res/php/titles.php';
   require_once '../../../res/php/app_topHotel.php'; 
 
   $id      = $_POST['id'];
   $reserva = $hotel->getBuscaReserva($id);
-  $huesped = $hotel->getBuscaIdHuesped($reserva[0]['id_huesped']);
-  $tipohab = $reserva[0]['tipo_habitacion'];
-  $dias    = strtotime(FECHA_PMS) - strtotime($reserva[0]['fecha_llegada']);
+  $huesped = $hotel->getBuscaIdHuesped($reserva['id_huesped']);
+  $tipohab = $reserva['tipo_habitacion'];
+  $dias    = strtotime(FECHA_PMS) - strtotime($reserva['fecha_llegada']);
   $dias    = $dias / (60*60*24);
   $fecha   = FECHA_PMS;
-  $cia     = $hotel->getBuscaCia($reserva[0]['id_compania']);
-  $centros = $hotel->getBuscaCentroCia($reserva[0]['idCentroCia']);
+  $cia     = $hotel->getBuscaCia($reserva['id_compania']);
+  $centros = $hotel->getBuscaCentroCia($reserva['idCentroCia']);
 ?> 
   <div class="panel panel-success">
     <div class="panel-heading" style="padding:5px">
@@ -18,8 +18,8 @@
         <label for="inputEmail3" class="col-sm-2 control-label">Documento</label>
         <div class="col-sm-3">
           <input type="hidden" name="numeroReserva" id="numeroReserva" value="<?=$id?>">
-          <input type="hidden" name="tipoocupacion" id="tipoocupacion" value="<?=$reserva[0]['tipo_ocupacion']?>">
-          <input type="text" class="form-control" name="identifica" id="identifica" value="<?=$huesped[0]['identificacion']?>" readonly="">
+          <input type="hidden" name="tipoocupacion" id="tipoocupacion" value="<?=$reserva['tipo_ocupacion']?>">
+          <input type="text" class="form-control" name="identifica" id="identifica" value="<?=$huesped['identificacion']?>" readonly="">
         </div>
         <label for="inputEmail3" class="col-sm-2 control-label">Tipo</label>
         <div class="col-sm-3">
@@ -30,7 +30,7 @@
               foreach ($tipodocs as $tipodoc): ?>
                 <option value="<?=$tipodoc['id_doc']?>"  
                   <?php 
-                  if($tipodoc['id_doc']==$huesped[0]['tipo_identifica']){ ?>
+                  if($tipodoc['id_doc']==$huesped['tipo_identifica']){ ?>
                     selected=""
                     <?php 
                   } 
@@ -46,10 +46,10 @@
       <div class="form-group">
         <label for="inputEmail3" class="col-sm-2 control-label">Huesped</label>
         <div class="col-sm-8">
-          <input type="hidden" name="idhuesped" id="idhuesped" value="<?=$reserva[0]['id_huesped']?>">
-          <input type="text" class="form-control" name="huesped" id="huesped" value="<?=$huesped[0]['nombre_completo']?>" readonly="">
-          <input type="hidden" name="idcia" id="idcia" value="<?=$reserva[0]['id_compania']?>">
-          <input type="hidden" name="idCentro" id="idCentro" value="<?=$huesped[0]['idCentroCia']?>">
+          <input type="hidden" name="idhuesped" id="idhuesped" value="<?=$reserva['id_huesped']?>">
+          <input type="text" class="form-control" name="huesped" id="huesped" value="<?=$huesped['nombre_completo']?>" readonly="">
+          <input type="hidden" name="idcia" id="idcia" value="<?=$reserva['id_compania']?>">
+          <input type="hidden" name="idCentro" id="idCentro" value="<?=$huesped['idCentroCia']?>">
         </div>
       </div>
       <div class="form-group">
@@ -62,7 +62,7 @@
               foreach ($companias as $compañia) { ?>
                 <option value="<?=$compañia['id_compania']?>"
                 <?php
-                if ($reserva[0]['id_compania'] == $compañia['id_compania']) { ?>
+                if ($reserva['id_compania'] == $compañia['id_compania']) { ?>
                   selected
                   <?php
                 }
@@ -83,7 +83,7 @@
               <div class="form-check form-check-inline">
                 <input style="margin-top:5px" class="form-check-input" type="radio" name="imptoOption" id="inlineRadio1" value="1" disabled readonly
                 <?php  
-                  if($reserva[0]['causar_impuesto']==1){ ?>
+                  if($reserva['causar_impuesto']==1){ ?>
                     checked
                   <?php 
                   }
@@ -96,7 +96,7 @@
               <div class="form-check form-check-inline">
                 <input style="margin-top:5px" class="form-check-input" type="radio" name="imptoOption" id="inlineRadio2" value="2" disabled readonly
                 <?php  
-                  if($reserva[0]['causar_impuesto']==2){ ?>
+                  if($reserva['causar_impuesto']==2){ ?>
                     checked
                   <?php 
                   }
@@ -111,45 +111,45 @@
       <div class="form-group">
         <label for="llegada" class="col-sm-2 control-label">Llegada</label>
         <div class="col-sm-3">
-          <input type="date" class="form-control" name="llegada" id="llegada" required="" value="<?=$reserva[0]['fecha_llegada']?>" min='<?=FECHA_PMS?> 'readonly disabled> 
+          <input type="date" class="form-control" name="llegada" id="llegada" required="" value="<?=$reserva['fecha_llegada']?>" min='<?=FECHA_PMS?> 'readonly disabled> 
         </div>
         <label for="noches" class="col-sm-1 control-label">Noches</label>
         <div class="col-sm-1"  style="padding:0 5px">
-          <input type="number" class="form-control" name="noches" id="noches" required="" value='<?=$reserva[0]['dias_reservados']?>' onchange="sumarDias()" onblur="sumarDias()" readonly>
+          <input type="number" class="form-control" name="noches" id="noches" required="" value='<?=$reserva['dias_reservados']?>' onchange="sumarDias()" onblur="sumarDias()" readonly>
         </div>
         <label for="salida" class="col-sm-1 control-label">Salida</label>
         <div class="col-sm-3">
-          <input type="date" onblur="restaFechas()" class="form-control" name="salida" id="salida" required="" value="<?=$reserva[0]['fecha_salida']?>" disabled readonly>
+          <input type="date" onblur="restaFechas()" class="form-control" name="salida" id="salida" required="" value="<?=$reserva['fecha_salida']?>" disabled readonly>
         </div>
       </div>
       <div class="form-group">
         <label for="hombres" class="col-sm-2 control-label">Hombres</label>
         <div class="col-lg-1 col-md-1" style="padding-right: 5px">
-          <input type="number" class="form-control" name="hombres" id="hombres" required="" value="<?=$reserva[0]['can_hombres']?>" min=0 readonly disabled>
+          <input type="number" class="form-control" name="hombres" id="hombres" required="" value="<?=$reserva['can_hombres']?>" min=0 readonly disabled>
         </div>
         <label for="mujeres" class="col-sm-1 control-label">Mujeres</label>
         <div class="col-lg-1 col-md-1" style="padding-right: 5px">
-          <input type="number" class="form-control" name="mujeres" id="mujeres" required="" value='<?=$reserva[0]['can_mujeres']?>' min=0 readonly disabled>
+          <input type="number" class="form-control" name="mujeres" id="mujeres" required="" value='<?=$reserva['can_mujeres']?>' min=0 readonly disabled>
         </div>
         <label for="ninos" class="col-sm-1 control-label">Niños</label>
         <div class="col-lg-1 col-md-1" style="padding-right: 5px">
-          <input type="number" class="form-control" name="ninos" id="ninos" required="" value="<?=$reserva[0]['can_ninos']?>" min=0 readonly disabled> 
+          <input type="number" class="form-control" name="ninos" id="ninos" required="" value="<?=$reserva['can_ninos']?>" min=0 readonly disabled> 
         </div>
         <label for="orden" class="col-sm-1 control-label">Orden Nro</label>
         <div class="col-sm-4">
-          <input type="text" class="form-control" name="orden" id="orden" value="<?=$reserva[0]['orden_reserva']?>">
+          <input type="text" class="form-control" name="orden" id="orden" value="<?=$reserva['orden_reserva']?>">
         </div> 
       </div>
       <div class="form-group">
         <label for="tipohabi" class="col-sm-2 control-label">Tipo Habitacion</label>
         <div class="col-sm-4">
-          <select name="tipohabi" id="tipohabi" required onblur="seleccionaHabitacionUpd(this.value,'<?=$reserva[0]['tipo_habitacion']?>','<?=$reserva[0]['num_habitacion']?>')" readonly disabled>
+          <select name="tipohabi" id="tipohabi" required onblur="seleccionaHabitacionUpd(this.value,'<?=$reserva['tipo_habitacion']?>','<?=$reserva['num_habitacion']?>')" readonly disabled>
             <?php 
               $tipos = $hotel->getTipoHabitacion();
               foreach ($tipos as $tipo) { ?>
                 <option value="<?=$tipo['id']?>"
                   <?php 
-                    if($reserva[0]['tipo_habitacion']==$tipo['id']){?>
+                    if($reserva['tipo_habitacion']==$tipo['id']){?>
                       selected
                       <?php 
                     }?>
@@ -172,7 +172,7 @@
               foreach ($habitaciones as $habitacion) { ?>
                 <option value="<?=$habitacion['num_habitacion']?>"
                   <?php 
-                  if($habitacion['num_habitacion']==$reserva[0]['num_habitacion']){?>
+                  if($habitacion['num_habitacion']==$reserva['num_habitacion']){?>
                     selected
                     <?php 
                   }
@@ -190,8 +190,8 @@
         <div class="col-sm-4">
           <div id="tarifas">
             <?php 
-              $llega   = $reserva[0]['fecha_llegada'];
-              $sale    = $reserva[0]['fecha_salida'];
+              $llega   = $reserva['fecha_llegada'];
+              $sale    = $reserva['fecha_salida'];
               $tarifas = $hotel->getSeleccionaTarifa($tipo,$llega,$sale); 
             ?>
             <select name="tarifahab" id="tarifahab" required onblur="valorHabitacionUpd(this.value)" readonly disabled>
@@ -199,7 +199,7 @@
                 foreach ($tarifas as $tarifa) { ?>
                   <option value="<?=$tarifa['id']?>"
                     <?php 
-                      if($reserva[0]['tarifa']==$tarifa['id']){?>
+                      if($reserva['tarifa']==$tarifa['id']){?>
                         selected
                         <?php 
                       }
@@ -215,7 +215,7 @@
         <label for="valortar" class="col-sm-2 control-label">Valor Tarifa</label>
         <div class="col-sm-4">
           <div id="valortarifas">
-            <input type="text" class="form-control" name="valortarifa" id="valortarifa" required="" value="<?=number_format($reserva[0]['valor_diario'],2)?>" min=0 readonly disabled> 
+            <input type="text" class="form-control" name="valortarifa" id="valortarifa" required="" value="<?=number_format($reserva['valor_diario'],2)?>" min=0 readonly disabled> 
           </div>
         </div>
       </div>
@@ -228,7 +228,7 @@
               foreach ($ciudades as $ciudad) { ?>
                 <option value="<?=$ciudad['id_ciudad']?>"
                   <?php 
-                    if($reserva[0]['origen_reserva']==$ciudad['id_ciudad']){?>
+                    if($reserva['origen_reserva']==$ciudad['id_ciudad']){?>
                       selected
                       <?php 
                     }
@@ -248,7 +248,7 @@
               foreach ($ciudades as $ciudad) { ?>
                 <option value="<?=$ciudad['id_ciudad']?>"
                   <?php 
-                    if($reserva[0]['destino_reserva']==$ciudad['id_ciudad']){?>
+                    if($reserva['destino_reserva']==$ciudad['id_ciudad']){?>
                       selected
                       <?php 
                     }
@@ -271,7 +271,7 @@
             foreach ($motivos as $motivo) { ?>
               <option value="<?=$motivo['id_grupo']?>"
               <?php 
-                if($reserva[0]['motivo_viaje']==$motivo['id_grupo']){?>
+                if($reserva['motivo_viaje']==$motivo['id_grupo']){?>
                   selected
                   <?php 
                 }
@@ -291,7 +291,7 @@
               foreach ($motivos as $motivo) { ?>
                 <option value="<?=$motivo['id_grupo']?>"
                 <?php 
-                  if($reserva[0]['fuente_reserva']==$motivo['id_grupo']){?>
+                  if($reserva['fuente_reserva']==$motivo['id_grupo']){?>
                     selected
                     <?php 
                   }
@@ -313,7 +313,7 @@
               foreach ($motivos as $motivo) { ?>
                 <option value="<?=$motivo['id_grupo']?>"
                   <?php 
-                  if($reserva[0]['segmento_mercado']==$motivo['id_grupo']){?>
+                  if($reserva['segmento_mercado']==$motivo['id_grupo']){?>
                     selected
                     <?php 
                   }
@@ -333,7 +333,7 @@
               foreach ($codigos as $codigo) { ?>
                 <option value="<?=$codigo['id_cargo']?>"
                   <?php 
-                    if($reserva[0]['forma_pago']==$codigo['id_cargo']){?>
+                    if($reserva['forma_pago']==$codigo['id_cargo']){?>
                       selected
                       <?php 
                     }
@@ -348,17 +348,17 @@
       <div class="form-group">
         <label for="motivo" class="col-sm-2 control-label">Observaciones</label>
         <div class="col-sm-10">
-          <textarea style="height: 5em !important;min-height: 5em" name="observaciones" id="observaciones" class="form-control" rows="4" readonly="" disabled=""><?=$reserva[0]['observaciones']?></textarea>
+          <textarea style="height: 5em !important;min-height: 5em" name="observaciones" id="observaciones" class="form-control" rows="4" readonly="" disabled=""><?=$reserva['observaciones']?></textarea>
         </div>
       </div>
       <div class="form-group">
         <label for="tarifahab" class="col-sm-2 control-label">Creada Por</label>
         <div class="col-sm-4">
-          <input type="text" class="form-control" name="createdusr" id="createdusr" value="<?=$reserva[0]['usuario']?>" readonly="">
+          <input type="text" class="form-control" name="createdusr" id="createdusr" value="<?=$reserva['usuario']?>" readonly="">
         </div>
         <label for="formapago" class="col-sm-2 control-label">Fecha - Hora </label>
         <div class="col-sm-4">
-          <input type="text" class="form-control" name="createdusr" id="createdusr" value="<?=$reserva[0]['fecha_ingreso']?>" readonly="">
+          <input type="text" class="form-control" name="createdusr" id="createdusr" value="<?=$reserva['fecha_ingreso']?>" readonly="">
         </div>
       </div>
     </div>

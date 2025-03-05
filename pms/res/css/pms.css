@@ -316,6 +316,27 @@ span .alert {
   background-color: brown;
 }
 
+.badge {
+  padding:5px 10px;
+  border-radius: 5px;
+}
+
+.badge-danger {
+  background-color: red;
+}
+
+.badge-success {
+  background-color: green;
+}
+
+.badge-info {
+  background-color: #2598cc;
+}
+
+.badge-warning {
+  background-color: orange;
+}
+
 .anchoPanel {
   margin-left: 17%;
   width: 83%;

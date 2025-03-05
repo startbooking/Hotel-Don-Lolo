@@ -21,6 +21,7 @@ if (empty($huesped)) {
       <input type="hidden" name="idhuesped" id="idhuesped" value="<?php echo $huesped[0]['id_huesped']; ?>">
       <input type="hidden" name="identifica" id="identifica" value="<?php echo $huesped[0]['identificacion']; ?>">
       <input type="hidden" name="idcia" id="idcia" value="<?php echo $huesped[0]['id_compania']; ?>">
+      <input type="hidden" name="credito" id="credito" value="<?php echo $huesped[0]['credito']; ?>">
     </div>
     <label for="inputEmail3" class="col-sm-2 control-label" style="margin-top:5px;">Decreto 297 </label>
     <div class="col-sm-2 ondisplay" style="margin-top:5px;">
@@ -39,8 +40,6 @@ if (empty($huesped)) {
         </div>
       </div>
     </div>
-    <!-- <div class="form-group">
-    </div> -->
   </div>
 
   <div class="form-group">
@@ -57,7 +56,7 @@ if (empty($huesped)) {
             selected
             <?php
             }
-            ?>><?= $compañia['empresa'] ?></option>
+            ?>><?= substr($compañia['empresa'],0,60) ?></option>
         <?php
         } ?>
       </select>

@@ -67,7 +67,7 @@ require_once '../../../res/fpdf/fpdf.php';
   $pdf->Cell(10,5,'Pais',1,0,'L');
   $pdf->Cell(20,5,$hotel->getLandGuest($datosHuesped[0]['pais']),1,1,'L');
   
-  $pdf->Cell(15,59,'Empresa',1,0,'L');
+  $pdf->Cell(15,5,'Empresa',1,0,'L');
   if($regisCia==0){
     $pdf->Cell(80,5,'',1,0,'L');
   }else{    

@@ -8,19 +8,19 @@
     
   $infoHuesped =  $hotel->getBuscaIdHuesped($id);
   
-  if($infoHuesped[0]['nombre1']==""){
+  if($infohuesped['nombre1']==""){
     array_push($resp, ['mensaje' => 'Huesped Sin Primer Nombre Asignado']);
   }
-  if($infoHuesped[0]['apellido1']==""){
+  if($infohuesped['apellido1']==""){
     array_push($resp, ['mensaje' => 'Huesped Sin Primer Apellido Asignado']);
   }
-  if($infoHuesped[0]['celular']==""){
+  if($infohuesped['celular']==""){
     array_push($resp, ['mensaje' => 'Huesped Sin Numero Telefonico Asignado']);  
   }
-  if($infoHuesped[0]['identificacion']==""){
+  if($infohuesped['identificacion']==""){
     array_push($resp, ['mensaje' => 'Huesped Sin Identificacion Asignada ']);
   }
-  if($infoHuesped[0]['email']==""){
+  if($infohuesped['email']==""){
     array_push($resp, ['mensaje' => 'Huesped Sin Correo Electronico Asignado']);  
   }  
   

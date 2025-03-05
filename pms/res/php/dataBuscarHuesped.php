@@ -22,6 +22,7 @@ if (count($huespedes) == 0) { ?>
 					<td>Compañia</td>
 					<td>Correo</td>
 					<td>Tarifa</td>
+					<td>Credito</td>
 					<td>Accion</td>
 				</tr>
 			</thead>
@@ -34,6 +35,15 @@ if (count($huespedes) == 0) { ?>
 						<td style="padding: 3px 5px;"><?php echo $huesped['empresa']; ?></td>
 						<td style="padding: 3px 5px;"><?php echo $huesped['email']; ?></td>
 						<td style="padding: 3px 5px;"><?php echo $huesped['descripcion_tarifa']; ?></td>
+						<td style="padding: 3px 5px;text-align:center;"><?php 
+						if($huesped['credito']==1){ ?>
+						<span class="badge badge-success">SI</span>
+						<?php
+							}else{ ?>
+							<span	span class="badge badge-danger">NO</span>
+						<?php
+						}?>
+						</td>
 						<td style="padding: 3px 5px;text-align:center;">
 							<button onclick="seleccionaHuespedReserva(<?php echo $huesped['id_huesped']; ?>,<?php echo $huesped['id_tarifa']; ?>)" type="button" class="btn btn-info btn-xs"><i class="fa fa-check-square" aria-hidden="true"></i>
 							</button>

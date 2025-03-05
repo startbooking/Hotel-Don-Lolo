@@ -4,11 +4,6 @@ require '../../../res/php/app_topHotel.php';
 
 $nroreserva = $_POST['reserva'];
 $reserva    = $hotel->getBuscaHistoricoReserva($nroreserva);
-/* $huesped    = $hotel->getBuscaIdHuesped($reserva[0]['id_huesped']);
-
-  $cia        = $hotel->getBuscaCia($huesped[0]['id_compania']);
-  $tipohab    = $reserva[0]['tipo_habitacion'];
-  $tipodocs   = $hotel->getTipoDocumento();  */
 $llega = $reserva[0]['fecha_llegada']; 
 $sale = $reserva[0]['fecha_salida'];
 $huesped = $hotel->getBuscaIdHuesped($reserva[0]['id_huesped']);
@@ -29,7 +24,7 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
       <div class="col-sm-3">
         <input type="hidden" name="numeroReserva" id="numeroReserva" value="<?php echo $nroreserva; ?>">
         <input type="hidden" name="tipoocupacion" id="tipoocupacion" value="<?php echo $reserva[0]['tipo_ocupacion']; ?>">
-        <input type="text" class="form-control" name="identifica" id="identifica" value="<?php echo $huesped[0]['identificacion']; ?>" readonly="">
+        <input type="text" class="form-control" name="identifica" id="identifica" value="<?php echo $huesped['identificacion']; ?>" readonly="">
       </div>
       <label for="inputEmail3" class="col-sm-2 control-label">Tipo</label>
       <div class="col-sm-3">
@@ -37,7 +32,7 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
           <option value="">Seleccione el Tipo de Documeto</option>
           <?php
           foreach ($tipodocs as $tipodoc) { ?>
-            <option value="<?php echo $tipodoc['id_doc']; ?>" <?php if ($tipodoc['id_doc'] == $huesped[0]['tipo_identifica']) { ?> selected <?php }?>>
+            <option value="<?php echo $tipodoc['id_doc']; ?>" <?php if ($tipodoc['id_doc'] == $huesped['tipo_identifica']) { ?> selected <?php }?>>
               <?php echo $tipodoc['descripcion_documento']; ?></option>
           <?php } ?>
         </select>
@@ -47,7 +42,7 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
       <label for="inputEmail3" class="col-sm-2 control-label">Huesped </label>
       <div class="col-sm-6">
         <input type="hidden" name="idhuesped" id="idhuesped" value="<?php echo $reserva[0]['id_huesped']; ?>">
-        <input type="text" class="form-control" name="huesped" id="huesped" value="<?php echo $huesped[0]['nombre_completo']; ?>" readonly="">
+        <input type="text" class="form-control" name="huesped" id="huesped" value="<?php echo $huesped['nombre_completo']; ?>" readonly="">
       </div>
       <div class="form-group">
         <label for="inputEmail3" class="col-sm-2 control-label">Decreto 297</label>

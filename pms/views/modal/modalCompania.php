@@ -107,10 +107,8 @@
             <div class="col-sm-4">
               <select name="tarifa" id="tarifa" required="">
                 <option value="">Seleccione La Tarifa</option>
-
                 <?php
-                $tarifas = $hotel->getTarifasHuespedes(); ?>
-                <?php foreach ($tarifas as $tarifa) { ?>
+                $tarifas = $hotel->getTarifasHuespedes(); foreach ($tarifas as $tarifa) { ?>
                   <option value="<?php echo $tarifa['id_tarifa']; ?>"><?php echo $tarifa['descripcion_tarifa']; ?></option>
                 <?php } ?>
               </select>
@@ -184,7 +182,7 @@
                 </div>
                 <div class="col-sm-6">
                   <div class="form-check form-check-inline">
-                    <input style="margin-top:5px" class="form-check-input" type="radio" name="creditOption" id="inlineRadio2" value="2" checked onclick="cambiaEstadoCredito(this.value)">
+                    <input style="margin-top:5px" class="form-check-input" type="radio" name="creditOption" id="inlineRadio2" value="0" checked onclick="cambiaEstadoCredito(this.value)">
                     <label style="margin-top:-18px;margin-left:25px" class="form-check-label" for="inlineRadio2">No</label>
                   </div>
                 </div>

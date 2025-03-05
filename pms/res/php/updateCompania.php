@@ -2,8 +2,6 @@
 
 require '../../../res/php/app_topHotel.php';
 
-// echo print_r($_POST);
-
 extract($_POST);
 
 $reteIva = 0;

@@ -6332,7 +6332,9 @@ function seleccionaHuespedReserva(id, tarifa) {
     type: "POST",
     data: parametros,
     success: function (data) {
+      // console.log(data);
       $("#datosHuespedAdi").html(data);
+      $("#tarifahab").val(tarifa);
     },
   });
 
@@ -6652,6 +6654,9 @@ function valorHabitacionAct(tarifa) {
   var hom = $("#hombresAct").val();
   var muj = $("#mujeresAct").val();
   var nin = $("#ninosAct").val();
+  let desde = $("#llegadaAct").val()
+  let hasta = $("#salidaAct").val()
+
   var habi = $("#tipoocupacionAct").val();
   if (hom + muj == 0) {
     $("#mensaje").html(
@@ -6778,7 +6783,10 @@ function valorHabitacionUpd(tarifa) {
   var hom = $("#hombresUpd").val();
   var muj = $("#mujeresUpd").val();
   var nin = $("#ninosUpd").val();
-  var valtar = $("#valortarifaUpd").val();
+  let desde = $("#llegadaUpd").val()
+  let hasta = $("#salidaUpd").val()
+
+  let valtar = $("#valortarifaUpd").val();
   if (hom + muj == 0) {
     $("#mensaje").html(
       '<div class="alert alert-warning"><h3 class="tituloPagina">Sin Adultos Asignados a la Reserva</h3></div>'
@@ -6792,12 +6800,23 @@ function valorHabitacionUpd(tarifa) {
       hom,
       muj,
       nin,
+      desde,
+      hasta,
     };
     $.ajax({
       url: "res/php/valorTarifa.php",
       type: "POST",
       data: parametros,
       success: function (data) {
+        if($.trim(data) === '-1'){
+          swal({
+            title: "Error!",
+            text: "Sin Tarifa Asignada a Este Tipo de Habitacion \n Verifique las Fechas de la Reserva",
+            type: "error",
+            confirmButtonText: "Aceptar",
+          });
+          return 
+        }
         $("#valortarifaUpd").val(data);
       },
     });
@@ -6839,7 +6858,7 @@ async function actualizaHuesped() {
   dataHuesp.append("usuario_id", usuario_id);
   dataHuesp.append("edad", parseInt(edad));
 
-  $.ajax({
+  $.ajax({ 
     type: "POST",
     data: dataHuesp,
     cache: false,
@@ -8326,61 +8345,55 @@ function seleccionaTarifas() {
 }
 
 function valorHabitacion(tarifa) {
-  var tipo = $("#tipohabi").val();
-  var hom = $("#hombres").val();
-  var muj = $("#mujeres").val();
-  var nin = $("#ninos").val();
+  let tipo = $("#tipohabi").val();
+  let hom = $("#hombres").val();
+  let muj = $("#mujeres").val();
+  let nin = $("#ninos").val();
+  let desde = $("#llegada").val()
+  let hasta = $("#salida").val()
 
   if (tipo == "") {
     swal("Precaucion", "Tipo de Habitacion no Asignado", "warning");
     return;
   }
 
-  if (tipo == "CMA") {
-    var parametros = {
-      tarifa,
-      tipo,
-      hom,
-      muj,
-      nin,
-    };
-    $.ajax({
-      url: "res/php/valorTarifa.php",
-      type: "POST",
-      data: parametros,
-      success: function (data) {
-        $("#valortar").val(data);
-        $("#valortar").focus();
-      },
+  if((hom + muj == 0) && tipo > 1){
+    swal({
+      title: "Error!",
+      text: "Sin Adultos en esta Reserva",
+      type: "error",
+      confirmButtonText: "Aceptar",
     });
-  } else {
-    if (hom + muj == 0) {
-      swal({
-        title: "Error!",
-        text: "Sin Adultos en esta Reserva",
-        type: "error",
-        confirmButtonText: "Aceptar",
-      });
-      $("#hombres").focus();
-    } else {
-      var parametros = {
-        tarifa,
-        tipo,
-        hom,
-        muj,
-        nin,
-      };
-      $.ajax({
-        url: "res/php/valorTarifa.php",
-        type: "POST",
-        data: parametros,
-        success: function (data) {
-          $("#valortar").val(data);
-          $("#valortar").focus();
-        },
-      });
-    }
+    $("#hombres").focus();
+    return 
   }
+  var parametros = {
+    tarifa,
+    tipo,
+    hom,
+    muj,
+    nin,
+    desde,
+    hasta,  
+  };
+  $.ajax({
+    url: "res/php/valorTarifa.php",
+    type: "POST",
+    data: parametros,
+    success: function (data) {
+      if($.trim(data) === '-1'){
+        swal({
+          title: "Error!",
+          text: "Sin Tarifa Asignada a Este Tipo de Habitacion \n Verifique las Fechas de la Reserva",
+          type: "error",
+          confirmButtonText: "Aceptar",
+        });
+        return 
+      }
+      $("#valortar").val(data);
+      $("#valortar").focus();
+    },
+  });
 }
 
 function guardaReserva() {
