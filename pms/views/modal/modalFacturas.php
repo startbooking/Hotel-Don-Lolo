@@ -184,7 +184,7 @@
     </div>
   </div>
 </div>
-
+ 
 <div class="modal fade" id="myModalVerFactura" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <form id="datosVerFactura" class="form-horizontal" action="javascript:anulaFactura()" method="POST" enctype="multipart/form-data">
     <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">

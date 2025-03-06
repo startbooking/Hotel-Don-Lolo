@@ -1,0 +1,24 @@
+[06-Mar-2025 08:13:17 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/imprimeRecaudo.php on line 49
+[06-Mar-2025 08:13:17 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/imprimeRecaudo.php on line 49
+[06-Mar-2025 08:13:17 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/imprimeRecaudo.php on line 53
+[06-Mar-2025 08:13:17 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/imprimeRecaudo.php on line 53
+[06-Mar-2025 08:13:17 America/Bogota] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /var/www/donlolo.lan/pms/imprimir/imprimeRecaudo.php on line 53
+[06-Mar-2025 08:13:17 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/imprimeRecaudo.php on line 53
+[06-Mar-2025 08:13:17 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/imprimeRecaudo.php on line 53
+[06-Mar-2025 08:13:17 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/imprimeRecaudo.php on line 57
+[06-Mar-2025 08:13:17 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/imprimeRecaudo.php on line 57
+[06-Mar-2025 08:13:17 America/Bogota] PHP Deprecated:  substr(): Passing null to parameter #1 ($string) of type string is deprecated in /var/www/donlolo.lan/pms/imprimir/imprimeRecaudo.php on line 57
+[06-Mar-2025 08:13:17 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/imprimeRecaudo.php on line 61
+[06-Mar-2025 08:13:17 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/imprimeRecaudo.php on line 61
+[06-Mar-2025 08:13:17 America/Bogota] PHP Deprecated:  substr(): Passing null to parameter #1 ($string) of type string is deprecated in /var/www/donlolo.lan/pms/imprimir/imprimeRecaudo.php on line 61
+[06-Mar-2025 08:13:17 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/imprimeRecaudo.php on line 65
+[06-Mar-2025 08:13:17 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/imprimeRecaudo.php on line 65
+[06-Mar-2025 08:13:17 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/imprimeRecaudo.php on line 69
+[06-Mar-2025 08:13:17 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/imprimeRecaudo.php on line 69
+[06-Mar-2025 08:13:17 America/Bogota] PHP Deprecated:  substr(): Passing null to parameter #1 ($string) of type string is deprecated in /var/www/donlolo.lan/pms/imprimir/imprimeRecaudo.php on line 69
+[06-Mar-2025 08:13:17 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/imprimir/imprimeRecaudo.php on line 73
+[06-Mar-2025 08:13:17 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/imprimeRecaudo.php on line 73
+[06-Mar-2025 08:13:17 America/Bogota] PHP Warning:  Undefined variable $folio1 in /var/www/donlolo.lan/pms/imprimir/imprimeRecaudo.php on line 132
+[06-Mar-2025 08:13:17 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/imprimeRecaudo.php on line 132
+[06-Mar-2025 08:13:17 America/Bogota] PHP Warning:  Undefined variable $folio1 in /var/www/donlolo.lan/pms/imprimir/imprimeRecaudo.php on line 132
+[06-Mar-2025 08:13:17 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/imprimir/imprimeRecaudo.php on line 132

@@ -154,8 +154,9 @@ if ($perfil == 1 && $facturador == 1) {
 
     $eNote = json_encode($eNote);
 
-    // include_once '../../api/pruebaNC.json';
-    include_once '../../api/enviaNC.php';
+    // include_once '../../api/enviaNC.php'; // Activar en Produccion - Envia JSON a la DIAN
+
+    include_once '../../api/pruebaNC.php'; // Activar cuando esta en Modo Desarrollo - JSON con datos de NC
 
     $recibeCurl = json_decode($respoNC, true);
 
@@ -203,7 +204,7 @@ if ($perfil == 1 && $facturador == 1) {
 
     $ePDF = json_encode($ePDF);
 
-    include_once '../../api/enviaPDF.php';
+    // include_once '../../api/enviaPDF.php'; // Activar en Produccion 
     $recibePDF = json_decode($respopdf, true);
 } else {
     include_once '../../imprimir/imprimeNC.php';
@@ -211,7 +212,7 @@ if ($perfil == 1 && $facturador == 1) {
 
 $regis = $hotel->actualizaNumeroCredito($numDoc + 1);
 $envia = $hotel->enviaCargosNC($numero);
-$cargos = $hotel->actualizaCargosFacturas($numero, $perfil);
+// $cargos = $hotel->actualizaCargosFacturas($numero, $perfil);
 $anula = $hotel->anulaFactura($numero, $motivo, $usuario, $idusuario, $perfil, $numDoc);
 $regis = $hotel->ingresaNCFactura($numero, $motivo, $idusuario, $numDoc, FECHA_PMS);
 $entra = $hotel->updateEstadoReserva($reserva);

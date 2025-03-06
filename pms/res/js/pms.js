@@ -4547,11 +4547,12 @@ function anulaFacturaHistorico() {
         '<h4 class="bg-red" style="padding:10px;display:flex"><img style="margin-bottom:0" class="thumbnail" src="../img/loader.gif" alt="" /><span style="font-size:24px;font-weight: 700;font-family: ubuntu;margin:15px">Procesando Informacion, No Interrumpa </span></h4>'
       );
     },
-    success: function (data) {
-      let { error, mensaje, archivo} = data[0];
+    success: function (resp) {
+      console.log(resp)
+      let { error, mensaje, archivo} = resp[0];
       let mensajeErr = '';
-      infoError = JSON.parse(mensaje)
       if(error == "1"){
+        infoError = JSON.parse(mensaje)
         let {string} = infoError 
         for (let i = 0; i < string.length; i++) {
           mensajeErr += `<li class="justify">${string[i]}</li>`;

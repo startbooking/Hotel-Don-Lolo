@@ -54,12 +54,13 @@ if ($regis == 0) { ?>
           <tr style='font-size:12px'>
             <td style="padding:3px 5px"><?php echo $factura['factura_numero']; ?></td>
             <td style="padding:3px 5px"><?php
-                                        if ($factura['tipo_factura'] == 1) {
-                                          echo substr($factura['nombre_completo'], 0, 35);
-                                        } else {
-                                          echo substr($nombrecia, 0, 35);
-                                        }
-                                        ?></td>
+              if ($factura['tipo_factura'] == 1) {
+                echo substr($factura['nombre_completo'], 0, 35);
+              } else {
+                echo substr($nombrecia, 0, 35);
+              }
+              ?>
+              </td>
             <td style="padding:3px 5px"><?php echo substr($factura['nombre_completo'], 0, 35); ?></td>
             <td style="padding:3px 5px"><?php echo $factura['fecha_llegada']; ?></td>
             <td style="padding:3px 5px"><?php echo $factura['fecha_factura']; ?></td>
@@ -84,13 +85,10 @@ if ($regis == 0) { ?>
                     <i class="fa fa-window-close" aria-hidden="true"></i>
                   </a>
                 <?php
-                }
-                ?>
               } else { ?>
-                <button class="btn btn-success btn-xs" type="button" data-toggle="modal<button 
+                <button class="btn btn-success btn-xs" type="button" data-toggle="modal" 
                     class=" btn btn-success btn-xs" type="button" data-toggle="modal" data-tipo="1" data-facturador="<?php echo $facturador; ?>" data-apellidos="<?php echo $factura['apellido1'] . ' ' . $factura['apellido2']; ?>" data-nombres="<?php echo $factura['nombre1'] . ' ' . $factura['nombre2']; ?>" data-fechafac="<?php echo $factura['fecha_factura']; ?>" data-numero="<?php echo $factura['numero_factura_cargo']; ?>" data-reserva="<?php echo $factura['num_reserva']; ?>" href="#myModalVerFactura" title="Ver Nota Credito">
-                  <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                </button>"
+                  <i class="fa fa-file-pdf-o" aria-hidden="true"></i>"
               <?php
               }
               ?>
@@ -100,11 +98,10 @@ if ($regis == 0) { ?>
               <button class="btn btn-default btn-xs" onclick="event.preventDefault();ValidaFactura('<?= FECHA_PMS ?>',`FES-<?php echo $factura['prefijo_factura'] . $factura['factura_numero']; ?>`,'<?php echo $correoFac; ?>');" type="button" title="Ver Constancia Envio Factura ">
                 <i class="fa-solid fa-envelope-circle-check"></i>
               </button>
-              <button class="btn btn-success btn-xs" onclick="event.preventDefault();ValidaDIAN('<?= $factura['cufe']; ?>');" type="button" title="Valida Estado DIAN  ">
+              <button class="btn btn-success btn-xs" onclick="event.preventDefault();ValidaDIAN('<?=  $factura['cufe']; ?>');" type="button" title="Valida Estado DIAN  ">
                 <i class="fa-solid fa-square-check"></i>
                 <!-- <i class="fa-solid fa-envelope-circle-check"></i> -->
               </button>
-
             </td>
           </tr>
         <?php

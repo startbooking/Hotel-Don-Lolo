@@ -29,11 +29,14 @@
 							</tr>
 						</thead>
 						<tbody>
-							<?php foreach ($clientes as $cliente) { ?>
+							<?php 
+							$total = 0;
+							foreach ($clientes as $cliente) { 
+								?>
 								<tr style='font-size:12px'>
 									<td><?php echo $cliente['nit']; ?>-<?php echo $cliente['dv']; ?></td>
-									<td style="width:30%"><?php echo $cliente['empresa']; ?></td>
-									<td><?php echo $cliente['direccion']; ?></td>
+									<td style="width:40%"><?php echo $cliente['empresa']; ?></td>
+									<td><?php echo substr($cliente['direccion'],0,40); ?></td>
 									<td class="t-right"><?php echo number_format($cliente['total'], 2); ?></td>
 									<td class="centro">
 										<button 
@@ -49,7 +52,8 @@
 										</button>
 									</td>
 								</tr>
-							<?php
+								<?php
+								$total = $total + $cliente['total'];
 							} ?>
 						</tbody>
 					</table>
@@ -74,6 +78,16 @@
 								</tr>
 							<?php
 							} ?>
+						</tbody>
+					</table>
+				</div>
+				<div class="container-fluid">
+					<table class="table table-bordered">
+						<tbody>
+							<tr class="warning pietot">
+								<td >Total Cartera Clientes</td>
+								<td style="text-align:right">$ <?php echo number_format($total, 2); ?></td>
+							</tr>
 						</tbody>
 					</table>
 				</div>

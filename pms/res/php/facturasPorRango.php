@@ -97,10 +97,6 @@ if ($huesped != '') {
   $filtro = $filtro . " AND (nombre_completo LIKE '%$huesped%' or identificacion LIKE '%$huesped%')";
 }
 
-/* if ($empresa != '') {
-  $filtro = $filtro . " AND empresa LIKE '%$empresa%'";
-} */
-
 if ($formaPa != '') {
   $filtro = $filtro . " AND id_codigo_cargo = '$formaPa'";
 }
@@ -266,16 +262,11 @@ $facturas = $hotel->getFacturasPorRango($query);
         ?>
       </tbody>
     </table>
-    <!-- <div class="col-lg-6" style="padding:0">
-    </div>
-    <div class="col-lg-6" id="muestraFactura" style="padding :0">
-      <object id="verFactura" width="100%" height="500" data=""></object>
-    </div> -->
   </div>
-  <div class="row-fluid" style="padding:0">
+  <div class="container-fluid">
     <table id="dataTable" class="table table-bordered">
-      <thead>
-        <tr class="derecha">
+      <tbody>
+        <tr class="warning derecha pietot">
           <td>Total Consumos</td>
           <td><?php echo number_format($totalCon, 2) ?></td>
           <td>Total Impuestos</td>
@@ -285,7 +276,7 @@ $facturas = $hotel->getFacturasPorRango($query);
           <td></td>
           <td></td>
         </tr>
-      </thead>
+      </tbody>
     </table>
   </div>
 

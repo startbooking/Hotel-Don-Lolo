@@ -1,6 +1,6 @@
 <?php
-$eToken = $hotel->datosTokenCia();
-$facturador = $eToken[0]['facturador'];
+  $eToken = $hotel->datosTokenCia();
+  $facturador = $eToken[0]['facturador'];
 ?>
 
 <div class="content-wrapper">
@@ -110,7 +110,7 @@ $facturador = $eToken[0]['facturador'];
                                 </a>
                               <?php
                               } else { ?>
-                                <button class="btn btn-success btn-xs" type="button" data-toggle="modal<button 
+                                <button class="btn btn-success btn-xs" type="button" data-toggle="modal"
                                   class=" btn btn-success btn-xs" type="button" data-toggle="modal" data-tipo="1" data-facturador="<?php echo $facturador; ?>" data-apellidos="<?php echo $factura['apellido1'] . ' ' . $factura['apellido2']; ?>" data-nombres="<?php echo $factura['nombre1'] . ' ' . $factura['nombre2']; ?>" data-fechafac="<?php echo $factura['fecha_factura']; ?>" data-numero="<?php echo $factura['numero_factura_cargo']; ?>" data-reserva="<?php echo $factura['num_reserva']; ?>" href="#myModalVerFactura" title="Ver Nota Credito">
                                   <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                                 </button>

@@ -154,10 +154,10 @@ if ($perfil == 1 && $facturador == 1) {
 
     $eNote = json_encode($eNote);
     
-    // include_once '../../api/enviaNC.php';
+    // include_once '../../api/enviaNC.php'; // Activar en Produccion 
 
-
-    include_once '../../api/recibeNC.php';
+    // include_once '../../api/recibeNC.php'; // Activar en Desarrollo -> Para Manejo de Errores DIAn
+    include_once '../../api/pruebaNC.php'; // Activar en Desarrollo -> Recibe OK JSON
 
     $recibeCurl = json_decode($respoNC, true);
 
@@ -221,21 +221,20 @@ if ($perfil == 1 && $facturador == 1) {
 
     $ePDF = json_encode($ePDF);
 
-    include_once '../../api/enviaPDF.php';
-
-    $recibePDF = json_decode($respopdf, true);
+    // include_once '../../api/enviaPDF.php'; // Activar en Produccion
+    // $recibePDF = json_decode($respopdf, true);
 
     $error = [
         'error' => '0',
         'folio' => '1',
         'mensaje' => '',
-        'archivo' => $file,
-        'factura' => $numfactura,
+        'archivo' => $arcPdf,
+        'factura' => $numDoc,
         'errorDian' => '0',
         'perfil' => $perfil,
     ];
     array_push($estadofactura, $error);
-
+    echo json_encode($estadofactura);
 
 } else {
     include_once '../../imprimir/imprimeNCHis.php';
@@ -246,6 +245,3 @@ $envia = $hotel->enviaCargosHistoricoNC($numero);
 // $cargos = $hotel->actualizaCargosFacturasHis($numero, $perfil);
 $anula = $hotel->anulaFacturaHis($numero, $motivo, $usuario, $idusuario, $perfil, $numDoc);
 $regis = $hotel->ingresaNCFactura($numero, $motivo, $idusuario, $numDoc, FECHA_PMS);
-
-
-// echo $anula;
