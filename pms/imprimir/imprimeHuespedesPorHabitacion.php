@@ -1,4 +1,5 @@
 <?php
+// header('Content-Type: text/html; charset=utf-8');
 
 $file = $_POST['file'];
 $usuario = $_POST['usuario'];

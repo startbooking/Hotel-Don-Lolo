@@ -16,7 +16,6 @@
             <div class="col-sm-1">
               <input type="text" class="form-control" name="dv" id="dv" placeholder="Dv" required="" onfocus="calcularDigitoVerificacion()" readonly="">
             </div>
-
             <label for="tipodoc" class="col-sm-2 control-label">Tipo Documento</label>
             <div class="col-sm-4">
               <select name="tipodoc" required>
@@ -170,10 +169,10 @@
               </select>
             </div>
           </div>
-          <div class="divs divCredito">
+          <div class="divs">
             <div class="form-group">
               <label for="creditOption" class="col-sm-2 control-label">Credito </label>
-              <div class="col-sm-2">
+              <div class="col-sm-2" id="divCredito">
                 <div class="col-sm-6">
                   <div class="form-check form-check-inline">
                     <input style="margin-top:5px" class="form-check-input" type="radio" name="creditOption" id="inlineRadio1" value="1" onclick="cambiaEstadoCredito(this.value)">

@@ -65,15 +65,14 @@
                                 </td>
                               </tr>
                             <?php
-                            };
+                            } 
                             ?>
                           </tbody>
                         </table>
                       </div>
                     </div>
                   <?php
-                  };
-                  ?>
+                  }?>
                 </div>
               </div>
             </form>

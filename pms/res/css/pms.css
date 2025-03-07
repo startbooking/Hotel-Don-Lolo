@@ -723,8 +723,6 @@ a.info:hover span {
 .escoba {
   font-size: 5rem;
   position: absolute;
-  /* text-align: center;
-  margin: auto; */
   margin-left:15px;
   color: #FFFFFF75;
 }
@@ -780,7 +778,7 @@ a.info:hover span {
 }
 
 .bg-ocupada {
-  background-color: hsl(54, 95%, 57%);
+  background-color: hsl(54, 57%, 38%);
 }
 
 .bg-sucia {
@@ -917,7 +915,7 @@ input[type="month"].form-control {
     text-align: right;
   }
     .derecha {
-      text-align: center;
+      /* text-align: center; */
     }
   
     .alert-confirm {

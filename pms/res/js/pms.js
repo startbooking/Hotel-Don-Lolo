@@ -1,8 +1,7 @@
 document.addEventListener("DOMContentLoaded", async () => {
   let sesion = JSON.parse(localStorage.getItem("sesion"));
   if (sesion == null) {
-    swal(
-      {
+    swal({
         title: "Precaucion",
         text: "Usuario NO identificado en el Sistema",
         confirmButtonText: "Aceptar",
@@ -202,6 +201,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   $("#myModalAdicionaCompania").on("show.bs.modal", function (event) {
     document.querySelector("#formCompania").reset();
+    if(tipo > 2 ){
+      document.querySelector('#inlineRadio1').readonly = true
+      document.querySelector('#inlineRadio2').readonly = true
+      document.querySelector('#inlineRadio1').disabled = true
+      document.querySelector('#inlineRadio2').disabled = true
+    }
   });
 
   $("#myModalVerObservaciones").on("show.bs.modal", function (event) {
@@ -1828,13 +1833,16 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   $("#myModalModificaPerfilCia").on("show.bs.modal", function (event) {
-    var button = $(event.relatedTarget);
-    var id = button.data("id");
-    var empresa = button.data("empresa");
-    var parametros = {
+    let sesion = JSON.parse(localStorage.getItem("sesion"));
+    let { user: { tipo },  } = sesion;
+  
+    let button = $(event.relatedTarget);
+    let id = button.data("id");
+    let empresa = button.data("empresa");
+    let parametros = {
       id,
     };
-    var modal = $(this);
+    let modal = $(this);
 
     modal
       .find(".modal-title")
@@ -1847,6 +1855,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       url: "res/php/dataUpdateCia.php",
       success: function (datos) {
         $("#datosCia").html(datos);
+        if(tipo > 2 ){
+          document.querySelector('#formUpdateCompania #inlineRadio1').readonly = true
+          document.querySelector('#formUpdateCompania #inlineRadio2').readonly = true
+          document.querySelector('#formUpdateCompania #inlineRadio1').disabled = true
+          document.querySelector('#formUpdateCompania #inlineRadio2').disabled = true
+        }
       },
     });
     $(".alert").hide();
@@ -2242,7 +2256,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     $(".alert").hide();
   });
 
-
   $("#dataEstadoCartera").on("show.bs.modal", function (event) {
     var button = $(event.relatedTarget);
     var id = button.data("id");
@@ -2259,8 +2272,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       },
       success: function (data) {
         $("#datosClienteCartera").html("");
-        {
-        }
         $("#datosClienteCartera").html(data);
         $(".rowAsigna").hide();
         $(".form-group").css("display", "none");
@@ -2272,16 +2283,36 @@ document.addEventListener("DOMContentLoaded", async () => {
 async function guardaCartera() {
   let sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user: { usuario_id },  } = sesion;
+  let totalpago = document.querySelector('#totalpago').value;
 
-  let cartera = document.querySelector("#guardarBaseCaja");
-  let formData = new FormData(cartera);
+  if(totalpago==0){
+    swal({
+      title: "Atencion",
+      text:"Sin Facturas Seleccionadas, \n No es posible Generar el Ingreso de Cartera",
+      type:"warning",
+    })
+    return
+  }
+
   facturas = await obtenerItemsSeleccionados()
-  formData.append("facturas", JSON.stringify(facturas));
-  formData.append("idusr", usuario_id);
-  let recaudo = await ingresaCartera(formData)
-  let imprime = await imprimeRecaudo(recaudo)
 
-  console.log(imprime)
+  let fecha = document.querySelector('#fecha').value;
+  let cliente = document.querySelector('#cliente').value;
+  let formapago = document.querySelector('#formapago').value;
+  let concepto = document.querySelector('#concepto').value;
+
+  req = {
+    fecha,
+    cliente,
+    formapago,
+    concepto,
+    totalpago,
+    usuario_id, 
+    'facturas': JSON.stringify(facturas),
+  }
+
+  let recaudo = await ingresaCartera(req)
+  let imprime = await imprimeRecaudo(recaudo)
 
   var ventana = window.open(
     'imprimir/'+imprime.trim(),
@@ -2289,13 +2320,11 @@ async function guardaCartera() {
     "height=600,width=600"
   );
   $(location).attr("href", "recaudosCartera");
-
 }
-
 
 async function mostrarRecaudo(numero){
   var ventana = window.open(
-    `imprimir/recaudos/recaudoCartera_NB-${numero.trim()}.pdf`,
+    `imprimir/recaudos/recaudoCartera_REC-${numero.trim()}.pdf`,
     "PRINT",
     "height=600,width=600"
   );
@@ -2320,20 +2349,17 @@ async function imprimeRecaudo(numero){
   }
 }
 
-
-
 async function ingresaCartera(data){
   try {
     const res = await fetch(`res/php/guardaCartera.php`, {
       method: "POST",
-      body: data,
+      body: JSON.stringify(data),
     });
     const datos = await res.json(res);
     return datos;
   } catch (error) {
     return error
   }
-
 }
 
 async function obtenerItemsSeleccionados() {
@@ -6292,6 +6318,11 @@ function accesoUsuarios() {
 
   if (tipo > 2) {
     document.querySelector("#menuAuditoria").classList.add("apaga");
+    document.querySelector("#recaudoCartera").classList.add("apaga");
+    document.querySelector("#exportaDocs").classList.add("apaga");
+  }
+
+  if (tipo > 3) {
     document.querySelector("#menuCartera").classList.add("apaga");
   }
 

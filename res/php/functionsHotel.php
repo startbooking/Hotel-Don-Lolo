@@ -3,8 +3,7 @@
 require_once 'init.php';
 date_default_timezone_set('America/Bogota');
 
-class Hotel_Actions
-{
+class Hotel_Actions{
 
     public function traeValorTarifa($tarifa, $tipo, $desde, $hasta){
         global $database;
@@ -31,10 +30,7 @@ class Hotel_Actions
         ]);
         return $data[0];
     }
-    
 
-
-    
     public function actualizaTarifaHuesped($id, $tarifa){
         global $database;
 
@@ -143,7 +139,6 @@ class Hotel_Actions
             'reteIva' => $valoriva,
             'comision' => $valorcom,
             'valorPago' => $valorcta - ($valorret+$valorica+$valoriva+$valorcom),
-            'fechaIngreso' => date('Y-m-d H:m:s')
         ]);
         return $database->id();
     }
@@ -159,7 +154,8 @@ class Hotel_Actions
             'formaPago' => $formapago,
             'fechaRecaudo' => $fecha,
             'idCliente' => $cliente,
-            'totalRecaudo' => $totalpago
+            'totalRecaudo' => $totalpago,
+            'fechaIngreso' => date('Y-m-d H:i:s')
         ]);
         return $database->id();
     }
@@ -172,7 +168,6 @@ class Hotel_Actions
         ]);
         return $data;
     }
-
 
     public function traeConsecutivoRecaudo(){
         global $database;
@@ -203,7 +198,6 @@ class Hotel_Actions
     return round($data[0]['totalRetencion'],0);
   }
 
-    
     public function calculaReteICAFactura($numero){
       global $database;
 
@@ -1800,7 +1794,7 @@ class Hotel_Actions
         $data = $database->insert('datosTRA', [
             'reserva' => $reserva,
             'id_usuario' => $usuario,
-            'fecha' => date('Y-m-d H:m:i'),
+            'fecha' => date('Y-m-d H:i:s'),
         ]);
         return $database->id();
     }
@@ -2100,7 +2094,7 @@ class Hotel_Actions
             'usuarioNC' => $idusuario,
             'facturaAnulada' => $numero,
             'fechaNC' => $fecha,
-            'createdAt' => date('Y-m-d H:m:i'),
+            'createdAt' => date('Y-m-d H:i:s'),
         ]);
         return $database->id();
     }

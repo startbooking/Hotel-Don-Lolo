@@ -22,12 +22,10 @@ if ($_GET['section'] != 'cajeroCerrado') {
               Huespedes</a></li>
             <li><a href="companias">
             <i class="fa-solid fa-city"></i>Compañias</a></li>
-            <!-- <li><a href="agencias"><i class="fa fa-plane "></i> Agencias</a></li> -->
           </ul>
         </li>
         <li class="treeview">
           <a href="#">
-            <!-- <i class="fa fa-calendar-plus-o"></i> -->
             <i class="fa-regular fa-calendar"></i>
             <span>Reservas</span>
             <span class="fa fa-angle-left pull-right"></span>
@@ -40,13 +38,11 @@ if ($_GET['section'] != 'cajeroCerrado') {
             <i class="fa-solid fa-chart-bar"></i>
             Forecast</a></li>
             <?php
-            if (DEV == 1) { ?>
-            <li><a href="Oldforecast">
-            <i class="fa-solid fa-chart-bar"></i>
-              Forecast Proj</a></li>
-              <li><a href="grupos"><i class="fa-solid fa-users-between-lines"></i> Grupos</a></li>
-            <?php
-            }
+              if (DEV == 1) { ?>
+                <li><a href="Oldforecast"><i class="fa-solid fa-chart-bar"></i>Forecast Proj</a></li>
+                <li><a href="grupos"><i class="fa-solid fa-users-between-lines"></i> Grupos</a></li>
+              <?php
+              }
             ?>
           </ul>
         </li>
@@ -83,7 +79,7 @@ if ($_GET['section'] != 'cajeroCerrado') {
             <li><a href="facturasDelDia"><i class="fa fa-archive"></i>Facturas Del Dia</a></li>
             <li><a href="recibosCajaDelDia"><i class="fa fa-archive"></i>Recibos de Caja Del Dia</a></li>
             <li><a href="notasCredito"><i class="fa fa-archive"></i>Notas Credito</a></li>
-            <li><a href="exportaDocs"><i class="fa fa-archive"></i>Exportar Documentos</a></li>
+            <li id="exportaDocs"><a href="exportaDocs"><i class="fa fa-archive"></i>Exportar Documentos</a></li>
             <li>
               <a href="#"><i class="fa fa-balance-scale"></i>Balance Cajero<i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
@@ -107,7 +103,7 @@ if ($_GET['section'] != 'cajeroCerrado') {
           </a>
           <ul class="treeview-menu">
             <li><a href="carteraClientes"><i class="fa-solid fa-money-bill-1-wave"></i> Cartera Compañias</a></li>
-            <li><a href="recaudosCartera"><i class='glyphicon glyphicon-briefcase'></i> Recaudos Cartera</a>
+            <li id="recaudoCartera"><a href="recaudosCartera" ><i class='glyphicon glyphicon-briefcase'></i> Recaudos Cartera</a>
             </li>
           </ul>
         </li>

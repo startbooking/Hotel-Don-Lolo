@@ -11,7 +11,7 @@ try {
     'server' => $server,
     'username' => $dbuser,
     'password' => $dbpass,
-    'charset' => 'utf8',
+    'charset' => 'utf8mb4',
     'error' => PDO::ERRMODE_WARNING,
   	'option' => [
 	  	// PDO::ATTR_CASE => PDO::FETCH_ASSOC
