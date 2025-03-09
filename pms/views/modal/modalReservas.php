@@ -101,7 +101,7 @@ $manana = date('Y-m-d', $manana);
                       <div>
                         <select name="tarifahab" required="" id="tarifahab" onblur="valorHabitacion(this.value)">
                           <option value="">Seleccione la Tarifa</option>
-                        <?php
+                          <?php
                           $tarifas = $hotel->getTarifasHuespedes();
                           foreach ($tarifas as $tarifa) { ?>
                           <option value="<?php echo $tarifa['id_tarifa']; ?>"><?php echo $tarifa['descripcion_tarifa']; ?></option>

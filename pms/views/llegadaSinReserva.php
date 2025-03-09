@@ -101,7 +101,7 @@
               </div>
               <label for="nrohabitacion" class="col-sm-2 control-label">Nro Habitacion</label>
               <div class="col-sm-4">
-                <select name="nrohabitacion" id="nrohabitacion" required onblur='seleccionaTarifas()'>
+                <select name="nrohabitacion" id="nrohabitacion" required>
                   <option value="">Seleccione la Habitacion</option>
                 </select>
               </div>
@@ -112,6 +112,13 @@
                 <div id="tarifas">
                   <select name="tarifahab" required="" id="tarifahab" onblur="valorHabitacion(this.value)">
                     <option value="">Seleccione la Tarifa</option>
+                    <?php
+                      $tarifas = $hotel->getTarifasHuespedes();
+                      foreach ($tarifas as $tarifa) { ?>
+                      <option value="<?php echo $tarifa['id_tarifa']; ?>">
+                        <?php echo $tarifa['descripcion_tarifa']; ?>
+                      </option>
+                    <?php } ?>
                   </select>
                 </div>
               </div>
@@ -123,7 +130,7 @@
               </div>
             </div>
             <div class="form-group">
-              <label for="tarifahab" class="col-sm-2 control-label">Procedencia</label>
+              <label for="origen" class="col-sm-2 control-label">Procedencia</label>
               <div class="col-sm-4">
                 <select name="origen" id="origen" required="">
                   <option value="">Seleccione la Procedencia</option>
@@ -136,7 +143,7 @@
                   ?>
                 </select>
               </div>
-              <label for="tarifahab" class="col-sm-2 control-label">Destino</label>
+              <label for="destino" class="col-sm-2 control-label">Destino</label>
               <div class="col-sm-4">
                 <select name="destino" id="destino" required="">
                   <option value="">Seleccione el Destino</option>
@@ -164,7 +171,7 @@
                   ?>
                 </select>
               </div>
-              <label for="tarifahab" class="col-sm-2 control-label">Fuente de Reserva</label>
+              <label for="fuente" class="col-sm-2 control-label">Fuente de Reserva</label>
               <div class="col-sm-4">
                 <select name="fuente" id="fuente" required="">
                   <option value="">Seleccione Fuente</option>
@@ -179,7 +186,7 @@
               </div>
             </div>
             <div class="form-group">
-              <label for="tarifahab" class="col-sm-2 control-label">Segmento</label>
+              <label for="segmento" class="col-sm-2 control-label">Segmento</label>
               <div class="col-sm-4">
                 <select name="segmento" id="segmento" required="">
                   <option value="">Seleccione el Segmento</option>

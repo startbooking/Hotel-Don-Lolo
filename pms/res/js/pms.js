@@ -6364,9 +6364,9 @@ function seleccionaHuespedReserva(id, tarifa) {
     type: "POST",
     data: parametros,
     success: function (data) {
-      // console.log(data);
       $("#datosHuespedAdi").html(data);
       $("#tarifahab").val(tarifa);
+      
     },
   });
 

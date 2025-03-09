@@ -51,7 +51,7 @@ if (count($huespedes) == 0) { ?>
 					</tr>
 				<?php
 				}
-				?>
+				?> 
 			</tbody>
 		</table>
 	</div>

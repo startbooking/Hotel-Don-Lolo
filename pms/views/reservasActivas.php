@@ -29,7 +29,7 @@
               <tr class="warning">
                 <td>Nro</td>
                 <td style="padding:10px;">Hab.</td>
-                <td style="text-align:center;width:80px;">Huesped</td>
+                <td style="text-align:center;width:20%;">Huesped</td>
                 <td style="text-align:left;width:180px;">Compañia</td>
                 <td>Tarifa</td>
                 <td>Llegada</td>
@@ -42,7 +42,6 @@
             </thead>
             <tbody id="paginaReservas">
               <?php
-              // print_r($reservas);
               foreach ($reservas as $reserva) {
                 $depositos = $hotel->getDepositosReservas($reserva['num_reserva']);
                 ?>
