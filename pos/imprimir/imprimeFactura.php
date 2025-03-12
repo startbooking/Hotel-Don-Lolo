@@ -10,13 +10,13 @@
   $idperfil   = $_SESSION['idperfil'];
  
   $datosReserva   = $hotel->getReservasDatos($reserva);
-  $datosHuesped   = $hotel->getbuscaDatosHuesped($datosReserva[0]['id_huesped']);
+  $datosHuesped   = $hotel->getbuscaDatosHuesped($datosReserva['id_huesped']);
 
   if($tipofac==2){ 
     $datosCompania  = $hotel->getSeleccionaCompania($idperfil);
   }
 
-  $tipoHabitacion = $hotel->getNombreTipoHabitacion($datosReserva[0]['tipo_habitacion']);
+  $tipoHabitacion = $hotel->getNombreTipoHabitacion($datosReserva['tipo_habitacion']);
 
   $folios     = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura,$reserva,$nroFolio,1);
   $pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura,$reserva,$nroFolio,3);
@@ -95,9 +95,9 @@
   $pdf->Cell(47,5,'HABITACION',1,0,'C');
   $pdf->Cell(48,5,'TARIFA',1,0,'C');
   $pdf->Cell(48,5,'HORAL SALIDA',1,1,'C');
-  $pdf->Cell(47,5,$datosReserva[0]["can_hombres"]+$datosReserva[0]["can_mujeres"].'/'.$datosReserva[0]["can_ninos"],1,0,'C');
-  $pdf->Cell(47,5,$datosReserva[0]["num_habitacion"],1,0,'C');
-  $pdf->Cell(48,5,$datosReserva[0]["tarifa"],1,0,'C');
+  $pdf->Cell(47,5,$datosReserva["can_hombres"]+$datosReserva["can_mujeres"].'/'.$datosReserva["can_ninos"],1,0,'C');
+  $pdf->Cell(47,5,$datosReserva["num_habitacion"],1,0,'C');
+  $pdf->Cell(48,5,$datosReserva["tarifa"],1,0,'C');
   $pdf->Cell(48,5,date('H:m:s'),1,1,'C');
 
   $pdf->SetFont('Arial','',10);
@@ -106,8 +106,8 @@
   $pdf->Cell(48,5,'FECHA EXPEDICION',1,0,'C');
   $pdf->Cell(48,5,'FECHA VENCIMIENTO',1,1,'C');
   $pdf->SetFont('Arial','B',10);
-  $pdf->Cell(47,5,$datosReserva[0]["fecha_llegada"],1,0,'C');
-  $pdf->Cell(47,5,$datosReserva[0]["fecha_salida"],1,0,'C');
+  $pdf->Cell(47,5,$datosReserva["fecha_llegada"],1,0,'C');
+  $pdf->Cell(47,5,$datosReserva["fecha_salida"],1,0,'C');
   $pdf->Cell(48,5,FECHA_PMS,1,0,'C');
   $pdf->Cell(48,5,FECHA_PMS,1,1,'C');
 

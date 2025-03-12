@@ -2,13 +2,13 @@
 $resolucion = $hotel->getResolucion(1);
 $numFact = $hotel->getNumeroFactura();
 if (count($resolucion) > 0) {
-  $desde = $resolucion[0]['desde'];
-  $hasta = $resolucion[0]['hasta'];
-  $fecha = $resolucion[0]['fecha'];
-  $vigen = $resolucion[0]['vigencia'];
-  $fechaVigencia =   date("Y-m-d", strtotime($fecha . "+ " . $resolucion[0]['vigencia'] . " month"));
+  $desde = $resolucion['desde'];
+  $hasta = $resolucion['hasta'];
+  $fecha = $resolucion['fecha'];
+  $vigen = $resolucion['vigencia'];
+  $fechaVigencia =   date("Y-m-d", strtotime($fecha . "+ " . $resolucion['vigencia'] . " month"));
 }
-?>
+?> 
 
 <div class="content-wrapper" id="pantallaFacturacion">
   <section class="content" id="listado">

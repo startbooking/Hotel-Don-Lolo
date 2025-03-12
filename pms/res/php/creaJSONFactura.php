@@ -35,11 +35,11 @@ $horaFact = substr($infoFactura[0]['fecha_sistema_cargo'], 11, 8);
 $folioAct = $infoFactura[0]['folio_cargo'];
 
 $resFac = $hotel->getResolucion(1);
-$resolucion = $resFac[0]['resolucion'];
-$prefijo = $resFac[0]['prefijo'];
-$fechaRes = $resFac[0]['fecha'];
-$desde = $resFac[0]['desde'];
-$hasta = $resFac[0]['hasta'];
+$resolucion = $resFac['resolucion'];
+$prefijo = $resFac['prefijo'];
+$fechaRes = $resFac['fecha'];
+$desde = $resFac['desde'];
+$hasta = $resFac['hasta'];
 
 $fechaFac = $infoFactura[0]['fecha_salida'];
 $fechaVen = $infoFactura[0]['fecha_vencimiento'];

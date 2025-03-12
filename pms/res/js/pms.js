@@ -5280,9 +5280,8 @@ function movimientosCongelada(reserva) {
 
 function congelaHuesped() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario, usuario_id } = user;
-
+  let { user:{ usuario, usuario_id }, } = sesion;
+  
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var reserva = $("#reservaActual").val();
@@ -5314,7 +5313,7 @@ function congelaHuesped() {
           type: "success",
         },
         function () {
-          $(location).attr("href", "facturacionEstadia");
+          // $(location).attr("href", "facturacionEstadia");
         }
       );
     },
@@ -5545,7 +5544,8 @@ async function reEnviaFactura(factura) {
       } = recibe;
 
       let infoFac = await traeResolucion();
-      let { prefijo } = infoFac[0];
+      console.log(infoFact);
+      let { prefijo } = infoFac;
 
       let { message, send_email_success, send_email_date_time, urlinvoicexml, urlinvoicepdf, cufe, QRStr, dian_validation_date_time: { date }, } = recibe;
 

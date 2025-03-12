@@ -44,12 +44,12 @@ $idhuesped = $idhues;
 $horaFact = date('H:s:i');
 
 $resFac = $hotel->getResolucion(1);
-$resolucion = $resFac[0]['resolucion'];
-$prefijo = $resFac[0]['prefijo'];
-$fechaRes = $resFac[0]['fecha'];
-$desde = $resFac[0]['desde'];
-$hasta = $resFac[0]['hasta'];
-$tipoRes = $resFac[0]['tipo'];
+$resolucion = $resFac['resolucion'];
+$prefijo = $resFac['prefijo'];
+$fechaRes = $resFac['fecha'];
+$desde = $resFac['desde'];
+$hasta = $resFac['hasta'];
+$tipoRes = $resFac['tipo'];
  
 $fechaFac = $fecha;
 $fechaVen = $fecha;

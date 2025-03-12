@@ -17,25 +17,25 @@ $depositos = $hotel->getDepositosReservas($reserva);
           <div class="form-group">
             <label for="apellidos" class="col-sm-2 control-label">Habitacion</label>
             <div class="col-sm-2">
-              <input type="text" class="form-control" id="apellidos" placeholder="" value="<?php echo $datosReserva[0]['num_habitacion']; ?>" readonly>
+              <input type="text" class="form-control" id="apellidos" placeholder="" value="<?php echo $datosReserva['num_habitacion']; ?>" readonly>
             </div>
             <label for="apellidos" class="col-sm-2 control-label">Huesped </label>
             <div class="col-sm-6">
-              <input type="text" class="form-control" id="apellidos" placeholder="" value="<?php echo $datosReserva[0]['nombre_completo']; ?>" readonly>
+              <input type="text" class="form-control" id="apellidos" placeholder="" value="<?php echo $datosReserva['nombre_completo']; ?>" readonly>
             </div>
           </div>
           <div class="form-group">
             <label for="llegada" class="col-sm-2 control-label">Llegada</label>
             <div class="col-sm-3">
-              <input type="text" class="form-control" name="llegada" id="llegada" readonly="" value="<?php echo $datosReserva[0]['fecha_llegada']; ?>">
+              <input type="text" class="form-control" name="llegada" id="llegada" readonly="" value="<?php echo $datosReserva['fecha_llegada']; ?>">
             </div>
             <label for="noches" class="col-sm-1 control-label">Noches</label>
             <div class="col-sm-2">
-              <input type="text" class="form-control" name="noches" id="noches" readonly="" value='<?php echo $datosReserva[0]['dias_reservados']; ?>'>
+              <input type="text" class="form-control" name="noches" id="noches" readonly="" value='<?php echo $datosReserva['dias_reservados']; ?>'>
             </div>
             <label for="salida" class="col-sm-1 control-label">Salida</label>
             <div class="col-sm-3">
-              <input type="text" class="form-control" name="salida" id="salida" readonly="" value="<?php echo $datosReserva[0]['fecha_salida']; ?>">
+              <input type="text" class="form-control" name="salida" id="salida" readonly="" value="<?php echo $datosReserva['fecha_salida']; ?>">
             </div>
           </div>
         </div>

@@ -4,9 +4,9 @@
 require_once '../../../res/fpdf/fpdf.php';
 
   $datosReserva      = $hotel->getReservasDatos($reserva);
-  $datosHuesped      = $hotel->getbuscaDatosHuesped($datosReserva[0]['id_huesped']);
+  $datosHuesped      = $hotel->getbuscaDatosHuesped($datosReserva['id_huesped']);
   $datosAcompanantes = $hotel->getBuscarAcompanantesReserva($reserva);   
-  $datosCompania     = $hotel->getSeleccionaCompania($datosReserva[0]['id_compania']);
+  $datosCompania     = $hotel->getSeleccionaCompania($datosReserva['id_compania']);
   $textoContrato     = $hotel->getContratoHotelero();
   
   $profesion         = $hotel->descripcionGrupo($datosHuesped[0]['profesion']);
@@ -32,7 +32,7 @@ require_once '../../../res/fpdf/fpdf.php';
   $pdf->SetFont('Arial','',5);
   $pdf->Cell(180,3,'Numero ',0,0,'R');
   $pdf->SetFont('Arial','B',5);
-  $pdf->Cell(10,3,str_pad($datosReserva[0]["num_registro"],5,'0',STR_PAD_LEFT),0,1,'C');
+  $pdf->Cell(10,3,str_pad($datosReserva["num_registro"],5,'0',STR_PAD_LEFT),0,1,'C');
 
   $pdf->Ln(1);
   $pdf->Cell(100,5,'NOMBRE / NAME',1,0,'C');
@@ -93,23 +93,23 @@ require_once '../../../res/fpdf/fpdf.php';
   }
 
   $pdf->Cell(20,5,'Motivo Viaje',1,0,'L');
-  $pdf->Cell(30,5,substr($hotel->motivoViaje($datosReserva[0]['motivo_viaje']),0,20),1,0,'L');
+  $pdf->Cell(30,5,substr($hotel->motivoViaje($datosReserva['motivo_viaje']),0,20),1,0,'L');
   $pdf->Cell(20,5,'Procedencia',1,0,'L');
-  $pdf->Cell(30,5,substr(($hotel->getCityExp($datosReserva[0]['origen_reserva'])),0,20),1,0,'L');
+  $pdf->Cell(30,5,substr(($hotel->getCityExp($datosReserva['origen_reserva'])),0,20),1,0,'L');
   $pdf->Cell(20,5,'Destino',1,0,'l');
-  $pdf->Cell(30,5,substr(($hotel->getCityExp($datosReserva[0]['destino_reserva'])),0,20),1,0,'L');
+  $pdf->Cell(30,5,substr(($hotel->getCityExp($datosReserva['destino_reserva'])),0,20),1,0,'L');
   $pdf->Cell(10,5,'Email',1,0,'L');
   $pdf->Cell(30,5,substr($datosHuesped[0]['email'],0,23),1,1,'L');
 
   $pdf->Cell(20,5,'Ocupacion',1,0,'L');
   $pdf->Cell(40,5,substr($profesion,0,26),1,0,'L');
   $pdf->Cell(15,5,'Estadia',1,0,'L');
-  $pdf->Cell(15,5,$datosReserva[0]['dias_reservados'].' Noc',1,0,'C');
+  $pdf->Cell(15,5,$datosReserva['dias_reservados'].' Noc',1,0,'C');
   $pdf->Cell(15,5,'Habitacion',1,0,'L');
-  $pdf->Cell(10,5,$datosReserva[0]['num_habitacion'],1,0,'C');
+  $pdf->Cell(10,5,$datosReserva['num_habitacion'],1,0,'C');
   $pdf->Cell(20,5,'Placa Vehiculo',1,0,'L');
-  if($datosReserva[0]['placaVehiculo']!=''){
-    $placa  = substr($datosReserva[0]['placaVehiculo'],0,22);
+  if($datosReserva['placaVehiculo']!=''){
+    $placa  = substr($datosReserva['placaVehiculo'],0,22);
   }else{
     $placa  = '';
   }
@@ -118,7 +118,7 @@ require_once '../../../res/fpdf/fpdf.php';
   $pdf->Cell(20,5,'Recepcionista',1,0,'L');
   $pdf->Cell(20,5,$usuario,1,1,'L');
   $pdf->Cell(20,5,'Forma de Pago',1,0,'L');
-  $pdf->Cell(50,5,$hotel->formaPago($datosReserva[0]['forma_pago']),1,0,'L');
+  $pdf->Cell(50,5,$hotel->formaPago($datosReserva['forma_pago']),1,0,'L');
   $pdf->Cell(20,5,'Reserva Nro ',1,0,'L');
   $pdf->SetFont('Arial','B',8);
   $pdf->Cell(20,5,$reserva,1,0,'L');
@@ -126,8 +126,8 @@ require_once '../../../res/fpdf/fpdf.php';
   $pdf->Cell(80,5,'FIRMA',0,1,'C');
   $pdf->SetFont('Arial','',7);
   $pdf->Cell(20,5,'Equipaje',1,0,'L');
-  if($datosReserva[0]['equipaje']!=''){
-    $equipaje  = substr($datosReserva[0]['equipaje'],0,22);
+  if($datosReserva['equipaje']!=''){
+    $equipaje  = substr($datosReserva['equipaje'],0,22);
   }else{
     $equipaje  = '';
   }
@@ -139,14 +139,14 @@ require_once '../../../res/fpdf/fpdf.php';
   $pdf->Cell(190,10,'PARA USO DEL HOTEL',1,1,'C');
   $pdf->SetFont('Arial','',7);
   $pdf->Cell(20,5,'TARIFA $',1,0,'L');
-  $pdf->Cell(20,5,number_format($datosReserva[0]['valor_diario'],2),1,0,'C');
+  $pdf->Cell(20,5,number_format($datosReserva['valor_diario'],2),1,0,'C');
   $pdf->Cell(26,5,'IVA 19% INCLUIDO',1,0,'C');
   $pdf->Cell(22,5,'LLEGADA',1,0,'L');
-  $pdf->Cell(25,5,$datosReserva[0]['fecha_llegada'],1,0,'C');
+  $pdf->Cell(25,5,$datosReserva['fecha_llegada'],1,0,'C');
   $pdf->Cell(22,5,'SALIDA',1,0,'L');
-  $pdf->Cell(25,5,$datosReserva[0]['fecha_salida'],1,0,'C');
+  $pdf->Cell(25,5,$datosReserva['fecha_salida'],1,0,'C');
   $pdf->Cell(20,5,('Adultos / Niños'),1,0,'L');
-  $pdf->Cell(10,5,$datosReserva[0]['can_hombres']+$datosReserva[0]['can_mujeres'].' / '.$datosReserva[0]['can_ninos'],1,1,'C');
+  $pdf->Cell(10,5,$datosReserva['can_hombres']+$datosReserva['can_mujeres'].' / '.$datosReserva['can_ninos'],1,1,'C');
   $pdf->SetFont('Arial','',6);
   $pdf->Ln(1);
   $pdf->MultiCell(190,3,($textoContrato),1,'J');
@@ -169,7 +169,7 @@ require_once '../../../res/fpdf/fpdf.php';
   $pdf->SetFont('Arial','',6);
   $pdf->Cell(180,3,'Numero ',0,0,'R');
   $pdf->SetFont('Arial','B',6);
-  $pdf->Cell(10,3,str_pad($datosReserva[0]["num_registro"],5,'0',STR_PAD_LEFT),0,1,'C');
+  $pdf->Cell(10,3,str_pad($datosReserva["num_registro"],5,'0',STR_PAD_LEFT),0,1,'C');
 
   $pdf->Cell(100,6,'NOMBRE / NAME',1,0,'C');
   $pdf->Cell(30,6,'NACIONALIDAD',1,0,'C');
@@ -217,6 +217,6 @@ require_once '../../../res/fpdf/fpdf.php';
     include_once 'imprimeDecreto.php';
   }
   
-  $file = '../../imprimir/registros/Registro_Hotelero_'.str_pad($datosReserva[0]["num_registro"],5,'0',STR_PAD_LEFT).'.pdf';
+  $file = '../../imprimir/registros/Registro_Hotelero_'.str_pad($datosReserva["num_registro"],5,'0',STR_PAD_LEFT).'.pdf';
   $pdf->Output($file,'F');
 ?>

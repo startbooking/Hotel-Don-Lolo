@@ -45,15 +45,15 @@
   $pdf->SetFont('Arial','B',10);
   $pdf->Cell(25,5,'HABITACION',0,0,'L');
   $pdf->SetFont('Arial','',10);
-  $pdf->Cell(8,5,$datosReserva[0]["num_habitacion"],0,0,'L');
+  $pdf->Cell(8,5,$datosReserva["num_habitacion"],0,0,'L');
   $pdf->SetFont('Arial','B',10);
   $pdf->Cell(32,5,'FECHA LLEGADA',0,0,'L');
   $pdf->SetFont('Arial','',10);
-  $pdf->Cell(20,5,$datosReserva[0]["fecha_llegada"],0,0,'L');
+  $pdf->Cell(20,5,$datosReserva["fecha_llegada"],0,0,'L');
   $pdf->SetFont('Arial','B',10);
   $pdf->Cell(32,5,'FECHA SALIDA',0,0,'L');
   $pdf->SetFont('Arial','',10);
-  $pdf->Cell(20,5,$datosReserva[0]["fecha_salida"],0,1,'L');
+  $pdf->Cell(20,5,$datosReserva["fecha_salida"],0,1,'L');
   $pdf->Ln(1);
 
   $pdf->SetFont('Arial','B',10);

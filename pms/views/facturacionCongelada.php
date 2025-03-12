@@ -8,9 +8,9 @@ $datosReserva = $hotel->getReservasDatos($reserva);
 
 $dia = substr(FECHA_PMS, 8, 2);
 
-$datosHuesped = $hotel->getbuscaDatosHuesped($datosReserva[0]['id_huesped']);
-$datosCompania = $hotel->getSeleccionaCompania($datosReserva[0]['id_compania']);
-$tipoHabitacion = $hotel->getNombreTipoHabitacion($datosReserva[0]['tipo_habitacion']);
+$datosHuesped = $hotel->getbuscaDatosHuesped($datosReserva['id_huesped']);
+$datosCompania = $hotel->getSeleccionaCompania($datosReserva['id_compania']);
+$tipoHabitacion = $hotel->getNombreTipoHabitacion($datosReserva['tipo_habitacion']);
 
 if (count($datosCompania) == 0) {
     $credito = 0;
@@ -51,7 +51,7 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
                   <input type="hidden" name="nrofolio2" id="nrofolio2" value="<?php echo $saldofolio2; ?>">
                   <input type="hidden" name="nrofolio3" id="nrofolio3" value="<?php echo $saldofolio3; ?>">
                   <input type="hidden" name="nrofolio4" id="nrofolio4" value="<?php echo $saldofolio4; ?>">
-                  <input type="hidden" name="idHuespedSal" id="idHuespedSal" value="<?php echo $datosReserva[0]['id_huesped']; ?>">
+                  <input type="hidden" name="idHuespedSal" id="idHuespedSal" value="<?php echo $datosReserva['id_huesped']; ?>">
                   <input type="hidden" name="rutaweb" id="rutaweb" value="<?php echo BASE_PMS; ?>">              
                   <input type="hidden" name="ubicacion" id="ubicacion" value="facturacionCongelada">
                   <h3 class="w3ls_head tituloPagina">Estado Cuenta Huesped</h3>
@@ -60,47 +60,47 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
                   <div class="form-group">
                     <label for="nrohabitacion" class="col-sm-1 control-label">Habitacion</label>
                     <div class="col-sm-2">
-                      <input type="text" class="form-control" id="nrohabitacion" placeholder="" value="<?php echo $datosReserva[0]['num_habitacion']; ?>" readonly>
+                      <input type="text" class="form-control" id="nrohabitacion" placeholder="" value="<?php echo $datosReserva['num_habitacion']; ?>" readonly>
                     </div>
                     <label for="apellidos" class="col-sm-1 control-label">Huesped </label>
                     <div class="col-sm-4">
-                      <input type="text" class="form-control" id="apellidos" placeholder="" value="<?php echo $datosReserva[0]['nombre_completo']; ?>" readonly>
+                      <input type="text" class="form-control" id="apellidos" placeholder="" value="<?php echo $datosReserva['nombre_completo']; ?>" readonly>
                     </div>
                     <label for="nombres" class="col-sm-2 control-label">Identificacion</label>
                     <div class="col-sm-2">
-                      <input type="text" class="form-control" id="nombres" placeholder="" value="<?php echo $datosReserva[0]['identificacion']; ?>" readonly>
+                      <input type="text" class="form-control" id="nombres" placeholder="" value="<?php echo $datosReserva['identificacion']; ?>" readonly>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="llegada" class="col-sm-1 control-label">Llegada</label>
                     <div class="col-sm-2">
-                      <input type="text" class="form-control" name="llegada" id="llegada" readonly="" value="<?php echo $datosReserva[0]['fecha_llegada']; ?>"> 
+                      <input type="text" class="form-control" name="llegada" id="llegada" readonly="" value="<?php echo $datosReserva['fecha_llegada']; ?>"> 
                     </div>
                     <label for="noches" class="col-sm-1 control-label">Noches</label>
                     <div class="col-sm-2">
-                      <input type="text" class="form-control" name="noches" id="noches" readonly="" value='<?php echo $datosReserva[0]['dias_reservados']; ?>'>
+                      <input type="text" class="form-control" name="noches" id="noches" readonly="" value='<?php echo $datosReserva['dias_reservados']; ?>'>
                     </div>
                     <label for="salida" class="col-sm-1 control-label">Salida</label>
                     <div class="col-sm-2">
-                      <input type="text" class="form-control" name="salida" id="salida" readonly="" value="<?php echo $datosReserva[0]['fecha_salida']; ?>">
+                      <input type="text" class="form-control" name="salida" id="salida" readonly="" value="<?php echo $datosReserva['fecha_salida']; ?>">
                     </div>
                     <label for="tarifa" class="col-sm-1 control-label">Tarifa</label>
                     <div class="col-sm-2">
-                      <input type="text" class="form-control" name="tarifa" id="tarifa" readonly="" value="<?php echo number_format($datosReserva[0]['valor_diario'], 2); ?>">
+                      <input type="text" class="form-control" name="tarifa" id="tarifa" readonly="" value="<?php echo number_format($datosReserva['valor_diario'], 2); ?>">
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="hombres" class="col-sm-1 control-label">Hombres</label>
                     <div class="col-sm-2">
-                      <input type="text" class="form-control" name="hombres" id="hombres" required="" value="<?php echo $datosReserva[0]['can_hombres']; ?>" readonly>
+                      <input type="text" class="form-control" name="hombres" id="hombres" required="" value="<?php echo $datosReserva['can_hombres']; ?>" readonly>
                     </div>
                     <label for="mujeres" class="col-sm-1 control-label">Mujeres</label>
                     <div class="col-sm-2">
-                      <input type="text" class="form-control" name="mujeres" id="mujeres" required="" value='<?php echo $datosReserva[0]['can_mujeres']; ?>' readonly>
+                      <input type="text" class="form-control" name="mujeres" id="mujeres" required="" value='<?php echo $datosReserva['can_mujeres']; ?>' readonly>
                     </div>
                     <label for="ninos" class="col-sm-1 control-label">Niños</label>
                     <div class="col-sm-2">
-                      <input type="text" class="form-control" name="ninos" id="ninos" required="" value="<?php echo $datosReserva[0]['can_ninos']; ?>" readonly >
+                      <input type="text" class="form-control" name="ninos" id="ninos" required="" value="<?php echo $datosReserva['can_ninos']; ?>" readonly >
                     </div>
                   </div>
                   <div class="form-group">
@@ -186,31 +186,31 @@ if ($saldofolio4 != 0) { ?>
                   class         ="btn btn-success" 
                   data-toggle   ="modal" 
                   data-target   ="#myModalSalidaCongelada"
-                  data-id       ="<?php echo $datosReserva[0]['num_reserva']; ?>" 
-                  data-idhues   ="<?php echo $datosReserva[0]['id_huesped']; ?>" 
-                  data-idcia    ="<?php echo $datosReserva[0]['id_compania']; ?>" 
-                  data-idcentro ="<?php echo $datosReserva[0]['idCentroCia']; ?>" 
-                  data-nrohab   ="<?php echo $datosReserva[0]['num_habitacion']; ?>" 
-                  data-nombre   ="<?php echo $datosReserva[0]['nombre_completo']; ?>" 
-                  data-impto    ="<?php echo $datosReserva[0]['causar_impuesto']; ?>" 
-                  data-llegada  ="<?php echo $datosReserva[0]['fecha_llegada']; ?>" 
-                  data-salida   ="<?php echo $datosReserva[0]['fecha_salida']; ?>" 
-                  data-tarifa   ="<?php echo descripcionTarifa($datosReserva[0]['tarifa']); ?>" 
-                  data-valor    ="<?php echo $datosReserva[0]['valor_diario']; ?>" 
+                  data-id       ="<?php echo $datosReserva['num_reserva']; ?>" 
+                  data-idhues   ="<?php echo $datosReserva['id_huesped']; ?>" 
+                  data-idcia    ="<?php echo $datosReserva['id_compania']; ?>" 
+                  data-idcentro ="<?php echo $datosReserva['idCentroCia']; ?>" 
+                  data-nrohab   ="<?php echo $datosReserva['num_habitacion']; ?>" 
+                  data-nombre   ="<?php echo $datosReserva['nombre_completo']; ?>" 
+                  data-impto    ="<?php echo $datosReserva['causar_impuesto']; ?>" 
+                  data-llegada  ="<?php echo $datosReserva['fecha_llegada']; ?>" 
+                  data-salida   ="<?php echo $datosReserva['fecha_salida']; ?>" 
+                  data-tarifa   ="<?php echo descripcionTarifa($datosReserva['tarifa']); ?>" 
+                  data-valor    ="<?php echo $datosReserva['valor_diario']; ?>" 
                   ><i class     ="fa fa-save"></i>
                   Salida Huesped
                 </a>
                 <a  
                   style          ="width: 20%"
                   type           ="button" class="btn btn-info" data-toggle="modal" 
-                  data-id        ="<?php echo $datosReserva[0]['num_reserva']; ?>" 
-                  data-apellido1 ="<?php echo $datosReserva[0]['apellido1']; ?>" 
-                  data-apellido2 ="<?php echo $datosReserva[0]['apellido2']; ?>" 
-                  data-nombre1   ="<?php echo $datosReserva[0]['nombre1']; ?>" 
-                  data-nombre2   ="<?php echo $datosReserva[0]['nombre2']; ?>" 
-                  data-impto     ="<?php echo $datosReserva[0]['causar_impuesto']; ?>" 
-                  data-nrohab    ="<?php echo $datosReserva[0]['num_habitacion']; ?>" 
-                  data-idhuesped ="<?php echo $datosReserva[0]['id_huesped']; ?>" 
+                  data-id        ="<?php echo $datosReserva['num_reserva']; ?>" 
+                  data-apellido1 ="<?php echo $datosReserva['apellido1']; ?>" 
+                  data-apellido2 ="<?php echo $datosReserva['apellido2']; ?>" 
+                  data-nombre1   ="<?php echo $datosReserva['nombre1']; ?>" 
+                  data-nombre2   ="<?php echo $datosReserva['nombre2']; ?>" 
+                  data-impto     ="<?php echo $datosReserva['causar_impuesto']; ?>" 
+                  data-nrohab    ="<?php echo $datosReserva['num_habitacion']; ?>" 
+                  data-idhuesped ="<?php echo $datosReserva['id_huesped']; ?>" 
                   href           ="#myModalCargosConsumo"
                   ><i class="fa fa-plus-square"></i> Ingreso Consumos 
                 </a>

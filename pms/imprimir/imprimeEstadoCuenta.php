@@ -8,9 +8,9 @@
   $pdf->AddPage();
 
   $datosReserva   = $hotel->getReservasDatos($reserva);
-  $datosHuesped   = $hotel->getbuscaDatosHuesped($datosReserva[0]['id_huesped']);
-  $datosCompania  = $hotel->getSeleccionaCompania($datosReserva[0]['id_compania']);
-  $tipoHabitacion = $hotel->getNombreTipoHabitacion($datosReserva[0]['tipo_habitacion']);
+  $datosHuesped   = $hotel->getbuscaDatosHuesped($datosReserva['id_huesped']);
+  $datosCompania  = $hotel->getSeleccionaCompania($datosReserva['id_compania']);
+  $tipoHabitacion = $hotel->getNombreTipoHabitacion($datosReserva['tipo_habitacion']);
 
   $folios = $hotel->getConsumosReservaAgrupadoCodigo($reserva);
   $fecha  = $hotel->getDatePms();
@@ -26,7 +26,7 @@
   $pdf->SetFont('Arial','',10);
   $pdf->Cell(20,6,'Habitacion',0,0,'L');
   $pdf->SetFont('Arial','B',10);
-  $pdf->Cell(10,6,$datosReserva[0]["num_habitacion"],0,0,'L');
+  $pdf->Cell(10,6,$datosReserva["num_habitacion"],0,0,'L');
   $pdf->SetFont('Arial','',10);
   $pdf->Cell(20,6,'Huesped',0,0,'L');
   $pdf->SetFont('Arial','B',10);
@@ -39,30 +39,30 @@
   $pdf->SetFont('Arial','',10);
   $pdf->Cell(25,6,'Fecha Llegada',0,0,'L');
   $pdf->SetFont('Arial','B',10);
-  $pdf->Cell(25,6,$datosReserva[0]["fecha_llegada"],0,0,'L');
+  $pdf->Cell(25,6,$datosReserva["fecha_llegada"],0,0,'L');
   $pdf->SetFont('Arial','',10);
   $pdf->Cell(15,6,'Noches',0,0,'L');
   $pdf->SetFont('Arial','B',10);
-  $pdf->Cell(10,6,$datosReserva[0]['dias_reservados'],0,0,'L');
+  $pdf->Cell(10,6,$datosReserva['dias_reservados'],0,0,'L');
   $pdf->SetFont('Arial','',10);
   $pdf->Cell(25,6,'Fecha Salida',0,0,'L');
   $pdf->SetFont('Arial','B',10);
-  $pdf->Cell(25,6,$datosReserva[0]["fecha_salida"],0,0,'L');
+  $pdf->Cell(25,6,$datosReserva["fecha_salida"],0,0,'L');
 
   $pdf->SetFont('Arial','',10);
   $pdf->Cell(10,6,'Hom',0,0,'L');
   $pdf->SetFont('Arial','B',10);
-  $pdf->Cell(10,6,$datosReserva[0]["can_hombres"],0,0,'L');
+  $pdf->Cell(10,6,$datosReserva["can_hombres"],0,0,'L');
   $pdf->SetFont('Arial','',10);
   $pdf->Cell(10,6,'Muj',0,0,'L');
   $pdf->SetFont('Arial','B',10);
-  $pdf->Cell(10,6,$datosReserva[0]['can_mujeres'],0,0,'L');
+  $pdf->Cell(10,6,$datosReserva['can_mujeres'],0,0,'L');
   $pdf->SetFont('Arial','',10);
   $pdf->Cell(10,6,'Nin',0,0,'L');
   $pdf->SetFont('Arial','B',10);
-  $pdf->Cell(10,6,$datosReserva[0]["can_ninos"],0,1,'L');
+  $pdf->Cell(10,6,$datosReserva["can_ninos"],0,1,'L');
 
-  if(!empty($datosReserva[0]['id_compania'])){
+  if(!empty($datosReserva['id_compania'])){
     $pdf->Ln(2);
     $pdf->SetFont('Arial','',10);
     $pdf->Cell(20,6,'Empresa',0,0,'L');

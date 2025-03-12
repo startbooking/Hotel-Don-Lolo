@@ -8196,7 +8196,7 @@ class Hotel_Actions
             'reservas_pms.num_reserva' => $reserva,
         ]);
 
-        return $data;
+        return $data[0];
     }
 
     public function getReservasDatosHistorico($reserva)
@@ -8245,7 +8245,7 @@ class Hotel_Actions
             'historico_reservas_pms.num_reserva' => $reserva,
         ]);
 
-        return $data;
+        return $data[0];
     }
 
     public function getForecastHabitacionFecha($room, $fecha)

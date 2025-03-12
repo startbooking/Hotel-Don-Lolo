@@ -13,8 +13,8 @@ $token = $eToken[0]['token'];
 // echo $token;
 
 $prefijo = 'HDL';
-$resFac = $hotel->getResolucion();
-$prefijo = $resFac[0]['prefijo'];
+$resFac = $hotel->getResolucion(1);
+$prefijo = $resFac['prefijo'];
 
 
 $url = 

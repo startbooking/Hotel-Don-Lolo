@@ -61,11 +61,11 @@ $horaFact = date('H:s:i');
 $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
 
 $resFac = $hotel->getResolucion(1);
-$resolucion = $resFac[0]['resolucion'];
-$prefijo = $resFac[0]['prefijo'];
-$fechaRes = $resFac[0]['fecha'];
-$desde = $resFac[0]['desde'];
-$hasta = $resFac[0]['hasta'];
+$resolucion = $resFac['resolucion'];
+$prefijo = $resFac['prefijo'];
+$fechaRes = $resFac['fecha'];
+$desde = $resFac['desde'];
+$hasta = $resFac['hasta'];
 
 $fechaFac = FECHA_PMS;
 $fechaVen = $fechaFac;

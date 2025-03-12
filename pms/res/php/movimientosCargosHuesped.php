@@ -7,9 +7,9 @@
   $_SESSION['reserva'] = $reserva;
 
   $datosReserva   = $hotel->getReservasDatos($reserva);
-  $datosHuesped   = $hotel->getbuscaDatosHuesped($datosReserva[0]['id_huesped']);
-  $datosCompania  = $hotel->getSeleccionaCompania($datosReserva[0]['id_compania']);
-  $tipoHabitacion = $hotel->getNombreTipoHabitacion($datosReserva[0]['tipo_habitacion']);
+  $datosHuesped   = $hotel->getbuscaDatosHuesped($datosReserva['id_huesped']);
+  $datosCompania  = $hotel->getSeleccionaCompania($datosReserva['id_compania']);
+  $tipoHabitacion = $hotel->getNombreTipoHabitacion($datosReserva['tipo_habitacion']);
   $saldofolio1    = $hotel->saldoFolio($reserva,1);
   $saldofolio2    = $hotel->saldoFolio($reserva,2);
   $saldofolio3    = $hotel->saldoFolio($reserva,3);
@@ -30,7 +30,7 @@
 					<div class="form-group">
 			      <label for="apellidos" class="col-sm-1 control-label">Habitacion</label>
 			      <div class="col-sm-1">
-			        <input type="text" class="form-control" id="apellidos" placeholder="" value="<?php echo $datosReserva[0]['num_habitacion'] ?>" readonly>
+			        <input type="text" class="form-control" id="apellidos" placeholder="" value="<?php echo $datosReserva['num_habitacion'] ?>" readonly>
 			      </div>
 			      <label for="apellidos" class="col-sm-2 control-label">Huesped </label>
 			      <div class="col-sm-4">
@@ -44,33 +44,33 @@
 					<div class="form-group">
 					  <label for="llegada" class="col-sm-1 control-label">Llegada</label>
 					  <div class="col-sm-2">
-					    <input type="text" class="form-control" name="llegada" id="llegada" readonly="" value="<?=$datosReserva[0]['fecha_llegada']?>"> 
+					    <input type="text" class="form-control" name="llegada" id="llegada" readonly="" value="<?=$datosReserva['fecha_llegada']?>"> 
 					  </div>
 					  <label for="noches" class="col-sm-1 control-label">Noches</label>
 					  <div class="col-sm-1">
-					    <input type="text" class="form-control" name="noches" id="noches" readonly="" value='<?=$datosReserva[0]['dias_reservados']?>'>
+					    <input type="text" class="form-control" name="noches" id="noches" readonly="" value='<?=$datosReserva['dias_reservados']?>'>
 					  </div>
 					  <label for="salida" class="col-sm-1 control-label">Salida</label>
 					  <div class="col-sm-2">
-					    <input type="text" class="form-control" name="salida" id="salida" readonly="" value="<?=$datosReserva[0]['fecha_salida']?>">
+					    <input type="text" class="form-control" name="salida" id="salida" readonly="" value="<?=$datosReserva['fecha_salida']?>">
 					  </div>
 					</div>
 					<div class="form-group">
 					  <label for="hombres" class="col-sm-1 control-label">Hombres</label>
 					  <div class="col-sm-1">
-					    <input type="text" class="form-control" name="hombres" id="hombres" required="" value="<?=$datosReserva[0]['can_hombres']?>" readonly>
+					    <input type="text" class="form-control" name="hombres" id="hombres" required="" value="<?=$datosReserva['can_hombres']?>" readonly>
 					  </div>
 					  <label for="mujeres" class="col-sm-1 control-label">Mujeres</label>
 					  <div class="col-sm-1">
-					    <input type="text" class="form-control" name="mujeres" id="mujeres" required="" value='<?=$datosReserva[0]['can_mujeres']?>' readonly>
+					    <input type="text" class="form-control" name="mujeres" id="mujeres" required="" value='<?=$datosReserva['can_mujeres']?>' readonly>
 					  </div>
 					  <label for="ninos" class="col-sm-1 control-label">Niños</label>
 					  <div class="col-sm-1">
-					    <input type="text" class="form-control" name="ninos" id="ninos" required="" value="<?=$datosReserva[0]['can_ninos']?>" readonly >
+					    <input type="text" class="form-control" name="ninos" id="ninos" required="" value="<?=$datosReserva['can_ninos']?>" readonly >
 					  </div>
 					</div>
 			    <?php 
-			    if(!empty($datosReserva[0]['id_compania'])){
+			    if(!empty($datosReserva['id_compania'])){
             if(!empty($datosCompania)){?>
   			      <div class="form-group">
   			        <label for="direccion" class="col-sm-2 control-label">Empresa </label>

@@ -18,8 +18,8 @@ $password = $eToken[0]['password'];
 $facturador = $eToken[0]['facturador'];
 
 $resFac = $hotel->getResolucion(1);
-$resolucion = $resFac[0]['resolucion']; 
-$prefijo = $resFac[0]['prefijo'];
+$resolucion = $resFac['resolucion']; 
+$prefijo = $resFac['prefijo'];
 
 $dFactura = $hotel->infoFactura($numero);
 

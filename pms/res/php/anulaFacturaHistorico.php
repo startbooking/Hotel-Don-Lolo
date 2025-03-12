@@ -20,8 +20,8 @@ $facturador = $eToken[0]['facturador'];
 $estadofactura = [];
 
 $resFac = $hotel->getResolucion(1);
-$resolucion = $resFac[0]['resolucion'];
-$prefijo = $resFac[0]['prefijo'];
+$resolucion = $resFac['resolucion'];
+$prefijo = $resFac['prefijo'];
 
 $arcCurl = '../../json/recibeCurl' . $mes . $anio . '.json';
 $envCurl = '../../json/enviaFact' . $mes . $anio . '.json';
