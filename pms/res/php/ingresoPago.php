@@ -333,8 +333,10 @@ if ($perfilFac == 1 && $facturador == 1) {
 
     $recibeCurl = json_decode(trim($respofact), true);
 
-    return 0 ;
-    exit();
+    if(DEV==1){
+        return 0 ; 
+        exit();
+    }
     $errores = [];
     $error = [];
 

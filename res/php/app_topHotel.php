@@ -16,7 +16,7 @@ $admin = new Hotel_Admin();
 $datosHotel = $admin->getDatosHotel();
 $empresa    = $admin->getInfoCia();
 
-define('DEV', '0');
+define('DEV', '1');
 define('FECHA_PMS', $datosHotel[0]['fecha_auditoria']);
 define('CTA_DEPOSITO', $datosHotel[0]['cuenta_depositos']);
 define('CTA_CARGOS_PERD', $datosHotel[0]['cuenta_cargos_perdidos']);

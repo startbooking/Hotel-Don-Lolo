@@ -46,7 +46,7 @@
             <div class="col-lg-8">
               <span class="col-lg-2">Huesped</span>
               <div class="input-group">
-                <input type="text" class="form-control" id="buscarAcoHuesped" placeholder="Buscar Huesped ...">
+                <input type="text" class="form-control" id="buscarAcoHuesped" placeholder="Buscar Huesped ">
                 <span class="input-group-btn">
                   <button data-toggle="modal" href="#myModalBuscaAcompanaHuesped" style="padding:3px" class="btn btn-default" type="button"><i style="padding:3px 8px" class="fa fa-search" aria-hidden="true"></i></button>
                 </span>
