@@ -1,14 +1,12 @@
-[12-Mar-2025 09:55:59 America/Bogota] PHP Warning:  PDOStatement::execute(): SQLSTATE[42S22]: Column not found: 1054 Unknown column 'cargos_pms.tipo_codigo' in 'order clause' in /var/www/donlolo.lan/res/php/Medoo.php on line 565
-[12-Mar-2025 09:55:59 America/Bogota] PHP Fatal error:  Uncaught Error: Call to a member function fetchAll() on null in /var/www/donlolo.lan/res/php/functionsHotel.php:8345
-Stack trace:
-#0 /var/www/donlolo.lan/pms/imprimir/imprimeCongelada.php(15): Hotel_Actions->getConsumosCongeladaReservaAgrupadoCodigoFolio()
-#1 /var/www/donlolo.lan/pms/res/php/ingresoCongela.php(29): include_once('...')
-#2 {main}
-  thrown in /var/www/donlolo.lan/res/php/functionsHotel.php on line 8345
-[12-Mar-2025 09:58:29 America/Bogota] PHP Warning:  PDOStatement::execute(): SQLSTATE[42S22]: Column not found: 1054 Unknown column 'ccodigos_vta.tipo_codigo' in 'order clause' in /var/www/donlolo.lan/res/php/Medoo.php on line 565
-[12-Mar-2025 09:58:29 America/Bogota] PHP Fatal error:  Uncaught Error: Call to a member function fetchAll() on null in /var/www/donlolo.lan/res/php/functionsHotel.php:8344
-Stack trace:
-#0 /var/www/donlolo.lan/pms/imprimir/imprimeCongelada.php(15): Hotel_Actions->getConsumosCongeladaReservaAgrupadoCodigoFolio()
-#1 /var/www/donlolo.lan/pms/res/php/ingresoCongela.php(29): include_once('...')
-#2 {main}
-  thrown in /var/www/donlolo.lan/res/php/functionsHotel.php on line 8344
+[14-Mar-2025 16:22:21 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/res/php/imprimeFacturaDetalladaHistorico.php on line 13
+[14-Mar-2025 16:22:21 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/imprimeFacturaDetalladaHistorico.php on line 13
+[14-Mar-2025 16:22:21 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/res/php/imprimeFacturaDetalladaHistorico.php on line 14
+[14-Mar-2025 16:22:21 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/imprimeFacturaDetalladaHistorico.php on line 14
+[14-Mar-2025 16:22:21 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/res/php/imprimeFacturaDetalladaHistorico.php on line 15
+[14-Mar-2025 16:22:21 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/imprimeFacturaDetalladaHistorico.php on line 15
+[15-Mar-2025 09:22:16 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 31
+[15-Mar-2025 09:23:29 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 31
+[15-Mar-2025 09:23:33 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 31
+[15-Mar-2025 09:23:39 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 31
+[15-Mar-2025 09:23:51 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 31
+[15-Mar-2025 09:23:54 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 31

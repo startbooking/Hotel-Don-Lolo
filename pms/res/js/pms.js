@@ -5512,7 +5512,6 @@ async function reEnviaFactura(factura) {
   let { ok } = recibeData;
   if (!ok) {
     let vistaErr = await errorEnvio(recibeData);
-    // let guarda = await guardaJSON(JSON.stringify(recibeData), jsonFactura);
   } else {
     let {
       ResponseDian: {
@@ -5544,7 +5543,7 @@ async function reEnviaFactura(factura) {
       } = recibe;
 
       let infoFac = await traeResolucion();
-      console.log(infoFact);
+      // console.log(infoFact);
       let { prefijo } = infoFac;
 
       let { message, send_email_success, send_email_date_time, urlinvoicexml, urlinvoicepdf, cufe, QRStr, dian_validation_date_time: { date }, } = recibe;
@@ -7890,9 +7889,6 @@ function ingresaConsumos() {
   let {
     user: { usuario, usuario_id },
   } = sesion;
-  // let { usuario, usuario_id } = user;
-  /* usuario = sesion["usuario"][0]["usuario"];
-  idusuario = sesion["usuario"][0]["usuario_id"]; */
   var congela = $("#cuentaCongelada").val();
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
