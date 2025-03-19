@@ -3,10 +3,10 @@
     <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-          <div class="modal-header">  
+          <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span class="glyphicon glyphicon-off"></span>
-            </button> 
+              <span class="glyphicon glyphicon-off"></span>
+            </button>
             <h3 class="modal-title" id="exampleModalLabel">Cancelar Reserva</h3>
           </div>
           <div class="modal-body modalReservas">
@@ -21,7 +21,7 @@
               </div>
               <label class="control-label col-xs-1">Numero</label>
               <div class="col-lg-2 col-md-2">
-                <input class="form-control padInput" type="text" name='txtNumeroHabInf' id='txtNumeroHabInf' readonly>    
+                <input class="form-control padInput" type="text" name='txtNumeroHabInf' id='txtNumeroHabInf' readonly>
               </div>
             </div>
             <div class="form-group">
@@ -55,12 +55,12 @@
               </div>
               <label for="ninos" class="col-sm-1 control-label">Niños</label>
               <div class="col-sm-1" style='padding-right: 5px'>
-                <input type="number" class="form-control" name="txtNinosInf" id="txtNinosInf" readonly> 
+                <input type="number" class="form-control" name="txtNinosInf" id="txtNinosInf" readonly>
               </div>
               <label for="orden" class="col-sm-2 control-label">Orden Nro</label>
               <div class="col-sm-3">
                 <input type="text" class="form-control" name="orden" id="orden" value="" min=0>
-              </div> 
+              </div>
             </div>
             <div class="form-group">
               <label for="archivo" class="col-sm-2 control-label">Tarifa</label>
@@ -76,7 +76,7 @@
               <label for="motivo" class="col-sm-2 control-label">Observaciones</label>
               <div class="col-sm-10">
                 <textarea style="height: 5em !important;min-height: 5em" name="areaComentariosInf" id="areaComentariosInf" class="form-control" rows="4" readonly=""></textarea>
-              </div>                    
+              </div>
             </div>
             <div class="form-group">
               <label for="tarifahab" class="col-sm-2 control-label">Creada Por</label>
@@ -88,7 +88,7 @@
                 <input type="text" class="form-control" name="fechaCrea" id="fechaCrea" value="" readonly="">
               </div>
             </div>
-              
+
           </div>
           <div class="modal-footer">
             <div class="row">
@@ -101,17 +101,17 @@
       </div>
     </div>
   </form>
-</div> 
+</div>
 
 <div class="modal fade" id="myModalInformacionHuesped" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <form id="guardarDatosRooms" class="form-horizontal" action="" method="POST" enctype="multipart/form-data">
     <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-          <div class="modal-header"> 
+          <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span class="glyphicon glyphicon-off"></span>
-            </button> 
+              <span class="glyphicon glyphicon-off"></span>
+            </button>
             <h3 class="modal-title" id="exampleModalLabel">Informacion del Huesped</h3>
           </div>
           <div id="datos_ajax_register"></div>
@@ -130,59 +130,59 @@
             <div class="form-group">
               <label class="control-label col-xs-2">1r Nombre</label>
               <div class="col-lg-4 col-md-4">
-                <input class="form-control padInput" type="text" name='txtNombre1' id='txtNombre1' readonly >    
+                <input class="form-control padInput" type="text" name='txtNombre1' id='txtNombre1' readonly>
               </div>
               <label class="control-label col-xs-2">2o Nombre</label>
               <div class="col-lg-4 col-md-4">
-                <input class="form-control padInput" type="text" name='txtNombre2' id='txtNombre2' readonly >    
+                <input class="form-control padInput" type="text" name='txtNombre2' id='txtNombre2' readonly>
               </div>
             </div>
             <div id="datosHuespedInfo"></div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>            
+            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
           </div>
         </div>
       </div>
     </div>
   </form>
 </div>
- 
+
 <div class="modal fade" id="myModalCambiaHabitacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <form id="guardarDatosRooms" class="form-horizontal" action="javascript:cambiaHabitacion()" method="POST" enctype="multipart/form-data">
     <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-          <div class="modal-header">   
+          <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span class="glyphicon glyphicon-off"></span> 
-            </button> 
+              <span class="glyphicon glyphicon-off"></span>
+            </button>
             <h3 class="modal-title" id="exampleModalLabel">Cambiar Habitacion</h3>
             <div id="mensaje"></div>
-          </div> 
+          </div>
           <div class="modal-body modalReservas" id="cambiaHabitacion">
           </div>
           <div class="modal-footer" style="text-align: center">
             <div class="btn-group" style="width: 40%;">
               <button style="width: 50%" type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
               <button style="width: 50%" class="btn btn-success" align="right"><i class="fa fa-save"></i> Procesar</button>
-            </div> 
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </form> 
-</div> 
+  </form>
+</div>
 
 <div class="modal fade" id="myModalCambiaTarifa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <form id="formCambiarHabitacion" class="form-horizontal" action="javascript:cambiaTarifa()" method="POST" enctype="multipart/form-data">
     <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-          <div class="modal-header">  
+          <div class="modal-header"> 
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span class="glyphicon glyphicon-off"></span>
-            </button> 
+              <span class="glyphicon glyphicon-off"></span>
+            </button>
             <h3 class="modal-title" id="exampleModalLabel">Cambiar Tarifa</h3>
             <div id="mensajeAct"></div>
           </div>
@@ -194,23 +194,23 @@
             <div class="btn-group" style="width: 40%;">
               <button style="width: 50%" type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
               <button style="width: 50%" class="btn btn-success" align="right"><i class="fa fa-save"></i> Actualizar</button>
-            </div>               
+            </div>
           </div>
         </div>
       </div>
     </div>
   </form>
-</div> 
+</div>
 
 <div class="modal fade" id="myModalCancelaReserva" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <form id="guardarDatosRooms" class="form-horizontal" action="javascript:cancelaReserva()" method="POST" enctype="multipart/form-data">
     <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
       <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
-          <div class="modal-header"> 
+          <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span class="glyphicon glyphicon-off"></span>
-            </button> 
+              <span class="glyphicon glyphicon-off"></span>
+            </button>
             <h3 class="modal-title" id="exampleModalLabel">Cancelar Reserva</h3>
           </div>
           <div class="modal-body modalReservas">
@@ -226,7 +226,7 @@
               </div>
               <label class="control-label col-lg-1">Numero</label>
               <div class="col-lg-2 col-md-2">
-                <input class="form-control padInput" type="text" name='txtNumeroHab' id='txtNumeroHab' readonly>    
+                <input class="form-control padInput" type="text" name='txtNumeroHab' id='txtNumeroHab' readonly>
               </div>
             </div>
             <div class="form-group">
@@ -267,11 +267,11 @@
                 <input class="form-control padInput" type="text" name="txtNinos" id='txtNinos' value='0' readonly>
               </div>
             </div>
-            <div class="form-group" >
+            <div class="form-group">
               <label class="form-label col-lg-2" for="">Comentarios</label>
-              <div class="col-lg-10 col-md-10" >
-                <textarea class="form-control padInput" id="areaComentarios" name="areaComentarios" style="height: 5em !important;min-height: 5em" readonly></textarea>  
-              </div>          
+              <div class="col-lg-10 col-md-10">
+                <textarea class="form-control padInput" id="areaComentarios" name="areaComentarios" style="height: 5em !important;min-height: 5em" readonly></textarea>
+              </div>
             </div>
             <div class="form-group">
               <label for="archivo" class="col-sm-2 control-label">Tarifa</label>
@@ -285,15 +285,15 @@
             </div>
             <div class="form-group">
               <label class="control-label col-lg-2" for="">Motivo</label>
-              <div class="col-lg-8 col-md-8" >
+              <div class="col-lg-8 col-md-8">
                 <select name="motivoCancela" id="motivoCancela" required>
                   <option value="">Motivo Cancelacion Reserva</option>
                   <?php
                   $motivos = $hotel->getMotivoCancelacion(1);
                   foreach ($motivos as $motivo) { ?>
                     <option value="<?php echo $motivo['id_cancela']; ?>"><?php echo $motivo['descripcion_motivo']; ?></option>}
-                     option 
-                    <?php
+                    option
+                  <?php
                   }
                   ?>
                 </select>
@@ -302,13 +302,13 @@
           </div>
           <div class="modal-footer">
             <div class="row">
-              <div class="col-lg-6 col-lg-offset-3" >
+              <div class="col-lg-6 col-lg-offset-3">
                 <div class="col-lg-6">
                   <button type="button" class="btn btn-warning btn-block" data-dismiss="modal">Regresar</button>
                 </div>
                 <div class="col-lg-6">
                   <button class="btn btn-primary btn-block">Procesar</button>
-                </div>                
+                </div>
               </div>
             </div>
           </div>
@@ -323,10 +323,10 @@
     <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
       <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
-          <div class="modal-header"> 
+          <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span class="glyphicon glyphicon-off"></span>
-            </button> 
+              <span class="glyphicon glyphicon-off"></span>
+            </button>
             <h3 class="modal-title" id="exampleModalLabel">Ingresa Reserva</h3>
           </div>
           <div id="datos_ajax_register"></div>
@@ -342,7 +342,7 @@
               </div>
               <label class="control-label col-lg-2">Numero</label>
               <div class="col-lg-2 col-md-2">
-                <input class="form-control padInput" type="text" name='txtNumeroHab' id='txtNumeroHab' readonly="">    
+                <input class="form-control padInput" type="text" name='txtNumeroHab' id='txtNumeroHab' readonly="">
               </div>
             </div>
             <div class="form-group">
@@ -385,7 +385,7 @@
               <label for="orden" class="col-sm-2 control-label">Orden Nro</label>
               <div class="col-sm-3">
                 <input type="text" class="form-control" name="orden" id="orden" value="" readonly>
-              </div> 
+              </div>
             </div>
             <div class="form-group">
               <label class="control-label control-label col-lg-2">Hombres</label>
@@ -403,15 +403,15 @@
               <label for="orden" class="col-sm-2 control-label">Orden Nro</label>
               <div class="col-sm-3">
                 <input type="text" class="form-control" name="orden" id="orden" value="" readonly>
-              </div> 
+              </div>
             </div>
 
-            <div class="form-group" >
+            <div class="form-group">
               <label class="control-label col-lg-2" for="">Comentarios</label>
-              <div class="col-lg-10 col-md-10" >
-                <textarea class="form-control padInput" id="areaComentarios" name="areaComentarios" readonly="" style="height: 5em !important;min-height: 5em"></textarea>  
-              </div>          
-            </div> 
+              <div class="col-lg-10 col-md-10">
+                <textarea class="form-control padInput" id="areaComentarios" name="areaComentarios" readonly="" style="height: 5em !important;min-height: 5em"></textarea>
+              </div>
+            </div>
             <div class="form-group">
               <label for="archivo" class="col-sm-2 control-label">Tarifa</label>
               <div class="col-sm-4">
@@ -419,19 +419,19 @@
               </div>
               <label for="archivo" class="col-sm-1 control-label">Valor</label>
               <div class="col-sm-3">
-                <input class="form-control padInput" type="text" name="txtValorTarifa" id="txtValorTarifa" value=0 >
+                <input class="form-control padInput" type="text" name="txtValorTarifa" id="txtValorTarifa" value=0>
               </div>
             </div>
           </div>
           <div class="modal-footer">
             <div class="row">
-              <div class="col-lg-6 col-lg-offset-3" >
+              <div class="col-lg-6 col-lg-offset-3">
                 <div class="col-lg-6">
                   <button type="button" class="btn btn-warning btn-block" data-dismiss="modal">Regresar</button>
                 </div>
                 <div class="col-lg-6">
                   <button class="btn btn-primary btn-block" id="btnSaveRoom">Ingresar</button>
-                </div>                
+                </div>
               </div>
             </div>
           </div>
@@ -439,8 +439,8 @@
       </div>
     </div>
   </form>
-</div> 
-  
+</div>
+
 <div class="modal fade" id="myModalModificaEstadia" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <form class="form-horizontal" id="formUpdateEstadia" action="javascript:updateEstadia()" method="POST">
     <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
@@ -449,8 +449,8 @@
           <div class="panel panel-default">
             <div class="panel-heading">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span class="glyphicon glyphicon-off"></span>
-              </button> 
+                <span class="glyphicon glyphicon-off"></span>
+              </button>
               <h3 class="modal-title" id="exampleModalLabel">Modificar Estadia</h3>
             </div>
             <div class="panel-body">
@@ -458,7 +458,7 @@
             </div>
           </div>
         </div>
-      </div> 
+      </div>
     </div>
   </form>
 </div>
@@ -468,10 +468,10 @@
     <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-          <div class="modal-header"> 
+          <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span class="glyphicon glyphicon-off"></span>
-            </button> 
+              <span class="glyphicon glyphicon-off"></span>
+            </button>
             <h3 class="modal-title" id="exampleModalLabel">Anular Ingreso</h3>
           </div>
           <div id="datos_ajax_register"></div>
@@ -487,7 +487,7 @@
               </div>
               <label class="control-label col-lg-2 col-md-2">Numero</label>
               <div class="col-lg-2 col-md-2">
-                <input class="form-control padInput" type="text" name='txtNumeroHab' id='txtNumeroHabAnu' readonly="">    
+                <input class="form-control padInput" type="text" name='txtNumeroHab' id='txtNumeroHabAnu' readonly="">
               </div>
             </div>
             <div class="form-group">
@@ -524,12 +524,12 @@
                 <input class="form-control padInput" type="text" name="txtNinos" id='txtNinosAnu' value='0' readonly="">
               </div>
             </div>
-            <div class="form-group" >
+            <div class="form-group">
               <label class="control-label col-lg-2 col-md-2" for="">Comentarios</label>
-              <div class="col-lg-10 col-md-10" >
-                <textarea class="form-control padInput" id="areaComentariosAnu" name="areaComentarios" readonly="" style="height: 5em !important;min-height: 5em"></textarea>  
-              </div>          
-            </div> 
+              <div class="col-lg-10 col-md-10">
+                <textarea class="form-control padInput" id="areaComentariosAnu" name="areaComentarios" readonly="" style="height: 5em !important;min-height: 5em"></textarea>
+              </div>
+            </div>
             <div class="form-group">
               <label for="archivo" class="col-sm-2 control-label">Tarifa</label>
               <div class="col-sm-4">
@@ -537,23 +537,23 @@
               </div>
               <label for="archivo" class="col-sm-1 control-label">Valor</label>
               <div class="col-sm-2">
-                <input class="form-control padInput" style="text-align:right;" type="text" name="txtValorTarifaAnu" id="txtValorTarifaAnu" value=0 >
+                <input class="form-control padInput" style="text-align:right;" type="text" name="txtValorTarifaAnu" id="txtValorTarifaAnu" value=0>
               </div>
             </div>
           </div>
           <div class="modal-footer">
             <div class="row">
-              <div class="col-sm-6 col-sm-offset-3" >
+              <div class="col-sm-6 col-sm-offset-3">
                 <div class="col-lg-6 col-md-6">
                   <button type="button" class="btn btn-warning btn-block" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
                 </div>
                 <div class="col-lg-6 col-md-6">
                   <button class="btn btn-primary btn-block" id="btnSaveRoom"><i class="fa fa-save"></i> Procesar</button>
-                </div>                
+                </div>
               </div>
             </div>
           </div>
-        </div> 
+        </div>
       </div>
     </div>
   </form>
@@ -564,10 +564,10 @@
     <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-          <div class="modal-header">  
+          <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span class="glyphicon glyphicon-off"></span>
-            </button> 
+              <span class="glyphicon glyphicon-off"></span>
+            </button>
             <h3 class="modal-title" id="exampleModalLabel">Modificar Reserva</h3>
             <div id="mensaje"></div>
           </div>
@@ -581,8 +581,8 @@
 
 <div class="modal fade bs-example-modal-lg" id="myModalAsignarCompania" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-md" role="document">
-    <div class="modal-content"> 
-      <div class="row-fluid imprime_productos_mov" > 
+    <div class="modal-content">
+      <div class="row-fluid imprime_productos_mov">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class='glyphicon glyphicon-off' style="color:#530505"></span></button>
           <h4 class="modal-title" id="myModalLabel">Asignar Compañia a la Estadia</h4>
@@ -595,13 +595,13 @@
           </div>
           <div class="modal-footer">
             <div class="row">
-              <div class="col-md-6 col-md-offset-3" >
+              <div class="col-md-6 col-md-offset-3">
                 <div class="col-md-6">
                   <button type="button" class="btn btn-warning btn-block" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
                 </div>
                 <div class="col-md-6">
                   <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-save"></i> Procesar</button>
-                </div>                
+                </div>
               </div>
             </div>
           </div>
@@ -621,12 +621,12 @@
       </div>
       <div class="modal-body">
         <div id="mensaje"></div>
-        <div id="datosCiaInfo"></div>        
+        <div id="datosCiaInfo"></div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
       </div>
-    </div> 
+    </div>
   </div>
 </div>
 
@@ -635,10 +635,10 @@
     <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
       <div class="modal-dialog modal-lg" role="document" id="">
         <div class="modal-content">
-          <div class="modal-header"> 
+          <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span class="glyphicon glyphicon-off"></span>
-            </button> 
+              <span class="glyphicon glyphicon-off"></span>
+            </button>
             <h3 class="modal-title" id="exampleModalLabel">Depositos a Reserva</h3>
           </div>
           <div class="modal-body" style="height: 400px;overflow: auto;">
@@ -658,10 +658,10 @@
     <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
       <div class="modal-dialog modal-md" role="document" id="">
         <div class="modal-content">
-          <div class="modal-header"> 
+          <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span class="glyphicon glyphicon-off"></span>
-            </button> 
+              <span class="glyphicon glyphicon-off"></span>
+            </button>
             <h3 class="modal-title" id="exampleModalLabel">Reasigna Huesped a la Estadia</h3>
           </div>
           <div class="modal-body">
@@ -671,11 +671,11 @@
                 <input type="hidden" name="estadoocupacion" value="ES">
                 <input type="hidden" name="nroreserva" id="nroreserva" value="">
                 <label for="inputEmail3" class="col-sm-2 control-label">Huesped</label>
-                <div class="form-group has-success has-feedback col-sm-10" >
+                <div class="form-group has-success has-feedback col-sm-10">
                   <div class="input-group" style="padding-left:15px;">
                     <input type="text" class="form-control" id="buscarHuespedRes" aria-describedby="inputGroupSuccess4Status" style="background:#FFF;border:1px solid black">
                     <span class="input-group-addon" style="padding:1px;border:none">
-                      <a data-toggle="modal" 
+                      <a data-toggle="modal"
                         href="#myModalBuscaHuespedRes">
                         <i style="padding:5px 10px" class="fa fa-search" aria-hidden="true"></i>
                       </a>
@@ -701,18 +701,18 @@
     <div id="dataRegisterRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
       <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
-          <div class="modal-header"> 
+          <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span class="glyphicon glyphicon-off"></span>
-            </button> 
+              <span class="glyphicon glyphicon-off"></span>
+            </button>
             <h3 class="modal-title" id="exampleModalLabel">Huesped Encontrados</h3>
           </div>
           <div id="datos_ajax_register"></div>
           <div class="modal-body" id="huespedesEncontradosRes"></div>
           <div class="modal-footer">
             <div class="row">
-              <div class="col-lg-4 col-lg-offset-4" >
-                  <button type="button" class="btn btn-warning btn-block" data-dismiss="modal"><i class="fa fa-reply" aria-hidden="true"></i> Regresar</button>
+              <div class="col-lg-4 col-lg-offset-4">
+                <button type="button" class="btn btn-warning btn-block" data-dismiss="modal"><i class="fa fa-reply" aria-hidden="true"></i> Regresar</button>
               </div>
             </div>
           </div>

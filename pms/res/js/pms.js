@@ -6702,7 +6702,8 @@ function valorHabitacionAct(tarifa) {
       hom,
       muj,
       nin,
-      habi,
+      desde,
+      hasta,
     };
     $.ajax({
       url: "res/php/valorTarifa.php",
@@ -7657,6 +7658,8 @@ async function guardasinReserva() {
   document.querySelector('#btnRegistra').setAttribute("disabled", pagina);
   let idhuesped = formData.get("idhuesped");
   let idcia = formData.get("empresaUpd");
+
+  
 
   formData.set("usuario", usuario);
   formData.set("usuario_id", usuario_id);

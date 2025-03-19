@@ -1,6 +1,6 @@
 <?php
 error_reporting(E_ALL);
-ini_set('display_errors', '1');
+ini_set('display_errors', '0');
 setlocale(LC_ALL, 'es_CO.utf8', 'es_CO', 'esp');
 date_default_timezone_set('America/Bogota');
 
@@ -126,7 +126,6 @@ if (!isset($_GET['section'])) {
     $fpagos   = $hotel->getCodigosConsumos(3);
 } elseif (isset($_GET['section']) && $_GET['section'] == 'recaudosCartera') {
     $recaudos = $hotel->traeRecaudosCartera();
-    // echo print_r($recaudos);
 } elseif (isset($_GET['section']) && $_GET['section'] == 'facturacionHuesped') {
 } elseif (isset($_GET['section']) && $_GET['section'] == 'ingresoConsumos') {
     $reservas = $hotel->getHuespedesenCasa(2, 'CA');

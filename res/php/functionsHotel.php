@@ -57,11 +57,12 @@ class Hotel_Actions{
             'recaudoCartera.totalRecaudo', 
             'recaudoCartera.detalleRecaudo', 
             'recaudoCartera.fechaRecaudo',
+            'recaudoCartera.fecha',
             'recaudoCartera.idRecaudo',
             'recaudoCartera.fechaIngreso',
             'recaudoCartera.estado'
         ],[
-            'recaudoCartera.fechaRecaudo' => FECHA_PMS,
+            'recaudoCartera.fecha' => FECHA_PMS,
             'ORDER' => ['numeroRecaudo' => 'ASC']
         ]);
         return $data;
@@ -97,6 +98,7 @@ class Hotel_Actions{
           'recaudoCartera.totalRecaudo',
           'recaudoCartera.detalleRecaudo',
           'recaudoCartera.fechaRecaudo',
+          'recaudoCartera.fecha',
           'recaudoCartera.fechaIngreso',
           'recaudosDetalle.facturaNumero',
           'recaudosDetalle.fechaFactura',
@@ -143,19 +145,19 @@ class Hotel_Actions{
         return $database->id();
     }
 
-    public function ingresoCartera($recaudo, $fecha, $cliente,$formapago,  $concepto, $totalpago, $idusr ){
+    public function ingresoCartera($recaudo, $fechaRec, $cliente,$formapago,  $concepto, $totalpago, $idusr, $fecha ){
         global $database;
 
         $data = $database->insert('recaudoCartera',[
             'numeroRecaudo' => $recaudo,
-            'fechaRecaudo' => $fecha,
+            'fechaRecaudo' => $fechaRec,
             'idUsuario' => $idusr,
             'detalleRecaudo' => $concepto,
             'formaPago' => $formapago,
-            'fechaRecaudo' => $fecha,
             'idCliente' => $cliente,
             'totalRecaudo' => $totalpago,
-            'fechaIngreso' => date('Y-m-d H:i:s')
+            'fechaIngreso' => date('Y-m-d H:i:s'),
+            'fecha' => $fecha,
         ]);
         return $database->id();
     }
@@ -2857,9 +2859,7 @@ class Hotel_Actions{
     {
         global $database;
 
-        $data = $database->query(
-            "
-        SELECT
+        $data = $database->query("SELECT
             paquetes.codigo_vta,
             paquetes.codigo_excento,
             paquetes.valor,
@@ -7499,6 +7499,48 @@ class Hotel_Actions{
         ];
         return $result;
     }
+
+    public function getBuscaIdHuespedSinReserva($id)
+    {
+        global $database;
+
+        $data = $database->select('huespedes', [
+            'id_huesped',
+            'nombre1',
+            'nombre2',
+            'apellido1',
+            'apellido2',
+            'nombre_completo',
+            'identificacion',
+            'direccion',
+            'telefono',
+            'email',
+            'tipo_identifica',
+            'tipo_huesped',
+            'pais_expedicion',
+            'ciudad_expedicion',
+            'fecha_nacimiento',
+            'sexo',
+            'celular',
+            'id_compania',
+            'idCentroCia',
+            'id_forma_pago',
+            'id_tarifa',
+            'estado_credito',
+            'pais',
+            'ciudad',
+            'profesion',
+            'id_forma_pago',
+            'tipoAdquiriente',
+            'tipoResponsabilidad',
+            'responsabilidadTributaria',
+        ], [
+            'id_huesped' => $id,
+        ]);
+
+        return $data;
+    }
+
 
     public function getBuscaIdHuesped($id)
     {

@@ -1,12 +1,81 @@
-[14-Mar-2025 16:22:21 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/res/php/imprimeFacturaDetalladaHistorico.php on line 13
-[14-Mar-2025 16:22:21 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/imprimeFacturaDetalladaHistorico.php on line 13
-[14-Mar-2025 16:22:21 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/res/php/imprimeFacturaDetalladaHistorico.php on line 14
-[14-Mar-2025 16:22:21 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/imprimeFacturaDetalladaHistorico.php on line 14
-[14-Mar-2025 16:22:21 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/pms/res/php/imprimeFacturaDetalladaHistorico.php on line 15
-[14-Mar-2025 16:22:21 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/imprimeFacturaDetalladaHistorico.php on line 15
-[15-Mar-2025 09:22:16 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 31
-[15-Mar-2025 09:23:29 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 31
-[15-Mar-2025 09:23:33 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 31
-[15-Mar-2025 09:23:39 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 31
-[15-Mar-2025 09:23:51 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 31
-[15-Mar-2025 09:23:54 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 31
+[18-Mar-2025 20:25:29 America/Bogota] PHP Warning:  Undefined variable $infohuesped in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 11
+[18-Mar-2025 20:25:29 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 11
+[18-Mar-2025 20:25:29 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 11
+[18-Mar-2025 20:25:29 America/Bogota] PHP Warning:  Undefined variable $infohuesped in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 13
+[18-Mar-2025 20:25:29 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 13
+[18-Mar-2025 20:25:29 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 13
+[18-Mar-2025 20:25:29 America/Bogota] PHP Warning:  Undefined variable $infohuesped in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 16
+[18-Mar-2025 20:25:29 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 16
+[18-Mar-2025 20:25:29 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 16
+[18-Mar-2025 20:25:29 America/Bogota] PHP Warning:  Undefined variable $infohuesped in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 19
+[18-Mar-2025 20:25:29 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 19
+[18-Mar-2025 20:25:29 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 19
+[18-Mar-2025 20:25:29 America/Bogota] PHP Warning:  Undefined variable $infohuesped in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 22
+[18-Mar-2025 20:25:29 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 22
+[18-Mar-2025 20:25:29 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 22
+[18-Mar-2025 20:25:29 America/Bogota] PHP Warning:  Undefined variable $infohuesped in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 25
+[18-Mar-2025 20:25:29 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 25
+[18-Mar-2025 20:25:29 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 25
+[18-Mar-2025 20:26:28 America/Bogota] PHP Warning:  Undefined variable $infohuesped in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 13
+[18-Mar-2025 20:26:28 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 13
+[18-Mar-2025 20:26:28 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 13
+[18-Mar-2025 20:26:28 America/Bogota] PHP Warning:  Undefined variable $infohuesped in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 16
+[18-Mar-2025 20:26:28 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 16
+[18-Mar-2025 20:26:28 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 16
+[18-Mar-2025 20:26:28 America/Bogota] PHP Warning:  Undefined variable $infohuesped in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 19
+[18-Mar-2025 20:26:28 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 19
+[18-Mar-2025 20:26:28 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 19
+[18-Mar-2025 20:26:28 America/Bogota] PHP Warning:  Undefined variable $infohuesped in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 22
+[18-Mar-2025 20:26:28 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 22
+[18-Mar-2025 20:26:28 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 22
+[18-Mar-2025 20:26:28 America/Bogota] PHP Warning:  Undefined variable $infohuesped in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 25
+[18-Mar-2025 20:26:28 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 25
+[18-Mar-2025 20:26:28 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 25
+[18-Mar-2025 20:28:21 America/Bogota] PHP Warning:  Undefined variable $infohuesped in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 11
+[18-Mar-2025 20:28:21 America/Bogota] PHP Warning:  Undefined variable $infohuesped in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 13
+[18-Mar-2025 20:28:21 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 13
+[18-Mar-2025 20:28:21 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 13
+[18-Mar-2025 20:28:21 America/Bogota] PHP Warning:  Undefined variable $infohuesped in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 16
+[18-Mar-2025 20:28:21 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 16
+[18-Mar-2025 20:28:21 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 16
+[18-Mar-2025 20:28:21 America/Bogota] PHP Warning:  Undefined variable $infohuesped in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 19
+[18-Mar-2025 20:28:21 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 19
+[18-Mar-2025 20:28:21 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 19
+[18-Mar-2025 20:28:21 America/Bogota] PHP Warning:  Undefined variable $infohuesped in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 22
+[18-Mar-2025 20:28:21 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 22
+[18-Mar-2025 20:28:21 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 22
+[18-Mar-2025 20:28:21 America/Bogota] PHP Warning:  Undefined variable $infohuesped in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 25
+[18-Mar-2025 20:28:21 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 25
+[18-Mar-2025 20:28:21 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 25
+[18-Mar-2025 20:30:23 America/Bogota] PHP Warning:  Undefined variable $infohuesped in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 11
+[18-Mar-2025 20:30:23 America/Bogota] PHP Warning:  Undefined variable $infohuesped in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 13
+[18-Mar-2025 20:30:23 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 13
+[18-Mar-2025 20:30:23 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 13
+[18-Mar-2025 20:30:23 America/Bogota] PHP Warning:  Undefined variable $infohuesped in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 16
+[18-Mar-2025 20:30:23 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 16
+[18-Mar-2025 20:30:23 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 16
+[18-Mar-2025 20:30:23 America/Bogota] PHP Warning:  Undefined variable $infohuesped in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 19
+[18-Mar-2025 20:30:23 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 19
+[18-Mar-2025 20:30:23 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 19
+[18-Mar-2025 20:30:23 America/Bogota] PHP Warning:  Undefined variable $infohuesped in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 22
+[18-Mar-2025 20:30:23 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 22
+[18-Mar-2025 20:30:23 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 22
+[18-Mar-2025 20:30:23 America/Bogota] PHP Warning:  Undefined variable $infohuesped in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 25
+[18-Mar-2025 20:30:23 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 25
+[18-Mar-2025 20:30:23 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 25
+[18-Mar-2025 20:32:46 America/Bogota] PHP Warning:  Undefined variable $infohuesped in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 11
+[18-Mar-2025 20:32:46 America/Bogota] PHP Warning:  Undefined variable $infohuesped in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 13
+[18-Mar-2025 20:32:46 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 13
+[18-Mar-2025 20:32:46 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 13
+[18-Mar-2025 20:32:46 America/Bogota] PHP Warning:  Undefined variable $infohuesped in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 16
+[18-Mar-2025 20:32:46 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 16
+[18-Mar-2025 20:32:46 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 16
+[18-Mar-2025 20:32:46 America/Bogota] PHP Warning:  Undefined variable $infohuesped in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 19
+[18-Mar-2025 20:32:46 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 19
+[18-Mar-2025 20:32:46 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 19
+[18-Mar-2025 20:32:46 America/Bogota] PHP Warning:  Undefined variable $infohuesped in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 22
+[18-Mar-2025 20:32:46 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 22
+[18-Mar-2025 20:32:46 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 22
+[18-Mar-2025 20:32:46 America/Bogota] PHP Warning:  Undefined variable $infohuesped in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 25
+[18-Mar-2025 20:32:46 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 25
+[18-Mar-2025 20:32:46 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/res/php/validaDatosHuesped.php on line 25

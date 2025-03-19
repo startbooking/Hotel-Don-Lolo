@@ -9,7 +9,7 @@
 
 		$regis = $hotel->incrementaConsecutivoRecaudo($numRec+1);
 
-		$ing = $hotel->ingresoCartera($numRec, $fecha, $cliente, $formapago,  $concepto, str_replace(",","",$totalpago), $usuario_id );
+		$ing = $hotel->ingresoCartera($numRec, $fecha, $cliente, $formapago,  $concepto, str_replace(",","",$totalpago), $usuario_id, FECHA_PMS );
 
 		$pagos = json_decode($facturas, true);
 

@@ -8,6 +8,15 @@
   $cia     = $hotel->getBuscaCia($reserva['id_compania']);
   $tipohab =  $reserva['tipo_habitacion'];
 
+  $llega   = $reserva['fecha_llegada'];
+  $sale    = $reserva['fecha_salida'];
+  // $tarifas = $hotel->getSeleccionaTarifa($tipohab,$llega,$sale); 
+  $tarifas = $hotel->getTarifasHuespedes();
+
+  // print_r($tarifas);
+
+  // <br /><b>Warning</b>:  Undefined variable $desde in <b>/var/www/donlolo.lan/pms/res/php/valorTarifa.php</b> on line <b>8</b><br /><br /><b>Warning</b>:  Undefined variable $hasta in <b>/var/www/donlolo.lan/pms/res/php/valorTarifa.php</b> on line <b>8</b><br /><br /><b>Warning</b>:  Undefined array key 0 in <b>/var/www/donlolo.lan/res/php/functionsHotel.php</b> on line <b>31</b><br />-1
+
  ?>
 <div class="">
   <div class="form-group">
@@ -55,7 +64,7 @@
             ?>
             >
             <label style="margin-top:-20px;margin-left:25px" class="form-check-label" for="inlineRadio1" >NO</label>
-          </div>                    
+          </div>
         </div>
         <div class="col-sm-6" style="padding:0;height: 15px"> 
           <div class="form-check form-check-inline">
@@ -94,7 +103,7 @@
   <div class="form-group">
     <label for="llegada" class="col-sm-2 control-label">Llegada</label>
     <div class="col-sm-3" style="padding:0px 5px 0px 15px">
-      <input type="date" class="form-control" name="llegada" id="llegada" readonly disabled value="<?=$reserva['fecha_llegada']?>"> 
+      <input type="date" class="form-control" name="llegadaAct" id="llegadaAct" readonly disabled value="<?=$reserva['fecha_llegada']?>"> 
     </div>
     <label for="noches" class="col-sm-1 control-label">Noches</label>
     <div class="col-sm-2"  style="padding:0px 5px 0px 15px">
@@ -102,7 +111,7 @@
     </div>
     <label for="salida" class="col-sm-1 control-label">Salida</label>
     <div class="col-sm-3" style="padding:0px 5px 0px 15px">
-      <input type="date" onblur="restaFechas()" class="form-control" name="salida" id="salida" readonly disabled value="<?=$reserva['fecha_salida']?>">
+      <input type="date" onblur="restaFechas()" class="form-control" name="salidaAct" id="salidaAct" readonly disabled value="<?=$reserva['fecha_salida']?>">
     </div>
   </div>
   <div class="form-group">
@@ -168,22 +177,16 @@
     <label for="tarifahab" class="col-sm-2 control-label">Tipo Tarifa</label>
     <div class="col-sm-4">
       <div id="tarifas">
-        <?php 
-          $llega   = $reserva['fecha_llegada'];
-          $sale    = $reserva['fecha_salida'];
-          $tarifas = $hotel->getSeleccionaTarifa($tipohab,$llega,$sale); 
-        ?>
-        <select name="tarifaHabAct" id="tarifaHabAct" readonly disabled onblur="valorHabitacionUpd(this.value)">
+        
+        <select name="tarifaHabAct" id="tarifaHabAct" readonly disabled>
           <?php 
           foreach ($tarifas as $tarifa) { ?>
-            <option value="<?=$tarifa['id']?>"
-              <?php 
-              if($reserva['tarifa']==$tarifa['id']){?>
+            <option value="<?php echo $tarifa['id_tarifa']; ?>" <?php
+                if ($reserva['tarifa'] == $tarifa['id_tarifa']) { ?>
                 selected
-                <?php 
-              }
-              ?>
-              ><?=$tarifa['descripcion_tarifa']?></option>
+                <?php
+                  }
+                ?>><?php echo $tarifa['descripcion_tarifa']; ?></option>
             <?php 
           }
           ?>
@@ -201,22 +204,15 @@
     <label for="tarifahab" class="col-sm-2 control-label">Nueva Tarifa</label>
     <div class="col-sm-4">
       <div id="tarifas">
-        <?php 
-          $llega   =  $reserva['fecha_llegada'];
-          $sale    =  $reserva['fecha_salida'];
-          $tarifas = $hotel->getSeleccionaTarifa($tipohab,$llega,$sale); 
-        ?>
         <select name="tarifahab" id="tarifahab" readonly onblur="valorHabitacionAct(this.value)">
           <?php 
           foreach ($tarifas as $tarifa) { ?>
-            <option value="<?=$tarifa['id']?>"
-              <?php 
-              if($reserva['tarifa']==$tarifa['id']){?>
+            <option value="<?php echo $tarifa['id_tarifa']; ?>" <?php
+                if ($reserva['tarifa'] == $tarifa['id_tarifa']) { ?>
                 selected
-                <?php 
-              }
-              ?>
-              ><?=$tarifa['descripcion_tarifa']?></option>
+                <?php
+                  }
+                ?>><?php echo $tarifa['descripcion_tarifa']; ?></option>
             <?php 
           }
           ?>
