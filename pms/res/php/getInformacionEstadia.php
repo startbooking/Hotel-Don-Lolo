@@ -4,7 +4,7 @@ require '../../../res/php/app_topHotel.php';
 
 $nroreserva = $_POST['reserva'];
 $reserva    = $hotel->getBuscaHistoricoReserva($nroreserva);
-$llega = $reserva['fecha_llegada']; 
+$llega = $reserva['fecha_llegada'];
 $sale = $reserva['fecha_salida'];
 $huesped = $hotel->getBuscaIdHuesped($reserva['id_huesped']);
 $tipohab = $reserva['tipo_habitacion'];
@@ -32,7 +32,7 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
           <option value="">Seleccione el Tipo de Documeto</option>
           <?php
           foreach ($tipodocs as $tipodoc) { ?>
-            <option value="<?php echo $tipodoc['id_doc']; ?>" <?php if ($tipodoc['id_doc'] == $huesped['tipo_identifica']) { ?> selected <?php }?>>
+            <option value="<?php echo $tipodoc['id_doc']; ?>" <?php if ($tipodoc['id_doc'] == $huesped['tipo_identifica']) { ?> selected <?php } ?>>
               <?php echo $tipodoc['descripcion_documento']; ?></option>
           <?php } ?>
         </select>
@@ -84,13 +84,13 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
     <div class="form-group">
       <label for="llegada" class="col-sm-2 control-label">Llegada</label>
       <div class="col-sm-3">
-        <input type="date" class="form-control" name="llegadaUpd" id="llegadaUpd" onblur="sumaFecha()" value="<?php echo $reserva['fecha_llegada']; ?>" min='<?php 
-          if ($reserva['tipo_reserva'] == 2) { 
-            echo $reserva['fecha_llegada'];
-          } else {
-            echo FECHA_PMS;
-          } ?>' <?php if ($reserva['tipo_reserva'] == 2) { ?> 
-            disabled="true" <?php } ?>>
+        <input type="date" class="form-control" name="llegadaUpd" id="llegadaUpd" onblur="sumaFecha()" value="<?php echo $reserva['fecha_llegada']; ?>" min='<?php
+                                                                                                                                                              if ($reserva['tipo_reserva'] == 2) {
+                                                                                                                                                                echo $reserva['fecha_llegada'];
+                                                                                                                                                              } else {
+                                                                                                                                                                echo FECHA_PMS;
+                                                                                                                                                              } ?>' <?php if ($reserva['tipo_reserva'] == 2) { ?>
+          disabled="true" <?php } ?>>
       </div>
       <label for="noches" class="col-sm-1 control-label">Noches</label>
       <div class="col-sm-1" style="padding:0 5px">
@@ -126,7 +126,7 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
           <?php
           foreach ($tipos as $tipo) {
           ?>
-            <option value="<?php echo $tipo['id']; ?>" <?php if ($reserva['tipo_habitacion'] == $tipo['id']) { ?> selected <?php }?>><?php echo $tipo['descripcion_habitacion']; ?></option>
+            <option value="<?php echo $tipo['id']; ?>" <?php if ($reserva['tipo_habitacion'] == $tipo['id']) { ?> selected <?php } ?>><?php echo $tipo['descripcion_habitacion']; ?></option>
           <?php
           }
           ?>
@@ -140,8 +140,8 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
             foreach ($habitaciones as $habitacion) { ?>
               <option value="<?php echo $habitacion['num_habitacion']; ?>" <?php
                                                                             if ($habitacion['num_habitacion'] == $reserva['num_habitacion']) { ?> selected <?php
-                                                                                                                                                            }
-                                                                                                                                                              ?>><?php echo $habitacion['num_habitacion']; ?></option>
+                                                                                                                                                          }
+                                                                                                                                                            ?>><?php echo $habitacion['num_habitacion']; ?></option>
             <?php
             }
             ?>
@@ -156,10 +156,12 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
           <select name="tarifahabUpd" id="tarifahabUpd" onblur="valorHabitacionUpd(this.value)">
             <?php
             foreach ($tarifas as $tarifa) { ?>
-              <option value="<?php echo $tarifa['id']; ?>" <?php
-                                                            if ($reserva['tarifa'] == $tarifa['id']) { ?> selected <?php
-                                                                                                                    }
-                                                                                                                      ?>><?php echo $tarifa['descripcion_tarifa']; ?></option>
+              <option value="<?php echo $tarifa['id']; ?>"
+                <?php
+                if ($reserva['tarifa'] == $tarifa['id']) { ?> selected
+                <?php
+                }
+                ?>><?php echo $tarifa['descripcion_tarifa']; ?></option>
             <?php
             }
             ?>
@@ -180,10 +182,12 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
           <option value="">Seleccione la Ciudad de Procedencia</option>
           <?php
           foreach ($ciudades as $ciudad) { ?>
-            <option value="<?php echo $ciudad['id_ciudad']; ?>" <?php
-                                                                if ($reserva['origen_reserva'] == $ciudad['id_ciudad']) { ?> selected <?php
-                                                                                                                                        }
-                                                                                                                                          ?>><?php echo $ciudad['municipio'] . ' ' . $ciudad['depto']; ?></option>
+            <option value="<?php echo $ciudad['id_ciudad']; ?>"
+              <?php
+              if ($reserva['origen_reserva'] == $ciudad['id_ciudad']) { ?> selected
+              <?php
+              }
+              ?>><?php echo $ciudad['municipio'] . ' ' . $ciudad['depto']; ?></option>
           <?php
           }
           ?>
@@ -195,10 +199,12 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
           <option value="">Seleccione la Ciudad de Destino</option>}
           <?php
           foreach ($ciudades as $ciudad) { ?>
-            <option value="<?php echo $ciudad['id_ciudad']; ?>" <?php
-                                                                if ($reserva['destino_reserva'] == $ciudad['id_ciudad']) { ?> selected <?php
-                                                                                                                                        }
-                                                                                                                                          ?>><?php echo $ciudad['municipio'] . ' ' . $ciudad['depto']; ?></option>}
+            <option value="<?php echo $ciudad['id_ciudad']; ?>"
+              <?php
+              if ($reserva['destino_reserva'] == $ciudad['id_ciudad']) { ?> selected
+              <?php
+              }
+              ?>><?php echo $ciudad['municipio'] . ' ' . $ciudad['depto']; ?></option>}
           <?php
           }
           ?>
@@ -215,8 +221,8 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
           foreach ($motivos as $motivo) { ?>
             <option value="<?php echo $motivo['id_grupo']; ?>" <?php
                                                                 if ($reserva['motivo_viaje'] == $motivo['id_grupo']) { ?> selected <?php
-                                                                                                                                    }
-                                                                                                                                      ?>>
+                                                                                                                                  }
+                                                                                                                                    ?>>
               <?php echo $motivo['descripcion_grupo']; ?></option>}
           <?php
           }
@@ -232,8 +238,8 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
           foreach ($motivos as $motivo) { ?>
             <option value="<?php echo $motivo['id_grupo']; ?>" <?php
                                                                 if ($reserva['fuente_reserva'] == $motivo['id_grupo']) { ?> selected <?php
-                                                                                                                                      }
-                                                                                                                                        ?>><?php echo $motivo['descripcion_grupo']; ?></option>}
+                                                                                                                                    }
+                                                                                                                                      ?>><?php echo $motivo['descripcion_grupo']; ?></option>}
           <?php
           }
           ?>
@@ -250,8 +256,8 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
           foreach ($motivos as $motivo) { ?>
             <option value="<?php echo $motivo['id_grupo']; ?>" <?php
                                                                 if ($reserva['segmento_mercado'] == $motivo['id_grupo']) { ?> selected <?php
-                                                                                                                                        }
-                                                                                                                                          ?>><?php echo $motivo['descripcion_grupo']; ?></option>}
+                                                                                                                                      }
+                                                                                                                                        ?>><?php echo $motivo['descripcion_grupo']; ?></option>}
           <?php
           }
           ?>
@@ -266,8 +272,8 @@ $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
           foreach ($codigos as $codigo) { ?>
             <option value="<?php echo $codigo['id_cargo']; ?>" <?php
                                                                 if ($reserva['forma_pago'] == $codigo['id_cargo']) { ?> selected <?php
-                                                                                                                                  }
-                                                                                                                                    ?>><?php echo $codigo['descripcion_cargo']; ?></option>
+                                                                                                                                }
+                                                                                                                                  ?>><?php echo $codigo['descripcion_cargo']; ?></option>
           <?php
           }
           ?>

@@ -6200,7 +6200,6 @@ async function apagaselecomp(tipo) {
 }
 
 async function actualizaRetencionesCia(reteCia) {
-  // console.log(reteCia)
   let { sinBase } = reteCia;
   document.querySelector("#sinBaseRete").val = sinBase;
 }
