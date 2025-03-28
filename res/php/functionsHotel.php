@@ -7504,8 +7504,6 @@ class Hotel_Actions{
     {
         global $database;
 
-        echo $id;
-
         $data = $database->select('huespedes', [
             'id_huesped',
             'nombre1',

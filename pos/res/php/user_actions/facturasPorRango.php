@@ -149,7 +149,7 @@ ORDER BY
               <button 
               <?php 
                 $nombre = '' ;
-                if($factura['pms']===0){
+                if($factura['pms']===1){
                   $nombre = "ChequeCuenta_".$prefijo."_".$factura['factura'].".pdf";
                 }else {
                   $nombre = "Factura_".$prefijo."_".$factura['factura'].".pdf";
