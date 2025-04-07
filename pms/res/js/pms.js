@@ -2395,7 +2395,27 @@ async function obtenerItemsSeleccionados() {
   return itemsSeleccionados;
 }
 
-async function llenaTablaReservas(reservas){
+async function llenaTablaReservas(reservas) {
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { moduloPms: { fecha_auditoria } } = sesion;
+
+  const reservasFilter = reservas.filter(reserva => reserva.fecha >= fecha_auditoria);
+  const tablaBody = $("#tablaCalendario > tbody");
+  tablaBody.empty();
+
+  reservasFilter.forEach((reserva) => {
+    const { fecha, llegadas, salidas } = reserva;
+    tablaBody.append(`
+      <tr>
+        <td>${fecha}</td>
+        <td style="text-align:right;">${llegadas}</td>
+        <td style="text-align:right;">${salidas}</td>
+      </tr>
+    `);
+  });
+}
+
+async function llenaTablaReservasOld(reservas){
   reservas.map((reserva) => {
     let { fecha_llegada, reservas, salidas } = reserva
     $("#tablaCalendario >tbody").append(
@@ -2405,7 +2425,6 @@ async function llenaTablaReservas(reservas){
         <td style="text-align:right;">${salidas}</td>
         </tr>`
     );
-    // selectElement.add(optionElement);
   });
 }
 

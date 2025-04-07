@@ -3,12 +3,14 @@
 require_once 'init.php';
 date_default_timezone_set('America/Bogota');
 
-class Hotel_Actions{
+class Hotel_Actions
+{
 
-    public function traeValorTarifa($tarifa, $tipo, $desde, $hasta){
+    public function traeValorTarifa($tarifa, $tipo, $desde, $hasta)
+    {
         global $database;
 
-        $data = $database->select('valores_tarifas',[
+        $data = $database->select('valores_tarifas', [
             'valor_un_pax',
             'valor_dos_pax',
             'valor_tre_pax',
@@ -31,107 +33,111 @@ class Hotel_Actions{
         return $data[0];
     }
 
-    public function actualizaTarifaHuesped($id, $tarifa){
+    public function actualizaTarifaHuesped($id, $tarifa)
+    {
         global $database;
 
-        $data = $database->update('huespedes',[
+        $data = $database->update('huespedes', [
             'id_tarifa' => $tarifa,
-        ],[
+        ], [
             'id_huesped' => $id
         ]);
-        return $data;    
+        return $data;
     }
 
-    public function traeRecaudosCartera(){
+    public function traeRecaudosCartera()
+    {
         global $database;
 
-        $data = $database->select('recaudoCartera',[
+        $data = $database->select('recaudoCartera', [
             '[>]companias' => ['idCliente' => 'id_compania'],
             '[>]usuarios' => ['idUsuario' => 'usuario_id']
-        ],[
-            'companias.empresa', 
-            'companias.nit', 
+        ], [
+            'companias.empresa',
+            'companias.nit',
             'companias.dv',
-            'usuarios.usuario', 
-            'recaudoCartera.numeroRecaudo', 
-            'recaudoCartera.totalRecaudo', 
-            'recaudoCartera.detalleRecaudo', 
+            'usuarios.usuario',
+            'recaudoCartera.numeroRecaudo',
+            'recaudoCartera.totalRecaudo',
+            'recaudoCartera.detalleRecaudo',
             'recaudoCartera.fechaRecaudo',
             'recaudoCartera.fecha',
             'recaudoCartera.idRecaudo',
             'recaudoCartera.fechaIngreso',
             'recaudoCartera.estado'
-        ],[
+        ], [
             'recaudoCartera.fecha' => FECHA_PMS,
             'ORDER' => ['numeroRecaudo' => 'ASC']
         ]);
         return $data;
-
     }
 
-    public function traePrefijoRecaudo(){
+    public function traePrefijoRecaudo()
+    {
         global $database;
 
-        $data = $database->select('parametros_pms',[
+        $data = $database->select('parametros_pms', [
             'pref_recaudo',
         ]);
         return $data[0]['pref_recaudo'];
     }
 
-    public function traeRecaudoCartera($numero){
+    public function traeRecaudoCartera($numero)
+    {
         global $database;
 
-        $data = $database->select('recaudoCartera',[
-          '[<]companias' => ['idCliente' => 'id_compania'],
-          '[<]recaudosDetalle' => ['numeroRecaudo' => 'numeroRecaudo'],
-          '[<]usuarios' => ['idUsuario' => 'usuario_id'],
-          '[<]ciudades' => ['companias.ciudad' => 'id_ciudad']
-        ],[
-          'companias.empresa',
-          'companias.nit',
-          'companias.dv',
-          'companias.direccion',
-          'companias.telefono',
-          'usuarios.nombres',
-          'usuarios.apellidos',
-          'recaudoCartera.numeroRecaudo',
-          'recaudoCartera.totalRecaudo',
-          'recaudoCartera.detalleRecaudo',
-          'recaudoCartera.fechaRecaudo',
-          'recaudoCartera.fecha',
-          'recaudoCartera.fechaIngreso',
-          'recaudosDetalle.facturaNumero',
-          'recaudosDetalle.fechaFactura',
-          'recaudosDetalle.valorFactura',
-          'recaudosDetalle.reteFuente',
-          'recaudosDetalle.reteIca',
-          'recaudosDetalle.reteIva',
-          'recaudosDetalle.comision',
-          'recaudosDetalle.valorPago',
-          'ciudades.municipio'
-        ],[
-          'recaudoCartera.numeroRecaudo' => $numero,
-          'ORDER' => ['facturaNumero' => 'ASC'],
+        $data = $database->select('recaudoCartera', [
+            '[<]companias' => ['idCliente' => 'id_compania'],
+            '[<]recaudosDetalle' => ['numeroRecaudo' => 'numeroRecaudo'],
+            '[<]usuarios' => ['idUsuario' => 'usuario_id'],
+            '[<]ciudades' => ['companias.ciudad' => 'id_ciudad']
+        ], [
+            'companias.empresa',
+            'companias.nit',
+            'companias.dv',
+            'companias.direccion',
+            'companias.telefono',
+            'usuarios.nombres',
+            'usuarios.apellidos',
+            'recaudoCartera.numeroRecaudo',
+            'recaudoCartera.totalRecaudo',
+            'recaudoCartera.detalleRecaudo',
+            'recaudoCartera.fechaRecaudo',
+            'recaudoCartera.fecha',
+            'recaudoCartera.fechaIngreso',
+            'recaudosDetalle.facturaNumero',
+            'recaudosDetalle.fechaFactura',
+            'recaudosDetalle.valorFactura',
+            'recaudosDetalle.reteFuente',
+            'recaudosDetalle.reteIca',
+            'recaudosDetalle.reteIva',
+            'recaudosDetalle.comision',
+            'recaudosDetalle.valorPago',
+            'ciudades.municipio'
+        ], [
+            'recaudoCartera.numeroRecaudo' => $numero,
+            'ORDER' => ['facturaNumero' => 'ASC'],
         ]);
         return $data;
-
     }
-    
-    public function actualizaEstadoCartera($factura){
+
+    public function actualizaEstadoCartera($factura)
+    {
         global $database;
 
-        $data = $database->update('historico_cargos_pms',[
+        $data = $database->update('historico_cargos_pms', [
             'cartera' => 1
-        ],[
+        ], [
             'factura' => 1,
             'factura_numero' => $factura,
         ]);
         return $data;
     }
 
-    public function ingresoDetalleRecaudo($recaudo, $factura, $fecha,$valorcta,$valorret, $valorica, $valoriva,$valorcom){
+    public function ingresoDetalleRecaudo($recaudo, $factura, $fecha, $valorcta, $valorret, $valorica, $valoriva, $valorcom)
+    {
         global $database;
-        $data = $database->insert('recaudosDetalle',[
+        $data = $database->insert('recaudosDetalle', [
             'numeroRecaudo' => $recaudo,
             'facturaNumero' => $factura,
             'fechaFactura' => $fecha,
@@ -140,15 +146,16 @@ class Hotel_Actions{
             'reteIca' => $valorica,
             'reteIva' => $valoriva,
             'comision' => $valorcom,
-            'valorPago' => $valorcta - ($valorret+$valorica+$valoriva+$valorcom),
+            'valorPago' => $valorcta - ($valorret + $valorica + $valoriva + $valorcom),
         ]);
         return $database->id();
     }
 
-    public function ingresoCartera($recaudo, $fechaRec, $cliente,$formapago,  $concepto, $totalpago, $idusr, $fecha ){
+    public function ingresoCartera($recaudo, $fechaRec, $cliente, $formapago,  $concepto, $totalpago, $idusr, $fecha)
+    {
         global $database;
 
-        $data = $database->insert('recaudoCartera',[
+        $data = $database->insert('recaudoCartera', [
             'numeroRecaudo' => $recaudo,
             'fechaRecaudo' => $fechaRec,
             'idUsuario' => $idusr,
@@ -162,30 +169,33 @@ class Hotel_Actions{
         return $database->id();
     }
 
-    public function incrementaConsecutivoRecaudo($recaudo){
+    public function incrementaConsecutivoRecaudo($recaudo)
+    {
         global $database;
 
-        $data = $database->update('parametros_pms',[
+        $data = $database->update('parametros_pms', [
             'con_recaudo' => $recaudo,
         ]);
         return $data;
     }
 
-    public function traeConsecutivoRecaudo(){
+    public function traeConsecutivoRecaudo()
+    {
         global $database;
 
-        $data = $database->select('parametros_pms',[
+        $data = $database->select('parametros_pms', [
             'con_recaudo',
             'pref_recaudo'
-        ],[
+        ], [
             'LIMIT' => 1
         ]);
         return $data;
     }
 
-  public function calculaReteIVAFactura($numero){
-    global $database;
-    $data = $database->query("SELECT sum(vt.retencion) AS totalRetencion FROM (SELECT
+    public function calculaReteIVAFactura($numero)
+    {
+        global $database;
+        $data = $database->query("SELECT sum(vt.retencion) AS totalRetencion FROM (SELECT
   	  ((hc.impuesto)* (rt.porcentajeRetencion/100)) AS retencion,pagos_cargos, factura,
 	  rt.porcentajeRetencion
 	FROM
@@ -197,13 +207,14 @@ class Hotel_Actions{
 	ORDER BY
 	  hc.factura_numero ASC
     ) as vt")->fetchAll(PDO::FETCH_ASSOC);
-    return round($data[0]['totalRetencion'],0);
-  }
+        return round($data[0]['totalRetencion'], 0);
+    }
 
-    public function calculaReteICAFactura($numero){
-      global $database;
+    public function calculaReteICAFactura($numero)
+    {
+        global $database;
 
-      $data = $database->query("SELECT
+        $data = $database->query("SELECT
         sum((hc.monto_cargo)* (rt.porcentajeRetencion/100)) AS retencion,
         rt.porcentajeRetencion
 	  FROM
@@ -215,10 +226,11 @@ class Hotel_Actions{
 	  GROUP BY hc.factura_numero 
 	  ORDER BY
 		hc.factura_numero ASC")->fetchAll(PDO::FETCH_ASSOC);
-      return round($data[0]['retencion'],0);
+        return round($data[0]['retencion'], 0);
     }
 
-    public function calculaRetencionesFactura($numero){
+    public function calculaRetencionesFactura($numero)
+    {
         global $database;
 
         $data = $database->query("SELECT sum(vt.retencion) AS totalRetencion FROM (SELECT
@@ -241,7 +253,7 @@ class Hotel_Actions{
 		ORDER BY
 			hc.factura_numero ASC
 	) as vt")->fetchAll(PDO::FETCH_ASSOC);
-    return round($data[0]['totalRetencion'],0);
+        return round($data[0]['totalRetencion'], 0);
     }
 
     public function getFacturasCliente($idcliente)
@@ -289,7 +301,8 @@ class Hotel_Actions{
         return $data;
     }
 
-    public function getAjustesCargosDelDia(){
+    public function getAjustesCargosDelDia()
+    {
         global $database;
 
         $data = $database->query("SELECT
@@ -327,7 +340,7 @@ class Hotel_Actions{
         cargos_pms.factura_numero")->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     }
-    
+
     public function traeNumeroAjuste()
     {
         global $database;
@@ -339,39 +352,11 @@ class Hotel_Actions{
         return $data;
     }
 
-    public function traeReservasTotal(){
+    public function traeReservasTotal()
+    {
         global $database;
 
-            $data = $database->query("SELECT a.fecha_llegada, a.reservas, COALESCE(b.salidas,0)  as salidas 
-            FROM
-                (
-                SELECT
-                    reservas_pms.fecha_llegada,
-                    COALESCE ( count( reservas_pms.num_reserva ), 0 ) AS reservas 
-                FROM
-                    reservas_pms 
-                WHERE
-                    estado = 'ES' 
-                GROUP BY
-                    reservas_pms.fecha_llegada 
-                ORDER BY
-                    reservas_pms.fecha_llegada ASC 
-                ) AS a
-                LEFT JOIN (
-                SELECT
-                    reservas_pms.fecha_salida,
-                    COALESCE ( count( reservas_pms.num_reserva ), 0 ) AS salidas 
-                FROM
-                    reservas_pms 
-                WHERE
-                    estado = 'ES' 
-                GROUP BY
-                    reservas_pms.fecha_salida 
-                ORDER BY
-                    reservas_pms.fecha_salida ASC 
-                ) AS b ON a.fecha_llegada = b.fecha_salida 
-            ORDER BY
-                a.fecha_llegada ASC")->fetchAll(PDO::FETCH_ASSOC);
+        $data = $database->query("WITH daily_arrivals AS (SELECT fecha_llegada AS fecha, COUNT(num_reserva) AS reservas_arrival FROM reservas_pms WHERE estado IN ('ES', 'CA') GROUP BY     fecha_llegada),daily_departures AS (SELECT fecha_salida AS fecha, COUNT(num_reserva) AS reservas_departure FROM reservas_pms WHERE estado IN ('ES', 'CA') GROUP BY fecha_salida), all_dates AS ( SELECT fecha FROM daily_arrivals UNION SELECT fecha FROM daily_departures) SELECT d.fecha, COALESCE(a.reservas_arrival, 0) AS llegadas, COALESCE(dep.reservas_departure, 0) AS salidas FROM all_dates d LEFT JOIN daily_arrivals a ON d.fecha = a.fecha LEFT JOIN daily_departures dep ON d.fecha = dep.fecha ORDER BY d.fecha ASC")->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     }
 
@@ -1354,7 +1339,7 @@ class Hotel_Actions{
             'folio_cargo',
             'id_perfil_factura',
             'usuario_factura'
- 
+
         ], [
             'factura_numero' => $factura,
             'factura' => 1
@@ -1481,7 +1466,8 @@ class Hotel_Actions{
         return $data;
     }
 
-    public function getCargosPropinas($desdeFe, $hastaFe, $usuario){
+    public function getCargosPropinas($desdeFe, $hastaFe, $usuario)
+    {
         global $database;
 
         $data = $database->query("SELECT
@@ -1544,7 +1530,7 @@ class Hotel_Actions{
         ORDER BY
             fecha_cargo ASC")->fetchAll(PDO::FETCH_ASSOC);
 
-    return $data;
+        return $data;
     }
 
 
@@ -1654,8 +1640,8 @@ class Hotel_Actions{
             'id_perfil_factura',
             'usuario_factura',
             'id_codigo_cargo',
-            'informacion_cargo', 
-            'referencia_cargo' 
+            'informacion_cargo',
+            'referencia_cargo'
         ], [
             'factura_numero' => $nroFactura,
             'factura' => 1
@@ -2314,7 +2300,7 @@ class Hotel_Actions{
             'descripcionRetencion',
             'porcentajeRetencion',
             'baseRetencion',
-            'tipoRetencion', 
+            'tipoRetencion',
             'codigoPuc',
         ], [
             'tipoRetencion' => $numero,
@@ -2365,7 +2351,7 @@ class Hotel_Actions{
 
     public function traeValorRetencionesSinBase($nroReserva, $nroFolio)
     {
-        global $database; 
+        global $database;
 
         $data = $database->query("SELECT
             round(COALESCE(SUM(cargos_pms.monto_cargo),0),2) AS monto,
@@ -2859,7 +2845,8 @@ class Hotel_Actions{
     {
         global $database;
 
-        $data = $database->query("SELECT
+        $data = $database->query(
+            "SELECT
             paquetes.codigo_vta,
             paquetes.codigo_excento,
             paquetes.valor,
@@ -4851,7 +4838,7 @@ class Hotel_Actions{
             'id_usuario_anulacion' => $idusuario,
             'fecha_anulacion' => FECHA_PMS,
             'numero_factura_cargo' => $numDoc,
-            'fecha_sistema_anula' => date('Y-m-d H:i:s'), 
+            'fecha_sistema_anula' => date('Y-m-d H:i:s'),
         ], [
             'factura_numero' => $nro,
             'perfil_factura' => $perfil,
@@ -7715,21 +7702,22 @@ class Hotel_Actions{
 
         $data = $database->query("SELECT reservas_pms.fecha_llegada, reservas_pms.num_habitacion, reservas_pms.tipo_habitacion FROM reservas_pms WHERE (reservas_pms.tipo_habitacion <> '$ctamaster' AND reservas_pms.estado = 'CA') ORDER BY reservas_pms.fecha_llegada ASC LIMIT 1")->fetchAll(PDO::FETCH_ASSOC);
 
-        if(count($data)==0){
+        if (count($data) == 0) {
             return FECHA_PMS;
-        }else{
+        } else {
             return $data[0]['fecha_llegada'];
         }
     }
 
-    public function getUltimoDia($ctamaster){
+    public function getUltimoDia($ctamaster)
+    {
         global $database;
 
         $data = $database->query("SELECT reservas_pms.fecha_salida, reservas_pms.num_habitacion, reservas_pms.tipo_habitacion FROM reservas_pms WHERE (reservas_pms.tipo_habitacion <> '$ctamaster' AND reservas_pms.estado = 'CA') ORDER BY reservas_pms.fecha_llegada DESC LIMIT 1")->fetchAll();
 
-        if(count($data)==0){
+        if (count($data) == 0) {
             return FECHA_PMS;
-        }else{
+        } else {
             return $data[0]['fecha_salida'];
         }
     }
@@ -9340,17 +9328,17 @@ class Hotel_Actions{
             return $data[0]['num_registro'];
         }
     }
-   
+
     public function updateIngresaReserva($origen, $destino, $motivo, $fuente, $segmento, $formapago, $numero, $usuario, $placa, $equipaje, $transporte)
     {
         global $database;
 
         $data = $database->update('reservas_pms', [
-            'origen_reserva' => $origen, 
-            'destino_reserva' => $destino, 
-            'segmento_mercado' => $segmento, 
-            'motivo_viaje'=> $motivo, 
-            'fuente_reserva'=> $fuente, 
+            'origen_reserva' => $origen,
+            'destino_reserva' => $destino,
+            'segmento_mercado' => $segmento,
+            'motivo_viaje' => $motivo,
+            'fuente_reserva' => $fuente,
             'forma_pago' => $formapago,
             'estado' => 'CA',
             'tipo_reserva' => 2,
@@ -9772,7 +9760,7 @@ class Hotel_Actions{
             'pais' => $pais,
             'ciudad' => $ciudad,
             'profesion' => $profesion,
-            'nombre_completo' => $apellido1.' '.$apellido2.' '.$nombre1.' '.$nombre2,
+            'nombre_completo' => $apellido1 . ' ' . $apellido2 . ' ' . $nombre1 . ' ' . $nombre2,
             'tipoAdquiriente' => $tipoAdqui,
             'tipoResponsabilidad' => $tipoRespo,
             'responsabilidadTributaria' => $repoTribu,
@@ -10052,7 +10040,7 @@ class Hotel_Actions{
 
         $data = $database->select('huespedes', [
             '[>]companias' => ['id_compania' => 'id_compania']
-        ],[
+        ], [
             'huespedes.id_huesped',
             'huespedes.identificacion',
             'huespedes.apellido1',

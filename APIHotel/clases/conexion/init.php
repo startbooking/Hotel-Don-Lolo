@@ -1,6 +1,6 @@
 <?php
 
-require_once 'configdb.php';
+require '../../res/php/configdb.php';
 require_once 'Medoo.php';
 use Medoo\Medoo;
 

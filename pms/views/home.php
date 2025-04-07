@@ -28,9 +28,6 @@ $canMmto     = $hotel->habitacionesMmto();
           </h1>
         </div>
         <div class="col-lg-3" style="text-align: right;margin-top: 30px;">
-            <!-- <a class="btn btn-success  btnAdiciona" >
-              <i class="fa fa-plus" aria-hidden="true"></i> Adicionar Huesped
-            </a> -->
           <button class="btn btn-xs pull-right" data-toggle="modal" data-reserva='0' href="#myModalCalendarioReservas">
             <i class="fa-solid fa-calendar-days fa-4x"></i>
           </button>
