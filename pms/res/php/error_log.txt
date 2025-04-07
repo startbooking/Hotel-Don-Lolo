@@ -1,0 +1,1 @@
+[03-Apr-2025 10:11:45 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 31

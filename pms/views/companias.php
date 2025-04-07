@@ -29,7 +29,6 @@
                   <td>Direccion</td>
                   <td>Celular</td>
                   <td>Correo</td>
-                  <!-- <td>Tarifa</td> -->
                   <td>Accion</td>
                 </tr>
               </thead>
@@ -55,7 +54,6 @@
                             <li class="dropdown">
                               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="padding:3px 11px;font-weight: bold;color:#000">Ficha Compañia<span class="caret" style="margin-left:10px;"></span>
                               </a>
-
                               <ul class="dropdown-menu submenu" style="float:left;margin-left:none;top:40px;left: -195px">
                                 <li>
                                   <a data-toggle="modal" data-id="<?php echo $compania['id_compania']; ?>" data-empresa="<?php echo $compania['empresa']; ?>" data-nit="<?php echo $compania['nit'] ?>- <?php echo $compania['dv']; ?>" href="#myModalModificaPerfilCia">
@@ -79,7 +77,6 @@
                                 </li>
                                 <li>
                                   <a data-toggle="modal" data-id="<?php echo $compania['id_compania'] ?>" data-empresa="<?php echo $compania['empresa'] ?>" data-nit="<?php echo $compania['nit'] ?>- <?php echo $compania['dv'] ?>" href="#myModalHistoricoFacturasCia">
-                                    <!-- <i class="fa fa-money" aria-hidden="true"></i> -->
                                     <i class="fa-solid fa-file-lines"></i>
                                     Historico Facturas</a>
                                 </li>

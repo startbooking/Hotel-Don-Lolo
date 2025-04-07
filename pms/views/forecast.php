@@ -26,7 +26,7 @@ $formato2 = new IntlDateFormatter(
 ?>
 <div class="content-wrapper">
   <section class="content" style="margin-bottom: 10px !important">
-    <div class="panel panel-success">
+    <div class="panel panel-success" style="margin-bottom:40px;">
       <div class="panel-heading">
         <div class="row">
           <div class="col-lg-6 col-xs-12">

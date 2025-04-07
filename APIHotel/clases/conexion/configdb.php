@@ -4,7 +4,8 @@ $dbtype = 'mysql';
 $server = 'localhost';
 $dbuser = 'root';
 $dbpass = 'b4r4h0n4';
-$dbname = 'donloloAgo20';
+// $dbname = 'donloloAgo20';
+$dbname = 'donloloMar05';
 // $dbname = 'donloloJul09';
 // $dbname = 'donloloMayo25';
 /* 

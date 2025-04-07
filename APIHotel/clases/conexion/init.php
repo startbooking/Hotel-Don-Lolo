@@ -2,7 +2,6 @@
 
 require_once 'configdb.php';
 require_once 'Medoo.php';
-
 use Medoo\Medoo;
 
 try {

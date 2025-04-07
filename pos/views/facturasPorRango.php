@@ -38,12 +38,10 @@ $inicial = date('Y-m-01', $dia);
             <label class="control-label col-md-2">Desde Fecha</label>
             <div class="col-lg-3 col-md-3">
               <input class="form-control" type="date" min="1" name="desdeFecha" id='desdeFecha' value='<?php echo $inicial; ?>' style="line-height:16px" required>
-              <!-- <input class="form-control" type="date" min="1" name="desdeFecha" id='desdeFecha' value='' style="line-height:16px"> -->
             </div>
             <label class="control-label col-md-1">Hasta </label>
             <div class="col-lg-3 col-md-3">
               <input class="form-control" type="date" min="1" name="hastaFecha" id='hastaFecha' value='<?php echo $ayer; ?>' style="line-height:16px" required>
-              <!-- <input class="form-control" type="date" min="1" name="hastaFecha" id='hastaFecha' value='' style="line-height:16px"> -->
             </div>
             <div class="btn-group pull-right" style="display:flex;">
               <button class="btn btn-success" type="buttom" onclick='facturasPorFecha()'><i class="fa fa-print" aria-hidden="true"></i> Imprimir</button>
@@ -59,8 +57,6 @@ $inicial = date('Y-m-01', $dia);
             <div class="col-lg-2 col-md-2">
               <input class="form-control" type="number" min="1" name="hastaNumero" id='hastaNumero' value=''>
             </div>
-            <!-- </div>
-            <div class="form-group"> -->
             <label class="control-label col-md-2">Forma de Pago</label>
             <div class="col-lg-3 col-md-3">
               <select name="desdeFormaPago" id="desdeFormaPago" class="form-control" style="padding:4px 12px">
