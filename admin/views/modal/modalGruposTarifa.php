@@ -252,7 +252,7 @@
       </div>
     </div>
   </form>
-</div>
+</div> 
 
 <!-- Ventanas Paquetes Tarifas -->
 <div class="modal fade" id="myModalPaquetesSubTarifas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">

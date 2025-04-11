@@ -2977,7 +2977,7 @@ $(document).ready(function () {
     modal.find(".modal-body #idTariGruEli").val(idgrupo);
     modal.find(".modal-body #descripcionSubTarifaEli").val(descri);
 
-    $.ajax({
+    $.ajax({ 
       url: ruta + "res/php/paquetesTarifa.php",
       type: "POST",
       data: {

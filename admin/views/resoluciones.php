@@ -6,7 +6,7 @@
             <div class="row">
               <div class="col-lg-6">
                 <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_ADM?>">
-                <input type="hidden" name="ubicacion" id="ubicacion" value="bodegas">
+                <input type="hidden" name="ubicacion" id="ubicacion" value="resoluciones">
                 <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-cubes"></i> Resoluciones de Facturacion</h3>
               </div>
               <div class="col-lg-6" style="text-align:right">
@@ -55,7 +55,7 @@
                               class       ="btn btn-info btn-xs" 
                               data-toggle ="modal" 
                               data-target ="#myModalModificaResolucion" 
-                              data-id     ="<?php echo $bodega['id']?>" 
+                              data-id     ="<?php echo $resolucion['id']?>" 
                               title       ="Modificar la Resolucion Actual" >
                               <i class='fa fa-pencil-square'></i>
                             </button>
@@ -64,7 +64,7 @@
                               class       ="btn btn-danger btn-xs" 
                               data-toggle ="modal" 
                               data-target ="#myModalEliminaResolucion" 
-                              data-id     ="<?php echo $bodega['id']?>" 
+                              data-id     ="<?php echo $resolucion['id']?>" 
                               title       ="Elimina la Resolucion Actual" >              
                               <i class='fa fa-trash'></i>
                             </button>

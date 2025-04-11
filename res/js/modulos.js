@@ -1,9 +1,8 @@
 // $(document).ready(function () {
 document.addEventListener("DOMContentLoaded", async () => {
 
-  // sesion = JSON.parse(localStorage.getItem("sesion"));
   let sesion = JSON.parse(localStorage.getItem("sesion"));
-
+  
   if(sesion == null){
     swal({
       title: 'Precaucion',
@@ -16,12 +15,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       return 
     })
   }
-  let { cia, user, moduloPms } = sesion;
-  let { estado, ingreso, tipo, apellidos, nombres, inv, pos, pms, res, fe, con } = user;
-
-  let { invMod, posMod, pmsMod, resMod, feMod , conMod} = cia;
-
-  let { fecha_auditoria } = moduloPms;
+  let { cia:{ invMod, posMod, pmsMod, resMod, feMod , conMod}, user:{ tipo, apellidos, nombres, inv, pos, pms, res, fe, con }, moduloPms: { fecha_auditoria } } = sesion;
 
   muestraFecha = document.querySelector('#fechaPms');
   nombreUsuaro = document.querySelector('#nombreUsuario');

@@ -20,7 +20,7 @@ if (count($huespedes) == 0) { ?>
 					<td>Identificacion</td>
 					<td>Huesped</td>
 					<td>Compañia</td>
-					<td>Correo</td>
+					<td style="width:80px;">Correo</td>
 					<td>Tarifa</td>
 					<td>Credito</td>
 					<td>Accion</td>
@@ -33,7 +33,7 @@ if (count($huespedes) == 0) { ?>
 						<td style="padding: 3px 5px;"><?php echo $huesped['identificacion']; ?></td>
 						<td style="padding: 3px 5px;"><?php echo $huesped['nombre_completo']; ?></td>
 						<td style="padding: 3px 5px;"><?php echo $huesped['empresa']; ?></td>
-						<td style="padding: 3px 5px;"><?php echo $huesped['email']; ?></td>
+						<td style="padding: 3px 5px;width:80px;"><?php echo $huesped['email']; ?></td>
 						<td style="padding: 3px 5px;"><?php echo $huesped['descripcion_tarifa']; ?></td>
 						<td style="padding: 3px 5px;text-align:center;"><?php 
 						if($huesped['credito']==1){ ?>

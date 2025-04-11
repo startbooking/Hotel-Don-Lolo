@@ -77,7 +77,7 @@ $ip = $_SERVER['REMOTE_ADDR'];
 $oFecha = strtotime(FECHA_PMS);
 $hoy = date('d', $oFecha);
 $mes = date("m", $oFecha);
-$anio = date("Y", $oFecha); 
+$anio = date("Y", $oFecha);
 
 if (!isset($_GET['section'])) {
 } elseif (isset($_GET['section']) && $_GET['section'] == 'home') {

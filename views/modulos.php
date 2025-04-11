@@ -1,6 +1,5 @@
 <?php
-require '../res/php/app_top.php';
-
+  require '../res/php/app_top.php';
 ?>
 
 <!DOCTYPE html>

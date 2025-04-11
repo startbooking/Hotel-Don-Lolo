@@ -1478,20 +1478,64 @@
         {
             global $database;
 
+            $data = $database->query("SELECT
+            tarifas.descripcion_tarifa, 
+            paquetes.descripcion, 
+            paquetes_tarifas.id, 
+            tarifas.id_tarifa
+        FROM
+            tarifas
+            INNER JOIN
+            paquetes_tarifas
+            ON 
+                tarifas.id_tarifa = paquetes_tarifas.id_tarifa
+            INNER JOIN
+            paquetes
+            ON 
+                paquetes_tarifas.id_paquete = paquetes.id
+        WHERE tarifas.id_tarifa = $id")->fetchAll(PDO::FETCH_ASSOC);
+
+            return $data;
+        }
+
+        public function getPaquetesTarifaOld2($id)
+        {
+            global $database;
+
             $data = $database->select('paquetes_tarifas', [
-                '[>]tarifas' => 'id_tarifa',
-                '[>]paquetes' => ['id_paquete' => 'id'],
+                '[>]tarifas' => ['id_tarifa' => 'id_tarifa'],
+                '[>]paquetes' => ['id' => 'id_paquete'],
             ], [
-                'paquetes_tarifas.id',
-                'tarifas.descripcion_tarifa',
-                'paquetes.descripcion',
+                'tarifas.descripcion_tarifa', 
+                'paquetes.descripcion', 
+                'tarifas.id_tarifa',
             ], [
-                'paquetes_tarifas.id' => $id,
+                'paquetes_tarifas.id_tarifa' => $id,
             ]);
 
             return $data;
         }
 
+        public function getPaquetesTarifaOld($id)
+        {
+            global $database;
+
+            $data = $database->select('paquetes_tarifas', [
+                '[>]tarifas' => ['id_tarifa' => 'id_tarifa'],
+                '[>]paquetes' => ['id' => 'id_paquete'],
+            ], [
+                'tarifas.descripcion_tarifa', 
+                'paquetes.descripcion', 
+                'tarifas.id_tarifa',
+            ], [
+                'paquetes_tarifas.id_tarifa' => $id,
+            ]);
+
+            return $data;
+        }
+
+
+        
         /* SubGrupos Tarifas PMS */
         public function eliminaValorSubgrupoTarifa($id)
         {

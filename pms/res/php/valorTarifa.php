@@ -5,7 +5,7 @@
 
   extract($_POST);
 
- $valor = $hotel->traeValorTarifa($tarifa, $tipo, $desde, $hasta);
+  $valor = $hotel->traeValorTarifa($tarifa, $tipo, $desde, $hasta);
 
   if(!isset($valor)){
     echo '-1';

@@ -68,28 +68,28 @@ $pagoCuenta = $pagofolio1 + $pagofolio2 + $pagofolio3 + $pagofolio4;
           <input type="hidden" name="rutaweb" id="rutaweb" value="<?php echo BASE_PMS; ?>">
           <input type="hidden" name="ubicacion" id="ubicacion" value="facturacionHuesped">
         </div>
-        <div class="container-fluid ">
+        <div class="row">
           <div class="form-group">
             <label for="nrohabitacion" class="col-sm-1 control-label">Habitacion</label>
-            <div class="col-sm-2">
+            <div class="col-sm-1">
               <input type="text" class="form-control" id="nrohabitacion" placeholder="" value="<?php echo $datosReserva['num_habitacion']; ?>" readonly>
             </div>
             <label for="apellidos" class="col-sm-1 control-label">Huesped </label>
             <div class="col-sm-4">
               <input type="text" class="form-control" id="apellidos" placeholder="" value="<?php echo $datosReserva['nombre_completo']; ?>" readonly>
             </div>
-            <label for="nombres" class="col-sm-2 control-label">Identificacion</label>
+            <label for="nombres" class="col-sm-1 control-label">Identificacion</label>
             <div class="col-sm-2">
               <input type="text" class="form-control" id="nombres" placeholder="" value="<?php echo $datosReserva['identificacion']; ?>" readonly>
             </div>
           </div>
           <div class="form-group">
-            <label for="llegada" class="couseNavigatel-sm-1 control-label">Llegada</label>
+            <label for="llegada" class="col-sm-1 control-label">Llegada</label>
             <div class="col-sm-2">
               <input type="text" class="form-control" name="llegada" id="llegada" readonly="" value="<?php echo $datosReserva['fecha_llegada']; ?>">
             </div>
             <label for="noches" class="col-sm-1 control-label">Noches</label>
-            <div class="col-sm-2">
+            <div class="col-sm-1">
               <input type="text" class="form-control" name="noches" id="noches" readonly="" value='<?php echo $datosReserva['dias_reservados']; ?>'>
             </div>
             <label for="salida" class="col-sm-1 control-label">Salida</label>

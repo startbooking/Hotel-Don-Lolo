@@ -1,12 +1,15 @@
 document.addEventListener("DOMContentLoaded", async () => {
   let sesion = JSON.parse(localStorage.getItem("sesion"));
   let {user: { usuario, usuario_id, nombres, apellidos, tipo, estado_usuario_pms, estado_usuario_pos },} = sesion;
-  if (sesion) {
-  }
+
+  // console.log(sesion)
+
   $("#myModalLogin").on("show.bs.modal", function (event) {
     $("#error").html("");
     if (sesion) {
       let { user: {usuario_id, usuario, nombres, apellidos, tipo, estado_usuario_pms} } = sesion;
+      console.log(sesion)
+      
       swal({
         title: `Usuario ${usuario} Ya Activo en el Sistema, Recuperando Informacion`,
         type: "warning",

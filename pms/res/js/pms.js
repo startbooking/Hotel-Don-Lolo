@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", async () => {
   let sesion = JSON.parse(localStorage.getItem("sesion"));
+  console.log(sesion);
   if (sesion == null) {
     swal({
         title: "Precaucion",
@@ -15,9 +16,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     );
   }
 
-  let {
-    user: { usuario, usuario_id, nombres, apellidos, tipo, estado_usuario_pms },
-  } = sesion;
+  let {user: { usuario, usuario_id, nombres, apellidos, tipo }, } = sesion;
 
   $("#usuarioActivo").val(usuario);
   $("#nombreUsuario").html(
@@ -2401,6 +2400,7 @@ async function llenaTablaReservas(reservas) {
 
   const reservasFilter = reservas.filter(reserva => reserva.fecha >= fecha_auditoria);
   const tablaBody = $("#tablaCalendario > tbody");
+  // Limpiar la tabla antes de agregar nuevos datos
   tablaBody.empty();
 
   reservasFilter.forEach((reserva) => {
@@ -8423,7 +8423,7 @@ function valorHabitacion(tarifa) {
     muj,
     nin,
     desde,
-    hasta,  
+    hasta,
   };
   $.ajax({
     url: "res/php/valorTarifa.php",

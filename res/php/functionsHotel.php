@@ -9716,6 +9716,7 @@ class Hotel_Actions
             'id_tarifa',
             'descripcion_tarifa',
         ], [
+            'estado' => 1,
             'ORDER' => 'descripcion_tarifa',
         ]);
 
