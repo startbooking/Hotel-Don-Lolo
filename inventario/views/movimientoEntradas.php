@@ -17,7 +17,7 @@ $hoy = date('Y-m-d');
           <div class='row'>
             <div class='col-md-6'>
               <h5 class="titulo">Datos de la Entrada </h5>
-              <div class="row-fluid">
+              <form class="row-fluid" id="dataDocu">
                 <div class="form-group">
                   <label class="control-label col-lg-3">Almacen</label>
                   <div class='col-sm-9'>
@@ -71,94 +71,93 @@ $hoy = date('Y-m-d');
 
                   <label class='control-label col-lg-2'>Documento </label>
                   <div class='col-sm-3'>
-                    <input type="text" class="form-control" id="factura" name="factura" required="" onblur='asignaLocalStorage(this.name, this.value)'>
+                    <input type="text" class="form-control" id="factura" name="factura" required onblur='asignaLocalStorage(this.name, this.value)'>
                   </div>
                 </div>
-              </div>
+              </form>
             </div>
             <div class='col-md-6'>
               <h5 class="titulo">Articulo</h5>
-              <div class='row-fluid'>
-                <div class="form-group">
-                  <label class='control-label col-lg-3'>Producto</label>
-                  <input type="hidden" id='codigo'>
-                  <input type="hidden" id='descripcion'>
-                  <input type="hidden" id='unitario'>
-                  <input type="hidden" id='subtotal'>
-                  <input type="hidden" id='impto'>
-                  <input type="hidden" id='total'>
-                  <input type="hidden" id='unidadcom'>
-                  <input type="hidden" id='unidadalm'>
-                  <input type="hidden" id='desunidad'>
-                  <input type="hidden" id='codimpto'>
-                  <input type="hidden" id='desimpto'>
-
-                  <div class="col-lg-9">
-                    <select name="producto" id="producto" class="form-control" onblur='buscaProducto(this.value)' required="">
-                      <option value="">Producto</option>
-                      <?php
-                      $productos = $inven->getProductos();
-                      foreach ($productos as $producto) { ?>
-                        <option value="<?= $producto['id_producto']; ?>"><?= $producto['nombre_producto'] ?></option>
-                      <?php
-                      }
-                      ?>
-                    </select>
+              <form class="row-fluid" id="dataProd">
+                  <div class="form-group">
+                    <label class='control-label col-lg-3'>Producto</label>
+                    <input type="hidden" id='codigo'>
+                    <input type="hidden" id='descripcion'>
+                    <input type="hidden" id='unitario'>
+                    <input type="hidden" id='subtotal'>
+                    <input type="hidden" id='impto'>
+                    <input type="hidden" id='total'>
+                    <input type="hidden" id='unidadcom'>
+                    <input type="hidden" id='unidadalm'>
+                    <input type="hidden" id='desunidad'>
+                    <input type="hidden" id='codimpto'>
+                    <input type="hidden" id='desimpto'>
+  
+                    <div class="col-lg-9">
+                      <select name="producto" id="producto" class="form-control" onblur='buscaProducto(this.value)' required="">
+                        <option value="">Producto</option>
+                        <?php
+                        $productos = $inven->getProductos();
+                        foreach ($productos as $producto) { ?>
+                          <option value="<?= $producto['id_producto']; ?>"><?= $producto['nombre_producto'] ?></option>
+                        <?php
+                        }
+                        ?>
+                      </select>
+                    </div>
                   </div>
-                </div>
-                <div class="form-group">
-                  <input type="hidden" id='porcentajeImpto' name='porcentajeImpto'>
-                  <label class='control-label col-lg-3'>Impuesto</label>
-                  <div class="col-lg-6">
-                    <select name="impuesto" id="impuesto" class="form-control" onblur="buscaImpto(this.value)" required="">
-                      <?php
-                      $imptos = $admin->getCodigosVentas(2);
-                      foreach ($imptos as $impto) { ?>
-                        <option name="<?= $impto['porcentaje_impto'] ?>" value="<?= $impto['id_cargo'] ?>"><?= $impto['descripcion_cargo'] ?></option>
-                      <?php
-                      }
-                      ?>
-                    </select>
+                  <div class="form-group">
+                    <input type="hidden" id='porcentajeImpto' name='porcentajeImpto'>
+                    <label class='control-label col-lg-3'>Impuesto</label>
+                    <div class="col-lg-6">
+                      <select name="impuesto" id="impuesto" class="form-control" onblur="buscaImpto(this.value)" required="">
+                        <?php
+                        $imptos = $admin->getCodigosVentas(2);
+                        foreach ($imptos as $impto) { ?>
+                          <option name="<?= $impto['porcentaje_impto'] ?>" value="<?= $impto['id_cargo'] ?>"><?= $impto['descripcion_cargo'] ?></option>
+                        <?php
+                        }
+                        ?>
+                      </select>
+                    </div>
+                    <div class="checkbox col-lg-3">
+                      <label style="margin-top:-5px">
+                        <input type="checkbox" id='incluido' name='incluido'> Incluido
+                      </label>
+                    </div>
                   </div>
-                  <div class="checkbox col-lg-3">
-                    <label style="margin-top:-5px">
-                      <input type="checkbox" id='incluido' name='incluido'> Incluido
-                    </label>
+                  <div class='form-group'>
+                    <label class='control-label col-lg-3'>Unidad</label>
+                    <div class="col-lg-6">
+                      <select name="unidad" id="unidad" class="form-control">
+                        <option value=" ">Unidad de Compra</option>
+                        <?php
+                        $unidades = $admin->getUnidadesMedida();
+                        foreach ($unidades as $unidad) { ?>
+                          <option id="unidades" name="unidades" value="<?= $unidad['id_unidad'] ?>"><?= $unidad['descripcion_unidad'] ?></option>
+                        <?php
+                        }
+                        ?>
+                      </select>
+                    </div>
                   </div>
-                </div>
-                <div class='form-group'>
-                  <label class='control-label col-lg-3'>Unidad</label>
-                  <div class="col-lg-6">
-                    <select name="unidad" id="unidad" class="form-control">
-                      <option value=" ">Unidad de Compra</option>
-                      <?php
-                      $unidades = $admin->getUnidadesMedida();
-                      foreach ($unidades as $unidad) { ?>
-                        <option id="unidades" name="unidades" value="<?= $unidad['id_unidad'] ?>"><?= $unidad['descripcion_unidad'] ?></option>
-
-                      <?php
-                      }
-                      ?>
-                    </select>
+                  <div class='form-group'>
+                    <label class='control-label col-lg-3'> Cantidad:</label>
+                    <div class="col-lg-3">
+                      <input type="number" class="form-control pull-right" id="cantidad" data-inputmask="'alias': 'numeric', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'placeholder': '0'" onchange="activa_botones_mov();" required="">
+                    </div>
+                    <label class='control-label col-lg-3'> Valor </label>
+                    <div class="col-lg-3">
+                      <input type="number" class="form-control" id="costo" name="costo" data-inputmask="'alias': 'numeric', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'placeholder': '0'" required="">
+                    </div>
                   </div>
-                </div>
-                <div class='form-group'>
-                  <label class='control-label col-lg-3'> Cantidad:</label>
-                  <div class="col-lg-3">
-                    <input type="number" class="form-control pull-right" id="cantidad" data-inputmask="'alias': 'numeric', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'placeholder': '0'" onchange="activa_botones_mov();" required="">
+                  <div class="row-fluid">
+                    <div class='btn-group pull-right' style="margin-top:8px">
+                      <button class='btn btn-primary' type='button' onclick='agregaLista();' id='btn-add-article' disabled><i class='fa fa-download'></i> Agregar</button>
+                      <button class='btn btn-danger' type='button' onclick='cancelaAdd();' id='btn-cancel-article' disabled><i class='fa fa-times'></i> Cancelar</button>
+                    </div>
                   </div>
-                  <label class='control-label col-lg-3'> Valor </label>
-                  <div class="col-lg-3">
-                    <input type="number" class="form-control" id="costo" name="costo" data-inputmask="'alias': 'numeric', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'placeholder': '0'" required="">
-                  </div>
-                </div>
-                <div class="row-fluid">
-                  <div class='btn-group pull-right' style="margin-top:8px">
-                    <button class='btn btn-primary' type='button' onclick='agregaLista();' id='btn-add-article' disabled><i class='fa fa-download'></i> Agregar</button>
-                    <button class='btn btn-danger' type='button' onclick='cancelaAdd();' id='btn-cancel-article' disabled><i class='fa fa-times'></i> Cancelar</button>
-                  </div>
-                </div>
-              </div>
+              </form>
             </div>
           </div>
           <div class="row-fluid" style="margin-bottom:5px;padding-top:20px;">
@@ -201,7 +200,7 @@ $hoy = date('Y-m-d');
             </div>
             <div class="col-lg-4">
               <div class="btn-group pull-right">
-                <button class='btn btn-warning' type='button' onclick='cancelaEntrada();' id='btn-cancela'><i class='fa fa-times'></i> Cancelar Entrada</button>
+                <button class='btn btn-warning' type='button' onclick='cancelaEntrada(1);' id='btn-cancela'><i class='fa fa-times'></i> Cancelar Entrada</button>
                 <button class='btn btn-primary' type='button' onclick='procesaEntrada(1);' id='btn-procesa' disabled><i class='fa fa-external-link'></i> Procesar entrada</button>
               </div>
             </div>

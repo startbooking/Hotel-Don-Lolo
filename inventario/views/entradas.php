@@ -63,11 +63,17 @@ $entradas = $inven->getMovimientosInventarios(1);
                   <td class="derecha"><?php echo number_format($entrada['impto'], 2); ?></td>
                   <td class="derecha"><?php echo number_format($entrada['total'], 2); ?></td>
                   <td>
-                    <span <?php
-                          if ($entrada['estado'] == 0) { ?> class="badge btn btn-danger" <?php
-                                                                                  } else { ?> class="badge btn btn-success" <?php
-                                                                                  }
-                                                              ?>><?php echo estadoMovimiento($entrada['estado']); ?></span>
+                    <span 
+                      <?php
+                        if ($entrada['estado'] == 0) { ?> 
+                        class="badge btn btn-danger" 
+                      <?php
+                      } else { 
+                        ?> class="badge btn btn-success" <?php
+                      }
+                      ?>>
+                      <?php echo estadoMovimiento($entrada['estado']); ?>
+                    </span>
                   </td>
                   <td style="text-align:center;">
                     <button type="button" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#myModalMostrarProductos" data-numero="<?php echo $entrada['numero']; ?>" data-tipo="<?php echo $entrada['tipo']; ?>" data-movimiento="<?php echo $entrada['movimiento']; ?>" data-descripcion="<?php echo $entrada['descripcion_tipo']; ?>" data-bodega="<?php echo $entrada['id_bodega']; ?>" title="Ver productos del Movimiento" onclick='btnMuestraProductos()'>

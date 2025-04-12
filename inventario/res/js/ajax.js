@@ -2350,6 +2350,22 @@ function actualizaEntrada(codigo, regis) {
 }
 
 async function agregaLista() {
+/* 
+
+  // let dataDoc= document.querySelector("#dataDocu");
+  let dataDoc = document.querySelector("#dataDocu");
+  let dataPrd = document.querySelector("#dataProd");
+
+  console.log(dataDoc);
+  console.log(dataPrd);
+
+  let moviEntr = new FormData(dataDoc)
+  let moviProd = new FormData(dataPrd)
+
+
+ */
+
+
   var alma = $("#almacen").val();
   var tipomovi = $("#Movimiento").val();
   var movi = $("#tipoMov").val();
@@ -2386,7 +2402,6 @@ async function agregaLista() {
     $("#factura").focus();
     return;
   }
-
   if (impu == "") {
     swal("Precaucion", "Sin Impuesto Asignado A Este Movimiento ", "warning");
     $("#factura").focus();
@@ -2406,13 +2421,12 @@ async function agregaLista() {
   var subtot = parseFloat(valp);
   valp = parseFloat(valp);
   pori = parseInt(pori);
+  incl = 0;
+
+
 
   if ($("#incluido").is(":checked")) {
     incl = 1;
-  } else {
-    incl = 0;
-  }
-  if (incl == 1) {
     porce = (100 + pori) / 100;
     subtot = redondeo(valp / ((100 + pori) / 100), 0);
     vali = redondeo(valp - subtot, 0);
@@ -2436,7 +2450,8 @@ async function agregaLista() {
   $("#unidadcom").val(desunid);
   $("#unidadalm").val(unidalm);
   $("#codimpto").val(impu);
-  $("#desimpto").val(desimpu);
+  $("#desimpto").val();
+  $("#impuesto").val();
 
   $("#tablaArticulos > tbody").append(`
 	  	<tr>
