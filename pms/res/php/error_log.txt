@@ -1,0 +1,28 @@
+[12-Apr-2025 16:18:45 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 33
+[12-Apr-2025 16:19:15 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 33
+[12-Apr-2025 16:56:28 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 33
+[12-Apr-2025 16:56:33 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 33
+[12-Apr-2025 16:56:44 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 33
+[12-Apr-2025 17:39:51 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 33
+[12-Apr-2025 17:43:58 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 33
+[12-Apr-2025 18:00:21 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 33
+[12-Apr-2025 18:04:20 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 33
+[12-Apr-2025 18:08:41 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 33
+[12-Apr-2025 18:08:44 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 33
+[12-Apr-2025 18:15:06 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 33
+[12-Apr-2025 18:16:09 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 33
+[12-Apr-2025 18:23:19 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 33
+[12-Apr-2025 18:23:50 America/Bogota] PHP Fatal error:  Uncaught InvalidArgumentException: Invalid operator [!=] for column "tipo_habitacion" supplied. in /var/www/donlolo.lan/res/php/Medoo.php:1038
+Stack trace:
+#0 /var/www/donlolo.lan/res/php/Medoo.php(1103): Medoo\Medoo->dataImplode()
+#1 /var/www/donlolo.lan/res/php/Medoo.php(1300): Medoo\Medoo->whereClause()
+#2 /var/www/donlolo.lan/res/php/Medoo.php(1668): Medoo\Medoo->selectContext()
+#3 /var/www/donlolo.lan/res/php/functionsHotel.php(7988): Medoo\Medoo->select()
+#4 /var/www/donlolo.lan/pms/res/php/cargarHabitaciones.php(18): Hotel_Actions->getCargoUnaHabitacion()
+#5 {main}
+  thrown in /var/www/donlolo.lan/res/php/Medoo.php on line 1038
+[12-Apr-2025 18:25:11 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 33
+[12-Apr-2025 18:28:44 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 33
+[12-Apr-2025 18:28:51 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 33
+[12-Apr-2025 18:28:57 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 33
+[13-Apr-2025 09:55:40 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsHotel.php on line 33

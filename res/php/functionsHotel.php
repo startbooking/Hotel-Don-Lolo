@@ -7981,7 +7981,7 @@ class Hotel_Actions
         return $data;
     }
 
-    public function getCargoUnaHabitacion($reserva)
+    public function getCargoUnaHabitacionOld($reserva, $ctamaster)
     {
         global $database;
 
@@ -8017,10 +8017,21 @@ class Hotel_Actions
             'cargo_habitacion',
         ], [
             'num_reserva' => $reserva,
+            'tipo_habitacion[<>]' => $ctamaster,
         ]);
 
         return $data;
     }
+
+    public function getCargoUnaHabitacion($reserva, $ctamaster)
+    {
+        global $database;
+
+        $data = $database->query("SELECT id, cantidad, dias_reservados, estado, fecha_llegada, fecha_salida, tipo_reserva, num_habitacion, num_reserva, can_hombres, can_mujeres, can_ninos, origen_reserva, destino_reserva, id_agencia, id_compania, id_huesped, tarifa, tipo_habitacion, tipo_ocupacion, valor_reserva, valor_diario, motivo_viaje, fecha_reserva, usuario, observaciones, fuente_reserva, causar_impuesto, cargo_habitacion FROM reservas_pms WHERE tipo_habitacion != '$ctamaster' AND estado = 'CA' AND num_reserva = $reserva ORDER BY num_habitacion")->fetchAll();
+
+        return $data;
+    }
+
 
     public function getReservaActual($reserva)
     {

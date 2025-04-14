@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", async () => {
   let sesion = JSON.parse(localStorage.getItem("sesion"));
-  console.log(sesion);
   if (sesion == null) {
     swal({
         title: "Precaucion",
@@ -7083,9 +7082,7 @@ function cargarHabitaciones() {
 
 async function cargarHabitacionCkeckIn(cargar) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {
-    user: { usuario, usuario_id },
-  } = sesion;
+  let { user: { usuario, usuario_id }, } = sesion;
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   cargo = 1;
@@ -7093,7 +7090,7 @@ async function cargarHabitacionCkeckIn(cargar) {
     cargar,
     cargo,
     usuario,
-    usuario_id,
+    usuario_id, 
   };
   $.ajax({
     type: "POST",

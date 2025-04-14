@@ -15,7 +15,7 @@ $detalle = 'Cargo Noche del ' . FECHA_PMS;
 $regis = 0;
  
 if ($tipo == 1) {
-  $cargoshab = $hotel->getCargoUnaHabitacion($reserva);
+  $cargoshab = $hotel->getCargoUnaHabitacion($reserva, CTA_MASTER);
 } else {
   $cargoshab = $hotel->getCargoTodasHabitaciones(CTA_MASTER);
 }
