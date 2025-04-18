@@ -57,7 +57,11 @@ require_once '../../../res/fpdf/fpdf.php';
   $pdf->setY(75);
   $pdf->SetFont('Arial','',7);
   $pdf->Cell(15,5,'Direccion',1,0,'L');
-  $pdf->Cell(50,5,substr($datosHuesped[0]['direccion'],0,35),1,0,'L');
+  if($datosHuesped[0]['direccion']==""){
+    $pdf->Cell(50,5,'',1,0,'L');
+  }else{
+    $pdf->Cell(50,5,substr($datosHuesped[0]['direccion'],0,35),1,0,'L');
+  }
   $pdf->Cell(12,5,'Telefono',1,0,'L');
   $pdf->Cell(20,5,$datosHuesped[0]['telefono'],1,0,'L');
   $pdf->Cell(15,5,'Fecha Nac',1,0,'l');

@@ -67,7 +67,7 @@ if ($aplicarete == 1) {
   }
 }
 
-echo print_r($retenciones);
+// echo print_r($retenciones);
 
 /* if($sinBase==1){
     $valores = $hotel->traeValorRetencionesSinBase($nroReserva, $nroFolio);  

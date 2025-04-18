@@ -44,7 +44,7 @@
             $fechaVen = strtotime('+ '.$diasCre.' day', strtotime($fechaFac));
             $fechaVen = date('Y-m-d', $fechaVen);
         }
-    }
+    } 
     
     $idperfil = $id;
 

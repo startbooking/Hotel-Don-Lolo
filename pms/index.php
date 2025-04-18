@@ -1,6 +1,4 @@
-<?php
-require_once '../res/php/app_topHotel.php';
-?>
+<?php require_once '../res/php/app_topHotel.php'; ?>
 <!DOCTYPE html>
 <html>
 
