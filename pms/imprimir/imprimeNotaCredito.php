@@ -151,6 +151,8 @@ $pdf->Output($file, 'F');
 
 $pdfFile = $pdf->Output('', 'S');
 $base64NC = chunk_split(base64_encode($pdfFile));
+unlink($filename);
+
 
 echo $file;
 

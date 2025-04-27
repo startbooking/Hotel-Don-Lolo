@@ -8,7 +8,7 @@ class PDF extends FPDF
     {
         $this->Image('../../../img/'.LOGO, 10, 10, 25);
         $this->SetFont('Arial', 'B', 13);
-        $this->Cell(190, 7, NAME_EMPRESA, 0, 1, 'C');
+        $this->Cell(190, 4, (NAME_EMPRESA), 0, 1, 'C');
         $this->SetFont('Arial', '', 10);
         $this->Cell(190, 5, 'Nit: '.NIT_EMPRESA, 0, 1, 'C');
         $this->Cell(190, 5, ADRESS_EMPRESA, 0, 1, 'C');

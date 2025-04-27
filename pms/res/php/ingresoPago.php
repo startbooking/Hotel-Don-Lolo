@@ -50,7 +50,6 @@ $fechaRes = $resFac['fecha'];
 $desde = $resFac['desde'];
 $hasta = $resFac['hasta'];
 $tipoRes = $resFac['tipo'];
- 
 $fechaFac = $fecha;
 $fechaVen = $fecha;
 $diasCre = 0;
@@ -568,3 +567,4 @@ if ($totalFolio != 0) {
 }
 
 echo json_encode($estadofactura);
+ 

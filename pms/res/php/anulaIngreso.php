@@ -19,8 +19,9 @@
   if($cuenta<>0){
     echo '-1';    
   }else{
-    $anula   = $hotel->updateAnulaIngreso($numero, $usuario, $idusuario); 
-    $estHabi = $hotel->cambiaEstadoHabitacion($habita,'SV');
+    $anula    = $hotel->updateAnulaIngreso($numero, $usuario, $idusuario); 
+    $habSucia = $hotel->updateEstadoHabitacion($habita);
+    // $estHabi = $hotel->cambiaEstadoHabitacion($habita,'SV');
     echo $anula;    
   }
 

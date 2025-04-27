@@ -360,4 +360,7 @@ $pdf->MultiCell(190, 4, (PIEFACTURA), 0, 'C');
 
 $file = '../../imprimir/facturas/FES-' . $prefijo . $nroFactura . '.pdf';
 
+unlink($filename);
+
 $pdf->Output($file, 'F');
+

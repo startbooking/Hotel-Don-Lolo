@@ -343,6 +343,8 @@ $file = '../../imprimir/facturas/FES-'.$prefijo.$nroFactura.'.pdf';
 $pdf->Output($file, 'F');
 $oFile = 'FES-'.$prefijo.$nroFactura.'.pdf';
 
+unlink($filename);
+
 $pdfFile = $pdf->Output('', 'S');
 $base64Factura = chunk_split(base64_encode($pdfFile));
 ?>

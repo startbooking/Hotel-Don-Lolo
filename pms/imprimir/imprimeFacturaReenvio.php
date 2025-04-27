@@ -3,7 +3,6 @@
 require '../../../res/fpdf/fpdf.php';
 require '../../../res/phpqrcode/qrlib.php'; 
 
-// $filename = 'QR_'.$prefijo.'-'.$factura.'.png';
 $filename = '../../../img/pms/QR_'.$prefijo.'-'.$factura.'.png';
 
 $size = 100; // Tamaño en píxeles
