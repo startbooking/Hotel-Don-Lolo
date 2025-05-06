@@ -115,7 +115,7 @@
                                   <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                                 </button>
                               <?php
-                              }
+                              } 
                               ?>
                               <button class="btn btn-primary btn-xs" onclick="event.preventDefault();DonwloadFile('<?php echo $factura['prefijo_factura'] . $factura['factura_numero']; ?>','<?php echo NIT; ?>','zip');" type="button" title="Descarga ZIP Attached">
                                 <i class="fa-solid fa-file-zipper"></i>
