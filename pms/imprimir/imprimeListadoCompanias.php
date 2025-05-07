@@ -19,14 +19,18 @@
   foreach ($companias as $compania) {
     $pdf->Cell(70,4,substr(($compania['empresa']),0,35),0,0,'L');
     $pdf->Cell(30,4,$compania['nit'].'-'.$compania['dv'],0,0,'R');
-    $pdf->Cell(70,4,substr(($compania['direccion']),0,35),0,0,'L');
-    $pdf->Cell(30,4,substr($compania['telefono'],0,12),0,0,'L');
+    if($compania['direccion']==''){
+      $pdf->Cell(30,4,substr('',0,12),0,0,'L');
+    }else{
+      $pdf->Cell(30,4,substr($compania['direccion'],0,12),0,0,'L');
+    }
+    if($compania['telefono']==''){
+      $pdf->Cell(30,4,substr('',0,12),0,0,'L');
+    }else{
+      $pdf->Cell(30,4,substr($compania['telefono'],0,12),0,0,'L');
+    }
     $pdf->Cell(60,4,$compania['email'],0,1,'L');
   }    
-/* 
-  $fileOut = '../../imprimir/informes/'.$file.'.pdf'; 
-  $pdf->Output($fileOut,'F'); */
-  
   $pdfFile = $pdf->Output('', 'S');
   $base64String = chunk_split(base64_encode($pdfFile));
   echo $base64String;
