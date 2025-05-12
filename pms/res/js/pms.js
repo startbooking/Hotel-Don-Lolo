@@ -2278,6 +2278,28 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 });
 
+
+async function traeInfoTercero(numero,tipo){
+  const eToken = await traeToken();
+  let { tokenFE } = eToken[0];
+  let req = {
+    numero,
+    tipo,
+  } 
+ try {
+    const res = await fetch(`imprimir/imprimeRecaudo.php`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      },
+      body: JSON.stringify(req),
+    });
+    const datos = await res.text();
+    return datos;
+  } catch (error) {
+    return error
+  }
+}
 async function guardaCartera() {
   let sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user: { usuario_id },  } = sesion;

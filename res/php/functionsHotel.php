@@ -2538,7 +2538,7 @@ class Hotel_Actions
 
         $data = $database->select('codigos_vta', [
             'tipoUnidad',
-        ], [
+        ], [ 
             'id_cargo' => $codigo,
         ]);
 
@@ -8558,7 +8558,8 @@ class Hotel_Actions
         global $database;
 
         $data = $database->select('reservas_pms', [
-            '[>]huespedes' => 'id_huesped',
+            '[>]huespedes' => ['id_huesped','id_huesped'],
+            '[>]tipo_habitaciones' => ['tipo_habitacion', 'id']
         ], [
             'reservas_pms.cantidad',
             'reservas_pms.fecha_llegada',
@@ -8606,6 +8607,7 @@ class Hotel_Actions
             'huespedes.celular',
             'huespedes.email',
             'huespedes.id_huesped',
+            'tipo_habitaciones.descripcion_habitacion'
         ], [
             'reservas_pms.num_reserva' => $reserva,
         ]);

@@ -10,6 +10,8 @@
   $usuario = $_POST['usuario'];
 
   $datosReserva = $hotel->getReservasDatos($reserva);
+
+  // print_r($datosReserva);
  
   $datosHuesped = $hotel->getbuscaDatosHuesped($datosReserva['id_huesped']);
   $datosCompania = $hotel->getSeleccionaCompania($datosReserva['id_compania']);
@@ -64,7 +66,7 @@ if($datosReserva['id_compania']== 0){
   $pdf->Cell(30, 4, 'Informacion de la Reserva ', 0, 1, 'L');  
   $pdf->Ln(1);
   $pdf->SetFont('Arial', '', 10);
-  $pdf->MultiCell(190, 5, 'Habitacion '. $datosReserva['num_habitacion'].' Tarifa '.number_format($datosReserva['valor_diario'],2).' Huesped '.$datosReserva['nombre_completo'].' Empresa '.$nomEmpresa.' Identificacion '. $datosReserva['identificacion'].' Telefono '. $datosReserva['telefono'].' Fecha de Nacimiento '. $datosReserva['fecha_nacimiento'].' Celular '. $datosReserva['celular'].' Correo '. $datosReserva['email'] , 0, 'J');
+  $pdf->MultiCell(190, 5, 'Tipo de Habitacion '. $datosReserva['descripcion_habitacion'].' Tarifa '.number_format($datosReserva['valor_diario'],2).' Huesped '.$datosReserva['nombre_completo'].' Empresa '.$nomEmpresa.' Identificacion '. $datosReserva['identificacion'].' Telefono '. $datosReserva['telefono'].' Fecha de Nacimiento '. $datosReserva['fecha_nacimiento'].' Celular '. $datosReserva['celular'].' Correo '. $datosReserva['email'] , 0, 'J');
 
   $pdf->Ln(5);
 
@@ -75,7 +77,7 @@ if($datosReserva['id_compania']== 0){
     $pdf->SetFont('Arial', '', 10);
     $pdf->Cell(30, 5, 'Empresa ', 0, 0, 'L');
     $pdf->SetFont('Arial', 'B', 10);
-    $pdf->Cell(160, 5, $datosCompania[0]['empresa'], 0, 1, 'L');
+    $pdf->Cell(160, 5, substr($datosCompania[0]['empresa'],0,72), 0, 1, 'L');
     $pdf->SetFont('Arial', '', 10);
     $pdf->Cell(30, 5, 'Direccion ', 0, 0, 'L');
     $pdf->SetFont('Arial', 'B', 10);

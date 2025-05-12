@@ -1,6 +1,9 @@
 <?php
   $eToken = $hotel->datosTokenCia();
   $facturador = $eToken[0]['facturador'];
+
+  print_r($facturas);
+
 ?>
 
 <div class="content-wrapper">

@@ -17,6 +17,4 @@ if($siFE == 1){
 
 $regis = $hotel->actualizaEstadoReserva($reserva);
 
-
-
 echo $anula;
