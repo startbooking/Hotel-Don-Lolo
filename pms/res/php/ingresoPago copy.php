@@ -184,7 +184,7 @@ if ($perfilFac == 1 && $facturador == 1) {
     $eFact['foot_note'] = '';
 
     $eCust['identification_number'] = $nitFact;
-    // $eCust['dv'] = $dvFact;
+    $eCust['dv'] = $dvFact;
     $eCust['name'] = $nomFact;
     $eCust['email'] = $emaFact;
 
@@ -195,16 +195,10 @@ if ($perfilFac == 1 && $facturador == 1) {
         $eCust['type_document_identification_id'] = $tdiFact;
         $eCust['type_organization_id'] = $torFact;
         $eCust['type_liability_id'] = $tliFact;
+        $eCust['municipality_id'] = $munFact;
         $eCust['type_regime_id'] = $triFact;
-        if($tdiFact==8 || $tdiFact== 9){
-          $eCust['country_id'] = $country ;
-          $eCust['municipality_name'] = $numName ;
-          $eCust['state_name'] = $staName ;
-        }else{
-          $eCust['municipality_id'] = $munFact;
-          $eCust['dv'] = $dvFact;
-        }
     }
+
 
     
 

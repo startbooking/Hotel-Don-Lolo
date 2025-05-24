@@ -5,9 +5,6 @@
   $_SESSION['user']      = 'CAMARERA';
   $_SESSION['apellidos'] = 'USUARIO';
   $_SESSION['nombres']   = 'CAMARERIA';
-  /// require('../res/php/validaIngreso.php');
-  /// require('res/php/abreCajero.php');
-
   $rooms = $hotel->getHabitaciones(4);
   
 ?>
@@ -20,14 +17,19 @@
   </head>
 
   <body class="skin-red sidebar-mini">
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-      ga('create','UA-99252638-1', 'auto');
-      ga('send', 'pageview');
-    </script>   
+  <script>
+    user = {
+      usuario_id: 8,
+      usuario:'CAMARERA',
+      nombres:'CAMARERA',
+      apellidos:'<?=NAME_HOTEL?>',
+    }
+    data = {
+      user
+    }
+    localStorage.setItem("sesion", JSON.stringify(data));
+  </script>
+
 
     <?php 
       include_once("menus/menu_titulo.php");  ?>
@@ -95,7 +97,7 @@
               
               ?>
 
-              <div class="col-sm-2 col-xs-12 small-box <?=$color?>" style="padding:2px;margin:2px;color:#FFF;width: 15.45%">
+              <div class="col-sm-2 col-xs-12 small-box <?=$color?>" style="padding:2px;margin:2px;color:#FFF;">
                 <div class="inner" style="height: 108px">
                   <h5 style="text-align: center;margin:2px 0;font-weight: bold;color:#000">HABITACION</h5>
                   <h3 style="font-size:30px;margin:0"><?=$room['numero_hab']?></h3>

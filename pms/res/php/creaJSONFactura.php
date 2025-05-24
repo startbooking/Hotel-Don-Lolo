@@ -97,6 +97,15 @@ if ($tipofac == 2) {
   $tliFact = $hotel->traeIdResponsabilidadDianVenta($datosCompania[0]['responsabilidadTributaria']);
   $munFact = $datosCompania[0]['ciudad'];
   $telFact = $datosCompania[0]['telefono'];
+
+  if($tdiFact==8 || $tdiFact== 9){
+    $country = $datosCompania[0]['pais'];
+    $torFact = null;
+    $numName = $datosCompania[0]['fax2'];
+    $staName = $datosCompania[0]['fax3'];
+    $tliFact = null;
+    $triFact =null;
+  }
 } else {
   $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
   $nitFact = $datosHuesped[0]['identificacion'];
@@ -148,7 +157,6 @@ $eFact['head_note'] = '';
 $eFact['foot_note'] = '';
 
 $eCust['identification_number'] = $nitFact;
-$eCust['dv'] = $dvFact;
 $eCust['name'] = $nomFact;
 $eCust['email'] = $emaFact;
 
@@ -159,8 +167,15 @@ if ($tipofac == 2) {
   $eCust['type_document_identification_id'] = $tdiFact;
   $eCust['type_organization_id'] = $torFact;
   $eCust['type_liability_id'] = $tliFact;
-  $eCust['municipality_id'] = $munFact;
   $eCust['type_regime_id'] = $triFact;
+  if($tdiFact==8 || $tdiFact== 9){
+    $eCust['country_id'] = $country ;
+    $eCust['municipality_name'] = $numName ;
+    $eCust['state_name'] = $staName ;
+  }else{
+    $eCust['municipality_id'] = $munFact;
+    $eCust['dv'] = $dvFact;
+  }
 }
 
 $ePago['payment_form_id'] = $hotel->traeCodigoDianVenta($codigo);

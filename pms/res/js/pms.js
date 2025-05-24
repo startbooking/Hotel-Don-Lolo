@@ -2784,6 +2784,7 @@ async function preguntaEliminaHuesped(nombre,id){
 }
 
 async function guardaReportaObs(){
+  ruta = document.querySelector("#ubicacion").value
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user: { usuario_id } } = sesion;
   let observas = document.querySelector("#formObservacionesHab");
@@ -2810,7 +2811,7 @@ async function guardaReportaObs(){
       confirmButtonText: "Aceptar",
     },
     function () {
-      $(location).attr("href", "estadoHabitaciones");
+      $(location).attr("href", ruta);
   });
 }
 
