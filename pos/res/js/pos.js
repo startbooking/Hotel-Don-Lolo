@@ -3477,10 +3477,11 @@ function ventasPorPeriodo() {
 }
 
 function buscaReportesCajero() {
+  let { prefijo } = oPos[0];
   var fecha = $("#buscarFecha").val();
   let usuario = document.querySelector('#usuario').value;
   $("#verFactura").attr("data", "");
-  var repo = "cierre_Cajero_" + usuario + "_" + fecha + ".pdf";
+  var repo = `cierre_Cajero_${usuario}-${prefijo}_${fecha}.pdf`;
   $("#verFactura").attr("data", "imprimir/cierres/" + repo);
 }
 
@@ -3489,7 +3490,7 @@ function historicoCajeros() {
   oPos = JSON.parse(localStorage.getItem("oPos"));
   
   let {pos, user: { usuario, usuario_id }, } = sesion;
-  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } = oPos[0];
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto, prefijo } = oPos[0];
 
   parametros = {
     id: id_ambiente,
@@ -3499,6 +3500,7 @@ function historicoCajeros() {
     impto: impuesto,
     prop: propina,
     fecha: fecha_auditoria,
+    prefijo
   };
 
   $.ajax({
@@ -4188,6 +4190,7 @@ function cierreDiarioCajero() {
     fecha_auditoria,
     id_bodega,
     logo,
+    prefijo,
   } = oPos[0];
 
   parametros = {
@@ -4198,6 +4201,7 @@ function cierreDiarioCajero() {
     impto: impuesto,
     prop: propina,
     fecha: fecha_auditoria,
+    prefijo
   };
 
   $.ajax({
@@ -4801,7 +4805,7 @@ function cierreCajero(cajero) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
   let { user: { usuario, usuario_id, tipo, nombres, apellidos }, } = sesion;
-  let { fecha_auditoria, id_ambiente, nombre, logo } = oPos[0];
+  let { fecha_auditoria, id_ambiente, nombre, logo, prefijo } = oPos[0];
 
   var web = $("#rutaweb").val();
   var parametros = {
@@ -4811,6 +4815,7 @@ function cierreCajero(cajero) {
     id_ambiente,
     nombre,
     logo,
+    prefijo,
   };
   $.ajax({
     url: web + "res/php/cierreDelDiaCajero.php",

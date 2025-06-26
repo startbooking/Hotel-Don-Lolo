@@ -2,6 +2,7 @@
 require_once '../../res/php/app_topPos.php';
 
 $fecha = $_POST['fecha'];
+$prefijo = $_POST['prefijo'];
 $ayer  = strtotime('-1 day', strtotime($fecha));
 $ayer  = date('Y-m-d', $ayer);
 
@@ -15,7 +16,7 @@ $ayer  = date('Y-m-d', $ayer);
         <input type="hidden" name="rutaweb" id="rutaweb" value="<?= BASE_POS ?>">
         <input type="hidden" name="ubicacion" id="ubicacion" value="historicoCajeros">
         <input type="hidden" name="pasos" id="pasos">
-        <h3 class="w3ls_head tituloPagina"> <i class="fa fa-tachometer" style="font-size:36px;color:black"></i> Historico Movimientos Cajeros</h3>
+        <h3 class="w3ls_head tituloPagina"> <i class="fa fa-tachometer" style="font-size:36px;color:black"></i> Historico Movimientos Cajeros </h3>
       </div>
       <div class="datos_ajax_delete"></div>
       <form id="formCierreDiario" class="form-horizontal" action="javascript:buscaReportesCajero()" method="POST" enctype="multipart/form-data">

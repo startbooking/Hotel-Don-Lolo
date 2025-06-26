@@ -257,6 +257,6 @@
   }
   $pdf->Ln(3);
 
-  $file = '../../imprimir/cierres/cierre_Cajero_'.$user.'_'.$fecha.'.pdf';
+  $file = '../../imprimir/cierres/cierre_Cajero_'.$user.'-'.$prefijo.'_'.$fecha.'.pdf';
   $pdf->Output($file,'F');
 ?>

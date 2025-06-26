@@ -8,6 +8,7 @@ $iduser = $_POST['iduser'];
 $impto  = $_POST['impto'];
 $prop   = $_POST['prop'];
 $fecha  = $_POST['fecha'];
+$prefijo  = $_POST['prefijo'];
 
 $_SESSION['NOMBRE_AMBIENTE'] = $nomamb;
 $_SESSION['AMBIENTE_ID']     = $idamb;
@@ -25,7 +26,7 @@ $_SESSION['usuario_id']      = $iduser;
             <input type="hidden" name="ubicacion" id="ubicacion" value="home">
             <input type="hidden" name="usuarioActivo" id="usuarioActivo" value="<?= $user ?>">
             <input type="hidden" name="pasos" id="pasos">
-            <h3 class="w3ls_head tituloPagina"> <i class="fa fa-tachometer" style="font-size:36px;color:black"></i> Cierre Cajero [<?= $user ?>]</h3>
+            <h3 class="w3ls_head tituloPagina"> <i class="fa fa-tachometer" style="font-size:36px;color:black"></i> Cierre Cajero [<?= $user ?>] - <?= $prefijo ?> </h3>
           </div>
         </div>
       </div>

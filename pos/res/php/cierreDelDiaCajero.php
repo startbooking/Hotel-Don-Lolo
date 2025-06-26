@@ -9,12 +9,13 @@
   $idamb = $_POST['id_ambiente'];
   $amb = $_POST['nombre'];
   $logo = $_POST['logo'];
+  $prefijo = $_POST['prefijo'];
 
   include_once '../../imprimir/imprimeCierreCajero.php';
 
   $cierra = $pos->cambiaEstadoCajero($iduser, 2);
 
-  $filepdf = 'imprimir/cierres/cierre_Cajero_'.$user.'_'.$fecha.'.pdf';
+  $filepdf = 'imprimir/cierres/cierre_Cajero_'.$user.'-'.$prefijo.'_'.$fecha.'.pdf';
 
   echo $filepdf;
 

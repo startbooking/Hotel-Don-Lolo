@@ -1,2 +1,0 @@
-[12-Feb-2025 09:17:33 America/Bogota] PHP Warning:  Undefined array key "neto" in /var/www/donlolo.lan/pos/imprimir/imprimeFacturasAnuladasCajero.php on line 41
-[12-Feb-2025 09:17:43 America/Bogota] PHP Warning:  Undefined array key "neto" in /var/www/donlolo.lan/pos/imprimir/imprimeFacturasAnuladasCajero.php on line 41
