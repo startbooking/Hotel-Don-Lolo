@@ -6161,6 +6161,11 @@ async function apagaselecomp(tipo) {
       sinBaseRete
     );
 
+    let mReteIca = await valorReteIcaFolio(
+      nroReserva,
+      nroFolio
+    );
+
     totalRteFte = parseInt($("#baseRetenciones").val());
     totalImpto = parseInt($("#totalIva").val());
     totalBaseImpto = parseInt($("#totalBaseIva").val());
@@ -6169,12 +6174,21 @@ async function apagaselecomp(tipo) {
 
     let valbase = 0;
     let valrete = 0;
+    let valbaseIca = 0;
+    let valreteIca = 0;
 
     reteFuentes.map((valor) => {
       let { base, valorRetencion } = valor;
       valbase = valbase + base;
       valrete = valrete + valorRetencion;
     });
+
+    mReteIca.map((valor) => {
+      let { base, valorRetencion } = valor;
+      valbaseIca = valbaseIca + base;
+      valreteIca = valreteIca + valorRetencion;
+    });
+
 
     let rFte = retenciones.filter((retencion) => retencion.idRetencion == "1");
     let rIva = retenciones.filter((retencion) => retencion.idRetencion == "2");
@@ -6200,7 +6214,7 @@ async function apagaselecomp(tipo) {
       }
     }
 
-    if (reteica == 1) {
+    /* if (reteica == 1) {
       if (sinBaseRete == 1) {
         reteIca = totalRteFte * (rIca[0].porcentajeRetencion / 100);
       } else {
@@ -6208,7 +6222,26 @@ async function apagaselecomp(tipo) {
           reteIca = totalRteFte * (rIca[0].porcentajeRetencion / 100);
         }
       }
+    } */
+
+    console.log(valreteIca)
+
+    if (reteica == 1) {
+
+      /* if (sinBaseRete == 1) {
+        reteIca = totalRteFte * (rIca[0].porcentajeRetencion / 100);
+      } else {
+        if (rFte[0].baseRetencion <= valbase) {
+          reteIca = totalRteFte * (rIca[0].porcentajeRetencion / 100);
+        }
+      } */
+      reteIca = valreteIca;
     }
+
+    console.log(mReteIca);
+
+    console.log(valreteIca)
+
     reteFte = parseInt(reteFte.toFixed(0));
     reteIva = parseInt(reteIva.toFixed(0));
     reteIca = parseInt(reteIca.toFixed(0));
@@ -6267,6 +6300,28 @@ async function valorRetencionesFolio(nroReserva, nroFolio, sinBase) {
     return error;
   }
 }
+
+async function valorReteIcaFolio(nroReserva, nroFolio) {
+  data = {
+    nroReserva,
+    nroFolio
+  };
+  try {
+    const resultado = await fetch(`res/php/traeReteIcaValor.php`, {
+      method: "post",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+      body: JSON.stringify(data),
+    });
+    const datos = await resultado.json();
+    return datos;
+  } catch (error) {
+    return error;
+  }
+}
+
+
 
 function sumaTotales() {
   toCon = parseFloat($("#totalConsumo").val());

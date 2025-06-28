@@ -1,0 +1,18 @@
+[27-Jun-2025 16:48:52 America/Bogota] PHP Warning:  PDOStatement::execute(): SQLSTATE[42S22]: Column not found: 1054 Unknown column 'a.idReteIca' in 'on clause' in /var/www/donlolo.lan/res/php/Medoo.php on line 629
+[27-Jun-2025 16:48:52 America/Bogota] PHP Fatal error:  Uncaught Error: Call to a member function fetchAll() on null in /var/www/donlolo.lan/res/php/functionsHotel.php:2348
+Stack trace:
+#0 /var/www/donlolo.lan/pms/res/php/traeReteIcaValor.php(8): Hotel_Actions->traeValorRetencionIca()
+#1 {main}
+  thrown in /var/www/donlolo.lan/res/php/functionsHotel.php on line 2348
+[27-Jun-2025 16:50:30 America/Bogota] PHP Warning:  PDOStatement::execute(): SQLSTATE[42S22]: Column not found: 1054 Unknown column 'a.idReteIca' in 'on clause' in /var/www/donlolo.lan/res/php/Medoo.php on line 629
+[27-Jun-2025 16:50:30 America/Bogota] PHP Fatal error:  Uncaught Error: Call to a member function fetchAll() on null in /var/www/donlolo.lan/res/php/functionsHotel.php:2348
+Stack trace:
+#0 /var/www/donlolo.lan/pms/res/php/traeReteIcaValor.php(8): Hotel_Actions->traeValorRetencionIca()
+#1 {main}
+  thrown in /var/www/donlolo.lan/res/php/functionsHotel.php on line 2348
+[27-Jun-2025 16:52:34 America/Bogota] PHP Warning:  PDOStatement::execute(): SQLSTATE[42S22]: Column not found: 1054 Unknown column 'a.idReteIca' in 'on clause' in /var/www/donlolo.lan/res/php/Medoo.php on line 629
+[27-Jun-2025 16:52:34 America/Bogota] PHP Fatal error:  Uncaught Error: Call to a member function fetchAll() on null in /var/www/donlolo.lan/res/php/functionsHotel.php:2348
+Stack trace:
+#0 /var/www/donlolo.lan/pms/res/php/traeReteIcaValor.php(10): Hotel_Actions->traeValorRetencionIca()
+#1 {main}
+  thrown in /var/www/donlolo.lan/res/php/functionsHotel.php on line 2348
