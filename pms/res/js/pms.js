@@ -7337,6 +7337,7 @@ async function salidaHuesped() {
     };
 
     let facturado = await enviaPago(parametros);
+    // console.log(facturado);
     let { error, mensaje, factura, perfil, errorDian, archivo, folio } =
       facturado[0];
       // console.log(mensaje);
@@ -7398,6 +7399,7 @@ async function errorEnvio(cErrors) {
 }
 
 async function muestraError(cErrors){
+  console.log(cErrors)
   let { string } = cErrors ;
   let mensajeErr= '' ;
   if(typeof cErrors == 'string'){

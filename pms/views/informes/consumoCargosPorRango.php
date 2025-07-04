@@ -18,7 +18,7 @@ $inicial = date('Y-m-01', $dia);
             </div>
             <div class="col-md-3">
               <button class="btn btn-success" type="buttom" onclick='consumosPorFecha()'><i class="fa fa-print" aria-hidden="true"></i> Imprimir</button>
-              <button class="btn btn-info" onclick="exportTableToExcel('dataTable')"><i class="glyphicon glyphicon-th" aria-hidden="true"></i> Exportar</button>
+              <button class="btn btn-info" onclick="exportTableToExcel('example1')"><i class="glyphicon glyphicon-th" aria-hidden="true"></i> Exportar</button>
             </div>
           </div>
         </div>

@@ -46,6 +46,7 @@ $pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserv
 $tipoimptos = $hotel->getValorImptoFolio($nroFactura, $reserva, $folioAct, 2);
 $fecha = $hotel->getDatePms();
 $retenciones = [];
+$retencionIca = [];
 
 if($aplicarete==1){
   if($sinBaseRete==1){
@@ -53,6 +54,10 @@ if($aplicarete==1){
   }else{
     $retenciones = $hotel->traeValorRetenciones($reserva, $folioAct);
   }
+}
+
+if($aplicaica==1){
+  $retencionIca = $hotel->traeValorRetencionIca($reserva, $folioAct);
 }
 
 if($datosReserva['fecha_salida'] > FECHA_PMS){
@@ -211,20 +216,21 @@ $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(50, 4, 'TOTAL ', 1, 0, 'C');
 $pdf->Cell(30, 4, number_format($total, 2), 1, 1, 'R');
 $pdf->Ln(1);
-$pdf->setY(155);
+$pdf->setY(145);
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(95, 4, 'RETENCIONES ', 1, 0, 'C');
 $pdf->Cell(95, 4, 'FORMAS DE PAGO ', 1, 1, 'C');
-$pdf->Cell(35, 4, 'RETENCION', 1, 0, 'C');
-$pdf->Cell(30, 4, 'BASE', 1, 0, 'R');
+$pdf->Cell(40, 4, 'RETENCION', 1, 0, 'C');
+$pdf->Cell(25, 4, 'BASE', 1, 0, 'R');
 $pdf->Cell(30, 4, 'VALOR', 1, 0, 'R');
 $pdf->Cell(60, 4, 'DETALLE', 1, 0, 'C');
 $pdf->Cell(35, 4, 'VALOR', 1, 1, 'R');
 $pdf->SetFont('Arial', '', 8);
 
 $totRetencion = 0 ;
+$totRetencionIca = 0 ;
 
-  if($tipofac == 2){
+  /* if($tipofac == 2){
     if(count($retenciones) == 0){
       $pdf->Cell(35,   4, 'RETEFUENTE', 1, 0, 'L');
       $pdf->Cell(30, 4, number_format(0, 2), 1, 0, 'R');
@@ -250,37 +256,96 @@ $totRetencion = 0 ;
     $pdf->Cell(30, 4, number_format(0, 2), 1, 0, 'R');
     $pdf->Cell(30, 4, number_format(0, 2), 1, 1, 'R');
     $totRetencion = $totRetencion + 0;
-  }
+  } */
   
-  $pdf->Cell(35, 4, 'RETEIVA', 1, 0, 'L');
+if ($tipofac == 2 && !empty($retenciones)) {
+    // Si es tipo de factura 2 y hay retenciones, iterar sobre ellas
+    foreach ($retenciones as $retencion) {
+        $pdf->Cell(40, 4, $retencion['descripcionRetencion'], 1, 0, 'L');
+        $pdf->Cell(25, 4, number_format($retencion['base'], 2), 1, 0, 'R');
+        $pdf->Cell(30, 4, number_format($retencion['valorRetencion'], 2), 1, 1, 'R');
+        $totRetencion += round($retencion['valorRetencion']);
+    }
+} else {
+    // En cualquier otro caso (tipo de factura diferente de 2, o tipo de factura 2 pero sin retenciones),
+    // mostrar Retefuente con valor 0.
+    $pdf->Cell(40, 4, 'RETEFUENTE', 1, 0, 'L');
+    $pdf->Cell(25, 4, number_format(0, 2), 1, 0, 'R');
+    $pdf->Cell(30, 4, number_format(0, 2), 1, 1, 'R');
+    // $totRetencion se mantiene en 0 o el valor que ya tenía si se inicializó previamente.
+    // Si quieres sumarle 0 explícitamente:
+    $totRetencion += 0;
+}
+
+  $pdf->Cell(40, 4, 'RETEIVA', 1, 0, 'L');
   if($tipofac == 2){
-    $pdf->Cell(30, 4, number_format($baseIva, 2), 1, 0, 'R');
+    $pdf->Cell(25, 4, number_format($baseIva, 2), 1, 0, 'R');
     $pdf->Cell(30, 4, number_format($reteiva, 2), 1, 1, 'R');
   } else {
     $baseIva = 0;
     $reteiva = 0;
-    $pdf->Cell(30, 4, number_format($baseIva, 2), 1, 0, 'R');
+    $pdf->Cell(25, 4, number_format($baseIva, 2), 1, 0, 'R');
     $pdf->Cell(30, 4, number_format($reteiva, 2), 1, 1, 'R');
   }
 
-  $pdf->Cell(35, 4, 'RETEICA', 1, 0, 'L');
-  if($tipofac == 2){
+  /* if($tipofac == 2){
+    if(count($retencionIca) == 0){
+      $pdf->Cell(35,   4, 'RETEICA', 1, 0, 'L');
+      $pdf->Cell(30, 4, number_format(0, 2), 1, 0, 'R');
+      $pdf->Cell(30, 4, number_format(0, 2), 1, 1, 'R');
+      $totRetencionIca = $totRetencionIca + 0;
+    }else {
+      foreach ($retencionIca as $retencion) {  
+        if($tipofac == 2 ){
+          $pdf->Cell(35, 4, $retencion['descripcionRetencion'], 1, 0, 'L');
+          $pdf->Cell(30, 4, number_format($retencion['base'], 2), 1, 0, 'R');
+          $pdf->Cell(30, 4, number_format($retencion['valorRetencion'], 2), 1, 1, 'R');
+          $totRetencionIca = $totRetencionIca + round($retencion['valorRetencion']);      
+        }else{
+          $pdf->Cell(35,   4, 'RETEICA', 1, 0, 'L');
+          $pdf->Cell(30, 4, number_format(0, 2), 1, 0, 'R');
+          $pdf->Cell(30, 4, number_format(0, 2), 1, 1, 'R');
+          $totRetencionIca = $totRetencionIca + 0;
+        }
+      }
+    }
     $pdf->Cell(30, 4, number_format($baseIca, 2), 1, 0, 'R');
     $pdf->Cell(30, 4, number_format($reteica, 2), 1, 1, 'R');
   } else {
+    $pdf->Cell(35, 4, 'RETEICA', 1, 0, 'L');
     $baseIca = 0;
     $reteica = 0;
     $pdf->Cell(30, 4, number_format($baseIca, 2), 1, 0, 'R');
     $pdf->Cell(30, 4, number_format($reteica, 2), 1, 1, 'R');
-  } 
+  }  */
+
+if ($tipofac == 2 && !empty($retencionIca)) {
+    // Si es tipo de factura 2 y hay retenciones, iterar sobre ellas
+    foreach ($retencionIca as $retencion) {
+        $pdf->Cell(40, 4, $retencion['descripcionRetencion'], 1, 0, 'L');
+        $pdf->Cell(25, 4, number_format($retencion['base'], 2), 1, 0, 'R');
+        $pdf->Cell(30, 4, number_format($retencion['valorRetencion'], 2), 1, 1, 'R');
+        $totRetencionIca += round($retencion['valorRetencion']);
+    }
+} else {
+    // En cualquier otro caso (tipo de factura diferente de 2, o tipo de factura 2 pero sin retenciones),
+    // mostrar Retefuente con valor 0.
+    $pdf->Cell(40, 4, 'RETEFUENTE', 1, 0, 'L');
+    $pdf->Cell(25, 4, number_format(0, 2), 1, 0, 'R');
+    $pdf->Cell(30, 4, number_format(0, 2), 1, 1, 'R');
+    // $totRetencion se mantiene en 0 o el valor que ya tenía si se inicializó previamente.
+    // Si quieres sumarle 0 explícitamente:
+    $totRetencionIca += 0;
+}
+
 
 if($tipofac == 2 && ($aplicarete == 1 || $aplicaiva == 1 || $aplicaica == 1)){
   $pdf->SetFont('Arial', 'B', 8);
   $pdf->Cell(50, 4, 'TOTAL RETENCIONES', 1, 0, 'L');
-  $pdf->Cell(45, 4, number_format($reteiva + $reteica + $totRetencion, 2), 1, 1, 'R');
+  $pdf->Cell(45, 4, number_format($reteiva + $totRetencionIca + $totRetencion, 2), 1, 1, 'R');
 } 
 $pagos = 0;
-$pdf->setY(163);
+$pdf->setY(153);
 $pdf->setX(105);
 
 $pdf->SetFont('Arial', '', 8);
@@ -312,7 +377,7 @@ $pdf->Ln(1);
 $pdf->SetFont('Arial', '', 8);
 $pdf->MultiCell(190, 4, 'SON :'.numtoletras($pagos), 1, 'L');
 $pdf->SetFont('Arial', '', 6);
-$pdf->MultiCell(190, 4, ('Factura Nro : ').$prefijo.' '.$nroFactura.' '.(' Fecha Validación Dian ').$timeCrea.' CUFE '.$cufe, 1, 'L');
+$pdf->MultiCell(190, 4, ('Factura Nro : ').$prefijo.' '.$nroFactura.' '.(' Fecha Validacion Dian ').$timeCrea.' CUFE '.$cufe, 1, 'L');
 $pdf->SetFont('Arial', '', 7);
 $pdf->MultiCell(190, 5, ('Observaciones ').(strtoupper($detalle)).' '.(strtoupper($refer)), 1, 'L');
 $pdf->setY(226);

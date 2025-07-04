@@ -56,6 +56,7 @@ $diasCre = 0;
 $paganticipo = 0;
 $totalSinImpto = 0;
 $valorRet = [];
+$valorReteIca = [];
 // $errores = '';
 $noAutorizado = '';
 
@@ -89,6 +90,9 @@ if ($tipofac == 1) {
         } else {
             $valorRet = $hotel->traeValorRetenciones($reserva, $folioAct);
         }
+    }
+    if ($aplicaica === 1) {
+        $valorRetIca = $hotel->traeValorRetencionIca($reserva, $folioAct);
     }
 }
 
@@ -206,8 +210,6 @@ if ($perfilFac == 1 && $facturador == 1) {
         }
     }
 
-    
-
     $ePago['payment_form_id'] = $hotel->traeCodigoDianVenta($codigo);
     $ePago['payment_method_id'] = $hotel->traeCodigoDianVenta($codigo);
     $ePago['payment_due_date'] = $fechaVen;
@@ -274,8 +276,6 @@ if ($perfilFac == 1 && $facturador == 1) {
         }
     }
 
-    // echo print_r($valorRet);
-
     foreach ($valorRet as $rete) {
         $ret = [
             'tax_id' => '6',
@@ -285,6 +285,17 @@ if ($perfilFac == 1 && $facturador == 1) {
         ];
 
         array_push($eRete, $ret);
+    }
+
+    foreach ($valorRetIca as $reteica) {
+        $rica = [
+            'tax_id' => '7',
+            'tax_amount' => $reteica['valorRetencion'],
+            'taxable_amount' => $reteica['monto'],
+            'percent' => $reteica['porcentajeRetencion'],
+        ];
+
+        array_push($eRete, $rica);
     }
 
     if (count($eTaxe) == 0) {
@@ -301,13 +312,6 @@ if ($perfilFac == 1 && $facturador == 1) {
         'tax_amount' => $reteiva,
         'taxable_amount' => $baseIva,
         'percent' => $porceReteiva,
-    ];
-
-    $rica = [
-        'tax_id' => '7',
-        'tax_amount' => $reteica,
-        'taxable_amount' => $baseIca,
-        'percent' => $porceReteica,
     ];
 
     if ($reteiva > 0) {
@@ -341,10 +345,12 @@ if ($perfilFac == 1 && $facturador == 1) {
 
     $recibeCurl = json_decode(trim($respofact), true);
 
-    if(DEV==1){
+    
+
+    /* if(DEV==1){
         return 0 ; 
         exit();
-    }
+    } */
     $errores = [];
     $error = [];
 
@@ -492,10 +498,6 @@ if ($perfilFac == 1 && $facturador == 1) {
         file_put_contents($envCurl, $ePDF . ',',  FILE_APPEND | LOCK_EX);
         file_put_contents($arcCurl, $respopdf . ',',  FILE_APPEND | LOCK_EX);
     }
-
-    // echo 'Paso a contador error mayor a 1 ';
-
-   
 } else {
     include_once '../../imprimir/imprimeReciboFactura.php';
 }
