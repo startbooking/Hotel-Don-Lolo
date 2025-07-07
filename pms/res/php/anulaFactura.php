@@ -206,6 +206,7 @@ if ($perfil == 1 && $facturador == 1) {
 
     // include_once '../../api/enviaPDF.php'; // Activar en Produccion 
     $recibePDF = json_decode($respopdf, true);
+    
 } else {
     include_once '../../imprimir/imprimeNC.php';
 };

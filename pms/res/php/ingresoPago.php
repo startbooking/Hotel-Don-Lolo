@@ -56,7 +56,7 @@ $diasCre = 0;
 $paganticipo = 0;
 $totalSinImpto = 0;
 $valorRet = [];
-$valorReteIca = [];
+$valorRetIca = [];
 // $errores = '';
 $noAutorizado = '';
 
