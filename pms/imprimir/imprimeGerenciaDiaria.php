@@ -3,7 +3,7 @@
 $diamesant = strtotime('-1 month', strtotime(FECHA_PMS));
 $diaanioant = strtotime('-1 year', strtotime(FECHA_PMS));
 $mesante = date("m", $diamesant);
-$anioante = date("Y", $aniomesant);
+$anioante = date("Y", $diaanioant);
 
 /* echo $diamesant.'<br>'; 
 echo $diaanioant.'<br>';

@@ -175,8 +175,8 @@ $pdf->Cell(31, 4, date('H:m:s'), 1, 0, 'C');
 $pdf->Cell(32, 4, str_pad($datosReserva['num_registro'], 4, '0', STR_PAD_LEFT), 1, 1, 'C');
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(47, 4, 'FECHA LLEGADA', 1, 0, 'C');
-$pdf->Cell(47, 4, 'FECHA SALIDA', 1, 0, 'C');
-$pdf->Cell(48, 4, 'FECHA EXPEDICION', 1, 0, 'C');
+$pdf->Cell(48, 4, 'FECHA SALIDA', 1, 0, 'C');
+$pdf->Cell(47, 4, 'FECHA EXPEDICION', 1, 0, 'C');
 $pdf->Cell(48, 4, 'FECHA VENCIMIENTO', 1, 1, 'C');
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(47, 4, $datosReserva['fecha_llegada'], 1, 0, 'C');
@@ -220,9 +220,9 @@ $pdf->setY(145);
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(95, 4, 'RETENCIONES ', 1, 0, 'C');
 $pdf->Cell(95, 4, 'FORMAS DE PAGO ', 1, 1, 'C');
-$pdf->Cell(40, 4, 'RETENCION', 1, 0, 'C');
-$pdf->Cell(25, 4, 'BASE', 1, 0, 'R');
-$pdf->Cell(30, 4, 'VALOR', 1, 0, 'R');
+$pdf->Cell(55, 4, 'RETENCION', 1, 0, 'C');
+$pdf->Cell(20, 4, 'BASE', 1, 0, 'R');
+$pdf->Cell(20, 4, 'VALOR', 1, 0, 'R');
 $pdf->Cell(60, 4, 'DETALLE', 1, 0, 'C');
 $pdf->Cell(35, 4, 'VALOR', 1, 1, 'R');
 $pdf->SetFont('Arial', '', 8);
@@ -230,109 +230,50 @@ $pdf->SetFont('Arial', '', 8);
 $totRetencion = 0 ;
 $totRetencionIca = 0 ;
 
-  /* if($tipofac == 2){
-    if(count($retenciones) == 0){
-      $pdf->Cell(35,   4, 'RETEFUENTE', 1, 0, 'L');
-      $pdf->Cell(30, 4, number_format(0, 2), 1, 0, 'R');
-      $pdf->Cell(30, 4, number_format(0, 2), 1, 1, 'R');
-      $totRetencion = $totRetencion + 0;
-    }else {
-      foreach ($retenciones as $retencion) {  
-        if($tipofac == 2 ){
-          $pdf->Cell(35, 4, $retencion['descripcionRetencion'], 1, 0, 'L');
-          $pdf->Cell(30, 4, number_format($retencion['base'], 2), 1, 0, 'R');
-          $pdf->Cell(30, 4, number_format($retencion['valorRetencion'], 2), 1, 1, 'R');
-          $totRetencion = $totRetencion + round($retencion['valorRetencion']);      
-        }else{
-          $pdf->Cell(35,   4, 'RETEFUENTE', 1, 0, 'L');
-          $pdf->Cell(30, 4, number_format(0, 2), 1, 0, 'R');
-          $pdf->Cell(30, 4, number_format(0, 2), 1, 1, 'R');
-          $totRetencion = $totRetencion + 0;
-        }
-      }
-    }
-  }else{
-    $pdf->Cell(35, 4, 'RETEFUENTE', 1, 0, 'L');
-    $pdf->Cell(30, 4, number_format(0, 2), 1, 0, 'R');
-    $pdf->Cell(30, 4, number_format(0, 2), 1, 1, 'R');
-    $totRetencion = $totRetencion + 0;
-  } */
-  
 if ($tipofac == 2 && !empty($retenciones)) {
     // Si es tipo de factura 2 y hay retenciones, iterar sobre ellas
     foreach ($retenciones as $retencion) {
-        $pdf->Cell(40, 4, $retencion['descripcionRetencion'], 1, 0, 'L');
-        $pdf->Cell(25, 4, number_format($retencion['base'], 2), 1, 0, 'R');
-        $pdf->Cell(30, 4, number_format($retencion['valorRetencion'], 2), 1, 1, 'R');
+        $pdf->Cell(55, 4, $retencion['descripcionRetencion'], 1, 0, 'L');
+        $pdf->Cell(20, 4, number_format($retencion['base'], 2), 1, 0, 'R');
+        $pdf->Cell(20, 4, number_format($retencion['valorRetencion'], 2), 1, 1, 'R');
         $totRetencion += round($retencion['valorRetencion']);
     }
 } else {
     // En cualquier otro caso (tipo de factura diferente de 2, o tipo de factura 2 pero sin retenciones),
     // mostrar Retefuente con valor 0.
-    $pdf->Cell(40, 4, 'RETEFUENTE', 1, 0, 'L');
-    $pdf->Cell(25, 4, number_format(0, 2), 1, 0, 'R');
-    $pdf->Cell(30, 4, number_format(0, 2), 1, 1, 'R');
+    $pdf->Cell(55, 4, 'RETEFUENTE', 1, 0, 'L');
+    $pdf->Cell(20, 4, number_format(0, 2), 1, 0, 'R');
+    $pdf->Cell(20, 4, number_format(0, 2), 1, 1, 'R');
     // $totRetencion se mantiene en 0 o el valor que ya tenía si se inicializó previamente.
     // Si quieres sumarle 0 explícitamente:
     $totRetencion += 0;
 }
 
-  $pdf->Cell(40, 4, 'RETEIVA', 1, 0, 'L');
+  $pdf->Cell(55, 4, 'RETEIVA', 1, 0, 'L');
   if($tipofac == 2){
-    $pdf->Cell(25, 4, number_format($baseIva, 2), 1, 0, 'R');
-    $pdf->Cell(30, 4, number_format($reteiva, 2), 1, 1, 'R');
+    $pdf->Cell(20, 4, number_format($baseIva, 2), 1, 0, 'R');
+    $pdf->Cell(20, 4, number_format($reteiva, 2), 1, 1, 'R');
   } else {
     $baseIva = 0;
     $reteiva = 0;
-    $pdf->Cell(25, 4, number_format($baseIva, 2), 1, 0, 'R');
-    $pdf->Cell(30, 4, number_format($reteiva, 2), 1, 1, 'R');
+    $pdf->Cell(20, 4, number_format($baseIva, 2), 1, 0, 'R');
+    $pdf->Cell(20, 4, number_format($reteiva, 2), 1, 1, 'R');
   }
-
-  /* if($tipofac == 2){
-    if(count($retencionIca) == 0){
-      $pdf->Cell(35,   4, 'RETEICA', 1, 0, 'L');
-      $pdf->Cell(30, 4, number_format(0, 2), 1, 0, 'R');
-      $pdf->Cell(30, 4, number_format(0, 2), 1, 1, 'R');
-      $totRetencionIca = $totRetencionIca + 0;
-    }else {
-      foreach ($retencionIca as $retencion) {  
-        if($tipofac == 2 ){
-          $pdf->Cell(35, 4, $retencion['descripcionRetencion'], 1, 0, 'L');
-          $pdf->Cell(30, 4, number_format($retencion['base'], 2), 1, 0, 'R');
-          $pdf->Cell(30, 4, number_format($retencion['valorRetencion'], 2), 1, 1, 'R');
-          $totRetencionIca = $totRetencionIca + round($retencion['valorRetencion']);      
-        }else{
-          $pdf->Cell(35,   4, 'RETEICA', 1, 0, 'L');
-          $pdf->Cell(30, 4, number_format(0, 2), 1, 0, 'R');
-          $pdf->Cell(30, 4, number_format(0, 2), 1, 1, 'R');
-          $totRetencionIca = $totRetencionIca + 0;
-        }
-      }
-    }
-    $pdf->Cell(30, 4, number_format($baseIca, 2), 1, 0, 'R');
-    $pdf->Cell(30, 4, number_format($reteica, 2), 1, 1, 'R');
-  } else {
-    $pdf->Cell(35, 4, 'RETEICA', 1, 0, 'L');
-    $baseIca = 0;
-    $reteica = 0;
-    $pdf->Cell(30, 4, number_format($baseIca, 2), 1, 0, 'R');
-    $pdf->Cell(30, 4, number_format($reteica, 2), 1, 1, 'R');
-  }  */
 
 if ($tipofac == 2 && !empty($retencionIca)) {
     // Si es tipo de factura 2 y hay retenciones, iterar sobre ellas
     foreach ($retencionIca as $retencion) {
-        $pdf->Cell(40, 4, $retencion['descripcionRetencion'], 1, 0, 'L');
-        $pdf->Cell(25, 4, number_format($retencion['base'], 2), 1, 0, 'R');
-        $pdf->Cell(30, 4, number_format($retencion['valorRetencion'], 2), 1, 1, 'R');
+        $pdf->Cell(55, 4, $retencion['descripcionRetencion'], 1, 0, 'L');
+        $pdf->Cell(20, 4, number_format($retencion['base'], 2), 1, 0, 'R');
+        $pdf->Cell(20, 4, number_format($retencion['valorRetencion'], 2), 1, 1, 'R');
         $totRetencionIca += round($retencion['valorRetencion']);
     }
 } else {
     // En cualquier otro caso (tipo de factura diferente de 2, o tipo de factura 2 pero sin retenciones),
     // mostrar Retefuente con valor 0.
-    $pdf->Cell(40, 4, 'RETEFUENTE', 1, 0, 'L');
-    $pdf->Cell(25, 4, number_format(0, 2), 1, 0, 'R');
-    $pdf->Cell(30, 4, number_format(0, 2), 1, 1, 'R');
+    $pdf->Cell(55, 4, 'RETEICA', 1, 0, 'L');
+    $pdf->Cell(20, 4, number_format(0, 2), 1, 0, 'R');
+    $pdf->Cell(20, 4, number_format(0, 2), 1, 1, 'R');
     // $totRetencion se mantiene en 0 o el valor que ya tenía si se inicializó previamente.
     // Si quieres sumarle 0 explícitamente:
     $totRetencionIca += 0;
@@ -341,8 +282,8 @@ if ($tipofac == 2 && !empty($retencionIca)) {
 
 if($tipofac == 2 && ($aplicarete == 1 || $aplicaiva == 1 || $aplicaica == 1)){
   $pdf->SetFont('Arial', 'B', 8);
-  $pdf->Cell(50, 4, 'TOTAL RETENCIONES', 1, 0, 'L');
-  $pdf->Cell(45, 4, number_format($reteiva + $totRetencionIca + $totRetencion, 2), 1, 1, 'R');
+  $pdf->Cell(75, 4, 'TOTAL RETENCIONES', 1, 0, 'L');
+  $pdf->Cell(20, 4, number_format($reteiva + $totRetencionIca + $totRetencion, 2), 1, 1, 'R');
 } 
 $pagos = 0;
 $pdf->setY(153);
@@ -360,7 +301,7 @@ $pdf->Cell(95, 4, '', 0, 0, 'L');
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(60, 4, 'TOTAL ', 1, 0, 'C');
 $pdf->Cell(35, 4, number_format($pagos, 2), 1, 1, 'R');
-$pdf->setY(190);
+$pdf->setY(185);
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(95, 5, 'IMPUESTOS', 1, 1, 'C');
 $pdf->SetFont('Arial', '', 8);

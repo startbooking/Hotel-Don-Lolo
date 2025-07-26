@@ -7337,10 +7337,8 @@ async function salidaHuesped() {
     };
 
     let facturado = await enviaPago(parametros);
-    // console.log(facturado);
     let { error, mensaje, factura, perfil, errorDian, archivo, folio } =
       facturado[0];
-      // console.log(mensaje);
     if (error == "1") {
       let muestra = await muestraError(mensaje);
     } else {
@@ -7635,7 +7633,6 @@ function activaFolio(reserva, folio) {
 function movimientosFactura(reserva) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user: { tipo }, } = sesion;
-  // console.log(tipo);
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var parametros = { reserva, tipo };

@@ -7,7 +7,7 @@
   $_SESSION['folio'] = $folio;
 	
   $folios1 = $hotel->getCargosReserva($reserva,$folio);
-?>
+?> 
 
 <div class="table-responsive-lg">
   <table id="example1" class="table table-bordered" style="font-size:11px">
@@ -39,7 +39,7 @@
     	 		  <td><?=number_format($folio1['monto_cargo'],2)?></td>
     	 		  <td>
     	 		    <?php
-                 echo number_format($folio1['porcentaje_impto'],2);
+                echo number_format($folio1['porcentaje_impto'],2);
     	 		    ?>
     	 		  </td>
     	 		  <td><?=number_format($folio1['impuesto'],2)?></td>

@@ -57,7 +57,6 @@ $paganticipo = 0;
 $totalSinImpto = 0;
 $valorRet = [];
 $valorRetIca = [];
-// $errores = '';
 $noAutorizado = '';
 
 if ($perfilFac == 1 && $facturador == 1) {
