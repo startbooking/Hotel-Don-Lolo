@@ -1,52 +1,11 @@
 <?php
-
-require '../../../res/fpdf/fpdf.php';
-require '../../../res/phpqrcode/qrlib.php'; 
-
-// $filename = 'QR_'.$prefijo.'-'.$factura.'.png';
-$filename = '../../../img/pms/QR_'.$prefijo.'-'.$factura.'.png';
-
-$size = 100; // Tamaño en píxeles
-$level = 'L'; // Nivel de corrección (L, M, Q, H)
-
-// Generar el código QR
-// QRcode::png($QRStr, $filename, $level, $size);
-
-$datosReserva = $hotel->getReservasDatos($reserva);
-$datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
-
-$horaIng = $datosReserva['hora_llegada'];
-
-if ($tipofac == 2) { 
-    $datosCompania = $hotel->getSeleccionaCompania($idperfil);
-    $diasCre = $datosCompania[0]['dias_credito'];
-}
-
-$textoResol = 'RESOLUCION DIAN No.'.$resolucion.' de '.$fechaRes.' Autorizacion Pref '.$prefijo.' desde el No. '.$desde.' AL '.$hasta;
-
-$fechaFac = FECHA_PMS;
-$fechaVen = $fechaFac;
-$fechaVen = strtotime('+ '.$diasCre.' day', strtotime($fechaFac));
-$fechaVen = date('Y-m-d', $fechaVen);
-
-$tipoHabitacion = $hotel->getNombreTipoHabitacion($datosReserva['tipo_habitacion']);
-$folios = $hotel->getFacturaDetallada($factura, $reserva, $folioAct, 1);
-$pagosfolio = $hotel->getFacturaDetallada($factura, $reserva, $folioAct, 3);
-$tipoimptos = $hotel->getValorImptoFolio($factura, $reserva, $folioAct, 2);
-$fecha = $hotel->getDatePms();
-
-if($datosReserva['fecha_salida']> FECHA_PMS){
-    $fechaSalida = FECHA_PMS;
-}else{
-    $fechaSalida = $datosReserva['fecha_salida'];
-}
-
+require_once '../../../res/fpdf/fpdf.php';
 $pdf = new FPDF();
 $pdf->AddPage('P', 'letter');
 $pdf->Rect(10, 50, 190, 210);
 
 $pdf->Image('../../../img/'.LOGO, 10, 5, 40);
-// $pdf->Image($filename, 163, 5, 33);
+$pdf->Image($filename, 163, 5, 33);
 
 $pdf->SetFont('Arial', 'B', 11);
 $pdf->Cell(190, 4, (NAME_EMPRESA), 0, 1, 'C');
@@ -195,7 +154,10 @@ $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(50, 4, 'TOTAL ', 1, 0, 'C');
 $pdf->Cell(30, 4, number_format($total, 2), 1, 1, 'R');
 $pdf->Ln(1);
-$pdf->setY(155);
+$posY0 = $pdf->getY();
+if($posY0 < 160){
+  $pdf->setY(160);
+}
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(95, 4, 'RETENCIONES ', 1, 0, 'C');
 $pdf->Cell(95, 4, 'FORMAS DE PAGO ', 1, 1, 'C');
@@ -204,6 +166,7 @@ $pdf->Cell(30, 4, 'BASE', 1, 0, 'R');
 $pdf->Cell(30, 4, 'VALOR', 1, 0, 'R');
 $pdf->Cell(60, 4, 'DETALLE', 1, 0, 'C');
 $pdf->Cell(35, 4, 'VALOR', 1, 1, 'R');
+$posY1 = $pdf->getY();
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(35, 4, 'RETEFUENTE', 1, 0, 'L');
 $pdf->Cell(30, 4, number_format($baseRete, 2), 1, 0, 'R');
@@ -215,27 +178,28 @@ $pdf->Cell(35, 4, 'RETEICA', 1, 0, 'L');
 $pdf->Cell(30, 4, number_format($baseIca, 2), 1, 0, 'R');
 $pdf->Cell(30, 4, number_format($reteica, 2), 1, 1, 'R');
 $pdf->SetFont('Arial', 'B', 8);
-$pdf->Cell(50, 4, 'TOTAL RETENCIONES', 1, 0, 'L');
-$pdf->Cell(45, 4, number_format($reteiva + $reteica + $retefuente, 2), 1, 1, 'R');
+$pdf->Cell(50, 5, 'TOTAL RETENCIONES', 1, 0, 'L');
+$pdf->Cell(45, 5, number_format($reteiva + $reteica + $retefuente, 2), 1, 1, 'R');
+$posy5 = $pdf->getY();
 $pdf->SetFont('Arial', '', 8);
 
 $pagos = 0;
-$pdf->setY(163);
+$pdf->setY($posY1);
 $pdf->setX(105);
 
 $pdf->SetFont('Arial', '', 8);
 foreach ($pagosfolio as $pagofolio) {
     $pdf->setX(105);
     $pagos = $pagos + $pagofolio['pagos'];
+    // $pdf->Cell(60, 4, $pagofolio['descripcion_cargo'], 0, 0, 'L');
     $pdf->Cell(60, 4, str_replace('DEPOSITO EN ','',str_replace('ABONO EN ','',$pagofolio['descripcion_cargo'])), 0, 0, 'L');
-    // $pdf->Cell(60, 4, str_replace('ABONO EN ','',$pagofolio['descripcion_cargo']), 0, 0, 'L');
     $pdf->Cell(35, 4, number_format($pagofolio['pagos'], 2), 0, 1, 'R');
 }
 $pdf->Cell(95, 4, '', 0, 0, 'L');
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(60, 4, 'TOTAL ', 1, 0, 'C');
 $pdf->Cell(35, 4, number_format($pagos, 2), 1, 1, 'R');
-$pdf->setY(190);
+$pdf->setY($posy5);
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(95, 5, 'IMPUESTOS', 1, 1, 'C');
 $pdf->SetFont('Arial', '', 8);
@@ -255,11 +219,15 @@ $pdf->SetFont('Arial', '', 6);
 $pdf->MultiCell(190, 4, ('Factura Nro : ').$prefijo.' '.$factura.' '.(' Fecha Validación Dian ').$timeCreated.' CUFE '.$cufe, 1, 'L');
 $pdf->SetFont('Arial', '', 7);
 $pdf->MultiCell(190, 5, ('Observaciones ').(strtoupper($detalle)).' '.(strtoupper($refer)), 1, 'L');
-$pdf->setY(226);
-$pdf->SetFont('Arial', '', 7);
+// $pdf->setY(226);
+if($posY0 < 160){
+  $pdf->setY(226);
+}
+$pos2Y = $pdf->GetY();
+$pdf->SetFont('Arial', '', 6);
 $pdf->MultiCell(95, 4, (TEXTOBANCO).', '.(TEXTOFACTURA), 1, 'C');
-$y = $pdf->GetY();
-$pdf->SetY(226);
+$pos3Y = $pdf->GetY()+3;
+$pdf->SetY($pos2Y);
 $pdf->SetX(105);
 $pdf->SetFont('Arial', '', 8);
 
@@ -267,11 +235,12 @@ $pdf->MultiCell(95, 6, '
                         Nombre                                             Identificacion
 
                         Firma                                              Fecha', 1, 'L');
-$pdf->SetY(245);
+$pdf->SetY($pos3Y);
 $pdf->Cell(40, 5, 'FACTURADO POR :', 1, 0, 'C');
 $pdf->Cell(55, 5, $usuario, 1, 1, 'L');
+$pos4Y = $pdf->GetY();
 
-$pdf->SetY(250);
+$pdf->SetY($pos4Y);
 
 $pdf->Ln(1);
 
@@ -286,6 +255,8 @@ $oFile = 'FES-' . $prefijo . $factura . '.pdf';
 
 $pdfFile = $pdf->Output('', 'S');
 $base64Factura = chunk_split(base64_encode($pdfFile));
+unlink($filename);
+
 
 ?>
 

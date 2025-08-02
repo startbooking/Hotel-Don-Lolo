@@ -43,8 +43,6 @@ if ($tipoRes = 1) {
 
 $textoResol = 'RESOLUCION DIAN No.' . $resolucion . ' de ' . $fechaRes . ' ' . $textTipoRes . ' Pref ' . $prefijo . ' desde el No. ' . $desde . ' AL ' . $hasta;
 
-// $textoResol = 'RESOLUCION DIAN No.'.$resolucion.' de '.$fechaRes.' Autorizacion Pref '.$prefijo.' desde el No. '.$desde.' AL '.$hasta;
-
 $fechaFac = FECHA_PMS;
 $fechaVen = $fechaFac;
 $fechaVen = strtotime('+ ' . $diasCre . ' day', strtotime($fechaFac));
@@ -57,8 +55,6 @@ $tipoimptos = $hotel->getValorImptoFolio($nroFactura, $reserva, $nroFolio, 2);
 $fecha = $hotel->getDatePms();
 $retenciones = [];
 
-// echo print_r($pagosfolio);
-
 if ($aplicarete == 1) {
   if ($sinBaseRete == 1) {
     $retenciones = $hotel->traeValorRetencionesSinBase($reserva, $nroFolio);
@@ -66,14 +62,6 @@ if ($aplicarete == 1) {
     $retenciones = $hotel->traeValorRetenciones($reserva, $nroFolio);
   }
 }
-
-// echo print_r($retenciones);
-
-/* if($sinBase==1){
-    $valores = $hotel->traeValorRetencionesSinBase($nroReserva, $nroFolio);  
-  }else{
-    $valores = $hotel->traeValorRetenciones($nroReserva, $nroFolio);
-  } */
 
 if ($datosReserva['fecha_salida'] > FECHA_PMS) {
     $fechaSalida = FECHA_PMS;

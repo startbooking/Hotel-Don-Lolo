@@ -5492,7 +5492,6 @@ async function facturaDetalladaHistorico(prefijo, factura) {
 }
 
 const imprimeFacturaDetalladaHistorico = async (factura, prefijo) => {
-  console.log(factura, prefijo)
   data = { factura, prefijo };
   try {
     const resultado = await fetch(

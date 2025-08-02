@@ -202,7 +202,7 @@ FROM
         ciudades ciudad_c ON c.ciudad = ciudad_c.id_ciudad
 WHERE
     a.fecha_factura BETWEEN '$desde' AND '$hasta' AND tipo_factura < 3
-group by factura_numero, descripcion_cargo
+group by factura_numero, concecutivo_abono, descripcion_cargo
 ORDER BY
 	a.factura_numero ASC,
 	a.tipo_codigo ASC,

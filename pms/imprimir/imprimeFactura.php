@@ -1,16 +1,16 @@
 <?php
 
 require '../../../res/fpdf/fpdf.php';
-require '../../../res/phpqrcode/qrlib.php'; 
+/* require '../../../res/phpqrcode/qrlib.php'; 
 
 $filename = '../../../img/pms/QR_'.$prefijo.'-'.$nroFactura.'.png';
 $size = 100; // Tamaño en píxeles
-$level = 'L'; // Nivel de corrección (L, M, Q, H)
+$level = 'L'; // Nivel de corrección (L, M, Q, H) */
 
 // Generar el código QR
-QRcode::png($QRStr, $filename, $level, $size); 
+// QRcode::png($QRStr, $filename, $level, $size); 
 
-$aplicarete = 0;
+/* $aplicarete = 0;
 $aplicaiva = 0;
 $aplicaica = 0;
 $sinBaseRete = 0;
@@ -64,7 +64,7 @@ if($datosReserva['fecha_salida'] > FECHA_PMS){
   $fechaSalida = FECHA_PMS;
 }else{
   $fechaSalida = $datosReserva['fecha_salida'];
-}
+} */
 
 $pdf = new FPDF();
 $pdf->AddPage('P', 'letter');

@@ -1357,7 +1357,7 @@ class Hotel_Actions
             'timeCreated',
         ], [
             'facturaNumero' => $numFact,
-            'estadoEnvio' => '1'
+            'estadoEnvio' => 'true'
         ]);
         return $data;
     }

@@ -8,8 +8,6 @@ extract($postBody);
 $infoFactura = $hotel->traeInfoFacturaHist($factura);
 $infoFE = $hotel->traeInfoFEHistorico($factura);
 
-echo print_r($infoFE);
-
 $QRStr = $infoFE[0]['QRStr'];
 $cufe = $infoFE[0]['cufe'];
 $timeCreated = $infoFE[0]['timeCreated'];
@@ -77,13 +75,40 @@ $porceReteica = $retIca[0]['porcentajeRetencion'];
 
 $idperfil = $id;
 
-include_once '../../imprimir/imprimeFacturaDetalladaHistorico.php';
+/* CAMBIA DEL ARCHIVO DE IMPRESION  */
+
+$filename = '../../../img/pms/QR_'.$prefijo.'-'.$factura.'.png';
+
+$datosReserva = $hotel->getReservasDatosHistorico($reserva);
+$datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
+
+$horaIng = $datosReserva['hora_llegada'];
+
+if ($tipofac == 2) { 
+    $datosCompania = $hotel->getSeleccionaCompania($idperfil);
+    $diasCre = $datosCompania[0]['dias_credito'];
+}
+
+$textoResol = 'RESOLUCION DIAN No.'.$resolucion.' de '.$fechaRes.' Autorizacion Pref '.$prefijo.' desde el No. '.$desde.' AL '.$hasta;
+
+$infoFact = $hotel->traeInfoFacturaHist($factura);
+$tipoHabitacion = $hotel->getNombreTipoHabitacion($datosReserva['tipo_habitacion']);
+$folios = $hotel->getFacturaDetalladaHistorico($factura, $reserva, $folioAct, 1);
+$pagosfolio = $hotel->getFacturaDetalladaHistorico($factura, $reserva, $folioAct, 3);
+$tipoimptos = $hotel->getValorImptoFolioHis($factura, $reserva, $folioAct, 2);
+$fecha = $hotel->getDatePms();
+
+if($datosReserva['fecha_salida']> FECHA_PMS){
+    $fechaSalida = FECHA_PMS;
+}else{
+    $fechaSalida = $datosReserva['fecha_salida'];
+}
+
+include_once '../../imprimir/imprimeQR.php';
+include_once '../../imprimir/imprimeFacturaDetallada.php';
 
 $envio = [
   "impresion" => $base64Factura
 ]; 
 
-
 echo json_encode($envio);
-
-/* echo json_encode($estadofactura); */ 

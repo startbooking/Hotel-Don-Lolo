@@ -154,9 +154,11 @@ if ($perfil == 1 && $facturador == 1) {
 
     $eNote = json_encode($eNote);
 
-    // include_once '../../api/enviaNC.php'; // Activar en Produccion - Envia JSON a la DIAN
-
-    include_once '../../api/pruebaNC.php'; // Activar cuando esta en Modo Desarrollo - JSON con datos de NC
+    if(DEV==1){
+      include_once '../../api/pruebaNC.php'; // Activar cuando esta en Modo Desarrollo - JSON con datos de NC
+    }else{
+      include_once '../../api/enviaNC.php'; // Activar en Produccion - Envia JSON a la DIAN
+    }
 
     $recibeCurl = json_decode($respoNC, true);
 
@@ -192,6 +194,17 @@ if ($perfil == 1 && $facturador == 1) {
 
     $regis = $hotel->ingresaDatosFe($numDoc, $prefNC, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cude, $QRStr, '', $Isvalid, '', $errorMessage, $statusCode, $statusDesc, $statusMess);
 
+    /* Cambio Procedimiento de Ipresion de Documentos */
+      $filename = '../../../img/pms/QR_'.$prefNC.'-'.$numDoc.'.png';
+      if ($tipofac == 2) {
+        $datosCompania = $hotel->getSeleccionaCompania($idperfil);
+      } else {
+        $datosHuesped = $hotel->getbuscaDatosHuesped($idperfil);
+      }
+      $folios = $hotel->getConsumosReservaAgrupadoCodigoFolio($numero, $reserva, $nroFolio, 1);
+
+    /* fin de Procedimiento de Impresion de DOcumento */
+    include_once '../../imprimir/imprimeQR.php';
     include_once '../../imprimir/imprimeNotaCredito.php';
 
     $ePDF = [];
@@ -204,9 +217,10 @@ if ($perfil == 1 && $facturador == 1) {
 
     $ePDF = json_encode($ePDF);
 
-    // include_once '../../api/enviaPDF.php'; // Activar en Produccion 
-    $recibePDF = json_decode($respopdf, true);
-    
+    if(DEV==0){
+      include_once '../../api/enviaPDF.php'; // Activar en Produccion 
+      $recibePDF = json_decode($respopdf, true);
+    }
 } else {
     include_once '../../imprimir/imprimeNC.php';
 };

@@ -80,13 +80,41 @@ $porceReteica = $retIca[0]['porcentajeRetencion'];
 
 $idperfil = $id;
 
+$filename = '../../../img/pms/QR_'.$prefijo.'-'.$factura.'.png';
+$datosReserva = $hotel->getReservasDatos($reserva);
+$datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
+
+$horaIng = $datosReserva['hora_llegada'];
+
+if ($tipofac == 2) { 
+    $datosCompania = $hotel->getSeleccionaCompania($idperfil);
+    $diasCre = $datosCompania[0]['dias_credito'];
+}
+
+$textoResol = 'RESOLUCION DIAN No.'.$resolucion.' de '.$fechaRes.' Autorizacion Pref '.$prefijo.' desde el No. '.$desde.' AL '.$hasta;
+
+$fechaFac = FECHA_PMS;
+$fechaVen = $fechaFac;
+$fechaVen = strtotime('+ '.$diasCre.' day', strtotime($fechaFac));
+$fechaVen = date('Y-m-d', $fechaVen);
+
+$tipoHabitacion = $hotel->getNombreTipoHabitacion($datosReserva['tipo_habitacion']);
+$folios = $hotel->getFacturaDetallada($factura, $reserva, $folioAct, 1);
+$pagosfolio = $hotel->getFacturaDetallada($factura, $reserva, $folioAct, 3);
+$tipoimptos = $hotel->getValorImptoFolio($factura, $reserva, $folioAct, 2);
+$fecha = $hotel->getDatePms();
+
+if($datosReserva['fecha_salida']> FECHA_PMS){
+    $fechaSalida = FECHA_PMS;
+}else{
+    $fechaSalida = $datosReserva['fecha_salida'];
+}
+
+include_once '../../imprimir/imprimeQR.php';
 include_once '../../imprimir/imprimeFacturaDetallada.php';
 
 $envio = [
   "impresion" => $base64Factura
 ]; 
 
-
 echo json_encode($envio);
-
-/* echo json_encode($estadofactura); */

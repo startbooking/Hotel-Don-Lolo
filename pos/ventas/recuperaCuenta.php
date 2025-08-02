@@ -148,7 +148,6 @@
               </div>
             </div>
             <div class="col-md-3 menuComanda" style="padding: 0 0px 0 15px;margin-top:15px">
-              
               <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                 <div class="btn-group-vertical mr-2" role="group" aria-label="First group" style="display: block">
                   <button 
