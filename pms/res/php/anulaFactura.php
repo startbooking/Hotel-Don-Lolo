@@ -154,10 +154,10 @@ if ($perfil == 1 && $facturador == 1) {
 
     $eNote = json_encode($eNote);
 
-    if(DEV==1){
-      include_once '../../api/pruebaNC.php'; // Activar cuando esta en Modo Desarrollo - JSON con datos de NC
-    }else{
+    if(DEV==0){
       include_once '../../api/enviaNC.php'; // Activar en Produccion - Envia JSON a la DIAN
+    }else{
+      include_once '../../api/pruebaNC.php'; // Activar cuando esta en Modo Desarrollo - JSON con datos de NC
     }
 
     $recibeCurl = json_decode($respoNC, true);
