@@ -18,26 +18,25 @@
             </div>
             <label for="tipodoc" class="col-sm-2 control-label">Tipo Documento</label>
             <div class="col-sm-4">
-              <select name="tipodoc" required>
+              <select name="tipodoc" required onchange="toggleNacionalFields(this.value)">
                 <option value="">Seleccione el Tipo de Documento</option>
                 <?php
-                $tipodocs = $hotel->getTipoDocumento();
                 foreach ($tipodocs as $tipodoc) { ?>
-                  <option value="<?php echo $tipodoc['id_doc']; ?>" <?php if ($tipodoc['id_doc'] == 8) { ?> selected <?php }?>><?php echo $tipodoc['descripcion_documento']; ?></option>
+                  <option value="<?php echo $tipodoc['id_doc']; ?>" <?php if ($tipodoc['id_doc'] == 6) { ?> selected <?php }?>><?php echo $tipodoc['descripcion_documento']; ?></option>
                 <?php } ?>
               </select>
             </div>
           </div>
           <div class="form-group">
             <label for="compania" class="col-sm-2 control-label">Razon Social</label>
-            <div class="col-sm-8">
+            <div class="col-sm-10">
               <input type="text" class="form-control" name="compania" id="compania" placeholder="Nombre Compañia" required>
             </div>
           </div>
-          <div class="form-group">
+          <div class="form-group ">
             <label for="tipoEmpresaAdi" class="col-sm-2 control-label">Tipo de Empresa</label>
             <div class="col-sm-4">
-              <select name="tipoEmpresaAdi" id="tipoEmpresaAdi" required>
+              <select class="nacional" name="tipoEmpresaAdi" id="tipoEmpresaAdi" required>
                 <option value="">Seleccione el Tipo de Empresa</option>
                 <?php
                 $motivos = $hotel->getMotivoGrupo('TEM');
@@ -50,7 +49,7 @@
             </div>
             <label for="codigoCiiuAdi" class="col-sm-2 control-label">Codigo CIIU</label>
             <div class="col-sm-4">
-              <select name="codigoCiiuAdi" id="codigoCiiuAdi" required>
+              <select class="nacional" name="codigoCiiuAdi" id="codigoCiiuAdi" required>
                 <option value="">Seleccione el Codigo CIIU</option>
                 <?php
                 $codigosCiiu = $admin->getCodigosCiiu();
@@ -63,22 +62,39 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="direccion" class="col-sm-2 control-label">Direccion </label>
+            <label for="paices" class="col-sm-2 control-label">Pais </label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" name="direccion" id="direccion" placeholder="Direccion" required pattern="[A-Za-z0-9 ]+" title="Simbolos @#$Ñ NO Permitidos">
+              <select name="paices" id="paices" onblur="getCiudadesPais(this.value,'')" required="">
+                <option value="">Seleccione el Pais</option>
+                <?php
+                foreach ($paices as $pais) { ?>
+                  <option value="<?php echo $pais['id_pais']; ?>"><?php echo $pais['descripcion']; ?></option>
+                <?php
+                }
+                ?>
+              </select>
             </div>
+            <label for="direccion" class="col-sm-2 control-label">Depto/ State </label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control " name="depto" id="depto" placeholder="Departamento / Estado" required pattern="[A-Za-z0-9 ]+" title="Simbolos @#$Ñ NO Permitidos">
+            </div>
+          </div>
+          <div class="form-group">
             <label for="ciudad" class="col-sm-2 control-label">Ciudad</label>
             <div class="col-sm-4">
-              <select name="ciudad" id="ciudad" required="">
+              <select name="ciudadHue" id="ciudadHue" required="">
                 <option value="">Seleccione la Ciudad</option>
                 <?php
-                $ciudades = $hotel->getCiudadesPais(LAND_HOTEL);
                 foreach ($ciudades as $ciudad) { ?>
                   <option value="<?php echo $ciudad['id_ciudad']; ?>"><?php echo $ciudad['municipio'] . ' ' . $ciudad['depto']; ?></option>
                 <?php
                 }
                 ?>
               </select>
+            </div>
+            <label for="direccion" class="col-sm-2 control-label">Direccion </label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" name="direccion" id="direccion" placeholder="Direccion" required pattern="[A-Za-z0-9 ]+" title="Simbolos @#$Ñ NO Permitidos">
             </div>
           </div>
           <div class="form-group">
@@ -129,7 +145,7 @@
           <div class="form-group">
             <label for="fechanace" class="col-sm-2 control-label">Tipo Empresa </label>
             <div class="col-sm-4">
-              <select name="tipoAdquiriente" id="tipoAdquiriente" required>
+              <select class="nacional" name="tipoAdquiriente" id="tipoAdquiriente" required>
                 <option value="">Seleccione el Tipo Empresa</option>
                 <?php
                 $tipoAdquiere = $hotel->getTipoAdquiriente();
@@ -142,7 +158,7 @@
             </div>
             <label for="correo" class="col-sm-2 control-label">Tipo Regimen </label>
             <div class="col-sm-4">
-              <select name="tipoResponsabilidad" id="tipoResponsabilidad" required>
+              <select class="nacional" name="tipoResponsabilidad" id="tipoResponsabilidad" required>
                 <option value="">Seleccione Tipo de Regimen</option>
                 <?php
                 $tipoRespo = $hotel->getTipoResponsabilidad();
@@ -157,7 +173,7 @@
           <div class="form-group">
             <label for="correo" class="col-sm-2 control-label">Tipo Obligacion</label>
             <div class="col-sm-4">
-              <select name="responsabilidadTribu" id="responsabilidadTribu" required>
+              <select class="nacional" name="responsabilidadTribu" id="responsabilidadTribu" required>
                 <option value="">Seleccione Tipo Obligacion</option>
                 <?php
                 $tipoTribus = $hotel->getResponsabilidadTributaria();
@@ -189,25 +205,25 @@
               <label for="reteIva" class="col-sm-1 control-label">ReteIva </label>
               <div class="col-sm-1">
                 <div class="form-check form-check-inline">
-                  <input style="margin-top:5px" class="form-check-input" type="checkbox" name="reteIva" id="reteIva" value="1">
+                  <input style="margin-top:5px" class="form-check-input nacional" type="checkbox" name="reteIva" id="reteIva" value="1">
                 </div>
               </div>
               <label for="creditOption" class="col-sm-1 control-label">ReteICa </label>
               <div class="col-sm-1">
                 <div class="form-check form-check-inline">
-                  <input style="margin-top:5px" class="form-check-input" type="checkbox" name="reteIca" id="reteIca" value="1">
+                  <input style="margin-top:5px" class="form-check-input nacional" type="checkbox" name="reteIca" id="reteIca" value="1">
                 </div>
               </div>
               <label for="creditOption" class="col-sm-1 control-label">ReteFuente </label>
               <div class="col-sm-1">
                 <div class="form-check form-check-inline">
-                  <input style="margin-top:5px" class="form-check-input" type="checkbox" name="retefuente" id="retefuente" value="1">
+                  <input style="margin-top:5px" class="form-check-input nacional" type="checkbox" name="retefuente" id="retefuente" value="1">
                 </div>
               </div>
               <label for="creditOption" class="col-sm-1 control-label">Sin Base de Retenciones</label>
               <div class="col-sm-1">
                 <div class="form-check form-check-inline">
-                  <input style="margin-top:5px" class="form-check-input" type="checkbox" name="sinBaseRetencion" id="sinBaseRetencion" value="1">
+                  <input style="margin-top:5px" class="form-check-input nacional" type="checkbox" name="sinBaseRetencion" id="sinBaseRetencion" value="1">
                 </div>
               </div>
             </div>

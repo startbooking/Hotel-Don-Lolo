@@ -1,15 +1,6 @@
 <?php
 
 require '../../../res/fpdf/fpdf.php';
-require '../../../res/phpqrcode/qrlib.php';
-
-if ($tipofac == 2) {
-    $datosCompania = $hotel->getSeleccionaCompania($idperfil);
-} else {
-    $datosHuesped = $hotel->getbuscaDatosHuesped($idperfil);
-}
-
-$folios = $hotel->getConsumosReservaAgrupadoCodigoFolio($numero, $reserva, $nroFolio, 1);
 
 $pdf = new FPDF();
 $pdf->AddPage('P', 'letter');
@@ -125,8 +116,7 @@ $pdf->SetFont('Arial', '', 7);
 $pdf->MultiCell(190, 4, 'SON :'.numtoletras($total), 1, 'L');
 $pdf->SetFont('Arial', '', 7);
 $pdf->MultiCell(190, 4, ('FACTURA ANULADA NRO: '.$prefijo.' '.$numero.' MOTIVO : '.$motivo), 1, 'J');
-/* $pdf->MultiCell(190, 4, ('CUFE: '.$uuid), 1, 'J');
-$pdf->MultiCell(190, 4, ('CUDE: '.$cude), 1, 'J'); */
+
 
 $pdf->SetFont('Arial', '', 8);
 

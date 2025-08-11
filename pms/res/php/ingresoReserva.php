@@ -4,6 +4,7 @@ require '../../../res/php/app_topHotel.php';
 
 extract($_POST);
 
+
 $idCentro = 0;
 
 if ($observaciones != '') {

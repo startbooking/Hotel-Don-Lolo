@@ -7,10 +7,11 @@
 
   foreach ($huespedes as $huesped) {
 		$id      = $huesped['id_huesped'];
-		$nombres = $huesped['apellido1'].' '.$huesped['apellido2'].' '.$huesped['nombre1'].' '.$huesped['nombre2'];
+		$nombres = trim($huesped['apellido1']).' '.trim($huesped['apellido2']).' '.trim($huesped['nombre1']).' '.trim($huesped['nombre2']);
 		$actua   = $hotel->actualizaNombre($id,$nombres);
   }
 
-  echo $actua;
+  // echo $actua;
+  echo 'Proceso Terminado con exito';
 
 ?>

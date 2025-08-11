@@ -27,10 +27,8 @@
     $idhuesped = $hotel->creaHuespedDirecto($identifica, $apellido1, $apellido2, $nombre1, $nombre2, $usuario, $idusuario);
   }
 
-
   $idcia         =  0;
   $idCentro      =  0;
-  
   $hombres       =  1;
   $mujeres       =  0;
   $ninos         =  0;

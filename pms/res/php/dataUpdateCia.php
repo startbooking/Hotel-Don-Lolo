@@ -20,7 +20,7 @@ $empresa = $hotel->getBuscaIdEmpresa($id);
       <label for="tipodoc" class="col-sm-2 control-label">Tipo Documento</label>
       <div class="col-sm-3">
         <select name="tipodoc" required>
-          <?php
+          <?php 
           $tipodocs = $hotel->getTipoDocumento();
           foreach ($tipodocs as $tipodoc) { ?>
             <option value="<?php echo $tipodoc['id_doc']; ?>" <?php if ($empresa[0]['tipo_documento'] == $tipodoc['id_doc']) { ?> selected <?php } ?>><?php echo $tipodoc['descripcion_documento']; ?></option>}

@@ -1,24 +1,6 @@
 <?php
 
 require '../../../res/fpdf/fpdf.php';
-// require '../../../res/phpqrcode/qrlib.php';
-
-// $filename = '../../../img/pms/QR_'.$prefNC.'-'.$numDoc.'.png';
-
-/* $size = 100; // Tamaño en píxeles
-$level = 'L'; // Nivel de corrección (L, M, Q, H)
-
-// Generar el código QR
-QRcode::png($QRStr, $filename, $level, $size); */
-
-/* if ($tipofac == 2) {
-    $datosCompania = $hotel->getSeleccionaCompania($idperfil);
-} else {
-    $datosHuesped = $hotel->getbuscaDatosHuesped($idperfil);
-}
-
-$folios = $hotel->getConsumosReservaAgrupadoCodigoFolio($numero, $reserva, $nroFolio, 1); */
-
 $pdf = new FPDF();
 $pdf->AddPage('P', 'letter');
 $pdf->Rect(10, 43, 190, 105);

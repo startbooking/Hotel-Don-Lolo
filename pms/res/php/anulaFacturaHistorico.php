@@ -43,7 +43,6 @@ $codigo = $pagosfolio[0]['id_codigo_cargo'];
 if ($perfil == 1 && $facturador == 1) {
     $datosFact = $hotel->traeDatosFEHis($numero);
     $uuid = $datosFact[0]['cufe'];
-    
     $eNote = [];
     $eBill = [];
     $eCust = [];
@@ -52,7 +51,6 @@ if ($perfil == 1 && $facturador == 1) {
 
     if ($tipofac == 2) {
       $datosCompania = $hotel->getSeleccionaCompania($idperfil);
-      
       $nomFact = $datosCompania[0]['empresa'];
       $nitFact = $datosCompania[0]['nit'];
       $dvFact  = $datosCompania[0]['dv'];
@@ -213,19 +211,11 @@ if ($perfil == 1 && $facturador == 1) {
     $regis = $hotel->ingresaDatosFe($numDoc, $prefNC, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cude, $QRStr, '', $Isvalid, '', $errorMessage, $statusCode, $statusDesc, $statusMess);
 
   /* Cambio Procedimiento de Ipresion de Documentos */
-  $filename = '../../../img/pms/QR_'.$prefNC.'-'.$numDoc.'.png';
-
-  if ($tipofac == 2) {
-    $datosCompania = $hotel->getSeleccionaCompania($idperfil);
-  } else {
-    $datosHuesped = $hotel->getbuscaDatosHuesped($idperfil);
-  }
-
-  $folios = $hotel->getConsumosReservaAgrupadoCodigoFolioHis($numero, $reserva, $nroFolio, 1);
-  /* fin de Procedimiento de Impresion de DOcumento */
+    $filename = '../../../img/pms/QR_'.$prefNC.'-'.$numDoc.'.png';
 
     include_once '../../imprimir/imprimeQR.php';
-    include_once '../../imprimir/imprimeNotaCreditoHis.php';
+    // include_once '../../imprimir/imprimeNotaCreditoHis.php';
+    include_once '../../imprimir/imprimeNotaCredito.php';
 
     $ePDF = [];
 
@@ -255,7 +245,8 @@ if ($perfil == 1 && $facturador == 1) {
     echo json_encode($estadofactura);
 
 } else {
-    include_once '../../imprimir/imprimeNCHis.php';
+    // include_once '../../imprimir/imprimeNCHis.php';
+    include_once '../../imprimir/imprimeNC.php';
 }
  
 $regis = $hotel->actualizaNumeroCredito($numDoc + 1);

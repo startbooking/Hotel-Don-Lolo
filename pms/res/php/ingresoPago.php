@@ -3,6 +3,9 @@
 require_once '../../../res/php/app_topHotel.php';
 
 $postBody = json_decode(file_get_contents('php://input'), true);
+
+// print_r($postBody);
+
 extract($postBody);
 
 $aplicarete = 0;
@@ -78,6 +81,7 @@ if ($tipofac == 1) {
     $aplicaiva  = $datosCompania[0]['reteiva'];
     $aplicaica  = $datosCompania[0]['reteica'];
     $sinBaseRete  = $datosCompania[0]['sinBaseRete'];
+
     if ($codigo == 2) {
         $diasCre = $datosCompania[0]['dias_credito'];
         $fechaVen = strtotime('+ ' . $diasCre . ' day', strtotime($fechaFac));
@@ -124,6 +128,10 @@ if ($tipofac == 2) {
     $tliFact = $hotel->traeIdResponsabilidadDianVenta($datosCompania[0]['responsabilidadTributaria']);
     $munFact = $datosCompania[0]['ciudad'];
     $telFact = $datosCompania[0]['telefono'];
+    $country = $datosCompania[0]['pais'];
+    $numName = $datosCompania[0]['fax2'];
+    $staName = $datosCompania[0]['fax3'];
+    
 } else {
     $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
     $nitFact = $datosHuesped[0]['identificacion'];
@@ -196,14 +204,17 @@ if ($perfilFac == 1 && $facturador == 1) {
         $eCust['phone'] = $telFact;
         $eCust['merchant_registration'] = $merFact;
         $eCust['type_document_identification_id'] = $tdiFact;
-        $eCust['type_organization_id'] = $torFact;
-        $eCust['type_liability_id'] = $tliFact;
-        $eCust['type_regime_id'] = $triFact;
         if ($tdiFact == 8 || $tdiFact == 9) {
             $eCust['country_id'] = $country;
             $eCust['municipality_name'] = $numName;
             $eCust['state_name'] = $staName;
+            $eCust['type_organization_id'] = null;
+            $eCust['type_liability_id'] = null;
+            $eCust['type_regime_id'] = null;
         } else {
+            $eCust['type_organization_id'] = $torFact;
+            $eCust['type_liability_id'] = $tliFact;
+            $eCust['type_regime_id'] = $triFact;
             $eCust['municipality_id'] = $munFact;
             $eCust['dv'] = $dvFact;
         }
@@ -321,7 +332,7 @@ if ($perfilFac == 1 && $facturador == 1) {
     }
 
     $oMode = [
-        "company" => "HOTEL DON LOLO LTDA - Nit .: 892992427 - 7",
+        "company" => NAME_HOTEL." - Nit .: ".NIT_HOTEL,
         "software" =>  "Facturación Electrónica - SACTel PMS ",
     ];
 
@@ -344,10 +355,6 @@ if ($perfilFac == 1 && $facturador == 1) {
 
     $recibeCurl = json_decode(trim($respofact), true);
 
-    /* if(DEV==1){
-        return 0 ; 
-        exit();
-    } */
     $errores = [];
     $error = [];
 
@@ -529,7 +536,7 @@ if ($perfilFac == 1 && $facturador == 1) {
         }
 
 
-        /* TErminan Datos Imprimir Facturia*/
+        /* Terminas Datos Imprimir Factura*/
 
         include_once '../../imprimir/imprimeQR.php';
         include_once '../../imprimir/imprimeFactura.php';

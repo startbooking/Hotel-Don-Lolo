@@ -194,14 +194,9 @@ if ($perfil == 1 && $facturador == 1) {
 
     $regis = $hotel->ingresaDatosFe($numDoc, $prefNC, $timeCrea, $message, $sendSucc, $sendDate, $respo, $invoicexml, $zipinvoicexml, $unsignedinvoicexml, $reqfe, $rptafe, $attacheddocument, $urlinvoicexml, $urlinvoicepdf, $cude, $QRStr, '', $Isvalid, '', $errorMessage, $statusCode, $statusDesc, $statusMess);
 
-    /* Cambio Procedimiento de Ipresion de Documentos */
-      $filename = '../../../img/pms/QR_'.$prefNC.'-'.$numDoc.'.png';
-      if ($tipofac == 2) {
-        $datosCompania = $hotel->getSeleccionaCompania($idperfil);
-      } else {
-        $datosHuesped = $hotel->getbuscaDatosHuesped($idperfil);
-      }
-      $folios = $hotel->getConsumosReservaAgrupadoCodigoFolio($numero, $reserva, $nroFolio, 1);
+    /* Cambio Procedimiento de Impresion de Documentos */
+
+    $filename = '../../../img/pms/QR_'.$prefNC.'-'.$numDoc.'.png';
 
     /* fin de Procedimiento de Impresion de DOcumento */
     include_once '../../imprimir/imprimeQR.php';
