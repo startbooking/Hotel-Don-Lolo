@@ -7692,45 +7692,74 @@ function apagaEstado(tipo) {
   }
 }
 
-function toggleNacionalFields(documentTypeId) {
-
-  // console.log(documentTypeId);
+function toggleNacionalFields(documentTypeId,codiPais) {
   // Selecciona todos los elementos con la clase 'nacional'
   const nacionalFields = document.querySelectorAll('.nacional');
   const depto = document.querySelector('#depto');
-  console.log(depto);
+  const pais = document.querySelector('#paices');
+  const tipo = document.querySelector('#tipoEmpresaAdi');
+  const ciu = document.querySelector('#codigoCiiuAdi');
 
   // Convierte el valor de string a número para la comparación
   const isPerson = (documentTypeId === '8' || documentTypeId === '9');
-  console.log(isPerson);
-
   // Itera sobre los campos y los deshabilita si es una persona (CC o CE)
   nacionalFields.forEach(field => {
     field.disabled = isPerson;
     // Para una mejor UX, también puedes cambiar el color de fondo para indicar que está deshabilitado
     if (isPerson) {
       field.classList.add('bg-gray-100');
-      // field.classList.remove('bg-gray');
     } else {
       field.classList.remove('bg-gray-100');
-      // field.classList.add('bg-gray');
     }
   });
-  // depto.disabled == null && isPerson ;
   depto.disabled = !isPerson;
   if (!isPerson) {
+    depto.classList.add('bg-gray-100');
+    depto.value = "";
+    pais.value = codiPais;
+/*     pais.disabled = true;
+    await getCiudadesPais(codiPais,'') */
+  } else {
+    depto.classList.remove('bg-gray-100');
+    pais.disabled = false;
+    tipo.value = "";
+    ciu.value = "" ;
+  }
+}
+
+function toggleNacionalFieldsUpd(documentTypeId,codiPais) {
+  // Selecciona todos los elementos con la clase 'nacional'
+  const nacionalFields = document.querySelectorAll('.nacional');
+  const depto = document.querySelector('#deptoUpd');
+  const pais = document.querySelector('#paicesUpd');
+  const tipo = document.querySelector('#tipoEmpresaUpd');
+  const ciu = document.querySelector('#codigoCiiuUpd');
+
+  // Convierte el valor de string a número para la comparación
+  const isPerson = (documentTypeId === '8' || documentTypeId === '9');
+  // Itera sobre los campos y los deshabilita si es una persona (CC o CE)
+  nacionalFields.forEach(field => {
+    field.disabled = isPerson;
+    // Para una mejor UX, también puedes cambiar el color de fondo para indicar que está deshabilitado
+    if (isPerson) {
       field.classList.add('bg-gray-100');
     } else {
       field.classList.remove('bg-gray-100');
     }
-  /* if(isPerson){
-    console.log('Falso')
-    // depto.disabled = !isPerson
-  }else{
-    console.log('Verdadero')
-    // depto.disabled = isPerson
-  } */
+  });
+  depto.disabled = !isPerson;
+  if (!isPerson) {
+    depto.classList.add('bg-gray-100');
+    depto.value = "";
+    pais.value = codiPais;
+  } else {
+    depto.classList.remove('bg-gray-100');
+    pais.disabled = false;
+    tipo.value = "";
+    ciu.value = "" ;
+  }
 }
+
 
 /**
  * Esta función maneja la lógica de cambio de estado del campo de crédito
@@ -8258,8 +8287,18 @@ function guardaCompania() {
     type: "POST",
     data: parametros,
     url: "res/php/ingresoCompania.php",
-    success: function (datos) {
-      $(location).attr("href", pagina);
+    success: function (resp) {
+      respo = JSON.parse(resp)
+      if(respo.id === "0"){
+        swal({
+          title: "Error!",
+          text: respo.error,
+          type: "error",
+          confirmButtonText: "Aceptar",
+        });
+      }else{
+        $(location).attr("href", pagina);
+      }
     },
   });
 }
@@ -8419,7 +8458,6 @@ async function traeHabitacionesSucias(data) {
       body: JSON.stringify(data),
     });
     const datos = await resultado.json();
-    // console.log(datos);
     return datos;
   } catch (error) { }
 }

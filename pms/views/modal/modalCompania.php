@@ -18,9 +18,10 @@
             </div>
             <label for="tipodoc" class="col-sm-2 control-label">Tipo Documento</label>
             <div class="col-sm-4">
-              <select name="tipodoc" required onchange="toggleNacionalFields(this.value)">
+              <select name="tipodoc" required onblur="toggleNacionalFields(this.value,<?= ID_PAIS_EMPRESA ?>)">
                 <option value="">Seleccione el Tipo de Documento</option>
                 <?php
+                print_r($tipodocs);
                 foreach ($tipodocs as $tipodoc) { ?>
                   <option value="<?php echo $tipodoc['id_doc']; ?>" <?php if ($tipodoc['id_doc'] == 6) { ?> selected <?php }?>><?php echo $tipodoc['descripcion_documento']; ?></option>
                 <?php } ?>
@@ -39,7 +40,6 @@
               <select class="nacional" name="tipoEmpresaAdi" id="tipoEmpresaAdi" required>
                 <option value="">Seleccione el Tipo de Empresa</option>
                 <?php
-                $motivos = $hotel->getMotivoGrupo('TEM');
                 foreach ($motivos as $motivo) { ?>
                   <option value="<?php echo $motivo['id_grupo']; ?>"><?php echo $motivo['descripcion_grupo']; ?></option>
                 <?php
@@ -52,7 +52,6 @@
               <select class="nacional" name="codigoCiiuAdi" id="codigoCiiuAdi" required>
                 <option value="">Seleccione el Codigo CIIU</option>
                 <?php
-                $codigosCiiu = $admin->getCodigosCiiu();
                 foreach ($codigosCiiu as $codigoCiiu) { ?>
                   <option value="<?php echo $codigoCiiu['id_ciiu']; ?>"><?php echo $codigoCiiu['codigo'] . ' ' . substr($codigoCiiu['descripcion'], 0, 50); ?></option>
                 <?php
@@ -74,7 +73,7 @@
                 ?>
               </select>
             </div>
-            <label for="direccion" class="col-sm-2 control-label">Depto/ State </label>
+            <label for="direccion" class="col-sm-2 control-label">Depto / State </label>
             <div class="col-sm-4">
               <input type="text" class="form-control " name="depto" id="depto" placeholder="Departamento / Estado" required pattern="[A-Za-z0-9 ]+" title="Simbolos @#$Ñ NO Permitidos">
             </div>
@@ -123,7 +122,8 @@
               <select name="tarifa" id="tarifa" required="">
                 <option value="">Seleccione La Tarifa</option>
                 <?php
-                $tarifas = $hotel->getTarifasHuespedes(); foreach ($tarifas as $tarifa) { ?>
+                // $tarifas = $hotel->getTarifasHuespedes(); 
+                foreach ($tarifas as $tarifa) { ?>
                   <option value="<?php echo $tarifa['id_tarifa']; ?>"><?php echo $tarifa['descripcion_tarifa']; ?></option>
                 <?php } ?>
               </select>
@@ -133,7 +133,7 @@
               <select name="formapago" id="formapago" required="">
                 <option value="">Seleccione La Forma de Pago</option>
                 <?php
-                $codigos = $hotel->getCodigosConsumos(3);
+                // $codigos = $hotel->getCodigosConsumos(3);
                 foreach ($codigos as $codigo) { ?>
                   <option value="<?php echo $codigo['id_cargo']; ?>"><?php echo $codigo['descripcion_cargo']; ?></option>
                 <?php
@@ -148,7 +148,7 @@
               <select class="nacional" name="tipoAdquiriente" id="tipoAdquiriente" required>
                 <option value="">Seleccione el Tipo Empresa</option>
                 <?php
-                $tipoAdquiere = $hotel->getTipoAdquiriente();
+                // $tipoAdquiere = $hotel->getTipoAdquiriente();
                 foreach ($tipoAdquiere as $tipoAdqui) { ?>
                   <option value="<?php echo $tipoAdqui['id']; ?>"><?php echo $tipoAdqui['descripcionAdquiriente']; ?></option>
                 <?php
@@ -161,7 +161,7 @@
               <select class="nacional" name="tipoResponsabilidad" id="tipoResponsabilidad" required>
                 <option value="">Seleccione Tipo de Regimen</option>
                 <?php
-                $tipoRespo = $hotel->getTipoResponsabilidad();
+                // $tipoRespo = $hotel->getTipoResponsabilidad();
                 foreach ($tipoRespo as $tipoRes) { ?>
                   <option value="<?php echo $tipoRes['id']; ?>"><?php echo $tipoRes['descripcion']; ?></option>
                 <?php
@@ -176,7 +176,7 @@
               <select class="nacional" name="responsabilidadTribu" id="responsabilidadTribu" required>
                 <option value="">Seleccione Tipo Obligacion</option>
                 <?php
-                $tipoTribus = $hotel->getResponsabilidadTributaria();
+                // $tipoTribus = $hotel->getResponsabilidadTributaria();
                 foreach ($tipoTribus as $tipoTribu) { ?>
                   <option value="<?php echo $tipoTribu['id']; ?>"><?php echo $tipoTribu['descripcionResponsabilidad']; ?></option>
                 <?php

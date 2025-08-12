@@ -1,6 +1,6 @@
 <div class="modal fade" id="myModalAdicionarCodigoVentas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
   <form id="guardarDatosCodigosVentas" class="form-horizontal" action="javascript:guardaCodigoVentas()">
-    <div class="modal-dialog modal-md" role="document">
+    <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><span class="glyphicon glyphicon-off"></span></span></button>
@@ -11,20 +11,32 @@
         <div class="modal-body">
           <div id="mensaje"></div> 
           <div class="form-group">
-            <label for="nombre" class="control-label col-lg-2 col-md-2">Descripcion </label>
-            <div class="col-lg-8 col-md-8">
+            <label for="nombreAdi" class="control-label col-lg-2 col-md-2">Descripcion </label>
+            <div class="col-lg-4 col-md-4">
               <input type="text" class="form-control" id="nombreAdi" name="nombreAdi" required>
             </div>
+            <label for="unidadMed" class="control-label col-lg-2 col-md-2">Unidad Med. </label>
+            <div class="col-lg-4 col-md-4">
+              <select class="form-control" name="unidadMed" id="unidadMed" required="">
+                <option value="">Seleccione la Unidad de Medida</option>
+                <?php 
+                  $unidades = $admin->unidades_medida(); 
+                  foreach ($unidades as $unidad) { ?> 
+                    <option value="<?=$unidad['id']?>"><?=strtoupper($unidad['name'])?></option>
+                  <?php 
+                }
+                ?>
+              </select> 
+            </div>
+
           </div> 
           <div class="form-group">
-            <label for="nombre" class="control-label col-lg-2 col-md-2">Impuesto</label>
-            <?php 
-              $imptos = $admin->getCodigosVentas(2); 
-            ?>
+            <label for="ImptosAdi" class="control-label col-lg-2 col-md-2">Impuesto</label>           
             <div class="col-lg-4 col-md-4">
               <select class="form-control" name="ImptosAdi" id="ImptosAdi" required="">
                 <option value="">Seleccione el Impuesto</option>
                 <?php 
+                $imptos = $admin->getCodigosImpuestos(1); 
                 foreach ($imptos as $impto) { ?> 
                 <option value="<?=$impto['id_cargo']?>"><?=$impto['descripcion_cargo']?></option>
                 <?php 
@@ -32,7 +44,7 @@
                 ?>
               </select>
             </div>
-            <label for="nombre" class="control-label col-lg-2 col-md-2">Grupo</label>
+            <label for="grupoAdi" class="control-label col-lg-2 col-md-2">Grupo</label>
             <?php 
               $grupos = $admin->getGruposVentas(); 
             ?>
@@ -48,26 +60,65 @@
               </select>
             </div>
           </div>
+          <div class="form-group">
+            <label for="reteFte" class="control-label col-lg-2 col-md-2">ReteFuente</label>           
+            <div class="col-lg-4 col-md-4">
+              <select class="form-control" name="reteFte" id="reteFte" required="">
+                <option value="">Seleccione la Rete Fuente</option>
+                <?php 
+                $retefuentes = $admin->getRetenciones(1); 
+                foreach ($retefuentes as $impto) { ?> 
+                <option value="<?=$impto['idRetencion']?>"><?=$impto['descripcionRetencion'].' '.number_format($impto['porcentajeRetencion'],2) ?></option>
+                <?php 
+                }
+                ?>
+              </select>
+            </div>
+            <label for="reteIca" class="control-label col-lg-2 col-md-2">ReteIca</label>
+            <?php 
+              $reteicas = $admin->getRetenciones(3); 
+            ?>
+            <div class="col-lg-4 col-md-4">
+              <select class="form-control" name="reteIca" id="reteIca" required="">
+                <option value="">Seleccione la Rete ICA</option>
+                <?php 
+                foreach ($reteicas as $grupo) { ?> 
+                <option value="<?=$grupo['idRetencion']?>"><?=$grupo['descripcionRetencion'].' '.number_format($grupo['porcentajeRetencion'],2) ?></option>
+                <?php 
+                }
+                ?>
+              </select>
+            </div>
+          </div>
           <div class="form-group">            
-            <label for="nombre" class="control-label col-lg-2 col-md-2">Centro de Costo</label>
+            <label for="centroAdi" class="control-label col-lg-2 col-md-2">Centro de Costo</label>
             <?php 
               $centros = $admin->getCentrosCosto(); 
-
             ?>
             <div class="col-lg-4 col-md-4">
               <select class="form-control" id="centroAdi" name="centroAdi">
                 <option value="">Seleccione el Centro de Costo</option>
+                <?php 
+                foreach ($centros as $centro) { ?> 
+                <option value="<?=$centro['id_centrocosto']?>"><?=$centro['descripcion_centro']?></option>
+                <?php 
+                }
+                ?>
               </select>  
             </div>            
-            <label for="puc" class="control-label col-lg-2 col-md-2">PUC </label>
+            <label for="pucAdi" class="control-label col-lg-2 col-md-2">PUC </label>
             <div class="col-lg-4 col-md-4">
               <input type="text" class="form-control" id="pucAdi" name="pucAdi" required >
             </div>
           </div>
           <div class="form-group">
-            <label for="puc" class="control-label col-lg-2 col-md-2">Descripcion Contabilidad</label>
+            <label for="descripcionAdi" class="control-label col-lg-2 col-md-2">Descripcion Contabilidad</label>
             <div class="col-lg-4 col-md-4">
               <input type="text" class="form-control" id="descripcionAdi" name="descripcionAdi" required >
+            </div>
+            <label for="codigoDianAdi" class="control-label col-lg-2 col-md-2">Codigo Dian</label>
+            <div class="col-lg-4 col-md-4">
+              <input type="text" class="form-control" id="codigoDianAdi" name="codigoDianAdi" required >
             </div>
           </div>
         </div>

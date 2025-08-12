@@ -78,7 +78,7 @@ $oFecha = strtotime(FECHA_PMS);
 $hoy = date('d', $oFecha);
 $mes = date("m", $oFecha);
 $anio = date("Y", $oFecha);
-
+ 
 if (!isset($_GET['section'])) {
 } elseif (isset($_GET['section']) && $_GET['section'] == 'home') {
     $companias = $hotel->getCompanias();
@@ -86,6 +86,14 @@ if (!isset($_GET['section'])) {
     $companias = $hotel->getPerfilCompanias();
     $paices = $hotel->getPaices();
     $tipodocs = $hotel->getTipoDocumento();
+    $codigosCiiu = $admin->getCodigosCiiu();
+    $codigos = $hotel->getCodigosConsumos(3);
+    $tipoAdquiere = $hotel->getTipoAdquiriente();
+    $tipoRespo = $hotel->getTipoResponsabilidad();
+    $tipoTribus = $hotel->getResponsabilidadTributaria();
+    $tarifas = $hotel->getTarifasHuespedes();
+    $motivos = $hotel->getMotivoGrupo('TEM');
+    $ciudades = $hotel->getCiudades();
 } elseif (isset($_GET['section']) && $_GET['section'] == 'agencias') {
     $agencias = $hotel->getAgencias();
 } elseif (isset($_GET['section']) && $_GET['section'] == 'huespedesPerfil') {

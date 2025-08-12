@@ -2179,11 +2179,19 @@ function guardaCodigoVentas() {
     url: ruta + "res/php/guardaCodigoVentas.php",
     type: "POST",
     data: parametros,
-    success: function (objeto) {
-      $("#mensaje").html(
-        '<div style="padding:5px" class="alert alert-info"><h4" align="center">Forma de Pago Ingresado con Exito</h4></div>'
-      );
-      $(location).attr("href", ruta + pagina);
+    success: function (resp) {
+      respo = JSON.parse(resp)
+
+      if(respo.id == '0'){
+        swal({
+          title:'Error',
+          text:respo.error,
+          type:'error',
+          confirmButtonText:'Aceptar',
+        })
+      }else{
+        // $(location).attr("href", ruta + pagina);
+      }
     },
   });
 }

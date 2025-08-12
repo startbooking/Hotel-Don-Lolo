@@ -5,6 +5,18 @@
     class Hotel_Admin
     {
 
+        public function unidades_medida(){
+            global $database;
+
+            $data = $database->select('unidades_dian',[
+                'id',
+                'name'
+            ],[
+                'ORDER' => ['name'=>'ASC']
+            ]);
+            return $data;
+        }
+
         public function eliminaMesa($idmesa){
 			global $database; 
  
@@ -715,7 +727,7 @@
                 'puc2_gasto',
                 'centroContable',
             ], [
-                'ORDER' => 'descripcion_centro',
+                'ORDER' => ['descripcion_centro' => 'ASC'],
             ]);
 
             return $data;
@@ -2327,22 +2339,31 @@
             return $database->id();
         }
 
-        public function insertCodigoVenta($descripcion, $impto, $grupo, $puc, $contabil, $centro)
+        public function insertCodigoVenta($nombre, $unidad, $imptos, $grupo, $reteFte, $reteIca, $centro, $puc, $contabil, $codigo)
         {
             global $database;
 
             $data = $database->insert('codigos_vta', [
-                'descripcion_cargo' => $descripcion,
-                'id_impto' => $impto,
+                'descripcion_cargo' => $nombre,
+                'id_impto' => $imptos,
                 'grupo_vta' => $grupo,
                 'cuenta_puc' => $puc,
                 'centroCosto' => $centro,
                 'descripcion_contable' => $contabil,
+                'tipoUnidad' => $unidad,
+                'identificador_dian' => $codigo ,
+                'idRetencion' => $reteFte,
+                'idReteIca' => $reteIca,
                 'tipo_codigo' => 1,
                 'restringido' => 0,
             ]);
 
-            return $database->id();
+            $result = [
+                'id' => $database->id(),
+                'error' => $database->error,
+            ];
+
+            return $result;
         }
 
         public function getGruposVentas()
@@ -2456,6 +2477,49 @@
 
             return $data;
         }
+
+        public function getCodigosImpuestos($tipo)
+        {
+            global $database;
+
+            $data = $database->select('codigos_vta', [
+                'id_cargo',
+                'codigo_depto',
+                'agrupacion',
+                'id_impto',
+                'porcentaje_impto',
+                'tipo_impto',
+                'cuenta_puc',
+                'descripcion_cargo',
+                'descripcion_contable',
+                'centroCosto',
+                'grupo_vta',
+                'maximo_credito',
+                'propina',
+                'codigo_propina',
+                'restringido',
+            ], [
+                'tipo_codigo' => 2,
+                'tipo_impto' => $tipo,
+                'ORDER' => 'descripcion_cargo',
+            ]);
+
+            return $data;
+        }
+
+        public function getRetenciones($tipo){
+            global $database;
+
+            $data = $database->select('retenciones',[
+                'idRetencion',
+                'descripcionRetencion',
+                'porcentajeRetencion'
+            ],[
+                'tipoRetencion' => $tipo,
+                'ORDER' => ['descripcionRetencion' => 'ASC']
+            ]);
+            return $data;
+        } 
 
         public function getDatosHotel()
         {

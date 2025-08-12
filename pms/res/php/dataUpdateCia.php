@@ -1,8 +1,17 @@
 <?php
-// require_once '../../../res/php/titles.php';
 require_once '../../../res/php/app_topHotel.php';
 $id = $_POST['id'];
 $empresa = $hotel->getBuscaIdEmpresa($id);
+$paices = $hotel->getPaices();
+$tipodocs = $hotel->getTipoDocumento();
+$codigosCiiu = $admin->getCodigosCiiu();
+$codigos = $hotel->getCodigosConsumos(3);
+$tipoAdquiere = $hotel->getTipoAdquiriente();
+$tipoRespo = $hotel->getTipoResponsabilidad();
+$tipoTribus = $hotel->getResponsabilidadTributaria();
+$tarifas = $hotel->getTarifasHuespedes();
+$motivos = $hotel->getMotivoGrupo('TEM');
+$ciudades = $hotel->getCiudades();
 
 ?>
 <form class="form-horizontal" style="padding:0;" id="formUpdateCompania" action="javascript:updateCompania()" method="POST">
@@ -19,9 +28,8 @@ $empresa = $hotel->getBuscaIdEmpresa($id);
       </div>
       <label for="tipodoc" class="col-sm-2 control-label">Tipo Documento</label>
       <div class="col-sm-3">
-        <select name="tipodoc" required>
-          <?php 
-          $tipodocs = $hotel->getTipoDocumento();
+        <select name="tipodoc" required onblur="toggleNacionalFieldsUpd(this.value,<?= ID_PAIS_EMPRESA ?>)">
+          <?php
           foreach ($tipodocs as $tipodoc) { ?>
             <option value="<?php echo $tipodoc['id_doc']; ?>" <?php if ($empresa[0]['tipo_documento'] == $tipodoc['id_doc']) { ?> selected <?php } ?>><?php echo $tipodoc['descripcion_documento']; ?></option>}
           <?php
@@ -37,12 +45,11 @@ $empresa = $hotel->getBuscaIdEmpresa($id);
       </div>
     </div>
     <div class="form-group">
-      <label for="tipoEmpresaAdi" class="col-sm-2 control-label">Tipo de Empresa</label>
+      <label for="tipoEmpresaUpd" class="col-sm-2 control-label">Tipo de Empresa</label>
       <div class="col-sm-4">
-        <select name="tipoEmpresaUpd" id="tipoEmpresaUpd" required>
+        <select class="nacional" name="tipoEmpresaUpd" id="tipoEmpresaUpd" required>
           <option value="<?php echo $empresa[0]['tipo_compania']; ?>">Seleccione el Tipo de Empresa</option>
           <?php
-          $motivos = $hotel->getMotivoGrupo('TEM');
           foreach ($motivos as $motivo) { ?>
             <option value="<?php echo $motivo['id_grupo']; ?>" <?php if ($empresa[0]['tipo_empresa'] == $motivo['id_grupo']) { ?> selected <?php } ?>><?php echo $motivo['descripcion_grupo']; ?></option>
           <?php
@@ -52,10 +59,9 @@ $empresa = $hotel->getBuscaIdEmpresa($id);
       </div>
       <label for="codigoCiiuAdi" class="col-sm-2 control-label">Codigo CIIU</label>
       <div class="col-sm-4">
-        <select name="codigoCiiuUpd" id="codigoCiiuUpd" required>
+        <select class="nacional" name="codigoCiiuUpd" id="codigoCiiuUpd" required>
           <option value="<?php echo $empresa[0]['id_codigo_ciiu']; ?>">Seleccione el Codigo CIIU</option>
           <?php
-          $codigosCiiu = $admin->getCodigosCiiu();
           foreach ($codigosCiiu as $codigoCiiu) { ?>
             <option value="<?php echo $codigoCiiu['id_ciiu']; ?>" <?php if ($empresa[0]['id_codigo_ciiu'] == $codigoCiiu['id_ciiu']) { ?> selected <?php } ?>><?php echo $codigoCiiu['codigo'] . ' ' . substr($codigoCiiu['descripcion'], 0, 50); ?></option>
           <?php
@@ -65,21 +71,40 @@ $empresa = $hotel->getBuscaIdEmpresa($id);
       </div>
     </div>
     <div class="form-group">
-      <label for="direccion" class="col-sm-2 control-label">Direccion </label>
+      <label for="paices" class="col-sm-2 control-label">Pais </label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" name="direccion" id="direccion" value="<?php echo $empresa[0]['direccion']; ?>" required pattern="[A-Za-z0-9 ]+">
+        <select name="paicesUpd" id="paicesUpd" onblur="getCiudadesPais(this.value,'')" required="" >
+          <option value="">Seleccione el Pais</option>
+          <?php
+          foreach ($paices as $pais) { ?>
+            <option value="<?php echo $pais['id_pais']; ?>"
+             <?php if ($empresa[0]['pais'] == $pais['id_pais']) { ?> selected <?php } ?>
+            ><?php echo $pais['descripcion']; ?></option>
+          <?php
+          }
+          ?>
+        </select>
       </div>
+      <label for="direccion" class="col-sm-2 control-label">Depto / State </label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control " name="deptoUpd" id="deptoUpd" placeholder="Departamento / Estado" required pattern="[A-Za-z0-9 ]+" title="Simbolos @#$Ñ NO Permitidos" value="<?=$empresa[0]['depto'];?>">
+      </div>
+    </div>
+    <div class="form-group">
       <label for="ciudad" class="col-sm-2 control-label">Ciudad</label>
       <div class="col-sm-4">
-        <select name="ciudad" id="ciudad">
+        <select name="ciudadUpd" id="ciudadUpd">
           <?php
-          $ciudades = $hotel->getCiudades();
           foreach ($ciudades as $ciudad) { ?>
             <option value="<?php echo $ciudad['id_ciudad']; ?>" <?php if ($empresa[0]['ciudad'] == $ciudad['id_ciudad']) { ?> selected <?php } ?>><?php echo $ciudad['municipio'] . ' ' . $ciudad['depto']; ?></option>
           <?php
           }
           ?>
         </select>
+      </div>
+      <label for="direccion" class="col-sm-2 control-label">Direccion </label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="direccion" id="direccion" value="<?php echo $empresa[0]['direccion']; ?>" required pattern="[A-Za-z0-9 ]+">
       </div>
     </div>
     <div class="form-group">
@@ -106,8 +131,6 @@ $empresa = $hotel->getBuscaIdEmpresa($id);
       <label for="tarifa" class="col-sm-2 control-label">Tarifa </label>
       <div class="col-sm-4">
         <select name="tarifa" id="tarifa" required="">
-          <?php
-          $tarifas = $hotel->getTarifasHuespedes(); ?>
           <?php foreach ($tarifas as $tarifa) { ?>
             <option value="<?php echo $tarifa['id_tarifa']; ?>" <?php if ($empresa[0]['id_tarifa'] == $tarifa['id_tarifa']) { ?> selected <?php } ?>><?php echo $tarifa['descripcion_tarifa']; ?></option>
           <?php } ?>
@@ -118,15 +141,14 @@ $empresa = $hotel->getBuscaIdEmpresa($id);
         <select name="formapago" id="formapago" required="">
           <option value="">Seleccione La Forma de Pago</option>
           <?php
-          $codigos = $hotel->getCodigosConsumos(3);
           foreach ($codigos as $codigo) { ?>
-            <option value="<?php echo $codigo['id_cargo']; ?>" 
-            <?php
-              if ($empresa[0]['id_forma_pago'] == $codigo['id_cargo']) { ?> selected 
+            <option value="<?php echo $codigo['id_cargo']; ?>"
+              <?php
+              if ($empresa[0]['id_forma_pago'] == $codigo['id_cargo']) { ?> selected
               <?php }
               ?>>
-            <?php echo $codigo['descripcion_cargo']; ?></option>
-            <?php
+              <?php echo $codigo['descripcion_cargo']; ?></option>
+          <?php
           }
           ?>
         </select>
@@ -135,15 +157,14 @@ $empresa = $hotel->getBuscaIdEmpresa($id);
     <div class="form-group">
       <label for="fechanace" class="col-sm-2 control-label">Tipo Empresa </label>
       <div class="col-sm-4">
-        <select name="tipoAdquiriente" id="tipoAdquiriente" required>
+        <select class="nacional" name="tipoAdquiriente" id="tipoAdquiriente" required>
           <option value="">Seleccione el Tipo Empresa</option>
           <?php
-          $tipoAdquiere = $hotel->getTipoAdquiriente();
           foreach ($tipoAdquiere as $tipoAdqui) { ?>
-            <option value="<?php echo $tipoAdqui['id']; ?>" 
+            <option value="<?php echo $tipoAdqui['id']; ?>"
               <?php
-                if ($empresa[0]['tipoAdquiriente'] == $tipoAdqui['id']) { ?> selected <?php } 
-              ?>>
+              if ($empresa[0]['tipoAdquiriente'] == $tipoAdqui['id']) { ?> selected <?php }
+                                                                                      ?>>
               <?php echo $tipoAdqui['descripcionAdquiriente']; ?></option>
           <?php
           }
@@ -152,13 +173,12 @@ $empresa = $hotel->getBuscaIdEmpresa($id);
       </div>
       <label for="correo" class="col-sm-2 control-label">Tipo Regimen </label>
       <div class="col-sm-4">
-        <select name="tipoResponsabilidad" id="tipoResponsabilidad" required>
+        <select class="nacional" name="tipoResponsabilidad" id="tipoResponsabilidad" required>
           <option value="">Seleccione Tipo de Regimen</option>
           <?php
-          $tipoRespo = $hotel->getTipoResponsabilidad();
           foreach ($tipoRespo as $tipoRes) { ?>
-            <option value="<?php echo $tipoRes['id']; ?>" 
-            <?php
+            <option value="<?php echo $tipoRes['id']; ?>"
+              <?php
               if ($empresa[0]['tipoResponsabilidad'] == $tipoRes['id']) { ?> selected <?php } ?>>
               <?php echo $tipoRes['descripcion']; ?></option>
           <?php
@@ -170,16 +190,15 @@ $empresa = $hotel->getBuscaIdEmpresa($id);
     <div class="form-group">
       <label for="correo" class="col-sm-2 control-label">Tipo Obligacion </label>
       <div class="col-sm-4">
-        <select name="responsabilidadTribu" id="responsabilidadTribu">
+        <select class="nacional" name="responsabilidadTribu" id="responsabilidadTribu">
           <option value="">Seleccione Tipo Obligacion</option>
           <?php
-          $tipoTribus = $hotel->getResponsabilidadTributaria();
           foreach ($tipoTribus as $tipoTribu) { ?>
-            <option value="<?php echo $tipoTribu['id']; ?>" 
+            <option value="<?php echo $tipoTribu['id']; ?>"
               <?php
-                if ($empresa[0]['responsabilidadTributaria'] == $tipoTribu['id']) { 
+              if ($empresa[0]['responsabilidadTributaria'] == $tipoTribu['id']) {
               ?>
-              selected <?php }?>><?php echo $tipoTribu['descripcionResponsabilidad']; ?></option>
+              selected <?php } ?>><?php echo $tipoTribu['descripcionResponsabilidad']; ?></option>
           <?php
           }
           ?>
@@ -193,8 +212,8 @@ $empresa = $hotel->getBuscaIdEmpresa($id);
         <div class="col-sm-2">
           <div class="col-sm-6">
             <div class="form-check form-check-inline">
-              <input style="margin-top:5px" class="form-check-input" type="radio" name="creditOption" id="inlineRadio1" value="1" onclick="cambiaEstadoCreditoUpd(this.value)" 
-                <?php if ($empresa[0]['credito'] == 1) { ?> checked <?php }?>>
+              <input style="margin-top:5px" class="form-check-input" type="radio" name="creditOption" id="inlineRadio1" value="1" onclick="cambiaEstadoCreditoUpd(this.value)"
+                <?php if ($empresa[0]['credito'] == 1) { ?> checked <?php } ?>>
               <label style="margin-top:-18px;margin-left:25px" class="form-check-label" for="inlineRadio1">Si</label>
             </div>
           </div>
@@ -208,25 +227,25 @@ $empresa = $hotel->getBuscaIdEmpresa($id);
         <label for="reteIva" class="col-sm-1 control-label">ReteIva </label>
         <div class="col-sm-1">
           <div class="form-check form-check-inline">
-            <input style="margin-top:5px" class="form-check-input" type="checkbox" name="reteIva" id="reteIva" value="1" <?php if ($empresa[0]['reteiva'] == 1) { ?> checked <?php } ?>>
+            <input style="margin-top:5px" class="form-check-input nacional" type="checkbox" name="reteIva" id="reteIva" value="1" <?php if ($empresa[0]['reteiva'] == 1) { ?> checked <?php } ?>>
           </div>
         </div>
         <label for="reteIca" class="col-sm-1 control-label">ReteICa </label>
         <div class="col-sm-1">
           <div class="form-check form-check-inline">
-            <input style="margin-top:5px" class="form-check-input" type="checkbox" name="reteIca" id="reteIca" value="1" <?php if ($empresa[0]['reteica'] == 1) { ?> checked <?php } ?>>
+            <input style="margin-top:5px" class="form-check-input nacional" type="checkbox" name="reteIca" id="reteIca" value="1" <?php if ($empresa[0]['reteica'] == 1) { ?> checked <?php } ?>>
           </div>
         </div>
         <label for="retefuente" class="col-sm-1 control-label">ReteFuente </label>
         <div class="col-sm-1">
           <div class="form-check form-check-inline">
-            <input style="margin-top:5px" class="form-check-input" type="checkbox" name="retefuente" id="retefuente" value="1" <?php if ($empresa[0]['retefuente'] == 1) { ?> checked <?php } ?>>
+            <input style="margin-top:5px" class="form-check-input nacional" type="checkbox" name="retefuente" id="retefuente" value="1" <?php if ($empresa[0]['retefuente'] == 1) { ?> checked <?php } ?>>
           </div>
         </div>
         <label for="creditOption" class="col-sm-1 control-label">Sin Base de Retenciones</label>
         <div class="col-sm-1">
           <div class="form-check form-check-inline">
-            <input style="margin-top:5px" class="form-check-input" type="checkbox" name="sinBaseRetencion" id="sinBaseRetencion" value="1" <?php if ($empresa[0]['sinBaseRete'] == 1) { ?> checked <?php } ?>>
+            <input style="margin-top:5px" class="form-check-input nacional" type="checkbox" name="sinBaseRetencion" id="sinBaseRetencion" value="1" <?php if ($empresa[0]['sinBaseRete'] == 1) { ?> checked <?php } ?>>
           </div>
         </div>
       </div>

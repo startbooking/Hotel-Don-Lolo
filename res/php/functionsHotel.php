@@ -7433,7 +7433,6 @@ class Hotel_Actions
             'id_compania' => $id,
         ]);
 
-        // return $data->rowCount();
         $result = [
             'id' => $data->rowCount(),
             'error' => $database->error,
@@ -7457,6 +7456,8 @@ class Hotel_Actions
             'celular',
             'email',
             'web',
+            'pais',
+            'depto',
             'ciudad',
             'tipo_empresa',
             'estado_credito',
@@ -9706,7 +9707,7 @@ class Hotel_Actions
         return $data;
     }
 
-    public function insertaNuevaCompania($nit, $dv, $tipodoc, $compania, $direccion, $ciudad, $telefono, $celular, $web, $correo, $tarifa, $formapago, $credito, $monto, $diascre, $diacorte, $usuario, $tipoemp, $codciiu, $tipoAdqui, $tipoRespo, $repoTribu, $reteIva, $reteIca, $reteFte, $baseRete)
+    public function insertaNuevaCompania($nit, $dv, $tipodoc, $compania, $direccion, $ciudad, $telefono, $celular, $web, $correo, $tarifa, $formapago, $credito, $monto, $diascre, $diacorte, $usuario, $tipoemp, $codciiu, $tipoAdqui, $tipoRespo, $repoTribu, $reteIva, $reteIca, $reteFte, $baseRete, $pais, $depto)
     {
         global $database;
 
@@ -9740,9 +9741,16 @@ class Hotel_Actions
             'tipoAdquiriente' => $tipoAdqui,
             'tipoResponsabilidad' => $tipoRespo,
             'responsabilidadTributaria' => $repoTribu,
+            'pais' => $pais,
+            'depto' => $depto,
         ]);
 
-        return $database->id();
+        $result = [
+            'id' => $database->id(),
+            'error' => $database->error,
+        ];
+
+        return $result;
     }
 
     public function getFormasPago()
@@ -10046,11 +10054,10 @@ class Hotel_Actions
             'celular',
             'email',
             'activo',
-            'ciudad',
-            'pais',
-            'fax2',
-            'fax3',
             'direccion',
+            'pais',
+            'depto',
+            'ciudad',
             'estado_credito',
             'credito',
             'monto_credito',

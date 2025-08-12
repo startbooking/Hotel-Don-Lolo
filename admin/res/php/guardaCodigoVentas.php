@@ -2,17 +2,10 @@
 	
   require '../../../res/php/app_topAdmin.php'; 
 
-	$descripcion = strtoupper(addslashes($_POST['nombreAdi']));
-	$impto       = $_POST['ImptosAdi'];
-	$grupo       = $_POST['grupoAdi'];
-	$puc         = $_POST['pucAdi'];
-	$centro      = $_POST['centroAdi'];
-	$contabil    = strtoupper(addslashes($_POST['descripcionAdi']));
+	extract($_POST);
 
+	$guardaCodigo = $admin->insertCodigoVenta(strtoupper($nombreAdi), $unidadMed, $ImptosAdi, $grupoAdi, $reteFte, $reteIca, $centroAdi, $pucAdi, strtoupper($descripcionAdi), strtoupper($codigoDianAdi)) ;
 
-
-	$guardaCodigo = $admin->insertCodigoVenta($descripcion, $impto, $grupo, $puc, $contabil, $centro) ;
-
-	echo $guardaCodigo ;
+	echo json_encode($guardaCodigo) ;
 
  ?>
