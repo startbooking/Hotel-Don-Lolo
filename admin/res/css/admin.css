@@ -1,7 +1,32 @@
+:root {
+	--swal2-width: 48em;
+}
+
+div:where(.swal2-container) button:where(.swal2-styled), div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-cancel) {
+	font-size: 1.4rem;
+}
+
 .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
     padding: 5px;
 }
 
+div:where(.swal2-container) div:where(.swal2-popup) {
+	font-size: 1.2rem;
+}
+
+div:where(.swal2-icon) {
+	width: 8rem;
+  height: 8rem;
+}
+
+div:where(.swal2-container) h2:where(.swal2-title) {
+	font-size: 2.45rem;
+}
+
+div:where(.swal2-container) div:where(.swal2-html-container) {
+	font-size: 2.00rem;
+
+}
 
 .btn-xs {
 	width: 24px;

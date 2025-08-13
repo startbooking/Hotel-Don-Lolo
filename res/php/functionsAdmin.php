@@ -5,6 +5,17 @@
     class Hotel_Admin
     {
 
+        public function traePorceImpto($codigo){
+            global $database;
+
+            $data = $database->get('codigos_vta',[
+                'porcentaje_impto'
+            ],[
+                'id_cargo' => $codigo
+            ]);
+            return $data['porcentaje_impto'];
+        }
+        
         public function unidades_medida(){
             global $database;
 
@@ -2318,7 +2329,14 @@
                 'id_cargo' => $id,
             ]);
 
-            return $data->rowCount();
+           $result = [
+                'id' => $data->rowCount(),
+                'error' => $database->errorInfo,
+            ];
+
+            return $result; 
+
+            // return $data->rowCount();
         }
 
         public function updateCodigoVenta($descripcion, $impto, $grupo, $puc, $contabil, $id, $centro)
@@ -2339,7 +2357,7 @@
             return $database->id();
         }
 
-        public function insertCodigoVenta($nombre, $unidad, $imptos, $grupo, $reteFte, $reteIca, $centro, $puc, $contabil, $codigo)
+        public function insertCodigoVenta($nombre, $unidad, $imptos, $grupo, $reteFte, $reteIca, $centro, $puc, $contabil, $codigo, $porcentaje)
         {
             global $database;
 
@@ -2354,6 +2372,7 @@
                 'identificador_dian' => $codigo ,
                 'idRetencion' => $reteFte,
                 'idReteIca' => $reteIca,
+                'porcentaje_impto' => $porcentaje,
                 'tipo_codigo' => 1,
                 'restringido' => 0,
             ]);

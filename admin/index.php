@@ -8,10 +8,11 @@
     <?php include_once '../res/shared/archivo_head.php'; ?>
     <title>SACTel PMS | Parametros Generales</title>
     <link rel="stylesheet" type="text/css" href="<?php echo BASE_RES; ?>dist/jquery.dataTables.css">
-    <link rel="stylesheet" type="text/css" href="res/css/admin.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <?php
     include_once '../res/shared/archivo_script.php';
     ?>
+    <link rel="stylesheet" type="text/css" href="res/css/admin.css">
     <script src="<?php echo BASE_ADM; ?>res/js/admin.js"></script>
     <script src="<?php echo BASE_WEB; ?>res/js/inicio.js"></script>
 </head>

@@ -2,10 +2,10 @@
 	
   require '../../../res/php/app_topAdmin.php'; 
 
-	$id = $_POST['id'];
-
+	$data = json_decode(file_get_contents('php://input'), true);
+	extract($data);
 	$eliminaCodigo = $admin->eliminaCodigoVenta($id) ;
 
-	echo $eliminaCodigo ;
+	echo json_encode($eliminaCodigo) ;
 
  ?>

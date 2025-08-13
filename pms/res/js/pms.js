@@ -2768,7 +2768,6 @@ async function preguntaEliminaHuesped(nombre, id) {
       confirmButtonText: "¡Adelante!",
       closeOnConfirm: false
     },
-
       async function () {
         req = { id }
         const resultado = await fetch("res/php/huespedActivo.php", {
@@ -9765,7 +9764,6 @@ function salidaHuespedCongelada() {
       url: web + "res/php/ingresoPago.php",
       data: parametros,
       success: function (data) {
-        console.log(data);
         var ventana = window.open(
           "imprimir/facturas/FES-" + data[0],
           "PRINT",
