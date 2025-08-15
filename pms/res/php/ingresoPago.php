@@ -10,6 +10,9 @@ $aplicarete = 0;
 $aplicaiva = 0;
 $aplicaica = 0;
 $sinBaseRete = 0;
+$baseIva = 0;
+$baseRete = 0;
+$baseIca = 0;
 
 $eToken = $hotel->datosTokenCia();
 $token = $eToken[0]['token'];
@@ -22,25 +25,12 @@ $detalle = strtoupper($detalle);
 $canti = 1;
 
 $fecha = FECHA_PMS;
-
 $fechaAct = strtotime(FECHA_PMS . 'T20:55:20');
 
 $arcCurl = '../../json/recibeCurl' . $mes . $anio . '.json';
 $envCurl = '../../json/enviaFact' . $mes . $anio . '.json';
 
-if ($reteiva == 0) {
-    $baseIva = 0;
-}
-
-if ($retefuente == 0) {
-    $baseRete = 0;
-}
-
-if ($reteica == 0) {
-    $baseIca = 0;
-}
-
-$idhuesped = $idhues;
+// $idhuesped = $idhues;
 
 $horaFact = date('H:s:i');
 
@@ -72,12 +62,11 @@ if ($perfilFac == 1 && $facturador == 1) {
 
 if ($tipofac == 1) {
     $id = $idhues;
-    $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
+    $datosHuesped = $hotel->getbuscaDatosHuesped($id);
     $nitFact = $datosHuesped[0]['identificacion'];
     $dvFact = '';
     $nomFact = $datosHuesped[0]['nombre1'] . ' ' . $datosHuesped[0]['nombre2'] . ' ' . $datosHuesped[0]['apellido1'] . ' ' . $datosHuesped[0]['apellido2'];
     $emaFact = $datosHuesped[0]['email'];
-
 } else {
     $id = $idcia;
     $datosCompania = $hotel->getSeleccionaCompania($id);
@@ -127,8 +116,8 @@ $idperfil = $id;
 
 $inserta = $hotel->insertFacturaHuesped($codigo, $textopago, $valor, strtoupper($refer), $reserva, $room, $idhues, $folioAct, $canti, $usuario, $usuario_id, $fecha, $numfactura, $tipofac, $id, $idcentro, $prefijo, $perfilFac, strtoupper($detalle), $baseRete, $baseIva, $baseIca, $reteiva, $reteica, $retefuente, $correofac);
 $factu = $hotel->updateCargosReservaFolio($reserva, $numfactura, $folioAct, $fecha, $usuario, $usuario_id, $tipofac, $id, $perfilFac);
-$saldos = $hotel->getValorFactura($numfactura);
 
+$saldos = $hotel->getValorFactura($numfactura);
 $anticipos = $hotel->valorAnticipos($numfactura);
 
 if (count($anticipos) != 0) {

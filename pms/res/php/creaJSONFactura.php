@@ -5,6 +5,14 @@ require_once '../../../res/php/app_topHotel.php';
 $postBody = json_decode(file_get_contents('php://input'), true);
 extract($postBody);
 
+$aplicarete = 0;
+$aplicaiva = 0;
+$aplicaica = 0;
+$sinBaseRete = 0;
+$baseIva = 0;
+$baseRete = 0;
+$baseIca = 0;
+
 $infoFactura = $hotel->traeInfoFactura($factura);
 
 $eToken = $hotel->datosTokenCia();
@@ -40,50 +48,40 @@ $prefijo = $resFac['prefijo'];
 $fechaRes = $resFac['fecha'];
 $desde = $resFac['desde'];
 $hasta = $resFac['hasta'];
-
 $fechaFac = $infoFactura[0]['fecha_salida'];
 $fechaVen = $infoFactura[0]['fecha_vencimiento'];
+
 $diasCre = 0;
 $paganticipo = 0;
 $totalSinImpto = 0;
 $valorRet = [];
+$valorRet = [];
+$valorRetIca = [];
+$noAutorizado = '';
+
 
 if ($tipofac == 1) {
   $id = $idhuesped;
+  $datosHuesped = $hotel->getbuscaDatosHuesped($id);
+  $nitFact = $datosHuesped[0]['identificacion'];
+  $dvFact = '';
+  $nomFact = $datosHuesped[0]['nombre1'] . ' ' . $datosHuesped[0]['nombre2'] . ' ' . $datosHuesped[0]['apellido1'] . ' ' . $datosHuesped[0]['apellido2'];
+  $emaFact = $datosHuesped[0]['email'];
+  /* $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
+  $nitFact = $datosHuesped[0]['identificacion'];
+  $dvFact = '';
+  $nomFact = $datosHuesped[0]['nombre1'] . ' ' . $datosHuesped[0]['nombre2'] . ' ' . $datosHuesped[0]['apellido1'] . ' ' . $datosHuesped[0]['apellido2'];
+  $emaFact = $datosHuesped[0]['email'];
+  $tdiFact = $datosHuesped[0]['tipo_identifica'];
+  $triFact = $datosHuesped[0]['tipoResponsabilidad']; */
 } else {
   $id = $idPerfil;
   $datosCompania = $hotel->getSeleccionaCompania($id);
-  $diasCre = $datosCompania[0]['dias_credito'];
   $aplicarete = $datosCompania[0]['retefuente'];
   $aplicaiva  = $datosCompania[0]['reteiva'];
   $aplicaica  = $datosCompania[0]['reteica'];
   $sinBaseRete  = $datosCompania[0]['sinBaseRete'];
 
-  if ($aplicarete == 1) {
-    if ($sinBaseRete == 1) {
-      $valorRet = $hotel->traeValorRetencionesSinBase($reserva, $folioAct);
-    } else {
-      $valorRet = $hotel->traeValorRetenciones($reserva, $folioAct);
-    }
-  }
-}
-
-$retIva = $hotel->traeRetenciones(2);
-$retIca = $hotel->traeRetenciones(3);
-
-$porceReteiva = $retIva[0]['porcentajeRetencion'];
-$porceReteica = $retIca[0]['porcentajeRetencion'];
-
-$saldos = $hotel->getValorFactura($factura);
-$anticipos = $hotel->valorAnticipos($factura);
-
-if (count($anticipos) != 0) {
-  $paganticipo = $anticipos[0]['pagos'];
-}
-
-if ($tipofac == 2) {
-  $datosCompania = $hotel->getSeleccionaCompania($idPerfil);
-  $diasCre = $datosCompania[0]['dias_credito'];
   $nomFact = $datosCompania[0]['empresa'];
   $nitFact = $datosCompania[0]['nit'];
   $dvFact = $datosCompania[0]['dv'];
@@ -98,14 +96,52 @@ if ($tipofac == 2) {
   $munFact = $datosCompania[0]['ciudad'];
   $telFact = $datosCompania[0]['telefono'];
 
-  if($tdiFact==8 || $tdiFact== 9){
+  if ($tdiFact == 8 || $tdiFact == 9) {
     $country = $datosCompania[0]['pais'];
     $torFact = null;
     $numName = $datosCompania[0]['fax2'];
     $staName = $datosCompania[0]['fax3'];
     $tliFact = null;
-    $triFact =null;
+    $triFact = null;
   }
+
+  $diasCre = $datosCompania[0]['dias_credito'];
+  /* if ($aplicarete == 1) {
+    if ($sinBaseRete == 1) {
+      $valorRet = $hotel->traeValorRetencionesSinBase($reserva, $folioAct);
+    } else {
+      $valorRet = $hotel->traeValorRetenciones($reserva, $folioAct);
+    }
+  } */
+  if ($aplicarete === 1) {
+    if ($sinBaseRete == 1) {
+      $valorRet = $hotel->traeValorRetencionesSinBase($reserva, $folioAct);
+    } else {
+      $valorRet = $hotel->traeValorRetenciones($reserva, $folioAct);
+    }
+  }
+  if ($aplicaica === 1) {
+    $valorRetIca = $hotel->traeValorRetencionIca($reserva, $folioAct);
+  }
+}
+
+/* $retIva = $hotel->traeRetenciones(2);
+$retIca = $hotel->traeRetenciones(3);
+
+$porceReteiva = $retIva[0]['porcentajeRetencion'];
+$porceReteica = $retIca[0]['porcentajeRetencion']; */
+
+$saldos = $hotel->getValorFactura($factura);
+$anticipos = $hotel->valorAnticipos($factura);
+
+if (count($anticipos) != 0) {
+  $paganticipo = $anticipos[0]['pagos'];
+}
+
+/* if ($tipofac == 2) {
+  $datosCompania = $hotel->getSeleccionaCompania($idPerfil);
+  $diasCre = $datosCompania[0]['dias_credito'];
+  
 } else {
   $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
   $nitFact = $datosHuesped[0]['identificacion'];
@@ -114,7 +150,7 @@ if ($tipofac == 2) {
   $emaFact = $datosHuesped[0]['email'];
   $tdiFact = $datosHuesped[0]['tipo_identifica'];
   $triFact = $datosHuesped[0]['tipoResponsabilidad'];
-}
+} */
 
 $folios = $hotel->getConsumosReservaAgrupadoCodigoFolio($factura, $reserva, $folioAct, 1);
 // $pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolio($factura, $reserva, $folioAct, 3);
@@ -168,11 +204,17 @@ if ($tipofac == 2) {
   $eCust['type_organization_id'] = $torFact;
   $eCust['type_liability_id'] = $tliFact;
   $eCust['type_regime_id'] = $triFact;
-  if($tdiFact==8 || $tdiFact== 9){
-    $eCust['country_id'] = $country ;
-    $eCust['municipality_name'] = $numName ;
-    $eCust['state_name'] = $staName ;
-  }else{
+  if ($tdiFact == 8 || $tdiFact == 9) {
+    $eCust['country_id'] = $country;
+    $eCust['municipality_name'] = $nameCity;
+    $eCust['state_name'] = $staName;
+    $eCust['type_organization_id'] = null;
+    $eCust['type_liability_id'] = null;
+    $eCust['type_regime_id'] = null;
+  } else {
+    $eCust['type_organization_id'] = $torFact;
+    $eCust['type_liability_id'] = $tliFact;
+    $eCust['type_regime_id'] = $triFact;
     $eCust['municipality_id'] = $munFact;
     $eCust['dv'] = $dvFact;
   }

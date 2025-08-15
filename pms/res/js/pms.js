@@ -5768,7 +5768,7 @@ const ingresaDatosFE = async (datosFe) => {
   } catch (error) {
     return error;
   }
-};
+}; 
 
 const creaJSONFactura = async (factura) => {
   data = { factura };
@@ -9419,12 +9419,11 @@ async function propinasPorFecha() {
     hastaFe,
   };
 
-  // console.log(data);
-
   if (desdeFe == "" && hastaFe == "") {
     swal("Atencion", "Seleccione un Criterio de Busqueda", "warning");
   } else {
     const informe = await generaInforme(data);
+    console.log(informe);
     creaHTMLReportes(informe, "Informe Propinas");
   }
 }

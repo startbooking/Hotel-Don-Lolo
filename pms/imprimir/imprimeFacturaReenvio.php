@@ -9,7 +9,7 @@ $size = 100; // Tamaño en píxeles
 $level = 'L'; // Nivel de corrección (L, M, Q, H)
 
 // Generar el código QR
-QRcode::png($QRStr, $filename, $level, $size);
+QRcode::png($QRStr, $filename, $level, $size); 
 
 $datosReserva = $hotel->getReservasDatos($reserva);
 $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
