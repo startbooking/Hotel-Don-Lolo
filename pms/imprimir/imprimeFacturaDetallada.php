@@ -1,5 +1,7 @@
 <?php
 require_once '../../../res/fpdf/fpdf.php';
+// $folios = $hotel->getFacturaDetallada($factura, $reserva, $folioAct, 1);
+
 $pdf = new FPDF();
 $pdf->AddPage('P', 'letter');
 $pdf->Rect(10, 50, 190, 210);

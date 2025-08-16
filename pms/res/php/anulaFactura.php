@@ -58,14 +58,20 @@ if ($perfil == 1 && $facturador == 1) {
         $emaFact = $datosCompania[0]['email'];
         $tdiFact = $datosCompania[0]['tipo_documento'];
         $triFact = $datosCompania[0]['tipoResponsabilidad'];
+        $munFact = $datosCompania[0]['ciudad'];
+        $nameCity = $hotel->traeCiudadHuesped($datosCompania[0]['ciudad']); 
+        $telFact = $datosCompania[0]['telefono'];
+        $country = $datosCompania[0]['pais'];
+        $staName = $datosCompania[0]['depto'];
+        $merFact = '0000000-00';
+        $dirFact = $datosCompania[0]['direccion'];
     } else {
         $datosHuesped = $hotel->getbuscaDatosHuesped($idperfil);
+        $nitFact = $datosHuesped[0]['identificacion'];
         $nitFact = $datosHuesped[0]['identificacion'];
         $dvFact = '';
         $nomFact = $datosHuesped[0]['nombre1'] . ' ' . $datosHuesped[0]['nombre2'] . ' ' . $datosHuesped[0]['apellido1'] . ' ' . $datosHuesped[0]['apellido2'];
         $emaFact = $datosHuesped[0]['email'];
-        $tdiFact = $datosHuesped[0]['tipo_identifica'];
-        $triFact = $datosHuesped[0]['tipoResponsabilidad'];
     }
 
     $eBill['number'] = strval($dFactura[0]['factura_numero']);
@@ -96,6 +102,27 @@ if ($perfil == 1 && $facturador == 1) {
     $eCust['dv'] = $dvFact;
     $eCust['name'] = $nomFact;
     $eCust['email'] = $emaFact;
+    $eCust['type_document_identification_id'] = $tdiFact;
+
+    if ($tipofac == 2) {
+        $eCust['address'] = $dirFact;
+        $eCust['phone'] = $telFact;
+        $eCust['merchant_registration'] = $merFact;
+        if ($tdiFact == 8 || $tdiFact == 9) {
+            $eCust['country_id'] = $country;
+            $eCust['municipality_name'] = $nameCity[0]['municipio'];
+            $eCust['state_name'] = $staName;
+            $eCust['type_organization_id'] = null;
+            $eCust['type_liability_id'] = null;
+            $eCust['type_regime_id'] = null;
+        } else {
+            $eCust['type_organization_id'] = $torFact;
+            $eCust['type_liability_id'] = $tliFact;
+            $eCust['type_regime_id'] = $triFact;
+            $eCust['municipality_id'] = $munFact;
+            $eCust['dv'] = $dvFact;
+        }
+    }
 
     $eNote['customer'] = $eCust;
 
@@ -151,6 +178,8 @@ if ($perfil == 1 && $facturador == 1) {
 
     $eNote['tax_totals'] = $eTaxe;
     $eNote['credit_note_lines'] = $eInvo;
+
+    print_r($eNote);
 
     $eNote = json_encode($eNote);
 

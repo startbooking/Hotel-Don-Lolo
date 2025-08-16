@@ -63,6 +63,7 @@ if ($perfilFac == 1 && $facturador == 1) {
 if ($tipofac == 1) {
     $id = $idhues;
     $datosHuesped = $hotel->getbuscaDatosHuesped($id);
+    $tdiFact = $datosHuesped[0]['tipo_identifica'];
     $nitFact = $datosHuesped[0]['identificacion'];
     $dvFact = '';
     $nomFact = $datosHuesped[0]['nombre1'] . ' ' . $datosHuesped[0]['nombre2'] . ' ' . $datosHuesped[0]['apellido1'] . ' ' . $datosHuesped[0]['apellido2'];
@@ -200,7 +201,7 @@ if ($perfilFac == 1 && $facturador == 1) {
         $eCust['type_document_identification_id'] = $tdiFact;
         if ($tdiFact == 8 || $tdiFact == 9) {
             $eCust['country_id'] = $country;
-            $eCust['municipality_name'] = $nameCity;
+            $eCust['municipality_name'] = $nameCity[0]['municipio'];
             $eCust['state_name'] = $staName;
             $eCust['type_organization_id'] = null;
             $eCust['type_liability_id'] = null;
