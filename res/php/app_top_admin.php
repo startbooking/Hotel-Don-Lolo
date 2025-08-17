@@ -1,14 +1,15 @@
 <?php 
   error_reporting(E_ALL);
   ini_set('display_errors', '1');
-  // error_reporting(E_ALL);
-  // ini_set('display_errors', '1');
   setlocale(LC_ALL,"es_CO.utf8","es_CO","esp")  ;
   require 'function_admin.php';
   require 'funciones_admin.php';
 
   $admin = new Admin_Actions();
-  $user  = new User_Actions(); 
+  $user  = new User_Actions();
+
+  echo HOTEL_ID; 
+
   $hotel = $user->getHotelInfo(HOTEL_ID); 
 
   define("TITLE", $hotel[0]['title_web']);

@@ -1,7 +1,7 @@
 <?php 
 	session_start();
 	error_reporting(E_ALL);
-	// ini_set('display_errors', '1');
+	ini_set('display_errors', '1');
   setlocale(LC_ALL,"es_CO.utf8","es_CO","esp")  ;
   date_default_timezone_set("America/Bogota");
 
@@ -61,9 +61,11 @@
  	}elseif(isset($_GET['section']) && $_GET['section'] == 'usuarios'){
   	$usuarios = $admin->getUsuariosSistema(); 
 	}elseif(isset($_GET['section']) && $_GET['section'] == 'impuestos'){
-  	$impuestos = $admin->getCodigosVentas(2); 
+  	$impuestos = $admin->getCodigosImptos(2);
+  	$imptosDian = $admin->impuestosDian();
 	}elseif(isset($_GET['section']) &&	$_GET['section'] == 'formasdePago'){
-  	$pagos = $admin->getCodigosVentas(3); 
+  	$pagos = $admin->getCodigosFormasPago(3);
+		$medios = $admin->traeMediosPago();
 	}elseif(isset($_GET['section']) &&	$_GET['section'] == 'deptos'){
   	$deptos = $admin->getDeptosAreas(); 
 	}elseif(isset($_GET['section']) &&	$_GET['section'] == 'centrosdeCosto'){

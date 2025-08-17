@@ -29,6 +29,7 @@
                     <td>PUC</td>
                     <td>Descripcion Contable</td>
                     <td>Tipo</td>
+                    <td>Tipo DIAN</td>
                     <td>Accion</td>
                   </tr>
                 </thead>
@@ -41,6 +42,7 @@
                       <td style="width: 20%"><?php echo $impuesto['cuenta_puc']; ?></td>
                       <td style="width: 20%"><?php echo $impuesto['descripcion_contable']; ?></td>
                       <td><?php echo tipoImpuesto($impuesto['tipo_impto']); ?></td>
+                      <td><?php echo strtoupper($impuesto['name']); ?></td>
                       <td align="center" style="padding:3px;width: 12%">
                         <div class="btn-group" role="group" aria-label="Basic example">
                           <button 
@@ -53,6 +55,7 @@
                             data-tipo   ="<?php echo $impuesto['tipo_impto']?>" 
                             data-puc    ="<?php echo $impuesto['cuenta_puc']?>" 
                             data-contab ="<?php echo $impuesto['descripcion_contable']?>" 
+                            data-dian ="<?php echo $impuesto['identificador_dian']?>" 
                             data-target ="#myModalModificaImpto" 
                             title       ="Modificar El Impuesto Actual" >
                             <i class='fa fa-pencil-square'></i>
@@ -68,6 +71,7 @@
                             data-tipo   ="<?php echo $impuesto['tipo_impto']?>" 
                             data-puc    ="<?php echo $impuesto['cuenta_puc']?>" 
                             data-contab ="<?php echo $impuesto['descripcion_contable']?>" 
+                            data-dian ="<?php echo $impuesto['identificador_dian']?>" 
                             title       ="Elimina El Impuesto Actual" >
                             <i class='fa fa-trash'></i>
                           </button>

@@ -34,7 +34,6 @@ function estadoDesayunos($estado){
     }
 }
 
-
 function estadoResolucion($tipo)
 {
     switch ($tipo) {

@@ -1,6 +1,6 @@
 <div class="modal fade" id="myModalAdicionarFormaPago" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
   <form id="guardarDatosFormaPago" class="form-horizontal" action="javascript:guardaFormaPago()">
-    <div class="modal-dialog modal-md" role="document">
+    <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><span class="glyphicon glyphicon-off"></span></span></button>
@@ -11,21 +11,45 @@
         <div class="modal-body">
           <div id="mensaje"></div>
           <div class="form-group">
-            <label for="nombre" class="control-label col-lg-4 col-md-4">Forma de Pago </label>
-            <div class="col-lg-6 col-md-6">
+            <label for="nombre" class="control-label col-lg-2 col-md-2">Forma de Pago </label>
+            <div class="col-lg-4 col-md-">
               <input type="text" class="form-control" id="nombreAdi" name="nombreAdi" required>
             </div>
           </div>
           <div class="form-group">
-            <label for="puc" class="control-label col-lg-4 col-md-4">PUC </label>
-            <div class="col-lg-6 col-md-6">
+            <label for="puc" class="control-label col-lg-2 col-md-2">PUC </label>
+            <div class="col-lg-4 col-md-4">
               <input type="text" class="form-control" id="pucAdi" name="pucAdi" required >
+            </div>
+          <!-- </div>
+          <div class="form-group"> -->
+            <label for="puc" class="control-label col-lg-2 col-md-2">Descripcion </label>
+            <div class="col-lg-4 col-md-4">
+              <input type="text" class="form-control" id="descripcionAdi" name="descripcionAdi" required >
             </div>
           </div>
           <div class="form-group">
-            <label for="puc" class="control-label col-lg-4 col-md-4">Descripcion </label>
-            <div class="col-lg-6 col-md-6">
-              <input type="text" class="form-control" id="descripcionAdi" name="descripcionAdi" required >
+            <label for="formaDian" class="control-label col-lg-2 col-md-2">Tipo de Negociación</label>
+            <div class="col-lg-4 col-md-4">
+              <select class="form-control" name="formaDian" id="formaDian" required>
+                <option value="">Seleccione la Forma de Pago</option>
+                <option value=1>Contado</option>
+                <option value=2>Credito</option>
+                ?>
+              </select>
+            </div>
+            <label for="metodoDian" class="control-label col-lg-2 col-md-2">Medio De Pago</label>
+            <div class="col-lg-4 col-md-4">
+              <select class="form-control" name="metodoDian" id="metodoDian" required>
+                <option value="">Seleccione el medio del Pago</option>
+                <?php
+                  foreach ($medios as $medio) { ?>
+                  <option value="<?php echo $medio['id']; ?>"
+                  ><?php echo $medio['name']; ?></option>
+                <?php
+                }
+                ?>
+              </select>
             </div>
           </div>
         </div>
@@ -40,7 +64,7 @@
 
 <div class="modal fade" id="myModalEliminaFormaPago" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
   <form id="eliminaDatosImpuesto" class="form-horizontal" action="javascript:eliminaFormaPago()">
-    <div class="modal-dialog modal-md" role="document">
+    <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><span class="glyphicon glyphicon-off"></span></span></button>
@@ -50,22 +74,46 @@
         <div class="modal-body">
           <div id="mensajeEli"></div>
           <div class="form-group">
-            <label for="nombre" class="control-label col-lg-4 col-md-4">Forma de Pago </label>
-            <div class="col-lg-6 col-md-6">
+            <label for="nombre" class="control-label col-lg-2 col-md-2">Forma de Pago </label>
+            <div class="col-lg-4 col-md-4">
               <input type="hidden" id="idFormaPagoEli" name="idFormaPagoEli" required>
               <input type="text" class="form-control" id="nombreEli" name="nombreEli" disabled>
             </div>
           </div>
           <div class="form-group">
-            <label for="puc" class="control-label col-lg-4 col-md-4">PUC </label>
-            <div class="col-lg-6 col-md-6">
+            <label for="puc" class="control-label col-lg-2 col-md-2">PUC </label>
+            <div class="col-lg-4 col-md-4">
               <input type="text" class="form-control" id="pucEli" name="pucEli" disabled >
+            </div>
+          <!-- </div>
+          <div class="form-group"> -->
+            <label for="puc" class="control-label col-lg-2 col-md-2">Descripcion </label>
+            <div class="col-lg-4 col-md-4">
+              <input type="text" class="form-control" id="descripcionEli" name="descripcionEli" disabled >
             </div>
           </div>
           <div class="form-group">
-            <label for="puc" class="control-label col-lg-4 col-md-4">Descripcion </label>
-            <div class="col-lg-6 col-md-6">
-              <input type="text" class="form-control" id="descripcionEli" name="descripcionEli" disabled >
+            <label for="formaDianEli" class="control-label col-lg-2 col-md-2">Tipo de Negociación</label>
+            <div class="col-lg-4 col-md-4">
+              <select class="form-control" name="formaDianEli" id="formaDianEli" required>
+                <!-- <option value="">Seleccione la Forma de Pago</option> -->
+                <option value=1>Contado</option>
+                <option value=2>Credito</option>
+                ?>
+              </select>
+            </div>
+            <label for="metodoDianEli" class="control-label col-lg-2 col-md-2">Medio De Pago</label>
+            <div class="col-lg-4 col-md-4">
+              <select class="form-control" name="metodoDianEli" id="metodoDianEli" required>
+                <!-- <option value="">Seleccione el medio del Pago</option> -->
+                <?php
+                  foreach ($medios as $medio) { ?>
+                  <option value="<?php echo $medio['id']; ?>"
+                  ><?php echo $medio['name']; ?></option>
+                <?php
+                }
+                ?>
+              </select>
             </div>
           </div>
         </div>
@@ -80,7 +128,7 @@
 
 <div class="modal fade" id="myModalModificaFormaPago" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
   <form id="actualizaDatosFormaPago" class="form-horizontal" action="javascript:actualizaFormaPago()">
-    <div class="modal-dialog modal-md" role="document">
+    <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><span class="glyphicon glyphicon-off"></span></span></button>
@@ -91,22 +139,46 @@
         <div class="modal-body">
           <div id="mensaje"></div>
           <div class="form-group">
-            <label for="nombre" class="control-label col-lg-4 col-md-4">Forma de Pago </label>
-            <div class="col-lg-6 col-md-6">
+            <label for="nombre" class="control-label col-lg-2 col-md-2">Forma de Pago </label>
+            <div class="col-lg-4 col-md-4">
               <input type="hidden" id="idFormaPagoMod" name="idFormaPagoMod" required>
               <input type="text" class="form-control" id="nombreMod" name="nombreMod" required>
             </div>
           </div>
           <div class="form-group">
-            <label for="puc" class="control-label col-lg-4 col-md-4">PUC </label>
-            <div class="col-lg-6 col-md-6">
+            <label for="puc" class="control-label col-lg-2 col-md-2">PUC </label>
+            <div class="col-lg-4 col-md-4">
               <input type="text" class="form-control" id="pucMod" name="pucMod" required >
+            </div>
+          <!-- </div>
+          <div class="form-group"> -->
+            <label for="puc" class="control-label col-lg-2 col-md-2">Descripcion </label>
+            <div class="col-lg-4 col-md-4">
+              <input type="text" class="form-control" id="descripcionMod" name="descripcionMod" required >
             </div>
           </div>
           <div class="form-group">
-            <label for="puc" class="control-label col-lg-4 col-md-4">Descripcion </label>
-            <div class="col-lg-6 col-md-6">
-              <input type="text" class="form-control" id="descripcionMod" name="descripcionMod" required >
+            <label for="formaDianEli" class="control-label col-lg-2 col-md-2">Tipo de Negociación</label>
+            <div class="col-lg-4 col-md-4">
+              <select class="form-control" name="formaDian" id="formaDian" required>
+                <!-- <option value="">Seleccione la Forma de Pago</option> -->
+                <option value=1>Contado</option>
+                <option value=2>Credito</option>
+                ?>
+              </select>
+            </div>
+            <label for="metodoDian" class="control-label col-lg-2 col-md-2">Medio De Pago</label>
+            <div class="col-lg-4 col-md-4">
+              <select class="form-control" name="metodoDian" id="metodoDian" required>
+                <!-- <option value="">Seleccione el medio del Pago</option> -->
+                <?php
+                  foreach ($medios as $medio) { ?>
+                  <option value="<?php echo $medio['id']; ?>"
+                  ><?php echo $medio['name']; ?></option>
+                <?php
+                }
+                ?>
+              </select>
             </div>
           </div>
         </div>

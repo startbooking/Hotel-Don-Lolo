@@ -1,87 +1,119 @@
 
  <?php
+    require_once 'init.php';
     date_default_timezone_set('America/Bogota');
 
     class Hotel_Admin
     {
 
-        public function traePorceImpto($codigo){
+        public function traeMediosPago(){
             global $database;
 
-            $data = $database->get('codigos_vta',[
-                'porcentaje_impto'
-            ],[
-                'id_cargo' => $codigo
-            ]);
-            return $data['porcentaje_impto'];
-        }
-        
-        public function unidades_medida(){
-            global $database;
-
-            $data = $database->select('unidades_dian',[
+            $data = $database->select('dianMediosPago',[
                 'id',
-                'name'
+                'name',
             ],[
-                'ORDER' => ['name'=>'ASC']
+                'ORDER' => ['name' => 'ASC']
             ]);
             return $data;
         }
 
-        public function eliminaMesa($idmesa){
-			global $database; 
- 
-			$data = $database->delete('mesas',[
-				'id' => $idmesa
-			]);
-			return $data->rowCount();
-		}
+        public function impuestosDian(){
+            global $database;
 
-		public function updateMesa($idmesa, $idambi,$mesa, $pers){
-			global $database;
+            $data = $database->select('dianImpuestos',[
+                'id',
+                'name',
+                'code',
+            ],[
+                'ORDER' => ['name' => 'ASC']
+            ]);
+            return $data;
+        }
 
-			$data = $database->update('mesas',[
-				'ambiente'    => $idambi,
-				'numero_mesa' => $mesa,
-				'puestos'     => $pers
-			],[
-				'id' => $idmesa
-			]);
-			return $data->rowCount();
-		}
+       public function traePorceImpto($codigo)
+        {
+            global $database;
 
-		public function insertMesa($idambi,$mesa, $pers){
-			global $database;
+            $data = $database->get('codigos_vta', [
+                'porcentaje_impto'
+            ], [
+                'id_cargo' => $codigo
+            ]);
+            return $data['porcentaje_impto'];
+        }
 
-			$data = $database->insert('mesas',[
-				'ambiente'    => $idambi,
-				'numero_mesa' => $mesa,
-				'puestos'     => $pers,
-				'flag'        => 0,
-				'estado'      => 'L'
-			]);
-			return $database->id();
-		}
+        public function unidades_medida()
+        {
+            global $database;
 
-		public function getMesasAmbiente(){
-			global $database;
+            $data = $database->select('dianUnidades', [
+                'id',
+                'name'
+            ], [
+                'ORDER' => ['name' => 'ASC']
+            ]);
+            return $data;
+        }
 
-			$data = $database->select('mesas',[
-				'[>]ambientes' => ['ambiente' => 'id_ambiente']
-			],[
-				'ambientes.id_ambiente',
-				'ambientes.nombre',
-				'mesas.numero_mesa',
-				'mesas.puestos',
-				'mesas.id'
-			],[
-				'ORDER' => [
-					'ambientes.nombre' => 'ASC',
-					'mesas.numero_mesa' => 'ASC'
-				]
-			]);
-			return $data;
-		}
+        public function eliminaMesa($idmesa)
+        {
+            global $database;
+
+            $data = $database->delete('mesas', [
+                'id' => $idmesa
+            ]);
+            return $data->rowCount();
+        }
+
+        public function updateMesa($idmesa, $idambi, $mesa, $pers)
+        {
+            global $database;
+
+            $data = $database->update('mesas', [
+                'ambiente'    => $idambi,
+                'numero_mesa' => $mesa,
+                'puestos'     => $pers
+            ], [
+                'id' => $idmesa
+            ]);
+            return $data->rowCount();
+        }
+
+        public function insertMesa($idambi, $mesa, $pers)
+        {
+            global $database;
+
+            $data = $database->insert('mesas', [
+                'ambiente'    => $idambi,
+                'numero_mesa' => $mesa,
+                'puestos'     => $pers,
+                'flag'        => 0,
+                'estado'      => 'L'
+            ]);
+            return $database->id();
+        }
+
+        public function getMesasAmbiente()
+        {
+            global $database;
+
+            $data = $database->select('mesas', [
+                '[>]ambientes' => ['ambiente' => 'id_ambiente']
+            ], [
+                'ambientes.id_ambiente',
+                'ambientes.nombre',
+                'mesas.numero_mesa',
+                'mesas.puestos',
+                'mesas.id'
+            ], [
+                'ORDER' => [
+                    'ambientes.nombre' => 'ASC',
+                    'mesas.numero_mesa' => 'ASC'
+                ]
+            ]);
+            return $data;
+        }
 
         public function getResoluciones($id)
         {
@@ -415,7 +447,7 @@
                 'usuario_id' => $id,
             ]);
 
-            return $data->rowCount(); 
+            return $data->rowCount();
         }
 
         public function insertUserNew($usuario, $claveIn, $apellidos, $nombres, $identificacion, $correo, $telefono, $celular, $tipo, $idPos, $idPMS, $idInv, $idFe, $idUsr)
@@ -474,7 +506,7 @@
         }
 
         /* Impuestos del Sistema */
-        public function updateImpuesto($descripcion, $porcentaje, $tipo, $puc, $contabil, $id)
+        public function updateImpuesto($descripcion, $porcentaje, $tipo, $puc, $contabil, $id, $dian)
         {
             global $database;
 
@@ -484,6 +516,7 @@
                 'tipo_impto' => $tipo,
                 'cuenta_puc' => $puc,
                 'descripcion_contable' => $contabil,
+                'identificador_dian' => $dian,
                 'tipo_codigo' => 2,
             ], [
                 'id_cargo' => $id,
@@ -503,7 +536,7 @@
             return $data->rowCount();
         }
 
-        public function insertImpuesto($descripcion, $porcentaje, $tipo, $puc, $contabil)
+        public function insertImpuesto($descripcion, $porcentaje, $tipo, $puc, $contabil, $dian)
         {
             global $database;
 
@@ -513,6 +546,7 @@
                 'tipo_impto' => $tipo,
                 'cuenta_puc' => $puc,
                 'descripcion_contable' => $contabil,
+                'identificador_dian' => $dian,
                 'tipo_codigo' => 2,
                 'restringido' => 0,
             ]);
@@ -1529,8 +1563,8 @@
                 '[>]tarifas' => ['id_tarifa' => 'id_tarifa'],
                 '[>]paquetes' => ['id' => 'id_paquete'],
             ], [
-                'tarifas.descripcion_tarifa', 
-                'paquetes.descripcion', 
+                'tarifas.descripcion_tarifa',
+                'paquetes.descripcion',
                 'tarifas.id_tarifa',
             ], [
                 'paquetes_tarifas.id_tarifa' => $id,
@@ -1547,8 +1581,8 @@
                 '[>]tarifas' => ['id_tarifa' => 'id_tarifa'],
                 '[>]paquetes' => ['id' => 'id_paquete'],
             ], [
-                'tarifas.descripcion_tarifa', 
-                'paquetes.descripcion', 
+                'tarifas.descripcion_tarifa',
+                'paquetes.descripcion',
                 'tarifas.id_tarifa',
             ], [
                 'paquetes_tarifas.id_tarifa' => $id,
@@ -1558,7 +1592,7 @@
         }
 
 
-        
+
         /* SubGrupos Tarifas PMS */
         public function eliminaValorSubgrupoTarifa($id)
         {
@@ -2329,12 +2363,12 @@
                 'id_cargo' => $id,
             ]);
 
-           $result = [
+            $result = [
                 'id' => $data->rowCount(),
                 'error' => $database->errorInfo,
             ];
 
-            return $result; 
+            return $result;
 
             // return $data->rowCount();
         }
@@ -2369,7 +2403,7 @@
                 'centroCosto' => $centro,
                 'descripcion_contable' => $contabil,
                 'tipoUnidad' => $unidad,
-                'identificador_dian' => $codigo ,
+                'identificador_dian' => $codigo,
                 'idRetencion' => $reteFte,
                 'idReteIca' => $reteIca,
                 'porcentaje_impto' => $porcentaje,
@@ -2469,6 +2503,41 @@
             return $data->rowCount();
         }
 
+
+        public function getCodigosFormasPago($tipo)
+        {
+            global $database;
+
+            $data = $database->select('codigos_vta', [
+                '[<]dianMediosPago' => ['medioPagoDian' => 'id']
+            ],[
+                'id_cargo',
+                'codigo_depto',
+                'agrupacion',
+                'id_impto',
+                'porcentaje_impto',
+                'tipo_impto',
+                'cuenta_puc',
+                'descripcion_cargo',
+                'descripcion_contable',
+                'centroCosto',
+                'grupo_vta',
+                'maximo_credito',
+                'propina',
+                'codigo_propina',
+                'restringido',
+                'identificador_dian',
+                'medioPagoDian',
+                'dianMediosPago.name'
+            ], [
+                'tipo_codigo' => $tipo,
+                'ORDER' => 'descripcion_cargo',
+            ]);
+
+            return $data;
+        }
+
+
         public function getCodigosVentas($tipo)
         {
             global $database;
@@ -2489,6 +2558,8 @@
                 'propina',
                 'codigo_propina',
                 'restringido',
+                'identificador_dian',
+                'medioPagoDian',
             ], [
                 'tipo_codigo' => $tipo,
                 'ORDER' => 'descripcion_cargo',
@@ -2497,6 +2568,40 @@
             return $data;
         }
 
+        public function getCodigosImptos($tipo)
+        {
+            global $database;
+
+            $data = $database->select('codigos_vta', [
+                '[<]impuestos_dian' => ['identificador_dian' => 'id']
+            ], [
+                'codigos_vta.id_cargo',
+                'codigos_vta.codigo_depto',
+                'codigos_vta.agrupacion',
+                'codigos_vta.id_impto',
+                'codigos_vta.porcentaje_impto',
+                'codigos_vta.tipo_impto',
+                'codigos_vta.cuenta_puc',
+                'codigos_vta.descripcion_cargo',
+                'codigos_vta.descripcion_contable',
+                'codigos_vta.centroCosto',
+                'codigos_vta.grupo_vta',
+                'codigos_vta.maximo_credito',
+                'codigos_vta.propina',
+                'codigos_vta.codigo_propina',
+                'codigos_vta.identificador_dian',
+                'codigos_vta.restringido',
+                'impuestos_dian.name'
+            ], [
+                'codigos_vta.tipo_codigo' => $tipo,
+                'ORDER' => [
+                    'impuestos_dian.name' => 'ASC',
+                    'codigos_vta.descripcion_cargo' => 'ASC'
+                ]
+            ]);
+
+            return $data;
+        }
         public function getCodigosImpuestos($tipo)
         {
             global $database;
@@ -2526,19 +2631,20 @@
             return $data;
         }
 
-        public function getRetenciones($tipo){
+        public function getRetenciones($tipo)
+        {
             global $database;
 
-            $data = $database->select('retenciones',[
+            $data = $database->select('retenciones', [
                 'idRetencion',
                 'descripcionRetencion',
                 'porcentajeRetencion'
-            ],[
+            ], [
                 'tipoRetencion' => $tipo,
                 'ORDER' => ['descripcionRetencion' => 'ASC']
             ]);
             return $data;
-        } 
+        }
 
         public function getDatosHotel()
         {

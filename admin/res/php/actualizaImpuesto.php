@@ -1,15 +1,9 @@
 <?php 
   
   require '../../../res/php/app_topAdmin.php'; 
+	extract($_POST);
 
-	$id          = $_POST['idImptoModImp'];
-	$descripcion = strtoupper(addslashes($_POST['nombreModImp']));
-	$porcentaje  = $_POST['porcentajeModImp'];
-	$tipo        = $_POST['tipoModImp'];
-	$puc         = $_POST['pucModImp'];
-	$contabil    = strtoupper(addslashes($_POST['descripcionModImp']));
-
-	$actualImpto = $admin->updateImpuesto($descripcion, $porcentaje, $tipo, $puc, $contabil, $id) ;
+	$actualImpto = $admin->updateImpuesto(strtoupper($nombreModImp), $porcentajeModImp, $tipoModImp, $pucModImp, strtoupper($descripcionModImp), $idImptoModImp, $imptoDianUpd) ;
 
 	echo $actualImpto ;
 

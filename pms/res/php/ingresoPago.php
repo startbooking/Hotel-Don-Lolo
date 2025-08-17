@@ -96,7 +96,6 @@ if ($tipofac == 1) {
     $staName = $datosCompania[0]['depto'];
 
     if ($codigo == 2) {
-        // $diasCre = $datosCompania[0]['dias_credito'];
         $fechaVen = strtotime('+ ' . $diasCre . ' day', strtotime($fechaFac));
         $fechaVen = date('Y-m-d', $fechaVen);
     }

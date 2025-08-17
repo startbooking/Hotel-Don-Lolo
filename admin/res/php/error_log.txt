@@ -1,0 +1,19 @@
+[16-Aug-2025 10:25:14 America/Bogota] PHP Warning:  Undefined variable $imptoDian in /var/www/donlolo.lan/admin/res/php/guardaImpuestos.php on line 13
+[16-Aug-2025 10:52:59 America/Bogota] PHP Warning:  Undefined variable $nombreModImp in /var/www/donlolo.lan/admin/res/php/actualizaImpuesto.php on line 12
+[16-Aug-2025 10:52:59 America/Bogota] PHP Deprecated:  strtoupper(): Passing null to parameter #1 ($string) of type string is deprecated in /var/www/donlolo.lan/admin/res/php/actualizaImpuesto.php on line 12
+[16-Aug-2025 10:52:59 America/Bogota] PHP Warning:  Undefined variable $porcentajeModImp in /var/www/donlolo.lan/admin/res/php/actualizaImpuesto.php on line 12
+[16-Aug-2025 10:52:59 America/Bogota] PHP Warning:  Undefined variable $tipoModImp in /var/www/donlolo.lan/admin/res/php/actualizaImpuesto.php on line 12
+[16-Aug-2025 10:52:59 America/Bogota] PHP Warning:  Undefined variable $pucModImp in /var/www/donlolo.lan/admin/res/php/actualizaImpuesto.php on line 12
+[16-Aug-2025 10:52:59 America/Bogota] PHP Warning:  Undefined variable $descripcionModImp in /var/www/donlolo.lan/admin/res/php/actualizaImpuesto.php on line 12
+[16-Aug-2025 10:52:59 America/Bogota] PHP Deprecated:  strtoupper(): Passing null to parameter #1 ($string) of type string is deprecated in /var/www/donlolo.lan/admin/res/php/actualizaImpuesto.php on line 12
+[16-Aug-2025 10:52:59 America/Bogota] PHP Warning:  Undefined variable $idImptoModImp in /var/www/donlolo.lan/admin/res/php/actualizaImpuesto.php on line 12
+[16-Aug-2025 10:52:59 America/Bogota] PHP Warning:  Undefined variable $imptoDianUpd in /var/www/donlolo.lan/admin/res/php/actualizaImpuesto.php on line 12
+[16-Aug-2025 10:53:58 America/Bogota] PHP Warning:  Undefined variable $nombreModImp in /var/www/donlolo.lan/admin/res/php/actualizaImpuesto.php on line 12
+[16-Aug-2025 10:53:58 America/Bogota] PHP Deprecated:  strtoupper(): Passing null to parameter #1 ($string) of type string is deprecated in /var/www/donlolo.lan/admin/res/php/actualizaImpuesto.php on line 12
+[16-Aug-2025 10:53:58 America/Bogota] PHP Warning:  Undefined variable $porcentajeModImp in /var/www/donlolo.lan/admin/res/php/actualizaImpuesto.php on line 12
+[16-Aug-2025 10:53:58 America/Bogota] PHP Warning:  Undefined variable $tipoModImp in /var/www/donlolo.lan/admin/res/php/actualizaImpuesto.php on line 12
+[16-Aug-2025 10:53:58 America/Bogota] PHP Warning:  Undefined variable $pucModImp in /var/www/donlolo.lan/admin/res/php/actualizaImpuesto.php on line 12
+[16-Aug-2025 10:53:58 America/Bogota] PHP Warning:  Undefined variable $descripcionModImp in /var/www/donlolo.lan/admin/res/php/actualizaImpuesto.php on line 12
+[16-Aug-2025 10:53:58 America/Bogota] PHP Deprecated:  strtoupper(): Passing null to parameter #1 ($string) of type string is deprecated in /var/www/donlolo.lan/admin/res/php/actualizaImpuesto.php on line 12
+[16-Aug-2025 10:53:58 America/Bogota] PHP Warning:  Undefined variable $idImptoModImp in /var/www/donlolo.lan/admin/res/php/actualizaImpuesto.php on line 12
+[16-Aug-2025 10:53:58 America/Bogota] PHP Warning:  Undefined variable $imptoDianUpd in /var/www/donlolo.lan/admin/res/php/actualizaImpuesto.php on line 12

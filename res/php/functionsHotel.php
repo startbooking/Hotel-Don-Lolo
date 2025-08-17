@@ -2587,13 +2587,13 @@ class Hotel_Actions
     {
         global $database;
 
-        $data = $database->select('codigos_vta', [
+        $data = $database->get('codigos_vta', [
             'identificador_dian',
         ], [
             'id_cargo' => $codigo,
         ]);
 
-        return $data[0]['identificador_dian'];
+        return $data['identificador_dian'];
     }
 
     public function datosTokenCia()

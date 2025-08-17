@@ -115,11 +115,11 @@ function actualizaImpuestos() {
   var pagina = $("#ubicacion").val();
   var ruta = $("#rutaweb").val();
   var impuestos = $("#modificaDatosImpuesto").serialize();
-  var parametros = impuestos;
+  // var parametros = impuestos;
   $.ajax({
     url: ruta + "res/php/actualizaImpuesto.php",
     type: "POST",
-    data: parametros,
+    data: impuestos,
     success: function (objeto) {
       $("#mensajeMod").html(
         '<div style="padding:5px" class="alert alert-info"><h4 align="center">Impuesto Actualizado con Exito</h4></div>'
@@ -2892,6 +2892,8 @@ $(document).ready(function () {
     var puc = button.data("puc");
     var contab = button.data("contab");
     var tipoEliImp = button.data("tipo");
+    var dian = button.data("dian");
+
     var modal = $(this);
 
     modal.find(".modal-title").text("Eliminar Forma de Pago : " + descri);
@@ -2901,6 +2903,7 @@ $(document).ready(function () {
     modal.find(".modal-body #pucEliImp").val(puc);
     modal.find(".modal-body #descripcionEliImp").val(contab);
     modal.find(".modal-body #tipoEliImp").val(tipoEliImp);
+    modal.find(".modal-body #imptoDianEli").val(dian);
   });
 
   $("#myModalModificaImpto").on("show.bs.modal", function (event) {
@@ -2910,7 +2913,9 @@ $(document).ready(function () {
     var porcen = button.data("porcen");
     var puc = button.data("puc");
     var contab = button.data("contab");
+    var dian = button.data("dian");
     var tipoEliMod = button.data("tipo");
+    
     var modal = $(this);
 
     modal.find(".modal-title").text("Modifica Impuesto : " + descri);
@@ -2920,6 +2925,7 @@ $(document).ready(function () {
     modal.find(".modal-body #tipoModImp").val(tipoEliMod);
     modal.find(".modal-body #pucModImp").val(puc);
     modal.find(".modal-body #descripcionModImp").val(contab);
+    modal.find(".modal-body #imptoDianUpd").val(dian);
   });
 
   /* Modal Familias de Inventarios */
