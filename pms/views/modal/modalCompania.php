@@ -49,11 +49,13 @@
             </div>
             <label for="codigoCiiuAdi" class="col-sm-2 control-label">Codigo CIIU</label>
             <div class="col-sm-4">
+
               <select class="nacional" name="codigoCiiuAdi" id="codigoCiiuAdi" required>
                 <option value="">Seleccione el Codigo CIIU</option>
                 <?php
-                foreach ($codigosCiiu as $codigoCiiu) { ?>
-                  <option value="<?php echo $codigoCiiu['id_ciiu']; ?>"><?php echo $codigoCiiu['codigo'] . ' ' . substr($codigoCiiu['descripcion'], 0, 50); ?></option>
+                  $codigosCiiu = $admin->getCodigosCiiu();
+                  foreach ($codigosCiiu as $codigoCiiu) { ?>
+                    <option value="<?php echo $codigoCiiu['id_ciiu']; ?>"><?php echo $codigoCiiu['codigo'] . ' ' . substr($codigoCiiu['descripcion'], 0, 50); ?></option>
                 <?php
                 }
                 ?>
@@ -84,6 +86,7 @@
               <select name="ciudadHue" id="ciudadHue" required="">
                 <option value="">Seleccione la Ciudad</option>
                 <?php
+                  $ciudades = $hotel->getCiudades();
                 foreach ($ciudades as $ciudad) { ?>
                   <option value="<?php echo $ciudad['id_ciudad']; ?>"><?php echo $ciudad['municipio'] . ' ' . $ciudad['depto']; ?></option>
                 <?php

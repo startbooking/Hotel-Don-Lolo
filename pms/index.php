@@ -311,6 +311,7 @@
     <script src="<?php echo BASE_PMS; ?>res/js/pms.js"></script>
     <script>
         accesoUsuarios();
+        validaVentana()
     </script>
 </body>
 

@@ -5,7 +5,7 @@
 
 ?>
 
-<div class="content-wrapper" style="margin-bottom: 50px"> 
+<div class="content-wrapper" style="margin-bottom: 0px"> 
   <form id="updateConsecutivosHotel" class="form-horizontal" action="javascript:updateConsecutivosHotel()" method="POST" enctype="multipart/form-data">
     <section class="content">
       <div class="panel panel-success">

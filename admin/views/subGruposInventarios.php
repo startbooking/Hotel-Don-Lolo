@@ -2,7 +2,7 @@
       <section class="content">
         <div class="panel panel-success"> 
           <div class="panel-heading"> 
-            <div class="row">
+            <div class="row" style="padding:5px 0;">
               <div class="col-lg-6">
                 <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_ADM?>">                  
                 <input type="hidden" name="ubicacion" id="ubicacion" value="subgrupos">
@@ -11,7 +11,7 @@
               <div class="col-lg-6" align="right">
                 <a 
                   data-toggle="modal" 
-                  style="margin:20px 0" type="button" class="btn btn-success" href="#myModalAdicionarSubGrupo">
+                  type="button" class="btn btn-success" href="#myModalAdicionarSubGrupo">
                   <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
                    Adicionar SubGrupo</a>
               </div>

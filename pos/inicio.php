@@ -42,5 +42,6 @@
 
   <script>
     ingresoPos() 
-  </script>
+		validaVentana()
+	</script>
 </html>

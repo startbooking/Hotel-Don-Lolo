@@ -19,9 +19,14 @@ if ($_GET['section'] != 'cajeroCerrado') {
           <ul class="treeview-menu">
             <li><a href="huespedesPerfil">
               <i class="fa-solid fa-users-rectangle"></i>
-              Huespedes</a></li>
+              Huespedes</a>
+            </li>
             <li><a href="companias">
-            <i class="fa-solid fa-city"></i>Compañias</a></li>
+              <i class="fa-solid fa-city"></i>Compañias</a>
+            </li>
+            <li id="ciudades"><a href="ciudades" >
+              <i class="fa-solid fa-city"></i>Ciudades</a>
+            </li>
           </ul>
         </li>
         <li class="treeview">
@@ -32,17 +37,17 @@ if ($_GET['section'] != 'cajeroCerrado') {
           </a>
           <ul class="treeview-menu">
             <li><a href="reservasActivas">
-            <i class="fa-regular fa-calendar-days"></i>
-            Reservas</a></li>
+                <i class="fa-regular fa-calendar-days"></i>
+                Reservas</a></li>
             <li><a href="forecast">
-            <i class="fa-solid fa-chart-bar"></i>
-            Forecast</a></li>
+                <i class="fa-solid fa-chart-bar"></i>
+                Forecast</a></li>
             <?php
-              if (DEV == 1) { ?>
-                <li><a href="Oldforecast"><i class="fa-solid fa-chart-bar"></i>Forecast Proj</a></li>
-                <li><a href="grupos"><i class="fa-solid fa-users-between-lines"></i> Grupos</a></li>
-              <?php
-              }
+            if (DEV == 1) { ?>
+              <li><a href="Oldforecast"><i class="fa-solid fa-chart-bar"></i>Forecast Proj</a></li>
+              <li><a href="grupos"><i class="fa-solid fa-users-between-lines"></i> Grupos</a></li>
+            <?php
+            }
             ?>
           </ul>
         </li>
@@ -54,13 +59,13 @@ if ($_GET['section'] != 'cajeroCerrado') {
           </a>
           <ul class="treeview-menu">
             <li><a href="encasa">
-              <i class="fa-solid fa-house-user"></i>Huespedes en Casa</a>
+                <i class="fa-solid fa-house-user"></i>Huespedes en Casa</a>
             </li>
             <li><a href="llegadasDelDia" class="fichaMenu"><i class="fa fa-sign-in" aria-hidden="true"></i> Llegadas del Dia</a></li>
             <li><a href="llegadaSinReserva"><i class="fa fa-briefcase" aria-hidden="true"></i> Llegadas Sin Reservas</a></li>
             <li></li>
             <li><a href="salidasDelDia">
-              <i class="fa-solid fa-house-circle-exclamation"></i>Salidas Pendientes</a>
+                <i class="fa-solid fa-house-circle-exclamation"></i>Salidas Pendientes</a>
             </li>
             <li><a href="salidasRealizadas"><i class="fa fa-sign-out"></i> Salidas Realizadas</a></li>
           </ul>
@@ -73,8 +78,8 @@ if ($_GET['section'] != 'cajeroCerrado') {
           </a>
           <ul class="treeview-menu">
             <li><a href="facturacionEstadia">
-            <i class="fa-solid fa-money-check-dollar"></i>
-            Facturacion Huespedes</a></li>
+                <i class="fa-solid fa-money-check-dollar"></i>
+                Facturacion Huespedes</a></li>
             <li><a href="ingresoConsumos"><i class="glyphicon glyphicon-download-alt"></i> Ingreso Consumos</a></li>
             <li><a href="facturasDelDia"><i class="fa fa-archive"></i>Facturas Del Dia</a></li>
             <li><a href="recibosCajaDelDia"><i class="fa fa-archive"></i>Recibos de Caja Del Dia</a></li>
@@ -103,7 +108,7 @@ if ($_GET['section'] != 'cajeroCerrado') {
           </a>
           <ul class="treeview-menu">
             <li><a href="carteraClientes"><i class="fa-solid fa-money-bill-1-wave"></i> Cartera Compañias</a></li>
-            <li id="recaudoCartera"><a href="recaudosCartera" ><i class='glyphicon glyphicon-briefcase'></i> Recaudos Cartera</a>
+            <li id="recaudoCartera"><a href="recaudosCartera"><i class='glyphicon glyphicon-briefcase'></i> Recaudos Cartera</a>
             </li>
           </ul>
         </li>
@@ -115,8 +120,8 @@ if ($_GET['section'] != 'cajeroCerrado') {
           </a>
           <ul class="treeview-menu">
             <li><a href="estadoHotel">
-            <!-- <i class="fa fa-circle-o"></i> -->
-            <i class="fa-solid fa-shop"></i>Estado Hotel</a></li>
+                <!-- <i class="fa fa-circle-o"></i> -->
+                <i class="fa-solid fa-shop"></i>Estado Hotel</a></li>
             <li><a href="estadoHabitaciones"><i class="fa fa-language"></i> Estado Habitaciones</a></li>
             <li><a href="objetosOlvidados"><i class="fa fa-puzzle-piece"></i> Objetos Olvidos </a></li>
             <li><a href="mantenimiento"><i class="fa fa-wrench" aria-hidden="true"></i> Mantenimiento Habitaciones </a></li>
@@ -143,19 +148,20 @@ if ($_GET['section'] != 'cajeroCerrado') {
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeBalanceCongeladas','Depositos a Reserva del Dia')"><i class="fa fa-snowflake-o"></i>Cuentas Congeladas </a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimePagosdelDiaConcepto','Flujo de Caja del Dia')"><i class="glyphicon glyphicon-save-file"></i>Flujo de Caja</a></li>
                 <li><a href="javascript:imprimeInformeAuditoria('imprimeRecaudosdelDia','Flujo de Caja del Dia')"><i class="glyphicon glyphicon-save-file"></i>Recaudos del Dia</a></li>
-                <!-- <li><a href="javascript:imprimeInformeAuditoria('imprimePropinasCajeros','Propinas Cajeros')"><i class="glyphicon glyphicon-save-file"></i>Flujo de Caja</a></li> -->                
+                <!-- <li><a href="javascript:imprimeInformeAuditoria('imprimePropinasCajeros','Propinas Cajeros')"><i class="glyphicon glyphicon-save-file"></i>Flujo de Caja</a></li> -->
               </ul>
             </li>
             <li>
-              <a href="cargarHabitaciones"><i class="fa glyphicon glyphicon-sort-by-attributes"></i> Cargar Habitaciones</a></li>
+              <a href="cargarHabitaciones"><i class="fa glyphicon glyphicon-sort-by-attributes"></i> Cargar Habitaciones</a>
+            </li>
             <li>
               <a href="cierreDiario"><i class="glyphicon glyphicon-off"></i>Cierre Diario</a>
             </li>
             <?php
-              if(TRA==1){ ?>
-                <li><a href="tarjetaRegistro"><i class="fa-regular fa-address-card"></i> Tarjeta de Registro Hotelero</a></li>
-                <?php 
-              }
+            if (TRA == 1) { ?>
+              <li><a href="tarjetaRegistro"><i class="fa-regular fa-address-card"></i> Tarjeta de Registro Hotelero</a></li>
+            <?php
+            }
             ?>
           </ul>
         </li>
@@ -247,7 +253,7 @@ if ($_GET['section'] != 'cajeroCerrado') {
                 <li><a href="historicoAuditoria"><i class="fa fa-circle-o"></i>Historico Auditorias</a></li>
               </ul>
             </li>
-          </ul> 
+          </ul>
         </li>
         <li><a href="javascript:cierraSesion()"><i class="glyphicon glyphicon-off" aria-hidden="true"></i><span>Cerrar Sesion </span></a></li>
       </ul>

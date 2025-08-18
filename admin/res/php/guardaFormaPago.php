@@ -1,12 +1,9 @@
 <?php 
 	
-  require '../../../res/php/app_topAdmin.php'; 
+  require '../../../res/php/app_topAdmin.php';
+	extract($_POST);
 
-	$descripcion = strtoupper(addslashes($_POST['nombreAdi']));
-	$puc         = $_POST['pucAdi'];
-	$contabil    = strtoupper(addslashes($_POST['descripcionAdi']));
-
-	$guardaForma = $admin->insertFormaPago($descripcion, $puc, $contabil) ;
+	$guardaForma = $admin->insertFormaPago(strtoupper($nombreAdi), $pucAdi, strtoupper($descripcionAdi),$formaDian, $metodoDian, $crucepucAdi) ;
 
 	echo $guardaForma ;
 

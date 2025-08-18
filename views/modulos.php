@@ -174,5 +174,7 @@ include_once '../views/modal/modalUsuario.php';
 ?>
 <script src="../res/js/inicio.js"></script>
 <script src="../res/js/modulos.js"></script>
-
+<script>
+		validaVentana()
+	</script>
 </html>

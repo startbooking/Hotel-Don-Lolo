@@ -1,6 +1,4 @@
 <?php 
-  /// require_once 'views/informes/fpdf.php';
-  /// require_once '../res/tcpdf/tcpdf.php'; 
   if(file_exists('imprimir/informes/Informes_reservas.pdf')){
     unlink('imprimir/informes/Informes_reservas.pdf');
   }

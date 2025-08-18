@@ -3,14 +3,14 @@
       <section class="content">
         <div class="panel panel-success"> 
           <div class="panel-heading">
-            <div class="row">
+            <div class="row" style="padding:5px 0">
               <div class="col-lg-6">
                 <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_ADM?>">  
                 <input type="hidden" name="ubicacion" id="ubicacion" value="formasdePago">
                 <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-money"></i> Formas de Pago </h3>
               </div>
               <div class="col-lg-6" style="text-align:right;">
-                <a style="margin:20px 0" 
+                <a 
                   data-toggle="modal" 
                   class = 'btn btn-success'
                   href="#myModalAdicionarFormaPago">
@@ -52,6 +52,7 @@
                             data-id     ="<?php echo $pago['id_cargo']?>" 
                             data-descri ="<?php echo $pago['descripcion_cargo']?>" 
                             data-puc    ="<?php echo $pago['cuenta_puc']?>" 
+                            data-cruce  ="<?php echo $pago['cuenta_cruce']?>" 
                             data-contab ="<?php echo $pago['descripcion_contable']?>" 
                             data-forma ="<?php echo $pago['identificador_dian']?>" 
                             data-medio ="<?php echo $pago['medioPagoDian']?>" 
@@ -64,6 +65,7 @@
                             data-id     ="<?php echo $pago['id_cargo']?>" 
                             data-descri ="<?php echo $pago['descripcion_cargo']?>" 
                             data-puc    ="<?php echo $pago['cuenta_puc']?>" 
+                            data-cruce  ="<?php echo $pago['cuenta_cruce']?>" 
                             data-contab ="<?php echo $pago['descripcion_contable']?>" 
                             data-forma ="<?php echo $pago['identificador_dian']?>" 
                             data-medio ="<?php echo $pago['medioPagoDian']?>" 

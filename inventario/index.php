@@ -157,4 +157,7 @@ if (isset($_GET['section']) && $_GET['section'] == 'productos') {
 
 ?>
   </body>
+  <script>
+		validaVentana()
+	</script>
 </html>

@@ -4,7 +4,7 @@
 
   extract($_POST);
 
-	$guarda = $admin->insertCiudad($paices, $ciudad, $codigo) ;
+	$guarda = $admin->insertCiudad($paices, strtoupper($ciudad), strtoupper($codigo)) ;
 
 	echo $guarda ;
 

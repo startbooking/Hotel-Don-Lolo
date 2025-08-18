@@ -24,6 +24,76 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 /* CONFIGURACION GENERAL */
+/* Datos Resolucion*/
+
+function eliminaResolucion(id, estado) {
+  var pagina = $("#ubicacion").val();
+  var ruta = $("#rutaweb").val();
+
+  if (estado === 1) {
+    swal({
+      title: "Precaucion",
+      text: "Resolucion Activa, No Permitido Eliminar",
+      type: "warning",
+      iconConfirmation: "Aceptar",
+    });
+    return false;
+  }
+  Swal.fire({
+    title: `¿Está seguro de eliminar la resolucion actual ?`,
+    text: "¡No podrá revertir esta acción!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "rgba(236, 83, 83, 1)",
+    cancelButtonColor: "#3085d6",
+    confirmButtonText: "Sí, ¡Eliminar!",
+    cancelButtonText: "Cancelar",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      fetch("res/php/eliminaResolucion.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            // Si la respuesta del servidor no es exitosa, se lanza un error.
+            throw new Error("Hubo un problema al eliminar el registro.");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          // Si la eliminación fue exitosa, se muestra un mensaje de éxito.
+          if (data.id !== 0) {
+            $(location).attr("href", ruta + pagina);
+          } else {
+            Swal.fire(
+              "¡Precaucion!",
+              `El código "${nombre}" No se pudo eliminar.`,
+              "warning"
+            );
+          }
+        })
+        .catch((error) => {
+          Swal.fire(
+            "Error",
+            `Hubo un problema al eliminar el código: ${error.message}`,
+            "error"
+          );
+          console.error("Error:", error);
+        });
+    }
+  });
+}
+
+function adicionaResolucion(){
+  ruta = $("#rutaweb").val();
+  pagina = $("#ubicacion").val();
+  var data = new FormData($("#updateCompany"));
+
+}
 
 /* Actualizacion Datos Empresa*/
 function updateConfigCia() {
@@ -51,7 +121,7 @@ function activaModulos() {
     url: "res/php/activaModulos.php",
     type: "POST",
     data: parametros,
-    success: function () { },
+    success: function () {},
   });
 }
 
@@ -750,8 +820,6 @@ function guardaCiudad() {
   var pagina = $("#ubicacion").val();
   var ruta = $("#rutaweb").val();
   var ciudad = $("#guardaDatosCiudad").serialize();
-  // console.log(ciudad)
-
   parametros = {
     ciudad,
   };
@@ -985,7 +1053,7 @@ function traeGrupoInventarios(id, tipo) {
 
 /* MODULO POS */
 
-function validaMonto(valor, campo) { }
+function validaMonto(valor, campo) {}
 
 function cambiaEstadoAmbiente(ambiente, estado) {
   var pagina = $("#ubicacion").val();
@@ -1406,7 +1474,7 @@ const actualizaInfoFactura = async (datos) => {
     });
     const data = await resultado.text();
     return data;
-  } catch (error) { }
+  } catch (error) {}
 };
 
 function eliminaCodigoOld(e, codigo) {
@@ -1434,44 +1502,44 @@ function eliminaCodigo(id, nombre) {
     cancelButtonText: "Cancelar",
   }).then((result) => {
     if (result.isConfirmed) {
-      fetch('res/php/eliminaCodigoVenta.php', {
-        method: 'POST',
+      fetch("res/php/eliminaCodigoVenta.php", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ id }),
       })
-        .then(response => {
+        .then((response) => {
           if (!response.ok) {
             // Si la respuesta del servidor no es exitosa, se lanza un error.
-            throw new Error('Hubo un problema al eliminar el registro.');
+            throw new Error("Hubo un problema al eliminar el registro.");
           }
           return response.json();
         })
-        .then(data => {
+        .then((data) => {
           // Si la eliminación fue exitosa, se muestra un mensaje de éxito.
-          if(data.id !==0){
+          if (data.id !== 0) {
             /* Swal.fire(
               '¡Eliminado!',
               `El código "${nombre}" ha sido eliminado.`,
               'success'
             ); */
             $(location).attr("href", ruta + pagina);
-          }else{
+          } else {
             Swal.fire(
-              '¡Precaucion!',
+              "¡Precaucion!",
               `El código "${nombre}" No se pudo eliminar.`,
-              'warning'
+              "warning"
             );
           }
         })
-        .catch(error => {
+        .catch((error) => {
           Swal.fire(
-            'Error',
+            "Error",
             `Hubo un problema al eliminar el código: ${error.message}`,
-            'error'
+            "error"
           );
-          console.error('Error:', error);
+          console.error("Error:", error);
         });
     }
   });
@@ -1644,26 +1712,26 @@ function guardaSubTarifa() {
     success: function (data) {
       $("#tablaSubTarifas > tbody").append(
         "<tr><td>" +
-        desctar +
-        "</td><td align='center' style='width: 20%'><div class='btn-toolbar' role='toolbar'><div class='btn-group' role='group'><button type='button' class='btn btn-info btn-xs' data-toggle  ='modal' data-target  ='#myModalModificaSubtarifa' data-id =" +
-        data +
-        " data-idgrupo =" +
-        idgrupo +
-        " data-descri  =" +
-        desctar +
-        " title='Modificar la SubTarifa Actual' ><i class='fa fa-pencil-square'></i></button><button type='button' class='btn btn-danger btn-xs' data-toggle  ='modal' data-target  ='#myModalEliminaSubtarifa' data-id =" +
-        data +
-        " data-idgrupo =" +
-        idgrupo +
-        " data-descri  =" +
-        desctar +
-        " title='Eimina el Sub Grupo de Tarifa Actual' > <i class='fa fa-trash'></i> </button> </div> <div class='btn-group' role='group' aria-label='...'> <button type='button' class='btn btn-success btn-xs' data-toggle  ='modal' data-target  ='#myModalValoresSubTarifas' data-id =" +
-        data +
-        " data-idgrupo =" +
-        idgrupo +
-        " data-descri  =" +
-        desctar +
-        " title='Tipos de Habitaciones de la Sub Tarifa Actual' > <i class='fa fa-window-restore'></i> </button> </div> </div></td></tr>"
+          desctar +
+          "</td><td align='center' style='width: 20%'><div class='btn-toolbar' role='toolbar'><div class='btn-group' role='group'><button type='button' class='btn btn-info btn-xs' data-toggle  ='modal' data-target  ='#myModalModificaSubtarifa' data-id =" +
+          data +
+          " data-idgrupo =" +
+          idgrupo +
+          " data-descri  =" +
+          desctar +
+          " title='Modificar la SubTarifa Actual' ><i class='fa fa-pencil-square'></i></button><button type='button' class='btn btn-danger btn-xs' data-toggle  ='modal' data-target  ='#myModalEliminaSubtarifa' data-id =" +
+          data +
+          " data-idgrupo =" +
+          idgrupo +
+          " data-descri  =" +
+          desctar +
+          " title='Eimina el Sub Grupo de Tarifa Actual' > <i class='fa fa-trash'></i> </button> </div> <div class='btn-group' role='group' aria-label='...'> <button type='button' class='btn btn-success btn-xs' data-toggle  ='modal' data-target  ='#myModalValoresSubTarifas' data-id =" +
+          data +
+          " data-idgrupo =" +
+          idgrupo +
+          " data-descri  =" +
+          desctar +
+          " title='Tipos de Habitaciones de la Sub Tarifa Actual' > <i class='fa fa-window-restore'></i> </button> </div> </div></td></tr>"
       );
       $("#myModalAdicionarSubTarifa").modal("hide");
     },
@@ -2295,12 +2363,12 @@ function guardaCodigoVentas() {
 function actualizaFormaPago() {
   var pagina = $("#ubicacion").val();
   var ruta = $("#rutaweb").val();
-  var impuestos = $("#actualizaDatosFormaPago").serialize();
-  var parametros = impuestos;
+  var pagos = $("#actualizaDatosFormaPago").serialize();
+  // var parametros = impuestos;
   $.ajax({
     url: ruta + "res/php/actualizaFormaPago.php",
     type: "POST",
-    data: parametros,
+    data: pagos,
     success: function (objeto) {
       $("#mensaje").html(
         '<div style="padding:5px" class="alert alert-info"><h4" align="center">Forma de Pago Actualizado con Exito</h4></div>'
@@ -2313,11 +2381,11 @@ function actualizaFormaPago() {
 function eliminaFormaPago() {
   var pagina = $("#ubicacion").val();
   var ruta = $("#rutaweb").val();
-  var id = $("#eliminaFormaPago").val();
+  var id = $("#idFormaPagoEli").val();
   $.ajax({
     url: ruta + "res/php/eliminaFormaPago.php",
     type: "POST",
-    data: { id: id },
+    data: { id },
     success: function (objeto) {
       $("#mensajeEli").html(
         '<div style="padding:5px" class="alert alert-danger"><h4 align="center">Forma de Pago Eliminado con Exito</h4></div>'
@@ -2391,7 +2459,6 @@ $(document).ready(function () {
     var id = button.data("id");
     var descri = button.data("descri");
     var puc = button.data("puc");
-    var descon = button.data("descon");
     var pms = button.data("pms");
     var modal = $(this);
 
@@ -2915,7 +2982,7 @@ $(document).ready(function () {
     var contab = button.data("contab");
     var dian = button.data("dian");
     var tipoEliMod = button.data("tipo");
-    
+
     var modal = $(this);
 
     modal.find(".modal-title").text("Modifica Impuesto : " + descri);
@@ -3631,14 +3698,21 @@ $(document).ready(function () {
     var id = button.data("id");
     var descri = button.data("descri");
     var puc = button.data("puc");
+    var cruce = button.data("cruce");
     var contab = button.data("contab");
+    var forma = button.data("forma");
+    var medio = button.data("medio");
+
     var modal = $(this);
 
     modal.find(".modal-title").text("Modifica Impuesto : " + descri);
     modal.find(".modal-body #idFormaPagoMod").val(id);
     modal.find(".modal-body #nombreMod").val(descri);
     modal.find(".modal-body #pucMod").val(puc);
+    modal.find(".modal-body #crucepucMod").val(cruce);
     modal.find(".modal-body #descripcionMod").val(contab);
+    modal.find(".modal-body #formaDianMod").val(forma);
+    modal.find(".modal-body #metodoDianMod").val(medio);
   });
 
   $("#myModalEliminaFormaPago").on("show.bs.modal", function (event) {
@@ -3646,14 +3720,21 @@ $(document).ready(function () {
     var id = button.data("id");
     var descri = button.data("descri");
     var puc = button.data("puc");
+    var cruce = button.data("cruce");
     var contab = button.data("contab");
+    var forma = button.data("forma");
+    var medio = button.data("medio");
+
     var modal = $(this);
 
     modal.find(".modal-title").text("Elimina Impuesto : " + descri);
     modal.find(".modal-body #idFormaPagoEli").val(id);
     modal.find(".modal-body #nombreEli").val(descri);
     modal.find(".modal-body #pucEli").val(puc);
+    modal.find(".modal-body #crucepucEli").val(cruce);
     modal.find(".modal-body #descripcionEli").val(contab);
+    modal.find(".modal-body #formaDianEli").val(forma);
+    modal.find(".modal-body #metodoDianEli").val(medio);
   });
 
   $(function () {
@@ -3671,8 +3752,8 @@ $(document).ready(function () {
         $("#preview").attr("src", "noimage.png");
         $("#message").html(
           "<p id='error'>Selecciona un archivo de imagen válido</p>" +
-          "<h4>Nota</h4>" +
-          "<span id='error_message'>Solo jpeg, jpg y png Tipo de imágenes permitidas</span>"
+            "<h4>Nota</h4>" +
+            "<span id='error_message'>Solo jpeg, jpg y png Tipo de imágenes permitidas</span>"
         );
         return false;
       } else {
@@ -3705,8 +3786,8 @@ $(document).ready(function () {
       if (size > 1024 * 1024) {
         $("#vista-previa").append(
           "<p style='color: red'>El archivo " +
-          name +
-          " supera el máximo permitido 1MB</p>"
+            name +
+            " supera el máximo permitido 1MB</p>"
         );
       } else if (
         type != "image/jpeg" &&
@@ -3716,8 +3797,8 @@ $(document).ready(function () {
       ) {
         $("#vista-previa").append(
           "<p style='color: red'>El archivo " +
-          name +
-          " no es del tipo de imagen permitida.</p>"
+            name +
+            " no es del tipo de imagen permitida.</p>"
         );
       } else {
         var objeto_url = navegador.createObjectURL(archivos[x]);

@@ -1016,7 +1016,6 @@ input[type="reset"].alt:active,
 
 .tituloPagina {
   font-weight: 700;
-  /* font-family: "ubuntu"; */
   color: brown;
   text-transform: none;
   margin: 0px;
@@ -1026,6 +1025,9 @@ input[type="reset"].alt:active,
   margin-bottom: 4px !important;
 }
 
+.sweet-alert h2 {
+  line-height: 24px;
+}
 .form-control {
   height: 30px;
   text-transform: uppercase;

@@ -21,11 +21,15 @@
             <div class="col-lg-4 col-md-4">
               <input type="text" class="form-control" id="pucAdi" name="pucAdi" required >
             </div>
-          <!-- </div>
-          <div class="form-group"> -->
             <label for="puc" class="control-label col-lg-2 col-md-2">Descripcion </label>
             <div class="col-lg-4 col-md-4">
               <input type="text" class="form-control" id="descripcionAdi" name="descripcionAdi" required >
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="crucepucAdi" class="control-label col-lg-2 col-md-2">Cuenta Cruce PUC </label>
+            <div class="col-lg-4 col-md-4">
+              <input type="text" class="form-control" id="crucepucAdi" name="crucepucAdi" required >
             </div>
           </div>
           <div class="form-group">
@@ -85,11 +89,15 @@
             <div class="col-lg-4 col-md-4">
               <input type="text" class="form-control" id="pucEli" name="pucEli" disabled >
             </div>
-          <!-- </div>
-          <div class="form-group"> -->
             <label for="puc" class="control-label col-lg-2 col-md-2">Descripcion </label>
             <div class="col-lg-4 col-md-4">
               <input type="text" class="form-control" id="descripcionEli" name="descripcionEli" disabled >
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="crucepucEli" class="control-label col-lg-2 col-md-2">Cuenta Cruce PUC </label>
+            <div class="col-lg-4 col-md-4">
+              <input type="text" class="form-control" id="crucepucEli" name="crucepucEli" required >
             </div>
           </div>
           <div class="form-group">
@@ -150,26 +158,30 @@
             <div class="col-lg-4 col-md-4">
               <input type="text" class="form-control" id="pucMod" name="pucMod" required >
             </div>
-          <!-- </div>
-          <div class="form-group"> -->
             <label for="puc" class="control-label col-lg-2 col-md-2">Descripcion </label>
             <div class="col-lg-4 col-md-4">
               <input type="text" class="form-control" id="descripcionMod" name="descripcionMod" required >
             </div>
           </div>
           <div class="form-group">
-            <label for="formaDianEli" class="control-label col-lg-2 col-md-2">Tipo de Negociación</label>
+            <label for="crucepucMod" class="control-label col-lg-2 col-md-2">Cuenta Cruce PUC </label>
             <div class="col-lg-4 col-md-4">
-              <select class="form-control" name="formaDian" id="formaDian" required>
+              <input type="text" class="form-control" id="crucepucMod" name="crucepucMod" required >
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="formaDianMod" class="control-label col-lg-2 col-md-2">Tipo de Negociación</label>
+            <div class="col-lg-4 col-md-4">
+              <select class="form-control" name="formaDianMod" id="formaDianMod" required>
                 <!-- <option value="">Seleccione la Forma de Pago</option> -->
                 <option value=1>Contado</option>
                 <option value=2>Credito</option>
                 ?>
               </select>
             </div>
-            <label for="metodoDian" class="control-label col-lg-2 col-md-2">Medio De Pago</label>
+            <label for="metodoDianMod" class="control-label col-lg-2 col-md-2">Medio De Pago</label>
             <div class="col-lg-4 col-md-4">
-              <select class="form-control" name="metodoDian" id="metodoDian" required>
+              <select class="form-control" name="metodoDianMod" id="metodoDianMod" required>
                 <!-- <option value="">Seleccione el medio del Pago</option> -->
                 <?php
                   foreach ($medios as $medio) { ?>

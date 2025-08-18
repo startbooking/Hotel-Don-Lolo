@@ -34,7 +34,6 @@ define('CITY_HOTEL', $datosHotel[0]['ciudad']);
 define('LAND_HOTEL', $datosHotel[0]['pais']);
 define('CTA_MASTER', $datosHotel[0]['codigo_cta_master']);
 define('DEMO', $datosHotel[0]['hoteldemo']);
- 
 define('IVA_INCLUIDO', $empresa[0]['impto_incl']);
 define('NAME_EMPRESA', $empresa[0]['empresa']);
 define('NIT_EMPRESA', $empresa[0]['nit'] . '-' . $empresa[0]['dv']);
@@ -86,7 +85,7 @@ if (!isset($_GET['section'])) {
     $companias = $hotel->getPerfilCompanias();
     $paices = $hotel->getPaices();
     $tipodocs = $hotel->getTipoDocumento();
-    $codigosCiiu = $admin->getCodigosCiiu();
+    // $codigosCiiu = $admin->getCodigosCiiu();
     $codigos = $hotel->getCodigosConsumos(3);
     $tipoAdquiere = $hotel->getTipoAdquiriente();
     $tipoRespo = $hotel->getTipoResponsabilidad();

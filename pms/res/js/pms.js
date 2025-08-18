@@ -4301,8 +4301,6 @@ function auditoriaCronologico() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user } = sesion;
   let { usuario, usuario_id } = user;
-  /* usuario = sesion["usuario"][0]["usuario"];
-  idusuario = sesion["usuario"][0]["usuario_id"]; */
   $.ajax({
     url: "imprimir/imprimeCargosdelDia.php",
     type: "POST",
@@ -6413,6 +6411,7 @@ function accesoUsuarios() {
     document.querySelector("#menuAuditoria").classList.add("apaga");
     document.querySelector("#recaudoCartera").classList.add("apaga");
     document.querySelector("#exportaDocs").classList.add("apaga");
+    document.querySelector("#ciudades").classList.add("apaga");
   }
 
   if (tipo > 3) {
@@ -7698,7 +7697,6 @@ function toggleNacionalFields(documentTypeId,codiPais) {
   const pais = document.querySelector('#paices');
   const tipo = document.querySelector('#tipoEmpresaAdi');
   const ciu = document.querySelector('#codigoCiiuAdi');
-
   // Convierte el valor de string a número para la comparación
   const isPerson = (documentTypeId === '8' || documentTypeId === '9');
   // Itera sobre los campos y los deshabilita si es una persona (CC o CE)
@@ -7711,18 +7709,20 @@ function toggleNacionalFields(documentTypeId,codiPais) {
       field.classList.remove('bg-gray-100');
     }
   });
-  depto.disabled = !isPerson;
-  if (!isPerson) {
-    depto.classList.add('bg-gray-100');
-    depto.value = "";
-    pais.value = codiPais;
-/*     pais.disabled = true;
-    await getCiudadesPais(codiPais,'') */
-  } else {
-    depto.classList.remove('bg-gray-100');
-    pais.disabled = false;
-    tipo.value = "";
-    ciu.value = "" ;
+  if(depto !=null ){
+    depto.disabled = !isPerson;
+    if (!isPerson) {
+      depto.classList.add('bg-gray-100');
+      depto.value = "";
+      pais.value = codiPais;
+  /*     pais.disabled = true;
+      await getCiudadesPais(codiPais,'') */
+    } else {
+      depto.classList.remove('bg-gray-100');
+      pais.disabled = false;
+      tipo.value = "";
+      ciu.value = "" ;
+    }
   }
 }
 

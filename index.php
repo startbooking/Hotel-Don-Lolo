@@ -75,6 +75,10 @@ include_once 'res/shared/archivo_pie.php';
 include_once 'res/shared/archivo_script.php';
 ?>
 	<script src="<?php echo BASE_JS; ?>inicio.js"></script>
+	
+	<script>
+		validaVentana()
+	</script>
 </body>
 
 </html>

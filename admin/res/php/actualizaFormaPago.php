@@ -1,13 +1,8 @@
 <?php 
-  
   require '../../../res/php/app_topAdmin.php'; 
- 
-	$id          = $_POST['idFormaPagoMod'];
-	$descripcion = strtoupper(addslashes($_POST['nombreMod']));
-	$puc         = $_POST['pucMod'];
-	$contabil    = strtoupper(addslashes($_POST['descripcionMod']));
+	extract($_POST);
 
-	$actualFormaPago = $admin->updateFormaPago($descripcion, $puc, $contabil, $id) ;
+	$actualFormaPago = $admin->updateFormaPago(strtoupper($nombreMod), $pucMod, strtoupper($descripcionMod), $idFormaPagoMod, $formaDianMod, $metodoDianMod, $crucepucMod) ;
 
 	echo $actualFormaPago ;
 

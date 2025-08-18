@@ -1,15 +1,13 @@
 document.addEventListener("DOMContentLoaded", async () => {
   let sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {user: { usuario, usuario_id, nombres, apellidos, tipo, estado_usuario_pms, estado_usuario_pos },} = sesion;
-
-  // console.log(sesion)
+  if (sesion != null) {
+    let { user: { usuario, usuario_id, nombres, apellidos, tipo, estado_usuario_pms, estado_usuario_pos }, } = sesion;
+  }
 
   $("#myModalLogin").on("show.bs.modal", function (event) {
     $("#error").html("");
     if (sesion) {
-      let { user: {usuario_id, usuario, nombres, apellidos, tipo, estado_usuario_pms} } = sesion;
-      console.log(sesion)
-      
+      let { user: { usuario_id, usuario, nombres, apellidos, tipo, estado_usuario_pms } } = sesion;
       swal({
         title: `Usuario ${usuario} Ya Activo en el Sistema, Recuperando Informacion`,
         type: "warning",
@@ -17,40 +15,32 @@ document.addEventListener("DOMContentLoaded", async () => {
         closeOnConfirm: true,
 
       },
-      function () {
-        parametros = {
-          usuario_id ,
-          tipo,
-        };
-        $.ajax({
-          url: "res/php/user_action/sesionActiva.php",
-          type: "POST",
-          data: parametros,
-        });
-        $(location).attr("href", "views/modulos.php");
-      })
+        function () {
+          parametros = {
+            usuario_id,
+            tipo,
+          };
+          $.ajax({
+            url: "res/php/user_action/sesionActiva.php",
+            type: "POST",
+            data: parametros,
+          });
+          $(location).attr("href", "views/modulos.php");
+        })
       $("#myModalLogin").modal("hidden");
     }
   });
 
   $("#myModalCambiarClave").on("show.bs.modal", function (event) {
-    let { user: {usuario_id, usuario, nombres, apellidos, tipo, estado_usuario_pms} } = sesion;
+    let { user: { usuario_id, usuario, nombres, apellidos, tipo, estado_usuario_pms } } = sesion;
     $("#error").html("");
     $("#idUserPass").val(usuario_id);
     $("#userPass").val(usuario);
   });
-  
+
   modulos = document.querySelector('#modulos');
-
-  /* if(modulos != null){
-    if (estado_usuario_pos == "2") {
-      $("#cerrado").css("display", "block");
-      $("#linkPos").attr("href", "#");
-    }
-  } */
-
 });
-  
+
 function solicitudSoporte() {
   nombres = $("#nombres").val();
   correo = $("#email").val();
@@ -88,7 +78,7 @@ function solicitudSoporte() {
 
 function activaSesion() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user:{ usuario, usuario_id, tipo, estado_usuario_pms}, moduloPms: {fecha_auditoria}} = sesion;
+  let { user: { usuario, usuario_id, tipo, estado_usuario_pms }, moduloPms: { fecha_auditoria } } = sesion;
   parametros = {
     user: usuario,
     userId: usuario_id,
@@ -112,7 +102,7 @@ function ingresoInv() {
 
 function ingresoAdmin() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  const { user: {usuario_id, usuario, nombres, apellidos, tipo, estado_usuario_pms} } = sesion;
+  const { user: { usuario_id, usuario, nombres, apellidos, tipo, estado_usuario_pms } } = sesion;
   $("#usuarioActivo").val(usuario);
   $("#nombreUsuario").html(` ${apellidos} ${nombres} <span class="caret"></span>`
   );
@@ -122,8 +112,8 @@ function ingresoAdmin() {
 function ingresoPms() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
 
-  let { user: { usuario, usuario_id, tipo, estado_usuario_pms }, moduloPms:{ fecha_auditoria } } = sesion;
-  
+  let { user: { usuario, usuario_id, tipo, estado_usuario_pms }, moduloPms: { fecha_auditoria } } = sesion;
+
   parametros = {
     usuario,
     usuario_id,
@@ -188,22 +178,12 @@ function activaModulos() {
   fechaAct =
     fecha.getDate() + "/" + (fecha.getMonth() + 1) + "/" + fecha.getFullYear();
   let { cia: { invMod, posMod, pmsMod, resMod, feMod }, user: { estado, ingreso, tipo, apellidos, nombres, inv, pos, pms, res, fe, estado_usuario_pos }, moduloPms: { fecha_auditoria } } = sesion;
-  /* let { estado, ingreso, tipo, apellidos, nombres, inv, pos, pms, res } = user;
-  let {   console.log(sesion)
-invMod, posMod, pmsMod, resMod } = cia;
-  let { fecha_auditoria } = moduloPms; */
-
   muestraFecha = document.querySelector('#fechaPms');
   muestraFecha.innerHTML(`Fecha de Proceso [${fecha_auditoria}]`)
 
   $("#nombreUsuario").html(
     `${apellidos}  ${nombres}<span class="caret"></span>`
   );
-
-  /* if (estado_usuario_pos == "2") {
-    $("#cerrado").css("display", "block");
-    $("#linkPos").attr("href", "#");
-  } */
 }
 
 function redondeo(numero, decimales) {
@@ -222,7 +202,7 @@ function duplicadoClave() {
   }
 }
 
-function limpiaClaves(){
+function limpiaClaves() {
   $("#claveactual").val("");
   $("#clave1").val("");
   $("#clave2").val("");
@@ -290,7 +270,7 @@ function cambiaClave() {
   }
   if (nuevaclave == confirmaclave) {
     $.ajax({
-      beforeSend: function () {},
+      beforeSend: function () { },
       url: "../res/php/user_action/cambiaClave.php",
       type: "POST",
       dataType: "json",
@@ -324,8 +304,6 @@ function cambiaClave() {
     $("#claveactual").focus();
   }
 }
-
-
 
 function makeNro(length) {
   var result = "";
@@ -404,23 +382,13 @@ function leeCajeroActivo() {
   archivo.send(null);
 }
 
-/* function muestraErrorAlerta(error) {
-  $("#error").html(`
-    <div class="alert alert-danger"> <span class="glyphicon glyphicon-info-sign"></span> ${error}</div>`);
-  $("#login").val("");
-  $("#pass").val("");
-  $("#login").focus();
-
-  limpiaError();
-} */
-
 function muestraError(error) {
   $("#error").html(`
     <div class="alert alert-danger"> <span class="glyphicon glyphicon-info-sign"></span> ${error}</div>`);
-    setTimeout(function () {
-      $("#error").html(``);
-    }, 4000);
-  }
+  setTimeout(function () {
+    $("#error").html(``);
+  }, 4000);
+}
 
 function limpiaError() {
   $("#login").val("");
@@ -428,3 +396,38 @@ function limpiaError() {
   $("#login").focus();
 }
 
+function validaVentana() {
+  let sesion = JSON.parse(localStorage.getItem("sesion"));
+  if(sesion != null){
+    let { user: { usuario }, cia:{empresa},} = sesion;
+  }
+  // Crea un canal de comunicación llamado 'donlolohotel-channel'
+  const bc = new BroadcastChannel('donlolohotel-channel');
+  // Envía un mensaje a otras pestañas para notificarles que esta ventana se ha abierto.
+  bc.postMessage('nueva_ventana');
+
+  // Escucha los mensajes de otras pestañas.
+  bc.onmessage = function (event) {
+    // Si recibe el mensaje 'nueva_ventana', significa que otra pestaña se acaba de abrir.
+    if (event.data === 'nueva_ventana') {
+      // Si la pestaña actual no está en primer plano, la cerramos.
+      if (!document.hidden) {
+        swal({
+          text: ` Usuario ${usuario}: Se cerrará esta página para evitar Incosistencias`,
+          title: `La plataforma esta activa en otra ventana.`,
+          type: "warning",
+          confirmButtonText: "Aceptar",
+          closeOnConfirm: true,
+        },
+          function () {
+            window.location.replace("https://sactel.cloud");
+          })
+      }
+    }
+  };
+
+  // Asegúrate de que la página se cierre si el usuario intenta volver a abrirla.
+  window.onbeforeunload = function () {
+    bc.postMessage('ventana_cerrada');
+  };
+}

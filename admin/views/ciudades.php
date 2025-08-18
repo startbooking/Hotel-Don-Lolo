@@ -41,8 +41,8 @@
                       <tr style='font-size:12px'>
                         <td><?php echo $ciudad['descripcion']; ?></td>
                         <td><?php echo $ciudad['municipio']; ?></td>
-                        <td><?php echo $ciudad['codigo']; ?></td>
-                        <td  style="padding:3px;width: 17%">
+                        <td ><?php echo $ciudad['codigo']; ?></td>
+                        <td  style="padding:3px;width: 17%;text-align:center;">
                           <div class="btn-group" role="group" aria-label="Basic example">
                             <button 
                               type        ="button" 

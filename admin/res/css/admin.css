@@ -44,3 +44,14 @@ form input[type="text"], form input[type="email"], form input[type="password"], 
 	font-size:11px;
 	padding:5px;
 }
+
+.pd0 {
+	padding:0;
+}
+
+.navbar-fixed-bottom {
+  position: inherit;
+}
+.badge {
+	border-radius: 5px;
+}

@@ -1,5 +1,5 @@
 <?php
-  require_once '../res/php/app_topAdmin.php';
+require_once '../res/php/app_topAdmin.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -182,6 +182,8 @@
         include_once 'views/modal/modalDescuentos.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'periodos') {
         include_once 'views/modal/modalPeriodosServicio.php';
+    } elseif (isset($_GET['section']) && $_GET['section'] == 'resolucionHotel') {
+        require_once 'views/modal/modalResoluciones.php';
     }
     ?>
 

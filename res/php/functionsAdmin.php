@@ -6,6 +6,15 @@
     class Hotel_Admin
     {
 
+        public function eliminaResolucion($id){
+            global $database;
+
+            $data = $database->delete('resoluciones',[
+                'id' => $id,
+            ]);
+            return $data->rowCount();
+
+        }
         public function traeMediosPago(){
             global $database;
 
@@ -193,6 +202,7 @@
                 'paices.descripcion',
                 'ciudades.municipio',
                 'ciudades.codigo',
+                'ciudades.id_ciudad',
             ], [
                 'ORDER' => [
                     'paices.descripcion' => 'ASC',
@@ -2449,14 +2459,17 @@
             }
         }
 
-        public function updateFormaPago($descripcion, $puc, $contabil, $id)
+        public function updateFormaPago($descripcion, $puc, $contabil, $id, $forma, $medio, $cruce)
         {
             global $database;
 
             $data = $database->update('codigos_vta', [
                 'descripcion_cargo' => $descripcion,
                 'cuenta_puc' => $puc,
+                'cuenta_cruce' => $cruce,
                 'descripcion_contable' => $contabil,
+                'identificador_dian' => $forma,
+                'medioPagoDian' => $medio,
             ], [
                 'id_cargo' => $id,
             ]);
@@ -2475,14 +2488,17 @@
             return $data->rowCount();
         }
 
-        public function insertFormaPago($descripcion, $puc, $contabil)
+        public function insertFormaPago($descripcion, $puc, $contabil, $forma, $medio, $cruce)
         {
             global $database;
 
             $data = $database->insert('codigos_vta', [
                 'descripcion_cargo' => $descripcion,
                 'cuenta_puc' => $puc,
+                'cuenta_cruce' => $cruce,
                 'descripcion_contable' => $contabil,
+                'identificador_dian' => $forma,
+                'medioPagoDian' => $medio,
                 'tipo_codigo' => 3,
                 'restringido' => 0,
             ]);
@@ -2518,6 +2534,7 @@
                 'porcentaje_impto',
                 'tipo_impto',
                 'cuenta_puc',
+                'cuenta_cruce',
                 'descripcion_cargo',
                 'descripcion_contable',
                 'centroCosto',
