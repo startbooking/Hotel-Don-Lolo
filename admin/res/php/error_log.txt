@@ -1,6 +1,8 @@
-[17-Aug-2025 16:54:45 America/Bogota] PHP Warning:  PDOStatement::execute(): SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id_resolucion' in 'where clause' in /var/www/donlolo.lan/res/php/Medoo.php on line 629
-[17-Aug-2025 16:54:45 America/Bogota] PHP Fatal error:  Uncaught Error: Call to a member function rowCount() on null in /var/www/donlolo.lan/res/php/functionsAdmin.php:15
-Stack trace:
-#0 /var/www/donlolo.lan/admin/res/php/eliminaResolucion.php(7): Hotel_Admin->eliminaResolucion()
-#1 {main}
-  thrown in /var/www/donlolo.lan/res/php/functionsAdmin.php on line 15
+[18-Aug-2025 19:07:13 America/Bogota] PHP Warning:  Undefined variable $valtarifa in /var/www/donlolo.lan/admin/res/php/paquetesTarifa.php on line 33
+[18-Aug-2025 19:07:13 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/admin/res/php/paquetesTarifa.php on line 33
+[18-Aug-2025 19:07:13 America/Bogota] PHP Warning:  Undefined variable $valtarifa in /var/www/donlolo.lan/admin/res/php/paquetesTarifa.php on line 40
+[18-Aug-2025 19:07:13 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/admin/res/php/paquetesTarifa.php on line 40
+[18-Aug-2025 19:07:25 America/Bogota] PHP Warning:  Undefined variable $valtarifa in /var/www/donlolo.lan/admin/res/php/paquetesTarifa.php on line 33
+[18-Aug-2025 19:07:25 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/admin/res/php/paquetesTarifa.php on line 33
+[18-Aug-2025 19:07:25 America/Bogota] PHP Warning:  Undefined variable $valtarifa in /var/www/donlolo.lan/admin/res/php/paquetesTarifa.php on line 40
+[18-Aug-2025 19:07:25 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/admin/res/php/paquetesTarifa.php on line 40

@@ -6,6 +6,82 @@
     class Hotel_Admin
     {
 
+        public function resolucionesActivas(){
+            global $database;
+
+            $data = $database->count('resoluciones',[
+                'AND' => ['estado' => 1]
+            ]);
+            return $data;
+
+
+        }
+
+        public function cambiaEstado($id, $cambio){
+            global $database;
+
+            $data = $database->update('resoluciones',[
+                'estado' => $cambio,
+            ],[
+                'id' => $id
+            ]);
+
+            $result = [
+                'id' => $data->rowCount(),
+                'error' => $database->error,
+            ];
+
+            return $result;
+            // return $data;
+
+        }
+
+        public function insertResolucion($resol, $desde, $hasta, $prefijo, $fecha, $tipo, $vigencia){
+            global $database;
+
+            $data = $database->insert('resoluciones',[
+                'resolucion' => $resol,
+                'fecha' => $fecha,
+                'prefijo' => $prefijo,
+                'desde' => $desde,
+                'hasta' => $hasta,
+                'estado' => 2,
+                'tipo' => $tipo,
+                'modulo' => 1,
+                'tipoDocumento' => 1,
+                'vigencia' => $vigencia,
+            ]);
+            $result = [
+                'id' => $database->id(),
+                'error' => $database->error,
+            ];
+            return $result;
+        }
+        
+        public function updateResolucion($resol, $desde, $hasta, $prefijo, $fecha, $tipo, $vigencia, $id){
+            global $database;
+
+            $data = $database->update('resoluciones',[
+                'resolucion' => $resol,
+                'fecha' => $fecha,
+                'prefijo' => $prefijo,
+                'desde' => $desde,
+                'hasta' => $hasta,
+                'estado' => 2,
+                'tipo' => $tipo,
+                'modulo' => 1,
+                'tipoDocumento' => 1,
+                'vigencia' => $vigencia,
+            ],[
+                'id' => $id
+            ]);
+            $result = [
+                'id' => $data->rowCount(),
+                'error' => $database->error,
+            ];
+            return $result;
+        }
+
         public function eliminaResolucion($id){
             global $database;
 
@@ -146,6 +222,7 @@
                 'vigencia',
             ], [
                 'modulo' => $id,
+                'ORDER' => ['fecha' => 'DESC']
             ]);
             return $data;
         }

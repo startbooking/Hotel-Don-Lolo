@@ -26,6 +26,72 @@ document.addEventListener("DOMContentLoaded", async () => {
 /* CONFIGURACION GENERAL */
 /* Datos Resolucion*/
 
+function estadoResolucion(id, estado, cambio) {
+  let pagina = $("#ubicacion").val();
+  let ruta = $("#rutaweb").val();
+  let mensaje
+
+  req = {
+    id,
+    estado,
+    cambio,
+  }
+
+  mensaje = estado == 1 ? 'desactivar' : 'activar'
+  confirma = estado == 1 ? 'Desactivala' : 'Activala'
+
+
+
+  Swal.fire({
+    title: `¿Está seguro de ${mensaje} la resolucion actual ?`,
+    text: "¡No podrá revertir esta acción!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "rgba(236, 83, 83, 1)",
+    cancelButtonColor: "#3085d6",
+    confirmButtonText: `Sí, ¡${confirma}!`,
+    cancelButtonText: "Cancelar",
+  }).then((result) => {
+    if (result.isConfirmed) {
+
+      fetch("res/php/estadoResolucion.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(req),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            // Si la respuesta del servidor no es exitosa, se lanza un error.
+            throw new Error(`Hubo un problema al ${mensaje} el registro.`);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          // Si la eliminación fue exitosa, se muestra un mensaje de éxito.
+          if (data.error == null) {
+            $(location).attr("href", ruta + pagina);
+          } else {
+            Swal.fire(
+              "¡Precaucion!",
+              `La resolucion no se pudo ${mensaje}.  \nError ${data.error}`,
+              "warning"
+            );
+          }
+        })
+        .catch((error) => {
+          Swal.fire(
+            "Error",
+            `Hubo un problema al ${mensaje} el código: ${error.message}`,
+            "error"
+          );
+          console.error("Error:", error);
+        });
+    }
+  });
+}
+
 function eliminaResolucion(id, estado) {
   var pagina = $("#ubicacion").val();
   var ruta = $("#rutaweb").val();
@@ -38,61 +104,125 @@ function eliminaResolucion(id, estado) {
       iconConfirmation: "Aceptar",
     });
     return false;
-  }
-  Swal.fire({
-    title: `¿Está seguro de eliminar la resolucion actual ?`,
-    text: "¡No podrá revertir esta acción!",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "rgba(236, 83, 83, 1)",
-    cancelButtonColor: "#3085d6",
-    confirmButtonText: "Sí, ¡Eliminar!",
-    cancelButtonText: "Cancelar",
-  }).then((result) => {
-    if (result.isConfirmed) {
-      fetch("res/php/eliminaResolucion.php", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id }),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            // Si la respuesta del servidor no es exitosa, se lanza un error.
-            throw new Error("Hubo un problema al eliminar el registro.");
-          }
-          return response.json();
+  } else {
+    Swal.fire({
+      title: `¿Está seguro de eliminar la resolucion actual ?`,
+      text: "¡No podrá revertir esta acción!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "rgba(236, 83, 83, 1)",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Sí, ¡Eliminar!",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch("res/php/eliminaResolucion.php", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ id }),
         })
-        .then((data) => {
-          // Si la eliminación fue exitosa, se muestra un mensaje de éxito.
-          if (data.id !== 0) {
-            $(location).attr("href", ruta + pagina);
-          } else {
+          .then((response) => {
+            if (!response.ok) {
+              // Si la respuesta del servidor no es exitosa, se lanza un error.
+              throw new Error("Hubo un problema al eliminar el registro.");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            // Si la eliminación fue exitosa, se muestra un mensaje de éxito.
+            if (data.id !== 0) {
+              $(location).attr("href", ruta + pagina);
+            } else {
+              Swal.fire(
+                "¡Precaucion!",
+                `El código "${nombre}" No se pudo eliminar.`,
+                "warning"
+              );
+            }
+          })
+          .catch((error) => {
             Swal.fire(
-              "¡Precaucion!",
-              `El código "${nombre}" No se pudo eliminar.`,
-              "warning"
+              "Error",
+              `Hubo un problema al eliminar el código: ${error.message}`,
+              "error"
             );
-          }
-        })
-        .catch((error) => {
-          Swal.fire(
-            "Error",
-            `Hubo un problema al eliminar el código: ${error.message}`,
-            "error"
-          );
-          console.error("Error:", error);
-        });
-    }
-  });
+            console.error("Error:", error);
+          });
+      }
+    });
+  }
 }
 
-function adicionaResolucion(){
+async function guardaResolucion() {
   ruta = $("#rutaweb").val();
   pagina = $("#ubicacion").val();
-  var data = new FormData($("#updateCompany"));
+  form = document.querySelector('#formResoluciones')
+  let formdata = new FormData(form);
+  let data = await formDataToObject(formdata)
+  let resp = await adicionaResolucion(data)
+  if (resp.id != 0) {
+    $(location).attr("href", pagina);
+  } else {
+    swal({
+      title: "Precaucion",
+      text: `Resolucion No Ingresada ${resp - error}`,
+      type: "warning",
+      iconConfirmation: "Aceptar",
+    });
+  }
+}
 
+async function adicionaResolucion(data) {
+  try {
+    const resultado = await fetch("res/php/adicionaResolucion.php", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const resp = await resultado.json();
+    return resp;
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+async function actualizaResolucion() {
+  ruta = $("#rutaweb").val();
+  pagina = $("#ubicacion").val();
+  form = document.querySelector('#formUpdResolucion')
+  let formdata = new FormData(form);
+  let data = await formDataToObject(formdata)
+  let resp = await updateResolucion(data)
+  if (resp.id != 0) {
+    $(location).attr("href", pagina);
+  } else {
+    swal({
+      title: "Precaucion",
+      text: `Resolucion No Ingresada ${resp - error}`,
+      type: "warning",
+      iconConfirmation: "Aceptar",
+    });
+  }
+}
+
+async function updateResolucion(data) {
+  try {
+    const resultado = await fetch("res/php/updateResolucion.php", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const resp = await resultado.json();
+    return resp;
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 /* Actualizacion Datos Empresa*/
@@ -121,7 +251,7 @@ function activaModulos() {
     url: "res/php/activaModulos.php",
     type: "POST",
     data: parametros,
-    success: function () {},
+    success: function () { },
   });
 }
 
@@ -1053,7 +1183,7 @@ function traeGrupoInventarios(id, tipo) {
 
 /* MODULO POS */
 
-function validaMonto(valor, campo) {}
+function validaMonto(valor, campo) { }
 
 function cambiaEstadoAmbiente(ambiente, estado) {
   var pagina = $("#ubicacion").val();
@@ -1474,18 +1604,8 @@ const actualizaInfoFactura = async (datos) => {
     });
     const data = await resultado.text();
     return data;
-  } catch (error) {}
+  } catch (error) { }
 };
-
-function eliminaCodigoOld(e, codigo) {
-  let button = $(e.relatedTarget);
-  let nombre = button.data("nombre");
-  // let nombre = button.nombre;
-
-  // let nombre = button.dataset.nombre
-  console.log(button);
-  console.log(codigo);
-}
 
 function eliminaCodigo(id, nombre) {
   var pagina = $("#ubicacion").val();
@@ -1712,26 +1832,26 @@ function guardaSubTarifa() {
     success: function (data) {
       $("#tablaSubTarifas > tbody").append(
         "<tr><td>" +
-          desctar +
-          "</td><td align='center' style='width: 20%'><div class='btn-toolbar' role='toolbar'><div class='btn-group' role='group'><button type='button' class='btn btn-info btn-xs' data-toggle  ='modal' data-target  ='#myModalModificaSubtarifa' data-id =" +
-          data +
-          " data-idgrupo =" +
-          idgrupo +
-          " data-descri  =" +
-          desctar +
-          " title='Modificar la SubTarifa Actual' ><i class='fa fa-pencil-square'></i></button><button type='button' class='btn btn-danger btn-xs' data-toggle  ='modal' data-target  ='#myModalEliminaSubtarifa' data-id =" +
-          data +
-          " data-idgrupo =" +
-          idgrupo +
-          " data-descri  =" +
-          desctar +
-          " title='Eimina el Sub Grupo de Tarifa Actual' > <i class='fa fa-trash'></i> </button> </div> <div class='btn-group' role='group' aria-label='...'> <button type='button' class='btn btn-success btn-xs' data-toggle  ='modal' data-target  ='#myModalValoresSubTarifas' data-id =" +
-          data +
-          " data-idgrupo =" +
-          idgrupo +
-          " data-descri  =" +
-          desctar +
-          " title='Tipos de Habitaciones de la Sub Tarifa Actual' > <i class='fa fa-window-restore'></i> </button> </div> </div></td></tr>"
+        desctar +
+        "</td><td align='center' style='width: 20%'><div class='btn-toolbar' role='toolbar'><div class='btn-group' role='group'><button type='button' class='btn btn-info btn-xs' data-toggle  ='modal' data-target  ='#myModalModificaSubtarifa' data-id =" +
+        data +
+        " data-idgrupo =" +
+        idgrupo +
+        " data-descri  =" +
+        desctar +
+        " title='Modificar la SubTarifa Actual' ><i class='fa fa-pencil-square'></i></button><button type='button' class='btn btn-danger btn-xs' data-toggle  ='modal' data-target  ='#myModalEliminaSubtarifa' data-id =" +
+        data +
+        " data-idgrupo =" +
+        idgrupo +
+        " data-descri  =" +
+        desctar +
+        " title='Eimina el Sub Grupo de Tarifa Actual' > <i class='fa fa-trash'></i> </button> </div> <div class='btn-group' role='group' aria-label='...'> <button type='button' class='btn btn-success btn-xs' data-toggle  ='modal' data-target  ='#myModalValoresSubTarifas' data-id =" +
+        data +
+        " data-idgrupo =" +
+        idgrupo +
+        " data-descri  =" +
+        desctar +
+        " title='Tipos de Habitaciones de la Sub Tarifa Actual' > <i class='fa fa-window-restore'></i> </button> </div> </div></td></tr>"
       );
       $("#myModalAdicionarSubTarifa").modal("hide");
     },
@@ -2431,6 +2551,31 @@ function activaPago(id, tipo) {
 
 /* Funciones de Modal */
 $(document).ready(function () {
+
+    $("#myModalModifica").on("show.bs.modal", function (event) {
+    let button = $(event.relatedTarget);
+    let data = button.data("resolucion");
+
+    formdata = document.querySelector('#formUpdResolucion');
+    id = document.querySelector('#formUpdResolucion #id');
+    resol = document.querySelector('#formUpdResolucion #nombre');
+    desde = document.querySelector('#formUpdResolucion #desde');
+    hasta = document.querySelector('#formUpdResolucion #hasta');
+    prefijo = document.querySelector('#formUpdResolucion #prefijo');
+    fecha = document.querySelector('#formUpdResolucion #fecha');
+    tipoRe = document.querySelector('#formUpdResolucion #tipo');
+    vigencia = document.querySelector('#formUpdResolucion #vigencia');
+    console.log(id)
+    id.value = data.id;
+    resol.value = data.resolucion;
+    desde.value = data.desde;
+    hasta.value = data.hasta;
+    prefijo.value = data.prefijo;
+    fecha.value = data.fecha;
+    tipoRe.value = data.tipo;
+    vigencia.value = data.vigencia;
+  });
+
   /* Formas de Pago POS*/
   $("#myModalEliminaFormaPagoPos").on("show.bs.modal", function (event) {
     var button = $(event.relatedTarget);
@@ -3752,8 +3897,8 @@ $(document).ready(function () {
         $("#preview").attr("src", "noimage.png");
         $("#message").html(
           "<p id='error'>Selecciona un archivo de imagen válido</p>" +
-            "<h4>Nota</h4>" +
-            "<span id='error_message'>Solo jpeg, jpg y png Tipo de imágenes permitidas</span>"
+          "<h4>Nota</h4>" +
+          "<span id='error_message'>Solo jpeg, jpg y png Tipo de imágenes permitidas</span>"
         );
         return false;
       } else {
@@ -3786,8 +3931,8 @@ $(document).ready(function () {
       if (size > 1024 * 1024) {
         $("#vista-previa").append(
           "<p style='color: red'>El archivo " +
-            name +
-            " supera el máximo permitido 1MB</p>"
+          name +
+          " supera el máximo permitido 1MB</p>"
         );
       } else if (
         type != "image/jpeg" &&
@@ -3797,8 +3942,8 @@ $(document).ready(function () {
       ) {
         $("#vista-previa").append(
           "<p style='color: red'>El archivo " +
-            name +
-            " no es del tipo de imagen permitida.</p>"
+          name +
+          " no es del tipo de imagen permitida.</p>"
         );
       } else {
         var objeto_url = navegador.createObjectURL(archivos[x]);

@@ -186,7 +186,6 @@ $(document).keyup(function(e){
   }
 })
 
-
 function validateEmail(email){
 	let validEmail =  /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
 	if( validEmail.test(email) ){
@@ -201,3 +200,57 @@ function validateEmail(email){
 		return false;
 	}
 } 
+
+async function formDataToArrayOld(formData) {
+  const datosArray = [];
+  
+  // Usar un bucle for...of para iterar sobre las entradas del FormData
+  for (const [nombre, valor] of formData.entries()) {
+    datosArray.push([nombre, valor]);
+  }
+  
+  return datosArray;
+}
+
+
+function formDataToArray(formData) {
+    const array = [];
+    for (const [name, value] of formData.entries()) {
+        // En este ejemplo, los campos con el mismo nombre se agrupan en un array.
+        // Si no necesitas agruparlos, puedes simplificar la lógica.
+        if (array.find(item => item.name === name)) {
+            // Si el campo ya existe, convierte su valor a un array y añade el nuevo valor.
+            const existingItem = array.find(item => item.name === name);
+            if (!Array.isArray(existingItem.value)) {
+                existingItem.value = [existingItem.value];
+            }
+            existingItem.value.push(value);
+        } else {
+            array.push({ name, value });
+        }
+    }
+    return array;
+}
+
+/**
+ * Convierte un objeto FormData en un objeto plano de JavaScript.
+ * Los campos con el mismo nombre (ej. checkboxes) se agrupan en un array de valores.
+ * @param {FormData} formData - El objeto FormData a convertir.
+ * @returns {Object} Un objeto con los nombres de los campos como claves y sus valores.
+ */
+function formDataToObject(formData) {
+  const obj = {};
+  for (const [name, value] of formData.entries()) {
+    // Si el campo ya existe, lo convierte en un array y añade el nuevo valor
+    if (obj[name]) {
+      if (!Array.isArray(obj[name])) {
+        obj[name] = [obj[name]];
+      }
+      obj[name].push(value);
+    } else {
+      // Si el campo no existe, lo añade directamente
+      obj[name] = value;
+    }
+  }
+  return obj;
+}

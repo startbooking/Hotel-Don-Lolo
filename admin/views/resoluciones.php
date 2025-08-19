@@ -31,6 +31,7 @@
                   <td>Hasta Numero</td>
                   <td>Prefijo</td>
                   <td>Fecha</td>
+                  <td>Vigencia</td>
                   <td>Estado</td>
                   <td>Accion</td>
                 </tr>
@@ -45,28 +46,69 @@
                     <td style="text-align:left"><?php echo $resolucion['prefijo']; ?></td>
                     <td style="text-align:left"><?php echo $resolucion['fecha']; ?></td>
                     <td style="text-align:center"><?php echo estadoResolucion($resolucion['estado']); ?></td>
+                    <td style="text-align:left"><?php echo $resolucion['vigencia']; ?></td>
                     <td style="text-align:center;padding:3px;width: 17%">
                       <div class="btn-group" role="group" aria-label="Basic example">
-                        <button
+                        <!-- <button
                           type="button"
                           class="btn btn-info btn-xs"
                           data-toggle="modal"
-                          data-target="#myModalModificaResolucion"
+                          data-target="#myModalModifica"
                           data-id="<?php echo $resolucion['id'] ?>"
+                          data-resolucion='<?php echo htmlspecialchars(json_encode($resolucion)); ?>'
                           title="Modificar la Resolucion Actual">
                           <i class='fa fa-pencil-square'></i>
-                        </button>
-                        <button
-                          type="button"
-                          class="btn btn-danger btn-xs"
-                          data-toggle="modal"
-                          data-id="<?php echo $resolucion['id'] ?>"
-                          data-estado="<?php echo $resolucion['estado'] ?>"
-                          title="Elimina la Resolucion Actual"
-                          onclick="eliminaResolucion(<?=$resolucion['id']; ?>,<?=$resolucion['estado']; ?>)"
-                          >
-                          <i class='fa fa-trash'></i>
-                        </button>
+                        </button> -->
+                        <?php
+                        if ($resolucion['estado'] == 2) { ?>
+                          <button
+                            type="button"
+                            class="btn btn-info btn-xs"
+                            data-toggle="modal"
+                            data-target="#myModalModifica"
+                            data-resolucion='<?php echo htmlspecialchars(json_encode($resolucion)); ?>'
+                            title="Modificar la Resolucion Actual">
+                            <i class='fa fa-pencil-square'></i>
+                          </button>
+                        <?php }
+                        if ($resolucion['estado'] != 1) { ?>
+                          <button
+                            type="button"
+                            class="btn btn-danger btn-xs"
+                            data-toggle="modal"
+                            data-id="<?php echo $resolucion['id'] ?>"
+                            data-estado="<?php echo $resolucion['estado'] ?>"
+                            title="Elimina la Resolucion Actual"
+                            onclick="eliminaResolucion(<?= $resolucion['id']; ?>,<?= $resolucion['estado']; ?>)">
+                            <i class='fa fa-trash'></i>
+                          </button>
+                        <?php
+                        }
+                        if ($resolucion['estado'] == 2) { ?>
+                          <button
+                            type="button"
+                            class="btn btn-success btn-xs"
+                            data-toggle="modal"
+                            data-id="<?php echo $resolucion['id'] ?>"
+                            data-estado="<?php echo $resolucion['estado'] ?>"
+                            title="Activar la Resolucion Actual"
+                            onclick="estadoResolucion(<?= $resolucion['id']; ?>,<?= $resolucion['estado']; ?>,1)">
+                            <i class='fa fa-check'></i>
+                          </button>
+                        <?php }  ?>
+                        <?php
+                        if ($resolucion['estado'] == 1) { ?>
+                          <button
+                            type="button"
+                            class="btn btn-warning btn-xs"
+                            data-toggle="modal"
+                            data-id="<?php echo $resolucion['id'] ?>"
+                            data-estado="<?php echo $resolucion['estado'] ?>"
+                            title="Desactivar la Resolucion Actual"
+                            onclick="estadoResolucion(<?= $resolucion['id']; ?>,<?= $resolucion['estado']; ?>,0)">
+                            <i class='fa fa-ban'></i>
+                          </button>
+                        <?php }  ?>
                       </div>
                     </td>
                   </tr>
