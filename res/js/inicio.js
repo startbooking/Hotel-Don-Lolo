@@ -397,10 +397,6 @@ function limpiaError() {
 }
 
 function validaVentana() {
-  let sesion = JSON.parse(localStorage.getItem("sesion"));
-  if(sesion != null){
-    let { user: { usuario }, cia:{empresa},} = sesion;
-  }
   // Crea un canal de comunicación llamado 'donlolohotel-channel'
   const bc = new BroadcastChannel('donlolohotel-channel');
   // Envía un mensaje a otras pestañas para notificarles que esta ventana se ha abierto.
@@ -413,7 +409,7 @@ function validaVentana() {
       // Si la pestaña actual no está en primer plano, la cerramos.
       if (!document.hidden) {
         swal({
-          text: ` Usuario ${usuario}: Se cerrará esta página para evitar Incosistencias`,
+          text: `Se cerrará esta página para evitar Incosistencias`,
           title: `La plataforma esta activa en otra ventana.`,
           type: "warning",
           confirmButtonText: "Aceptar",

@@ -98,6 +98,8 @@ if (!isset($_GET['section'])) {
 } elseif (isset($_GET['section']) && $_GET['section'] == 'huespedesPerfil') {
     $huespedes = $hotel->getPerfilHuespedes();
     $paices = $hotel->getPaices();
+}elseif(isset($_GET['section']) &&	$_GET['section'] == 'ciudades'){
+    $ciudades = $admin->getCiudades();
 } elseif (isset($_GET['section']) && $_GET['section'] == 'reservasActivas') {
     $reservas = $hotel->getReservasActuales(1);
     $companias = $hotel->getCompanias();

@@ -198,6 +198,8 @@
             require 'views/listadoCumpleanios.php';
         } elseif (isset($_GET['section']) && $_GET['section'] == 'listadoCompanias') {
             require 'views/listadoCompanias.php';
+        } elseif (isset($_GET['section']) && $_GET['section'] == 'ciudades') {
+            require 'views/ciudades.php';
         } elseif (isset($_GET['section'])) {
             require 'views/404.php';
         }
@@ -305,6 +307,8 @@
         require 'views/modal/modalMantenimiento.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'estadoHabitaciones') {
         require 'views/modal/modalEstadoHabitaciones.php';
+    } elseif (isset($_GET['section']) && $_GET['section'] == 'ciudades') {
+        include_once 'views/modal/modalCiudades.php';
     }
     ?>
 
