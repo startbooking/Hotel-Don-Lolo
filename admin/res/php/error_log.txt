@@ -1,8 +1,0 @@
-[18-Aug-2025 19:07:13 America/Bogota] PHP Warning:  Undefined variable $valtarifa in /var/www/donlolo.lan/admin/res/php/paquetesTarifa.php on line 33
-[18-Aug-2025 19:07:13 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/admin/res/php/paquetesTarifa.php on line 33
-[18-Aug-2025 19:07:13 America/Bogota] PHP Warning:  Undefined variable $valtarifa in /var/www/donlolo.lan/admin/res/php/paquetesTarifa.php on line 40
-[18-Aug-2025 19:07:13 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/admin/res/php/paquetesTarifa.php on line 40
-[18-Aug-2025 19:07:25 America/Bogota] PHP Warning:  Undefined variable $valtarifa in /var/www/donlolo.lan/admin/res/php/paquetesTarifa.php on line 33
-[18-Aug-2025 19:07:25 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/admin/res/php/paquetesTarifa.php on line 33
-[18-Aug-2025 19:07:25 America/Bogota] PHP Warning:  Undefined variable $valtarifa in /var/www/donlolo.lan/admin/res/php/paquetesTarifa.php on line 40
-[18-Aug-2025 19:07:25 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/admin/res/php/paquetesTarifa.php on line 40

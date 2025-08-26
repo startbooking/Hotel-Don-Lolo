@@ -28,10 +28,10 @@ $ciudades = $hotel->getCiudades();
       </div>
       <label for="tipodoc" class="col-sm-2 control-label">Tipo Documento</label>
       <div class="col-sm-3">
-        <select name="tipodoc" required onblur="toggleNacionalFieldsUpd(this.value,<?= ID_PAIS_EMPRESA ?>)">
+        <select name="tipodoc" id="tipodoc"  required onblur="toggleNacionalFieldsUpd(this.value,<?= ID_PAIS_EMPRESA ?>,1)">
           <?php
           foreach ($tipodocs as $tipodoc) { ?>
-            <option value="<?php echo $tipodoc['id_doc']; ?>" <?php if ($empresa[0]['tipo_documento'] == $tipodoc['id_doc']) { ?> selected <?php } ?>><?php echo $tipodoc['descripcion_documento']; ?></option>}
+            <option value="<?php echo $tipodoc['id_doc']; ?>" <?php if ($empresa[0]['tipo_documento'] == $tipodoc['id_doc']) { ?> selected <?php } ?>><?php echo $tipodoc['descripcion_documento']; ?></option>
           <?php
           }
           ?>

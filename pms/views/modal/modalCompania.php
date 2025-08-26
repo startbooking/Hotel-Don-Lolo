@@ -18,10 +18,9 @@
             </div>
             <label for="tipodoc" class="col-sm-2 control-label">Tipo Documento</label>
             <div class="col-sm-4">
-              <select name="tipodoc" required onblur="toggleNacionalFields(this.value,<?= ID_PAIS_EMPRESA ?>)">
+              <select name="tipodoc" required onblur="toggleNacionalFields(this.value,<?= ID_PAIS_EMPRESA; ?>,0)">
                 <option value="">Seleccione el Tipo de Documento</option>
                 <?php
-                print_r($tipodocs);
                 foreach ($tipodocs as $tipodoc) { ?>
                   <option value="<?php echo $tipodoc['id_doc']; ?>" <?php if ($tipodoc['id_doc'] == 6) { ?> selected <?php }?>><?php echo $tipodoc['descripcion_documento']; ?></option>
                 <?php } ?>

@@ -7398,7 +7398,7 @@ class Hotel_Actions
         return $data;
     }
 
-    public function updateCompania($id, $nit, $dv, $tipodoc, $compania, $direccion, $ciudad, $telefono, $celular, $web, $correo, $tarifa, $formapago, $credito, $monto, $diascre, $diacorte, $tipoemp, $codciiu, $tipoAdqui, $tipoRespo, $repoTribu, $reteIva, $reteIca, $reteFte, $baseRete)
+    public function updateCompania($id, $nit, $dv, $tipodoc, $compania, $direccion, $ciudad, $telefono, $celular, $web, $correo, $tarifa, $formapago, $credito, $monto, $diascre, $diacorte, $tipoemp, $codciiu, $tipoAdqui, $tipoRespo, $repoTribu, $reteIva, $reteIca, $reteFte, $baseRete, $pais, $depto)
     {
         global $database;
 
@@ -7429,6 +7429,9 @@ class Hotel_Actions
             'tipoAdquiriente' => $tipoAdqui,
             'tipoResponsabilidad' => $tipoRespo,
             'responsabilidadTributaria' => $repoTribu,
+            'pais' => $pais,
+            'depto' => $depto,
+
         ], [
             'id_compania' => $id,
         ]);
@@ -7572,7 +7575,7 @@ class Hotel_Actions
     {
         global $database;
 
-        $data = $database->select('huespedes', [
+        $data = $database->get('huespedes', [
             'id_huesped',
             'nombre1',
             'nombre2',
@@ -7606,7 +7609,7 @@ class Hotel_Actions
             'id_huesped' => $id,
         ]);
 
-        return $data[0];
+        return $data;
     }
 
     public function buscaHuespedHueped($ident, $id)
@@ -7804,13 +7807,13 @@ class Hotel_Actions
     {
         global $database;
 
-        $data = $database->select('tipo_documento', [
+        $data = $database->get('tipo_documento', [
             'descripcion_documento',
         ], [
             'id_doc' => $id,
         ]);
 
-        return $data[0]['descripcion_documento'];
+        return $data['descripcion_documento'];
     }
 
     public function getDatosHuespedReserva($id)
@@ -10100,7 +10103,7 @@ class Hotel_Actions
     {
         global $database;
 
-        $data = $database->select('huespedes', [
+        $data = $database->set('huespedes', [
             '[>]companias' => ['id_compania' => 'id_compania']
         ], [
             'huespedes.id_huesped',

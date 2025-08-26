@@ -1853,6 +1853,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       url: "res/php/dataUpdateCia.php",
       success: function (datos) {
         $("#datosCia").html(datos);
+        tipodoc = parseInt(document.querySelector('#formUpdateCompania #tipodoc').value);
+        pais = parseInt(document.querySelector("#paicesUpd").value);
+        if(tipodoc == 8 || tipodoc == 9 ){
+          toggleNacionalFields(tipodoc, pais,1)
+        } 
         if (tipo > 2) {
           document.querySelector('#formUpdateCompania #inlineRadio1').readonly = true
           document.querySelector('#formUpdateCompania #inlineRadio2').readonly = true
@@ -6952,6 +6957,7 @@ function updateCompania() {
   var web = $("#rutaweb").val();
   let pagina = $("#ubicacion").val();
   let parametros = $("#formUpdateCompania").serialize();
+  console.log(parametros);
   let creaRese = 0;
   $.ajax({
     type: "POST",
@@ -7690,15 +7696,29 @@ function apagaEstado(tipo) {
   }
 }
 
-function toggleNacionalFields(documentTypeId,codiPais) {
+function toggleNacionalFields(documentTypeId,codiPais, edita) {
   // Selecciona todos los elementos con la clase 'nacional'
+  documentTypeId = parseInt(documentTypeId) ;
+  let depto 
+  let pais
+  let tipo
+  let ciu
+
   const nacionalFields = document.querySelectorAll('.nacional');
-  const depto = document.querySelector('#depto');
-  const pais = document.querySelector('#paices');
-  const tipo = document.querySelector('#tipoEmpresaAdi');
-  const ciu = document.querySelector('#codigoCiiuAdi');
+  if(edita === 0){
+    depto = document.querySelector('#depto');
+    pais = document.querySelector('#paices');
+    tipo = document.querySelector('#tipoEmpresaAdi');
+    ciu = document.querySelector('#codigoCiiuAdi');
+  }else{
+    depto = document.querySelector('#deptoUpd');
+    pais = document.querySelector('#paicesUpd');
+    tipo = document.querySelector('#tipoEmpresaUpd');
+    ciu = document.querySelector('#codigoCiiuUpd');
+  }
+
   // Convierte el valor de string a número para la comparación
-  const isPerson = (documentTypeId === '8' || documentTypeId === '9');
+  const isPerson = (documentTypeId === 8 || documentTypeId === 9);
   // Itera sobre los campos y los deshabilita si es una persona (CC o CE)
   nacionalFields.forEach(field => {
     field.disabled = isPerson;
@@ -7715,8 +7735,6 @@ function toggleNacionalFields(documentTypeId,codiPais) {
       depto.classList.add('bg-gray-100');
       depto.value = "";
       pais.value = codiPais;
-  /*     pais.disabled = true;
-      await getCiudadesPais(codiPais,'') */
     } else {
       depto.classList.remove('bg-gray-100');
       pais.disabled = false;
@@ -7725,40 +7743,6 @@ function toggleNacionalFields(documentTypeId,codiPais) {
     }
   }
 }
-
-function toggleNacionalFieldsUpd(documentTypeId,codiPais) {
-  // Selecciona todos los elementos con la clase 'nacional'
-  const nacionalFields = document.querySelectorAll('.nacional');
-  const depto = document.querySelector('#deptoUpd');
-  const pais = document.querySelector('#paicesUpd');
-  const tipo = document.querySelector('#tipoEmpresaUpd');
-  const ciu = document.querySelector('#codigoCiiuUpd');
-
-  // Convierte el valor de string a número para la comparación
-  const isPerson = (documentTypeId === '8' || documentTypeId === '9');
-  // Itera sobre los campos y los deshabilita si es una persona (CC o CE)
-  nacionalFields.forEach(field => {
-    field.disabled = isPerson;
-    // Para una mejor UX, también puedes cambiar el color de fondo para indicar que está deshabilitado
-    if (isPerson) {
-      field.classList.add('bg-gray-100');
-    } else {
-      field.classList.remove('bg-gray-100');
-    }
-  });
-  depto.disabled = !isPerson;
-  if (!isPerson) {
-    depto.classList.add('bg-gray-100');
-    depto.value = "";
-    pais.value = codiPais;
-  } else {
-    depto.classList.remove('bg-gray-100');
-    pais.disabled = false;
-    tipo.value = "";
-    ciu.value = "" ;
-  }
-}
-
 
 /**
  * Esta función maneja la lógica de cambio de estado del campo de crédito

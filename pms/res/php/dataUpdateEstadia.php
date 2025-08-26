@@ -1,10 +1,7 @@
 <?php
-// require_once '../../../res/php/titles.php'; 
 require_once '../../../res/php/app_topHotel.php';
 
 $id      = $_POST['id'];
-
-
 $reserva = $hotel->getBuscaReserva($id);
 $huesped = $hotel->getBuscaIdHuesped($reserva['id_huesped']);
 $tipohab = $reserva['tipo_habitacion'];
