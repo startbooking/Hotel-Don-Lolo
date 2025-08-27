@@ -49,16 +49,6 @@
                     <td style="text-align:left"><?php echo $resolucion['vigencia']; ?></td>
                     <td style="text-align:center;padding:3px;width: 17%">
                       <div class="btn-group" role="group" aria-label="Basic example">
-                        <!-- <button
-                          type="button"
-                          class="btn btn-info btn-xs"
-                          data-toggle="modal"
-                          data-target="#myModalModifica"
-                          data-id="<?php echo $resolucion['id'] ?>"
-                          data-resolucion='<?php echo htmlspecialchars(json_encode($resolucion)); ?>'
-                          title="Modificar la Resolucion Actual">
-                          <i class='fa fa-pencil-square'></i>
-                        </button> -->
                         <?php
                         if ($resolucion['estado'] == 2) { ?>
                           <button

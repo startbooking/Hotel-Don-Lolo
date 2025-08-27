@@ -37,8 +37,6 @@
               <tbody>
                 <?php
                 foreach ($codigos as $codigo) {
-                  /* $nombre = $codigo['descripcion_cargo'];
-                  */
                   $id = $codigo['id_cargo']; 
                 ?>
                   <tr style='font-size:12px'>
@@ -70,28 +68,6 @@
                           onclick="eliminaCodigo(this.id, this.getAttribute('data-nombre'))">
                           <i class='fa fa-trash'></i>
                         </button>
-                        <!-- 
-                            <button type="button" class="btn btn-warning btn-xs" 
-                              data-nombre ="<?php echo $codigo['descripcion_cargo'] ?>" 
-                              title="Elimina El Codigo de Ventas Actual"
-                              name="<?= $id ?>"
-                              id="<?= $id ?>"
-                              onclick=eliminaCodigo(this.name,<?php echo $id; ?>)>
-                              <i class='fa fa-trash'></i>
-
-                            </button>
-                            <button type="button" class="btn btn-warning btn-xs" 
-                              data-toggle ="modal" 
-                              data-target ="#myModalEliminaCodigoVentas" 
-                              data-id     ="<?php echo $codigo['id_cargo'] ?>" 
-                              data-impto  ="<?php echo $codigo['id_impto'] ?>" 
-                              data-descri ="<?php echo $codigo['descripcion_cargo'] ?>" 
-                              data-grupo  ="<?php echo $codigo['grupo_vta'] ?>" 
-                              data-puc    ="<?php echo $codigo['cuenta_puc'] ?>" 
-                              data-contab ="<?php echo $codigo['descripcion_contable'] ?>" 
-                              title="Elimina El Codigo de Ventas Actual" >
-                              <i class='fa fa-trash'></i>
-                            </button> -->
                         <?php
                         if ($codigo['restringido'] == 1) {
                           $color = 'btn-success';

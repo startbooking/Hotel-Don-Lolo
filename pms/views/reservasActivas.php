@@ -202,7 +202,8 @@
                                   </a>
                                 </li>
                                 <li>
-                                  <a data-toggle="modal" data-target="#myModalDepositoReserva" data-id="<?php echo $reserva['num_reserva']; ?>" data-idhuesped="<?php echo $reserva['id_huesped']; ?>" data-tipohab="<?php echo descripcionTipoHabitacion($reserva['tipo_habitacion']); ?>" data-nrohab="<?php echo $reserva['num_habitacion']; ?>" data-nombre="<?php echo $reserva['nombre_completo']; ?>" data-llegada="<?php echo $reserva['fecha_llegada']; ?>" data-salida="<?php echo $reserva['fecha_salida']; ?>" data-noches="<?php echo $reserva['dias_reservados']; ?>" data-hombres="<?php echo $reserva['can_hombres']; ?>" data-mujeres="<?php echo $reserva['can_mujeres']; ?>" data-ninos="<?php echo $reserva['can_ninos']; ?>" data-orden="<?php echo $reserva['orden_reserva']; ?>" data-tarifa="<?php echo $hotel->getNombreTarifa($reserva['tarifa']) ?>" data-valor="<?php echo $reserva['valor_reserva']; ?>" data-observaciones="<?php echo $reserva['observaciones']; ?>">
+                                  <a data-toggle="modal" data-target="#myModalDepositoReserva" 
+                                  data-reserva='<?php echo htmlspecialchars(json_encode($reserva)); ?>'>
                                     <i class="fa-solid fa-money-bill"></i>
                                     Deposito a Reserva
                                   </a>

@@ -14,6 +14,11 @@ $tipos = $hotel->getTipoHabitacion();
 $ciudades = $hotel->getCiudades();
 $habitaciones = $hotel->getSeleccionaHabitacionesTipo($tipohab);
 // $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
+$companias = $hotel->getCompanias();
+$tarifas = $hotel->getTarifasTipoHabitacion($reserva['tipo_habitacion'], $reserva['fecha_llegada'], $reserva['fecha_salida']);
+
+// print_r($tarifas);
+print_r($reserva);
 
 ?>
 <div class="panel panel-success">
@@ -25,17 +30,18 @@ $habitaciones = $hotel->getSeleccionaHabitacionesTipo($tipohab);
         <input type="hidden" name="tipoocupacion" id="tipoocupacion" value="<?php echo $reserva['tipo_ocupacion']; ?>">
         <input type="text" class="form-control" name="identifica" id="identifica" value="<?php echo $huesped['identificacion']; ?>" readonly="">
       </div>
-      <label for="inputEmail3" class="col-sm-2 control-label">Tipo</label>
+      <label for="inputEmail3" class="col-sm-1 control-label">Tipo</label>
       <div class="col-sm-3">
         <select name="tipodoc" id="tipodoc" disabled="" readonly>
           <option value="">Seleccione el Tipo de Documeto</option>
           <?php
           foreach ($tipodocs as $tipodoc) { ?>
-            <option value="<?php echo $tipodoc['id_doc']; ?>" <?php
-                                                              if ($tipodoc['id_doc'] == $huesped['tipo_identifica']) { ?>
+            <option value="<?php echo $tipodoc['id_doc']; ?>"
+              <?php
+              if ($tipodoc['id_doc'] == $huesped['tipo_identifica']) { ?>
               selected
               <?php
-                                                              }
+              }
               ?>>
               <?php echo $tipodoc['descripcion_documento']; ?></option>
           <?php } ?>
@@ -86,7 +92,6 @@ $habitaciones = $hotel->getSeleccionaHabitacionesTipo($tipohab);
         <select class="form-control" name="empresaUpd" id="empresaUpd">
           <option value="0">SIN COMPAÑIA</option>
           <?php
-          $companias = $hotel->getCompanias();
           foreach ($companias as $compañia) { ?>
             <option value="<?= $compañia['id_compania'] ?>"
               <?php
@@ -192,13 +197,13 @@ $habitaciones = $hotel->getSeleccionaHabitacionesTipo($tipohab);
         <div>
           <select name="tarifahabUpd" id="tarifahabUpd" required onblur="valorHabitacionUpd(this.value)">
             <?php
-            $tarifas = $hotel->getTarifasHuespedes();
             foreach ($tarifas as $tarifa) { ?>
-              <option value="<?php echo $tarifa['id_tarifa']; ?>" <?php
-                if ($reserva['tarifa'] == $tarifa['id_tarifa']) { ?>
+              <option value="<?php echo $tarifa['id']; ?>"
+                <?php
+                if ($reserva['tarifa'] == $tarifa['id'] ) { ?>
                 selected
                 <?php
-                  }
+                }
                 ?>><?php echo $tarifa['descripcion_tarifa']; ?></option>
             <?php } ?>
           </select>

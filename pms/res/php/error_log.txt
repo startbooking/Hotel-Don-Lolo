@@ -1,0 +1,318 @@
+[26-Aug-2025 17:28:42 America/Bogota] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /var/www/donlolo.lan/res/php/functionsHotel.php:9664
+Stack trace:
+#0 /var/www/donlolo.lan/res/php/funcionesHotel.php(196): Hotel_Actions->getNombreTarifa()
+#1 /var/www/donlolo.lan/pms/res/php/historicoReservasCia.php(101): descripcionTarifa()
+#2 {main}
+  thrown in /var/www/donlolo.lan/res/php/functionsHotel.php on line 9664
+[26-Aug-2025 17:29:03 America/Bogota] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /var/www/donlolo.lan/res/php/functionsHotel.php:9664
+Stack trace:
+#0 /var/www/donlolo.lan/res/php/funcionesHotel.php(196): Hotel_Actions->getNombreTarifa()
+#1 /var/www/donlolo.lan/pms/res/php/historicoReservasCia.php(101): descripcionTarifa()
+#2 {main}
+  thrown in /var/www/donlolo.lan/res/php/functionsHotel.php on line 9664
+[26-Aug-2025 17:29:50 America/Bogota] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /var/www/donlolo.lan/res/php/functionsHotel.php:9664
+Stack trace:
+#0 /var/www/donlolo.lan/res/php/funcionesHotel.php(196): Hotel_Actions->getNombreTarifa()
+#1 /var/www/donlolo.lan/pms/res/php/historicoReservasCia.php(101): descripcionTarifa()
+#2 {main}
+  thrown in /var/www/donlolo.lan/res/php/functionsHotel.php on line 9664
+[26-Aug-2025 17:58:45 America/Bogota] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /var/www/donlolo.lan/res/php/functionsHotel.php:9664
+Stack trace:
+#0 /var/www/donlolo.lan/res/php/funcionesHotel.php(196): Hotel_Actions->getNombreTarifa()
+#1 /var/www/donlolo.lan/pms/res/php/historicoReservasCia.php(101): descripcionTarifa()
+#2 {main}
+  thrown in /var/www/donlolo.lan/res/php/functionsHotel.php on line 9664
+[26-Aug-2025 18:49:09 America/Bogota] PHP Warning:  PDOStatement::execute(): SQLSTATE[42S02]: Base table or view not found: 1146 Table 'donloloJul31.valores_tarifa' doesn't exist in /var/www/donlolo.lan/res/php/Medoo.php on line 629
+[26-Aug-2025 18:51:52 America/Bogota] PHP Warning:  PDOStatement::execute(): SQLSTATE[42S02]: Base table or view not found: 1146 Table 'donloloJul31.valores_tarifa' doesn't exist in /var/www/donlolo.lan/res/php/Medoo.php on line 629
+[26-Aug-2025 18:51:57 America/Bogota] PHP Warning:  PDOStatement::execute(): SQLSTATE[42S02]: Base table or view not found: 1146 Table 'donloloJul31.valores_tarifa' doesn't exist in /var/www/donlolo.lan/res/php/Medoo.php on line 629
+[26-Aug-2025 18:52:32 America/Bogota] PHP Warning:  PDOStatement::execute(): SQLSTATE[42S02]: Base table or view not found: 1146 Table 'donloloJul31.valores_tarifa' doesn't exist in /var/www/donlolo.lan/res/php/Medoo.php on line 629
+[26-Aug-2025 18:56:51 America/Bogota] PHP Warning:  PDOStatement::execute(): SQLSTATE[42S02]: Base table or view not found: 1146 Table 'donloloJul31.valores_tarifa' doesn't exist in /var/www/donlolo.lan/res/php/Medoo.php on line 629
+[26-Aug-2025 18:58:16 America/Bogota] PHP Warning:  PDOStatement::execute(): SQLSTATE[42S02]: Base table or view not found: 1146 Table 'donloloJul31.valores_tarifa' doesn't exist in /var/www/donlolo.lan/res/php/Medoo.php on line 629
+[26-Aug-2025 18:58:27 America/Bogota] PHP Warning:  PDOStatement::execute(): SQLSTATE[42S02]: Base table or view not found: 1146 Table 'donloloJul31.valores_tarifa' doesn't exist in /var/www/donlolo.lan/res/php/Medoo.php on line 629
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:04:09 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:34:24 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 19:54:49 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:13:36 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:20 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:14:47 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 203
+[26-Aug-2025 20:16:29 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:16:29 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:16:29 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:16:29 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:16:29 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:16:29 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:16:29 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:16:29 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:16:29 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:16:29 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:16:29 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:16:29 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:16:29 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:16:29 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:16:29 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:16:29 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:16:29 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:16:29 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:16:29 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:16:29 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:16:29 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:16:29 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201
+[26-Aug-2025 20:16:38 America/Bogota] PHP Warning:  Undefined array key "id_tarifa" in /var/www/donlolo.lan/pms/res/php/dataUpdateReserva.php on line 201

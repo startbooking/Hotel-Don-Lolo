@@ -3,6 +3,9 @@
 require '../../../res/php/app_topHotel.php';
 
 extract($_POST);
+if(!isset($creditOption)){
+  $creditOption = 0 ;
+}
 
 if($tipodoc == 8 || $tipodoc == 9 ){
   $tipoEmpresaUpd = 0; 
@@ -11,7 +14,7 @@ if($tipodoc == 8 || $tipodoc == 9 ){
   $tipoResponsabilidad = 0; 
   $responsabilidadTribu = 0; 
 }else{
-  $depto = ""; 
+  $deptoUpd = ""; 
 }
 
 $reteIva = 0;

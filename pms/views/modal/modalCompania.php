@@ -30,7 +30,7 @@
           <div class="form-group">
             <label for="compania" class="col-sm-2 control-label">Razon Social</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" name="compania" id="compania" placeholder="Nombre Compañia" required>
+              <input type="text" class="form-control" name="compania" id="compania" placeholder="Nombre Compañia" required pattern="[A-Za-z0-9 ñÑ &]+">
             </div>
           </div>
           <div class="form-group ">
@@ -375,7 +375,7 @@
           <input type="hidden" name="txtIdReservasCiaHis" id="txtIdReservasCiaHis">
         </div>
         <div id="datos_ajax_register"></div>
-        <div class="modal-body" style="max-height: 480px;overflow: auto;">
+        <div class="modal-body" style="max-height: 450px;overflow: auto;">
           <div id="historicoReserva" style="position: relative;	text-align: center;top: 5px;width: 100%;"></div>
         </div>
       </div>

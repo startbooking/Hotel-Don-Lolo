@@ -47,7 +47,7 @@
               }
 	            ?>
 	            <td><?php echo estadoReserva($reserva['estado']); ?></td>
-							<td style="text-align:left;" style="width: 18%">
+							<td style="text-align:center;width: 15%">
 								<div class="btn-group" role="group" aria-label="Basic example">
                   <button 
                   	style="height: 22px;padding:2px 10px;font-size:12px" 

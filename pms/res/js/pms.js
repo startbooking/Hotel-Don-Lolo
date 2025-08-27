@@ -1340,9 +1340,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     var buscar = $("#buscarHuespedRes").val();
     var web = $("#webPage").val();
     var parametros = {
-      buscar: buscar,
+      buscar,
     };
-    modal.find(".modal-title").text("Buscar Huesped Por : " + buscar);
+    modal.find(".modal-title").text("Buscar Huesped Por : " + buscar.toUpperCase());
     $.ajax({
       type: "POST",
       data: parametros,
@@ -2036,39 +2036,27 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   $("#myModalDepositoReserva").on("show.bs.modal", function (event) {
-    var button = $(event.relatedTarget);
-    var id = button.data("id");
-    var hues = button.data("idhuesped");
-    var tipohab = button.data("tipohab");
-    var nrohab = button.data("nrohab");
-    var nombre = button.data("nombre");
-    var llegada = button.data("llegada");
-    var salida = button.data("salida");
-    var noches = button.data("noches");
-    var hombres = button.data("hombres");
-    var mujeres = button.data("mujeres");
-    var ninos = button.data("ninos");
-    var tarifa = button.data("tarifa");
-    var valor = button.data("valor");
-    var modal = $(this);
+    let button = $(event.relatedTarget);
+    let reserva = button.data("reserva");
+    let modal = $(this);
 
-    formu = document.querySelector("#formDepositoReserva");
-    formu.reset();
+    formulario = document.querySelector("#formDepositoReserva");
+    formulario.reset();
 
-    modal.find(".modal-title").text("Deposito a Reserva: " + nombre);
-    modal.find(".modal-body #txtIdReservaDep").val(id);
-    modal.find(".modal-body #txtIdHuespedDep").val(hues);
-    modal.find(".modal-body #txtTipoHab").val(tipohab);
-    modal.find(".modal-body #txtNumeroHab").val(nrohab);
-    modal.find(".modal-body #txtHuesped").val(nombre);
-    modal.find(".modal-body #txtLlegada").val(llegada);
-    modal.find(".modal-body #txtSalida").val(salida);
-    modal.find(".modal-body #txtNoches").val(noches);
-    modal.find(".modal-body #txtHombres").val(hombres);
-    modal.find(".modal-body #txtMujeres").val(mujeres);
-    modal.find(".modal-body #txtNinos").val(ninos);
-    modal.find(".modal-body #txtTarifa").val(tarifa);
-    modal.find(".modal-body #txtValorTarifa").val(number_format(valor, 2));
+    modal.find(".modal-title").text("Deposito a Reserva: " + reserva.nombre_completo);
+    modal.find(".modal-body #txtIdReservaDep").val(reserva.num_reserva);
+    modal.find(".modal-body #txtIdHuespedDep").val(reserva.id_huesped);
+    modal.find(".modal-body #txtTipoHab").val(reserva.descripcion_habitacion);
+    modal.find(".modal-body #txtNumeroHab").val(reserva.num_habitacion);
+    modal.find(".modal-body #txtHuesped").val(reserva.nombre_completo);
+    modal.find(".modal-body #txtLlegada").val(reserva.fecha_llegada);
+    modal.find(".modal-body #txtSalida").val(reserva.fecha_salida);
+    modal.find(".modal-body #txtNoches").val(reserva.dias_reservados);
+    modal.find(".modal-body #txtHombres").val(reserva.can_hombres);
+    modal.find(".modal-body #txtMujeres").val(reserva.can_mujeres);
+    modal.find(".modal-body #txtNinos").val(reserva.can_ninos);
+    modal.find(".modal-body #txtTarifa").val(reserva.descripcion_tarifa);
+    modal.find(".modal-body #txtValorTarifa").val(number_format(reserva.valor_diario, 2));
     $("#txtValorDeposito").val(0);
     $("#formadePago").val("");
     $("#formadePago").focus();
@@ -2554,7 +2542,6 @@ const traeConsecutivo = async () => {
       }
     );
     const datos = await resultado.json();
-    // console.log(datos);
     return datos;
   } catch (error) {
     return error;
@@ -6957,7 +6944,6 @@ function updateCompania() {
   var web = $("#rutaweb").val();
   let pagina = $("#ubicacion").val();
   let parametros = $("#formUpdateCompania").serialize();
-  console.log(parametros);
   let creaRese = 0;
   $.ajax({
     type: "POST",
@@ -6992,7 +6978,7 @@ async function actualizaHuesped() {
   $.ajax({
     type: "POST",
     data: dataHuesp,
-    cache: false,
+    cache: false, 
     contentType: false,
     processData: false,
     url: "res/php/updateHuesped.php",

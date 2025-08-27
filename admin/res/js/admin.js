@@ -3817,6 +3817,12 @@ $(document).ready(function () {
     modal.find(".modal-body #descripcionEli").val(contab);
   });
 
+
+  $("#myModalAdicionarCodigoVentas").on("show.bs.modal", function (event) {
+    document.querySelector('#guardarDatosCodigosVentas #unidadMed').value = 70;
+  });
+
+
   $("#myModalModificaCodigoVentas").on("show.bs.modal", function (event) {
     var button = $(event.relatedTarget);
     var id = button.data("id");

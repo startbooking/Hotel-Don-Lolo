@@ -21,7 +21,7 @@ $hoy = date('Y-m-d');
           <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">Documento</label>
             <div class="col-sm-3">
-              <input type="text" class="form-control" name="identifica" id="identifica" placeholder="Identificacion" onblur="buscaIdentificacion(this.value)" >
+              <input type="text" class="form-control" name="identifica" id="identifica" placeholder="Identificacion" onblur="buscaIdentificacion(this.value)" required="">
             </div>
             <label for="inputEmail3" class="col-sm-2 control-label">Tipo </label>
             <div class="col-sm-3">
@@ -60,21 +60,21 @@ $hoy = date('Y-m-d');
           <div class="form-group">
             <label for="apellidos" class="col-sm-2 control-label">1er Apellidos</label>
             <div class="col-sm-3">
-              <input type="text" class="form-control" name="apellido1" id="apellido1" placeholder="Primer Apellido" required>
+              <input type="text" class="form-control" name="apellido1" id="apellido1" placeholder="Primer Apellido" pattern="[A-Za-z0-9 ñÑ]+" required>
             </div>
             <label for="apellidos" class="col-sm-2 control-label">2o Apellidos</label>
             <div class="col-sm-3">
-              <input type="text" class="form-control" name="apellido2" id="apellido2" placeholder="Segundo Apellido">
+              <input type="text" class="form-control" name="apellido2" id="apellido2" placeholder="Segundo Apellido" pattern="[A-Za-z0-9 ñÑ]+">
             </div>
           </div>
           <div class="form-group">
             <label for="nombre1" class="col-sm-2 control-label">1er Nombre</label>
             <div class="col-sm-3">
-              <input type="text" class="form-control" name="nombre1" id="nombre1" placeholder="Primer Nombre" required>
+              <input type="text" class="form-control" name="nombre1" id="nombre1" placeholder="Primer Nombre" pattern="[A-Za-z0-9 ñÑ]+" required>
             </div>
             <label for="nombre2" class="col-sm-2 control-label">2o Nombre</label>
             <div class="col-sm-3">
-              <input type="text" class="form-control" name="nombre2" id="nombre2" placeholder="Segundo Nombre">
+              <input type="text" class="form-control" name="nombre2" id="nombre2" placeholder="Segundo Nombre" pattern="[A-Za-z0-9 ñÑ]+">
             </div>
             <div class="col-sm-2" style="padding:0">
               <div class="col-sm-6" style="padding:0;height: 15px">
@@ -94,7 +94,7 @@ $hoy = date('Y-m-d');
           <div class="form-group">
             <label for="direccion" class="col-sm-2 control-label">Direccion </label>
             <div class="col-sm-8">
-              <input type="text" class="form-control" name="direccion" id="direccion" placeholder="Direccion" pattern="[A-Za-z0-9 ]+">
+              <input type="text" class="form-control" name="direccion" id="direccion" placeholder="Direccion" pattern="[A-Za-z0-9 ñÑ]+">
             </div>
           </div>
           <div class="form-group">
@@ -278,7 +278,7 @@ $hoy = date('Y-m-d');
         </div>
         <div id="datos_ajax_register"></div>
         <div class="modal-body">
-          <div div id="historicoReserva" style="position: relative;	text-align: center;top: 5px;width: 100%;"></div>
+          <div div id="historicoReserva" style="position: relative;	text-align: center;top: 5px;width: 100%;max-height: 380px;overflow: auto;"></div>
         </div>
       </div>
       <div class="modal-footer">
