@@ -9722,7 +9722,7 @@ class Hotel_Actions
         ], [
             'valores_tarifas.id' => $tipo,
         ]);
-        if (count($data) == 0) {
+        if (!$data) {
             return 'Sin Datos ' . $tipo;
         } else {
             return $data['descripcion_tarifa'];

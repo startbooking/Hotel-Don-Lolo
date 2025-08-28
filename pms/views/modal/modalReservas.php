@@ -17,13 +17,13 @@ $manana = date('Y-m-d', $manana);
         <div class="modal-body" id="modalReservasIns">
           <div id="mensaje" style="margin-bottom:-30px"></div>
           <div class="row">
-            <form class="form-horizontal" id="formReservas" action="javascript:guardaReserva()" method="POST">
+            <form class="form-horizontal" id="formReservas" method="POST">
               <div class="panel panel-success" id='pantallaNuevaReserva'>
                 <div class="panel-heading">
                   <div class="form-group">
                     <input type="hidden" name="tipoocupacion" value="1">
                     <input type="hidden" name="estadoocupacion" value="ES">
-                    <label for="inputEmail3" class="col-sm-2 control-label">Huesped</label>
+                    <label for="buscarHuesped" class="col-sm-2 control-label">Huesped</label>
                     <div class="form-group has-success has-feedback col-sm-6">
                       <div class="input-group" style="padding-left:15px;">
                         <input type="text" class="form-control" id="buscarHuesped" aria-describedby="inputGroupSuccess4Status" style="background:#FFF">
@@ -46,29 +46,29 @@ $manana = date('Y-m-d', $manana);
                   <div class="form-group">
                     <label for="llegada" class="col-sm-2 control-label">Llegada</label>
                     <div class="col-sm-3" style="padding-right: 20px">
-                      <input type="date" class="form-control" name="llegada" id="llegada" required="" value="<?php echo FECHA_PMS; ?>" min="<?php echo FECHA_PMS; ?>" onblur="sumaFecha()">
+                      <input type="date" class="form-control" name="llegada" id="llegada" required="" value="<?php echo FECHA_PMS; ?>" min="<?php echo FECHA_PMS; ?>">
                     </div>
                     <label for="noches" class="col-sm-1 control-label">Noches</label>
                     <div class="col-sm-2">
-                      <input type="number" class="form-control" name="noches" id="noches" required="" value='1' min='1' onchange="sumaFecha()">
+                      <input type="number" class="form-control" name="noches" id="noches" required="" value='1' min='1'>
                     </div>
                     <label for="salida" class="col-sm-1 control-label">Salida</label>
                     <div class="col-sm-3" style="padding-right: 20px">
-                      <input type="date" onfocus="sumaFecha()" onblur="restaFechas()" class="form-control" name="salida" id="salida" required="" value="<?php echo $manana; ?>" min="<?php echo $manana; ?>">
+                      <input type="date" class="form-control" name="salida" id="salida" required="" value="<?php echo $manana; ?>" min="<?php echo $manana; ?>">
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="hombres" class="col-sm-2 control-label">Hombres</label>
                     <div class="col-sm-1" style='padding-right: 5px'>
-                      <input type="number" class="form-control" name="hombres" id="hombres" required="" value="0" min=0>
+                      <input type="number" class="form-control" name="hombres" id="hombres" required="" value=0 min=0>
                     </div>
                     <label for="mujeres" class="col-sm-1 control-label">Mujeres</label>
                     <div class="col-sm-1" style='padding-right: 5px'>
-                      <input type="number" class="form-control" name="mujeres" id="mujeres" required="" value='0' min=0>
+                      <input type="number" class="form-control" name="mujeres" id="mujeres" required="" value=0 min=0>
                     </div>
                     <label for="ninos" class="col-sm-1 control-label">Niños</label>
                     <div class="col-sm-1" style='padding-right: 5px'>
-                      <input type="number" class="form-control" name="ninos" id="ninos" required="" value="0" min=0>
+                      <input type="number" class="form-control" name="ninos" id="ninos" required="" value=0 min=0>
                     </div>
                     <label for="orden" class="col-sm-2 control-label">Orden Nro</label>
                     <div class="col-sm-3">
@@ -78,7 +78,7 @@ $manana = date('Y-m-d', $manana);
                   <div class="form-group">
                     <label for="tipohabi" class="col-sm-2 control-label">Tipo Habitacion</label>
                     <div class="col-sm-4">
-                      <select name="tipohabi" id="tipohabi" required onblur="habitacionesDisponibles(1)">
+                      <select name="tipohabi" id="tipohabi" required>
                         <option value="">Seleccione el Tipo de Habitacion</option>
                         <?php
                         $tipos = $hotel->getTipoHabitacion();
@@ -99,13 +99,11 @@ $manana = date('Y-m-d', $manana);
                     <label for="tarifahab" class="col-sm-2 control-label">Tipo Tarifa</label>
                     <div class="col-sm-4">
                       <div>
-                        <select name="tarifahab" required="" id="tarifahab" onblur="valorHabitacion(this.value)">
+                        <select name="tarifahab" required="" id="tarifahab">
                           <option value="">Seleccione la Tarifa</option>
                           <?php
-                          $tarifas = $hotel->getTarifasHuespedes();
-                          foreach ($tarifas as $tarifa) { ?>
-                          <option value="<?php echo $tarifa['id_tarifa']; ?>"><?php echo $tarifa['descripcion_tarifa']; ?></option>
-                          <?php } ?>
+                          // La carga inicial de tarifas se ha movido a JavaScript
+                          ?>
                         </select>
                       </div>
                       </div>
@@ -117,7 +115,7 @@ $manana = date('Y-m-d', $manana);
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="tarifahab" class="col-sm-2 control-label">Procedencia</label>
+                    <label for="origen" class="col-sm-2 control-label">Procedencia</label>
                     <div class="col-sm-4">
                       <select name="origen" id="origen">
                         <option value="">Seleccione la Procedencia</option>
@@ -130,7 +128,7 @@ $manana = date('Y-m-d', $manana);
                         ?>
                       </select>
                     </div>
-                    <label for="tarifahab" class="col-sm-2 control-label">Destino</label>
+                    <label for="destino" class="col-sm-2 control-label">Destino</label>
                     <div class="col-sm-4">
                       <select name="destino" id="destino">
                         <option value="">Seleccione el Destino</option>
@@ -158,7 +156,7 @@ $manana = date('Y-m-d', $manana);
                         ?>
                       </select>
                     </div>
-                    <label for="tarifahab" class="col-sm-2 control-label">Fuente Reserva</label>
+                    <label for="fuente" class="col-sm-2 control-label">Fuente Reserva</label>
                     <div class="col-sm-4">
                       <select name="fuente" id="fuente">
                         <option value="">Seleccione Fuente</option>
@@ -173,7 +171,7 @@ $manana = date('Y-m-d', $manana);
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="tarifahab" class="col-sm-2 control-label">Segmento</label>
+                    <label for="segmento" class="col-sm-2 control-label">Segmento</label>
                     <div class="col-sm-4">
                       <select name="segmento" id="segmento">
                         <option value="">Seleccione el Segmento</option>
@@ -201,7 +199,7 @@ $manana = date('Y-m-d', $manana);
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="motivo" class="col-sm-2 control-label">Observaciones</label>
+                    <label for="observaciones" class="col-sm-2 control-label">Observaciones</label>
                     <div class="col-sm-10">
                       <textarea style="height: 5em !important;min-height: 5em" name="observaciones" id="observaciones" class="form-control" rows="4"></textarea>
                     </div>
@@ -210,7 +208,7 @@ $manana = date('Y-m-d', $manana);
                 <div class="panel-footer">
                   <div class="btn-group" style="width: 30%;margin-left:35%">
                     <button style="width: 50%" type="button" class="btn btn-warning btn-block" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
-                    <button style="width: 50%" class="btn btn-success" align="right"><i class="fa fa-save" aria-hidden="true"></i> Guardar</button>
+                    <button style="width: 50%" type="submit" class="btn btn-success" align="right"><i class="fa fa-save" aria-hidden="true"></i> Guardar</button>
                   </div>
                 </div>
               </div>

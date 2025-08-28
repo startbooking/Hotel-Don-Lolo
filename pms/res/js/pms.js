@@ -67,11 +67,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     } setTimeout(showAll, 400);
   });
 
-  let sinres = document.getElementById("formReservas");
-  if (sinres != null) {
-    sinres.reset();
-  }
-
   let cia = document.getElementById("pantallaCompaniasOld");
   if (cia != null) {
     var numRegis = 0;
@@ -98,6 +93,57 @@ document.addEventListener("DOMContentLoaded", async () => {
   let fact = document.getElementById("pantallaFacturacion");
   if (fact != null) {
     traeFacturasEstadia();
+  }
+
+  const formReservas = document.getElementById('formReservas');
+  if (formReservas) {
+    formReservas.reset();
+    const llegadaInput = document.getElementById('llegada');
+    const nochesInput = document.getElementById('noches');
+    const salidaInput = document.getElementById('salida');
+    const tipohabiSelect = document.getElementById('tipohabi');
+    const tarifahabSelect = document.getElementById('tarifahab');
+    const valortarInput = document.getElementById('valortar');
+    const nrohabitacionSelect = document.getElementById('nrohabitacion');
+    let globalTarifas
+    // Event listeners para las fechas y las noches
+    llegadaInput.addEventListener('change', () => {
+      sumaFecha();
+      habitacionesDisponibles(1);
+    });
+    nochesInput.addEventListener('change', () => {
+      sumaFecha();
+      habitacionesDisponibles(1);
+    });
+    salidaInput.addEventListener('change', () => {
+      restaFechas();
+      habitacionesDisponibles(1);
+    });
+
+    // Event listener para el tipo de habitación
+    tipohabiSelect.addEventListener('change', async () => {
+      habitacionesDisponibles(1);
+      globalTarifas = await cargarTarifas();
+      const limpia = await limpiaTarifas();
+      const llena = await llenaTarifas(globalTarifas);
+    });
+
+    // Event listener para el tipo de tarifa
+    tarifahabSelect.addEventListener('change', async (e) => {
+      let hombres = parseInt(document.querySelector('#hombres').value);
+      let mujeres = parseInt(document.querySelector('#mujeres').value);
+      let ninos = parseInt(document.querySelector('#ninos').value);
+
+      const valorTar = document.querySelector('#valortar')
+      const tarifaFiltrada = globalTarifas.find(tarifa => tarifa.id == parseInt(e.target.value));
+      let valor  = await valorTarifaHabitacion(hombres+mujeres, ninos, tarifaFiltrada);
+      valorTar.value = valor
+    });
+
+    formReservas.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      let guarda = await guardaReserva();
+    });
   }
 
   $('#example1').DataTable({
@@ -673,9 +719,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   $("#myModalAnulaFacturaHistorico").on("show.bs.modal", function (event) {
     sesion = JSON.parse(localStorage.getItem("sesion"));
-    let {
-      user: { tipo },
-    } = sesion;
+    let { user: { tipo },} = sesion;
     if (tipo > 2) {
       swal("Precaucion", "Usuario NO Permitido Anular Factura", "warning");
       $("#myModalAnulaFacturaHistorico").modal("hiden");
@@ -1294,6 +1338,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     var button = $(event.relatedTarget);
     var modal = $(this);
     var buscar = $("#buscarHuesped").val();
+
     var parametros = {
       buscar,
     };
@@ -1684,18 +1729,70 @@ document.addEventListener("DOMContentLoaded", async () => {
     formRes = document.querySelector("#formReservas").reset();
   });
 
-  $("#myModalModificaReserva").on("show.bs.modal", function (event) {
+  $("#myModalModificaReserva").on("show.bs.modal", async function (event) {
     var button = $(event.relatedTarget);
     var id = button.data("id");
     var nombre = button.data("nombre");
     var modal = $(this);
     $("#editaRes").val(1);
-    var parametros = {
-      id,
-    };
     modal.find(".modal-title").text("Modifica Reserva Actual: " + nombre);
+    let modalUpd = document.querySelector('#modalReservasUpd');
+    let modifica = await traeReservaModificar(id);
+    modalUpd.innerHTML = modifica;
 
-    $.ajax({
+    const formReservas = document.getElementById('formUpdateReservas');
+    const llegadaInput = document.getElementById('llegadaUpd');
+    const nochesInput = document.getElementById('nochesUpd');
+    const salidaInput = document.getElementById('salidaUpd');
+    const tipohabiSelect = document.getElementById('tipohabiUpd');
+    const tarifahabSelect = document.getElementById('tarifahabUpd');
+    const valortarInput = document.getElementById('valortarifaUpd');
+    const nrohabitacionSelect = document.getElementById('nrohabitacionUpd');
+    let globalTarifas
+    // Event listeners para las fechas y las noches
+    llegadaInput.addEventListener('change', () => {
+      sumaFecha();
+      habitacionesDisponibles(2);
+    });
+    nochesInput.addEventListener('change', () => {
+      sumaFecha();
+      habitacionesDisponibles(2);
+    });
+    salidaInput.addEventListener('change', () => {
+      restaFechas();
+      habitacionesDisponibles(2);
+    });
+
+    // Event listener para el tipo de habitación
+    tipohabiSelect.addEventListener('blur', async () => {
+      console.log('PAso Evento OnBLur')
+      await habitacionesDisponibles(2);
+      globalTarifas = await cargarTarifas();
+      const limpia = await limpiaTarifas();
+      const llena = await llenaTarifas(globalTarifas);
+      const valorTar = document.querySelector('#valortarifaUpd')
+      valorTar.value = 0;
+
+    });
+
+    // Event listener para el tipo de tarifa
+    tarifahabSelect.addEventListener('change', async (e) => {
+      let hombres = parseInt(document.querySelector('#hombresUpd').value);
+      let mujeres = parseInt(document.querySelector('#mujeresUpd').value);
+      let ninos = parseInt(document.querySelector('#ninosUpd').value);
+
+      const valorTar = document.querySelector('#valortarifaUpd')
+      const tarifaFiltrada = globalTarifas.find(tarifa => tarifa.id == parseInt(e.target.value));
+      let valor  = await valorTarifaHabitacion(hombres+mujeres, ninos, tarifaFiltrada);
+      valorTar.value = valor
+    });
+
+    formReservas.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      let guarda = await updateReserva();
+    });
+
+    /* $.ajax({
       type: "POST",
       data: parametros,
       url: "res/php/dataUpdateReserva.php",
@@ -1703,8 +1800,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         $("#modalReservasUpd").html("");
         $("#modalReservasUpd").html(datos);
       },
-    });
+    }); */
     $(".alert").hide();
+
   });
 
   $("#myModalCancelaReserva").on("show.bs.modal", function (event) {
@@ -1855,9 +1953,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         $("#datosCia").html(datos);
         tipodoc = parseInt(document.querySelector('#formUpdateCompania #tipodoc').value);
         pais = parseInt(document.querySelector("#paicesUpd").value);
-        if(tipodoc == 8 || tipodoc == 9 ){
-          toggleNacionalFields(tipodoc, pais,1)
-        } 
+        if (tipodoc == 8 || tipodoc == 9) {
+          toggleNacionalFields(tipodoc, pais, 1)
+        }
         if (tipo > 2) {
           document.querySelector('#formUpdateCompania #inlineRadio1').readonly = true
           document.querySelector('#formUpdateCompania #inlineRadio2').readonly = true
@@ -2271,6 +2369,196 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 });
 
+async function cargarTarifas() {
+  let editaReserva = document.querySelector("#editaRes").value;
+  let llegadaInput
+  let salidaInput
+  let tipohabiSelect
+  if (editaReserva == 1) {
+    llegadaInput = document.getElementById('llegadaUpd');
+    salidaInput = document.getElementById('salidaUpd');
+    tipohabiSelect = document.getElementById('tipohabiUpd');
+  }else{
+    llegadaInput = document.getElementById('llegada');
+    salidaInput = document.getElementById('salida');
+    tipohabiSelect = document.getElementById('tipohabi');
+
+  }
+
+  const tipoHabitacion = tipohabiSelect.value;
+  const llegada = llegadaInput.value;
+  const salida = salidaInput.value;
+
+  if (!tipoHabitacion || !llegada || !salida) {
+    tarifahabSelect.innerHTML = '<option value="">Seleccione la Tarifa</option>';
+    return;
+  }
+
+  const url = 'res/php/getTarifasHabitaciones.php';
+  const requestBody = {
+    tipoHabitacion,
+    llegada,
+    salida
+  };
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestBody),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error en la red: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+
+    if (data) {
+      // Si la API responde con éxito, resolvemos la promesa con los datos
+      return data;
+    } else {
+      // Si la API responde con un error de negocio, rechazamos la promesa
+      throw new Error('Sin tarifas asociadas a este tipo de habitacion');
+    }
+
+  } catch (error) {
+    console.error('Hubo un problema con la solicitud:', error);
+    // En caso de error, rechazamos la promesa para que el .catch() lo maneje
+    throw error;
+  }
+
+}
+
+async function traeReservaModificar(id){
+  // console.log(id)
+  const url = 'res/php/dataUpdateReserva.php';
+  const requestBody = {
+    id,
+  };
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestBody),
+    });
+
+    console.log(response)
+
+    if (!response.ok) {
+      throw new Error(`Error en la red: ${response.statusText}`);
+    }
+
+    const data = await response.text();
+
+    if (data) {
+      // Si la API responde con éxito, resolvemos la promesa con los datos
+      return data;
+    } else {
+      // Si la API responde con un error de negocio, rechazamos la promesa
+      throw new Error('Sin tarifas asociadas a este tipo de habitacion');
+    }
+
+  } catch (error) {
+    console.error('Hubo un problema con la solicitud:', error);
+    // En caso de error, rechazamos la promesa para que el .catch() lo maneje
+    throw error;
+  }
+
+}
+
+async function valorTarifaHabitacion(adultos, ninos, tarifa){
+  switch (adultos) {
+    case 1:
+      valorAdulto = tarifa.valor_un_pax
+      break;
+    case 2:
+      valorAdulto = tarifa.valor_dos_pax
+      break;
+    case 3:
+      valorAdulto = tarifa.valor_tre_pax
+      break; 
+    case 4:
+      valorAdulto = tarifa.valor_cua_pax
+      break;
+    case 5:
+      valorAdulto = tarifa.valor_cin_pax
+      break;
+    case 6:
+      valorAdulto = tarifa.valor_sei_pax
+      break;
+    case 7:
+      valorAdulto = tarifa.valor_sie_pax
+      break;
+    case 8:
+      valorAdulto = tarifa.valor_och_pax
+      break;
+    case 9:
+      valorAdulto = tarifa.valor_nue_pax
+      break;
+    case 10:
+      valorAdulto = tarifa.valor_die_pax
+      break;
+    default:
+      break;
+  }
+
+  valorNino = ninos * tarifa.valor_nino;
+  return valorAdulto + valorNino;
+}
+
+function sumaFecha() {
+  let nochesInput
+  let salidaInput
+  let editaReserva = document.querySelector("#editaRes").value;
+  if (editaReserva == 1) {
+    llegadaInput = document.getElementById('llegadaUpd');
+    nochesInput = document.getElementById('nochesUpd');
+    salidaInput = document.getElementById('salidaUpd');
+  } else {
+    llegadaInput = document.getElementById('llegada');
+    nochesInput = document.getElementById('noches');
+    salidaInput = document.getElementById('salida');
+  }
+
+  const llegada = new Date(llegadaInput.value);
+  const noches = parseInt(nochesInput.value, 10);
+  if (llegada && !isNaN(noches) && noches > 0) {
+    const salida = new Date(llegada);
+    salida.setDate(salida.getDate() + noches);
+    salidaInput.value = salida.toISOString().split('T')[0];
+  }
+}
+
+// Lógica para calcular el número de noches a partir de la llegada y la salida
+function restaFechas() {
+  let nochesInput
+  let salidaInput
+  let editaReserva = document.querySelector("#editaRes").value;
+  if (edita == 1) {
+    llegadaInput = document.getElementById('llegadaUpd');
+    nochesInput = document.getElementById('nochesUpd');
+    salidaInput = document.getElementById('salidaUpd');
+
+  } else {
+    llegadaInput = document.getElementById('llegada');
+    nochesInput = document.getElementById('noches');
+    salidaInput = document.getElementById('salida');
+  }
+
+  const llegada = new Date(llegadaInput.value);
+  const salida = new Date(salidaInput.value);
+  if (llegada && salida) {
+    const diffTime = Math.abs(salida - llegada);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    nochesInput.value = diffDays > 0 ? diffDays : 1;
+  }
+}
 
 async function traeInfoTercero(numero, tipo) {
   const eToken = await traeToken();
@@ -2848,6 +3136,37 @@ async function traeReservasTotal() {
   }
 }
 
+async function llenaTarifas(tarifas) {
+  let editaReserva = document.querySelector("#editaRes").value;
+  let selectElement 
+  if(editaReserva==1){
+    selectElement = document.querySelector("#tarifahabUpd");
+  }else{
+    selectElement = document.querySelector("#tarifahab");
+  }
+
+  tarifas.map((item) => {
+    let { id, descripcion_tarifa  } = item
+    const optionElement = document.createElement("option");
+    optionElement.value = id;
+    optionElement.text = `${descripcion_tarifa}`;
+    selectElement.add(optionElement);
+  });
+
+}
+
+async function limpiaTarifas() {
+  let editaReserva = document.querySelector("#editaRes").value;
+  let selectElement
+  if(editaReserva==1){
+    selectElement = document.querySelector("#tarifahabUpd");
+  }else {
+    selectElement = document.querySelector("#tarifahab");
+  }
+  while (selectElement.firstChild) {
+    selectElement.removeChild(selectElement.firstChild);
+  }
+}
 
 async function llenaSelectCamareras(camareras) {
   let selectElement = document.querySelector("#reportadoPor");
@@ -5758,7 +6077,7 @@ const ingresaDatosFE = async (datosFe) => {
   } catch (error) {
     return error;
   }
-}; 
+};
 
 const creaJSONFactura = async (factura) => {
   data = { factura };
@@ -6881,7 +7200,7 @@ function seleccionaHabitacionUpd(tipohab, anterior, numero, llega, sale) {
   });
 }
 
-function updateReserva() {
+async function updateReserva() {
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var parametros = $("#formUpdateReservas").serialize();
@@ -6890,7 +7209,7 @@ function updateReserva() {
     data: parametros,
     url: "res/php/updateReserva.php",
     success: function (datos) {
-      $(location).attr("href", "reservasActivas");
+      // $(location).attr("href", "reservasActivas");
     },
   });
 }
@@ -6978,7 +7297,7 @@ async function actualizaHuesped() {
   $.ajax({
     type: "POST",
     data: dataHuesp,
-    cache: false, 
+    cache: false,
     contentType: false,
     processData: false,
     url: "res/php/updateHuesped.php",
@@ -7682,21 +8001,21 @@ function apagaEstado(tipo) {
   }
 }
 
-function toggleNacionalFields(documentTypeId,codiPais, edita) {
+function toggleNacionalFields(documentTypeId, codiPais, edita) {
   // Selecciona todos los elementos con la clase 'nacional'
-  documentTypeId = parseInt(documentTypeId) ;
-  let depto 
+  documentTypeId = parseInt(documentTypeId);
+  let depto
   let pais
   let tipo
   let ciu
 
   const nacionalFields = document.querySelectorAll('.nacional');
-  if(edita === 0){
+  if (edita === 0) {
     depto = document.querySelector('#depto');
     pais = document.querySelector('#paices');
     tipo = document.querySelector('#tipoEmpresaAdi');
     ciu = document.querySelector('#codigoCiiuAdi');
-  }else{
+  } else {
     depto = document.querySelector('#deptoUpd');
     pais = document.querySelector('#paicesUpd');
     tipo = document.querySelector('#tipoEmpresaUpd');
@@ -7715,7 +8034,7 @@ function toggleNacionalFields(documentTypeId,codiPais, edita) {
       field.classList.remove('bg-gray-100');
     }
   });
-  if(depto !=null ){
+  if (depto != null) {
     depto.disabled = !isPerson;
     if (!isPerson) {
       depto.classList.add('bg-gray-100');
@@ -7725,7 +8044,7 @@ function toggleNacionalFields(documentTypeId,codiPais, edita) {
       depto.classList.remove('bg-gray-100');
       pais.disabled = false;
       tipo.value = "";
-      ciu.value = "" ;
+      ciu.value = "";
     }
   }
 }
@@ -7887,7 +8206,7 @@ async function validaDatosEmpresa(id) {
   } catch (error) { }
 }
 
-function restaFechas() {
+function restaFechasOld() {
   let llega;
   let sale;
   let noches;
@@ -7912,7 +8231,7 @@ function restaFechas() {
   }
 }
 
-function sumaFecha() {
+function sumaFechaOld() {
   let fecha;
   let dias;
   let edita = document.querySelector("#editaRes").value;
@@ -8258,14 +8577,14 @@ function guardaCompania() {
     url: "res/php/ingresoCompania.php",
     success: function (resp) {
       respo = JSON.parse(resp)
-      if(respo.id === "0"){
+      if (respo.id === "0") {
         swal({
           title: "Error!",
           text: respo.error,
           type: "error",
           confirmButtonText: "Aceptar",
         });
-      }else{
+      } else {
         $(location).attr("href", pagina);
       }
     },
@@ -8540,6 +8859,7 @@ function seleccionaTarifas() {
 }
 
 function valorHabitacion(tarifa) {
+  console.log(tarifa)
   let tipo = $("#tipohabi").val();
   let hom = $("#hombres").val();
   let muj = $("#mujeres").val();
@@ -8591,15 +8911,15 @@ function valorHabitacion(tarifa) {
   });
 }
 
-function guardaReserva() {
+async function guardaReserva() {
   iden = $("#identifica").val();
   if (iden == "") {
     swal("Precaucion", "Seleccione el Huesped a Reservar", "warning");
     return;
   }
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario, usuario_id } = user;
+  let { user: { usuario, usuario_id }, } = sesion;
+  // let  = user;
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var parametros = $("#formReservas").serializeArray();
@@ -9000,8 +9320,8 @@ function imprimirPreRegistro(reserva) {
 
 function confirmarReserva(reserva) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario } = user;
+  let { user: { usuario }, } = sesion;
+
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   reserva = $.trim(reserva);

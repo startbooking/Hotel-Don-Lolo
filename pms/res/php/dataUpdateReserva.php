@@ -2,7 +2,9 @@
 // require '../../../res/php/titles.php';
 require '../../../res/php/app_topHotel.php';
 
-$id = $_POST['id'];
+$data = json_decode(file_get_contents('php://input'), true);
+extract($data);
+// $id = $data['id'];
 $reserva = $hotel->getBuscaReserva($id);
 $llega = $reserva['fecha_llegada'];
 $sale  = $reserva['fecha_salida'];
@@ -13,12 +15,8 @@ $tipodocs = $hotel->getTipoDocumento();
 $tipos = $hotel->getTipoHabitacion();
 $ciudades = $hotel->getCiudades();
 $habitaciones = $hotel->getSeleccionaHabitacionesTipo($tipohab);
-// $tarifas = $hotel->getSeleccionaTarifa($tipohab, $llega, $sale);
 $companias = $hotel->getCompanias();
 $tarifas = $hotel->getTarifasTipoHabitacion($reserva['tipo_habitacion'], $reserva['fecha_llegada'], $reserva['fecha_salida']);
-
-// print_r($tarifas);
-print_r($reserva);
 
 ?>
 <div class="panel panel-success">
@@ -111,7 +109,7 @@ print_r($reserva);
     <div class="form-group">
       <label for="llegada" class="col-sm-2 control-label">Llegada</label>
       <div class="col-sm-3">
-        <input type="date" class="form-control" name="llegadaUpd" id="llegadaUpd" required="" onblur="sumaFecha()" value="<?php echo $reserva['fecha_llegada']; ?>" min='
+        <input type="date" class="form-control" name="llegadaUpd" id="llegadaUpd" required="" value="<?php echo $reserva['fecha_llegada']; ?>" min='
         <?php
         if ($reserva['tipo_reserva'] == 2) {
           echo $reserva['fecha_llegada'];
@@ -127,11 +125,11 @@ print_r($reserva);
       </div>
       <label for="noches" class="col-sm-1 control-label">Noches</label>
       <div class="col-sm-1" style="padding:0 5px">
-        <input type="number" class="form-control" name="nochesUpd" id="nochesUpd" required="" value='<?php echo $reserva['dias_reservados']; ?>' min='1' onchange="sumaFecha()">
+        <input type="number" class="form-control" name="nochesUpd" id="nochesUpd" required="" value='<?php echo $reserva['dias_reservados']; ?>' min='1'>
       </div>
       <label for="salida" class="col-sm-2 control-label">Salida</label>
       <div class="col-sm-3">
-        <input type="date" onfocus="sumaFecha()" onblur="restaFechas()" class="form-control" name="salidaUpd" id="salidaUpd" required="" value="<?php echo $reserva['fecha_salida']; ?>">
+        <input type="date" class="form-control" name="salidaUpd" id="salidaUpd" required="" value="<?php echo $reserva['fecha_salida']; ?>">
       </div>
     </div>
     <div class="form-group">
@@ -155,7 +153,7 @@ print_r($reserva);
     <div class="form-group">
       <label for="tipohabi" class="col-sm-2 control-label">Tipo Habitacion</label>
       <div class="col-sm-4">
-        <select name="tipohabiUpd" id="tipohabiUpd" required onblur="habitacionesDisponibles(2)">
+        <select name="tipohabiUpd" id="tipohabiUpd" required>
           <?php
           foreach ($tipos as $tipo) {
           ?>
@@ -195,7 +193,7 @@ print_r($reserva);
       <label for="tarifahab" class="col-sm-2 control-label">Tipo Tarifa</label>
       <div class="col-sm-4">
         <div>
-          <select name="tarifahabUpd" id="tarifahabUpd" required onblur="valorHabitacionUpd(this.value)">
+          <select name="tarifahabUpd" id="tarifahabUpd" required>
             <?php
             foreach ($tarifas as $tarifa) { ?>
               <option value="<?php echo $tarifa['id']; ?>"
@@ -238,7 +236,7 @@ print_r($reserva);
       <label for="tarifahab" class="col-sm-2 control-label">Destino</label>
       <div class="col-sm-4">
         <select name="destino" id="destino">
-          <option value="">Seleccione la Ciudad de Destino</option>}
+          <option value="">Seleccione la Ciudad de Destino</option>
           <?php
           foreach ($ciudades as $ciudad) { ?>
             <option value="<?php echo $ciudad['id_ciudad']; ?>"
@@ -247,7 +245,7 @@ print_r($reserva);
               selected
               <?php
               }
-              ?>><?php echo $ciudad['municipio'] . ' ' . $ciudad['depto']; ?></option>}
+              ?>><?php echo $ciudad['municipio'] . ' ' . $ciudad['depto']; ?></option>
           <?php
           }
           ?>
@@ -269,7 +267,7 @@ print_r($reserva);
               <?php
               }
               ?>>
-              <?php echo $motivo['descripcion_grupo']; ?></option>}
+              <?php echo $motivo['descripcion_grupo']; ?></option>
           <?php
           }
           ?>
@@ -288,7 +286,7 @@ print_r($reserva);
               selected
               <?php
               }
-              ?>><?php echo $motivo['descripcion_grupo']; ?></option>}
+              ?>><?php echo $motivo['descripcion_grupo']; ?></option>
           <?php
           }
           ?>
@@ -309,7 +307,7 @@ print_r($reserva);
               selected
               <?php
               }
-              ?>><?php echo $motivo['descripcion_grupo']; ?></option>}
+              ?>><?php echo $motivo['descripcion_grupo']; ?></option>
           <?php
           }
           ?>
