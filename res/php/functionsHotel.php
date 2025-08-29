@@ -6,12 +6,13 @@ date_default_timezone_set('America/Bogota');
 class Hotel_Actions
 {
 
-    public function getTarifasTipoHabitacionOld($tipo, $desde, $hasta){
+    public function getTarifasTipoHabitacionOld($tipo, $desde, $hasta)
+    {
         global $database;
 
         echo $hasta;
 
-        $data = $database->select('valores_tarifas',[
+        $data = $database->select('valores_tarifas', [
             'descripcion_tarifa',
             'valor_un_pax',
             'valor_dos_pax',
@@ -29,13 +30,13 @@ class Hotel_Actions
         ], [
             "id_tipohabitacion" => $tipo,
             /*  "desde_fecha[>=]"  => $desde, */
-            "hasta_fecha[<=]"  => $hasta, 
+            "hasta_fecha[<=]"  => $hasta,
         ]);
         return $data;
-
     }
 
-    public function getTarifasTipoHabitacion($tipo, $desde, $hasta){
+    public function getTarifasTipoHabitacion($tipo, $desde, $hasta)
+    {
         global $database;
 
         $data = $database->query("SELECT
@@ -65,8 +66,7 @@ class Hotel_Actions
             descripcion_tarifa ASC")->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     }
-    
-    
+
     public function traeValorTarifa($tarifa, $tipo, $desde, $hasta)
     {
         global $database;
@@ -7495,7 +7495,7 @@ class Hotel_Actions
 
         $result = [
             'id' => $data->rowCount(),
-            'error' => $database->error,
+            'error' => $database->errorInfo,
         ];
 
         return $result;
@@ -7581,7 +7581,7 @@ class Hotel_Actions
 
         $result = [
             'id' => $data->rowCount(),
-            'error' => $database->error,
+            'error' => $database->errorInfo,
         ];
         return $result;
     }
@@ -9807,7 +9807,7 @@ class Hotel_Actions
 
         $result = [
             'id' => $database->id(),
-            'error' => $database->error,
+            'error' => $database->errorInfo,
         ];
 
         return $result;
@@ -9892,7 +9892,7 @@ class Hotel_Actions
 
         $result = [
             'id' => $database->id(),
-            'error' => $database->error,
+            'error' => $database->errorInfo,
         ];
 
         return $result;
@@ -10161,7 +10161,8 @@ class Hotel_Actions
         global $database;
 
         $data = $database->get('huespedes', [
-            '[>]companias' => ['id_compania' => 'id_compania']
+            '[>]companias' => ['id_compania' => 'id_compania'],
+            '[>]tipo_documento' => ['tipo_identifica' => 'id_doc']
         ], [
             'huespedes.id_huesped',
             'huespedes.identificacion',
@@ -10174,9 +10175,11 @@ class Hotel_Actions
             'huespedes.tipo_identifica',
             'huespedes.email',
             'huespedes.sexo',
+            'huespedes.id_tarifa',
             'huespedes.id_compania',
             'huespedes.pais',
-            'companias.credito'
+            'companias.credito',
+            'tipo_documento.descripcion_documento'
         ], [
             'huespedes.id_huesped' => $id,
         ]);
@@ -10409,6 +10412,8 @@ class Hotel_Actions
         $data = $database->select('reservas_pms', [
             '[>]companias' => ['id_compania' => 'id_compania'],
             '[>]huespedes' => ['id_huesped' => 'id_huesped'],
+            '[>]valores_tarifas' => ['tarifa' => 'id'],
+            '[>]tipo_habitaciones' => ['tipo_habitacion' => 'id'],
         ], [
             'reservas_pms.id',
             'reservas_pms.cantidad',
@@ -10445,6 +10450,8 @@ class Hotel_Actions
             'huespedes.fecha_nacimiento',
             'huespedes.id_huesped',
             'companias.empresa',
+            'valores_tarifas.descripcion_tarifa',
+            'tipo_habitaciones.descripcion_habitacion'
         ], [
             'reservas_pms.tipo_reserva' => $tipo,
             'reservas_pms.estado' => $estado,

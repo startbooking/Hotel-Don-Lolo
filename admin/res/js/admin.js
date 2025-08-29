@@ -18,9 +18,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     );
   }
 
-  let {
-    user: { usuario_id, nombres, apellidos, usuario },
-  } = sesion;
+  let { user: { usuario_id, nombres, apellidos, usuario }, } = sesion;
 });
 
 /* CONFIGURACION GENERAL */
@@ -39,8 +37,6 @@ function estadoResolucion(id, estado, cambio) {
 
   mensaje = estado == 1 ? 'desactivar' : 'activar'
   confirma = estado == 1 ? 'Desactivala' : 'Activala'
-
-
 
   Swal.fire({
     title: `¿Está seguro de ${mensaje} la resolucion actual ?`,
@@ -173,7 +169,6 @@ async function guardaResolucion() {
     });
   }
 }
-
 async function adicionaResolucion(data) {
   try {
     const resultado = await fetch("res/php/adicionaResolucion.php", {
@@ -366,6 +361,77 @@ function guardaImpuestos() {
     },
   });
 }
+
+function guardaRetencion() {
+  var pagina = $("#ubicacion").val();
+  var ruta = $("#rutaweb").val();
+  var impuestos = $("#guardarDatosRetencion").serialize();
+  // var parametros = impuestos;
+  $.ajax({
+    url: ruta + "res/php/guardaRetencion.php",
+    type: "POST",
+    data: impuestos,
+    success: function (objeto) {
+      $("#mensaje").html(
+        '<div style="padding:5px" class="alert alert-info"><h4" align="center">Retencion Ingresada con Exito</h4></div>'
+      );
+      $(location).attr("href", ruta + pagina);
+    },
+  });
+}
+
+function actualizaRetencion() {
+  var pagina = $("#ubicacion").val();
+  var ruta = $("#rutaweb").val();
+  var impuestos = $("#modificaDatosRetencion").serialize();
+  // console.log(impuestos);
+  // var parametros = impuestos;
+  $.ajax({
+    url: ruta + "res/php/actualizaRetencion.php",
+    type: "POST",
+    data: impuestos,
+    success: function (objeto) {
+      $("#mensaje").html(
+        '<div style="padding:5px" class="alert alert-info"><h4" align="center">Retencion Ingresada con Exito</h4></div>'
+      );
+      $(location).attr("href", ruta + pagina);
+    },
+  });
+}
+
+async function eliminaRetencion(nombre, id) {
+  let pagina = $("#ubicacion").val();
+  let ruta = $("#rutaweb").val();
+
+  return new Promise((resolve) => {
+    swal({
+        title: `Retencion ${nombre}`,
+        text: "Este proceso Eliminara la retencion Actual  \n No se podra recuperar la Informacion \n",
+        type: "warning",
+        showCancelButton: true,
+        cancelButtonText: "Cancelar",
+        confirmButtonText: "¡Adelante!",
+        closeOnConfirm: false,
+      },
+      async function () {
+        req = { id };
+        const resultado = await fetch("res/php/eliminaRetencion.php", {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+          body: JSON.stringify(req),
+        });
+        let dato = await resultado.json();
+        console.log(dato)
+        // $(location).attr("href", "usuarios.php");
+        $(location).attr("href", ruta + pagina);
+
+      }
+    );
+  });
+}
+
 
 /* Usuarios del Sisterma*/
 function reabrirUsuario() {
@@ -618,9 +684,9 @@ function eliminaEquipo() {
   var descrip = $("#descripcionEli").val();
 
   parametros = {
-    id: id,
-    equipo: equipo,
-    descrip: descrip,
+    id,
+    equipo,
+    descrip,
   };
   $.ajax({
     url: ruta + "res/php/eliminaEquipos.php",
@@ -2552,7 +2618,7 @@ function activaPago(id, tipo) {
 /* Funciones de Modal */
 $(document).ready(function () {
 
-    $("#myModalModifica").on("show.bs.modal", function (event) {
+  $("#myModalModifica").on("show.bs.modal", function (event) {
     let button = $(event.relatedTarget);
     let data = button.data("resolucion");
 
@@ -3138,6 +3204,21 @@ $(document).ready(function () {
     modal.find(".modal-body #pucModImp").val(puc);
     modal.find(".modal-body #descripcionModImp").val(contab);
     modal.find(".modal-body #imptoDianUpd").val(dian);
+  });
+
+  $("#myModalModificaRetencion").on("show.bs.modal", function (event) {
+    var button = $(event.relatedTarget);
+    var retencion = button.data("retencion");
+    var modal = $(this);
+
+    modal.find(".modal-title").text("Modifica Impuesto : " + retencion.descripcionRetencion);
+    modal.find(".modal-body #idImptoModImp").val(retencion.idRetencion);
+    modal.find(".modal-body #nombreModImp").val(retencion.descripcionRetencion);
+    modal.find(".modal-body #porcentajeModImp").val(retencion.porcentajeRetencion);
+    modal.find(".modal-body #baseReteUpd").val(retencion.baseRetencion);
+    modal.find(".modal-body #tipoReteUpd").val(retencion.tipoRetencion);
+    modal.find(".modal-body #imptoDianUpd").val(retencion.feCode);
+    modal.find(".modal-body #pucModImp").val(retencion.codigoPuc);
   });
 
   /* Modal Familias de Inventarios */

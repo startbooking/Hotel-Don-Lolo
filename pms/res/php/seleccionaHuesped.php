@@ -3,12 +3,6 @@
 require '../../../res/php/app_topHotel.php';
 $id = $_POST['id'];
 $huesped = $hotel->getSeleccionaHuesped($id);
-
-if (!empty($huesped['tipo_identifica'])) {
-  $tipoDoc = $hotel->getTipoDocumentoHuesped($huesped['tipo_identifica']);
-} else {
-  $tipoDoc = '';
-} 
  
 if (empty($huesped)) {
   echo '0';
@@ -22,6 +16,7 @@ if (empty($huesped)) {
       <input type="hidden" name="identifica" id="identifica" value="<?php echo $huesped['identificacion']; ?>">
       <input type="hidden" name="idcia" id="idcia" value="<?php echo $huesped['id_compania']; ?>">
       <input type="hidden" name="credito" id="credito" value="<?php echo $huesped['credito']; ?>">
+      <input type="hidden" name="idtarifa" id="idtarifa" value="<?php echo $huesped['id_tarifa']; ?>">
     </div>
     <label for="inputEmail3" class="col-sm-2 control-label" style="margin-top:5px;">Decreto 297 </label>
     <div class="col-sm-2 ondisplay" style="margin-top:5px;">

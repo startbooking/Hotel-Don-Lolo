@@ -6,29 +6,100 @@
     class Hotel_Admin
     {
 
-        public function resolucionesActivas(){
+        public function eliminaRetencion($id)
+        {
             global $database;
 
-            $data = $database->count('resoluciones',[
+            $data = $database->delete('retenciones', [
+                'idRetencion' => $id,
+            ]);
+            return $data->rowCount();
+        }
+
+        public function updateRetencion($idImptoModImp, $nombreModImp, $porcentajeModImp, $baseReteUpd, $tipoReteUpd, $imptoDianUpd, $pucModImp)
+        {
+            global $database;
+
+            $data = $database->update('retenciones', [
+                'descripcionRetencion' => $nombreModImp,
+                'porcentajeRetencion' => $porcentajeModImp,
+                'baseRetencion' => $baseReteUpd,
+                'tipoRetencion' => $tipoReteUpd,
+                'codigoPuc' => $pucModImp,
+                'feCode' => $imptoDianUpd,
+            ], [
+                'idRetencion' => $idImptoModImp,
+            ]);
+            return $data->rowCount();
+        }
+
+        public function insertRetencion($nombreAdi, $porcentaje, $baseRete, $tipoRete, $imptoDian, $pucAdi)
+        {
+            global $database;
+
+            $data = $database->insert('retenciones', [
+                'descripcionRetencion' => $nombreAdi,
+                'porcentajeRetencion' => $porcentaje,
+                'baseRetencion' => $baseRete,
+                'tipoRetencion' => $tipoRete,
+                'codigoPuc' => $pucAdi,
+                'estado' => 1,
+                'feCode' => $imptoDian,
+            ]);
+            $result = [
+                'id' => $database->id(),
+                'error' => $database->errorInfo,
+            ];
+
+            return $result;
+        }
+
+        public function getRetenciones()
+        {
+            global $database;
+
+            $data = $database->select('retenciones', [
+                '[>]dianImpuestos' => ['feCode' => 'id']
+            ], [
+                'retenciones.idRetencion',
+                'retenciones.idCargo',
+                'retenciones.descripcionRetencion',
+                'retenciones.porcentajeRetencion',
+                'retenciones.baseRetencion',
+                'retenciones.codigo',
+                'retenciones.procedimiento',
+                'retenciones.filtroRetenciones',
+                'retenciones.tipoRetencion',
+                'retenciones.codigoPuc',
+                'retenciones.estado',
+                'retenciones.feCode',
+                'dianImpuestos.name',
+            ]);
+            return $data;
+        }
+        public function resolucionesActivas()
+        {
+            global $database;
+
+            $data = $database->count('resoluciones', [
                 'AND' => ['estado' => 1]
             ]);
             return $data;
-
-
         }
 
-        public function cambiaEstado($id, $cambio){
+        public function cambiaEstado($id, $cambio)
+        {
             global $database;
 
-            $data = $database->update('resoluciones',[
+            $data = $database->update('resoluciones', [
                 'estado' => $cambio,
-            ],[
+            ], [
                 'id' => $id
             ]);
 
             $result = [
                 'id' => $data->rowCount(),
-                'error' => $database->error,
+                'error' => $database->errorInfo,
             ];
 
             return $result;
@@ -36,10 +107,11 @@
 
         }
 
-        public function insertResolucion($resol, $desde, $hasta, $prefijo, $fecha, $tipo, $vigencia){
+        public function insertResolucion($resol, $desde, $hasta, $prefijo, $fecha, $tipo, $vigencia)
+        {
             global $database;
 
-            $data = $database->insert('resoluciones',[
+            $data = $database->insert('resoluciones', [
                 'resolucion' => $resol,
                 'fecha' => $fecha,
                 'prefijo' => $prefijo,
@@ -53,15 +125,16 @@
             ]);
             $result = [
                 'id' => $database->id(),
-                'error' => $database->error,
+                'error' => $database->errorInfo,
             ];
             return $result;
         }
-        
-        public function updateResolucion($resol, $desde, $hasta, $prefijo, $fecha, $tipo, $vigencia, $id){
+
+        public function updateResolucion($resol, $desde, $hasta, $prefijo, $fecha, $tipo, $vigencia, $id)
+        {
             global $database;
 
-            $data = $database->update('resoluciones',[
+            $data = $database->update('resoluciones', [
                 'resolucion' => $resol,
                 'fecha' => $fecha,
                 'prefijo' => $prefijo,
@@ -72,51 +145,53 @@
                 'modulo' => 1,
                 'tipoDocumento' => 1,
                 'vigencia' => $vigencia,
-            ],[
+            ], [
                 'id' => $id
             ]);
             $result = [
                 'id' => $data->rowCount(),
-                'error' => $database->error,
+                'error' => $database->errorInfo,
             ];
             return $result;
         }
 
-        public function eliminaResolucion($id){
+        public function eliminaResolucion($id)
+        {
             global $database;
 
-            $data = $database->delete('resoluciones',[
+            $data = $database->delete('resoluciones', [
                 'id' => $id,
             ]);
             return $data->rowCount();
-
         }
-        public function traeMediosPago(){
+        public function traeMediosPago()
+        {
             global $database;
 
-            $data = $database->select('dianMediosPago',[
+            $data = $database->select('dianMediosPago', [
                 'id',
                 'name',
-            ],[
+            ], [
                 'ORDER' => ['name' => 'ASC']
             ]);
             return $data;
         }
 
-        public function impuestosDian(){
+        public function impuestosDian()
+        {
             global $database;
 
-            $data = $database->select('dianImpuestos',[
+            $data = $database->select('dianImpuestos', [
                 'id',
                 'name',
                 'code',
-            ],[
+            ], [
                 'ORDER' => ['name' => 'ASC']
             ]);
             return $data;
         }
 
-       public function traePorceImpto($codigo)
+        public function traePorceImpto($codigo)
         {
             global $database;
 
@@ -562,7 +637,7 @@
             //  return $database->id();
             $result = [
                 'id' => $database->id(),
-                'error' => $database->error,
+                'error' => $database->errorInfo,
             ];
 
             return $result;
@@ -2500,7 +2575,7 @@
 
             $result = [
                 'id' => $database->id(),
-                'error' => $database->error,
+                'error' => $database->errorInfo,
             ];
 
             return $result;
@@ -2603,7 +2678,7 @@
 
             $data = $database->select('codigos_vta', [
                 '[<]dianMediosPago' => ['medioPagoDian' => 'id']
-            ],[
+            ], [
                 'id_cargo',
                 'codigo_depto',
                 'agrupacion',
@@ -2688,6 +2763,7 @@
                 'impuestos_dian.name'
             ], [
                 'codigos_vta.tipo_codigo' => $tipo,
+                'codigos_vta.tipo_impto' => 1,
                 'ORDER' => [
                     'impuestos_dian.name' => 'ASC',
                     'codigos_vta.descripcion_cargo' => 'ASC'
@@ -2725,7 +2801,7 @@
             return $data;
         }
 
-        public function getRetenciones($tipo)
+        public function getRetencion($tipo)
         {
             global $database;
 

@@ -1,6 +1,0 @@
-[28-Aug-2025 08:42:15 America/Bogota] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /var/www/donlolo.lan/res/php/functionsHotel.php:9725
-Stack trace:
-#0 /var/www/donlolo.lan/pms/views/encasa.php(147): Hotel_Actions->getNombreTarifa()
-#1 /var/www/donlolo.lan/pms/index.php(46): require('...')
-#2 {main}
-  thrown in /var/www/donlolo.lan/res/php/functionsHotel.php on line 9725

@@ -32,6 +32,8 @@ require_once '../res/php/app_topAdmin.php';
         require 'views/usuarios.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'impuestos') {
         require 'views/impuestos.php';
+    } elseif (isset($_GET['section']) && $_GET['section'] == 'retenciones') {
+        require 'views/retenciones.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'formasdePago') {
         require 'views/formasPago.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'deptos') {
@@ -134,6 +136,8 @@ require_once '../res/php/app_topAdmin.php';
         include_once 'views/modal/modalUsuarios.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'impuestos') {
         include_once 'views/modal/modalImpuestos.php';
+    } elseif (isset($_GET['section']) && $_GET['section'] == 'retenciones') {
+        include_once 'views/modal/modalRetenciones.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'formasdePago') {
         include_once 'views/modal/modalFormasPago.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'deptos') {

@@ -6,7 +6,7 @@
               <div class="col-lg-6">
                 <input type="hidden" name="rutaweb" id="rutaweb" value="<?= BASE_ADM ?>">
                 <input type="hidden" name="ubicacion" id="ubicacion" value="impuestos">
-                <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-bank"></i> Impuestos / Retenciones </h3>
+                <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-bank"></i> Impuestos </h3>
               </div>
               <div class="col-lg-6" align="right">
                 <a
@@ -28,7 +28,6 @@
                     <td>% Impto</td>
                     <td>PUC</td>
                     <td>Descripcion Contable</td>
-                    <td>Tipo</td>
                     <td>Tipo DIAN</td>
                     <td>Accion</td>
                   </tr>
@@ -41,7 +40,6 @@
                       <td align="right"><?php echo number_format($impuesto['porcentaje_impto'], 2); ?></td>
                       <td style="width: 20%"><?php echo $impuesto['cuenta_puc']; ?></td>
                       <td style="width: 20%"><?php echo $impuesto['descripcion_contable']; ?></td>
-                      <td><?php echo tipoImpuesto($impuesto['tipo_impto']); ?></td>
                       <td><?php echo strtoupper($impuesto['name']); ?></td>
                       <td align="center" style="padding:3px;width: 12%">
                         <div class="btn-group" role="group" aria-label="Basic example">

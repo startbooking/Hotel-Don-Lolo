@@ -1,6 +1,3 @@
-<?php 
-// echo print_r($reservas);
-?>
 
 <div class="content-wrapper" id="pantallaenCasa">
   <section class="content">
@@ -144,7 +141,11 @@
                               <?php
                               if ($reserva['fecha_llegada'] == FECHA_PMS) { ?>
                                 <li>
-                                  <a data-toggle="modal" data-target="#myModalAnulaIngreso" data-id="<?php echo $reserva['num_reserva']; ?>" data-tipohab="<?php echo descripcionTipoHabitacion($reserva['tipo_habitacion']); ?>" data-nrohab="<?php echo $reserva['num_habitacion']; ?>" data-nombre="<?php echo $reserva['nombre_completo']; ?>" data-impto="<?php echo $reserva['causar_impuesto']; ?>" data-llegada="<?php echo $reserva['fecha_llegada']; ?>" data-salida="<?php echo $reserva['fecha_salida']; ?>" data-noches="<?php echo $reserva['dias_reservados']; ?>" data-hombres="<?php echo $reserva['can_hombres']; ?>" data-mujeres="<?php echo $reserva['can_mujeres']; ?>" data-ninos="<?php echo $reserva['can_ninos']; ?>" data-tarifa="<?php echo $hotel->getNombreTarifa($reserva['tarifa']); ?>" data-idtarifa="<?php echo $reserva['tarifa']; ?>" data-valor="<?php echo $reserva['valor_diario']; ?>" data-observaciones="<?php echo $reserva['observaciones']; ?>">
+                                  <a data-toggle="modal" data-target="#myModalAnulaIngreso" data-id="<?php echo $reserva['num_reserva']; ?>" 
+                                  data-tipohab="<?php echo $reserva['descripcion_habitacion']; ?>" 
+                                  data-nrohab="<?php echo $reserva['num_habitacion']; ?>" data-nombre="<?php echo $reserva['nombre_completo']; ?>" data-impto="<?php echo $reserva['causar_impuesto']; ?>" data-llegada="<?php echo $reserva['fecha_llegada']; ?>" data-salida="<?php echo $reserva['fecha_salida']; ?>" data-noches="<?php echo $reserva['dias_reservados']; ?>" data-hombres="<?php echo $reserva['can_hombres']; ?>" data-mujeres="<?php echo $reserva['can_mujeres']; ?>" data-ninos="<?php echo $reserva['can_ninos']; ?>" 
+                                  data-tarifa="<?php echo $reserva['descripcion_tarifa']; ?>" data-idtarifa="<?php echo $reserva['tarifa']; ?>" 
+                                  data-valor="<?php echo $reserva['valor_diario']; ?>" data-observaciones="<?php echo $reserva['observaciones']; ?>">
                                     <i class="fa fa-sign-out" aria-hidden="true"></i>
                                     Anular Ingreso</a>
                                 </li>
@@ -226,19 +227,7 @@
           </thead>
           <tbody>
             <?php
-            foreach ($reservas as $reserva) {
-              /* $depositos = $hotel->getDepositosReservas($reserva['num_reserva']);
-              if ($reserva['id_compania'] == 0) {
-                $nombrecia = 'SIN COMPAÑIA ASOCIADA';
-                $nitcia = '222.222';
-              } else {
-                $cias = $hotel->getBuscaCia($reserva['id_compania']);
-                if (count($cias) != 0) {
-                  $nombrecia = $cias[0]['empresa'];
-                  $nitcia = $cias[0]['nit'] . '-' . $cias[0]['dv'];
-                }
-              } */
-            ?>
+            foreach ($reservas as $reserva) {?>
               <tr style='font-size:12px'>
                 <td>
                   <div style="display: flex">

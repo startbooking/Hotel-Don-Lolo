@@ -4,8 +4,8 @@
 
 	$id = $_POST['id'];
 
-	$eliminaImpto = $admin->eliminaImpuesto($id) ;
+	$regis = $admin->eliminaImpuesto($id) ;
 
-	echo $eliminaImpto ;
+	echo $regis ;
 
  ?>

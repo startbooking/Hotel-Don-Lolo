@@ -95,6 +95,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     traeFacturasEstadia();
   }
 
+  let sinReserva = document.querySelector('#formSinReserva')
+  if(sinReserva){
+    sinReserva.reset()
+  }
+
+
   const formReservas = document.getElementById('formReservas');
   if (formReservas) {
     formReservas.reset();
@@ -122,6 +128,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Event listener para el tipo de habitación
     tipohabiSelect.addEventListener('change', async () => {
+      let tarifaHuesped = parseInt(document.querySelector('#idtarifa').value);
+      let tarifahab = document.querySelector('#tarifahab')
       habitacionesDisponibles(1);
       globalTarifas = await cargarTarifas();
       const limpia = await limpiaTarifas();
@@ -2382,7 +2390,6 @@ async function cargarTarifas() {
     llegadaInput = document.getElementById('llegada');
     salidaInput = document.getElementById('salida');
     tipohabiSelect = document.getElementById('tipohabi');
-
   }
 
   const tipoHabitacion = tipohabiSelect.value;
@@ -8126,14 +8133,12 @@ async function guardasinReserva() {
   }
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
-  let reserva = document.querySelector("#formReservas");
+  let reserva = document.querySelector("#formSinReserva");
   let formData = new FormData(reserva);
 
   document.querySelector('#btnRegistra').setAttribute("disabled", pagina);
   let idhuesped = formData.get("idhuesped");
   let idcia = formData.get("empresaUpd");
-
-
 
   formData.set("usuario", usuario);
   formData.set("usuario_id", usuario_id);
@@ -8861,6 +8866,7 @@ function seleccionaTarifas() {
 function valorHabitacion(tarifa) {
   console.log(tarifa)
   let tipo = $("#tipohabi").val();
+  console.log(`Tipo de Habitacion ${tipo}`);
   let hom = $("#hombres").val();
   let muj = $("#mujeres").val();
   let nin = $("#ninos").val();
@@ -9225,20 +9231,10 @@ function subirArchivosCia() {
 }
 
 function ciudadesExpedicion(pais, city) {
+
   let web = $("#rutaweb").val();
   let edita = parseInt($("#editaPer").val());
   let acompana = parseInt($("#acompana").val());
-
-  if (edita == 1) {
-    $("#ciudadExpUpd option").remove();
-  } else {
-    if (acompana == 1) {
-      $("#ciudadExpAco option").remove();
-    } else {
-      $("#ciudadExp option").remove();
-    }
-  }
-
   let parametros = { pais };
 
   $("#loader").fadeIn("slow");
@@ -9255,12 +9251,15 @@ function ciudadesExpedicion(pais, city) {
         );
       } else {
         if (edita == 1) {
+          $("#ciudadExpUpd option").remove();
           $("#ciudadExpUpd").append(resp);
           $("#ciudadExpUpd").val(city);
         } else {
           if (acompana == 1) {
+            $("#ciudadExpAco option").remove();
             $("#ciudadExpAco").append(resp);
           } else {
+            $("#ciudadExp option").remove();
             $("#ciudadExp").append(resp.trim());
           }
         }

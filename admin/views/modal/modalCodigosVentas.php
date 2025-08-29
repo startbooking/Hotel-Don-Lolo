@@ -66,7 +66,7 @@
               <select class="form-control" name="reteFte" id="reteFte" required="">
                 <option value="">Seleccione la Rete Fuente</option>
                 <?php 
-                $retefuentes = $admin->getRetenciones(1); 
+                $retefuentes = $admin->getRetencion(1); 
                 foreach ($retefuentes as $impto) { ?> 
                 <option value="<?=$impto['idRetencion']?>"><?=$impto['descripcionRetencion'].' '.number_format($impto['porcentajeRetencion'],2) ?></option>
                 <?php 
@@ -76,7 +76,7 @@
             </div>
             <label for="reteIca" class="control-label col-lg-2 col-md-2">ReteIca</label>
             <?php 
-              $reteicas = $admin->getRetenciones(3); 
+              $reteicas = $admin->getRetencion(3); 
             ?>
             <div class="col-lg-4 col-md-4">
               <select class="form-control" name="reteIca" id="reteIca" required="">

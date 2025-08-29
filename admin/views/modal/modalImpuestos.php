@@ -20,14 +20,14 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="tipo" class="control-label col-lg-2 col-md-2">Tipo</label>
+            <!-- <label for="tipo" class="control-label col-lg-2 col-md-2">Tipo</label>
             <div class="col-lg-4 col-md-4">
               <select class="form-control" name="tipoAdi" id="tipoAdi" required>
                 <option value="">Seleccione el Tipo de Impuesto</option>
                 <option value=1>Impuesto</option>
                 <option value=2>Retenciones</option>
               </select>
-            </div>
+            </div> -->
             <label for="imptoDian" class="control-label col-lg-2 col-md-2">Impto DIAN</label>
             <div class="col-lg-4 col-md-4">
               <select class="form-control" name="imptoDian" id="imptoDian" required>
@@ -84,7 +84,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="tipo" class="control-label col-lg-2 col-md-2">Tipo</label>
+            <!-- <label for="tipo" class="control-label col-lg-2 col-md-2">Tipo</label>
             <div class="col-lg-4 col-md-4">
               <select class="form-control" name="tipoEliImp" id="tipoEliImp" disabled>
                 <option value="">Seleccione el Tipo de Impuesto</option>
@@ -92,7 +92,7 @@
                 <option value=2>Retenciones</option>
                 ?>
               </select>
-            </div>
+            </div> -->
             <label for="imptoDian" class="control-label col-lg-2 col-md-2">Impto DIAN</label>
             <div class="col-lg-4 col-md-4">
               <select class="form-control" name="imptoDianEli" id="imptoDianEli" disabled>
@@ -150,14 +150,14 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="tipo" class="control-label col-lg-2 col-md-2">Tipo</label>
+            <!-- <label for="tipo" class="control-label col-lg-2 col-md-2">Tipo</label>
             <div class="col-lg-4 col-md-4">
               <select class="form-control" name="tipoModImp" id="tipoModImp" required>
                 <option value=1>Impuesto</option>
                 <option value=2>Retenciones</option>
                 ?>
               </select>
-            </div>
+            </div> -->
             <label for="imptoDian" class="control-label col-lg-2 col-md-2">Impto DIAN</label>
             <div class="col-lg-4 col-md-4">
               <select class="form-control" name="imptoDianUpd" id="imptoDianUpd" required>

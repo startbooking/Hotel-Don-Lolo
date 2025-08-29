@@ -63,6 +63,9 @@
 	}elseif(isset($_GET['section']) && $_GET['section'] == 'impuestos'){
   	$impuestos = $admin->getCodigosImptos(2);
   	$imptosDian = $admin->impuestosDian();
+	}elseif(isset($_GET['section']) && $_GET['section'] == 'retenciones'){
+  	$retenciones = $admin->getRetenciones();
+  	$imptosDian = $admin->impuestosDian();
 	}elseif(isset($_GET['section']) &&	$_GET['section'] == 'formasdePago'){
   	$pagos = $admin->getCodigosFormasPago(3);
 		$medios = $admin->traeMediosPago();

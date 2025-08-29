@@ -224,7 +224,7 @@ $hoy = date('Y-m-d');
           <div class="form-group">
             <label for="empresa" class="col-sm-2 control-label">Empresa </label>
             <div class="col-sm-6">
-              <select name="empresaAdi" id="empresaAdi" required="" onblur="traeCreditoCia(this.value)">
+              <select name="empresaAdi" id="empresaAdi" required="">
                 <option value="">Seleccione La Empresa</option>
                 <option value="0">SIN COMPAÑIA</option>
                 <?php

@@ -7,7 +7,7 @@
   <div class="content-wrapper">
     <section class="content" style="padding-bottom:50px;">
       <div id="crearReserva"></div>
-      <div class="panel panel-success" id='pantallaNuevaReserva'>
+      <div class="panel panel-success" id='pantallaSinReserva'>
         <div class="panel-heading">
           <div class="row">
             <div class="col-lg-6">
@@ -20,7 +20,7 @@
           </div>
           <div id="mensaje"></div>
         </div>
-        <form class="form-horizontal" id="formReservas" action="javascript:guardasinReserva()" method="POST" enctype="multipart/form-data">
+        <form class="form-horizontal" id="formSinReserva" action="javascript:guardasinReserva()" method="POST" enctype="multipart/form-data">
           <div class="panel-body">
             <div class="form-group">
               <input type="hidden" name="tipoocupacion" value="2">
