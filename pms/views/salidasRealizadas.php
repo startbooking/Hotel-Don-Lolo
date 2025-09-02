@@ -44,7 +44,7 @@
                     if (count($acompanas) > 0) {
                       foreach ($acompanas as $key => $acompana) { ?>
                         <span class="btn alert-success alert-function" style="padding:1px 4px; margin-left:15px;margin-top:3px;font-size:10px;font-weight: bold;">
-                          <?php echo substr($acompana['nombre_completo'], 0, 35); ?>
+                          <?php echo substr($acompana['nombre_completo'], 0, 34); ?>
                         </span>
                     <?php
                       }
@@ -53,7 +53,7 @@
                   </td>
                   <td><?php 
                     if($reserva['empresa'] != null){
-                      echo substr($reserva['empresa'], 0, 50); 
+                      echo substr($reserva['empresa'], 0, 45); 
                     }else {
                       echo 'SIN COMPAÑIA ASOCIADA';
                     }

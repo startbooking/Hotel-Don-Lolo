@@ -6107,9 +6107,9 @@ const creaJSONFactura = async (factura) => {
 const enviaJSONFactura = async (jsonFactura, token) => {
   data = { jsonFactura };
   try {
-    // url = "https://api.nextpyme.plus/api/ubl2.1/invoice";
+    url = "https://api.nextpyme.plus/api/ubl2.1/invoice";
     // url =  'http://donlolo.lan/pms/api/prueba.json';
-    url = 'http://donlolo.lan/pms/res/php/fact20502.json';
+    // url = 'http://donlolo.lan/pms/res/php/fact20502.json';
     const resultado = await fetch(url, {
       method: "post",
       credentials: "same-origin",
