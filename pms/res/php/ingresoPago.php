@@ -59,10 +59,10 @@ if ($perfilFac == 1 && $facturador == 1) {
     $numfactura = $hotel->getNumeroAbono(); // Numero Actual del Abono
     $nuevonumero = $hotel->updateNumeroAbonos($numfactura + 1); // Actualiza Consecutivo del Abono
 }
+$datosHuesped = $hotel->getbuscaDatosHuesped($idhues);
 
 if ($tipofac == 1) {
     $id = $idhues;
-    $datosHuesped = $hotel->getbuscaDatosHuesped($id);
     $tdiFact = $datosHuesped[0]['tipo_identifica'];
     $nitFact = $datosHuesped[0]['identificacion'];
     $dvFact = '';
@@ -141,10 +141,18 @@ $updFac = $hotel->updateFactura($usuario_id, $saldos[0]['cargos'], $saldos[0]['i
 $totalPago = $paganticipo + $saldos[0]['pagos'];
 $saldofactura = $hotel->getSaldoHabitacion($reserva);
 
+// print_r($saldofactura);
+
+// $totalFolio = count($saldofactura);
+
+// echo $totalFolio;
+
+
+
 if (count($saldofactura) == 0) {
     $totalFolio = 0;
 } else {
-    $totalFolio = ($saldofactura[0]['cargos'] + $saldofactura[0]['imptos']);
+    $totalFolio = ($saldofactura[0]['cargos'] + $saldofactura[0]['imptos']- $saldofactura[0]['pagos']);
 }
 
 $folios = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserva, $folioAct, 1);
@@ -152,6 +160,8 @@ $pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserv
 $tipoimptos = $hotel->getValorImptoFolio($nroFactura, $reserva, $folioAct, 2);
 $subtotales = $hotel->getConsumosReservaAgrupadoFolio($nroFactura, $reserva, $folioAct, 1);
 $sinImpuesto = $hotel->getConsumosReservasinImpuestos($nroFactura, $reserva, $folioAct, 1);
+
+// print_r($subtotales);
 
 if (count($sinImpuesto) != 0) {
     $totalSinImpto = $sinImpuesto[0]['cargos'];
@@ -214,6 +224,8 @@ if ($perfilFac == 1 && $facturador == 1) {
         }
     }
 
+    $codigosDian = $hotel->getCodigosDianFP($codigo);
+
     $ePago['payment_form_id'] = $hotel->traeCodigoDianVenta($codigo);
     $ePago['payment_method_id'] = $hotel->traeCodigoDianVenta($codigo);
     $ePago['payment_due_date'] = $fechaVen;
@@ -240,27 +252,31 @@ if ($perfilFac == 1 && $facturador == 1) {
         }
         if ($folio1['porcentaje_impto'] != 0) {
             $invo = [
-                'unit_measure_id' => $hotel->traeTipoUnidadDianVenta($folio1['id_codigo_cargo']),
+                // 'unit_measure_id' => $hotel->traeTipoUnidadDianVenta($folio1['id_codigo_cargo']),
+                'unit_measure_id' => $folio1['tipoUnidad'],
                 'invoiced_quantity' => 1,
                 'line_extension_amount' => $folio1['cargos'],
                 'free_of_charge_indicator' => false,
                 'tax_totals' => $taxfolio,
                 'description' => $folio1['descripcion_cargo'],
                 'notes' => '',
-                'code' => $hotel->traeCodigoDianVenta($folio1['id_codigo_cargo']),
+                // 'code' => $hotel->traeCodigoDianVenta($folio1['id_codigo_cargo']),
+                'code' => $folio1['identificador_dian'],
                 'type_item_identification_id' => 4,
                 'price_amount' => $folio1['cargos'] + $folio1['imptos'],
                 'base_quantity' => 1,
             ];
         } else {
             $invo = [
-                'unit_measure_id' => $hotel->traeTipoUnidadDianVenta($folio1['id_codigo_cargo']),
+                // 'unit_measure_id' => $hotel->traeTipoUnidadDianVenta($folio1['id_codigo_cargo']),
+                'unit_measure_id' => $folio1['tipoUnidad'],
                 'invoiced_quantity' => 1,
                 'line_extension_amount' => $folio1['cargos'],
                 'free_of_charge_indicator' => false,
                 'description' => $folio1['descripcion_cargo'],
                 'notes' => '',
-                'code' => $hotel->traeCodigoDianVenta($folio1['id_codigo_cargo']),
+                // 'code' => $hotel->traeCodigoDianVenta($folio1['id_codigo_cargo']),
+                'code' => $folio1['identificador_dian'],
                 'type_item_identification_id' => 4,
                 'price_amount' => $folio1['cargos'] + $folio1['imptos'],
                 'base_quantity' => 1,
@@ -271,7 +287,8 @@ if ($perfilFac == 1 && $facturador == 1) {
     foreach ($tipoimptos as $impto) {
         if ($impto['porcentaje_impto'] != 0) {
             $tax = [
-                'tax_id' => $hotel->traeCodigoDianVenta($impto['id_cargo']),
+                // 'tax_id' => $hotel->traeCodigoDianVenta($impto['id_cargo']),
+                'tax_id' => $impto['identificador_dian'],
                 'tax_amount' => $impto['imptos'],
                 'taxable_amount' => $impto['cargos'],
                 'percent' => number_format($impto['porcentaje_impto'], 0),
@@ -504,9 +521,9 @@ if ($perfilFac == 1 && $facturador == 1) {
         $fechaVen = date('Y-m-d', $fechaVen);
 
         $tipoHabitacion = $hotel->getNombreTipoHabitacion($datosReserva['tipo_habitacion']);
-        $folios = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserva, $folioAct, 1);
+/*         $folios = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserva, $folioAct, 1);
         $pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserva, $folioAct, 3);
-        $tipoimptos = $hotel->getValorImptoFolio($nroFactura, $reserva, $folioAct, 2);
+        $tipoimptos = $hotel->getValorImptoFolio($nroFactura, $reserva, $folioAct, 2); */
         $fecha = $hotel->getDatePms();
         $retenciones = [];
         $retencionIca = [];
@@ -566,11 +583,10 @@ if ($perfilFac == 1 && $facturador == 1) {
 
 if ($totalFolio != 0) {
     $saldohabi = ($saldofactura[0]['cargos'] + $saldofactura[0]['imptos']) - $saldofactura[0]['pagos'];
-    $saldofolio2 = $hotel->saldoFolio($reserva, 2);
     $saldofolio1 = $hotel->saldoFolio($reserva, 1);
+    $saldofolio2 = $hotel->saldoFolio($reserva, 2);
     $saldofolio3 = $hotel->saldoFolio($reserva, 3);
     $saldofolio4 = $hotel->saldoFolio($reserva, 4);
-
     if ($saldofolio1 != 0) {
         $error = [
             'error' => '0',

@@ -2653,6 +2653,20 @@ class Hotel_Actions
         return $data['identificador_dian'];
     }
 
+    public function getCodigosDianFP($codigo)
+    {
+        global $database;
+
+        $data = $database->get('codigos_vta', [
+            'identificador_dian',
+        ], [
+            'id_cargo' => $codigo,
+        ]);
+
+        return $data['identificador_dian'];
+    }
+
+
     public function datosTokenCia()
     {
         global $database;
@@ -8509,7 +8523,7 @@ class Hotel_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT cargos_pms.id_codigo_cargo, cargos_pms.descripcion_cargo, count(cargos_pms.id_codigo_cargo) AS cant, cargos_pms.habitacion_cargo, Sum(cargos_pms.monto_cargo) AS cargos, Sum(cargos_pms.valor_cargo) AS total, Sum(cargos_pms.impuesto) as imptos, cargos_pms.codigo_impto, Sum(cargos_pms.pagos_cargos) AS pagos, Sum(cargos_pms.reteiva) AS reteiva, Sum(cargos_pms.reteica) AS reteica, Sum(cargos_pms.retefuente) AS retefuente, Sum(cargos_pms.basereteiva) AS basereteiva, Sum(cargos_pms.reteica) AS basereteica, Sum(cargos_pms.baseretefuente) AS baseretefuente,cargos_pms.factura_numero, codigos_vta.porcentaje_impto FROM cargos_pms, codigos_vta WHERE cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND cargos_pms.factura_numero = '$fact' AND cargos_pms.numero_reserva = '$numero' AND cargos_pms.cargo_anulado = 0 AND cargos_pms.folio_cargo = '$folio' AND codigos_vta.tipo_codigo = '$tipo' GROUP BY cargos_pms.numero_reserva, cargos_pms.id_codigo_cargo, cargos_pms.folio_cargo ORDER BY cargos_pms.numero_reserva, cargos_pms.id_codigo_cargo, cargos_pms.folio_cargo")->fetchAll(PDO::FETCH_ASSOC);
+        $data = $database->query("SELECT cargos_pms.id_codigo_cargo, cargos_pms.descripcion_cargo, count(cargos_pms.id_codigo_cargo) AS cant, cargos_pms.habitacion_cargo, Sum(cargos_pms.monto_cargo) AS cargos, Sum(cargos_pms.valor_cargo) AS total, Sum(cargos_pms.impuesto) as imptos, cargos_pms.codigo_impto, Sum(cargos_pms.pagos_cargos) AS pagos, Sum(cargos_pms.reteiva) AS reteiva, Sum(cargos_pms.reteica) AS reteica, Sum(cargos_pms.retefuente) AS retefuente, Sum(cargos_pms.basereteiva) AS basereteiva, Sum(cargos_pms.reteica) AS basereteica, Sum(cargos_pms.baseretefuente) AS baseretefuente,cargos_pms.factura_numero, codigos_vta.porcentaje_impto, codigos_vta.identificador_dian, codigos_vta.medioPagoDian, codigos_vta.tipoUnidad FROM cargos_pms, codigos_vta WHERE cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND cargos_pms.factura_numero = '$fact' AND cargos_pms.numero_reserva = '$numero' AND cargos_pms.cargo_anulado = 0 AND cargos_pms.folio_cargo = '$folio' AND codigos_vta.tipo_codigo = '$tipo' GROUP BY cargos_pms.numero_reserva, cargos_pms.id_codigo_cargo, cargos_pms.folio_cargo ORDER BY cargos_pms.numero_reserva, cargos_pms.id_codigo_cargo, cargos_pms.folio_cargo")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -8518,7 +8532,7 @@ class Hotel_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT historico_cargos_pms.id_codigo_cargo, historico_cargos_pms.descripcion_cargo, count(historico_cargos_pms.id_codigo_cargo) AS cant, historico_cargos_pms.habitacion_cargo, Sum(historico_cargos_pms.monto_cargo) AS cargos, Sum(historico_cargos_pms.valor_cargo) AS total, Sum(historico_cargos_pms.impuesto) as imptos, historico_cargos_pms.codigo_impto, Sum(historico_cargos_pms.pagos_cargos) AS pagos, Sum(historico_cargos_pms.reteiva) AS reteiva, Sum(historico_cargos_pms.reteica) AS reteica, Sum(historico_cargos_pms.retefuente) AS retefuente, Sum(historico_cargos_pms.basereteiva) AS basereteiva, Sum(historico_cargos_pms.reteica) AS basereteica, Sum(historico_cargos_pms.baseretefuente) AS baseretefuente,historico_cargos_pms.factura_numero, codigos_vta.porcentaje_impto FROM historico_cargos_pms, codigos_vta WHERE historico_cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND historico_cargos_pms.factura_numero = '$fact' AND historico_cargos_pms.numero_reserva = '$numero' AND historico_cargos_pms.cargo_anulado = 0 AND historico_cargos_pms.folio_cargo = '$folio' AND codigos_vta.tipo_codigo = '$tipo' GROUP BY historico_cargos_pms.numero_reserva, historico_cargos_pms.id_codigo_cargo, historico_cargos_pms.folio_cargo ORDER BY historico_cargos_pms.numero_reserva, historico_cargos_pms.id_codigo_cargo, historico_cargos_pms.folio_cargo")->fetchAll(PDO::FETCH_ASSOC);
+        $data = $database->query("SELECT historico_cargos_pms.id_codigo_cargo, historico_cargos_pms.descripcion_cargo, count(historico_cargos_pms.id_codigo_cargo) AS cant, historico_cargos_pms.habitacion_cargo, Sum(historico_cargos_pms.monto_cargo) AS cargos, Sum(historico_cargos_pms.valor_cargo) AS total, Sum(historico_cargos_pms.impuesto) as imptos, historico_cargos_pms.codigo_impto, Sum(historico_cargos_pms.pagos_cargos) AS pagos, Sum(historico_cargos_pms.reteiva) AS reteiva, Sum(historico_cargos_pms.reteica) AS reteica, Sum(historico_cargos_pms.retefuente) AS retefuente, Sum(historico_cargos_pms.basereteiva) AS basereteiva, Sum(historico_cargos_pms.reteica) AS basereteica, Sum(historico_cargos_pms.baseretefuente) AS baseretefuente,historico_cargos_pms.factura_numero, codigos_vta.porcentaje_impto, codigos_vta.identificador_dian, codigos_vta.medioPagoDian FROM historico_cargos_pms, codigos_vta WHERE historico_cargos_pms.id_codigo_cargo = codigos_vta.id_cargo AND historico_cargos_pms.factura_numero = '$fact' AND historico_cargos_pms.numero_reserva = '$numero' AND historico_cargos_pms.cargo_anulado = 0 AND historico_cargos_pms.folio_cargo = '$folio' AND codigos_vta.tipo_codigo = '$tipo' GROUP BY historico_cargos_pms.numero_reserva, historico_cargos_pms.id_codigo_cargo, historico_cargos_pms.folio_cargo ORDER BY historico_cargos_pms.numero_reserva, historico_cargos_pms.id_codigo_cargo, historico_cargos_pms.folio_cargo")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -8554,7 +8568,7 @@ class Hotel_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT codigos_vta.id_cargo, codigos_vta.descripcion_cargo, codigos_vta.porcentaje_impto, cargos_pms.habitacion_cargo, Sum(cargos_pms.monto_cargo) as cargos, Sum(cargos_pms.impuesto) as imptos, Sum(cargos_pms.pagos_cargos) as pagos, cargos_pms.factura_numero FROM cargos_pms, codigos_vta WHERE cargos_pms.codigo_impto = codigos_vta.id_cargo AND cargos_pms.factura_numero = '$fact' AND cargos_pms.numero_reserva = '$numero' and cargos_pms.cargo_anulado = 0 and cargos_pms.folio_cargo = $folio and codigos_vta.tipo_codigo = '$tipo' GROUP BY cargos_pms.numero_reserva, cargos_pms.codigo_impto, cargos_pms.folio_cargo ORDER BY cargos_pms.numero_reserva, cargos_pms.codigo_impto, cargos_pms.folio_cargo")->fetchAll(PDO::FETCH_ASSOC);
+        $data = $database->query("SELECT codigos_vta.id_cargo, codigos_vta.descripcion_cargo, codigos_vta.porcentaje_impto, codigos_vta.identificador_dian, cargos_pms.habitacion_cargo, Sum(cargos_pms.monto_cargo) as cargos, Sum(cargos_pms.impuesto) as imptos, Sum(cargos_pms.pagos_cargos) as pagos, cargos_pms.factura_numero FROM cargos_pms, codigos_vta WHERE cargos_pms.codigo_impto = codigos_vta.id_cargo AND cargos_pms.factura_numero = '$fact' AND cargos_pms.numero_reserva = '$numero' and cargos_pms.cargo_anulado = 0 and cargos_pms.folio_cargo = $folio and codigos_vta.tipo_codigo = '$tipo' GROUP BY cargos_pms.numero_reserva, cargos_pms.codigo_impto, cargos_pms.folio_cargo ORDER BY cargos_pms.numero_reserva, cargos_pms.codigo_impto, cargos_pms.folio_cargo")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
