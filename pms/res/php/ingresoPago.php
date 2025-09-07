@@ -10,7 +10,6 @@ $aplicarete = 0;
 $aplicaiva = 0;
 $aplicaica = 0;
 $sinBaseRete = 0;
-$baseIva = 0;
 $baseRete = 0;
 $baseIca = 0;
 
@@ -29,8 +28,6 @@ $fechaAct = strtotime(FECHA_PMS . 'T20:55:20');
 
 $arcCurl = '../../json/recibeCurl' . $mes . $anio . '.json';
 $envCurl = '../../json/enviaFact' . $mes . $anio . '.json';
-
-// $idhuesped = $idhues;
 
 $horaFact = date('H:s:i');
 
@@ -87,12 +84,11 @@ if ($tipofac == 1) {
     $dirFact = $datosCompania[0]['direccion'];
     $merFact = '0000000-00';
     $torFact = $datosCompania[0]['tipoAdquiriente'];
-    $tliFact = $hotel->traeIdResponsabilidadDianVenta($datosCompania[0]['responsabilidadTributaria']);
+    $tliFact = $datosCompania[0]['feCode'];
     $munFact = $datosCompania[0]['ciudad'];
-    $nameCity = $hotel->traeCiudadHuesped($datosCompania[0]['ciudad']); 
+    $nameCity = $datosCompania[0]['municipio']; 
     $telFact = $datosCompania[0]['telefono'];
     $country = $datosCompania[0]['pais'];
-    // $numName = $datosCompania[0]['fax2'];
     $staName = $datosCompania[0]['depto'];
 
     if ($codigo == 2) {
@@ -124,30 +120,10 @@ if (count($anticipos) != 0) {
     $paganticipo = $anticipos[0]['pagos'];
 }
 
-/* 
-if ($tipofac == 2) {
-    $datosCompania = $hotel->getSeleccionaCompania($idperfil);
-    
-    
-} else {
-
-    $tdiFact = $datosHuesped[0]['tipo_identifica'];
-    $triFact = $datosHuesped[0]['tipoResponsabilidad']; 
-}
-*/
-
 $updFac = $hotel->updateFactura($usuario_id, $saldos[0]['cargos'], $saldos[0]['imptos'], $saldos[0]['pagos'], $saldos[0]['base'], $paganticipo, $fechaVen, $numfactura, $usuario, $fecha, $diasCre);
 
 $totalPago = $paganticipo + $saldos[0]['pagos'];
 $saldofactura = $hotel->getSaldoHabitacion($reserva);
-
-// print_r($saldofactura);
-
-// $totalFolio = count($saldofactura);
-
-// echo $totalFolio;
-
-
 
 if (count($saldofactura) == 0) {
     $totalFolio = 0;
@@ -160,8 +136,7 @@ $pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserv
 $tipoimptos = $hotel->getValorImptoFolio($nroFactura, $reserva, $folioAct, 2);
 $subtotales = $hotel->getConsumosReservaAgrupadoFolio($nroFactura, $reserva, $folioAct, 1);
 $sinImpuesto = $hotel->getConsumosReservasinImpuestos($nroFactura, $reserva, $folioAct, 1);
-
-// print_r($subtotales);
+$codigoPagoDian = $hotel->getCodigosDianFP($codigo);
 
 if (count($sinImpuesto) != 0) {
     $totalSinImpto = $sinImpuesto[0]['cargos'];
@@ -199,7 +174,6 @@ if ($perfilFac == 1 && $facturador == 1) {
     $eFact['foot_note'] = '';
 
     $eCust['identification_number'] = $nitFact;
-    // $eCust['dv'] = $dvFact;
     $eCust['name'] = $nomFact;
     $eCust['email'] = $emaFact;
 
@@ -224,10 +198,8 @@ if ($perfilFac == 1 && $facturador == 1) {
         }
     }
 
-    $codigosDian = $hotel->getCodigosDianFP($codigo);
-
-    $ePago['payment_form_id'] = $hotel->traeCodigoDianVenta($codigo);
-    $ePago['payment_method_id'] = $hotel->traeCodigoDianVenta($codigo);
+    $ePago['payment_form_id'] = $codigoPagoDian['identificador_dian'];
+    $ePago['payment_method_id'] = $codigoPagoDian['medioPagoDian'];
     $ePago['payment_due_date'] = $fechaVen;
     $ePago['duration_measure'] = $diasCre;
 
@@ -252,7 +224,6 @@ if ($perfilFac == 1 && $facturador == 1) {
         }
         if ($folio1['porcentaje_impto'] != 0) {
             $invo = [
-                // 'unit_measure_id' => $hotel->traeTipoUnidadDianVenta($folio1['id_codigo_cargo']),
                 'unit_measure_id' => $folio1['tipoUnidad'],
                 'invoiced_quantity' => 1,
                 'line_extension_amount' => $folio1['cargos'],
@@ -260,7 +231,6 @@ if ($perfilFac == 1 && $facturador == 1) {
                 'tax_totals' => $taxfolio,
                 'description' => $folio1['descripcion_cargo'],
                 'notes' => '',
-                // 'code' => $hotel->traeCodigoDianVenta($folio1['id_codigo_cargo']),
                 'code' => $folio1['identificador_dian'],
                 'type_item_identification_id' => 4,
                 'price_amount' => $folio1['cargos'] + $folio1['imptos'],
@@ -287,7 +257,6 @@ if ($perfilFac == 1 && $facturador == 1) {
     foreach ($tipoimptos as $impto) {
         if ($impto['porcentaje_impto'] != 0) {
             $tax = [
-                // 'tax_id' => $hotel->traeCodigoDianVenta($impto['id_cargo']),
                 'tax_id' => $impto['identificador_dian'],
                 'tax_amount' => $impto['imptos'],
                 'taxable_amount' => $impto['cargos'],
@@ -337,9 +306,6 @@ if ($perfilFac == 1 && $facturador == 1) {
 
     if ($reteiva > 0) {
         array_push($eRete, $riva);
-    }
-    if ($reteica > 0) {
-        array_push($eRete, $rica);
     }
 
     $oMode = [
@@ -490,22 +456,8 @@ if ($perfilFac == 1 && $facturador == 1) {
 
         $filename = '../../../img/pms/QR_' . $prefijo . '-' . $nroFactura . '.png';
 
-        /* $aplicarete = 0;
-        $aplicaiva = 0;
-        $aplicaica = 0;
-        $sinBaseRete = 0; */
         $datosReserva = $hotel->getReservasDatos($reserva);
-        // $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
         $horaIng = $datosReserva['hora_llegada'];
-
-        /* if ($tipofac == 2) {
-            $datosCompania = $hotel->getSeleccionaCompania($idperfil);
-            $diasCre = $datosCompania[0]['dias_credito'];
-            $aplicarete = $datosCompania[0]['retefuente'];
-            $aplicaiva  = $datosCompania[0]['reteiva'];
-            $aplicaica  = $datosCompania[0]['reteica'];
-            $sinBaseRete  = $datosCompania[0]['sinBaseRete'];
-        } */
 
         if ($tipoRes = 1) {
             $textTipoRes = 'Autorizacion';
@@ -521,14 +473,11 @@ if ($perfilFac == 1 && $facturador == 1) {
         $fechaVen = date('Y-m-d', $fechaVen);
 
         $tipoHabitacion = $hotel->getNombreTipoHabitacion($datosReserva['tipo_habitacion']);
-/*         $folios = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserva, $folioAct, 1);
-        $pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolio($nroFactura, $reserva, $folioAct, 3);
-        $tipoimptos = $hotel->getValorImptoFolio($nroFactura, $reserva, $folioAct, 2); */
         $fecha = $hotel->getDatePms();
         $retenciones = [];
         $retencionIca = [];
 
-        /* if ($aplicarete == 1) {
+        if ($aplicarete == 1) {
             if ($sinBaseRete == 1) {
                 $retenciones = $hotel->traeValorRetencionesSinBase($reserva, $folioAct);
             } else {
@@ -538,14 +487,13 @@ if ($perfilFac == 1 && $facturador == 1) {
 
         if ($aplicaica == 1) {
             $retencionIca = $hotel->traeValorRetencionIca($reserva, $folioAct);
-        } */
+        }
 
         if ($datosReserva['fecha_salida'] > FECHA_PMS) {
             $fechaSalida = FECHA_PMS;
         } else {
             $fechaSalida = $datosReserva['fecha_salida'];
         }
-
 
         /* Terminas Datos Imprimir Factura*/
 

@@ -1515,7 +1515,6 @@ class Hotel_Actions
             'folio_cargo',
             'id_perfil_factura',
             'usuario_factura'
-
         ], [
             'factura_numero' => $factura,
             'factura' => 1
@@ -2659,11 +2658,12 @@ class Hotel_Actions
 
         $data = $database->get('codigos_vta', [
             'identificador_dian',
+            'medioPagoDian',
         ], [
             'id_cargo' => $codigo,
         ]);
 
-        return $data['identificador_dian'];
+        return $data;
     }
 
 
@@ -7180,7 +7180,7 @@ class Hotel_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT cargos_pms.habitacion_cargo, Sum(cargos_pms.monto_cargo+cargos_pms.impuesto) as saldoFol FROM cargos_pms WHERE cargos_pms.numero_reserva = '$reserva' AND cargos_pms.cargo_anulado = 0 AND cargos_pms.folio_cargo = '$folio' AND factura_numero = 0 GROUP BY cargos_pms.numero_reserva, cargos_pms.folio_cargo")->fetchAll(PDO::FETCH_ASSOC);
+        $data = $database->query("SELECT cargos_pms.habitacion_cargo, Sum(cargos_pms.monto_cargo+cargos_pms.impuesto-cargos_pms.pagos_cargos) as saldoFol FROM cargos_pms WHERE cargos_pms.numero_reserva = '$reserva' AND cargos_pms.cargo_anulado = 0 AND cargos_pms.folio_cargo = '$folio' AND factura_numero = 0 GROUP BY cargos_pms.numero_reserva, cargos_pms.folio_cargo")->fetchAll(PDO::FETCH_ASSOC);
         if (count($data) == 0) {
             return 0;
         } else {
@@ -10119,31 +10119,35 @@ class Hotel_Actions
         global $database;
 
         $data = $database->select('companias', [
-            'id_compania',
-            'empresa',
-            'nit',
-            'dv',
-            'tipo_documento',
-            'telefono',
-            'celular',
-            'email',
-            'activo',
-            'direccion',
-            'pais',
-            'depto',
-            'ciudad',
-            'estado_credito',
-            'credito',
-            'monto_credito',
-            'dia_corte_credito',
-            'dias_credito',
-            'reteiva',
-            'reteica',
-            'retefuente',
-            'sinBaseRete',
-            'tipoAdquiriente',
-            'tipoResponsabilidad',
-            'responsabilidadTributaria',
+            '[<]dianTipoResponsabilidad' => ['responsabilidadTributaria' => 'id'],
+            '[<]ciudades' => ['ciudad' => 'id_ciudad']
+        ],[
+            'companias.id_compania',
+            'companias.empresa',
+            'companias.nit',
+            'companias.dv',
+            'companias.tipo_documento',
+            'companias.telefono',
+            'companias.celular',
+            'companias.email',
+            'companias.activo',
+            'companias.direccion',
+            'companias.pais',
+            'companias.depto',
+            'companias.ciudad',
+            'companias.estado_credito',
+            'companias.credito',
+            'companias.monto_credito',
+            'companias.dia_corte_credito',
+            'companias.dias_credito',
+            'companias.reteiva',
+            'companias.reteica',
+            'companias.retefuente',
+            'companias.sinBaseRete',
+            'companias.tipoAdquiriente',
+            'companias.tipoResponsabilidad',
+            'dianTipoResponsabilidad.feCode',
+            'ciudades.municipio',
         ], [
             'id_compania' => $id,
         ]);

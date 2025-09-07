@@ -15,7 +15,6 @@ $pdf->Cell(190, 4, 'NIT: '.NIT_EMPRESA, 0, 1, 'C');
 $pdf->Cell(190, 4, (ADRESS_EMPRESA), 0, 1, 'C');
 $pdf->Cell(40, 4, '', 0, 0, 'C');
 $pdf->Cell(110, 4, (CIUDAD_EMPRESA).' '.PAIS_EMPRESA, 0, 1, 'C');
-// $pdf->Cell(40, 4, '', 0, 1, 'C');
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(40, 4, '', 0, 0, 'C');
 $pdf->Cell(110, 4, (REGIMEN), 0, 1, 'C');
@@ -58,7 +57,7 @@ if ($tipofac == 2) {
     $pdf->SetFont('Arial', '', 8);
     $pdf->Cell(20, 4, 'CIUDAD', 0, 0, 'L');
     $pdf->SetFont('Arial', 'B', 8);
-    $pdf->Cell(30, 4, (substr($hotel->getCityName($datosCompania[0]['ciudad']), 0, 12)), 0, 0, 'L');
+    $pdf->Cell(30, 4, substr($datosCompania[0]['municipio'], 0, 12), 0, 0, 'L');
     $pdf->SetFont('Arial', '', 8);
     $pdf->Cell(21, 4, 'TELEFONO', 0, 0, 'L');
     $pdf->SetFont('Arial', 'B');
@@ -187,8 +186,15 @@ if ($tipofac == 2 && !empty($retenciones)) {
 
   $pdf->Cell(55, 4, 'RETEIVA', 1, 0, 'L');
   if($tipofac == 2){
-    $pdf->Cell(20, 4, number_format($baseIva, 2), 1, 0, 'R');
-    $pdf->Cell(20, 4, number_format($reteiva, 2), 1, 1, 'R');
+    if($aplicaiva==1){
+      $pdf->Cell(20, 4, number_format($baseIva, 2), 1, 0, 'R');
+      $pdf->Cell(20, 4, number_format($reteiva, 2), 1, 1, 'R');
+    }else{
+      $baseIva = 0;
+      $reteiva = 0;
+      $pdf->Cell(20, 4, number_format($baseIva, 2), 1, 0, 'R');
+      $pdf->Cell(20, 4, number_format($reteiva, 2), 1, 1, 'R');
+    }
   } else {
     $baseIva = 0;
     $reteiva = 0;

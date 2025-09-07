@@ -1,0 +1,2 @@
+[05-Sep-2025 09:57:40 America/Bogota] PHP Warning:  Undefined global variable $_SESSION in /var/www/donlolo.lan/pms/views/cierreCajero.php on line 10
+[05-Sep-2025 09:57:40 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/pms/views/cierreCajero.php on line 10

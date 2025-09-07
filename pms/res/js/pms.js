@@ -6518,13 +6518,13 @@ async function apagaselecomp(tipo) {
     }
 
     if (reteiva == 1) {
-      if (sinBaseRete == 1) {
-        reteIva = totalImpto * (rIva[0].porcentajeRetencion / 100);
+      reteIva = totalImpto * (rIva[0].porcentajeRetencion / 100);
+      /* if (sinBaseRete == 1) {
       } else {
-        if (rFte[0].baseRetencion <= valbase) {
+        if (rIva[0].baseRetencion <= valbase) {
           reteIva = totalImpto * (rIva[0].porcentajeRetencion / 100);
         }
-      }
+      } */
     }
 
     /* if (reteica == 1) {
@@ -7651,8 +7651,7 @@ async function salidaHuesped() {
     };
 
     let facturado = await enviaPago(parametros);
-    let { error, mensaje, factura, perfil, errorDian, archivo, folio } =
-      facturado[0];
+    let { error, mensaje, factura, perfil, errorDian, archivo, folio } = facturado[0];
     if (error == "1") {
       let muestra = await muestraError(mensaje);
     } else {

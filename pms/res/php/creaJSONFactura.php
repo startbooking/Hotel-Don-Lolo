@@ -59,14 +59,16 @@ $valorRet = [];
 $valorRetIca = [];
 $noAutorizado = '';
 
+$datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
 
 if ($tipofac == 1) {
   $id = $idhuesped;
-  $datosHuesped = $hotel->getbuscaDatosHuesped($id);
+  $tdiFact = $datosHuesped[0]['tipo_identifica'];
   $nitFact = $datosHuesped[0]['identificacion'];
   $dvFact = '';
   $nomFact = $datosHuesped[0]['nombre1'] . ' ' . $datosHuesped[0]['nombre2'] . ' ' . $datosHuesped[0]['apellido1'] . ' ' . $datosHuesped[0]['apellido2'];
   $emaFact = $datosHuesped[0]['email'];
+
   /* $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
   $nitFact = $datosHuesped[0]['identificacion'];
   $dvFact = '';
@@ -82,6 +84,7 @@ if ($tipofac == 1) {
   $aplicaica  = $datosCompania[0]['reteica'];
   $sinBaseRete  = $datosCompania[0]['sinBaseRete'];
 
+  $diasCre = $datosCompania[0]['dias_credito'];
   $nomFact = $datosCompania[0]['empresa'];
   $nitFact = $datosCompania[0]['nit'];
   $dvFact = $datosCompania[0]['dv'];
@@ -92,27 +95,16 @@ if ($tipofac == 1) {
   $dirFact = $datosCompania[0]['direccion'];
   $merFact = '0000000-00';
   $torFact = $datosCompania[0]['tipoAdquiriente'];
-  $tliFact = $hotel->traeIdResponsabilidadDianVenta($datosCompania[0]['responsabilidadTributaria']);
+  $tliFact = $datosCompania[0]['feCode'];
   $munFact = $datosCompania[0]['ciudad'];
+  $nameCity = $datosCompania[0]['municipio'];
   $telFact = $datosCompania[0]['telefono'];
+  $country = $datosCompania[0]['pais'];
+  $staName = $datosCompania[0]['depto'];
 
-  if ($tdiFact == 8 || $tdiFact == 9) {
-    $country = $datosCompania[0]['pais'];
-    $torFact = null;
-    $numName = $datosCompania[0]['fax2'];
-    $staName = $datosCompania[0]['fax3'];
-    $tliFact = null;
-    $triFact = null;
-  }
-
-  $diasCre = $datosCompania[0]['dias_credito'];
-  /* if ($aplicarete == 1) {
-    if ($sinBaseRete == 1) {
-      $valorRet = $hotel->traeValorRetencionesSinBase($reserva, $folioAct);
-    } else {
-      $valorRet = $hotel->traeValorRetenciones($reserva, $folioAct);
-    }
-  } */
+  /* $tliFact = $hotel->traeIdResponsabilidadDianVenta($datosCompania[0]['responsabilidadTributaria']);
+  $munFact = $datosCompania[0]['ciudad'];
+  $telFact = $datosCompania[0]['telefono']; */
   if ($aplicarete === 1) {
     if ($sinBaseRete == 1) {
       $valorRet = $hotel->traeValorRetencionesSinBase($reserva, $folioAct);
@@ -120,9 +112,27 @@ if ($tipofac == 1) {
       $valorRet = $hotel->traeValorRetenciones($reserva, $folioAct);
     }
   }
+
   if ($aplicaica === 1) {
     $valorRetIca = $hotel->traeValorRetencionIca($reserva, $folioAct);
   }
+
+  /* if ($tdiFact == 8 || $tdiFact == 9) {
+    $country = $datosCompania[0]['pais'];
+    $torFact = null;
+    $numName = $datosCompania[0]['fax2'];
+    $staName = $datosCompania[0]['fax3'];
+    $tliFact = null;
+    $triFact = null;
+  } */
+
+  /* if ($aplicarete == 1) {
+    if ($sinBaseRete == 1) {
+      $valorRet = $hotel->traeValorRetencionesSinBase($reserva, $folioAct);
+    } else {
+      $valorRet = $hotel->traeValorRetenciones($reserva, $folioAct);
+    }
+  } */
 }
 
 /* $retIva = $hotel->traeRetenciones(2);
@@ -153,10 +163,11 @@ if (count($anticipos) != 0) {
 } */
 
 $folios = $hotel->getConsumosReservaAgrupadoCodigoFolio($factura, $reserva, $folioAct, 1);
-// $pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolio($factura, $reserva, $folioAct, 3);
+$pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolio($factura, $reserva, $folioAct, 3);
 $tipoimptos = $hotel->getValorImptoFolio($factura, $reserva, $folioAct, 2);
 $subtotales = $hotel->getConsumosReservaAgrupadoFolio($factura, $reserva, $folioAct, 1);
 $sinImpuesto = $hotel->getConsumosReservasinImpuestos($factura, $reserva, $folioAct, 1);
+$codigoPagoDian = $hotel->getCodigosDianFP($codigo);
 
 if (count($sinImpuesto) != 0) {
   $totalSinImpto = $sinImpuesto[0]['cargos'];
@@ -206,7 +217,7 @@ if ($tipofac == 2) {
   $eCust['type_regime_id'] = $triFact;
   if ($tdiFact == 8 || $tdiFact == 9) {
     $eCust['country_id'] = $country;
-    $eCust['municipality_name'] = $nameCity;
+    $eCust['municipality_name'] = $nameCity[0]['municipio'];
     $eCust['state_name'] = $staName;
     $eCust['type_organization_id'] = null;
     $eCust['type_liability_id'] = null;
@@ -220,10 +231,17 @@ if ($tipofac == 2) {
   }
 }
 
-$ePago['payment_form_id'] = $hotel->traeCodigoDianVenta($codigo);
-$ePago['payment_method_id'] = $hotel->traeCodigoDianVenta($codigo);
+/* $ePago['payment_form_id'] = $hotel->traeCodigoDianVenta($codigo);
+$ePago['payment_method_id'] = $hotel->traeCodigoDianVenta($codigo); */
+$ePago['payment_form_id'] = $codigoPagoDian['identificador_dian'];
+$ePago['payment_method_id'] = $codigoPagoDian['medioPagoDian'];
 $ePago['payment_due_date'] = $fechaVen;
 $ePago['duration_measure'] = $diasCre;
+
+$eLmon['line_extension_amount'] = $subtotales[0]['cargos'];
+$eLmon['tax_exclusive_amount'] = $subtotales[0]['cargos'] - $totalSinImpto;
+$eLmon['tax_inclusive_amount'] = $subtotales[0]['cargos'] + $subtotales[0]['imptos'];
+$eLmon['payable_amount'] = $subtotales[0]['cargos'] + $subtotales[0]['imptos'];
 
 $tax_totals = [];
 foreach ($folios as $folio1) {
@@ -241,27 +259,31 @@ foreach ($folios as $folio1) {
   }
   if ($folio1['porcentaje_impto'] != 0) {
     $invo = [
-      'unit_measure_id' => $hotel->traeTipoUnidadDianVenta($folio1['id_codigo_cargo']),
+      // 'unit_measure_id' => $hotel->traeTipoUnidadDianVenta($folio1['id_codigo_cargo']),
+      'unit_measure_id' => $folio1['tipoUnidad'],
       'invoiced_quantity' => 1,
       'line_extension_amount' => $folio1['cargos'],
       'free_of_charge_indicator' => false,
       'tax_totals' => $taxfolio,
       'description' => $folio1['descripcion_cargo'],
       'notes' => '',
-      'code' => $hotel->traeCodigoDianVenta($folio1['id_codigo_cargo']),
+      // 'code' => $hotel->traeCodigoDianVenta($folio1['id_codigo_cargo']),
+      'code' => $folio1['identificador_dian'],
       'type_item_identification_id' => 4,
       'price_amount' => $folio1['cargos'] + $folio1['imptos'],
       'base_quantity' => 1,
     ];
   } else {
     $invo = [
-      'unit_measure_id' => $hotel->traeTipoUnidadDianVenta($folio1['id_codigo_cargo']),
+      // 'unit_measure_id' => $hotel->traeTipoUnidadDianVenta($folio1['id_codigo_cargo']),
+      'unit_measure_id' => $folio1['tipoUnidad'],
       'invoiced_quantity' => 1,
       'line_extension_amount' => $folio1['cargos'],
       'free_of_charge_indicator' => false,
       'description' => $folio1['descripcion_cargo'],
       'notes' => '',
-      'code' => $hotel->traeCodigoDianVenta($folio1['id_codigo_cargo']),
+      // 'code' => $hotel->traeCodigoDianVenta($folio1['id_codigo_cargo']),
+      'code' => $folio1['identificador_dian'],
       'type_item_identification_id' => 4,
       'price_amount' => $folio1['cargos'] + $folio1['imptos'],
       'base_quantity' => 1,
@@ -272,7 +294,8 @@ foreach ($folios as $folio1) {
 foreach ($tipoimptos as $impto) {
   if ($impto['porcentaje_impto'] != 0) {
     $tax = [
-      'tax_id' => $hotel->traeCodigoDianVenta($impto['id_cargo']),
+      // 'tax_id' => $hotel->traeCodigoDianVenta($impto['id_cargo']),
+      'tax_id' => $impto['identificador_dian'],
       'tax_amount' => $impto['imptos'],
       'taxable_amount' => $impto['cargos'],
       'percent' => number_format($impto['porcentaje_impto'], 0),
@@ -292,6 +315,20 @@ foreach ($valorRet as $rete) {
   array_push($eRete, $ret);
 }
 
+foreach ($valorRetIca as $reteica) {
+  $rica = [
+    'tax_id' => '7',
+    'tax_amount' => $reteica['valorRetencion'],
+    'taxable_amount' => $reteica['monto'],
+    'percent' => $reteica['porcentajeRetencion'],
+  ];
+
+  array_push($eRete, $rica);
+}
+
+
+
+
 if (count($eTaxe) == 0) {
   $eLmon['tax_exclusive_amount'] = 0;
 } else {
@@ -308,22 +345,23 @@ $riva = [
   'percent' => $porceReteiva,
 ];
 
-$rica = [
+/* $rica = [
   'tax_id' => '7',
   'tax_amount' => $reteica,
   'taxable_amount' => $baseIca,
   'percent' => $porceReteica,
-];
+]; */
 
 if ($reteiva > 0) {
   array_push($eRete, $riva);
 }
-if ($reteica > 0) {
+
+/* if ($reteica > 0) {
   array_push($eRete, $rica);
-}
+} */
 
 $oMode = [
-  "company" => "HOTEL DON LOLO LTDA - Nit .: 892002427 - 7",
+  "company" => NAME_HOTEL." - Nit .: ".NIT_HOTEL,
   "software" =>  "Facturación Electrónica - SACTel PMS ",
 ];
 

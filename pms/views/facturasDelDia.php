@@ -1,6 +1,6 @@
 <?php
   $eToken = $hotel->datosTokenCia();
-  $facturador = $eToken[0]['facturador'];
+  $facturador = $eToken[0]['facturador'];  // print_r($facturas);
 
 ?>
 
@@ -84,7 +84,8 @@
                           ?>
                           <td style="padding:3px 5px;width: 12%;text-align:center;">
                             <?php
-                            if ($factura['estadoEnvio'] != Null) { ?>
+                            // echo $factura['estadoEnvio'];
+                            if ($factura['estadoEnvio'] == Null || $factura['estadoEnvio'] == 'true'  ) { ?>
                               <button class="btn btn-info btn-xs" type="button" data-toggle="modal" data-tipo="0" data-facturador="<?php echo $facturador; ?>" data-apellidos="<?php echo $factura['apellido1'] . ' ' . $factura['apellido2']; ?>" data-nombres="<?php echo $factura['nombre1'] . ' ' . $factura['nombre2']; ?>" data-fechafac="<?php echo $factura['fecha_factura']; ?>" data-numero="<?php echo $factura['factura_numero']; ?>" data-reserva="<?php echo $factura['num_reserva']; ?>" href="#myModalVerFactura" title="Ver Factura">
                                 <i class="fa fa-file-pdf" aria-hidden="true"></i>
                               </button>
@@ -124,7 +125,7 @@
                               <button class="btn btn-warning btn-xs" onclick="event.preventDefault();facturaDetallada('<?php echo $factura['prefijo_factura'] ?>','<?php echo $factura['factura_numero']; ?>');" type="button" title="Imprimir Factura Detallada">
                                 <i class="fa-solid fa-bars"></i>
                               </button>
-                            <?php
+                              <?php
                             } else { ?>
                               <button class="btn btn-success btn-xs" onclick="event.preventDefault();reEnviaFactura('<?= $factura['factura_numero']; ?>');" type="button" title="ReProcesar Factura">
                                 <i class="fa fa-location-arrow" aria-hidden="true"></i>
