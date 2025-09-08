@@ -5860,9 +5860,12 @@ async function reEnviaFactura(factura) {
   document.querySelector("#verFacturaNro").value = factura;
 
   let jsonFactura = await creaJSONFactura(factura);
+  // console.log(jsonFactura);
   const eToken = await traeToken();
   let { token } = eToken[0];
+  // console.log(token);
   let recibeData = await enviaJSONFactura(jsonFactura, token);
+  // console.log(recibeData);
   let recibe = await recibeData.json();
   console.log(recibe);
   let { ok } = recibeData;
@@ -5923,6 +5926,7 @@ async function reEnviaFactura(factura) {
       };
 
       let insertaFE = await ingresaDatosFE(datosFe);
+      console.log(factura)
       let imprime = await imprimeFacturaReenvio(factura, prefijo);
       let guarda = await guardaJSON(JSON.stringify(recibe), jsonFactura);
       let infocorreos = await traeCorreosFactura(factura);
@@ -5933,7 +5937,8 @@ async function reEnviaFactura(factura) {
         number: factura,
         prefix: prefijo,
         base64graphicrepresentation: impresion,
-      }; // console.log(envioFAC);
+      };
+      // console.log(envioFAC);
       let mail = await enviaCorreoFactura(envioFAC, token);
       swal(
         {
@@ -5983,8 +5988,8 @@ async function reEnviaFactura(factura) {
 
 const enviaCorreoFactura = async (envioFAC, token) => {
   try {
-    url = "https://api.nextpyme.plus/api/ubl2.1/send-emaill";
-    // url =  'http://donlolo.lan/pms/api/pruebaCorreo.php';
+    // url = "https://api.nextpyme.plus/api/ubl2.1/send-emaill";
+    url =  'http://donlolo.lan/pms/api/pruebaCorreo.php';
     const resultado = await fetch(url, {
       method: "post",
       credentials: "same-origin",
@@ -6037,6 +6042,7 @@ const guardaJSON = async (recibe, envio) => {
 };
 
 const imprimeFacturaReenvio = async (factura, prefijo) => {
+  console.log(factura, prefijo);
   data = { factura, prefijo };
   try {
     const resultado = await fetch(`res/php/imprimeFacturaReenvio.php`, {
@@ -6087,6 +6093,7 @@ const ingresaDatosFE = async (datosFe) => {
 };
 
 const creaJSONFactura = async (factura) => {
+  console.log(factura)
   data = { factura };
   try {
     const resultado = await fetch(`res/php/creaJSONFactura.php`, {
@@ -6107,8 +6114,9 @@ const creaJSONFactura = async (factura) => {
 const enviaJSONFactura = async (jsonFactura, token) => {
   data = { jsonFactura };
   try {
-    url = "https://api.nextpyme.plus/api/ubl2.1/invoice";
+    // url = "https://api.nextpyme.plus/api/ubl2.1/invoice";
     // url =  'http://donlolo.lan/pms/api/prueba.json';
+    url =  'http://donlolo.lan/pms/api/prueba.json';
     // url = 'http://donlolo.lan/pms/res/php/fact20502.json';
     const resultado = await fetch(url, {
       method: "post",
@@ -6120,7 +6128,7 @@ const enviaJSONFactura = async (jsonFactura, token) => {
       },
       body: jsonFactura,
     });
-
+    // console.log(resultado)
     const datos = await resultado;
     return datos;
   } catch (error) {
@@ -8068,8 +8076,11 @@ function cambiaEstadoCredito(value) {
 // Se ejecuta al cargar la página para establecer el estado inicial del formulario.
 document.addEventListener('DOMContentLoaded', () => {
   // Dispara la función con el valor inicial del select
-  const initialDocType = document.getElementById('tipodoc').value;
-  toggleNacionalFields(initialDocType);
+  initialDoc = document.querySelector("#tipodoc")
+  if(initialDoc){
+    const initialDocType = initialDoc.value;
+    toggleNacionalFields(initialDocType);
+  }
 });
 
 
@@ -9767,8 +9778,7 @@ function recibosPorFecha() {
 
 function validaCierreDiario() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario, usuario_id } = user;
+  let { user:{ usuario }, } = sesion;
   var pagina = $("#ubicacion").val();
   login = $("#login").val().toUpperCase();
   pass = $("#pass").val();
@@ -9822,12 +9832,12 @@ function validaCierreDiario() {
 }
 
 function validaCierreCajero() {
+  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { user:{ usuario }, } = sesion;
+
   var pagina = $("#ubicacion").val();
-  login = $("#login").val().toUpperCase();
-  login = $.trim(login);
+  login = $.trim($("#login").val().toUpperCase());
   pass = $("#pass").val();
-  usuario = $("#usuarioActivo").val();
-  usuario = $.trim(usuario);
 
   parametros = {
     login,
@@ -9840,7 +9850,7 @@ function validaCierreCajero() {
       type: "POST",
       data: parametros,
       success: function (x) {
-        if (x == 0) {
+        if (parseInt(x) === 0) {
           $("#error").html(
             '<h4 class="alert alert-danger">El Usuario o la Contraseña no Coinciden con el Usuario Activo</h4>'
           );

@@ -140,12 +140,13 @@
   $pdf->Cell(25,6,'Valor',0,0,'C');
   $pdf->Cell(10,6,'Hora',0,1,'C');
   $pdf->SetFont('Arial','',9);
-  $cargos = $hotel->getDepositosdelDiaporcajero(FECHA_PMS,$user,3,0); 
+  $cargos = $hotel->getDepositosdelDiaporcajero(FECHA_PMS,$user,3,0);
+  // print_r($cargos);
 
   $pagos  = 0 ;
   foreach ($cargos as $cargo) {
     $pdf->Cell(10,6,$cargo['habitacion_cargo'],0,0,'L');
-    $pdf->Cell(10,6,$cargo['concecutivo_deposito'],0,0,'L');
+    $pdf->Cell(10,6,$cargo['concecutivo_abono'],0,0,'L');
     $pdf->Cell(70,6,substr(($cargo['apellido1'].' '.$cargo['apellido2'].' '.$cargo['nombre1'].' '.$cargo['nombre2']),0,35),0,0,'L');
     $pdf->Cell(50,6,($cargo['descripcion_cargo']),0,0,'L');
     $pdf->Cell(25,6,number_format($cargo['pagos_cargos'],2),0,0,'R');

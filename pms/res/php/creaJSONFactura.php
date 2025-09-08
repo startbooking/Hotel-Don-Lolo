@@ -135,11 +135,11 @@ if ($tipofac == 1) {
   } */
 }
 
-/* $retIva = $hotel->traeRetenciones(2);
-$retIca = $hotel->traeRetenciones(3);
+$retIva = $hotel->traeRetenciones(2);
+// $retIca = $hotel->traeRetenciones(3);
 
 $porceReteiva = $retIva[0]['porcentajeRetencion'];
-$porceReteica = $retIca[0]['porcentajeRetencion']; */
+// $porceReteica = $retIca[0]['porcentajeRetencion'];
 
 $saldos = $hotel->getValorFactura($factura);
 $anticipos = $hotel->valorAnticipos($factura);
@@ -326,9 +326,6 @@ foreach ($valorRetIca as $reteica) {
   array_push($eRete, $rica);
 }
 
-
-
-
 if (count($eTaxe) == 0) {
   $eLmon['tax_exclusive_amount'] = 0;
 } else {
@@ -345,20 +342,9 @@ $riva = [
   'percent' => $porceReteiva,
 ];
 
-/* $rica = [
-  'tax_id' => '7',
-  'tax_amount' => $reteica,
-  'taxable_amount' => $baseIca,
-  'percent' => $porceReteica,
-]; */
-
 if ($reteiva > 0) {
   array_push($eRete, $riva);
 }
-
-/* if ($reteica > 0) {
-  array_push($eRete, $rica);
-} */
 
 $oMode = [
   "company" => NAME_HOTEL." - Nit .: ".NIT_HOTEL,

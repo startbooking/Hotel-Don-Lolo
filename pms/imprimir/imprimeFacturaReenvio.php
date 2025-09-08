@@ -1,15 +1,15 @@
 <?php
 
 require '../../../res/fpdf/fpdf.php';
-require '../../../res/phpqrcode/qrlib.php'; 
-
+// require '../../../res/phpqrcode/qrlib.php'; 
 $filename = '../../../img/pms/QR_'.$prefijo.'-'.$factura.'.png';
+include_once 'imprimeQR.php';
 
-$size = 100; // Tamaño en píxeles
-$level = 'L'; // Nivel de corrección (L, M, Q, H)
+/* $size = 100; // Tamaño en píxeles
+$level = 'L'; // Nivel de corrección (L, M, Q, H) */
 
 // Generar el código QR
-QRcode::png($QRStr, $filename, $level, $size); 
+// QRcode::png($QRStr, $filename, $level, $size); 
 
 $datosReserva = $hotel->getReservasDatos($reserva);
 $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);

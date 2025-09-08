@@ -2,7 +2,7 @@
 
 require '../../../res/fpdf/fpdf.php';
 
-$pdf = new FPDF();
+$pdf = new FPDF(); 
 $pdf->AddPage('P', 'letter');
 $pdf->Rect(10, 50, 190, 210);
 $pdf->Image('../../../img/'.LOGO, 10, 5, 40);
