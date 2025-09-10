@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   let sinReserva = document.querySelector('#formSinReserva')
-  if(sinReserva){
+  if (sinReserva) {
     sinReserva.reset()
   }
 
@@ -144,7 +144,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       const valorTar = document.querySelector('#valortar')
       const tarifaFiltrada = globalTarifas.find(tarifa => tarifa.id == parseInt(e.target.value));
-      let valor  = await valorTarifaHabitacion(hombres+mujeres, ninos, tarifaFiltrada);
+      let valor = await valorTarifaHabitacion(hombres + mujeres, ninos, tarifaFiltrada);
       valorTar.value = valor
     });
 
@@ -727,7 +727,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   $("#myModalAnulaFacturaHistorico").on("show.bs.modal", function (event) {
     sesion = JSON.parse(localStorage.getItem("sesion"));
-    let { user: { tipo },} = sesion;
+    let { user: { tipo }, } = sesion;
     if (tipo > 2) {
       swal("Precaucion", "Usuario NO Permitido Anular Factura", "warning");
       $("#myModalAnulaFacturaHistorico").modal("hiden");
@@ -1773,7 +1773,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Event listener para el tipo de habitación
     tipohabiSelect.addEventListener('blur', async () => {
-      console.log('PAso Evento OnBLur')
+      // console.log('PAso Evento OnBLur')
       await habitacionesDisponibles(2);
       globalTarifas = await cargarTarifas();
       const limpia = await limpiaTarifas();
@@ -1791,7 +1791,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       const valorTar = document.querySelector('#valortarifaUpd')
       const tarifaFiltrada = globalTarifas.find(tarifa => tarifa.id == parseInt(e.target.value));
-      let valor  = await valorTarifaHabitacion(hombres+mujeres, ninos, tarifaFiltrada);
+      let valor = await valorTarifaHabitacion(hombres + mujeres, ninos, tarifaFiltrada);
       valorTar.value = valor
     });
 
@@ -2386,7 +2386,7 @@ async function cargarTarifas() {
     llegadaInput = document.getElementById('llegadaUpd');
     salidaInput = document.getElementById('salidaUpd');
     tipohabiSelect = document.getElementById('tipohabiUpd');
-  }else{
+  } else {
     llegadaInput = document.getElementById('llegada');
     salidaInput = document.getElementById('salida');
     tipohabiSelect = document.getElementById('tipohabi');
@@ -2439,7 +2439,7 @@ async function cargarTarifas() {
 
 }
 
-async function traeReservaModificar(id){
+async function traeReservaModificar(id) {
   // console.log(id)
   const url = 'res/php/dataUpdateReserva.php';
   const requestBody = {
@@ -2455,7 +2455,7 @@ async function traeReservaModificar(id){
       body: JSON.stringify(requestBody),
     });
 
-    console.log(response)
+    // console.log(response)
 
     if (!response.ok) {
       throw new Error(`Error en la red: ${response.statusText}`);
@@ -2479,7 +2479,7 @@ async function traeReservaModificar(id){
 
 }
 
-async function valorTarifaHabitacion(adultos, ninos, tarifa){
+async function valorTarifaHabitacion(adultos, ninos, tarifa) {
   switch (adultos) {
     case 1:
       valorAdulto = tarifa.valor_un_pax
@@ -2489,7 +2489,7 @@ async function valorTarifaHabitacion(adultos, ninos, tarifa){
       break;
     case 3:
       valorAdulto = tarifa.valor_tre_pax
-      break; 
+      break;
     case 4:
       valorAdulto = tarifa.valor_cua_pax
       break;
@@ -3145,15 +3145,15 @@ async function traeReservasTotal() {
 
 async function llenaTarifas(tarifas) {
   let editaReserva = document.querySelector("#editaRes").value;
-  let selectElement 
-  if(editaReserva==1){
+  let selectElement
+  if (editaReserva == 1) {
     selectElement = document.querySelector("#tarifahabUpd");
-  }else{
+  } else {
     selectElement = document.querySelector("#tarifahab");
   }
 
   tarifas.map((item) => {
-    let { id, descripcion_tarifa  } = item
+    let { id, descripcion_tarifa } = item
     const optionElement = document.createElement("option");
     optionElement.value = id;
     optionElement.text = `${descripcion_tarifa}`;
@@ -3165,9 +3165,9 @@ async function llenaTarifas(tarifas) {
 async function limpiaTarifas() {
   let editaReserva = document.querySelector("#editaRes").value;
   let selectElement
-  if(editaReserva==1){
+  if (editaReserva == 1) {
     selectElement = document.querySelector("#tarifahabUpd");
-  }else {
+  } else {
     selectElement = document.querySelector("#tarifahab");
   }
   while (selectElement.firstChild) {
@@ -4024,7 +4024,7 @@ function llenaAbonos(datos) {
 }
 
 function llenaNotasCre(datos) {
-  console.log(datos);
+  // console.log(datos);
   facturasHTML = document.querySelector("#dataTableNC tbody");
   resultado = document.querySelector(".mensajeNC");
   if (datos.trim() == "1") {
@@ -4930,7 +4930,7 @@ function anulaFacturaHistorico() {
       );
     },
     success: function (resp) {
-      console.log(resp)
+      // console.log(resp)
       let { error, mensaje, archivo } = resp[0];
       let mensajeErr = '';
       if (error == "1") {
@@ -5660,7 +5660,7 @@ function congelaHuesped() {
     url: web + "res/php/ingresoCongela.php",
     data: parametros,
     success: function (data) {
-      console.log(data);
+      // console.log(data);
       var ventana = window.open('imprimir/congela/' + data.trim(), "PRINT", "height=600,width=600");
       swal(
         {
@@ -5669,7 +5669,7 @@ function congelaHuesped() {
           type: "success",
         },
         function () {
-          // $(location).attr("href", "facturacionEstadia");
+          $(location).attr("href", "facturacionEstadia");
         }
       );
     },
@@ -5860,14 +5860,10 @@ async function reEnviaFactura(factura) {
   document.querySelector("#verFacturaNro").value = factura;
 
   let jsonFactura = await creaJSONFactura(factura);
-  // console.log(jsonFactura);
   const eToken = await traeToken();
   let { token } = eToken[0];
-  // console.log(token);
   let recibeData = await enviaJSONFactura(jsonFactura, token);
-  // console.log(recibeData);
   let recibe = await recibeData.json();
-  console.log(recibe);
   let { ok } = recibeData;
   if (!ok) {
     let vistaErr = await errorEnvio(recibeData);
@@ -5877,12 +5873,24 @@ async function reEnviaFactura(factura) {
         Envelope: {
           Body: {
             SendBillSyncResponse: {
-              SendBillSyncResult: { IsValid },
+              SendBillSyncResult: { IsValid, ErrorMessage: { string } },
             },
           },
         },
       },
     } = recibe;
+    const pares = string.split(", ");
+    // 2. Mapear cada par para crear un array de arrays [clave, valor]
+    const matriz = pares.map(par => {
+      const partes = par.split(": ");
+      // Asegúrate de manejar casos donde no haya valor después de los dos puntos
+      return [partes[0].trim(), partes[1] ? partes[1].trim() : ""];
+    });
+
+    const objetoRecibe = Object.fromEntries(
+      matriz.map(([key, value]) => [key.toLowerCase(), value])
+    );
+    let { regla, rechazo } = objetoRecibe
     if (IsValid === "true") {
       let {
         ResponseDian: {
@@ -5890,7 +5898,7 @@ async function reEnviaFactura(factura) {
             Body: {
               SendBillSyncResponse: {
                 SendBillSyncResult: {
-                  ErrorMessage,
+                  ErrorMessage: { string },
                   StatusMessage,
                   StatusDescription,
                   StatusCode,
@@ -5902,9 +5910,7 @@ async function reEnviaFactura(factura) {
       } = recibe;
 
       let infoFac = await traeResolucion();
-      // console.log(infoFact);
       let { prefijo } = infoFac;
-
       let { message, send_email_success, send_email_date_time, urlinvoicexml, urlinvoicepdf, cufe, QRStr, dian_validation_date_time: { date }, } = recibe;
 
       datosFe = {
@@ -5919,14 +5925,13 @@ async function reEnviaFactura(factura) {
         QRStr,
         date,
         IsValid,
-        ErrorMessage,
+        ErrorMessage: string,
         StatusCode,
         StatusDescription,
         StatusMessage,
       };
 
       let insertaFE = await ingresaDatosFE(datosFe);
-      console.log(factura)
       let imprime = await imprimeFacturaReenvio(factura, prefijo);
       let guarda = await guardaJSON(JSON.stringify(recibe), jsonFactura);
       let infocorreos = await traeCorreosFactura(factura);
@@ -5938,7 +5943,6 @@ async function reEnviaFactura(factura) {
         prefix: prefijo,
         base64graphicrepresentation: impresion,
       };
-      // console.log(envioFAC);
       let mail = await enviaCorreoFactura(envioFAC, token);
       swal(
         {
@@ -5953,43 +5957,135 @@ async function reEnviaFactura(factura) {
         }
       );
     } else {
-      let {
-        ResponseDian: {
-          Envelope: {
-            Body: {
-              SendBillSyncResponse: {
-                SendBillSyncResult: { ErrorMessage },
+      if (regla == 90) {
+        // Trae datos del JSON ya procesados en la DIAN
+        let { uuid_dian } = recibe;
+        let recibeJson = await leerDatosJSON(uuid_dian, token)
+        let infoFac = await traeResolucion();
+        let { prefijo } = infoFac;
+        let {
+          ResponseDian: {
+            Envelope: {
+              Body: {
+                GetStatusResponse: {
+                  GetStatusResult: {
+                    ErrorMessage: { string },
+                    StatusMessage,
+                    StatusDescription,
+                    StatusCode,
+                  },
+                },
               },
             },
           },
-        },
-      } = recibe;
-      let { string } = ErrorMessage;
-      let mensaje = "";
-      let isArray = Array.isArray(string);
-      if (isArray) {
-        string.map((error) => {
-          mensaje = mensaje + error + "\n";
-        });
+        } = recibeJson;
+
+        let { message, send_email_success, send_email_date_time, urlinvoicexml, urlinvoicepdf, cufecude, QRStr, dian_validation_date_time: { date }, } = recibeJson;
+
+        datosFe = {
+          factura,
+          prefijo,
+          message,
+          send_email_success:0,
+          send_email_date_time:null,
+          urlinvoicexml,
+          urlinvoicepdf,
+          cufe: cufecude,
+          QRStr,
+          date,
+          IsValid:'true',
+          ErrorMessage: string,
+          StatusCode,
+          StatusDescription,
+          StatusMessage,
+        };
+
+        // console.log(datosFe)
+
+        let insertaFE = await ingresaDatosFE(datosFe);
+        // console.log(factura)
+        let imprime = await imprimeFacturaReenvio(factura, prefijo);
+        let guarda = await guardaJSON(JSON.stringify(recibeJson), jsonFactura);
+        let infocorreos = await traeCorreosFactura(factura);
+        let { impresion } = imprime;
+        let { correo, correofac } = infocorreos;
+
+        let envioFAC = {
+          number: factura,
+          prefix: prefijo,
+          base64graphicrepresentation: impresion,
+        };
+        // console.log(envioFAC);
+        let mail = await enviaCorreoFactura(envioFAC, token);
+        swal(
+          {
+            title: "Atencion !",
+            text: "Documento Procesado Con Exito !",
+            type: "success",
+            confirmButtonText: "Aceptar",
+            closeOnConfirm: false,
+          },
+          function () {
+            $(location).attr("href", "facturasDelDia");
+          }
+        );
+
       } else {
-        mensaje = string;
+        let {
+          ResponseDian: {
+            Envelope: {
+              Body: {
+                SendBillSyncResponse: {
+                  SendBillSyncResult: { ErrorMessage },
+                },
+              },
+            },
+          },
+        } = recibe;
+        let { string } = ErrorMessage;
+        let mensaje = "";
+        let isArray = Array.isArray(string);
+        if (isArray) {
+          string.map((error) => {
+            mensaje = mensaje + error + "\n";
+          });
+        } else {
+          mensaje = string;
+        }
+        dataErr = {
+          statusText: mensaje,
+          status: "200 \n",
+        };
+        let vistaErr = await errorEnvio(dataErr);
+        let alerta = document.querySelector(".showSweetAlert");
+        alerta.classList.add("anchoalerta");
       }
-      dataErr = {
-        statusText: mensaje,
-        status: "200 \n",
-      };
-      let vistaErr = await errorEnvio(dataErr);
-      let alerta = document.querySelector(".showSweetAlert");
-      alerta.classList.add("anchoalerta");
     }
   }
   let guarda = await guardaJSON(JSON.stringify(recibe), jsonFactura);
 }
 
+async function leerDatosJSON(uuid_dian, token) {
+  url = `https://api.nextpyme.plus/api/ubl2.1/status/document/${uuid_dian}`
+  const response = await fetch(url, {
+    method: "post",
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ "sendmail": false }),
+  });
+
+  const data = await response.json();
+  return data;
+}
+
 const enviaCorreoFactura = async (envioFAC, token) => {
   try {
     // url = "https://api.nextpyme.plus/api/ubl2.1/send-emaill";
-    url =  'http://donlolo.lan/pms/api/pruebaCorreo.php';
+    url = 'http://donlolo.lan/pms/api/pruebaCorreo.php';
     const resultado = await fetch(url, {
       method: "post",
       credentials: "same-origin",
@@ -6042,7 +6138,6 @@ const guardaJSON = async (recibe, envio) => {
 };
 
 const imprimeFacturaReenvio = async (factura, prefijo) => {
-  console.log(factura, prefijo);
   data = { factura, prefijo };
   try {
     const resultado = await fetch(`res/php/imprimeFacturaReenvio.php`, {
@@ -6070,7 +6165,6 @@ const traeResolucion = async () => {
     const datos = await resultado.json();
     return datos;
   } catch (error) {
-    // console.log(error);
     return error;
   }
 };
@@ -6093,7 +6187,6 @@ const ingresaDatosFE = async (datosFe) => {
 };
 
 const creaJSONFactura = async (factura) => {
-  console.log(factura)
   data = { factura };
   try {
     const resultado = await fetch(`res/php/creaJSONFactura.php`, {
@@ -6115,9 +6208,7 @@ const enviaJSONFactura = async (jsonFactura, token) => {
   data = { jsonFactura };
   try {
     // url = "https://api.nextpyme.plus/api/ubl2.1/invoice";
-    // url =  'http://donlolo.lan/pms/api/prueba.json';
     url =  'http://donlolo.lan/pms/api/prueba.json';
-    // url = 'http://donlolo.lan/pms/res/php/fact20502.json';
     const resultado = await fetch(url, {
       method: "post",
       credentials: "same-origin",
@@ -6128,7 +6219,6 @@ const enviaJSONFactura = async (jsonFactura, token) => {
       },
       body: jsonFactura,
     });
-    // console.log(resultado)
     const datos = await resultado;
     return datos;
   } catch (error) {
@@ -6527,41 +6617,11 @@ async function apagaselecomp(tipo) {
 
     if (reteiva == 1) {
       reteIva = totalImpto * (rIva[0].porcentajeRetencion / 100);
-      /* if (sinBaseRete == 1) {
-      } else {
-        if (rIva[0].baseRetencion <= valbase) {
-          reteIva = totalImpto * (rIva[0].porcentajeRetencion / 100);
-        }
-      } */
     }
-
-    /* if (reteica == 1) {
-      if (sinBaseRete == 1) {
-        reteIca = totalRteFte * (rIca[0].porcentajeRetencion / 100);
-      } else {
-        if (rFte[0].baseRetencion <= valbase) {
-          reteIca = totalRteFte * (rIca[0].porcentajeRetencion / 100);
-        }
-      }
-    } */
-
-    // console.log(valreteIca)
 
     if (reteica == 1) {
-
-      /* if (sinBaseRete == 1) {
-        reteIca = totalRteFte * (rIca[0].porcentajeRetencion / 100);
-      } else {
-        if (rFte[0].baseRetencion <= valbase) {
-          reteIca = totalRteFte * (rIca[0].porcentajeRetencion / 100);
-        }
-      } */
       reteIca = valreteIca;
     }
-
-    /* console.log(mReteIca);
-
-    console.log(valreteIca) */
 
     reteFte = parseInt(reteFte.toFixed(0));
     reteIva = parseInt(reteIva.toFixed(0));
@@ -6641,8 +6701,6 @@ async function valorReteIcaFolio(nroReserva, nroFolio) {
     return error;
   }
 }
-
-
 
 function sumaTotales() {
   toCon = parseFloat($("#totalConsumo").val());
@@ -7195,7 +7253,7 @@ function seleccionaTarifasUpd() {
 
 function seleccionaHabitacionUpd(tipohab, anterior, numero, llega, sale) {
   let tipo = document.querySelector('#tipohabiUpd').value
-  console.log(tipo);
+  // console.log(tipo);
   var parametros = {
     tipo,
     anterior,
@@ -7224,7 +7282,7 @@ async function updateReserva() {
     data: parametros,
     url: "res/php/updateReserva.php",
     success: function (datos) {
-      // $(location).attr("href", "reservasActivas");
+      $(location).attr("href", "reservasActivas");
     },
   });
 }
@@ -7718,7 +7776,7 @@ async function errorEnvio(cErrors) {
 }
 
 async function muestraError(cErrors) {
-  console.log(cErrors)
+  // console.log(cErrors)
   let { string } = cErrors;
   let mensajeErr = '';
   if (typeof cErrors == 'string') {
@@ -8077,7 +8135,7 @@ function cambiaEstadoCredito(value) {
 document.addEventListener('DOMContentLoaded', () => {
   // Dispara la función con el valor inicial del select
   initialDoc = document.querySelector("#tipodoc")
-  if(initialDoc){
+  if (initialDoc) {
     const initialDocType = initialDoc.value;
     toggleNacionalFields(initialDocType);
   }
@@ -8874,9 +8932,9 @@ function seleccionaTarifas() {
 }
 
 function valorHabitacion(tarifa) {
-  console.log(tarifa)
+  // console.log(tarifa)
   let tipo = $("#tipohabi").val();
-  console.log(`Tipo de Habitacion ${tipo}`);
+  // console.log(`Tipo de Habitacion ${tipo}`);
   let hom = $("#hombres").val();
   let muj = $("#mujeres").val();
   let nin = $("#ninos").val();
@@ -9694,7 +9752,7 @@ function facturasPorFecha() {
 }
 
 async function generaInforme(data) {
-  console.log(data);
+  // console.log(data);
   try {
     const resultado = await fetch("imprimir/imprimePropinas.php", {
       method: "post",
@@ -9722,7 +9780,7 @@ async function propinasPorFecha() {
     swal("Atencion", "Seleccione un Criterio de Busqueda", "warning");
   } else {
     const informe = await generaInforme(data);
-    console.log(informe);
+    // console.log(informe);
     creaHTMLReportes(informe, "Informe Propinas");
   }
 }
@@ -9778,7 +9836,7 @@ function recibosPorFecha() {
 
 function validaCierreDiario() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user:{ usuario }, } = sesion;
+  let { user: { usuario }, } = sesion;
   var pagina = $("#ubicacion").val();
   login = $("#login").val().toUpperCase();
   pass = $("#pass").val();
@@ -9833,7 +9891,7 @@ function validaCierreDiario() {
 
 function validaCierreCajero() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user:{ usuario }, } = sesion;
+  let { user: { usuario }, } = sesion;
 
   var pagina = $("#ubicacion").val();
   login = $.trim($("#login").val().toUpperCase());

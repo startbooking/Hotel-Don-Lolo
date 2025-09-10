@@ -1,31 +1,25 @@
 <?php
 
 require '../../../res/fpdf/fpdf.php';
-// require '../../../res/phpqrcode/qrlib.php'; 
-$filename = '../../../img/pms/QR_'.$prefijo.'-'.$factura.'.png';
+
+$filename = '../../../img/pms/QR_' . $prefijo . '-' . $factura . '.png';
 include_once 'imprimeQR.php';
-
-/* $size = 100; // Tamaño en píxeles
-$level = 'L'; // Nivel de corrección (L, M, Q, H) */
-
-// Generar el código QR
-// QRcode::png($QRStr, $filename, $level, $size); 
 
 $datosReserva = $hotel->getReservasDatos($reserva);
 $datosHuesped = $hotel->getbuscaDatosHuesped($idhuesped);
 
 $horaIng = $datosReserva['hora_llegada'];
 
-if ($tipofac == 2) { 
+if ($tipofac == 2) {
     $datosCompania = $hotel->getSeleccionaCompania($idperfil);
     $diasCre = $datosCompania[0]['dias_credito'];
 }
 
-$textoResol = 'RESOLUCION DIAN No.'.$resolucion.' de '.$fechaRes.' Autorizacion Pref '.$prefijo.' desde el No. '.$desde.' AL '.$hasta;
+$textoResol = 'RESOLUCION DIAN No.' . $resolucion . ' de ' . $fechaRes . ' Autorizacion Pref ' . $prefijo . ' desde el No. ' . $desde . ' AL ' . $hasta;
 
 $fechaFac = FECHA_PMS;
 $fechaVen = $fechaFac;
-$fechaVen = strtotime('+ '.$diasCre.' day', strtotime($fechaFac));
+$fechaVen = strtotime('+ ' . $diasCre . ' day', strtotime($fechaFac));
 $fechaVen = date('Y-m-d', $fechaVen);
 
 $tipoHabitacion = $hotel->getNombreTipoHabitacion($datosReserva['tipo_habitacion']);
@@ -36,9 +30,9 @@ $pagosfolio = $hotel->getConsumosReservaAgrupadoCodigoFolio($factura, $reserva, 
 $tipoimptos = $hotel->getValorImptoFolio($factura, $reserva, $folioAct, 2);
 $fecha = $hotel->getDatePms();
 
-if($datosReserva['fecha_salida']> FECHA_PMS){
+if ($datosReserva['fecha_salida'] > FECHA_PMS) {
     $fechaSalida = FECHA_PMS;
-}else{
+} else {
     $fechaSalida = $datosReserva['fecha_salida'];
 }
 
@@ -46,17 +40,16 @@ $pdf = new FPDF();
 $pdf->AddPage('P', 'letter');
 $pdf->Rect(10, 50, 190, 210);
 
-$pdf->Image('../../../img/'.LOGO, 10, 5, 40);
+$pdf->Image('../../../img/' . LOGO, 10, 5, 40);
 $pdf->Image($filename, 163, 5, 33);
-
 
 $pdf->SetFont('Arial', 'B', 11);
 $pdf->Cell(190, 4, (NAME_EMPRESA), 0, 1, 'C');
 $pdf->SetFont('Arial', '', 8);
-$pdf->Cell(190, 4, 'NIT: '.NIT_EMPRESA, 0, 1, 'C');
+$pdf->Cell(190, 4, 'NIT: ' . NIT_EMPRESA, 0, 1, 'C');
 $pdf->Cell(190, 4, (ADRESS_EMPRESA), 0, 1, 'C');
 $pdf->Cell(40, 4, '', 0, 0, 'C');
-$pdf->Cell(110, 4, (CIUDAD_EMPRESA).' '.PAIS_EMPRESA, 0, 1, 'C');
+$pdf->Cell(110, 4, (CIUDAD_EMPRESA) . ' ' . PAIS_EMPRESA, 0, 1, 'C');
 // $pdf->Cell(40, 4, '', 0, 1, 'C');
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(40, 4, '', 0, 0, 'C');
@@ -65,7 +58,7 @@ $pdf->SetFont('Arial', '', 7);
 $pdf->Cell(40, 4, '', 0, 0, 'C');
 $pdf->Cell(110, 4, (MAIL_HOTEL), 0, 1, 'C');
 $pdf->Cell(40, 4, '', 0, 0, 'C');
-$pdf->Cell(110, 4, 'Telefono '.TELEFONO_EMPRESA.' Movil '.CELULAR_EMPRESA, 0, 1, 'C');
+$pdf->Cell(110, 4, 'Telefono ' . TELEFONO_EMPRESA . ' Movil ' . CELULAR_EMPRESA, 0, 1, 'C');
 $pdf->Cell(40, 4, '', 0, 0, 'C');
 $pdf->Cell(110, 4, (ACTIVIDAD), 0, 0, 'C');
 $pdf->SetFont('Arial', 'B', 7);
@@ -78,7 +71,7 @@ $pdf->Cell(150, 4, '', 0, 0, 'C');
 $pdf->setY(46);
 $pdf->setX(160);
 $pdf->SetFont('Arial', 'B', 8);
-$pdf->MultiCell(40, 4, 'Nro '.$prefijo.' '.str_pad($factura, 4, '0', STR_PAD_LEFT), 1, 'C');
+$pdf->MultiCell(40, 4, 'Nro ' . $prefijo . ' ' . str_pad($factura, 4, '0', STR_PAD_LEFT), 1, 'C');
 $pdf->SetFont('Arial', '', 8);
 
 $pdf->Ln(1);
@@ -86,33 +79,33 @@ $pdf->Ln(1);
 $pdf->SetFont('Arial', 'B', 8);
 
 if ($tipofac == 2) {
-  if (!empty($datosCompania)) {
-    $pdf->SetFont('Arial', '', 8);
-    $pdf->Cell(30, 4, 'RAZON SOCIAL', 0, 0, 'L');
-    $pdf->SetFont('Arial', 'B', 8);
-    $pdf->Cell(120, 4, substr($datosCompania[0]['empresa'],0,69), 0, 0, 'L');
-    $pdf->SetFont('Arial', '', 8);
-    $pdf->Cell(10, 4, 'NIT.', 0, 0, 'L');
-    $pdf->SetFont('Arial', 'B', 8);
-    $pdf->Cell(30, 4, number_format($datosCompania[0]['nit'], 0).'-'.$datosCompania[0]['dv'], 0, 1, 'L');
-    $pdf->SetFont('Arial', '', 8);
-    $pdf->Cell(30, 4, 'DIRECCION', 0, 0, 'L');
-    $pdf->SetFont('Arial', 'B', 8);
-    $pdf->Cell(70, 4, substr(($datosCompania[0]['direccion']), 0, 35), 0, 0, 'L');
-    $pdf->SetFont('Arial', '', 8);
-    $pdf->Cell(20, 4, 'CIUDAD', 0, 0, 'L');
-    $pdf->SetFont('Arial', 'B', 8);
-    $pdf->Cell(30, 4, (substr($hotel->getCityName($datosCompania[0]['ciudad']), 0, 12)), 0, 0, 'L');
-    $pdf->SetFont('Arial', '', 8);
-    $pdf->Cell(21, 4, 'TELEFONO', 0, 0, 'L');
-    $pdf->SetFont('Arial', 'B');
-    $pdf->Cell(20, 4, $datosCompania[0]['telefono'], 0, 1, 'L');
-  }
+    if (!empty($datosCompania)) {
+        $pdf->SetFont('Arial', '', 8);
+        $pdf->Cell(30, 4, 'RAZON SOCIAL', 0, 0, 'L');
+        $pdf->SetFont('Arial', 'B', 8);
+        $pdf->Cell(120, 4, substr($datosCompania[0]['empresa'], 0, 69), 0, 0, 'L');
+        $pdf->SetFont('Arial', '', 8);
+        $pdf->Cell(10, 4, 'NIT.', 0, 0, 'L');
+        $pdf->SetFont('Arial', 'B', 8);
+        $pdf->Cell(30, 4, number_format($datosCompania[0]['nit'], 0) . '-' . $datosCompania[0]['dv'], 0, 1, 'L');
+        $pdf->SetFont('Arial', '', 8);
+        $pdf->Cell(30, 4, 'DIRECCION', 0, 0, 'L');
+        $pdf->SetFont('Arial', 'B', 8);
+        $pdf->Cell(70, 4, substr(($datosCompania[0]['direccion']), 0, 35), 0, 0, 'L');
+        $pdf->SetFont('Arial', '', 8);
+        $pdf->Cell(20, 4, 'CIUDAD', 0, 0, 'L');
+        $pdf->SetFont('Arial', 'B', 8);
+        $pdf->Cell(30, 4, (substr($hotel->getCityName($datosCompania[0]['ciudad']), 0, 12)), 0, 0, 'L');
+        $pdf->SetFont('Arial', '', 8);
+        $pdf->Cell(21, 4, 'TELEFONO', 0, 0, 'L');
+        $pdf->SetFont('Arial', 'B');
+        $pdf->Cell(20, 4, $datosCompania[0]['telefono'], 0, 1, 'L');
+    }
 } else {
     $pdf->SetFont('Arial', '', 8);
     $pdf->Cell(30, 4, 'CLIENTE', 0, 0, 'L');
     $pdf->SetFont('Arial', 'B', 8);
-    $pdf->Cell(70, 4, substr(($datosHuesped[0]['apellido1'].' '.$datosHuesped[0]['apellido2'].' '.$datosHuesped[0]['nombre1'].' '.$datosHuesped[0]['nombre2']), 0, 30), 0, 0, 'L');
+    $pdf->Cell(70, 4, substr(($datosHuesped[0]['apellido1'] . ' ' . $datosHuesped[0]['apellido2'] . ' ' . $datosHuesped[0]['nombre1'] . ' ' . $datosHuesped[0]['nombre2']), 0, 30), 0, 0, 'L');
     $pdf->SetFont('Arial', '', 8);
     $pdf->Cell(35, 4, 'IDENTIFICACION', 0, 0, 'L');
     $pdf->SetFont('Arial', 'B', 8);
@@ -135,7 +128,7 @@ if ($tipofac == 2) {
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(30, 4, 'Huesped ', 0, 0, 'L');
 $pdf->SetFont('Arial', 'B', 8);
-$pdf->Cell(70, 4, substr(($datosHuesped[0]['apellido1'].' '.$datosHuesped[0]['apellido2'].' '.$datosHuesped[0]['nombre1'].' '.$datosHuesped[0]['nombre2']), 0, 30), 0, 0, 'L');
+$pdf->Cell(70, 4, substr(($datosHuesped[0]['apellido1'] . ' ' . $datosHuesped[0]['apellido2'] . ' ' . $datosHuesped[0]['nombre1'] . ' ' . $datosHuesped[0]['nombre2']), 0, 30), 0, 0, 'L');
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(25, 4, 'Identificacion', 0, 0, 'L');
 $pdf->SetFont('Arial', 'B', 8);
@@ -149,7 +142,7 @@ $pdf->Cell(32, 4, 'TARIFA', 1, 0, 'C');
 $pdf->Cell(31, 4, 'HORA LLEGADA', 1, 0, 'C');
 $pdf->Cell(31, 4, 'HORA SALIDA', 1, 0, 'C');
 $pdf->Cell(32, 4, 'REGISTRO NRO', 1, 1, 'C');
-$pdf->Cell(32, 4, $datosReserva['can_hombres'] + $datosReserva['can_mujeres'].'/'.$datosReserva['can_ninos'], 1, 0, 'C');
+$pdf->Cell(32, 4, $datosReserva['can_hombres'] + $datosReserva['can_mujeres'] . '/' . $datosReserva['can_ninos'], 1, 0, 'C');
 $pdf->Cell(32, 4, $datosReserva['num_habitacion'], 1, 0, 'C');
 $pdf->Cell(32, 4, number_format($datosReserva['valor_diario'], 2), 1, 0, 'C');
 $pdf->Cell(31, 4, $horaIng, 1, 0, 'C');
@@ -208,7 +201,8 @@ $pdf->Cell(30, 4, 'VALOR', 1, 0, 'R');
 $pdf->Cell(60, 4, 'DETALLE', 1, 0, 'C');
 $pdf->Cell(35, 4, 'VALOR', 1, 1, 'R');
 $pdf->SetFont('Arial', '', 8);
-$pdf->Cell(35, 4, 'RETEFUENTE', 1, 0, 'L');
+
+/* $pdf->Cell(35, 4, 'RETEFUENTE', 1, 0, 'L');
 $pdf->Cell(30, 4, number_format($baseRete, 2), 1, 0, 'R');
 $pdf->Cell(30, 4, number_format($retefuente, 2), 1, 1, 'R');
 $pdf->Cell(35, 4, 'RETEIVA', 1, 0, 'L');
@@ -220,7 +214,75 @@ $pdf->Cell(30, 4, number_format($reteica, 2), 1, 1, 'R');
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(50, 4, 'TOTAL RETENCIONES', 1, 0, 'L');
 $pdf->Cell(45, 4, number_format($reteiva + $reteica + $retefuente, 2), 1, 1, 'R');
-$pdf->SetFont('Arial', '', 8);
+$pdf->SetFont('Arial', '', 8); */
+
+
+$totRetencion = 0;
+$totRetencionIca = 0;
+
+if ($tipofac == 2 && !empty($retenciones)) {
+    // Si es tipo de factura 2 y hay retenciones, iterar sobre ellas
+    foreach ($retenciones as $retencion) {
+        $pdf->Cell(55, 4, $retencion['descripcionRetencion'], 1, 0, 'L');
+        $pdf->Cell(20, 4, number_format($retencion['base'], 2), 1, 0, 'R');
+        $pdf->Cell(20, 4, number_format($retencion['valorRetencion'], 2), 1, 1, 'R');
+        $totRetencion += round($retencion['valorRetencion']);
+    }
+} else {
+    // En cualquier otro caso (tipo de factura diferente de 2, o tipo de factura 2 pero sin retenciones),
+    // mostrar Retefuente con valor 0.
+    $pdf->Cell(55, 4, 'RETEFUENTE', 1, 0, 'L');
+    $pdf->Cell(20, 4, number_format(0, 2), 1, 0, 'R');
+    $pdf->Cell(20, 4, number_format(0, 2), 1, 1, 'R');
+    // $totRetencion se mantiene en 0 o el valor que ya tenía si se inicializó previamente.
+    // Si quieres sumarle 0 explícitamente:
+    $totRetencion += 0;
+}
+
+$pdf->Cell(55, 4, 'RETEIVA', 1, 0, 'L');
+if ($tipofac == 2) {
+    if ($aplicaiva == 1) {
+        $pdf->Cell(20, 4, number_format($baseIva, 2), 1, 0, 'R');
+        $pdf->Cell(20, 4, number_format($reteiva, 2), 1, 1, 'R');
+    } else {
+        $baseIva = 0;
+        $reteiva = 0;
+        $pdf->Cell(20, 4, number_format($baseIva, 2), 1, 0, 'R');
+        $pdf->Cell(20, 4, number_format($reteiva, 2), 1, 1, 'R');
+    }
+} else {
+    $baseIva = 0;
+    $reteiva = 0;
+    $pdf->Cell(20, 4, number_format($baseIva, 2), 1, 0, 'R');
+    $pdf->Cell(20, 4, number_format($reteiva, 2), 1, 1, 'R');
+}
+
+if ($tipofac == 2 && !empty($retencionIca)) {
+    // Si es tipo de factura 2 y hay retenciones, iterar sobre ellas
+    foreach ($retencionIca as $retencion) {
+        $pdf->Cell(55, 4, $retencion['descripcionRetencion'], 1, 0, 'L');
+        $pdf->Cell(20, 4, number_format($retencion['base'], 2), 1, 0, 'R');
+        $pdf->Cell(20, 4, number_format($retencion['valorRetencion'], 2), 1, 1, 'R');
+        $totRetencionIca += round($retencion['valorRetencion']);
+    }
+} else {
+    // En cualquier otro caso (tipo de factura diferente de 2, o tipo de factura 2 pero sin retenciones),
+    // mostrar Retefuente con valor 0.
+    $pdf->Cell(55, 4, 'RETEICA', 1, 0, 'L');
+    $pdf->Cell(20, 4, number_format(0, 2), 1, 0, 'R');
+    $pdf->Cell(20, 4, number_format(0, 2), 1, 1, 'R');
+    // $totRetencion se mantiene en 0 o el valor que ya tenía si se inicializó previamente.
+    // Si quieres sumarle 0 explícitamente:
+    $totRetencionIca += 0;
+}
+
+
+if ($tipofac == 2 && ($aplicarete == 1 || $aplicaiva == 1 || $aplicaica == 1)) {
+    $pdf->SetFont('Arial', 'B', 8);
+    $pdf->Cell(75, 4, 'TOTAL RETENCIONES', 1, 0, 'L');
+    $pdf->Cell(20, 4, number_format($reteiva + $totRetencionIca + $totRetencion, 2), 1, 1, 'R');
+}
+$pagos = 0;
 
 $pagos = 0;
 $pdf->setY(163);
@@ -252,14 +314,14 @@ foreach ($tipoimptos as $tipoimpto) {
 }
 $pdf->Ln(1);
 $pdf->SetFont('Arial', '', 8);
-$pdf->MultiCell(190, 4, 'SON :'.numtoletras($total), 1, 'L');
+$pdf->MultiCell(190, 4, 'SON :' . numtoletras($total), 1, 'L');
 $pdf->SetFont('Arial', '', 6);
-$pdf->MultiCell(190, 4, ('Factura Nro : ').$prefijo.' '.$factura.' '.(' Fecha Validación Dian ').$timeCreated.' CUFE '.$cufe, 1, 'L');
+$pdf->MultiCell(190, 4, ('Factura Nro : ') . $prefijo . ' ' . $factura . ' ' . (' Fecha Validación Dian ') . $timeCreated . ' CUFE ' . $cufe, 1, 'L');
 $pdf->SetFont('Arial', '', 7);
-$pdf->MultiCell(190, 5, ('Observaciones ').(strtoupper($detalle)).' '.(strtoupper($refer)), 1, 'L');
+$pdf->MultiCell(190, 5, ('Observaciones ') . (strtoupper($detalle)) . ' ' . (strtoupper($refer)), 1, 'L');
 $pdf->setY(226);
 $pdf->SetFont('Arial', '', 7);
-$pdf->MultiCell(95, 4, (TEXTOBANCO).', '.(TEXTOFACTURA), 1, 'C');
+$pdf->MultiCell(95, 4, (TEXTOBANCO) . ', ' . (TEXTOFACTURA), 1, 'C');
 $y = $pdf->GetY();
 $pdf->SetY(226);
 $pdf->SetX(105);
@@ -288,6 +350,3 @@ $oFile = 'FES-' . $prefijo . $factura . '.pdf';
 
 $pdfFile = $pdf->Output('', 'S');
 $base64Factura = chunk_split(base64_encode($pdfFile));
-
-?>
-
