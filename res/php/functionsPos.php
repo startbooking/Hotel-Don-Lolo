@@ -1142,23 +1142,64 @@ class Pos_Actions
         global $database;
 
         $data = $database->select('ventas_dia_pos', [
-            'nom',
-            'venta',
-            'cant',
-            'valorimpto',
-            'descuento',
-            'importe',
+            '[>]producto' => ['producto_id' => 'producto_id'],
+            '[>]codigos_vta' => ['producto.impto' => 'id_cargo'],
+            '[>]dianImpuestos' => ['codigos_vta.identificador_dian' => 'id'],
         ], [
-            'ambiente' => $amb,
-            'comanda' => $coma,
-            'estado' => 0,
-            'ORDER' => ['nom' => 'ASC'],
+            'producto.nom',
+            'ventas_dia_pos.venta',
+            'ventas_dia_pos.cant',
+            'ventas_dia_pos.valorimpto',
+            'ventas_dia_pos.descuento',
+            'ventas_dia_pos.importe',
+            'dianImpuestos.id',
+            'dianImpuestos.name',
+        ], [
+            'ventas_dia_pos.ambiente' => $amb,
+            'ventas_dia_pos.comanda' => $coma,
+            'ventas_dia_pos.estado' => 0,
+            'ORDER' => ['producto.nom' => 'ASC'],
         ]);
 
         return $data;
     }
 
+    public function sumaImptosComanda($amb, $coma)
+    {
+        global $database;
 
+        $data = $database->query("SELECT 
+            sum(ventas_dia_pos.valorimpto) as imptos, 
+	        dianImpuestos.name,
+	        dianImpuestos.id,
+            codigos_vta.descripcion_cargo,
+            codigos_vta.porcentaje_impto
+
+            FROM
+                ventas_dia_pos
+                INNER JOIN
+                producto
+                ON 
+                    ventas_dia_pos.producto_id = producto.producto_id
+                INNER JOIN
+                codigos_vta
+                ON 
+                    producto.impto = codigos_vta.id_cargo
+                INNER JOIN
+                dianImpuestos
+                ON 
+                    codigos_vta.identificador_dian = dianImpuestos.id
+            WHERE
+                ventas_dia_pos.ambiente = 1 AND
+                ventas_dia_pos.comanda = 7836 AND
+                ventas_dia_pos.estado = 0
+            GROUP BY
+                dianImpuestos.id	
+            order BY
+                dianImpuestos.name
+            ")->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
+    }
 
     public function numeroSalida($nFact, $idamb, $numeroMov)
     {
@@ -2112,9 +2153,7 @@ class Pos_Actions
         return $data;
     }
 
-    // actualizaProducto($id, $producto, $codigo, $seccion, $venta, $impto, $tipo, $receta)
-
-    public function actualizaProducto($id, $producto, $codigo, $seccion, $venta, $impto, $tipo, $receta)
+    public function actualizaProducto($id, $producto, $codigo, $seccion, $venta, $impto, $tipo, $receta, $unidad)
     {
         global $database;
 
@@ -2126,6 +2165,7 @@ class Pos_Actions
             'seccion' => $seccion,
             'tipo_producto' => $tipo,
             'id_receta' => $receta,
+            'id_unidad_dian'  => $unidad,
         ], [
             'producto_id' => $id,
         ]);
@@ -2137,7 +2177,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->select('producto', [
+        $data = $database->get('producto', [
             'producto_id',
             'id_receta',
             'cod',
@@ -2145,6 +2185,7 @@ class Pos_Actions
             'venta',
             'impto',
             'seccion',
+            'id_unidad_dian',
             'estado',
             'tipo_producto',
             'ambiente',
@@ -3362,9 +3403,7 @@ class Pos_Actions
         return $data->rowCount();
     }
 
-    /* public function adicionaProducto($producto, $seccion, $venta, $impto, $tipo, $receta, $ambi) */
-
-    public function adicionaProducto($producto, $codigo, $seccion, $venta, $impto, $tipo, $receta, $idamb)
+    public function adicionaProducto($producto, $codigo, $seccion, $venta, $impto, $tipo, $receta, $idamb, $unidad)
     {
         global $database;
 
@@ -3379,6 +3418,7 @@ class Pos_Actions
             'tipo_producto' => $tipo,
             'id_receta' => $receta,
             'ambiente' => $idamb,
+            'id_unidad_dian' => $unidad,
             'created_at' => date('Y-m-d H:i:s'),
         ]);
 
@@ -3424,6 +3464,7 @@ class Pos_Actions
         $data = $database->select('producto', [
             '[<]codigos_vta' => ['impto' => 'id_cargo'],
             '[<]secciones_pos' => ['seccion' => 'id_seccion'],
+            '[<]dianUnidades' => ['id_unidad_dian' => 'id'],
         ], [
             'codigos_vta.descripcion_cargo',
             'secciones_pos.nombre_seccion',
@@ -3438,6 +3479,7 @@ class Pos_Actions
             'producto.tipo_producto',
             'producto.ambiente',
             'producto.active_at',
+            'dianUnidades.name',
         ], [
             'producto.ambiente' => $id,
             'producto.deleted_at' => null,

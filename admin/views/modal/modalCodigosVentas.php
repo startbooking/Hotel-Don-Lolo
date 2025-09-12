@@ -19,7 +19,7 @@
             <div class="col-lg-4 col-md-4">
               <select class="form-control" name="unidadMed" id="unidadMed" required="">
                 <option value="">Seleccione la Unidad de Medida</option>
-                <?php 
+                <?php
                   $unidades = $admin->unidades_medida(); 
                   foreach ($unidades as $unidad) { ?> 
                     <option value="<?=$unidad['id']?>"><?=strtoupper($unidad['name'])?></option>

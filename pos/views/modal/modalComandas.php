@@ -9,9 +9,9 @@
           <input type="hidden" name="comandaPag" id="comandaPag" value="0">
           <input type="hidden" name="productosPag" id="productosPag" value="0">
           <input type="hidden" name="prefijo" id="prefijo" value="<?php echo $prefijo; ?>">
-          <input type="hidden" name="fecha" id="fecha" value="<?php echo $fecha; ?>">
+          <input type="hidden" name="fecha" id="fecha" value="<?php echo $fecha_auditoria; ?>">
           <input type="hidden" name='ambientePag' id='ambientePag' value=''>
-          <input type="hidden" name="nombreAmbiente" id="nombreAmbiente" value="<?php echo $amb; ?>">
+          <input type="hidden" name="nombreAmbiente" id="nombreAmbiente" value="<?php echo $nombre; ?>">
           <input type="hidden" name='usuarioPag' id='usuarioPag' value=''>
           <input type="hidden" name='cambio' id='cambio' value='0'>
           <input type="hidden" name='servicio' id='servicio' value='0'>
@@ -119,8 +119,8 @@
         </div>
         <div class="modal-footer">
           <input id='comanda' type="hidden" value='0'>
-          <input id='ambiente' type="hidden" value='<?php echo $idamb; ?>'>
-          <input id='usuario' type="hidden" value='<?php echo $user; ?>'>
+          <input id='ambiente' type="hidden" value='<?php echo $id_ambiente; ?>'>
+          <input id='usuario' type="hidden" value='<?php echo $usuario; ?>'>
           <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Cancelar</button>
           <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Anular Comada</button>
         </div>
@@ -164,9 +164,9 @@
           <input name='prodImpto' id='prodImpto' type="hidden" value='0'>
           <input name='idProductoDev' id='idProductoDev' type="hidden" value='0'>
           <input name='comandaDev' id='comandaDev' type="hidden" value='0'>
-          <input name='ambienteDev' id='ambienteDev' type="hidden" value='<?php echo $idamb; ?>'>
-          <input name='regisDev' id='regisDev' type="hidden" value='<?php echo $idamb; ?>'>
-          <input name='usuario' id='usuario' type="hidden" value='<?php echo $user; ?>'>
+          <input name='ambienteDev' id='ambienteDev' type="hidden" value='<?php echo $id_ambiente; ?>'>
+          <input name='regisDev' id='regisDev' type="hidden" value='<?php echo $id_ambiente; ?>'>
+          <input name='usuario' id='usuario' type="hidden" value='<?php echo $usuario; ?>'>
           <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Cancelar</button>
           <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Devolver Producto</button>
           <div class="btn-group">
@@ -184,12 +184,11 @@
         <div class="modal-header">
           <button type="button" class="close glyphicon glyphicon-off" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
           <h3 style="font-weight: 700;font-family: 'ubuntu" class="modal-title" id="myModalLabel"><i class="fa fa-money"></i> Pagar Presente Cuenta</h3>
-          <!-- <h4 style="font-weight: 500;font-family: 'ubuntu"> <?php echo $amb; ?></h4> -->
           <input type="hidden" name="comandaPag" id="comandaPag" value="0">
-          <input type="hidden" name="nombreAmbiente" id="nombreAmbiente" value="<?php echo $amb; ?>">
+          <input type="hidden" name="nombreAmbiente" id="nombreAmbiente" value="<?php echo $nombre; ?>">
           <input type="hidden" name="productosPag" id="productosPag" value="0">
           <input type="hidden" name="prefijo" id="prefijo" value="<?php echo $prefijo; ?>">
-          <input type="hidden" name="fecha" id="fecha" value="<?php echo $fecha; ?>">
+          <input type="hidden" name="fecha" id="fecha" value="<?php echo $fecha_auditoria; ?>">
           <input type="hidden" name='ambientePag' id='ambientePag' value=''>
           <input type="hidden" name='usuarioPag' id='usuarioPag' value=''>
           <input type="hidden" name='cambioDir' id='cambioDir' value='0'>
@@ -280,7 +279,7 @@
         <div class="modal-header">
           <button type="button" class="close glyphicon glyphicon-off" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
           <h3 style="font-weight: 700;font-family: 'ubuntu" class="modal-title" id="myModalLabel"><i class="fa fa-money"></i> Nombre del cliente</h3>
-          <!-- <h4 style="font-weight: 500;font-family: 'ubuntu"> <?php echo $amb; ?></h4> -->
+          <!-- <h4 style="font-weight: 500;font-family: 'ubuntu"> <?php echo $nombre; ?></h4> -->
         </div>
         <div class="modal-body">
           <div class="form-group">
@@ -308,12 +307,12 @@
         <div class="modal-header">
           <button type="button" class="close glyphicon glyphicon-off" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
           <h3 style="font-weight: 700;font-family: 'ubuntu" class="modal-title" id="myModalLabel"><i class="fa fa-money"></i> Abonos A Cuenta</h3>
-          <!-- <h4 style="font-weight: 500;font-family: 'ubuntu"> <?php echo $amb; ?></h4> -->
+          <!-- <h4 style="font-weight: 500;font-family: 'ubuntu"> <?php echo $nombre; ?></h4> -->
           <input type="hidden" name="comandaPag" id="comandaPag" value="0">
-          <input type="hidden" name="nombreAmbiente" id="nombreAmbiente" value="<?php echo $amb; ?>">
+          <input type="hidden" name="nombreAmbiente" id="nombreAmbiente" value="<?php echo $nombre; ?>">
           <input type="hidden" name="productosPag" id="productosPag" value="0">
           <input type="hidden" name="prefijo" id="prefijo" value="<?php echo $prefijo; ?>">
-          <input type="hidden" name="fecha" id="fecha" value="<?php echo $fecha; ?>">
+          <input type="hidden" name="fecha" id="fecha" value="<?php echo $fecha_auditoria; ?>">
           <input type="hidden" name='ambientePag' id='ambientePag' value=''>
           <input type="hidden" name='usuarioPag' id='usuarioPag' value=''>
           <input type="hidden" name='cambio' id='cambio' value='0'>
@@ -372,7 +371,7 @@
         <div class="modal-header">
           <button type="button" class="close glyphicon glyphicon-off" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
           <h3 style="font-weight: 700;font-family: 'ubuntu" class="modal-title" id="myModalLabel"><i class="fa fa-money"></i> Nombre del Cliente</h3>
-          <!-- <h4 style="font-weight: 500;font-family: 'ubuntu"> <?php echo $amb; ?></h4> -->
+          <!-- <h4 style="font-weight: 500;font-family: 'ubuntu"> <?php echo $nombre; ?></h4> -->
         </div>
         <div class="modal-body">
           <div class="form-group">

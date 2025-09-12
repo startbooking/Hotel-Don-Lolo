@@ -36,24 +36,25 @@
 	define("LAND_HOTEL", $datosHotel[0]['pais']);
 	define("CTA_MASTER", $datosHotel[0]['codigo_cta_master']);
 	define("DEMO", $datosHotel[0]['hoteldemo']);
-	define("NAME_EMPRESA", $empresa[0]['empresa']);
-	define("NIT_EMPRESA", $empresa[0]['nit'].'-'.$empresa[0]['dv']);
-	define("ADRESS_EMPRESA", $empresa[0]['direccion']);
-	define("TELEFONO_EMPRESA",$empresa[0]['telefonos']);
-	define("CELULAR_EMPRESA", $empresa[0]['celular']);
-	define("PAIS_EMPRESA", $admin->getLandName($empresa[0]['pais']));
-	define("CIUDAD_EMPRESA", $admin->getCityName($empresa[0]['ciudad']));
-	define("WEB_EMPRESA", $empresa[0]['web']);
-	define("CORREO_EMPRESA", $empresa[0]['correo']);
-	define("TIPO_DOC", $empresa[0]['tipo_empresa']);
-	define("CIIU", $empresa[0]['codigo_ciiu']);
-	define("TIPOEMPRESA", $admin->getTypeCia($empresa[0]['tipo_empresa']));
+	define("NAME_EMPRESA", $empresa['empresa']);
+	define("NIT_EMPRESA", $empresa['nit'].'-'.$empresa['dv']);
+	define("ADRESS_EMPRESA", $empresa['direccion']);
+	define("TELEFONO_EMPRESA",$empresa['telefonos']);
+	define("CELULAR_EMPRESA", $empresa['celular']);
+	define('PAIS_EMPRESA', $empresa['descripcion']);
+	define('CIUDAD_EMPRESA', $empresa['municipio']);
+	define("WEB_EMPRESA", $empresa['web']);
+	define("CORREO_EMPRESA", $empresa['correo']);
+	define("TIPO_DOC", $empresa['tipo_empresa']);
+	define("CIIU", $empresa['codigo_ciiu']);
+	define("TIPOEMPRESA", $admin->getTypeCia($empresa['tipo_empresa']));
+	// define("TIPOEMPRESA", $admin->getTypeCia($empresa['tipo_empresa']));
 
-	define("POS", $empresa[0]['posMod']);
-	define("INV", $empresa[0]['invMod']);
-	define("PMS", $empresa[0]['pmsMod']);
-	define("RES", $empresa[0]['resMod']);
-	define("FE", $empresa[0]['feMod']);
+	define("POS", $empresa['posMod']);
+	define("INV", $empresa['invMod']);
+	define("PMS", $empresa['pmsMod']);
+	define("RES", $empresa['resMod']);
+	define("FE", $empresa['feMod']);
 
 	if(!isset($_GET['section'])){
 	}elseif(isset($_GET['section']) && $_GET['section'] == 'home'){

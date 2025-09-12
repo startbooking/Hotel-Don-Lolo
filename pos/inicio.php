@@ -1,12 +1,12 @@
 <?php
-  require_once '../res/php/titles.php';
+  // require_once '../res/php/titles.php';
   require_once '../res/php/app_topPos.php';
 
   ?>
 <!DOCTYPE html>
 <html>
   <head>
-    <title><?php echo TITLE_POS; ?> Sistema de Puntos de Ventas</title>
+    <title>SACTel Cloud | Sistema de Puntos de Ventas</title>
     <?php include_once '../res/shared/archivo_head.php'; ?>
     <link rel="stylesheet" type="text/css" href="<?php echo BASE_POS; ?>res/css/estilo.css">
     <?php
@@ -24,7 +24,7 @@
         include_once 'menus/menu_pos.php';
       ?>
       <div class="content-wrapper" id="Escritorio" style="background-color:#FCFCEF;"> 
-        <div class="container-fluid" id="pantalla" style="padding:0px;margin-bottom:0px;">
+        <div class="container-fluid" id="pantalla" style="padding:0px;margin-bottom:0px;min-height:300px;">
           <?php
             include_once 'res/php/escritorio_pos.php';
           ?>
@@ -40,8 +40,8 @@
 
   ?>
 
-  <script>
+  <!-- <script>
     ingresoPos() 
 		validaVentana()
-	</script>
+	</script> -->
 </html>

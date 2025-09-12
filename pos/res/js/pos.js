@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", async () => {
+  // console.log('?Inicio Pagina POS')
   let sesion = JSON.parse(localStorage.getItem("sesion"));
 
   if (sesion == null) {
@@ -16,10 +17,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     );
   }
-  let {
-    user: { usuario, usuario_id },
-    cia: { impuesto },
-  } = sesion;
+  const {user: { usuario, usuario_id }, cia: { impuesto }, } = sesion;
+  let ingreso = await ingresoPos()
+  let validaVe = await validaVentana()
 });
 
 function botonEliminaProductoDivi(
@@ -512,7 +512,7 @@ function balanceHistorico() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let {pos, user: { usuario, usuario_id, tipo }, } = sesion;
+  let { pos, user: { usuario, usuario_id, tipo }, } = sesion;
   let { id_ambiente, nombre, propina, fecha_auditoria, impuesto, logo } = oPos[0];
   file = makeid(12);
   parametros = {
@@ -1399,7 +1399,6 @@ function abreCuenta(mesa) {
       } else {
         listaComanda = JSON.parse(storageProd);
       }
-      // console.log(listaComanda);
       productosActivos();
       resumenComanda();
     },
@@ -1454,7 +1453,7 @@ function historicoGrupos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let {pos, user: { usuario, usuario_id, tipo }, } = sesion;
+  let { pos, user: { usuario, usuario_id, tipo }, } = sesion;
   let { id_ambiente, nombre, logo, prefijo } = oPos[0];
 
   parametros = {
@@ -1496,7 +1495,7 @@ function historicoFormasPago() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let {pos, user: { usuario, usuario_id, tipo }, } = sesion;
+  let { pos, user: { usuario, usuario_id, tipo }, } = sesion;
   let { id_ambiente, nombre, logo, prefijo } = oPos[0];
 
   parametros = {
@@ -1621,7 +1620,7 @@ function historicoBalanceCaja() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let {pos, user: { usuario, usuario_id, tipo }, } = sesion;
+  let { pos, user: { usuario, usuario_id, tipo }, } = sesion;
   let { id_ambiente, nombre, logo, prefijo } = oPos[0];
 
   parametros = {
@@ -2717,9 +2716,8 @@ function actualizaProducto() {
 
 function updateProducto(id) {
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  // let { pos } = sesion;
   let { id_ambiente } = oPos[0];
-  idamb = id_ambiente;
+  // idamb = id_ambiente;
   $("#dataUpdateProducto").on("show.bs.modal", function (event) {
     var button = $(event.relatedTarget);
     var name = button.data("producto");
@@ -2730,7 +2728,7 @@ function updateProducto(id) {
       type: "POST",
       data: {
         id,
-        idamb,
+        id_ambiente,
       },
       success: function (data) {
         $("#traeProducto").html(data);
@@ -2849,7 +2847,7 @@ function historicoListadoFacturas() {
   let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } =
     oPos[0];
 
-  parametros = { 
+  parametros = {
     id: id_ambiente,
     amb: nombre,
     user: usuario,
@@ -2948,14 +2946,14 @@ function historicoDesayunos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let {pos, user: { usuario, usuario_id, tipo }, } = sesion;
+  let { pos, user: { usuario, usuario_id, tipo }, } = sesion;
   let { nombre, id_ambiente, logo, prefijo, id_bodega } = oPos[0];
 
-  if(ambiente == '' || desdeFe == '' || hastaFe == ''){
+  if (ambiente == '' || desdeFe == '' || hastaFe == '') {
     swal({
-      title:'Atencion',
-      text:'Todos los Campos Son Obligatorios',
-      type:'warning',
+      title: 'Atencion',
+      text: 'Todos los Campos Son Obligatorios',
+      type: 'warning',
     })
     return false;
   }
@@ -2977,12 +2975,12 @@ function historicoDesayunos() {
       success: function (datos) {
         console.log(datos)
         llenaHistoricoDesayunos(datos);
-      }, 
+      },
     });
   }
 }
 
-function muestraDesayuno(fecha, id, pref){
+function muestraDesayuno(fecha, id, pref) {
   file = `impresiones/planillaDesayunos_${pref}-${fecha}.pdf`
 
   muestraPDFHist(file, `Planilla Desayunos del Dia ${fecha}`)
@@ -2991,13 +2989,13 @@ function muestraDesayuno(fecha, id, pref){
 
 function muestraPDFHist(file, titulo) {
 
-  document.querySelector("#muestraDesayunos .tituloPagina").innerHTML= titulo;
+  document.querySelector("#muestraDesayunos .tituloPagina").innerHTML = titulo;
   document.querySelector("#verDesayuno").data = file;
 }
 
 
 
-function llenaHistoricoDesayunos(datos){
+function llenaHistoricoDesayunos(datos) {
   pantDesa = document.querySelector("#dataDesayunos");
   pantDesa.classList.remove('apaga')
   dataDesa = document.querySelector("#dataDesayunos tbody");
@@ -3123,7 +3121,7 @@ function getRestarVentasRecu(codigo) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let {pos, user: { usuario, usuario_id, tipo }, } = sesion;
+  let { pos, user: { usuario, usuario_id, tipo }, } = sesion;
   let { id_ambiente, propina } = oPos[0];
 
   idamb = id_ambiente;
@@ -3155,7 +3153,7 @@ function getBorraVentasRecu(codigo) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let {pos, user: { usuario, usuario_id, tipo }, } = sesion;
+  let { pos, user: { usuario, usuario_id, tipo }, } = sesion;
   let { id_ambiente, propina } = oPos[0];
 
   idamb = id_ambiente;
@@ -3380,7 +3378,7 @@ function muestraPos(ambSel) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let {user: { tipo, apellidos, nombres }, pos, } = sesion;
+  let { user: { tipo, apellidos, nombres }, pos, } = sesion;
   let { plano, fecha_auditoria } = oPos[0];
   $("#fechaPos").html(`Fecha Proceso ${fecha_auditoria}`);
   $("#fechaAuditoria").val(fecha_auditoria);
@@ -3488,8 +3486,8 @@ function buscaReportesCajero() {
 function historicoCajeros() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  
-  let {pos, user: { usuario, usuario_id }, } = sesion;
+
+  let { pos, user: { usuario, usuario_id }, } = sesion;
   let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto, prefijo } = oPos[0];
 
   parametros = {
@@ -4079,10 +4077,7 @@ function cuentasActivasAuditoria() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let {
-    pos,
-    user: { usuario, usuario_id, tipo },
-  } = sesion;
+  let { pos, user: { usuario, usuario_id, tipo }, } = sesion;
   let {
     id_ambiente,
     nombre,
@@ -4181,7 +4176,7 @@ function cierreDiarioCajero() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let {pos, user: { usuario, usuario_id, tipo }, } = sesion;
+  let { pos, user: { usuario, usuario_id, tipo }, } = sesion;
   let {
     id_ambiente,
     nombre,
@@ -4553,12 +4548,8 @@ function ventasDia() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let {
-    pos,
-    user: { usuario, usuario_id, tipo },
-  } = sesion;
-  let { id_ambiente, nombre, propina, fecha_auditoria, impuesto, logo } =
-    oPos[0];
+  let { pos, user: { usuario, usuario_id, tipo }, } = sesion;
+  let { id_ambiente, nombre, propina, fecha_auditoria, impuesto, logo } = oPos[0];
   let file = makeid(12);
 
   parametros = {
@@ -4578,16 +4569,13 @@ function ventasDia() {
   });
 }
 
-function cuentasActivas() {
+async function cuentasActivas() {
   var alto = screen.height;
   var ancho = screen.width;
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let {
-    pos,
-    user: { usuario, usuario_id, tipo },
-  } = sesion;
+  let { pos, user: { usuario, usuario_id, tipo }, } = sesion;
   let {
     id_ambiente,
     nombre,
@@ -4598,6 +4586,9 @@ function cuentasActivas() {
     logo,
   } = oPos[0];
 
+  $(".btn-menu").css("display", "block");
+
+  let cuentas = await traeCuentasAmbiente(id_ambiente);
   parametros = {
     id_ambiente,
     nombre,
@@ -4607,33 +4598,129 @@ function cuentasActivas() {
     prop: propina,
     fecha_auditoria,
     prefijo,
+    // cuentas
   };
-  $(".btn-menu").css("display", "block");
-
-  $.ajax({
+  let llena = await llenaCuentas(parametros);
+  let panta = document.querySelector('#pantalla');
+  let prs = document.querySelectorAll('.prende')
+  panta.innerHTML = llena;
+  const nuevaAltura = window.innerHeight;
+  comanda = await getCuentasActivas(id_ambiente);
+  let pc = document.querySelector('#productosComanda')
+  let lc = document.querySelector('#listaComandas')
+  let bg = document.querySelector('.btn-group-vertical')
+  
+  pc.style.height = `${nuevaAltura  - 160}px`;
+  lc.style.height = `${nuevaAltura  - 160}px`;
+  bg.style.height = `${nuevaAltura  - 138}px`;
+  botones = document.querySelectorAll('.apagado');
+  ocultarBotones(botones, 'display',0);
+  // pl.style.height = `${nuevaAltura - 138}px`;
+  // pr.style.display = 'none'
+  /* $.ajax({
     url: "ventas/cuentas_activas.php",
     type: "POST",
     data: parametros,
     success: function (data) {
       $("#pantalla").html(data);
       $(".prende").css("display", "none");
-      $("#productosComanda").css("height", alto - 282);
-      $("#imprimeComanda").css("margin-top", "31px");
-    },
+      const nuevaAltura = window.innerHeight;
+      lc = document.querySelector('#listaComandas');
+      lc.style.height = `${nuevaAltura  - 183}px`; */
+  /* prod = document.querySelector('#productosComanda');
+  btntool = document.querySelector('.btn-toolbar');
+  group = document.querySelector('.btn-group-vertical');
+  pl = document.querySelector('#productoList');
+  sl = document.querySelector('#seccionList');
+  vl = document.querySelector('#ventasList'); */
+
+  /*       pl.style.height = `${nuevaAltura  - 138}px`;
+        sl.style.height = `${nuevaAltura  - 138}px`;
+        vl.style.height = `${nuevaAltura  - 138}px`;
+        btntool.style.height = `${nuevaAltura  - 137}px`;
+        group.style.height = `${nuevaAltura  - 135}px`;
+        prod.style.height = `${nuevaAltura  - 183}px`;       */
+  /* $("#imprimeComanda").css("margin-top", "31px");
+},
+<b>Warning</b>:  Undefined variable $id_ambiente in <b>/var/www/donlolo.lan/pos/res/php/user_actions/cuentasActivas.php</b> on line <b>9</b><br />
+
+}); */
+}
+
+async function traeCuentasAmbiente(id_ambiente) {
+  try {
+    const response = await fetch(`res/php/user_actions/cuentasActivas.php`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({ id_ambiente }),
+    });
+    const datos = await response.json();
+    return datos;
+  } catch (error) {
+    return error;
+  }
+}
+
+function ocultarBotones(elementos, metodo = 'display', tipo) {
+  // Verificamos si hay elementos para ocultar
+  if (!elementos || elementos.length === 0) {
+    console.warn('No se encontraron elementos para ocultar.');
+    return;
+  }
+
+  // Iteramos sobre cada elemento en la lista
+  elementos.forEach(boton => {
+    switch (metodo) {
+      case 'display':
+        // Método 1: Ocultar usando 'display: none'. Esto elimina el botón del flujo del documento.
+        if(tipo==0){
+          boton.style.display = 'none';
+        }else{
+          boton.style.display = 'block';
+        }
+        break;
+      case 'visibility':
+        // Método 2: Ocultar usando 'visibility: hidden'. El botón no es visible, pero ocupa su espacio.
+        boton.style.visibility = 'hidden';
+        break;
+      case 'clase':
+        // Método 3: Ocultar agregando una clase CSS. Es la mejor práctica para la separación de preocupaciones.
+        boton.classList.add('oculto');
+        break;
+      default:
+        console.error('Método de ocultamiento no válido.');
+        break;
+    }
   });
 }
 
-function muestraTouch() {
+async function llenaCuentas(parametros) {
+  try {
+    const response = await fetch(`ventas/cuentas_activas.php`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(parametros),
+    });
+    const datos = await response.text();
+    return datos;
+  } catch (error) {
+    return error;
+  }
+
+}
+
+async function muestraTouch() {
   var alto = screen.height;
   var ancho = screen.width;
   let abonos = 0;
   let propina = 0;
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  let {
-    pos,
-    user: { usuario, usuario_id, tipo },
-  } = sesion;
+  let { pos, user: { usuario, usuario_id, tipo }, } = sesion;
   let { id_ambiente, nombre, prefijo, fecha_auditoria, impuesto } = oPos[0];
   $("#btnGuardar").attr("disabled", "enabled");
 
@@ -4658,17 +4745,28 @@ function muestraTouch() {
       } else {
         listaComanda = JSON.parse(storageProd);
         abonos = 0;
-        descuento = listaComanda.reduce(
-          (totdes, comanda) => totdes + comanda.descuento,
-          0
-        );
+        descuento = listaComanda.reduce((totdes, comanda) => totdes + comanda.descuento, 0);
         productosActivos();
         resumenComanda();
       }
       getSecciones();
       $("#pantalla").html("");
       $("#pantalla").html(data);
-      $("#productosComanda").css("height", alto - 290);
+      prod = document.querySelector('#productosComanda');
+      btntool = document.querySelector('.btn-toolbar');
+      group = document.querySelector('.btn-group-vertical');
+      pl = document.querySelector('#productoList');
+      sl = document.querySelector('#seccionList');
+      vl = document.querySelector('#ventasList');
+
+      const nuevaAltura = window.innerHeight;
+      pl.style.height = `${nuevaAltura - 138}px`;
+      sl.style.height = `${nuevaAltura - 138}px`;
+      vl.style.height = `${nuevaAltura - 138}px`;
+      btntool.style.height = `${nuevaAltura - 137}px`;
+      group.style.height = `${nuevaAltura - 135}px`;
+      prod.style.height = `${nuevaAltura - 183}px`;
+
     },
   });
 }
@@ -4751,7 +4849,9 @@ let {
   user: { usuario_id, apellidos, nombres, estado_usuario_pos, tipo },
 } = sesion;
 
-function ingresoPos() {
+async function ingresoPos() {
+  console.log('Ingreso al POS ')
+  console.log(usuario_id);
   $("#idUsuario").val(usuario_id);
 
   if (invMod == 1 && tipo <= 2) {
@@ -4912,6 +5012,7 @@ const mesasSinSalir = async (fecha_auditoria, id_ambiente) => {
     return datos;
   } catch (error) {
     // console.log(error);
+    return error;
   }
 };
 
@@ -5445,9 +5546,6 @@ function getSecciones() {
       $("#loader").html("<img src='../img/loader.gif'>");
     },
     success: function (data) {
-      $("#seccionList").html("");
-      $("#seccionList").css("min-height", 120);
-      $("#seccionList").css("height", alto - 262);
       for (i = 0; i < data.length; i++) {
         boton = `
         <button 
@@ -5482,7 +5580,6 @@ function getProducto(codigo, ambi) {
     },
     success: function (data) {
       $("#productoList").html("");
-      $("#productoList").css("height", alto - 263);
       for (i = 0; i < data.length; i++) {
         boton = `<button
                   style="background-size: contain;line-height:15px ;"
@@ -5513,9 +5610,7 @@ function productosActivos() {
   } else {
     listaComanda = JSON.parse(storageProd);
   }
-  let {
-    user: { usuario, usuario_id, tipo },
-  } = sesion;
+  let { user: { usuario, usuario_id, tipo }, } = sesion;
 
   $(".comanda > tbody").html("");
   /* listaComanda.map((productos) => {
@@ -5966,7 +6061,7 @@ function getGuardaComandas(usuario) {
   xmlhttp3.send();
 }
 
-function getCuentasActivas(idamb) {
+async function getCuentasActivas(idamb) {
   var alto = screen.height;
   var ancho = screen.width;
   oPos = JSON.parse(localStorage.getItem("oPos"));
@@ -5974,7 +6069,6 @@ function getCuentasActivas(idamb) {
 
   var parametros = {
     idamb,
-    fecha: fecha_auditoria,
   };
 
   $("#loader").fadeIn("slow");
@@ -5989,7 +6083,7 @@ function getCuentasActivas(idamb) {
     success: function (x) {
       $("#listaComandas").html("");
       $("#listaComandas").css("min-height", 240);
-      $("#listaComandas").css("height", alto - 250);
+      // $("#listaComandas").css("height", alto - 280);
 
       x.map(function (y) {
         let { comanda, cliente, abonos } = y;
@@ -6075,12 +6169,8 @@ function getProductosComanda(comanda, mesa) {
 function getComandas(comanda, numero) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  let {
-    pos,
-    user: { usuario, usuario_id, tipo },
-  } = sesion;
-  let { id_ambiente, nombre, propina, prefijo, fecha_auditoria, impuesto } =
-    oPos[0];
+  let {pos, user: { usuario, usuario_id, tipo }, } = sesion;
+  let { id_ambiente, nombre, propina, prefijo, fecha_auditoria, impuesto } = oPos[0];
 
   miBoton = "#" + comanda;
   subtotal = parseFloat($(miBoton).attr("subtotal"));
@@ -6125,10 +6215,17 @@ function getComandas(comanda, numero) {
     },
     success: function (data) {
       $(".prende").css("display", "block");
+      botones = document.querySelectorAll('.apagado');
+      ocultarBotones(botones, 'display',1);
+
       $("#tituloNumero").removeClass("alert-info");
-      $("#tituloNumero").addClass("alert-success");
+      // $("#tituloNumero").addClass("alert-success");
       $("#tituloNumero").html(`Comanda Numero ${numero}`);
-      $("#guardaComandaDividida").css("display", "none");
+      // $("#guardaComandaDividida").css("display", "none");
+      const nuevaAltura = window.innerHeight;
+      let bg = document.querySelector('.btn-toolbar')
+      bg.style.height = `${nuevaAltura  - 138}px`;
+
       for (i = 0; i < data.length; i++) {
         dataProd = {
           producto: data[i]["nom"],

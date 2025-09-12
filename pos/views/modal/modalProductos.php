@@ -10,18 +10,33 @@ $imptos = $pos->getImpuestos();
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-off"></span></button>
           <h4 class="modal-title" id="exampleModalLabel"><span class="fa fa-cube"></span> Adicionar Producto</h4>
-        </div> 
+        </div>
         <div id="datos_ajax_register"></div>
-        <div class="modal-body"> 
+        <div class="modal-body">
           <div class="form-group">
             <input type="hidden" name="idamb" id="idamb" value="<?php echo $idamb; ?>">
             <label for="producto" class="control-label col-lg-2 col-md-2">Producto</label>
             <div class="col-lg-6 col-md-6">
               <input type="text" class="form-control" id="producto" name="producto" required>
             </div>
-            <label for="producto" class="control-label col-lg-1 col-md-1">Codigo</label>
-            <div class="col-lg-3 col-md-3">
-              <input type="text" class="form-control" id="codigo" name="codigo">
+          </div>
+          <div class="form-group">
+            <label for="producto" class="control-label col-lg-2 col-md-2">Codigo</label>
+            <div class="col-lg-4 col-md-4">
+              <input type="text" class="form-control" id="codigo" name="codigo" required>
+            </div>
+            <label for="unidadMed" class="control-label col-lg-2 col-md-2">Unidad Med. </label>
+            <div class="col-lg-4 col-md-4">
+              <select class="form-control" name="unidadMed" id="unidadMed" required="">
+                <option value="">Seleccione la Unidad de Medida</option>
+                <?php 
+                  $unidades = $admin->unidades_medida(); 
+                  foreach ($unidades as $unidad) { ?> 
+                    <option value="<?=$unidad['id']?>"><?=strtoupper($unidad['name'])?></option>
+                  <?php 
+                }
+                ?>
+              </select> 
             </div>
           </div>
           <div class="form-group">
@@ -30,16 +45,16 @@ $imptos = $pos->getImpuestos();
               <select name="seccion" id="seccion" required>
                 <option value="">Seleccione el Tipo de Plato</option>
                 <?php
-                  foreach ($tipos as $tipo) { ?>
+                foreach ($tipos as $tipo) { ?>
                   <option value="<?php echo $tipo['id_seccion']; ?>"><?php echo $tipo['nombre_seccion']; ?></option>
-                  <?php
-                  }
-?>
+                <?php
+                }
+                ?>
               </select>
             </div>
             <label for="costo0" class="control-label col-lg-2  col-md-2">Precio Venta</label>
             <div class="col-lg-4 col-md-4">
-              <input type="number" min='0' class="form-control" id="costo" name="venta" required maxlength="12"> 
+              <input type="number" min='0' class="form-control" id="costo" name="venta" required maxlength="12">
             </div>
           </div>
           <div class="form-group">
@@ -48,11 +63,11 @@ $imptos = $pos->getImpuestos();
               <select name="impto" id="impto" required>
                 <option value="">Seleccione el Impuesto</option>
                 <?php
-foreach ($imptos as $impto) { ?>
-                  <option value="<?php echo $impto['id_cargo']; ?>"><?php echo $impto['descripcion_cargo']; ?></option>
+                  foreach ($imptos as $impto) { ?>
+                    <option value="<?php echo $impto['id_cargo']; ?>"><?php echo $impto['descripcion_cargo']; ?></option>
                   <?php
-}
-?>
+                  }
+                ?>
               </select>
             </div>
             <label for="tipo" class="control-label col-lg-2  col-md-2">Tipo</label>
@@ -98,21 +113,21 @@ foreach ($imptos as $impto) { ?>
         <div class="modal-body" id="traeProducto">
           <div id="datos_ajax"></div>
         </div>
-        <div class="modal-footer"> 
+        <div class="modal-footer">
           <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
           <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Actualizar datos</button>
           <div class="btn-group">
           </div>
         </div>
-      </div> 
+      </div>
     </div>
   </form>
 </div>
-  
+
 <div class="modal fade" id="dataDeleteProducto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
   <form id="eliminarDatosProducto" action="javascript:eliminaProducto()">
     <div class="modal-dialog" role="document">
-      <div class="modal-content"> 
+      <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="glyphicon glyphicon-off"></span></button>
           <h2 class="modal-title" id="exampleModalLabel"> Modificar Producto</h2>
@@ -120,11 +135,11 @@ foreach ($imptos as $impto) { ?>
         <div class="modal-body">
           <input type="hidden" id="idproducto" name="idproducto">
           <h3 class="text-center text-muted" style="color:#880505;font-weight:bold">Estas seguro?</h3>
-          <p class="lead text-muted text-center" 
-              style="display: block;margin:10px">Esta acción eliminará de forma permanente los Datos del Producto.
-            <h4 align="center">Desea continuar?</h4>    
+          <p class="lead text-muted text-center"
+            style="display: block;margin:10px">Esta acción eliminará de forma permanente los Datos del Producto.
+          <h4 align="center">Desea continuar?</h4>
           </p>
-        </div> 
+        </div>
         <div class="modal-footer">
           <div class="btn-group">
             <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
@@ -158,7 +173,7 @@ foreach ($imptos as $impto) { ?>
       </div>
     </div>
   </form>
-</div> 
+</div>
 
 <div class="modal fade" id="modalAdicionaProductoReceta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
   <form id="guardarDatosProducto" class="form-horizontal" action="javascript:guardarMateriaPrima()">
@@ -170,7 +185,7 @@ foreach ($imptos as $impto) { ?>
           <h3 style="margin:10px" id="exampleModalLabel">Adicionar Materia Prima</h3>
         </div>
         <div id="datos_ajax_register"></div>
-        <div class="modal-body"> 
+        <div class="modal-body">
           <div class="form-group">
             <label for="productoRec" class="control-label col-lg-2 col-md-2">Producto</label>
             <div class="col-lg-4 col-md-4">
@@ -190,13 +205,13 @@ foreach ($imptos as $impto) { ?>
             </div>
             <label for="impto" class="control-label col-lg-2  col-md-2">Valor Unitario</label>
             <div class="col-lg-2 col-md-2">
-              <input type="number" min='0' class="form-control" id="valorUni" name="valorUni" required maxlength="12" disabled readonly=""> 
+              <input type="number" min='0' class="form-control" id="valorUni" name="valorUni" required maxlength="12" disabled readonly="">
             </div>
             <label for="impto" class="control-label col-lg-2  col-md-2">Valor Total</label>
             <div class="col-lg-2 col-md-2">
-              <input type="number" min='0' class="form-control" id="valorTot" name="valorTot" required maxlength="12" disabled readonly=""> 
+              <input type="number" min='0' class="form-control" id="valorTot" name="valorTot" required maxlength="12" disabled readonly="">
             </div>
-         </div>
+          </div>
         </div>
         <div class="modal-footer">
           <div class="btn-group">
@@ -212,7 +227,7 @@ foreach ($imptos as $impto) { ?>
 <div class="modal fade" id="dataDeleteProductoReceta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
   <form id="eliminarDatosProducto" action="javascript:eliminaProductoReceta()">
     <div class="modal-dialog" role="document">
-      <div class="modal-content"> 
+      <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="glyphicon glyphicon-off"></span></button>
           <h2 class="modal-title" id="exampleModalLabel"> Elimina Producto Receta</h2>
@@ -220,11 +235,11 @@ foreach ($imptos as $impto) { ?>
         <div class="modal-body">
           <input type="hidden" id="idProductoRec" name="idProductoRec">
           <h3 class="text-center text-muted" style="color:#880505;font-weight:bold">Estas seguro?</h3>
-          <p class="lead text-muted text-center" 
-              style="display: block;margin:10px">Esta acción eliminará de forma permanente los Datos del Producto.
-            <h4 align="center">Desea continuar?</h4>    
+          <p class="lead text-muted text-center"
+            style="display: block;margin:10px">Esta acción eliminará de forma permanente los Datos del Producto.
+          <h4 align="center">Desea continuar?</h4>
           </p>
-        </div> 
+        </div>
         <div class="modal-footer">
           <div class="btn-group">
             <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>

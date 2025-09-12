@@ -13,16 +13,16 @@ if (!empty($users)) {
     $cia = $user->getInfoCia();
     $pms = $user->getDatePms();
 
-    $entrada['user'] = $users[0];
-    $entrada['cia'] = $cia[0];
-    $entrada['moduloPms'] = $pms[0];
+    $entrada['user'] = $users;
+    $entrada['cia'] = $cia;
+    $entrada['moduloPms'] = $pms;
 
-    $inicial = 'INGRESO AL SISTEMA ' . $users[0]['usuario'];
+    $inicial = 'INGRESO AL SISTEMA ' . $users['usuario'];
     $final = $inicial;
     $accion = 'INGRESO AL SISTEMA';
-    $id = $users[0]['usuario_id'];
+    $id = $users['usuario_id'];
 
-    $log = $user->ingresoLog($id, $users[0]['usuario'], $pc, $ip, $accion, $inicial, $final, 'US');
+    $log = $user->ingresoLog($id, $users['usuario'], $pc, $ip, $accion, $inicial, $final, 'US');
     $activo = $user->usuarioActivo($id, 1);
 } else {
     $entrada = ['entro' => '0'];

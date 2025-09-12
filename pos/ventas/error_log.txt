@@ -1,0 +1,14 @@
+[12-Sep-2025 11:16:36 America/Bogota] PHP Warning:  Undefined variable $fecha_auditoria in /var/www/donlolo.lan/pos/views/modal/modalComandas.php on line 12
+[12-Sep-2025 11:16:36 America/Bogota] PHP Warning:  Undefined variable $nombre in /var/www/donlolo.lan/pos/views/modal/modalComandas.php on line 14
+[12-Sep-2025 11:16:36 America/Bogota] PHP Warning:  Undefined variable $id_ambiente in /var/www/donlolo.lan/pos/views/modal/modalComandas.php on line 122
+[12-Sep-2025 11:16:36 America/Bogota] PHP Warning:  Undefined variable $usuario in /var/www/donlolo.lan/pos/views/modal/modalComandas.php on line 123
+[12-Sep-2025 11:16:36 America/Bogota] PHP Warning:  Undefined variable $id_ambiente in /var/www/donlolo.lan/pos/views/modal/modalComandas.php on line 167
+[12-Sep-2025 11:16:36 America/Bogota] PHP Warning:  Undefined variable $id_ambiente in /var/www/donlolo.lan/pos/views/modal/modalComandas.php on line 168
+[12-Sep-2025 11:16:36 America/Bogota] PHP Warning:  Undefined variable $usuario in /var/www/donlolo.lan/pos/views/modal/modalComandas.php on line 169
+[12-Sep-2025 11:16:36 America/Bogota] PHP Warning:  Undefined variable $nombre in /var/www/donlolo.lan/pos/views/modal/modalComandas.php on line 188
+[12-Sep-2025 11:16:36 America/Bogota] PHP Warning:  Undefined variable $fecha_auditoria in /var/www/donlolo.lan/pos/views/modal/modalComandas.php on line 191
+[12-Sep-2025 11:16:36 America/Bogota] PHP Warning:  Undefined variable $nombre in /var/www/donlolo.lan/pos/views/modal/modalComandas.php on line 282
+[12-Sep-2025 11:16:36 America/Bogota] PHP Warning:  Undefined variable $nombre in /var/www/donlolo.lan/pos/views/modal/modalComandas.php on line 310
+[12-Sep-2025 11:16:36 America/Bogota] PHP Warning:  Undefined variable $nombre in /var/www/donlolo.lan/pos/views/modal/modalComandas.php on line 312
+[12-Sep-2025 11:16:36 America/Bogota] PHP Warning:  Undefined variable $fecha_auditoria in /var/www/donlolo.lan/pos/views/modal/modalComandas.php on line 315
+[12-Sep-2025 11:16:36 America/Bogota] PHP Warning:  Undefined variable $nombre in /var/www/donlolo.lan/pos/views/modal/modalComandas.php on line 374

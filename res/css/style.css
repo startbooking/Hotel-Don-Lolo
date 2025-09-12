@@ -56,6 +56,44 @@ body.is-loading * {
   padding: 10px;
 }
 
+.pdx-2 {
+  padding: 0 4px;
+}
+
+.pr-4 {
+  padding-right: 4px;
+}
+
+.pl-4 {
+  padding-left: 4px;
+}
+
+
+.pr-2 {
+  padding-right: 2px;
+}
+
+.pl-2 {
+  padding-left: 2px;
+}
+
+.pr-1 {
+  padding-right: 1px;
+}
+
+.pl-1 {
+  padding-left: 1px;
+}
+
+
+.pr-0 {
+  padding-right: 0px;
+}
+
+.pl-0 {
+  padding-left: 0px;
+}
+
 .sencilla label,
 .doble label {
   display: grid;

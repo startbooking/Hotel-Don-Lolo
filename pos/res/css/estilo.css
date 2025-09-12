@@ -3,8 +3,15 @@
 }
 
 #pantalla {
-  min-height: 600px;
+  /* min-height: 570px; */
+    display: inline;
+    align-items: center; /* Esto alinea los elementos verticalmente */
+    justify-content: center; /* Esto alinea los elementos horizontalmente */
+    /* height: 100vh;  */
+    /* Opcional: Para que ocupe toda la altura del viewport */
 }
+
+
 .form-signin {
   max-width: 350px;
   padding: 19px 29px 29px;
@@ -424,7 +431,7 @@ form textarea {
 }
 
 .btn-group-xs > .btn, .btn-xs {
-  font-size: 14px;
+  font-size: 13px;
 }
 
 @media (max-width: 1200px) {

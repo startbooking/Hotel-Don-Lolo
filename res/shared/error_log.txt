@@ -1,0 +1,22 @@
+[11-Sep-2025 17:05:59 America/Bogota] PHP Warning:  Undefined array key "empresa" in /var/www/donlolo.lan/res/php/app_top.php on line 16
+[11-Sep-2025 17:05:59 America/Bogota] PHP Warning:  Undefined array key "nit" in /var/www/donlolo.lan/res/php/app_top.php on line 20
+[11-Sep-2025 17:05:59 America/Bogota] PHP Deprecated:  number_format(): Passing null to parameter #1 ($num) of type float is deprecated in /var/www/donlolo.lan/res/php/app_top.php on line 20
+[11-Sep-2025 17:05:59 America/Bogota] PHP Warning:  Undefined array key "dv" in /var/www/donlolo.lan/res/php/app_top.php on line 23
+[11-Sep-2025 17:05:59 America/Bogota] PHP Warning:  Undefined array key "direccion" in /var/www/donlolo.lan/res/php/app_top.php on line 24
+[11-Sep-2025 17:05:59 America/Bogota] PHP Warning:  Undefined array key "telefonos" in /var/www/donlolo.lan/res/php/app_top.php on line 25
+[11-Sep-2025 17:05:59 America/Bogota] PHP Warning:  Undefined array key "celular" in /var/www/donlolo.lan/res/php/app_top.php on line 26
+[11-Sep-2025 17:05:59 America/Bogota] PHP Warning:  Undefined array key "descripcion" in /var/www/donlolo.lan/res/php/app_top.php on line 27
+[11-Sep-2025 17:05:59 America/Bogota] PHP Warning:  Undefined array key "municipio" in /var/www/donlolo.lan/res/php/app_top.php on line 28
+[11-Sep-2025 17:05:59 America/Bogota] PHP Warning:  Undefined array key "web" in /var/www/donlolo.lan/res/php/app_top.php on line 29
+[11-Sep-2025 17:05:59 America/Bogota] PHP Warning:  Undefined array key "correo" in /var/www/donlolo.lan/res/php/app_top.php on line 30
+[11-Sep-2025 17:05:59 America/Bogota] PHP Warning:  Undefined array key "logo" in /var/www/donlolo.lan/res/php/app_top.php on line 31
+[11-Sep-2025 17:05:59 America/Bogota] PHP Warning:  Undefined array key "tipo_empresa" in /var/www/donlolo.lan/res/php/app_top.php on line 32
+[11-Sep-2025 17:05:59 America/Bogota] PHP Warning:  Undefined array key "codigo_ciiu" in /var/www/donlolo.lan/res/php/app_top.php on line 33
+[11-Sep-2025 17:05:59 America/Bogota] PHP Warning:  Undefined array key "ip_acceso" in /var/www/donlolo.lan/res/php/app_top.php on line 34
+[11-Sep-2025 17:05:59 America/Bogota] PHP Warning:  Undefined array key "tipo_empresa" in /var/www/donlolo.lan/res/php/app_top.php on line 35
+[11-Sep-2025 17:05:59 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functions.php on line 606
+[11-Sep-2025 17:05:59 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/res/php/functions.php on line 606
+[11-Sep-2025 17:05:59 America/Bogota] PHP Warning:  Undefined array key "cms" in /var/www/donlolo.lan/res/php/app_top.php on line 36
+[11-Sep-2025 17:05:59 America/Bogota] PHP Warning:  Undefined array key "mantenimiento" in /var/www/donlolo.lan/res/php/app_top.php on line 37
+[11-Sep-2025 17:14:53 America/Bogota] PHP Warning:  Undefined array key "descripcion" in /var/www/donlolo.lan/res/php/app_top.php on line 27
+[11-Sep-2025 17:14:53 America/Bogota] PHP Warning:  Undefined array key "municipio" in /var/www/donlolo.lan/res/php/app_top.php on line 28

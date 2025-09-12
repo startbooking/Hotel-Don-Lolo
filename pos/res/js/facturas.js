@@ -286,7 +286,6 @@ function pagarFactura() {
   let pago = +parseFloat($("#montopago").val().replace(",", ""));
   totalCta = +$("#totalCuentPag").val();
   roomservice = $("#servicio").val();
-  
 
   var productos = localStorage.getItem("productoComanda");
 
@@ -950,6 +949,23 @@ function guardarCuentaRecuperada() {
   var comanda = $("#numeroComanda").val();
   var recuperar = $("#recuperarComanda").val();
   var productos = JSON.parse(localStorage.getItem("productoComanda"));
+  // console.log(productos);
+  const nuevosprod = productos.filter(producto => producto.activo === 0);
+  // console.log(nuevosprod)
+
+  if(nuevosprod.length == 0){
+    swal(
+      {
+        title: "Sin Nuevos Productos",
+        text: " No permitido Guardar Comanda",
+        type: "warning",
+        showCancelButton: false,
+        confirmButtonColor: "#DD6B55",
+        closeOnConfirm: true,
+      },
+    );
+    return false
+  }
 
   var parametros = {
     user: usuario,
@@ -958,7 +974,7 @@ function guardarCuentaRecuperada() {
     nomamb: nombre,
     fecha: fecha_auditoria,
     comanda,
-    productos,
+    nuevosprod,
   };
 
   $.ajax({
@@ -968,7 +984,8 @@ function guardarCuentaRecuperada() {
     beforeSend: function (objeto) {},
     success: function (datos) {
       $("#productosComanda >table >tbody >tr").remove();
-      var productos = localStorage.getItem("productoComanda");
+      let productos = localStorage.getItem("productoComanda");
+
       imprime = imprimeComandaVenRecu();
       if (productos == null) {
         listaComanda = [];

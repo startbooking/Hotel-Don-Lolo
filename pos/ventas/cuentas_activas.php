@@ -1,43 +1,47 @@
 <?php
-  require '../../res/php/titles.php';
-  require '../../res/php/app_topPos.php';
+// require '../../res/php/titles.php';
+require '../../res/php/app_topPos.php';
 
-  $idamb = $_POST['id_ambiente'];
+$data = json_decode(file_get_contents('php://input'), true);
+extract($data);
+// print_r($data);
 
-  $amb = $_POST['nombre'];
-  $nivel = $_POST['tipo'];
-  $user = $_POST['usuario'];
-  $prefijo = $_POST['prefijo'];
-  $fecha = $_POST['fecha_auditoria'];
+/* $idamb = $_POST['id_ambiente'];
 
-  $mesas = $pos->getMesasAmbi($idamb);
-  $datosClientes = $pos->getClientes();
-  $descuentos = $pos->getDescuentosPos($idamb);
-  $formasdepagos = $pos->getFormasPago();
+$amb = $_POST['nombre'];
+$nivel = $_POST['tipo'];
+$user = $_POST['usuario'];
+$prefijo = $_POST['prefijo'];
+$fecha = $_POST['fecha_auditoria']; */
 
-  ?>
+$mesas = $pos->getMesasAmbi($id_ambiente);
+$datosClientes = $pos->getClientes();
+$descuentos = $pos->getDescuentosPos($id_ambiente);
+$formasdepagos = $pos->getFormasPago();
+
+?>
 <div class="row" style="background-color: #F5FBFC;margin:1px">
-  <div class="row-fluid">
-    <div class="container-fluid" style="margin:0;padding:0">
-      <div class="col-md-12" style="background-color: antiquewhite;padding:5px">
-        <div class="col-md-6" style="padding:0 5px" id="muestraComanda">
-          <div class="col-lg-12 btn-info" style="padding:0;margin:0;" id="tituloComanda">
-            <h4 style="padding:2px;text-align: center;font-weight: bold;margin:0">Comandas Activas</h4>
-          </div>
-          <div id="tituloBusca" class="col-lg-6" style="padding:0;margin:0;display:none">
-            <label class="control-label col-md-3 " for="">Buscar </label>
-            <div class="col-md-9" style="padding:0;margin:0">
-              <input class="form-control" type="text" name="busqueda" id="busqueda" value=""> 
-            </div>
+  <div class="container-fluid" style="margin:0;padding:0">
+    <div class="col-md-12" style="background-color: antiquewhite;padding:5px">
+      <div class="col-md-6" style="padding:0" id="muestraComanda">
+        <div class="col-lg-12 btn-info" style="padding:5px;margin:0;" id="tituloComanda">
+          <h4 style="padding:2px;text-align: center;font-weight: bold;margin:0">Comandas Activas</h4>
+        </div>
+        <div id="tituloBusca" class="col-lg-6" style="padding:0;margin:0;display:none">
+          <label class="control-label col-md-3 " for="">Buscar </label>
+          <div class="col-md-9" style="padding:0;margin:0">
+            <input class="form-control" type="text" name="busqueda" id="busqueda" value="">
           </div>
         </div>
-        <div class="col-md-6 btcuentasActivas(n-success" style="padding:0 5px" id="muestraNumero">
-          <h4 id="tituloNumero" style="padding:2px;text-align: center;font-weight: bold;margin:0">Informacion Comanda</h4>
-        </div>
+      </div>
+      <div class="col-md-6 btcuentasActivas btn-success" style="padding:5px" id="muestraNumero">
+        <h4 id="tituloNumero" style="padding:2px;text-align: center;font-weight: bold;margin:0">Informacion Comanda</h4>
       </div>
     </div>
   </div>
-  <div class="row-fluid">
+  <!-- <div class="row-fluid">
+  </div> -->
+  <div class="row-fluid margin-top:2px;">
     <div class="col-lg-6 col-md-6 col-xs-12 tablas" id="divideComanda" style="display:none">
       <div id='productosDivide' class="row-fluid">
         <input type="hidden" id="nroComandaDiv">
@@ -59,31 +63,31 @@
           <tbody>
             <!-- <tr style="text-align:right">
               <td>Valor Cuenta</td>
-              <td id="totalVtaDiv"><?php echo '$ '.number_format(0 + 0 - 0, 2, ',', '.'); ?>
+              <td id="totalVtaDiv"><?php echo '$ ' . number_format(0 + 0 - 0, 2, ',', '.'); ?>
               <td>Impuesto</td>
-              <td id="valorImptoDiv"><?php echo '$ '.number_format(0, 2); ?></td>
+              <td id="valorImptoDiv"><?php echo '$ ' . number_format(0, 2); ?></td>
               </td>
             </tr> -->
             <tr style="text-align:right">
               <!-- <td>Descuento</td>
-              <td id="totalDescDiv"><?php echo '$ '.number_format(0 + 0 - 0, 2, ',', '.'); ?>
+              <td id="totalDescDiv"><?php echo '$ ' . number_format(0 + 0 - 0, 2, ',', '.'); ?>
               </td> -->
               <!-- <td>Abonos</td>
-              <td id="totalAbonosDiv"><?php echo '$ '.number_format(0 + 0 - 0, 2, ',', '.'); ?>
+              <td id="totalAbonosDiv"><?php echo '$ ' . number_format(0 + 0 - 0, 2, ',', '.'); ?>
               </td>
             </tr> 
             <tr style="text-align:right">
               <td></td>
               <td></td> -->
               <td>Valor Comanda</td>
-              <td id="totalCuentaDiv"><?php echo '$ '.number_format(0 + 0 - 0, 2, ',', '.'); ?>
+              <td id="totalCuentaDiv"><?php echo '$ ' . number_format(0 + 0 - 0, 2, ',', '.'); ?>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
-    <div class="col-lg-6 col-md-6 col-xs-12" id="listaComandas" style="padding:0px 0px 0px 5px;overflow: auto; text-align:center">
+    <div class="col-lg-6 col-md-6 col-xs-12" id="listaComandas" style="overflow: auto; text-align:center;margin-top:2px;">
     </div>
     <div class="col-lg-3 col-md-3 moduloCentrar" id="seccionList" style="padding:0;display:none;">
     </div>
@@ -91,16 +95,16 @@
     </div>
     <div class="col-lg-6 col-md-6 col-xs-12" id="ventasList" style="padding:0px 0px 0px 5px;">
       <input type="hidden" name="descuentosComanda" id="descuentosComanda" value="0">
-      <input type="hidden" name="abonosComanda"     id="abonosComanda"     value="0">
-      <input type="hidden" name="totalComanda"      id="totalComanda"      value="0">
-      <input type="hidden" name="totalImpto"        id="totalImpto"        value="0">
-      <input type="hidden" name="numeroComanda"     id="numeroComanda"     value="0">
-      <input type="hidden" name="recuperarComanda"  id="recuperarComanda"  value="0">
-      <input type="hidden" name="prefijoAmb"        id="prefijoAmb"        value="<?php echo $prefijo; ?>">
-      <input type="hidden" name="idAmbiente"        id="idAmbiente"        value="<?php echo $idamb; ?>">
-      <input type="hidden" name="nromesa"           id="nromesa"           value="0">
-      <input type="hidden" name="canpax"            id="canpax"            value="0">
-      <div class="col-lg-9 col-md-9" style="padding:0;">
+      <input type="hidden" name="abonosComanda" id="abonosComanda" value="0">
+      <input type="hidden" name="totalComanda" id="totalComanda" value="0">
+      <input type="hidden" name="totalImpto" id="totalImpto" value="0">
+      <input type="hidden" name="numeroComanda" id="numeroComanda" value="0">
+      <input type="hidden" name="recuperarComanda" id="recuperarComanda" value="0">
+      <input type="hidden" name="prefijoAmb" id="prefijoAmb" value="<?php echo $prefijo; ?>">
+      <input type="hidden" name="idAmbiente" id="idAmbiente" value="<?php echo $id_ambiente; ?>">
+      <input type="hidden" name="nromesa" id="nromesa" value="0">
+      <input type="hidden" name="canpax" id="canpax" value="0">
+      <div class="col-lg-9 col-md-9 pr-0 pl-0" style="">
         <div id='productosComanda' class="row-fluid">
           <table class="table table-hover comanda" id="comanda">
             <thead>
@@ -120,97 +124,94 @@
             <tbody>
               <!-- <tr style="text-align:right">
                 <td>Valor Cuenta</td>
-                <td id="totalVta"><?php echo '$ '.number_format(0 + 0 - 0, 2, ',', '.'); ?>
+                <td id="totalVta"><?php echo '$ ' . number_format(0 + 0 - 0, 2, ',', '.'); ?>
                 <td>Impuesto</td>
-                <td id="valorImpto"><?php echo '$ '.number_format(0, 2); ?></td>
+                <td id="valorImpto"><?php echo '$ ' . number_format(0, 2); ?></td>
                 </td>
               </tr> -->
               <tr style="text-align:right">
                 <!-- <td>Descuento</td>
-                <td id="totalDesc"><?php echo '$ '.number_format(0 + 0 - 0, 2, ',', '.'); ?>
+                <td id="totalDesc"><?php echo '$ ' . number_format(0 + 0 - 0, 2, ',', '.'); ?>
                 </td> -->
                 <!-- <td>Abonos</td>
-                <td id="totalAbonos"><?php echo '$ '.number_format(0 + 0 - 0, 2, ',', '.'); ?>
+                <td id="totalAbonos"><?php echo '$ ' . number_format(0 + 0 - 0, 2, ',', '.'); ?>
                 </td>
               </tr>
               <tr style="text-align:right">
                 <td></td>
                 <td></td> -->
                 <td>Total Cuenta </td>
-                <td id="totalCuenta"><?php echo '$ '.number_format(0 + 0 - 0, 2, ',', '.'); ?>
+                <td id="totalCuenta"><?php echo '$ ' . number_format(0 + 0 - 0, 2, ',', '.'); ?>
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
-      <div class="col-lg-3 col-md-3 menuComanda" style="padding:0;text-align: center">
-        <div class="btn-toolbar" style="padding:0 5px;" role="toolbar" aria-label="Toolbar with button groups">
-          <div class="btn-group-vertical mr-2" role="group" aria-label="First group" style="padding:0 10px;width:100%">
-            <?php if ($nivel <= 4) { ?>
+      <div class="col-lg-3 col-md-3 pl-4 pr-0" style="text-align: center">
+        <div class="btn-toolbar" style="padding:5px;margin-left:0;background-color: #0000002e;" role="toolbar" aria-label="Toolbar with button groups">
+          <div class="btn-group-vertical" role="group" aria-label="First group" style="padding:5px;width:100%">
+            <?php if ($tipo <= 4) { ?>
               <button
-                type    ="button"
-                id      ="guardaCuenta"
-                class   ="btn btn-primary btnRecu"
-                style   ="display:none;"
-                title   ="Guardar Presente Cuenta"
-                id      ="guardarCuenta"
-                onclick ="guardarCuentaRecuperada()"
-                >
+                style="display: none;"
+                type="button"
+                id="guardaCuenta"
+                class="btn btn-primary btnRecu"
+                title="Guardar Presente Cuenta"
+                id="guardarCuenta"
+                onclick="guardarCuentaRecuperada()">
                 <i class="fa fa-save"></i> Guardar
               </button>
               <button
-                type    ="button"
-                id      ="recuperaCuenta"
-                class   ="btn btn-success prende btnRecu"
-                onclick ="recuperarCuenta()"
-                title   ="Recuperar Presente Cuenta"
-                >
+                type="button"
+                id="recuperaCuenta"
+                class="apagado btn btn-success btnRecu"
+                onclick="recuperarCuenta()"
+                title="Recuperar Presente Cuenta">
                 <i class="fa fa-save"></i> Recuperar
               </button>
-              <?php
+            <?php
             }
-              if ($nivel <= 0) { ?>
-              <button 
-                style       ="background-color: yellow;border-color:yellow;color:black;"
-                data-toggle ="modal"
-                type        ="button"
-                class       ="btn btn-warning prende btnActivo btnRecu"
-                onclick     ="botonDescuento()"
-                id          ="descuentoCuenta"
-                name        ="<?php echo $user; ?>" 
-                title       ="Descuentos A la Presente Cuenta">
+            if ($tipo <= 0) { ?>
+              <button
+                style="background-color: yellow;border-color:yellow;color:black;"
+                data-toggle="modal"
+                type="button"
+                class="apagado btn btn-warning btnActivo btnRecu"
+                onclick="botonDescuento()"
+                id="descuentoCuenta"
+                name="<?php echo $usuario; ?>"
+                title="Descuentos A la Presente Cuenta">
                 <i class="fa fa-calculator"></i> Descuento
               </button>
-              <?php
-              }
-              if ($nivel <= 4) { ?>
+            <?php
+            }
+            if ($tipo <= 4) { ?>
               <button
-                type        ="button" 
-                class       ="btn btn-default prende btnActivo btnRecu" 
-                data-toggle ="modal" 
-                data-target ="#myImprimirCuenta" 
-                onclick     ="imprimeEstadoCuenta()"
-                title       ="Imprimir Estado de Cuenta">
+                type="button"
+                class="apagado btn btn-default btnActivo btnRecu"
+                data-toggle="modal"
+                data-target="#myImprimirCuenta"
+                onclick="imprimeEstadoCuenta()"
+                title="Imprimir Estado de Cuenta">
                 <i class="fa fa-print"></i> Pre-Cuenta
               </button>
-              <?php
-              }
-              if ($nivel <= 2) { ?>
+            <?php
+            }
+            if ($tipo <= 2) { ?>
               <button
-                type        ="button" 
-                class       ="btn btn-danger prende btnActivo btnRecu"
-                title       ="Anular Presente Cuenta"
-                data-toggle ="modal"
-                name        ="<?php echo $user; ?>" 
-                id          ="anularComanda"
-                data-target ="#myModalAnulaComanda" 
-                ><i class="fa fa-trash-o"></i> Anular
+                type="button"
+                class="apagado btn btn-danger btnActivo btnRecu"
+                title="Anular Presente Cuenta"
+                data-toggle="modal"
+                name="<?php echo $usuario; ?>"
+                id="anularComanda"
+                data-target="#myModalAnulaComanda"><i class="fa fa-trash-o"></i> Anular
               </button>
-              <?php
-              }
-  ?>
-              <!-- <button
+            <?php
+            }
+            ?>
+            <!-- <button
               style="background:cyan;"
               type="button"
               class="btn btn-default prende btnActivo btnRecu" 
@@ -221,7 +222,7 @@
               Dividir
             </button>  -->
             <?php
-  if ($nivel <= 3) { ?>
+            if ($tipo <= 3) { ?>
               <!-- 
                 <button
                   type        ="button"
@@ -244,49 +245,45 @@
                 </button>
               -->
               <button
-                style    ="margin-top:20px"
-                type     ="button"
-                class    ="btn btn-info prende btnActivo btnRecu"
-                title    ="Pagar Cuenta"
-                onclick  ="botonPagar()"
-                id       ="pagarComanda"
-                ><i class="fa fa-money"></i> Pagar
+                type="button"
+                class="apagado btn btn-info btnActivo btnRecu"
+                title="Pagar Cuenta"
+                onclick="botonPagar()"
+                id="pagarComanda"><i class="fa fa-money"></i> Pagar
               </button>
-              <?php
-        }
-        if ($nivel <= 4) { ?>
-              <button
-              style="margin-top:43px"
-              type="button"
-              class="btn btn-default prende btnActivo btnRecu" 
-              data-toggle="modal" 
-              data-target="#myImprimirCuenta" 
-              onclick="imprimeComandaGen()"
-              id="imprimeComanda"
-              title="Imprimir Comanda Actual">
-              <i class="fa fa-print"></i> Comanda
-            </button>
             <?php
             }
-            if ($nivel <= 0) { ?>
+            if ($tipo <= 4) { ?>
               <button
-              style="display:none !important"
-              type="button"
-              class="btn btn-info btnActivo btnRecu" 
-              data-toggle="modal"  
-              data-target="#myImprimirCuenta" 
-              onclick="guardarCuentaDividida()"
-              id="guardaComandaDividida"
-              title="Guarda Nueva Comanda">
-              <i class="fa fa-save"></i> Procesar 
-            </button> 
+                type="button"
+                class="apagado btn btn-default  btnActivo btnRecu"
+                data-toggle="modal"
+                data-target="#myImprimirCuenta"
+                onclick="imprimeComandaGen()"
+                id="imprimeComanda"
+                title="Imprimir Comanda Actual">
+                <i class="fa fa-print"></i> Comanda
+              </button>
+            <?php
+            }
+            if ($tipo <= 0) { ?>
+              <button
+                type="button"
+                class="apagado btn btn-info btnActivo btnRecu "
+                data-toggle="modal"
+                data-target="#myImprimirCuenta"
+                onclick="guardarCuentaDividida()"
+                id="guardaComandaDividida"
+                title="Guarda Nueva Comanda">
+                <i class="fa fa-save"></i> Procesar
+              </button>
             <?php } ?>
             <button
-              type    ="button"
-              class   ="btn btn-warning btnRecu"
-              onclick ="regresaDividir()"
-              id      ="regresarComanda"
-              title   ="Regresar ">
+              type="button"
+              class="btn btn-warning btnRecu"
+              onclick="regresaDividir()"
+              id="regresarComanda"
+              title="Regresar ">
               <i class="fa fa-home"></i> Regresar
             </button>
           </div>
@@ -295,19 +292,8 @@
     </div>
   </div>
 </div>
+</div>
 
 <?php
 include_once '../views/modal/modalComandas.php';
-  ?>
-
-<script src="<?php echo BASE_POS; ?>res/js/facturas.js" type="text/javascript" charset="utf-8"></script>
-<script>
-  getCuentasActivas('<?php echo $idamb; ?>')
-  $("#busqueda").keypress(function(event) {
-    if (event.keyCode === 13) {
-      buscarProducto();
-    }
-  });
-</script>
-
-
+?>

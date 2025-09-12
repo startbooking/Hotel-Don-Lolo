@@ -63,7 +63,7 @@
     </div>
     <div class="col-lg-5 col-md-5 col-sm-4 col-xs-12 " id="ventasList">
       <input type="hidden" name="totalImpto" id="totalImpto" value="0">
-      <div class="col-md-9 col-xs-12" style="padding:0 2px">
+      <div class="col-md-9 col-xs-12 pl-2 pr-1">
         <div id='productosComanda' class="row-fluid">
           <table class="table table-hover comanda" id="comanda">
             <thead>
@@ -102,8 +102,8 @@
         <!-- <div class="row-fluid" id="valores" style='margin-top:10px;background-color: #B9E3E4B3'>
         </div> -->
       </div>
-      <div class="col-md-3 col-xs-12 menuComanda">
-        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+      <div class="col-md-3 col-xs-12 pr-2 pl-4">
+        <div class="btn-toolbar" id="toolbar" role="toolbar" aria-label="Toolbar with button groups">
           <div class="btn-group-vertical mr-2" role="group" aria-label="First group" style="display: block">
             <button
               id      ="btnGuardarComanda"
@@ -129,7 +129,7 @@
               type     ="button"
               class    ="btn btn-secondary btn-warning"
               name     ="<?php echo $user; ?>"
-              style    ="height: 64px;font-weight: 600;font-size:14px;margin-top:383px;" title="Anula Ingreso Presente Cuenta">
+              style    ="height: 64px;font-weight: 600;font-size:14px;" title="Anula Ingreso Presente Cuenta">
               <i class ="fa fa-reply"></i> Regresar
             </button>
           </div>

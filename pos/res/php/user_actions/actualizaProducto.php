@@ -1,23 +1,14 @@
 <?php
-	  require '../../../../res/php/titles.php';
-	  require '../../../../res/php/app_topPos.php'; 
-	
-		$id       = $_POST["idProd"];
-		$producto = strtoupper(strip_tags($_POST["producto"]));
-		$codigo   = strtoupper(strip_tags($_POST["codigo"]));
-		$seccion  = strtoupper(strip_tags($_POST["seccion"]));
-		$venta    = strip_tags($_POST["venta"]);
-		$impto    = strtoupper(strip_tags($_POST["impto"]));
-		$tipo     = strtolower(strip_tags($_POST["tipo"]));
+require '../../../../res/php/titles.php';
+require '../../../../res/php/app_topPos.php';
 
-		if($tipo==0){
-			$receta = 0;
-		}else{
-			$receta   = $_POST["idrecetaUpd"]; 
-		}
-			
-		$upda = $pos->actualizaProducto($id, $producto, $codigo, $seccion, $venta, $impto, $tipo, $receta);
+extract($_POST);
 
-		echo $upda;
+if ($tipo == 0) {
+	$receta = 0;
+} else {
+	$receta   = $idrecetaUpd;
+}
+$upda = $pos->actualizaProducto($idProd, strtoupper($producto), strtoupper($codigo), $seccion, $venta, $impto, $tipo, $receta, $unidadMedUpd);
 
-?>	
+echo $upda;

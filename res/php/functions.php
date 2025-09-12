@@ -6,17 +6,17 @@ date_default_timezone_set('America/Bogota');
 class User_Actions
 {
 
-    public function comparaPass($usuario, $pass){
+    public function comparaPass($usuario, $pass)
+    {
         global $database;
 
-        $data = $database->count('usuarios',[
+        $data = $database->count('usuarios', [
             'usuario',
         ], [
             'usuario' => $usuario,
             'password' => $pass,
         ]);
         return $data;
-
     }
     public function getUserSocial($red) // Menu Redes Sociales
     {
@@ -501,7 +501,7 @@ class User_Actions
     {
         global $database;
 
-        $data = $database->select('usuarios', [
+        $data = $database->get('usuarios', [
             'usuario_id',
             'correo',
             'nombres',
@@ -537,35 +537,42 @@ class User_Actions
     {
         global $database;
 
-        $data = $database->select('empresas', [
-            'conMod',
-            'invMod',
-            'comMod',
-            'cxpMod',
-            'cxcMod',
-            'posMod',
-            'tarMod',
-            'pmsMod',
-            'resMod',
-            'feMod',
-            'empresa',
-            'nit',
-            'dv',
-            'direccion',
-            'pais',
-            'ciudad',
-            'celular',
-            'telefonos',
-            'web',
-            'correo',
-            'logo',
-            'codigo_ciiu',
-            'ip_acceso',
-            'tipo_empresa',
-            'impto_incl',
-            'cms',
-            'mantenimiento',
-            'suspendido'
+        $data = $database->get('empresas', [
+            '[>]paices' => ['pais' => 'id_pais'],
+            '[>]ciudades' => ['ciudad' => 'id_ciudad'],
+            '[>]tipo_cia' => ['tipo_empresa' => 'id_tipo_cia'],
+        ], [
+            'empresas.conMod',
+            'empresas.invMod',
+            'empresas.comMod',
+            'empresas.cxpMod',
+            'empresas.cxcMod',
+            'empresas.posMod',
+            'empresas.tarMod',
+            'empresas.pmsMod',
+            'empresas.resMod',
+            'empresas.feMod',
+            'empresas.empresa',
+            'empresas.nit',
+            'empresas.dv',
+            'empresas.direccion',
+            'empresas.pais',
+            'empresas.ciudad',
+            'empresas.celular',
+            'empresas.telefonos',
+            'empresas.web',
+            'empresas.correo',
+            'empresas.logo',
+            'empresas.codigo_ciiu',
+            'empresas.ip_acceso',
+            'empresas.tipo_empresa',
+            'empresas.impto_incl',
+            'empresas.cms',
+            'empresas.mantenimiento',
+            'empresas.suspendido',
+            'paices.descripcion',
+            'ciudades.municipio',
+            'tipo_cia.descripcion(tipoEmpresa)'
         ]);
 
         return $data;
@@ -586,7 +593,7 @@ class User_Actions
     {
         global $database;
 
-        $data = $database->select('parametros_pms', [
+        $data = $database->get('parametros_pms', [
             'fecha_auditoria',
         ]);
 

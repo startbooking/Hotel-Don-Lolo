@@ -17,20 +17,20 @@ $inven   = new Inventario_User();
 $empresa = $admin->getInfoCia();
 
 define('DEV', '1');
-define("NAME_EMPRESA", $empresa[0]['empresa']);
-define("NIT_EMPRESA", $empresa[0]['nit'] . '-' . $empresa[0]['dv']);
-define("ADRESS_EMPRESA", $empresa[0]['direccion']);
-define("TELEFONO_EMPRESA", $empresa[0]['telefonos']);
-define("CELULAR_EMPRESA", $empresa[0]['celular']);
-define("CODIGO_PAIS_EMPRESA", $empresa[0]['pais']);
-define("PAIS_EMPRESA", $inven->getLandName($empresa[0]['pais']));
-define("CIUDAD_EMPRESA", $inven->getCityName($empresa[0]['ciudad']));
-define("WEB_EMPRESA", $empresa[0]['web']);
-define("CORREO_EMPRESA", $empresa[0]['correo']);
-define("LOGO", $empresa[0]['logo']);
-define("TIPO_DOC", $empresa[0]['tipo_empresa']);
-define("CIIU", $empresa[0]['codigo_ciiu']);
-define("TIPOEMPRESA", $admin->getTypeCia($empresa[0]['tipo_empresa']));
+define("NAME_EMPRESA", $empresa['empresa']);
+define("NIT_EMPRESA", $empresa['nit'] . '-' . $empresa['dv']);
+define("ADRESS_EMPRESA", $empresa['direccion']);
+define("TELEFONO_EMPRESA", $empresa['telefonos']);
+define("CELULAR_EMPRESA", $empresa['celular']);
+define("CODIGO_PAIS_EMPRESA", $empresa['pais']);
+define('PAIS_EMPRESA', $empresa['descripcion']);
+define('CIUDAD_EMPRESA', $empresa['municipio']);
+define("WEB_EMPRESA", $empresa['web']);
+define("CORREO_EMPRESA", $empresa['correo']);
+define("LOGO", $empresa['logo']);
+define("TIPO_DOC", $empresa['tipo_empresa']);
+define("CIIU", $empresa['codigo_ciiu']);
+define("TIPOEMPRESA", $admin->getTypeCia($empresa['tipo_empresa']));
 
 if (!isset($_GET['section'])) {
 } elseif (isset($_GET['section']) && $_GET['section'] == 'home') {

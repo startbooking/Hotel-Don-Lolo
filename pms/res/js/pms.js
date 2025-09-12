@@ -803,9 +803,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   $("#myModalAnulaFactura").on("show.bs.modal", function (event) {
     sesion = JSON.parse(localStorage.getItem("sesion"));
-    let {
-      user: { tipo },
-    } = sesion;
+    let { user: { tipo }, } = sesion;
     if (tipo > 2) {
       swal("Precaucion", "Usuario NO permitido Anular Factura", "warning");
       $("#myModalAnulaFactura").modal("hiden");
@@ -912,9 +910,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   $("#myModalSalidaCongelada").on("show.bs.modal", function (event) {
     sesion = JSON.parse(localStorage.getItem("sesion"));
-    let {
-      user: { usuario, usuario_id },
-    } = sesion;
+    let { user: { usuario, usuario_id }, } = sesion;
     var web = $("#rutaweb").val();
     var pagina = $("#ubicacion").val();
     var folio = $("#folioActivo").val();
@@ -1550,10 +1546,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   $("#myModalSalidaHuesped").on("show.bs.modal", function (event) {
     sesion = JSON.parse(localStorage.getItem("sesion"));
-    let {
-      user: { usuario, usuario_id },
-    } = sesion;
-    // let  = user;
+    let { user: { usuario, usuario_id }, } = sesion;
     var credito = 0;
     var web = $("#rutaweb").val();
     var pagina = $("#ubicacion").val();
@@ -1561,7 +1554,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     var reserva = $("#reservaActual").val();
     var consumo = $("#saldoActual").val();
     var abonos = $("#totalPagos").val();
-
     var saldo = consumo - abonos;
 
     formulario = document.querySelector("#guardarPagosRoomSal");
@@ -4191,8 +4183,7 @@ function traeLlegadasDia() {
 
 function traeHuespedesenCasa() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { tipo } = user;
+  let { user: { tipo } } = sesion;
 
   $.ajax({
     url: "res/php/traeHuespedesenCasa.php",
@@ -4263,8 +4254,7 @@ function traeReservasActivas(tipo) {
 
 function consumoVentaDirecta() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario, usuario_id } = user;
+  let { user:{ usuario, usuario_id }, } = sesion;
   let = $("#txtIdReservaDep").val();
 
   var web = $("#rutaweb").val();
@@ -4334,9 +4324,8 @@ function ingresaVentaDirecta() {
   noches = $("#noches").val();
   salida = $("#salida").val();
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario, usuario_id } = user;
-
+  let { user: { usuario, usuario_id }, } = sesion;
+  
   if (identifica == "") {
     swal("Precaucion", "Seleccione el Cliente para Realizar la Venta", "error");
     $("#identifica").focus();
@@ -4571,9 +4560,7 @@ function generarXML(factura, test, modulo, ambiente) {
 function imprimeInformeAuditoria(informe, titulo) {
   web = $("#webPage").val();
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {
-    user: { usuario, apellidos, nombres, usuario_id },
-  } = sesion;
+  let { user: { usuario, apellidos, nombres, usuario_id }, } = sesion;
   file = makeid(12);
   $.ajax({
     url: `imprimir/${informe}.php`,
@@ -4585,8 +4572,6 @@ function imprimeInformeAuditoria(informe, titulo) {
       nombres,
     },
   }).done(function (data) {
-    // console.log(data);
-
     $("#plantilla").html("");
     $("#plantilla").html(`<div class="content-wrapper"> 
       <section class="content">
@@ -4617,8 +4602,7 @@ function imprimeInformeAuditoria(informe, titulo) {
 function auditoriaCronologico() {
   web = $("#webPage").val();
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario, usuario_id } = user;
+  let { user:{ usuario } } = sesion;
   $.ajax({
     url: "imprimir/imprimeCargosdelDia.php",
     type: "POST",
@@ -4654,8 +4638,7 @@ function auditoriaCronologico() {
 function auditoriaHuespedes() {
   web = $("#webPage").val();
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario, usuario_id } = user;
+  let { user: { usuario} } = sesion;
   $.ajax({
     url: "imprimir/imprimeHuespedesPorHabitacion.php",
     type: "POST",
@@ -4898,9 +4881,7 @@ function verfacturaHistorico(fact) {
 
 function anulaFacturaHistorico() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {
-    user: { usuario, usuario_id, tipo },
-  } = sesion;
+  let { user: { usuario, usuario_id, tipo }, } = sesion;
   var pagina = $("#ubicacion").val();
   var factura = $("#facturaHis").val();
   var motivo = $("#motivoAnulaHis").val();
@@ -5332,9 +5313,7 @@ function buscaFechaAuditoria() {
 
 async function anulaEnvioFactura(factura, reserva) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {
-    user: { usuario, usuario_id, tipo },
-  } = sesion;
+  let { user: { usuario, usuario_id, tipo }, } = sesion;
   data = { factura, reserva, perfil: 1, usuario, usuario_id };
   try {
     const resultado = await fetch(`res/php/anulaFacturaEnvio.php`, {
@@ -5445,10 +5424,8 @@ function asignaTipoHabitacion() {
 async function guardaHuesped(e) {
   e.preventDefault;
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {
-    user: { usuario, usuario_id, tipo },
-  } = sesion;
-  sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { user: { usuario, usuario_id, tipo }, } = sesion;
+  // sesion = JSON.parse(localStorage.getItem("sesion"));
   let web = $("#rutaweb").val();
   let pagina = $("#ubicacion").val();
   let nuevaIde = $("#identifica").val();
@@ -6409,8 +6386,7 @@ function eliminaAcompanante(id) {
 
 function trasladarConsumos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario } = user;
+  let { user:{ usuario } } = sesion;
 
   var web = $("#rutaweb").val();
   var idconsumo = $("#txtIdConsumoTras").val();
@@ -6441,8 +6417,7 @@ function trasladarConsumos() {
 
 function anulaSalida() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario, usuario_id } = user;
+  let { user:{ usuario, usuario_id } } = sesion;
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var numero = $("#txtIdReservaAnu").val();
@@ -6748,8 +6723,7 @@ const traeRetenciones = async () => {
 
 function anulaIngreso() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario, usuario_id } = user;
+  let { user:{ usuario, usuario_id } } = sesion;
 
   var pagina = $("#ubicacion").val();
   var numero = $("#txtIdReservaAnu").val();
@@ -7438,8 +7412,7 @@ function actualizaCiaHuesped() {
 
 function imprimirRegistro(reserva, causar) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario } = user;
+  let { user:{ usuario } } = sesion;
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var parametros = {
@@ -7462,9 +7435,7 @@ function anulaConsumos() {
   var web = $("#rutaweb").val();
 
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {
-    user: { usuario, usuario_id },
-  } = sesion;
+  let { user: { usuario, usuario_id }, } = sesion;
 
   var id = $("#txtIdConsumoAnu").val();
   var motivo = $("#txtMotivoAnula").val();
@@ -7508,9 +7479,7 @@ function modificaReserva(reserva) {
 
 function cargarHabitaciones() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {
-    user: { usuario, usuario_id },
-  } = sesion;
+  let { user: { usuario, usuario_id }, } = sesion;
   let web = $("#rutaweb").val();
   let pagina = $("#ubicacion").val();
   $("input:radio:checked").each(function () {
@@ -7881,8 +7850,7 @@ function saldoReserva(reserva) {
 
 function guardaAgencia() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario, usuario_id } = user;
+  let { user: { usuario, usuario_id } } = sesion;
 
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
@@ -7970,9 +7938,7 @@ function saldoTotal(reserva) {
 
 function activaFolio(reserva, folio) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {
-    user: { usuario, usuario_id, tipo },
-  } = sesion;
+  let { user: { usuario, usuario_id, tipo }, } = sesion;
   let web = $("#rutaweb").val();
   let pagina = $("#ubicacion").val();
   let nrohabi = $("#nrohabitacion").val();
@@ -8381,9 +8347,7 @@ function asignaHuesped(reserva) {
 
 function ingresaAbonos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {
-    user: { usuario, usuario_id },
-  } = sesion;
+  let { user: { usuario, usuario_id }, } = sesion;
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var codigo = $("#codigoAbono").val();
@@ -8436,9 +8400,7 @@ function ingresaAbonos() {
 
 function ingresaConsumos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {
-    user: { usuario, usuario_id },
-  } = sesion;
+  let { user: { usuario, usuario_id }, } = sesion;
   var congela = $("#cuentaCongelada").val();
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
@@ -9182,8 +9144,7 @@ function filePreview(input) {
 
 function reservasPorFecha() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario, usuario_id } = user;
+  let { user: { usuario, usuario_id }, } = sesion;
   var web = $("#rutaweb").val();
   desdeFe = $("#desdeFecha").val();
   hastaFe = $("#hastaFecha").val();
@@ -9239,9 +9200,7 @@ function imprimechequeCuenta(numero) {
 
 function ingresaDeposito() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {
-    user: { usuario, usuario_id },
-  } = sesion;
+  let { user: { usuario, usuario_id }, } = sesion;
 
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
@@ -9274,8 +9233,7 @@ function ingresaDeposito() {
 
 function subirArchivosCia() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario_id } = user;
+  let { user: { usuario_id }, } = sesion;
 
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
@@ -9299,7 +9257,6 @@ function subirArchivosCia() {
 }
 
 function ciudadesExpedicion(pais, city) {
-
   let web = $("#rutaweb").val();
   let edita = parseInt($("#editaPer").val());
   let acompana = parseInt($("#acompana").val());
@@ -9362,8 +9319,7 @@ function imprimirHistoricoRegistro(registro) {
 
 function imprimirPreRegistro(reserva) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario } = user;
+  let { user: { usuario } } = sesion;
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var parametros = {
@@ -9412,9 +9368,7 @@ function confirmarReserva(reserva) {
 
 function imprimirOrdenM(orden) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario } = user;
-
+  let { user: { usuario } } = sesion;
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var parametros = {
@@ -9435,8 +9389,7 @@ function imprimirOrdenM(orden) {
 
 function terminaMmto() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario, usuario_id } = user;
+  let { user: { usuario, usuario_id } } = sesion;
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var costo = $("#costoMmto").val();
@@ -9461,8 +9414,7 @@ function terminaMmto() {
 
 function adicionaObservacionMmto() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario, usuario_id } = user;
+  let { user: { usuario, usuario_id } } = sesion;
 
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
@@ -9471,10 +9423,10 @@ function adicionaObservacionMmto() {
   var obse = $("#adicionaObsMto").val();
 
   parametros = {
-    id: id,
-    obse: obse,
-    ante: ante,
-    usuario: usuario,
+    id,
+    obse,
+    ante,
+    usuario,
   };
   $.ajax({
     url: "res/php/adicionaObservacionMmto.php",
@@ -9535,8 +9487,7 @@ function guardaMantenimiento() {
 
 function entregaObjeto() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario, usuario_id } = user;
+  let { user:{ usuario, usuario_id }, } = sesion;
 
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
@@ -9557,9 +9508,7 @@ function entregaObjeto() {
 
 function adicionaObservacionObjeto() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario } = user;
-  // usuario = sesion["usuario"][0]["usuario"];
+  let { user:{ usuario } } = sesion;
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var id = $("#objetoObs").val();
@@ -9603,9 +9552,6 @@ function guardaObjeto() {
 }
 
 async function cambiaEstadoAseo(habi, ocupada, sucia, estado) {
-
-  // console.log({habi, ocupada, sucia, estado});
-
   if (estado == 0) {
     actual = 'bg-limpia';
   } else {
@@ -9695,9 +9641,7 @@ function facturasPorImpuesto() {
 
 function facturasPorFecha() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {
-    user: { usuario, usuario_id, tipo, contador },
-  } = sesion;
+  let { user: { usuario, usuario_id, tipo, contador }, } = sesion;
 
   var web = $("#rutaweb").val();
   desdeFe = $("#desdeFecha").val();
@@ -9928,8 +9872,7 @@ function validaCierreCajero() {
 
 function adicionaObservacion() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user } = sesion;
-  let { usuario } = user;
+  let { user:{ usuario }, } = sesion;
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var rese = $("#reservaObs").val();
@@ -9954,9 +9897,7 @@ function adicionaObservacion() {
 
 function subirArchivosOld() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {
-    user: { usuario, usuario_id },
-  } = sesion;
+  let { user: { usuario, usuario_id },} = sesion;
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var formData = new FormData($("#uploadFiles")[0]);
@@ -9972,16 +9913,14 @@ function subirArchivosOld() {
     contentType: false,
     processData: false,
     success: function (response) {
-      // $(location).attr("href", pagina);
+      $(location).attr("href", pagina);
     },
   });
 }
 
 function subirArchivos(e) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {
-    user: { usuario, usuario_id, tipo },
-  } = sesion;
+  let { user: { usuario, usuario_id, tipo }, } = sesion;
 
   let id = document.querySelector("#txtIdHuespedUpl").value;
   let archivos = document.querySelector("#imgSelect").files;
@@ -10042,9 +9981,7 @@ function guardarFoto() {
 
 function salidaHuespedCongelada() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {
-    user: { usuario, usuario_id },
-  } = sesion;
+  let { user: { usuario, usuario_id }, } = sesion;
 
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();

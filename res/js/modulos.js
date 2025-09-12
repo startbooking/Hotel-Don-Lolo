@@ -2,7 +2,6 @@
 document.addEventListener("DOMContentLoaded", async () => {
 
   let sesion = JSON.parse(localStorage.getItem("sesion"));
-  
   if(sesion == null){
     swal({
       title: 'Precaucion',

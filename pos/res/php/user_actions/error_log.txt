@@ -1,0 +1,16 @@
+[12-Sep-2025 09:20:52 America/Bogota] PHP Warning:  PDOStatement::execute(): SQLSTATE[42S22]: Column not found: 1054 Unknown column 'codigos_vta.identificador_sian' in 'on clause' in /var/www/donlolo.lan/res/php/Medoo.php on line 629
+[12-Sep-2025 09:20:52 America/Bogota] PHP Warning:  Undefined variable $tot in /var/www/donlolo.lan/pos/res/php/user_actions/imprimeEstadoCuenta.php on line 103
+[12-Sep-2025 09:36:57 America/Bogota] PHP Warning:  PDOStatement::execute(): SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',&quot;ventas_dia_pos&quot;.&quot;valorimpto&quot;) FROM &quot;ventas_dia_pos&quot; LEFT JOIN &quot;producto&quot; ON &quot;v' at line 1 in /var/www/donlolo.lan/res/php/Medoo.php on line 629
+[12-Sep-2025 09:59:45 America/Bogota] PHP Warning:  PDOStatement::execute(): SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.impuesto
+
+            FROM
+                ventas_dia_pos
+                INNER' at line 6 in /var/www/donlolo.lan/res/php/Medoo.php on line 629
+[12-Sep-2025 09:59:45 America/Bogota] PHP Fatal error:  Uncaught Error: Call to a member function fetchAll() on null in /var/www/donlolo.lan/res/php/functionsPos.php:1200
+Stack trace:
+#0 /var/www/donlolo.lan/pos/res/php/user_actions/imprimeEstadoCuenta.php(32): Pos_Actions->sumaImptosComanda()
+#1 {main}
+  thrown in /var/www/donlolo.lan/res/php/functionsPos.php on line 1200
+[12-Sep-2025 10:02:57 America/Bogota] PHP Warning:  Undefined array key "ID" in /var/www/donlolo.lan/pos/res/php/user_actions/imprimeEstadoCuenta.php on line 111
+[12-Sep-2025 10:02:57 America/Bogota] PHP Warning:  Undefined array key "ID" in /var/www/donlolo.lan/pos/res/php/user_actions/imprimeEstadoCuenta.php on line 111
+[12-Sep-2025 10:06:34 America/Bogota] PHP Warning:  Undefined variable $totalImpto in /var/www/donlolo.lan/pos/res/php/user_actions/imprimeEstadoCuenta.php on line 115
