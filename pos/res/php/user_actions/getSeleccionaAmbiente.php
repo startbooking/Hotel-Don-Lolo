@@ -2,9 +2,9 @@
 require '../../../../res/php/app_topPos.php';
 
 $codigo = $_POST['codigo'];
-$ambienteSeleccionado = $pos->getAmbienteSeleccionado($codigo);
+$ambiente = $pos->getAmbienteSeleccionado($codigo);
 
-echo json_encode($ambienteSeleccionado);
+echo json_encode($ambiente);
 
 ?>
   

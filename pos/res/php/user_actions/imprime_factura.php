@@ -1,23 +1,13 @@
 <?php
-
-// require '../../../../res/php/titles.php';
+clearstatcache();
 require '../../../../res/php/app_topPos.php';
 require '../../../../res/fpdf/fpdf.php';
 
-$logo = $_POST['logo'];
-$rooms = $_POST['rs'];
-
-clearstatcache();
-$nComa = $_SESSION['NUMERO_COMANDA']; 
-$nFact = $_SESSION['NUMERO_FACTURA'];
-$amb   = $_SESSION['AMBIENTE_ID'];
-$nomamb = $_SESSION['NOMBRE_AMBIENTE'];
+extract($_POST);
 
 include_once 'encabezado_impresiones.php';
 
-/* Resolucion de Facturacion Factura */
-$pref = $pos->getPrefijoAmbiente($amb);
-
+$datosFac = $pos->getDatosFactura($id_ambiente, $comanda);
 $reso = '';
 $rfec = '';
 $rpre = '';
@@ -27,39 +17,46 @@ $habi = '';
 $tipo = '';
 $totabo = 0;
 
-$datosFac = $pos->getDatosFactura($amb, $nComa);
-$mes = $datosFac[0]['mesa'];
-$pax = $datosFac[0]['pax'];
-$coma = $datosFac[0]['comanda'];
-$tot = $datosFac[0]['valor_total'];
-$des = $datosFac[0]['descuento'];
-$net = $datosFac[0]['valor_neto'];
-$imp = $datosFac[0]['impuesto'];
-$pro = $datosFac[0]['propina'];
-$pag = $datosFac[0]['pagado'];
-$cam = $datosFac[0]['cambio'];
-$fec = $datosFac[0]['fecha'];
-$usu = $datosFac[0]['usuario_factura'];
-$cli = $datosFac[0]['id_cliente'];
-$pms = $datosFac[0]['pms'];
-$fpa = $datosFac[0]['forma_pago'];
 
-$fpago = $pos->nombrePago($fpa);
+// print_r($datosFac);
+
+$mes = $datosFac['mesa'];
+$pax = $datosFac['pax'];
+$coma = $datosFac['comanda'];
+$tot = $datosFac['valor_total'];
+$des = $datosFac['descuento'];
+$net = $datosFac['valor_neto'];
+$imp = $datosFac['impuesto'];
+$pro = $datosFac['propina'];
+$ser = $datosFac['servicio'];
+$pag = $datosFac['pagado'];
+$cam = $datosFac['cambio'];
+$fec = $datosFac['fecha'];
+$usu = $datosFac['usuario_factura'];
+$cli = $datosFac['id_cliente'];
+$pms = $datosFac['pms'];
+$fpa = $datosFac['forma_pago'];
+$fpa = $datosFac['nombre'];
+$fpago = $datosFac['descripcion'];
+$nFact = $datosFac['factura'];
+$nomamb = $datosFac['nombre'];
 
 if ($pms == '1') {
     $datosCliente = $pos->getDatosHuespedesenCasa($cli);
-    $nrohabi = $datosCliente[0]['num_habitacion'];
-    $nameImpr = 'ChequeCuenta_'.$pref.'_'.$nFact.'.pdf';
-    $file = '../../../impresiones/ChequeCuenta_'.$pref.'_'.$nFact.'.pdf';
+    $nrohabi = $datosCliente['num_habitacion'];
+    $nameImpr = 'ChequeCuenta_'.$prefijo.'_'.$nFact.'.pdf';
+    $file = '../../../impresiones/ChequeCuenta_'.$prefijo.'_'.$nFact.'.pdf';
 } else {
     $datosCliente = $pos->datosCliente($cli);
-    $identif = $datosCliente[0]['identificacion'];
-    $nameImpr = 'Factura_'.$pref.'_'.$nFact.'.pdf';
-    $file = '../../../impresiones/Factura_'.$pref.'_'.$nFact.'.pdf';
+    $identif = $datosCliente['identificacion'];
+    $nameImpr = 'Factura_'.$prefijo.'_'.$nFact.'.pdf';
+    $file = '../../../impresiones/Factura_'.$prefijo.'_'.$nFact.'.pdf';
 }
-$cliente = ($datosCliente[0]['apellido1'].' '.$datosCliente[0]['apellido2'].' '.$datosCliente[0]['nombre1'].' '.$datosCliente[0]['nombre2']);
+$cliente = ($datosCliente['apellido1'].' '.$datosCliente['apellido2'].' '.$datosCliente['nombre1'].' '.$datosCliente['nombre2']);
 
-$productosventa = $pos->getProductosVendidosFactura($amb, $nComa);
+$productosventa = $pos->getProductosVendidosFactura($id_ambiente, $comanda);
+print_r($productosventa);
+
 
 $time = date('H:m:i');
 
@@ -80,7 +77,7 @@ $pdf->MultiCell(65, 6, $nomamb, 0, 'C');
 $pdf->Ln(1);
 $pdf->SetFont('Arial', '', 10);
 $pdf->Cell(65, 4, 'Fecha '.$fec.' '.$time.' Mesa '.$mes, 0, 1, 'L');
-$pdf->Cell(65, 4, 'Mesero: '.$_SESSION['usuario'], 0, 1, 'L');
+$pdf->Cell(65, 4, 'Mesero: '.$usu, 0, 1, 'L');
 $pdf->Cell(65, 4, 'Forma de Pago: '.substr($fpago, 0, 18), 0, 1, 'L');
 if ($pms == 0) {
     $pdf->Cell(65, 4, 'Tiquete POS Nro:  '.str_pad($nFact, 5, '0', STR_PAD_LEFT), 0, 1, 'L');
@@ -127,14 +124,14 @@ $pdf->Cell(25, 4, number_format($imp, 2, ',', '.'), 0, 1, 'R');
 $pdf->Cell(40, 4, 'Propina', 0, 0, 'R');
 $pdf->Cell(25, 4, number_format($pro, 2, ',', '.'), 0, 1, 'R');
 $pdf->Cell(40, 4, 'Room Service', 0, 0, 'R');
-$pdf->Cell(25, 4, number_format($rooms, 2, ',', '.'), 0, 1, 'R');
+$pdf->Cell(25, 4, number_format($ser, 2, ',', '.'), 0, 1, 'R');
 $pdf->Ln(2);
 $pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell(40, 4, 'Total Cuenta:', 0, 0, 'L');
-$pdf->Cell(25, 4, number_format($sub - $des + $pro + $imp + $rooms, 2, ',', '.'), 0, 1, 'R');
+$pdf->Cell(25, 4, number_format($sub - $des + $pro + $imp + $ser, 2, ',', '.'), 0, 1, 'R');
 $pdf->Ln(1);
 $pdf->SetFont('Arial', '', 8);
-$pdf->MultiCell(65, 4, 'Son : '.numtoletras($sub - $des + $pro + $imp + $rooms), 0, 'L');
+$pdf->MultiCell(65, 4, 'Son : '.numtoletras($sub - $des + $pro + $imp + $ser), 0, 'L');
 $pdf->Ln(20);
 $pdf->Cell(65, 5, str_repeat('_', 40), 0, 1, 'L');
 if ($pms == 1) {

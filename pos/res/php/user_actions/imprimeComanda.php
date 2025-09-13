@@ -15,9 +15,9 @@ $numerocomanda = $nComa;
 $pref = $pos->getPrefijoAmbiente($amb);
 $datosmesa = $pos->getDatosComanda($numerocomanda, $amb);
 
-$pax = $datosmesa[0]['pax'];
-$mesa = $datosmesa[0]['mesa'];
-$fec = $datosmesa[0]['fecha'];
+$pax = $datosmesa['pax'];
+$mesa = $datosmesa['mesa'];
+$fec = $datosmesa['fecha'];
 
 $pdf = new FPDF('P', 'mm', [76, 250]);
 $pdf->AddPage();

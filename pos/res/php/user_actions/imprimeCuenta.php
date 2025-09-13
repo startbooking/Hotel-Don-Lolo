@@ -14,10 +14,10 @@ $numerocomanda = $nComa;
 $datosmesa = $pos->getDatosComanda($numerocomanda, $amb);
 $pref = $pos->getPrefijoAmbiente($amb);
 
-$pax = $datosmesa[0]['pax'];
-$mesa = $datosmesa[0]['mesa'];
-$fec = $datosmesa[0]['fecha'];
-$pro = $datosmesa[0]['propina'];
+$pax = $datosmesa['pax'];
+$mesa = $datosmesa['mesa'];
+$fec = $datosmesa['fecha'];
+$pro = $datosmesa['propina'];
 
 $ventasdia = $pos->getProductosVentaComanda($numerocomanda, $amb);
 

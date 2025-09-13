@@ -16,18 +16,18 @@ $facturasPos = $pos->countFacturasPos($ambSel);
       <input type="hidden" name="ubicacion" id="ubicacion" value="home">
       <div class="col-xs-9">
         <h1 class="fontModule">
-          <?php echo $ambienteSeleccionado[0]['nombre']; ?><br>
+          <?php echo $ambienteSeleccionado['nombre']; ?><br>
           <small>Panel de Control </small>
         </h1>
       </div>
       <div class="col-xs-3">
-        <img class="img-thumbnail logoAmbiente" src="../img/<?php echo $ambienteSeleccionado[0]['logo']; ?>"" alt="">
+        <img class="img-thumbnail logoAmbiente" src="../img/<?php echo $ambienteSeleccionado['logo']; ?>"" alt="">
       </div>
     </div>
     <?php
-    $prefijo = $ambienteSeleccionado[0]['prefijo'];
+    $prefijo = $ambienteSeleccionado['prefijo'];
     $archivo = "../../../views/plano-$prefijo.php";
-    if ($ambienteSeleccionado[0]['plano'] != 0) {
+    if ($ambienteSeleccionado['plano'] != 0) {
       if (!file_exists($archivo)) { ?>
         <div class=" alert alert-danger">
           <h1 style="text-align: center">Atencion <br><small style="color:#FFF"> Este Punto de venta no tiene plano configurado</small></h1>

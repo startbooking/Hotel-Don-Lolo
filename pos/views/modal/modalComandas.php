@@ -27,7 +27,7 @@
           ?>
           <div class="form-group">
             <input type="hidden" id="sugerida" value="<?php echo $pro; ?>">
-            <label class="col-lg-3 col-md-3 control-label" style='padding-top:0px;'>Forma de Pago</label>
+            <label class="col-lg-3 col-md-3 control-label" style="padding-top:0px">Forma de Pago</label>
             <div class="col-lg-8 col-md-8">
               <select onchange="getFormaPago(this.value)" name='formapago' id='formapago' required>
                 <option value="">Seleccione la Forma de Pago</option>

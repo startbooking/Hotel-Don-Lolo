@@ -2,34 +2,35 @@
 
 require '../../../../res/php/app_topPos.php';
 require '../../../../res/fpdf/fpdf.php';
+extract($_POST);
 
-$nComa = $_POST['cuenta'];
+/* $comanda = $_POST['cuenta'];
 $fec = $_POST['fecha'];
 $amb = $_POST['idamb'];
 $nomamb = $_POST['ambie'];
 $user = $_POST['user'];
-$logo = $_POST['logo'];
+$logo = $_POST['logo']; */
 
 include_once 'encabezado_impresiones.php';
 
 /* Resolucion de Facturacion Factura */
-$pref = $pos->getPrefijoAmbiente($amb);
+$pref = $pos->getPrefijoAmbiente($id_ambiente);
 
 /* Encabezado de la Factura */
 /* Numero de Mesa A Imprimir */
 
-$datosFac = $pos->getDatosComanda($nComa, $amb);
+$datosFac = $pos->getDatosComanda($comanda, $id_ambiente);
 
-$mesa = $datosFac[0]['mesa'];
-$pax = $datosFac[0]['pax'];
-$abonos = $datosFac[0]['abonos'];
+$mesa = $datosFac['mesa'];
+$pax = $datosFac['pax'];
+$abonos = $datosFac['abonos'];
 
 /* Datos del Cliente */
-$file = '../../../impresiones/estadoCuenta_'.$pref.'_'.$nComa.'.pdf';
-$nameImpr = 'estadoCuenta_'.$pref.'_'.$nComa.'.pdf';
+$file = '../../../impresiones/estadoCuenta_'.$pref.'_'.$comanda.'.pdf';
+$nameImpr = 'estadoCuenta_'.$pref.'_'.$comanda.'.pdf';
 
-$productosventa = $pos->getProductosEstadoCuenta($amb, $nComa);
-$imptos = $pos->sumaImptosComanda($amb, $nComa);
+$productosventa = $pos->getProductosEstadoCuenta($id_ambiente, $comanda);
+$imptos = $pos->sumaImptosComanda($id_ambiente, $comanda);
 // print_r($imptos);
 
 
@@ -50,7 +51,7 @@ $pdf->SetFont('Arial', 'B', 9);
 
 $pdf->Cell(65, 3, (NAME_EMPRESA), 0, 1, 'C');
 // $pdf->Cell(65, 4, $nomamb, 0, 1, 'C');
-$pdf->MultiCell(65, 3, $nomamb, 0, 'C');
+$pdf->MultiCell(65, 3, $nombre, 0, 'C');
 
 $pdf->SetFont('Arial', '', 9);
 $pdf->Cell(65, 4, 'NIT: '.NIT_EMPRESA, 0, 1, 'C');
@@ -62,8 +63,8 @@ $pdf->Cell(65, 4, (ADRESS_EMPRESA), 0, 1, 'C');
 $pdf->Cell(65, 4, (CIUDAD_EMPRESA.' '.PAIS_EMPRESA), 0, 1, 'C');
 $pdf->Cell(65, 4, 'Movil '.CELULAR_EMPRESA, 0, 1, 'C');
 $pdf->SetFont('Arial', '', 9);
-$pdf->Cell(65, 4, 'Fecha '.$fec.' Mesa '.$mesa, 0, 1, 'L');
-$pdf->Cell(65, 4, 'Mesero: '.$user, 0, 1, 'L');
+$pdf->Cell(65, 4, 'Fecha '.$fecha_auditoria.' Mesa '.$mesa, 0, 1, 'L');
+$pdf->Cell(65, 4, 'Mesero: '.$usuario, 0, 1, 'L');
 $pdf->SetFont('Arial', 'B', 9);
 $pdf->Ln(1);
 $pdf->Cell(65, 4, 'ESTADO DE CUENTA', 0, 1, 'C');
@@ -105,12 +106,17 @@ $tot = $tot - $abonos;
 $pdf->Ln(2);
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(65, 4, 'IMPUESTOS', 0, 1, 'C');
+$pdf->Cell(10, 4, 'ID', 0, 0, 'C');
+$pdf->Cell(10, 4, '%', 0, 0, 'R');
+$pdf->Cell(25, 4, 'BASE', 0, 0, 'R');
+$pdf->Cell(20, 4, 'IMPTO', 0, 1, 'R');
 $totImpto = 0;
 $pdf->SetFont('Arial', '', 8);
 foreach ($imptos as $key => $impto) {
-  $pdf->Cell(5, 4, '['.$impto['id'].']' , 0, 0, 'L');
-  $pdf->Cell(30, 4, $impto['descripcion_cargo'] , 0, 0, 'L');
+  $pdf->Cell(10, 4, '['.$impto['id'].'] '.$impto['name'] , 0, 0, 'L');
+  // $pdf->Cell(30, 4, $impto['descripcion_cargo'] , 0, 0, 'L');
   $pdf->Cell(10, 4, $impto['porcentaje_impto'] , 0, 0, 'R');
+  $pdf->Cell(25, 4, number_format($impto['base'],2) , 0, 0, 'R');
   $pdf->Cell(20, 4, number_format($impto['imptos'],2) , 0, 1, 'R');
   $totImpto = $totImpto + $impto['imptos'];
   # code...

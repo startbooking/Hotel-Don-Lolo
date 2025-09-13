@@ -185,7 +185,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT nom, venta, cant, importe, impto, valorimpto, sum(importe * cant) as total, sum(round((importe * cant ) / (1+(impto /100)),2)) as baseimpto, sum(round((importe * cant ) / (1+(impto /100)),2) * round((impto /100),2)) as valimpto FROM ventas_dia_pos WHERE ambiente = $ambiente AND comanda = $comanda GROUP BY impto, comanda  ORDER BY comanda")->fetchAll();
+        $data = $database->query("SELECT nom, venta, cant, importe, impto, valorimpto, sum(importe * cant) as total, sum(round((importe * cant ) / (1+(impto /100)),2)) as baseimpto, sum(round((importe * cant ) / (1+(impto /100)),2) * round((impto /100),2)) as valimpto FROM ventas_dia_pos WHERE ambiente = $ambiente AND comanda = $comanda GROUP BY impto, comanda  ORDER BY comanda")->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     }
     public function getTotalProductosVendidosMes($amb, $desdefe, $hastafe)
@@ -1170,6 +1170,7 @@ class Pos_Actions
 
         $data = $database->query("SELECT 
             sum(ventas_dia_pos.valorimpto) as imptos, 
+            sum(ventas_dia_pos.venta) as base, 
 	        dianImpuestos.name,
 	        dianImpuestos.id,
             codigos_vta.descripcion_cargo,
@@ -1190,8 +1191,8 @@ class Pos_Actions
                 ON 
                     codigos_vta.identificador_dian = dianImpuestos.id
             WHERE
-                ventas_dia_pos.ambiente = 1 AND
-                ventas_dia_pos.comanda = 7836 AND
+                ventas_dia_pos.ambiente = $amb AND
+                ventas_dia_pos.comanda = $coma AND
                 ventas_dia_pos.estado = 0
             GROUP BY
                 dianImpuestos.id	
@@ -2373,13 +2374,13 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->select('ambientes', [
+        $data = $database->get('ambientes', [
             'prefijo',
         ], [
             'id_ambiente' => $amb,
         ]);
 
-        return $data[0]['prefijo'];
+        return $data['prefijo'];
     }
 
     public function getAmbienteSeleccionadoUsuario($ambiente)
@@ -3089,7 +3090,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->select('reservas_pms', [
+        $data = $database->get('reservas_pms', [
             '[>]huespedes' => 'id_huesped',
         ], [
             'reservas_pms.num_habitacion',
@@ -3113,7 +3114,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->select('clientes', [
+        $data = $database->get('clientes', [
             'apellido1',
             'apellido2',
             'nombre1',
@@ -3642,7 +3643,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->select('ambientes', [
+        $data = $database->get('ambientes', [
             'codigo',
             'nombre',
             'prefijo',
@@ -3777,7 +3778,7 @@ class Pos_Actions
         return $data;
     }
 
-    public function getProductosVendidosFactura($amb, $coma)
+    public function getProductosVendidosFacturaOld($amb, $coma)
     {
         global $database;
 
@@ -3797,33 +3798,69 @@ class Pos_Actions
         return $data;
     }
 
+
+    public function getProductosVendidosFactura($amb, $coma)
+    {
+        global $database;
+
+        $data = $database->select('detalle_facturas_pos', [
+            '[>]producto' => ['producto_id' => 'producto_id'],
+            '[>]codigos_vta' => ['producto.impto' => 'id_cargo'],
+            '[>]dianImpuestos' => ['codigos_vta.identificador_dian' => 'id'],
+        ], [
+            'producto.nom',
+            'detalle_facturas_pos.venta',
+            'detalle_facturas_pos.cant',
+            'detalle_facturas_pos.valorimpto',
+            'detalle_facturas_pos.descuento',
+            'detalle_facturas_pos.importe',
+            'dianImpuestos.id',
+            'dianImpuestos.name',
+        ], [
+            'detalle_facturas_pos.ambiente' => $amb,
+            'detalle_facturas_pos.comanda' => $coma,
+            'ORDER' => ['producto.nom' => 'ASC'],
+        ]);
+
+        return $data;
+    }
+
+
+    
     public function getDatosFactura($amb, $comanda)
     {
         global $database;
 
-        $data = $database->select('facturas_pos', [
-            'mesa',
-            'pax',
-            'comanda',
-            'valor_total',
-            'forma_pago',
-            'factura',
-            'valor_neto',
-            'impuesto',
-            'propina',
-            'descuento',
-            'pagado',
-            'cambio',
-            'fecha',
-            'fecha_factura',
-            'usuario_factura',
-            'id_cliente',
-            'pms',
-            'estado',
-            'nro_reserva_pms',
+        $data = $database->get('facturas_pos', [
+            '[<]ambientes' => ['ambiente' => 'id_ambiente'],
+            '[<]formas_pago' => ['forma_pago' => 'id_pago'],
+        ],[
+            'facturas_pos.mesa',
+            'facturas_pos.pax',
+            'facturas_pos.comanda',
+            'facturas_pos.valor_total',
+            'facturas_pos.forma_pago',
+            'facturas_pos.factura',
+            'facturas_pos.valor_neto',
+            'facturas_pos.impuesto',
+            'facturas_pos.propina',
+            'facturas_pos.servicio',
+            'facturas_pos.descuento',
+            'facturas_pos.pagado',
+            'facturas_pos.cambio',
+            'facturas_pos.fecha',
+            'facturas_pos.fecha_factura',
+            'facturas_pos.usuario_factura',
+            'facturas_pos.id_cliente',
+            'facturas_pos.pms',
+            'facturas_pos.estado',
+            'facturas_pos.nro_reserva_pms',
+            'facturas_pos.ambiente',
+            'ambientes.nombre',
+            'formas_pago.descripcion'
         ], [
-            'ambiente' => $amb,
-            'comanda' => $comanda,
+            'facturas_pos.ambiente' => $amb,
+            'facturas_pos.comanda' => $comanda,
         ]);
 
         return $data;
@@ -4030,7 +4067,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->select('ambientes', [
+        $data = $database->get('ambientes', [
             'conc_factura',
             'conc_orden',
         ], [
@@ -4040,28 +4077,11 @@ class Pos_Actions
         return $data;
     }
 
-    public function getDatosComandaXX($comanda, $ambiente)
-    {
-        global $database;
-
-        $data = $database->select('comandas', [
-            'pax',
-            'mesa',
-            'fecha',
-            'propina',
-        ], [
-            'comanda' => $comanda,
-            'ambiente' => $ambiente,
-        ]);
-
-        return $data;
-    }
-
     public function getDatosComanda($comanda, $ambiente)
     {
         global $database;
 
-        $data = $database->select('comandas', [
+        $data = $database->get('comandas', [
             'pax',
             'mesa',
             'fecha',
@@ -4164,7 +4184,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->select('ambientes', [
+        $data = $database->get('ambientes', [
             'codigo',
             'id_ambiente',
             'id_centrocosto',
@@ -4182,6 +4202,8 @@ class Pos_Actions
             'encuesta',
             'plano',
             'logo',
+            'texto_servicio',
+            'texto_propina',
         ], [
             'id_ambiente' => $ambiente,
         ]);

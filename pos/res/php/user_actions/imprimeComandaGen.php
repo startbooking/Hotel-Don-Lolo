@@ -16,15 +16,15 @@ $numerocomanda = $nComa;
 $pref = $pos->getPrefijoAmbiente($amb);
 $datosmesa = $pos->getDatosComanda($numerocomanda, $amb);
 
-$pax = $datosmesa[0]['pax'];
-$mesa = $datosmesa[0]['mesa'];
-$fec = $datosmesa[0]['fecha'];
+$pax = $datosmesa['pax'];
+$mesa = $datosmesa['mesa'];
+$fec = $datosmesa['fecha'];
 
 $pdf = new FPDF('P', 'mm', [76, 350]);
 $pdf->AddPage();
 $pdf->SetMargins(5, 5, 5);
 $pdf->SetFont('Arial', 'B', 10);
-$pdf->Cell(65, 4, (NAME_EMPRESA), 1, 1, 'C');
+$pdf->Cell(65, 4, (NAME_EMPRESA), 0, 1, 'C');
 $pdf->SetFont('Arial', '', 10);
 $pdf->MultiCell(65, 6, $nomamb, 0, 'C');
 // $pdf->Cell(40, 4, $nomamb, 1, 1, 'C');
