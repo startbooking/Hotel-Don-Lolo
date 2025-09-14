@@ -1,31 +1,25 @@
 <?php
-
-require '../../../../res/php/titles.php';
 require '../../../../res/php/app_topPos.php';
 require '../../../../res/fpdf/fpdf.php';
 
-$nComa = $_SESSION['NUMERO_COMANDA'];
-$nFact = $_SESSION['NUMERO_FACTURA'];
-$nomamb = $_SESSION['NOMBRE_AMBIENTE'];
- 
-$amb = $_POST['idamb'];
-$almacen = $_POST['idbod'];
-$fecha = $_POST['fecha'];
-$centroCosto = $_POST['centr'];
-$usuario = $_POST['usuario'];
+$data = json_decode(file_get_contents('php://input'), true);
+extract($data);
 
-$pref = $pos->getPrefijoAmbiente($amb);
-$docu = $pref.$nFact;
+$docu = $prefijo.$factura;
 $tipo = 2;
 
 $tipoMovi = $pos->traeDatosMovimiento();
 
-$movimiento = $tipoMovi[0]['tipo'];
-$tipoMov    = $tipoMovi[0]['id_tipomovi'];
+$movimiento = $tipoMovi['tipo'];
+$tipoMov    = $tipoMovi['id_tipomovi'];
 
-$productosVenta = $pos->getDescargaInventario($amb, $nComa, 1);
-$recetasVenta = $pos->getProductosRecetasVenta($amb, $nComa, 2);
-$subRecetas =  $pos->getProductosSubRecetasVenta($amb, $nComa, 2);
+$productosVenta = $pos->getDescargaInventario($id_ambiente, $comanda, 1);
+$recetasVenta = $pos->getProductosRecetasVenta($id_ambiente, $comanda, 2);
+$subRecetas =  $pos->getProductosSubRecetas($id_ambiente, $comanda, 2);
+
+print_r($productosVenta);
+print_r($recetasVenta);
+print_r($subRecetas);
 
 if (count($productosVenta) == 0 && count($recetasVenta) == 0) {
     $numeroMov = 0;
@@ -42,7 +36,7 @@ if (count($productosVenta) == 0 && count($recetasVenta) == 0) {
             $subtotal = $unit * $cantidad;
             $costo = $subtotal;
 
-            $adiPro = $pos->insertaMovimiento($tipoMov, $tipo, $movimiento, $numeroMov, $fecha, $centroCosto, $docu, $producto, $cantidad, $unidadalm, $unit, $subtotal, $costo, $almacen, 1, $usuario);
+            $adiPro = $pos->insertaMovimiento($tipoMov, $tipo, $movimiento, $numeroMov, $fecha_auditoria, $id_centrocosto, $docu, $producto, $cantidad, $unidadalm, $unit, $subtotal, $costo, $id_bodega, 1, $usuario);
         }
     }
 
@@ -55,7 +49,7 @@ if (count($productosVenta) == 0 && count($recetasVenta) == 0) {
             $subtotal = $unit * $cantidad;
             $costo = $subtotal;
 
-            $adiRec = $pos->insertaMovimiento($tipoMov, $tipo, $movimiento, $numeroMov, $fecha, $centroCosto, $docu, $producto, $cantidad, $unidadalm, $unit, $subtotal, $costo, $almacen, 1, $usuario);
+            $adiRec = $pos->insertaMovimiento($tipoMov, $tipo, $movimiento, $numeroMov, $fecha_auditoria, $id_centrocosto, $docu, $producto, $cantidad, $unidadalm, $unit, $subtotal, $costo, $id_bodega, 1, $usuario);
         }
     }
 
@@ -68,11 +62,11 @@ if (count($productosVenta) == 0 && count($recetasVenta) == 0) {
             $subtotal = $unit * $cantidad;
             $costo = $subtotal;
 
-            $adiRec = $pos->insertaMovimiento($tipoMov, $tipo, $movimiento, $numeroMov, $fecha, $centroCosto, $docu, $producto, $cantidad, $unidadalm, $unit, $subtotal, $costo, $almacen, 1, $usuario);
+            $adiRec = $pos->insertaMovimiento($tipoMov, $tipo, $movimiento, $numeroMov, $fecha_auditoria, $id_centrocosto, $docu, $producto, $cantidad, $unidadalm, $unit, $subtotal, $costo, $id_bodega, 1, $usuario);
         }
     }
 
-    $asignaMov = $pos->numeroSalida($nFact, $amb, $numeroMov);
+    $asignaMov = $pos->numeroSalida($factura, $id_ambiente, $numeroMov);
 
     echo $numeroMov;
 

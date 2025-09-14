@@ -290,45 +290,29 @@ function pagarFacturaDirecto() {
 }
 
 async function pagarFactura() {
-  console.log({ usuario, usuario_id })
   oPos = JSON.parse(localStorage.getItem("oPos"));
   let { id_ambiente } = oPos;
-
   let comanda = $("#numeroComanda").val();
 
   let pago = +parseFloat($("#montopago").val().replace(",", ""));
   let totalCta = +$("#totalCuentPag").val();
   let roomservice = $("#servicio").val();
 
-  // let productos = localStorage.getItem("productoComanda");
-  // console.log(productos)
-
   if (totalCta - pago <= 0) {
-    /* $("#btnPagarComanda").attr("disabled", "disabled");
-    $("#btnPagarCuenta").attr("disabled", "disabled"); */
-    /* 
-    if (numero == 0) {
-      guardarProductos();
-      imprime = imprimeComandaVen();
-    }
-     */
-    let guarda = await guardaFactura();
-    // let numero = parseInt(guarda);
-    let impre = imprimeFactura(comanda);
+    let factura = await guardaFactura();
+    let impre = await imprimeFactura(factura);
+    let ver = await muestraFactura(impre);
+    let inven = await descargarInventario(comanda,factura);
+    let limpia = await limpiaLista();
+    await mensaje() 
+    await enviaInicio();
+    
     /* 
     setTimeout(function () {
-      descargarInventario();
-      limpiaLista();
-      enviaInicio();
 
       $("#myModalPagar").modal("hide");
       campo = "#comand" + $.trim(numero);
       $(campo).remove();
-      swal({
-        title: "Pago Realizado con Exito",
-        type: "success",
-        confirmButtonText: "Aceptar",
-      });
     }, 1000); */
   } else {
     swal(
@@ -337,6 +321,22 @@ async function pagarFactura() {
       "warning"
     );
   }
+}
+
+async function mensaje(){
+  swal({
+    title: "Pago Realizado con Exito",
+    type: "success",
+    confirmButtonText: "Aceptar",
+  });
+}
+
+async function muestraFactura(imprime){
+  let ventana = window.open(
+    "impresiones/" + imprime,
+    "PRINT",
+    "height=600,width=600"
+  );
 }
 
 function guardarCuentaRecuperadaPlano() {
@@ -422,7 +422,7 @@ function botonAnulaFactura(factura, amb, numeroMovi) {
   $("#facturaActiva").val(factura);
 } */
 
-function limpiaLista() {
+async function limpiaLista() {
   abonos = 0;
   $(".modal-backdrop").remove();
   $(".modal-open").css("overflow", "auto");
@@ -663,7 +663,7 @@ function pagarFacturaComanda() {
 
   var pago = parseFloat($("#montopago").val().replace(",", ""));
   var tota = parseFloat($("#total").val().replace(",", ""));
-  var coman = $("#numeroComanda").val();
+  var comanda = $("#numeroComanda").val();
 
   $("#btnPagarComanda").attr("disabled", "disabled");
 
@@ -686,8 +686,8 @@ function pagarFacturaComanda() {
           $(".modal-backdrop").remove();
           $(".modal-open").css("overflow", "auto");
           $("#ppal").css("padding-right", "0");
-          imprimeFactura(coman);
-          descargarInventario();
+          imprimeFactura(comanda);
+          descargarInventario(comanda);
           getSeleccionaAmbiente(idamb);
         }
       },
@@ -701,43 +701,68 @@ function pagarFacturaComanda() {
   }
 }
 
-function descargarInventario() {
+async function descargarInventario(comanda, factura) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
   let { pos, user:{ usuario } } = sesion;
-  let { id_bodega, id_ambiente, fecha_auditoria, id_centrocosto } = oPos;
+  let { id_bodega, id_ambiente, fecha_auditoria, id_centrocosto, nombre, prefijo } = oPos;
 
   parametros = {
-    idbod: id_bodega,
-    idamb: id_ambiente,
-    fecha: fecha_auditoria,
-    centr: id_centrocosto,
+    id_bodega,
+    id_ambiente,
+    nombre,
+    prefijo,
+    fecha_auditoria,
+    id_centrocosto,
     usuario,
+    comanda,
+    factura,
   }; 
-  $.ajax({
-    url: "res/php/user_actions/descargaInventarios.php",
-    type: "POST",
-    data: parametros,
-    success: function (data) {},
-  });
+  let url = 'res/php/user_actions/descargaInventarios.php';
+  try {
+    const result = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8", // Y le decimos que los datos se enviaran como JSON
+      },
+      body: JSON.stringify(parametros),
+    });
+    const resp = await result.text();
+    return resp.trim();
+    
+  } catch (error) {
+    console.log(error)
+  }
 }
 
-async function imprimeFactura(comanda) {
+async function imprimeFactura(factura) {
   oPos = JSON.parse(localStorage.getItem("oPos"));
-
-  // let { pos, user: { usuario } } = sesion;
   let { logo, id_ambiente, prefijo } = oPos;
   let rs = document.querySelector("#servicio").value;
 
   parametros = {
     logo,
     rs,
-    comanda,
+    factura,
     id_ambiente,
     prefijo,
   };
-  $.ajax({
+
+  try {
+    const resultado = await fetch(`res/php/user_actions/imprime_factura.php`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8", // Y le decimos que los datos se enviaran como JSON
+      },
+      body: JSON.stringify(parametros),
+    });
+    const resp = await resultado.text();
+    return resp.trim();
+  } catch (error) {
+    console.log(error);
+  }
+  /* $.ajax({
     url: "res/php/user_actions/imprime_factura.php",
     type: "POST",
     data: parametros,
@@ -749,7 +774,7 @@ async function imprimeFactura(comanda) {
         "height=600,width=600"
       );
     },
-  });
+  }); */
 }
 
 function botonPagarComanda() {
@@ -846,68 +871,29 @@ function botonPagar() {
 }
 
 async function guardaFactura() {
-  /* sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
-
-  let { pos, user: { usuario, usuario_id } } = sesion;
-  let { id_ambiente } = oPos;
-
-  idamb = id_ambiente; */
-
-  // var parametros = $("#pagarCuenta").serializeArray();
   let parametros = document.querySelector('#pagarCuenta');
   let formData = new FormData(parametros);
   formData.append("usuario", usuario);
   formData.append("idusuario", usuario_id);
-  /*   
-  parametros.push({ name: "usuario", value: usuario });
-  parametros.push({ name: "idusuario", value: usuario_id }); 
-  */
   let data = formDataToObject(formData)
 
   var pago = parseFloat($("#montopago").val().replace(",", ""));
   var tota = parseFloat($("#total").val().replace(",", ""));
   var coman = $("#numeroComanda").val();
   $("#comandaPag").val(coman);
-  // console.log(parametros)
   try {
     const resultado = await fetch(`res/php/user_actions/getGuardaFacturaVenta.php`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json;charset=UTF-8", // Y le decimos que los datos se enviaran como JSON
+        "Content-Type": "application/json;charset=UTF-8",
       },
       body: JSON.stringify(data),
     });
     const datos = await resultado.text();
-    return datos;
+    return datos.trim();
   } catch (error) {
     console.log(error);
   }
-
-
-
-  /* $.ajax({ 
-    type: "POST",
-    data: parametros,
-    url: "res/php/user_actions/getGuardaFacturaVenta.php",
-    beforeSend: function (objeto) {
-      $("#factura").html("Mensaje: Cargando ...");
-    },
-    success: function (datos) {
-      console.log(datos)
-      return datos
-      if (datos == 0) {
-        swal( 
-          "Precaucion",
-          "Sin Productos Asignados a esta cuenta 3",
-          "warning"
-        );
-      } else {
-        $(".modal-backdrop").remove();
-        $(".modal-open").css("overflow", "auto");
-      }
-    },
-  }); */
 }
 
 function getBorraCuenta(usuario, amb) {
@@ -1165,12 +1151,12 @@ function guardarProductos() {
     success: function (datos) {
       $("#numeroComanda").val(datos);
       $("#comandaPag").val(datos);
-      $("#tituloNumero").removeClass("alert-info");
-      $("#tituloNumero").addClass("alert-success");
+      // $("#tituloNumero").removeClass("alert-info");
+      // $("#tituloNumero").addClass("alert-success");
       $("#tituloNumero").html("Comanda Nro " + datos + " Guardada Con Exito");
       setTimeout(function () {
-        $("#tituloNumero").removeClass("alert-success");
-        $("#tituloNumero").addClass("alert-info");
+        // $("#tituloNumero").removeClass("alert-success");
+        // $("#tituloNumero").addClass("alert-info");
         $("#tituloNumero").html("Nueva Comanda");
       }, 1000);
     },

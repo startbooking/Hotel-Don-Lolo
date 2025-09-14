@@ -19,7 +19,7 @@
   $pdf->SetFont('Arial','B',11);
   $pdf->Cell(25,5,'Almacen ',0,0,'L');
   $pdf->SetFont('Arial','',12);
-  $pdf->Cell(70,5,$pos->buscaAlmacen(($movimientos[0]['id_bodega'])),0,0,'L');
+  $pdf->Cell(70,5,$movimientos[0]['descripcion_bodega'],0,0,'L');
   $pdf->SetFont('Arial','B',12);
   $pdf->Cell(40,5,'Factura Nro ',0,0,'L');
   $pdf->SetFont('Arial','',12);

@@ -1,34 +1,22 @@
 <?php
-
-// require '../../../../res/php/titles.php';
 require '../../../../res/php/app_topPos.php';
 
 $data = json_decode(file_get_contents('php://input'), true);
-
 extract($data);
 
 $total = str_replace(',', '', $data['totalini']);
 $impuesto = str_replace(',', '', $data['totalImp']);
-// $totaldesc = str_replace(',', '', $data['descuento']);
 $propina = str_replace(',', '', $data['propinaPag']);
 $monto = str_replace(',', '', $data['montopago']);
-// $abonos = str_replace(',', '', $data['abono']);
 $cambio = $data['cambio'];
-// $servicio = 0;
 $servicio = $data['servicio'];
 $pagado = $monto + $cambio;
 
-// $totaldesc = str_replace('.00', '', $totaldesc);
 $totaldesc = 0;
 
-// $ambiente = $data['ambientePag'];
 $nombreambiente = $data['nombreAmbiente'];
 
-/*  $usuario = $data['usuarioPag'];
-    $idusuario = $data['idusuario']; */
 $cliente = $data['clientes'];
-// $prefijo = $data['prefijo'];
-// $fecha = $data['fecha'];
 
 $pax = 1;
 $mesa = '00';
@@ -79,7 +67,6 @@ foreach ($ventasdia as $ventadia) {
     $subtotal = $subtotal + $iven;
     $impuesto = $impuesto + $valimp;
     $total = $ventadia['importe'] + $total;
-
     $factura = $pos->insertProductoVentas($iamb, $inom, $iven, $ican, $iimp, $idpr, $vimp, $valimp, $nFactura, $usuario, $comandaPag, $vdes, $vpor, $pms);
 }
 
@@ -87,7 +74,6 @@ $insFact = $pos->insertFacturaVentaPOS($nFactura, $comandaPag, $ambientePag, $me
 
 // $actComanda = $pos->updateFacturaComanda($nFactura, 'P', $usuario, $fecha, $comandaPag, $ambientePag);
 $actMesa = $pos->updateMesaPos($ambientePag, $mesa);
-
 
 if ($pms == 1) {
     $descri = $pos->getDescripcionCargo($codigoVen);
@@ -99,22 +85,20 @@ if ($pms == 1) {
     $nrores = $datosCliente['num_reserva'];
     $prodVta = $pos->traeProductosVentaTotal($comandaPag, $ambientePag);
 
-    $cargoPMS = $pos->cargosInterfasePOS($fechapos, $subtotal, $impuesto, $codigoVen, $nrohabi, $descargo, $impcargo, $idhues, $prefijo . '_' . $nFactura, $nrores, $comandaPag, $usuario, $idusuario);
+    $cargoPMS = $pos->cargosInterfasePOS($fechapos, $subtotal, $impuesto, $codigoVen, $nrohabi, $descargo, $impcargo, $idhues, $prefijo . '_' . $nFactura, $nrores, $comandaPag, $usuario, $idusuario,$nombreAmbiente);
 
     if ($propina != 0) {
         $descri = $pos->getDescripcionCargo($codigoPro);
         $descargo = $descri[0]['descripcion_cargo'];
         $impcargo = $descri[0]['id_impto'];
-        $cargoPro = $pos->cargosInterfasePOS($fechapos, $propina, 0, $codigoPro, $nrohabi, $descargo, $impcargo, $idhues, $prefijo . '_' . $nFactura, $nrores, $comandaPag, $usuario, $idusuario);
-        // echo $cargoPro;
+        $cargoPro = $pos->cargosInterfasePOS($fechapos, $propina, 0, $codigoPro, $nrohabi, $descargo, $impcargo, $idhues, $prefijo . '_' . $nFactura, $nrores, $comandaPag, $usuario, $idusuario, $nombreAmbiente);
     }
 
     if ($servicio != 0) {
         $descri = $pos->getDescripcionCargo($codigoSer);
         $descargo = $descri[0]['descripcion_cargo'];
         $impcargo = $descri[0]['id_impto'];
-        $cargoPro = $pos->cargosInterfasePOS($fechapos, $servicio, 0, $codigoSer, $nrohabi, $descargo, $impcargo, $idhues, $prefijo . '_' . $nFactura, $nrores, $comandaPag, $usuario, $idusuario);
-        // echo $cargoPro;
+        $cargoPro = $pos->cargosInterfasePOS($fechapos, $servicio, 0, $codigoSer, $nrohabi, $descargo, $impcargo, $idhues, $prefijo . '_' . $nFactura, $nrores, $comandaPag, $usuario, $idusuario, $nombreAmbiente);
     }
 }
 

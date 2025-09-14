@@ -176,7 +176,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT recetasEstandar.id_receta, recetasEstandar.nombre_receta, recetasEstandar.valor_costo, recetasEstandar.subreceta FROM recetasEstandar, productos_recetas WHERE recetasEstandar.subreceta = 1 AND productos_recetas.tipoProducto = 1 AND productos_recetas.id_receta = $receta AND recetasEstandar.id_receta <> productos_recetas.id_producto ORDER BY recetasEstandar.nombre_receta ASC")->fetchAll();
+        $data = $database->query("SELECT recetasEstandar.id_receta, recetasEstandar.nombre_receta, recetasEstandar.valor_costo, recetasEstandar.subreceta FROM recetasEstandar, productos_recetas WHERE recetasEstandar.subreceta = 1 AND productos_recetas.tipoProducto = 1 AND productos_recetas.id_receta = $receta AND recetasEstandar.id_receta <> productos_recetas.id_producto ORDER BY recetasEstandar.nombre_receta ASC")->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     }
 
@@ -235,7 +235,7 @@ class Pos_Actions
 		ambientes.nombre
 		ORDER BY
 		ambientes.nombre ASC
-		")->fetchAll();
+		")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -270,7 +270,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT Sum(historico_detalle_facturas_pos.cant) as cantmes, Sum(historico_detalle_facturas_pos.venta) as ventasmes, Sum(historico_detalle_facturas_pos.descuento) AS descuentomes, Sum(historico_detalle_facturas_pos.valorimpto) AS imptosmes, historico_detalle_facturas_pos.nom, historico_detalle_facturas_pos.producto_id, historico_facturas_pos.ambiente, historico_facturas_pos.factura, historico_facturas_pos.comanda, historico_facturas_pos.fecha, historico_facturas_pos.estado FROM historico_facturas_pos, historico_detalle_facturas_pos WHERE historico_facturas_pos.ambiente = '$amb' AND YEAR(historico_facturas_pos.fecha) = '$anio' AND MONTH(historico_facturas_pos.fecha) = '$mes' AND historico_facturas_pos.estado = 'A' AND historico_facturas_pos.ambiente =  historico_detalle_facturas_pos.ambiente AND historico_facturas_pos.comanda = historico_detalle_facturas_pos.comanda GROUP BY historico_detalle_facturas_pos.nom ORDER BY historico_detalle_facturas_pos.nom ASC")->fetchAll();
+        $data = $database->query("SELECT Sum(historico_detalle_facturas_pos.cant) as cantmes, Sum(historico_detalle_facturas_pos.venta) as ventasmes, Sum(historico_detalle_facturas_pos.descuento) AS descuentomes, Sum(historico_detalle_facturas_pos.valorimpto) AS imptosmes, historico_detalle_facturas_pos.nom, historico_detalle_facturas_pos.producto_id, historico_facturas_pos.ambiente, historico_facturas_pos.factura, historico_facturas_pos.comanda, historico_facturas_pos.fecha, historico_facturas_pos.estado FROM historico_facturas_pos, historico_detalle_facturas_pos WHERE historico_facturas_pos.ambiente = '$amb' AND YEAR(historico_facturas_pos.fecha) = '$anio' AND MONTH(historico_facturas_pos.fecha) = '$mes' AND historico_facturas_pos.estado = 'A' AND historico_facturas_pos.ambiente =  historico_detalle_facturas_pos.ambiente AND historico_facturas_pos.comanda = historico_detalle_facturas_pos.comanda GROUP BY historico_detalle_facturas_pos.nom ORDER BY historico_detalle_facturas_pos.nom ASC")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -279,7 +279,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT Sum(historico_detalle_facturas_pos.cant) as cant, Sum(historico_detalle_facturas_pos.venta) as ventas, Sum(historico_detalle_facturas_pos.descuento) AS descuento, Sum(historico_detalle_facturas_pos.valorimpto) AS imptos, historico_detalle_facturas_pos.nom, historico_detalle_facturas_pos.producto_id, historico_facturas_pos.ambiente, historico_facturas_pos.factura, historico_facturas_pos.comanda, historico_facturas_pos.fecha, historico_facturas_pos.estado FROM historico_facturas_pos, historico_detalle_facturas_pos WHERE historico_facturas_pos.ambiente = '$amb' AND historico_facturas_pos.fecha = '$fecha' AND historico_facturas_pos.estado = 'A' AND historico_facturas_pos.ambiente =  historico_detalle_facturas_pos.ambiente AND historico_facturas_pos.comanda = historico_detalle_facturas_pos.comanda GROUP BY historico_detalle_facturas_pos.nom ORDER BY historico_detalle_facturas_pos.nom ASC")->fetchAll();
+        $data = $database->query("SELECT Sum(historico_detalle_facturas_pos.cant) as cant, Sum(historico_detalle_facturas_pos.venta) as ventas, Sum(historico_detalle_facturas_pos.descuento) AS descuento, Sum(historico_detalle_facturas_pos.valorimpto) AS imptos, historico_detalle_facturas_pos.nom, historico_detalle_facturas_pos.producto_id, historico_facturas_pos.ambiente, historico_facturas_pos.factura, historico_facturas_pos.comanda, historico_facturas_pos.fecha, historico_facturas_pos.estado FROM historico_facturas_pos, historico_detalle_facturas_pos WHERE historico_facturas_pos.ambiente = '$amb' AND historico_facturas_pos.fecha = '$fecha' AND historico_facturas_pos.estado = 'A' AND historico_facturas_pos.ambiente =  historico_detalle_facturas_pos.ambiente AND historico_facturas_pos.comanda = historico_detalle_facturas_pos.comanda GROUP BY historico_detalle_facturas_pos.nom ORDER BY historico_detalle_facturas_pos.nom ASC")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -361,7 +361,7 @@ class Pos_Actions
 		ambientes.nombre
 		ORDER BY
 		ambientes.id_ambiente ASC,
-		formas_pago.descripcion ASC")->fetchAll();
+		formas_pago.descripcion ASC")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -370,7 +370,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT Sum(abonos.valor) AS total, count(abonos.formaPago) as cant, abonos.formaPago, formas_pago.descripcion, ambientes.nombre FROM abonos , formas_pago , ambientes WHERE  abonos.formaPago = formas_pago.id_pago AND abonos.id_usuario = '$usu' AND abonos.ambiente = ambientes.id_ambiente AND abonos.ambiente = $amb GROUP BY abonos.formaPago, ambientes.nombre")->fetchAll();
+        $data = $database->query("SELECT Sum(abonos.valor) AS total, count(abonos.formaPago) as cant, abonos.formaPago, formas_pago.descripcion, ambientes.nombre FROM abonos , formas_pago , ambientes WHERE  abonos.formaPago = formas_pago.id_pago AND abonos.id_usuario = '$usu' AND abonos.ambiente = ambientes.id_ambiente AND abonos.ambiente = $amb GROUP BY abonos.formaPago, ambientes.nombre")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -379,7 +379,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT Sum(abonos.valor) AS total, count(abonos.formaPago) as cant, abonos.formaPago, formas_pago.descripcion, ambientes.nombre FROM abonos , formas_pago , ambientes WHERE  abonos.formaPago = formas_pago.id_pago AND abonos.ambiente = ambientes.id_ambiente AND abonos.ambiente = $amb GROUP BY abonos.formaPago, ambientes.nombre")->fetchAll();
+        $data = $database->query("SELECT Sum(abonos.valor) AS total, count(abonos.formaPago) as cant, abonos.formaPago, formas_pago.descripcion, ambientes.nombre FROM abonos , formas_pago , ambientes WHERE  abonos.formaPago = formas_pago.id_pago AND abonos.ambiente = ambientes.id_ambiente AND abonos.ambiente = $amb GROUP BY abonos.formaPago, ambientes.nombre")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -388,7 +388,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT Sum(historicAbonos.valor) AS total, count(historicoAbonos.formaPago) as cant, historicoAbonos.formaPago, formas_pago.descripcion, ambientes.nombre FROM historicoAbonos , formas_pago , ambientes WHERE  historicoAbonos.formaPago = formas_pago.id_pago AND historicoAbonos.ambiente = ambientes.id_ambiente AND historicoAbonos.ambiente = $amb GROUP BY historicoAbonos.formaPago, ambientes.nombre")->fetchAll();
+        $data = $database->query("SELECT Sum(historicAbonos.valor) AS total, count(historicoAbonos.formaPago) as cant, historicoAbonos.formaPago, formas_pago.descripcion, ambientes.nombre FROM historicoAbonos , formas_pago , ambientes WHERE  historicoAbonos.formaPago = formas_pago.id_pago AND historicoAbonos.ambiente = ambientes.id_ambiente AND historicoAbonos.ambiente = $amb GROUP BY historicoAbonos.formaPago, ambientes.nombre")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -417,7 +417,7 @@ class Pos_Actions
 		abonos.ambiente = $idamb
 		ORDER BY
 		abonos.abono_numero ASC
-		")->fetchAll();
+		")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -426,7 +426,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT clientes.id_cliente, clientes.identificacion, clientes.apellido1, clientes.apellido2, clientes.nombre1, clientes.nombre2, clientes.direccion, facturas_pos.factura, facturas_pos.valor_total FROM clientes , facturas_pos WHERE clientes.id_cliente = facturas_pos.id_cliente AND facturas_pos.forma_pago = 11 AND facturas_pos.ambiente = '$idamb' AND facturas_pos.usuario = '$usr'")->fetchAll();
+        $data = $database->query("SELECT clientes.id_cliente, clientes.identificacion, clientes.apellido1, clientes.apellido2, clientes.nombre1, clientes.nombre2, clientes.direccion, facturas_pos.factura, facturas_pos.valor_total FROM clientes , facturas_pos WHERE clientes.id_cliente = facturas_pos.id_cliente AND facturas_pos.forma_pago = 11 AND facturas_pos.ambiente = '$idamb' AND facturas_pos.usuario = '$usr'")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -435,7 +435,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT clientes.id_cliente, clientes.identificacion, clientes.apellido1, clientes.apellido2, clientes.nombre1, clientes.nombre2, clientes.direccion, Sum(historico_facturas_pos.valor_total) as total FROM clientes , historico_facturas_pos WHERE clientes.id_cliente = historico_facturas_pos.id_cliente AND historico_facturas_pos.forma_pago = 11 AND historico_facturas_pos.cartera = 0 AND historico_facturas_pos.estado = 'A' GROUP BY clientes.id_cliente ORDER BY clientes.id_cliente")->fetchAll();
+        $data = $database->query("SELECT clientes.id_cliente, clientes.identificacion, clientes.apellido1, clientes.apellido2, clientes.nombre1, clientes.nombre2, clientes.direccion, Sum(historico_facturas_pos.valor_total) as total FROM clientes , historico_facturas_pos WHERE clientes.id_cliente = historico_facturas_pos.id_cliente AND historico_facturas_pos.forma_pago = 11 AND historico_facturas_pos.cartera = 0 AND historico_facturas_pos.estado = 'A' GROUP BY clientes.id_cliente ORDER BY clientes.id_cliente")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -444,7 +444,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT clientes.id_cliente, clientes.identificacion, clientes.apellido1, clientes.apellido2, clientes.nombre1, clientes.nombre2, clientes.direccion, Sum(historico_facturas_pos.valor_total) as total FROM clientes , historico_facturas_pos WHERE clientes.id_cliente = $idusr AND clientes.id_cliente = historico_facturas_pos.id_cliente AND historico_facturas_pos.forma_pago = 11 AND historico_facturas_pos.cartera = 0 AND historico_facturas_pos.estado = 'A' GROUP BY clientes.id_cliente ORDER BY clientes.id_cliente")->fetchAll();
+        $data = $database->query("SELECT clientes.id_cliente, clientes.identificacion, clientes.apellido1, clientes.apellido2, clientes.nombre1, clientes.nombre2, clientes.direccion, Sum(historico_facturas_pos.valor_total) as total FROM clientes , historico_facturas_pos WHERE clientes.id_cliente = $idusr AND clientes.id_cliente = historico_facturas_pos.id_cliente AND historico_facturas_pos.forma_pago = 11 AND historico_facturas_pos.cartera = 0 AND historico_facturas_pos.estado = 'A' GROUP BY clientes.id_cliente ORDER BY clientes.id_cliente")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -554,7 +554,7 @@ class Pos_Actions
 		ORDER BY
 		historicoBaseCaja.idAmbiente ASC,
 		historicoBaseCaja.fecha ASC,
-		usuarios.usuario ASC")->fetchAll();
+		usuarios.usuario ASC")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -590,7 +590,7 @@ class Pos_Actions
 		ORDER BY
 		historicoBaseCaja.idAmbiente ASC,
 		historicoBaseCaja.fecha ASC,
-		usuarios.usuario ASC")->fetchAll();
+		usuarios.usuario ASC")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -599,7 +599,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT Sum(facturas_pos.valor_total) AS total, Sum(facturas_pos.pagado) AS pagado, Sum(facturas_pos.cambio) AS cambio, count(facturas_pos.forma_pago) as cant, Sum(facturas_pos.valor_neto) AS neto, Sum(facturas_pos.impuesto) AS impto, Sum(facturas_pos.propina) AS prop, Sum(facturas_pos.descuento) AS `desc`, formas_pago.id_pago, formas_pago.descripcion, ambientes.nombre FROM facturas_pos , formas_pago , ambientes WHERE facturas_pos.estado = '$estado' AND facturas_pos.forma_pago = formas_pago.id_pago AND facturas_pos.ambiente = ambientes.id_ambiente AND facturas_pos.ambiente = $amb GROUP BY facturas_pos.forma_pago, ambientes.nombre")->fetchAll();
+        $data = $database->query("SELECT Sum(facturas_pos.valor_total) AS total, Sum(facturas_pos.pagado) AS pagado, Sum(facturas_pos.cambio) AS cambio, count(facturas_pos.forma_pago) as cant, Sum(facturas_pos.valor_neto) AS neto, Sum(facturas_pos.impuesto) AS impto, Sum(facturas_pos.propina) AS prop, Sum(facturas_pos.descuento) AS `desc`, formas_pago.id_pago, formas_pago.descripcion, ambientes.nombre FROM facturas_pos , formas_pago , ambientes WHERE facturas_pos.estado = '$estado' AND facturas_pos.forma_pago = formas_pago.id_pago AND facturas_pos.ambiente = ambientes.id_ambiente AND facturas_pos.ambiente = $amb GROUP BY facturas_pos.forma_pago, ambientes.nombre")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -804,7 +804,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("UPDATE comandas SET abonos = abonos + '$totabo' WHERE comanda = '$comanda' AND ambiente = '$idamb'")->fetchAll();
+        $data = $database->query("UPDATE comandas SET abonos = abonos + '$totabo' WHERE comanda = '$comanda' AND ambiente = '$idamb'")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -833,7 +833,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT sum(valor) as abonos FROM abonos WHERE id_ambiente = '$amb' AND comanda = '$nComa' AND estado = '1'")->fetchAll();
+        $data = $database->query("SELECT sum(valor) as abonos FROM abonos WHERE id_ambiente = '$amb' AND comanda = '$nComa' AND estado = '1'")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data[0]['abonos'];
     }
@@ -976,7 +976,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT clientes.nombre1, clientes.nombre2, clientes.apellido1, clientes.apellido2, count(facturas_pos.factura) as cant, Sum(facturas_pos.valor_total) as total, Sum(facturas_pos.valor_neto) as neto, Sum(facturas_pos.impuesto) as imptos, Sum(facturas_pos.propina) as propina, Sum(facturas_pos.descuento) as descto, Sum(facturas_pos.pagado) as pagado, Sum(facturas_pos.cambio) as cambio FROM facturas_pos , clientes WHERE facturas_pos.estado = 'A' AND facturas_pos.id_cliente = clientes.id_cliente AND facturas_pos.ambiente = '$amb' GROUP BY clientes.id_cliente ORDER BY clientes.apellido1 ASC")->fetchAll();
+        $data = $database->query("SELECT clientes.nombre1, clientes.nombre2, clientes.apellido1, clientes.apellido2, count(facturas_pos.factura) as cant, Sum(facturas_pos.valor_total) as total, Sum(facturas_pos.valor_neto) as neto, Sum(facturas_pos.impuesto) as imptos, Sum(facturas_pos.propina) as propina, Sum(facturas_pos.descuento) as descto, Sum(facturas_pos.pagado) as pagado, Sum(facturas_pos.cambio) as cambio FROM facturas_pos , clientes WHERE facturas_pos.estado = 'A' AND facturas_pos.id_cliente = clientes.id_cliente AND facturas_pos.ambiente = '$amb' GROUP BY clientes.id_cliente ORDER BY clientes.apellido1 ASC")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -985,7 +985,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query($consulta)->fetchAll();
+        $data = $database->query($consulta)->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -1013,7 +1013,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT periodosServicio.descripcion_periodo, Sum(facturas_pos.pagado) AS total, Sum(facturas_pos.servicio) AS servicio, Sum(facturas_pos.valor_neto) AS neto, Sum(facturas_pos.impuesto) AS imptos, Sum(facturas_pos.propina) AS prop, Sum(facturas_pos.pax) AS pax, Sum(facturas_pos.descuento) AS descu, periodosServicio.id_ambiente, periodosServicio.id_periodo FROM periodosServicio, facturas_pos WHERE periodosServicio.id_ambiente = '$idamb' AND substr(facturas_pos.fecha_factura,12,5) <= periodosServicio.hasta_hora AND substr(facturas_pos.fecha_factura,12,5) >= periodosServicio.desde_hora AND facturas_pos.estado = 'A' AND facturas_pos.ambiente = '$idamb' GROUP BY periodosServicio.id_periodo ORDER BY periodosServicio.descripcion_periodo ASC ")->fetchAll();
+        $data = $database->query("SELECT periodosServicio.descripcion_periodo, Sum(facturas_pos.pagado) AS total, Sum(facturas_pos.servicio) AS servicio, Sum(facturas_pos.valor_neto) AS neto, Sum(facturas_pos.impuesto) AS imptos, Sum(facturas_pos.propina) AS prop, Sum(facturas_pos.pax) AS pax, Sum(facturas_pos.descuento) AS descu, periodosServicio.id_ambiente, periodosServicio.id_periodo FROM periodosServicio, facturas_pos WHERE periodosServicio.id_ambiente = '$idamb' AND substr(facturas_pos.fecha_factura,12,5) <= periodosServicio.hasta_hora AND substr(facturas_pos.fecha_factura,12,5) >= periodosServicio.desde_hora AND facturas_pos.estado = 'A' AND facturas_pos.ambiente = '$idamb' GROUP BY periodosServicio.id_periodo ORDER BY periodosServicio.descripcion_periodo ASC ")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -1282,6 +1282,7 @@ class Pos_Actions
             'movimientos_inventario.id_producto' => $id,
             'movimientos_inventario.id_bodega' => $bodega,
             'movimientos_inventario.estado' => 1,
+            'ORDER' => ['fecha_movimiento' => 'DESC']
         ]);
 
         return $data;
@@ -1406,7 +1407,9 @@ class Pos_Actions
         global $database;
 
         $data = $database->select('movimientos_inventario', [
-            '[>]productos_inventario' => 'id_producto',
+            '[>]productos_inventario' => ['id_producto' => 'id_producto'],
+            '[>]bodegas' => ['id_bodega' => 'id_bodega'],
+            '[>]unidades' => ['unidad_alm' => 'id_unidad']
         ], [
             'productos_inventario.nombre_producto',
             'movimientos_inventario.numero',
@@ -1419,6 +1422,8 @@ class Pos_Actions
             'movimientos_inventario.id_proveedor',
             'movimientos_inventario.id_bodega',
             'movimientos_inventario.tipo_movi',
+            'bodegas.descripcion_bodega',
+            'unidades.descripcion_unidad(unidad_almacena)'
         ], [
             'movimientos_inventario.numero' => $numero,
             'movimientos_inventario.tipo' => 2,
@@ -1429,14 +1434,19 @@ class Pos_Actions
         return $data;
     }
 
-
-
-
     public function getProductosRecetasVenta($idamb, $nComa, $tipo)
     {
         global $database;
 
-        $data = $database->query("SELECT detalle_facturas_pos.cant, detalle_facturas_pos.producto_id, producto.id_receta, producto.nom, producto.venta, productos_recetas.cantidad, productos_recetas.valor_promedio, productos_recetas.id_producto, productos_inventario.unidad_almacena, productos_inventario.valor_promedio, productos_inventario.nombre_producto, productos_inventario.id_producto FROM detalle_facturas_pos, producto, productos_recetas, productos_inventario WHERE detalle_facturas_pos.comanda = '$nComa' AND detalle_facturas_pos.ambiente = '$idamb' AND detalle_facturas_pos.producto_id = producto.producto_id AND producto.id_receta = productos_recetas.id_receta AND producto.tipo_producto = '$tipo' AND productos_recetas.deleted_at IS NULL AND productos_recetas.tipoProducto = 0 AND productos_recetas.id_producto = productos_inventario.id_producto ORDER BY nombre_producto")->fetchAll();
+        $data = $database->query("SELECT detalle_facturas_pos.cant, detalle_facturas_pos.producto_id, producto.id_receta, producto.nom, producto.venta, productos_recetas.cantidad, productos_recetas.valor_promedio, productos_recetas.id_producto, productos_inventario.unidad_almacena, productos_inventario.valor_promedio, productos_inventario.nombre_producto, productos_inventario.id_producto FROM detalle_facturas_pos, producto, productos_recetas, productos_inventario WHERE detalle_facturas_pos.comanda = '$nComa' AND detalle_facturas_pos.ambiente = '$idamb' AND detalle_facturas_pos.producto_id = producto.producto_id AND producto.id_receta = productos_recetas.id_receta AND producto.tipo_producto = '$tipo' AND productos_recetas.deleted_at IS NULL AND productos_recetas.tipoProducto = 0 AND productos_recetas.id_producto = productos_inventario.id_producto ORDER BY nombre_producto")->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
+    }
+
+    public function getProductosSubRecetas($idamb, $nComa, $tipo)
+    {
+        global $database;
+
+        $data = $database->query("SELECT detalle_facturas_pos.cant, detalle_facturas_pos.producto_id, producto.id_receta, producto.nom, producto.venta, productos_recetas.cantidad, productos_recetas.valor_promedio, productos_recetas.id_producto, productos_inventario.unidad_almacena, productos_inventario.valor_promedio, productos_inventario.nombre_producto, productos_inventario.id_producto FROM detalle_facturas_pos, producto, productos_recetas, productos_inventario WHERE detalle_facturas_pos.comanda = '$nComa' AND detalle_facturas_pos.ambiente = '$idamb' AND detalle_facturas_pos.producto_id = producto.producto_id AND producto.id_receta = productos_recetas.id_receta AND producto.tipo_producto = '$tipo' AND productos_recetas.deleted_at IS NULL AND productos_recetas.tipoProducto = 1 AND productos_recetas.id_producto = productos_inventario.id_producto ORDER BY nombre_producto")->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     }
 
@@ -1444,7 +1454,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT detalle_facturas_pos.nom, detalle_facturas_pos.cant, recetasEstandar.nombre_receta, recetasEstandar.cantidad as cantRece, subReceta.id_producto as idSubReceta, receta.nombre_receta as subReceta, subReceta.cantidad as cantProd, productos_recetas.cantidad, productos_inventario.nombre_producto, productos_inventario.unidad_almacena, productos_inventario.valor_promedio, productos_inventario.id_producto FROM detalle_facturas_pos, producto, recetasEstandar, productos_recetas as subReceta, recetasEstandar as receta, productos_recetas, productos_inventario WHERE detalle_facturas_pos.comanda = '$nComa' AND detalle_facturas_pos.ambiente = '$idamb' AND detalle_facturas_pos.producto_id = producto.producto_id and producto.id_receta = recetasEstandar.id_receta AND recetasEstandar.id_receta = subReceta.id_receta and subReceta.tipoProducto = 1 AND subReceta.deleted_at IS NULL AND subReceta.id_producto = receta.id_receta and receta.id_receta = productos_recetas.id_receta and productos_recetas.id_producto = productos_inventario.id_producto and productos_recetas.deleted_at is Null order by subReceta,nombre_producto")->fetchAll();
+        $data = $database->query("SELECT detalle_facturas_pos.nom, detalle_facturas_pos.cant, recetasEstandar.nombre_receta, recetasEstandar.cantidad as cantRece, subReceta.id_producto as idSubReceta, receta.nombre_receta as subReceta, subReceta.cantidad as cantProd, productos_recetas.cantidad, productos_inventario.nombre_producto, productos_inventario.unidad_almacena, productos_inventario.valor_promedio, productos_inventario.id_producto FROM detalle_facturas_pos, producto, recetasEstandar, productos_recetas as subReceta, recetasEstandar as receta, productos_recetas, productos_inventario WHERE detalle_facturas_pos.comanda = '$nComa' AND detalle_facturas_pos.ambiente = '$idamb' AND detalle_facturas_pos.producto_id = producto.producto_id and producto.id_receta = recetasEstandar.id_receta AND recetasEstandar.id_receta = subReceta.id_receta and subReceta.tipoProducto = 1 AND subReceta.deleted_at IS NULL AND subReceta.id_producto = receta.id_receta and receta.id_receta = productos_recetas.id_receta and productos_recetas.id_producto = productos_inventario.id_producto and productos_recetas.deleted_at is Null order by subReceta,nombre_producto")->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     }
 
@@ -1453,7 +1463,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->select('tipo_movimiento_inventario', [
+        $data = $database->get('tipo_movimiento_inventario', [
             'tipo',
             'id_tipomovi',
         ], [
@@ -1588,7 +1598,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT productos_inventario.unidad_almacena, productos_inventario.valor_promedio, producto.nom, productos_inventario.id_producto, detalle_facturas_pos.cant FROM productos_inventario, producto, detalle_facturas_pos WHERE detalle_facturas_pos.producto_id = producto.producto_id AND producto.id_receta = productos_inventario.id_producto AND producto.tipo_producto = '$tipo' AND detalle_facturas_pos.ambiente = '$amb' AND detalle_facturas_pos.comanda = '$coma'")->fetchAll();
+        $data = $database->query("SELECT productos_inventario.unidad_almacena, productos_inventario.valor_promedio, producto.nom, productos_inventario.id_producto, detalle_facturas_pos.cant FROM productos_inventario, producto, detalle_facturas_pos WHERE detalle_facturas_pos.producto_id = producto.producto_id AND producto.id_receta = productos_inventario.id_producto AND producto.tipo_producto = '$tipo' AND detalle_facturas_pos.ambiente = '$amb' AND detalle_facturas_pos.comanda = '$coma'")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -1769,7 +1779,7 @@ class Pos_Actions
             GROUP BY
             formas_pago.descripcion 
             ORDER BY
-            formas_pago.descripcion ASC")->fetchAll();
+            formas_pago.descripcion ASC")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -1780,7 +1790,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT Sum(historico_detalle_facturas_pos.cant) as cantanio, Sum(historico_detalle_facturas_pos.venta) as ventasanio, Sum(historico_detalle_facturas_pos.descuento) AS descuentoanio, Sum(historico_detalle_facturas_pos.valorimpto) AS imptosanio, historico_detalle_facturas_pos.nom, historico_detalle_facturas_pos.producto_id, historico_facturas_pos.ambiente, historico_facturas_pos.factura, historico_facturas_pos.comanda, historico_facturas_pos.fecha, historico_facturas_pos.estado FROM historico_facturas_pos, historico_detalle_facturas_pos WHERE historico_facturas_pos.ambiente = '$amb' AND YEAR(historico_facturas_pos.fecha) = '$anio' AND historico_facturas_pos.estado = 'A' AND historico_facturas_pos.ambiente =  historico_detalle_facturas_pos.ambiente AND historico_facturas_pos.comanda = historico_detalle_facturas_pos.comanda GROUP BY historico_detalle_facturas_pos.nom ORDER BY historico_detalle_facturas_pos.nom ASC")->fetchAll();
+        $data = $database->query("SELECT Sum(historico_detalle_facturas_pos.cant) as cantanio, Sum(historico_detalle_facturas_pos.venta) as ventasanio, Sum(historico_detalle_facturas_pos.descuento) AS descuentoanio, Sum(historico_detalle_facturas_pos.valorimpto) AS imptosanio, historico_detalle_facturas_pos.nom, historico_detalle_facturas_pos.producto_id, historico_facturas_pos.ambiente, historico_facturas_pos.factura, historico_facturas_pos.comanda, historico_facturas_pos.fecha, historico_facturas_pos.estado FROM historico_facturas_pos, historico_detalle_facturas_pos WHERE historico_facturas_pos.ambiente = '$amb' AND YEAR(historico_facturas_pos.fecha) = '$anio' AND historico_facturas_pos.estado = 'A' AND historico_facturas_pos.ambiente =  historico_detalle_facturas_pos.ambiente AND historico_facturas_pos.comanda = historico_detalle_facturas_pos.comanda GROUP BY historico_detalle_facturas_pos.nom ORDER BY historico_detalle_facturas_pos.nom ASC")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -1810,7 +1820,7 @@ class Pos_Actions
             GROUP BY
             formas_pago.descripcion 
             ORDER BY
-            formas_pago.descripcion ASC")->fetchAll();
+            formas_pago.descripcion ASC")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -1839,7 +1849,7 @@ class Pos_Actions
             GROUP BY
             formas_pago.descripcion 
             ORDER BY
-            formas_pago.descripcion ASC")->fetchAll();
+            formas_pago.descripcion ASC")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -1888,7 +1898,7 @@ class Pos_Actions
             GROUP BY 
                 secciones_pos.nombre_seccion 
             ORDER BY 
-            secciones_pos.nombre_seccion")->fetchAll();
+            secciones_pos.nombre_seccion")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -1921,7 +1931,7 @@ class Pos_Actions
             GROUP BY 
                 secciones_pos.nombre_seccion 
             ORDER BY 
-                secciones_pos.nombre_seccion")->fetchAll();
+                secciones_pos.nombre_seccion")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -1953,7 +1963,7 @@ class Pos_Actions
             GROUP BY 
                 secciones_pos.nombre_seccion 
             ORDER BY 
-                secciones_pos.nombre_seccion")->fetchAll();
+                secciones_pos.nombre_seccion")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -1962,7 +1972,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT Sum(historico_detalle_facturas_pos.cant) as can, Sum(historico_detalle_facturas_pos.importe) as valuni, Sum(historico_detalle_facturas_pos.descuento) as descu, Sum(historico_detalle_facturas_pos.valorimpto) as impto, Sum(historico_detalle_facturas_pos.venta) as total  FROM historico_facturas_pos, historico_detalle_facturas_pos WHERE historico_facturas_pos.comanda = historico_detalle_facturas_pos.comanda AND historico_facturas_pos.ambiente = historico_detalle_facturas_pos.ambiente AND historico_facturas_pos.ambiente = '$amb' AND historico_facturas_pos.estado = 'A' AND historico_facturas_pos.fecha = '$fecha' AND historico_detalle_facturas_pos.producto_id = '$codi' GROUP BY historico_detalle_facturas_pos.producto_id")->fetchAll();
+        $data = $database->query("SELECT Sum(historico_detalle_facturas_pos.cant) as can, Sum(historico_detalle_facturas_pos.importe) as valuni, Sum(historico_detalle_facturas_pos.descuento) as descu, Sum(historico_detalle_facturas_pos.valorimpto) as impto, Sum(historico_detalle_facturas_pos.venta) as total  FROM historico_facturas_pos, historico_detalle_facturas_pos WHERE historico_facturas_pos.comanda = historico_detalle_facturas_pos.comanda AND historico_facturas_pos.ambiente = historico_detalle_facturas_pos.ambiente AND historico_facturas_pos.ambiente = '$amb' AND historico_facturas_pos.estado = 'A' AND historico_facturas_pos.fecha = '$fecha' AND historico_detalle_facturas_pos.producto_id = '$codi' GROUP BY historico_detalle_facturas_pos.producto_id")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -1971,7 +1981,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT Sum(historico_detalle_facturas_pos.cant) as canmes, Sum(historico_detalle_facturas_pos.importe) as valunimes, Sum(historico_detalle_facturas_pos.descuento) as descumes, Sum(historico_detalle_facturas_pos.valorimpto) as imptomes, Sum(historico_detalle_facturas_pos.venta) as totalmes  FROM historico_facturas_pos, historico_detalle_facturas_pos WHERE historico_facturas_pos.comanda = historico_detalle_facturas_pos.comanda AND historico_facturas_pos.ambiente = historico_detalle_facturas_pos.ambiente AND historico_facturas_pos.ambiente = '$amb' AND historico_facturas_pos.estado = 'A' AND month(historico_facturas_pos.fecha) = '$mes' AND year(historico_facturas_pos.fecha) = '$anio'  AND historico_detalle_facturas_pos.producto_id = '$codi' GROUP BY historico_detalle_facturas_pos.producto_id")->fetchAll();
+        $data = $database->query("SELECT Sum(historico_detalle_facturas_pos.cant) as canmes, Sum(historico_detalle_facturas_pos.importe) as valunimes, Sum(historico_detalle_facturas_pos.descuento) as descumes, Sum(historico_detalle_facturas_pos.valorimpto) as imptomes, Sum(historico_detalle_facturas_pos.venta) as totalmes  FROM historico_facturas_pos, historico_detalle_facturas_pos WHERE historico_facturas_pos.comanda = historico_detalle_facturas_pos.comanda AND historico_facturas_pos.ambiente = historico_detalle_facturas_pos.ambiente AND historico_facturas_pos.ambiente = '$amb' AND historico_facturas_pos.estado = 'A' AND month(historico_facturas_pos.fecha) = '$mes' AND year(historico_facturas_pos.fecha) = '$anio'  AND historico_detalle_facturas_pos.producto_id = '$codi' GROUP BY historico_detalle_facturas_pos.producto_id")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -1980,7 +1990,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT Sum(historico_detalle_facturas_pos.cant) as cananio, Sum(historico_detalle_facturas_pos.importe) as valunianio, Sum(historico_detalle_facturas_pos.descuento) as descuanio, Sum(historico_detalle_facturas_pos.valorimpto) as imptoanio, Sum(historico_detalle_facturas_pos.venta) as totalanio  FROM historico_facturas_pos, historico_detalle_facturas_pos WHERE historico_facturas_pos.comanda = historico_detalle_facturas_pos.comanda AND historico_facturas_pos.ambiente = historico_detalle_facturas_pos.ambiente AND historico_facturas_pos.ambiente = '$amb' AND historico_facturas_pos.estado = 'A' AND year(historico_facturas_pos.fecha) = '$anio'  AND historico_detalle_facturas_pos.producto_id = '$codi' GROUP BY historico_detalle_facturas_pos.producto_id")->fetchAll();
+        $data = $database->query("SELECT Sum(historico_detalle_facturas_pos.cant) as cananio, Sum(historico_detalle_facturas_pos.importe) as valunianio, Sum(historico_detalle_facturas_pos.descuento) as descuanio, Sum(historico_detalle_facturas_pos.valorimpto) as imptoanio, Sum(historico_detalle_facturas_pos.venta) as totalanio  FROM historico_facturas_pos, historico_detalle_facturas_pos WHERE historico_facturas_pos.comanda = historico_detalle_facturas_pos.comanda AND historico_facturas_pos.ambiente = historico_detalle_facturas_pos.ambiente AND historico_facturas_pos.ambiente = '$amb' AND historico_facturas_pos.estado = 'A' AND year(historico_facturas_pos.fecha) = '$anio'  AND historico_detalle_facturas_pos.producto_id = '$codi' GROUP BY historico_detalle_facturas_pos.producto_id")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -2267,7 +2277,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query($sele)->fetchAll();
+        $data = $database->query($sele)->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -2465,7 +2475,7 @@ class Pos_Actions
         facturas_pos.estado = 'A' AND
         ambientes.id_ambiente = '$amb'
         GROUP BY 
-        ambientes.nombre ")->fetchAll();
+        ambientes.nombre ")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -2474,7 +2484,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT detalle_facturas_pos.nom, Sum(detalle_facturas_pos.venta) AS ventas, Sum(detalle_facturas_pos.cant) AS cant, Sum(facturas_pos.pax) AS pers, ambientes.nombre FROM detalle_facturas_pos , facturas_pos , ambientes WHERE facturas_pos.factura = detalle_facturas_pos.factura AND facturas_pos.ambiente = ambientes.id_ambiente AND facturas_pos.estado = 'A' AND ambientes.id_ambiente = '$amb' GROUP BY ambientes.nombre ORDER BY cant DESC")->fetchAll();
+        $data = $database->query("SELECT detalle_facturas_pos.nom, Sum(detalle_facturas_pos.venta) AS ventas, Sum(detalle_facturas_pos.cant) AS cant, Sum(facturas_pos.pax) AS pers, ambientes.nombre FROM detalle_facturas_pos , facturas_pos , ambientes WHERE facturas_pos.factura = detalle_facturas_pos.factura AND facturas_pos.ambiente = ambientes.id_ambiente AND facturas_pos.estado = 'A' AND ambientes.id_ambiente = '$amb' GROUP BY ambientes.nombre ORDER BY cant DESC")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -2483,7 +2493,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT secciones_pos.nombre_seccion, sum(detalle_facturas_pos.venta) AS ventas, sum(detalle_facturas_pos.valorimpto) AS imptos, sum(detalle_facturas_pos.venta+detalle_facturas_pos.valorimpto) AS total, sum(detalle_facturas_pos.cant) AS cant, facturas_pos.pax AS pers, ambientes.nombre FROM detalle_facturas_pos , facturas_pos , ambientes , secciones_pos , producto WHERE facturas_pos.ambiente = ambientes.id_ambiente AND facturas_pos.estado = 'A' AND ambientes.id_ambiente = '$amb' AND producto.seccion = secciones_pos.id_seccion AND detalle_facturas_pos.producto_id = producto.producto_id AND detalle_facturas_pos.comanda = facturas_pos.comanda GROUP BY secciones_pos.nombre_seccion, ambientes.id_ambiente")->fetchAll();
+        $data = $database->query("SELECT secciones_pos.nombre_seccion, sum(detalle_facturas_pos.venta) AS ventas, sum(detalle_facturas_pos.valorimpto) AS imptos, sum(detalle_facturas_pos.venta+detalle_facturas_pos.valorimpto) AS total, sum(detalle_facturas_pos.cant) AS cant, facturas_pos.pax AS pers, ambientes.nombre FROM detalle_facturas_pos , facturas_pos , ambientes , secciones_pos , producto WHERE facturas_pos.ambiente = ambientes.id_ambiente AND facturas_pos.estado = 'A' AND ambientes.id_ambiente = '$amb' AND producto.seccion = secciones_pos.id_seccion AND detalle_facturas_pos.producto_id = producto.producto_id AND detalle_facturas_pos.comanda = facturas_pos.comanda GROUP BY secciones_pos.nombre_seccion, ambientes.id_ambiente")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -2492,7 +2502,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT detalle_facturas_pos.nom, Sum(detalle_facturas_pos.venta) AS ventas, Sum(detalle_facturas_pos.descuento) AS descuento, Sum(detalle_facturas_pos.valorimpto) AS imptos,  Sum(detalle_facturas_pos.venta+detalle_facturas_pos.valorimpto) AS total, Sum(detalle_facturas_pos.cant) AS cant, Sum(facturas_pos.pax) AS pers, ambientes.nombre FROM detalle_facturas_pos , facturas_pos , ambientes WHERE facturas_pos.comanda = detalle_facturas_pos.comanda AND facturas_pos.ambiente = ambientes.id_ambiente AND facturas_pos.estado = 'A' AND ambientes.id_ambiente = '$amb' GROUP BY ambientes.nombre, detalle_facturas_pos.nom ORDER BY nom ASC ")->fetchAll();
+        $data = $database->query("SELECT detalle_facturas_pos.nom, Sum(detalle_facturas_pos.venta) AS ventas, Sum(detalle_facturas_pos.descuento) AS descuento, Sum(detalle_facturas_pos.valorimpto) AS imptos,  Sum(detalle_facturas_pos.venta+detalle_facturas_pos.valorimpto) AS total, Sum(detalle_facturas_pos.cant) AS cant, Sum(facturas_pos.pax) AS pers, ambientes.nombre FROM detalle_facturas_pos , facturas_pos , ambientes WHERE facturas_pos.comanda = detalle_facturas_pos.comanda AND facturas_pos.ambiente = ambientes.id_ambiente AND facturas_pos.estado = 'A' AND ambientes.id_ambiente = '$amb' GROUP BY ambientes.nombre, detalle_facturas_pos.nom ORDER BY nom ASC ")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -2561,7 +2571,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT facturas_pos.*, ambientes.nombre  FROM facturas_pos, ambientes WHERE estado = '$estado' AND facturas_pos.ambiente = ambientes.id_ambiente AND facturas_pos.usuario = '$usu' AND facturas_pos.ambiente = $amb ORDER BY ambiente, factura")->fetchAll();
+        $data = $database->query("SELECT facturas_pos.*, ambientes.nombre  FROM facturas_pos, ambientes WHERE estado = '$estado' AND facturas_pos.ambiente = ambientes.id_ambiente AND facturas_pos.usuario = '$usu' AND facturas_pos.ambiente = $amb ORDER BY ambiente, factura")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -2570,7 +2580,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT count(facturas_pos.factura) as facturas, sum(valor_total) as total, ambientes.nombre  from facturas_pos, ambientes where estado = '$estado' and facturas_pos.ambiente = ambientes.id_ambiente AND facturas_pos.usuario = '$usu' group by ambiente")->fetchAll();
+        $data = $database->query("SELECT count(facturas_pos.factura) as facturas, sum(valor_total) as total, ambientes.nombre  from facturas_pos, ambientes where estado = '$estado' and facturas_pos.ambiente = ambientes.id_ambiente AND facturas_pos.usuario = '$usu' group by ambiente")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -2648,7 +2658,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("INSERT INTO historico_detalle_facturas_pos SELECT * FROM detalle_facturas_pos WHERE ambiente = '$idamb'")->fetchAll();
+        $data = $database->query("INSERT INTO historico_detalle_facturas_pos SELECT * FROM detalle_facturas_pos WHERE ambiente = '$idamb'")->fetchAll(PDO::FETCH_ASSOC);
 
         return $database->id();
     }
@@ -2657,7 +2667,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("INSERT INTO historico_facturas_pos SELECT * FROM facturas_pos WHERE ambiente = '$idamb'")->fetchAll();
+        $data = $database->query("INSERT INTO historico_facturas_pos SELECT * FROM facturas_pos WHERE ambiente = '$idamb'")->fetchAll(PDO::FETCH_ASSOC);
 
         return $database->id();
     }
@@ -2666,7 +2676,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("INSERT INTO historico_ventas_dia_pos SELECT * FROM ventas_dia_pos WHERE ambiente = '$idamb'")->fetchAll();
+        $data = $database->query("INSERT INTO historico_ventas_dia_pos SELECT * FROM ventas_dia_pos WHERE ambiente = '$idamb'")->fetchAll(PDO::FETCH_ASSOC);
 
         return $database->id();
     }
@@ -2675,7 +2685,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("INSERT INTO historicoBaseCaja SELECT * FROM baseCaja WHERE idAmbiente = '$idamb'")->fetchAll();
+        $data = $database->query("INSERT INTO historicoBaseCaja SELECT * FROM baseCaja WHERE idAmbiente = '$idamb'")->fetchAll(PDO::FETCH_ASSOC);
 
         return $database->id();
     }
@@ -2684,7 +2694,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("INSERT INTO historicoAbonos SELECT * FROM abonos WHERE ambiente = '$idamb'")->fetchAll();
+        $data = $database->query("INSERT INTO historicoAbonos SELECT * FROM abonos WHERE ambiente = '$idamb'")->fetchAll(PDO::FETCH_ASSOC);
 
         return $database->id();
     }
@@ -2693,7 +2703,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("INSERT INTO historico_comandas SELECT * FROM comandas WHERE ambiente = '$idamb'")->fetchAll();
+        $data = $database->query("INSERT INTO historico_comandas SELECT * FROM comandas WHERE ambiente = '$idamb'")->fetchAll(PDO::FETCH_ASSOC);
 
         return $database->id();
     }
@@ -2738,7 +2748,7 @@ class Pos_Actions
 				sum(clientes_anulados) as anioCla,
 				sum(clientes_comandas_anuladas) as anioCca
 				FROM reporte_gerencia_pos
-				WHERE year(fecha_auditoria) = '$anio' AND id_ambiente = '$idamb' ")->fetchAll();
+				WHERE year(fecha_auditoria) = '$anio' AND id_ambiente = '$idamb' ")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -2765,7 +2775,7 @@ class Pos_Actions
 				sum(clientes_anulados) as mesCla,
 				sum(clientes_comandas_anuladas) as mesCca
 				FROM reporte_gerencia_pos 
-				WHERE month(fecha_auditoria) = '$mes' AND year(fecha_auditoria) = '$anio' AND id_ambiente = '$idamb'")->fetchAll();
+				WHERE month(fecha_auditoria) = '$mes' AND year(fecha_auditoria) = '$anio' AND id_ambiente = '$idamb'")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -2844,7 +2854,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT Sum(detalle_facturas_pos.venta) AS venta, Sum(detalle_facturas_pos.cant) AS cant, detalle_facturas_pos.nom FROM facturas_pos , detalle_facturas_pos WHERE facturas_pos.comanda = detalle_facturas_pos.comanda AND facturas_pos.ambiente = '$idamb' AND facturas_pos.estado = '$estado' GROUP BY detalle_facturas_pos.nom ORDER BY cant DESC")->fetchAll();
+        $data = $database->query("SELECT Sum(detalle_facturas_pos.venta) AS venta, Sum(detalle_facturas_pos.cant) AS cant, detalle_facturas_pos.nom FROM facturas_pos , detalle_facturas_pos WHERE facturas_pos.comanda = detalle_facturas_pos.comanda AND facturas_pos.ambiente = '$idamb' AND facturas_pos.estado = '$estado' GROUP BY detalle_facturas_pos.nom ORDER BY cant DESC")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -2853,7 +2863,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT Sum(detalle_facturas_pos.venta) AS venta, Sum(detalle_facturas_pos.cant) AS cant, detalle_facturas_pos.nom FROM facturas_pos , detalle_facturas_pos WHERE facturas_pos.comanda = detalle_facturas_pos.comanda AND facturas_pos.ambiente = 1 AND facturas_pos.estado = '$estado' GROUP BY detalle_facturas_pos.nom ORDER BY cant DESC")->fetchAll();
+        $data = $database->query("SELECT Sum(detalle_facturas_pos.venta) AS venta, Sum(detalle_facturas_pos.cant) AS cant, detalle_facturas_pos.nom FROM facturas_pos , detalle_facturas_pos WHERE facturas_pos.comanda = detalle_facturas_pos.comanda AND facturas_pos.ambiente = 1 AND facturas_pos.estado = '$estado' GROUP BY detalle_facturas_pos.nom ORDER BY cant DESC")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -2908,7 +2918,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT secciones_pos.nombre_seccion, sum(historico_detalle_facturas_pos.venta) AS ventas, sum(historico_detalle_facturas_pos.valorimpto) AS imptos, sum(historico_detalle_facturas_pos.venta+historico_detalle_facturas_pos.valorimpto) AS total, sum(historico_detalle_facturas_pos.cant) AS cant, sum(historico_facturas_pos.pax) AS pers, ambientes.nombre FROM historico_detalle_facturas_pos , historico_facturas_pos, ambientes , secciones_pos , producto WHERE historico_facturas_pos.ambiente = ambientes.id_ambiente AND historico_facturas_pos.estado = 'A' AND ambientes.id_ambiente = '$amb' AND producto.seccion = secciones_pos.id_seccion AND historico_detalle_facturas_pos.producto_id = producto.producto_id AND historico_detalle_facturas_pos.comanda = historico_facturas_pos.comanda AND historico_facturas_pos.fecha BETWEEN '$desdefe' AND '$hastafe' GROUP BY ambientes.id_ambiente, secciones_pos.nombre_seccion")->fetchAll();
+        $data = $database->query("SELECT secciones_pos.nombre_seccion, sum(historico_detalle_facturas_pos.venta) AS ventas, sum(historico_detalle_facturas_pos.valorimpto) AS imptos, sum(historico_detalle_facturas_pos.venta+historico_detalle_facturas_pos.valorimpto) AS total, sum(historico_detalle_facturas_pos.cant) AS cant, sum(historico_facturas_pos.pax) AS pers, ambientes.nombre FROM historico_detalle_facturas_pos , historico_facturas_pos, ambientes , secciones_pos , producto WHERE historico_facturas_pos.ambiente = ambientes.id_ambiente AND historico_facturas_pos.estado = 'A' AND ambientes.id_ambiente = '$amb' AND producto.seccion = secciones_pos.id_seccion AND historico_detalle_facturas_pos.producto_id = producto.producto_id AND historico_detalle_facturas_pos.comanda = historico_facturas_pos.comanda AND historico_facturas_pos.fecha BETWEEN '$desdefe' AND '$hastafe' GROUP BY ambientes.id_ambiente, secciones_pos.nombre_seccion")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -2917,7 +2927,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT historico_detalle_facturas_pos.nom, Sum(historico_detalle_facturas_pos.venta) AS ventas, Sum(historico_detalle_facturas_pos.cant) AS cant, Sum(historico_facturas_pos.pax) AS pers, ambientes.nombre, periodosServicio.descripcion_periodo FROM historico_detalle_facturas_pos, historico_facturas_pos, ambientes, periodosServicio WHERE historico_facturas_pos.factura = historico_detalle_facturas_pos.factura AND historico_facturas_pos.ambiente = ambientes.id_ambiente AND historico_facturas_pos.estado = 'A' AND ambientes.id_ambiente = '$amb' AND historico_facturas_pos.fecha BETWEEN '$desdefe' AND '$hastafe' AND substr(historico_facturas_pos.fecha_factura,12,5) <= periodosServicio.hasta_hora AND substr(historico_facturas_pos.fecha_factura,12,5) >= periodosServicio.desde_hora GROUP BY ambientes.nombre ORDER BY cant DESC ")->fetchAll();
+        $data = $database->query("SELECT historico_detalle_facturas_pos.nom, Sum(historico_detalle_facturas_pos.venta) AS ventas, Sum(historico_detalle_facturas_pos.cant) AS cant, Sum(historico_facturas_pos.pax) AS pers, ambientes.nombre, periodosServicio.descripcion_periodo FROM historico_detalle_facturas_pos, historico_facturas_pos, ambientes, periodosServicio WHERE historico_facturas_pos.factura = historico_detalle_facturas_pos.factura AND historico_facturas_pos.ambiente = ambientes.id_ambiente AND historico_facturas_pos.estado = 'A' AND ambientes.id_ambiente = '$amb' AND historico_facturas_pos.fecha BETWEEN '$desdefe' AND '$hastafe' AND substr(historico_facturas_pos.fecha_factura,12,5) <= periodosServicio.hasta_hora AND substr(historico_facturas_pos.fecha_factura,12,5) >= periodosServicio.desde_hora GROUP BY ambientes.nombre ORDER BY cant DESC ")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -2926,7 +2936,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT historico_detalle_facturas_pos.nom, Sum(historico_detalle_facturas_pos.venta) AS ventas, Sum(historico_detalle_facturas_pos.cant) AS cant, Sum(historico_facturas_pos.pax) AS pers, ambientes.nombre FROM historico_detalle_facturas_pos , historico_facturas_pos , ambientes WHERE historico_facturas_pos.factura = historico_detalle_facturas_pos.factura AND historico_facturas_pos.ambiente = ambientes.id_ambiente AND historico_facturas_pos.estado = 'A' AND ambientes.id_ambiente = '$amb' AND historico_facturas_pos.fecha BETWEEN '$desdefe' AND '$hastafe' GROUP BY ambientes.nombre ORDER BY cant DESC")->fetchAll();
+        $data = $database->query("SELECT historico_detalle_facturas_pos.nom, Sum(historico_detalle_facturas_pos.venta) AS ventas, Sum(historico_detalle_facturas_pos.cant) AS cant, Sum(historico_facturas_pos.pax) AS pers, ambientes.nombre FROM historico_detalle_facturas_pos , historico_facturas_pos , ambientes WHERE historico_facturas_pos.factura = historico_detalle_facturas_pos.factura AND historico_facturas_pos.ambiente = ambientes.id_ambiente AND historico_facturas_pos.estado = 'A' AND ambientes.id_ambiente = '$amb' AND historico_facturas_pos.fecha BETWEEN '$desdefe' AND '$hastafe' GROUP BY ambientes.nombre ORDER BY cant DESC")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -2968,7 +2978,7 @@ class Pos_Actions
             ambientes.id_ambiente ASC,
             formas_pago.descripcion ASC
             
-            ")->fetchAll();
+            ")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -3002,7 +3012,7 @@ class Pos_Actions
             ambientes.nombre
             ORDER BY
             ambientes.id_ambiente ASC
-            ")->fetchAll();
+            ")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -3028,7 +3038,7 @@ class Pos_Actions
         return $data;
     }
 
-    public function cargosInterfasePOS($fecha, $subtotal, $impuesto, $codigo, $nrohabi, $descri, $impt, $idhues, $nfact, $nrores, $coma, $usuario, $idusuario)
+    public function cargosInterfasePOS($fecha, $subtotal, $impuesto, $codigo, $nrohabi, $descri, $impt, $idhues, $nfact, $nrores, $coma, $usuario, $idusuario, $nombre)
     {
         global $database;
 
@@ -3046,10 +3056,10 @@ class Pos_Actions
             'codigo_impto' => $impt,
             'cantidad_cargo' => 1,
             'numero_factura_cargo' => $nfact,
-            'informacion_cargo' => 'Cargo Interfase POS ' . $_SESSION['NOMBRE_AMBIENTE'],
+            'informacion_cargo' => 'Cargo Interfase POS ' . $nombre,
             'valor_cargo' => $subtotal + $impuesto,
             'folio_cargo' => 1,
-            'referencia_cargo' => 'Cheque Cuenta Nro ' . $nfact . ' ' . $_SESSION['NOMBRE_AMBIENTE'],
+            'referencia_cargo' => 'Cheque Cuenta Nro ' . $nfact . ' ' . $nombre,
             'numero_reserva' => $nrores,
             'fecha_sistema_cargo' => date('Y-m-d H:i:s'),
         ]);
@@ -3287,7 +3297,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT Sum(facturas_pos.valor_total) AS total, Sum(facturas_pos.pagado) AS pagado, Sum(facturas_pos.cambio) AS cambio, count(facturas_pos.forma_pago) as cant, Sum(facturas_pos.valor_neto) AS neto, Sum(facturas_pos.impuesto) AS impto, Sum(facturas_pos.propina) AS prop, Sum(facturas_pos.servicio) AS `servicio`, formas_pago.id_pago, formas_pago.descripcion, ambientes.nombre FROM facturas_pos , formas_pago , ambientes WHERE facturas_pos.estado = '$estado' AND facturas_pos.forma_pago = formas_pago.id_pago AND facturas_pos.usuario_factura = '$usu' AND facturas_pos.ambiente = ambientes.id_ambiente AND facturas_pos.ambiente = $amb GROUP BY facturas_pos.forma_pago, ambientes.nombre")->fetchAll();
+        $data = $database->query("SELECT Sum(facturas_pos.valor_total) AS total, Sum(facturas_pos.pagado) AS pagado, Sum(facturas_pos.cambio) AS cambio, count(facturas_pos.forma_pago) as cant, Sum(facturas_pos.valor_neto) AS neto, Sum(facturas_pos.impuesto) AS impto, Sum(facturas_pos.propina) AS prop, Sum(facturas_pos.servicio) AS `servicio`, formas_pago.id_pago, formas_pago.descripcion, ambientes.nombre FROM facturas_pos , formas_pago , ambientes WHERE facturas_pos.estado = '$estado' AND facturas_pos.forma_pago = formas_pago.id_pago AND facturas_pos.usuario_factura = '$usu' AND facturas_pos.ambiente = ambientes.id_ambiente AND facturas_pos.ambiente = $amb GROUP BY facturas_pos.forma_pago, ambientes.nombre")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -3296,7 +3306,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT Sum(facturas_pos.valor_total) AS total, Sum(facturas_pos.pagado) AS pagado, Sum(facturas_pos.cambio) AS cambio, facturas_pos.id, count(facturas_pos.forma_pago) as cant, Sum(facturas_pos.valor_neto) AS neto, Sum(facturas_pos.impuesto) AS impto, Sum(facturas_pos.propina) AS prop, Sum(facturas_pos.servicio) AS `servicio`, formas_pago.descripcion, ambientes.nombre FROM facturas_pos , formas_pago , ambientes WHERE facturas_pos.estado = '$estado' AND facturas_pos.forma_pago = formas_pago.id_pago AND facturas_pos.ambiente = '$idamb' AND facturas_pos.ambiente = ambientes.id_ambiente GROUP BY facturas_pos.forma_pago, ambientes.nombre")->fetchAll();
+        $data = $database->query("SELECT Sum(facturas_pos.valor_total) AS total, Sum(facturas_pos.pagado) AS pagado, Sum(facturas_pos.cambio) AS cambio, facturas_pos.id, count(facturas_pos.forma_pago) as cant, Sum(facturas_pos.valor_neto) AS neto, Sum(facturas_pos.impuesto) AS impto, Sum(facturas_pos.propina) AS prop, Sum(facturas_pos.servicio) AS `servicio`, formas_pago.descripcion, ambientes.nombre FROM facturas_pos , formas_pago , ambientes WHERE facturas_pos.estado = '$estado' AND facturas_pos.forma_pago = formas_pago.id_pago AND facturas_pos.ambiente = '$idamb' AND facturas_pos.ambiente = ambientes.id_ambiente GROUP BY facturas_pos.forma_pago, ambientes.nombre")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -3305,7 +3315,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT Sum(facturas_pos.valor_total) AS total, facturas_pos.id, count(facturas_pos.forma_pago) as cant, Sum(facturas_pos.valor_neto) AS neto, Sum(facturas_pos.impuesto) AS impto, Sum(facturas_pos.propina) AS prop, Sum(facturas_pos.descuento) AS `desc`, formas_pago.descripcion, ambientes.nombre FROM facturas_pos , formas_pago , ambientes WHERE facturas_pos.estado = '$estado' AND facturas_pos.forma_pago = formas_pago.id_pago AND facturas_pos.ambiente = ambientes.id_ambiente GROUP BY facturas_pos.forma_pago, ambientes.nombre")->fetchAll();
+        $data = $database->query("SELECT Sum(facturas_pos.valor_total) AS total, facturas_pos.id, count(facturas_pos.forma_pago) as cant, Sum(facturas_pos.valor_neto) AS neto, Sum(facturas_pos.impuesto) AS impto, Sum(facturas_pos.propina) AS prop, Sum(facturas_pos.descuento) AS `desc`, formas_pago.descripcion, ambientes.nombre FROM facturas_pos , formas_pago , ambientes WHERE facturas_pos.estado = '$estado' AND facturas_pos.forma_pago = formas_pago.id_pago AND facturas_pos.ambiente = ambientes.id_ambiente GROUP BY facturas_pos.forma_pago, ambientes.nombre")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -3314,7 +3324,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT Sum(facturas_pos.valor_total) AS total, Sum(facturas_pos.pagado) AS pagado, Sum(facturas_pos.cambio) AS cambio, facturas_pos.id, count(facturas_pos.forma_pago) as cant, Sum(facturas_pos.valor_neto) AS neto, Sum(facturas_pos.impuesto) AS impto, Sum(facturas_pos.propina) AS prop, Sum(facturas_pos.servicio) AS `servicio`, formas_pago.descripcion, ambientes.nombre FROM facturas_pos , formas_pago , ambientes WHERE facturas_pos.estado = '$estado' AND facturas_pos.forma_pago = formas_pago.id_pago AND facturas_pos.usuario_anulada = '$usu' AND facturas_pos.ambiente = ambientes.id_ambiente AND facturas_pos.ambiente = $amb GROUP BY facturas_pos.forma_pago, ambientes.nombre")->fetchAll();
+        $data = $database->query("SELECT Sum(facturas_pos.valor_total) AS total, Sum(facturas_pos.pagado) AS pagado, Sum(facturas_pos.cambio) AS cambio, facturas_pos.id, count(facturas_pos.forma_pago) as cant, Sum(facturas_pos.valor_neto) AS neto, Sum(facturas_pos.impuesto) AS impto, Sum(facturas_pos.propina) AS prop, Sum(facturas_pos.servicio) AS `servicio`, formas_pago.descripcion, ambientes.nombre FROM facturas_pos , formas_pago , ambientes WHERE facturas_pos.estado = '$estado' AND facturas_pos.forma_pago = formas_pago.id_pago AND facturas_pos.usuario_anulada = '$usu' AND facturas_pos.ambiente = ambientes.id_ambiente AND facturas_pos.ambiente = $amb GROUP BY facturas_pos.forma_pago, ambientes.nombre")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -3323,7 +3333,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT Sum(facturas_pos.valor_total) AS total, facturas_pos.id, count(facturas_pos.forma_pago) as cant, Sum(facturas_pos.valor_neto) AS neto, Sum(facturas_pos.impuesto) AS impto, Sum(facturas_pos.propina) AS prop, Sum(facturas_pos.descuento) AS `desc`, formas_pago.descripcion, ambientes.nombre FROM facturas_pos , formas_pago , ambientes WHERE facturas_pos.estado = '$estado' AND facturas_pos.forma_pago = formas_pago.id_pago AND facturas_pos.ambiente = '$idamb' AND facturas_pos.ambiente = ambientes.id_ambiente GROUP BY facturas_pos.forma_pago, ambientes.nombre")->fetchAll();
+        $data = $database->query("SELECT Sum(facturas_pos.valor_total) AS total, facturas_pos.id, count(facturas_pos.forma_pago) as cant, Sum(facturas_pos.valor_neto) AS neto, Sum(facturas_pos.impuesto) AS impto, Sum(facturas_pos.propina) AS prop, Sum(facturas_pos.descuento) AS `desc`, formas_pago.descripcion, ambientes.nombre FROM facturas_pos , formas_pago , ambientes WHERE facturas_pos.estado = '$estado' AND facturas_pos.forma_pago = formas_pago.id_pago AND facturas_pos.ambiente = '$idamb' AND facturas_pos.ambiente = ambientes.id_ambiente GROUP BY facturas_pos.forma_pago, ambientes.nombre")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -3332,7 +3342,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT facturas_pos.*, ambientes.nombre  FROM facturas_pos, ambientes WHERE estado = '$estado' AND facturas_pos.ambiente = ambientes.id_ambiente AND facturas_pos.usuario_factura = '$usu' AND facturas_pos.ambiente = '$idamb' ORDER BY ambiente, factura")->fetchAll();
+        $data = $database->query("SELECT facturas_pos.*, ambientes.nombre  FROM facturas_pos, ambientes WHERE estado = '$estado' AND facturas_pos.ambiente = ambientes.id_ambiente AND facturas_pos.usuario_factura = '$usu' AND facturas_pos.ambiente = '$idamb' ORDER BY ambiente, factura")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -3341,7 +3351,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT facturas_pos.*, ambientes.nombre from facturas_pos, ambientes where estado = '$estado' and facturas_pos.id_ambiente = '$idamb' and facturas_pos.ambiente = ambientes.id_ambiente order by ambiente, factura")->fetchAll();
+        $data = $database->query("SELECT facturas_pos.*, ambientes.nombre from facturas_pos, ambientes where estado = '$estado' and facturas_pos.id_ambiente = '$idamb' and facturas_pos.ambiente = ambientes.id_ambiente order by ambiente, factura")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -3350,7 +3360,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT facturas_pos.*, ambientes.nombre  from facturas_pos, ambientes where estado = '$estado' and facturas_pos.ambiente = ambientes.id_ambiente order by ambiente, factura")->fetchAll();
+        $data = $database->query("SELECT facturas_pos.*, ambientes.nombre  from facturas_pos, ambientes where estado = '$estado' and facturas_pos.ambiente = ambientes.id_ambiente order by ambiente, factura")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -3359,7 +3369,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT facturas_pos.*, ambientes.nombre  FROM facturas_pos, ambientes WHERE estado = '$estado' AND facturas_pos.ambiente = ambientes.id_ambiente AND facturas_pos.usuario_anulada = '$usu' AND facturas_pos.ambiente = $amb ORDER BY ambiente, factura")->fetchAll();
+        $data = $database->query("SELECT facturas_pos.*, ambientes.nombre  FROM facturas_pos, ambientes WHERE estado = '$estado' AND facturas_pos.ambiente = ambientes.id_ambiente AND facturas_pos.usuario_anulada = '$usu' AND facturas_pos.ambiente = $amb ORDER BY ambiente, factura")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -3368,7 +3378,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT facturas_pos.*, ambientes.nombre  from facturas_pos, ambientes where estado = '$estado' and facturas_pos.ambiente = '$idamb' and facturas_pos.ambiente = ambientes.id_ambiente order by ambiente, factura")->fetchAll();
+        $data = $database->query("SELECT facturas_pos.*, ambientes.nombre  from facturas_pos, ambientes where estado = '$estado' and facturas_pos.ambiente = '$idamb' and facturas_pos.ambiente = ambientes.id_ambiente order by ambiente, factura")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -3377,7 +3387,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT count(facturas_pos.factura) as facturas, sum(facturas_pos.pax) as pax, sum(facturas_pos.valor_total) as total, sum(facturas_pos.valor_neto) as neto, sum(facturas_pos.impuesto) as impto, sum(facturas_pos.propina) as propina, sum(facturas_pos.servicio) as servicio, sum(facturas_pos.descuento) as descuento, sum(facturas_pos.pagado) as pago, sum(facturas_pos.abonos) as abono, ambientes.nombre from facturas_pos, ambientes where estado = '$estado' and facturas_pos.ambiente = '$idamb' and facturas_pos.ambiente = ambientes.id_ambiente group by ambiente")->fetchAll();
+        $data = $database->query("SELECT count(facturas_pos.factura) as facturas, sum(facturas_pos.pax) as pax, sum(facturas_pos.valor_total) as total, sum(facturas_pos.valor_neto) as neto, sum(facturas_pos.impuesto) as impto, sum(facturas_pos.propina) as propina, sum(facturas_pos.servicio) as servicio, sum(facturas_pos.descuento) as descuento, sum(facturas_pos.pagado) as pago, sum(facturas_pos.abonos) as abono, ambientes.nombre from facturas_pos, ambientes where estado = '$estado' and facturas_pos.ambiente = '$idamb' and facturas_pos.ambiente = ambientes.id_ambiente group by ambiente")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -3386,7 +3396,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT count(facturas_pos.factura) as facturas, sum(valor_total) as total, ambientes.nombre  from facturas_pos, ambientes where estado = '$estado' and facturas_pos.ambiente = ambientes.id_ambiente group by ambiente")->fetchAll();
+        $data = $database->query("SELECT count(facturas_pos.factura) as facturas, sum(valor_total) as total, ambientes.nombre  from facturas_pos, ambientes where estado = '$estado' and facturas_pos.ambiente = ambientes.id_ambiente group by ambiente")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -3798,8 +3808,7 @@ class Pos_Actions
         return $data;
     }
 
-
-    public function getProductosVendidosFactura($amb, $coma)
+    public function getProductosVendidosFacturaOld2($amb, $coma)
     {
         global $database;
 
@@ -3825,9 +3834,71 @@ class Pos_Actions
         return $data;
     }
 
+    public function productosFacturaVenta($amb, $coma){
+        global $database;
 
+        $data = $database->query("SELECT
+            producto.nom,
+            sum( detalle_facturas_pos.cant ) AS can,
+            sum( detalle_facturas_pos.venta ) AS total,
+            sum( detalle_facturas_pos.valorimpto ) AS impto,
+            dianImpuestos.name as tipoImp,
+            dianImpuestos.id,
+            codigos_vta.descripcion_cargo,
+            codigos_vta.porcentaje_impto 
+        FROM
+            detalle_facturas_pos
+            INNER JOIN producto ON detalle_facturas_pos.producto_id = producto.producto_id
+            INNER JOIN codigos_vta ON producto.impto = codigos_vta.id_cargo
+            INNER JOIN dianImpuestos ON codigos_vta.identificador_dian = dianImpuestos.id 
+        WHERE
+            detalle_facturas_pos.ambiente = $amb 
+            AND detalle_facturas_pos.comanda = $coma
+        GROUP BY
+            detalle_facturas_pos.producto_id 
+        ORDER BY
+            producto.nom")->fetchAll(PDO::FETCH_ASSOC);
+            return $data;
+    }
+
+    public function sumaImptosFactura($amb, $coma)
+    {
+        global $database;
+
+        $data = $database->query("SELECT 
+            sum(detalle_facturas_pos.valorimpto) as imptos, 
+            sum(detalle_facturas_pos.venta) as base, 
+	        dianImpuestos.name as tipoImp,
+	        dianImpuestos.id,
+            codigos_vta.descripcion_cargo,
+            codigos_vta.porcentaje_impto
+
+            FROM
+                detalle_facturas_pos
+                INNER JOIN
+                producto
+                ON 
+                    detalle_facturas_pos.producto_id = producto.producto_id
+                INNER JOIN
+                codigos_vta
+                ON 
+                    producto.impto = codigos_vta.id_cargo
+                INNER JOIN
+                dianImpuestos
+                ON 
+                    codigos_vta.identificador_dian = dianImpuestos.id
+            WHERE
+                detalle_facturas_pos.ambiente = $amb AND
+                detalle_facturas_pos.comanda = $coma 
+            GROUP BY
+                dianImpuestos.id	
+            order BY
+                dianImpuestos.name
+            ")->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
+    }
     
-    public function getDatosFactura($amb, $comanda)
+    public function getDatosFactura($amb, $factura)
     {
         global $database;
 
@@ -3860,7 +3931,7 @@ class Pos_Actions
             'formas_pago.descripcion'
         ], [
             'facturas_pos.ambiente' => $amb,
-            'facturas_pos.comanda' => $comanda,
+            'facturas_pos.factura' => $factura,
         ]);
 
         return $data;
@@ -4499,7 +4570,7 @@ class Pos_Actions
     public function actualizaRestaProductosVenta($codigo, $xusu, $amb, $subtot, $subimpt)
     {
         global $database;
-        $data = $database->query("UPDATE caja_tmp SET cant = cant -1, venta = venta - '$subtot', valorimpto = valorimpto - '$subimpt' WHERE producto_id='$codigo' and usu = '$xusu'  and ambiente = '$amb'")->fetchAll();
+        $data = $database->query("UPDATE caja_tmp SET cant = cant -1, venta = venta - '$subtot', valorimpto = valorimpto - '$subimpt' WHERE producto_id='$codigo' and usu = '$xusu'  and ambiente = '$amb'")->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /* Cantidad de Productos en la Comanda */
@@ -4522,7 +4593,7 @@ class Pos_Actions
     public function actualizaSumaProductosVenta($codigo, $xusu, $amb, $subtot, $subimpt)
     {
         global $database;
-        $data = $database->query("UPDATE caja_tmp SET cant = cant +1, venta = venta + '$subtot', valorimpto = valorimpto + '$subimpt' WHERE producto_id='$codigo' and usu = '$xusu'  and ambiente = '$amb'")->fetchAll();
+        $data = $database->query("UPDATE caja_tmp SET cant = cant +1, venta = venta + '$subtot', valorimpto = valorimpto + '$subimpt' WHERE producto_id='$codigo' and usu = '$xusu'  and ambiente = '$amb'")->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /* Adiciona Productos a la Comanda */

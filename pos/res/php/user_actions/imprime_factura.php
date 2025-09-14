@@ -1,13 +1,15 @@
 <?php
-clearstatcache();
+// clearstatcache();
 require '../../../../res/php/app_topPos.php';
 require '../../../../res/fpdf/fpdf.php';
 
-extract($_POST);
+$data = json_decode(file_get_contents('php://input'), true);
+extract($data);
 
 include_once 'encabezado_impresiones.php';
 
-$datosFac = $pos->getDatosFactura($id_ambiente, $comanda);
+$datosFac = $pos->getDatosFactura($id_ambiente, $factura);
+
 $reso = '';
 $rfec = '';
 $rpre = '';
@@ -17,12 +19,9 @@ $habi = '';
 $tipo = '';
 $totabo = 0;
 
-
-// print_r($datosFac);
-
 $mes = $datosFac['mesa'];
 $pax = $datosFac['pax'];
-$coma = $datosFac['comanda'];
+$comanda = $datosFac['comanda'];
 $tot = $datosFac['valor_total'];
 $des = $datosFac['descuento'];
 $net = $datosFac['valor_neto'];
@@ -54,9 +53,8 @@ if ($pms == '1') {
 }
 $cliente = ($datosCliente['apellido1'].' '.$datosCliente['apellido2'].' '.$datosCliente['nombre1'].' '.$datosCliente['nombre2']);
 
-$productosventa = $pos->getProductosVendidosFactura($id_ambiente, $comanda);
-print_r($productosventa);
-
+$productosventa = $pos->productosFacturaVenta($id_ambiente, $comanda);
+$imptos = $pos->sumaImptosFactura($id_ambiente, $comanda);
 
 $time = date('H:m:i');
 
@@ -64,18 +62,18 @@ $pdf = new FPDF('P', 'mm', [76, 350]);
 $pdf->SetMargins(5, 5, 5);
 
 $pdf->AddPage();
-$pdf->SetFont('Arial', 'B', 12);
+$pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell(65, 4, (NAME_EMPRESA), 0, 1, 'C');
-$pdf->SetFont('Arial', '', 10);
+$pdf->SetFont('Arial', '', 9);
 $pdf->Cell(65, 4, 'NIT: '.NIT_EMPRESA, 0, 1, 'C');
 $pdf->Cell(65, 4, 'Iva Regimen Comun', 0, 1, 'C');
 $pdf->Cell(65, 4, (ADRESS_EMPRESA), 0, 1, 'C');
 $pdf->Cell(65, 4, (CIUDAD_EMPRESA.' '.PAIS_EMPRESA), 0, 1, 'C');
 $pdf->Cell(65, 4, 'Telefono '.TELEFONO_EMPRESA, 0, 1, 'C');
 $pdf->SetFont('Arial', 'B', 10);
-$pdf->MultiCell(65, 6, $nomamb, 0, 'C');
+$pdf->MultiCell(65, 5, $nomamb, 0, 'C');
 $pdf->Ln(1);
-$pdf->SetFont('Arial', '', 10);
+$pdf->SetFont('Arial', '', 9);
 $pdf->Cell(65, 4, 'Fecha '.$fec.' '.$time.' Mesa '.$mes, 0, 1, 'L');
 $pdf->Cell(65, 4, 'Mesero: '.$usu, 0, 1, 'L');
 $pdf->Cell(65, 4, 'Forma de Pago: '.substr($fpago, 0, 18), 0, 1, 'L');
@@ -85,7 +83,7 @@ if ($pms == 0) {
     $pdf->Cell(65, 4, 'Iden. '.$identif, 0, 1, 'L');
 } else {
     $pdf->Cell(65, 4, 'Cuenta Huesped Nro: '.str_pad($nFact, 5, '0', STR_PAD_LEFT), 0, 1, 'L');
-    $pdf->Cell(65, 4, 'Huesped '.substr($cliente, 0, 22), 0, 1, 'L');
+    $pdf->Cell(65, 4, 'Huesped '.substr($cliente, 0, 25), 0, 1, 'L');
     $pdf->Cell(65, 4, 'Habitacion. '.$nrohabi, 0, 1, 'L');
 }
 $pdf->Ln(1);
@@ -99,28 +97,50 @@ $descu = 0;
 $imp = 0;
 $pdf->SetFont('Arial', 'B', 10);
 
-$pdf->Cell(40, 4, 'PRODUCTO', 0, 0, 'C');
-$pdf->Cell(10, 4, 'CANT.', 0, 0, 'C');
-$pdf->Cell(15, 4, 'VALOR', 0, 1, 'C');
+$pdf->Cell(65, 4, 'PRODUCTO', 0, 1, 'L');
+$pdf->Cell(35, 4, '', 0, 0, 'R');
+$pdf->Cell(10, 4, 'CANT.', 0, 0, 'R');
+$pdf->Cell(20, 4, 'VALOR', 0, 1, 'R');
 $pdf->Ln(1);
 $pdf->SetFont('Arial', '', 9);
 
 foreach ($productosventa as $producto) {
-    $na = $na + $producto['cant'];
-    $val = $val + $producto['venta'];
-    $descu = $descu - $producto['descuento'];
-    $sub = $sub + $producto['venta'];
-    $imp = $imp + $producto['valorimpto'];
-    $pdf->Cell(35, 4, substr(($producto['nom']), 0, 17), 0, 0, 'L');
-    $pdf->Cell(10, 4, $producto['cant'], 0, 0, 'R');
-    $pdf->Cell(20, 4, number_format($producto['venta'], 2, ',', '.'), 0, 1, 'R');
+    $na = $na + $producto['can'];
+    $val = $val + $producto['total'];
+    $pdf->Cell(65, 4, '['.$producto['id'].']'.substr(($producto['nom']), 0, 28) , 0, 1, 'L');
+    $pdf->Cell(35, 4, '', 0, 0, 'R');
+    $pdf->Cell(10, 4, $producto['can'], 0, 0, 'R');
+    $pdf->Cell(20, 4, number_format($producto['total'], 2, ',', '.'), 0, 1, 'R');
+
+    $imp = $imp + $producto['impto'];
+    $sub = $sub + $producto['total'];
+    $tot = $sub + $imp;
 }
 
-$pdf->Ln(3);
+$pdf->Ln(2);
+$pdf->SetFont('Arial', 'B', 8);
+$pdf->Cell(65, 4, 'IMPUESTOS', 0, 1, 'C');
+$pdf->Cell(10, 4, 'ID', 0, 0, 'C');
+$pdf->Cell(10, 4, '%', 0, 0, 'R');
+$pdf->Cell(25, 4, 'BASE', 0, 0, 'R');
+$pdf->Cell(20, 4, 'IMPTO', 0, 1, 'R');
+$totImpto = 0;
+$pdf->SetFont('Arial', '', 8);
+foreach ($imptos as $key => $impto) {
+  $pdf->Cell(10, 4, '['.$impto['id'].'] '.$impto['tipoImp'] , 0, 0, 'L');
+  // $pdf->Cell(30, 4, $impto['descripcion_cargo'] , 0, 0, 'L');
+  $pdf->Cell(10, 4, $impto['porcentaje_impto'] , 0, 0, 'R');
+  $pdf->Cell(25, 4, number_format($impto['base'],2) , 0, 0, 'R');
+  $pdf->Cell(20, 4, number_format($impto['imptos'],2) , 0, 1, 'R');
+  $totImpto = $totImpto + $impto['imptos'];
+  # code...
+}
+$pdf->Ln(2);
+
 $pdf->Cell(40, 4, 'Subtotal', 0, 0, 'R');
 $pdf->Cell(25, 4, number_format($sub, 2, ',', '.'), 0, 1, 'R');
 $pdf->Cell(40, 4, 'Impuesto', 0, 0, 'R');
-$pdf->Cell(25, 4, number_format($imp, 2, ',', '.'), 0, 1, 'R');
+$pdf->Cell(25, 4, number_format($totImpto, 2, ',', '.'), 0, 1, 'R');
 $pdf->Cell(40, 4, 'Propina', 0, 0, 'R');
 $pdf->Cell(25, 4, number_format($pro, 2, ',', '.'), 0, 1, 'R');
 $pdf->Cell(40, 4, 'Room Service', 0, 0, 'R');
@@ -128,10 +148,10 @@ $pdf->Cell(25, 4, number_format($ser, 2, ',', '.'), 0, 1, 'R');
 $pdf->Ln(2);
 $pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell(40, 4, 'Total Cuenta:', 0, 0, 'L');
-$pdf->Cell(25, 4, number_format($sub - $des + $pro + $imp + $ser, 2, ',', '.'), 0, 1, 'R');
+$pdf->Cell(25, 4, number_format($sub + $pro + $totImpto + $ser, 2, ',', '.'), 0, 1, 'R');
 $pdf->Ln(1);
 $pdf->SetFont('Arial', '', 8);
-$pdf->MultiCell(65, 4, 'Son : '.numtoletras($sub - $des + $pro + $imp + $ser), 0, 'L');
+$pdf->MultiCell(65, 4, 'Son : '.numtoletras($sub + $pro + $totImpto + $ser), 0, 'J');
 $pdf->Ln(20);
 $pdf->Cell(65, 5, str_repeat('_', 40), 0, 1, 'L');
 if ($pms == 1) {

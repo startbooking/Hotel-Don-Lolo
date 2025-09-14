@@ -4,13 +4,6 @@ require '../../../../res/php/app_topPos.php';
 require '../../../../res/fpdf/fpdf.php';
 extract($_POST);
 
-/* $comanda = $_POST['cuenta'];
-$fec = $_POST['fecha'];
-$amb = $_POST['idamb'];
-$nomamb = $_POST['ambie'];
-$user = $_POST['user'];
-$logo = $_POST['logo']; */
-
 include_once 'encabezado_impresiones.php';
 
 /* Resolucion de Facturacion Factura */

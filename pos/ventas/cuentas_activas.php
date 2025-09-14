@@ -1,19 +1,8 @@
 <?php
-// require '../../res/php/titles.php';
 require '../../res/php/app_topPos.php';
 
 $data = json_decode(file_get_contents('php://input'), true);
 extract($data);
-// print_r($data);
-
-/* $idamb = $_POST['id_ambiente'];
-
-$amb = $_POST['nombre'];
-$nivel = $_POST['tipo'];
-$user = $_POST['usuario'];
-$prefijo = $_POST['prefijo'];
-$fecha = $_POST['fecha_auditoria']; */
-
 $mesas = $pos->getMesasAmbi($id_ambiente);
 $datosClientes = $pos->getClientes();
 $descuentos = $pos->getDescuentosPos($id_ambiente);
@@ -27,8 +16,8 @@ $formasdepagos = $pos->getFormasPago();
         <div class="col-lg-12 btn-info" style="padding:5px;margin:0;" id="tituloComanda">
           <h4 style="padding:2px;text-align: center;font-weight: bold;margin:0">Comandas Activas</h4>
         </div>
-        <div id="tituloBusca" class="col-lg-6" style="padding:0;margin:0;display:none">
-          <label class="control-label col-md-3 " for="">Buscar </label>
+        <div id="tituloBusca" class="col-lg-7" style="padding:0 5px;margin-top:2px;display:none">
+          <label class="control-label col-md-3" style="margin-top:3px;" for="">Buscar </label>
           <div class="col-md-9" style="padding:0;margin:0">
             <input class="form-control" type="text" name="busqueda" id="busqueda" value="">
           </div>
@@ -39,8 +28,6 @@ $formasdepagos = $pos->getFormasPago();
       </div>
     </div>
   </div>
-  <!-- <div class="row-fluid">
-  </div> -->
   <div class="row-fluid margin-top:2px;">
     <div class="col-lg-6 col-md-6 col-xs-12 tablas" id="divideComanda" style="display:none">
       <div id='productosDivide' class="row-fluid">

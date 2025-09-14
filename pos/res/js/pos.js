@@ -1282,8 +1282,6 @@ function getComandasPlano(comanda, nromesa, nomBtn) {
       $("#tituloNumero2").html(
         `<h3 style="margin-top:10px">Comanda Nro ${comanda} <br>Mesa Nro ${nromesa}</h3>`
       );
-      // $("#productosComanda").css("min-height", 350);
-      // $("#productosComanda").css("height", alto - 348);
       $("#Escritorio").css("height", alto - 420);
     },
   });
@@ -3350,12 +3348,11 @@ function recuperarCuenta() {
   $("#recuperaCuenta").css("display", "none");
   $(".btnActivo").css("display", "none");
   // $("#regresarComanda").css("margin-top", "336px");
-  $("#productosComanda").css("height", "422px");
+  // $("#productosComanda").css("height", "422px");
 
   $("#seccionList").css("display", "block");
-  $("#seccionList").css("margin-top", "5px");
   $("#tituloComanda").removeClass("col-lg-12");
-  $("#tituloComanda").addClass("col-lg-6");
+  $("#tituloComanda").addClass("col-lg-5");
   $("#tituloBusca").css("display", "block");
 
   $("#ventasList").removeClass("col-lg-6 col-md-6");
@@ -4570,12 +4567,7 @@ function ventasDia() {
 }
 
 async function cuentasActivas() {
-  /* var alto = screen.height;
-  var ancho = screen.width;
-  sesion = JSON.parse(localStorage.getItem("sesion")); */
   oPos = JSON.parse(localStorage.getItem("oPos"));
-
-  // let { pos, user: { usuario, usuario_id, tipo }, } = sesion;
   console.log({ usuario, usuario_id, tipo });
 
   let {
@@ -4600,7 +4592,6 @@ async function cuentasActivas() {
     prop: propina,
     fecha_auditoria,
     prefijo,
-    // cuentas
   };
   let llena = await llenaCuentas(parametros);
   let panta = document.querySelector('#pantalla');
@@ -4611,10 +4602,12 @@ async function cuentasActivas() {
   let pc = document.querySelector('#productosComanda')
   let lc = document.querySelector('#listaComandas')
   let bg = document.querySelector('.btn-group-vertical')
+  let pl = document.querySelector('#productoList')
   
   pc.style.height = `${nuevaAltura  - 160}px`;
   lc.style.height = `${nuevaAltura  - 160}px`;
   bg.style.height = `${nuevaAltura  - 138}px`;
+  pl.style.height = `${nuevaAltura  - 138}px`;
   botones = document.querySelectorAll('.apagado');
   ocultarBotones(botones, 'display',0);
   // pl.style.height = `${nuevaAltura - 138}px`;
@@ -4980,7 +4973,7 @@ function reimprimirFactura() {
   var ventana = window.open(factura, "PRINT", "height=600,width=600");
 }
 
-function enviaInicio() {
+async function enviaInicio() {
   localStorage.removeItem("productoComanda");
   oPos = JSON.parse(localStorage.getItem("oPos"));
   let { id_ambiente } = oPos;
@@ -5527,9 +5520,7 @@ function getSeleccionaAmbiente(codigo) {
       menu.classList.remove("apaga");
       menusup.classList.remove("apaga");
       localStorage.setItem("oPos", JSON.stringify(data));
-      console.log(data);
       const { id_ambiente, nombre, logo, prefijo, fecha_auditoria } = data;
-
       muestraPos(codigo);
     },
   });
