@@ -72,7 +72,7 @@ foreach ($ventasdia as $ventadia) {
 
 $insFact = $pos->insertFacturaVentaPOS($nFactura, $comandaPag, $ambientePag, $mesa, $pax, $usuario, $total, $subtotal, $impuesto, $propina, $totaldesc, $pagado, $cambio, $fecha, $pms, 'A', $formapago, $cliente, $motivoDes, $servicio);
 
-// $actComanda = $pos->updateFacturaComanda($nFactura, 'P', $usuario, $fecha, $comandaPag, $ambientePag);
+$actComanda = $pos->updateFacturaComanda($nFactura, 'P', $usuario, $fecha, $comandaPag, $ambientePag);
 $actMesa = $pos->updateMesaPos($ambientePag, $mesa);
 
 if ($pms == 1) {

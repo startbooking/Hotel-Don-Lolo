@@ -94,6 +94,9 @@
 		$agrupaciones = $admin->getAgrupaciones();
 	}elseif(isset($_GET['section']) && $_GET['section'] == 'codigosVentas'){ 
   	$codigos  = $admin->getCodigosVentas(1); 
+	}elseif(isset($_GET['section']) && $_GET['section'] == 'interfacePMS'){ 
+		$interfaces  = $admin->interfacePMS();
+	  $ambientes = $admin->getAmbientes();
 	}elseif(isset($_GET['section']) && $_GET['section'] == 'tipoHabitaciones'){ 
   	$tiposhab = $admin->getTipoHabitacion();  
 	}elseif(isset($_GET['section']) && $_GET['section'] == 'sectoresHabitacion'){ 

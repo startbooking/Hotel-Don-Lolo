@@ -6,6 +6,34 @@
     class Hotel_Admin
     {
 
+    public function interfacePMS(){
+        global $database;
+
+        $data = $database->query("SELECT
+            interfacePMS.id, 
+            ambientes.nombre, 
+            impuestos.descripcion_cargo AS descripcion_impto, 
+            codigos_vta.descripcion_cargo, 
+            interfacePMS.tipo_codigo
+        FROM
+            interfacePMS
+            INNER JOIN
+            codigos_vta AS impuestos
+            ON 
+                interfacePMS.id_codigo = impuestos.id_cargo
+            INNER JOIN
+            codigos_vta
+            ON 
+                interfacePMS.id_codigo_pms = codigos_vta.id_cargo
+            INNER JOIN
+            ambientes
+            ON 
+                interfacePMS.id_ambiente = ambientes.id_ambiente
+        ORDER BY
+            ambientes.nombre")->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
+    }
+
         public function eliminaRetencion($id)
         {
             global $database;

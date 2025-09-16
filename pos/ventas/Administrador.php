@@ -2,7 +2,6 @@
 	session_start();
   
   include_once('../../Conn/seciones.php');
-  //include_once("../../Conn/Conn.php");
   include_once("../../Conn/funciones.php");
   include_once('../../Conn/valida_ingreso.php');
 ?>

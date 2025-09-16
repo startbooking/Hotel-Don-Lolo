@@ -25,12 +25,13 @@
               <small class="label pull-right bg-red"></small>
             </a>
           </li>
-<li>
+          <li>
             <a href="retenciones">
               <i class="fa fa-bank"></i> <span>Retenciones</span>
               <small class="label pull-right bg-red"></small>
             </a>
-          </li>          <li>
+          </li>
+          <li>
             <a href="deptos">
               <i class="glyphicon glyphicon-th-large"></i> <span>Departamentos - Areas</span>
               <small class="label pull-right bg-red"></small>
@@ -128,6 +129,7 @@
                 <small class="label pull-right bg-red"></small>
               </a>
             </li>
+            
             <li>
               <a href="sectoresHabitacion">
                 <i class="glyphicon glyphicon-th-list"></i> <span>Sectores Habitaciones</span>
@@ -184,6 +186,12 @@
               <a href="formasPagoPos">
                 <i class="fa-solid fa-money-bills"></i><span>Formas de Pago</span>
                 <small class="label pull-right bg-red"></small></a>
+            </li>
+            <li>
+              <a href="interfacePMS">
+                <i class="glyphicon glyphicon-th"></i> <span>Interface POS - PMS</span>
+                <small class="label pull-right bg-red"></small>
+              </a>
             </li>
             <li>
               <a href="tiposdePlatos"><i class="fa fa-object-group"></i>Tipos de Platos</a>

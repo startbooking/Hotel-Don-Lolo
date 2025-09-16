@@ -6,6 +6,8 @@ date_default_timezone_set('America/Bogota');
 class Pos_Actions
 {
 
+    
+    
     public function traeDesayunoHistoricos($desdeFe, $hastaFe, $ambiente)
     {
         global $database;
@@ -1442,7 +1444,69 @@ class Pos_Actions
         return $data;
     }
 
-    public function getProductosSubRecetas($idamb, $nComa, $tipo)
+    public function getProductosSubRecetas($idamb, $nComa, $tipo){
+        global $database;
+
+        $data = $database->query("SELECT
+            subRecetas.nombre_receta, 
+            subRecetas.cantidad, 
+            subRecetas.valor_costo AS costo_receta, 
+            productos_inventario.id_producto, 
+            productos_inventario.nombre_producto, 
+            productos_inventario.unidad_almacena, 
+            productos_inventario.valor_costo, 
+            productos_inventario.valor_promedio, 
+            productosSubRecetas.cantidad, 
+            productosSubRecetas.valor_promedio, 
+            recetasEstandar.nombre_receta, 
+            recetasEstandar.id_receta, 
+	        detalle_facturas_pos.cant
+        FROM
+            recetasEstandar AS subRecetas
+            INNER JOIN
+            productos_recetas
+            ON 
+                subRecetas.id_receta = productos_recetas.id_producto
+            INNER JOIN
+            productos_recetas AS productosSubRecetas
+            ON 
+                subRecetas.id_receta = productosSubRecetas.id_receta
+            INNER JOIN
+            productos_inventario
+            ON 
+                productosSubRecetas.id_producto = productos_inventario.id_producto
+            INNER JOIN
+            recetasEstandar
+            ON 
+                productos_recetas.id_receta = recetasEstandar.id_receta
+            INNER JOIN
+            producto
+            ON 
+                recetasEstandar.id_receta = producto.id_receta
+            INNER JOIN
+            detalle_facturas_pos
+            ON 
+                producto.producto_id = detalle_facturas_pos.producto_id
+        WHERE
+            detalle_facturas_pos.comanda = $nComa AND
+            detalle_facturas_pos.ambiente = $idamb AND
+            productos_recetas.tipoProducto = $tipo AND
+            productos_inventario.deleted_at IS NULL AND
+            subRecetas.deleted_at IS NULL AND
+            productos_recetas.deleted_at IS NULL AND
+            recetasEstandar.deleted_at IS NULL AND
+            producto.deleted_at IS NULL AND
+            productosSubRecetas.deleted_at IS NULL AND
+            producto.tipo_producto = 2
+        ORDER BY
+            subRecetas.nombre_receta ASC, 
+            productos_inventario.nombre_producto ASC
+            
+        ")->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
+    }
+
+    public function getProductosSubRecetasOld($idamb, $nComa, $tipo)
     {
         global $database;
 

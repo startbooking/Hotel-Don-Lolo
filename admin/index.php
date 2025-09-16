@@ -64,6 +64,8 @@ require_once '../res/php/app_topAdmin.php';
         require 'views/agrupaciones.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'codigosVentas') {
         require 'views/codigosVentas.php';
+    } elseif (isset($_GET['section']) && $_GET['section'] == 'interfacePMS') {
+        require 'views/interfacePMS.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'sectoresHabitacion') {
         require 'views/sectoresHabitacion.php';
     } elseif (isset($_GET['section']) && $_GET['section'] == 'tipoHabitaciones') {

@@ -1,15 +1,28 @@
 <?php
 
-function generarContenidoTooltip($estadia, $formato){
+function tipo_interface($tipo)
+{
+    switch ($tipo) {
+        case 1:
+            return '<span class="badge label-warning">Cargo PMS</span>';
+        case 2:
+            return '<span class="badge label-info">Propina PMS</span>';
+        case 3:
+            return '<span class="badge label-danger">Room Service</span>';
+    }
+}
+
+function generarContenidoTooltip($estadia, $formato)
+{
     $adultos = $estadia['can_hombres'] + $estadia['can_mujeres'];
     return sprintf(
         'Huésped: %s %s %s %s' .
-        ' Habitación: %s' .
-        ' Adultos: %d' .
-        ' Niños: %d' .
-        ' Fecha Llegada: %s' .
-        ' Fecha Salida: %s' .
-        ' Tarifa: $ %s',
+            ' Habitación: %s' .
+            ' Adultos: %d' .
+            ' Niños: %d' .
+            ' Fecha Llegada: %s' .
+            ' Fecha Salida: %s' .
+            ' Tarifa: $ %s',
         $estadia['apellido1'],
         $estadia['apellido2'],
         $estadia['nombre1'],
@@ -23,7 +36,8 @@ function generarContenidoTooltip($estadia, $formato){
     );
 }
 
-function estadoDesayunos($estado){
+function estadoDesayunos($estado)
+{
     switch ($estado) {
         case 0:
             return 'NO Desayuno ';

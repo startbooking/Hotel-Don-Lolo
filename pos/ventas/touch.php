@@ -1,6 +1,6 @@
 <?php
   require '../../res/php/app_topPos.php';
-
+  
   $idamb = $_POST['id'];
   $amb = $_POST['amb'];
   $user = $_POST['user'];
@@ -115,15 +115,6 @@
               >
               <i class    ="fa fa-save"></i> Guardar
             </button>
-            <!-- <button
-              id          ="btnPagarComanda"
-              type        ="button"
-              class       ="btn btn-success"
-              title       ="Pagar Presente Cuenta"
-              onclick     ="botonPagarDirecto()"
-              style       ="height: 64px;font-weight: 600;font-size:14px;"
-              >
-              <i class="fa fa-money"></i> Pagar </button> -->
             <button
               onclick  ="getBorraCuenta(this.name,<?php echo $idamb; ?>)"
               type     ="button"
@@ -139,10 +130,6 @@
   </div>
 </div>
 
-
-<?php
-include_once '../views/modal/modalComandas.php';
-  ?>
 
 <script>
   $("#busqueda").keypress(function(event) {

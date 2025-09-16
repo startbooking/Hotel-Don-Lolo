@@ -15,11 +15,7 @@ $tipoMov    = $tipoMovi['id_tipomovi'];
 
 $productosVenta = $pos->getDescargaInventario($id_ambiente, $comanda, 1);
 $recetasVenta = $pos->getProductosRecetasVenta($id_ambiente, $comanda, 2);
-$subRecetas =  $pos->getProductosSubRecetas($id_ambiente, $comanda, 2);
-
-print_r($productosVenta);
-print_r($recetasVenta);
-print_r($subRecetas);
+$subRecetas =  $pos->getProductosSubRecetas($id_ambiente, $comanda, 1);
 
 if (count($productosVenta) == 0 && count($recetasVenta) == 0) {
     $numeroMov = 0;
