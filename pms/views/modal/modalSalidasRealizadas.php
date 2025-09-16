@@ -16,12 +16,6 @@
               <div class="col-lg-2 col-md-2">
                 <input class="form-control padInput" type="text" name="idregis" id="txtIdReservaAnu" value="">
               </div>
-              <!--
-              <label class="control-label col-lg-2 col-md-2">Tipo Habitacion</label>
-              <div class="col-lg-2 col-md-2">
-                <input class="form-control padInput" type="text" name="txtTipoHab" id="txtTipoHabAnu" readonly="">
-              </div>
-            -->
               <label class="control-label col-lg-2 col-md-2">Habit.</label>
               <div class="col-lg-2 col-md-2">
                 <input class="form-control padInput" type="text" name='txtNumeroHab' id='txtNumeroHabAnu' readonly="">    
@@ -32,22 +26,6 @@
               <div class="col-lg-10 col-md-10">
                 <input class="form-control padInput" type="text" name="txtNombreCompleto" id='txtNombreCompleto' readonly="">
               </div>
-              <!--
-              <label class="control-label col-lg-2 col-md-2">Apellidos</label>
-              <div class="col-lg-4 col-md-4">
-                <input class="form-control padInput" type="text" name="txtApellidosAnu2" id='txtApellidosAnu2' value='0' readonly="">
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="control-label col-lg-2 col-md-2">Nombres</label>
-              <div class="col-lg-4 col-md-4">
-                <input class="form-control padInput" type="text" name="txtNombresAnu1" id='txtNombresAnu1' value='0' readonly="">
-              </div>
-              <label class="control-label col-lg-2 col-md-2">Nombres</label>
-              <div class="col-lg-4 col-md-4">
-                <input class="form-control padInput" type="text" name="txtNombresAnu2" id='txtNombresAnu2' value='0' readonly="">
-              </div>
-              -->
             </div>
             <div class="form-group">
               <label class="control-label col-lg-2 col-md-2">Fecha Llegada</label>

@@ -598,7 +598,7 @@ if ($totalFolio != 0) {
     $estado = $hotel->estadoReserva($reserva);
     $salida = $hotel->updateReservaHuespedSalida($reserva, $usuario, $usuario_id, FECHA_PMS);
 
-    if ($estado[0]['estado'] == 'CA' && $estado[0]['con_congela'] == null) {
+    if ($estado['estado'] == 'CA' && $estado['con_congela'] == null) {
         $habSucia = $hotel->updateEstadoHabitacion($room);
     }
 }

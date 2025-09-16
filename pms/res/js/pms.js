@@ -6439,15 +6439,7 @@ function anulaSalida() {
           "Su Estadia a sido activada de con Exito",
           "success"
         );
-        $(location).attr("href", pagina);
-      } else if (data == -1) {
-        swal(
-          "Precaucion !",
-          "La Habitacion Presenta Saldo en la Cuenta no se pudo anular el Ingreso",
-          "warning"
-        );
-      } else {
-        swal("Precaucion !", "Su Estadia no se pudo anular", "warning");
+        // $(location).attr("href", pagina);
       }
     },
   });

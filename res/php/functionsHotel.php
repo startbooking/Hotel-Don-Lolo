@@ -2266,7 +2266,7 @@ class Hotel_Actions
     {
         global $database;
 
-        $data = $database->select('reservas_pms', [
+        $data = $database->get('reservas_pms', [
             'estado',
             'con_congela',
         ], [
@@ -6224,8 +6224,6 @@ class Hotel_Actions
             'tipo_reserva' => 2,
             'usuario_ingreso' => $usuario,
             'id_usuario_ingreso' => $idusuario,
-            // 'hora_llegada' => date('H:i:s'),
-            // 'fecha_ingreso' => date('Y-m-d H:i:s'),
         ], [
             'num_reserva' => $numero,
         ]);
