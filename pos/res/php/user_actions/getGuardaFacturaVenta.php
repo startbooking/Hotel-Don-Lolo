@@ -34,7 +34,7 @@ $ventasdia = $pos->getProductosVentaComanda($comandaPag, $ambientePag);
 $numerofactura = $pos->getNumeroFactura($ambientePag);
 $numFactura = $numerofactura['conc_factura'];
 $numOrden = $numerofactura['conc_orden'];
-$codigoVen = 0;
+$codigoVen = [];
 $codigoPro = 0;
 $codigoSer = 0;
 
@@ -45,9 +45,8 @@ if ($pms == 0) {
     $nFactura = $numOrden;
     $numero = $pos->updateNumeroOrden($ambientePag, $nFactura + 1);
     $infoCargo = $pos->traeInfoCodigosPMS($ambientePag);
-    $codigoVen = $infoCargo[0]['codigo_venta'];
-    $codigoPro = $infoCargo[0]['codigo_propina'];
-    $codigoSer = $infoCargo[0]['codigo_servicio'];
+    $codigoPro = $infoCargo['codigo_propina'];
+    $codigoSer = $infoCargo['codigo_servicio'];
 }
 
 $subtotal = 0;
@@ -76,30 +75,23 @@ $actComanda = $pos->updateFacturaComanda($nFactura, 'P', $usuario, $fecha, $coma
 $actMesa = $pos->updateMesaPos($ambientePag, $mesa);
 
 if ($pms == 1) {
-    $descri = $pos->getDescripcionCargo($codigoVen);
-    $descargo = $descri[0]['descripcion_cargo'];
-    $impcargo = $descri[0]['id_impto'];
-    $datosCliente = $pos->getDatosHuespedesenCasa($cliente);
-    $nrohabi = $datosCliente['num_habitacion'];
-    $idhues = $datosCliente['id_huesped'];
-    $nrores = $datosCliente['num_reserva'];
-    $prodVta = $pos->traeProductosVentaTotal($comandaPag, $ambientePag);
 
-    $cargoPMS = $pos->cargosInterfasePOS($fechapos, $subtotal, $impuesto, $codigoVen, $nrohabi, $descargo, $impcargo, $idhues, $prefijo . '_' . $nFactura, $nrores, $comandaPag, $usuario, $idusuario,$nombreAmbiente);
+    $totalventas = $pos->valorFacturaPorImpto($nFactura, $ambientePag, 1);
+
+    foreach ($totalventas as $key => $venta) {
+        $cargoPMS = $pos->cargosInterfasePOS($fechapos, $venta['total_venta'], $venta['total_impto'], $venta['id_cargo'], $venta['num_habitacion'], $venta['descripcion_cargo'], $venta['id_impto'], $venta['id_huesped'], $prefijo . '_' . $nFactura, $venta['num_reserva'], $comandaPag, $usuario, $idusuario,$nombreAmbiente); 
+    }
 
     if ($propina != 0) {
         $descri = $pos->getDescripcionCargo($codigoPro);
-        $descargo = $descri[0]['descripcion_cargo'];
-        $impcargo = $descri[0]['id_impto'];
-        $cargoPro = $pos->cargosInterfasePOS($fechapos, $propina, 0, $codigoPro, $nrohabi, $descargo, $impcargo, $idhues, $prefijo . '_' . $nFactura, $nrores, $comandaPag, $usuario, $idusuario, $nombreAmbiente);
+        $descargo = $descri['descripcion_cargo'];
+        $impcargo = $descri['id_impto'];
+        $cargoPro = $pos->cargosInterfasePOS($fechapos, $propina, 0, $codigoPro, $totalventas[0]['num_habitacion'], $descri['descripcion_cargo'], $descri['id_impto'], $totalventas[0]['id_huesped'], $prefijo . '_' . $nFactura, $totalventas[0]['num_reserva'], $comandaPag, $usuario, $idusuario, $nombreAmbiente); 
     }
-
     if ($servicio != 0) {
         $descri = $pos->getDescripcionCargo($codigoSer);
-        $descargo = $descri[0]['descripcion_cargo'];
-        $impcargo = $descri[0]['id_impto'];
-        $cargoPro = $pos->cargosInterfasePOS($fechapos, $servicio, 0, $codigoSer, $nrohabi, $descargo, $impcargo, $idhues, $prefijo . '_' . $nFactura, $nrores, $comandaPag, $usuario, $idusuario, $nombreAmbiente);
-    }
+        $cargoPro = $pos->cargosInterfasePOS($fechapos, $servicio, 0, $codigoSer, $totalventas[0]['num_habitacion'], $descri['descripcion_cargo'], $impcargo = $descri['id_impto'], $totalventas[0]['id_huesped'], $prefijo . '_' . $nFactura, $totalventas[0]['num_reserva'], $comandaPag, $usuario, $idusuario, $nombreAmbiente);
+    } 
 }
 
 echo $nFactura;

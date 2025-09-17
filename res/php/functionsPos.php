@@ -6,8 +6,66 @@ date_default_timezone_set('America/Bogota');
 class Pos_Actions
 {
 
-    
-    
+    public function valorFacturaPorImpto($factura, $id_ambiente, $tipo){
+        global $database;
+
+        $data = $database->query("SELECT
+            facturas_pos.factura, 
+            facturas_pos.propina, 
+            facturas_pos.servicio, 
+            facturas_pos.pms, 
+            facturas_pos.id_cliente as num_reserva, 
+            detalle_facturas_pos.cant, 
+            sum(detalle_facturas_pos.venta) as total_venta, 
+            detalle_facturas_pos.impto, 
+            sum(detalle_facturas_pos.valorimpto) as total_impto, 
+            detalle_facturas_pos.producto_id,
+            producto.nom, 
+            imptos.id_cargo AS id_impto, 
+            imptos.descripcion_cargo AS descripcion_impto, 
+            imptos.porcentaje_impto, 
+            codigos_vta.descripcion_cargo, 
+            codigos_vta.id_cargo, 
+            reservas_pms.num_habitacion, 
+            reservas_pms.id_huesped
+        FROM
+            facturas_pos
+            INNER JOIN
+            detalle_facturas_pos
+            ON 
+                facturas_pos.factura = detalle_facturas_pos.orden
+            INNER JOIN
+            producto
+            ON 
+                detalle_facturas_pos.producto_id = producto.producto_id
+            INNER JOIN
+            codigos_vta AS imptos
+            ON 
+                producto.impto = imptos.id_cargo
+            INNER JOIN
+            interfacePMS
+            ON 
+                imptos.id_cargo = interfacePMS.id_codigo AND interfacePMS.tipo_codigo = $tipo
+            INNER JOIN
+            codigos_vta
+            ON 
+                interfacePMS.id_codigo_pms = codigos_vta.id_cargo
+            INNER JOIN
+            reservas_pms
+            ON 
+                facturas_pos.id_cliente = reservas_pms.num_reserva
+        WHERE
+            facturas_pos.factura = $factura AND
+            interfacePMS.id_ambiente = $id_ambiente
+        GROUP BY 
+            producto.impto
+        ORDER BY 
+            producto.impto
+        ")->fetchAll(PDO::FETCH_ASSOC);
+            
+        return $data;
+    }
+
     public function traeDesayunoHistoricos($desdeFe, $hastaFe, $ambiente)
     {
         global $database;
@@ -32,7 +90,6 @@ class Pos_Actions
             planillaDesayunos.fecha ASC")->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     }
-
 
     public function guardaPlanillaDesayunos($fec, $res, $idh, $est)
     {
@@ -2045,7 +2102,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->query("SELECT Sum(historico_detalle_facturas_pos.cant) as canmes, Sum(historico_detalle_facturas_pos.importe) as valunimes, Sum(historico_detalle_facturas_pos.descuento) as descumes, Sum(historico_detalle_facturas_pos.valorimpto) as imptomes, Sum(historico_detalle_facturas_pos.venta) as totalmes  FROM historico_facturas_pos, historico_detalle_facturas_pos WHERE historico_facturas_pos.comanda = historico_detalle_facturas_pos.comanda AND historico_facturas_pos.ambiente = historico_detalle_facturas_pos.ambiente AND historico_facturas_pos.ambiente = '$amb' AND historico_facturas_pos.estado = 'A' AND month(historico_facturas_pos.fecha) = '$mes' AND year(historico_facturas_pos.fecha) = '$anio'  AND historico_detalle_facturas_pos.producto_id = '$codi' GROUP BY historico_detalle_facturas_pos.producto_id")->fetchAll(PDO::FETCH_ASSOC);
+        $data = $database->query("SELECT Sum(historico_detalle_facturas_pos.cant) as canmes, Sum(historico_detalle_facturas_pos.importe) as valunimes, Sum(historico_detalle_facturas_pos.descuento) as descumes, Sum(historico_detalle_facturas_pos.valorimpto) as imptomes, Sum(historico_detalle_facturas_pos.venta) as totalmes  FROM historico_facturas_pos, historico_detalle_facturas_pos WHERE historico_facturas_pos.comanda = historico_detalle_facturas_pos.comanda AND historico_facturas_pos.ambiente = historico_detalle_facturas_pos.ambiente AND historico_facturas_pos.ambiente = '$amb' AND historico_facturas_pos.estado = 'A' AND month(historico_facturas_pos.fecha) = '$mes' AND year(historico_facturas_pos.fecha) = '$anio' AND historico_detalle_facturas_pos.producto_id = '$codi' GROUP BY historico_detalle_facturas_pos.producto_id")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -3135,7 +3192,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->select('ambientes', [
+        $data = $database->get('ambientes', [
             'codigo_propina',
             'codigo_servicio',
             'codigo_venta',
@@ -3150,7 +3207,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->select('codigos_vta', [
+        $data = $database->get('codigos_vta', [
             'descripcion_cargo',
             'id_impto',
         ], [
@@ -3898,7 +3955,35 @@ class Pos_Actions
         return $data;
     }
 
-    public function productosFacturaVenta($amb, $coma){
+public function productosFacturaVenta($amb, $coma){
+        global $database;
+
+        $data = $database->query("SELECT
+            producto.nom,
+            sum( detalle_facturas_pos.cant ) AS can,
+            sum( detalle_facturas_pos.venta ) AS total,
+            sum( detalle_facturas_pos.valorimpto ) AS impto,
+            dianImpuestos.name as tipoImp,
+            dianImpuestos.id,
+            codigos_vta.descripcion_cargo,
+            codigos_vta.porcentaje_impto, 
+            codigos_vta.tipoUnidad
+        FROM
+            detalle_facturas_pos
+            INNER JOIN producto ON detalle_facturas_pos.producto_id = producto.producto_id
+            INNER JOIN codigos_vta ON producto.impto = codigos_vta.id_cargo
+            INNER JOIN dianImpuestos ON codigos_vta.identificador_dian = dianImpuestos.id 
+        WHERE
+            detalle_facturas_pos.ambiente = $amb 
+            AND detalle_facturas_pos.comanda = $coma
+        GROUP BY
+            detalle_facturas_pos.producto_id 
+        ORDER BY
+            producto.nom")->fetchAll(PDO::FETCH_ASSOC);
+            return $data;
+    }
+
+    public function productosFacturaVentaOld($amb, $coma){
         global $database;
 
         $data = $database->query("SELECT
@@ -3921,8 +4006,8 @@ class Pos_Actions
         GROUP BY
             detalle_facturas_pos.producto_id 
         ORDER BY
-            producto.nom")->fetchAll(PDO::FETCH_ASSOC);
-            return $data;
+            detalle_facturas_pos.producto_id")->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
     }
 
     public function sumaImptosFactura($amb, $coma)
@@ -3930,13 +4015,15 @@ class Pos_Actions
         global $database;
 
         $data = $database->query("SELECT 
-            sum(detalle_facturas_pos.valorimpto) as imptos, 
-            sum(detalle_facturas_pos.venta) as base, 
-	        dianImpuestos.name as tipoImp,
-	        dianImpuestos.id,
-            codigos_vta.descripcion_cargo,
-            codigos_vta.porcentaje_impto
-
+                sum(detalle_facturas_pos.valorimpto) as imptos, 
+                sum(detalle_facturas_pos.venta) as base, 
+                dianImpuestos.name as tipoImp,
+                dianImpuestos.id,
+                codigos_vta.id_cargo,
+                codigos_vta.descripcion_cargo,
+                codigos_vta.porcentaje_impto,
+                codigos_vta.tipoUnidad,
+                codigos_vta.codigo_depto
             FROM
                 detalle_facturas_pos
                 INNER JOIN
@@ -3955,10 +4042,9 @@ class Pos_Actions
                 detalle_facturas_pos.ambiente = $amb AND
                 detalle_facturas_pos.comanda = $coma 
             GROUP BY
-                dianImpuestos.id	
+                codigos_vta.id_cargo	
             order BY
-                dianImpuestos.name
-            ")->fetchAll(PDO::FETCH_ASSOC);
+                codigos_vta.id_cargo")->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     }
     

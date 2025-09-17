@@ -107,7 +107,7 @@ $pdf->SetFont('Arial', '', 9);
 foreach ($productosventa as $producto) {
     $na = $na + $producto['can'];
     $val = $val + $producto['total'];
-    $pdf->Cell(65, 4, '['.$producto['id'].']'.substr(($producto['nom']), 0, 28) , 0, 1, 'L');
+    $pdf->Cell(65, 4, '['.$producto['tipoUnidad'].']'.substr(($producto['nom']), 0, 28) , 0, 1, 'L');
     $pdf->Cell(35, 4, '', 0, 0, 'R');
     $pdf->Cell(10, 4, $producto['can'], 0, 0, 'R');
     $pdf->Cell(20, 4, number_format($producto['total'], 2, ',', '.'), 0, 1, 'R');
@@ -127,8 +127,7 @@ $pdf->Cell(20, 4, 'IMPTO', 0, 1, 'R');
 $totImpto = 0;
 $pdf->SetFont('Arial', '', 8);
 foreach ($imptos as $key => $impto) {
-  $pdf->Cell(10, 4, '['.$impto['id'].'] '.$impto['tipoImp'] , 0, 0, 'L');
-  // $pdf->Cell(30, 4, $impto['descripcion_cargo'] , 0, 0, 'L');
+  $pdf->Cell(10, 4, '['.$impto['tipoUnidad'].'] '.$impto['codigo_depto'] , 0, 0, 'L');
   $pdf->Cell(10, 4, $impto['porcentaje_impto'] , 0, 0, 'R');
   $pdf->Cell(25, 4, number_format($impto['base'],2) , 0, 0, 'R');
   $pdf->Cell(20, 4, number_format($impto['imptos'],2) , 0, 1, 'R');

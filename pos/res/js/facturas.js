@@ -308,10 +308,12 @@ async function pagarFactura() {
   let roomservice = $("#servicio").val();
 
   if (totalCta - pago <= 0) {
-    let factura = await guardaFactura();
-    let impre = await imprimeFactura(factura);
+    let numero = await guardaFactura();
+    console.log(numero)
+
+    let impre = await imprimeFactura(numero);
     let ver = await muestraFactura(impre);
-    let inven = await descargarInventario(comanda, factura);
+    let inven = await descargarInventario(comanda, numero);
     let limpia = await limpiaLista();
     await mensaje();
     await enviaInicio();
@@ -349,10 +351,8 @@ async function muestraFactura(imprime) {
 }
 
 function guardarCuentaRecuperadaPlano() {
-  let {
-    pos,
-    user: { usuario },
-  } = sesion;
+  oPos = JSON.parse(localStorage.getItem("oPos"));
+  let { pos, user: { usuario }, } = sesion;
   let { id_ambiente, impuesto, nombre, fecha_auditoria } = oPos;
 
   imptoIncl = impuesto;
@@ -396,11 +396,11 @@ function guardarCuentaRecuperadaPlano() {
   }
 
   var parametros = {
-    user: usuario,
-    idamb: id_ambiente,
+    usuario,
+    id_ambiente,
     imptoIncl,
-    nomamb: nombre,
-    fecha: fecha_auditoria,
+    nombre,
+    fecha_auditoria,
     comanda,
     productos,
   };
@@ -411,7 +411,7 @@ function guardarCuentaRecuperadaPlano() {
     url: "res/php/user_actions/getGuardaComandaRecu.php",
     beforeSend: function (objeto) {},
     success: function (datos) {
-      imprime = imprimeComandaVenRecu();
+      imprime = imprimeComandaVenRecu(comanda);
       setTimeout(() => {
         enviaInicio();
       }, 3000);
@@ -441,8 +441,8 @@ async function limpiaLista() {
   $("#myModalAnulaComanda").modal("hide");
   $("#numeroComanda").val(0);
   $("#abonosComanda").val(0);
-  $("#tituloNumero").removeClass("alert-success");
-  $("#tituloNumero").addClass("alert-info");
+/*   $("#tituloNumero").removeClass("alert-success");
+  $("#tituloNumero").addClass("alert-info"); */
   $("#tituloNumero").html("Informacion Comanda");
   $(".prende").css("display", "none");
   localStorage.removeItem("productoComanda");
@@ -784,9 +784,9 @@ async function imprimeFactura(factura) {
   parametros = {
     logo,
     rs,
-    factura,
     id_ambiente,
     prefijo,
+    factura,
   };
 
   try {
@@ -992,10 +992,7 @@ function guardarCuentaRecuperada() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let {
-    pos,
-    user: { usuario },
-  } = sesion;
+  let {pos, user: { usuario },} = sesion;
   let { id_ambiente, impuesto, nombre, fecha_auditoria } = oPos;
 
   $("#recuperarComanda").val(0);
@@ -1011,7 +1008,7 @@ function guardarCuentaRecuperada() {
 
   $("#seccionList").css("display", "none");
 
-  $("#tituloComanda").removeClass("col-lg-6");
+  $("#tituloComanda").removeClass("col-lg-5");
   $("#tituloComanda").addClass("col-lg-12");
   $("#tituloBusca").css("display", "none");
 
@@ -1030,9 +1027,7 @@ function guardarCuentaRecuperada() {
   var comanda = $("#numeroComanda").val();
   var recuperar = $("#recuperarComanda").val();
   var productos = JSON.parse(localStorage.getItem("productoComanda"));
-  // console.log(productos);
   const nuevosprod = productos.filter((producto) => producto.activo === 0);
-  // console.log(nuevosprod)
 
   if (nuevosprod.length == 0) {
     swal({
@@ -1047,11 +1042,11 @@ function guardarCuentaRecuperada() {
   }
 
   var parametros = {
-    user: usuario,
-    idamb: id_ambiente,
-    imptoIncl: impuesto,
-    nomamb: nombre,
-    fecha: fecha_auditoria,
+    usuario,
+    id_ambiente,
+    impuesto,
+    nombre,
+    fecha_auditoria,
     comanda,
     nuevosprod,
   };
@@ -1065,7 +1060,7 @@ function guardarCuentaRecuperada() {
       $("#productosComanda >table >tbody >tr").remove();
       let productos = localStorage.getItem("productoComanda");
 
-      imprime = imprimeComandaVenRecu();
+      imprime = imprimeComandaVenRecu(comanda);
       if (productos == null) {
         listaComanda = [];
       } else {
@@ -1154,7 +1149,6 @@ function guardarProductosPago() {
     beforeSend: function (objeto) {},
     success: function (datos) {
       $("#numeroComanda").val(datos);
-      console.log($("#numeroComanda"));
       $("#comandaPag").val(datos);
     },
   });
@@ -1199,13 +1193,24 @@ function guardarProductos() {
   });
 }
 
-function imprimeComandaVenRecu() {
+function imprimeComandaVenRecu(comanda) {
+  let sesion = JSON.parse(localStorage.getItem("sesion"));
+  let { pos, user: { usuario }, } = sesion;
+  let oPos = JSON.parse(localStorage.getItem("oPos"));
+  let { id_ambiente, impuesto, nombre, fecha_auditoria, prefijo } = oPos;
+
   var productos = JSON.parse(localStorage.getItem("productoComanda"));
   $.ajax({
     url: "res/php/user_actions/imprimeComandaRecupera.php",
     type: "POST",
     data: {
-      produc: productos,
+      productos,
+      prefijo,
+      id_ambiente,
+      comanda,
+      nombre,
+      fecha_auditoria,
+      usuario,
     },
     success: function (data) {
       imprime = $.trim(data);

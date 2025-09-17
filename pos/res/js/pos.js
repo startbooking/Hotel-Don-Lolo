@@ -3359,7 +3359,8 @@ function recuperarCuenta() {
   $("#ventasList").addClass("col-lg-5 col-md-5");
   $("#muestraNumero").addClass("col-lg-5 col-md-5 col-xs-12");
   $("#muestraNumero2").addClass("col-lg-12 col-md-12 col-xs-12");
-  $("#muestraComanda").addClass("col-lg-7 col-md-7 col-xs-12");
+  $("#muestraComanda").removeClass("col-lg-6 col-md-6");
+  $("#muestraComanda").addClass("col-lg-7 col-md-7");
   $("#tituloComanda").html(
     "<h4 style='padding:2px;text-align: center;font-weight: bold;margin:0'>Tipo de Producto</h4>"
   );
@@ -4568,7 +4569,6 @@ function ventasDia() {
 
 async function cuentasActivas() {
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  console.log({ usuario, usuario_id, tipo });
 
   let {
     id_ambiente,

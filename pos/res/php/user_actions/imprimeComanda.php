@@ -41,7 +41,6 @@ $pdf->Ln(3);
 $pdf->SetFont('Arial', '', 10);
 $pdf->Cell(65, 4, 'Mesero: '.$usuario, 0, 1, 'L');
 $pdf->Ln(3);
-$pdf->SetFont('Arial', '', 6);
 $file = '../../../impresiones/comandaCocina_'.$prefijo.'_'.$comanda.'.pdf';
 $pdf->Output($file, 'F');
 echo 'comandaCocina_'.$prefijo.'_'.$comanda.'.pdf';
