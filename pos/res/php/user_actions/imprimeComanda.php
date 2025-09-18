@@ -1,6 +1,4 @@
 <?php
-
-// require '../../../../res/php/titles.php';
 require '../../../../res/php/app_topPos.php';
 require '../../../../res/fpdf/fpdf.php';
 extract($_POST);
@@ -16,10 +14,8 @@ $pdf = new FPDF('P', 'mm', [76, 250]);
 $pdf->AddPage();
 $pdf->SetMargins(5, 5, 5);
 $pdf->Ln(2);
-
 $pdf->SetFont('Arial', 'B', 11);
 $pdf->Cell(65, 4, (NAME_EMPRESA), 0, 1, 'C');
-
 $pdf->SetFont('Arial', '', 10);
 $pdf->MultiCell(65, 4, $nombre, 0, 'C');
 $pdf->Ln(1);

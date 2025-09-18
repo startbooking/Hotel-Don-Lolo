@@ -132,7 +132,6 @@ foreach ($imptos as $key => $impto) {
   $pdf->Cell(25, 4, number_format($impto['base'],2) , 0, 0, 'R');
   $pdf->Cell(20, 4, number_format($impto['imptos'],2) , 0, 1, 'R');
   $totImpto = $totImpto + $impto['imptos'];
-  # code...
 }
 $pdf->Ln(2);
 

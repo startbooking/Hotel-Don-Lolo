@@ -1,15 +1,27 @@
-[16-Sep-2025 20:24:09 America/Bogota] PHP Warning:  PDOStatement::execute(): SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.tupoUnidad 
-        FROM
-            detalle_facturas_pos
-            INNER JOI' at line 10 in /var/www/donlolo.lan/res/php/Medoo.php on line 629
-[16-Sep-2025 20:24:09 America/Bogota] PHP Fatal error:  Uncaught Error: Call to a member function fetchAll() on null in /var/www/donlolo.lan/res/php/functionsPos.php:3982
+[17-Sep-2025 09:21:21 America/Bogota] PHP Warning:  PDOStatement::execute(): SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FROM
+                ventas_dia_pos
+                INNER JOIN
+                p' at line 11 in /var/www/donlolo.lan/res/php/Medoo.php on line 629
+[17-Sep-2025 09:21:21 America/Bogota] PHP Fatal error:  Uncaught Error: Call to a member function fetchAll() on null in /var/www/donlolo.lan/res/php/functionsPos.php:1267
 Stack trace:
-#0 /var/www/donlolo.lan/pos/res/php/user_actions/imprime_factura.php(56): Pos_Actions->productosFacturaVenta()
+#0 /var/www/donlolo.lan/pos/res/php/user_actions/imprimeEstadoCuenta.php(26): Pos_Actions->sumaImptosComanda()
 #1 {main}
-  thrown in /var/www/donlolo.lan/res/php/functionsPos.php on line 3982
-[16-Sep-2025 20:25:40 America/Bogota] PHP Warning:  PDOStatement::execute(): SQLSTATE[42S22]: Column not found: 1054 Unknown column 'codigos_vta.tupoUnidad' in 'field list' in /var/www/donlolo.lan/res/php/Medoo.php on line 629
-[16-Sep-2025 20:25:40 America/Bogota] PHP Fatal error:  Uncaught Error: Call to a member function fetchAll() on null in /var/www/donlolo.lan/res/php/functionsPos.php:3982
+  thrown in /var/www/donlolo.lan/res/php/functionsPos.php on line 1267
+[17-Sep-2025 09:21:30 America/Bogota] PHP Warning:  PDOStatement::execute(): SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FROM
+                ventas_dia_pos
+                INNER JOIN
+                p' at line 11 in /var/www/donlolo.lan/res/php/Medoo.php on line 629
+[17-Sep-2025 09:21:30 America/Bogota] PHP Fatal error:  Uncaught Error: Call to a member function fetchAll() on null in /var/www/donlolo.lan/res/php/functionsPos.php:1267
 Stack trace:
-#0 /var/www/donlolo.lan/pos/res/php/user_actions/imprime_factura.php(56): Pos_Actions->productosFacturaVenta()
+#0 /var/www/donlolo.lan/pos/res/php/user_actions/imprimeEstadoCuenta.php(26): Pos_Actions->sumaImptosComanda()
 #1 {main}
-  thrown in /var/www/donlolo.lan/res/php/functionsPos.php on line 3982
+  thrown in /var/www/donlolo.lan/res/php/functionsPos.php on line 1267
+[17-Sep-2025 09:22:40 America/Bogota] PHP Warning:  PDOStatement::execute(): SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FROM
+                ventas_dia_pos
+                INNER JOIN
+                p' at line 11 in /var/www/donlolo.lan/res/php/Medoo.php on line 629
+[17-Sep-2025 09:22:40 America/Bogota] PHP Fatal error:  Uncaught Error: Call to a member function fetchAll() on null in /var/www/donlolo.lan/res/php/functionsPos.php:1267
+Stack trace:
+#0 /var/www/donlolo.lan/pos/res/php/user_actions/imprimeEstadoCuenta.php(26): Pos_Actions->sumaImptosComanda()
+#1 {main}
+  thrown in /var/www/donlolo.lan/res/php/functionsPos.php on line 1267

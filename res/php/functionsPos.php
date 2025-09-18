@@ -1211,8 +1211,13 @@ class Pos_Actions
             'ventas_dia_pos.valorimpto',
             'ventas_dia_pos.descuento',
             'ventas_dia_pos.importe',
+            'codigos_vta.id_cargo',
+            'codigos_vta.descripcion_cargo',
+            'codigos_vta.porcentaje_impto',
+            'codigos_vta.tipoUnidad',
             'dianImpuestos.id',
             'dianImpuestos.name',
+
         ], [
             'ventas_dia_pos.ambiente' => $amb,
             'ventas_dia_pos.comanda' => $coma,
@@ -1228,13 +1233,14 @@ class Pos_Actions
         global $database;
 
         $data = $database->query("SELECT 
-            sum(ventas_dia_pos.valorimpto) as imptos, 
-            sum(ventas_dia_pos.venta) as base, 
-	        dianImpuestos.name,
-	        dianImpuestos.id,
-            codigos_vta.descripcion_cargo,
-            codigos_vta.porcentaje_impto
-
+                sum(ventas_dia_pos.valorimpto) as imptos, 
+                sum(ventas_dia_pos.venta) as base, 
+                dianImpuestos.name,
+                dianImpuestos.id,
+                codigos_vta.descripcion_cargo,
+                codigos_vta.porcentaje_impto,
+                codigos_vta.tipoUnidad,
+                codigos_vta.codigo_depto
             FROM
                 ventas_dia_pos
                 INNER JOIN
@@ -1254,10 +1260,9 @@ class Pos_Actions
                 ventas_dia_pos.comanda = $coma AND
                 ventas_dia_pos.estado = 0
             GROUP BY
-                dianImpuestos.id	
+                codigos_vta.id_cargo	
             order BY
-                dianImpuestos.name
-            ")->fetchAll(PDO::FETCH_ASSOC);
+                codigos_vta.id_cargo")->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     }
 

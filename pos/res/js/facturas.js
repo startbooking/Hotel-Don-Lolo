@@ -562,10 +562,7 @@ function imprimeEstadoCuenta() {
   comanda = $("#numeroComanda").val();
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  let {
-    pos,
-    user: { usuario },
-  } = sesion;
+  let { pos, user: { usuario }, } = sesion;
   let { id_ambiente, fecha_auditoria, nombre, logo } = oPos;
 
   parametros = {

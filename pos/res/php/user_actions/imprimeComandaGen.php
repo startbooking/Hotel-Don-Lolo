@@ -13,7 +13,7 @@ $pax = $datosmesa['pax'];
 $mesa = $datosmesa['mesa'];
 $fec = $datosmesa['fecha'];
 
-$pdf = new FPDF('P', 'mm', [76, 350]);
+$pdf = new FPDF('P', 'mm', [76, 250]);
 $pdf->AddPage();
 $pdf->SetMargins(5, 5, 5);
 $pdf->SetFont('Arial', 'B', 11);
@@ -28,7 +28,7 @@ $pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell(55, 4, 'PRODUCTO', 0, 0, 'C');
 $pdf->Cell(10, 4, 'CANT.', 0, 1, 'C');
 $pdf->Ln(2);
-$pdf->SetFont('Arial', '', 10);
+$pdf->SetFont('Arial', '', 9);
 
 foreach ($productos as $producto) {
     $pdf->Cell(55, 4, (substr($producto['producto'], 0, 23)), 0, 0, 'L');
@@ -36,7 +36,7 @@ foreach ($productos as $producto) {
 }
 
 $pdf->Ln(3);
-$pdf->SetFont('Arial', '', 10);
+$pdf->SetFont('Arial', '', 9);
 $pdf->Cell(65, 4, 'Mesero : '.$usuario, 0, 1, 'L');
 $pdf->Ln(3);
 
