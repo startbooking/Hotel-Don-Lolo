@@ -1,16 +1,18 @@
 <?php
-
+require_once '../../res/php/app_topPos.php'; 
 require_once '../../res/fpdf/fpdf.php';
+extract($_POST);
 
 $pdf = new FPDF();
 $pdf->AddPage('P', 'letter');
 $pdf->Image('../../img/'.$logo, 10, 10, 15);
-$pdf->SetFont('Arial', 'B', 13);
-$pdf->Cell(190, 5, $nomamb, 0, 1, 'C');
-
+$pdf->SetFont('Arial', 'B', 11);
+$pdf->Cell(195, 4, NAME_EMPRESA, 0, 1, 'C');
+$pdf->Cell(195, 4, $nombre, 0, 1, 'C');
 $pdf->SetFont('Arial', '', 11);
-$pdf->Cell(195, 5, 'COMANDAS ACTIVAS ', 0, 1, 'C');
-$pdf->Cell(195, 5, 'Fecha: '.$fecha, 0, 1, 'C');
+$pdf->Cell(195, 4, 'COMANDAS ACTIVAS ', 0, 1, 'C');
+$pdf->Cell(195, 4, 'Fecha: '.$fecha_auditoria, 0, 1, 'C');
+$pdf->ln(2);
 $pdf->SetFont('Arial', 'B', 9);
 $pdf->Cell(20, 5, 'Comanda.', 1, 0, 'C');
 $pdf->Cell(20, 5, 'Mesa ', 1, 0, 'C');
@@ -19,7 +21,7 @@ $pdf->Cell(40, 5, 'Usuario', 1, 0, 'C');
 $pdf->Cell(25, 5, 'Hora Comanda', 1, 1, 'C');
 $pdf->SetFont('Arial', '', 9);
 
-$comandas = $pos->getComandasActivas($idamb, 'A');
+$comandas = $pos->getComandasActivas($id_ambiente, 'A');
 
 $monto = 0;
 $impto = 0;

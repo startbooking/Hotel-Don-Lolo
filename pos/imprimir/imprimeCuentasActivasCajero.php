@@ -1,15 +1,20 @@
 <?php
 
 require_once '../../res/fpdf/fpdf.php';
+require_once '../../res/php/titles.php';
+require_once '../../res/php/app_topPos.php';
+
+extract($_POST);
+
 $pdf = new FPDF();
 $pdf->AddPage('P', 'letter');
 $pdf->Image('../../img/'.$logo, 10, 10, 15);
-$pdf->SetFont('Arial', 'B', 12);
-$pdf->Cell(195, 5, $nomamb, 0, 1, 'C');
-// $pdf->Ln(1);
+$pdf->SetFont('Arial', 'B', 11);
+$pdf->Cell(195, 4, NAME_EMPRESA, 0, 1, 'C');
+$pdf->Cell(195, 4, $nombre, 0, 1, 'C');
 $pdf->SetFont('Arial', '', 10);
-$pdf->Cell(195, 4, 'COMANDAS ACTIVAS', 0, 1, 'C');
-$pdf->Cell(195, 4, 'Usuario '.$user.' Fecha: '.$fecha, 0, 1, 'C');
+$pdf->Cell(195, 4, 'COMANDAS ACTIVAS '.$usuario, 0, 1, 'C');
+$pdf->Cell(195, 4, ' Fecha: '.$fecha_auditoria, 0, 1, 'C');
 $pdf->SetFont('Arial', 'B', 10);
 $pdf->Ln(2);
 
@@ -19,12 +24,11 @@ $pdf->Cell(20, 5, 'PAX. ', 1, 0, 'C');
 $pdf->Cell(30, 5, 'Usuario', 1, 0, 'C');
 $pdf->Cell(10, 5, 'Hora', 1, 1, 'C');
 $pdf->SetFont('Arial', '', 9);
-$comandas = $pos->getComandasActivasCajero($idamb, 'A', $user);
+$comandas = $pos->getComandasActivasCajero($id_ambiente, 'A', $usuario);
 $monto = 0;
 $impto = 0;
 $total = 0;
 if (count($comandas) == 0) {
-    // $pdf->Ln(2);
     $pdf->Cell(100, 5, 'SIN COMANDAS ACTIVAS', 1, 1, 'C');
     $pdf->Ln(2);
 } else {

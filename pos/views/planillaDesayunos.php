@@ -1,15 +1,18 @@
 <?php
+require '../../res/php/app_topPos.php';
+
   $encasa = json_decode(file_get_contents('php://input'), true);
-
-
+  extract($encasa);
 ?>
 
-<div class="container-fluid" style="margin-bottom:50px;">
-  <div class="panel panel-default">
+<div class="container-fluid pd10" style="margin-bottom:50px;">
+  <div class="panel panel-info">
     <div class="panel-heading">
       <div class="row">
         <div class="col-lg-12">
-          <h1 style="font-size:34px;text-align:center">Planilla Desayuno Huespedes </h1>
+          <h1 class="pd0" style="font-size:24px;font-weight: bold;text-align:center; margin:5px 0;">Planilla Desayuno Huespedes </h1>
+          <!-- <h3 class="pd0" style="font-size:22px;text-align:center; margin:10px;"><?=NAME_EMPRESA?> </h3> -->
+          <h3 class="pd0" style="font-size:20px;text-align:center; margin:0px;">Fecha: <?=$fecha ?> </h3>
         </div>
       </div>
     </div>
@@ -27,7 +30,7 @@
           </thead>
           <tbody id="dataHuespedes">
           <?php 
-              foreach ($encasa as $indice => $huesped) { ?>
+              foreach ($huespedes as $indice => $huesped) { ?>
                 <tr>
                   <td>
                       <?php echo $huesped["num_habitacion"];?>

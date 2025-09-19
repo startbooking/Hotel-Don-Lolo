@@ -1,18 +1,22 @@
 <?php
-
-$detalles = $pos->getDetalleFacturaCajerosDia('A', $user, $idamb);
-
 require_once '../../res/fpdf/fpdf.php';
+require_once '../../res/php/app_topPos.php';
+extract($_POST);
+
+$detalles = $pos->getDetalleFacturaCajerosDia('A', $usuario, $id_ambiente);
 
 $pdf = new FPDF();
 $pdf->AddPage('L', 'letter');
 $pdf->Image('../../img/'.$logo, 10, 10, 15);
 
 $pdf->SetFont('Arial', 'B', 11);
-$pdf->Cell(260, 5, $nomamb, 0, 1, 'C');
+$pdf->Cell(260, 4, NAME_EMPRESA, 0, 1, 'C');
+$pdf->Cell(260, 4, $nombre, 0, 1, 'C');
 $pdf->SetFont('Arial', '', 10);
-$pdf->Cell(260, 5, 'Usuario '.$user.' Fecha '.$fecha, 0, 1, 'C');
-$pdf->Cell(260, 5, 'FACTURAS GENERADAS POR CAJERO', 0, 1, 'C');
+$pdf->Cell(260, 4, 'FACTURAS POR CAJERO '.$usuario, 0, 1, 'C');
+$pdf->Cell(260, 4, 'Fecha '.$fecha_auditoria, 0, 1, 'C');
+$pdf->Ln(2);
+
 $pdf->SetFont('Arial', 'B', 9);
 $pdf->Cell(15, 5, 'Fact.', 1, 0, 'C');
 $pdf->Cell(15, 5, 'Com. ', 1, 0, 'C');

@@ -1,8 +1,9 @@
 <?php
-require '../../res/php/titles.php';
+// require '../../res/php/titles.php';
 require '../../res/php/app_topPos.php';
+extract($_POST);
 
-$idamb  = $_POST['id'];
+/* $idamb  = $_POST['id'];
 $nomamb = $_POST['amb'];
 $user   = $_POST['user'];
 $iduser = $_POST['iduser'];
@@ -16,7 +17,7 @@ $_SESSION['NOMBRE_AMBIENTE'] = $nomamb;
 $_SESSION['AMBIENTE_ID']     = $idamb;
 $_SESSION['usuario']         = $user;
 $_SESSION['usuario_id']      = $iduser;
-
+ */
 ?>
 
 <section class="content">

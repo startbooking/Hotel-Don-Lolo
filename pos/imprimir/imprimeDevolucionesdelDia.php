@@ -1,18 +1,20 @@
 <?php
-
+  require_once '../../res/php/app_topPos.php'; 
 require_once '../../res/fpdf/fpdf.php';
+extract($_POST);
 
 $pdf = new FPDF();
 $pdf->AddPage('P', 'letter');
 $pdf->Image('../../img/'.$logo, 10, 10, 15);
 
 $pdf->SetFont('Arial', 'B', 11);
-$pdf->Cell(195, 5, $nomamb, 0, 1, 'C');
+$pdf->Cell(195, 5, NAME_EMPRESA, 0, 1, 'C');
+$pdf->Cell(195, 5, $nombre, 0, 1, 'C');
 $pdf->SetFont('Arial', '', 10);
 $pdf->Cell(195, 4, 'DEVOLUCION DE PRODUCTOS ', 0, 1, 'C');
-$pdf->Cell(195, 4, 'Fecha '.$fecha, 0, 1, 'C');
+$pdf->Cell(195, 4, 'Fecha '.$fecha_auditoria, 0, 1, 'C');
 $pdf->ln(1);
-$devoluciones = $pos->getDevolucionesDia($idamb);
+$devoluciones = $pos->getDevolucionesDia($id_ambiente);
 
 $monto = 0;
 $impto = 0; 
@@ -32,7 +34,7 @@ if (count($devoluciones) == 0) {
     foreach ($devoluciones as $comanda) {
       $pdf->Cell(20, 5, $comanda['comanda'], 0, 0, 'C');
       $pdf->Cell(20, 5, $comanda['mesa'], 0, 0, 'C');
-      $pdf->Cell(55, 5, ($comanda['nom']), 0, 0, 'L');
+      $pdf->Cell(55, 5, substr($comanda['nom'],0,28), 0, 0, 'L');
       $pdf->Cell(15, 5, $comanda['cantidad_devo'], 0, 0, 'C');
       $pdf->Cell(65, 5, ($comanda['motivo_devo']), 0, 0, 'L');
       $pdf->Cell(25, 5, $comanda['usuario_devo'], 0, 1, 'L');

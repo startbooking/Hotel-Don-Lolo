@@ -1,6 +1,9 @@
 <?php
+require_once '../../res/fpdf/fpdf.php';
+require_once '../../res/php/app_topPos.php';
+extract($_POST);
 
-$detalles = $pos->getDetalleFacturaAnuladaCajeroDia('X', $user, $idamb);
+$detalles = $pos->getDetalleFacturaAnuladaCajeroDia('X', $usuario, $id_ambiente);
 
 require_once '../../res/fpdf/fpdf.php';
 
@@ -8,12 +11,15 @@ $pdf = new FPDF();
 $pdf->AddPage('L', 'letter');
 $pdf->Image('../../img/'.$logo, 10, 10, 15);
 
-$pdf->SetFont('Arial', 'B', 13);
-$pdf->Cell(260, 5, $nomamb, 0, 1, 'C');
-$pdf->Ln(1);
+$pdf->SetFont('Arial', 'B', 11);
+$pdf->Cell(260, 4, NAME_EMPRESA, 0, 1, 'C');
+$pdf->Cell(260, 4, $nombre, 0, 1, 'C');
+// $pdf->Ln(1);
 $pdf->SetFont('Arial', '', 10);
-$pdf->Cell(260, 4, 'Usuario '.$user.' Fecha '.$fecha, 0, 1, 'C');
-$pdf->Cell(260, 4, 'DETALLE FACTURAS ANULADAS ', 0, 1, 'C');
+$pdf->Cell(260, 4, 'FACTURAS ANULADAS POR CAJERO '.$usuario, 0, 1, 'C');
+$pdf->Cell(260, 4, 'Fecha '.$fecha_auditoria, 0, 1, 'C');
+$pdf->Ln(2);
+
 $pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell(20, 5, 'Fact.', 1, 0, 'C');
 $pdf->Cell(20, 5, 'Com. ', 1, 0, 'C');
@@ -33,7 +39,7 @@ $tota = 0;
 $desc = 0;
 
 if (count($detalles) == 0) {
-    $pdf->SetFont('Arial', 'B', 10);
+    $pdf->SetFont('Arial', '', 10);
     $pdf->Cell(260, 5, 'SIN FACTURA ANULADAS EN EL DIA ', 1, 1, 'C');
 } else {
     foreach ($detalles as $detalle) {

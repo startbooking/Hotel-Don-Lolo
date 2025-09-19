@@ -10,7 +10,7 @@ $user = $_POST['user'];
 $comandas = $pos->getComandasActivas($idamb, 'X');
 
 ?>
-<div class="row-fluid">
+<div class="row-fluid pd10">
   <div class="content-fluid" style="margin-bottom: 50px">
     <div class="panel panel-success">
       <div class="panel-heading">
@@ -26,8 +26,8 @@ $comandas = $pos->getComandasActivas($idamb, 'X');
             <?php
             $regis = count($comandas);
             if ($regis == 0) { ?>
-              <div class="container-fluid">
-                <h4 class="bg-red-gradient" style="padding:10px;text-align: center;font-weight: 600;width: 30%">Sin Comandas Anuladas En el Dia <span style="font-size:16px;font-weight: 600;font-family: 'ubuntu'"></span></h4>
+              <div class="container-fluid d-flex jcc">
+                <h4 class="bg-red-gradient" style="padding:10px;text-align: center;font-weight: 600;width: 50%">Sin Comandas Anuladas En el Dia <span style="font-size:16px;font-weight: 600;font-family: 'ubuntu'"></span></h4>
               </div>
             <?php
             } else { ?>

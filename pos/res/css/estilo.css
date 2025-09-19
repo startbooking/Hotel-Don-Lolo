@@ -4,7 +4,7 @@
 
 #pantalla {
   /* min-height: 570px; */
-    display: inline;
+    /* display: inline; */
     align-items: center; /* Esto alinea los elementos verticalmente */
     justify-content: center; /* Esto alinea los elementos horizontalmente */
     /* height: 100vh;  */

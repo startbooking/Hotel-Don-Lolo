@@ -15,12 +15,6 @@ $codigos = $admin->getCodigosVentas(1);
             <input type="hidden" name="ubicacion" id="ubicacion" value="ambientes">
             <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-cube"></i> Ambientes POS </h3>
           </div> 
-          <!-- <div class="col-lg-6" align="right">
-            <a 
-              data-toggle="modal" 
-              style="margin:20px 0" type="button" class="btn btn-success" href="#myModalAdicionarAmbiente">
-              <i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Adicionar Ambiente</a>
-          </div> -->
         </div>
       </div>
       <div class="panel-body">

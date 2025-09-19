@@ -1,15 +1,17 @@
 <?php
-
+require_once '../../res/php/app_topPos.php'; 
 require_once '../../res/fpdf/fpdf.php';
+extract($_POST);
 
 $pdf = new FPDF();
 $pdf->AddPage('P', 'letter');
 $pdf->Image('../../img/'.$logo, 10, 10, 15);
 $pdf->SetFont('Arial', 'B', 11);
-$pdf->Cell(195, 6, $nomamb, 0, 1, 'C');
+$pdf->Cell(195, 4, NAME_EMPRESA, 0, 1, 'C');
+$pdf->Cell(195, 4, $nombre, 0, 1, 'C');
 $pdf->SetFont('Arial', '', 10);
 $pdf->Cell(195, 4, 'COMANDAS ANULADAS ', 0, 1, 'C');
-$pdf->Cell(195, 4, 'Fecha '.$fecha, 0, 1, 'C');
+$pdf->Cell(195, 4, 'Fecha '.$fecha_auditoria, 0, 1, 'C');
 $pdf->Ln(1);
 $pdf->SetFont('Arial', 'B', 9);
 $pdf->Cell(20, 5, 'Comanda.', 1, 0, 'C');
@@ -20,7 +22,7 @@ $pdf->Cell(20, 5, 'Hora', 1, 0, 'C');
 $pdf->Cell(80, 5, 'Motivo', 1, 1, 'C');
 $pdf->SetFont('Arial', '', 9);
 
-$comandas = $pos->getComandasActivas($idamb, 'X');
+$comandas = $pos->getComandasActivas($id_ambiente, 'X');
 
 $monto = 0;
 $impto = 0;

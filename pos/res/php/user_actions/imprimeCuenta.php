@@ -26,8 +26,8 @@ $pdf->SetMargins(10, 10, 10);
 $pdf->AddPage();
 // $pdf->Image('../../../../img/'.$logo,2,3,20);
 /* $pdf->SetFont('Arial','B',14);
-*/
 $pdf->Cell(100, 5, (NAME_EMPRESA), 0, 1, 'C');
+*/
 $pdf->Cell(100, 5, (NAME_EMPRESA), 0, 1, 'C');
 
 $pdf->Cell(100, 5, $nomamb, 0, 1, 'C');

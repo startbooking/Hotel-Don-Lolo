@@ -1,28 +1,20 @@
 <?php
-  require '../../res/php/titles.php';
-  require '../../res/php/app_topPos.php';
+require '../../res/php/titles.php';
+require '../../res/php/app_topPos.php';
+extract($_POST);
 
-  $idamb = $_POST['id'];
-  $nomamb = $_POST['amb'];
-  $user = $_POST['user'];
-  $iduser = $_POST['iduser'];
-  $impto = $_POST['impto'];
-  $prop = $_POST['prop'];
-  $logo = $_POST['logo'];
-  $fecha = $_POST['fecha'];
+$dia = strtotime('-1 day', strtotime($fecha_auditoria));
+$ayer = date('Y-m-d', $dia);
+$inicial = date('Y-m-01', $dia);
 
-  $dia = strtotime('-1 day', strtotime($fecha));
-  $ayer = date('Y-m-d', $dia);
-  $inicial = date('Y-m-01', $dia);
-
-  ?> 
+?>
 <section class="content centrar">
   <div class="container">
-    <div class="panel panel-success"> 
+    <div class="panel panel-success">
       <div class="panel-heading">
         <div class="row">
           <div class="col-md-6">
-            <input type="hidden" name="usuarioActivo" id="usuarioActivo" value="<?php echo $user; ?>">
+            <input type="hidden" name="usuarioActivo" id="usuarioActivo" value="<?php echo $usuario; ?>">
             <input type="hidden" name="rutaweb" id="rutaweb" value="<?php echo BASE_PMS; ?>">
             <input type="hidden" name="ubicacion" id="ubicacion" value="historicoProductos">
             <h3 class="w3ls_head tituloPagina">
@@ -33,21 +25,21 @@
             <button class="btn btn-success btnTitle" type="buttom" onclick='historicoBalanceCaja()'><i class="fa fa-print" aria-hidden="true"></i> Imprimir</button>
           </div>
         </div>
-      </div>  
+      </div>
       <div class="panel-body ">
         <div class="form-horizontal">
           <div class="form-group">
             <label class="control-label col-md-2">Desde Fecha</label>
             <div class="col-lg-3 col-md-3">
-              <input class="form-control" type="date" min="1" name="desdeFecha" id='desdeFecha' value='<?=$inicial?>' style="line-height:16px" required>
+              <input class="form-control" type="date" min="1" name="desdeFecha" id='desdeFecha' value='<?= $inicial ?>' style="line-height:16px" required>
             </div>
             <label class="control-label col-md-2">Hasta Fecha</label>
             <div class="col-lg-3 col-md-3">
-              <input class="form-control" type="date" min="1" name="hastaFecha" id='hastaFecha' value='<?=$ayer?>' style="line-height:16px" required>
+              <input class="form-control" type="date" min="1" name="hastaFecha" id='hastaFecha' value='<?= $ayer ?>' style="line-height:16px" required>
             </div>
           </div>
           <div class="imprimeInforme" style="margin-top:20px;">
-            <object type="application/pdf" id="verInforme" width="100%" height="500" data=""></object> 
+            <object type="application/pdf" id="verInforme" width="100%" height="500" data=""></object>
           </div>
         </div>
       </div>

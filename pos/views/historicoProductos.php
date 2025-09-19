@@ -1,17 +1,18 @@
 <?php
 require '../../res/php/titles.php';
 require '../../res/php/app_topPos.php';
+extract($_POST);
 
-$idamb = $_POST['id'];
+/* $idamb = $_POST['id'];
 $nomamb = $_POST['amb'];
 $user = $_POST['user'];
 $iduser = $_POST['iduser'];
 $impto = $_POST['impto'];
 $prop = $_POST['prop'];
 $logo = $_POST['logo'];
-$fecha = $_POST['fecha'];
+$fecha = $_POST['fecha']; */
 
-$dia = strtotime('-1 day', strtotime($fecha));
+$dia = strtotime('-1 day', strtotime($fecha_auditoria));
 $ayer = date('Y-m-d', $dia);
 $inicial = date('Y-m-01', $dia);
 
@@ -22,7 +23,7 @@ $inicial = date('Y-m-01', $dia);
       <div class="panel-heading">
         <div class="row">
           <div class="col-md-6">
-            <input type="hidden" name="usuarioActivo" id="usuarioActivo" value="<?php echo $user; ?>">
+            <input type="hidden" name="usuarioActivo" id="usuarioActivo" value="<?php echo $usuario; ?>">
             <input type="hidden" name="rutaweb" id="rutaweb" value="<?php echo BASE_PMS; ?>">
             <input type="hidden" name="ubicacion" id="ubicacion" value="historicoProductos">
             <h3 class="w3ls_head tituloPagina">

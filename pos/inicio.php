@@ -24,7 +24,7 @@
         include_once 'menus/menu_pos.php';
       ?>
       <div class="content-wrapper" id="Escritorio" style="background-color:#FCFCEF;"> 
-        <div class="container-fluid" id="pantalla" style="padding:0px;margin-bottom:0px;min-height:300px;">
+        <div class="container-fluid pd0" id="pantalla" style="margin-bottom:0px;min-height:300px;">
           <?php
             include_once 'res/php/escritorio_pos.php';
           ?>
@@ -37,11 +37,5 @@
   <?php
     include_once '../views/modal/modalUsuario.php'; 
     include_once 'views/modal/modalKardex.php';
-
   ?>
-
-  <!-- <script>
-    ingresoPos() 
-		validaVentana()
-	</script> -->
 </html>

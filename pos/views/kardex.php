@@ -1,33 +1,15 @@
 <?php
 
-require '../../res/php/titles.php';
+// require '../../res/php/titles.php';
 require '../../res/php/app_topPos.php';
 
-$idamb = $_POST['id'];
-$nomamb = $_POST['amb'];
-$user = $_POST['user'];
-$iduser = $_POST['iduser'];
-$impto = $_POST['impto'];
-$prop = $_POST['prop'];
-$bodega = $_POST['bodega'];
+extract($_POST);
 
-define('FECHA_POS', $_POST['fecha']);
-
-$fecha = $_POST['fecha'];
-$_SESSION['NOMBRE_AMBIENTE'] = $nomamb;
-$_SESSION['AMBIENTE_ID'] = $idamb;
-$_SESSION['usuario'] = $user;
-$_SESSION['usuario_id'] = $iduser;
-
-$nombreAlm = $pos->buscaAlmacen($bodega);
-
-$kardexs = $pos->getTraeKardex($bodega);
-
-// echo print_r($kardexs);
+$kardexs = $pos->getTraeKardex($id_bodega);
 
 ?>
 
-<section class="content">
+<section class="content p10">
   <div class="panel panel-success">
     <div class="panel-heading">
       <div class="row" style="display: flex">
@@ -45,7 +27,7 @@ $kardexs = $pos->getTraeKardex($bodega);
       <div class="datos_ajax_delete"></div>
       <div class="container-fluid" style="padding:0">
         <table id="tablaKardex" class="table table-hover table-bordered table-condensed">
-          <h3 class="alert alert-success" style="margin:0 0 20px 0 ;font-weight: 700;text-align:center">Kardex <?php echo $nombreAlm; ?></h3>
+          <h3 class="alert alert-success" style="margin:0 0 20px 0 ;font-weight: 700;text-align:center">Kardex <?php echo $descripcion_bodega; ?></h3>
           <thead>
             <tr class="warning">
               <th>Producto</th>
@@ -78,12 +60,10 @@ $kardexs = $pos->getTraeKardex($bodega);
                 <td style="text-align:center;">
                   <button type="button" class="btn btn-info btn-xs" data-toggle="modal" 
                   data-target="#modalConsultaKardex" 
-                  data-id="<?php echo $kardex['id_producto']; ?>" data-bodega="<?php echo $bodega; ?>" 
+                  data-id="<?php echo $kardex['id_producto']; ?>" data-bodega="<?php echo $id_bodega; ?>" 
                   data-nombre="<?php echo $kardex['nombre_producto']; ?>" title="Muestra Movimientos de Inventario">
                     <i class='glyphicon glyphicon-edit'></i>
                   </button>
-                  <!-- <div class="btn-group">
-                  </div> -->
                 </td>
               </tr>
             <?php } ?>

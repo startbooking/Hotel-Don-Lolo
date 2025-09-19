@@ -11,7 +11,7 @@ $perfReso = '';
 $comandas = $pos->getVentasdelDia($idamb);
 
 ?>
-<div class="row-fluid">
+<div class="row-fluid pd10">
   <div class="content-fluid" style="margin-bottom: 50px">
     <div class="panel panel-success">
       <div class="panel-heading">
@@ -20,7 +20,6 @@ $comandas = $pos->getVentasdelDia($idamb);
         <input type="hidden" name="pasos" id="pasos">
         <h3 class="w3ls_head tituloPagina">
           <i class="fa-solid fa-cash-register fa-2x" style="color:black"></i>
-          <!-- <i class="fa fa-tachometer" style="font-size:36px;color:black" ></i> -->
           Facturas del Dia
         </h3>
       </div>
@@ -31,8 +30,8 @@ $comandas = $pos->getVentasdelDia($idamb);
             <?php
             $regis = count($comandas);
             if ($regis == 0) { ?>
-              <div class="container-fluid">
-                <h4 class="bg-red-gradient" style="padding:10px;text-align: center;font-weight: 600;width: 30%">Sin Facturas Generadas En el Dia <span style="font-size:16px;font-weight: 600;font-family: 'ubuntu'"></span></h4>
+              <div class="container-fluid d-flex jcc">
+                <h4 class="bg-red-gradient" style="padding:10px;text-align: center;font-weight: 600;width: 50%">Sin Facturas Generadas En el Dia <span style="font-size:16px;font-weight: 600;font-family: 'ubuntu'"></span></h4>
               </div>
             <?php
             } else { ?>

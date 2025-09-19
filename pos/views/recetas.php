@@ -6,7 +6,7 @@ $idamb = $_POST['id'];
 $recetas = $pos->getRecetas($idamb);
 
 ?>
-  <section class="content">
+  <section class="content" style="padding:10px;">
     <div class="panel panel-success">
       <div class="panel-heading"> 
         <div class="row producto">

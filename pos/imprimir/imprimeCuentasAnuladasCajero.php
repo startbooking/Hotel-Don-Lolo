@@ -1,16 +1,20 @@
 <?php
-
+require_once '../../res/php/app_topPos.php';
 require_once '../../res/fpdf/fpdf.php';
+extract($_POST);
 
 $pdf = new FPDF();
 $pdf->AddPage('P', 'letter');
 $pdf->Image('../../img/'.$logo, 10, 10, 15);
 
-$pdf->SetFont('Arial', 'B', 13);
-$pdf->Cell(190, 5, $nomamb, 0, 1, 'C');
-$pdf->SetFont('Arial', '', 11);
-$pdf->Cell(195, 5, 'COMANDAS ANULADAS ', 0, 1, 'C');
-$pdf->Cell(195, 5, 'Usuario '.$user.' Fecha: '.$fecha, 0, 1, 'C');
+$pdf->SetFont('Arial', 'B', 11);
+$pdf->Cell(195, 4, NAME_EMPRESA, 0, 1, 'C');
+$pdf->Cell(195, 4, $nombre, 0, 1, 'C');
+$pdf->SetFont('Arial', '', 10);
+$pdf->Cell(195, 4, 'COMANDAS ANULADAS '.$usuario, 0, 1, 'C');
+$pdf->Cell(195, 4, 'Fecha: '.$fecha_auditoria, 0, 1, 'C');
+$pdf->Ln(2);
+
 $pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell(20, 5, 'Comanda.', 1, 0, 'C');
 $pdf->Cell(20, 5, 'Mesa ', 1, 0, 'C');
@@ -19,9 +23,9 @@ $pdf->Cell(15, 5, 'Hora', 1, 0, 'C');
 $pdf->Cell(90, 5, 'Motivo Anulacion', 1, 1, 'C');
 $pdf->SetFont('Arial', '', 9);
 
-$comandas = $pos->getComandasAnuladasCajero($idamb, 'X', $iduser);
+$comandas = $pos->getComandasAnuladasCajero($id_ambiente, 'X', $usuario_id);
 
-$monto = 0;
+$monto = 0; 
 $impto = 0;
 $total = 0;
 if (count($comandas) == 0) {

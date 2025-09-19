@@ -15,6 +15,7 @@
   $_SESSION['AMBIENTE_ID']     = $idamb;
   $_SESSION['usuario']         = $user;
   $_SESSION['usuario_id']      = $iduser;
+  
   include '../imprimir/imprimeCuentasAnuladas.php';
 
 ?>

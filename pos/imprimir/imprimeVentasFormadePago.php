@@ -1,7 +1,10 @@
 <?php
+require_once '../../res/php/app_topPos.php';
+require_once '../../res/fpdf/fpdf.php';
 
-$ventas = $pos->getTotalFormaPagoVendidos($idamb);
-$cantidad = $pos->getCantidadFormasPagoVendidos($idamb);
+extract($_POST);
+$ventas = $pos->getTotalFormaPagoVendidos($id_ambiente);
+$cantidad = $pos->getCantidadFormasPagoVendidos($id_ambiente);
 
 if (count($cantidad) == 0) {
     $canProd = 0;
@@ -13,19 +16,18 @@ if (count($cantidad) == 0) {
     $perProd = $cantidad[0]['pers'];
 }
 
-require_once '../../res/fpdf/fpdf.php';
 
 $pdf = new FPDF();
 $pdf->AddPage('P', 'letter');
-$pdf->Image('../../img/'.$logo, 10, 10, 22);
+$pdf->Image('../../img/'.$logo, 10, 10, 15);
 $pdf->SetFont('Arial', 'B', 11);
-$pdf->Cell(195, 5, $_SESSION['NOMBRE_AMBIENTE'], 0, 1, 'C');
+$pdf->Cell(195, 4, NAME_EMPRESA, 0, 1, 'C');
+$pdf->Cell(195, 4, $nombre, 0, 1, 'C');
+// $pdf->SetFont('Arial', '', 10);
+// $pdf->Cell(195, 5, 'NIT: '.NIT_EMPRESA, 0, 1, 'C');
 $pdf->SetFont('Arial', '', 10);
-$pdf->Cell(195, 5, 'NIT: '.NIT_EMPRESA, 0, 1, 'C');
-$pdf->SetFont('Arial', 'B', 10);
-$pdf->Cell(195, 5, 'VENTAS POR FORMA DE PAGO ', 0, 1, 'C');
-$pdf->SetFont('Arial', '', 10);
-$pdf->Cell(195, 5, 'Fecha : '.$fecha, 0, 1, 'C');
+$pdf->Cell(195, 4, 'VENTAS POR FORMA DE PAGO ', 0, 1, 'C');
+$pdf->Cell(195, 4, 'Fecha: '.$fecha_auditoria, 0, 1, 'C');
 $pdf->Ln(2);
 
 $monto = 0;

@@ -81,12 +81,6 @@
           </li>
         </ul>
       </li>
-      <!-- <li id="menuKardex" style="display:none;">
-        <a class="menuPpal" onclick="kardexInventario()">
-          <i class='fa fa-cubes'></i>
-          <span> Kardex Almacen </span>
-        </a>
-      </li> -->
       <li class="treeview">
         <a href="#">
           <i class="fa fa-clone" aria-hidden="true"></i>
@@ -121,16 +115,15 @@
           <small class="fa fa-angle-left pull-right"></small>
         </a>
         <ul class="treeview-menu">
-          <li>
-            <a class="menuPpal" onclick="ventasDiaAuditoria()"><i class="fa fa-clipboard"></i> Facturas del Dia</a>
+          <li><a class="menuPpal" onclick="ventasDiaAuditoria()">
+            <i class="fa fa-clipboard"></i> Facturas del Dia</a>
+          </li>
+          <li><a class="menuPpal" onclick="cuentasActivasAuditoria()">
+            <i class="fa fa-check-square" aria-hidden="true"></i>
+            Comandas Activas</a>
           </li>
           <li>
             <a class="menuPpal" onclick="cuentasAnuladasAuditoria()"><i class="fa fa-clipboard"></i> Comandas Anuladas del Dia</a>
-          </li>
-          <li>
-            <a class="menuPpal" onclick="cuentasActivasAuditoria()">
-              <i class="fa fa-check-square" aria-hidden="true"></i>
-              Comandas Activas</a>
           </li>
           <li>
             <a class="menuPpal" onclick="devolucionesDia()"><i class="fa fa-clipboard"></i> Devolucionde del Dia</a>
@@ -156,9 +149,6 @@
               <li>
                 <a class="menuPpal" onclick="balanceCaja()"><i class="fa fa-users"></i> Balance de Caja</a>
               </li>
-              <!-- <li>
-                <a class="menuPpal" onclick="abonosDia()"><i class="fa fa-users"></i> Abonos del Dia</a>
-              </li> -->
               <li>
                 <a class="menuPpal" onclick="ventasDiaAuditoria()">
                   <i class="fa-solid fa-money-bill"></i> Ventas del Dia</a>

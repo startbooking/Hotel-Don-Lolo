@@ -1,7 +1,10 @@
 <?php
+require_once '../../res/fpdf/fpdf.php';
+require_once '../../res/php/app_topPos.php';
+extract($_POST);
 
-$ventas = $pos->getTotalGruposVendidos($idamb);
-$cantidad = $pos->getCantidadProductosVendidos($idamb);
+$ventas = $pos->getTotalGruposVendidos($id_ambiente);
+$cantidad = $pos->getCantidadProductosVendidos($id_ambiente);
 
 if (count($cantidad) == 0) {
     $canProd = 0;
@@ -13,18 +16,18 @@ if (count($cantidad) == 0) {
     $perProd = $cantidad[0]['pers'];
 }
 
-require_once '../../res/fpdf/fpdf.php';
 
 $pdf = new FPDF();
 $pdf->AddPage('P', 'letter');
 $pdf->Image('../../img/'.$logo, 10, 10, 15);
 
 $pdf->SetFont('Arial', 'B', 13);
-$pdf->Cell(190, 5, $nomamb, 0, 1, 'C');
+$pdf->Cell(190, 4, NAME_EMPRESA, 0, 1, 'C');
+$pdf->Cell(190, 4, $nombre, 0, 1, 'C');
 
 $pdf->SetFont('Arial', '', 10);
-$pdf->Cell(195, 5, 'VENTAS GRUPOS DE PRODUCTOS ', 0, 1, 'C');
-$pdf->Cell(195, 5, 'Fecha '.$fecha, 0, 1, 'C');
+$pdf->Cell(195, 4, 'VENTAS GRUPOS DE PRODUCTOS ', 0, 1, 'C');
+$pdf->Cell(195, 4, 'Fecha: '.$fecha_auditoria, 0, 1, 'C');
 
 $pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell(60, 5, 'Grupo Productos', 1, 0, 'C');

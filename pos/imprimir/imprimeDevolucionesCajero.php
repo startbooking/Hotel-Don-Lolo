@@ -1,17 +1,21 @@
 <?php
-
+require_once '../../res/php/app_topPos.php';
 require_once '../../res/fpdf/fpdf.php';
+extract($_POST);
+
 
 $pdf = new FPDF();
 $pdf->AddPage('P', 'letter');
 $pdf->Image('../../img/'.$logo, 10, 10, 15);
-$pdf->SetFont('Arial', 'B', 13);
+$pdf->SetFont('Arial', 'B', 11);
 
-$pdf->Cell(195, 5, $nomamb, 0, 1, 'C');
-$pdf->SetFont('Arial', '', 11);
-$pdf->Cell(195, 5, 'DEVOLUCION DE PRODUCTOS ', 0, 1, 'C');
-$pdf->Cell(195, 5, 'USUARIO '.$user.' FECHA '.$fecha, 0, 1, 'C');
-$devoluciones = $pos->getDevolucionUsuario($idamb, $user);
+$pdf->Cell(195, 4, NAME_EMPRESA, 0, 1, 'C');
+$pdf->Cell(195, 4, $nombre, 0, 1, 'C');
+$pdf->SetFont('Arial', '', 10);
+$pdf->Cell(195, 4, 'DEVOLUCION DE PRODUCTOS '.$usuario, 0, 1, 'C');
+$pdf->Cell(195, 4, ' Fecha '.$fecha_auditoria, 0, 1, 'C');
+$pdf->ln(2);
+$devoluciones = $pos->getDevolucionUsuario($id_ambiente, $usuario);
 
 $monto = 0;
 $impto = 0;
@@ -25,7 +29,7 @@ $pdf->Cell(85, 5, 'Motivo Devolucion', 1, 1, 'C');
 $pdf->SetFont('Arial', '', 9);
 
 if (count($devoluciones) == 0) {
-    $pdf->SetFont('Arial', 'B', 10);
+    $pdf->SetFont('Arial', '', 10);
     $pdf->Cell(195, 5, 'SIN DEVOLUCION DE PRODUCTOS ', 1, 1, 'C');
 } else {
     foreach ($devoluciones as $comanda) {

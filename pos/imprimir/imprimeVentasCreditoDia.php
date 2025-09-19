@@ -1,17 +1,19 @@
 <?php
 
 require_once '../../res/fpdf/fpdf.php';
+require '../../res/php/app_topPos.php';
+extract($_POST);
+$ventas = $pos->getVentasCreditodelDia($id_ambiente);
 
-$ventas = $pos->getVentasCreditodelDia($idamb);
-
-$pdf = new FPDF(); 
+$pdf = new FPDF();
 $pdf->AddPage('P', 'letter');
-$pdf->Image('../../img/'.$logo, 10, 5, 22);
+$pdf->Image('../../img/' . $logo, 10, 5, 15);
 $pdf->SetFont('Arial', 'B', 12);
-$pdf->Cell(195, 5, $nomamb, 0, 1, 'C');
+$pdf->Cell(195, 4, NAME_EMPRESA, 0, 1, 'C');
+$pdf->Cell(195, 4, $nombre, 0, 1, 'C');
 $pdf->SetFont('Arial', '', 10);
-$pdf->Cell(195, 5, 'VENTAS A EMPLEADOS ', 0, 1, 'C');
-$pdf->Cell(195, 5, 'Fecha '.$fecha, 0, 1, 'C');
+$pdf->Cell(195, 4, 'VENTAS A EMPLEADOS ', 0, 1, 'C');
+$pdf->Cell(195, 4, 'Fecha ' . $fecha_auditoria, 0, 1, 'C');
 $pdf->Ln(1);
 
 $pers = 0;
@@ -42,7 +44,7 @@ if (count($ventas) == 0) {
             $pdf->SetTextColor(0, 0, 0);
         }
         $pdf->Cell(20, 4, $comanda['factura'], 0, 0, 'R');
-        $pdf->Cell(90, 4, ($comanda['apellido1'].' '.$comanda['apellido2'].' '.$comanda['nombre1'].' '.$comanda['nombre2']), 0, 0, 'L');
+        $pdf->Cell(90, 4, ($comanda['apellido1'] . ' ' . $comanda['apellido2'] . ' ' . $comanda['nombre1'] . ' ' . $comanda['nombre2']), 0, 0, 'L');
         $pdf->Cell(20, 4, number_format($comanda['pagado'], 2), 0, 0, 'R');
         $pdf->Cell(20, 4, estadoFacturaInf($comanda['estado']), 0, 0, 'L');
         $pdf->Cell(25, 4, $comanda['usuario_factura'], 0, 0, 'L');
@@ -62,10 +64,10 @@ if (count($ventas) == 0) {
     $pdf->Cell(20, 5, 'Facturas ', 1, 0, 'C');
     $pdf->Cell(30, 5, 'Valor Facturas ', 1, 1, 'C');
     $pdf->SetFont('Arial', 'B', 9);
-    $pdf->Cell(40, 5, 'TOTALES ', 1, 0, 'C');
+    $pdf->Cell(40, 4, 'TOTALES ', 1, 0, 'C');
     $pdf->SetFont('Arial', '', 9);
-    $pdf->Cell(20, 5, $canti, 1, 0, 'R');
-    $pdf->Cell(30, 5, number_format($total, 2), 1, 1, 'R');
+    $pdf->Cell(20, 4, $canti, 1, 0, 'R');
+    $pdf->Cell(30, 4, number_format($total, 2), 1, 1, 'R');
 }
 $pdf->Ln(3);
 

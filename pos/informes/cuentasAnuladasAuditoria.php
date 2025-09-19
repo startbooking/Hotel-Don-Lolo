@@ -1,7 +1,6 @@
 <?php
 
 require_once '../../res/php/titles.php';
-require_once '../../res/php/app_topPos.php';
 
 $idamb = $_POST['id'];
 $nomamb = $_POST['amb'];

@@ -11,7 +11,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?= TITLE_POS?> | Balance Cajero </title>
+    <title>SACTel Puntos de Venta | Balance Cajero </title>
 		<?php include_once("../../res/shared/archivo_head.php") ?>
     <link rel="stylesheet" type="text/css" href="../res/css/estilo.css">
 	</head>

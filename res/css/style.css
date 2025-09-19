@@ -224,6 +224,14 @@ h3 {
   font-size: 16px;
 }
 
+.d-flex {
+  display: flex;
+}
+
+.jcc{
+  justify-content:center;
+}
+
 #modulos {
   margin-top: 5%;
 }

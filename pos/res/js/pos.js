@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", async () => {
-  let sesion = JSON.parse(localStorage.getItem("sesion"));  
+  let sesion = JSON.parse(localStorage.getItem("sesion"));
   if (sesion == null) {
     swal(
       {
@@ -15,10 +15,13 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     );
   }
-  const {user: { usuario, usuario_id, tipo }, cia: { impuesto }, } = sesion;
+  const {
+    user: { usuario, usuario_id, tipo },
+    cia: { impuesto },
+  } = sesion;
 
-  let ingreso = await ingresoPos()
-  let validaVe = await validaVentana()
+  let ingreso = await ingresoPos();
+  let validaVe = await validaVentana();
 });
 
 function botonEliminaProductoDivi(
@@ -60,7 +63,7 @@ function botonEliminaProductoDivi(
     totalProductos[existe].valorimpto =
       totalProductos[existe].importe * totalProductos[existe].cant -
       (totalProductos[existe].importe * totalProductos[existe].cant) /
-      (1 + totalProductos[existe].impto / 100);
+        (1 + totalProductos[existe].impto / 100);
   }
 
   localStorage.setItem("productoComanda", JSON.stringify(totalProductos));
@@ -203,7 +206,7 @@ function botonDivideComanda(
     nuevaComanda[existe].valorimpto =
       nuevaComanda[existe].importe * nuevaComanda[existe].cant -
       (nuevaComanda[existe].importe * nuevaComanda[existe].cant) /
-      (1 + nuevaComanda[existe].impto / 100);
+        (1 + nuevaComanda[existe].impto / 100);
   }
   localStorage.setItem("nuevaComanda", JSON.stringify(nuevaComanda));
 
@@ -226,7 +229,7 @@ function botonDivideComanda(
       totalProductos[exis].valorimpto =
         totalProductos[exis].importe * totalProductos[exis].cant -
         (totalProductos[exis].importe * totalProductos[exis].cant) /
-        (1 + totalProductos[exis].impto / 100);
+          (1 + totalProductos[exis].impto / 100);
     }
   }
 
@@ -313,8 +316,7 @@ function carteradelDia() {
     pos,
     user: { usuario, usuario_id, tipo },
   } = sesion;
-  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } =
-    oPos;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } = oPos;
   file = makeid(12);
   parametros = {
     id: id_ambiente,
@@ -416,26 +418,20 @@ function balanceCajaCajero() {
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
   let {
-    pos,
-    user: { usuario, usuario_id, tipo },
+    user: { usuario, usuario_id },
   } = sesion;
-  let { id_ambiente, nombre, propina, fecha_auditoria, impuesto, logo } =
-    oPos;
-  file = makeid(12);
+  let { id_ambiente, nombre, fecha_auditoria, logo } = oPos;
   parametros = {
-    id: id_ambiente,
-    amb: nombre,
-    user: usuario,
-    iduser: usuario_id,
-    impto: impuesto,
-    prop: propina,
-    fecha: fecha_auditoria,
+    id_ambiente,
+    nombre,
+    usuario,
+    usuario_id,
+    fecha_auditoria,
     logo,
-    file,
   };
 
   $.ajax({
-    url: "informes/balanceCajaCajero.php",
+    url: "imprimir/imprimeBalanceCajaCajero.php",
     type: "POST",
     data: parametros,
     success: function (data) {
@@ -449,24 +445,22 @@ function balanceCaja() {
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
   let {
-    pos,
-    user: { usuario, usuario_id, tipo },
+    user: { usuario, usuario_id },
   } = sesion;
-  let { id_ambiente, nombre, propina, fecha_auditoria, impuesto, logo } =
-    oPos;
+  let { id_ambiente, nombre, propina, fecha_auditoria, impuesto, logo } = oPos;
   parametros = {
-    id: id_ambiente,
-    amb: nombre,
-    user: usuario,
-    iduser: usuario_id,
-    impto: impuesto,
-    prop: propina,
-    fecha: fecha_auditoria,
+    id_ambiente,
+    nombre,
+    usuario,
+    usuario_id,
+    impuesto,
+    propina,
+    fecha_auditoria,
     logo,
   };
 
   $.ajax({
-    url: "informes/balanceCaja.php",
+    url: "imprimir/imprimeBalanceCaja.php",
     type: "POST",
     data: parametros,
     success: function (data) {
@@ -484,8 +478,7 @@ function abonosDia() {
     user: { usuario, usuario_id, tipo },
   } = sesion;
 
-  let { id_ambiente, nombre, propina, fecha_auditoria, impuesto, logo } =
-    oPos;
+  let { id_ambiente, nombre, propina, fecha_auditoria, impuesto, logo } = oPos;
   parametros = {
     id: id_ambiente,
     amb: nombre,
@@ -508,22 +501,11 @@ function abonosDia() {
 }
 
 function balanceHistorico() {
-  sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
-
-  let { pos, user: { usuario, usuario_id, tipo }, } = sesion;
-  let { id_ambiente, nombre, propina, fecha_auditoria, impuesto, logo } = oPos;
-  file = makeid(12);
+  let { fecha_auditoria } = oPos;
   parametros = {
-    id: id_ambiente,
-    amb: nombre,
-    user: usuario,
-    iduser: usuario_id,
-    impto: impuesto,
-    prop: propina,
-    fecha: fecha_auditoria,
-    logo,
-    file,
+    fecha_auditoria,
+    usuario
   };
 
   $.ajax({
@@ -580,27 +562,16 @@ function sumaFacturas() {
 function ventasCreditoDia() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
-
-  let {
-    pos,
-    user: { usuario, usuario_id, tipo },
-  } = sesion;
-
-  let { id_ambiente, nombre, propina, fecha_auditoria, impuesto, logo } =
-    oPos;
+  let { id_ambiente, nombre, fecha_auditoria, logo } = oPos;
   parametros = {
-    id: id_ambiente,
-    amb: nombre,
-    user: usuario,
-    iduser: usuario_id,
-    impto: impuesto,
-    prop: propina,
-    fecha: fecha_auditoria,
+    id_ambiente,
+    nombre,
+    fecha_auditoria,
     logo,
   };
 
   $.ajax({
-    url: "informes/ventasCreditoDia.php",
+    url: "imprimir/imprimeVentasCreditoDia.php",
     type: "POST",
     data: parametros,
     success: function (data) {
@@ -1173,8 +1144,7 @@ function historicoClientes() {
     pos,
     user: { usuario, usuario_id, tipo },
   } = sesion;
-  let { id_ambiente, nombre, logo, propina, fecha_auditoria, impuesto } =
-    oPos;
+  let { id_ambiente, nombre, logo, propina, fecha_auditoria, impuesto } = oPos;
 
   idambi = id_ambiente;
   amb = nombre;
@@ -1208,8 +1178,7 @@ function ventasPorCliente() {
     pos,
     user: { usuario, usuario_id, tipo },
   } = sesion;
-  let { id_ambiente, nombre, logo, propina, fecha_auditoria, impuesto } =
-    oPos;
+  let { id_ambiente, nombre, logo, propina, fecha_auditoria, impuesto } = oPos;
 
   oKey = makeid(12);
   parametros = {
@@ -1450,7 +1419,10 @@ function historicoGrupos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user: { usuario, usuario_id, tipo }, } = sesion;
+  let {
+    pos,
+    user: { usuario, usuario_id, tipo },
+  } = sesion;
   let { id_ambiente, nombre, logo, prefijo } = oPos;
 
   parametros = {
@@ -1492,7 +1464,10 @@ function historicoFormasPago() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user: { usuario, usuario_id, tipo }, } = sesion;
+  let {
+    pos,
+    user: { usuario, usuario_id, tipo },
+  } = sesion;
   let { id_ambiente, nombre, logo, prefijo } = oPos;
 
   parametros = {
@@ -1531,23 +1506,13 @@ function historicoProductos() {
   hastaNu = $("#hastaNumero").val();
   huesped = $("#desdeHuesped").val();
   formaPa = $("#desdeFormaPago").val();
-  sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
-
-  let {
-    pos,
-    user: { usuario, usuario_id, tipo },
-  } = sesion;
-  const { nombre, id_ambiente, logo, prefijo, id_bodega } = oPos;
+  let { nombre, id_ambiente, logo, } = oPos;
 
   parametros = {
     nombre,
-    usuario,
-    usuario_id,
     id_ambiente,
     logo,
-    prefijo,
-    id_bodega,
     desdeFe,
     hastaFe,
   };
@@ -1617,14 +1582,17 @@ function historicoBalanceCaja() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user: { usuario, usuario_id, tipo }, } = sesion;
+  let {
+    pos,
+    user: { usuario, usuario_id, tipo },
+  } = sesion;
   let { id_ambiente, nombre, logo, prefijo } = oPos;
 
   parametros = {
-    amb: nombre,
-    user: usuario,
-    iduser: usuario_id,
-    idamb: id_ambiente,
+    nombre,
+    usuario,
+    usuario_id,
+    id_ambiente,
     logo,
     prefijo,
     desdeFe,
@@ -1659,7 +1627,10 @@ function historicoPeriodos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user: { usuario, usuario_id, tipo }, } = sesion;
+  let {
+    pos,
+    user: { usuario, usuario_id, tipo },
+  } = sesion;
   const { nombre, id_ambiente, logo, prefijo, id_bodega } = oPos;
   parametros = {
     nombre,
@@ -1691,29 +1662,18 @@ function historicoPeriodos() {
 }
 
 function devolucionesDia() {
-  sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
-
-  let {
-    pos,
-    user: { usuario, usuario_id, tipo },
-  } = sesion;
-  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } =
-    oPos;
+  let { id_ambiente, nombre, fecha_auditoria, logo } = oPos;
 
   parametros = {
-    id: id_ambiente,
-    amb: nombre,
-    user: usuario,
-    iduser: usuario_id,
-    impto: impuesto,
-    prop: propina,
-    fecha: fecha_auditoria,
-    logo: logo,
+    id_ambiente,
+    nombre,
+    fecha_auditoria,
+    logo,
   };
 
   $.ajax({
-    url: "informes/devolucionesDelDia.php",
+    url: "imprimir/imprimeDevolucionesdelDia.php",
     type: "POST",
     data: parametros,
     success: function (data) {
@@ -1821,26 +1781,23 @@ function devolucionProductos() {
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
   let {
-    pos,
     user: { usuario, usuario_id },
   } = sesion;
-  let { id_ambiente, nombre, propina, logo, fecha_auditoria, impuesto } =
-    oPos;
-  //
+  let { id_ambiente, nombre, propina, logo, fecha_auditoria, impuesto } = oPos;
 
   parametros = {
-    user: usuario,
-    id: id_ambiente,
-    amb: nombre,
-    iduser: usuario_id,
-    impto: impuesto,
-    prop: propina,
-    fecha: fecha_auditoria,
+    usuario,
+    id_ambiente,
+    nombre,
+    usuario_id,
+    impuesto,
+    propina,
+    fecha_auditoria,
     logo,
   };
 
   $.ajax({
-    url: "informes/devolucionProductos.php",
+    url: "imprimir/imprimeDevolucionProductos.php",
     type: "POST",
     data: parametros,
     success: function (data) {
@@ -1878,8 +1835,7 @@ function botonDevolverProducto(
 
 function devolverProducto() {
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  let { id_ambiente, nombre, propina, logo, fecha_auditoria, impuesto } =
-    oPos;
+  let { id_ambiente, nombre, propina, logo, fecha_auditoria, impuesto } = oPos;
   inicial = $("#cantiInicial").val();
   cantidad = $("#cantidadDev").val();
   comanda = $("#numeroComanda").val();
@@ -2379,7 +2335,7 @@ function eliminaProductoReceta() {
     url: "res/php/user_actions/eliminaProductoReceta.php",
     type: "POST",
     data: { id: id },
-    success: function () { },
+    success: function () {},
   });
 }
 
@@ -2758,8 +2714,7 @@ function btnEliminaProducto(id) {
 
 function generarFacturas() {
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } =
-    oPos;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } = oPos;
 
   parametros = {
     id: id_ambiente,
@@ -2841,8 +2796,7 @@ function historicoListadoFacturas() {
     pos,
     user: { usuario, usuario_id, tipo },
   } = sesion;
-  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } =
-    oPos;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } = oPos;
 
   parametros = {
     id: id_ambiente,
@@ -2873,8 +2827,7 @@ function ventasHistoricoGrupos() {
     pos,
     user: { usuario, usuario_id },
   } = sesion;
-  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } =
-    oPos;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } = oPos;
   //
 
   parametros = {
@@ -2898,20 +2851,22 @@ function ventasHistoricoGrupos() {
   });
 }
 
-
 function diaPlanillaDesayunos() {
   oPos = JSON.parse(localStorage.getItem("oPos"));
   let { fecha_auditoria, prefijo } = oPos;
-  file = `impresiones/planillaDesayunos_${prefijo}-${fecha_auditoria}.pdf`
+  file = `impresiones/planillaDesayunos_${prefijo}-${fecha_auditoria}.pdf`;
 
-  muestraPDF(file, `Planilla Desayunos Dia ${fecha_auditoria}`)
+  muestraPDF(file, `Planilla Desayunos Dia ${fecha_auditoria}`);
 }
 
 function historicoPlanillaDesayunos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user: { usuario, usuario_id }, } = sesion;
+  let {
+    pos,
+    user: { usuario, usuario_id },
+  } = sesion;
   let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } = oPos;
 
   parametros = {
@@ -2935,23 +2890,25 @@ function historicoPlanillaDesayunos() {
   });
 }
 
-
 function historicoDesayunos() {
-  ambiente = $("#ambiente").val()
+  ambiente = $("#ambiente").val();
   desdeFe = $("#desdeFecha").val();
   hastaFe = $("#hastaFecha").val();
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user: { usuario, usuario_id, tipo }, } = sesion;
+  let {
+    pos,
+    user: { usuario, usuario_id, tipo },
+  } = sesion;
   let { nombre, id_ambiente, logo, prefijo, id_bodega } = oPos;
 
-  if (ambiente == '' || desdeFe == '' || hastaFe == '') {
+  if (ambiente == "" || desdeFe == "" || hastaFe == "") {
     swal({
-      title: 'Atencion',
-      text: 'Todos los Campos Son Obligatorios',
-      type: 'warning',
-    })
+      title: "Atencion",
+      text: "Todos los Campos Son Obligatorios",
+      type: "warning",
+    });
     return false;
   }
 
@@ -2970,7 +2927,7 @@ function historicoDesayunos() {
       dataType: "json",
       data: parametros,
       success: function (datos) {
-        console.log(datos)
+        console.log(datos);
         llenaHistoricoDesayunos(datos);
       },
     });
@@ -2978,23 +2935,19 @@ function historicoDesayunos() {
 }
 
 function muestraDesayuno(fecha, id, pref) {
-  file = `impresiones/planillaDesayunos_${pref}-${fecha}.pdf`
+  file = `impresiones/planillaDesayunos_${pref}-${fecha}.pdf`;
 
-  muestraPDFHist(file, `Planilla Desayunos del Dia ${fecha}`)
-
+  muestraPDFHist(file, `Planilla Desayunos del Dia ${fecha}`);
 }
 
 function muestraPDFHist(file, titulo) {
-
   document.querySelector("#muestraDesayunos .tituloPagina").innerHTML = titulo;
   document.querySelector("#verDesayuno").data = file;
 }
 
-
-
 function llenaHistoricoDesayunos(datos) {
   pantDesa = document.querySelector("#dataDesayunos");
-  pantDesa.classList.remove('apaga')
+  pantDesa.classList.remove("apaga");
   dataDesa = document.querySelector("#dataDesayunos tbody");
   let html = "";
   datos.forEach((dato) => {
@@ -3014,7 +2967,6 @@ function llenaHistoricoDesayunos(datos) {
   dataDesa.innerHTML = html;
 }
 
-
 function ventasHistoricoProductos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
@@ -3023,18 +2975,13 @@ function ventasHistoricoProductos() {
     pos,
     user: { usuario, usuario_id },
   } = sesion;
-  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } =
-    oPos;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } = oPos;
 
   parametros = {
-    id: id_ambiente,
-    amb: nombre,
-    user: usuario,
-    iduser: usuario_id,
-    impto: impuesto,
-    prop: propina,
-    fecha: fecha_auditoria,
-    logo,
+    id_ambiente,
+    nombre,
+    usuario,
+    fecha_auditoria,
   };
 
   $.ajax({
@@ -3051,7 +2998,10 @@ function ventasHistoricoPeriodos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user: { usuario, usuario_id }, } = sesion;
+  let {
+    pos,
+    user: { usuario, usuario_id },
+  } = sesion;
   let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } = oPos;
 
   parametros = {
@@ -3118,7 +3068,10 @@ function getRestarVentasRecu(codigo) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user: { usuario, usuario_id, tipo }, } = sesion;
+  let {
+    pos,
+    user: { usuario, usuario_id, tipo },
+  } = sesion;
   let { id_ambiente, propina } = oPos;
 
   idamb = id_ambiente;
@@ -3150,7 +3103,10 @@ function getBorraVentasRecu(codigo) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user: { usuario, usuario_id, tipo }, } = sesion;
+  let {
+    pos,
+    user: { usuario, usuario_id, tipo },
+  } = sesion;
   let { id_ambiente, propina } = oPos;
 
   idamb = id_ambiente;
@@ -3375,7 +3331,10 @@ function muestraPos(ambSel) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { user: { tipo, apellidos, nombres }, pos, } = sesion;
+  let {
+    user: { tipo, apellidos, nombres },
+    pos,
+  } = sesion;
   let { plano, fecha_auditoria } = oPos;
   $("#fechaPos").html(`Fecha Proceso ${fecha_auditoria}`);
   $("#fechaAuditoria").val(fecha_auditoria);
@@ -3409,28 +3368,19 @@ function traeAmbientes(id) {
 }
 
 function ventasGrupos() {
-  sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  let {
-    pos,
-    user: { usuario, usuario_id },
-  } = sesion;
-  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } =
-    oPos;
+
+  let { id_ambiente, nombre, fecha_auditoria, logo } = oPos;
 
   parametros = {
-    id: id_ambiente,
-    amb: nombre,
-    user: usuario,
-    iduser: usuario_id,
-    impto: impuesto,
-    prop: propina,
-    fecha: fecha_auditoria,
+    id_ambiente,
+    nombre,
+    fecha_auditoria,
     logo,
   };
 
   $.ajax({
-    url: "informes/ventasPorGrupo.php",
+    url: "imprimir/imprimeVentasPorGrupo.php",
     type: "POST",
     data: parametros,
     success: function (data) {
@@ -3447,22 +3397,21 @@ function ventasPorPeriodo() {
     pos,
     user: { usuario, usuario_id },
   } = sesion;
-  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } =
-    oPos;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } = oPos;
 
   parametros = {
-    id: id_ambiente,
-    amb: nombre,
-    user: usuario,
-    iduser: usuario_id,
-    impto: impuesto,
-    prop: propina,
-    fecha: fecha_auditoria,
+    id_ambiente,
+    nombre,
+    usuario,
+    usuario_id,
+    impuesto,
+    propina,
+    fecha_auditoria,
     logo,
   };
 
   $.ajax({
-    url: "informes/ventasPorPeriodo.php",
+    url: "imprimir/imprimeVentasPorPeriodo.php",
     type: "POST",
     data: parametros,
     success: function (data) {
@@ -3474,7 +3423,7 @@ function ventasPorPeriodo() {
 function buscaReportesCajero() {
   let { prefijo } = oPos;
   var fecha = $("#buscarFecha").val();
-  let usuario = document.querySelector('#usuario').value;
+  let usuario = document.querySelector("#usuario").value;
   $("#verFactura").attr("data", "");
   var repo = `cierre_Cajero_${usuario}-${prefijo}_${fecha}.pdf`;
   $("#verFactura").attr("data", "imprimir/cierres/" + repo);
@@ -3484,8 +3433,19 @@ function historicoCajeros() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user: { usuario, usuario_id }, } = sesion;
-  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto, prefijo } = oPos;
+  let {
+    pos,
+    user: { usuario, usuario_id },
+  } = sesion;
+  let {
+    id_ambiente,
+    nombre,
+    propina,
+    fecha_auditoria,
+    logo,
+    impuesto,
+    prefijo,
+  } = oPos;
 
   parametros = {
     id: id_ambiente,
@@ -3495,7 +3455,7 @@ function historicoCajeros() {
     impto: impuesto,
     prop: propina,
     fecha: fecha_auditoria,
-    prefijo
+    prefijo,
   };
 
   $.ajax({
@@ -3540,8 +3500,7 @@ function historicoFacturas() {
     pos,
     user: { usuario, usuario_id },
   } = sesion;
-  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } =
-    oPos;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } = oPos;
 
   parametros = {
     id: id_ambiente,
@@ -3570,8 +3529,7 @@ function ventasUsuario() {
     pos,
     user: { usuario, usuario_id },
   } = sesion;
-  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } =
-    oPos;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } = oPos;
   file = makeid(12);
 
   parametros = {
@@ -3608,22 +3566,21 @@ function ventasFormaPago() {
     pos,
     user: { usuario, usuario_id },
   } = sesion;
-  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } =
-    oPos;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } = oPos;
 
   parametros = {
-    id: id_ambiente,
-    amb: nombre,
-    user: usuario,
-    iduser: usuario_id,
-    impto: impuesto,
-    prop: propina,
-    fecha: fecha_auditoria,
+    id_ambiente,
+    nombre,
+    usuario,
+    usuario_id,
+    impuesto,
+    propina,
+    fecha_auditoria,
     logo,
   };
 
   $.ajax({
-    url: "informes/ventasFormaPago.php",
+    url: "imprimir/imprimeVentasFormadePago.php",
     type: "POST",
     data: parametros,
     success: function (data) {
@@ -3640,8 +3597,7 @@ function ventasHistoricoFormaPago() {
     pos,
     user: { usuario, usuario_id },
   } = sesion;
-  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } =
-    oPos;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } = oPos;
   file = makeid(12);
 
   parametros = {
@@ -3670,26 +3626,17 @@ function ventasProducto() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let {
-    pos,
-    user: { usuario, usuario_id },
-  } = sesion;
-  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } =
-    oPos;
+  let { id_ambiente, nombre, fecha_auditoria, logo } = oPos;
 
   parametros = {
-    id: id_ambiente,
-    amb: nombre,
-    user: usuario,
-    iduser: usuario_id,
-    impto: impuesto,
-    prop: propina,
-    fecha: fecha_auditoria,
+    id_ambiente,
+    nombre,
+    fecha_auditoria,
     logo,
   };
 
   $.ajax({
-    url: "informes/ventasPorProducto.php",
+    url: "imprimir/imprimeVentasPorProducto.php",
     type: "POST",
     data: parametros,
     success: function (data) {
@@ -3702,22 +3649,22 @@ function ventasDiaAuditoria() {
   let sesion = JSON.parse(localStorage.getItem("sesion"));
   let oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user: { usuario, usuario_id }, } = sesion;
+  let {
+    user: { usuario, usuario_id },
+  } = sesion;
   let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } = oPos;
 
   parametros = {
-    id: id_ambiente,
-    amb: nombre,
-    user: usuario,
-    iduser: usuario_id,
-    impto: impuesto,
-    prop: propina,
-    fecha: fecha_auditoria,
+    id_ambiente,
+    nombre,
+    usuario,
+    usuario_id,
+    fecha_auditoria,
     logo,
   };
 
   $.ajax({
-    url: "informes/ventasDia.php",
+    url: "imprimir/imprimeVentasDia.php",
     type: "POST",
     data: parametros,
     success: function (data) {
@@ -3730,22 +3677,11 @@ function kardexInventario() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let {
-    pos,
-    user: { usuario, usuario_id },
-  } = sesion;
-  let { id_ambiente, nombre, propina, fecha_auditoria, id_bodega, impuesto } =
-    oPos;
+  let { id_bodega, descripcion_bodega } = oPos;
 
   parametros = {
-    id: id_ambiente,
-    amb: nombre,
-    user: usuario,
-    iduser: usuario_id,
-    impto: impuesto,
-    prop: propina,
-    fecha: fecha_auditoria,
-    bodega: id_bodega,
+    descripcion_bodega,
+    id_bodega,
   };
 
   $.ajax({
@@ -3754,6 +3690,8 @@ function kardexInventario() {
     datatype: "json",
     data: parametros,
     success: function (data) {
+      $("#pantalla").removeClass("pd0");
+      $("#pantalla").addClass("pd10");
       $("#pantalla").html(data);
       $("#tablaKardex").DataTable({
         paging: true,
@@ -3778,19 +3716,18 @@ function huespedesenCasa() {
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
   let {
-    pos,
     user: { usuario, usuario_id },
   } = sesion;
   let { id_ambiente, nombre, propina, fecha_auditoria, impuesto } = oPos;
 
   parametros = {
-    id: id_ambiente,
-    amb: nombre,
-    user: usuario,
-    iduser: usuario_id,
-    impto: impuesto,
-    prop: propina,
-    fecha: fecha_auditoria,
+    id_ambiente,
+    nombre,
+    usuario,
+    usuario_id,
+    impuesto,
+    propina,
+    fecha_auditoria,
   };
 
   $.ajax({
@@ -3820,11 +3757,12 @@ function huespedesenCasa() {
 async function planillaDesayunos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  /* let {
+  let {
+    pos,
+    user: { usuario, usuario_id },
     moduloPms: { fecha_auditoria },
-  } = sesion; */
-  let { pos, user: { usuario, usuario_id }, moduloPms: { fecha_auditoria } } = sesion;
-  let { id_ambiente, prefijo } = oPos;
+  } = sesion;
+  let { id_ambiente, prefijo, fecha_auditoria: fechaAuditoriaPOS } = oPos;
   parametros = {
     id_ambiente,
     fecha_auditoria,
@@ -3854,7 +3792,7 @@ async function planillaDesayunos() {
     } else {
       huespedes = JSON.parse(localStorage.getItem("planilla"));
     }
-    llenaHtml = await llenaHTML(huespedes);
+    llenaHtml = await llenaHTML(huespedes, fechaAuditoriaPOS);
     document.querySelector("#pantalla").innerHTML = llenaHtml;
   }
 }
@@ -3865,11 +3803,11 @@ async function cambiaEstado(indice, check) {
   localStorage.setItem("planilla", JSON.stringify(huespedes));
 }
 
-async function llenaHTML(huespedes) {
+async function llenaHTML(huespedes, fecha) {
   try {
     const resp = await fetch(`views/planillaDesayunos.php`, {
       method: "POST",
-      body: JSON.stringify(huespedes),
+      body: JSON.stringify({ huespedes, fecha }),
     });
     const datos = await resp.text();
     return datos;
@@ -3910,7 +3848,10 @@ async function guardaPlanillaDesayunos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { user: { usuario }, moduloPms: { fecha_auditoria }, } = sesion;
+  let {
+    user: { usuario },
+    moduloPms: { fecha_auditoria },
+  } = sesion;
   let { logo, nombre, prefijo } = oPos;
   let resp = await preguntaGuardaPlanilla();
   if (resp) {
@@ -3929,7 +3870,7 @@ async function guardaPlanillaDesayunos() {
         text: `No se ha guardado la planilla de desayunos \n Necesita escribir "Aceptar"`,
         type: "warning",
       },
-      function () { }
+      function () {}
     );
   }
 }
@@ -4035,29 +3976,25 @@ function cierreDiarioAuditoria() {
   });
 }
 
-function cuentasAnuladasAuditoria() {
+function cuentasAnuladasAuditoriaOld() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
   let {
-    pos,
     user: { usuario, usuario_id, tipo },
   } = sesion;
-  let { id_ambiente, nombre, propina, fecha_auditoria, id_bodega, impuesto } =
-    oPos;
-  let file = makeid(12);
+  let { id_ambiente, nombre, propina, fecha_auditoria, impuesto } = oPos;
 
   parametros = {
-    id: id_ambiente,
-    amb: nombre,
-    user: usuario,
-    iduser: usuario_id,
-    nivel: tipo,
-    impto: impuesto,
-    prop: propina,
-    fecha: fecha_auditoria,
+    id_ambiente,
+    nombre,
+    usuario,
+    usuario_id,
+    tipo,
+    impuesto,
+    propina,
+    fecha_auditoria,
     logo,
-    file,
   };
 
   $.ajax({
@@ -4071,35 +4008,22 @@ function cuentasAnuladasAuditoria() {
 }
 
 function cuentasActivasAuditoria() {
-  /* sesion = JSON.parse(localStorage.getItem("sesion"));
-  oPos = JSON.parse(localStorage.getItem("oPos"));
+  let { id_ambiente, nombre, impuesto, propina, fecha_auditoria, logo } = oPos;
 
-  let { pos, user: { usuario, usuario_id, tipo }, } = sesion; */
-  console.log({ usuario, usuario_id, tipo });
-  let {
+  parametros = {
     id_ambiente,
     nombre,
+    usuario,
+    usuario_id,
+    tipo,
     impuesto,
     propina,
     fecha_auditoria,
-    id_bodega,
-    logo,
-  } = oPos;
-
-  parametros = {
-    id: id_ambiente,
-    amb: nombre,
-    user: usuario,
-    iduser: usuario_id,
-    nivel: tipo,
-    impto: impuesto,
-    prop: propina,
-    fecha: fecha_auditoria,
     logo,
   };
 
   $.ajax({
-    url: "informes/cuentasActivas.php",
+    url: "imprimir/imprimeCuentasActivas.php",
     type: "POST",
     data: parametros,
     success: function (data) {
@@ -4109,29 +4033,19 @@ function cuentasActivasAuditoria() {
 }
 
 function cuentasAnuladasAuditoria() {
-  sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let {
-    pos,
-    user: { usuario, usuario_id, tipo },
-  } = sesion;
-  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } =
-    oPos;
+  let { id_ambiente, nombre, fecha_auditoria, logo } = oPos;
 
   parametros = {
-    id: id_ambiente,
-    amb: nombre,
-    user: usuario,
-    iduser: usuario_id,
-    impto: impuesto,
-    prop: propina,
-    fecha: fecha_auditoria,
+    id_ambiente,
+    nombre,
+    fecha_auditoria,
     logo,
   };
 
   $.ajax({
-    url: "informes/cuentasAnuladas.php",
+    url: "imprimir/imprimeCuentasAnuladas.php",
     type: "POST",
     data: parametros,
     success: function (data) {
@@ -4174,7 +4088,10 @@ function cierreDiarioCajero() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user: { usuario, usuario_id, tipo }, } = sesion;
+  let {
+    pos,
+    user: { usuario, usuario_id, tipo },
+  } = sesion;
   let {
     id_ambiente,
     nombre,
@@ -4194,7 +4111,7 @@ function cierreDiarioCajero() {
     impto: impuesto,
     prop: propina,
     fecha: fecha_auditoria,
-    prefijo
+    prefijo,
   };
 
   $.ajax({
@@ -4215,22 +4132,19 @@ function facturasAnuladasCajero() {
     pos,
     user: { usuario, usuario_id, tipo },
   } = sesion;
-  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } =
-    oPos;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } = oPos;
 
   parametros = {
-    id: id_ambiente,
-    amb: nombre,
-    user: usuario,
-    iduser: usuario_id,
-    impto: impuesto,
-    prop: propina,
-    fecha: fecha_auditoria,
+    id_ambiente,
+    nombre,
+    usuario,
+    usuario_id,
+    fecha_auditoria,
     logo,
   };
 
   $.ajax({
-    url: "informes/facturasAnuladasCajero.php",
+    url: "imprimir/imprimeFacturasAnuladasCajero.php",
     type: "POST",
     data: parametros,
     success: function (data) {
@@ -4247,8 +4161,7 @@ function abonosCajero() {
     pos,
     user: { usuario, usuario_id, tipo },
   } = sesion;
-  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } =
-    oPos;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } = oPos;
 
   parametros = {
     id: id_ambiente,
@@ -4276,25 +4189,21 @@ function facturasCajero() {
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
   let {
-    pos,
-    user: { usuario, usuario_id, tipo },
+    user: { usuario, usuario_id },
   } = sesion;
-  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } =
-    oPos;
-  //
+  let { id_ambiente, nombre, fecha_auditoria, logo } = oPos;
+
   parametros = {
-    id: id_ambiente,
-    amb: nombre,
-    user: usuario,
-    iduser: usuario_id,
-    impto: impuesto,
-    prop: propina,
-    fecha: fecha_auditoria,
+    id_ambiente,
+    nombre,
+    usuario,
+    usuario_id,
+    fecha_auditoria,
     logo,
   };
 
   $.ajax({
-    url: "informes/facturasCajero.php",
+    url: "imprimir/imprimeFacturasCajero.php",
     type: "POST",
     data: parametros,
     success: function (data) {
@@ -4308,25 +4217,21 @@ function devolucionesCajero() {
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
   let {
-    pos,
-    user: { usuario, usuario_id, tipo },
+    user: { usuario, usuario_id },
   } = sesion;
-  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } =
-    oPos;
+  let { id_ambiente, nombre, fecha_auditoria, logo } = oPos;
 
   parametros = {
-    id: id_ambiente,
-    amb: nombre,
-    user: usuario,
-    iduser: usuario_id,
-    impto: impuesto,
-    prop: propina,
-    fecha: fecha_auditoria,
+    id_ambiente,
+    nombre,
+    usuario,
+    usuario_id,
+    fecha_auditoria,
     logo,
   };
 
   $.ajax({
-    url: "informes/devolucionesCajero.php",
+    url: "imprimir/imprimeDevolucionesCajero.php",
     type: "POST",
     data: parametros,
     success: function (data) {
@@ -4343,8 +4248,7 @@ function balanceDiarioGeneral() {
     pos,
     user: { usuario, usuario_id, tipo },
   } = sesion;
-  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } =
-    oPos;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } = oPos;
   let file = makeid(12);
 
   parametros = {
@@ -4381,8 +4285,7 @@ function balanceDiarioCajero() {
     pos,
     user: { usuario, usuario_id, tipo },
   } = sesion;
-  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } =
-    oPos;
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } = oPos;
 
   parametros = {
     id: id_ambiente,
@@ -4410,25 +4313,22 @@ function cuentasAnuladasCajero() {
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
   let {
-    pos,
-    user: { usuario, usuario_id, tipo },
+    user: { usuario, usuario_id },
   } = sesion;
-  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } =
-    oPos;
-  let file = makeid(12);
+  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } = oPos;
 
   parametros = {
-    id: id_ambiente,
-    amb: nombre,
-    user: usuario,
-    iduser: usuario_id,
-    impto: impuesto,
-    prop: propina,
-    fecha: fecha_auditoria,
+    id_ambiente,
+    nombre,
+    usuario,
+    usuario_id,
+    impuesto,
+    propina,
+    fecha_auditoria,
     logo,
   };
   $.ajax({
-    url: "informes/cuentasAnuladasCajero.php",
+    url: "imprimir/imprimeCuentasAnuladasCajero.php",
     type: "POST",
     data: parametros,
     success: function (data) {
@@ -4442,26 +4342,21 @@ function cuentasActivasCajero() {
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
   let {
-    pos,
-    user: { usuario, usuario_id, tipo },
+    user: { usuario, usuario_id },
   } = sesion;
-  let { id_ambiente, nombre, propina, fecha_auditoria, logo, impuesto } =
-    oPos;
-  let file = makeid(12);
+  let { id_ambiente, nombre, fecha_auditoria, logo } = oPos;
 
   parametros = {
-    id: id_ambiente,
-    amb: nombre,
-    user: usuario,
-    iduser: usuario_id,
-    impto: impuesto,
-    prop: propina,
-    fecha: fecha_auditoria,
+    id_ambiente,
+    nombre,
+    usuario,
+    usuario_id,
+    fecha_auditoria,
     logo,
   };
 
   $.ajax({
-    url: "informes/cuentasActivasCajero.php",
+    url: "imprimir/imprimeCuentasActivasCajero.php",
     type: "POST",
     data: parametros,
     success: function (data) {
@@ -4516,28 +4411,32 @@ function muestraPDF(file, titulo) {
   `);
 }
 
-
 function creaHTMLReportes(data, titulo) {
   $("#pantalla").html("");
+  $("#pantalla").removeClass("pd0");
+  $("#pantalla").addClass("pd10");
   $("#pantalla").html(`
-  <section class="content">
+    <section class="content">
       <div class="panel panel-success">
         <div class="panel-heading"> 
           <div class="row">
-            <div class="col-lg-9">
+            <div class="col-lg-6">
               <input type="hidden" name="user" id="user" value="">
               <input type="hidden" name="rutaweb" id="rutaweb" value="<?php echo BASE_POS; ?>">
               <input type="hidden" name="nombreAmbiente" id="nombreAmbiente" value="">
               <input type="hidden" name="ubicacion" id="ubicacion" value="cuentasActivasCajero.php">
-              <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-industry"></i> ${titulo} <?php echo $usuario; ?></h3>
-            </div>
-          </div>
-        <div class="panel-body">
-          <div class="divInforme">
-            <object type="application/pdf" id="verInforme" width="100%" height="500" data="data:application/pdf;base64,${$.trim(data)}"></object>
+              <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-industry"></i> ${titulo}</h3>
+            </div> 
           </div>
         </div>
-      </div> 
+        <div class="panel-body">
+          <div class="divInforme">
+            <object type="application/pdf" id="verInforme" width="100%" height="500" data="data:application/pdf;base64,${$.trim(
+              data
+            )}"></object>
+          </div>
+        </div>
+      </div>
     </section>
   `);
 }
@@ -4546,7 +4445,10 @@ function ventasDia() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
-  let { pos, user: { usuario, usuario_id, tipo }, } = sesion;
+  let {
+    pos,
+    user: { usuario, usuario_id, tipo },
+  } = sesion;
   let { id_ambiente, nombre, propina, fecha_auditoria, impuesto, logo } = oPos;
   let file = makeid(12);
 
@@ -4594,52 +4496,22 @@ async function cuentasActivas() {
     prefijo,
   };
   let llena = await llenaCuentas(parametros);
-  let panta = document.querySelector('#pantalla');
-  let prs = document.querySelectorAll('.prende')
+  let panta = document.querySelector("#pantalla");
+  let prs = document.querySelectorAll(".prende");
   panta.innerHTML = llena;
   const nuevaAltura = window.innerHeight;
   comanda = await getCuentasActivas(id_ambiente);
-  let pc = document.querySelector('#productosComanda')
-  let lc = document.querySelector('#listaComandas')
-  let bg = document.querySelector('.btn-group-vertical')
-  let pl = document.querySelector('#productoList')
-  
-  pc.style.height = `${nuevaAltura  - 160}px`;
-  lc.style.height = `${nuevaAltura  - 160}px`;
-  bg.style.height = `${nuevaAltura  - 138}px`;
-  pl.style.height = `${nuevaAltura  - 138}px`;
-  botones = document.querySelectorAll('.apagado');
-  ocultarBotones(botones, 'display',0);
-  // pl.style.height = `${nuevaAltura - 138}px`;
-  // pr.style.display = 'none'
-  /* $.ajax({
-    url: "ventas/cuentas_activas.php",
-    type: "POST",
-    data: parametros,
-    success: function (data) {
-      $("#pantalla").html(data);
-      $(".prende").css("display", "none");
-      const nuevaAltura = window.innerHeight;
-      lc = document.querySelector('#listaComandas');
-      lc.style.height = `${nuevaAltura  - 183}px`; */
-  /* prod = document.querySelector('#productosComanda');
-  btntool = document.querySelector('.btn-toolbar');
-  group = document.querySelector('.btn-group-vertical');
-  pl = document.querySelector('#productoList');
-  sl = document.querySelector('#seccionList');
-  vl = document.querySelector('#ventasList'); */
+  let pc = document.querySelector("#productosComanda");
+  let lc = document.querySelector("#listaComandas");
+  let bg = document.querySelector(".btn-group-vertical");
+  let pl = document.querySelector("#productoList");
 
-  /*       pl.style.height = `${nuevaAltura  - 138}px`;
-        sl.style.height = `${nuevaAltura  - 138}px`;
-        vl.style.height = `${nuevaAltura  - 138}px`;
-        btntool.style.height = `${nuevaAltura  - 137}px`;
-        group.style.height = `${nuevaAltura  - 135}px`;
-        prod.style.height = `${nuevaAltura  - 183}px`;       */
-  /* $("#imprimeComanda").css("margin-top", "31px");
-},
-<b>Warning</b>:  Undefined variable $id_ambiente in <b>/var/www/donlolo.lan/pos/res/php/user_actions/cuentasActivas.php</b> on line <b>9</b><br />
-
-}); */
+  pc.style.height = `${nuevaAltura - 160}px`;
+  lc.style.height = `${nuevaAltura - 160}px`;
+  bg.style.height = `${nuevaAltura - 138}px`;
+  pl.style.height = `${nuevaAltura - 138}px`;
+  botones = document.querySelectorAll(".apagado");
+  ocultarBotones(botones, "display", 0);
 }
 
 async function traeCuentasAmbiente(id_ambiente) {
@@ -4659,34 +4531,34 @@ async function traeCuentasAmbiente(id_ambiente) {
   }
 }
 
-function ocultarBotones(elementos, metodo = 'display', tipo) {
+function ocultarBotones(elementos, metodo = "display", tipo) {
   // Verificamos si hay elementos para ocultar
   if (!elementos || elementos.length === 0) {
-    console.warn('No se encontraron elementos para ocultar.');
+    console.warn("No se encontraron elementos para ocultar.");
     return;
   }
 
   // Iteramos sobre cada elemento en la lista
-  elementos.forEach(boton => {
+  elementos.forEach((boton) => {
     switch (metodo) {
-      case 'display':
+      case "display":
         // Método 1: Ocultar usando 'display: none'. Esto elimina el botón del flujo del documento.
-        if(tipo==0){
-          boton.style.display = 'none';
-        }else{
-          boton.style.display = 'block';
+        if (tipo == 0) {
+          boton.style.display = "none";
+        } else {
+          boton.style.display = "block";
         }
         break;
-      case 'visibility':
+      case "visibility":
         // Método 2: Ocultar usando 'visibility: hidden'. El botón no es visible, pero ocupa su espacio.
-        boton.style.visibility = 'hidden';
+        boton.style.visibility = "hidden";
         break;
-      case 'clase':
+      case "clase":
         // Método 3: Ocultar agregando una clase CSS. Es la mejor práctica para la separación de preocupaciones.
-        boton.classList.add('oculto');
+        boton.classList.add("oculto");
         break;
       default:
-        console.error('Método de ocultamiento no válido.');
+        console.error("Método de ocultamiento no válido.");
         break;
     }
   });
@@ -4706,7 +4578,6 @@ async function llenaCuentas(parametros) {
   } catch (error) {
     return error;
   }
-
 }
 
 async function muestraTouch() {
@@ -4716,7 +4587,10 @@ async function muestraTouch() {
   let propina = 0;
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  let { pos, user: { usuario, usuario_id, tipo }, } = sesion;
+  let {
+    pos,
+    user: { usuario, usuario_id, tipo },
+  } = sesion;
   let { id_ambiente, nombre, prefijo, fecha_auditoria, impuesto } = oPos;
   $("#btnGuardar").attr("disabled", "enabled");
 
@@ -4741,19 +4615,22 @@ async function muestraTouch() {
       } else {
         listaComanda = JSON.parse(storageProd);
         abonos = 0;
-        descuento = listaComanda.reduce((totdes, comanda) => totdes + comanda.descuento, 0);
+        descuento = listaComanda.reduce(
+          (totdes, comanda) => totdes + comanda.descuento,
+          0
+        );
         productosActivos();
         resumenComanda();
       }
       getSecciones();
       $("#pantalla").html("");
       $("#pantalla").html(data);
-      prod = document.querySelector('#productosComanda');
-      btntool = document.querySelector('.btn-toolbar');
-      group = document.querySelector('.btn-group-vertical');
-      pl = document.querySelector('#productoList');
-      sl = document.querySelector('#seccionList');
-      vl = document.querySelector('#ventasList');
+      prod = document.querySelector("#productosComanda");
+      btntool = document.querySelector(".btn-toolbar");
+      group = document.querySelector(".btn-group-vertical");
+      pl = document.querySelector("#productoList");
+      sl = document.querySelector("#seccionList");
+      vl = document.querySelector("#ventasList");
 
       const nuevaAltura = window.innerHeight;
       pl.style.height = `${nuevaAltura - 138}px`;
@@ -4762,7 +4639,6 @@ async function muestraTouch() {
       btntool.style.height = `${nuevaAltura - 137}px`;
       group.style.height = `${nuevaAltura - 135}px`;
       prod.style.height = `${nuevaAltura - 183}px`;
-
     },
   });
 }
@@ -4846,8 +4722,8 @@ let {
 } = sesion;
 
 async function ingresoPos() {
-  console.log('Ingreso al POS ')
-  console.log({usuario_id, usuario});
+  console.log("Ingreso al POS ");
+  console.log({ usuario_id, usuario });
   $("#idUsuario").val(usuario_id);
 
   if (invMod == 1 && tipo <= 2) {
@@ -4886,7 +4762,7 @@ async function ingresoPos() {
       url: "res/php/user_actions/activaCajero.php",
       type: "POST",
       data: { usuario_id },
-      success: function () { },
+      success: function () {},
     });
   }
 }
@@ -4900,7 +4776,9 @@ function activaPos() {
 function cierreCajero(cajero) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  let { user: { usuario, usuario_id, tipo, nombres, apellidos }, } = sesion;
+  let {
+    user: { usuario, usuario_id, tipo, nombres, apellidos },
+  } = sesion;
   let { fecha_auditoria, id_ambiente, nombre, logo, prefijo } = oPos;
 
   var web = $("#rutaweb").val();
@@ -5416,8 +5294,7 @@ function getFactura(comanda, factura, pms) {
     pos,
     user: { usuario, usuario_id, tipo },
   } = sesion;
-  let { id_ambiente, nombre, propina, fecha_auditoria, impuesto, logo } =
-    oPos;
+  let { id_ambiente, nombre, propina, fecha_auditoria, impuesto, logo } = oPos;
 
   parametros = {
     idamb: id_ambiente,
@@ -5500,8 +5377,6 @@ function getAmbientes() {
 }
 
 function getSeleccionaAmbiente(codigo) {
-  // var listaComanda;
-  // console.log({usuario_id, usuario})
   var parametros = {
     codigo,
   };
@@ -5607,7 +5482,9 @@ function productosActivos() {
   } else {
     listaComanda = JSON.parse(storageProd);
   }
-  let { user: { usuario, usuario_id, tipo }, } = sesion;
+  let {
+    user: { usuario, usuario_id, tipo },
+  } = sesion;
 
   $(".comanda > tbody").html("");
   /* listaComanda.map((productos) => {
@@ -5657,9 +5534,12 @@ function productosActivos() {
             <button
               type="button"
               id="${i}"
-              onclick="botonDevolverProducto('${numero}','${listaComanda[i]["codigo"]
-          }','${listaComanda[i]["ambiente"]}','${listaComanda[i]["cant"]}','${listaComanda[i]["producto"]
-          }','${listaComanda[i]["id"]}','${listaComanda[i]["importe"]}','${listaComanda[i]["impto"]
+              onclick="botonDevolverProducto('${numero}','${
+            listaComanda[i]["codigo"]
+          }','${listaComanda[i]["ambiente"]}','${listaComanda[i]["cant"]}','${
+            listaComanda[i]["producto"]
+          }','${listaComanda[i]["id"]}','${listaComanda[i]["importe"]}','${
+            listaComanda[i]["impto"]
           }',this.id, this.parentNode.parentNode.parentNode.rowIndex)"
               class="btn btn-danger btn-xs btnDevuelve"
               title="Devolver Producto Uno">
@@ -5682,16 +5562,19 @@ function productosActivos() {
               <td>${listaComanda[i]["producto"]}</td>
               <td>${listaComanda[i]["cant"]}</td>
               <td class="t-right">${number_format(
-              listaComanda[i]["total"],
-              2
-            )}</td>
+                listaComanda[i]["total"],
+                2
+              )}</td>
               <td class="t-center">
                 <button
                   type="button"
                   id="${i}"
-                  onclick="botonDevolverProducto('${numero}','${listaComanda[i]["codigo"]
-            }','${listaComanda[i]["ambiente"]}','${listaComanda[i]["cant"]}','${listaComanda[i]["producto"]
-            }','${listaComanda[i]["id"]}','${listaComanda[i]["importe"]}','${listaComanda[i]["impto"]
+                  onclick="botonDevolverProducto('${numero}','${
+              listaComanda[i]["codigo"]
+            }','${listaComanda[i]["ambiente"]}','${listaComanda[i]["cant"]}','${
+              listaComanda[i]["producto"]
+            }','${listaComanda[i]["id"]}','${listaComanda[i]["importe"]}','${
+              listaComanda[i]["impto"]
             }',this.id, this.parentNode.parentNode.parentNode.rowIndex)"
                   class="btn btn-danger btn-xs"
                   title="Devolver Producto Dos">
@@ -6096,7 +5979,10 @@ async function getCuentasActivas(idamb) {
               value   ="${x[i]["comanda"]}"
               title   ="Comanda Numero ${x[i]["comanda"]}">
             <h3 style="color:white;">Mesa ${x[i]["mesa"]}</h3>
-            <h3 style="color:white;">Comanda ${number_format(x[i]["comanda"], 0)}</h3>
+            <h3 style="color:white;">Comanda ${number_format(
+              x[i]["comanda"],
+              0
+            )}</h3>
             </button>`;
         $("#listaComandas").append(boton);
 
@@ -6149,7 +6035,8 @@ function getProductosComanda(comanda, mesa) {
       for (j = 0; j < dato.length; j++) {
         titulo =
           titulo +
-          `${dato[j]["nom"].substring(0, 30).padEnd(30, " ")} ${dato[j]["cant"]
+          `${dato[j]["nom"].substring(0, 30).padEnd(30, " ")} ${
+            dato[j]["cant"]
           }     ${number_format(dato[j]["venta"], 2)} \n`;
         total = total + parseInt(dato[j]["venta"], 10);
       }
@@ -6168,10 +6055,18 @@ function getComandas(comanda, numero) {
   /* 
   // let {pos, user: { usuario, usuario_id, tipo }, } = sesion;
   */
-  let { id_ambiente, nombre, propina, prefijo, fecha_auditoria, impuesto } = oPos; 
+  let { id_ambiente, nombre, propina, prefijo, fecha_auditoria, impuesto } =
+    oPos;
 
-  console.log({ usuario, usuario_id, tipo })
-  console.log({ id_ambiente, nombre, propina, prefijo, fecha_auditoria, impuesto });
+  console.log({ usuario, usuario_id, tipo });
+  console.log({
+    id_ambiente,
+    nombre,
+    propina,
+    prefijo,
+    fecha_auditoria,
+    impuesto,
+  });
 
   miBoton = "#" + comanda;
   subtotal = parseFloat($(miBoton).attr("subtotal"));
@@ -6216,16 +6111,16 @@ function getComandas(comanda, numero) {
     },
     success: function (data) {
       $(".prende").css("display", "block");
-      botones = document.querySelectorAll('.apagado');
-      ocultarBotones(botones, 'display',1);
+      botones = document.querySelectorAll(".apagado");
+      ocultarBotones(botones, "display", 1);
 
       $("#tituloNumero").removeClass("alert-info");
       // $("#tituloNumero").addClass("alert-success");
       $("#tituloNumero").html(`Comanda Numero ${numero}`);
       // $("#guardaComandaDividida").css("display", "none");
       const nuevaAltura = window.innerHeight;
-      let bg = document.querySelector('.btn-toolbar')
-      bg.style.height = `${nuevaAltura  - 138}px`;
+      let bg = document.querySelector(".btn-toolbar");
+      bg.style.height = `${nuevaAltura - 138}px`;
 
       for (i = 0; i < data.length; i++) {
         dataProd = {
@@ -6271,7 +6166,8 @@ function calculaCambio() {
   }
   if (cambio < 0) {
     $("#resultado").html(
-      `<label name='resultado' class='avisoVta avisCambio alert alert-danger'>SALDO PENDIENTE $ ${cambio * -1
+      `<label name='resultado' class='avisoVta avisCambio alert alert-danger'>SALDO PENDIENTE $ ${
+        cambio * -1
       }</label>`
     );
   }
