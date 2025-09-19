@@ -2289,20 +2289,12 @@ function btnEliminaReceta(id) {
 
 function recetas() {
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  let {
-    pos,
-    user: { usuario_id, usuario },
-  } = sesion;
+  let { user: { usuario_id, usuario },  } = sesion;
   let { id_ambiente, nombre, propina, fecha_auditoria, impuesto } = oPos;
 
   parametros = {
-    id: id_ambiente,
-    amb: nombre,
-    user: usuario,
-    iduser: usuario_id,
-    impto: impuesto,
-    prop: propina,
-    fecha: fecha_auditoria,
+    id_ambiente,
+    fecha_auditoria,
   };
 
   $.ajax({

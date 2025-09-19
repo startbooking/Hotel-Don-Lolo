@@ -1,12 +1,10 @@
 <?php
-require '../../res/php/titles.php';
 require '../../res/php/app_topPos.php';
-
-$idamb = $_POST['id'];
-$recetas = $pos->getRecetas($idamb);
+extract($_POST);
+$recetas = $pos->getRecetas($id_ambiente);
 
 ?>
-  <section class="content" style="padding:10px;">
+  <section class="coid_antent" style="padding:10px;">
     <div class="panel panel-success">
       <div class="panel-heading"> 
         <div class="row producto">

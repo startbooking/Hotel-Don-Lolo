@@ -1,0 +1,2 @@
+[19-Sep-2025 14:44:38 UTC] PHP Warning:  Undefined array key "tipo" in /var/www/donlolo.lan/pos/res/php/user_actions/muestraPos.php on line 3
+[19-Sep-2025 14:45:17 UTC] PHP Warning:  Undefined array key "tipo" in /var/www/donlolo.lan/pos/res/php/user_actions/muestraPos.php on line 3
