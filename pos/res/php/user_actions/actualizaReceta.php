@@ -1,16 +1,6 @@
 <?php
 	  require '../../../../res/php/app_topPos.php'; 
-	
-		$idrec       = $_POST["idReceta"];
-		$receta      = strtoupper($_POST["receta"]);
-		$porcion     = $_POST["porcion"];
-		$tipoReceta  = $_POST["tipoReceta"];
-		$impto       = $_POST["impto"];
-		$vlrVenta    = $_POST["vlrVenta"];
-		$margen      = $_POST["margen"];
-		$tiempo      = $_POST["tiempo"];
-		$preparacion = strtoupper($_POST["preparacion"]);
-		$montaje     = strtoupper($_POST["montaje"]);
+		extract($_POST);
 
 		if (isset($_POST["subreceta"])) {
 			$subreceta   = 1;
@@ -24,9 +14,9 @@
 		$vlrImpt = (($vlrNeto * $porImp)/ 100);
 		$vlrPorc = $vlrNeto / $porcion;
 
-		$actua = $pos->actualizaReceta($receta, $porcion, $tipoReceta, $impto, $subreceta, $vlrVenta, $vlrNeto, $vlrImpt, $vlrPorc, $margen, $tiempo, $preparacion, $montaje, $idrec)	;	
+		$actua = $pos->actualizaReceta(trim(strtoupper($receta)), $porcion, $tipoReceta, $impto, $subreceta, $vlrVenta, $vlrNeto, $vlrImpt, $vlrPorc, $margen, $tiempo, trim(strtoupper($preparacion)), strtoupper($montaje), $idReceta)	;	
 
 		echo $actua;
 
-?>	
+?>
 

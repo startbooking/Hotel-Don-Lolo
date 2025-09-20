@@ -3591,7 +3591,7 @@ class Pos_Actions
             'nombre_seccion',
         ], [
             'estado_seccion' => 1,
-            'deleted_at' => null,
+            'deleted_at' => Null,
             'ORDER' => ['nombre_seccion' => 'ASC'],
         ]);
 

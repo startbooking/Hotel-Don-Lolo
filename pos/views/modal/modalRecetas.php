@@ -189,6 +189,8 @@
                   <div class="col-lg-6 pull-right">
                     <table id="valorReceta">
                       <tbody>
+                        <td style="width:50%;text-align:right;padding-right:10px">Costo Receta</td>
+                        <td><input style="font-size:2rem; font-weight:700;" class="form-control"type="text" id="costoReceta" readonly></td>
                       </tbody>
                     </table>
                   </div>

@@ -1,5 +1,0 @@
-[19-Sep-2025 12:17:28 America/Bogota] PHP Deprecated:  Implicit conversion from float 397.7715877437326 to int loses precision in /var/www/donlolo.lan/pos/res/php/user_actions/subirFotoReceta.php on line 59
-[19-Sep-2025 12:17:28 America/Bogota] PHP Deprecated:  Implicit conversion from float 397.7715877437326 to int loses precision in /var/www/donlolo.lan/pos/res/php/user_actions/subirFotoReceta.php on line 60
-[19-Sep-2025 12:33:23 America/Bogota] PHP Warning:  Undefined array key "impto" in /var/www/donlolo.lan/pos/res/php/user_actions/guardaReceta.php on line 7
-[19-Sep-2025 12:33:23 America/Bogota] PHP Warning:  Undefined array key 0 in /var/www/donlolo.lan/res/php/functionsPos.php on line 1742
-[19-Sep-2025 12:33:23 America/Bogota] PHP Warning:  Trying to access array offset on null in /var/www/donlolo.lan/res/php/functionsPos.php on line 1742

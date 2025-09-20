@@ -2514,13 +2514,10 @@ function adicionaMateriaPrima() {
 async function btnRecetaProducto(boton) {
   $("#dataRecetaProducto").modal("show");
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {
-    user: { usuario, usuario_id, tipo },
-  } = sesion;
+  let { user: { usuario, usuario_id, tipo }, } = sesion;
   let receta = boton.dataset.receta;
   let subreceta = boton.dataset.subreceta;
   let id = boton.dataset.id;
-  // let { usuario_id, usuario } = user;
 
   $("#nomReceta").val(receta);
   $(".modal-title").html(`Receta Estandar : ${receta}`);
@@ -2538,9 +2535,13 @@ async function btnRecetaProducto(boton) {
   materiaPrima = document.querySelector("#materiaPrima  tbody");
   limpia = await limpiaProductosRecetasHMLT();
   await muestraProductosRecetasHML(productos);
+
+
 }
 
 async function muestraProductosRecetasHML(productos) {
+  const costoReceta = document.querySelector('#costoReceta');
+  let totalPromedio = 0;
   productos.map((producto) => {
     const {
       nombre_producto,
@@ -2553,6 +2554,9 @@ async function muestraProductosRecetasHML(productos) {
       id_receta,
       subreceta,
     } = producto;
+    console.log(valor_promedio);
+    totalPromedio += valor_promedio;
+    console.log(totalPromedio);
     const row = document.createElement("tr");
     let aviso = "";
 
@@ -2577,6 +2581,7 @@ async function muestraProductosRecetasHML(productos) {
         </td>`;
     materiaPrima.appendChild(row);
   });
+  costoReceta.value = number_format(totalPromedio,2);
 }
 
 async function limpiaProductosRecetasHMLT() {
@@ -2592,15 +2597,15 @@ async function traeProductosRecetas(id) {
       {
         method: "POST",
         headers: {
-          "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+          "Content-type": "application/json; charset=UTF-8",
         },
-        body: "id=" + id,
+        body: JSON.stringify({id}),
       }
     );
     const datos = await resultado.json();
     return datos;
   } catch (error) {
-    // console.log(error);
+    console.log(error);
   }
 }
 
