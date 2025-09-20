@@ -413,6 +413,10 @@ blockquote {
   padding: 0px;
 }
 
+.py10 {
+  padding-top:10px;
+  padding-bottom:10px;
+}
 .imgLogo,
 .logo img {
   width: 40px;

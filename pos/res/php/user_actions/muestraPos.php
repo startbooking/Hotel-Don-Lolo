@@ -1,13 +1,11 @@
 <?php
-$ambSel = $_POST['ambSel'];
-$tipoUsr = $_POST['tipo'];
-
 require '../../../../res/php/app_topPos.php';
+extract($_POST);
 
-$ambienteSeleccionado = $pos->getAmbienteSeleccionado($ambSel);
-$comandaPos = $pos->countComandasPos($ambSel, 'A');
-$comandaAnuladaPos = $pos->countComandasPos($ambSel, 'X');
-$facturasPos = $pos->countFacturasPos($ambSel);
+$ambienteSeleccionado = $pos->getAmbienteSeleccionado($ambienteSel);
+$comandaPos = $pos->countComandasPos($ambienteSel, 'A');
+$comandaAnuladaPos = $pos->countComandasPos($ambienteSel, 'X');
+$facturasPos = $pos->countFacturasPos($ambienteSel);
 
 ?>
 <section class="container-fluid pd0">
@@ -40,7 +38,7 @@ $facturasPos = $pos->countFacturasPos($ambSel);
       ?>
       <div class="container-fluid moduloCentrar">
         <?php
-        if ($tipoUsr <= 4) { ?>
+        if ($tipo <= 4) { ?>
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pd0">
             <a style="cursor:pointer;" onclick="muestraTouch()" class="small-box-footer">
               <div class="small-box bg-green-gradient">

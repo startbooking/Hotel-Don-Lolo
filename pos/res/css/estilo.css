@@ -3,14 +3,13 @@
 }
 
 #pantalla {
-  /* min-height: 570px; */
-    /* display: inline; */
-    align-items: center; /* Esto alinea los elementos verticalmente */
-    justify-content: center; /* Esto alinea los elementos horizontalmente */
-    /* height: 100vh;  */
-    /* Opcional: Para que ocupe toda la altura del viewport */
+  align-items: center; /* Esto alinea los elementos verticalmente */
+  justify-content: center; /* Esto alinea los elementos horizontalmente */
 }
 
+.btn-toolbar {
+  margin-left: 0;
+}
 
 .form-signin {
   max-width: 350px;
@@ -186,7 +185,7 @@ td span .alert {
   font-size: 14px;
 }
 
-.btn-toolbar .btn-group-vertical{
+.btn-toolbar .btn-group-vertical {
   margin: 0px;
   height: 466px;
   background: rgba(0, 0, 0, 0.205);
@@ -430,7 +429,8 @@ form textarea {
   float: right;
 }
 
-.btn-group-xs > .btn, .btn-xs {
+.btn-group-xs > .btn,
+.btn-xs {
   font-size: 13px;
 }
 

@@ -2137,6 +2137,8 @@ function verFoto02(e) {
 }
 
 function subeFoto(id, receta, foto) {
+  let formImg = document.querySelector('form');
+  formImg.reset;
   $("#myModalFotoReceta").modal("show");
   $(".modal-title").html("Foto Receta Estandar : " + receta);
   $("#idRecetaFoto").val(id);
@@ -3319,7 +3321,7 @@ function recuperarCuenta() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
 }
 
-function muestraPos(ambSel) {
+function muestraPos(ambienteSel) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
   oPos = JSON.parse(localStorage.getItem("oPos"));
 
@@ -3335,7 +3337,7 @@ function muestraPos(ambSel) {
     url: "res/php/user_actions/muestraPos.php",
     type: "POST",
     data: {
-      ambSel,
+      ambienteSel,
       tipo,
     },
     success: function (data) {

@@ -1391,7 +1391,7 @@ class Pos_Actions
     {
         global $database;
 
-        $data = $database->select('recetasEstandar', [
+        $data = $database->get('recetasEstandar', [
             'id_receta',
             'nombre_receta',
             'id_seccion',
@@ -3582,7 +3582,7 @@ class Pos_Actions
         return $data;
     }
 
-    public function getTipoPlatos($idamb)
+    public function getTipoPlatos()
     {
         global $database;
 
@@ -3591,7 +3591,6 @@ class Pos_Actions
             'nombre_seccion',
         ], [
             'estado_seccion' => 1,
-            'id_ambiente' => $idamb,
             'deleted_at' => null,
             'ORDER' => ['nombre_seccion' => 'ASC'],
         ]);

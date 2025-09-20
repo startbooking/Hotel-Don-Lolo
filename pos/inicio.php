@@ -1,5 +1,4 @@
 <?php
-  // require_once '../res/php/titles.php';
   require_once '../res/php/app_topPos.php';
 
   ?>
@@ -8,7 +7,8 @@
   <head>
     <title>SACTel Cloud | Sistema de Puntos de Ventas</title>
     <?php include_once '../res/shared/archivo_head.php'; ?>
-    <link rel="stylesheet" type="text/css" href="<?php echo BASE_POS; ?>res/css/estilo.css">
+      <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+        <link rel="stylesheet" type="text/css" href="<?php echo BASE_POS; ?>res/css/estilo.css">
     <?php
       include_once '../res/shared/archivo_script.php';
     ?>

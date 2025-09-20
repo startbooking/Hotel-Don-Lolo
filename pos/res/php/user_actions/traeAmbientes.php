@@ -8,7 +8,7 @@
   }else{
     ?>
       <div class="col-lg-8 col-lg-offset-2">        
-        <h2 align="center" style="font-weight:700">Punto de Venta no Seleccionado <br>
+        <h2 align="center" style="font-weight:700;margin-top:20px; font-size:2rem;">Punto de Venta no Seleccionado <br>
         <small><strong aling="center">Seleccione el Punto de Venta</strong></small></h2>
         <h4 align="center" style="padding:15px;margin:10px;font-size:3em;"></h4>
         <?php
