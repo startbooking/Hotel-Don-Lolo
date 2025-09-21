@@ -1,10 +1,7 @@
 <?php
 		require_once '../../../../res/php/app_topPos.php'; 
-	
-		$produc  = $_POST["cod"];
-		$receta  = $_POST["regis2"];
-
-		$crea = $pos->eliminaMateriaPrima($produc);
+		extract($_POST);
+		$crea = $pos->eliminaMateriaPrima($cod);
 
 		$valorCosto = $pos->traeCosto($receta);	
 		$valorventa = $pos->traeVenta($receta);

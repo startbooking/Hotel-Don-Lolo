@@ -505,7 +505,7 @@ function balanceHistorico() {
   let { fecha_auditoria } = oPos;
   parametros = {
     fecha_auditoria,
-    usuario
+    usuario,
   };
 
   $.ajax({
@@ -669,7 +669,8 @@ $(document).ready(function () {
     swal("Entro adicionar Subreceta");
   });
 
-  $("#modalAdicionaSubReceta").on("show.bs.modal", function () {
+  $("#dataRecetaProducto").modal("show", async function () {
+    console.log('Entro a MOdal Receta Producto');
     // Aquí va el código a ejecutar cuando se dispara el evento de cerrar la ventana modal
   });
 });
@@ -699,7 +700,7 @@ const guardaSubRecetas = async (subReceta) => {
     const datos = await resultado.json();
     return datos;
   } catch (error) {
-    // console.log(error);
+    console.log(error);
   }
 };
 
@@ -711,7 +712,7 @@ async function modalSubReceta() {
 
   const subrecetas = await traeSubRecetas(receta);
 
-  subRecetas = document.querySelector("#subRecetas tbody");
+  let subRecetas = document.querySelector("#subRecetas tbody");
   limpia = await limpiaSubRecetasHTML();
 
   await muestraSubRecetasHTML(subrecetas);
@@ -753,7 +754,7 @@ async function traeSubRecetasSeleccionadas() {
     const checkbox = checkboxList[i];
 
     if (checkbox.checked) {
-      fila = checkbox.closest("tr").querySelectorAll("td");
+      let fila = checkbox.closest("tr").querySelectorAll("td");
       let nombre = checkbox.closest("tr").querySelectorAll("td")[0];
       let fila1 = checkbox.closest("tr").querySelectorAll("td")[1];
       let nombreSubRece = nombre.innerText;
@@ -794,7 +795,7 @@ const traeSubRecetas = async (receta) => {
     const datos = await resultado.json();
     return datos;
   } catch (error) {
-    // console.log(error);
+    console.log(error);
   }
 };
 
@@ -1507,7 +1508,7 @@ function historicoProductos() {
   huesped = $("#desdeHuesped").val();
   formaPa = $("#desdeFormaPago").val();
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  let { nombre, id_ambiente, logo, } = oPos;
+  let { nombre, id_ambiente, logo } = oPos;
 
   parametros = {
     nombre,
@@ -2137,7 +2138,7 @@ function verFoto02(e) {
 }
 
 function subeFoto(id, receta, foto) {
-  let formImg = document.querySelector('form');
+  let formImg = document.querySelector("form");
   formImg.reset;
   $("#myModalFotoReceta").modal("show");
   $(".modal-title").html("Foto Receta Estandar : " + receta);
@@ -2208,33 +2209,55 @@ function activaMenu() {
 }
 
 function resumenReceta() {
-  var total = 0.0;
-  var totales = 0.0;
+  let total = 0;
+  let totales = 0;
 
   $("#materiaPrima > tbody > tr").each(function () {
-    var total = $(this).find("td").eq(4).html();
+    let total = $(this).find("td").eq(4).html();
     total = parseFloat(total.replaceAll(",", ""));
-    totales = totales + total;
+    totales += total;
   });
 
-  $("#vlrTotal").text(number_format(totales, 2));
+  $("#costoReceta").val(number_format(totales, 2));
 }
 
-function saleMP() {
+async function saleMP() {
+  let formreceta = document.querySelector("#idReceta");
+  let receta = formreceta.value;
+  let formCosto = document.querySelector('#costoReceta');
+  let costo = formCosto.value;
+  costo = parseFloat(costo.replaceAll(",", ""));
+  try {
+    const resultado = await fetch(
+      `res/php/user_actions/actualizaCostoReceta.php`,
+      {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+        body: JSON.stringify({ costo, receta }),
+      }
+    );
+    const datos = await resultado.json();
+    // return datos;
+  } catch (error) {
+    console.log(error);
+  }
+
   $("#dataRecetaProducto").modal("hide");
   $(".modal-backdrop").remove();
   $(".modal-open").css("overflow", "auto");
   recetas();
 }
 
-function actualizaRece(cod, codigo, regis, regis2) {
+function actualizaRece(cod, codigo, regis, receta) {
   document.getElementById("materiaPrima").deleteRow(codigo);
   $.ajax({
     url: "res/php/user_actions/eliminaComponenteReceta.php",
     type: "POST",
     data: {
       cod,
-      regis2,
+      receta,
     },
     success: function () {
       resumenReceta();
@@ -2244,9 +2267,7 @@ function actualizaRece(cod, codigo, regis, regis2) {
 
 function guardarReceta() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {
-    user: { usuario, usuario_id, tipo },
-  } = sesion;
+  let { user: { usuario }, } = sesion;
 
   let parametros = $("#guardarDatosReceta").serializeArray();
   parametros.push({ name: "usuario", value: usuario });
@@ -2291,7 +2312,9 @@ function btnEliminaReceta(id) {
 
 function recetas() {
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  let { user: { usuario_id, usuario },  } = sesion;
+  let {
+    user: { usuario_id, usuario },
+  } = sesion;
   let { id_ambiente, nombre, propina, fecha_auditoria, impuesto } = oPos;
 
   parametros = {
@@ -2514,7 +2537,7 @@ function adicionaMateriaPrima() {
 async function btnRecetaProducto(boton) {
   $("#dataRecetaProducto").modal("show");
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario, usuario_id, tipo }, } = sesion;
+  let { user: { usuario_id }, } = sesion;
   let receta = boton.dataset.receta;
   let subreceta = boton.dataset.subreceta;
   let id = boton.dataset.id;
@@ -2523,24 +2546,21 @@ async function btnRecetaProducto(boton) {
   $(".modal-title").html(`Receta Estandar : ${receta}`);
   $("#idusrupd").val(usuario_id);
   $("#idReceta").val(id);
+  $('#productoRec').focus()
 
   if (subreceta == 1) {
     btnRece = document.querySelector("#btnSubReceta");
     btnRece.classList.add("apaga");
   }
 
-  subrece = document.querySelector("#btnSubReceta");
-
   const productos = await traeProductosRecetas(id);
   materiaPrima = document.querySelector("#materiaPrima  tbody");
   limpia = await limpiaProductosRecetasHMLT();
   await muestraProductosRecetasHML(productos);
-
-
 }
 
 async function muestraProductosRecetasHML(productos) {
-  const costoReceta = document.querySelector('#costoReceta');
+  const costoReceta = document.querySelector("#costoReceta");
   let totalPromedio = 0;
   productos.map((producto) => {
     const {
@@ -2554,9 +2574,7 @@ async function muestraProductosRecetasHML(productos) {
       id_receta,
       subreceta,
     } = producto;
-    console.log(valor_promedio);
     totalPromedio += valor_promedio;
-    console.log(totalPromedio);
     const row = document.createElement("tr");
     let aviso = "";
 
@@ -2581,7 +2599,7 @@ async function muestraProductosRecetasHML(productos) {
         </td>`;
     materiaPrima.appendChild(row);
   });
-  costoReceta.value = number_format(totalPromedio,2);
+  costoReceta.value = number_format(totalPromedio, 2);
 }
 
 async function limpiaProductosRecetasHMLT() {
@@ -2599,7 +2617,7 @@ async function traeProductosRecetas(id) {
         headers: {
           "Content-type": "application/json; charset=UTF-8",
         },
-        body: JSON.stringify({id}),
+        body: JSON.stringify({ id }),
       }
     );
     const datos = await resultado.json();
@@ -2627,9 +2645,8 @@ function updateCliente(id) {
   $("#dataUpdateCliente").on("show.bs.modal", function (event) {
     sesion = JSON.parse(localStorage.getItem("sesion"));
     let {
-      user: { usuario, usuario_id, tipo },
+      user: { usuario_id },
     } = sesion;
-    // let { usuario_id } = user;
     $("#idusrupd").val(usuario_id);
 
     var button = $(event.relatedTarget);
@@ -2669,7 +2686,6 @@ function actualizaProducto() {
 function updateProducto(id) {
   oPos = JSON.parse(localStorage.getItem("oPos"));
   let { id_ambiente } = oPos;
-  // idamb = id_ambiente;
   $("#dataUpdateProducto").on("show.bs.modal", function (event) {
     var button = $(event.relatedTarget);
     var name = button.data("producto");
@@ -3171,8 +3187,8 @@ function getVentasRecu(codigo) {
 
 function getProductoRecu(codigo, ambi) {
   var parametros = {
-    codigo: codigo,
-    ambi: ambi,
+    codigo,
+    ambi,
   };
   $("#loader").fadeIn("slow");
   $.ajax({
@@ -3190,14 +3206,13 @@ function getProductoRecu(codigo, ambi) {
 
 function getSeccionesRecu() {
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  // let { pos } = sesion;
   let { id_ambiente } = oPos;
   $("#loader").fadeIn("slow");
   $.ajax({
     type: "POST",
     url: "res/php/user_actions/getSeccionRecu.php",
     data: {
-      id: id_ambiente,
+      id_ambiente,
     },
     beforeSend: function (objeto) {
       $("#loader").html("<img src='../img/loader.gif'>");
@@ -5424,7 +5439,7 @@ function getSecciones() {
           onClick="getProducto(this.name,${id_ambiente});" 
           type="button" name='${data[i]["id_seccion"]}'  
           title="${data[i]["nombre_seccion"]}">
-          <span>${data[i]["nombre_seccion"]}</span> 
+          <span class="sombraBlanca">${data[i]["nombre_seccion"]}</span> 
         </button>`;
         $("#seccionList").append(boton);
       }

@@ -7,7 +7,7 @@
         <small>Panel de Control </small>
       </h1>
     </div>
-    <div class="col-xs-4" style="">
+    <div class="col-xs-4">
       <img class="img-thumbnail logoAmbiente" src="../img/<?php echo $ambienteSeleccionado[0]['logo']; ?>" alt="">
     </div>
   </div>
@@ -19,7 +19,7 @@
       <a onclick="muestraTouch()" class="small-box-footer">
         <div class="small-box bg-green-gradient" style="cursor:pointer;">
           <div class="inner">
-            <h3>Ingresar Venta</h3>
+            <h3 class="sombraBlanca">Ingresar Venta</h3>
             <p>Crea una Nueva Cuenta</p> 
           </div>
           <div class="icon">
@@ -29,7 +29,7 @@
         </div>
       </a>
     </div>
-  </div>
+  </div>class="
   <div class="container-fluid">
     <h3 style="text-align:center;margin-bottom:30px;" class="tituloEscritorio">Informes y Estadisticas</h3>
     <div class="row moduloCentrar">

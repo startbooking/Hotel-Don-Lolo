@@ -45,7 +45,7 @@
             <a onclick="ingresoInv()" class="small-box-footer">
               <div class="small-box bg-yellow-gradient">
                 <div class="inner">
-                  <h3>Inventarios</h3>
+                  <h3 class="sombraBlanca">Inventarios</h3>
                   <p>Control de Stock</p>
                 </div>
                 <div class="icon">
@@ -61,7 +61,7 @@
             <a id="linkPos" href="../pos/inicio.php" class="small-box-footer">
               <div class="small-box bg-green-gradient">
                 <div class="inner">
-                  <h3>Puntos de Venta</h3>
+                  <h3 class="sombraBlanca">Puntos de Venta</h3>
                   <p>Ventas Restaurantes </p>
                   <h5 class="cierre img-thumbnail" style="margin-top:-64px;" id='cerrado'>Cajero Cerrado</h5>
                 </div>
@@ -78,7 +78,7 @@
             <a onclick="ingresoPms()">
               <div class="small-box bg-blue-gradient">
                 <div class="inner">
-                  <h3>PMS Software </h3>
+                  <h3 class="sombraBlanca">PMS Software </h3>
                   <p style="color:#FFF" id="fechaPms"></p>
                 </div>
                 <div class="icon">
@@ -94,7 +94,7 @@
             <a>
               <div class="small-box bg-aqua">
                 <div class="inner">
-                  <h3>Recetas Estandar </h3>
+                  <h3 class="sombraBlanca">Recetas Estandar </h3>
                   <p style="color:#FFF" id="">Materia Prima & Productos</p>
                 </div>
                 <div class="icon">
@@ -110,7 +110,7 @@
             <a href="../fe/inicio.php">
               <div class="small-box bg-light-blue-gradient">
                 <div class="inner">
-                  <h3>Facturacion Electronica </h3>
+                  <h3 class="sombraBlanca">Facturacion Electronica </h3>
                   <p style="color:#FFF">Facturacion Electronica</p>
                 </div>
                 <div class="icon">
@@ -126,7 +126,7 @@
             <a>
               <div class="small-box bg-light-blue-gradient">
                 <div class="inner">
-                  <h3>Contabilidad </h3>
+                  <h3 class="sombraBlanca">Contabilidad </h3>
                   <p style="color:#FFF">Contabilidad Hotelera</p>
                 </div>
                 <div class="icon">
@@ -144,7 +144,7 @@
             <a onclick="ingresoAdmin()" class="small-box-footer">
               <div class="small-box bg-red-gradient">
                 <div class="inner">
-                  <h3 style="overflow-x: hidden;">Configuracion General <br></h3>
+                  <h3 style="overflow-x: hidden;" class="sombraBlanca">Configuracion General <br></h3>
                   <p style="color:#FFF">Parametros del Sistema</p>
                 </div>
                 <div class="icon">

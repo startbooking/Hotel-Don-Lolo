@@ -1,11 +1,7 @@
 <?php
-	
-  require '../../../../res/php/titles.php';
   require '../../../../res/php/app_topPos.php'; 
-	$codigo = $_POST['codigo'];
-	$ambi   = $_POST['ambi'];
-
-
+	extract($_POST);
+	
 	$productos = $pos->getProductosTipo($codigo,$ambi);
 	
 	if(count($productos)==0){ ?> 

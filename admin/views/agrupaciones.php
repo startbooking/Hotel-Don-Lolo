@@ -25,7 +25,6 @@
             <table id="example1" class="table table-bordered">
               <thead>
                 <tr>
-                  <!-- <th>Codigo</th> -->
                   <th>Descripcion</th>
                   <th>Accion</th>
                 </tr>

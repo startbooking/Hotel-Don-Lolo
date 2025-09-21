@@ -1,9 +1,9 @@
 <?php
-  $idamb = $_POST['id'];
+	extract($_POST);
   
   require '../../../../res/php/titles.php';
   require '../../../../res/php/app_topPos.php'; 
-	$secciones = $pos->getSeccionesPos($idamb); 
+	$secciones = $pos->getSeccionesPos($id_ambiente); 
 
 ?>
 	<div class="container-fluid centrarBotones" style="width: 100%;padding:0px;margin:0px">

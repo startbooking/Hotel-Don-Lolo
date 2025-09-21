@@ -6,6 +6,13 @@ date_default_timezone_set('America/Bogota');
 class Pos_Actions
 {
 
+    public function actualizaCostoReceta($costo, $receta){
+        global $database;
+
+        $data = $database->query("UPDATE recetasEstandar SET valor_costo = $costo, valor_costo_porcion = valor_costo / cantidad, por_costo = (valor_costo/ valor_neto) * 100  WHERE id_receta = $receta;")->fetchAll();
+        return $data;
+    }
+
     public function valorFacturaPorImpto($factura, $id_ambiente, $tipo){
         global $database;
 

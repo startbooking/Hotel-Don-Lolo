@@ -189,8 +189,8 @@
                   <div class="col-lg-6 pull-right">
                     <table id="valorReceta">
                       <tbody>
-                        <td style="width:50%;text-align:right;padding-right:10px">Costo Receta</td>
-                        <td><input style="font-size:2rem; font-weight:700;" class="form-control"type="text" id="costoReceta" readonly></td>
+                        <td style="width:60%;text-align:right;padding-right:10px">Costo Receta</td>
+                        <td><input style="font-size:2rem; font-weight:700;text-align:right;" class="form-control"type="text" id="costoReceta" readonly></td>
                       </tbody>
                     </table>
                   </div>
@@ -235,7 +235,7 @@
           <div class="form-group">
             <label for="seccion" class="control-label col-lg-2 col-md-2">Cantidad</label>
             <div class="col-lg-2 col-md-2">
-              <input type="text" name="cantidadRec" id="cantidadRec" min="1" onblur='actualizaPrecio()'>
+              <input class="form-control" type="number" name="cantidadRec" id="cantidadRec" min=1 value=1 step=1 onblur='actualizaPrecio()' >
             </div>
             <label for="impto" class="control-label col-lg-2  col-md-2">Valor Unitario</label>
             <div class="col-lg-2 col-md-2">
@@ -352,6 +352,33 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="saleMat()"><i class="fa fa-reply"></i> Regresar</button>
+          <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="modal fade" id="myModalAdicionarAgrupacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <form id="guardarDatosAgrupacion" class="form-horizontal" action="javascript:guardaAgrupacion()">
+    <div class="modal-dialog modal-md" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><span class="glyphicon glyphicon-off"></span></span></button>
+          <h4 class="modal-title" id="exampleModalLabel">Adicionar Agrupacion de Centas</h4>
+        </div>
+        <div id="datos_ajax_register"></div>
+        <div class="modal-body">
+          <div id="mensaje"></div>
+          <div class="form-group">
+            <label for="nombre" class="control-label col-lg-4 col-md-4">Descripcion Agrupacion</label>
+            <div class="col-lg-8 col-md-8">
+              <input type="text" class="form-control" id="nombreAdi" name="nombreAdi" required>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
           <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
         </div>
       </div>

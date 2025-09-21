@@ -43,7 +43,7 @@ $facturasPos = $pos->countFacturasPos($ambienteSel);
             <a style="cursor:pointer;" onclick="muestraTouch()" class="small-box-footer">
               <div class="small-box bg-green-gradient">
                 <div class="inner">
-                  <h3>Ingresar Venta</h3>
+                  <h3 class="sombraBlanca">Ingresar Venta</h3>
                   <p>Crea una Nueva Cuenta</p>
                 </div>
                 <div class="icon">
