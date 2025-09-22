@@ -7,17 +7,15 @@ $nomBod = $admin->getNombreBodega($bodega);
 $kardexs = $inven->getTraeKardex($bodega);
 ?>
 
-<div class="container-fluid pd10">
-	<div class="panel panel-default">
+<div class="container-fluid pd0">
+	<div class="panel panel-success">
 		<div class="panel-heading">
 			<div class="row">
 				<div class="col-lg-10">
-					<h3 class="pd10" style="margin:0px;text-align:center;">Kardex <?php echo $nomBod; ?></h3>
+					<h3 class="sombraBlanca" style="margin:0px;text-align:center;font-weight:700">Kardex <?php echo $nomBod; ?></h3>
 				</div>
 				<div class="col-lg-2 pd10">
-					<button class="btn btn-info pull-right" onclick="exportTableToExcel('kardexInventario')">
-						<i class="glyphicon glyphicon-th" aria-hidden="true"></i> Exportar Kardex
-					</button>
+            <button class="btn btn-info" onclick="exportarJSONaExcel(<?php echo htmlspecialchars(json_encode($kardexs));?>, 'kardexInventario')"><i class="glyphicon glyphicon-th" aria-hidden="true"></i> Exportar Movimientos</button>
 				</div>
 			</div>
 		</div>
@@ -90,37 +88,4 @@ $kardexs = $inven->getTraeKardex($bodega);
 			</table>
 		</div>
 
-	</div>
-
-	<div class="container-fluid" style="display:none">
-		<table id="kardexInventario" class="table table-hover table-bordered table-condensed">
-			<thead>
-				<tr class="warning">
-					<th>Producto</th>
-					<th>Unidad</th>
-					<th>Entradas</th>
-					<th>Salidas</th>
-					<th>Saldo</th>
-					<th>Promedio</th>
-					<th>Valor Total</th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php foreach ($kardexs as $kardex) {
-				?>
-					<tr>
-						<td><?php echo $kardex['nombre_producto']; ?></td>
-						<td><?php echo $kardex['descripcion_unidad']; ?></td>
-						<td style="text-align: right"><?php echo $kardex['entradas']; ?></td>
-						<td style="text-align: right"><?php echo $kardex['salidas']; ?></td>
-						<td style="text-align: right"><?php echo $kardex['saldo']; ?></td>
-						<td style="text-align: right"><?php echo $kardex['promedio']; ?></td>
-						<td style="text-align: right"><?php echo $kardex['promedio'] * $kardex['saldo']; ?></td>
-					</tr>
-				<?php
-				}
-				?>
-			</tbody>
-
-		</table>
 	</div>

@@ -79,7 +79,7 @@ require_once '../res/php/app_topInventario.php';
           "paging": true,
           "lengthChange": true,
           "searching": true,
-          "ordering": true,
+          "ordering": false,
           "info": true,
           "autoWidth": true,
           "language": {

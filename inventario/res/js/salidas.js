@@ -233,8 +233,6 @@ function busca_producto(codigo) {
       $("#cantidad").attr("disabled", false);
     },
   });
-  /* $(document).ready(function(){
-  }) */
 }
 
 function activa_botones_mov() {

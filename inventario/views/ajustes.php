@@ -18,7 +18,7 @@
               href="movimientoAjustes">
               <i class="fa fa-plus" aria-hidden="true"></i> Nuevo Ajuste 
             </a>
-            <button class="btn btn-info" onclick="exportTableToExcel('tablaentradas')"><i class="glyphicon glyphicon-th" aria-hidden="true"></i> Exportar Movimientos</button>
+            <button class="btn btn-info" onclick="exportarJSONaExcel(<?php echo htmlspecialchars(json_encode($entradas)); ?>, 'tablaAjustes')"><i class="glyphicon glyphicon-th" aria-hidden="true"></i> Exportar Movimientos</button>
           </div> 
         </div>
       </div>

@@ -10,11 +10,11 @@ $fechaing = date('Y-m-d');
 $datosCierre = $inven->datosCerrados();
 $bodegas = $inven->getBodegas();
 
-$anioAct = $datosCierre[0]['anio_actual'];
+$anioAct = $datosCierre['anio_actual'];
 if($anioAct== null){
     $anioAct = $anio;
 }
-$mesCer = $datosCierre[0]['periodo_cerrado'];
+$mesCer = $datosCierre['periodo_cerrado'];
 
 if($mesCer==null){
     $mesCer= $mes-1; 
@@ -34,7 +34,6 @@ if ($mesCer == 12) {
     $mesCer = $mesCer + 1;
 }
 
-// $mesCer = str_pad($mesCer, 2, '0', STR_PAD_LEFT);
 $tipo = 1;
 $movimiento = 1;
 $tipomovi = $inven->getMovimientoCierre();

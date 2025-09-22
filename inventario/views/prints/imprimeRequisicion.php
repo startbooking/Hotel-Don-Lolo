@@ -22,11 +22,11 @@
   $pdf->SetFont('Arial','B',10);
   $pdf->Cell(40,6,'CENTRO DE COSTO ',0,0,'L');
   $pdf->SetFont('Arial','',10);
-  $pdf->Cell(50,6,utf8_decode($pedidos[0]['descripcion_centro']),0,0,'L');
+  $pdf->Cell(50,6,($pedidos[0]['descripcion_centro']),0,0,'L');
   $pdf->SetFont('Arial','B',10);
   $pdf->Cell(40,6,'ALMACEN ',0,0,'L');
   $pdf->SetFont('Arial','',10);
-  $pdf->Cell(50,6,utf8_decode($pedidos[0]['descripcion_bodega']),0,1,'L');
+  $pdf->Cell(50,6,($pedidos[0]['descripcion_bodega']),0,1,'L');
   $pdf->Ln(3);
 
   $pdf->Cell(65,6,'PRODUCTO',1,0,'C');

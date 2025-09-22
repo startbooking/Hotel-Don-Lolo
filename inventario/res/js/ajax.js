@@ -25,9 +25,7 @@ async function cierreMes(mes, anio) {
   proce.classList.remove('oculto');
   document.querySelector('#botonCierre').disabled;
   let sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {
-    user: { usuario },
-  } = sesion;
+  let { user: { usuario }, } = sesion;
 
   let backup = await backupCierre();
   if (backup === 0) {

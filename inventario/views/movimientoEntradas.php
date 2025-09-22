@@ -2,7 +2,7 @@
 $hoy = date('Y-m-d');
 ?>
 
-<div class="content-wrapper">
+<div class="content-wrapper>
   <section class="content">
     <form id="EntradaMovimientos" class="form-horizontal" style="padding :0">
       <div class="panel panel-success">

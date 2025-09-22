@@ -197,7 +197,7 @@ class Inventario_User
     {
         global $database;
 
-        $data = $database->query("INSERT INTO historico_movimientos_inventario SELECT * FROM movimientos_inventario WHERE month(fecha_movimiento)  = $periodo AND year(fecha_movimiento) = $anio")->fetchAll();
+        $data = $database->query("INSERT INTO historico_movimientos_inventario SELECT * FROM movimientos_inventario WHERE month(fecha_movimiento) = $periodo AND year(fecha_movimiento) = $anio")->fetchAll();
 
         return $database->id();
     }
@@ -206,7 +206,7 @@ class Inventario_User
     {
         global $database;
 
-        $data = $database->select('tipo_movimiento_inventario', [
+        $data = $database->get('tipo_movimiento_inventario', [
             'id_tipomovi',
         ], [
             'cierre' => 1,
@@ -214,7 +214,7 @@ class Inventario_User
         if (count($data) == 0) {
             return 0;
         } else {
-            return $data[0]['id_tipomovi'];
+            return $data['id_tipomovi'];
         }
     }
 
@@ -222,7 +222,7 @@ class Inventario_User
     {
         global $database;
 
-        $data = $database->select('parametros_inv', [
+        $data = $database->get('parametros_inv', [
             'periodo_cerrado',
             'anio_actual',
         ]);
@@ -446,17 +446,23 @@ class Inventario_User
     {
         global $database;
 
-        $data = $database->query('
-				SELECT pedidos.numero_ped, 
-				pedidos.fecha_ped, 
-				pedidos.id_centrocosto, 
-				pedidos.id_proveedor, 
-				Sum(pedidos.valor_total) as total, 
-				centrocosto.descripcion_centro, 
-				pedidos.estado 
-				FROM pedidos, centrocosto 
-				WHERE pedidos.id_centrocosto = centrocosto.id_centrocosto GROUP BY pedidos.numero_ped, pedidos.fecha_ped')->fetchAll(PDO::FETCH_ASSOC);
-
+        $data = $database->query('SELECT
+                pedidos.numero_ped, 
+                pedidos.fecha_ped, 
+                pedidos.valor_total AS total, 
+                pedidos.estado, 
+                pedidos.id_proveedor,
+                companias.empresa
+            FROM
+                pedidos
+                INNER JOIN
+                companias
+                ON 
+                pedidos.id_proveedor = companias.id_compania
+            GROUP BY 
+                pedidos.numero_ped, pedidos.fecha_ped
+            ORDER BY 
+                pedidos.fecha_ped')->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     }
 
@@ -611,8 +617,8 @@ class Inventario_User
             'movimientos_inventario.id_bodega' => $bodega,
             'movimientos_inventario.estado' => 1,
             'ORDER' => [
-                'movimientos_inventario.fecha_movimiento',
-                'movimientos_inventario.tipo_movi',
+                'movimientos_inventario.fecha_movimiento'=> 'DESC',
+                'movimientos_inventario.tipo_movi' => 'ASC',
             ],
         ]);
 
@@ -785,8 +791,7 @@ class Inventario_User
     {
         global $database;
 
-        $data = $database->query("
-				SELECT movimientos_inventario.numero, 
+        $data = $database->query("SELECT movimientos_inventario.numero, 
 				tipo_movimiento_inventario.descripcion_tipo, 
 				movimientos_inventario.documento, 
 				movimientos_inventario.fecha_movimiento, 
@@ -801,7 +806,7 @@ class Inventario_User
 				bodegas.descripcion_bodega, 
 				movimientos_inventario.estado 
 				FROM movimientos_inventario, tipo_movimiento_inventario, bodegas 
-				WHERE movimientos_inventario.tipo_movi = tipo_movimiento_inventario.id_tipomovi AND movimientos_inventario.tipo = '$tipo' AND movimientos_inventario.id_bodega = bodegas.id_bodega GROUP BY movimientos_inventario.numero, tipo_movimiento_inventario.descripcion_tipo, movimientos_inventario.documento, movimientos_inventario.fecha_movimiento")->fetchAll(PDO::FETCH_ASSOC);
+				WHERE movimientos_inventario.tipo_movi = tipo_movimiento_inventario.id_tipomovi AND movimientos_inventario.tipo = '$tipo' AND movimientos_inventario.id_bodega = bodegas.id_bodega GROUP BY movimientos_inventario.numero, tipo_movimiento_inventario.descripcion_tipo, movimientos_inventario.documento, movimientos_inventario.fecha_movimiento ORDER BY movimientos_inventario.fecha_movimiento DESC")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -810,7 +815,7 @@ class Inventario_User
     {
         global $database;
 
-        $data = $database->query("SELECT movimientos_inventario.numero, tipo_movimiento_inventario.descripcion_tipo, movimientos_inventario.tipo, movimientos_inventario.documento, movimientos_inventario.fecha_movimiento, movimientos_inventario.id_bodega, movimientos_inventario.movimiento, Sum(movimientos_inventario.valor_total) as total, movimientos_inventario.estado, centrocosto.descripcion_centro, movimientos_inventario.id_proveedor, bodegas.descripcion_bodega FROM movimientos_inventario , tipo_movimiento_inventario , centrocosto, bodegas WHERE movimientos_inventario.tipo_movi = tipo_movimiento_inventario.id_tipomovi AND movimientos_inventario.tipo = '$tipo' AND movimientos_inventario.id_proveedor = centrocosto.id_centrocosto AND movimientos_inventario.id_bodega = bodegas.id_bodega GROUP BY movimientos_inventario.numero, tipo_movimiento_inventario.descripcion_tipo, movimientos_inventario.documento, movimientos_inventario.fecha_movimiento ORDER BY movimientos_inventario.numero")->fetchAll(PDO::FETCH_ASSOC);
+        $data = $database->query("SELECT movimientos_inventario.numero, tipo_movimiento_inventario.descripcion_tipo, movimientos_inventario.tipo, movimientos_inventario.documento, movimientos_inventario.fecha_movimiento, movimientos_inventario.id_bodega, movimientos_inventario.movimiento, Sum(movimientos_inventario.valor_total) as total, movimientos_inventario.estado, centrocosto.descripcion_centro, movimientos_inventario.id_proveedor, bodegas.descripcion_bodega FROM movimientos_inventario , tipo_movimiento_inventario , centrocosto, bodegas WHERE movimientos_inventario.tipo_movi = tipo_movimiento_inventario.id_tipomovi AND movimientos_inventario.tipo = '$tipo' AND movimientos_inventario.id_proveedor = centrocosto.id_centrocosto AND movimientos_inventario.id_bodega = bodegas.id_bodega GROUP BY movimientos_inventario.numero, tipo_movimiento_inventario.descripcion_tipo, movimientos_inventario.documento, movimientos_inventario.fecha_movimiento ORDER BY movimientos_inventario.fecha_movimiento DESC")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -834,8 +839,8 @@ class Inventario_User
 				Sum(movimientos_inventario.valor_total) as total, 
 				bodegas.descripcion_bodega, 
 				movimientos_inventario.estado 
-				FROM movimientos_inventario, tipo_movimiento_inventario, bodegas 
-				WHERE movimientos_inventario.tipo_movi = tipo_movimiento_inventario.id_tipomovi AND movimientos_inventario.tipo = '$tipo' AND movimientos_inventario.id_bodega = bodegas.id_bodega GROUP BY movimientos_inventario.numero, tipo_movimiento_inventario.descripcion_tipo, movimientos_inventario.documento, movimientos_inventario.fecha_movimiento")->fetchAll(PDO::FETCH_ASSOC);
+				FROM movimientos_inventario, tipo_movimiento_inventario, bodegas
+				WHERE movimientos_inventario.tipo_movi = tipo_movimiento_inventario.id_tipomovi AND movimientos_inventario.tipo = '$tipo' AND movimientos_inventario.id_bodega = bodegas.id_bodega GROUP BY movimientos_inventario.numero, tipo_movimiento_inventario.descripcion_tipo, movimientos_inventario.documento, movimientos_inventario.fecha_movimiento ORDER BY movimientos_inventario.fecha_movimiento DESC")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -844,7 +849,7 @@ class Inventario_User
     {
         global $database;
 
-        $data = $database->query("SELECT movimientos_inventario.numero, tipo_movimiento_inventario.descripcion_tipo, movimientos_inventario.documento, movimientos_inventario.fecha_movimiento, movimientos_inventario.tipo, movimientos_inventario.movimiento, Sum(movimientos_inventario.valor_subtotal) as subtotal, Sum(movimientos_inventario.impuesto) as impto, Sum(movimientos_inventario.valor_total) as total,  bodegas.descripcion_bodega, bodegas.id_bodega, movimientos_inventario.estado, movimientos_inventario.id_proveedor FROM movimientos_inventario, tipo_movimiento_inventario, bodegas WHERE movimientos_inventario.movimiento = 1 AND movimientos_inventario.tipo_movi = tipo_movimiento_inventario.id_tipomovi AND movimientos_inventario.traslado = '$tipo' AND movimientos_inventario.id_bodega = bodegas.id_bodega GROUP BY movimientos_inventario.numero, tipo_movimiento_inventario.descripcion_tipo, movimientos_inventario.documento, movimientos_inventario.fecha_movimiento")->fetchAll(PDO::FETCH_ASSOC);
+        $data = $database->query("SELECT movimientos_inventario.numero, tipo_movimiento_inventario.descripcion_tipo, movimientos_inventario.documento, movimientos_inventario.fecha_movimiento, movimientos_inventario.tipo, movimientos_inventario.movimiento, Sum(movimientos_inventario.valor_subtotal) as subtotal, Sum(movimientos_inventario.impuesto) as impto, Sum(movimientos_inventario.valor_total) as total,  bodegas.descripcion_bodega, bodegas.id_bodega, movimientos_inventario.estado, movimientos_inventario.id_proveedor FROM movimientos_inventario, tipo_movimiento_inventario, bodegas WHERE movimientos_inventario.movimiento = 1 AND movimientos_inventario.tipo_movi = tipo_movimiento_inventario.id_tipomovi AND movimientos_inventario.traslado = '$tipo' AND movimientos_inventario.id_bodega = bodegas.id_bodega GROUP BY movimientos_inventario.numero, tipo_movimiento_inventario.descripcion_tipo, movimientos_inventario.documento, movimientos_inventario.fecha_movimiento ORDER BY movimientos_inventario.fecha_movimiento DESC")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }

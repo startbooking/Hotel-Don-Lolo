@@ -1,6 +1,5 @@
 <?php
 $entradas = $inven->getMovimientosTraslados(1);
-
 ?>
 
 <div class="content-wrapper">
@@ -16,7 +15,7 @@ $entradas = $inven->getMovimientosTraslados(1);
           <div class="col-lg-6 col-xs-12" align="right">
             <a class="btn btn-success" href="movimientoTraslado">
               <i class="fa fa-plus" aria-hidden="true"></i> Nuevo Traslado</a>
-            <button class="btn btn-info" onclick="exportTableToExcel('tablaentradas')"><i class="glyphicon glyphicon-th" aria-hidden="true"></i> Exportar Movimientos</button>
+            <button class="btn btn-info" onclick="exportarJSONaExcel(<?php echo htmlspecialchars(json_encode($entradas)); ?>, 'tablaTraslados')"><i class="glyphicon glyphicon-th" aria-hidden="true"></i> Exportar Movimientos</button>
           </div>
         </div>
       </div>
@@ -54,9 +53,9 @@ $entradas = $inven->getMovimientosTraslados(1);
                   <td style="text-align:right;"><?php echo number_format($entrada['total'], 2); ?></td>
                   <td style="text-align:center;"><span <?php
                                                         if ($entrada['estado'] == 0) { ?> class="badge btn btn-danger" <?php
-                                                                                    } else { ?> class="badge btn btn-success" <?php
-                                                                                    }
-                                                                ?>><?php echo estadoMovimiento($entrada['estado']); ?></span></td>
+                                                                                                                      } else { ?> class="badge btn btn-success" <?php
+                                                                                                                                                              }
+                                                                                                                                                                ?>><?php echo estadoMovimiento($entrada['estado']); ?></span></td>
                   <td style="text-align:center;">
                     <div class="btn-group">
                       <button type="button" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#myModalMostrarProductos" data-numero="<?php echo $entrada['numero']; ?>" data-tipo="<?php echo $entrada['tipo']; ?>" data-movimiento="<?php echo $entrada['movimiento']; ?>" data-descripcion="<?php echo $entrada['descripcion_tipo']; ?>" data-bodega="<?php echo $entrada['id_bodega']; ?>" title="Ver productos del Movimiento" onclick='btnMuestraProductos()'>
@@ -113,9 +112,9 @@ $entradas = $inven->getMovimientosTraslados(1);
                 <td><?php echo number_format($entrada['total'], 2); ?></td>
                 <td><span class="badge" <?php
                                         if ($entrada['estado'] == 0) { ?> style="background-color: brown" <?php
-                                                                      } else { ?> style="background-color: blue" <?php
-                                                                      }
-                                                  ?>><?php echo estadoMovimiento($entrada['estado']); ?></span></td>
+                                                                                                        } else { ?> style="background-color: blue" <?php
+                                                                                                                                                  }
+                                                                                                                                                    ?>><?php echo estadoMovimiento($entrada['estado']); ?></span></td>
               </tr>
             <?php
             }

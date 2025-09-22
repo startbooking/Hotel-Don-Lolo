@@ -94,6 +94,14 @@ body.is-loading * {
   padding-left: 0px;
 }
 
+.mb-50 {
+  margin-bottom: 50px;
+}
+
+.mt-50 {
+  margin-top: 50px;
+}
+
 .sencilla label,
 .doble label {
   display: grid;
@@ -609,7 +617,7 @@ article {
 
 section> :last-child,
 article> :last-child {
-  margin-bottom: 0;
+  /* margin-bottom: 0; */
 }
 
 section:last-child,
