@@ -1,10 +1,8 @@
 <?php
-$ciudades = $hotel->getCiudadesPais($empresa[0]['pais']);
+$ciudades = $hotel->getCiudadesPais($empresa['pais']);
 $rooms = $admin->getHabitaciones();
 $huespedes = $admin->getPerfilHuesped();
 $infoTextos = $admin->getInfoTextosFacturaHotel()
-
-
 ?>
 
 <div class="content-wrapper" style="margin-bottom: 0px">
@@ -15,7 +13,7 @@ $infoTextos = $admin->getInfoTextosFacturaHotel()
         <div class="row" style="padding:5px 0;">
           <div class="col-lg-6">
             <input type="hidden" name="rutaweb" id="rutaweb" value="<?= BASE_ADM ?>">
-            <input type="hidden" name="ubicacion" id="ubicacion" value="infoHOtel">
+            <input type="hidden" name="ubicacion" id="ubicacion" value="infoHotel">
             <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-bank"></i> Informacion Hotel </h3>
           </div>
         </div>

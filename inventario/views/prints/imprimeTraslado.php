@@ -2,10 +2,9 @@
 
   require '../../../res/shared/plantillaInvVer.php'; 
 
-  $numeroTra   = $numeroTra; 
-  $bodega      = $almacen; 
-  $movimientos = $inven->getMovimientos(3,$numeroTra, $bodega);
-  $entradas    = $inven->getMovimientos(3,$numeroTra, $destino);
+  // $bodega      = $almacen; 
+  $movimientos = $inven->getMovimientos(3,$numero, $almacen);
+  $entradas    = $inven->getMovimientos(3,$numero, $destino);
 
   $pdf = new PDF();
   $pdf->AddPage('P','letter');
@@ -13,7 +12,7 @@
   $pdf->Cell(195,5,'TRASLADO DE INVENTARIO',0,1,'C');
   $pdf->Cell(30,5,'TRASLADO NRO ',0,0,'L');
   $pdf->SetFont('Arial','',10);
-  $pdf->Cell(25,5,$numeroTra,0,0,'L');
+  $pdf->Cell(25,5,$numero,0,0,'L');
   $pdf->SetFont('Arial','B',10);
   $pdf->Cell(30,5,'FECHA ',0,0,'L');
   $pdf->SetFont('Arial','',10);
@@ -29,7 +28,7 @@
   $pdf->SetFont('Arial','B',10);
   $pdf->Cell(40,5,'TIPO MOVIMIENTO',0,0,'l');
   $pdf->SetFont('Arial','',10);
-  $pdf->Cell(60,5,$inven->getBuscaMovimiento($movSal),0,1,'L');
+  $pdf->Cell(60,5,$inven->getBuscaMovimiento($movSale),0,1,'L');
   $pdf->SetFont('Arial','B',9);
   $pdf->Cell(50,5,'PRODUCTO',1,0,'C');
   $pdf->Cell(30,5,'UNIDAD',1,0,'C');
@@ -82,7 +81,7 @@
   $pdf->SetFont('Arial','B',10);
   $pdf->Cell(40,5,'TIPO MOVIMIENTO',0,0,'l');
   $pdf->SetFont('Arial','',10);
-  $pdf->Cell(60,5,$inven->getBuscaMovimiento($movEnt),0,1,'L');
+  $pdf->Cell(60,5,$inven->getBuscaMovimiento($movEntra),0,1,'L');
 
   $pdf->SetFont('Arial','B',9);
   $pdf->Cell(50,5,'PRODUCTO',1,0,'C');
@@ -138,10 +137,10 @@
 
   $pdf->Ln(5);
 
-  $file = '../../imprimir/Traslado_'.$numeroTra.'.pdf';
+  $file = '../../imprimir/Traslado_'.$numero.'.pdf';
 
   $pdf->Output($file,'F');
 
-  echo $numeroTra;
+  echo $numero;
 
 ?>

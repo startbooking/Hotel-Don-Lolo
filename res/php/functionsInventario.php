@@ -806,7 +806,7 @@ class Inventario_User
 				bodegas.descripcion_bodega, 
 				movimientos_inventario.estado 
 				FROM movimientos_inventario, tipo_movimiento_inventario, bodegas 
-				WHERE movimientos_inventario.tipo_movi = tipo_movimiento_inventario.id_tipomovi AND movimientos_inventario.tipo = '$tipo' AND movimientos_inventario.id_bodega = bodegas.id_bodega GROUP BY movimientos_inventario.numero, tipo_movimiento_inventario.descripcion_tipo, movimientos_inventario.documento, movimientos_inventario.fecha_movimiento ORDER BY movimientos_inventario.fecha_movimiento DESC")->fetchAll(PDO::FETCH_ASSOC);
+				WHERE movimientos_inventario.tipo_movi = tipo_movimiento_inventario.id_tipomovi AND movimientos_inventario.tipo = '$tipo' AND movimientos_inventario.id_bodega = bodegas.id_bodega GROUP BY movimientos_inventario.numero, tipo_movimiento_inventario.descripcion_tipo, movimientos_inventario.documento, movimientos_inventario.fecha_movimiento ORDER BY movimientos_inventario.fecha_movimiento DESC, movimientos_inventario.numero DESC")->fetchAll(PDO::FETCH_ASSOC);
 
         return $data;
     }
@@ -1167,18 +1167,18 @@ class Inventario_User
                 $campo = 'c_ajustes';
                 break;
             case 5:
-            $campo = 'c_requisiciones';
-            break;
+                $campo = 'c_requisiciones';
+                break;
             case 6:
                 $campo = 'c_pedidos';
                 break;
         }
 
-        $data = $database->select('parametros_inv', [
+        $data = $database->get('parametros_inv', [
             $campo,
         ]);
 
-        return $data[0][$campo];
+        return $data[$campo];
     }
 
     public function getBuscaProducto($id)

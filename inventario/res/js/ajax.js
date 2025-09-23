@@ -27,7 +27,7 @@ async function cierreMes(mes, anio) {
   let sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user: { usuario }, } = sesion;
 
-  let backup = await backupCierre();
+  let backup = await backupCierre(mes, anio);
   if (backup === 0) {
     swal(
       {
@@ -59,7 +59,7 @@ async function cierreMes(mes, anio) {
       $(location).attr("href", "home");
     }
   );
-  
+
   // console.log(cierre);
 
   /* parametros = {
@@ -73,9 +73,9 @@ async function cierreMes(mes, anio) {
     beforeSend: function () {
       $("#loader").html(
         `
-      	<img src='../img/loader.gif'>
-      	<h3 align="center>Cerrando Periodo Actual</h3>
-      	`
+        <img src='../img/loader.gif'>
+        <h3 align="center>Cerrando Periodo Actual</h3>
+        `
       );
     },
     success: function () {
@@ -111,13 +111,14 @@ async function cierreBodegas(envia) {
   }
 }
 
-async function backupCierre() {
+async function backupCierre(mes, anio) {
   try {
     const resultado = await fetch("res/php/backupCierre.php", {
       method: "POST",
       headers: {
-        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+        "Content-type": "application/json; charset=UTF-8",
       },
+      body: JSON.stringify({mes, anio})
     });
     const datos = await resultado.text();
     // console.log(datos);
@@ -127,7 +128,7 @@ async function backupCierre() {
   }
 }
 
-function conteoInventario(bodega) {}
+function conteoInventario(bodega) { }
 
 /* Pedidos Recetas*/
 
@@ -302,17 +303,17 @@ function listaRecetasPed() {
 	  			<td class='paddingCelda'>${listaRecetasPed[x]["codigo"]}</td>
 	  			<td class='paddingCelda'>${listaRecetasPed[x]["descripcion"]}</td>
 	  			<td class='paddingCelda' align='right'>${number_format(
-            listaRecetasPed[x]["cantidad"],
-            2
-          )}</td>
+      listaRecetasPed[x]["cantidad"],
+      2
+    )}</td>
 	  			<td class='paddingCelda' align='right'>${number_format(
-            listaRecetasPed[x]["unit"],
-            2
-          )}</td>
+      listaRecetasPed[x]["unit"],
+      2
+    )}</td>
 	  			<td class='paddingCelda' align='right'>${number_format(
-            listaRecetasPed[x]["total"],
-            2
-          )}</td>
+      listaRecetasPed[x]["total"],
+      2
+    )}</td>
 	  			<td class='paddingCelda' align='center'>
 	  				<button id='${listaRecetasPed[x]["codigo"]}' 
 	  				class='btn btn-danger btn-xs elimina_articulo' 
@@ -548,17 +549,17 @@ function listaRecetasReq() {
 	  			<td class='paddingCelda'>${listaRecetasReq[x]["codigo"]}</td>
 	  			<td class='paddingCelda'>${listaRecetasReq[x]["descripcion"]}</td>
 	  			<td class='paddingCelda' align='right'>${number_format(
-            listaRecetasReq[x]["cantidad"],
-            2
-          )}</td>
+      listaRecetasReq[x]["cantidad"],
+      2
+    )}</td>
 	  			<td class='paddingCelda' align='right'>${number_format(
-            listaRecetasReq[x]["unit"],
-            2
-          )}</td>
+      listaRecetasReq[x]["unit"],
+      2
+    )}</td>
 	  			<td class='paddingCelda' align='right'>${number_format(
-            listaRecetasReq[x]["total"],
-            2
-          )}</td>
+      listaRecetasReq[x]["total"],
+      2
+    )}</td>
 	  			<td class='paddingCelda' align='center'>
 	  				<button id='${listaRecetasReq[x]["codigo"]}' 
 	  				class='btn btn-danger btn-xs elimina_articulo' 
@@ -846,21 +847,20 @@ function listaPedido() {
 	  		<td class='paddingCelda'>${listaPedidos[x]["descripcion"]}</td>
 	  		<td class='paddingCelda'>${listaPedidos[x]["desunid"]}</td>
 	  		<td class='paddingCelda' align='right'>${number_format(
-          listaPedidos[x]["cantidad"],
-          2
-        )}</td>
+      listaPedidos[x]["cantidad"],
+      2
+    )}</td>
 	  		<td class='paddingCelda' align='right'>${number_format(
-          listaPedidos[x]["unit"],
-          2
-        )}</td>
+      listaPedidos[x]["unit"],
+      2
+    )}</td>
 	  		<td class='paddingCelda' align='right'>${number_format(
-          listaPedidos[x]["total"],
-          2
-        )}</td>
+      listaPedidos[x]["total"],
+      2
+    )}</td>
 	  		<td class='paddingCelda' align='center'>
-	  			<button id='${
-            listaPedidos[x]["codigo"]
-          }' class='btn btn-danger btn-xs elimina_articulo' onclick='actualizaPed(this.id,this.parentNode.parentNode.rowIndex);'>
+	  			<button id='${listaPedidos[x]["codigo"]
+      }' class='btn btn-danger btn-xs elimina_articulo' onclick='actualizaPed(this.id,this.parentNode.parentNode.rowIndex);'>
 	  				<i class='fa fa-times'></i></button>
 				</td>
 			</tr>"
@@ -1217,17 +1217,17 @@ function listaRequisicion() {
 	  			<td class='paddingCelda'>${listaRequisicion[x]["descripcion"]}</td>
 	  			<td class='paddingCelda'>${listaRequisicion[x]["desunid"]}</td>
 	  			<td class='paddingCelda' align='right'>${number_format(
-            listaRequisicion[x]["cantidad"],
-            2
-          )}</td>
+      listaRequisicion[x]["cantidad"],
+      2
+    )}</td>
 	  			<td class='paddingCelda' align='right'>${number_format(
-            listaRequisicion[x]["unit"],
-            2
-          )}</td>
+      listaRequisicion[x]["unit"],
+      2
+    )}</td>
 	  			<td class='paddingCelda' align='right'>${number_format(
-            listaRequisicion[x]["total"],
-            2
-          )}</td>
+      listaRequisicion[x]["total"],
+      2
+    )}</td>
 	  			<td class='paddingCelda' align='center'>
 	  				<button id='${listaRequisicion[x]["codigo"]}' 
 	  				class='btn btn-danger btn-xs elimina_articulo' 
@@ -1249,8 +1249,8 @@ function muestraProductosRequisicion() {
       var numero = button.data("numero"); // Extraer la información de atributos de datos
       var bodega = button.data("bodega"); // Extraer la información de atributos de datos
       parametros = {
-        numero: numero,
-        bodega: bodega,
+        numero,
+        bodega,
       };
       var modal = $(this);
       modal.find(".modal-title").html("Productos " + titulo + " : " + numero);
@@ -1290,70 +1290,45 @@ function muestraProductoKardex() {
 }
 
 async function procesaAjuste() {
+  let productos = JSON.parse(localStorage.getItem("AjusteProductosLista"));
+  // console.log(productos)
+  if (!productos) {
+    swal({
+      title: 'Precaucion',
+      text: 'Sin Productos Asignados para el Ajuste',
+      type: 'warning'
+    })
+    return false;
+  }
 
   let conce = await asignaConsecutivo(4);
-  let guarda = await guardaAjuste(conce, 4);
+  let guarda = await guardaAjuste(productos, conce, 4);
   let imprie = await imprimeMovimiento(conce, 4);
   let cierra = await limpiaAjuste(conce, 4);
-
-  /* setTimeout(function () {
-    numeroMov = $("#numeroMovimiento").val();
-    movimi = $("#tipoMovimientoAju").val();
-    ajustes = JSON.parse(storageList);
-    parametros = {
-      usuario,
-      almacen,
-      tipo,
-      tipomovi,
-      movimi,
-      numeroMov,
-      fecha,
-      ajustes,
-    };
-    $.ajax({
-      url: ruta + "res/php/guardaProductoAju.php",
-      type: "POST",
-      data: parametros,
-      success: function (data) {
-        data = $.trim(data);
-        imprimeMovimiento(data, 4);
-        swal(
-          "Atencion",
-          "Movimiento de Ajuste Realizado con Exito",
-          "success",
-          5000
-        );
-        localStorage.removeItem("AjusteProductosLista");
-        localStorage.removeItem("almacenAju");
-        localStorage.removeItem("fechaAju");
-        localStorage.removeItem("movimientoAju");
-        localStorage.removeItem("tipoMovimientoAju");
-        $(location).attr("href", "ajustes");
-      },
-    });
-  }, 1000); */
 }
 
-async function guardaAjuste(numeroMov, tipo) {
+async function guardaAjuste(productos, numero, tipo) {
   let sesion = JSON.parse(localStorage.getItem("sesion"));
   let { user: { usuario }, } = sesion;
   let almacen = localStorage.getItem("almacenAju");
-  let storageList = localStorage.getItem("AjusteProductosLista");
-  let tipomovi = localStorage.getItem("movimientoAju");
-  let movimi = $("#tipoMovimientoAju").val();
-  // let fecha = localStorage.getItem("fechaAju");
-  let fecha = document.querySelector("#fechaAju").value
-  let ajustes = JSON.parse(storageList);
+  let fecha = localStorage.getItem("fechaAj");
+  let tipomov = localStorage.getItem("tipoMovimientoAju");
+  let movimiento = localStorage.getItem("movimientoAju");
+  if (!fecha) {
+    fecha = document.querySelector("#fechaAju").value
+  }
   parametros = {
     usuario,
     almacen,
     tipo,
-    tipomovi,
-    movimi,
-    numeroMov,
+    tipomov,
+    movimiento,
+    numero,
     fecha,
-    ajustes,
+    productos,
   };
+
+
   $.ajax({
     url: "res/php/guardaProductoAju.php",
     type: "POST",
@@ -1377,8 +1352,8 @@ async function limpiaAjuste(conce, tipo) {
       (type = "warning");
   } else {
     (title = "Atencion"),
-      (text = `${movitext} Nro ${conce} Realizada con Exito`),
-      (type = "success");
+    (text = `${movitext} Nro ${conce} Realizada con Exito`),
+    (type = "success");
   }
   swal(
     {
@@ -1397,7 +1372,7 @@ function cancelaAjuste() {
   var ruta = $("#rutaweb").val();
 
   localStorage.removeItem("AjusteProductosLista");
-  localStorage.removeItem("almacenAju|");
+  localStorage.removeItem("almacenAju");
   localStorage.removeItem("fechaAju");
   localStorage.removeItem("movimientoAju");
   localStorage.removeItem("tipoMovimientoAju");
@@ -1531,13 +1506,13 @@ function resumenAjuste() {
   });
   $("#net").val("$ " + number_format(totales, 2));
   $("#arts").val(number_format(cantis, 2));
-  if (totales > 0) {
+  /* if (totales > 0) {
     $("#btn-procesa").prop("disabled", false);
     $("#btn-cancela").prop("disabled", false);
   } else {
     $("#btn-procesa").prop("disabled", true);
     $("#btn-cancela").prop("disabled", true);
-  }
+  } */
 }
 
 function actualizaAjuste(codigo, regis) {
@@ -1581,17 +1556,17 @@ function listaAjustes() {
 	  		<td class='paddingCelda'>${ajusteLista[x]["descripcion"]}</td>
 	  		<td class='paddingCelda'>${ajusteLista[x]["desunid"]}</td>
 	  		<td class='paddingCelda' align='right'>${number_format(
-          ajusteLista[x]["cantidad"],
-          2
-        )}</td>
+      ajusteLista[x]["cantidad"],
+      2
+    )}</td>
 	  		<td class='paddingCelda' align='right'>${number_format(
-          ajusteLista[x]["unit"],
-          2
-        )}</td>
+      ajusteLista[x]["unit"],
+      2
+    )}</td>
 	  		<td class='paddingCelda' align='right'>${number_format(
-          ajusteLista[x]["total"],
-          2
-        )}</td>
+      ajusteLista[x]["total"],
+      2
+    )}</td>
 	  		<td class='paddingCelda' align='center'>
 	  			<button id='${ajusteLista[x]["codigo"]}' 
 	  				class='btn btn-danger btn-xs elimina_articulo' 
@@ -1695,13 +1670,13 @@ function resumenTraslado() {
   $("#net").val("$ " + number_format(totales, 2));
   $("#imp").val("$ " + number_format(imptos, 2));
   $("#arts").val(number_format(cantis, 2));
-  if (totales > 0) {
+  /* if (totales > 0) {
     $("#btn-procesa").prop("disabled", false);
-    $("#btn-cancela").prop("disabled", false);
+    // $("#btn-cancela").prop("disabled", false);
   } else {
     $("#btn-procesa").prop("disabled", true);
-    $("#btn-cancela").prop("disabled", true);
-  }
+    // $("#btn-cancela").prop("disabled", true);
+  } */
 }
 
 function listaTraslados() {
@@ -1740,17 +1715,17 @@ function listaTraslados() {
 	  		<td class='paddingCelda'>${trasladoProductos[x]["descripcion"]}</td>
 	  		<td class='paddingCelda'>${trasladoProductos[x]["desunid"]}</td>
 	  		<td class='paddingCelda' align='right'>${number_format(
-          trasladoProductos[x]["cantidad"],
-          2
-        )}</td>
+      trasladoProductos[x]["cantidad"],
+      2
+    )}</td>
 	  		<td class='paddingCelda' align='right'>${number_format(
-          trasladoProductos[x]["unit"],
-          2
-        )}</td>
+      trasladoProductos[x]["unit"],
+      2
+    )}</td>
 	  		<td class='paddingCelda' align='right'>${number_format(
-          trasladoProductos[x]["total"],
-          2
-        )}</td>
+      trasladoProductos[x]["total"],
+      2
+    )}</td>
 	  		<td class='paddingCelda' align='center'>
 	  			<button id='${trasladoProductos[x]["codigo"]}' 
 	  				class='btn btn-danger btn-xs elimina_articulo' 
@@ -1880,7 +1855,7 @@ function asignaConsecutivoTraslado(tipo) {
   $.ajax({
     url: ruta + "res/php/getNumeroMovimiento.php",
     type: "POST",
-    data: { tipo: tipo },
+    data: { tipo },
     success: function (data) {
       $("#numeroTraslado").val(parseInt(data));
     },
@@ -1900,69 +1875,68 @@ function reImprimeMovimiento(numero, tipo) {
     type: "POST",
     data: parametros,
     success: function (data) {
-      // console.log(data)
       imprimeMovimiento(data.trim(), 3);
     },
   });
 }
 
-function procesaTraslado(tipo) {
+async function procesaTraslado() {
   let sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {
-    user: { usuario },
-  } = sesion;
+  let { user: { usuario }, } = sesion;
 
-  var pagina = $("#ubicacion").val();
-  var ruta = $("#rutaweb").val();
-  var alma = localStorage.getItem("almacenTras");
-  var movEntra = localStorage.getItem("tipoMovEntr");
-  var movSale = localStorage.getItem("tipoMovSale");
-  var desti = localStorage.getItem("destinoTras");
-  var fecha = localStorage.getItem("fechaTras");
+  let pagina = $("#ubicacion").val();
+  let ruta = $("#rutaweb").val();
+  let almacen = localStorage.getItem("almacenTras");
+  let movEntra = localStorage.getItem("tipoMovEntr");
+  let movSale = localStorage.getItem("tipoMovSale");
+  let destino = localStorage.getItem("destinoTras");
+  let fecha = localStorage.getItem("fechaTras");
+  if (!fecha) {
+    fecha = document.querySelector('#fechaTras').value
+  }
 
-  asignaConsecutivoTraslado(3);
+  var storageList = localStorage.getItem("trasladoListaProductos");
+  productos = JSON.parse(storageList);
+  if (!productos) {
+    swal({
+      title: 'Precaucion',
+      text: 'Sin Productos Asociados al Traslado',
+      type: 'warning'
+    })
+    return false;
+  }
+  let numero = await asignaConsecutivo(3);
+  datos = {
+    usuario,
+    almacen,
+    movEntra,
+    movSale,
+    destino,
+    fecha,
+    numero,
+    productos,
+  };
 
-  setTimeout(function () {
-    numeroTra = $("#numeroTraslado").val();
-    numeroSal = $("#numeroSalida").val();
-    numeroEnt = $("#numeroEntrada").val();
-    var storageList = localStorage.getItem("trasladoListaProductos");
-    movimiento = JSON.parse(storageList);
-    parametros = {
-      usuario,
-      alma,
-      movEntra,
-      movSale,
-      desti,
-      fecha,
-      numeroTra,
-      numeroEnt,
-      numeroSal,
-      movimiento,
-    };
-    $.ajax({
-      url: ruta + "res/php/guardaProductoTras.php",
-      type: "POST",
-      data: parametros,
-      success: function (data) {
-        data = $.trim(data);
-        swal(
-          "Atencion",
-          "Movimiento de Traslado Realizado con Exito",
-          "success",
-          5000
-        );
-        localStorage.removeItem("trasladoListaProductos");
-        localStorage.removeItem("almacenTras");
-        localStorage.removeItem("tipoMovEntr");
-        localStorage.removeItem("tipoMovSale");
-        localStorage.removeItem("destinoTras");
-        localStorage.removeItem("fechaTras");
-        imprimeMovimiento(data, 3);
-        $(location).attr("href", "traslados");
+
+  let guarda = await guardaTraslado(datos)
+  let imprie = await imprimeMovimiento(numero, 3);
+  let limpia = await limpiaTraslado()
+}
+
+async function guardaTraslado(datos) {
+  try {
+    const resultado = await fetch("res/php/guardaProductoTras.php", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
       },
+      body: JSON.stringify(datos),
     });
-  }, 1000);
+    const resp = await resultado.text();
+    return parseInt(resp);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 function cancelaSalida() {
@@ -1998,7 +1972,6 @@ function buscaProductoSalida(codigo) {
     dataType: "json",
     data: { codigo: codigo },
     success: function (x) {
-      console.log(x);
       $("#codigo").val(x.id_producto);
       $("#unidadalm").val(x.unidad_almacena);
       $("#unidad").val(x.unidad_almacena);
@@ -2085,17 +2058,17 @@ function listaSalidas() {
 	  		<td class='paddingCelda'>${salidaProductos[x]["descripcion"]}</td>
 	  		<td class='paddingCelda'>${salidaProductos[x]["desunid"]}</td>
 	  		<td class='paddingCelda' align='right'>${number_format(
-          salidaProductos[x]["cantidad"],
-          2
-        )}</td>
+      salidaProductos[x]["cantidad"],
+      2
+    )}</td>
 	  		<td class='paddingCelda' align='right'>${number_format(
-          salidaProductos[x]["unit"],
-          2
-        )}</td>
+      salidaProductos[x]["unit"],
+      2
+    )}</td>
 	  		<td class='paddingCelda' align='right'>${number_format(
-          salidaProductos[x]["total"],
-          2
-        )}</td>
+      salidaProductos[x]["total"],
+      2
+    )}</td>
 	  		<td class='paddingCelda' align='center'>
 	  			<button id='${salidaProductos[x]["codigo"]}' 
 	  				class='btn btn-danger btn-xs elimina_articulo' 
@@ -2265,9 +2238,7 @@ async function procesaEntrada(tipo) {
 
 async function guardaMovimiento(numeroMov, tipo) {
   let sesion = JSON.parse(localStorage.getItem("sesion"));
-  let {
-    user: { usuario },
-  } = sesion;
+  let { user: { usuario }, } = sesion;
   let storageList;
   if (tipo == 1) {
     storageList = localStorage.getItem("LocalProductList");
@@ -2275,7 +2246,7 @@ async function guardaMovimiento(numeroMov, tipo) {
     storageList = localStorage.getItem("salidaListaProductos");
   }
   movimientos = JSON.parse(storageList);
-  parametros = {
+  datos = {
     usuario,
     numeroMov,
     tipo,
@@ -2284,11 +2255,30 @@ async function guardaMovimiento(numeroMov, tipo) {
   $.ajax({
     url: "res/php/guardaProductoMov.php",
     type: "POST",
-    data: parametros,
+    data: datos,
     success: function (data) {
       return data;
     },
   });
+}
+
+async function limpiaTraslado() {
+  localStorage.removeItem("trasladoListaProductos");
+  localStorage.removeItem("almacenTras");
+  localStorage.removeItem("tipoMovEntr");
+  localStorage.removeItem("tipoMovSale");
+  localStorage.removeItem("destinoTras");
+  localStorage.removeItem("fechaTras");
+
+  swal({
+    title: 'Atencion',
+    text: 'Traslado Realizado con Ecito',
+    type: 'success',
+  },
+    function () {
+      $(location).attr("href", "traslados")
+    }
+  );
 }
 
 async function limpiaMovimiento(conce, tipo) {
@@ -2319,12 +2309,11 @@ async function limpiaMovimiento(conce, tipo) {
       (text = `${movitext} Nro ${conce} Realizada con Exito`),
       (type = "success");
   }
-  swal(
-    {
-      title,
-      text,
-      type,
-    },
+  swal({
+    title,
+    text,
+    type,
+  },
     function () {
       tipo == 1
         ? $(location).attr("href", "entradas")
@@ -2333,7 +2322,7 @@ async function limpiaMovimiento(conce, tipo) {
   );
 }
 
-function guardaRegistro() {}
+function guardaRegistro() { }
 
 function actualizaEntrada(codigo, regis) {
   document
@@ -2348,20 +2337,20 @@ function actualizaEntrada(codigo, regis) {
 }
 
 async function agregaLista() {
-/* 
-
-  // let dataDoc= document.querySelector("#dataDocu");
-  let dataDoc = document.querySelector("#dataDocu");
-  let dataPrd = document.querySelector("#dataProd");
-
-  console.log(dataDoc);
-  console.log(dataPrd);
-
-  let moviEntr = new FormData(dataDoc)
-  let moviProd = new FormData(dataPrd)
-
-
- */
+  /* 
+  
+    // let dataDoc= document.querySelector("#dataDocu");
+    let dataDoc = document.querySelector("#dataDocu");
+    let dataPrd = document.querySelector("#dataProd");
+  
+    console.log(dataDoc);
+    console.log(dataPrd);
+  
+    let moviEntr = new FormData(dataDoc)
+    let moviProd = new FormData(dataPrd)
+  
+  
+   */
 
 
   var alma = $("#almacen").val();
@@ -2617,30 +2606,29 @@ function listaEntradas() {
 	  			<td class='paddingCelda'>${productList[x]["descripcion"]}</td>
 	  			<td class='paddingCelda' align='left'>${productList[x]["desunid"]}</td>
 	  			<td class='paddingCelda' align='right'>${number_format(
-            productList[x]["cantidad"],
-            2
-          )}</td>
+      productList[x]["cantidad"],
+      2
+    )}</td>
 	  			<td class='paddingCelda' align='right'>${number_format(
-            productList[x]["unit"],
-            2
-          )}</td>
+      productList[x]["unit"],
+      2
+    )}</td>
 	  			<td class='paddingCelda' align='right'>${number_format(
-            productList[x]["subtotal"],
-            2
-          )}</td>
+      productList[x]["subtotal"],
+      2
+    )}</td>
 	  			<td class='paddingCelda'>${productList[x]["desimpto"]}</td>
 	  			<td class='paddingCelda' align='right'>${number_format(
-            productList[x]["impto"],
-            2
-          )}</td>
+      productList[x]["impto"],
+      2
+    )}</td>
 	  			<td class='paddingCelda' align='right'>${number_format(
-            productList[x]["total"],
-            2
-          )}</td>
+      productList[x]["total"],
+      2
+    )}</td>
 	  			<td class='paddingCelda' align='center'>
-	  				<button id='${
-              productList[x]["codigo"]
-            }' class='btn btn-danger btn-xs elimina_articulo' onclick='actualizaEntrada(this.id,this.parentNode.parentNode.rowIndex);'>
+	  				<button id='${productList[x]["codigo"]
+      }' class='btn btn-danger btn-xs elimina_articulo' onclick='actualizaEntrada(this.id,this.parentNode.parentNode.rowIndex);'>
 	  				<i class='fa fa-times'></i></button>
   				</td>
 				</tr>

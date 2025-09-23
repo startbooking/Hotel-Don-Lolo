@@ -615,6 +615,10 @@ article {
   margin-bottom: 3em;
 }
 
+
+.content {
+  min-height: 100px;
+}
 section> :last-child,
 article> :last-child {
   /* margin-bottom: 0; */

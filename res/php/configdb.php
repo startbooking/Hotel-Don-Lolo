@@ -5,7 +5,7 @@ $host = 'localhost';
 $server = 'localhost';
 $dbuser = 'root';
 $dbpass = 'b4r4h0n4';
-$dbname = 'donloloAgo29';
+$dbname = 'donloloSep23';
 // $dbname = 'donloloMar05';
 // $dbname = 'donloloJul31';
 

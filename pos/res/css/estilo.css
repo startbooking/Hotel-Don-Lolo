@@ -138,6 +138,10 @@ td span .alert {
   overflow: hidden;
 }
 
+.btnPos::hover {
+  color:#000;
+}
+
 .tablas {
   padding: 5px 0px 0px 10px;
   overflow: auto;
@@ -583,6 +587,8 @@ form textarea {
   .btnPos {
     width: 32%;
   }
+
+
 
   .logoAmbiente {
     width: 60px;

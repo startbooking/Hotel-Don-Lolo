@@ -2,7 +2,7 @@
 $hoy = date('Y-m-d');
 ?>
 
-<div class="content-wrapper>
+<div class="content-wrapper">
   <section class="content">
     <form id="EntradaMovimientos" class="form-horizontal" style="padding :0">
       <div class="panel panel-success">
@@ -19,7 +19,7 @@ $hoy = date('Y-m-d');
               <h5 class="titulo">Datos de la Entrada </h5>
               <form class="row-fluid" id="dataDocu">
                 <div class="form-group">
-                  <label class="control-label col-lg-3">Almacen</label>
+                  <label class="control-label col-sm-3">Almacen</label>
                   <div class='col-sm-9'>
                     <select class="form-control" name="almacen" id="almacen" onblur='asignaLocalStorage(this.name, this.value)'>
                       <option value="">Seleccione el Almacen</option>
@@ -34,7 +34,7 @@ $hoy = date('Y-m-d');
                   </div>
                 </div>
                 <div class='form-group'>
-                  <label class='control-label col-lg-3'>Movimiento</label>
+                  <label class='control-label col-sm-3'>Movimiento</label>
                   <div class='col-sm-9'>
                     <select class="form-control" name="tipoMov" id="tipoMov" class="form-control" onblur='asignaLocalStorage(this.name, this.value)' value="">
                       <option value="">Movimiento</option>
@@ -49,7 +49,7 @@ $hoy = date('Y-m-d');
                   </div>
                 </div>
                 <div class='form-group'>
-                  <label class='control-label col-lg-3'>Proveedor</label>
+                  <label class='control-label col-sm-3'>Proveedor</label>
                   <div class='col-sm-9'>
                     <select class="form-control" name="proveedor" id="proveedor" class="form-control" onblur='asignaLocalStorage(this.name, this.value)'>
                       <option value="">Proveedor</option>
@@ -64,12 +64,12 @@ $hoy = date('Y-m-d');
                   </div>
                 </div>
                 <div class='form-group'>
-                  <label class='control-label col-lg-3'> Fecha</label>
+                  <label class='control-label col-sm-3'> Fecha</label>
                   <div class='col-sm-4'>
                     <input type="date" style="line-height: 15px;" class="form-control" id="fecha" name="fecha" value="<?= $hoy ?>" max="<?= $hoy ?>" autocomplete="off" required onblur='asignaLocalStorage(this.name, this.value)'>
                   </div>
 
-                  <label class='control-label col-lg-2'>Documento </label>
+                  <label class='control-label col-sm-2'>Documento </label>
                   <div class='col-sm-3'>
                     <input type="text" class="form-control" id="factura" name="factura" required onblur='asignaLocalStorage(this.name, this.value)'>
                   </div>
@@ -80,7 +80,7 @@ $hoy = date('Y-m-d');
               <h5 class="titulo">Articulo</h5>
               <form class="row-fluid" id="dataProd">
                   <div class="form-group">
-                    <label class='control-label col-lg-3'>Producto</label>
+                    <label class='control-label col-sm-3'>Producto</label>
                     <input type="hidden" id='codigo'>
                     <input type="hidden" id='descripcion'>
                     <input type="hidden" id='unitario'>
@@ -93,7 +93,7 @@ $hoy = date('Y-m-d');
                     <input type="hidden" id='codimpto'>
                     <input type="hidden" id='desimpto'>
   
-                    <div class="col-lg-9">
+                    <div class="col-sm-9">
                       <select name="producto" id="producto" class="form-control" onblur='buscaProducto(this.value)' required="">
                         <option value="">Producto</option>
                         <?php
@@ -108,8 +108,8 @@ $hoy = date('Y-m-d');
                   </div>
                   <div class="form-group">
                     <input type="hidden" id='porcentajeImpto' name='porcentajeImpto'>
-                    <label class='control-label col-lg-3'>Impuesto</label>
-                    <div class="col-lg-6">
+                    <label class='control-label col-sm-3'>Impuesto</label>
+                    <div class="col-sm-6">
                       <select name="impuesto" id="impuesto" class="form-control" onblur="buscaImpto(this.value)" required="">
                         <?php
                         $imptos = $admin->getCodigosVentas(2);
@@ -120,15 +120,15 @@ $hoy = date('Y-m-d');
                         ?>
                       </select>
                     </div>
-                    <div class="checkbox col-lg-3">
+                    <div class="checkbox col-sm-3">
                       <label style="margin-top:-5px">
                         <input type="checkbox" id='incluido' name='incluido'> Incluido
                       </label>
                     </div>
                   </div>
                   <div class='form-group'>
-                    <label class='control-label col-lg-3'>Unidad</label>
-                    <div class="col-lg-6">
+                    <label class='control-label col-sm-3'>Unidad</label>
+                    <div class="col-sm-6">
                       <select name="unidad" id="unidad" class="form-control">
                         <option value=" ">Unidad de Compra</option>
                         <?php
@@ -142,12 +142,12 @@ $hoy = date('Y-m-d');
                     </div>
                   </div>
                   <div class='form-group'>
-                    <label class='control-label col-lg-3'> Cantidad:</label>
-                    <div class="col-lg-3">
+                    <label class='control-label col-sm-3'> Cantidad:</label>
+                    <div class="col-sm-3">
                       <input type="number" class="form-control pull-right" id="cantidad" data-inputmask="'alias': 'numeric', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'placeholder': '0'" onchange="activa_botones_mov();" required="">
                     </div>
-                    <label class='control-label col-lg-3'> Valor </label>
-                    <div class="col-lg-3">
+                    <label class='control-label col-sm-3'> Valor </label>
+                    <div class="col-sm-3">
                       <input type="number" class="form-control" id="costo" name="costo" data-inputmask="'alias': 'numeric', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'placeholder': '0'" required="">
                     </div>
                   </div>

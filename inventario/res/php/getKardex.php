@@ -1,8 +1,6 @@
 <?php
-
 require '../../../res/php/app_topInventario.php';
-
-$bodega = $_POST['bodega'];
+extract($_POST);
 $nomBod = $admin->getNombreBodega($bodega);
 $kardexs = $inven->getTraeKardex($bodega);
 ?>
@@ -11,11 +9,11 @@ $kardexs = $inven->getTraeKardex($bodega);
 	<div class="panel panel-success">
 		<div class="panel-heading">
 			<div class="row">
-				<div class="col-lg-10">
+				<div class="col-lg-10 col-sm-8">
 					<h3 class="sombraBlanca" style="margin:0px;text-align:center;font-weight:700">Kardex <?php echo $nomBod; ?></h3>
 				</div>
-				<div class="col-lg-2 pd10">
-            <button class="btn btn-info" onclick="exportarJSONaExcel(<?php echo htmlspecialchars(json_encode($kardexs));?>, 'kardexInventario')"><i class="glyphicon glyphicon-th" aria-hidden="true"></i> Exportar Movimientos</button>
+				<div class="col-lg-2 col-sm-4 pd10">
+					<button class="btn btn-info" onclick="exportarJSONaExcel(<?php echo htmlspecialchars(json_encode($kardexs)); ?>, 'kardexInventario')"><i class="glyphicon glyphicon-th" aria-hidden="true"></i> Exportar Movimientos</button>
 				</div>
 			</div>
 		</div>

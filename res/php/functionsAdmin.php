@@ -2777,7 +2777,7 @@
             global $database;
 
             $data = $database->select('codigos_vta', [
-                '[<]impuestos_dian' => ['identificador_dian' => 'id']
+                '[<]dianImpuestos' => ['identificador_dian' => 'id']
             ], [
                 'codigos_vta.id_cargo',
                 'codigos_vta.codigo_depto',
@@ -2795,12 +2795,12 @@
                 'codigos_vta.codigo_propina',
                 'codigos_vta.identificador_dian',
                 'codigos_vta.restringido',
-                'impuestos_dian.name'
+                'dianImpuestos.name'
             ], [
                 'codigos_vta.tipo_codigo' => $tipo,
                 'codigos_vta.tipo_impto' => 1,
                 'ORDER' => [
-                    'impuestos_dian.name' => 'ASC',
+                    'dianImpuestos.name' => 'ASC',
                     'codigos_vta.descripcion_cargo' => 'ASC'
                 ]
             ]);

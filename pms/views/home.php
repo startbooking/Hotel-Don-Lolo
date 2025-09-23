@@ -16,18 +16,18 @@ $canMmto     = $hotel->habitacionesMmto();
 
 
 <div class="content-wrapper">
-  <section class="container-fluid" style="margin-bottom: 5px;">
+  <section class="content" style="margin-bottom: 5px;">
     <div class="container-fluid">
       <input type="hidden" name="rutaweb" id="rutaweb" value="<?php echo BASE_PMS; ?>">
       <input type="hidden" name="ubicacion" id="ubicacion" value="home">
       <div class="container-fluid">
-        <div class="col-lg-9">
+        <div class="col-sm-9">
           <h1 class="controlPanel">
             Panel de Control <br>
             <span><?php echo NAME_HOTEL; ?></span>
           </h1>
         </div>
-        <div class="col-lg-3" style="text-align: right;margin-top: 30px;">
+        <div class="col-sm-3" style="text-align: right;margin-top: 30px;">
           <button class="btn btn-xs pull-right" data-toggle="modal" data-reserva='0' href="#myModalCalendarioReservas">
             <i class="fa-solid fa-calendar-days fa-4x"></i>
           </button>
@@ -35,7 +35,7 @@ $canMmto     = $hotel->habitacionesMmto();
       </div>
     </div>
   </section>
-  <section class="container-fluid" style="margin-bottom: 5px">
+  <section class="content" style="margin-bottom: 5px">
     <div class="container-fluid moduloCentrar">
       <div class="col-lg-4 col-md-6 col-xs-12">
         <div>
@@ -203,13 +203,13 @@ $canMmto     = $hotel->habitacionesMmto();
       </div>
     </div>
   </section>
-  <section class="container-fluid">
+  <section class="content">
     <div class="container-fluid">
       <div class="col-md-6 col-xs-12">
         <h2 class="accesos">Accesos Directos <i class="fa fa-external-link" aria-hidden="true"></i></h2>
       </div>
     </div>
-    <div class="container-fluid">
+    <div class="container-fluid mb-50">
       <div class="col-lg-3 col-sm-6 col-xs-12">
         <div class="info-box">
           <a

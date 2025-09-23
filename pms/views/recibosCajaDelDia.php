@@ -35,9 +35,7 @@
                           </thead>
                           <tbody>
                             <?php
-                            foreach ($recibos as $recibo) {
-                              // $numFactura = $factura['prefijo_factura'].$factura['factura_numero']; 
-                            ?>
+                            foreach ($recibos as $recibo) { ?>
                               <tr style='font-size:12px'>
                                 <td style="padding:3px 5px;text-align:right;"><?php echo $recibo['concecutivo_abono']; ?></td>
                                 <td style="padding:3px 5px;text-align:right;"><?php echo $recibo['num_habitacion']; ?></td>
@@ -60,9 +58,6 @@
                   <?php
                   }
                   ?>
-                  <!-- <div class="col-lg-6" id="Factura">
-                    <object id="verFactura" width="100%" height="500" data=""></object>
-                  </div> -->
                 </div>
               </div>
               <div class="panel-footer">

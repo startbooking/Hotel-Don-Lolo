@@ -1,16 +1,12 @@
 <?php 
 
-  require '../../../res/php/app_topInventario.php'; 
+  require '../../../res/php/app_topInventario.php';
+	extract($_POST);
 
-	$tipo = $_POST['tipo'];
+	$numero = $inven->getNumeroMovimientoInventario($tipo); 
+	$increment = $inven->incrementaNumeroMovimientoInv($tipo,$numero+1);
 
-	$numeroMov = $inven->getNumeroMovimientoInventario($tipo); 
-	$increment = $inven->incrementaNumeroMovimientoInv($tipo,$numeroMov+1);
-
-	$_SESSION['numeroEntrada'] = $numeroMov;
-
-	 
-	echo intval($numeroMov);
+	echo $numero;
 
 
 ?>

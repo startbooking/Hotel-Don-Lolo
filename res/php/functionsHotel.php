@@ -5908,7 +5908,10 @@ class Hotel_Actions
             'reservas_pms.num_habitacion[!]' => 9600,
             'cargos_pms.concecutivo_abono[>]' => 0,
             'cargos_pms.factura' => 0,
-            'ORDER' => ['cargos_pms.concecutivo_abono'],
+            'ORDER' => [
+                'cargos_pms.fecha_cargo' => 'DESC',
+                'cargos_pms.concecutivo_abono' => 'DESC',
+            ],
         ]);
 
         return $data;

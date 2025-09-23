@@ -1,5 +1,5 @@
 <?php 
-  $ciudades  = $hotel->getCiudadesPais($empresa[0]['pais']);
+  $ciudades  = $hotel->getCiudadesPais($empresa['pais']);
   $rooms     = $admin->getHabitaciones(); 
   $huespedes = $admin->getPerfilHuesped(); 
 

@@ -20,7 +20,7 @@ $hoy = date('Y-m-d');
               <h5 class="titulo">Datos del Ajuste </h5>
               <div class='row-fluid'>
                 <div class="form-group">
-                  <label class="control-label col-lg-3">Almacen</label>
+                  <label class="control-label col-sm-3">Almacen</label>
                   <div class='col-sm-9'>
                     <select class="form-control" name="almacenAju" id="almacenAju" onblur='asignaLocalStorage(this.name, this.value)'>
                       <option value="">Seleccione el Almacen</option>
@@ -35,7 +35,7 @@ $hoy = date('Y-m-d');
                   </div>
                 </div>
                 <div class='form-group'>
-                  <label class='control-label col-lg-3'>Movimiento</label>
+                  <label class='control-label col-sm-3'>Movimiento</label>
                   <div class='col-sm-9'>
                     <select class="form-control" name="movimientoAju" id="movimientoAju" class="form-control" onblur='buscaTipoMovimiento()' value="">
                       <option value="">Movimiento</option>
@@ -50,7 +50,7 @@ $hoy = date('Y-m-d');
                   </div>
                 </div>
                 <div class='form-group'>
-                  <label class='control-label col-lg-3'> Fecha</label>
+                  <label class='control-label col-sm-3'> Fecha</label>
                   <div class='col-sm-6'>
                     <input type="date" style="line-height: 15px;" class="form-control" id="fechaAju" name="fechaAju" value="<?= $hoy ?>" max="<?= $hoy ?>" autocomplete="off" required onblur='asignaLocalStorage(this.name, this.value)'>
                   </div>
@@ -74,7 +74,7 @@ $hoy = date('Y-m-d');
                   <input type="hidden" id='codimpto'>
                   <input type="hidden" id='desimpto'>
 
-                  <div class="col-sm-6">
+                  <div class="col-sm-9">
                     <select name="producto" id="producto" class="form-control" onblur='buscaProductoSalida(this.value)' required="">
                       <option value="">Producto</option>
                       <?php
@@ -89,7 +89,7 @@ $hoy = date('Y-m-d');
                 </div>
                 <div class='form-group'>
                   <label class='control-label col-sm-3'>Unidad</label>
-                  <div class="col-sm-6">
+                  <div class="col-sm-9">
                     <select name="unidad" id="unidad" class="form-control" readonly disabled>
                       <option value=" ">Unidad de Almacenamiento</option>
                       <?php
@@ -160,7 +160,7 @@ $hoy = date('Y-m-d');
             <div class='col-lg-4'>
               <div class="btn-group pull-right">
                 <button class='btn btn-warning' type='button' onclick='cancelaAjuste();' id='btn-cancela'><i class='fa fa-times'></i> Cancelar Ajuste</button>
-                <button class='btn btn-primary' type='button' onclick='procesaAjuste(1);' id='btn-procesa' disabled><i class='fa fa-external-link'></i> Procesar Ajuste</button>
+                <button class='btn btn-primary' type='button' onclick='procesaAjuste(1);' id='btn-procesa'><i class='fa fa-external-link'></i> Procesar Ajuste</button>
               </div>
             </div>
           </div>

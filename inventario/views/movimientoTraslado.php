@@ -194,7 +194,7 @@ $hoy = date('Y-m-d');
             <div class='col-lg-4'>
               <div class='btn-group pull-right'>
                 <button class='btn btn-warning' type='button' onclick='cancelaTraslado();' id='btn-cancela'><i class='fa fa-times'></i> Cancelar Traslado</button>
-                <button class='btn btn-primary' type='button' onclick='procesaTraslado();' id='btn-procesa' disabled><i class='fa fa-external-link'></i> Procesar Traslado</button>
+                <button class='btn btn-primary' type='button' onclick='procesaTraslado();' id='btn-procesa'><i class='fa fa-external-link'></i> Procesar Traslado</button>
               </div>
             </div>
           </div>

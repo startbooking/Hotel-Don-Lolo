@@ -8,7 +8,7 @@
       <div class="panel-heading">
         <div class="row"> 
           <div class="col-lg-6">
-            <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_INV?>">              
+            <input type="hidden" name="rutaweb" id="rutaweb" value="<?=BASE_INV?>">
             <input type="hidden" name="ubicacion" id="ubicacion" value="ajustes">
             <h3 class="w3ls_head tituloPagina"><i style="color:black;font-size:36px;" class="fa fa-calendar"></i> Ajustes de Inventario </h3>
           </div> 
@@ -44,7 +44,7 @@
                   <td><?php echo $entrada['numero'];?></td>
                   <td><?php echo $entrada['fecha_movimiento']; ?></td>
                   <td><?php echo $entrada['descripcion_bodega']; ?></td>
-                  <td><?php echo $entrada['descripcion_tipo']; ?></td>                  
+                  <td><?php echo $entrada['descripcion_tipo']; ?></td>
                   <td style="text-align:right;"><?php echo number_format($entrada['total'],2); ?></td>
                   <td>
                   <span
@@ -101,33 +101,6 @@
             </tbody>
           </table>
         </div>
-        <table id="tablaentradas" class="table modalTable table-condensed" style="display:none">
-          <thead>
-            <tr class="warning">
-              <td>Ajuste Nro</td>
-              <td>Fecha</td>
-              <td>Almacen</td>
-              <td>Tipo Movimiento</td>
-              <td>Total</td>
-              <td>Estado</td>
-            </tr>
-          </thead>
-          <tbody>
-            <?php
-            foreach ($entradas as $entrada) { ?>
-              <tr style='font-size:12px'>
-                <td><?php echo $entrada['numero'];?></td>
-                <td><?php echo $entrada['fecha_movimiento']; ?></td>
-                <td><?php echo $entrada['descripcion_bodega']; ?></td>
-                <td><?php echo $entrada['descripcion_tipo']; ?></td>                  
-                <td style="text-align:right;"><?php echo number_format($entrada['total'],2); ?></td>
-                <td><?php echo estadoMovimiento($entrada['estado']); ?></td>
-              </tr>
-              <?php 
-            }
-            ?>
-          </tbody>
-        </table>
       </div>
     </div> 
   </section>

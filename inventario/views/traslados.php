@@ -27,7 +27,6 @@ $entradas = $inven->getMovimientosTraslados(1);
               <tr class="warning">
                 <td>Nro</td>
                 <td>Fecha</td>
-                <!-- <td>Tipo Movimiento</td> -->
                 <td>Desde Almacen</td>
                 <td>Destino Almacen</td>
                 <td>Total</td>
@@ -88,39 +87,6 @@ $entradas = $inven->getMovimientosTraslados(1);
             </tbody>
           </table>
         </div>
-        <table id="tablaentradas" class="table modalTable table-condensed" style="display:none">
-          <thead>
-            <tr class="warning">
-              <td>Traslado Nro</td>
-              <td>Fecha</td>
-              <td>Tipo Movimiento</td>
-              <td>Desde Almacen</td>
-              <td>Destino Almacen</td>
-              <td>Total</td>
-              <td>Estado</td>
-            </tr>
-          </thead>
-          <tbody>
-            <?php
-            foreach ($entradas as $entrada) { ?>
-              <tr style='font-size:12px'>
-                <td><?php echo $entrada['numero']; ?></td>
-                <td><?php echo $entrada['fecha_movimiento']; ?></td>
-                <td><?php echo $entrada['descripcion_tipo']; ?></td>
-                <td><?php echo $entrada['descripcion_bodega']; ?></td>
-                <td><?php echo $inven->buscaAlmacen($entrada['id_proveedor']); ?></td>
-                <td><?php echo number_format($entrada['total'], 2); ?></td>
-                <td><span class="badge" <?php
-                                        if ($entrada['estado'] == 0) { ?> style="background-color: brown" <?php
-                                                                                                        } else { ?> style="background-color: blue" <?php
-                                                                                                                                                  }
-                                                                                                                                                    ?>><?php echo estadoMovimiento($entrada['estado']); ?></span></td>
-              </tr>
-            <?php
-            }
-            ?>
-          </tbody>
-        </table>
       </div>
     </div>
   </section>

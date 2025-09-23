@@ -3,7 +3,8 @@
 	require_once '../../../res/php/rutas.php' ;
 	require_once '../../../res/php/configdb.php' ;
   require_once '../../../res/php/app_topInventario.php'; 
-
+  $data = json_decode(file_get_contents('php://input'), true);
+  extract($data);
 
   $fecha = date('Y-m-d');
 
@@ -15,7 +16,7 @@
     'charset'   => 'utf8',
     'collation' => 'utf8_spanish_ci'
   ];
-  $bckname        = 'INV_'.$dbname.'_'.$fecha;
+  $bckname        = 'INV_Cierre_'.$anio.'-'.$mes.'_'.$dbname.'_'.$fecha;
 
   define("DB_HOST", $server);
   define("DB_NAME", $dbname);
