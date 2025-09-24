@@ -17,6 +17,7 @@ define('BASE_ADM', BASE_WEB.'admin/');
 define('BASE_POS', BASE_WEB.'pos/');
 define('BASE_PMS', BASE_WEB.'pms/');
 define('BASE_FE', BASE_WEB.'fe/');
+define('BASE_HK', BASE_WEB.'hk/');
 define('BASE_INV', BASE_WEB.'inventario/');
 define('BASE_CON', BASE_WEB.'contabilidad/');
 define('BASE_PRN', BASE_WEB.'informes/');

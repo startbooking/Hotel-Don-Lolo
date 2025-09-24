@@ -6372,6 +6372,19 @@ class Hotel_Actions
         return $data->rowCount();
     }
 
+public function cambiaEstadoHabitacionHK($habita, $estado)
+    {
+        global $database;
+
+        $data = $database->update('habitaciones', [
+            'estado_hk' => $estado,
+        ], [
+            'numero_hab' => $habita,
+        ]);
+
+        return $data->rowCount();
+    }
+
     public function cambiaEstadoHabitacion($habita, $estado)
     {
         global $database;

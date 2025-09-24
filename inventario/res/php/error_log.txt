@@ -1,4 +1,0 @@
-[22-Sep-2025 19:22:47 America/Bogota] PHP Warning:  Undefined variable $anio in /var/www/donlolo.lan/inventario/res/php/backupCierre.php on line 19
-[22-Sep-2025 19:22:47 America/Bogota] PHP Warning:  Undefined variable $mes in /var/www/donlolo.lan/inventario/res/php/backupCierre.php on line 19
-[22-Sep-2025 19:33:07 America/Bogota] PHP Warning:  Undefined variable $anio in /var/www/donlolo.lan/inventario/res/php/backupCierre.php on line 19
-[22-Sep-2025 19:33:07 America/Bogota] PHP Warning:  Undefined variable $mes in /var/www/donlolo.lan/inventario/res/php/backupCierre.php on line 19
