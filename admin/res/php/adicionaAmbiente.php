@@ -3,6 +3,8 @@
 require_once '../../../res/php/app_topAdmin.php';
 require_once '../../../res/phpqrcode/qrlib.php';
 
+
+
 $ambiente = strtoupper($_POST['nombreAdi']);
 $prefijo = strtoupper($_POST['prefijoAdi']);
 $impto = $_POST['imptoOption'];

@@ -25,7 +25,7 @@ if (!isset($rooms)) {
                 <input type="hidden" id="rutaweb" value="<?= htmlspecialchars(BASE_PMS) ?>">
                 <input type="hidden" id="ubicacion" value="estadoHabitaciones">
                 <h1 class="text-center" style="font-size:34px;text-center;">Estado Habitaciones</h1>
-                <div class="container-fluid">
+                <div class="container-fluid pd0">
                     <?php
                     $leyenda = [
                         'Limpia Vacante' => 'bg-limpiaVac',

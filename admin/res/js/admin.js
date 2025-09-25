@@ -2840,13 +2840,13 @@ $(document).ready(function () {
     }
   });
 
-  $("#myModalModificaAmbiente").on("show.bs.modal", function (event) {
+  $("#myModalModificaAmbiente").on("show.bs.modal", async function (event) {
     var sesion = JSON.parse(localStorage.getItem("sesion"));
     let { cia } = sesion;
     let { pms } = cia;
-    // var pms = sesion["cia"][0]["pms"];
     var button = $(event.relatedTarget);
     var id = button.data("id");
+
     var descr = button.data("desc");
     var pref = button.data("pref");
     var fact = button.data("fact");
@@ -2862,6 +2862,16 @@ $(document).ready(function () {
     var modal = $(this);
 
     modal.find(".modal-title").text("Modifica Ambiente : " + descr);
+
+    let fileQR = `../pos/images/QRFiles/${id}.png`;
+    console.log(fileQR);
+
+    let existe = await verificarArchivoXHR(fileQR);
+    console.log(existe)
+
+
+
+
 
     if (pms == 0) {
       $(".pms").css("display", "none");
@@ -2894,6 +2904,11 @@ $(document).ready(function () {
     } else {
       $(".img-thumbnail").attr("src", "../img/" + logo);
     }
+
+    let qr = document.querySelector('#fileQR')
+    qr.src = fileQR;
+
+
   });
 
   $("#myModalEliminaTipoMovimiento").on("show.bs.modal", function (event) {

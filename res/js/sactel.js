@@ -287,3 +287,25 @@ function exportarJSONaExcel(data, nombreArchivo) {
   enlaceDescarga.click();
   document.body.removeChild(enlaceDescarga);
 }
+
+async function verificarArchivoXHR(urlArchivo) {
+  const xhr = new XMLHttpRequest();
+  xhr.open('HEAD', urlArchivo, true); // true para solicitud asíncrona
+
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+        // console.log(`El archivo existe en: ${urlArchivo}`);
+        return true
+      } else if (xhr.status === 404) {
+        // console.log(`El archivo no se encontró en: ${urlArchivo}`);
+        return false
+      } else {
+        console.log(`Error al verificar el archivo. Código de estado: ${xhr.status}`);
+        return false;
+      }
+    }
+  };
+
+  xhr.send();
+}

@@ -1581,26 +1581,32 @@
             global $database;
 
             $data = $database->select('ambientes', [
-                'id_ambiente',
-                'fecha_auditoria',
-                'codigo',
-                'nombre',
-                'id_centrocosto',
-                'conc_factura',
-                'conc_orden',
-                'conc_comanda',
-                'prefijo',
-                'servicio',
-                'propina',
-                'impuesto',
-                'id_bodega',
-                'codigo_venta',
-                'codigo_propina',
-                'codigo_servicio',
-                'logo',
-                'active_at',
+                '[>]centrocosto' => ['id_centrocosto' => 'id_centrocosto'],
+                '[>]bodegas' => ['id_bodega' => 'id_bodega']
+
+            ],[
+                'ambientes.id_ambiente',
+                'ambientes.fecha_auditoria',
+                'ambientes.codigo',
+                'ambientes.nombre',
+                'ambientes.id_centrocosto',
+                'ambientes.conc_factura',
+                'ambientes.conc_orden',
+                'ambientes.conc_comanda',
+                'ambientes.prefijo',
+                'ambientes.servicio',
+                'ambientes.propina',
+                'ambientes.impuesto',
+                'ambientes.id_bodega',
+                'ambientes.codigo_venta',
+                'ambientes.codigo_propina',
+                'ambientes.codigo_servicio',
+                'ambientes.logo',
+                'ambientes.active_at',
+                'centrocosto.descripcion_centro',
+                'bodegas.descripcion_bodega'
             ], [
-                'deleted_at' => null,
+                'ambientes.deleted_at' => null,
             ]);
 
             return $data;
