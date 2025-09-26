@@ -254,14 +254,14 @@ function formDataToObject(formData) {
 function exportarJSONaExcel(data, nombreArchivo) {
   // 1. Crear el contenido de la tabla HTML
   let tablaHTML = '<table><thead><tr>';
-  
+
   // Obtener las cabeceras (keys del primer objeto)
   const cabeceras = Object.keys(data[0]);
   cabeceras.forEach(key => {
     tablaHTML += `<th>${key}</th>`;
   });
   tablaHTML += '</tr></thead><tbody>';
-  
+
   // 2. Agregar los datos (filas)
   data.forEach(fila => {
     tablaHTML += '<tr>';
@@ -274,14 +274,14 @@ function exportarJSONaExcel(data, nombreArchivo) {
 
   // 3. Crear el enlace para descargar el archivo
   const enlaceDescarga = document.createElement('a');
-  
+
   // Codificar los datos en formato URL (usando Base64 para compatibilidad)
   // El "data:application/vnd.ms-excel" es el tipo MIME para archivos XLS
   const uri = 'data:application/vnd.ms-excel,' + encodeURIComponent(tablaHTML);
-  
+
   enlaceDescarga.href = uri;
   enlaceDescarga.download = nombreArchivo + '.xls';
-  
+
   // 4. Simular un clic para iniciar la descarga
   document.body.appendChild(enlaceDescarga);
   enlaceDescarga.click();
@@ -291,21 +291,108 @@ function exportarJSONaExcel(data, nombreArchivo) {
 async function verificarArchivoXHR(urlArchivo) {
   const xhr = new XMLHttpRequest();
   xhr.open('HEAD', urlArchivo, true); // true para solicitud asíncrona
-
-  xhr.onreadystatechange = function() {
+  let resp
+  xhr.onreadystatechange = async function () {
     if (xhr.readyState === 4) {
-      if (xhr.status === 200) {
-        // console.log(`El archivo existe en: ${urlArchivo}`);
-        return true
+      /* if (xhr.status === 200) {
+        console.log(`El archivo existe en: ${urlArchivo}`);
+        resp =  true;
       } else if (xhr.status === 404) {
-        // console.log(`El archivo no se encontró en: ${urlArchivo}`);
-        return false
+        console.log(`El archivo no se encontró en: ${urlArchivo}`);
+        resp = false;
       } else {
         console.log(`Error al verificar el archivo. Código de estado: ${xhr.status}`);
-        return false;
-      }
+        resp = false;
+      } */
+      console.log(xhr.status)
     }
   };
 
   xhr.send();
+}
+
+async function verificarArchivo(url) {
+  try {
+    const respuesta = await fetch(url, { method: 'HEAD' });
+    // 'HEAD' es más eficiente, ya que solo solicita los encabezados, no el cuerpo del archivo
+    // console.log(respuesta);
+    return respuesta.ok; // Devuelve true si el estado es 200-299
+  } catch (error) {
+    console.error("Error al verificar el archivo:", error);
+    return false;
+  }
+}
+
+// Lógica principal
+async function gestionarQR(id, descr) {
+  const modal = $(".modal"); // Selecciona tu modal, asegúrate de que el selector sea el correcto
+  modal.find(".modal-title").text("Modifica Ambiente : " + descr);
+
+  const fileQR = `${window.location.origin}/pos/images/QRFiles/${id}.png`;
+  const contenedorQR = document.getElementById("contenedor-qr"); // Asume que tienes un <div> con este ID
+  const urlContenidoQR = `${window.location.origin}/pos/ambiente/${id}`; // URL o dato a codificar en el QR
+
+  // Verificar si el archivo QR ya existe
+  const existe = await verificarArchivo(fileQR);
+
+  if (existe) {
+    // Si el archivo existe, mostrarlo en una etiqueta <img>
+    contenedorQR.innerHTML = `<img src="${fileQR}" alt="Código QR de ${descr}" style="width: 200px; height: 200px;" />`;
+    console.log("El archivo QR existe y se ha mostrado.");
+  } else {
+    // Si no existe, crear el código QR
+    console.log("El archivo QR no existe, creando uno nuevo...");
+    // Asegúrate de incluir la librería qrcode.js en tu HTML: <script src="qrcode.min.js"></script>
+    const qrcode = new QRCode(contenedorQR, {
+      text: urlContenidoQR,
+      width: 200,
+      height: 200,
+      colorDark: "#000000",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.H
+    });
+
+    // Opcional: Si necesitas la imagen como un archivo PNG, puedes hacerlo así
+    // qrcode.toDataURL((dataUrl) => {
+    //     // Aquí puedes enviar el dataUrl al servidor para guardarlo
+    //     console.log("QR generado como Data URL:", dataUrl);
+    // });
+  }
+}
+
+async function creaCodigoQR(QRStr, filename) {
+  
+  try {
+    const respuesta = await fetch('../res/php/creaQR.php', { 
+      method: 'POST',
+      body:JSON.stringify({QRStr, filename}) 
+    });
+    // 'HEAD' es más eficiente, ya que solo solicita los encabezados, no el cuerpo del archivo
+    console.log(respuesta)
+    return respuesta.ok; // Devuelve true si el estado es 200-299
+  } catch (error) {
+    console.error("Error al verificar el archivo:", error);
+    return false;
+  }
+}
+
+function printQR() {
+    const contenedorQR = document.getElementById("fileQR");
+    const img = contenedorQR.querySelector("img");
+
+    if (img) {
+        const urlQR = img.src;
+        let printWindow = window.open('', '_blank', 'height=400,width=400');
+        printWindow.document.write('<html><head><title>Imprimir QR</title>');
+        printWindow.document.write('</head><body>');
+        printWindow.document.write('<img src="' + urlQR + '" style="max-width:100%;" />');
+        printWindow.document.write('</body></html>');
+        printWindow.document.close();
+        printWindow.onload = () => {
+            printWindow.focus();
+            printWindow.print();
+        };
+    } else {
+        alert("El código QR no está visible para imprimir.");
+    }
 }

@@ -65,6 +65,7 @@
                             title="Modificar el Ambiente Actual">
                             <i class='fa fa-pencil-square'></i>
                           </button>
+                          <!-- 
                           <button type="button" class="btn btn-success btn-xs"
                             data-toggle="modal"
                             data-target="#myModalImprimeQR"
@@ -72,7 +73,7 @@
                             <i class="fa-solid fa-qrcode"></i>
                           </button>
 
-                          <!-- <button type="button" class="btn btn-warning btn-xs" 
+                          <button type="button" class="btn btn-warning btn-xs" 
                             data-toggle ="modal" 
                             data-target ="#myModalEliminaAmbiente" 
                             data-id     ="<?php echo $ambiente['id_ambiente']; ?>" 

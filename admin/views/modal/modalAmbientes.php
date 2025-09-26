@@ -339,7 +339,7 @@
             <label class="control-label col-lg-2">Codigo Venta</label>
             <div class="col-lg-4 col-md-4">
               <select name="ventaMod" id="ventaMod" required="">
-                <option value="">Seleccione el Codigo de Ventas</option>}
+                <option value="">Seleccione el Codigo de Ventas</option>
                 option
                 <?php
                 foreach ($codigos as $codigo) { ?>
@@ -352,7 +352,7 @@
             <label class="control-label col-lg-2">Codigo Propina</label>
             <div class="col-lg-4 col-md-4">
               <select name="propinaMod" id="propinaMod" required="">
-                <option value="">Seleccione el Codigo de Propinas</option>}
+                <option value="">Seleccione el Codigo de Propinas</option>
                 <?php
                 foreach ($codigos as $codigo) { ?>
                   <option value="<?= $codigo['id_cargo'] ?>"><?= $codigo['descripcion_cargo'] ?></option>
@@ -362,23 +362,37 @@
               </select>
             </div>
           </div>
-          <div class="form-group">
-            <div class="col-lg-6">
-              <label class="control-label col-lg-2" for="">Logo</label>
-              <input type="hidden" id="imgLogoMod" name="imgLogoMod" value="">
-              <div class="col-lg-4 col-md-4" id="mostrarFotoMod">
-                <img class="img-thumbnail" src="<?php echo $images ?>" alt="">
+          <div class="form-group mt-10">
+            <div class="col-lg-6 mb-4">
+              <div class="container-fluid">
+                <div class="form-group">
+                  <label class="control-label mb-2 col-lg-4" for="">Logo</label>
+                  <input type="hidden" id="imgLogoMod" name="imgLogoMod" value="">
+                  <div id="mostrarFotoMod" class="mb-3 col-lg-8">
+                    <img class="img-thumbnail" style="width:200px; height:auto;" src="<?php echo $images ?>" alt="Logo del negocio">
+                  </div>
+                </div>
               </div>
-              <label class="control-label col-lg-2" for="">Importar Logo</label>
-              <div class="col-lg-2 col-md-2">
-                <input type="file" name="logoAdi" id="logoAdi" onchange="verFotoAct(this)">
+              <div class="container-fluid mt-10">
+                <div class="form-group">
+                  <label class="control-label mb-2 col-lg-4" for="logoAdi">Importar Logo</label>
+                  <div class="text-center col-lg-8">
+                    <input type="file" name="logoAdi" id="logoAdi" onchange="verFotoAct(this)">
+                  </div>
+                </div>
               </div>
             </div>
             <div class="col-lg-6">
-              <label class="control-label col-lg-2" for="">QR</label>
-              <!-- <input type="hidden" id="imgLogoMod" name="imgLogoMod" value=""> -->
-              <div class="col-lg-4 col-md-4" id="fileQR">
-                <img class="img-thumbnail" src="" alt="">
+              <div class="form-group">
+                <label class="control-label mb-2 col-lg-4" for="">Codigo QR</label>
+                <div id="fileQR" class="mb-3"></div>
+                <div class="container-fluid mt-10">
+                  <div class="form-group text-center">
+                    <button id="printQRButton" class="btn btn-primary mt-3">
+                      <i class="fa fa-print"></i> Imprimir Código QR
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

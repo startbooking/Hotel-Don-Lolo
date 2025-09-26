@@ -405,14 +405,14 @@ async function eliminaRetencion(nombre, id) {
 
   return new Promise((resolve) => {
     swal({
-        title: `Retencion ${nombre}`,
-        text: "Este proceso Eliminara la retencion Actual  \n No se podra recuperar la Informacion \n",
-        type: "warning",
-        showCancelButton: true,
-        cancelButtonText: "Cancelar",
-        confirmButtonText: "¡Adelante!",
-        closeOnConfirm: false,
-      },
+      title: `Retencion ${nombre}`,
+      text: "Este proceso Eliminara la retencion Actual  \n No se podra recuperar la Informacion \n",
+      type: "warning",
+      showCancelButton: true,
+      cancelButtonText: "Cancelar",
+      confirmButtonText: "¡Adelante!",
+      closeOnConfirm: false,
+    },
       async function () {
         req = { id };
         const resultado = await fetch("res/php/eliminaRetencion.php", {
@@ -2841,9 +2841,10 @@ $(document).ready(function () {
   });
 
   $("#myModalModificaAmbiente").on("show.bs.modal", async function (event) {
+    let form = document.querySelector('form')
+    form.reset;
     var sesion = JSON.parse(localStorage.getItem("sesion"));
-    let { cia } = sesion;
-    let { pms } = cia;
+    let { cia: { pms } } = sesion;
     var button = $(event.relatedTarget);
     var id = button.data("id");
 
@@ -2860,18 +2861,28 @@ $(document).ready(function () {
     var logo = button.data("logo");
 
     var modal = $(this);
-
+    // ambiente = descr.replaceAll(" ","_")
     modal.find(".modal-title").text("Modifica Ambiente : " + descr);
-
-    let fileQR = `../pos/images/QRFiles/${id}.png`;
-    console.log(fileQR);
-
-    let existe = await verificarArchivoXHR(fileQR);
-    console.log(existe)
+    let fileQR = `${window.location.origin}/pos/images/QRFiles/${id}.png`;
+    const contenedorQR = document.getElementById("fileQR"); // Asume que tienes un <div> con este ID
+    const urlContenidoQR = `${window.location.origin}/pos/carta.php?ambiente=${descr}`; // URL o dato a codificar en el QR
 
 
+    contenedorQR.innerHTML = '';
 
+    const qrcode = new QRCode(contenedorQR, {
+      text: urlContenidoQR,
+      width: 200,
+      height: 200,
+      colorDark: "#000000",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.H
+    });
 
+    const printQRButton = document.getElementById("printQRButton");
+    if (printQRButton) {
+        printQRButton.onclick = () => printQR();
+    }
 
     if (pms == 0) {
       $(".pms").css("display", "none");

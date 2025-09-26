@@ -13,6 +13,7 @@ require_once '../res/php/app_topAdmin.php';
     include_once '../res/shared/archivo_script.php';
     ?>
     <link rel="stylesheet" type="text/css" href="res/css/admin.css">
+    <script type="text/javascript" src="<?php echo BASE_WEB; ?>res/js/qrcode.js"></script>
     <script src="<?php echo BASE_ADM; ?>res/js/admin.js"></script>
     <script src="<?php echo BASE_WEB; ?>res/js/inicio.js"></script>
 </head>
