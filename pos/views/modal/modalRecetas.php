@@ -309,7 +309,7 @@
                 <input type="hidden" name="nombreReceta" id="nombreReceta">
                 <label for="idRecetaFoto" class="col-sm-3 control-label">Foto Receta</label>
                 <div class="col-sm-9">
-                  <input type="file" name="images[]" id="imgSelect" onchange="verFoto(event)" class='form-control' accept='.jpg,.png,.webp,.avif' style="min-height: 35px" required="">
+                  <input type="file" name="images[]" id="imgSelect" onchange="verFoto(event)" class='form-control' accept='image/*' style="min-height: 35px" required="">
                 </div>
               </div>
             </div>

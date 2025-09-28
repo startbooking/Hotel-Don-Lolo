@@ -81,6 +81,7 @@
           <td style="text-align:center;">Huesped</td> 
           <td>Fecha Recibo</td>
           <td>Forma de Pago</td>
+          <td>Factura</td>
           <td>Valor</td>
           <td>Accion</td>
         </tr>
@@ -90,9 +91,10 @@
         foreach ($facturas as $factura) { ?>
           <tr style='font-size:12px'>
             <td style="padding:3px 5px"><?php echo $factura['concecutivo_abono']; ?></td>
-            <td style="padding:3px 5px;text-align: left;"><?php echo $factura['nombre_completo']; ?></td>
+            <td style="padding:3px 5px;text-align: left;"><?php echo substr($factura['nombre_completo'],0,45); ?></td>
             <td style="padding:3px 5px"><?php echo $factura['fecha_cargo']; ?></td>
             <td style="padding:3px 5px"><?php echo $factura['descripcion_cargo']; ?></td>
+            <td style="text-align: right;"> <?=number_format($factura['factura_numero'],2); ?></td>
             <td style="text-align: right;"> <?=number_format($factura['pagos_cargos'],2); ?></td>
             <td style="padding:3px 5px;text-align:center;">
               <div class="btn-group" role="group" aria-label="Basic example" style="text-align:center;">

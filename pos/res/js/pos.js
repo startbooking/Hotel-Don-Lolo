@@ -611,6 +611,8 @@ $(document).ready(function () {
 
   $("#myModalFotoReceta").on("show.bs.modal", function (event) {
     var modal = $(this);
+    let formFoto = document.querySelector('form');
+    formFoto.reset;
     var button = $(event.relatedTarget); // Botón que activó el modal
     var id = button.data("id"); // Extraer la información de atributos de datos
     var receta = button.data("receta"); // Extraer la información de atributos de datos
@@ -629,10 +631,7 @@ $(document).ready(function () {
 
   $("#dataDeleteCliente").on("show.bs.modal", function (event) {
     sesion = JSON.parse(localStorage.getItem("sesion"));
-    let {
-      user: { usuario, usuario_id, tipo },
-    } = sesion;
-
+    let { user: { usuario, usuario_id, tipo }, } = sesion;
     var button = $(event.relatedTarget);
     var id = button.data("id");
     var modal = $(this);

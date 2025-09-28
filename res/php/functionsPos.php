@@ -6,6 +6,41 @@ date_default_timezone_set('America/Bogota');
 class Pos_Actions
 {
 
+    public function getTipoPlatosCarta($ambiente){
+        global $database;
+
+        $data = $database->select('secciones_pos',[
+            '[>]ambientes' => ['id_ambiente' => 'id_ambiente']
+        ],[
+            'secciones_pos.id_seccion',
+            'secciones_pos.nombre_seccion',
+            'ambientes.nombre'
+        ],[
+            'ambientes.nombre' => $ambiente,
+            'ORDER' => ['nombre_seccion' => 'ASC'],
+        ]);
+        return $data;
+    }
+    
+    public function getPlatosCarta($ambiente){
+        global $database;
+
+        $data = $database->select('producto',[
+            '[<]recetasEstandar' => ['id_receta' => 'id_receta'],
+            '[<]ambientes' => ['ambiente' => 'id_ambiente']
+        ],[
+            'producto.nom',
+            'producto.venta', 
+            'producto.descripcion_plato', 
+            'producto.plato_recomendado', 
+            'producto.seccion', 
+            'recetasEstandar.foto'
+        ],[
+            'ambientes.nombre' => $ambiente
+        ]);
+        return $data;
+    }
+    
     public function actualizaCostoReceta($costo, $receta){
         global $database;
 
