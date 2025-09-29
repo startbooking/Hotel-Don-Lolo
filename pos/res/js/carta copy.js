@@ -51,9 +51,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   const btnTiposPlatos = document.getElementById('btnTiposPlatos');
   btnTiposPlatos.addEventListener('click', () => mostrarTiposDePlatos(nombreRestaurante));
 
-
-
-
   // Configuración de la validación de 
   const dominiosSeguros = [
     'carta-restaurante.com', // Ejemplo: El dominio donde está la carta

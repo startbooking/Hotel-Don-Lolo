@@ -4,14 +4,40 @@ const URL_EMPRESA = '../../../res/php/datosEmpresa.php';
 const IMAGEN_DEFAULT = '../img/noimage.png';
 const urlParams = new URLSearchParams(window.location.search);
 const urlRestaurante = urlParams.get('ambiente');
-// const tipos_platos = ["Entradas", "Platos Fuertes", "Postres", "Bebidas"];
+
+async function cargarPlatosRecomendadosOld(platos) {
+  const listaRecomendados = document.getElementById('lista-recomendados');
+  const platosRecomendados = platos.filter(plato => plato.plato_recomendado);
+
+  platosRecomendados.forEach(plato => async () => {
+    const li = document.createElement('li');
+
+    // li.textContent = plato.nom;
+    let muestra = await crearPlatoHTML(plato)
+    console.log(li);
+
+    li.innerHTML = muestra;
+    listaRecomendados.appendChild(li);
+  });
+}
+
+async function cargarPlatosRecomendadosOld(platos, crearPlatoHTML) {
+  const listaRecomendados = document.getElementById('lista-recomendados');
+  listaRecomendados.innerHTML = ''; // Limpia el contenedor antes de agregar elementos
+  const platosRecomendados = platos.filter(plato => plato.plato_recomendado === 1);
+
+  for (const plato of platosRecomendados) {
+    const cardHTML = await crearPlatoHTML(plato);
+    const li = document.createElement('li');
+    li.innerHTML = cardHTML;
+    listaRecomendados.appendChild(li);
+  }
+}
 
 async function cargarTiposDePlatos(tipo_platos, platos) {
   const listaTipos = document.getElementById('lista-tipos');
   tipo_platos.forEach(tipo => {
     let { nombre_seccion, id_seccion } = tipo;
-    console.log({ nombre_seccion, id_seccion })
-
     const h3 = document.createElement('h3');
     h3.textContent = nombre_seccion;
     listaTipos.appendChild(h3);
@@ -42,6 +68,17 @@ function openTab(evt, tabName) {
   evt.currentTarget.className += " active";
 }
 
+/* function cargarPlatosRecomendados() {
+  const listaRecomendados = document.getElementById('lista-recomendados');
+  const platosRecomendados = platos.filter(plato => plato.recomendado);
+
+  platosRecomendados.forEach(plato => {
+    const li = document.createElement('li');
+    li.textContent = plato.nombre;
+    listaRecomendados.appendChild(li);
+  });
+}
+ */
 // Función principal para los tabs horizontales
 function openMainTab(evt, tabName) {
   let i, tabcontent, tabbuttons;
@@ -57,6 +94,50 @@ function openMainTab(evt, tabName) {
   evt.currentTarget.className += " active";
 }
 
+// Funciones para el tab vertical
+function generarTabsVerticales(tipo_platos, platos) {
+  // const tiposOrdenados = [...tipo_platos].sort();
+  const buttonContainer = document.getElementById('vertical-tab-buttons-container');
+  const contentContainer = document.getElementById('vertical-tab-content-container');
+  tipo_platos.forEach((tipo, index) => {
+    const id = tipo.nombre_seccion.toLowerCase().replace(/\s/g, '_'); // Generar ID para cada tab
+
+    // Crear el botón
+    const button = document.createElement('button');
+    button.className = 'vertical-tab-button';
+    button.textContent = tipo.nombre_seccion;
+    button.onclick = () => openVerticalTab(id);
+    buttonContainer.appendChild(button);
+
+    // Crear el panel de contenido
+    const pane = document.createElement('div');
+    pane.id = id;
+    pane.className = 'vertical-tab-pane';
+
+    const h3 = document.createElement('h3');
+    h3.textContent = tipo.nombre_seccion;
+    pane.appendChild(h3);
+
+    const ul = document.createElement('ul');
+    const platosDelTipo = platos.filter(plato => plato.tipo === tipo.id_seccion);
+
+    platosDelTipo.forEach(plato => {
+      console.log(plato)
+      const li = document.createElement('li');
+      li.innerHTML = `<strong>${plato.nom}</strong>`;
+      ul.appendChild(li);
+    });
+    pane.appendChild(ul);
+    contentContainer.appendChild(pane);
+
+    // Activar la primera pestaña vertical por defecto
+    if (index === 0) {
+      button.classList.add('active');
+      pane.classList.add('active');
+    }
+  });
+}
+
 function openVerticalTab(tabId) {
   document.querySelectorAll('.vertical-tab-pane').forEach(pane => pane.classList.remove('active'));
   document.querySelectorAll('.vertical-tab-button').forEach(button => button.classList.remove('active'));
@@ -68,9 +149,6 @@ function openVerticalTab(tabId) {
 document.addEventListener('DOMContentLoaded', async () => {
   const nombreEmpresa = document.getElementById('nombreEmpresa');
   const nombreRestauranteSpan = document.getElementById('nombreRestaurante');
-  const modal = document.getElementById('platoModal');
-  const modalBody = document.getElementById('modal-body');
-  const closeBtn = document.querySelector('.close-btn');
 
   const datosEmpresa = await traeDatosEmpresa();
   const tipo_platos = await obtenerTipoPlatos()
@@ -79,39 +157,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     nombreEmpresa.textContent = datosEmpresa.empresa;
   }
   nombreRestauranteSpan.textContent = urlRestaurante.replace("_", " ");
-  const tabs = generarMenu(tipo_platos, platos_carta, crearPlatoHTML);
-  const carta = await cargarPlatosRecomendados(platos_carta, crearPlatoHTML);
+  const tabs = generarMenu(tipo_platos, platos_carta);
+  const carta = await cargarPlatosRecomendados(platos_carta);
   
-window.mostrarModal = (plato) => {
-    // Limpiar el contenido anterior
-    modalBody.innerHTML = '';
-
-    // Lógica para la imagen por defecto
-    const imagenSrc = (plato.foto && plato.foto !== 'null') ? `images/${plato.foto}` : IMAGEN_DEFAULT;
-
-    // Insertar el contenido del plato en el modal
-    modalBody.innerHTML = `
-      <img src="${imagenSrc}" alt="${plato.nom}" onerror="this.src='${IMAGEN_DEFAULT}';">
-      <h3>${plato.nom}</h3>
-      <p class="price">Precio: $ ${number_format(plato.venta, 2)}</p>
-      <p><strong>Descripción:</strong> ${plato.descripcion_plato}</p>
-    `;
-    // Mostrar el modal
-    modal.style.display = 'block';
-  }
-
-  // Cerrar el modal al hacer clic en el botón 'x'
-  closeBtn.onclick = () => {
-    modal.style.display = 'none';
-  }
-
-  // Cerrar el modal si el usuario hace clic fuera de él
-  window.onclick = (event) => {
-    if (event.target == modal) {
-      modal.style.display = 'none';
-    }
-  }
-
 });
 
 
@@ -235,6 +283,52 @@ function openMainTab(evt, tabName) {
   evt.currentTarget.className += " active";
 }
 
+// Funciones para el tab interno (ahora también horizontal)
+function generarTabsInternosOld(tipo_platos, platos) {
+  // const tiposOrdenados = [...tipo_platos].sort();
+  const buttonContainer = document.getElementById('inner-tab-buttons-container');
+  const contentContainer = document.getElementById('inner-tab-content-container');
+
+  tipo_platos.forEach((tipo, index) => {
+    const id = tipo.nombre_seccion.toLowerCase().replace(/\s/g, '_'); // Generar ID para cada tab
+
+    // Crear el botón
+    const button = document.createElement('button');
+    button.className = 'inner-tab-button';
+    button.textContent = tipo.nombre_seccion;
+    button.onclick = () => openInnerTab(id);
+    buttonContainer.appendChild(button);
+
+    // Crear el panel de contenido
+    const pane = document.createElement('div');
+    pane.id = id;
+    pane.className = 'inner-tab-pane';
+
+    const ul = document.createElement('ul');
+    const platosDelTipo = platos.filter(plato => plato.seccion === tipo.id_seccion);
+
+    if (platosDelTipo.length > 0) {
+      platosDelTipo.forEach(plato => {
+        const li = document.createElement('li');
+        li.innerHTML = `<strong>${plato.nom}</strong>`;
+        ul.appendChild(li);
+      });
+    } else {
+      const li = document.createElement('li');
+      li.textContent = "No hay platos disponibles en esta categoría.";
+      ul.appendChild(li);
+    }
+    pane.appendChild(ul);
+    contentContainer.appendChild(pane);
+
+    // Activar la primera pestaña interna por defecto
+    if (index === 0) {
+      button.classList.add('active');
+      pane.classList.add('active');
+    }
+  });
+}
+
 function openInnerTab(tabId) {
   document.querySelectorAll('.inner-tab-pane').forEach(pane => pane.classList.remove('active'));
   document.querySelectorAll('.inner-tab-button').forEach(button => button.classList.remove('active'));
@@ -243,11 +337,12 @@ function openInnerTab(tabId) {
   document.querySelector(`.inner-tab-button[onclick="openInnerTab('${tabId}')"]`).classList.add('active');
 }
 
-async  function generarMenuOld(tipo_platos, platos, crearPlatoHTML) {
+
+function generarMenu(tipo_platos, platos) {
   const menuContainer = document.querySelector('.menu-container');
   // const tiposOrdenados = [...tipos_platos].sort();
 
-  tipo_platos.forEach(tipo => async () => {
+  tipo_platos.forEach(tipo => {
     let { nombre_seccion, id_seccion } = tipo;
     // Crear el contenedor de cada tipo de plato
     const menuItem = document.createElement('div');
@@ -265,12 +360,11 @@ async  function generarMenuOld(tipo_platos, platos, crearPlatoHTML) {
     const ul = document.createElement('ul');
     const platosDelTipo = platos.filter(plato => plato.seccion === id_seccion);
 
-    for (const plato of platosDelTipo) {
-    const cardHTML = await crearPlatoHTML(plato);
-    const li = document.createElement('li');
-    li.innerHTML = cardHTML;
-    listaRecomendados.appendChild(li);
-  }
+    platosDelTipo.forEach(plato => {
+      const li = document.createElement('li');
+      li.textContent = plato.nom;
+      ul.appendChild(li);
+    });
 
     productsContainer.appendChild(ul);
     menuItem.appendChild(button);
@@ -294,9 +388,33 @@ async  function generarMenuOld(tipo_platos, platos, crearPlatoHTML) {
   });
 }
 
+async function mostrarPlato(plato) {
+  let cardHTML = ''
+  const imagenSrc = (plato.foto === 'null' || !plato.foto) ? IMAGEN_DEFAULT : 'images/' + plato.foto;
+  const textoPlato = (plato.descripcion_plato === null) ? ' ' : plato.descripcion_plato.length >= 50 ? plato.descripcion_plato.substr(0, 50) : plato.descripcion_plato;
+  const platoRecomendadoBadge = (plato.plato_recomendado == 1) ?
+    `<p class="badge badge-success"><i class="fas fa-star"></i> Recomendado</p>` : '';
+
+  cardHTML = `
+      <div class="card" onclick='mostrarModal(${JSON.stringify(plato)})'>
+        <div class="card-image-container">
+          <img src="${imagenSrc}" alt="${plato.nombre}" onerror="this.src='${IMAGEN_DEFAULT}';">
+        </div>
+        <div class="card-content">
+          <h3>${plato.nom}</h3>
+          <p class="price">$ ${number_format(plato.venta, 2)}</p>
+          <p class="descript">${plato.descripcion_plato}</p>
+        </div>
+        ${platoRecomendadoBadge}
+      </div>
+    `;
+  console.log(cardHTML);
+  return cardHTML
+}
+
 async function crearPlatoHTML(plato) {
   // Define constantes para los valores predeterminados
-  // const IMAGEN_DEFAULT = 'images/default.jpg';
+  const IMAGEN_DEFAULT = 'images/default.jpg';
   const MAX_DESCRIPCION_LENGTH = 50;
 
   // Valida y formatea la imagen
@@ -328,6 +446,7 @@ async function crearPlatoHTML(plato) {
         <p class="price">${precioFormateado}</p>
         <p class="descript">${textoPlato}</p>
       </div>
+      ${platoRecomendadoBadge}
     </div>
   `;
 }
@@ -393,58 +512,5 @@ async function cargarPlatosRecomendados(platos, crearPlatoHTML) {
     const li = document.createElement('li');
     li.innerHTML = cardHTML;
     listaRecomendados.appendChild(li);
-  }
-}
-
-async function generarMenu(tipo_platos, platos, crearPlatoHTML) {
-  const menuContainer = document.querySelector('.menu-container');
-
-  // Use for...of loop to handle async operations sequentially
-  for (const tipo of tipo_platos) {
-    let { nombre_seccion, id_seccion } = tipo;
-
-    // Crear el contenedor de cada tipo de plato
-    const menuItem = document.createElement('div');
-    menuItem.className = 'menu-item';
-
-    // Crear el botón de la categoría
-    const button = document.createElement('button');
-    button.className = 'menu-button';
-    button.innerHTML = `<span>${nombre_seccion}</span>`;
-
-    // Crear el contenedor para los productos
-    const productsContainer = document.createElement('div');
-    productsContainer.className = 'menu-products';
-
-    const ul = document.createElement('ul');
-    const platosDelTipo = platos.filter(plato => plato.seccion === id_seccion);
-
-    // Bucle para crear las tarjetas de plato
-    for (const plato of platosDelTipo) {
-      const cardHTML = await crearPlatoHTML(plato);
-      const li = document.createElement('li');
-      li.innerHTML = cardHTML;
-      ul.appendChild(li); // ¡Aquí se agrega la tarjeta al <ul>!
-    }
-
-    productsContainer.appendChild(ul);
-    menuItem.appendChild(button);
-    menuItem.appendChild(productsContainer);
-    menuContainer.appendChild(menuItem);
-
-    // Añadir el evento de clic al botón
-    button.addEventListener('click', () => {
-      const isActive = button.classList.contains('active');
-
-      // Cerrar todos los menús abiertos
-      document.querySelectorAll('.menu-button').forEach(btn => btn.classList.remove('active'));
-      document.querySelectorAll('.menu-products').forEach(prod => prod.classList.remove('active'));
-
-      // Si no estaba activo, abrir este
-      if (!isActive) {
-        button.classList.add('active');
-        productsContainer.classList.add('active');
-      }
-    });
   }
 }

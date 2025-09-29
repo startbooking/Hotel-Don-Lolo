@@ -55,7 +55,7 @@ $comandas = $pos->getVentasdelDia($idamb);
                           <td><?php echo $factura['factura']; ?></td>
                           <td><?php echo $factura['fecha_factura']; ?></td>
                           <td><?php echo $factura['mesa']; ?></td>
-                          <td><?php echo number_format($factura['valor_total'], 2); ?></td>
+                          <td><?php echo number_format($factura['valor_neto']+$factura['impuesto'], 2); ?></td>
                           <td><?php echo estadoFacturaAlert($factura['estado']); ?></td>
                           <td style="display:flex;">
                             <button

@@ -4,9 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SACTel Cloud - Carta Restaurante</title>
+  <title>Menú del Restaurante</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
   <link rel="stylesheet" href="res/css/carta.css">
+
+
 </head>
 
 <body>
@@ -16,28 +18,30 @@
       <h2><span id="nombreRestaurante"></span></h2>
       <div id="headerButtonsDiv"></div>
     </header>
-    <div id="lector-qr"></div>
-    <main>
-      <button id="btnVerTiposPlatos" class="btn-tipo">Ver Tipos de Platos</button>
-      <div id="tiposPlatosScreen" class="hidden-screen">
-        <div class="screen-header">
-          <h2>Tipos de Platos</h2>
-          <button id="btnCloseScreen" class="btn-close-screen">&times;</button>
-        </div>
-        <div id="tiposPlatosContainer" class="card-grid">
-        </div>
+    <div class="main-tab-container">
+      <div class="main-tab-buttons">
+        <button class="main-tab-button active" onclick="openMainTab(event, 'recomendados')">Sugerencias del Chef</button>
+        <button class="main-tab-button" onclick="openMainTab(event, 'tipos')">Nuestra Carta</button>
       </div>
 
-      <div id="platosContainer" class="grid-container"></div>
-
-    </main>
-
-    <footer>
-      <p>&copy; <a target="_blank" href="http://www.sactel.cloud">SACTEL Cloud.</a> Todos los derechos reservados. Bogota DC - Colombia 2025</p>
-    </footer>
+      <div class="main-tab-content">
+        <div id="recomendados" class="main-tab-pane active">
+          <h2>Nuestras Sugerencias del Chef</h2>
+          <ul id="lista-recomendados" class="platos-recomendados"></ul>
+        </div>
+        <div id="tipos" class="main-tab-pane">
+          <div class="inner-tab-container">
+            <div class="menu-container"></div>
+          </div>
+        </div>
+        <div class="carta">
+        </div>
+      </div>
+    </div>
   </div>
-
-  <script src="https://unpkg.com/html5-qrcode"></script>
+  <footer>
+    <p>&copy; <a target="_blank" href="http://www.sactel.cloud">SACTEL Cloud.</a> Todos los derechos reservados. Bogota DC - Colombia 2025</p>
+  </footer>
   <script src="../res/js/sactel.js"></script>
   <script src="res/js/carta.js"></script>
 
@@ -48,6 +52,7 @@
       </div>
     </div>
   </div>
+
 </body>
 
 </html>
