@@ -41,7 +41,7 @@
                   <div class="col-lg-6" id="muestraFactura">
                     <object id="verFactura" width="100%" height="500" data=""></object> 
                   </div>
-                </div>               
+                </div>
               </div>
               <div class="panel-footer">
                 <div class="row">

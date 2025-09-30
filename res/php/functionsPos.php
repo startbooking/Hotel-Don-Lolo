@@ -26,7 +26,6 @@ class Pos_Actions
         global $database;
 
         $data = $database->select('producto',[
-            '[<]recetasEstandar' => ['id_receta' => 'id_receta'],
             '[<]ambientes' => ['ambiente' => 'id_ambiente']
         ],[
             'producto.nom',
@@ -34,9 +33,13 @@ class Pos_Actions
             'producto.descripcion_plato', 
             'producto.plato_recomendado', 
             'producto.seccion', 
-            'recetasEstandar.foto'
+            'producto.imagen'
         ],[
-            'ambientes.nombre' => $ambiente
+            'ambientes.nombre' => $ambiente, 
+            'ORDER' => [
+                'seccion' => 'ASC',
+                'nom' => 'ASC'
+            ]
         ]);
         return $data;
     }

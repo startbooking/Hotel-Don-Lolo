@@ -1,10 +1,9 @@
 const URL_TIPOS = 'res/php/user_actions/traeTipoPlatosCarta.php';
 const URL_PLATOS = 'res/php/user_actions/traePlatosCarta.php';
-const URL_EMPRESA = '../../../res/php/datosEmpresa.php';
+const URL_EMPRESA = '../res/php/datosEmpresa.php';
 const IMAGEN_DEFAULT = '../img/noimage.png';
 const urlParams = new URLSearchParams(window.location.search);
 const urlRestaurante = urlParams.get('ambiente');
-// const tipos_platos = ["Entradas", "Platos Fuertes", "Postres", "Bebidas"];
 
 async function cargarTiposDePlatos(tipo_platos, platos) {
   const listaTipos = document.getElementById('lista-tipos');
@@ -78,8 +77,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (datosEmpresa && datosEmpresa.empresa) {
     nombreEmpresa.textContent = datosEmpresa.empresa;
   }
-  nombreRestauranteSpan.textContent = urlRestaurante.replace("_", " ");
-  const tabs = generarMenu(tipo_platos, platos_carta, crearPlatoHTML);
+
+  nombreRestauranteSpan.textContent = urlRestaurante.replaceAll("_", " ");
+  const tabs = await generarMenu(tipo_platos, platos_carta, crearPlatoHTML);
   const carta = await cargarPlatosRecomendados(platos_carta, crearPlatoHTML);
   
 window.mostrarModal = (plato) => {
@@ -87,14 +87,14 @@ window.mostrarModal = (plato) => {
     modalBody.innerHTML = '';
 
     // Lógica para la imagen por defecto
-    const imagenSrc = (plato.foto && plato.foto !== 'null') ? `images/${plato.foto}` : IMAGEN_DEFAULT;
+    const imagenSrc = (plato.imagen && plato.imagen !== 'null') ? `images/${plato.imagen}` : IMAGEN_DEFAULT;
 
     // Insertar el contenido del plato en el modal
     modalBody.innerHTML = `
       <img src="${imagenSrc}" alt="${plato.nom}" onerror="this.src='${IMAGEN_DEFAULT}';">
       <h3>${plato.nom}</h3>
       <p class="price">Precio: $ ${number_format(plato.venta, 2)}</p>
-      <p><strong>Descripción:</strong> ${plato.descripcion_plato}</p>
+      <p><strong> ${plato.descripcion_plato}</strong></p>
     `;
     // Mostrar el modal
     modal.style.display = 'block';
@@ -135,7 +135,7 @@ async function traeDatosEmpresa() {
 
 async function obtenerTipoPlatos() {
   try {
-    const url = `${URL_TIPOS}?ambiente=${urlRestaurante}`;
+    const url = `${URL_TIPOS}?ambiente=${urlRestaurante.replaceAll("_", " ")}`;
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`Error HTTP: ${response.status}`);
@@ -150,7 +150,7 @@ async function obtenerTipoPlatos() {
 
 async function obtenerPlatos() {
   try {
-    const url = `${URL_PLATOS}?ambiente=${urlRestaurante}`;
+    const url = `${URL_PLATOS}?ambiente=${urlRestaurante.replaceAll("_", " ")}`;
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`Error HTTP: ${response.status}`);
@@ -243,64 +243,13 @@ function openInnerTab(tabId) {
   document.querySelector(`.inner-tab-button[onclick="openInnerTab('${tabId}')"]`).classList.add('active');
 }
 
-async  function generarMenuOld(tipo_platos, platos, crearPlatoHTML) {
-  const menuContainer = document.querySelector('.menu-container');
-  // const tiposOrdenados = [...tipos_platos].sort();
-
-  tipo_platos.forEach(tipo => async () => {
-    let { nombre_seccion, id_seccion } = tipo;
-    // Crear el contenedor de cada tipo de plato
-    const menuItem = document.createElement('div');
-    menuItem.className = 'menu-item';
-
-    // Crear el botón de la categoría
-    const button = document.createElement('button');
-    button.className = 'menu-button';
-    button.innerHTML = `<span>${nombre_seccion}</span>`;
-
-    // Crear el contenedor para los productos
-    const productsContainer = document.createElement('div');
-    productsContainer.className = 'menu-products';
-
-    const ul = document.createElement('ul');
-    const platosDelTipo = platos.filter(plato => plato.seccion === id_seccion);
-
-    for (const plato of platosDelTipo) {
-    const cardHTML = await crearPlatoHTML(plato);
-    const li = document.createElement('li');
-    li.innerHTML = cardHTML;
-    listaRecomendados.appendChild(li);
-  }
-
-    productsContainer.appendChild(ul);
-    menuItem.appendChild(button);
-    menuItem.appendChild(productsContainer);
-    menuContainer.appendChild(menuItem);
-
-    // Añadir el evento de clic al botón
-    button.addEventListener('click', () => {
-      const isActive = button.classList.contains('active');
-
-      // Cerrar todos los menús abiertos
-      document.querySelectorAll('.menu-button').forEach(btn => btn.classList.remove('active'));
-      document.querySelectorAll('.menu-products').forEach(prod => prod.classList.remove('active'));
-
-      // Si no estaba activo, abrir este
-      if (!isActive) {
-        button.classList.add('active');
-        productsContainer.classList.add('active');
-      }
-    });
-  });
-}
-
 async function crearPlatoHTML(plato) {
   // Define constantes para los valores predeterminados
   // const IMAGEN_DEFAULT = 'images/default.jpg';
   const MAX_DESCRIPCION_LENGTH = 50;
 
   // Valida y formatea la imagen
-  const imagenSrc = (plato.foto && plato.foto !== 'null') ? `images/${plato.foto}` : IMAGEN_DEFAULT;
+  const imagenSrc = (plato.imagen && plato.imagen !== 'null') ? `images/${plato.imagen}` : IMAGEN_DEFAULT;
 
   // Valida y formatea la descripción
   let textoPlato = '';
@@ -409,12 +358,12 @@ async function generarMenu(tipo_platos, platos, crearPlatoHTML) {
 
     // Crear el botón de la categoría
     const button = document.createElement('button');
-    button.className = 'menu-button';
+    button.className = 'menu-button active';
     button.innerHTML = `<span>${nombre_seccion}</span>`;
 
     // Crear el contenedor para los productos
     const productsContainer = document.createElement('div');
-    productsContainer.className = 'menu-products';
+    productsContainer.className = 'menu-products active';
 
     const ul = document.createElement('ul');
     const platosDelTipo = platos.filter(plato => plato.seccion === id_seccion);
@@ -433,7 +382,7 @@ async function generarMenu(tipo_platos, platos, crearPlatoHTML) {
     menuContainer.appendChild(menuItem);
 
     // Añadir el evento de clic al botón
-    button.addEventListener('click', () => {
+   /*  button.addEventListener('click', () => {
       const isActive = button.classList.contains('active');
 
       // Cerrar todos los menús abiertos
@@ -445,6 +394,6 @@ async function generarMenu(tipo_platos, platos, crearPlatoHTML) {
         button.classList.add('active');
         productsContainer.classList.add('active');
       }
-    });
+    }); */
   }
 }

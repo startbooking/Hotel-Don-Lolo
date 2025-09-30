@@ -24,41 +24,17 @@ $inicial = date('Y-m-01', $dia);
         </div>
         <div class="panel-body ">
           <div class="form-horizontal">
-            <div class="form-group">
+            <div class="form-group pd-10">
               <label class="control-label col-md-2">Desde Fecha</label>
-              <div class="col-lg-3 col-md-3">
+              <div class="col-lg-2 col-md-2">
                 <input class="form-control" type="date" min="1" name="desdeFecha" id='desdeFecha' value='<?= $inicial ?>' max="<?= $ayer ?>">
               </div>
-              <label class="control-label col-md-2">Hasta Fecha</label>
-              <div class="col-lg-3 col-md-3">
+              <label class="control-label col-md-1">Hasta Fecha</label>
+              <div class="col-lg- col-md-2">
                 <input class="form-control" type="date" min="1" name="hastaFecha" id='hastaFecha' value='<?= $ayer ?>' max="<?= $ayer ?>">
               </div>
-            </div>
-            <!-- <div class="form-group">
-              <label class="control-label col-md-2">Desde Numero</label>
-              <div class="col-lg-2 col-md-2">
-                <input class="form-control" type="number" min="1" name="desdeNumero" id='desdeNumero' value=''>
-              </div>
-              <label class="control-label col-md-2">Hasta Numero</label>
-              <div class="col-lg-2 col-md-2">
-                <input class="form-control" type="number" min="1" name="hastaNumero" id='hastaNumero' value=''>
-              </div>
-            </div> -->
-            <!-- <div class="form-group">
-              <label class="control-label col-md-2">Huesped</label>
-              <div class="col-lg-6 col-md-6">
-                <input class="form-control" type="text" name="desdeHuesped" id='desdeHuesped' value=''>
-              </div>
-            </div> -->
-            <!-- <div class="form-group">
-                  <label class="control-label col-md-2">Empresa</label>
-                  <div class="col-lg-6 col-md-6">
-                    <input class="form-control" type="text" name="desdeEmpresa" id='desdeEmpresa' value=''>
-                  </div>
-                </div> -->
-            <div class="form-group">
-              <label class="control-label col-md-2">Codigo </label>
-              <div class="col-lg-4 col-md-4">
+              <label class="control-label col-md-1">Codigo </label>
+              <div class="col-lg-3 col-md-3">
                 <select name="desdeFormaPago" id="desdeFormaPago" class="form-control" style="padding:4px 12px">
                   <option value=""></option>
                   <?php
@@ -70,35 +46,33 @@ $inicial = date('Y-m-01', $dia);
                   ?>
                 </select>
               </div>
-            </div>
-          </div> 
-        </div>
-        <div class="panel-footer">
-          <div class="row-fluid">
-            <div>
-              <div class="table-responsive" style="padding:0">
-                <div class="row-fluid" style="padding:0">
-                  <table id="example1" class="table table-bordered">
-                    <thead>
-                      <tr class="warning">
-                        <td>Fecha Cargo</td>
-                        <td>Consumo</td>
-                        <td>Valor</td>
-                        <td>Impuesto</td>
-                        <td>Total Cargo</td>
-                        <td>Habitacion</td>
-                        <td>Huesped</td>
-                        <td>Factura</td>
-                      </tr>
-                    </thead>
-                    <tbody class="imprimeInforme">
-                    </tbody>
-                  </table>
+              <div class="form-group">
+
+                <div class="table-responsive" style="padding:0">
+                  <div class="row-fluid" style="padding:0">
+                    <table id="example1" class="table table-bordered">
+                      <thead>
+                        <tr class="warning">
+                          <td>Fecha Cargo</td>
+                          <td>Consumo</td>
+                          <td>Valor</td>
+                          <td>Impuesto</td>
+                          <td>Total Cargo</td>
+                          <td>Habitacion</td>
+                          <td>Huesped</td>
+                          <td>Factura</td>
+                        </tr>
+                      </thead>
+                      <tbody class="imprimeInforme">
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <div class="panel-footer"></div>
       </div>
 
     </div>

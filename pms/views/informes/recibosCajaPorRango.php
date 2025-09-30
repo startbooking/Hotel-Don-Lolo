@@ -46,19 +46,13 @@
                 </div>
                 <div class="form-group">
                   <label class="control-label col-md-2">Huesped</label>
-                  <div class="col-lg-6 col-md-6">
+                  <div class="col-lg-4 col-md-4">
                     <input class="form-control" type="text" name="desdeHuesped" id='desdeHuesped' value=''>
                   </div>
-                </div>
-                <!-- <div class="form-group">
-                  <label class="control-label col-md-2">Empresa</label>
-                  <div class="col-lg-6 col-md-6">
-                    <input class="form-control" type="text" name="desdeEmpresa" id='desdeEmpresa' value=''>
-                  </div>
-                </div> -->
-                <div class="form-group">
+                <!-- </div>
+                <div class="form-group"> -->
                   <label class="control-label col-md-2">Forma de Pago</label>
-                  <div class="col-lg-6 col-md-6">
+                  <div class="col-lg-4 col-md-4">
                     <select name="desdeFormaPago" id="desdeFormaPago"  class="form-control" style="padding:4px 12px">
                       <option value=""></option>
                       <?php 

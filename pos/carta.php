@@ -40,7 +40,7 @@
     </div>
   </div>
   <footer>
-    <p>&copy; <a target="_blank" href="http://www.sactel.cloud">SACTEL Cloud.</a> Todos los derechos reservados. Bogota DC - Colombia 2025</p>
+    <p>&copy; <a target="_blank" href="http://www.sactel.cloud">SACTel Cloud.</a> Todos los derechos reservados. Bogota DC - Colombia 2025</p>
   </footer>
   <script src="../res/js/sactel.js"></script>
   <script src="res/js/carta.js"></script>

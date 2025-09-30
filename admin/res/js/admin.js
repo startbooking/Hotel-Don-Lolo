@@ -2861,12 +2861,10 @@ $(document).ready(function () {
     var logo = button.data("logo");
 
     var modal = $(this);
-    // ambiente = descr.replaceAll(" ","_")
     modal.find(".modal-title").text("Modifica Ambiente : " + descr);
     let fileQR = `${window.location.origin}/pos/images/QRFiles/${id}.png`;
     const contenedorQR = document.getElementById("fileQR"); // Asume que tienes un <div> con este ID
-    const urlContenidoQR = `${window.location.origin}/pos/carta.php?ambiente=${descr}`; // URL o dato a codificar en el QR
-
+    const urlContenidoQR = `${(window.location.href).replace("admin/ambientes","")}pos/carta.php?ambiente=${descr.replaceAll(" ","_")}`; // URL o dato a codificar en el QR
 
     contenedorQR.innerHTML = '';
 

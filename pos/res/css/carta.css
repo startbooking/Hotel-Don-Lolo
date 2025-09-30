@@ -1,5 +1,5 @@
 :root {
-  --color-principal:#4b1815;
+  --color-principal: #4b1815;
   --azul-principal: #3498db;
   --color-secundario: #2ecc71;
   --color-texto: #333;
@@ -10,6 +10,7 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   background-color: #f4f4f4;
+  height: 100vh;
 }
 
 
@@ -22,6 +23,14 @@ body {
   min-height: 90vh;
 }
 
+.card-image-container {
+  width: 250px;
+}
+
+.card-image-container img {
+  width: 100%;
+}
+
 header {
   background-color: var(--color-principal);
   padding: 10px;
@@ -31,8 +40,8 @@ header h1 {
   font-size: 1.8em;
 }
 
-header h1 span, header
-h2 span {
+header h1 span,
+header h2 span {
   margin: 0.5rem;
   color: #fff;
 }
@@ -267,13 +276,24 @@ li {
 }
 
 .modal {
-  display: none; /* Oculto por defecto */
-  position: fixed; /* Se mantiene en su lugar */
-  z-index: 100; /* Se superpone a todo */
+  display: none;
+  /* Oculto por defecto */
+  /* 
+  position: fixed; 
+  Se mantiene en su lugar */
+  z-index: 100;
+  /* Se superpone a todo */
   left: 0;
   top: 0;
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.4);
+  /* display: block; */
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  text-align: center;
+  justify-items: center;
+  position: absolute;
 }
 
 .modal-content {
@@ -281,9 +301,11 @@ li {
   margin: 5%;
   padding: 10px;
   border-radius: 12px;
-  max-width: 500px;
+  width: 30%;
   position: relative;
   animation: modal-anim 0.5s;
+  margin: auto;
+  top: 20%;
 }
 
 .close-btn {
@@ -344,8 +366,10 @@ li:last-child {
 }
 
 .card {
-  display: flex; /* Usamos flexbox para alinear los elementos */
-  flex-direction: row; /* Coloca los elementos en una fila */
+  display: flex;
+  /* Usamos flexbox para alinear los elementos */
+  flex-direction: row;
+  /* Coloca los elementos en una fila */
   background-color: #fff;
   border-radius: 0.75rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -358,7 +382,8 @@ li:last-child {
   padding: 0rem 1rem;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Centra verticalmente el contenido */
+  justify-content: center;
+  /* Centra verticalmente el contenido */
   text-align: center;
   width: 100%;
 }
@@ -389,14 +414,40 @@ li:last-child {
   text-align: center;
 }
 
+footer {
+  text-align: center;
+  padding: 5px;
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+;
+
+@media (max-width: 855px) {
+  header {
+    padding: 5px;
+  }
+
+  header h1 {
+    font-size: 1.5em;
+  }
+
+
+
+
+}
+
 @media (max-width: 600px) {
   .container {
     min-width: 300px;
     min-height: 90vh;
   }
-  header h1, header h2 {
+
+  header h1,
+  header h2 {
     font-size: 1.4rem;
   }
+
   header h2 {
     text-align: center;
     word-wrap: break-word;
@@ -411,19 +462,23 @@ li:last-child {
     margin-left: 74px;
   }
 
-.main-tab-content {
-  padding: 5px;
-}
+  .main-tab-content {
+    padding: 5px;
+  }
 
   .card-image-container {
-    flex-shrink: 0; /* Evita que la imagen se reduzca */
-    width: 5rem; /* Ancho fijo para la imagen */
-    height: 5rem; /* Altura fija para la imagen */
+    flex-shrink: 0;
+    /* Evita que la imagen se reduzca */
+    width: 5rem;
+    /* Ancho fijo para la imagen */
+    height: 5rem;
+    /* Altura fija para la imagen */
   }
-  .card-image-container img{
+
+  .card-image-container img {
     width: 100%;
-    border-top-left-radius:5px;
-    border-bottom-left-radius:5px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
   }
 
   .grid-container {
@@ -437,16 +492,22 @@ li:last-child {
     font-weight: bold;
     margin-top: 5px;
   }
+
+  .modal-content {
+    width: 70%;
+  }
+
   footer {
     font-size: 0.7rem;
     padding: 0 1rem;
     text-align: center;
-  };
+  }
+
+  ;
 
   .main-tab-button {
     padding: 1.5rem 1rem;
-    font-size:1rem;
+    font-size: 1rem;
 
   }
 }
-

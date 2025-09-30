@@ -53,13 +53,13 @@ $exportas = $facturas;
         foreach ($facturas as $factura) { ?>
           <tr style='font-size:12px'>
             <td style="padding:3px 5px"><?php echo $factura['fecha_cargo']; ?></td>
-            <td style="padding:3px 5px"><?php echo $factura['descripcion_cargo']; ?></td>
+            <td style="padding:3px 5px;width:20%;"><?php echo $factura['descripcion_cargo']; ?></td>
             <td style="padding:3px 5px;text-align: right;"><?php echo number_format($factura['monto_cargo'], 2); ?></td>
             <td style="padding:3px 5px;text-align: right;"><?php echo number_format($factura['impuesto'], 2); ?></td>
             <td style="padding:3px 5px;text-align: right;"><?php echo number_format($factura['valor_cargo'], 2); ?></td>
-            <td style="padding:3px 5px;text-align: right;"><?php echo $factura['num_habitacion']; ?></td>
-            <td style="text-align: left;"> <?= substr($factura['nombre_completo'], 0, 30); ?></td>
-            <td style="text-align: right;"> <?= number_format($factura['factura_numero'], 0); ?></td>
+            <td style="padding:3px 5px;text-align: right;width:7%;"><?php echo $factura['num_habitacion']; ?></td>
+            <td style="text-align: left;width:25%;"> <?= substr($factura['nombre_completo'], 0, 30); ?></td>
+            <td style="text-align: right;"> <?= ($factura['factura_numero']); ?></td>
 
           </tr>
         <?php

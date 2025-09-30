@@ -62,13 +62,8 @@
   
   $query    = $sele.$filtro.$sele2;
 
-// echo $query;
-
   $facturas = $hotel->getFacturasPorRango($query);
   $exportas = $facturas ;
-
-// echo print_r($facturas);
-
 
 ?>
 
@@ -94,7 +89,7 @@
             <td style="padding:3px 5px;text-align: left;"><?php echo substr($factura['nombre_completo'],0,45); ?></td>
             <td style="padding:3px 5px"><?php echo $factura['fecha_cargo']; ?></td>
             <td style="padding:3px 5px"><?php echo $factura['descripcion_cargo']; ?></td>
-            <td style="text-align: right;"> <?=number_format($factura['factura_numero'],2); ?></td>
+            <td style="text-align: right;"> <?=($factura['factura_numero']); ?></td>
             <td style="text-align: right;"> <?=number_format($factura['pagos_cargos'],2); ?></td>
             <td style="padding:3px 5px;text-align:center;">
               <div class="btn-group" role="group" aria-label="Basic example" style="text-align:center;">
@@ -119,7 +114,7 @@
         ?>
       </tbody>
     </table>
-    <table id="tablaFacturas" class="table table-bordered" style="display:none">
+    <!-- <table id="tablaFacturas" class="table table-bordered" style="display:none">
       <thead>
         <tr class="warning">
           <td>Recibo de Caja</td>
@@ -144,7 +139,7 @@
         }
         ?>
       </tbody>
-    </table>
+    </table> -->
     <div class="col-lg-6" style="padding:0">
     </div>
     <div class="col-lg-6" id="muestraFactura" style="padding :0">

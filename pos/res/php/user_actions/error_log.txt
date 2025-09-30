@@ -1,0 +1,2 @@
+[29-Sep-2025 18:55:19 America/Bogota] PHP Warning:  PDOStatement::execute(): SQLSTATE[42S22]: Column not found: 1054 Unknown column 'producto.foto' in 'field list' in /var/www/donlolo.lan/res/php/Medoo.php on line 629
+[29-Sep-2025 18:55:36 America/Bogota] PHP Warning:  PDOStatement::execute(): SQLSTATE[42S22]: Column not found: 1054 Unknown column 'producto.foto' in 'field list' in /var/www/donlolo.lan/res/php/Medoo.php on line 629

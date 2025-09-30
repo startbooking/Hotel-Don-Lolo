@@ -1,13 +1,14 @@
 document.addEventListener("DOMContentLoaded", async () => {
   let sesion = JSON.parse(localStorage.getItem("sesion"));
   if (sesion == null) {
-    swal({
-      title: "Precaucion",
-      text: "Usuario NO identificado en el Sistema",
-      confirmButtonText: "Aceptar",
-      type: "warning",
-      closeOnConfirm: true,
-    },
+    swal(
+      {
+        title: "Precaucion",
+        text: "Usuario NO identificado en el Sistema",
+        confirmButtonText: "Aceptar",
+        type: "warning",
+        closeOnConfirm: true,
+      },
       function () {
         window.location.href = "/";
         return;
@@ -15,7 +16,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     );
   }
 
-  let { user: { usuario, usuario_id, nombres, apellidos, tipo }, } = sesion;
+  let {
+    user: { usuario, usuario_id, nombres, apellidos, tipo },
+  } = sesion;
 
   $("#usuarioActivo").val(usuario);
   $("#nombreUsuario").html(
@@ -34,37 +37,43 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   /* Nuevo FIltro Estado Habitaciones */
   // AGREGANDO CLASE ACTIVE AL PRIMER ENLACE ====================
-  $('.category_list .category_item[category="all"]').addClass('ct_item-active');
+  $('.category_list .category_item[category="all"]').addClass("ct_item-active");
 
   // FILTRANDO PRODUCTOS  ============================================
 
-  $('.category_item').click(function () {
-    var catProduct = $(this).attr('category');
+  $(".category_item").click(function () {
+    var catProduct = $(this).attr("category");
 
     // AGREGANDO CLASE ACTIVE AL ENLACE SELECCIONADO
-    $('.category_item').removeClass('ct_item-active');
-    $(this).addClass('ct_item-active');
+    $(".category_item").removeClass("ct_item-active");
+    $(this).addClass("ct_item-active");
 
     // OCULTANDO PRODUCTOS =========================
-    $('.product-item').css('transform', 'scale(0)');
+    $(".product-item").css("transform", "scale(0)");
     function hideProduct() {
-      $('.product-item').hide();
-    } setTimeout(hideProduct, 400);
+      $(".product-item").hide();
+    }
+    setTimeout(hideProduct, 400);
 
     // MOSTRANDO PRODUCTOS =========================
     function showProduct() {
       $('.product-item[category="' + catProduct + '"]').show();
-      $('.product-item[category="' + catProduct + '"]').css('transform', 'scale(1)');
-    } setTimeout(showProduct, 400);
+      $('.product-item[category="' + catProduct + '"]').css(
+        "transform",
+        "scale(1)"
+      );
+    }
+    setTimeout(showProduct, 400);
   });
 
   // MOSTRANDO TODOS LOS PRODUCTOS =======================
 
   $('.category_item[category="all"]').click(function () {
     function showAll() {
-      $('.product-item').show();
-      $('.product-item').css('transform', 'scale(1)');
-    } setTimeout(showAll, 400);
+      $(".product-item").show();
+      $(".product-item").css("transform", "scale(1)");
+    }
+    setTimeout(showAll, 400);
   });
 
   let cia = document.getElementById("pantallaCompaniasOld");
@@ -77,16 +86,18 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   let perfil = document.getElementById("pantallaHuespedes");
   if (perfil != null) {
-    new DataTable('#tablaHuespedes', {
+    new DataTable("#tablaHuespedes", {
       lengthMenu: [50, 100, 200, 500],
-      ajax: 'res/php/datasetHuespedes.php',
+      ajax: "res/php/datasetHuespedes.php",
       processing: true,
       serverSide: true,
       iDisplayLength: 25,
-      columnDefs: [{
-        targets: "_all",
-        orderable: true
-      }],
+      columnDefs: [
+        {
+          targets: "_all",
+          orderable: true,
+        },
+      ],
     });
   }
 
@@ -95,41 +106,40 @@ document.addEventListener("DOMContentLoaded", async () => {
     traeFacturasEstadia();
   }
 
-  let sinReserva = document.querySelector('#formSinReserva')
+  let sinReserva = document.querySelector("#formSinReserva");
   if (sinReserva) {
-    sinReserva.reset()
+    sinReserva.reset();
   }
 
-
-  const formReservas = document.getElementById('formReservas');
+  const formReservas = document.getElementById("formReservas");
   if (formReservas) {
     formReservas.reset();
-    const llegadaInput = document.getElementById('llegada');
-    const nochesInput = document.getElementById('noches');
-    const salidaInput = document.getElementById('salida');
-    const tipohabiSelect = document.getElementById('tipohabi');
-    const tarifahabSelect = document.getElementById('tarifahab');
-    const valortarInput = document.getElementById('valortar');
-    const nrohabitacionSelect = document.getElementById('nrohabitacion');
-    let globalTarifas
+    const llegadaInput = document.getElementById("llegada");
+    const nochesInput = document.getElementById("noches");
+    const salidaInput = document.getElementById("salida");
+    const tipohabiSelect = document.getElementById("tipohabi");
+    const tarifahabSelect = document.getElementById("tarifahab");
+    const valortarInput = document.getElementById("valortar");
+    const nrohabitacionSelect = document.getElementById("nrohabitacion");
+    let globalTarifas;
     // Event listeners para las fechas y las noches
-    llegadaInput.addEventListener('change', () => {
+    llegadaInput.addEventListener("change", () => {
       sumaFecha();
       habitacionesDisponibles(1);
     });
-    nochesInput.addEventListener('change', () => {
+    nochesInput.addEventListener("change", () => {
       sumaFecha();
       habitacionesDisponibles(1);
     });
-    salidaInput.addEventListener('change', () => {
+    salidaInput.addEventListener("change", () => {
       restaFechas();
       habitacionesDisponibles(1);
     });
 
     // Event listener para el tipo de habitación
-    tipohabiSelect.addEventListener('change', async () => {
-      let tarifaHuesped = parseInt(document.querySelector('#idtarifa').value);
-      let tarifahab = document.querySelector('#tarifahab')
+    tipohabiSelect.addEventListener("change", async () => {
+      let tarifaHuesped = parseInt(document.querySelector("#idtarifa").value);
+      let tarifahab = document.querySelector("#tarifahab");
       habitacionesDisponibles(1);
       globalTarifas = await cargarTarifas();
       const limpia = await limpiaTarifas();
@@ -137,45 +147,51 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     // Event listener para el tipo de tarifa
-    tarifahabSelect.addEventListener('change', async (e) => {
-      let hombres = parseInt(document.querySelector('#hombres').value);
-      let mujeres = parseInt(document.querySelector('#mujeres').value);
-      let ninos = parseInt(document.querySelector('#ninos').value);
+    tarifahabSelect.addEventListener("change", async (e) => {
+      let hombres = parseInt(document.querySelector("#hombres").value);
+      let mujeres = parseInt(document.querySelector("#mujeres").value);
+      let ninos = parseInt(document.querySelector("#ninos").value);
 
-      const valorTar = document.querySelector('#valortar')
-      const tarifaFiltrada = globalTarifas.find(tarifa => tarifa.id == parseInt(e.target.value));
-      let valor = await valorTarifaHabitacion(hombres + mujeres, ninos, tarifaFiltrada);
-      valorTar.value = valor
+      const valorTar = document.querySelector("#valortar");
+      const tarifaFiltrada = globalTarifas.find(
+        (tarifa) => tarifa.id == parseInt(e.target.value)
+      );
+      let valor = await valorTarifaHabitacion(
+        hombres + mujeres,
+        ninos,
+        tarifaFiltrada
+      );
+      valorTar.value = valor;
     });
 
-    formReservas.addEventListener('submit', async (e) => {
+    formReservas.addEventListener("submit", async (e) => {
       e.preventDefault();
       let guarda = await guardaReserva();
     });
   }
 
-  $('#example1').DataTable({
-    "iDisplayLength": 25,
-    "language": {
-      "decimal": "",
-      "emptyTable": "No hay registros",
-      "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
-      "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
-      "infoFiltered": "(Filtrado de _MAX_ total entradas)",
-      "infoPostFix": "",
-      "thousands": ",",
-      "lengthMenu": "Mostrar _MENU_ Entradas",
-      "loadingRecords": "Cargando...",
-      "processing": "Procesando...",
-      "search": "Buscar:",
-      "zeroRecords": "Sin resultados encontrados",
-      "paginate": {
-        "first": "Primero",
-        "last": "Ultimo",
-        "next": "Siguiente",
-        "previous": "Anterior"
+  $("#example1").DataTable({
+    iDisplayLength: 25,
+    language: {
+      decimal: "",
+      emptyTable: "No hay registros",
+      info: "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+      infoEmpty: "Mostrando 0 to 0 of 0 Entradas",
+      infoFiltered: "(Filtrado de _MAX_ total entradas)",
+      infoPostFix: "",
+      thousands: ",",
+      lengthMenu: "Mostrar _MENU_ Entradas",
+      loadingRecords: "Cargando...",
+      processing: "Procesando...",
+      search: "Buscar:",
+      zeroRecords: "Sin resultados encontrados",
+      paginate: {
+        first: "Primero",
+        last: "Ultimo",
+        next: "Siguiente",
+        previous: "Anterior",
       },
-    }
+    },
   });
 
   $("#myModalCalendarioReservas").on("show.bs.modal", async function (event) {
@@ -186,27 +202,29 @@ document.addEventListener("DOMContentLoaded", async () => {
   $("#myModalAjusteCuenta").on("show.bs.modal", async function (event) {
     let button = $(event.relatedTarget);
     let nombre = button.data("nombre");
-    let folio = document.querySelector('#folioActivo').value;
-    let reserva = document.querySelector('#reservaActual').value;
-    let saldo = document.querySelector("#txtSaldoCta").value
+    let folio = document.querySelector("#folioActivo").value;
+    let reserva = document.querySelector("#reservaActual").value;
+    let saldo = document.querySelector("#txtSaldoCta").value;
     if (saldo === 0) {
-      swal({
-        title: "Precaucion",
-        text: "Sin Saldo en la Presente Cuenta",
-        confirmButtonText: "Aceptar",
-        type: "warning",
-        closeOnConfirm: true,
-      },
+      swal(
+        {
+          title: "Precaucion",
+          text: "Sin Saldo en la Presente Cuenta",
+          confirmButtonText: "Aceptar",
+          type: "warning",
+          closeOnConfirm: true,
+        },
         function () {
-          $("#myModalAjusteCuenta").modal('hide')
-        })
+          $("#myModalAjusteCuenta").modal("hide");
+        }
+      );
       return;
     }
     let modal = $(this);
     parametros = {
       reserva,
       folio,
-    }
+    };
     modal
       .find(".modal-title")
       .text(`Ajustar Cuenta ${nombre} - Folio Nro ${folio}`);
@@ -221,7 +239,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         );
       },
     });
-
   });
 
   $("#myModalObservaciones").on("show.bs.modal", async function (event) {
@@ -231,33 +248,32 @@ document.addEventListener("DOMContentLoaded", async () => {
     reserva = button.data("reserva");
     sucia = button.data("sucia");
     ocupada = button.data("ocupada");
-    document.querySelector('#numeroHab').value = numero;
-    document.querySelector('#numeroRes').value = reserva;
-    document.querySelector('#ocupada').value = ocupada;
-    document.querySelector('#sucia').value = sucia;
+    document.querySelector("#numeroHab").value = numero;
+    document.querySelector("#numeroRes").value = reserva;
+    document.querySelector("#ocupada").value = ocupada;
+    document.querySelector("#sucia").value = sucia;
     titulo = document.querySelector("#myModalObservaciones .modal-title");
     if (ocupada == 1) {
-      titulo.innerHTML = 'Ingresa Observaciones a la Estadia'
+      titulo.innerHTML = "Ingresa Observaciones a la Estadia";
     } else {
       if (sucia == 0) {
-        titulo.innerHTML = 'Envia A Estado Sucia la Habitacion'
+        titulo.innerHTML = "Envia A Estado Sucia la Habitacion";
       } else {
-        titulo.innerHTML = 'Limpiar Habitacion'
+        titulo.innerHTML = "Limpiar Habitacion";
       }
     }
     let camareras = await traeCamareras();
     let limpia = await limpiaCamareras();
     let seleCama = await llenaSelectCamareras(camareras);
-
   });
 
   $("#myModalAdicionaCompania").on("show.bs.modal", function (event) {
     document.querySelector("#formCompania").reset();
     if (tipo > 2) {
-      document.querySelector('#inlineRadio1').readonly = true
-      document.querySelector('#inlineRadio2').readonly = true
-      document.querySelector('#inlineRadio1').disabled = true
-      document.querySelector('#inlineRadio2').disabled = true
+      document.querySelector("#inlineRadio1").readonly = true;
+      document.querySelector("#inlineRadio2").readonly = true;
+      document.querySelector("#inlineRadio1").disabled = true;
+      document.querySelector("#inlineRadio2").disabled = true;
     }
   });
 
@@ -727,7 +743,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   $("#myModalAnulaFacturaHistorico").on("show.bs.modal", function (event) {
     sesion = JSON.parse(localStorage.getItem("sesion"));
-    let { user: { tipo }, } = sesion;
+    let {
+      user: { tipo },
+    } = sesion;
     if (tipo > 2) {
       swal("Precaucion", "Usuario NO Permitido Anular Factura", "warning");
       $("#myModalAnulaFacturaHistorico").modal("hiden");
@@ -803,7 +821,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   $("#myModalAnulaFactura").on("show.bs.modal", function (event) {
     sesion = JSON.parse(localStorage.getItem("sesion"));
-    let { user: { tipo }, } = sesion;
+    let {
+      user: { tipo },
+    } = sesion;
     if (tipo > 2) {
       swal("Precaucion", "Usuario NO permitido Anular Factura", "warning");
       $("#myModalAnulaFactura").modal("hiden");
@@ -869,7 +889,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       type: "POST",
       data: parametros,
       url: "res/php/historicoFacturasCia.php",
-      beforeSend: function (objeto) { },
+      beforeSend: function (objeto) {},
       success: function (datos) {
         $("#historicoFacturas").html(datos);
       },
@@ -910,7 +930,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   $("#myModalSalidaCongelada").on("show.bs.modal", function (event) {
     sesion = JSON.parse(localStorage.getItem("sesion"));
-    let { user: { usuario, usuario_id }, } = sesion;
+    let {
+      user: { usuario, usuario_id },
+    } = sesion;
     var web = $("#rutaweb").val();
     var pagina = $("#ubicacion").val();
     var folio = $("#folioActivo").val();
@@ -1346,7 +1368,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     var parametros = {
       buscar,
     };
-    modal.find(".modal-title").text("Buscar Huesped Por : " + buscar.toUpperCase());
+    modal
+      .find(".modal-title")
+      .text("Buscar Huesped Por : " + buscar.toUpperCase());
     $.ajax({
       type: "POST",
       data: parametros,
@@ -1391,7 +1415,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     var parametros = {
       buscar,
     };
-    modal.find(".modal-title").text("Buscar Huesped Por : " + buscar.toUpperCase());
+    modal
+      .find(".modal-title")
+      .text("Buscar Huesped Por : " + buscar.toUpperCase());
     $.ajax({
       type: "POST",
       data: parametros,
@@ -1439,7 +1465,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       type: "POST",
       data: parametros,
       url: "res/php/dataUpdateCongelada.php",
-      beforeSend: function (objeto) { },
+      beforeSend: function (objeto) {},
       success: function (datos) {
         $("#modalReservasCon").html("");
         $("#modalReservasCon").html(datos);
@@ -1546,7 +1572,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   $("#myModalSalidaHuesped").on("show.bs.modal", function (event) {
     sesion = JSON.parse(localStorage.getItem("sesion"));
-    let { user: { usuario, usuario_id }, } = sesion;
+    let {
+      user: { usuario, usuario_id },
+    } = sesion;
     var credito = 0;
     var web = $("#rutaweb").val();
     var pagina = $("#ubicacion").val();
@@ -1690,7 +1718,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       type: "POST",
       data: parametros,
       url: "res/php/dataCambiarTarifa.php",
-      beforeSend: function (objeto) { },
+      beforeSend: function (objeto) {},
       success: function (datos) {
         $("#modalCambiarTarifa").html("");
         $("#modalCambiarTarifa").html(datos);
@@ -1736,58 +1764,63 @@ document.addEventListener("DOMContentLoaded", async () => {
     var modal = $(this);
     $("#editaRes").val(1);
     modal.find(".modal-title").text("Modifica Reserva Actual: " + nombre);
-    let modalUpd = document.querySelector('#modalReservasUpd');
+    let modalUpd = document.querySelector("#modalReservasUpd");
     let modifica = await traeReservaModificar(id);
     modalUpd.innerHTML = modifica;
 
-    const formReservas = document.getElementById('formUpdateReservas');
-    const llegadaInput = document.getElementById('llegadaUpd');
-    const nochesInput = document.getElementById('nochesUpd');
-    const salidaInput = document.getElementById('salidaUpd');
-    const tipohabiSelect = document.getElementById('tipohabiUpd');
-    const tarifahabSelect = document.getElementById('tarifahabUpd');
-    const valortarInput = document.getElementById('valortarifaUpd');
-    const nrohabitacionSelect = document.getElementById('nrohabitacionUpd');
-    let globalTarifas
+    const formReservas = document.getElementById("formUpdateReservas");
+    const llegadaInput = document.getElementById("llegadaUpd");
+    const nochesInput = document.getElementById("nochesUpd");
+    const salidaInput = document.getElementById("salidaUpd");
+    const tipohabiSelect = document.getElementById("tipohabiUpd");
+    const tarifahabSelect = document.getElementById("tarifahabUpd");
+    const valortarInput = document.getElementById("valortarifaUpd");
+    const nrohabitacionSelect = document.getElementById("nrohabitacionUpd");
+    let globalTarifas;
     // Event listeners para las fechas y las noches
-    llegadaInput.addEventListener('change', () => {
+    llegadaInput.addEventListener("change", () => {
       sumaFecha();
       habitacionesDisponibles(2);
     });
-    nochesInput.addEventListener('change', () => {
+    nochesInput.addEventListener("change", () => {
       sumaFecha();
       habitacionesDisponibles(2);
     });
-    salidaInput.addEventListener('change', () => {
+    salidaInput.addEventListener("change", () => {
       restaFechas();
       habitacionesDisponibles(2);
     });
 
     // Event listener para el tipo de habitación
-    tipohabiSelect.addEventListener('blur', async () => {
+    tipohabiSelect.addEventListener("blur", async () => {
       // console.log('PAso Evento OnBLur')
       await habitacionesDisponibles(2);
       globalTarifas = await cargarTarifas();
       const limpia = await limpiaTarifas();
       const llena = await llenaTarifas(globalTarifas);
-      const valorTar = document.querySelector('#valortarifaUpd')
+      const valorTar = document.querySelector("#valortarifaUpd");
       valorTar.value = 0;
-
     });
 
     // Event listener para el tipo de tarifa
-    tarifahabSelect.addEventListener('change', async (e) => {
-      let hombres = parseInt(document.querySelector('#hombresUpd').value);
-      let mujeres = parseInt(document.querySelector('#mujeresUpd').value);
-      let ninos = parseInt(document.querySelector('#ninosUpd').value);
+    tarifahabSelect.addEventListener("change", async (e) => {
+      let hombres = parseInt(document.querySelector("#hombresUpd").value);
+      let mujeres = parseInt(document.querySelector("#mujeresUpd").value);
+      let ninos = parseInt(document.querySelector("#ninosUpd").value);
 
-      const valorTar = document.querySelector('#valortarifaUpd')
-      const tarifaFiltrada = globalTarifas.find(tarifa => tarifa.id == parseInt(e.target.value));
-      let valor = await valorTarifaHabitacion(hombres + mujeres, ninos, tarifaFiltrada);
-      valorTar.value = valor
+      const valorTar = document.querySelector("#valortarifaUpd");
+      const tarifaFiltrada = globalTarifas.find(
+        (tarifa) => tarifa.id == parseInt(e.target.value)
+      );
+      let valor = await valorTarifaHabitacion(
+        hombres + mujeres,
+        ninos,
+        tarifaFiltrada
+      );
+      valorTar.value = valor;
     });
 
-    formReservas.addEventListener('submit', async (e) => {
+    formReservas.addEventListener("submit", async (e) => {
       e.preventDefault();
       let guarda = await updateReserva();
     });
@@ -1802,7 +1835,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       },
     }); */
     $(".alert").hide();
-
   });
 
   $("#myModalCancelaReserva").on("show.bs.modal", function (event) {
@@ -1845,7 +1877,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       type: "POST",
       data: parametros,
       url: "res/php/historicoReservasCia.php",
-      beforeSend: function (objeto) { },
+      beforeSend: function (objeto) {},
       success: function (datos) {
         $("#historicoReserva").html(datos);
       },
@@ -1870,7 +1902,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       type: "POST",
       data: parametros,
       url: "res/php/reservasEsperadasCia.php",
-      beforeSend: function (objeto) { },
+      beforeSend: function (objeto) {},
       success: function (datos) {
         $("#reservasEsperadas").html(datos);
       },
@@ -1895,7 +1927,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       type: "POST",
       data: parametros,
       url: "res/php/huespedesCia.php",
-      beforeSend: function (objeto) { },
+      beforeSend: function (objeto) {},
       success: function (datos) {
         $("#huespedesCia").html(datos);
       },
@@ -1920,7 +1952,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       type: "POST",
       data: parametros,
       url: "res/php/contactosCia.php",
-      beforeSend: function (objeto) { },
+      beforeSend: function (objeto) {},
       success: function (datos) {
         $("#contactosCia").html(datos);
       },
@@ -1930,7 +1962,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   $("#myModalModificaPerfilCia").on("show.bs.modal", function (event) {
     let sesion = JSON.parse(localStorage.getItem("sesion"));
-    let { user: { tipo }, } = sesion;
+    let {
+      user: { tipo },
+    } = sesion;
 
     let button = $(event.relatedTarget);
     let id = button.data("id");
@@ -1951,16 +1985,26 @@ document.addEventListener("DOMContentLoaded", async () => {
       url: "res/php/dataUpdateCia.php",
       success: function (datos) {
         $("#datosCia").html(datos);
-        tipodoc = parseInt(document.querySelector('#formUpdateCompania #tipodoc').value);
+        tipodoc = parseInt(
+          document.querySelector("#formUpdateCompania #tipodoc").value
+        );
         pais = parseInt(document.querySelector("#paicesUpd").value);
         if (tipodoc == 8 || tipodoc == 9) {
-          toggleNacionalFields(tipodoc, pais, 1)
+          toggleNacionalFields(tipodoc, pais, 1);
         }
         if (tipo > 2) {
-          document.querySelector('#formUpdateCompania #inlineRadio1').readonly = true
-          document.querySelector('#formUpdateCompania #inlineRadio2').readonly = true
-          document.querySelector('#formUpdateCompania #inlineRadio1').disabled = true
-          document.querySelector('#formUpdateCompania #inlineRadio2').disabled = true
+          document.querySelector(
+            "#formUpdateCompania #inlineRadio1"
+          ).readonly = true;
+          document.querySelector(
+            "#formUpdateCompania #inlineRadio2"
+          ).readonly = true;
+          document.querySelector(
+            "#formUpdateCompania #inlineRadio1"
+          ).disabled = true;
+          document.querySelector(
+            "#formUpdateCompania #inlineRadio2"
+          ).disabled = true;
         }
       },
     });
@@ -2009,7 +2053,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       type: "POST",
       data: parametros,
       url: "res/php/reservasEsperadas.php",
-      beforeSend: function (objeto) { },
+      beforeSend: function (objeto) {},
       success: function (datos) {
         $("#reservaEsperadas").html(datos);
       },
@@ -2033,7 +2077,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       type: "POST",
       data: parametros,
       url: "res/php/historicoReservas.php",
-      beforeSend: function (objeto) { },
+      beforeSend: function (objeto) {},
       success: function (datos) {
         $("#historicoReserva").html(datos);
       },
@@ -2141,7 +2185,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     formulario = document.querySelector("#formDepositoReserva");
     formulario.reset();
 
-    modal.find(".modal-title").text("Deposito a Reserva: " + reserva.nombre_completo);
+    modal
+      .find(".modal-title")
+      .text("Deposito a Reserva: " + reserva.nombre_completo);
     modal.find(".modal-body #txtIdReservaDep").val(reserva.num_reserva);
     modal.find(".modal-body #txtIdHuespedDep").val(reserva.id_huesped);
     modal.find(".modal-body #txtTipoHab").val(reserva.descripcion_habitacion);
@@ -2154,7 +2200,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     modal.find(".modal-body #txtMujeres").val(reserva.can_mujeres);
     modal.find(".modal-body #txtNinos").val(reserva.can_ninos);
     modal.find(".modal-body #txtTarifa").val(reserva.descripcion_tarifa);
-    modal.find(".modal-body #txtValorTarifa").val(number_format(reserva.valor_diario, 2));
+    modal
+      .find(".modal-body #txtValorTarifa")
+      .val(number_format(reserva.valor_diario, 2));
     $("#txtValorDeposito").val(0);
     $("#formadePago").val("");
     $("#formadePago").focus();
@@ -2296,10 +2344,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     var modal = $(this);
 
     if (sucia == 1) {
-      let mensaje = document.querySelector('.alert');
-      let btnIng = document.querySelector('#btnRegistra');
-      mensaje.classList.remove('apaga');
-      btnIng.classList.add('apaga');
+      let mensaje = document.querySelector(".alert");
+      let btnIng = document.querySelector("#btnRegistra");
+      mensaje.classList.remove("apaga");
+      btnIng.classList.add("apaga");
       $("#alert").css("display", "block");
     }
     modal.find(".modal-title").text("Ingresar Huesped: " + nombre);
@@ -2371,17 +2419,17 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 async function cargarTarifas() {
   let editaReserva = document.querySelector("#editaRes").value;
-  let llegadaInput
-  let salidaInput
-  let tipohabiSelect
+  let llegadaInput;
+  let salidaInput;
+  let tipohabiSelect;
   if (editaReserva == 1) {
-    llegadaInput = document.getElementById('llegadaUpd');
-    salidaInput = document.getElementById('salidaUpd');
-    tipohabiSelect = document.getElementById('tipohabiUpd');
+    llegadaInput = document.getElementById("llegadaUpd");
+    salidaInput = document.getElementById("salidaUpd");
+    tipohabiSelect = document.getElementById("tipohabiUpd");
   } else {
-    llegadaInput = document.getElementById('llegada');
-    salidaInput = document.getElementById('salida');
-    tipohabiSelect = document.getElementById('tipohabi');
+    llegadaInput = document.getElementById("llegada");
+    salidaInput = document.getElementById("salida");
+    tipohabiSelect = document.getElementById("tipohabi");
   }
 
   const tipoHabitacion = tipohabiSelect.value;
@@ -2389,22 +2437,23 @@ async function cargarTarifas() {
   const salida = salidaInput.value;
 
   if (!tipoHabitacion || !llegada || !salida) {
-    tarifahabSelect.innerHTML = '<option value="">Seleccione la Tarifa</option>';
+    tarifahabSelect.innerHTML =
+      '<option value="">Seleccione la Tarifa</option>';
     return;
   }
 
-  const url = 'res/php/getTarifasHabitaciones.php';
+  const url = "res/php/getTarifasHabitaciones.php";
   const requestBody = {
     tipoHabitacion,
     llegada,
-    salida
+    salida,
   };
 
   try {
     const response = await fetch(url, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(requestBody),
     });
@@ -2420,29 +2469,27 @@ async function cargarTarifas() {
       return data;
     } else {
       // Si la API responde con un error de negocio, rechazamos la promesa
-      throw new Error('Sin tarifas asociadas a este tipo de habitacion');
+      throw new Error("Sin tarifas asociadas a este tipo de habitacion");
     }
-
   } catch (error) {
-    console.error('Hubo un problema con la solicitud:', error);
+    console.error("Hubo un problema con la solicitud:", error);
     // En caso de error, rechazamos la promesa para que el .catch() lo maneje
     throw error;
   }
-
 }
 
 async function traeReservaModificar(id) {
   // console.log(id)
-  const url = 'res/php/dataUpdateReserva.php';
+  const url = "res/php/dataUpdateReserva.php";
   const requestBody = {
     id,
   };
 
   try {
     const response = await fetch(url, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(requestBody),
     });
@@ -2460,48 +2507,46 @@ async function traeReservaModificar(id) {
       return data;
     } else {
       // Si la API responde con un error de negocio, rechazamos la promesa
-      throw new Error('Sin tarifas asociadas a este tipo de habitacion');
+      throw new Error("Sin tarifas asociadas a este tipo de habitacion");
     }
-
   } catch (error) {
-    console.error('Hubo un problema con la solicitud:', error);
+    console.error("Hubo un problema con la solicitud:", error);
     // En caso de error, rechazamos la promesa para que el .catch() lo maneje
     throw error;
   }
-
 }
 
 async function valorTarifaHabitacion(adultos, ninos, tarifa) {
   switch (adultos) {
     case 1:
-      valorAdulto = tarifa.valor_un_pax
+      valorAdulto = tarifa.valor_un_pax;
       break;
     case 2:
-      valorAdulto = tarifa.valor_dos_pax
+      valorAdulto = tarifa.valor_dos_pax;
       break;
     case 3:
-      valorAdulto = tarifa.valor_tre_pax
+      valorAdulto = tarifa.valor_tre_pax;
       break;
     case 4:
-      valorAdulto = tarifa.valor_cua_pax
+      valorAdulto = tarifa.valor_cua_pax;
       break;
     case 5:
-      valorAdulto = tarifa.valor_cin_pax
+      valorAdulto = tarifa.valor_cin_pax;
       break;
     case 6:
-      valorAdulto = tarifa.valor_sei_pax
+      valorAdulto = tarifa.valor_sei_pax;
       break;
     case 7:
-      valorAdulto = tarifa.valor_sie_pax
+      valorAdulto = tarifa.valor_sie_pax;
       break;
     case 8:
-      valorAdulto = tarifa.valor_och_pax
+      valorAdulto = tarifa.valor_och_pax;
       break;
     case 9:
-      valorAdulto = tarifa.valor_nue_pax
+      valorAdulto = tarifa.valor_nue_pax;
       break;
     case 10:
-      valorAdulto = tarifa.valor_die_pax
+      valorAdulto = tarifa.valor_die_pax;
       break;
     default:
       break;
@@ -2512,17 +2557,17 @@ async function valorTarifaHabitacion(adultos, ninos, tarifa) {
 }
 
 function sumaFecha() {
-  let nochesInput
-  let salidaInput
+  let nochesInput;
+  let salidaInput;
   let editaReserva = document.querySelector("#editaRes").value;
   if (editaReserva == 1) {
-    llegadaInput = document.getElementById('llegadaUpd');
-    nochesInput = document.getElementById('nochesUpd');
-    salidaInput = document.getElementById('salidaUpd');
+    llegadaInput = document.getElementById("llegadaUpd");
+    nochesInput = document.getElementById("nochesUpd");
+    salidaInput = document.getElementById("salidaUpd");
   } else {
-    llegadaInput = document.getElementById('llegada');
-    nochesInput = document.getElementById('noches');
-    salidaInput = document.getElementById('salida');
+    llegadaInput = document.getElementById("llegada");
+    nochesInput = document.getElementById("noches");
+    salidaInput = document.getElementById("salida");
   }
 
   const llegada = new Date(llegadaInput.value);
@@ -2530,24 +2575,23 @@ function sumaFecha() {
   if (llegada && !isNaN(noches) && noches > 0) {
     const salida = new Date(llegada);
     salida.setDate(salida.getDate() + noches);
-    salidaInput.value = salida.toISOString().split('T')[0];
+    salidaInput.value = salida.toISOString().split("T")[0];
   }
 }
 
 // Lógica para calcular el número de noches a partir de la llegada y la salida
 function restaFechas() {
-  let nochesInput
-  let salidaInput
+  let nochesInput;
+  let salidaInput;
   let editaReserva = document.querySelector("#editaRes").value;
   if (edita == 1) {
-    llegadaInput = document.getElementById('llegadaUpd');
-    nochesInput = document.getElementById('nochesUpd');
-    salidaInput = document.getElementById('salidaUpd');
-
+    llegadaInput = document.getElementById("llegadaUpd");
+    nochesInput = document.getElementById("nochesUpd");
+    salidaInput = document.getElementById("salidaUpd");
   } else {
-    llegadaInput = document.getElementById('llegada');
-    nochesInput = document.getElementById('noches');
-    salidaInput = document.getElementById('salida');
+    llegadaInput = document.getElementById("llegada");
+    nochesInput = document.getElementById("noches");
+    salidaInput = document.getElementById("salida");
   }
 
   const llegada = new Date(llegadaInput.value);
@@ -2565,41 +2609,43 @@ async function traeInfoTercero(numero, tipo) {
   let req = {
     numero,
     tipo,
-  }
+  };
   try {
     const res = await fetch(`imprimir/imprimeRecaudo.php`, {
       method: "POST",
       headers: {
-        "Content-type": "application/json; charset=UTF-8"
+        "Content-type": "application/json; charset=UTF-8",
       },
       body: JSON.stringify(req),
     });
     const datos = await res.text();
     return datos;
   } catch (error) {
-    return error
+    return error;
   }
 }
 async function guardaCartera() {
   let sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario_id }, } = sesion;
-  let totalpago = document.querySelector('#totalpago').value;
+  let {
+    user: { usuario_id },
+  } = sesion;
+  let totalpago = document.querySelector("#totalpago").value;
 
   if (totalpago == 0) {
     swal({
       title: "Atencion",
       text: "Sin Facturas Seleccionadas, \n No es posible Generar el Ingreso de Cartera",
       type: "warning",
-    })
-    return
+    });
+    return;
   }
 
-  facturas = await obtenerItemsSeleccionados()
+  facturas = await obtenerItemsSeleccionados();
 
-  let fecha = document.querySelector('#fecha').value;
-  let cliente = document.querySelector('#cliente').value;
-  let formapago = document.querySelector('#formapago').value;
-  let concepto = document.querySelector('#concepto').value;
+  let fecha = document.querySelector("#fecha").value;
+  let cliente = document.querySelector("#cliente").value;
+  let formapago = document.querySelector("#formapago").value;
+  let concepto = document.querySelector("#concepto").value;
 
   req = {
     fecha,
@@ -2608,14 +2654,14 @@ async function guardaCartera() {
     concepto,
     totalpago,
     usuario_id,
-    'facturas': JSON.stringify(facturas),
-  }
+    facturas: JSON.stringify(facturas),
+  };
 
-  let recaudo = await ingresaCartera(req)
-  let imprime = await imprimeRecaudo(recaudo)
+  let recaudo = await ingresaCartera(req);
+  let imprime = await imprimeRecaudo(recaudo);
 
   var ventana = window.open(
-    'imprimir/' + imprime.trim(),
+    "imprimir/" + imprime.trim(),
     "PRINT",
     "height=600,width=600"
   );
@@ -2633,19 +2679,19 @@ async function mostrarRecaudo(numero) {
 async function imprimeRecaudo(numero) {
   let req = {
     numero,
-  }
+  };
   try {
     const res = await fetch(`imprimir/imprimeRecaudo.php`, {
       method: "POST",
       headers: {
-        "Content-type": "application/json; charset=UTF-8"
+        "Content-type": "application/json; charset=UTF-8",
       },
       body: JSON.stringify(req),
     });
     const datos = await res.text();
     return datos;
   } catch (error) {
-    return error
+    return error;
   }
 }
 
@@ -2658,21 +2704,25 @@ async function ingresaCartera(data) {
     const datos = await res.json(res);
     return datos;
   } catch (error) {
-    return error
+    return error;
   }
 }
 
 async function obtenerItemsSeleccionados() {
-  const tabla = document.querySelector('#dataClientes');
-  const filas = tabla.getElementsByTagName('tr');
+  const tabla = document.querySelector("#dataClientes");
+  const filas = tabla.getElementsByTagName("tr");
   const itemsSeleccionados = [];
 
   for (let i = 0; i < filas.length; i++) {
     const fila = filas[i];
-    const checkbox = fila.querySelector('input[type="checkbox"][name="asigna"]');
+    const checkbox = fila.querySelector(
+      'input[type="checkbox"][name="asigna"]'
+    );
 
     if (checkbox && checkbox.checked) {
-      const nrofactura = fila.querySelector('td[name="nrofactura"]').textContent;
+      const nrofactura = fila.querySelector(
+        'td[name="nrofactura"]'
+      ).textContent;
       const fecha = fila.querySelector('td[name="fecha"]').textContent;
       const valorcta = fila.querySelector('td[name="valorcta"]').textContent;
       const valorret = fila.querySelector('input[name="valorret"]').value;
@@ -2687,7 +2737,7 @@ async function obtenerItemsSeleccionados() {
         valorret: valorret,
         valorica: valorica,
         valoriva: valoriva,
-        valorcom: valorcom
+        valorcom: valorcom,
       });
     }
   }
@@ -2697,9 +2747,13 @@ async function obtenerItemsSeleccionados() {
 
 async function llenaTablaReservas(reservas) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { moduloPms: { fecha_auditoria } } = sesion;
+  let {
+    moduloPms: { fecha_auditoria },
+  } = sesion;
 
-  const reservasFilter = reservas.filter(reserva => reserva.fecha >= fecha_auditoria);
+  const reservasFilter = reservas.filter(
+    (reserva) => reserva.fecha >= fecha_auditoria
+  );
   const tablaBody = $("#tablaCalendario > tbody");
   // Limpiar la tabla antes de agregar nuevos datos
   tablaBody.empty();
@@ -2718,7 +2772,7 @@ async function llenaTablaReservas(reservas) {
 
 async function llenaTablaReservasOld(reservas) {
   reservas.map((reserva) => {
-    let { fecha_llegada, reservas, salidas } = reserva
+    let { fecha_llegada, reservas, salidas } = reserva;
     $("#tablaCalendario >tbody").append(
       `<tr>
         <td>${fecha_llegada}</td>
@@ -2730,8 +2784,8 @@ async function llenaTablaReservasOld(reservas) {
 }
 
 async function ajusteCuenta() {
-  let folio = document.querySelector('#folioActivo').value;
-  let reserva = document.querySelector('#reservaActual').value;
+  let folio = document.querySelector("#folioActivo").value;
+  let reserva = document.querySelector("#reservaActual").value;
 
   let conse = await traeConsecutivo();
   let guarda = await guardaAjusteCuenta(reserva, folio, conse);
@@ -2740,7 +2794,7 @@ async function ajusteCuenta() {
   let imprime = await imprimeAjusteCuenta(con_ajuste_cuenta, reserva, folio);
 
   var ventana = window.open(
-    'imprimir/ajustes/' + imprime.trim(),
+    "imprimir/ajustes/" + imprime.trim(),
     "PRINT",
     "height=600,width=600"
   );
@@ -2753,7 +2807,7 @@ async function imprimeAjusteCuenta(numero, reserva, folio) {
     numero,
     reserva,
     folio,
-  }
+  };
 
   try {
     const res = await fetch(`../APIHotel/data/imprimeAjusteCuenta.php`, {
@@ -2767,15 +2821,15 @@ async function imprimeAjusteCuenta(numero, reserva, folio) {
     const datos = await res.text();
     return datos;
   } catch (error) {
-    return error
+    return error;
   }
 }
 
 async function actualizaConsecutivoCuenta(numero) {
   let token = "9b25a3d3-dbc5-42a8-830d-899d2c9d9233";
   let req = {
-    numero
-  }
+    numero,
+  };
 
   try {
     const res = await fetch(`../APIHotel/data/consecutivoAjusteCuenta.php`, {
@@ -2789,17 +2843,23 @@ async function actualizaConsecutivoCuenta(numero) {
     const datos = await res.json();
     return datos;
   } catch (error) {
-    return error
+    return error;
   }
 }
 
 async function guardaAjusteCuenta(reserva, folio, conse) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario, usuario_id } } = sesion;
+  let {
+    user: { usuario, usuario_id },
+  } = sesion;
   let token = "9b25a3d3-dbc5-42a8-830d-899d2c9d9233";
   let req = {
-    reserva, folio, conse, usuario, usuario_id
-  }
+    reserva,
+    folio,
+    conse,
+    usuario,
+    usuario_id,
+  };
 
   try {
     const res = await fetch("../APIHotel/data/actualizaAjusteCuenta.php", {
@@ -2813,14 +2873,15 @@ async function guardaAjusteCuenta(reserva, folio, conse) {
     const datos = await res.json();
     return datos;
   } catch (error) {
-    return error
+    return error;
   }
 }
 
 const traeConsecutivo = async () => {
   let token = "9b25a3d3-dbc5-42a8-830d-899d2c9d9233";
   try {
-    const resultado = await fetch(`../APIHotel/data/consecutivoAjusteCuenta.php`,
+    const resultado = await fetch(
+      `../APIHotel/data/consecutivoAjusteCuenta.php`,
       {
         method: "GET",
         headers: {
@@ -2846,11 +2907,7 @@ function consumosPorFecha() {
     codigo,
   };
 
-  if (
-    desdeFe == "" &&
-    hastaFe == "" &&
-    codigo == ""
-  ) {
+  if (desdeFe == "" && hastaFe == "" && codigo == "") {
     swal("Atencion", "Seleccione un Criterio de Busqueda", "warning");
   } else {
     $.ajax({
@@ -2859,6 +2916,9 @@ function consumosPorFecha() {
       data: parametros,
       success: function (x) {
         $(".imprimeInforme").html(x);
+        setTimeout(
+          muestraDataTable('#example1')
+          ,500)
       },
     });
   }
@@ -2888,7 +2948,13 @@ async function sumaFacturas() {
   $("#dataClientes > tbody > tr").each(function () {
     let carga = $("#asigna", this).is(":checked");
     if (carga === true) {
-      valorTotal = valorTotal + parseFloat($("#valorcta", this).html().replaceAll(",", "")) - (parseFloat($("#valorret", this).val().replaceAll(",", "")) + parseFloat($("#valorica", this).val().replaceAll(",", "")) + parseFloat($("#valoriva", this).val().replaceAll(",", "")) + parseFloat($("#valorcom", this).val().replaceAll(",", "")));
+      valorTotal =
+        valorTotal +
+        parseFloat($("#valorcta", this).html().replaceAll(",", "")) -
+        (parseFloat($("#valorret", this).val().replaceAll(",", "")) +
+          parseFloat($("#valorica", this).val().replaceAll(",", "")) +
+          parseFloat($("#valoriva", this).val().replaceAll(",", "")) +
+          parseFloat($("#valorcom", this).val().replaceAll(",", "")));
       nrofacturas = nrofacturas + $("#nrofactura", this).html() + " ";
     }
   });
@@ -2904,7 +2970,10 @@ async function asignaRetencion(fila) {
     let idcliente = $("#cliente").val();
     let numFactura = fila.parentNode.parentNode.cells[1].innerHTML;
     valorRetencion = await calculaRetencion(numFactura, idcliente);
-    fila.parentNode.parentNode.cells[5].children[0].value = number_format(valorRetencion, 2);
+    fila.parentNode.parentNode.cells[5].children[0].value = number_format(
+      valorRetencion,
+      2
+    );
   }
   await sumaFacturas();
 }
@@ -2917,7 +2986,10 @@ async function asignaReteICA(fila) {
     let idcliente = $("#cliente").val();
     let numFactura = fila.parentNode.parentNode.cells[1].innerHTML;
     valorRetencion = await calculaReteICA(numFactura, idcliente);
-    fila.parentNode.parentNode.cells[7].children[0].value = number_format(valorRetencion, 2);
+    fila.parentNode.parentNode.cells[7].children[0].value = number_format(
+      valorRetencion,
+      2
+    );
   }
   await sumaFacturas();
 }
@@ -2930,14 +3002,16 @@ async function asignaReteIVA(fila) {
     let idcliente = $("#cliente").val();
     let numFactura = fila.parentNode.parentNode.cells[1].innerHTML;
     valorRetencion = await calculaReteIVA(numFactura, idcliente);
-    fila.parentNode.parentNode.cells[9].children[0].value = number_format(valorRetencion, 2);
+    fila.parentNode.parentNode.cells[9].children[0].value = number_format(
+      valorRetencion,
+      2
+    );
   }
   await sumaFacturas();
-
 }
 
 async function calculaRetencion(numero, idcliente) {
-  req = { numero, idcliente }
+  req = { numero, idcliente };
   try {
     const res = await fetch("res/php/calculaRetencionFactura.php", {
       method: "POST",
@@ -2949,12 +3023,12 @@ async function calculaRetencion(numero, idcliente) {
     const datos = await res.json();
     return datos;
   } catch (error) {
-    return error
+    return error;
   }
 }
 
 async function calculaReteICA(numero, idcliente) {
-  req = { numero, idcliente }
+  req = { numero, idcliente };
   try {
     const res = await fetch("res/php/calculaReteICAFactura.php", {
       method: "POST",
@@ -2966,12 +3040,12 @@ async function calculaReteICA(numero, idcliente) {
     const datos = await res.json();
     return datos;
   } catch (error) {
-    return error
+    return error;
   }
 }
 
 async function calculaReteIVA(numero, idcliente) {
-  req = { numero, idcliente }
+  req = { numero, idcliente };
   try {
     const res = await fetch("res/php/calculaReteIVAFactura.php", {
       method: "POST",
@@ -2983,44 +3057,44 @@ async function calculaReteIVA(numero, idcliente) {
     const datos = await res.json();
     return datos;
   } catch (error) {
-    return error
+    return error;
   }
 }
 
 async function eliminaHuesped(e, huesped) {
   var button = document.getElementById(e);
-  let nombre = button.dataset.nombre
-  let id = button.dataset.id
-  let regis = await preguntaEliminaHuesped(nombre, id)
+  let nombre = button.dataset.nombre;
+  let id = button.dataset.id;
+  let regis = await preguntaEliminaHuesped(nombre, id);
   if (regis != 0) {
-    swal({
-      title: "Atencion",
-      text: "El Huesped Tiene Estadisticas de Alojamiento, \n No es posible eliminar este Perfil",
-      type: "warning",
-    },
-      function () {
-
-      })
+    swal(
+      {
+        title: "Atencion",
+        text: "El Huesped Tiene Estadisticas de Alojamiento, \n No es posible eliminar este Perfil",
+        type: "warning",
+      },
+      function () {}
+    );
     return false;
   }
 
   let elimina = await borraHuesped(id);
-  if (elimina = !0) {
-    swal({
-      title: "Atencion",
-      text: "Huesped Eliminado con Exito",
-      type: "warning",
-    },
+  if ((elimina = !0)) {
+    swal(
+      {
+        title: "Atencion",
+        text: "Huesped Eliminado con Exito",
+        type: "warning",
+      },
       function () {
         $(location).attr("href", "huespedesPerfil");
-
-      })
+      }
+    );
   }
-
 }
 
 async function borraHuesped(id) {
-  req = { id }
+  req = { id };
   try {
     const res = await fetch("res/php/eliminaHuesped.php", {
       method: "POST",
@@ -3032,23 +3106,24 @@ async function borraHuesped(id) {
     const datos = await res.json();
     return datos;
   } catch (error) {
-    return error
+    return error;
   }
 }
 
 async function preguntaEliminaHuesped(nombre, id) {
-  return new Promise(resolve => {
-    swal({
-      title: `Huesped ${nombre}`,
-      text: "Este proceso Eliminara el Huesped Actual  \n No se podra recuperar la Informacion \n",
-      type: "warning",
-      showCancelButton: true,
-      cancelButtonText: "Cancelar",
-      confirmButtonText: "¡Adelante!",
-      closeOnConfirm: false
-    },
+  return new Promise((resolve) => {
+    swal(
+      {
+        title: `Huesped ${nombre}`,
+        text: "Este proceso Eliminara el Huesped Actual  \n No se podra recuperar la Informacion \n",
+        type: "warning",
+        showCancelButton: true,
+        cancelButtonText: "Cancelar",
+        confirmButtonText: "¡Adelante!",
+        closeOnConfirm: false,
+      },
       async function () {
-        req = { id }
+        req = { id };
         const resultado = await fetch("res/php/huespedActivo.php", {
           method: "POST",
           headers: {
@@ -3058,22 +3133,25 @@ async function preguntaEliminaHuesped(nombre, id) {
         });
         let dato = await resultado.json();
         return resolve(dato);
-      });
-  })
+      }
+    );
+  });
 }
 
 async function guardaReportaObs() {
-  ruta = document.querySelector("#ubicacion").value
+  ruta = document.querySelector("#ubicacion").value;
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario_id } } = sesion;
+  let {
+    user: { usuario_id },
+  } = sesion;
   let observas = document.querySelector("#formObservacionesHab");
   let formData = new FormData(observas);
   formData.set("usuario_id", usuario_id);
-  let ocupa = formData.get('ocupada')
-  let sucia = formData.get('sucia')
+  let ocupa = formData.get("ocupada");
+  let sucia = formData.get("sucia");
   let estado = sucia == 1 ? 0 : 1;
   formData.set("estado", estado);
-  let habita = formData.get('numeroHab')
+  let habita = formData.get("numeroHab");
 
   let ingresa = await ingresoObservacion(formData);
 
@@ -3081,17 +3159,24 @@ async function guardaReportaObs() {
     let cambia = await cambiaEstadoAseo(habita, ocupa, estado, sucia);
   }
 
-  let text = ocupa == 1 ? "Observacion Ingresada Correctamente a la Habitacion" : sucia == 1 ? "Habitacion Limpia " : "Cambio a Habitacion Sucia realizado con Exito";
+  let text =
+    ocupa == 1
+      ? "Observacion Ingresada Correctamente a la Habitacion"
+      : sucia == 1
+      ? "Habitacion Limpia "
+      : "Cambio a Habitacion Sucia realizado con Exito";
 
-  swal({
-    title: "Atencion",
-    text,
-    type: "success",
-    confirmButtonText: "Aceptar",
-  },
+  swal(
+    {
+      title: "Atencion",
+      text,
+      type: "success",
+      confirmButtonText: "Aceptar",
+    },
     function () {
       $(location).attr("href", ruta);
-    });
+    }
+  );
 }
 
 async function ingresoObservacion(data) {
@@ -3102,7 +3187,7 @@ async function ingresoObservacion(data) {
     });
     const datos = await resultado.text();
     return datos;
-  } catch (error) { }
+  } catch (error) {}
 }
 
 async function traeCamareras() {
@@ -3137,7 +3222,7 @@ async function traeReservasTotal() {
 
 async function llenaTarifas(tarifas) {
   let editaReserva = document.querySelector("#editaRes").value;
-  let selectElement
+  let selectElement;
   if (editaReserva == 1) {
     selectElement = document.querySelector("#tarifahabUpd");
   } else {
@@ -3145,18 +3230,17 @@ async function llenaTarifas(tarifas) {
   }
 
   tarifas.map((item) => {
-    let { id, descripcion_tarifa } = item
+    let { id, descripcion_tarifa } = item;
     const optionElement = document.createElement("option");
     optionElement.value = id;
     optionElement.text = `${descripcion_tarifa}`;
     selectElement.add(optionElement);
   });
-
 }
 
 async function limpiaTarifas() {
   let editaReserva = document.querySelector("#editaRes").value;
-  let selectElement
+  let selectElement;
   if (editaReserva == 1) {
     selectElement = document.querySelector("#tarifahabUpd");
   } else {
@@ -3170,7 +3254,7 @@ async function limpiaTarifas() {
 async function llenaSelectCamareras(camareras) {
   let selectElement = document.querySelector("#reportadoPor");
   camareras.map((item) => {
-    let { idCamarera, apellidosCamarera, nombresCamarera } = item
+    let { idCamarera, apellidosCamarera, nombresCamarera } = item;
     const optionElement = document.createElement("option");
     optionElement.value = idCamarera;
     optionElement.text = `${apellidosCamarera} ${nombresCamarera}`;
@@ -3235,8 +3319,9 @@ async function backupSQL() {
     .then((data) => {
       // Guardar el backup en un archivo
       const date = new Date();
-      const filename = `backup_${date.getFullYear()}-${date.getMonth() + 1
-        }-${date.getDate()}.sql`;
+      const filename = `backup_${date.getFullYear()}-${
+        date.getMonth() + 1
+      }-${date.getDate()}.sql`;
       const blob = new Blob([data], { type: "text/plain" });
       const link = document.createElement("a");
       link.href = URL.createObjectURL(blob);
@@ -3288,7 +3373,9 @@ async function restaEdad(fecha) {
 
 const guardaProcesoEnvioTRA = async (reserva) => {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario_id } } = sesion;
+  let {
+    user: { usuario_id },
+  } = sesion;
 
   data = {
     usuario_id,
@@ -3305,7 +3392,7 @@ const guardaProcesoEnvioTRA = async (reserva) => {
     });
 
     return datos;
-  } catch (error) { }
+  } catch (error) {}
 };
 
 const enviaJSONPpal = async (JSONPpal) => {
@@ -3339,13 +3426,14 @@ const enviaJSONPpal = async (JSONPpal) => {
     urlTraAcompana == "" ||
     passwordTra == ""
   ) {
-    swal({
-      title: "Precaucion",
-      text: "Modulo de Envio de Tarjeta de Registro de Alojamiento – TRA - No Esta Configurado",
-      type: "warning",
-      confirmButtonText: "Aceptar",
-    },
-      function () { }
+    swal(
+      {
+        title: "Precaucion",
+        text: "Modulo de Envio de Tarjeta de Registro de Alojamiento – TRA - No Esta Configurado",
+        type: "warning",
+        confirmButtonText: "Aceptar",
+      },
+      function () {}
     );
     error = {
       mensaje:
@@ -3570,11 +3658,12 @@ function actualizaMmto() {
       hasta,
     },
     success: function (data) {
-      swal({
-        title: "Atencion",
-        text: "Mantenimiento Actualizado con Exito",
-        type: "success",
-      },
+      swal(
+        {
+          title: "Atencion",
+          text: "Mantenimiento Actualizado con Exito",
+          type: "success",
+        },
         function () {
           $(location).attr("href", "mantenimiento");
         }
@@ -3584,17 +3673,18 @@ function actualizaMmto() {
 }
 
 function regresaCasa(reserva) {
-  swal({
-    title: "Cuenta Congelada",
-    text: "Desea Regresar a Casa la Presente Cuenta Congelada",
-    type: "warning",
-    showCancelButton: true,
-    cancelButtonClass: "btn-warning",
-    cancelButtonText: "Cancelar Ingreso",
-    confirmButtonClass: "btn-danger",
-    confirmButtonText: "Si, Regresa a Casa !",
-    closeOnConfirm: false,
-  },
+  swal(
+    {
+      title: "Cuenta Congelada",
+      text: "Desea Regresar a Casa la Presente Cuenta Congelada",
+      type: "warning",
+      showCancelButton: true,
+      cancelButtonClass: "btn-warning",
+      cancelButtonText: "Cancelar Ingreso",
+      confirmButtonClass: "btn-danger",
+      confirmButtonText: "Si, Regresa a Casa !",
+      closeOnConfirm: false,
+    },
     function () {
       $.ajax({
         type: "POST",
@@ -4062,6 +4152,11 @@ function buscaHistoricoNC() {
   })
     .then((response) => response.json())
     .then((data) => llenaHistoricoNC(data));
+
+    setInterval(
+      muestraDataTable('#dataNotas')
+      ,500)
+
 }
 
 function llenaHistoricoNC(datos) {
@@ -4089,12 +4184,12 @@ function llenaHistoricoNC(datos) {
       let { facturaAnulada, fechaNC, motivoAnulacion, numeroNC, estadoEnvio } =
         dato;
       let rowNC = document.createElement("tr");
-      rowNC.innerHTML = `<td>${numeroNC}</td>
-              <td>${fechaNC}</td>
-              <td>${facturaAnulada}</td>
+      rowNC.innerHTML = `<td style="width:10%;">${numeroNC}</td>
+              <td style="width:10%;">${fechaNC}</td>
+              <td style="width:10%;">${facturaAnulada}</td>
               <td>${motivoAnulacion}</td>
-              <td>${estadoFacturaDIAN(estadoEnvio)}</td>
-              <td style="width: 10%;text-align: center">
+              <td style="width:10%;">${estadoFacturaDIAN(estadoEnvio)}</td>
+              <td style="text-align: center; width:10%;">
                 <div class="btn-group" role="group" aria-label="Basic example">
                   <button 
                     id="${numeroNC}"
@@ -4154,6 +4249,18 @@ function traeFacturasEstadia() {
   });
 }
 
+function muestraDataTable(data) {
+  $(`${data}`).DataTable({
+    iDisplayLength: 25,
+    paging: true,
+    lengthChange: true,
+    searching: true,
+    ordering: true,
+    info: true,
+    autoWidth: true,
+  });
+}
+
 function traeLlegadasDia() {
   $.ajax({
     url: "res/php/traeLlegadasdelDia.php",
@@ -4183,7 +4290,9 @@ function traeLlegadasDia() {
 
 function traeHuespedesenCasa() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { tipo } } = sesion;
+  let {
+    user: { tipo },
+  } = sesion;
 
   $.ajax({
     url: "res/php/traeHuespedesenCasa.php",
@@ -4254,7 +4363,9 @@ function traeReservasActivas(tipo) {
 
 function consumoVentaDirecta() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user:{ usuario, usuario_id }, } = sesion;
+  let {
+    user: { usuario, usuario_id },
+  } = sesion;
   let = $("#txtIdReservaDep").val();
 
   var web = $("#rutaweb").val();
@@ -4324,8 +4435,10 @@ function ingresaVentaDirecta() {
   noches = $("#noches").val();
   salida = $("#salida").val();
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario, usuario_id }, } = sesion;
-  
+  let {
+    user: { usuario, usuario_id },
+  } = sesion;
+
   if (identifica == "") {
     swal("Precaucion", "Seleccione el Cliente para Realizar la Venta", "error");
     $("#identifica").focus();
@@ -4429,8 +4542,8 @@ function listadoPerfilHuespedes() {
     // console.log(data);
     $("#muestraHuespedes").html(`
       <object type="application/pdf" id="verInforme" width="100%" height="500" data="data:application/pdf;base64,${$.trim(
-      data
-    )}"></object>`);
+        data
+      )}"></object>`);
   });
 }
 
@@ -4560,7 +4673,9 @@ function generarXML(factura, test, modulo, ambiente) {
 function imprimeInformeAuditoria(informe, titulo) {
   web = $("#webPage").val();
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario, apellidos, nombres, usuario_id }, } = sesion;
+  let {
+    user: { usuario, apellidos, nombres, usuario_id },
+  } = sesion;
   file = makeid(12);
   $.ajax({
     url: `imprimir/${informe}.php`,
@@ -4588,8 +4703,8 @@ function imprimeInformeAuditoria(informe, titulo) {
           <div class="panel-body">
             <div class="imprimeInforme">
               <object type="application/pdf" id="verInforme" width="100%" height="500" data="data:application/pdf;base64,${$.trim(
-      data
-    )}"></object>
+                data
+              )}"></object>
             </div>
           </div>
         </div>
@@ -4602,7 +4717,9 @@ function imprimeInformeAuditoria(informe, titulo) {
 function auditoriaCronologico() {
   web = $("#webPage").val();
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user:{ usuario } } = sesion;
+  let {
+    user: { usuario },
+  } = sesion;
   $.ajax({
     url: "imprimir/imprimeCargosdelDia.php",
     type: "POST",
@@ -4624,8 +4741,8 @@ function auditoriaCronologico() {
           <div class="panel-body">
             <div class="imprimeInforme">
               <object id="verInforme" width="100%" style="height:75vh" data="imprimir/informes/${$.trim(
-      data
-    )}"></object> 
+                data
+              )}"></object> 
             </div>
           </div>
         </div>
@@ -4638,7 +4755,9 @@ function auditoriaCronologico() {
 function auditoriaHuespedes() {
   web = $("#webPage").val();
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario} } = sesion;
+  let {
+    user: { usuario },
+  } = sesion;
   $.ajax({
     url: "imprimir/imprimeHuespedesPorHabitacion.php",
     type: "POST",
@@ -4660,8 +4779,8 @@ function auditoriaHuespedes() {
           <div class="panel-body">
             <div class="imprimeInforme">
               <object id="verInforme" width="100%" style="height:75vh" data="imprimir/informes/${$.trim(
-      data
-    )}"></object>
+                data
+              )}"></object>
             </div>
           </div>
         </div>
@@ -4881,7 +5000,9 @@ function verfacturaHistorico(fact) {
 
 function anulaFacturaHistorico() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario, usuario_id, tipo }, } = sesion;
+  let {
+    user: { usuario, usuario_id, tipo },
+  } = sesion;
   var pagina = $("#ubicacion").val();
   var factura = $("#facturaHis").val();
   var motivo = $("#motivoAnulaHis").val();
@@ -4913,10 +5034,10 @@ function anulaFacturaHistorico() {
     success: function (resp) {
       // console.log(resp)
       let { error, mensaje, archivo } = resp[0];
-      let mensajeErr = '';
+      let mensajeErr = "";
       if (error == "1") {
-        infoError = JSON.parse(mensaje)
-        let { string } = infoError
+        infoError = JSON.parse(mensaje);
+        let { string } = infoError;
         for (let i = 0; i < string.length; i++) {
           mensajeErr += `<li class="justify">${string[i]}</li>`;
         }
@@ -4928,7 +5049,7 @@ function anulaFacturaHistorico() {
         <h4 style="color: brown;font-weight: 700;font-size: 20px;text-align:center;">MOTIVO DEL RECHAZO</h4>
         <ul>
           ${mensajeErr}
-        </ul>`
+        </ul>`;
         $(".avisoAnuHis").html("");
         $(".avisoAnuHis").html(mensajeError);
       } else {
@@ -4948,7 +5069,6 @@ function anulaFacturaHistorico() {
           }
         );
       }
-
     },
   });
 }
@@ -4990,7 +5110,7 @@ function buscarCompania() {
       filas,
       valorBusqueda,
     },
-    beforeSend: function (data) { },
+    beforeSend: function (data) {},
     success: function (data) {
       $("#listaCompanias").html("");
       $("#barraPaginas").html("");
@@ -5133,7 +5253,7 @@ function buscarHuesped() {
       filas,
       valorBusqueda,
     },
-    beforeSend: function (data) { },
+    beforeSend: function (data) {},
     success: function (data) {
       $("#listaHuespedes").html("");
       $("#barraPaginas").html("");
@@ -5313,7 +5433,9 @@ function buscaFechaAuditoria() {
 
 async function anulaEnvioFactura(factura, reserva) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario, usuario_id, tipo }, } = sesion;
+  let {
+    user: { usuario, usuario_id, tipo },
+  } = sesion;
   data = { factura, reserva, perfil: 1, usuario, usuario_id };
   try {
     const resultado = await fetch(`res/php/anulaFacturaEnvio.php`, {
@@ -5343,7 +5465,9 @@ async function anulaEnvioFactura(factura, reserva) {
 
 function anulaFactura() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario, usuario_id, tipo }, } = sesion;
+  let {
+    user: { usuario, usuario_id, tipo },
+  } = sesion;
   var pagina = $("#ubicacion").val();
   var numero = $("#factura").val();
   var motivo = $("#motivoAnula").val();
@@ -5424,7 +5548,9 @@ function asignaTipoHabitacion() {
 async function guardaHuesped(e) {
   e.preventDefault;
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario, usuario_id, tipo }, } = sesion;
+  let {
+    user: { usuario, usuario_id, tipo },
+  } = sesion;
   // sesion = JSON.parse(localStorage.getItem("sesion"));
   let web = $("#rutaweb").val();
   let pagina = $("#ubicacion").val();
@@ -5613,7 +5739,9 @@ function movimientosCongelada(reserva) {
 
 function congelaHuesped() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario, usuario_id }, } = sesion;
+  let {
+    user: { usuario, usuario_id },
+  } = sesion;
 
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
@@ -5638,7 +5766,11 @@ function congelaHuesped() {
     data: parametros,
     success: function (data) {
       // console.log(data);
-      var ventana = window.open('imprimir/congela/' + data.trim(), "PRINT", "height=600,width=600");
+      var ventana = window.open(
+        "imprimir/congela/" + data.trim(),
+        "PRINT",
+        "height=600,width=600"
+      );
       swal(
         {
           title: "Atencion",
@@ -5733,7 +5865,9 @@ function buscaFacturasFecha() {
 
 function guardaHuespedReserva() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario, usuario_id } } = sesion;
+  let {
+    user: { usuario, usuario_id },
+  } = sesion;
   var web = $("#rutaweb").val();
   var ubicacion = $("#ubicacion").val();
   var idreser = $("#idreservaAco").val();
@@ -5850,7 +5984,10 @@ async function reEnviaFactura(factura) {
         Envelope: {
           Body: {
             SendBillSyncResponse: {
-              SendBillSyncResult: { IsValid, ErrorMessage: { string } },
+              SendBillSyncResult: {
+                IsValid,
+                ErrorMessage: { string },
+              },
             },
           },
         },
@@ -5858,7 +5995,7 @@ async function reEnviaFactura(factura) {
     } = recibe;
     const pares = string.split(", ");
     // 2. Mapear cada par para crear un array de arrays [clave, valor]
-    const matriz = pares.map(par => {
+    const matriz = pares.map((par) => {
       const partes = par.split(": ");
       // Asegúrate de manejar casos donde no haya valor después de los dos puntos
       return [partes[0].trim(), partes[1] ? partes[1].trim() : ""];
@@ -5867,7 +6004,7 @@ async function reEnviaFactura(factura) {
     const objetoRecibe = Object.fromEntries(
       matriz.map(([key, value]) => [key.toLowerCase(), value])
     );
-    let { regla, rechazo } = objetoRecibe
+    let { regla, rechazo } = objetoRecibe;
     if (IsValid === "true") {
       let {
         ResponseDian: {
@@ -5888,7 +6025,16 @@ async function reEnviaFactura(factura) {
 
       let infoFac = await traeResolucion();
       let { prefijo } = infoFac;
-      let { message, send_email_success, send_email_date_time, urlinvoicexml, urlinvoicepdf, cufe, QRStr, dian_validation_date_time: { date }, } = recibe;
+      let {
+        message,
+        send_email_success,
+        send_email_date_time,
+        urlinvoicexml,
+        urlinvoicepdf,
+        cufe,
+        QRStr,
+        dian_validation_date_time: { date },
+      } = recibe;
 
       datosFe = {
         factura,
@@ -5937,7 +6083,7 @@ async function reEnviaFactura(factura) {
       if (regla == 90) {
         // Trae datos del JSON ya procesados en la DIAN
         let { uuid_dian } = recibe;
-        let recibeJson = await leerDatosJSON(uuid_dian, token)
+        let recibeJson = await leerDatosJSON(uuid_dian, token);
         let infoFac = await traeResolucion();
         let { prefijo } = infoFac;
         let {
@@ -5957,20 +6103,29 @@ async function reEnviaFactura(factura) {
           },
         } = recibeJson;
 
-        let { message, send_email_success, send_email_date_time, urlinvoicexml, urlinvoicepdf, cufecude, QRStr, dian_validation_date_time: { date }, } = recibeJson;
+        let {
+          message,
+          send_email_success,
+          send_email_date_time,
+          urlinvoicexml,
+          urlinvoicepdf,
+          cufecude,
+          QRStr,
+          dian_validation_date_time: { date },
+        } = recibeJson;
 
         datosFe = {
           factura,
           prefijo,
           message,
-          send_email_success:0,
-          send_email_date_time:null,
+          send_email_success: 0,
+          send_email_date_time: null,
           urlinvoicexml,
           urlinvoicepdf,
           cufe: cufecude,
           QRStr,
           date,
-          IsValid:'true',
+          IsValid: "true",
           ErrorMessage: string,
           StatusCode,
           StatusDescription,
@@ -6006,7 +6161,6 @@ async function reEnviaFactura(factura) {
             $(location).attr("href", "facturasDelDia");
           }
         );
-
       } else {
         let {
           ResponseDian: {
@@ -6043,7 +6197,7 @@ async function reEnviaFactura(factura) {
 }
 
 async function leerDatosJSON(uuid_dian, token) {
-  url = `https://api.nextpyme.plus/api/ubl2.1/status/document/${uuid_dian}`
+  url = `https://api.nextpyme.plus/api/ubl2.1/status/document/${uuid_dian}`;
   const response = await fetch(url, {
     method: "post",
     credentials: "same-origin",
@@ -6052,7 +6206,7 @@ async function leerDatosJSON(uuid_dian, token) {
       Accept: "application/json",
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({ "sendmail": false }),
+    body: JSON.stringify({ sendmail: false }),
   });
 
   const data = await response.json();
@@ -6062,7 +6216,7 @@ async function leerDatosJSON(uuid_dian, token) {
 const enviaCorreoFactura = async (envioFAC, token) => {
   try {
     // url = "https://api.nextpyme.plus/api/ubl2.1/send-emaill";
-    url = 'http://donlolo.lan/pms/api/pruebaCorreo.php';
+    url = "http://donlolo.lan/pms/api/pruebaCorreo.php";
     const resultado = await fetch(url, {
       method: "post",
       credentials: "same-origin",
@@ -6185,7 +6339,7 @@ const enviaJSONFactura = async (jsonFactura, token) => {
   data = { jsonFactura };
   try {
     // url = "https://api.nextpyme.plus/api/ubl2.1/invoice";
-    url =  'http://donlolo.lan/pms/api/prueba.json';
+    url = "http://donlolo.lan/pms/api/prueba.json";
     const resultado = await fetch(url, {
       method: "post",
       credentials: "same-origin",
@@ -6205,7 +6359,9 @@ const enviaJSONFactura = async (jsonFactura, token) => {
 
 async function guardaAcompanante(e) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario, usuario_id } } = sesion;
+  let {
+    user: { usuario, usuario_id },
+  } = sesion;
 
   var web = $("#rutaweb").val();
   var ubicacion = $("#ubicacion").val();
@@ -6386,7 +6542,9 @@ function eliminaAcompanante(id) {
 
 function trasladarConsumos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user:{ usuario } } = sesion;
+  let {
+    user: { usuario },
+  } = sesion;
 
   var web = $("#rutaweb").val();
   var idconsumo = $("#txtIdConsumoTras").val();
@@ -6417,7 +6575,9 @@ function trasladarConsumos() {
 
 function anulaSalida() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user:{ usuario, usuario_id } } = sesion;
+  let {
+    user: { usuario, usuario_id },
+  } = sesion;
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var numero = $("#txtIdReservaAnu").val();
@@ -6487,7 +6647,7 @@ function calculaRetencionesOld(id) {
     type: "POST",
     url: "res/php/traeRetencionesCia.php",
     data: id,
-    success: function (data) { },
+    success: function (data) {},
   });
 }
 
@@ -6539,10 +6699,7 @@ async function apagaselecomp(tipo) {
       sinBaseRete
     );
 
-    let mReteIca = await valorReteIcaFolio(
-      nroReserva,
-      nroFolio
-    );
+    let mReteIca = await valorReteIcaFolio(nroReserva, nroFolio);
 
     totalRteFte = parseInt($("#baseRetenciones").val());
     totalImpto = parseInt($("#totalIva").val());
@@ -6566,7 +6723,6 @@ async function apagaselecomp(tipo) {
       valbaseIca = valbaseIca + base;
       valreteIca = valreteIca + valorRetencion;
     });
-
 
     let rFte = retenciones.filter((retencion) => retencion.idRetencion == "1");
     let rIva = retenciones.filter((retencion) => retencion.idRetencion == "2");
@@ -6652,7 +6808,7 @@ async function valorRetencionesFolio(nroReserva, nroFolio, sinBase) {
 async function valorReteIcaFolio(nroReserva, nroFolio) {
   data = {
     nroReserva,
-    nroFolio
+    nroFolio,
   };
   try {
     const resultado = await fetch(`res/php/traeReteIcaValor.php`, {
@@ -6715,7 +6871,9 @@ const traeRetenciones = async () => {
 
 function anulaIngreso() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user:{ usuario, usuario_id } } = sesion;
+  let {
+    user: { usuario, usuario_id },
+  } = sesion;
 
   var pagina = $("#ubicacion").val();
   var numero = $("#txtIdReservaAnu").val();
@@ -6755,7 +6913,9 @@ function accesoUsuarios() {
   menuFicha = document.querySelectorAll("#menuFicha");
   btnAdiciona = document.querySelectorAll(".btnAdiciona");
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario, usuario_id, tipo }, } = sesion;
+  let {
+    user: { usuario, usuario_id, tipo },
+  } = sesion;
 
   if (tipo > 2) {
     document.querySelector("#menuAuditoria").classList.add("apaga");
@@ -6786,15 +6946,14 @@ function accesoUsuarios() {
 
 function seleccionaHuespedReserva(id, tarifa) {
   if (!tarifa) {
-    swal(
-      {
-        title: "Precaucion !",
-        text: `Huesped sin Tarifa Asociada \n No permitido Crear la Reserva !`,
-        type: "warning",
-        confirmButtonText: "Aceptar",
-        closeOnConfirm: false,
-      });
-    return
+    swal({
+      title: "Precaucion !",
+      text: `Huesped sin Tarifa Asociada \n No permitido Crear la Reserva !`,
+      type: "warning",
+      confirmButtonText: "Aceptar",
+      closeOnConfirm: false,
+    });
+    return;
   }
   var web = $("#webPage").val();
   var pagina = $("#ubicacion").val();
@@ -6808,7 +6967,6 @@ function seleccionaHuespedReserva(id, tarifa) {
     success: function (data) {
       $("#datosHuespedAdi").html(data);
       $("#tarifahab").val(tarifa);
-
     },
   });
 
@@ -6944,7 +7102,7 @@ function cierreDiario() {
               confirmButtonText: "Aceptar",
               closeOnConfirm: false,
             },
-            function () { }
+            function () {}
           );
         },
       });
@@ -6975,8 +7133,8 @@ function correProceso(procesor, correr, fecha, titulo, reporte) {
     $("#aviso").html("");
     $("#aviso").html(
       '<div><h4 class="bg-red-gradient" style="padding:10px">Proceso : <span style="font-size:24px;font-weight: 700;font-family: "ubuntu"">' +
-      titulo +
-      "</span> Ya Ejecutado</h4></div>"
+        titulo +
+        "</span> Ya Ejecutado</h4></div>"
     );
   } else {
     registrosImpresos;
@@ -6988,16 +7146,16 @@ function correProceso(procesor, correr, fecha, titulo, reporte) {
         $("#aviso").html("");
         $("#aviso").html(
           '<div><h4 class="bg-green-gradient" style="padding:10px">Ejecutando Proceso : <span style="font-size:24px;font-weight: 700;font-family: "ubuntu"">' +
-          titulo +
-          "</span></h4></div>"
+            titulo +
+            "</span></h4></div>"
         );
       },
       success: function () {
         $("#aviso").html("");
         $("#aviso").html(
           '<div><h4 class="bg-blue-gradient" style="padding:10px">Proceso : <span style="font-size:24px;font-weight: 700;font-family: "ubuntu"">' +
-          titulo +
-          "</span> Ejecutado Con Exito</h4></div>"
+            titulo +
+            "</span> Ejecutado Con Exito</h4></div>"
         );
       },
     });
@@ -7128,8 +7286,8 @@ function valorHabitacionAct(tarifa) {
   var hom = $("#hombresAct").val();
   var muj = $("#mujeresAct").val();
   var nin = $("#ninosAct").val();
-  let desde = $("#llegadaAct").val()
-  let hasta = $("#salidaAct").val()
+  let desde = $("#llegadaAct").val();
+  let hasta = $("#salidaAct").val();
 
   var habi = $("#tipoocupacionAct").val();
   if (hom + muj == 0) {
@@ -7162,7 +7320,9 @@ function valorHabitacionAct(tarifa) {
 
 function cambiaHabitacion() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario_id } } = sesion;
+  let {
+    user: { usuario_id },
+  } = sesion;
 
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
@@ -7209,7 +7369,7 @@ function seleccionaTarifasUpd() {
     type: "POST",
     url: "res/php/seleccionaTarifasUpd.php",
     data: parametros,
-    beforeSend: function (objeto) { },
+    beforeSend: function (objeto) {},
     success: function (data) {
       $("#tarifahabUpd option").remove();
       $("#tarifahabUpd").html(data);
@@ -7218,7 +7378,7 @@ function seleccionaTarifasUpd() {
 }
 
 function seleccionaHabitacionUpd(tipohab, anterior, numero, llega, sale) {
-  let tipo = document.querySelector('#tipohabiUpd').value
+  let tipo = document.querySelector("#tipohabiUpd").value;
   // console.log(tipo);
   var parametros = {
     tipo,
@@ -7231,7 +7391,7 @@ function seleccionaHabitacionUpd(tipohab, anterior, numero, llega, sale) {
     type: "POST",
     url: "res/php/seleccionaTipoHabitacion.php",
     data: parametros,
-    beforeSend: function (objeto) { },
+    beforeSend: function (objeto) {},
     success: function (data) {
       $("#nrohabitacionUpd option").remove();
       $("#nrohabitacionUpd").append(data);
@@ -7258,8 +7418,8 @@ function valorHabitacionUpd(tarifa) {
   var hom = $("#hombresUpd").val();
   var muj = $("#mujeresUpd").val();
   var nin = $("#ninosUpd").val();
-  let desde = $("#llegadaUpd").val()
-  let hasta = $("#salidaUpd").val()
+  let desde = $("#llegadaUpd").val();
+  let hasta = $("#salidaUpd").val();
 
   let valtar = $("#valortarifaUpd").val();
   if (hom + muj == 0) {
@@ -7283,14 +7443,14 @@ function valorHabitacionUpd(tarifa) {
       type: "POST",
       data: parametros,
       success: function (data) {
-        if ($.trim(data) === '-1') {
+        if ($.trim(data) === "-1") {
           swal({
             title: "Error!",
             text: "Sin Tarifa Asignada a Este Tipo de Habitacion \n Verifique las Fechas de la Reserva",
             type: "error",
             confirmButtonText: "Aceptar",
           });
-          return
+          return;
         }
         $("#valortarifaUpd").val(data);
       },
@@ -7315,7 +7475,9 @@ function updateCompania() {
 
 async function actualizaHuesped() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario, usuario_id, tipo }, } = sesion;
+  let {
+    user: { usuario, usuario_id, tipo },
+  } = sesion;
 
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
@@ -7404,7 +7566,9 @@ function actualizaCiaHuesped() {
 
 function imprimirRegistro(reserva, causar) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user:{ usuario } } = sesion;
+  let {
+    user: { usuario },
+  } = sesion;
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var parametros = {
@@ -7416,7 +7580,7 @@ function imprimirRegistro(reserva, causar) {
     type: "POST",
     data: parametros,
     url: web + "res/php/imprimeRegistro.php",
-    beforeSend: function (objeto) { },
+    beforeSend: function (objeto) {},
     success: function (datos) {
       var ventana = window.open(datos, "PRINT", "height=600,width=600");
     },
@@ -7427,7 +7591,9 @@ function anulaConsumos() {
   var web = $("#rutaweb").val();
 
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario, usuario_id }, } = sesion;
+  let {
+    user: { usuario, usuario_id },
+  } = sesion;
 
   var id = $("#txtIdConsumoAnu").val();
   var motivo = $("#txtMotivoAnula").val();
@@ -7461,7 +7627,7 @@ function modificaReserva(reserva) {
     type: "POST",
     data: parametros,
     url: web + "res/php/modificaReserva.php",
-    beforeSend: function (objeto) { },
+    beforeSend: function (objeto) {},
     success: function (datos) {
       $("#registroHotelero").html(datos);
       $(location).attr("href", web + pagina);
@@ -7471,7 +7637,9 @@ function modificaReserva(reserva) {
 
 function cargarHabitaciones() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario, usuario_id }, } = sesion;
+  let {
+    user: { usuario, usuario_id },
+  } = sesion;
   let web = $("#rutaweb").val();
   let pagina = $("#ubicacion").val();
   $("input:radio:checked").each(function () {
@@ -7503,7 +7671,9 @@ function cargarHabitaciones() {
 
 async function cargarHabitacionCkeckIn(cargar) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario, usuario_id }, } = sesion;
+  let {
+    user: { usuario, usuario_id },
+  } = sesion;
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   cargo = 1;
@@ -7589,7 +7759,9 @@ async function salidaHuesped() {
 
   var pago = $("#txtValorPago").val();
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario, usuario_id, tipo }, } = sesion;
+  let {
+    user: { usuario, usuario_id, tipo },
+  } = sesion;
 
   if (pago < saldo) {
     $("#mensajeSal").html(
@@ -7605,8 +7777,8 @@ async function salidaHuesped() {
       $("#cambio").css("display", "block");
       $("#cambio").html(
         '<label for="txtValorConsumo" class="col-sm-4 control-label">Cambio / Vueltas</label><div class="col-sm-6"><input style="font-size: 19px;font-weight: 600;color:brown" class="form-control padInput" type="number" readonly value="' +
-        cambio +
-        '"></div>'
+          cambio +
+          '"></div>'
       );
     }
 
@@ -7678,7 +7850,8 @@ async function salidaHuesped() {
     };
 
     let facturado = await enviaPago(parametros);
-    let { error, mensaje, factura, perfil, errorDian, archivo, folio } = facturado[0];
+    let { error, mensaje, factura, perfil, errorDian, archivo, folio } =
+      facturado[0];
     if (error == "1") {
       let muestra = await muestraError(mensaje);
     } else {
@@ -7739,11 +7912,10 @@ async function errorEnvio(cErrors) {
 async function muestraError(cErrors) {
   // console.log(cErrors)
   let { string } = cErrors;
-  let mensajeErr = '';
-  if (typeof cErrors == 'string') {
+  let mensajeErr = "";
+  if (typeof cErrors == "string") {
     mensajeErr += `<li class="justify">${cErrors}</li>`;
   } else {
-
     for (const campo in cErrors) {
       const errores = cErrors[campo];
       for (const error of errores) {
@@ -7752,8 +7924,8 @@ async function muestraError(cErrors) {
     }
   }
 
-  let mensajeError = document.querySelector('#mensajeSalida');
-  mensajeError.innerHTML = ''
+  let mensajeError = document.querySelector("#mensajeSalida");
+  mensajeError.innerHTML = "";
   mensajeError.innerHTML = `<div class="alert alert-warning" style="margin-bottom:0px">
   <h3 style="color:black !important;margin-top:0px;">
   <i class="fa-solid fa-circle-exclamation fa-2x" style="color:red;"></i>
@@ -7762,8 +7934,8 @@ async function muestraError(cErrors) {
   <h4 style="color: brown;font-weight: 700;font-size: 20px;text-align:center;">MOTIVO DEL RECHAZO</h4>
   <ul>
     ${mensajeErr}
-  </ul>`
-  return 0
+  </ul>`;
+  return 0;
 }
 
 const enviaPago = async (data) => {
@@ -7785,7 +7957,9 @@ const enviaPago = async (data) => {
 
 const anulaFacturaEnvio = async (factura, perfil) => {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario, usuario_id }, } = sesion;
+  let {
+    user: { usuario, usuario_id },
+  } = sesion;
 
   data = {
     factura,
@@ -7842,7 +8016,9 @@ function saldoReserva(reserva) {
 
 function guardaAgencia() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario, usuario_id } } = sesion;
+  let {
+    user: { usuario, usuario_id },
+  } = sesion;
 
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
@@ -7854,7 +8030,7 @@ function guardaAgencia() {
     type: "POST",
     data: parametros,
     url: "res/php/ingresoAgencia.php",
-    beforeSend: function (objeto) { },
+    beforeSend: function (objeto) {},
     success: function (datos) {
       $(location).attr("href", pagina);
     },
@@ -7892,7 +8068,7 @@ function ImprimeEstadoCuenta(reserva) {
     beforeSend: function (objeto) {
       $("#factura").html("Mensaje: Cargando ...");
     },
-    success: function (datos) { },
+    success: function (datos) {},
   });
 }
 
@@ -7930,7 +8106,9 @@ function saldoTotal(reserva) {
 
 function activaFolio(reserva, folio) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario, usuario_id, tipo }, } = sesion;
+  let {
+    user: { usuario, usuario_id, tipo },
+  } = sesion;
   let web = $("#rutaweb").val();
   let pagina = $("#ubicacion").val();
   let nrohabi = $("#nrohabitacion").val();
@@ -7969,7 +8147,9 @@ function activaFolio(reserva, folio) {
 }
 function movimientosFactura(reserva) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { tipo }, } = sesion;
+  let {
+    user: { tipo },
+  } = sesion;
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var parametros = { reserva, tipo };
@@ -7981,8 +8161,8 @@ function movimientosFactura(reserva) {
       $("#listado").html("");
       $("#listado").html(data);
       if (tipo == 1) {
-        btn = document.querySelector('#btnAjuste');
-        btn.classList.remove('apaga')
+        btn = document.querySelector("#btnAjuste");
+        btn.classList.remove("apaga");
       }
       activaFolio(reserva, 1);
     },
@@ -8024,54 +8204,52 @@ function getCiudadesPais(pais, city) {
   });
 }
 
-
 function apagaEstado(tipo) {
   if (tipo === 8 || tipo === 9) {
-
   }
 }
 
 function toggleNacionalFields(documentTypeId, codiPais, edita) {
   // Selecciona todos los elementos con la clase 'nacional'
   documentTypeId = parseInt(documentTypeId);
-  let depto
-  let pais
-  let tipo
-  let ciu
+  let depto;
+  let pais;
+  let tipo;
+  let ciu;
 
-  const nacionalFields = document.querySelectorAll('.nacional');
+  const nacionalFields = document.querySelectorAll(".nacional");
   if (edita === 0) {
-    depto = document.querySelector('#depto');
-    pais = document.querySelector('#paices');
-    tipo = document.querySelector('#tipoEmpresaAdi');
-    ciu = document.querySelector('#codigoCiiuAdi');
+    depto = document.querySelector("#depto");
+    pais = document.querySelector("#paices");
+    tipo = document.querySelector("#tipoEmpresaAdi");
+    ciu = document.querySelector("#codigoCiiuAdi");
   } else {
-    depto = document.querySelector('#deptoUpd');
-    pais = document.querySelector('#paicesUpd');
-    tipo = document.querySelector('#tipoEmpresaUpd');
-    ciu = document.querySelector('#codigoCiiuUpd');
+    depto = document.querySelector("#deptoUpd");
+    pais = document.querySelector("#paicesUpd");
+    tipo = document.querySelector("#tipoEmpresaUpd");
+    ciu = document.querySelector("#codigoCiiuUpd");
   }
 
   // Convierte el valor de string a número para la comparación
-  const isPerson = (documentTypeId === 8 || documentTypeId === 9);
+  const isPerson = documentTypeId === 8 || documentTypeId === 9;
   // Itera sobre los campos y los deshabilita si es una persona (CC o CE)
-  nacionalFields.forEach(field => {
+  nacionalFields.forEach((field) => {
     field.disabled = isPerson;
     // Para una mejor UX, también puedes cambiar el color de fondo para indicar que está deshabilitado
     if (isPerson) {
-      field.classList.add('bg-gray-100');
+      field.classList.add("bg-gray-100");
     } else {
-      field.classList.remove('bg-gray-100');
+      field.classList.remove("bg-gray-100");
     }
   });
   if (depto != null) {
     depto.disabled = !isPerson;
     if (!isPerson) {
-      depto.classList.add('bg-gray-100');
+      depto.classList.add("bg-gray-100");
       depto.value = "";
       pais.value = codiPais;
     } else {
-      depto.classList.remove('bg-gray-100');
+      depto.classList.remove("bg-gray-100");
       pais.disabled = false;
       tipo.value = "";
       ciu.value = "";
@@ -8086,19 +8264,18 @@ function toggleNacionalFields(documentTypeId, codiPais, edita) {
  */
 function cambiaEstadoCredito(value) {
   // Lógica para el estado de crédito
-  console.log(`Estado de crédito cambiado a: ${value === '1' ? 'Sí' : 'No'}`);
+  console.log(`Estado de crédito cambiado a: ${value === "1" ? "Sí" : "No"}`);
 }
 
 // Se ejecuta al cargar la página para establecer el estado inicial del formulario.
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   // Dispara la función con el valor inicial del select
-  initialDoc = document.querySelector("#tipodoc")
+  initialDoc = document.querySelector("#tipodoc");
   if (initialDoc) {
     const initialDocType = initialDoc.value;
     toggleNacionalFields(initialDocType);
   }
 });
-
 
 function getCiudadesPaisUpd(pais) {
   var web = $("#rutaweb").val();
@@ -8150,7 +8327,9 @@ function getCiudadesPaisAco(pais) {
 
 async function guardasinReserva() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario, usuario_id }, } = sesion;
+  let {
+    user: { usuario, usuario_id },
+  } = sesion;
   iden = $("#identifica").val();
 
   if (iden == "") {
@@ -8162,7 +8341,7 @@ async function guardasinReserva() {
   let reserva = document.querySelector("#formSinReserva");
   let formData = new FormData(reserva);
 
-  document.querySelector('#btnRegistra').setAttribute("disabled", pagina);
+  document.querySelector("#btnRegistra").setAttribute("disabled", pagina);
   let idhuesped = formData.get("idhuesped");
   let idcia = formData.get("empresaUpd");
 
@@ -8204,7 +8383,7 @@ async function ingresoSinReserva(data) {
     });
     const datos = await resultado.text();
     return datos;
-  } catch (error) { }
+  } catch (error) {}
 }
 
 async function validaDatosHuesped(id) {
@@ -8219,7 +8398,7 @@ async function validaDatosHuesped(id) {
     });
     const datos = await resultado.json();
     return datos;
-  } catch (error) { }
+  } catch (error) {}
 }
 
 async function validaDatosEmpresa(id) {
@@ -8234,7 +8413,7 @@ async function validaDatosEmpresa(id) {
     });
     const datos = await resultado.json();
     return datos;
-  } catch (error) { }
+  } catch (error) {}
 }
 
 function restaFechasOld() {
@@ -8339,7 +8518,9 @@ function asignaHuesped(reserva) {
 
 function ingresaAbonos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario, usuario_id }, } = sesion;
+  let {
+    user: { usuario, usuario_id },
+  } = sesion;
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var codigo = $("#codigoAbono").val();
@@ -8392,7 +8573,9 @@ function ingresaAbonos() {
 
 function ingresaConsumos() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario, usuario_id }, } = sesion;
+  let {
+    user: { usuario, usuario_id },
+  } = sesion;
   var congela = $("#cuentaCongelada").val();
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
@@ -8465,7 +8648,9 @@ function ingresaConsumos() {
 
 function ingresaReserva() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario, usuario_id }, } = sesion;
+  let {
+    user: { usuario, usuario_id },
+  } = sesion;
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var numero = $("#numeroReserva").val();
@@ -8521,7 +8706,9 @@ function imprimeDeposito(web, numero, pagina) {
 
 function cancelaReserva() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario, usuario_id }, } = sesion;
+  let {
+    user: { usuario, usuario_id },
+  } = sesion;
   var pagina = $("#ubicacion").val();
   var motivo = $("#motivoCancela").val();
   var numero = $("#txtIdReservaCan").val();
@@ -8590,7 +8777,9 @@ function buscaCompaniaActiva(iden) {
 
 function guardaCompania() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario, usuario_id } } = sesion;
+  let {
+    user: { usuario, usuario_id },
+  } = sesion;
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var parametros = $("#formCompania").serializeArray();
@@ -8603,7 +8792,7 @@ function guardaCompania() {
     data: parametros,
     url: "res/php/ingresoCompania.php",
     success: function (resp) {
-      respo = JSON.parse(resp)
+      respo = JSON.parse(resp);
       if (respo.id === "0") {
         swal({
           title: "Error!",
@@ -8645,7 +8834,7 @@ function buscaHuesped(id) {
     type: "POST",
     url: web + "res/php/seleccionaHuesped.php",
     data: parametros,
-    beforeSend: function (objeto) { },
+    beforeSend: function (objeto) {},
     success: function (data) {
       if (data == 0) {
         swal({
@@ -8663,10 +8852,12 @@ function buscaHuesped(id) {
 
 async function habitacionesDisponibles(estado) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { moduloPms: { fecha_auditoria } } = sesion;
-  let llega = estado == 1 ? $("#llegada").val() : $("#llegadaUpd").val()
-  let sale = estado == 1 ? $("#salida").val() : $("#salidaUpd").val()
-  let tipo = estado == 1 ? $("#tipohabi").val() : $("#tipohabiUpd").val()
+  let {
+    moduloPms: { fecha_auditoria },
+  } = sesion;
+  let llega = estado == 1 ? $("#llegada").val() : $("#llegadaUpd").val();
+  let sale = estado == 1 ? $("#salida").val() : $("#salidaUpd").val();
+  let tipo = estado == 1 ? $("#tipohabi").val() : $("#tipohabiUpd").val();
 
   var parametros = {
     llega,
@@ -8708,12 +8899,12 @@ async function habitacionesDisponibles(estado) {
 }
 
 async function llegaHabitacionesSele(habitaciones, estado) {
-  let selectElement
+  let selectElement;
   if (estado == 1) {
     selectElement = document.getElementById("nrohabitacion");
   } else {
     selectElement = document.getElementById("nrohabitacionUpd");
-    selectElement.removeAttribute('disabled');
+    selectElement.removeAttribute("disabled");
   }
   habitaciones.map((item) => {
     const optionElement = document.createElement("option");
@@ -8724,7 +8915,7 @@ async function llegaHabitacionesSele(habitaciones, estado) {
 }
 
 function limpiaSelect(estado) {
-  let selectElement
+  let selectElement;
   if (estado == 1) {
     selectElement = document.getElementById("nrohabitacion");
   } else {
@@ -8746,7 +8937,7 @@ async function traeHabitacionesDisp(data) {
     });
     const datos = await resultado.json();
     return datos;
-  } catch (error) { }
+  } catch (error) {}
 }
 
 async function traeHabitacionesMmto(data) {
@@ -8760,7 +8951,7 @@ async function traeHabitacionesMmto(data) {
     });
     const datos = await resultado.json();
     return datos;
-  } catch (error) { }
+  } catch (error) {}
 }
 
 async function traeHabitacionesSucias(data) {
@@ -8774,9 +8965,8 @@ async function traeHabitacionesSucias(data) {
     });
     const datos = await resultado.json();
     return datos;
-  } catch (error) { }
+  } catch (error) {}
 }
-
 
 async function traeReservasActuales(data) {
   try {
@@ -8789,7 +8979,7 @@ async function traeReservasActuales(data) {
     });
     const datos = await resultado.json();
     return datos;
-  } catch (error) { }
+  } catch (error) {}
 }
 
 function seleccionaHabitacion() {
@@ -8831,7 +9021,7 @@ function seleccionaDormitorio() {
     type: "POST",
     url: "res/php/seleccionaDormitorio.php",
     data: parametros,
-    beforeSend: function (objeto) { },
+    beforeSend: function (objeto) {},
     success: function (data) {
       $("#habitaciones").html(data);
     },
@@ -8877,7 +9067,7 @@ function seleccionaTarifas() {
     type: "POST",
     url: "res/php/seleccionaTarifas.php",
     data: parametros,
-    beforeSend: function (objeto) { },
+    beforeSend: function (objeto) {},
     success: function (data) {
       $("#tarifahab option").remove();
       $("#tarifahab").html(data);
@@ -8892,15 +9082,15 @@ function valorHabitacion(tarifa) {
   let hom = $("#hombres").val();
   let muj = $("#mujeres").val();
   let nin = $("#ninos").val();
-  let desde = $("#llegada").val()
-  let hasta = $("#salida").val()
+  let desde = $("#llegada").val();
+  let hasta = $("#salida").val();
 
   if (tipo == "") {
     swal("Precaucion", "Tipo de Habitacion no Asignado", "warning");
     return;
   }
 
-  if ((hom + muj == 0) && tipo > 1) {
+  if (hom + muj == 0 && tipo > 1) {
     swal({
       title: "Error!",
       text: "Sin Adultos en esta Reserva",
@@ -8908,7 +9098,7 @@ function valorHabitacion(tarifa) {
       confirmButtonText: "Aceptar",
     });
     $("#hombres").focus();
-    return
+    return;
   }
   var parametros = {
     tarifa,
@@ -8924,14 +9114,14 @@ function valorHabitacion(tarifa) {
     type: "POST",
     data: parametros,
     success: function (data) {
-      if ($.trim(data) === '-1') {
+      if ($.trim(data) === "-1") {
         swal({
           title: "Error!",
           text: "Sin Tarifa Asignada a Este Tipo de Habitacion \n Verifique las Fechas de la Reserva",
           type: "error",
           confirmButtonText: "Aceptar",
         });
-        return
+        return;
       }
       $("#valortar").val(data);
       $("#valortar").focus();
@@ -8946,7 +9136,9 @@ async function guardaReserva() {
     return;
   }
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario, usuario_id }, } = sesion;
+  let {
+    user: { usuario, usuario_id },
+  } = sesion;
   // let  = user;
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
@@ -9033,11 +9225,11 @@ function VentanaCentrada(
     theURL,
     winName,
     features +
-    (features != "" ? "," : "") +
-    "width=" +
-    myWidth +
-    ",height=" +
-    myHeight
+      (features != "" ? "," : "") +
+      "width=" +
+      myWidth +
+      ",height=" +
+      myHeight
   );
 }
 
@@ -9120,23 +9312,25 @@ function filePreview(input) {
     if (tipo == "application/pdf") {
       $("#form_fotos").append(
         "<div class='col-md-6' style='padding:0 15px'> <object style='width:100%;overflow:hidden' data='" +
-        objectUrl +
-        "'></object><div class='row-fluid'><button style='padding: 2px 10px;' class='btn btn-danger'><i class='fa fa-trash'></i></button></div></div>"
+          objectUrl +
+          "'></object><div class='row-fluid'><button style='padding: 2px 10px;' class='btn btn-danger'><i class='fa fa-trash'></i></button></div></div>"
       );
     } else {
       $("#form_fotos").append(
         "<div class='col-md-4' style='margin:10px 0 10px 0;padding:0'><img style='max-height:100px;margin:0;overflow:hidden' class='uploaded_foto img-thumbnail' src='" +
-        objectUrl +
-        "'/><div class='row-fluid'> <button style='margin-top: 5px;' class='btn btn-danger'><i class='fa fa-trash'></i></button></div></div>"
+          objectUrl +
+          "'/><div class='row-fluid'> <button style='margin-top: 5px;' class='btn btn-danger'><i class='fa fa-trash'></i></button></div></div>"
       );
     }
     window.URL.revokeObjectURL(fileList[i]);
   }
 }
 
-function reservasPorFecha() {
+async function reservasPorFecha() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario, usuario_id }, } = sesion;
+  let {
+    user: { usuario, usuario_id },
+  } = sesion;
   var web = $("#rutaweb").val();
   desdeFe = $("#desdeFecha").val();
   hastaFe = $("#hastaFecha").val();
@@ -9157,7 +9351,10 @@ function reservasPorFecha() {
       type: "POST",
       data: parametros,
       success: function (x) {
-        $(".imprimeInforme").html(x);
+        $("#imprimeInforme").html(x);
+        setTimeout(
+          muestraDataTable("#example1"), 500
+        )
       },
     });
   }
@@ -9183,7 +9380,7 @@ function verCargosFacturaHistorico(numero, reserva) {
   });
 }
 
-function muestraId(id) { }
+function muestraId(id) {}
 
 function imprimechequeCuenta(numero) {
   var cheque = "../pos/impresiones/ChequeCuenta_" + numero + ".pdf";
@@ -9192,7 +9389,9 @@ function imprimechequeCuenta(numero) {
 
 function ingresaDeposito() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario, usuario_id }, } = sesion;
+  let {
+    user: { usuario, usuario_id },
+  } = sesion;
 
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
@@ -9225,7 +9424,9 @@ function ingresaDeposito() {
 
 function subirArchivosCia() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario_id }, } = sesion;
+  let {
+    user: { usuario_id },
+  } = sesion;
 
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
@@ -9296,22 +9497,24 @@ function imprimirHistoricoRegistro(registro) {
         type: "error",
         confirmButtonText: "Aceptar",
       },
-      function () { }
+      function () {}
     );
   } else {
     $("#myModalverRegistroHotelero").modal("show");
     $("#verRegistroHotelero").attr(
       "data",
       "imprimir/registros/Registro_Hotelero_" +
-      registro.padStart(5, "0") +
-      ".pdf"
+        registro.padStart(5, "0") +
+        ".pdf"
     );
   }
 }
 
 function imprimirPreRegistro(reserva) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario } } = sesion;
+  let {
+    user: { usuario },
+  } = sesion;
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var parametros = {
@@ -9322,7 +9525,7 @@ function imprimirPreRegistro(reserva) {
     type: "POST",
     data: parametros,
     url: web + "imprimir/imprimePreRegistroHotelero.php",
-    beforeSend: function (objeto) { },
+    beforeSend: function (objeto) {},
     success: function (datos) {
       var ventana = window.open(
         "imprimir/registros/" + $.trim(datos),
@@ -9335,7 +9538,9 @@ function imprimirPreRegistro(reserva) {
 
 function confirmarReserva(reserva) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario }, } = sesion;
+  let {
+    user: { usuario },
+  } = sesion;
 
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
@@ -9360,7 +9565,9 @@ function confirmarReserva(reserva) {
 
 function imprimirOrdenM(orden) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario } } = sesion;
+  let {
+    user: { usuario },
+  } = sesion;
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var parametros = {
@@ -9371,7 +9578,7 @@ function imprimirOrdenM(orden) {
     type: "POST",
     data: parametros,
     url: web + "res/php/imprimeOrden.php",
-    beforeSend: function (objeto) { },
+    beforeSend: function (objeto) {},
     success: function (datos) {
       $("#imprimeMantenimiento").html(datos);
       $(location).attr("href", pagina);
@@ -9381,7 +9588,9 @@ function imprimirOrdenM(orden) {
 
 function terminaMmto() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario, usuario_id } } = sesion;
+  let {
+    user: { usuario, usuario_id },
+  } = sesion;
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var costo = $("#costoMmto").val();
@@ -9406,7 +9615,9 @@ function terminaMmto() {
 
 function adicionaObservacionMmto() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario, usuario_id } } = sesion;
+  let {
+    user: { usuario, usuario_id },
+  } = sesion;
 
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
@@ -9451,7 +9662,9 @@ function fechaReservasStr() {
 
 function guardaMantenimiento() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario, usuario_id } } = sesion;
+  let {
+    user: { usuario, usuario_id },
+  } = sesion;
 
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
@@ -9479,7 +9692,9 @@ function guardaMantenimiento() {
 
 function entregaObjeto() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user:{ usuario, usuario_id }, } = sesion;
+  let {
+    user: { usuario, usuario_id },
+  } = sesion;
 
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
@@ -9500,7 +9715,9 @@ function entregaObjeto() {
 
 function adicionaObservacionObjeto() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user:{ usuario } } = sesion;
+  let {
+    user: { usuario },
+  } = sesion;
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var id = $("#objetoObs").val();
@@ -9525,7 +9742,9 @@ function adicionaObservacionObjeto() {
 
 function guardaObjeto() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario, usuario_id }, } = sesion;
+  let {
+    user: { usuario, usuario_id },
+  } = sesion;
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var parametros = $("#formAdicionaObjetos").serializeArray();
@@ -9545,17 +9764,17 @@ function guardaObjeto() {
 
 async function cambiaEstadoAseo(habi, ocupada, sucia, estado) {
   if (estado == 0) {
-    actual = 'bg-limpia';
+    actual = "bg-limpia";
   } else {
-    actual = 'bg-sucia';
+    actual = "bg-sucia";
   }
 
   if (sucia == 0) {
-    color = 'bg-limpia';
-    categ = 'limpias';
+    color = "bg-limpia";
+    categ = "limpias";
   } else {
-    color = 'bg-sucia';
-    categ = 'sucias';
+    color = "bg-sucia";
+    categ = "sucias";
   }
 
   $.ajax({
@@ -9568,7 +9787,9 @@ async function cambiaEstadoAseo(habi, ocupada, sucia, estado) {
     success: function () {
       $("#" + habi).removeClass(actual);
       $("#" + habi).addClass(color);
-      sucia == 1 ? $('#' + habi).attr('category', 'sucias') : $('#' + habi).attr('category', 'limpias');
+      sucia == 1
+        ? $("#" + habi).attr("category", "sucias")
+        : $("#" + habi).attr("category", "limpias");
     },
   });
 }
@@ -9633,7 +9854,9 @@ function facturasPorImpuesto() {
 
 function facturasPorFecha() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario, usuario_id, tipo, contador }, } = sesion;
+  let {
+    user: { usuario, usuario_id, tipo, contador },
+  } = sesion;
 
   var web = $("#rutaweb").val();
   desdeFe = $("#desdeFecha").val();
@@ -9699,7 +9922,7 @@ async function generaInforme(data) {
     });
     const datos = await resultado.text();
     return datos.trim();
-  } catch (error) { }
+  } catch (error) {}
 }
 
 async function propinasPorFecha() {
@@ -9726,8 +9949,8 @@ function creaHTMLReportes(data, titulo) {
   $("#imprimeInforme").html(`
   <section class="content">
     <object type="application/pdf" id="verInforme" width="100%" height="500" data="data:application/pdf;base64,${$.trim(
-    data
-  )}"></object> 
+      data
+    )}"></object> 
   </section>`);
 }
 
@@ -9765,6 +9988,9 @@ function recibosPorFecha() {
       data: parametros,
       success: function (x) {
         $(".imprimeInforme").html(x);
+        setTimeout(
+          muestraDataTable('#dataTable')
+          ,500)
       },
     });
   }
@@ -9772,7 +9998,9 @@ function recibosPorFecha() {
 
 function validaCierreDiario() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario }, } = sesion;
+  let {
+    user: { usuario },
+  } = sesion;
   var pagina = $("#ubicacion").val();
   login = $("#login").val().toUpperCase();
   pass = $("#pass").val();
@@ -9827,7 +10055,9 @@ function validaCierreDiario() {
 
 function validaCierreCajero() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario }, } = sesion;
+  let {
+    user: { usuario },
+  } = sesion;
 
   var pagina = $("#ubicacion").val();
   login = $.trim($("#login").val().toUpperCase());
@@ -9864,7 +10094,9 @@ function validaCierreCajero() {
 
 function adicionaObservacion() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user:{ usuario }, } = sesion;
+  let {
+    user: { usuario },
+  } = sesion;
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var rese = $("#reservaObs").val();
@@ -9889,7 +10121,9 @@ function adicionaObservacion() {
 
 function subirArchivosOld() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario, usuario_id },} = sesion;
+  let {
+    user: { usuario, usuario_id },
+  } = sesion;
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
   var formData = new FormData($("#uploadFiles")[0]);
@@ -9912,7 +10146,9 @@ function subirArchivosOld() {
 
 function subirArchivos(e) {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario, usuario_id, tipo }, } = sesion;
+  let {
+    user: { usuario, usuario_id, tipo },
+  } = sesion;
 
   let id = document.querySelector("#txtIdHuespedUpl").value;
   let archivos = document.querySelector("#imgSelect").files;
@@ -9959,13 +10195,13 @@ function guardarFoto() {
   if (miFoto != "") {
     $("#tablaFotos >tbody").append(
       '<tr><td style="text-align:center"><img style="width: 120px;" src="' +
-      miFoto +
-      '" alt="" /></td></tr>'
+        miFoto +
+        '" alt="" /></td></tr>'
     );
     $("#tablaFotos >tbody").append(
       '<tr><td><label style="font-size:9px;text-align:justify" for="">Hora :' +
-      hora +
-      " </label></td></tr>"
+        hora +
+        " </label></td></tr>"
     );
     miFoto = $("#fotoTomada").attr("src", "");
   }
@@ -9973,7 +10209,9 @@ function guardarFoto() {
 
 function salidaHuespedCongelada() {
   sesion = JSON.parse(localStorage.getItem("sesion"));
-  let { user: { usuario, usuario_id }, } = sesion;
+  let {
+    user: { usuario, usuario_id },
+  } = sesion;
 
   var web = $("#rutaweb").val();
   var pagina = $("#ubicacion").val();
