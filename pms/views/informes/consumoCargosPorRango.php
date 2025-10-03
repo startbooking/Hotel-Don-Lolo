@@ -46,29 +46,8 @@ $inicial = date('Y-m-01', $dia);
                   ?>
                 </select>
               </div>
-              <div class="form-group">
-
-                <div class="table-responsive" style="padding:0">
-                  <div class="row-fluid" style="padding:0">
-                    <table id="example1" class="table table-bordered">
-                      <thead>
-                        <tr class="warning">
-                          <td>Fecha Cargo</td>
-                          <td>Consumo</td>
-                          <td>Valor</td>
-                          <td>Impuesto</td>
-                          <td>Total Cargo</td>
-                          <td>Habitacion</td>
-                          <td>Huesped</td>
-                          <td>Factura</td>
-                        </tr>
-                      </thead>
-                      <tbody class="imprimeInforme">
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
+            </div>
+            <div class="form-group" id="imprimeInforme">
             </div>
           </div>
         </div>

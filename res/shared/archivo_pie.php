@@ -10,9 +10,9 @@
           <img src="<?php echo BASE_IMG; ?>logopeq10.png" class="img-thumbnail" alt="" style="vertical-align:middle;margin-top: 0px;"> 
         </h6>
       </div>
-      <div class="col-xs-5" style="padding:5px;">
+      <div class="col-xs-5">
         <a target="blank" href="https://www.sactel.cloud">
-          <h6 class="pull-right" style="margin-top:5px;"> <strong class="badge btn btn-info" style="padding:5px;font-size:15px">SACTel Cloud</strong></h6>
+          <h6 class="pull-right"> <strong class="badge btn btn-info" style="padding:5px;">SACTel Cloud</strong></h6>
         </a>
       </div>
   </div>

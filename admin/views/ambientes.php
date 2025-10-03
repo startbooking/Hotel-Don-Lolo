@@ -65,32 +65,6 @@
                             title="Modificar el Ambiente Actual">
                             <i class='fa fa-pencil-square'></i>
                           </button>
-                          <!-- 
-                          <button type="button" class="btn btn-success btn-xs"
-                            data-toggle="modal"
-                            data-target="#myModalImprimeQR"
-                            data-id="<?php echo $ambiente['id_ambiente']; ?>" >
-                            <i class="fa-solid fa-qrcode"></i>
-                          </button>
-
-                          <button type="button" class="btn btn-warning btn-xs" 
-                            data-toggle ="modal" 
-                            data-target ="#myModalEliminaAmbiente" 
-                            data-id     ="<?php echo $ambiente['id_ambiente']; ?>" 
-                            data-desc   ="<?php echo $ambiente['nombre']; ?>" 
-                            data-pref   ="<?php echo $ambiente['prefijo']; ?>" 
-                            data-fact   ="<?php echo $ambiente['conc_factura']; ?>" 
-                            data-orde   ="<?php echo $ambiente['conc_orden']; ?>" 
-                            data-coma   ="<?php echo $ambiente['conc_comanda']; ?>" 
-                            data-impu   ="<?php echo $ambiente['impuesto']; ?>" 
-                            data-bode   ="<?php echo $ambiente['id_bodega']; ?>" 
-                            data-cent   ="<?php echo $ambiente['id_centrocosto']; ?>" 
-                            data-vent   ="<?php echo $ambiente['codigo_venta']; ?>" 
-                            data-prop   ="<?php echo $ambiente['codigo_propina']; ?>" 
-                            data-logo   ="<?php echo $ambiente['logo']; ?>" 
-                            title       ="Elimina el Ambiente Actual" >
-                            <i class='fa fa-trash'></i>
-                          </button> -->
                         </div>
                         <div class="btn-group" role="group" aria-label="">
                           <button type="button" class="btn btn-danger btn-xs"

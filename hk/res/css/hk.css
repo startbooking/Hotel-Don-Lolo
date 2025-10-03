@@ -1,0 +1,124 @@
+.small-box:hover {
+    transform: none;
+}
+
+.room-card {
+    padding: 2px;
+    margin: 2px;
+    color: #FFF !important;
+    /* Asegura que el texto dentro de la tarjeta de color se vea */
+    text-align: center;
+}
+
+/* Estilos de los títulos y contenido */
+.room-inner-content {
+    height: 108px;
+    /* Altura fija para evitar saltos de diseño */
+}
+
+.room-title,
+.room-description {
+    text-align: center;
+    margin: 2px 0;
+    font-weight: bold;
+    color: #000;
+    /* Color del texto del título/descripción */
+}
+
+.room-number {
+    font-size: 30px;
+    margin: 0;
+}
+
+/* Estilos del menú de navegación (dropdown) */
+.room-nav-menu {
+    margin-bottom: 0px;
+    min-height: 0px;
+}
+
+.room-nav-menu .navbar-collapse {
+    padding: 1px;
+}
+
+/* Estilos del botón del dropdown */
+.room-dropdown-toggle a {
+    font-size: 14px !important;
+    padding: 5px 2px !important;
+}
+
+.room-dropdown-toggle .caret {
+    margin-left: 10px;
+}
+
+/* Estilos del menú desplegable */
+.room-dropdown-menu {
+    /* Ajuste para Bootstrap: alinea a la derecha el menú si no hay suficiente espacio */
+    right: 0;
+    left: auto !important;
+    padding: 5px;
+    text-align: left;
+}
+
+.room-dropdown-menu li {
+    padding: 5px 0px;
+}
+
+.room-dropdown-menu a {
+    font-size: 14px;
+    white-space: nowrap;
+    /* Evita que el texto del enlace se rompa */
+}
+
+.room-dropdown-menu i {
+    margin-right: 5px;
+}
+
+.panel-heading h1 {
+    margin:10px;
+}
+
+
+.panel-heading {
+  background-image: linear-gradient(to bottom,#457fdb 0,#d0e9c6 100%) !important ;
+}
+
+.fw-700 {
+    font-weight:700;
+}
+
+
+.navbar-default {
+    background-image: linear-gradient(to bottom,#f8f8f8 0,#b5d4e3 100%);
+}
+@media (max-width: 480px) {
+    h6 {
+        margin:0
+    }
+    .small-box .dropdown.submenu.open .dropdown-menu {
+        z-index: 20;
+        position: absolute;
+        background: aliceblue;
+        margin: 0;
+        width: 100%;
+        color: #0009;
+    }
+    .navbar {
+        height: 3.6rem;
+        display: flex;
+    }
+
+    .pull-right {
+        text-align: left;
+        margin-top:10px;
+    }
+    footer a {
+        /* position: absolute; */
+    }
+    footer strong {
+        font-size: 10px;
+    }
+
+    .logopie {
+        display: none;
+    }
+}

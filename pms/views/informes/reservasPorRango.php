@@ -24,24 +24,24 @@
         <div class="panel-body">
           <div class="form-horizontal" style="padding: 10px 0px" >
             <div class="form-group">
-              <label class="control-label col-md-2">Desde Fecha</label>
+              <label class="control-label col-md-3">Desde Fecha</label>
               <div class="col-lg-3 col-md-3">
                 <input class="form-control" type="date" min="1" name="desdeFecha" id='desdeFecha' value='<?= $inicial ?>' max="<?= $ayer ?>">
               </div>
-              <label class="control-label col-md-2">Hasta Fecha</label>
+              <label class="control-label col-md-1">Hasta Fecha</label>
               <div class="col-lg-3 col-md-3">
                 <input class="form-control" type="date" min="1" name="hastaFecha" id='hastaFecha' value='<?= $ayer ?>' max="<?= $ayer ?>">
               </div>
             </div>
             <div class="form-group">
-              <label class="control-label col-md-2">Huesped</label>
-              <div class="col-lg-6 col-md-6">
+              <label class="control-label col-md-3">Huesped</label>
+              <div class="col-lg-7 col-md-7">
                 <input class="form-control" type="text" name="desdeHuesped" id='desdeHuesped' value=''>
               </div>
-              <label class="control-label col-md-2">Habitacion</label>
+              <!-- <label class="control-label col-md-2">Habitacion</label>
               <div class="col-lg-2 col-md-2">
                 <input class="form-control" type="text" name="nroHab" id='nroHab' value=''>
-              </div>
+              </div> -->
             </div>
           </div>
           <div class="row-fluid"  id="imprimeInforme"></div>

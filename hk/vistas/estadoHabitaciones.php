@@ -1,10 +1,6 @@
 <?php
-// vistas/estadoHabitaciones.php
-
-// Asegura que la variable $rooms está definida antes de usarla
 if (!isset($rooms)) {
-    // Maneja el error si la vista se carga sin el controlador
-    die('Error: Datos de habitaciones no disponibles.');
+  die('Error: Datos de habitaciones no disponibles.');
 }
 ?>
 <!DOCTYPE html>
@@ -24,8 +20,8 @@ if (!isset($rooms)) {
             <div class="panel-heading">
                 <input type="hidden" id="rutaweb" value="<?= htmlspecialchars(BASE_PMS) ?>">
                 <input type="hidden" id="ubicacion" value="estadoHabitaciones">
-                <h1 class="text-center" style="font-size:34px;text-center;">Estado Habitaciones</h1>
-                <div class="container-fluid pd0">
+                <h1 class="text-center sombraBlanca fw-700" style="font-size:34px;text-center;">Estado Habitaciones</h1>
+                <div class="container-fluid pd0" style="margin:0px;">
                     <?php
                     $leyenda = [
                         'Limpia Vacante' => 'bg-limpiaVac',
@@ -38,7 +34,7 @@ if (!isset($rooms)) {
                     foreach ($leyenda as $texto => $clase):
                     ?>
                         <div class="col-xs-6 col-md-2 <?= htmlspecialchars($clase) ?>" style="padding:8px;font-weight: 600;">
-                            <span class="info-box-text text-center" style="color:#000"><?= htmlspecialchars($texto) ?></span>
+                            <span class="info-box-text text-center sombraBlanca" style="color:#000"><?= htmlspecialchars($texto) ?></span>
                         </div>
                     <?php endforeach; ?>
                 </div>
@@ -56,7 +52,7 @@ if (!isset($rooms)) {
                                 <ul class="nav navbar-nav">
                                     <li class="dropdown submenu">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="font-size:14px ">Estado Habitacion<span class="caret" style="margin-left:10px"></span></a>
-                                        <ul class="dropdown-menu" style="left: 120px;padding:5px,">
+                                        <ul class="dropdown-menu" style="padding:5px;">
                                             <?php
                                             $estados = [
                                                 'LO' => 'Limpia Ocupada',

@@ -2915,7 +2915,7 @@ function consumosPorFecha() {
       type: "POST",
       data: parametros,
       success: function (x) {
-        $(".imprimeInforme").html(x);
+        $("#imprimeInforme").html(x);
         setTimeout(
           muestraDataTable('#example1')
           ,500)

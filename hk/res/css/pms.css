@@ -77,7 +77,7 @@ body {
 .small-box:hover {
     /* transform: translateY(-5px); */
 	transform: none;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); */
 }
 
 .small-box .inner {
@@ -101,27 +101,35 @@ body {
 }
 
 .bg-limpiaVac {
-    background-color: #00a65a; /* Verde */
+
+    background-color: #2ecc71; /* Verde */
+    /* background-color: #00a65a; Verde */
 }
 
 .bg-limpiaOcu {
-    background-color: #f39c12; /* Naranja */
+    background-color: #3498db; /* Naranja */
+    /* background-color: #f39c12; Naranja */
 }
 
 .bg-suciaVac {
-    background-color: #00c0ef; /* Azul Claro */
+    background-color: #f1c40f; /* Azul Claro */
+    /* background-color: #00c0ef; Azul Claro */
 }
 
 .bg-suciaOcu {
-    background-color: #3c8dbc; /* Azul Oscuro */
+    background-color: #e67e22; /* Azul Oscuro */
+    /* background-color: #3c8dbc; Azul Oscuro */
 }
 
 .bg-maroon {
-    background-color: #d53982; /* Granate (para 'Fuera de Orden') */
+    
+    background-color: #e74c3c; /* Granate (para 'Fuera de Orden') */
+    /* background-color: #d53982; Granate (para 'Fuera de Orden') */
 }
 
 .bg-red {
-    background-color: #dd4b39; /* Rojo (para 'Fuera de Servicio') */
+    background-color: #9b59b6; /* Rojo (para 'Fuera de Servicio') */
+    /* background-color: #dd4b39; Rojo (para 'Fuera de Servicio') */
 }
 
 /* --- Estilos del Menú Desplegable --- */
@@ -217,7 +225,7 @@ body {
 .small-box .dropdown-menu > li > a {
     display: block;
     padding: 8px 12px;
-    font-size: 16px;
+    font-size: 13px;
     color: #333;
     text-decoration: none;
     white-space: nowrap;

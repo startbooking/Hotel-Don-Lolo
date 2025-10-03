@@ -12,7 +12,7 @@ require_once 'res/php/utilities.php';
   <?php include_once("../res/shared/archivo_head.php") ?>
   <link rel="stylesheet" type="text/css" href="../res/css/style.css">
   <link rel="stylesheet" type="text/css" href="../pms/res/css/pms.css">
-  <!-- <link rel="stylesheet" type="text/css" href="res/css/pms.css"> -->
+  <link rel="stylesheet" type="text/css" href="res/css/hk.css">
 </head>
 
 <body class="skin-red sidebar-mini">
