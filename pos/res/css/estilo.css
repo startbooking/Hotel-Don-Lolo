@@ -3,8 +3,10 @@
 }
 
 #pantalla {
-  align-items: center; /* Esto alinea los elementos verticalmente */
-  justify-content: center; /* Esto alinea los elementos horizontalmente */
+  align-items: center;
+  /* Esto alinea los elementos verticalmente */
+  justify-content: center;
+  /* Esto alinea los elementos horizontalmente */
 }
 
 .btn-toolbar {
@@ -139,7 +141,7 @@ td span .alert {
 }
 
 .btnPos::hover {
-  color:#000;
+  color: #000;
 }
 
 .tablas {
@@ -177,6 +179,7 @@ td span .alert {
   margin-left: -4px;
   font-size: 14px;
 }
+
 .btnInfoCom h3 {
   font-weight: bold;
   font-size: 15px;
@@ -200,6 +203,7 @@ td span .alert {
 .btn-group-vertical {
   display: contents;
 }
+
 .btnInfoCom h4 {
   font-weight: bold;
   font-size: 12px;
@@ -260,7 +264,7 @@ td span .alert {
   font-size: 12px;
 }
 
-.btn-group > btn {
+.btn-group>btn {
   font-size: 12px;
   padding: 5px;
 }
@@ -270,6 +274,7 @@ td span .alert {
   padding: 5px;
   width: 50%;
 }
+
 .avisoVta {
   font-size: 28px;
   text-align: center;
@@ -289,34 +294,35 @@ td span .alert {
   background-color: #faf705;
 }
 
-.table > tfoot > tr > td,
-.table > tfoot > tr > th {
+.table>tfoot>tr>td,
+.table>tfoot>tr>th {
   font-size: 12px;
   border: 1px solid #d7d5d5;
 }
 
-.table > thead > tr > td,
-.table > thead > tr > th {
+.table>thead>tr>td,
+.table>thead>tr>th {
   font-size: 15px;
 }
-.table > thead > tr > th {
+
+.table>thead>tr>th {
   font-weight: 700;
   text-align: center;
 }
 
-.table-striped > tbody > tr:nth-of-type(2n + 1) {
+.table-striped>tbody>tr:nth-of-type(2n + 1) {
   background-color: #eeebeb;
 }
 
-.table > tbody > tr > td,
-.table > tbody > tr > th {
+.table>tbody>tr>td,
+.table>tbody>tr>th {
   /* padding: 2px 0 2px 4px; */
   line-height: 0.85;
   vertical-align: middle;
   /* font-size: 11px; */
 }
 
-.comandaDiv > tbody > tr > td {
+.comandaDiv>tbody>tr>td {
   padding: 3px;
 }
 
@@ -333,15 +339,15 @@ td span .alert {
   word-spacing: 7px;
 }
 
-.table-bordered > thead > tr > th,
-.table-bordered > thead > tr > td {
+.table-bordered>thead>tr>th,
+.table-bordered>thead>tr>td {
   padding: 5px !important;
 }
 
-.table-bordered > tbody > tr > th,
-.table-bordered > tbody > tr > td,
-.table-bordered > tfoot > tr > th,
-.table-bordered > tfoot > tr > td {
+.table-bordered>tbody>tr>th,
+.table-bordered>tbody>tr>td,
+.table-bordered>tfoot>tr>th,
+.table-bordered>tfoot>tr>td {
   /* padding: 3px 5px !important; */
 }
 
@@ -433,10 +439,147 @@ form textarea {
   float: right;
 }
 
-.btn-group-xs > .btn,
+.btn-group-xs>.btn,
 .btn-xs {
   font-size: 13px;
 }
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
+  /* padding: 20px; */
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  background: #fff;
+  /* padding: 30px; */
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* h1 {
+  text-align: center;
+  color: #007bff;
+  margin-bottom: 25px;
+} */
+
+/* Sección de Selección */
+.selection-section {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.selection-section label {
+  font-weight: bold;
+  margin-right: 15px;
+}
+
+.selection-section select {
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  width: 300px;
+}
+
+/* Resumen de Rentabilidad (KPIs) */
+.summary-box {
+  border: 2px solid #007bff;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  text-align: center;
+}
+
+.kpi {
+  background-color: #e9f5ff;
+  padding: 15px;
+  border-radius: 6px;
+}
+
+.kpi .label {
+  display: block;
+  font-size: 0.9em;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.kpi .value {
+  font-size: 1.8em;
+  font-weight: bold;
+  display: block;
+}
+
+.kpi .unit-label {
+  font-size: 0.8em;
+  color: #999;
+}
+
+.margin-kpi {
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+}
+
+/* Destacar Margen */
+.margin-kpi .value {
+  color: #155724;
+}
+
+.price {
+  color: #28a745;
+}
+
+.cost {
+  color: #dc3545;
+}
+
+/* Desglose del Costo */
+.cost-breakdown {
+  margin-top: 30px;
+  /* border: 1px solid #ccc; */
+}
+
+#costoTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+#costoTable th{
+  border: 1px solid #ddd;
+  /* text-align: center; */
+  padding:10px;
+
+}
+
+#costoTable td {
+  border: 1px solid #ddd;
+  padding: 6px 12px;
+  /* text-align: right; */
+}
+
+#costoTable th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+  color: #333;
+}
+
+.total-row td {
+  background-color: #e9ecef;
+  font-weight: bold;
+}
+
+.total-row td:last-child {
+  color: #007bff;
+  font-size: 1.1em;
+}
+
 
 @media (max-width: 1200px) {
   .btnPos {
@@ -458,6 +601,7 @@ form textarea {
     font-size: 15px;
     font-weight: 600;
   }
+
   .comanda tr td {
     /* font-weight: bold; */
     font-weight: 400;
@@ -554,8 +698,8 @@ form textarea {
     margin-top: 10px;
   }
 
-  .table > thead > tr > td,
-  .table > thead > tr > th {
+  .table>thead>tr>td,
+  .table>thead>tr>th {
     font-size: 12px;
   }
 
@@ -580,6 +724,7 @@ form textarea {
   .btn {
     width: 33%;
   }
+
   #Escritorio {
     margin-left: 50px;
   }

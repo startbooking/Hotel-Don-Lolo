@@ -1187,6 +1187,8 @@ class Pos_Actions
         $data = $database->select('recetasEstandar', [
             'id_receta',
             'nombre_receta',
+            'valor_porcion',
+
         ], [
             'estado' => 1,
             'ORDER' => ['nombre_receta' => 'ASC'],
@@ -2335,7 +2337,7 @@ class Pos_Actions
         return $data;
     }
 
-    public function actualizaProducto($id, $producto, $codigo, $seccion, $venta, $impto, $tipo, $receta, $unidad)
+    public function actualizaProducto($id, $producto, $codigo, $seccion, $venta, $impto, $tipo, $receta, $unidad, $descripcion, $recomendado, $foto)
     {
         global $database;
 
@@ -2346,8 +2348,11 @@ class Pos_Actions
             'cod' => $codigo,
             'seccion' => $seccion,
             'tipo_producto' => $tipo,
+            'descripcion_plato' => $descripcion,
+            'plato_recomendado' => $recomendado,
             'id_receta' => $receta,
             'id_unidad_dian'  => $unidad,
+            'imagen' => $foto,
         ], [
             'producto_id' => $id,
         ]);
@@ -2372,6 +2377,9 @@ class Pos_Actions
             'tipo_producto',
             'ambiente',
             'active_at',
+            'plato_recomendado',
+            'descripcion_plato',
+            'imagen',
         ], [
             'producto_id' => $id,
         ]);
@@ -3590,7 +3598,7 @@ class Pos_Actions
         return $data->rowCount();
     }
 
-    public function adicionaProducto($producto, $codigo, $seccion, $venta, $impto, $tipo, $receta, $idamb, $unidad)
+    public function adicionaProducto($producto, $codigo, $seccion, $venta, $impto, $tipo, $receta, $idamb, $unidad, $descripcion, $recomendado, $foto)
     {
         global $database;
 
@@ -3606,6 +3614,9 @@ class Pos_Actions
             'id_receta' => $receta,
             'ambiente' => $idamb,
             'id_unidad_dian' => $unidad,
+            'descripcion_plato' => $descripcion,
+            'plato_recomendado' => $recomendado,
+            'imagen' => $foto,
             'created_at' => date('Y-m-d H:i:s'),
         ]);
 
@@ -3663,6 +3674,8 @@ class Pos_Actions
             'producto.seccion',
             'producto.estado',
             'producto.tipo_producto',
+            'producto.plato_recomendado',
+            'producto.descripcion_plato',
             'producto.ambiente',
             'producto.active_at',
             'dianUnidades.name',

@@ -44,7 +44,7 @@ $imptos = $pos->getImpuestos();
               foreach ($tipos as $tipo) { ?>
                 <option value="<?php echo $tipo['id_seccion']; ?>"
                   <?php
-                  if ($tipo['id_seccion'] = $updateRec['id_seccion']) { ?>
+                  if ($updateRec['id_seccion'] == $tipo['id_seccion']) { ?>
                   selected
                   <?php
                   }
@@ -95,20 +95,6 @@ $imptos = $pos->getImpuestos();
             <input type="number" min='1' class="form-control" id="tiempo" name="tiempo" required maxlength="12" value="<?php echo $updateRec['duracion_prep']; ?>">
           </div>
         </div>
-        <!-- 
-          <div class="col-md-12">
-          </div> 
-          <div class="col-md-3">
-            <?php
-            if ($updateRec['foto'] == '') { ?>
-              <img style="margin-top: 0px;width: 140px;float: right;" src="/img/noimage.png" class="img-thumbnail" alt="">
-              <?php
-            } else { ?>
-              <img style="margin-top:0px" src="images/<?php echo $updateRec['foto']; ?>" class="img-thumbnail" alt="">
-              <?php
-            }
-              ?>
-          </div> -->
       </div>
       <div class="form-group pd10">
         <label for="preparacion" class="control-label col-lg-2  col-md-2">Preparacion</label>
@@ -127,9 +113,7 @@ $imptos = $pos->getImpuestos();
     </div>
     <div class="tab-pane" id="foto">
       <div id="foto-container" class="bg-white rounded-xl shadow-lg p-6 w-full flex flex-col items-center justify-center">
-        <!-- El elemento div con el id 'foto' es donde se mostrará la imagen. -->
         <div id="foto" class="centrar">
-            <!-- La imagen se inyectará aquí a través de JavaScript -->
             <?php
             if ($updateRec['foto'] == '') { ?>
               <img style="margin-top: 0px;height:300px;" src="/img/noimage.png" class="img-thumbnail" alt="">

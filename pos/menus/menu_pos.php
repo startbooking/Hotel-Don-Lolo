@@ -13,12 +13,104 @@
           <li>
             <a class="menuPpal" onclick="clientes()"><i class="fa fa-address-card" aria-hidden="true"></i> Clientes</a>
           </li>
-          <li>
+          <!-- <li>
             <a class="menuPpal" onclick="recetas()"><i class="fa fa-pie-chart" aria-hidden="true"></i> Recetas</a>
-          </li>
+          </li> -->
           <li>
             <a class="menuPpal" onclick="productos()"><i class="fa fa-coffee" aria-hidden="true"></i> Productos</a>
           </li>
+          <li class="treeview" id="menuInfo" style="display: none;">
+          <a href="#">
+            <i class="fa fa-print"></i> <span>Recetas Estandar</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu menu-open">
+            <li>
+              <a class="menuPpal" onclick="recetas()"><i class="fa fa-pie-chart" aria-hidden="true"></i> Recetas</a>
+            </li>
+            <li>
+              <a class="menuPpal" onclick="implosion()"><i class="fa fa-pie-chart" aria-hidden="true"></i> Implosión de Insumos</a>
+            </li>
+            <li>
+              <a class="menuPpal" onclick="margenProducto()"><i class="fa fa-pie-chart" aria-hidden="true"></i> Margen de Producto</a>
+            </li>
+            
+            <!-- <li class="" id="menuDiar" style="display: none;">
+              <a href="#"><i class="fa fa-print" aria-hidden="true"></i> Movimientos Diarios <i class="fa fa-angle-left pull-right"></i></a>
+              <ul class="treeview-menu">
+                <li>
+                  <a class="menuPpal" onclick="balanceCaja()"><i class="fa fa-users"></i> Balance de Caja</a>
+                </li>
+                <li>
+                  <a class="menuPpal" onclick="ventasDiaAuditoria()">
+                    <i class="fa-solid fa-money-bill"></i> Ventas del Dia</a>
+                </li>
+                <li>
+                  <a class="menuPpal" onclick="ventasCreditoDia()">
+                    <i class="fa-solid fa-money-bill"></i> Ventas Empleados</a>
+                </li>
+                <li>
+                  <a class="menuPpal" onclick="cuentasActivasAuditoria()"><i class="fa fa-calendar"></i> Comandas Activas</a>
+                </li>
+                <li>
+                  <a class="menuPpal" onclick="cuentasAnuladasAuditoria()"><i class="fa fa-calendar"></i> Comandas Anuladas</a>
+                </li>
+                <li>
+                  <a class="menuPpal" onclick="devolucionProductos()"><i class="fa fa-calendar"></i> Devolucion Productos</a>
+                </li>
+                <li>
+                  <a class="menuPpal" onclick="ventasFormaPago()"><i class="fa fa-clone"></i> Ventas por Forma de Pago</a>
+                </li>
+                <li>
+                  <a class="menuPpal" onclick="ventasProducto()"><i class="fa fa-clone"></i> Ventas por Productos</a>
+                </li>
+                <li>
+                  <a class="menuPpal" onclick="ventasGrupos()"><i class="fa fa-clone"></i> Ventas por Grupo de Producto</a>
+                </li>
+                <li>
+                  <a class="menuPpal" onclick="ventasPorPeriodo()"><i class="fa fa-clone"></i> Ventas por Periodo de Servicio</a>
+                </li>
+                <li>
+                  <a class="menuPpal" onclick="diaPlanillaDesayunos()"><i class="fa fa-clone"></i> Planilla de Desayunos</a>
+                </li>
+              </ul>
+            </li>
+            <li id="menuHist" style="display: none;">
+              <a href="#">
+                <i class="fa fa-history" aria-hidden="true"></i>
+                Historico Movimientos
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li>
+                  <a class="menuPpal" onclick="balanceHistorico()"><i class="fa fa-users"></i>Historico Balance de Caja</a>
+                </li>
+                <li>
+                  <a class="menuPpal" onclick="ventasHistoricoProductos()">
+                    <i class="fa-regular fa-file"></i>Historico Productos</a>
+                </li>
+                <li>
+                  <a class="menuPpal" onclick="historicoPlanillaDesayunos()">
+                    <i class="fa-regular fa-file"></i>Historico Planilla Desayunos</a>
+                </li>
+                <li>
+                  <a class="menuPpal" onclick="ventasHistoricoGrupos()">
+                    <i class="fa fa-clone"></i> Historico por Grupo de Producto</a>
+                </li>
+                <li>
+                  <a class="menuPpal" onclick="ventasHistoricoFormaPago()"><i class="fa fa-clone"></i> Historico Forma de Pago</a>
+                </li>
+                <li>
+                  <a class="menuPpal" onclick="ventasHistoricoPeriodos()">
+                    <i class="fa-regular fa-file"></i>Historico Periodos de Servicio </a>
+                </li>
+                <li><a class="menuPpal" onclick="historicoCajeros()"><i class="fa-regular fa-file"></i>Historico Cajeros</a></li>
+                <li><a class="menuPpal" onclick="historicoListadoFacturas()"><i class="fa-regular fa-file"></i>Historico Facturas</a></li>
+                <li><a class="menuPpal" onclick="historicoAuditorias()"><i class="fa fa-calendar"></i> Historico Auditorias</a></li>
+              </ul>
+            </li> -->
+          </ul>
+        </li>
         </ul>
       </li>
       <li id="menuVenta" style="display:none">

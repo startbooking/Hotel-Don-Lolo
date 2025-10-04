@@ -22,6 +22,15 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   let ingreso = await ingresoPos();
   let validaVe = await validaVentana();
+
+
+  // modalAdicionaProducto
+  $("#modalAdicionaProducto").on("show", function (event) {
+    console.log('ENtro a Modal Productos')
+    form = document.querySelector('#guardarDatosProducto')
+    form.reset();
+  });
+
 });
 
 function botonEliminaProductoDivi(
@@ -63,7 +72,7 @@ function botonEliminaProductoDivi(
     totalProductos[existe].valorimpto =
       totalProductos[existe].importe * totalProductos[existe].cant -
       (totalProductos[existe].importe * totalProductos[existe].cant) /
-        (1 + totalProductos[existe].impto / 100);
+      (1 + totalProductos[existe].impto / 100);
   }
 
   localStorage.setItem("productoComanda", JSON.stringify(totalProductos));
@@ -206,7 +215,7 @@ function botonDivideComanda(
     nuevaComanda[existe].valorimpto =
       nuevaComanda[existe].importe * nuevaComanda[existe].cant -
       (nuevaComanda[existe].importe * nuevaComanda[existe].cant) /
-        (1 + nuevaComanda[existe].impto / 100);
+      (1 + nuevaComanda[existe].impto / 100);
   }
   localStorage.setItem("nuevaComanda", JSON.stringify(nuevaComanda));
 
@@ -229,7 +238,7 @@ function botonDivideComanda(
       totalProductos[exis].valorimpto =
         totalProductos[exis].importe * totalProductos[exis].cant -
         (totalProductos[exis].importe * totalProductos[exis].cant) /
-          (1 + totalProductos[exis].impto / 100);
+        (1 + totalProductos[exis].impto / 100);
     }
   }
 
@@ -641,9 +650,7 @@ $(document).ready(function () {
 
   $("#modalConsultaKardex").on("show.bs.modal", function (event) {
     sesion = JSON.parse(localStorage.getItem("sesion"));
-    let {
-      user: { usuario, usuario_id, tipo },
-    } = sesion;
+    let { user: { usuario, usuario_id, tipo }, } = sesion;
     var button = $(event.relatedTarget);
     var producto = button.data("id");
     var bodega = button.data("bodega");
@@ -672,6 +679,14 @@ $(document).ready(function () {
     console.log('Entro a MOdal Receta Producto');
     // Aquí va el código a ejecutar cuando se dispara el evento de cerrar la ventana modal
   });
+
+  $("#modalAdicionaProducto").on("show", function (event) {
+    console.log('ENtro a Modal Productos Dos Docuemtno')
+    form = document.querySelector('#guardarDatosProducto')
+    form.reset();
+  });
+
+
 });
 
 async function guardaSubReceta() {
@@ -2238,7 +2253,6 @@ async function saleMP() {
       }
     );
     const datos = await resultado.json();
-    // return datos;
   } catch (error) {
     console.log(error);
   }
@@ -2311,9 +2325,7 @@ function btnEliminaReceta(id) {
 
 function recetas() {
   oPos = JSON.parse(localStorage.getItem("oPos"));
-  let {
-    user: { usuario_id, usuario },
-  } = sesion;
+  let { user: { usuario_id, usuario }, } = sesion;
   let { id_ambiente, nombre, propina, fecha_auditoria, impuesto } = oPos;
 
   parametros = {
@@ -2345,13 +2357,136 @@ function recetas() {
   });
 }
 
+async function margenProducto() {
+  let pantalla = await traeInfoPantalla();
+  let mostrar = document.querySelector('#pantalla')
+  mostrar.innerHTML = pantalla
+  let recetas = await traeRecetasEstandar();
+  console.log(recetas);
+  let muestra = cargarRecetasEnSelect(recetas, '#recetas_estandar');
+}
+
+async function traeInfoPantalla() {
+  url = 'views/margenProducto.php';
+  try {
+    let response = await fetch(url, {
+      headers: {
+        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
+    });
+    let respo = await response.text();
+    return respo
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+async function traeRecetasEstandar() {
+  url = 'res/php/user_actions/getRecetas.php';
+  try {
+    let response = await fetch(url, {
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    });
+    let respo = await response.json();
+    return respo
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+async function traeProductosReceta(ptId) {
+  url = 'res/php/user_actions/getRecetas.php';
+  try {
+    let response = await fetch(url, {
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    });
+    let respo = await response.json();
+    return respo
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+function cargarRecetasEnSelect(recetas, selectId) {
+  const selectElement = document.querySelector(selectId);
+
+  if (!selectElement) {
+    console.error(`Error: El elemento select con ID "${selectId}" no fue encontrado.`);
+    return;
+  }
+  selectElement.innerHTML = '<option value="">-- Seleccione una Receta --</option>';
+  recetas.forEach((receta) => {
+    const { id_receta, nombre_receta, valor_porcion } = receta;
+    const option = document.createElement("option");
+    option.value = id_receta;
+    option.textContent = nombre_receta;
+    selectElement.appendChild(option);
+  });
+}
+
+async function cargarDatosAnalisis() {
+  const ptId = document.getElementById('recetas_estandar').value;
+  const analisisArea = document.getElementById('analisis_area');
+
+  if (!ptId) {
+    analisisArea.style.display = 'none';
+    return;
+  }
+
+  let productos = await traeProductosRecetas(ptId);
+  console.log(productos);
+
+  // const data = DATOS_PRODUCTOS[ptId];
+  analisisArea.style.display = 'block';
+
+  let costoTotalProduccion = 0;
+  const tablaBody = document.querySelector('#costoTable tbody');
+  tablaBody.innerHTML = ''; // Limpiar filas anteriores
+
+  // 1. Llenar la tabla de desglose de costos
+  productos.forEach(item => {
+    const costoTotalItem = item.cantidad * item.valor_promedio;
+    costoTotalProduccion += costoTotalItem;
+    const row = tablaBody.insertRow();
+    row.innerHTML = `
+            <td class="izquierda">${item.nombre_producto} (${item.tipo})</td>
+            <td>${item.descripcion_unidad}</td>
+            <td class="derecha">${number_format(item.cantidad,2)}</td>
+            <td class="derecha">$ ${number_format(item.valor_promedio,2)}</td>
+            <td class="derecha">$ ${number_format(costoTotalItem,2)}</td>
+        `;
+  });
+
+  // 2. Calcular y mostrar KPIs
+  const pvs = productos.pvs;
+  const margenUnitario = pvs - costoTotalProduccion;
+  const margenPorcentaje = (margenUnitario / pvs) * 100;
+
+  // 3. Actualizar la sección de Resumen (KPIs)
+  document.getElementById('pvs').textContent = `$ ${pvs.toFixed(2)}`;
+  document.getElementById('costo_total').textContent = `$ ${costoTotalProduccion.toFixed(2)}`;
+  document.getElementById('margen_unitario').textContent = `$ ${margenUnitario.toFixed(2)}`;
+  document.getElementById('margen_porcentaje').textContent = `${margenPorcentaje.toFixed(2)}%`;
+
+  // Aplicar color al porcentaje de margen
+  const margenElement = document.getElementById('margen_porcentaje');
+  margenElement.style.color = margenUnitario > 0 ? '#155724' : '#dc3545';
+
+  // 4. Actualizar el pie de página de la tabla
+  document.getElementById('footer_costo_total').textContent = `$ ${costoTotalProduccion.toFixed(2)}`;
+}
+
 function eliminaProductoReceta() {
   var id = $("#idProductoRec").val();
   $.ajax({
     url: "res/php/user_actions/eliminaProductoReceta.php",
     type: "POST",
     data: { id: id },
-    success: function () {},
+    success: function () { },
   });
 }
 
@@ -2669,11 +2804,13 @@ function updateCliente(id) {
 }
 
 function actualizaProducto() {
-  var parametros = $("#actualidarDatosProducto").serialize();
+  var formData = new FormData($("#actualidarDatosProducto")[0]);
   $.ajax({
     url: "res/php/user_actions/actualizaProducto.php",
     type: "POST",
-    data: parametros,
+    data: formData,
+    processData: false,
+    contentType: false,
     success: function (data) {
       $(".modal-backdrop").remove();
       $(".modal-open").css("overflow", "auto");
@@ -3883,7 +4020,7 @@ async function guardaPlanillaDesayunos() {
         text: `No se ha guardado la planilla de desayunos \n Necesita escribir "Aceptar"`,
         type: "warning",
       },
-      function () {}
+      function () { }
     );
   }
 }
@@ -4445,8 +4582,8 @@ function creaHTMLReportes(data, titulo) {
         <div class="panel-body">
           <div class="divInforme">
             <object type="application/pdf" id="verInforme" width="100%" height="500" data="data:application/pdf;base64,${$.trim(
-              data
-            )}"></object>
+    data
+  )}"></object>
           </div>
         </div>
       </div>
@@ -4775,7 +4912,7 @@ async function ingresoPos() {
       url: "res/php/user_actions/activaCajero.php",
       type: "POST",
       data: { usuario_id },
-      success: function () {},
+      success: function () { },
     });
   }
 }
@@ -4935,13 +5072,6 @@ async function cierreDiario() {
   const mensaje = await mensajeAuditoria(
     "Procesando Informacion, No Interrumpa "
   );
-  /* const backup = await fetch("auditoria/backupDiario.php", {
-    method: "post",
-    headers: {
-      "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
-    },
-    body: "fecha=" + fecha_auditoria + "&prefijo=" + prefijo,
-  }); */
   const cajeros = await fetch("auditoria/balanceDiarioCajero.php", {
     method: "post",
     headers: {
@@ -5227,7 +5357,7 @@ function eliminaProducto() {
   $.ajax({
     url: "res/php/user_actions/eliminaProducto.php",
     type: "POST",
-    data: { id: id },
+    data: { id },
     success: function (data) {
       $("#dataDeleteProducto").modal("hide");
       $(".modal-backdrop").remove();
@@ -5238,14 +5368,17 @@ function eliminaProducto() {
 }
 
 function guardarProducto() {
-  var parametros = $("#guardarDatosProducto").serialize();
+  ruta = $("#rutaweb").val();
+  pagina = $("#ubicacion").val();
+  var formData = new FormData($("#guardarDatosProducto")[0]);
+
   $.ajax({
     url: "res/php/user_actions/guardaProducto.php",
     type: "POST",
-    data: parametros,
-    success: function (data) {
-      $(".modal-backdrop").remove();
-      $(".modal-open").css("overflow", "auto");
+    data: formData,
+    processData: false,
+    contentType: false,
+    success: function () {
       productos();
     },
   });
@@ -5547,12 +5680,9 @@ function productosActivos() {
             <button
               type="button"
               id="${i}"
-              onclick="botonDevolverProducto('${numero}','${
-            listaComanda[i]["codigo"]
-          }','${listaComanda[i]["ambiente"]}','${listaComanda[i]["cant"]}','${
-            listaComanda[i]["producto"]
-          }','${listaComanda[i]["id"]}','${listaComanda[i]["importe"]}','${
-            listaComanda[i]["impto"]
+              onclick="botonDevolverProducto('${numero}','${listaComanda[i]["codigo"]
+          }','${listaComanda[i]["ambiente"]}','${listaComanda[i]["cant"]}','${listaComanda[i]["producto"]
+          }','${listaComanda[i]["id"]}','${listaComanda[i]["importe"]}','${listaComanda[i]["impto"]
           }',this.id, this.parentNode.parentNode.parentNode.rowIndex)"
               class="btn btn-danger btn-xs btnDevuelve"
               title="Devolver Producto Uno">
@@ -5575,19 +5705,16 @@ function productosActivos() {
               <td>${listaComanda[i]["producto"]}</td>
               <td>${listaComanda[i]["cant"]}</td>
               <td class="t-right">${number_format(
-                listaComanda[i]["total"],
-                2
-              )}</td>
+              listaComanda[i]["total"],
+              2
+            )}</td>
               <td class="t-center">
                 <button
                   type="button"
                   id="${i}"
-                  onclick="botonDevolverProducto('${numero}','${
-              listaComanda[i]["codigo"]
-            }','${listaComanda[i]["ambiente"]}','${listaComanda[i]["cant"]}','${
-              listaComanda[i]["producto"]
-            }','${listaComanda[i]["id"]}','${listaComanda[i]["importe"]}','${
-              listaComanda[i]["impto"]
+                  onclick="botonDevolverProducto('${numero}','${listaComanda[i]["codigo"]
+            }','${listaComanda[i]["ambiente"]}','${listaComanda[i]["cant"]}','${listaComanda[i]["producto"]
+            }','${listaComanda[i]["id"]}','${listaComanda[i]["importe"]}','${listaComanda[i]["impto"]
             }',this.id, this.parentNode.parentNode.parentNode.rowIndex)"
                   class="btn btn-danger btn-xs"
                   title="Devolver Producto Dos">
@@ -5993,9 +6120,9 @@ async function getCuentasActivas(idamb) {
               title   ="Comanda Numero ${x[i]["comanda"]}">
             <h3 style="color:white;">Mesa ${x[i]["mesa"]}</h3>
             <h3 style="color:white;">Comanda ${number_format(
-              x[i]["comanda"],
-              0
-            )}</h3>
+          x[i]["comanda"],
+          0
+        )}</h3>
             </button>`;
         $("#listaComandas").append(boton);
 
@@ -6048,8 +6175,7 @@ function getProductosComanda(comanda, mesa) {
       for (j = 0; j < dato.length; j++) {
         titulo =
           titulo +
-          `${dato[j]["nom"].substring(0, 30).padEnd(30, " ")} ${
-            dato[j]["cant"]
+          `${dato[j]["nom"].substring(0, 30).padEnd(30, " ")} ${dato[j]["cant"]
           }     ${number_format(dato[j]["venta"], 2)} \n`;
         total = total + parseInt(dato[j]["venta"], 10);
       }
@@ -6179,8 +6305,7 @@ function calculaCambio() {
   }
   if (cambio < 0) {
     $("#resultado").html(
-      `<label name='resultado' class='avisoVta avisCambio alert alert-danger'>SALDO PENDIENTE $ ${
-        cambio * -1
+      `<label name='resultado' class='avisoVta avisCambio alert alert-danger'>SALDO PENDIENTE $ ${cambio * -1
       }</label>`
     );
   }

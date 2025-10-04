@@ -3,8 +3,8 @@ $tipos = $pos->getTipoPlatos($idamb);
 $imptos = $pos->getImpuestos();
 ?>
 
-<div class="modal fade" id="modalAdicionaProducto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-  <form id="guardarDatosProducto" class="form-horizontal" action="javascript:guardarProducto()">
+<div class="modal fade" id="modalAdicionaProductoOLD" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <form id="guardarDatosProductoOld" class="form-horizontal" action="javascript:guardarProducto()">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -12,6 +12,7 @@ $imptos = $pos->getImpuestos();
           <h4 class="modal-title" id="exampleModalLabel"><span class="fa fa-cube"></span> Adicionar Producto</h4>
         </div>
         <div id="datos_ajax_register"></div>
+
         <div class="modal-body">
           <div class="form-group">
             <input type="hidden" name="idamb" id="idamb" value="<?php echo $idamb; ?>">
@@ -29,14 +30,14 @@ $imptos = $pos->getImpuestos();
             <div class="col-lg-4 col-md-4">
               <select class="form-control" name="unidadMed" id="unidadMed" required="">
                 <option value="">Seleccione la Unidad de Medida</option>
-                <?php 
-                  $unidades = $admin->unidades_medida(); 
-                  foreach ($unidades as $unidad) { ?> 
-                    <option value="<?=$unidad['id']?>"><?=strtoupper($unidad['name'])?></option>
-                  <?php 
+                <?php
+                $unidades = $admin->unidades_medida();
+                foreach ($unidades as $unidad) { ?>
+                  <option value="<?= $unidad['id'] ?>"><?= strtoupper($unidad['name']) ?></option>
+                <?php
                 }
                 ?>
-              </select> 
+              </select>
             </div>
           </div>
           <div class="form-group">
@@ -58,15 +59,25 @@ $imptos = $pos->getImpuestos();
             </div>
           </div>
           <div class="form-group">
+            <label for="seccion" class="control-label col-lg-2 col-md-2">Descripcion</label>
+            <div class="col-lg-4 col-md-4">
+              <input type="text" class="form-control" id="descripcion" name="descripcion" required>
+            </div>
+            <label for="costo0" class="control-label col-lg-2  col-md-2">Recomendado</label>
+            <div class="col-lg-2 col-md-2">
+              <input type="checkbox" id="recomendado" name="recomendado">
+            </div>
+          </div>
+          <div class="form-group">
             <label for="impto" class="control-label col-lg-2  col-md-2">Impuesto</label>
             <div class="col-lg-4 col-md-4">
               <select name="impto" id="impto" required>
                 <option value="">Seleccione el Impuesto</option>
                 <?php
-                  foreach ($imptos as $impto) { ?>
-                    <option value="<?php echo $impto['id_cargo']; ?>"><?php echo $impto['descripcion_cargo']; ?></option>
-                  <?php
-                  }
+                foreach ($imptos as $impto) { ?>
+                  <option value="<?php echo $impto['id_cargo']; ?>"><?php echo $impto['descripcion_cargo']; ?></option>
+                <?php
+                }
                 ?>
               </select>
             </div>
@@ -83,10 +94,10 @@ $imptos = $pos->getImpuestos();
               </label>
             </div>
           </div>
-          <div class="form-group" id="receta" name="receta" style="display:none">
+          <div class="form-group" id="recetaOld" name="recetaOld" style="display:none">
             <label id="labelReceta" class="control-label col-lg-2  col-md-2"></label>
             <div class="col-lg-4 col-md-4">
-              <select name="idrecetaAdi" id="idrecetaAdi" value="0">
+              <select name="idrecetaAdiOld" id="idrecetaAdiOld" value="0">
               </select>
             </div>
           </div>
@@ -175,8 +186,8 @@ $imptos = $pos->getImpuestos();
   </form>
 </div>
 
-<div class="modal fade" id="modalAdicionaProductoReceta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-  <form id="guardarDatosProducto" class="form-horizontal" action="javascript:guardarMateriaPrima()">
+<div class="modal fade" id="modalAdicionaRecetaProducto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <form id="guardarDatosProductoRP" class="form-horizontal" action="javascript:guardarMateriaPrima()">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -244,6 +255,140 @@ $imptos = $pos->getImpuestos();
           <div class="btn-group">
             <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
             <button type="submit" class="btn btn-primary"><i class="fa fa-trash-o"></i> Eliminar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="modal fade" id="modalAdicionaProducto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <form id="guardarDatosProducto" class="form-horizontal" action="javascript:guardarProducto()" enctype="multipart/form-data">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-off"></span></button>
+          <h4 class="modal-title" id="exampleModalLabel"><span class="fa fa-cube"></span> Adicionar Producto</h4>
+        </div>
+        <div id="datos_ajax_register"></div>
+
+        <div class="modal-body">
+          <ul class="nav nav-tabs" role="tablist">
+            <li style="width:25%; text-align:center;" role="presentation" class="active"><a href="#tabDatosPlato" aria-controls="tabDatosPlato" role="tab" data-toggle="tab">Datos del Plato</a></li>
+            <li style="width:25%; text-align:center;" role="presentation"><a href="#tabFoto" aria-controls="tabFoto" role="tab" data-toggle="tab">Foto</a></li>
+          </ul>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="tabDatosPlato" style="padding-top: 20px;">
+              <div class="form-group">
+                <input type="hidden" name="idamb" id="idamb" value="<?php echo $idamb; ?>">
+                <label for="producto" class="control-label col-lg-2 col-md-2">Producto</label>
+                <div class="col-lg-6 col-md-6">
+                  <input type="text" class="form-control" id="producto" name="producto" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="codigo" class="control-label col-lg-2 col-md-2">Codigo</label>
+                <div class="col-lg-4 col-md-4">
+                  <input type="text" class="form-control" id="codigo" name="codigo" required>
+                </div>
+                <label for="unidadMed" class="control-label col-lg-2 col-md-2">Unidad Med. </label>
+                <div class="col-lg-4 col-md-4">
+                  <select class="form-control" name="unidadMed" id="unidadMed" required="">
+                    <option value="">Seleccione la Unidad de Medida</option>
+                    <?php
+                    $unidades = $admin->unidades_medida();
+                    foreach ($unidades as $unidad) { ?>
+                      <option value="<?= $unidad['id'] ?>"><?= strtoupper($unidad['name']) ?></option>
+                    <?php
+                    }
+                    ?>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="seccion" class="control-label col-lg-2 col-md-2">Tipo de Plato</label>
+                <div class="col-lg-4 col-md-4">
+                  <select name="seccion" id="seccion" required class="form-control">
+                    <option value="">Seleccione el Tipo de Plato</option>
+                    <?php
+                    foreach ($tipos as $tipo) { ?>
+                      <option value="<?php echo $tipo['id_seccion']; ?>"><?php echo $tipo['nombre_seccion']; ?></option>
+                    <?php
+                    }
+                    ?>
+                  </select>
+                </div>
+                <label for="costo0" class="control-label col-lg-2  col-md-2">Precio Venta</label>
+                <div class="col-lg-4 col-md-4">
+                  <input type="number" min='0' class="form-control" id="venta" name="venta" required maxlength="12">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="descripcion" class="control-label col-lg-2 col-md-2">Descripcion</label>
+                <div class="col-lg-4 col-md-4">
+                  <input type="text" class="form-control" id="descripcion" name="descripcion" required>
+                </div>
+                <label for="recomendado" class="control-label col-lg-2  col-md-2">Recomendado</label>
+                <div class="col-lg-2 col-md-2" style="padding-top: 7px;">
+                  <input type="checkbox" id="recomendado" name="recomendado">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="impto" class="control-label col-lg-2  col-md-2">Impuesto</label>
+                <div class="col-lg-4 col-md-4">
+                  <select name="impto" id="impto" required class="form-control">
+                    <option value="">Seleccione el Impuesto</option>
+                    <?php
+                    foreach ($imptos as $impto) { ?>
+                      <option value="<?php echo $impto['id_cargo']; ?>"><?php echo $impto['descripcion_cargo']; ?></option>
+                    <?php
+                    }
+                    ?>
+                  </select>
+                </div>
+                <label for="tipo" class="control-label col-lg-2  col-md-2">Tipo</label>
+                <div class="col-lg-4 col-md-4" style="font-size:12px; padding-top: 7px;">
+                  <label class="radio-inline">
+                    <input onclick="activaSelecReceta(0)" type="radio" name="tipo" id="tipo0" value="0"> Servicio
+                  </label>
+                  <label class="radio-inline">
+                    <input onclick="activaSelecReceta(1)" type="radio" name="tipo" id="tipo1" value="1"> Producto
+                  </label>
+                  <label class="radio-inline">
+                    <input onclick="activaSelecReceta(2)" type="radio" name="tipo" id="tipo2" value="2"> Receta
+                  </label>
+                </div>
+              </div>
+              <div class="form-group" id="receta" name="receta" style="display:none">
+                <label id="labelReceta" class="control-label col-lg-2  col-md-2"></label>
+                <div class="col-lg-4 col-md-4">
+                  <select name="idrecetaAdi" id="idrecetaAdi" value="0" class="form-control">
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="tabFoto" style="padding-top: 20px;">
+              <div class="divs divDeposito">
+                <div class="form-group">
+                  <div class="container-fluid">
+                    <img id="imgPreview" name="imgPreview" class="img-thumbnail" style="width:250px;margin-top:0;">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="imgSelect" class="col-sm-3 control-label">Foto Producto</label>
+                  <div class="col-sm-9">
+                    <input type="file" name="imgSelect" id="imgSelect" onchange="verFoto(event)" class='form-control' accept='image/*' style="min-height: 35px">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-reply"></i> Regresar</button>
+          <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar Datos</button>
+          <div class="btn-group">
           </div>
         </div>
       </div>

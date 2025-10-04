@@ -369,7 +369,7 @@
                   <label class="control-label mb-2 col-lg-4" for="">Logo</label>
                   <input type="hidden" id="imgLogoMod" name="imgLogoMod" value="">
                   <div id="mostrarFotoMod" class="mb-3 col-lg-8">
-                    <img class="img-thumbnail" style="width:200px; height:auto;" src="<?php echo $images ?>" alt="Logo del negocio">
+                    <img class="img-thumbnail" style="width:200px; height:auto;" src="<?php echo $images ?>" alt="Logo del Ambiente">
                   </div>
                 </div>
               </div>

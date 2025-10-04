@@ -4,6 +4,7 @@ define('DIR_ROOT', '/var/www/donlolo.lan');
 define('RUTA_ROOT', DIR_ROOT);
 define('BASE_DIR', DIR_ROOT.'/');
 define('RUTA_WEB', RUTA_ROOT.'/');
+define('PUBLIC_WEB', DIR_ROOT.'/public/');
 
 define('BASE_URL', '');
 define('BASE_WEB', BASE_URL.'/');
